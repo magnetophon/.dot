@@ -1,0 +1,76 @@
+"to be used with the spf13 vim distribution
+"don't forget vimrc.before.local and vimrc.bundles.local
+
+"visual bell instead of beep:
+set visualbell
+"also flash on error messages:
+set errorbells
+"use the light solarized theme:
+set background=light
+set guifont=Monospace\ 11
+
+"turn of spell-check
+set nospell
+
+" size of a hard tabstop
+set tabstop=2
+
+" size of an "indent"
+set shiftwidth=2
+
+" a combination of spaces and tabs are used to simulate tab stops at a width
+" other than the (hard)tabstop
+set softtabstop=2
+" expand a tab to x spaces
+set expandtab
+
+" the biggest key for the most used function
+noremap <Space> :
+
+" redraw screen, also turn off search highlighting, and reload the 
+" file if it changed (works in conjunction with `set autoread`)
+nnoremap <C-L> :nohl<CR>:redraw<CR>:checktime<CR> <C-L>
+
+"faust
+autocmd BufNewFile,BufRead *.dsp set filetype=faust
+autocmd BufNewFile,BufRead *.lib set filetype=faust
+
+
+"buffer navigation:
+nmap <silent> <Left> :bp<CR>
+nmap <silent> <Right> :bn<CR>
+
+
+" Perl/Python compatible regex formatting
+nnoremap / /\v
+vnoremap / /\v
+
+"center search results on the screen
+nnoremap <silent> N Nzz
+nnoremap <silent> n nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+nnoremap <silent> g# g#zz
+
+
+" http://jeffkreeftmeijer.com/2012/relative-line-numbers-in-vim-for-super-fast-movement/
+"autocmd FocusLost    * : set number
+"autocmd FocusGained  * : set relativenumber
+"autocmd InsertEnter  * : set number
+"autocmd InsertLeave  * : set relativenumber
+
+set relativenumber
+
+"supercollider
+"so ~/.scvimrc
+"let g:sclangTerm = "urxvtc -e"
+
+
+"writes current mappings to a file
+redir! > ~/.vim/vim_keys.txt
+silent verbose map
+redir END
+
+
+" vim: set ft=vim

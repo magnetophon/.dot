@@ -10,13 +10,15 @@ else
   git clone https://github.com/magnetophon/.dot.git
   cd $dot_dir
 
-#  git submodule init
-#  git submodule update
+  git submodule init
+  git submodule update
+  echo "stow the dotfiles"
+  for item in common zprezto spf13-vim-3 do stow $item; done;
 #  for item in common zprezto nixos-zsh-completion spf13-vim-3 do stow $item; done;
-  stow common
-#  cd ~/.vim/bundle/vundle
-#  git checkout master
-#  vim +BundleInstall! +BundleClean +q
+#  stow common
+  cd ~/.vim/bundle/vundle
+  git checkout master
+  vim +BundleInstall! +BundleClean +q
 
 #  cd $dot_dir/spf13-vim-3/.spf13-vim-3/
 #  git remote add upstream git@github.com:spf13/spf13-vim.git
