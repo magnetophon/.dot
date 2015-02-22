@@ -1,0 +1,8 @@
+#!/bin/sh
+
+#fpath+=$WMII_PATH/functions
+#autoload wmii_9menu
+
+hosts=($(egrep -h "^Host" ~/.ssh/config.d/* | cut -f2 -d ' ' | grep -v '*' | tr '\n' ' '))
+host=$(dmenu $hosts)
+[[ -n $host ]] && $COLORTERM -e ssh $host

@@ -1,0 +1,36 @@
+# notmuch --------------------------------------------
+set nm_default_uri="notmuch:///home/bart/mail" # path to the maildir
+set nm_query_type="threads"
+set virtual_spoolfile=yes                          # enable virtual folders
+#set sendmail="/PATH/TO/bin/nm_sendmail"            # enables parsing of outgoing mail
+virtual-mailboxes \
+    "inbox" "notmuch://?query=folder:INBOX" \
+    "lbbhuis" "notmuch://?query=folder:INBOX.lbbhuis" \
+    "lbbfrietjes" "notmuch://?query=folder:INBOX.lbbfrietjes" \
+    "NixOS" "notmuch://?query=folder:INBOX.INBOX.NixOS" \
+    "LinuxAudio-list" "notmuch://?query=folder:INBOX.LinuxAudio-list" \
+    "Ardour-list" "notmuch://?query=folder:INBOX.Ardour-list" \
+    "Drafts" "notmuch://?query=folder:INBOX.Drafts" \
+    "Sent" "notmuch://?query=folder:INBOX.Sent OR folder:INBOX.Sent.Sent" \
+    "old-messages" "notmuch://?query=folder:INBOX.old-messages" \
+    "Trash" "notmuch://?query=folder:INBOX.Trash" \
+    "Unread"    "notmuch://?query=tag:unread"\
+    "AmazonNewsletter" "notmuch://?query=folder:INBOX.AmazonNewsletter" \
+    "serverBU" "notmuch://?query=folder:INBOX.serverBU" \
+    "RootsBase" "notmuch://?query=folder:INBOX.RootsBase" \
+    "PureData-list" "notmuch://?query=folder:INBOX.PureData-list" \
+    "Yoshimi-list" "notmuch://?query=folder:INBOX.Yoshimi-list" \
+    "Studio" "notmuch://?query=folder:INBOX.Studio" \
+#    "Starred"   "notmuch://?query=tag:*"\
+#    "Sent"      "notmuch://?query=tag:sent"        # sets up queries for virtual folders
+#    "Sent.Sent" "notmuch://?query=folder:INBOX.Sent.Sent" \
+
+# notmuch bindings
+macro index S "<vfolder-from-query>"              # looks up a hand made query
+macro index A "<modify-labels>+archive -unread -inbox\\n"        # tag as Archived
+macro index I "<modify-labels>-inbox -unread\\n"                 # removed from inbox
+#macro index S "<modify-labels-then-hide>-inbox -unread +junk\\n" # tag as Junk mail
+#macro index + "<modify-labels>+*\\n<sync-mailbox>"               # tag as starred
+#macro index - "<modify-labels>-*\\n<sync-mailbox>"               # tag as unstarred
+
+

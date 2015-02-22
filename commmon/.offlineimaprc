@@ -1,0 +1,37 @@
+[general]
+# List of accounts to be synced, separated by a comma.
+accounts = main
+
+[Account main]
+# Identifier for the local repository; e.g. the maildir to be synced via IMAP.
+localrepository = main-local
+# Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
+remoterepository = main-remote
+# Status cache. Default is plain, which eventually becomes huge and slow.
+status_backend = sqlite
+postsynchook = notmuch new
+
+[Repository main-local]
+# Currently, offlineimap only supports maildir and IMAP for local repositories.
+type = Maildir
+# Where should the mail be placed?
+localfolders = ~/mail/
+
+[Repository main-remote]
+# Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
+type = IMAP
+remotehost = mail.magnetophon.nl
+remoteuser = bart@magnetophon.nl
+ssl = yes
+cert_fingerprint = b985a8c4f8b6757abf379613bb78331e9cfb3a57
+
+
+#  Automatic mailbox creation is not compatible with quick sync shortcut 'o'
+[mbnames]
+enabled = yes
+filename = ~/.mutt/mailboxes
+header = "mailboxes "
+peritem = "+%(foldername)s"
+#peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"
