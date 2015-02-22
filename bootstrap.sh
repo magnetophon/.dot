@@ -13,7 +13,7 @@ else
   git submodule init
   git submodule update
   echo "stow the dotfiles"
-  for item in common zprezto spf13-vim-3 do stow $item; done;
+  for item in common zprezto spf13-vim-3; do stow $item; done;
 #  for item in common zprezto nixos-zsh-completion spf13-vim-3 do stow $item; done;
 #  stow common
   cd ~/.vim/bundle/vundle
