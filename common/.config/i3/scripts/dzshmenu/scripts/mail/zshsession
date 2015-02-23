@@ -1,0 +1,13 @@
+#!/run/current-system/sw/bin/zsh
+
+
+cd ~/.dzshmenu/
+cd $(cat $PWD/current_session)
+export PATHTOSESSION=$PWD                         #for vim session management
+#export HISTFILE="$PATHTOSESSION/zsh_history"
+fc -p -a $PATHTOSESSION/zsh_history
+
+#echo $HISTFILE
+
+#start vim with session management
+urxvtc -e vim -u ~/.config/i3/scripts/dzshmenu/vimrc

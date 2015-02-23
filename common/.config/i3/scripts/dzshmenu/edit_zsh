@@ -1,0 +1,25 @@
+#!/run/current-system/sw/bin/zsh
+
+# customize dmenu as you see fit
+DMENU_COMMAND="dmenu -b -i  -nb \#3F3F3F -nf \#FAFAD2 -sb \#ffff00 -sf \#000000 -p edit:"
+
+# go to the scripts dir
+cd ~/.config/i3/scripts/dzshmenu/scripts/
+
+# get subdirs of current dir | pipe into dmenu
+sessiondir=$(ls -d */ | sed -e "s/\///g" | eval $DMENU_COMMAND)
+
+
+if [ "$sessiondir" = '' ]; then
+  exit
+else
+  if [ !-d  $PWD/$sessiondir/ ]; then
+    mkdir -p $PWD/$sessiondir/
+    cp ~/.config/i3/scripts/dzshmenu/sessiontemplate  $PWD/$sessiondir/zshsession
+    chmod +x $PWD/$sessiondir/zshsession 
+  fi
+
+  # edit the session script
+  urxvtc -e vim $PWD/$sessiondir/zshsession
+fi
+
