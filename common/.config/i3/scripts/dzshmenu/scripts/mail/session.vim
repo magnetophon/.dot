@@ -8,13 +8,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +11 ~/.stowdotfiles/common/.mutt/muttrc
-badd +26 ~/.stowdotfiles/common/.mutt/mutt-kz.rc
-badd +1 ~/.stowdotfiles/common/.mutt/macros
-badd +1 ~/.stowdotfiles/common/.mutt/mailcap
+badd +1 ~/.dot/common/.mutt/muttrc
 argglobal
 silent! argdel *
-edit ~/.stowdotfiles/common/.mutt/mailcap
+edit ~/.dot/common/.mutt/muttrc
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -28,13 +25,13 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 27 - ((26 * winheight(0) + 20) / 41)
+let s:l = 1 - ((0 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-27
+1
 normal! 0
-lcd ~/.stowdotfiles/common/.mutt
+lcd ~/.dot/common/.mutt
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
