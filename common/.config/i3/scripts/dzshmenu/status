@@ -1,9 +1,10 @@
 #!/run/current-system/sw/bin/zsh
 
-cd ~/.config/i3/scripts/dzshmenu/
+# get the dir where this script is stored
+script_dir="$(dirname $0:A)"
 
 i3status | while :
   do
     read line
-    echo "session: $(cat $PWD/current_session) | $line" || exit 1
+    echo "session: $(cat $script_dir/current_session) | $line" || exit 1
   done
