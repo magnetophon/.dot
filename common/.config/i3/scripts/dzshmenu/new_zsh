@@ -1,22 +1,24 @@
 #!/run/current-system/sw/bin/zsh
 
 # customize dmenu as you see fit
-#DMENU_COMMAND="dmenu -b -i  -nb \#3F3F3F -nf \#FAFAD2 -sb \#ffff00 -sf \#000000 -p edit:"
+DMENU_COMMAND="dmenu -b -i  -nb \#3F3F3F -nf \#FAFAD2 -sb \#ffff00 -sf \#000000 -p 'new session name:'"
 
 # get the dir where this script is stored
 script_dir="$(dirname $0:A)"
 
-if [ "$1" != '' ]; then
-  echo $1 > "$script_dir"/current_session
-  new_dir="$script_dir/scripts/$1"
+input="$( sselp | eval $DMENU_COMMAND )"
+
+if [ "$input" != '' ]; then
+  echo $input > "$script_dir"/current_session
+  new_dir="$script_dir/scripts/$input"
   if [ -d "$new_dir" ]; then
     echo "session directory already exists: editing."
   else
     mkdir "$new_dir"
     touch "$new_dir"/zsh_history
     cp "$script_dir"/sessiontemplate "$new_dir"/zshsession
-    chmod +x "$new_dir"/zshsession
   fi
-  vim "$new_dir"/zshsession
+  #urxvtc doesn't work in this case, as it exits instantly
+  urxvt -e vim "$new_dir"/zshsession
   exec "$new_dir"/zshsession
 fi
