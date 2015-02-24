@@ -1,4 +1,4 @@
-#!/run/current-system/sw/bin/zsh
+#!/usr/bin/env zsh
 
 # customize dmenu as you see fit
 DMENU_COMMAND="dmenu -b -i  -nb \#3F3F3F -nf \#FAFAD2 -sb \#ffff00 -sf \#000000 -p 'new session name:'"
@@ -6,7 +6,14 @@ DMENU_COMMAND="dmenu -b -i  -nb \#3F3F3F -nf \#FAFAD2 -sb \#ffff00 -sf \#000000 
 # get the dir where this script is stored
 script_dir="$(dirname $0:A)"
 
-input="$( sselp | eval $DMENU_COMMAND )"
+if [ -z "$1" ]; then
+   # go to the scripts dir
+  cd "$script_dir"/scripts/
+  # get subdirs of current dir | pipe into dmenu
+  input="$( printf "" | eval $DMENU_COMMAND )"
+else
+  input="$1"
+fi
 
 if [ "$input" != '' ]; then
   echo $input > "$script_dir"/current_session
