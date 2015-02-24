@@ -1,21 +1,22 @@
 #!/run/current-system/sw/bin/zsh
 
-#customize dmenu as you see fit
+# customize dmenu as you see fit
 DMENU_COMMAND="dmenu -b -i  -nb \#3F3F3F -nf \#FAFAD2 -sb \#ffff00 -sf \#000000 -p launch:"
 
+# get the dir where this script is stored
+script_dir="$(dirname $0)"
+
 # go to the scripts dir
-cd ~/.config/i3/scripts/dzshmenu/scripts/
+cd "$script_dir"/scripts/
 
-# get subdirs of current dir | pipe into dmenu | write the result in a file, to be used later.
-ls -d */ | sed -e "s/\///g" | eval $DMENU_COMMAND > $PWD/current_session
+# get subdirs of current dir | pipe into dmenu
+cur_ses=$(ls -d */ | sed -e "s/\///g" | eval $DMENU_COMMAND)
 
-# go to the current session dir
-#cd $(cat $PWD/current_session)
-
-# more elegant way:
-# read the first line in file and store it in variable 'cur_ses'
- read -r cur_ses < $PWD/current_session
-
-
-# run the script
-exec $cur_ses/zshsession
+if [ -z "$cur_ses" ]; then
+  exit
+else
+  # write the result in a file, to be used later
+  echo "$cur_ses" > $script_dir/current_session
+  # run the script
+  exec "$cur_ses"/zshsession
+fi
