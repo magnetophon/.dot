@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+
+
+# get the dir where this script is stored
+script_dir="$(dirname $0:A)"
+cur_ses="$(cat "$script_dir"/current_session)"
+ws_dir="$script_dir"/scripts/"$cur_ses"/workspaces
+# customize dmenu as you see fit
+DMENU_COMMAND="dmenu -b -i  -nb \#3F3F3F -nf \#FAFAD2 -sb \#ffff00 -sf \#000000 -p 'new layout in "$cur_ses":'"
+
+
+
+
+mkdir -p "$ws_dir"
+cd "$ws_dir"
+
+workspaces= ls "$ws_dir" | stest -f
+#echo *(-^/)
+cur_ws=$(i3-msg -t get_workspaces | python "$script_dir"/i3_focused_workspace.py)
+
+name="$( ls "$ws_dir" | stest -f | eval $DMENU_COMMAND )"
+
+if [ "$name" != '' ]; then
+  i3-save-tree --workspace "$cur_ws" > "$ws_dir"/"$name"
+  #sleep 5
+  tail -n +2  "$ws_dir"/"$name" | fgrep -v '// splitv' | sed 's|//||g' >"$ws_dir"/"$name"
+  #sleep 5
+  urxvt -e vim "$ws_dir"/"$name"
+fi
