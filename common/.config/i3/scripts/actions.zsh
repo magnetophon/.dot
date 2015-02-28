@@ -1,6 +1,4 @@
-#!/bin/sh zsh
-
-#
+#!/usr/bin/env zsh
 
 cd ~/.config/i3/scripts/actions/
 		actions=(*(x))
