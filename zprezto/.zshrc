@@ -15,6 +15,7 @@ fi
 alias v='fasd -f -t -e vim -b viminfo'
 alias gs='git status'
 alias gst='git stash'
+alias ra=ranger
 
 
 # speed up completion of paths
