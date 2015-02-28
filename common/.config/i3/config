@@ -81,7 +81,7 @@ set $filem spacefm
 bindsym $win+BackSpace kill
 
 # start dmenu (a program launcher)
-bindsym $win+p exec dmenu_run -f -b -i -nb \#3F3F3F -nf \#FAFAD2 -sb \#ffff00 -sf \#000000
+bindsym $win+p exec dmenu_run -b -i -nb \#3F3F3F -nf \#FAFAD2 -sb \#ffff00 -sf \#000000
 #bindsym $win+p exec zsh ~/.config/i3/scripts/dmenu_run.zsh
 
 # dmenu window chooser
@@ -279,20 +279,28 @@ bindsym $win+b exec $browser;
 
 
 # Open zshrun, see .oh-my-zsh/custom/zshrun.zsh for more info
-bindsym $win+z exec sh -c 'ZSHRUN=1 urxvtc -geometry 100x8+200+300 +ls -name SomethingReallyLongYouWouldNeverHaveByAccidentLikeZshrun'
-for_window [title="SomethingReallyLongYouWouldNeverHaveByAccidentLikeZshrun"] floating enable ; border 1pixel
+#bindsym $win+z exec sh -c 'ZSHRUN=1 urxvtc -geometry 100x8+200+300 +ls -name SomethingReallyLongYouWouldNeverHaveByAccidentLikeZshrun'
+#for_window [title="SomethingReallyLongYouWouldNeverHaveByAccidentLikeZshrun"] floating enable ; border 1pixel
 
 # actions dmenu
-bindsym $win+a exec  zsh ~/.config/i3/scripts/actions.zsh
+bindsym $win+a exec --no-startup-id  zsh ~/.config/i3/scripts/actions.zsh
  
 # launch script dmenu
-bindsym $win+x exec  zsh ~/.config/i3/scripts/dzshmenu/launch_zsh
- 
-# new script dmenu
-bindsym $win+$alt+x exec  zsh ~/.config/i3/scripts/dzshmenu/new_zsh
- 
-# edit script dmenu
-bindsym $win+Shift+x exec  zsh ~/.config/i3/scripts/dzshmenu/edit_zsh
+bindsym $win+z exec --no-startup-id zsh ~/.config/i3/scripts/dzshmenu/launch_zsh
+
+bindsym $win+x mode "dzshmenu mode: new edit i3-layout-save x(launch)"
+mode "dzshmenu mode: new edit i3-layout-save x(launch)" {
+  bindsym n exec  --no-startup-id zsh ~/.config/i3/scripts/dzshmenu/new_zsh ; mode "default"
+  bindsym e exec  --no-startup-id zsh ~/.config/i3/scripts/dzshmenu/edit_zsh ; mode "default"
+  bindsym i exec  --no-startup-id zsh ~/.config/i3/scripts/dzshmenu/i3-layout-save ; mode "default"
+  bindsym x exec  --no-startup-id zsh ~/.config/i3/scripts/dzshmenu/launch_zsh ; mode "default"
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+
+
 
 # start a terminal (start the deamon first see autostart)
 bindsym $win+Return exec urxvtc
