@@ -3,17 +3,20 @@ if &cp | set nocp | endif
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/
+cd ~/.dot/common/.config/i3/scripts/dzshmenu/scripts/dzshmenu
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +12 .dot/common/.mutt/muttrc
-badd +1 .dot/common/.mutt/mutt-kz.rc
-badd +0 .dot/common/.mutt/mailcap
+badd +24 ~/.dot/common/.config/i3/scripts/dzshmenu/new_zsh
+badd +14 ~/.dot/common/.config/i3/scripts/dzshmenu/launch_zsh
+badd +1 ~/.dot/common/.config/i3/scripts/dzshmenu/edit_zsh
+badd +8 ~/.dot/common/.config/i3/scripts/dzshmenu/sessiontemplate
+badd +9 ~/.dot/common/.config/i3/scripts/dzshmenu/status
+badd +27 ~/.dot/common/.config/i3/scripts/dzshmenu/i3-layout-save
 argglobal
 silent! argdel *
-edit .dot/common/.mutt/mailcap
+edit ~/.dot/common/.config/i3/scripts/dzshmenu/sessiontemplate
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -27,19 +30,19 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 10 - ((9 * winheight(0) + 20) / 41)
+let s:l = 2 - ((1 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-10
-normal! 078|
-lcd ~/.dot/common/.mutt
+2
+normal! 0
+lcd ~/.dot/common/.config/i3/scripts/dzshmenu
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif
 unlet! s:wipebuf
-set winheight=1 winwidth=20 shortmess=filmnrxoOtT
+set winheight=1 winwidth=20 shortmess=aoO
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if file_readable(s:sx)
   exe "source " . fnameescape(s:sx)
