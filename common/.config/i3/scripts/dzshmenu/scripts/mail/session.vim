@@ -10,10 +10,10 @@ endif
 set shortmess=aoO
 badd +12 .dot/common/.mutt/muttrc
 badd +1 .dot/common/.mutt/mutt-kz.rc
-badd +0 .dot/common/.mutt/mailcap
+badd +15 .dot/common/.mutt/mailcap
 argglobal
 silent! argdel *
-edit .dot/common/.mutt/mailcap
+edit .dot/common/.mutt/muttrc
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -27,12 +27,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 10 - ((9 * winheight(0) + 20) / 41)
+let s:l = 58 - ((33 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-10
-normal! 078|
+58
+normal! 0101|
 lcd ~/.dot/common/.mutt
 tabnext 1
 if exists('s:wipebuf')

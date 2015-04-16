@@ -3,15 +3,32 @@ if &cp | set nocp | endif
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/
+cd ~/faust/VoiceOfFaust
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +59 .pentadactylrc
+badd +31 lib/general.lib
+badd +45 stringSinger.dsp
+badd +54 VocSynthFull.dsp
+badd +25 FOFvocoder.dsp
+badd +15 classicVocoder.dsp
+badd +25 PAFvocoder.dsp
+badd +45 lib/FOFvocoder.lib
+badd +16 todo.txt
+badd +23 lib/pitchtracker.lib
+badd +63 lib/KarplusStrongFX.lib
+badd +1 lib/FullGUI.lib
+badd +30 lib/PAFvocoder.lib
+badd +21 lib/CZringmod.lib
+badd +23 CZringmod.dsp
+badd +25 Karplus-StrongSingerMaxi.dsp
+badd +6 lib/common.lib
+badd +2 launchers/synthWrapper
+badd +4 launchers/FMsinger_PT
 argglobal
 silent! argdel *
-edit .pentadactylrc
+edit lib/common.lib
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -25,13 +42,13 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 70 - ((36 * winheight(0) + 20) / 41)
+let s:l = 6 - ((5 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-70
-normal! 02|
-lcd ~/
+6
+normal! 012|
+lcd ~/faust/VoiceOfFaust/lib
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

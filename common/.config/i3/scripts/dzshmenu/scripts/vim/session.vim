@@ -8,10 +8,13 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +59 .pentadactylrc
+badd +200 .dot/spf13-vim-3/.spf13-vim-3/.vim/vim_keys.txt
+badd +66 .vimrc.local
+badd +5 .vimrc.before.local
+badd +4 .vimrc.bundles.local
 argglobal
 silent! argdel *
-edit .pentadactylrc
+edit .vimrc.local
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -25,12 +28,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 70 - ((36 * winheight(0) + 20) / 41)
+let s:l = 65 - ((14 * winheight(0) + 18) / 37)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-70
-normal! 02|
+65
+normal! 021|
 lcd ~/
 tabnext 1
 if exists('s:wipebuf')

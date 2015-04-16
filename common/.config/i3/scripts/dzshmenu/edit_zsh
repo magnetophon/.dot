@@ -12,17 +12,18 @@ cd "$script_dir"/scripts/
 
 # get subdirs of current dir | pipe into dmenu
 cur_ses=$(ls -d */ | sed -e "s/\///g" | eval $DMENU_COMMAND)
-
+# exit if no sessionOB
 if [ -z "$cur_ses" ]; then
   exit
 else
+  #if no session dir exists, create it.
   if [ ! -d  $PWD/"$cur_ses"/ ]; then
     mkdir -p $PWD/"$cur_ses"/
     cp ~/.config/i3/scripts/dzshmenu/sessiontemplate  $PWD/"$cur_ses"/zshsession
-    chmod +x $PWD/"$cur_ses"/zshsession
+    #chmod +x $PWD/"$cur_ses"/zshsession
   fi
 
   # edit the session script
-  urxvtc -e vim $PWD/"$cur_ses"/zshsession
+  urxvtc -e vim $PWD/"$cur_ses"/zshsession $PWD/"$cur_ses"/workspaces/*
 fi
 

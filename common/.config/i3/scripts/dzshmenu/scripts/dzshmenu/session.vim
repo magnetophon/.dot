@@ -9,11 +9,11 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +24 ~/.dot/common/.config/i3/scripts/dzshmenu/new_zsh
-badd +14 ~/.dot/common/.config/i3/scripts/dzshmenu/launch_zsh
-badd +1 ~/.dot/common/.config/i3/scripts/dzshmenu/edit_zsh
-badd +8 ~/.dot/common/.config/i3/scripts/dzshmenu/sessiontemplate
+badd +12 ~/.dot/common/.config/i3/scripts/dzshmenu/launch_zsh
+badd +28 ~/.dot/common/.config/i3/scripts/dzshmenu/edit_zsh
+badd +13 ~/.dot/common/.config/i3/scripts/dzshmenu/sessiontemplate
 badd +9 ~/.dot/common/.config/i3/scripts/dzshmenu/status
-badd +27 ~/.dot/common/.config/i3/scripts/dzshmenu/i3-layout-save
+badd +1 ~/.dot/common/.config/i3/scripts/dzshmenu/i3-layout-save
 argglobal
 silent! argdel *
 edit ~/.dot/common/.config/i3/scripts/dzshmenu/sessiontemplate
@@ -30,12 +30,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 2 - ((1 * winheight(0) + 20) / 41)
+let s:l = 1 - ((0 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-2
-normal! 0
+1
+normal! 019|
 lcd ~/.dot/common/.config/i3/scripts/dzshmenu
 tabnext 1
 if exists('s:wipebuf')

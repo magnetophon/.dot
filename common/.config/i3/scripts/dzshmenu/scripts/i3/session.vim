@@ -8,11 +8,12 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +295 .dot/common/.config/i3/config
-badd +24 .dot/common/.config/i3/scripts/dzshmenu/i3-layout-save
+badd +408 .dot/common/.config/i3/config
+badd +18 .dot/common/.config/i3status
+badd +39 .dot/common/.config/i3/scripts/bat_test.sh
 argglobal
 silent! argdel *
-edit .dot/common/.config/i3/scripts/dzshmenu/i3-layout-save
+edit .dot/common/.config/i3/config
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -26,13 +27,13 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 24 - ((23 * winheight(0) + 20) / 41)
+let s:l = 407 - ((33 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-24
-normal! 012|
-lcd ~/.dot/common/.config/i3/scripts/dzshmenu
+407
+normal! 056|
+lcd ~/.dot/common/.config/i3
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

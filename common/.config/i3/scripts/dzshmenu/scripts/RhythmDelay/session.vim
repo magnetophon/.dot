@@ -3,15 +3,16 @@ if &cp | set nocp | endif
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/
+cd ~/faust/RhythmDelay
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +59 .pentadactylrc
+badd +131 RhythmDelay.dsp
+badd +9 benchmarks
 argglobal
 silent! argdel *
-edit .pentadactylrc
+edit RhythmDelay.dsp
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -25,13 +26,13 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 70 - ((36 * winheight(0) + 20) / 41)
+let s:l = 131 - ((19 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-70
-normal! 02|
-lcd ~/
+131
+normal! 03|
+lcd ~/faust/RhythmDelay
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

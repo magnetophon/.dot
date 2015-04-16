@@ -62,10 +62,21 @@ nnoremap <silent> g# g#zz
 
 set relativenumber
 
+" completion confirm
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+      " For no inserting <CR> key.
+      return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+    endfunction
+
 "supercollider
 "so ~/.scvimrc
 "let g:sclangTerm = "urxvtc -e"
 
+"haskell:
+au BufEnter * inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+au BufEnter * inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+"autocmd BufWritePost *.hs GhcModCheckAndLintAsync
 
 "writes current mappings to a file
 redir! > ~/.vim/vim_keys.txt

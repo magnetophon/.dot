@@ -57,12 +57,18 @@ nmap l :tabnext<CR>
 "this is faster:
 "nmap h <C-S-Tab>
 "nmap l <C-Tab>
+
+" Speed up scrolling
+nmap -b j 5j
+nmap -b k 5k
+
 "reverse f and F:
 nmap -builtin f F
 nmap -builtin F f
 "reverse y and Y:
-nmap -builtin y Y
-nmap -builtin Y y
+"doesn't let me use Y anymore...
+"nmap -builtin y Y
+"nmap -builtin Y y
 "open multiple in background tab
 nmap af  g;b
 "close tab
@@ -103,6 +109,17 @@ map -m n,v,i,c,t <C-p> <Pass>
 map -m n,v,i,c,t <C-v> <Pass>
 map -m n,v,i,c,t <C-x> <Pass>
 
+
+" Disable iframes
+set! browser.frames.enabled=false
+" Require websites preform safe ssl negotiation
+set! security.ssl.require_safe_negotiation=true
+set! security.ssl.treat_unsafe_negotiation_as_broken=true
+
+" Change some default about:configs
+set! extensions.checkCompatibility.nightly=false
+set! noscript.keys.tempAllowPage="alt y"
+set! noscript.keys.revokeTemp="alt x"
 
 silent bma -tags searchengine -title 'Internet Archive' https://archive.org/search.php?query=%s-k a
 silent bma -tags searchengine -title 'Debian package description'  https://packages.debian.org/search?suite=wheezy&section=all&arch=i386&searchon=all&keywords=%s -k d

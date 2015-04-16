@@ -299,29 +299,25 @@ mode "dzshmenu mode: new edit i3-layout-save x(launch)" {
   bindsym Escape mode "default"
 }
 
-
-
-
 # start a terminal (start the deamon first see autostart)
 bindsym $win+Return exec urxvtc
 
+#ranger
+bindsym $win+e exec urxvt -e ranger
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    status_command i3status
-    
-    colors {
+#   status_command ~/.config/i3/scripts/dzshmenu/status
+  status_command i3status
+  colors {
     background $unfocusedBG
     statusline $unfocusedTXT
-
     focused_workspace $focusTXT $focusBG
     active_workspace $focusTXT $semifocusBG
     inactive_workspace $unfocusedTXT $unfocusedBG
     urgent_workspace $focusBG $urgentBG
   }
-        
-        
 }
 ########################################################################
 # Workspaces location
@@ -407,6 +403,8 @@ exec --no-startup-id nsmd --osc-port 17552
 exec parcellite
 # start the terminal deamon
 exec urxvtd -q -o -f
+# check battery and hibernate if needed:
+exec --no-startup-id bash ~/.config/i3/scripts/bat_test.sh
 
 
 #enable dunst for notify-send

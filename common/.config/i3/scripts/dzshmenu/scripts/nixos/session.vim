@@ -8,7 +8,9 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 .nixosConfig/configuration.nix
+badd +4 .nixosConfig/configuration.nix
+badd +17 .nixosConfig/synaptics.nix
+badd +201 source/musnix/default.nix
 argglobal
 silent! argdel *
 edit .nixosConfig/configuration.nix
@@ -25,11 +27,11 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 139 - ((21 * winheight(0) + 20) / 41)
+let s:l = 72 - ((18 * winheight(0) + 18) / 37)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-139
+72
 normal! 08|
 lcd ~/.nixosConfig
 tabnext 1
