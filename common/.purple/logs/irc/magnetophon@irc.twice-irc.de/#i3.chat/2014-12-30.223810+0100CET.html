@@ -1,0 +1,86 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #i3 at Tue 30 Dec 2014 10:38:10 PM CET on magnetophon@irc.twice-irc.de (irc)</title></head><body><h3>Conversation with #i3 at Tue 30 Dec 2014 10:38:10 PM CET on magnetophon@irc.twice-irc.de (irc)</h3>
+<font size="2">(10:38:10 PM)</font><b> The topic for #i3 is: i3 v4.8 released | i3status 2.8 released | i3lock 2.6 released | <a href="http://code.i3wm.org/">http://code.i3wm.org/</a> | <a href="http://i3wm.org/">http://i3wm.org/</a> | <a href="http://faq.i3wm.org/">http://faq.i3wm.org/</a> | <a href="http://build.i3wm.org/download-count.txt">http://build.i3wm.org/download-count.txt</a> | paste at <a href="http://p.nnev.de/">http://p.nnev.de/</a> | file upload at <a href="https://transfer.sh/">https://transfer.sh/</a></b><br/>
+<font size="2">(10:38:11 PM)</font><b> Topic for #i3 set by sECuRE at 09:42:18 AM on 10/06/2014</b><br/>
+<font color="#A82F2F"><font size="2">(03:27:53 AM)</font> <b>frank:</b></font> ::i3faq:: i3lock issue @ https://faq.i3wm.org/question/5283/i3lock-issue/ (by Nietzsche)<br/>
+<font color="#A82F2F"><font size="2">(03:30:54 AM)</font> <b>frank:</b></font> ::i3faq:: i3lock issue @ https://faq.i3wm.org/question/5284/i3lock-issue/ (by Nietzsche)<br/>
+<font size="2">(06:16:55 AM)</font><b> cornerma1 is now known as cornerman</b><br/>
+<font color="#A82F2F"><font size="2">(06:25:25 AM)</font> <b>philr:</b></font> Is there a way to prevent NET_ACTIVE_WINDOW messages from taking focus if the app isn&apos;t focused already?<br/>
+<font size="2">(07:25:29 AM)</font><b> kruM is now known as kraM</b><br/>
+<font color="#A82F2F"><font size="2">(08:40:23 AM)</font> <b>TonyC:</b></font> I think I kind of agree that NET_ACTIVE_WINDOW should never take focus<br/>
+<font color="#A82F2F"><font size="2">(08:40:59 AM)</font> <b>philr:</b></font> I think it makes sense when you already have another window of the same application focused.<br/>
+<font color="#A82F2F"><font size="2">(08:41:59 AM)</font> <b>TonyC:</b></font> like when?<br/>
+<font color="#A82F2F"><font size="2">(08:43:46 AM)</font> <b>philr:</b></font> It&apos;s a hypothetical scenario.  But I could imagine something like GIMP where you have lots of windows open it might make sense to have focus change when something important needs your attention.<br/>
+<font color="#A82F2F"><font size="2">(08:44:23 AM)</font> <b>philr:</b></font> Maybe that&apos;s a horrible example :-)<br/>
+<font color="#A82F2F"><font size="2">(08:47:51 AM)</font> <b>TonyC:</b></font> I think it should set the window urgent instead<br/>
+<font color="#A82F2F"><font size="2">(08:48:09 AM)</font> <b>philr:</b></font> I think in most cases I would prefer that, yes.<br/>
+<font color="#A82F2F"><font size="2">(08:48:35 AM)</font> <b>TonyC:</b></font> that would take 10 mins to change<br/>
+<font color="#A82F2F"><font size="2">(08:48:41 AM)</font> <b>philr:</b></font> Oh here&apos;s a better counterexample - some poker software raises poker table windows when action is on the user.<br/>
+<font color="#A82F2F"><font size="2">(08:49:05 AM)</font> <b>philr:</b></font> If you are already focused on the poker client it makes sense to honour that I think.<br/>
+<font color="#A82F2F"><font size="2">(08:49:27 AM)</font> <b>TonyC:</b></font> I don&apos;t like it in that case either<br/>
+<font color="#A82F2F"><font size="2">(08:49:37 AM)</font> <b>philr:</b></font> (I don&apos;t know if NET_ACTIVE_WINDOW is the mechanism used, though)<br/>
+<font color="#A82F2F"><font size="2">(08:49:57 AM)</font> <b>TonyC:</b></font> because what always ends up happening is that it gets you in the middle of typing something<br/>
+<font color="#A82F2F"><font size="2">(08:50:19 AM)</font> <b>TonyC:</b></font> I think focus should change because of user input only<br/>
+<font color="#A82F2F"><font size="2">(08:50:49 AM)</font> <b>philr:</b></font> How hard is it to make the behaviour configurable?<br/>
+<font color="#A82F2F"><font size="2">(08:51:18 AM)</font> <b>TonyC:</b></font> it&apos;s not a good thing to make configurable<br/>
+<font color="#A82F2F"><font size="2">(08:51:31 AM)</font> <b>philr:</b></font> I bow to your greater wisdom.  :)<br/>
+<font color="#A82F2F"><font size="2">(08:51:34 AM)</font> <b>TonyC:</b></font> because the overhead of understanding client messages muddles the docs<br/>
+<font color="#A82F2F"><font size="2">(08:53:05 AM)</font> <b>TonyC:</b></font> well if you want to make a stir, make a feature request on the bug tracker and try to build some consensus<br/>
+<font color="#A82F2F"><font size="2">(08:53:13 AM)</font> <b>TonyC:</b></font> I&apos;ll agree with you there<br/>
+<font color="#A82F2F"><font size="2">(08:59:09 AM)</font> <b>philr:</b></font> Something like this, then? http://p.nnev.de/4938<br/>
+<font color="#A82F2F"><font size="2">(09:00:59 AM)</font> <b>TonyC:</b></font> yeah that looks right<br/>
+<font color="#A82F2F"><font size="2">(09:01:43 AM)</font> <b>TonyC:</b></font> you will have to modify some tests<br/>
+<font color="#A82F2F"><font size="2">(09:08:17 AM)</font> <b>philr:</b></font> http://bugs.i3wm.org/query/ticket/1426<br/>
+<font color="#A82F2F"><font size="2">(09:08:18 AM)</font> <b>frank:</b></font> [Link Info] #1426 (NET_ACTIVE_WINDOW messages steal focus) – i3 window manager<br/>
+<font color="#A82F2F"><font size="2">(09:08:35 AM)</font> <b>philr:</b></font> I may not have done quite what you wanted.<br/>
+<font color="#A82F2F"><font size="2">(09:09:11 AM)</font> <b>TonyC:</b></font> no that&apos;s good<br/>
+<font color="#A82F2F"><font size="2">(09:09:32 AM)</font> <b>philr:</b></font> Cool.  Thankyou for your help!<br/>
+<font color="#A82F2F"><font size="2">(09:10:04 AM)</font> <b>TonyC:</b></font> np<br/>
+<font color="#A82F2F"><font size="2">(11:45:31 AM)</font> <b>alex:</b></font> hi, with i3 font rendering looks different as with xfce. The same applicaton, the same settings but it looks different. I presume that lcdfilter setting is not taken into account. Ive tried already .Xdefaults .Xresources but didn&apos;t succeed. If I start xfsettingsd then fonts are rendered the same as in xfce. Any hints on how to configure font rendereing engine with i3?<br/>
+<font color="#A82F2F"><font size="2">(11:48:38 AM)</font> <b>TonyC:</b></font> alex: if you are making your own DE, people usually recommend infinality http://www.infinality.net/blog/<br/>
+<font color="#A82F2F"><font size="2">(11:48:39 AM)</font> <b>LucaB:</b></font> alex: you mean your gtk apps dont have proper font?<br/>
+<font color="#A82F2F"><font size="2">(11:48:40 AM)</font> <b>frank:</b></font> [Link Info] infinality.net<br/>
+<font color="#A82F2F"><font size="2">(11:49:42 AM)</font> <b>alex:</b></font> I&apos;m using i3 on top of already installed xfce desktop. I&apos;m talking about xfce4-terminal<br/>
+<font color="#A82F2F"><font size="2">(11:51:00 AM)</font> <b>alex:</b></font> as far as xfce4-termanal is libfontconfig aware I thought that fonts should look the same as I don&apos;t change fontconfig files for i3<br/>
+<font color="#A82F2F"><font size="2">(11:57:32 AM)</font> <b>alex:</b></font> the font configuration in linux is seriously f-ed up. Lots of tutorial suggesting different approaches, different files, different directories. Lots of things are depricated, badly documented and so on<br/>
+<font color="#A82F2F"><font size="2">(12:00:51 PM)</font> <b>nitro:</b></font> alex, check out lxappearance<br/>
+<font color="#A82F2F"><font size="2">(12:01:03 PM)</font> <b>nitro:</b></font> alex, you might be able to change settings for i3 there. <br/>
+<font color="#A82F2F"><font size="2">(12:01:13 PM)</font> <b>alex:</b></font> i know, doesn&apos;t help<br/>
+<font color="#A82F2F"><font size="2">(12:02:08 PM)</font> <b>alex:</b></font> it&apos;s not possible to define lcdfilter property with the lxappearance<br/>
+<font color="#A82F2F"><font size="2">(12:03:47 PM)</font> <b>nitro:</b></font> are you running i3 inside of xfce4?<br/>
+<font color="#A82F2F"><font size="2">(12:04:02 PM)</font> <b>nitro:</b></font> alex, post your ~/.xinitrc<br/>
+<font color="#A82F2F"><font size="2">(12:04:13 PM)</font> <b>alex:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(12:04:27 PM)</font> <b>alex:</b></font> don&apos;t have one<br/>
+<font color="#A82F2F"><font size="2">(12:04:43 PM)</font> <b>nitro:</b></font> you don&apos;t run X?<br/>
+<font color="#A82F2F"><font size="2">(12:05:02 PM)</font> <b>alex:</b></font> you don&apos;t need .xinitrc to run X<br/>
+<font color="#A82F2F"><font size="2">(12:06:04 PM)</font> <b>nitro:</b></font> yeah but you need ~/.xinitrc to specify which desktop you are booting inot<br/>
+<font color="#A82F2F"><font size="2">(12:06:06 PM)</font> <b>nitro:</b></font> into*<br/>
+<font color="#A82F2F"><font size="2">(12:06:20 PM)</font> <b>alex:</b></font> i&apos;m using lightdm<br/>
+<font color="#A82F2F"><font size="2">(12:06:34 PM)</font> <b>nitro:</b></font> https://ptpb.pw/QQxn<br/>
+<font color="#A82F2F"><font size="2">(12:06:40 PM)</font> <b>nitro:</b></font> take mine for example<br/>
+<font color="#A82F2F"><font size="2">(12:06:47 PM)</font> <b>nitro:</b></font> I have to specify which one to boot into<br/>
+<font color="#A82F2F"><font size="2">(12:06:53 PM)</font> <b>nitro:</b></font> and I use startx<br/>
+<font color="#A82F2F"><font size="2">(12:06:59 PM)</font> <b>nitro:</b></font> makes things easier<br/>
+<font color="#A82F2F"><font size="2">(12:07:39 PM)</font> <b>alex:</b></font> i&apos;m fine with lightdm login screen<br/>
+<font color="#A82F2F"><font size="2">(12:07:54 PM)</font> <b>nitro:</b></font> also<br/>
+<font color="#A82F2F"><font size="2">(12:08:00 PM)</font> <b>nitro:</b></font> check out what I did with xset<br/>
+<font color="#A82F2F"><font size="2">(12:08:30 PM)</font> <b>alex:</b></font> I&apos;m just trying to figure out what xfsettingsd does additionally to the font rendering engine<br/>
+<font color="#A82F2F"><font size="2">(12:09:47 PM)</font> <b>nitro:</b></font> what compositor are you using?<br/>
+<font color="#A82F2F"><font size="2">(12:10:02 PM)</font> <b>alex:</b></font> compton but it&apos;s unrelated<br/>
+<font color="#A82F2F"><font size="2">(12:10:49 PM)</font> <b>nitro:</b></font> I just have no difference in the way the fonts look between i3 and xfce4<br/>
+<font color="#A82F2F"><font size="2">(12:11:10 PM)</font> <b>nitro:</b></font> I don&apos;t know how you have your settings.. I use the infinality font conf<br/>
+<font color="#A82F2F"><font size="2">(12:50:13 PM)</font> <b>alex:</b></font> i see ppl just start xfsettingsd in their i3 configs<br/>
+<font color="#A82F2F"><font size="2">(12:51:56 PM)</font> <b>alex:</b></font> it fails to connect to a session manager but keep working<br/>
+<font color="#A82F2F"><font size="2">(01:08:56 PM)</font> <b>nitro:</b></font> Is it just me or is this irc network slow and laggy.<br/>
+<font color="#A82F2F"><font size="2">(01:11:48 PM)</font> <b>alex:</b></font> another question: is it possible to get rid of all sh subprocesses if I can daemonize a process? i.e normally I start compton with -b switch to daemonize it. But if i do it from inside of the i3 config file it will be killed by its parent sh process<br/>
+<font color="#A82F2F"><font size="2">(01:13:25 PM)</font> <b>nitro:</b></font> alex, do it like &quot;compton &amp;&quot; instead of using -b<br/>
+<font color="#A82F2F"><font size="2">(01:15:13 PM)</font> <b>alex:</b></font> if I use &amp; should I use exec_always?<br/>
+<font color="#A82F2F"><font size="2">(01:15:34 PM)</font> <b>alex:</b></font> or is it enough to say exec xxx &amp;<br/>
+<font color="#A82F2F"><font size="2">(01:16:41 PM)</font> <b>nitro:</b></font> alex, let me show you my config<br/>
+<font color="#A82F2F"><font size="2">(01:17:21 PM)</font> <b>nitro:</b></font> alex, http://ix.io/fwE<br/>
+<font color="#A82F2F"><font size="2">(01:18:01 PM)</font> <b>nitro:</b></font> actually check the end of the file.. that is a mistake actually.. there should be a &amp; there<br/>
+<font color="#A82F2F"><font size="2">(01:18:21 PM)</font> <b>alex:</b></font> so you don&apos;t want to start compton if you restart i3?<br/>
+<font color="#A82F2F"><font size="2">(01:19:08 PM)</font> <b>alex:</b></font> ah I see your answer<br/>
+<font color="#A82F2F"><font size="2">(01:20:33 PM)</font> <b>alex:</b></font> i hate conky<br/>
+<font color="#A82F2F"><font size="2">(01:21:21 PM)</font> <b>nitro:</b></font> conky works fine for me here<br/>
+<font size="2">(01:28:58 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,364 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Wed 07 Jan 2015 07:41:37 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Wed 07 Jan 2015 07:41:37 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(07:41:37 PM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font size="2">(07:41:37 PM)</font><b> Topic for #lad set by tapas!~tapas@static.231.2.63.178.clients.your-server.de at 10:37:26 AM on 05/13/2013</b><br/>
+<font color="#A82F2F"><font size="2">(07:41:37 PM)</font> <b>sinisalo.freenode.net:</b></font> (notice) [freenode-info] channel trolls and no channel staff around to help? please check with freenode support: http://freenode.net/faq.shtml#gettinghelp<br/>
+<font color="#A82F2F"><font size="2">(08:52:27 PM)</font> <b>xhoch3:</b></font> I am looking for people developing Qt apps with JACK<br/>
+<font color="#A82F2F"><font size="2">(09:02:06 PM)</font> <b>fundamental:</b></font> xhoch3: you might want to be more specific than that<br/>
+<font color="#A82F2F"><font size="2">(09:02:38 PM)</font> <b>falktx:</b></font> I am looking for people to develop DAWs :)<br/>
+<font color="#A82F2F"><font size="2">(09:03:42 PM)</font> <b>xhoch3:</b></font> I am developing an open source library that wraps the JACK C API destinated to be used with Qt apps, so I am looking for potential developers that might be interested in using it, so I can improve it where necessary.<br/>
+<font color="#A82F2F"><font size="2">(09:04:36 PM)</font> <b>xhoch3:</b></font> I could go ahead and drop a mail to all the people out there using Qt and JACK, but I thought it might be a good idea to ask here.<br/>
+<font color="#A82F2F"><font size="2">(09:05:37 PM)</font> <b>fundamental:</b></font> xhoch3: what part of the jack API?<br/>
+<font color="#A82F2F"><font size="2">(09:06:02 PM)</font> <b>xhoch3:</b></font> I am aiming to wrap it all<br/>
+<font color="#A82F2F"><font size="2">(09:06:29 PM)</font> <b>xhoch3:</b></font> for now I have the most important parts wrapped I think, but I need more input on what people need<br/>
+<font color="#A82F2F"><font size="2">(09:06:53 PM)</font> <b>xhoch3:</b></font> for example I am setting callbacks on the clients and converts them into convenient signals<br/>
+<font color="#A82F2F"><font size="2">(09:07:05 PM)</font> <b>xhoch3:</b></font> so things get handled the Qt way<br/>
+<font color="#A82F2F"><font size="2">(09:07:11 PM)</font> <b>fundamental:</b></font> I&apos;m skeptical that this would be RT safe<br/>
+<font color="#A82F2F"><font size="2">(09:07:14 PM)</font> <b>fundamental:</b></font> very skeptical<br/>
+<font color="#A82F2F"><font size="2">(09:07:26 PM)</font> <b>xhoch3:</b></font> things that are not RT critical<br/>
+<font color="#A82F2F"><font size="2">(09:07:46 PM)</font> <b>xhoch3:</b></font> like that a client has connected etc.<br/>
+<font color="#A82F2F"><font size="2">(09:08:35 PM)</font> <b>fundamental:</b></font> alright<br/>
+<font color="#A82F2F"><font size="2">(09:08:40 PM)</font> <b>xhoch3:</b></font> for RT code you are supposed to subclass an &quot;AudioProcessor&quot; class and implement your code there, the C++ way of doing that kind of stuff<br/>
+<font color="#A82F2F"><font size="2">(09:08:56 PM)</font> <b>falktx:</b></font> for me I can&apos;t use that<br/>
+<font color="#A82F2F"><font size="2">(09:09:08 PM)</font> <b>falktx:</b></font> I dlopen and dlsym jack instead of linking to it<br/>
+<font color="#A82F2F"><font size="2">(09:09:23 PM)</font> <b>falktx:</b></font> so the code stays safe in case it was compiled with one jack and moved to another<br/>
+<font color="#A82F2F"><font size="2">(09:10:30 PM)</font> <b>xhoch3:</b></font> falktx, is your code publicly visible?<br/>
+<font color="#A82F2F"><font size="2">(09:10:33 PM)</font> <b>falktx:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(09:10:35 PM)</font> <b>falktx:</b></font> guitarix does a similar thing for jack-session<br/>
+<font color="#A82F2F"><font size="2">(09:10:47 PM)</font> <b>xhoch3:</b></font> I&apos;d like to see whether I can make it change to have it working for you<br/>
+<font color="#A82F2F"><font size="2">(09:11:03 PM)</font> <b>falktx:</b></font> I like to use the raw interface though<br/>
+<font color="#A82F2F"><font size="2">(09:11:16 PM)</font> <b>falktx:</b></font> my qt host backend doesn&apos;t use qt, and I like it that way<br/>
+<font color="#A82F2F"><font size="2">(09:11:30 PM)</font> <b>falktx:</b></font> the code to dlopen,etc jack is here https://github.com/falkTX/Carla/tree/master/source/jackbridge<br/>
+<font color="#A82F2F"><font size="2">(09:11:41 PM)</font> <b>falktx:</b></font> it does a bit more than just that though<br/>
+<font color="#A82F2F"><font size="2">(09:14:53 PM)</font> <b>xhoch3:</b></font> falktx, have a look here: https://github.com/cybercatalyst/libqjackaudio<br/>
+<font color="#A82F2F"><font size="2">(09:14:59 PM)</font> <b>xhoch3:</b></font> just followed you on gh<br/>
+<font color="#A82F2F"><font size="2">(09:16:37 PM)</font> <b>falktx:</b></font> I don&apos;t think the jack api is so hard to understand it needs a c++ class<br/>
+<font color="#A82F2F"><font size="2">(09:17:11 PM)</font> <b>falktx:</b></font> the jack api is one of the simplest ones I&apos;ve ever seen, the simplest one regarding audio<br/>
+<font color="#A82F2F"><font size="2">(09:19:25 PM)</font> <b>xhoch3:</b></font> falktx, the intention was not to make it better, which would be the wrong way anyways imo<br/>
+<font color="#A82F2F"><font size="2">(09:19:56 PM)</font> <b>xhoch3:</b></font> the problem is that writing C code and writing Qt apps is two worlds considering programming paradigms<br/>
+<font color="#A82F2F"><font size="2">(09:20:08 PM)</font> <b>fundamental:</b></font> xhoch3: I spy a _mutex in what looks like audio processing code<br/>
+<font color="#A82F2F"><font size="2">(09:20:31 PM)</font> <b>xhoch3:</b></font> which is not a problem, because you can wrap it any time<br/>
+<font color="#A82F2F"><font size="2">(09:21:00 PM)</font> <b>xhoch3:</b></font> but this wrapping has been done if you want clean code, and that&apos;s where that wrapper kicks in<br/>
+<font color="#A82F2F"><font size="2">(09:21:46 PM)</font> <b>xhoch3:</b></font> I thought if I do it for a whole set of apps, I might do it near perfect and share the code<br/>
+<font color="#A82F2F"><font size="2">(09:22:05 PM)</font> <b>xhoch3:</b></font> fundamental, yes, in the dsp part, I will exclude that in the future<br/>
+<font color="#A82F2F"><font size="2">(09:22:22 PM)</font> <b>falktx:</b></font> you&apos;re using jack_get_version_string which is not part of the jack api<br/>
+<font color="#A82F2F"><font size="2">(09:22:32 PM)</font> <b>falktx:</b></font> it&apos;s a jack2 only hackish function<br/>
+<font color="#A82F2F"><font size="2">(09:22:48 PM)</font> <b>falktx:</b></font> same for jack_get_version<br/>
+<font color="#A82F2F"><font size="2">(09:23:00 PM)</font> <b>xhoch3:</b></font> ok, I just opened the header and went on<br/>
+<font color="#A82F2F"><font size="2">(09:23:10 PM)</font> <b>xhoch3:</b></font> so I might remove that again<br/>
+<font color="#A82F2F"><font size="2">(09:23:48 PM)</font> <b>xhoch3:</b></font> I already avoided to include the functions marked as deprecated, just saying<br/>
+<font color="#A82F2F"><font size="2">(09:29:00 PM)</font> <b>fundamental:</b></font> unless you really mess with the internals of the signals/slots mechanisms most of the dsp folder looks like it either needs to be thrown out or rewritten completely<br/>
+<font color="#A82F2F"><font size="2">(09:30:03 PM)</font> <b>xhoch3:</b></font> fundamental, this is a historic artifact<br/>
+<font color="#A82F2F"><font size="2">(09:30:26 PM)</font> <b>xhoch3:</b></font> this code evolved from a project I started in 2012 and that I refactored over and over again<br/>
+<font color="#A82F2F"><font size="2">(09:31:03 PM)</font> <b>fundamental:</b></font> I guess I&apos;d try to prune that code then if you&apos;re trying to start a mailing list discussion<br/>
+<font color="#A82F2F"><font size="2">(09:31:09 PM)</font> <b>xhoch3:</b></font> finally, I put everything with filter into dsp, but I am not sure whether to throw it away or wrap a lower level lib<br/>
+<font color="#A82F2F"><font size="2">(09:31:29 PM)</font> <b>xhoch3:</b></font> but it is certainly not belonging here<br/>
+<font color="#A82F2F"><font size="2">(09:31:44 PM)</font> <b>xhoch3:</b></font> it should be a separate thing<br/>
+<font color="#A82F2F"><font size="2">(09:32:43 PM)</font> <b>falktx:</b></font> you&apos;re making a product without first considering if others even need it<br/>
+<font color="#A82F2F"><font size="2">(09:33:18 PM)</font> <b>xhoch3:</b></font> falktx, I scratched a personal itch<br/>
+<font color="#A82F2F"><font size="2">(09:33:22 PM)</font> <b>falktx:</b></font> sure<br/>
+<font color="#A82F2F"><font size="2">(09:33:32 PM)</font> <b>xhoch3:</b></font> now I just cleaned up<br/>
+<font color="#A82F2F"><font size="2">(09:33:42 PM)</font> <b>falktx:</b></font> for personal use it&apos;s great if it works<br/>
+<font color="#A82F2F"><font size="2">(09:33:50 PM)</font> <b>xhoch3:</b></font> and I am looking for people that may use it, too<br/>
+<font color="#A82F2F"><font size="2">(09:33:56 PM)</font> <b>fundamental:</b></font> it&apos;s not unreasonable to expect that some would be interested in this sort of thing. there are plenty of C++ bindings for C libraries<br/>
+<font color="#A82F2F"><font size="2">(09:36:47 PM)</font> <b>xhoch3:</b></font> falktx, speaking of dlopen, the Qt way of doing that would be to use QLibrary<br/>
+<font color="#A82F2F"><font size="2">(09:36:58 PM)</font> <b>falktx:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(09:37:09 PM)</font> <b>falktx:</b></font> but as I said, I don&apos;t want qt in my backend<br/>
+<font color="#A82F2F"><font size="2">(09:37:24 PM)</font> <b>falktx:</b></font> makes it much easier to build on non-linux platforms<br/>
+<font color="#A82F2F"><font size="2">(09:38:35 PM)</font> <b>xhoch3:</b></font> doesn&apos;t Qt abstract on different platforms? I am running Qt apps on all kind of platforms and architectures, and I mainly use it for backend<br/>
+<font color="#A82F2F"><font size="2">(09:38:58 PM)</font> <b>xhoch3:</b></font> for example for small, fast web services<br/>
+<font color="#A82F2F"><font size="2">(09:39:28 PM)</font> <b>xhoch3:</b></font> on which platforms did you experience problems? just curious<br/>
+<font color="#A82F2F"><font size="2">(09:40:07 PM)</font> <b>falktx:</b></font> I just prefer to have all code self-contained<br/>
+<font color="#A82F2F"><font size="2">(09:43:50 PM)</font> <b>xhoch3:</b></font> :/ I really appreciate criticism, because I can learn a lot from others. What I don&apos;t like so much is general assumptions, usually I am trying to avoid them when talking about the pros/cons of a certain technology. That said, the last part doesn&apos;t make sense to me.<br/>
+<font color="#A82F2F"><font size="2">(09:44:39 PM)</font> <b>falktx:</b></font> I&apos;m just speaking for myself. my opinions are probably far from the usual in linux audio<br/>
+<font color="#A82F2F"><font size="2">(09:45:18 PM)</font> <b>falktx:</b></font> sorry<br/>
+<font color="#A82F2F"><font size="2">(09:46:04 PM)</font> <b>fundamental:</b></font> to be fair, opinions within this domain seem to have a higher than normal variance<br/>
+<font color="#A82F2F"><font size="2">(09:47:50 PM)</font> <b>xhoch3:</b></font> actually, I can accept a variety of opinions, but if you start throwing blurry opinions on each other, this mostly leads to nowhere. That&apos;s why I like to politely break this cycle and ask for particular arguments.<br/>
+<font color="#A82F2F"><font size="2">(09:48:07 PM)</font> <b>xhoch3:</b></font> most probably, there is no thing like the ultimate truth.<br/>
+<font color="#A82F2F"><font size="2">(09:48:32 PM)</font> <b>fundamental:</b></font> particular arguments against using Qt on the backend within this domain?<br/>
+<font color="#A82F2F"><font size="2">(09:49:00 PM)</font> <b>xhoch3:</b></font> particular reasons for not using Qt in the backend at all<br/>
+<font color="#A82F2F"><font size="2">(09:49:02 PM)</font> <b>falktx:</b></font> well, Qt is not great for RT stuff<br/>
+<font color="#A82F2F"><font size="2">(09:49:05 PM)</font> <b>xhoch3:</b></font> as stated above<br/>
+<font color="#A82F2F"><font size="2">(09:49:09 PM)</font> <b>falktx:</b></font> it locks all the time<br/>
+<font color="#A82F2F"><font size="2">(09:49:23 PM)</font> <b>falktx:</b></font> jack1 runs the non-rt and rt stuff on the same thread<br/>
+<font color="#A82F2F"><font size="2">(09:49:36 PM)</font> <b>falktx:</b></font> locking the non-rt callbacks will result in audio crackles<br/>
+<font color="#A82F2F"><font size="2">(09:50:08 PM)</font> <b>fundamental:</b></font> Qt has some pretty great design, though it isn&apos;t designed to be near realtime code<br/>
+<font color="#A82F2F"><font size="2">(09:50:12 PM)</font> <b>xhoch3:</b></font> maybe I made something wrong, but I did not have any crackles at all<br/>
+<font color="#A82F2F"><font size="2">(09:50:31 PM)</font> <b>xhoch3:</b></font> do you mean it leads to wrose performance?<br/>
+<font color="#A82F2F"><font size="2">(09:50:38 PM)</font> <b>fundamental:</b></font> xhoch3: if you&apos;re using it in a realtime environment think of it as invoking undefined behavior<br/>
+<font color="#A82F2F"><font size="2">(09:50:38 PM)</font> <b>xhoch3:</b></font> or that is doesn&apos;t work at all?<br/>
+<font color="#A82F2F"><font size="2">(09:50:55 PM)</font> <b>fundamental:</b></font> it might work, but you lose any guarantees<br/>
+<font color="#A82F2F"><font size="2">(09:51:44 PM)</font> <b>xhoch3:</b></font> but actually that&apos;s caused by locking, aye?<br/>
+<font color="#A82F2F"><font size="2">(09:51:56 PM)</font> <b>xhoch3:</b></font> you can write Qt code without locking<br/>
+<font color="#A82F2F"><font size="2">(09:52:28 PM)</font> <b>xhoch3:</b></font> in fact, Qts paradigms does not dictate to use Qbject and signals/slots<br/>
+<font color="#A82F2F"><font size="2">(09:52:51 PM)</font> <b>fundamental:</b></font> that is true, but it produces a large surface that you need to verify doesn&apos;t call alloc/free<br/>
+<font color="#A82F2F"><font size="2">(09:53:02 PM)</font> <b>xhoch3:</b></font> it works well in highly concurrent code, like networking and GUI<br/>
+<font color="#A82F2F"><font size="2">(09:53:23 PM)</font> <b>xhoch3:</b></font> ok, I&apos;ll have a look at this<br/>
+<font color="#A82F2F"><font size="2">(09:53:28 PM)</font> <b>fundamental:</b></font> if you avoid all of that along with locking, then you end up with a much smaller API that you can utilize<br/>
+<font color="#A82F2F"><font size="2">(09:53:49 PM)</font> <b>fundamental:</b></font> still doable, but that&apos;s a lot of additional cognitive load<br/>
+<font color="#A82F2F"><font size="2">(09:54:24 PM)</font> <b>xhoch3:</b></font> that&apos;s true, still you can make use of very handy things like QVariant for example<br/>
+<font size="2">(09:54:25 PM)</font><b> falktx left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:54:56 PM)</font> <b>xhoch3:</b></font> QLibrary also would be a candidate, templates like QList, QMap and so on<br/>
+<font color="#A82F2F"><font size="2">(09:55:10 PM)</font> <b>xhoch3:</b></font> file access<br/>
+<font color="#A82F2F"><font size="2">(09:56:09 PM)</font> <b>xhoch3:</b></font> as said previouly, I make a lot of use of the networking part and in one project, I also found it nice to use the QCamera API<br/>
+<font color="#A82F2F"><font size="2">(09:56:22 PM)</font> <b>fundamental:</b></font> QList/QMap would be readonly<br/>
+<font color="#A82F2F"><font size="2">(09:56:43 PM)</font> <b>xhoch3:</b></font> let me guess, since you do not have control over allocation<br/>
+<font color="#A82F2F"><font size="2">(09:56:45 PM)</font> <b>fundamental:</b></font> QVariant is not safe on setting it<br/>
+<font color="#A82F2F"><font size="2">(09:57:03 PM)</font> <b>xhoch3:</b></font> what does that mean<br/>
+<font color="#A82F2F"><font size="2">(09:57:09 PM)</font> <b>xhoch3:</b></font> just asking<br/>
+<font size="2">(09:57:09 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:57:10 PM)</font> <b>fundamental:</b></font> allocation<br/>
+<font color="#A82F2F"><font size="2">(09:57:21 PM)</font> <b>xhoch3:</b></font> ok, I get that now<br/>
+<font color="#A82F2F"><font size="2">(09:57:26 PM)</font> <b>fundamental:</b></font> by calling a method it could end up calling free/malloc<br/>
+<font color="#A82F2F"><font size="2">(09:57:38 PM)</font> <b>fundamental:</b></font> that *could* call the brk syscall<br/>
+<font color="#A82F2F"><font size="2">(09:57:48 PM)</font> <b>fundamental:</b></font> which can block for an indefinite amount of time<br/>
+<font color="#A82F2F"><font size="2">(09:58:38 PM)</font> <b>xhoch3:</b></font> ok, so what&apos;s the conclusion of the lesson: it&apos;s not a good thing to use it in the audio processing code that time critical<br/>
+<font color="#A82F2F"><font size="2">(09:59:12 PM)</font> <b>xhoch3:</b></font> so you want to make sure it&apos;s not used there<br/>
+<font color="#A82F2F"><font size="2">(10:00:30 PM)</font> <b>fundamental:</b></font> pretty much<br/>
+<font color="#A82F2F"><font size="2">(10:00:33 PM)</font> <b>xhoch3:</b></font> I think that&apos;s quite a valuable insight<br/>
+<font color="#A82F2F"><font size="2">(10:00:59 PM)</font> <b>xhoch3:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(10:01:07 PM)</font> <b>fundamental:</b></font> hm, perhaps I should present that static analysis tool at LAC<br/>
+<font color="#A82F2F"><font size="2">(10:01:20 PM)</font> <b>xhoch3:</b></font> no idea what you mean<br/>
+<font color="#A82F2F"><font size="2">(10:01:22 PM)</font> <b>xhoch3:</b></font> link?<br/>
+<font color="#A82F2F"><font size="2">(10:01:41 PM)</font> <b>fundamental:</b></font> https://github.com/fundamental/stoat<br/>
+<font color="#A82F2F"><font size="2">(10:01:41 PM)</font> <b>xhoch3:</b></font> maybe I will come to LAC :)<br/>
+<font color="#A82F2F"><font size="2">(10:01:52 PM)</font> <b>xhoch3:</b></font> it&apos;s only three hours from where I live<br/>
+<font color="#A82F2F"><font size="2">(10:02:05 PM)</font> <b>fundamental:</b></font> takes LLVM IR files and rebuilds callgraphs to see if anything illegal is called<br/>
+<font color="#A82F2F"><font size="2">(10:02:44 PM)</font> <b>fundamental:</b></font> eg a jack process callback calling malloc or a network function<br/>
+<font color="#A82F2F"><font size="2">(10:03:44 PM)</font> <b>xhoch3:</b></font> I see, looks cool<br/>
+<font color="#A82F2F"><font size="2">(11:56:45 PM)</font> <b>xhoch3:</b></font> fundamental, ok, I have done some cleanup. I think this is presentable.<br/>
+<font color="#A82F2F"><font size="2">(12:01:28 AM)</font> <b>fundamental:</b></font> xhoch3: I&apos;m not a fan of the tone of the FAQ<br/>
+<font color="#A82F2F"><font size="2">(12:01:39 AM)</font> <b>fundamental:</b></font> you state that this still depends on libfftw<br/>
+<font color="#A82F2F"><font size="2">(12:01:44 AM)</font> <b>fundamental:</b></font> that does not appear to be the case<br/>
+<font color="#A82F2F"><font size="2">(12:01:50 AM)</font> <b>xhoch3:</b></font> no, you are right<br/>
+<font color="#A82F2F"><font size="2">(12:02:03 AM)</font> <b>xhoch3:</b></font> argh thx, I put the faq out<br/>
+<font color="#062585"><font size="2">(12:02:33 AM)</font> <b>***falktx</b></font> sings who let the faq out, who who who<br/>
+<font color="#A82F2F"><font size="2">(12:02:43 AM)</font> <b>fundamental:</b></font> example client code still uses stuff from the deleted &apos;dsp&apos; folder<br/>
+<font color="#A82F2F"><font size="2">(12:03:33 AM)</font> <b>fundamental:</b></font> oh goodness you have process() as a member function of the main window?!<br/>
+<font color="#A82F2F"><font size="2">(12:04:02 AM)</font> <b>falktx:</b></font> xhoch3: one thing that might really be helpful is ladish and/or NSM integration<br/>
+<font color="#A82F2F"><font size="2">(12:04:05 AM)</font> <b>xhoch3:</b></font> thats bad example, right<br/>
+<font color="#A82F2F"><font size="2">(12:04:32 AM)</font> <b>falktx:</b></font> jack session is very rarely used<br/>
+<font color="#A82F2F"><font size="2">(12:06:09 AM)</font> <b>falktx:</b></font> that might involve some code rework though, specially because NSM is the one that dictactes the client name<br/>
+<font size="2">(12:07:58 AM)</font><b> HarryHaaren left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:08:11 AM)</font> <b>fundamental:</b></font> also, Buffer::releaseMemoryBuffer() and Buffer::createMemoryAudioBuffer() seem to be used improperly in the linked app, but I may be being overly pedantic now<br/>
+<font color="#A82F2F"><font size="2">(12:08:54 AM)</font> <b>falktx:</b></font> it will be nice to see the rt-clang graph with an example client of this<br/>
+<font color="#A82F2F"><font size="2">(12:09:15 AM)</font> <b>fundamental:</b></font> let me see if I can run stoat on it<br/>
+<font color="#A82F2F"><font size="2">(12:10:29 AM)</font> <b>xhoch3:</b></font> and again, fixed<br/>
+<font color="#A82F2F"><font size="2">(12:11:10 AM)</font> <b>xhoch3:</b></font> oh, the demo is outdated, fundamental, but since it is linked as a submodule it will clone the correct version of the lib<br/>
+<font color="#A82F2F"><font size="2">(12:11:18 AM)</font> <b>xhoch3:</b></font> you can still try it<br/>
+<font color="#A82F2F"><font size="2">(12:13:04 AM)</font> <b>xhoch3:</b></font> I try to compile it<br/>
+<font color="#A82F2F"><font size="2">(12:13:25 AM)</font> <b>xhoch3:</b></font> ok, builds here<br/>
+<font color="#A82F2F"><font size="2">(12:16:57 AM)</font> <b>xhoch3:</b></font> the problem I had, ie. the reason why I build &quot;equalizer Qt objects&quot; was that I had widget and I need them to connect via signals/slots<br/>
+<font color="#A82F2F"><font size="2">(12:17:01 AM)</font> <b>xhoch3:</b></font> +s<br/>
+<font color="#A82F2F"><font size="2">(12:17:27 AM)</font> <b>xhoch3:</b></font> to the computation on the signal itself did not have to do anything with Qt<br/>
+<font color="#A82F2F"><font size="2">(12:17:38 AM)</font> <b>xhoch3:</b></font> I just changed the filter parameters<br/>
+<font color="#A82F2F"><font size="2">(12:17:54 AM)</font> <b>xhoch3:</b></font> at some point you will have to sync threads then<br/>
+<font color="#A82F2F"><font size="2">(12:18:33 AM)</font> <b>xhoch3:</b></font> so when I move the controls of an equalizer, the filter gets informed about the change<br/>
+<font color="#A82F2F"><font size="2">(12:18:57 AM)</font> <b>xhoch3:</b></font> I wonder how this has been solved elsewhere<br/>
+<font color="#A82F2F"><font size="2">(12:19:13 AM)</font> <b>xhoch3:</b></font> without using locking mechanisms<br/>
+<font color="#A82F2F"><font size="2">(12:27:39 AM)</font> <b>xhoch3:</b></font> falktx, it could be build on top<br/>
+<font color="#A82F2F"><font size="2">(12:27:49 AM)</font> <b>xhoch3:</b></font> so that NSM talks to QJack API<br/>
+<font color="#A82F2F"><font size="2">(12:28:02 AM)</font> <b>xhoch3:</b></font> or does it communicate directly?<br/>
+<font color="#A82F2F"><font size="2">(12:29:16 AM)</font> <b>fundamental:</b></font> naive run of stoat on the code http://fundamental-code.com/tmp/mx-graph.png<br/>
+<font color="#A82F2F"><font size="2">(12:29:40 AM)</font> <b>fundamental:</b></font> I had to comment out the QJsonObject stuff, so it may be smaller than it actually is when compiled correctly<br/>
+<font color="#A82F2F"><font size="2">(12:31:54 AM)</font> <b>xhoch3:</b></font> fundamental, how do I read that?<br/>
+<font color="#A82F2F"><font size="2">(12:32:19 AM)</font> <b>xhoch3:</b></font> I thought this was to identify whether certain code does not violate rules for running in rt<br/>
+<font color="#A82F2F"><font size="2">(12:32:42 AM)</font> <b>falktx:</b></font> it&apos;s to find code that does violate rt<br/>
+<font color="#A82F2F"><font size="2">(12:32:57 AM)</font> <b>falktx:</b></font> QSampleBuffer seems to have QString references<br/>
+<font color="#A82F2F"><font size="2">(12:34:10 AM)</font> <b>fundamental:</b></font> red is possibly contradicted, black is contradicting node<br/>
+<font color="#A82F2F"><font size="2">(12:34:41 AM)</font> <b>fundamental:</b></font> bold lines lead to likely non realtime code<br/>
+<font color="#A82F2F"><font size="2">(12:34:41 AM)</font> <b>fundamental:</b></font> otherwise they&apos;re dashed<br/>
+<font color="#A82F2F"><font size="2">(12:35:06 AM)</font> <b>fundamental:</b></font> let me expand this a bit more, I see what I failed to compile<br/>
+<font color="#A82F2F"><font size="2">(12:35:15 AM)</font> <b>falktx:</b></font> green = good, red = bad ?<br/>
+<font color="#A82F2F"><font size="2">(12:35:24 AM)</font> <b>fundamental:</b></font> generally<br/>
+<font color="#A82F2F"><font size="2">(12:35:36 AM)</font> <b>fundamental:</b></font> green also indicates that it found the method<br/>
+<font color="#A82F2F"><font size="2">(12:35:57 AM)</font> <b>xhoch3:</b></font> fundamental, could you possibly run that on the QJack lib?<br/>
+<font color="#A82F2F"><font size="2">(12:36:05 AM)</font> <b>fundamental:</b></font> doing that now<br/>
+<font color="#A82F2F"><font size="2">(12:36:30 AM)</font> <b>xhoch3:</b></font> ok, so I could whether the API that&apos;s supposed to be used in process() is rt safe<br/>
+<font color="#A82F2F"><font size="2">(12:36:33 AM)</font> <b>xhoch3:</b></font> check+<br/>
+<font color="#A82F2F"><font size="2">(12:37:14 AM)</font> <b>falktx:</b></font> I bet 90% of qt classes are not rt safe<br/>
+<font color="#A82F2F"><font size="2">(12:37:25 AM)</font> <b>falktx:</b></font> even qmutex trylock is not rt safe from what I rememebr<br/>
+<font color="#A82F2F"><font size="2">(12:37:30 AM)</font> <b>falktx:</b></font> *remember<br/>
+<font color="#A82F2F"><font size="2">(12:37:36 AM)</font> <b>fundamental:</b></font> http://fundamental-code.com/tmp/mx-graph2.png<br/>
+<font color="#A82F2F"><font size="2">(12:38:16 AM)</font> <b>xhoch3:</b></font> fundamental, that qjack in mx is very old<br/>
+<font color="#A82F2F"><font size="2">(12:38:25 AM)</font> <b>xhoch3:</b></font> it should not be the reference<br/>
+<font color="#A82F2F"><font size="2">(12:38:32 AM)</font> <b>xhoch3:</b></font> can you run it on the recent qjack?<br/>
+<font color="#A82F2F"><font size="2">(12:38:39 AM)</font> <b>fundamental:</b></font> log10 and isChecked can be ignored<br/>
+<font color="#A82F2F"><font size="2">(12:39:02 AM)</font> <b>fundamental:</b></font> the recent qjack doesn&apos;t define a full program if I read it correctly<br/>
+<font color="#A82F2F"><font size="2">(12:39:06 AM)</font> <b>xhoch3:</b></font> falktx, I understand, but see my question above, how would you sync threads?<br/>
+<font color="#A82F2F"><font size="2">(12:39:06 AM)</font> <b>nedko:</b></font> qjack?<br/>
+<font color="#A82F2F"><font size="2">(12:39:15 AM)</font> <b>falktx:</b></font> sync threads?<br/>
+<font color="#A82F2F"><font size="2">(12:39:30 AM)</font> <b>xhoch3:</b></font> well, lets say I have a parameter that I need to set<br/>
+<font color="#A82F2F"><font size="2">(12:39:34 AM)</font> <b>xhoch3:</b></font> from GUI<br/>
+<font color="#A82F2F"><font size="2">(12:39:52 AM)</font> <b>xhoch3:</b></font> and I want it to be processed in my RT code<br/>
+<font color="#A82F2F"><font size="2">(12:39:55 AM)</font> <b>falktx:</b></font> the rt process only reads it, doesn&apos;t modify it<br/>
+<font color="#A82F2F"><font size="2">(12:39:55 AM)</font> <b>fundamental:</b></font> there&apos;s a whole bunch of different approaches to that<br/>
+<font color="#A82F2F"><font size="2">(12:40:07 AM)</font> <b>nedko:</b></font> what is qjack?<br/>
+<font color="#A82F2F"><font size="2">(12:40:08 AM)</font> <b>fundamental:</b></font> lv2 atoms are pretty popular<br/>
+<font color="#A82F2F"><font size="2">(12:40:16 AM)</font> <b>xhoch3:</b></font> ok, but I must make sure it is not read while it isbeing written zo<br/>
+<font color="#A82F2F"><font size="2">(12:40:16 AM)</font> <b>falktx:</b></font> the solution is certainly not qt slots<br/>
+<font color="#A82F2F"><font size="2">(12:40:23 AM)</font> <b>fundamental:</b></font> OSC is an option<br/>
+<font color="#A82F2F"><font size="2">(12:40:26 AM)</font> <b>fundamental:</b></font> pointer swaps<br/>
+<font color="#A82F2F"><font size="2">(12:40:32 AM)</font> <b>xhoch3:</b></font> I didn&apos;t say that, don&apos;t be harsh<br/>
+<font color="#A82F2F"><font size="2">(12:40:33 AM)</font> <b>fundamental:</b></font> atomic ops<br/>
+<font color="#A82F2F"><font size="2">(12:40:44 AM)</font> <b>xhoch3:</b></font> but why not simply QMutex?<br/>
+<font color="#A82F2F"><font size="2">(12:40:56 AM)</font> <b>falktx:</b></font> mutexes are NOT rt safe<br/>
+<font color="#A82F2F"><font size="2">(12:41:04 AM)</font> <b>falktx:</b></font> they are meant to lock<br/>
+<font color="#A82F2F"><font size="2">(12:41:09 AM)</font> <b>xhoch3:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(12:41:20 AM)</font> <b>fundamental:</b></font> nedko: https://github.com/cybercatalyst/QJack<br/>
+<font color="#A82F2F"><font size="2">(12:41:26 AM)</font> <b>falktx:</b></font> anything that locks is not rt safe<br/>
+<font color="#A82F2F"><font size="2">(12:41:41 AM)</font> <b>nedko:</b></font> fundamental: thanks<br/>
+<font color="#A82F2F"><font size="2">(12:41:58 AM)</font> <b>fundamental:</b></font> well, anything that stalls when it fails to obtain a lock<br/>
+<font color="#A82F2F"><font size="2">(12:42:26 AM)</font> <b>xhoch3:</b></font> QMutex does not stall when it fails to lock (correct me if I&apos;m wrong)<br/>
+<font color="#A82F2F"><font size="2">(12:42:35 AM)</font> <b>xhoch3:</b></font> you can do tryLock<br/>
+<font color="#A82F2F"><font size="2">(12:42:46 AM)</font> <b>falktx:</b></font> afaik tryLock uses a spinlock with a timer<br/>
+<font color="#A82F2F"><font size="2">(12:43:43 AM)</font> <b>xhoch3:</b></font> you can give it no timeout and it will return immediately<br/>
+<font color="#A82F2F"><font size="2">(12:44:29 AM)</font> <b>xhoch3:</b></font> fundamental, yes, it&apos;s not a complete program<br/>
+<font color="#A82F2F"><font size="2">(12:44:45 AM)</font> <b>xhoch3:</b></font> that&apos;s what I wondered, if you can also walk code that does not form a program<br/>
+<font color="#A82F2F"><font size="2">(12:44:55 AM)</font> <b>fundamental:</b></font> xhoch3: stoat takes as input a list of safe functions and verifies them<br/>
+<font color="#A82F2F"><font size="2">(12:45:13 AM)</font> <b>fundamental:</b></font> the easy way for me to do this is to just run it on a program that has ~1 entry point<br/>
+<font color="#A82F2F"><font size="2">(12:45:19 AM)</font> <b>fundamental:</b></font> that calls most of the &apos;safe&apos; stuff<br/>
+<font color="#A82F2F"><font size="2">(12:45:48 AM)</font> <b>xhoch3:</b></font> ok, then I will try to make demo app<br/>
+<font color="#A82F2F"><font size="2">(12:49:48 AM)</font> <b>fundamental:</b></font> falktx: for the record, tryLock() looks like it is safe in qt 5.3 at first glance<br/>
+<font color="#A82F2F"><font size="2">(12:50:15 AM)</font> <b>falktx:</b></font> fundamental: the code is very complex, so many calls here and there... :S<br/>
+<font color="#A82F2F"><font size="2">(12:50:29 AM)</font> <b>falktx:</b></font> fundamental: I remember seeing some spinlock for qt4<br/>
+<font color="#A82F2F"><font size="2">(12:51:49 AM)</font> <b>nedko:</b></font> since when spinlocking is considered non-rt safe?<br/>
+<font color="#A82F2F"><font size="2">(12:52:31 AM)</font> <b>falktx:</b></font> since when is it not?<br/>
+<font color="#A82F2F"><font size="2">(12:52:51 AM)</font> <b>falktx:</b></font> personally I don&apos;t even like the concept of it<br/>
+<font color="#A82F2F"><font size="2">(12:52:51 AM)</font> <b>fundamental:</b></font> well, it&apos;s safe or not depending on the spin exit conditions<br/>
+<font color="#A82F2F"><font size="2">(12:53:10 AM)</font> <b>nedko:</b></font> uhm, in by book non-rt safe means something that involves process context switch<br/>
+<font color="#A82F2F"><font size="2">(12:53:27 AM)</font> <b>nedko:</b></font> there are other factors too...<br/>
+<font color="#A82F2F"><font size="2">(12:53:50 AM)</font> <b>nedko:</b></font> like algorigms that that have predictable execution time regardless of input data<br/>
+<font color="#A82F2F"><font size="2">(12:54:05 AM)</font> <b>nedko:</b></font> and there is also SMM that voids all realtime sanity<br/>
+<font color="#A82F2F"><font size="2">(12:54:24 AM)</font> <b>nedko:</b></font> (x86 and x86_64 only)<br/>
+<font color="#A82F2F"><font size="2">(12:54:50 AM)</font> <b>fundamental:</b></font> a spinlock should be safe if it stops trying to obtain the lock within some set time bounds<br/>
+<font color="#A82F2F"><font size="2">(12:57:40 AM)</font> <b>nedko:</b></font> spinlocks should be used only when the protected code is really small<br/>
+<font color="#A82F2F"><font size="2">(01:22:30 AM)</font> <b>xhoch3:</b></font> fundamental, ok, see the demos folder<br/>
+<font color="#A82F2F"><font size="2">(01:22:37 AM)</font> <b>xhoch3:</b></font> this is a minimal example of the new API<br/>
+<font color="#A82F2F"><font size="2">(01:22:53 AM)</font> <b>xhoch3:</b></font> just make sure you deactivate shadow building<br/>
+<font color="#A82F2F"><font size="2">(01:23:08 AM)</font> <b>xhoch3:</b></font> then build the lib, the the app &quot;attenuator&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:25:02 AM)</font> <b>xhoch3:</b></font> https://github.com/cybercatalyst/QJack/blob/master/demos/attenuator/main.cpp<br/>
+<font color="#A82F2F"><font size="2">(01:26:09 AM)</font> <b>xhoch3:</b></font> a complete, readable JACK app in 30 loc =)<br/>
+<font color="#A82F2F"><font size="2">(01:30:44 AM)</font> <b>fundamental:</b></font> well, I can&apos;t hack this to compile with jack1<br/>
+<font color="#A82F2F"><font size="2">(01:30:55 AM)</font> <b>fundamental:</b></font> you still have QString&apos;s destructor<br/>
+<font color="#A82F2F"><font size="2">(01:33:00 AM)</font> <b>falktx:</b></font> how does that handle sigterm?<br/>
+<font color="#A82F2F"><font size="2">(01:35:04 AM)</font> <b>xhoch3:</b></font> fundamental, what fails?<br/>
+<font color="#A82F2F"><font size="2">(01:35:11 AM)</font> <b>fundamental:</b></font> also, aren&apos;t you binding a reference to a temporary in the demo?<br/>
+<font color="#A82F2F"><font size="2">(01:35:54 AM)</font> <b>xhoch3:</b></font> where?<br/>
+<font color="#A82F2F"><font size="2">(01:35:58 AM)</font> <b>fundamental:</b></font> inBuffer creates a QString and destroys a qstring<br/>
+<font color="#A82F2F"><font size="2">(01:36:45 AM)</font> <b>xhoch3:</b></font> let me check<br/>
+<font color="#A82F2F"><font size="2">(01:36:45 AM)</font> <b>fundamental:</b></font> QJack::Port&amp; being bound to constructor parameters (that may be completely valid, as I don&apos;t have those rules 100% memorized)<br/>
+<font color="#A82F2F"><font size="2">(01:37:39 AM)</font> <b>xhoch3:</b></font> yes, buffer has a QString<br/>
+<font color="#A82F2F"><font size="2">(01:38:03 AM)</font> <b>xhoch3:</b></font> it contains an error message<br/>
+<font color="#A82F2F"><font size="2">(01:38:34 AM)</font> <b>xhoch3:</b></font> are you sure I am not even allowed to alloc mem?<br/>
+<font color="#A82F2F"><font size="2">(01:38:37 AM)</font> <b>falktx:</b></font> qstring is not rt safe<br/>
+<font color="#A82F2F"><font size="2">(01:38:39 AM)</font> <b>falktx:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(01:38:58 AM)</font> <b>fundamental:</b></font> there&apos;s a slim chance that it&apos;s safe if it&apos;s never modified<br/>
+<font color="#A82F2F"><font size="2">(01:39:09 AM)</font> <b>falktx:</b></font> see http://www.rossbencina.com/code/real-time-audio-programming-101-time-waits-for-nothing<br/>
+<font color="#A82F2F"><font size="2">(01:39:10 AM)</font> <b>LAbot:</b></font> Title: Real-time audio programming 101: time waits for nothing | Ross Bencina (at www.rossbencina.com)<br/>
+<font color="#A82F2F"><font size="2">(01:39:18 AM)</font> <b>xhoch3:</b></font> well, to the surrounding code it&apos;s readonly<br/>
+<font color="#A82F2F"><font size="2">(01:39:19 AM)</font> <b>fundamental:</b></font> though you&apos;d need to sit and read the qt source to verify that<br/>
+<font color="#A82F2F"><font size="2">(01:39:28 AM)</font> <b>fundamental:</b></font> for *every* version of qt you use<br/>
+<font color="#A82F2F"><font size="2">(01:39:53 AM)</font> <b>xhoch3:</b></font> I might just remove that<br/>
+<font color="#A82F2F"><font size="2">(01:40:03 AM)</font> <b>xhoch3:</b></font> it&apos;s only for debugging purposes<br/>
+<font color="#A82F2F"><font size="2">(01:40:45 AM)</font> <b>xhoch3:</b></font> ie to give the user a human readable error message, but how much sense does that make in the process()<br/>
+<font color="#A82F2F"><font size="2">(01:40:51 AM)</font> <b>falktx:</b></font> #ifdef DEBUG is ok I think<br/>
+<font color="#A82F2F"><font size="2">(01:40:51 AM)</font> <b>xhoch3:</b></font> any at all<br/>
+<font color="#A82F2F"><font size="2">(01:42:42 AM)</font> <b>xhoch3:</b></font> removed<br/>
+<font color="#A82F2F"><font size="2">(01:43:05 AM)</font> <b>xhoch3:</b></font> fundamental, what error do you get?<br/>
+<font color="#A82F2F"><font size="2">(01:44:03 AM)</font> <b>falktx:</b></font> jack_get_version is not available I bet<br/>
+<font color="#A82F2F"><font size="2">(01:44:42 AM)</font> <b>fundamental:</b></font> that&apos;s one<br/>
+<font color="#A82F2F"><font size="2">(01:44:48 AM)</font> <b>xhoch3:</b></font> alright, I going to kick that out<br/>
+<font color="#A82F2F"><font size="2">(01:44:54 AM)</font> <b>fundamental:</b></font> then there&apos;s some with invalid malloc conversions<br/>
+<font color="#A82F2F"><font size="2">(01:45:14 AM)</font> <b>fundamental:</b></font> jack/control.h fails to include stdint.h on my version (for some odd reason)<br/>
+<font color="#A82F2F"><font size="2">(01:45:41 AM)</font> <b>fundamental:</b></font> jack/control.h has a variable named &quot;signals&quot; which qt breaks<br/>
+<font color="#A82F2F"><font size="2">(01:45:58 AM)</font> <b>fundamental:</b></font> JackMaster is not declared and JackSlave is not declared<br/>
+<font color="#A82F2F"><font size="2">(01:46:30 AM)</font> <b>xhoch3:</b></font> ok that&apos;s all JACK stuff<br/>
+<font color="#A82F2F"><font size="2">(01:46:53 AM)</font> <b>xhoch3:</b></font> I have jack2 over here<br/>
+<font color="#A82F2F"><font size="2">(01:47:28 AM)</font> <b>xhoch3:</b></font> on Ubuntu 14.04<br/>
+<font color="#A82F2F"><font size="2">(01:47:56 AM)</font> <b>falktx:</b></font> sudo apt-get install jackd1<br/>
+<font color="#A82F2F"><font size="2">(01:47:59 AM)</font> <b>falktx:</b></font> errm<br/>
+<font color="#A82F2F"><font size="2">(01:48:04 AM)</font> <b>falktx:</b></font> sudo apt-get install jackd1 libjack-dev<br/>
+<font color="#A82F2F"><font size="2">(01:48:08 AM)</font> <b>falktx:</b></font> and you can test this too<br/>
+<font color="#A82F2F"><font size="2">(01:48:38 AM)</font> <b>xhoch3:</b></font> is it necessary to go with jack1?<br/>
+<font color="#A82F2F"><font size="2">(01:49:09 AM)</font> <b>xhoch3:</b></font> I mean, if there are problems with jack1, are there good reasons to not go with 2?<br/>
+<font color="#A82F2F"><font size="2">(01:50:59 AM)</font> <b>falktx:</b></font> jack2 is not a newer version<br/>
+<font color="#A82F2F"><font size="2">(01:51:15 AM)</font> <b>falktx:</b></font> in some ways jack1 is superior. I know a few people prefer to use jack1<br/>
+<font color="#A82F2F"><font size="2">(01:51:22 AM)</font> <b>fundamental:</b></font> it&apos;s a coke vs pepsi sort of thing<br/>
+<font color="#A82F2F"><font size="2">(01:51:44 AM)</font> <b>falktx:</b></font> jack1 has working meta-data<br/>
+<font color="#A82F2F"><font size="2">(01:52:05 AM)</font> <b>xhoch3:</b></font> ok, I understand<br/>
+<font color="#A82F2F"><font size="2">(01:52:20 AM)</font> <b>xhoch3:</b></font> so there is no other option than making sure it works with both<br/>
+<font color="#A82F2F"><font size="2">(01:56:44 AM)</font> <b>xhoch3:</b></font> ahhh &quot; The difference is that in jack2,<br/>
+<font color="#A82F2F"><font size="2">(01:56:44 AM)</font> <b>xhoch3:</b></font> non-process() callbacks are delivered to a different thread than they<br/>
+<font color="#A82F2F"><font size="2">(01:56:45 AM)</font> <b>xhoch3:</b></font> would be in jack1, and the concurrency of these threads creates some<br/>
+<font color="#A82F2F"><font size="2">(01:56:45 AM)</font> <b>xhoch3:</b></font> very different assumptions for clients.&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:57:03 AM)</font> <b>xhoch3:</b></font> all the time I was talking of jack2<br/>
+<font color="#A82F2F"><font size="2">(08:56:53 AM)</font> <b>xhoch3:</b></font> hey fundamental<br/>
+<font color="#A82F2F"><font size="2">(08:57:12 AM)</font> <b>xhoch3:</b></font> did you try to compile QJack example yesterday again?<br/>
+<font color="#A82F2F"><font size="2">(09:38:41 AM)</font> <b>xhoch3:</b></font> http://www.barrgroup.com/Embedded-Systems/How-To/RTOS-Mutex-Semaphore<br/>
+<font color="#A82F2F"><font size="2">(09:38:43 AM)</font> <b>LAbot:</b></font> Title: Mutexes and Semaphores Demystified | Embedded Systems Experts (at www.barrgroup.com)<br/>
+<font color="#A82F2F"><font size="2">(09:39:04 AM)</font> <b>xhoch3:</b></font> so when I understand correctly, semaphore are rt safe when used properly, mutexes are not<br/>
+<font color="#A82F2F"><font size="2">(09:40:18 AM)</font> <b>falktx:</b></font> mutexes can be rtsafe is used correctly afaik<br/>
+<font color="#A82F2F"><font size="2">(09:40:21 AM)</font> <b>falktx:</b></font> *if<br/>
+<font color="#A82F2F"><font size="2">(09:41:13 AM)</font> <b>JackWinter:</b></font> xhoch3: afai understand you should never wait on anything in a rt thread, nor do anything that might take an indeterminate amount of time, like file i/o, mem allocation, etc<br/>
+<font color="#A82F2F"><font size="2">(09:41:55 AM)</font> <b>xhoch3:</b></font> I was taking your advice from yesterday and learned abot lock free operations<br/>
+<font color="#A82F2F"><font size="2">(09:42:32 AM)</font> <b>xhoch3:</b></font> then I understood that of course you have some locking in any case, but it is about constant time<br/>
+<font color="#A82F2F"><font size="2">(09:43:13 AM)</font> <b>xhoch3:</b></font> falktx, yes, it depends on the implements of the mutex<br/>
+<font color="#A82F2F"><font size="2">(09:43:18 AM)</font> <b>xhoch3:</b></font> implementation<br/>
+<font color="#A82F2F"><font size="2">(09:43:18 AM)</font> <b>falktx:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(09:43:26 AM)</font> <b>falktx:</b></font> rt-safe code is hard, so sometimes we use locks when there&apos;s no other way<br/>
+<font color="#A82F2F"><font size="2">(09:43:32 AM)</font> <b>xhoch3:</b></font> I am asking because there is also a QSemaphore<br/>
+<font color="#A82F2F"><font size="2">(09:43:36 AM)</font> <b>falktx:</b></font> it should be avoided if possible though<br/>
+<font color="#A82F2F"><font size="2">(09:43:44 AM)</font> <b>falktx:</b></font> I wouldn&apos;t use Qt classes for this<br/>
+<font color="#A82F2F"><font size="2">(09:44:09 AM)</font> <b>xhoch3:</b></font> what would you recommend for cross platform?<br/>
+<font color="#A82F2F"><font size="2">(09:44:17 AM)</font> <b>falktx:</b></font> Juce<br/>
+<font color="#A82F2F"><font size="2">(09:44:26 AM)</font> <b>falktx:</b></font> the juce-core lib is ISC/MIT licensed<br/>
+<font color="#A82F2F"><font size="2">(09:45:34 AM)</font> <b>falktx:</b></font> reaper&apos;s WDL source is also ISC/MIT/BSD like licensed and contains some nice things<br/>
+<font color="#A82F2F"><font size="2">(09:46:08 AM)</font> <b>xhoch3:</b></font> JUCE seems to do what Qt does<br/>
+<font color="#A82F2F"><font size="2">(09:46:24 AM)</font> <b>xhoch3:</b></font> in a whole, it&apos;s a direct competitor<br/>
+<font color="#A82F2F"><font size="2">(09:47:23 AM)</font> <b>xhoch3:</b></font> how is it better concerning the atomic operations I want to do?<br/>
+<font color="#A82F2F"><font size="2">(09:47:41 AM)</font> <b>xhoch3:</b></font> I am trying to estimate effort and benefit<br/>
+<font color="#A82F2F"><font size="2">(09:50:13 AM)</font> <b>petern_:</b></font> ~<br/>
+<font color="#A82F2F"><font size="2">(09:50:19 AM)</font> <b>petern_:</b></font> 08:42 &lt; xhoch3&gt; then I understood that of course you have some locking in any case, but it is about constant time<br/>
+<font color="#A82F2F"><font size="2">(09:50:33 AM)</font> <b>petern_:</b></font> Why do you say that?<br/>
+<font color="#A82F2F"><font size="2">(09:51:45 AM)</font> <b>xhoch3:</b></font> petern_, if you want write from another thread and read the same memory in the rt thread, you *will* have a time, where you cannot read and write simultaneously<br/>
+<font color="#A82F2F"><font size="2">(09:51:56 AM)</font> <b>xhoch3:</b></font> no matter how to achieve this<br/>
+<font color="#A82F2F"><font size="2">(09:52:25 AM)</font> <b>xhoch3:</b></font> from what I grasped, the crucial thing in rt processing is to know how long it actually will take<br/>
+<font color="#A82F2F"><font size="2">(09:52:44 AM)</font> <b>xhoch3:</b></font> and to be guaranteed a time in which that operation finished<br/>
+<font color="#A82F2F"><font size="2">(09:53:48 AM)</font> <b>xhoch3:</b></font> so you could do that with hardware means for example, where the hardware guarantees the read or writing a memory area will be mutually exclusive, but constant time<br/>
+<font color="#A82F2F"><font size="2">(09:54:40 AM)</font> <b>xhoch3:</b></font> that is considered &quot;lock-free&quot;, although it should better be called &quot;constant-read-write-time&quot; to be clear<br/>
+<font color="#A82F2F"><font size="2">(09:55:55 AM)</font> <b>falktx:</b></font> juce is written with the target of doing audio applications<br/>
+<font color="#A82F2F"><font size="2">(09:56:04 AM)</font> <b>falktx:</b></font> qt is for regular desktop/mobile code<br/>
+<font color="#A82F2F"><font size="2">(09:56:31 AM)</font> <b>falktx:</b></font> but my point is that checking what juce is doing behind the scenes is much easier vs Qt<br/>
+<font color="#A82F2F"><font size="2">(09:57:24 AM)</font> <b>falktx:</b></font> plus with qt you&apos;ll probably end up linking to the system library, for which you have no control of<br/>
+<font color="#A82F2F"><font size="2">(09:57:47 AM)</font> <b>falktx:</b></font> the distro might be patching Qt (like Ubuntu) to suit their desktop needs<br/>
+<font color="#A82F2F"><font size="2">(09:58:13 AM)</font> <b>falktx:</b></font> so that makes it even harder to know exactly what the Qt code is doing<br/>
+<font color="#A82F2F"><font size="2">(09:58:28 AM)</font> <b>xhoch3:</b></font> well, it is a risk decision<br/>
+<font color="#A82F2F"><font size="2">(09:58:36 AM)</font> <b>xhoch3:</b></font> on the other hand you save a huge dependency<br/>
+<font color="#A82F2F"><font size="2">(09:58:50 AM)</font> <b>falktx:</b></font> have you ran your tools with the jack interposer?<br/>
+<font color="#A82F2F"><font size="2">(09:58:53 AM)</font> <b>xhoch3:</b></font> or a solution would be to just copy single classes<br/>
+<font color="#A82F2F"><font size="2">(09:59:07 AM)</font> <b>xhoch3:</b></font> falktx, not yet, but I am quite sure I am not violating rt<br/>
+<font color="#A82F2F"><font size="2">(09:59:20 AM)</font> <b>xhoch3:</b></font> inside process(), no Qt-specific stuff is being used<br/>
+<font color="#A82F2F"><font size="2">(10:00:40 AM)</font> <b>xhoch3:</b></font> also, I think you have to make a distinction between code that could be dangerous to Qt and code that is potentially dangerous, but known to be safe from the code around<br/>
+<font color="#A82F2F"><font size="2">(10:01:10 AM)</font> <b>xhoch3:</b></font> for example if I wrap a JACK cstr in QString, this is potentially dangerous, since QString might allocate a huge amount of memory<br/>
+<font color="#A82F2F"><font size="2">(10:01:57 AM)</font> <b>xhoch3:</b></font> but since I know that JACK cstr have a max lenght and allocation of QString for that max length takes a definite time, that&apos;s fine<br/>
+<font color="#A82F2F"><font size="2">(10:02:51 AM)</font> <b>xhoch3:</b></font> but in most case, you do sample modifications in the rt process() thread<br/>
+<font color="#A82F2F"><font size="2">(10:03:25 AM)</font> <b>xhoch3:</b></font> if you are doing dangerous stuff, you&apos;re doing it wrong, with or without Qt<br/>
+<font color="#A82F2F"><font size="2">(10:05:57 AM)</font> <b>JackWinter:</b></font> xhoch3: you can also consider using a ringbuffer, let your app read/write to it, and let the jack callback read/write to it<br/>
+<font color="#A82F2F"><font size="2">(10:06:23 AM)</font> <b>xhoch3:</b></font> yes, and if you secured that with semaphores, it&apos;s fine<br/>
+<font color="#A82F2F"><font size="2">(10:10:21 AM)</font> <b>xhoch3:</b></font> but anyways, I understand now what people mean by saying Qt is not RT safe, but I also have to say that whether or whether not that actually matters (in that it causes real-world problems) is a whole different story. From some point on, it starts to be a rather academic question. If 99,999% of the time audio plays without glitches, then the probability for other components to fail (hardware, etc.) turns out to be more signifant.<br/>
+<font color="#A82F2F"><font size="2">(10:11:12 AM)</font> <b>JackWinter:</b></font> xhoch3: for instance: http://jackaudio.org/files/docs/html/ringbuffer_8h.html<br/>
+<font color="#A82F2F"><font size="2">(10:11:13 AM)</font> <b>LAbot:</b></font> Title: JACK-AUDIO-CONNECTION-KIT: ringbuffer.h File Reference (at jackaudio.org)<br/>
+<font color="#A82F2F"><font size="2">(10:11:48 AM)</font> <b>xhoch3:</b></font> JackWinter, cool, thx.<br/>
+<font color="#A82F2F"><font size="2">(10:12:00 AM)</font> <b>xhoch3:</b></font> I might just wrap that and I&apos;m done :)<br/>
+<font color="#A82F2F"><font size="2">(10:14:14 AM)</font> <b>JackWinter:</b></font> xhoch3: well realtime is a nebulous concept...  hard, soft, etc...  as long as you meet the deadline there is no problem, but if you don&apos;t then it fscked up.  there is also (at least on linux) no way to know/test if a system is realtime according to your specification.  but i&apos;d agree as long as we are talking about music, and the audio is perfect 99.9% of the time that would probably be ok.  the problem is ofcourse if you are recording music professionally<br/>
+<font color="#A82F2F"><font size="2">(10:14:16 AM)</font> <b>JackWinter:</b></font> and there is a click in your tracked material, that might not be acceptable<br/>
+<font color="#A82F2F"><font size="2">(10:15:26 AM)</font> <b>JackWinter:</b></font> and realtime doesn&apos;t only have to do with the kernel/drivers/software in use, it&apos;s also dependent on hardware and not losing electricity etc.<br/>
+<font color="#A82F2F"><font size="2">(10:15:42 AM)</font> <b>xhoch3:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(10:16:48 AM)</font> <b>xhoch3:</b></font> I just wanted to say that at some point things start to get ridiculous when you put too much weigh on each operation<br/>
+<font color="#A82F2F"><font size="2">(10:18:29 AM)</font> <b>falktx:</b></font> it&apos;s always good to be a little over-cautious about rt audio stuff<br/>
+<font color="#A82F2F"><font size="2">(10:18:50 AM)</font> <b>JackWinter:</b></font> sure, but i think the basic principle is don&apos;t go looking for extra problems by doing file i/o, allocation or using inappropriate syncing primitives with non realtime threads.  do the best you can, and then hope for the best :)<br/>
+<font color="#A82F2F"><font size="2">(10:23:57 AM)</font> <b>JackWinter:</b></font> xhoch3: this is a pretty good read: http://www.rossbencina.com/code/real-time-audio-programming-101-time-waits-for-nothing<br/>
+<font color="#A82F2F"><font size="2">(10:23:59 AM)</font> <b>LAbot:</b></font> Title: Real-time audio programming 101: time waits for nothing | Ross Bencina (at www.rossbencina.com)<br/>
+<font size="2">(10:26:09 AM)</font><b> jzu__ is now known as jzu</b><br/>
+<font size="2">(10:57:38 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

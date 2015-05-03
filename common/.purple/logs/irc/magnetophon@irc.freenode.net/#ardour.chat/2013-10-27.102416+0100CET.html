@@ -1,0 +1,608 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Sun 27 Oct 2013 10:24:16 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Sun 27 Oct 2013 10:24:16 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:24:16 AM)</font><b> The topic for #ardour is: ardour 3.5 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(10:27:18 AM)</font><b> ANero left the room (quit: Quit: Ex-Chat).</b><br/>
+<font size="2">(10:28:10 AM)</font><b> vihcs [<em>~schiv@archlinux/developer/schiv</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:32:05 AM)</font> <b>magnetophon:</b></font> i just compiled 3.0 from git, and it segfaults on startup... :(<br/>
+<font size="2">(10:37:18 AM)</font><b> err-or_ left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(10:45:17 AM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font size="2">(10:46:38 AM)</font><b> imeim [<em>~quassel@218.Red-88-7-216.staticIP.rima-tde.net</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:52:46 AM)</font> <b>magnetophon:</b></font> no errors, just the normal startup sequence up until the announcement of 3.5.14, and then a segfault.<br/>
+<font size="2">(10:53:57 AM)</font><b> thorwil [<em>~thorwil@p5B3DD8AD.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:58:58 AM)</font> <b>rgareus:</b></font> magnetophon: http://ardour.org/debugging_ardour<br/>
+<font color="#A82F2F"><font size="2">(10:59:00 AM)</font> <b>LAbot:</b></font> Title: ardour - the digital audio workstation (at ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(10:59:23 AM)</font> <b>rgareus:</b></font> magnetophon: this specific crash just after the announcement hints that you might have an old version of libcurl<br/>
+<font color="#A82F2F"><font size="2">(10:59:36 AM)</font> <b>rgareus:</b></font> magnetophon: does it work when you start it with   ./ardev -a  ?<br/>
+<font color="#16569E"><font size="2">(11:02:17 AM)</font> <b>magnetophon:</b></font> rgareus: ardev -a gives a segfault after &quot;Loading ui configuration file ./../build/gtk2_ardour/ardour3_ui_dark.rc&quot;<br/>
+<font color="#16569E"><font size="2">(11:03:54 AM)</font> <b>magnetophon:</b></font> rgareus: i'm trying to find my version of libcurl<br/>
+<font size="2">(11:05:39 AM)</font><b> LAbot left the room (quit: Quit: Ctrl-C at console.).</b><br/>
+<font color="#16569E"><font size="2">(11:05:50 AM)</font> <b>magnetophon:</b></font> rgareus: I think it's  libcurl3 7.26.0-1+wheezy4<br/>
+<font size="2">(11:06:02 AM)</font><b> LAbot [<em>~supybot@2001:468:c80:2133:216:3eff:fe5d:e9e2</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:06:35 AM)</font> <b>rgareus:</b></font> magnetophon: with &apos;-a&apos; option curl is not used.<br/>
+<font color="#16569E"><font size="2">(11:06:56 AM)</font> <b>magnetophon:</b></font> rgareus: ah, ok.<br/>
+<font color="#A82F2F"><font size="2">(11:06:58 AM)</font> <b>rgareus:</b></font> magnetophon: you can try to get a backtrace. http://ardour.org/debugging_ardour <br/>
+<font color="#16569E"><font size="2">(11:07:17 AM)</font> <b>magnetophon:</b></font> rgareus: i was just reading up on that again...<br/>
+<font color="#A82F2F"><font size="2">(11:08:13 AM)</font> <b>rgareus:</b></font> magnetophon: but it&apos;s probably some issue related to rather old libs available on your distro. I&apos;m surprised ./waf configure completes on wheezy at all.<br/>
+<font color="#16569E"><font size="2">(11:08:35 AM)</font> <b>magnetophon:</b></font> rgareus: me too ;)<br/>
+<font color="#A82F2F"><font size="2">(11:09:36 AM)</font> <b>rgareus:</b></font> magnetophon: It certainly did not work here. I&apos;m getting boost and glib,gtk from jessie, LV2 from svn and some other libs from sid.<br/>
+<font color="#A82F2F"><font size="2">(11:10:14 AM)</font> <b>rgareus:</b></font> magnetophon: the only dependency that is not in debian yet is recent LV2.<br/>
+<font color="#16569E"><font size="2">(11:11:26 AM)</font> <b>magnetophon:</b></font> rgareus: when I built it I had just stock lv2. after that i installed the latest lv2 from their site, to be able to build ingen. maybe I should just build again?<br/>
+<font color="#A82F2F"><font size="2">(11:12:42 AM)</font> <b>rgareus:</b></font> magnetophon: I&apos;ve installed in in $HOME/.local/ and set PKG_CONFIG_PATH=$HOME/.local/lib/pkgconfig  before calling waf configure.<br/>
+<font color="#A82F2F"><font size="2">(11:13:04 AM)</font> <b>rgareus:</b></font> (also got LD_LIBRARY_PATH pointing there in ~/.profile)<br/>
+<font color="#16569E"><font size="2">(11:13:13 AM)</font> <b>magnetophon:</b></font> rgareus: lv2 you mean?<br/>
+<font color="#16569E"><font size="2">(11:13:28 AM)</font> <b>magnetophon:</b></font> rgareus: cause I already installed that system wide<br/>
+<font color="#A82F2F"><font size="2">(11:13:41 AM)</font> <b>rgareus:</b></font> magnetophon: yes, both lv2 as well as the whole LAD repo<br/>
+<font color="#16569E"><font size="2">(11:14:04 AM)</font> <b>magnetophon:</b></font> rgareus: what do you mean by the whole LAD repo?<br/>
+<font color="#A82F2F"><font size="2">(11:14:44 AM)</font> <b>rgareus:</b></font> magnetophon: http://svn.drobilla.net/lad  (includes jalv, lilv, sord, serd,..)<br/>
+<font color="#A82F2F"><font size="2">(11:14:45 AM)</font> <b>LAbot:</b></font> Title: lad - Revision 5161: / (at svn.drobilla.net)<br/>
+<font color="#16569E"><font size="2">(11:15:19 AM)</font> <b>magnetophon:</b></font> rgareus: ah, ok. thought you where talking about ardour...<br/>
+<font color="#A82F2F"><font size="2">(11:15:33 AM)</font> <b>rgareus:</b></font> magnetophon: ardour uses most of these.<br/>
+<font color="#16569E"><font size="2">(11:16:22 AM)</font> <b>magnetophon:</b></font> rgareus: right. knew that, but I'm still sleeping I guess ;)<br/>
+<font color="#A82F2F"><font size="2">(11:16:39 AM)</font> <b>rgareus:</b></font> magnetophon: anyway, there may be more to it. esp if you&apos;re on wheezy glib/gtk is more likely to be an issue<br/>
+<font color="#A82F2F"><font size="2">(11:17:07 AM)</font> <b>rgareus:</b></font> magnetophon: run   cd gtk2_ardour; ./ardbg<br/>
+<font color="#A82F2F"><font size="2">(11:17:33 AM)</font> <b>rgareus:</b></font> magnetophon: run    --  and when it crashed        thread apply all bt<br/>
+<font color="#16569E"><font size="2">(11:19:32 AM)</font> <b>magnetophon:</b></font> rgareus: don't really understand that last line. I'm in gdb now. what do i do?<br/>
+<font color="#A82F2F"><font size="2">(11:19:49 AM)</font> <b>rgareus:</b></font> magnetophon: run&lt;enter&gt;<br/>
+<font size="2">(11:20:55 AM)</font><b> [exa] [<em>~exa@unaffiliated/exa/x-5381537</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(11:20:58 AM)</font> <b>magnetophon:</b></font> rgareus: you mean hit the enter key? that just gives me another line saying (gdb)<br/>
+<font color="#16569E"><font size="2">(11:21:08 AM)</font> <b>magnetophon:</b></font> rgareus: sorry to be thick<br/>
+<font color="#A82F2F"><font size="2">(11:21:39 AM)</font> <b>rgareus:</b></font> magnetophon: go to http://ardour.org/debugging_ardour and scroll down to where it says &quot;Type &apos;run&apos; at the prompt to start Ardour&quot;....<br/>
+<font color="#16569E"><font size="2">(11:22:17 AM)</font> <b>magnetophon:</b></font> rgareus: oops<br/>
+<font color="#A82F2F"><font size="2">(11:22:19 AM)</font> <b>rgareus:</b></font> magnetophon: it&apos;s more verbose and explicit<br/>
+<font color="#A82F2F"><font size="2">(11:24:40 AM)</font> <b>nick_m:</b></font> rgareus, hi - erm where is the manual source?<br/>
+<font color="#16569E"><font size="2">(11:25:42 AM)</font> <b>magnetophon:</b></font> rgareus: http://pastebin.com/TM67a9Fn<br/>
+<font size="2">(11:25:54 AM)</font><b> thorwil left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(11:27:20 AM)</font> <b>nick_m:</b></font> las, i&apos;m happy to update the manual wrt track ordering but i can&apos;t find it :(<br/>
+<font color="#A82F2F"><font size="2">(11:29:49 AM)</font> <b>rgareus:</b></font> nick_m: somewhere in https://github.com/Ardour/manual/tree/master/_manual (or the git.ardour.org equivalent)<br/>
+<font color="#A82F2F"><font size="2">(11:30:10 AM)</font> <b>nick_m:</b></font> rgareus, thanks<br/>
+<font color="#A82F2F"><font size="2">(11:30:31 AM)</font> <b>rgareus:</b></font> nick_m: https://github.com/Ardour/manual/blob/master/_manual/10_working-with-tracks/05_controlling-track-ordering.html I suppose<br/>
+<font size="2">(11:31:15 AM)</font><b> vihcs is now known as schiv</b><br/>
+<font size="2">(11:31:44 AM)</font><b> Stuzz left the room (quit: Quit: I am so omniscient, that if there were to be two omnisciences, I would be both!).</b><br/>
+<font color="#A82F2F"><font size="2">(11:31:46 AM)</font> <b>rgareus:</b></font> nick_m: I assume you have write access to git.ardour.org, so        git clone git@git.ardour.org:ardour/manual.git<br/>
+<font color="#A82F2F"><font size="2">(11:32:18 AM)</font> <b>nick_m:</b></font> rgareus, no write access but i&apos;ll fork it and send a diff<br/>
+<font size="2">(11:32:43 AM)</font><b> zth_studiocomp [<em>~zth@94-137-118-6.customers.ownit.se</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:32:44 AM)</font> <b>nick_m:</b></font> rgareus, funny that its not in the same tree as the ardour3 code<br/>
+<font size="2">(11:32:58 AM)</font><b> pdimitrov left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(11:33:19 AM)</font><b> pdimitrov [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font size="2">(11:33:47 AM)</font><b> pr0ggie left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:34:07 AM)</font> <b>rgareus:</b></font> nick_m: why would it be? There are actually 4 independent repos:  website, manual, A3-code, built-tools.<br/>
+<font size="2">(11:34:13 AM)</font><b> pr0ggie [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:34:32 AM)</font> <b>nick_m:</b></font> rgareus, just so you can update a feature and the manual in one step<br/>
+<font color="#A82F2F"><font size="2">(11:34:51 AM)</font> <b>nick_m:</b></font> rgareus, but whatever is fine<br/>
+<font size="2">(11:35:08 AM)</font><b> Seablade left the room (quit: Read error: No route to host).</b><br/>
+<font color="#16569E"><font size="2">(11:37:23 AM)</font> <b>magnetophon:</b></font> rgareus: is that paste helpfull? should I put it in the bugtracker?<br/>
+<font color="#A82F2F"><font size="2">(11:40:04 AM)</font> <b>rgareus:</b></font> magnetophon: I&apos;m not quite sure. <br/>
+<font color="#A82F2F"><font size="2">(11:40:17 AM)</font> <b>rgareus:</b></font> magnetophon: are you still in gdb?<br/>
+<font color="#16569E"><font size="2">(11:40:31 AM)</font> <b>magnetophon:</b></font> rgareus: yes<br/>
+<font color="#A82F2F"><font size="2">(11:40:37 AM)</font> <b>rgareus:</b></font> magnetophon:      print editor<br/>
+<font color="#16569E"><font size="2">(11:41:02 AM)</font> <b>magnetophon:</b></font> rgareus: $1 = (PublicEditor *) 0x0<br/>
+<font color="#A82F2F"><font size="2">(11:41:24 AM)</font> <b>rgareus:</b></font> magnetophon: ok. that explains the segfault.<br/>
+<font color="#A82F2F"><font size="2">(11:42:06 AM)</font> <b>rgareus:</b></font> magnetophon: hang on a sec. <br/>
+<font color="#A82F2F"><font size="2">(11:44:16 AM)</font> <b>rgareus:</b></font> magnetophon: is there a message &quot;UI: cannot setup editor&quot; before the segfault?<br/>
+<font color="#16569E"><font size="2">(11:44:58 AM)</font> <b>magnetophon:</b></font> rgareus: not sure how to search in the terminal<br/>
+<font color="#A82F2F"><font size="2">(11:46:16 AM)</font> <b>rgareus:</b></font> magnetophon: in gnome-terminal  Ctrl+Shift+F allows to search.  -- but the editor being a NULL pointer is very odd, anyway.<br/>
+<font color="#A82F2F"><font size="2">(11:46:29 AM)</font> <b>rgareus:</b></font> magnetophon: best wait until las wakes up.<br/>
+<font color="#16569E"><font size="2">(11:47:24 AM)</font> <b>magnetophon:</b></font> rgareus: I'm using urxvt (spelling?) as a terminal. from manual searching i can't find that line...<br/>
+<font color="#16569E"><font size="2">(11:49:26 AM)</font> <b>magnetophon:</b></font> rgareus: OK, I just copied it into a text editor, the only lines with &quot;editor&quot; in them are:<br/>
+<font color="#16569E"><font size="2">(11:49:28 AM)</font> <b>magnetophon:</b></font> 0x08b23304 in ARDOUR_UI::goto_editor_window (this=0x9987828) at ../gtk2_ardour/ardour_ui_dialogs.cc:315<br/>
+<font color="#16569E"><font size="2">(11:49:28 AM)</font> <b>magnetophon:</b></font> 315		editor-&gt;show_window ();<br/>
+<font color="#16569E"><font size="2">(11:49:57 AM)</font> <b>magnetophon:</b></font> rgareus: but that's in gdb's output, not ardours, afaik<br/>
+<font color="#16569E"><font size="2">(11:51:14 AM)</font> <b>magnetophon:</b></font> rgareus: anyway, thanks for the help so far. I'll ask las later.<br/>
+<font color="#A82F2F"><font size="2">(11:52:39 AM)</font> <b>rgareus:</b></font> nick_m: keeping the manual and source always in sync would indeed be prudent. <br/>
+<font color="#A82F2F"><font size="2">(11:55:03 AM)</font> <b>rgareus:</b></font> nick_m: keeping the manual in a separate repo makes it easier to deploy (it&apos;s a website after all); besides manual-writes and editors as well as template/layout people are usually not code-contributors. keeping access-control separate is a good idea.<br/>
+<font color="#A82F2F"><font size="2">(11:55:43 AM)</font> <b>rgareus:</b></font> s/writes/writers/<br/>
+<font size="2">(11:59:31 AM)</font><b> pdimitrov left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font size="2">(11:59:41 AM)</font><b> pr0ggie left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(11:59:55 AM)</font><b> pr0ggie [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font size="2">(11:59:59 AM)</font><b> pdimitrov [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:03:00 PM)</font> <b>nick_m:</b></font> rgareus, i see. It was quite hard to find.. maybe there should be a link somewhere here : http://community.ardour.org/s/source<br/>
+<font color="#A82F2F"><font size="2">(12:04:48 PM)</font> <b>nick_m:</b></font> rgareus, well i&apos;m obviously not a web guy.. anyway somewhere searchable would be good<br/>
+<font color="#16569E"><font size="2">(12:06:09 PM)</font> <b>magnetophon:</b></font> I'm trying to run ingen as an lv2 plugin  (WOOOOOW drobilla ROCKS for making this possible!!!!!) but it segfaults ardour2 :(   How do I find out if it's an ingen or an ardour issue?<br/>
+<font color="#16569E"><font size="2">(12:06:45 PM)</font> <b>magnetophon:</b></font> I'll make a backtrace, for starters...<br/>
+<font color="#A82F2F"><font size="2">(12:06:52 PM)</font> <b>rgareus:</b></font> FWIF http://ask.slashdot.org/story/13/10/27/0534248/ask-slashdot-best-cross-platform-linux-only-audio-software<br/>
+<font color="#A82F2F"><font size="2">(12:06:54 PM)</font> <b>LAbot:</b></font> Title: Ask Slashdot: Best Cross-Platform (Linux-Only) Audio Software? - Slashdot (at ask.slashdot.org)<br/>
+<font color="#A82F2F"><font size="2">(12:07:09 PM)</font> <b>rgareus:</b></font> (expect ardour.org to be ./ :)<br/>
+<font color="#A82F2F"><font size="2">(12:08:43 PM)</font> <b>rgareus:</b></font> magnetophon: I think you can forget ardour2, many lv2 features that ingen relies on (in particular buffer-size exensions) were not implemented before ardour 3.4.<br/>
+<font color="#16569E"><font size="2">(12:09:19 PM)</font> <b>magnetophon:</b></font> rgareus: OK, thanks.<br/>
+<font color="#A82F2F"><font size="2">(12:10:09 PM)</font> <b>rgareus:</b></font> magnetophon: ingen itself is still somewhat buggy, but it also exercises a lot of the LV2 API and extensions.<br/>
+<font color="#16569E"><font size="2">(12:10:57 PM)</font> <b>magnetophon:</b></font> rgareus: tbh ingen has been buggy since it was OM, but it still rocks!<br/>
+<font color="#16569E"><font size="2">(12:12:36 PM)</font> <b>magnetophon:</b></font> rgareus: that ask slashdot thingy seems fishy... who would ask /. for such a thing, especially if he's using linux since the mid 90's?<br/>
+<font color="#16569E"><font size="2">(12:13:00 PM)</font> <b>magnetophon:</b></font> still fun to read though! :)<br/>
+<font color="#A82F2F"><font size="2">(12:13:48 PM)</font> <b>rgareus:</b></font> magnetophon: yeah &apos;cross-platform (linux-only)&apos; is also sloppy. -- though explained further down in the comments somewhere.<br/>
+<font color="#A82F2F"><font size="2">(12:14:12 PM)</font> <b>rgareus:</b></font> it just entered my radar this morning.<br/>
+<font color="#A82F2F"><font size="2">(12:14:40 PM)</font> <b>rgareus:</b></font> ahh well.  This is ./ after all.<br/>
+<font color="#A82F2F"><font size="2">(12:14:52 PM)</font> <b>rgareus:</b></font>  /. even<br/>
+<font color="#16569E"><font size="2">(12:15:36 PM)</font> <b>magnetophon:</b></font> I say it's either Paul or the people behind bitwig doing slashvertisment ;)<br/>
+<font color="#A82F2F"><font size="2">(12:20:09 PM)</font> <b>rgareus:</b></font> magnetophon: I doubt that las is involved<br/>
+<font color="#16569E"><font size="2">(12:20:46 PM)</font> <b>magnetophon:</b></font> rgareus: I winked, didn't I?<br/>
+<font color="#16569E"><font size="2">(12:21:34 PM)</font> <b>magnetophon:</b></font> rgareus: on slashdot you're supposed to be paranoid! :D<br/>
+<font color="#A82F2F"><font size="2">(12:43:22 PM)</font> <b>edogawa:</b></font> rgareus: updated mix in https://dl.dropboxusercontent.com/u/42502696/musik/NeuZeug/Gossip%20%2713.ogg, tell me if the hi-hat still annoys you ;) it&apos;s way more silent now after severe filtering at 8kHz ... also i re-added the initial first guitar which has a bit of midi guitar-synth along with it, so the arrangement is a bit denser now too<br/>
+<font color="#A82F2F"><font size="2">(12:46:29 PM)</font> <b>rgareus:</b></font> edogawa: will do. gotta go now and catch a train. BBL<br/>
+<font size="2">(12:46:33 PM)</font><b> rgareus is now known as rgareus|afk</b><br/>
+<font size="2">(12:47:39 PM)</font><b> _zechs_ left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#16569E"><font size="2">(12:51:03 PM)</font> <b>magnetophon:</b></font> edogawa: that brought a big smile on my face!  the mix sounds good too.<br/>
+<font color="#A82F2F"><font size="2">(12:57:46 PM)</font> <b>edogawa:</b></font> magnetophon: cool you liked it :D<br/>
+<font color="#A82F2F"><font size="2">(12:59:31 PM)</font> <b>edogawa:</b></font> i think it&apos;s almost there, i&apos;ll have a go for a distorted guitar solo in the middle part, or invite a friend of mine to do one<br/>
+<font color="#A82F2F"><font size="2">(01:01:51 PM)</font> <b>[exa]:</b></font> Hm guys, what is the easiest thing to do with this: sched_setscheduler: Operation not permitted<br/>
+<font color="#A82F2F"><font size="2">(01:02:27 PM)</font> <b>[exa]:</b></font> e.g. what is the easiest way to set ulimit -e unlimited for my user?<br/>
+<font size="2">(01:03:52 PM)</font><b> MaurizioB left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font size="2">(01:05:57 PM)</font><b> pr0ggie left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(01:06:17 PM)</font><b> pr0ggie [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font size="2">(01:06:31 PM)</font><b> pdimitrov left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(01:06:47 PM)</font><b> pdimitrov [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font size="2">(01:08:06 PM)</font><b> boom1992 left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:11:22 PM)</font><b> the_CLA_2 left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(01:11:44 PM)</font><b> the_CLA [<em>~the_CLA@p57B9B912.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(01:12:03 PM)</font><b> prokoudine_ [<em>~prokoudin@ppp85-141-147-140.pppoe.mtu-net.ru</em>] entered the room.</b><br/>
+<font size="2">(01:17:42 PM)</font><b> MaurizioB [<em>~mauriziob@adsl-ull-254-44.46-151.net24.it</em>] entered the room.</b><br/>
+<font size="2">(01:34:58 PM)</font><b> pdimitrov left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(01:35:19 PM)</font><b> pdimitrov [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font size="2">(01:37:00 PM)</font><b> pr0ggie left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(01:37:50 PM)</font><b> pr0ggie [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font size="2">(01:40:44 PM)</font><b> Gethiox2 [<em>~gethiox@acti39.neoplus.adsl.tpnet.pl</em>] entered the room.</b><br/>
+<font size="2">(01:41:36 PM)</font><b> corresponder_ [<em>~walther@p3EE398C9.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(01:43:25 PM)</font><b> Gethiox left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(01:45:00 PM)</font><b> corresponder left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font size="2">(02:04:30 PM)</font><b> Valvalion [<em>~valvalion@10.87-136-217.adsl-dyn.isp.belgacom.be</em>] entered the room.</b><br/>
+<font size="2">(02:10:07 PM)</font><b> jpbouza [<em>~jpbouza@201.255.212.173</em>] entered the room.</b><br/>
+<font size="2">(02:11:56 PM)</font><b> jpbouza left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(02:12:46 PM)</font> <b>las:</b></font> magnetophon: i&apos;m up but heading out to see my daughter&apos;s college rowing team race. i&apos;ll be back later today. i don&apos;t see a backtrace URL above .....<br/>
+<font size="2">(02:17:09 PM)</font><b> danni [<em>~quassel@pa49-180-120-197.pa.nsw.optusnet.com.au</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:18:10 PM)</font> <b>edogawa:</b></font> las: [11:32:52] &lt;magnetophon&gt; rgareus: http://pastebin.com/TM67a9Fn<br/>
+<font color="#A82F2F"><font size="2">(02:19:06 PM)</font> <b>edogawa:</b></font> las: that&apos;s the only one i can see from today<br/>
+<font size="2">(02:19:55 PM)</font><b> mpage [<em>~mpage@par69-10-88-178-226-226.fbx.proxad.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:20:14 PM)</font> <b>las:</b></font> magnetophon: ok, inside ardbg or gdb (they are the same really), before you type &quot;run&quot;, type &quot;catch throw&quot;. Then do what did inside gdb before. My guess is that it will stop in a different location. When it does, do the usual multithreaded backtrace thing<br/>
+<font color="#A82F2F"><font size="2">(02:20:22 PM)</font> <b>las:</b></font> magnetophon: i&apos;ll be back in a few hours<br/>
+<font size="2">(02:21:32 PM)</font><b> queller left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(02:22:13 PM)</font><b> Seablade [<em>~seablade@70-88-190-82-va.hfc.comcastbusiness.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:22:55 PM)</font> <b>mpage:</b></font> Hi everybody, I can&apos;t get ardour to build at the mo, waf build does next to nothing. Any ideas?<br/>
+<font color="#A82F2F"><font size="2">(02:25:32 PM)</font> <b>las:</b></font> mpage: there is nothing wrong with it for other peope<br/>
+<font color="#A82F2F"><font size="2">(02:25:58 PM)</font> <b>las:</b></font> mpage: pastebin the output it does give<br/>
+<font color="#A82F2F"><font size="2">(02:27:44 PM)</font> <b>mpage:</b></font> http://pastebin.com/bV18Vrpk the output of waf configure and waf build<br/>
+<font color="#A82F2F"><font size="2">(02:28:21 PM)</font> <b>las:</b></font> mpage: it believes there is nothing to do<br/>
+<font color="#A82F2F"><font size="2">(02:28:45 PM)</font> <b>las:</b></font> mpage: try rm -rf build (at the top level of the src tree)<br/>
+<font size="2">(02:29:17 PM)</font><b> grobda24 [<em>~djbarney@silentflame/member/grobda24</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:29:58 PM)</font> <b>mpage:</b></font> las: rm -rf build doesn&apos;t change anything<br/>
+<font color="#A82F2F"><font size="2">(02:30:38 PM)</font> <b>las:</b></font> mpage: no idea then, sorry. you could try various levels of -v, -vv, -vvv but the output tends to be somewhat tricky to understand (for me, anyway)<br/>
+<font color="#A82F2F"><font size="2">(02:31:52 PM)</font> <b>las:</b></font> rgareus|afk: http://fpaste.org/49741/28811381/<br/>
+<font color="#A82F2F"><font size="2">(02:31:58 PM)</font> <b>mpage:</b></font> las: cracked it<br/>
+<font color="#A82F2F"><font size="2">(02:31:59 PM)</font> <b>las:</b></font> rgareus|afk: not serious, but just FYI<br/>
+<font color="#A82F2F"><font size="2">(02:33:26 PM)</font> <b>mpage:</b></font> the source was stored in a dir that was symlinked to from elsewhere, and it was getting confused<br/>
+<font color="#A82F2F"><font size="2">(02:36:59 PM)</font> <b>mpage:</b></font> I came across a forum post from 2009 complaining about over-zealous translations causing sessions not to open as they should anymore. The problem was words like input/output that were translated in the wrong places.<br/>
+<font color="#A82F2F"><font size="2">(02:37:59 PM)</font> <b>mpage:</b></font> Is there still a danger of that? I mean could I just go through the po file and translate everything as best I can, or should I really look to translate only phrases I can find in the ui?<br/>
+<font color="#A82F2F"><font size="2">(02:39:30 PM)</font> <b>las:</b></font> mpage: we believe that that sort of thing is almost entirely fixed<br/>
+<font color="#A82F2F"><font size="2">(02:40:09 PM)</font> <b>las:</b></font> mpage: the most recent translation related problem was &quot;fuzzy translations&quot; where the lack of translation maintainance and the default action of msgmerge led to incorrect translations<br/>
+<font color="#A82F2F"><font size="2">(02:41:01 PM)</font> <b>mpage:</b></font> las: there were quite a few translations in the french that didn&apos;t correspond to the english<br/>
+<font color="#A82F2F"><font size="2">(02:42:11 PM)</font> <b>mpage:</b></font> Translating phrases without looking at their use in the UI will lead to occasional grammatical errors, but the result will be understandable.<br/>
+<font color="#A82F2F"><font size="2">(02:42:59 PM)</font> <b>prokoudine_:</b></font> las, is it really recent?<br/>
+<font color="#A82F2F"><font size="2">(02:42:59 PM)</font> <b>prokoudine_:</b></font> las, it&apos;s been that way since dawn of times in ardour :)<br/>
+<font color="#A82F2F"><font size="2">(02:43:23 PM)</font> <b>las:</b></font> prokoudine_: i suspect it became slowly worse with progressive string changes and msgmerges<br/>
+<font color="#A82F2F"><font size="2">(02:43:34 PM)</font> <b>las:</b></font> prokoudine_: anyway, all fuzzy&apos;s have been removed now<br/>
+<font color="#A82F2F"><font size="2">(02:43:37 PM)</font> <b>prokoudine_:</b></font> mpage, in/out messages are not translatable anymore, afaik<br/>
+<font color="#A82F2F"><font size="2">(02:43:48 PM)</font> <b>prokoudine_:</b></font> mpage, rgareus|afk patched that a few days ago<br/>
+<font color="#062585"><font size="2">(02:43:58 PM)</font> <b>***las</b></font> out<br/>
+<font color="#A82F2F"><font size="2">(02:44:06 PM)</font> <b>prokoudine_:</b></font> row row row!<br/>
+<font color="#A82F2F"><font size="2">(02:44:07 PM)</font> <b>prokoudine_:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(02:46:02 PM)</font> <b>mpage:</b></font> Thanks folks, I shall get down to work.<br/>
+<font size="2">(03:08:13 PM)</font><b> _zechs_ [<em>~sylvain@78.216.168.51</em>] entered the room.</b><br/>
+<font size="2">(03:08:43 PM)</font><b> _zechs_ is now known as zechs</b><br/>
+<font size="2">(03:08:54 PM)</font><b> corresponder_ is now known as corresponder</b><br/>
+<font size="2">(03:08:55 PM)</font><b> zechs is now known as zechs_</b><br/>
+<font size="2">(03:14:05 PM)</font><b> prokoudine__ [<em>~prokoudin@ppp85-141-156-166.pppoe.mtu-net.ru</em>] entered the room.</b><br/>
+<font size="2">(03:17:59 PM)</font><b> prokoudine_ left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(03:28:27 PM)</font><b> hrubi left the room (quit: Ping timeout: 242 seconds).</b><br/>
+<font size="2">(03:28:39 PM)</font><b> Grottenolm [<em>~arnold@ip-176-198-117-119.unitymediagroup.de</em>] entered the room.</b><br/>
+<font size="2">(03:31:00 PM)</font><b> hrubi [<em>~hrubi@2a01:8c00:ff12:0:76f0:6dff:fe0e:9ff3</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(03:36:12 PM)</font> <b>magnetophon:</b></font> las: http://pastebin.com/bhV0FCKC<br/>
+<font color="#A82F2F"><font size="2">(03:46:31 PM)</font> <b>_raven_:</b></font> how to autoconnect external things everytime i start them?<br/>
+<font size="2">(04:00:38 PM)</font><b> err-or left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(04:02:55 PM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font size="2">(04:10:08 PM)</font><b> naptastic [<em>~david@99-20-201-27.lightspeed.hstntx.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(04:10:32 PM)</font><b> zechs_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(04:19:40 PM)</font><b> audun_lt left the room (quit: Quit: audun_lt).</b><br/>
+<font size="2">(04:24:07 PM)</font><b> zth_studiocomp left the room (&quot;Ex-Chat&quot;).</b><br/>
+<font size="2">(04:26:19 PM)</font><b> ricli85 [<em>~ricli85@h-38-7.a328.priv.bahnhof.se</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:39:19 PM)</font> <b>mpage:</b></font> _raven_: the program jack.plumbing from jack-tools might help you<br/>
+<font color="#A82F2F"><font size="2">(04:44:08 PM)</font> <b>Gethiox2:</b></font> Is automation curves in ardour, or only straight lines based on points?<br/>
+<font size="2">(04:45:13 PM)</font><b> thorwil [<em>~thorwil@p5B3DD8AD.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:47:33 PM)</font> <b>Gethiox2:</b></font> are*<br/>
+<font size="2">(04:49:35 PM)</font><b> grobda24 left the room (quit: Ping timeout: 268 seconds).</b><br/>
+<font size="2">(04:50:23 PM)</font><b> rgareus|afk is now known as rgareus</b><br/>
+<font color="#A82F2F"><font size="2">(04:52:52 PM)</font> <b>rgareus:</b></font> las: &apos;index&apos; was marked as &apos;legacy&apos; in 2001. POSIX.1-2008 compleyely removes the specifications. None of my current systems show this warning.<br/>
+<font size="2">(04:53:14 PM)</font><b> pdimitrov left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(04:53:15 PM)</font><b> pr0ggie left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(04:54:05 PM)</font><b> pr0ggie [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font size="2">(04:54:05 PM)</font><b> pdimitrov [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:57:17 PM)</font> <b>rgareus:</b></font> s/compleyely removes/completely removed from/<br/>
+<font color="#A82F2F"><font size="2">(04:59:21 PM)</font> <b>rgareus:</b></font> _raven_: if you start the apps before ardour (and quit them after exiting ardour), ardour will retain the jack-connections<br/>
+<font color="#A82F2F"><font size="2">(04:59:51 PM)</font> <b>rgareus:</b></font> _raven_: alternatively you can also use a session-management system (such as NSM or jack-session)<br/>
+<font color="#A82F2F"><font size="2">(05:00:51 PM)</font> <b>rgareus:</b></font> _raven_: mpage&apos;s suggestion of jack.plumbing is also a good one.  and qjackctl&apos;s patchbacy (not to be confused with the connection mgr) can also do the job.<br/>
+<font color="#A82F2F"><font size="2">(05:02:00 PM)</font> <b>rgareus:</b></font> magnetophon: mmh does not seem the editor-constructor is throwing an error. this issue is getting stranger.<br/>
+<font color="#A82F2F"><font size="2">(05:02:08 PM)</font> <b>_raven_:</b></font> ok tnx<br/>
+<font color="#A82F2F"><font size="2">(05:02:13 PM)</font> <b>rgareus:</b></font> magnetophon: on the upside, you may now appreciate https://xkcd.com/1188/ :D<br/>
+<font color="#A82F2F"><font size="2">(05:02:14 PM)</font> <b>LAbot:</b></font> Title: xkcd: Bonding (at xkcd.com)<br/>
+<font size="2">(05:02:29 PM)</font><b> ricli85 left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(05:15:18 PM)</font><b> idragosani left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(05:15:18 PM)</font><b> err-or left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#16569E"><font size="2">(05:17:01 PM)</font> <b>magnetophon:</b></font> rgareus: the second paste is after I installed drobilla's git. does that explain anything or make it weirder still?<br/>
+<font color="#A82F2F"><font size="2">(05:17:23 PM)</font> <b>rgareus:</b></font> magnetophon: no difference really.<br/>
+<font color="#A82F2F"><font size="2">(05:18:04 PM)</font> <b>rgareus:</b></font> magnetophon: the interesting part about LV2 in ardour is that it is statically initialized -- before main() is called.<br/>
+<font color="#A82F2F"><font size="2">(05:18:59 PM)</font> <b>rgareus:</b></font> magnetophon: something goes amiss very early-on  when you launch ardour. LV2 is a contender for such things.<br/>
+<font color="#A82F2F"><font size="2">(05:19:12 PM)</font> <b>rgareus:</b></font> magnetophon: but in this case a red-herring<br/>
+<font size="2">(05:19:27 PM)</font><b> ShadowStrider [<em>~ShadowStr@cs181082164.pp.htv.fi</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(05:26:56 PM)</font> <b>magnetophon:</b></font> rgareus: unrelated: I'm reading up on your metering suite. It says here you can measure annoyance! :D  http://www.tcelectronic.com/radar-meter-bundle-tdm/<br/>
+<font color="#A82F2F"><font size="2">(05:27:00 PM)</font> <b>LAbot:</b></font> Title: Radar Meter Bundle TDM - Broadcast and Cinema Meters for Pro Tools|HD | TC Electronic (at www.tcelectronic.com)<br/>
+<font color="#16569E"><font size="2">(05:27:34 PM)</font> <b>magnetophon:</b></font> that's pretty cool...<br/>
+<font color="#A82F2F"><font size="2">(05:28:52 PM)</font> <b>Ricardus:</b></font> This is the weirdest thing. You set it on a record, and it drives in circles playing the damn thing: http://www.ebay.com/itm/SOUNDWAGON-Vintage-Tamco-VW-Bus-Record-Player-w-Box-Volkswagen-Musical-Toy-/111195506884?pt=Diecast_Vehicles&amp;hash=item19e3c4c8c4<br/>
+<font color="#A82F2F"><font size="2">(05:28:53 PM)</font> <b>LAbot:</b></font> Title: Soundwagon Vintage Tamco VW Bus Record Player w Box Volkswagen Musical Toy | eBay (at www.ebay.com)<br/>
+<font color="#A82F2F"><font size="2">(05:29:01 PM)</font> <b>rgareus:</b></font> magnetophon: I measure &apos;annoyance&apos; my the amount of criticism that I receive from fons :)<br/>
+<font color="#16569E"><font size="2">(05:29:38 PM)</font> <b>magnetophon:</b></font> rgareus: :)<br/>
+<font color="#A82F2F"><font size="2">(05:29:52 PM)</font> <b>Ricardus:</b></font> http://www.youtube.com/watch?v=pJfauJmup24<br/>
+<font color="#A82F2F"><font size="2">(05:29:53 PM)</font> <b>LAbot:</b></font> Title: 1970s TAMCO SOUNDWAGON VW BUS RECORD PLAYER - YouTube (at www.youtube.com)<br/>
+<font color="#A82F2F"><font size="2">(05:29:54 PM)</font> <b>Ricardus:</b></font> In action!<br/>
+<font color="#16569E"><font size="2">(05:30:20 PM)</font> <b>magnetophon:</b></font> rgareus: BTW I'm guessing these plugins need ardour 3 too, right?<br/>
+<font color="#A82F2F"><font size="2">(05:31:33 PM)</font> <b>rgareus:</b></font> magnetophon: yes. - well, they build on recent (march 2013) [official] LV2 extensions.<br/>
+<font color="#A82F2F"><font size="2">(05:32:12 PM)</font> <b>rgareus:</b></font> magnetophon: most of the plugins should work with A2 if it is compiled with latest lv2 stack.<br/>
+<font color="#A82F2F"><font size="2">(05:32:40 PM)</font> <b>rgareus:</b></font> magnetophon: the ebu-meter won&apos;t - since versions before A3.3 did not support the port-size extension.<br/>
+<font color="#A82F2F"><font size="2">(05:33:23 PM)</font> <b>rgareus:</b></font> magnetophon: qtractor and Carla are other LV2-hosts which are known to support the meters.lv2<br/>
+<font color="#A82F2F"><font size="2">(05:34:07 PM)</font> <b>rgareus:</b></font> edogawa: much better hi-hat!<br/>
+<font size="2">(05:35:46 PM)</font><b> Joschiii left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(05:35:48 PM)</font><b> DrCode left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(05:37:17 PM)</font><b> DrCode [<em>~DrCode@gateway/tor-sasl/drcode</em>] entered the room.</b><br/>
+<font size="2">(05:38:19 PM)</font><b> mpage left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:39:29 PM)</font> <b>rgareus:</b></font> _raven_: as for your question on #lv2 -&gt; update jalv (or hack its source)<br/>
+<font size="2">(05:40:45 PM)</font><b> corresponder left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:40:56 PM)</font> <b>_raven_:</b></font> rgareus, yes i did already and compiling is still no fun: jalv requires a new lv2 version, lv2 has no repo and very rare info at all and build crashes with no option to solve it<br/>
+<font color="#A82F2F"><font size="2">(05:42:24 PM)</font> <b>rgareus:</b></font> _raven_: svn co http://lv2plug.in/repo  # certainly is a repo.<br/>
+<font color="#A82F2F"><font size="2">(05:42:25 PM)</font> <b>LAbot:</b></font> Title: repo - Revision 884: / (at lv2plug.in)<br/>
+<font color="#A82F2F"><font size="2">(05:43:06 PM)</font> <b>_raven_:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(05:43:14 PM)</font> <b>_raven_:</b></font> and build crashes<br/>
+<font color="#A82F2F"><font size="2">(05:43:33 PM)</font> <b>_raven_:</b></font> i mean a executable repo<br/>
+<font color="#A82F2F"><font size="2">(05:44:37 PM)</font> <b>rgareus:</b></font> _raven_: I use lv2 (which is an SDK and has no binaries) and jalv from svn w/o any problems. and there are others who do as well.<br/>
+<font color="#A82F2F"><font size="2">(05:45:18 PM)</font> <b>rgareus:</b></font> _raven_: if you experience crashes, please report them<br/>
+<font color="#A82F2F"><font size="2">(05:45:38 PM)</font> <b>_raven_:</b></font> ill try it again later<br/>
+<font color="#A82F2F"><font size="2">(05:46:49 PM)</font> <b>rgareus:</b></font> _raven_: though I dare say (since it works works for may others) it&apos;ll be likely your fault. but that&apos;s not a reason to not report and/or ask for help. Yet others may stumble over the same issues as you are.<br/>
+<font color="#A82F2F"><font size="2">(05:47:33 PM)</font> <b>rgareus:</b></font> _raven_: rebuilding the lv2-stack and libs is - alas - not a trivial task.<br/>
+<font size="2">(05:47:33 PM)</font><b> Joschiii [<em>~joschii@89.204.153.119</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:48:14 PM)</font> <b>edogawa:</b></font> rgareus: :)<br/>
+<font size="2">(05:53:15 PM)</font><b> Joschiii left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:58:17 PM)</font> <b>rgareus:</b></font> edogawa: you&apos;re a surprisingly versatile musician (and engineer). baroque lute, classic choir, x-mas with the beatles and now electro-pop. Chapau!<br/>
+<font size="2">(05:58:38 PM)</font><b> vihcs [<em>~schiv@archlinux/developer/schiv</em>] entered the room.</b><br/>
+<font size="2">(05:59:06 PM)</font><b> schiv left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:59:07 PM)</font> <b>rgareus:</b></font> *eau<br/>
+<font size="2">(06:13:45 PM)</font><b> _raven_ left the room (quit: Quit: Verlassend).</b><br/>
+<font size="2">(06:14:20 PM)</font><b> ShadowStrider left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(06:15:32 PM)</font><b> ShadowStrider [<em>~ShadowStr@cs181082164.pp.htv.fi</em>] entered the room.</b><br/>
+<font size="2">(06:17:09 PM)</font><b> Joschii [<em>~joschii@89.204.155.102</em>] entered the room.</b><br/>
+<font size="2">(06:19:20 PM)</font><b> qote [<em>~qote@210.pool62-37-66.dynamic.orange.es</em>] entered the room.</b><br/>
+<font size="2">(06:22:15 PM)</font><b> danni left the room (quit: Quit: No Ping reply in 180 seconds.).</b><br/>
+<font size="2">(06:24:09 PM)</font><b> danni [<em>~quassel@pa49-180-118-16.pa.nsw.optusnet.com.au</em>] entered the room.</b><br/>
+<font size="2">(06:34:44 PM)</font><b> __raven [<em>~raven@dslb-178-007-187-066.pools.arcor-ip.net</em>] entered the room.</b><br/>
+<font size="2">(06:34:51 PM)</font><b> __raven left the room.</b><br/>
+<font size="2">(06:36:49 PM)</font><b> ShadowStrider left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(06:40:38 PM)</font><b> ShadowStrider [<em>~ShadowStr@cs181082164.pp.htv.fi</em>] entered the room.</b><br/>
+<font size="2">(06:41:56 PM)</font><b> light_without_he [<em>4c5430fb@gateway/web/freenode/ip.76.84.48.251</em>] entered the room.</b><br/>
+<font size="2">(06:43:46 PM)</font><b> schiv [<em>~schiv@archlinux/developer/schiv</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:43:49 PM)</font> <b>light_without_he:</b></font> Hello all! Fresh update to Ubuntu 12.04, downloaded Ardour, can&apos;t get any playback within Ardour - It sees the sound input, and when exporting, sound is there, but within the program there is no audio playback. I&apos;ve tried to change some of the settings, but nothing seems to work. Ideas?<br/>
+<font color="#A82F2F"><font size="2">(06:45:13 PM)</font> <b>rgareus:</b></font> light_without_he: does the master meter move?<br/>
+<font color="#A82F2F"><font size="2">(06:45:30 PM)</font> <b>rgareus:</b></font> light_without_he: ie. is the problem after ardour&apos;s output?  <br/>
+<font color="#A82F2F"><font size="2">(06:46:07 PM)</font> <b>light_without_he:</b></font> yes the master meter is active as the track(s) play<br/>
+<font size="2">(06:46:52 PM)</font><b> vihcs left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(06:47:22 PM)</font> <b>rgareus:</b></font> light_without_he: so the probelem is likley with the jackd setup -- alas ubuntu (particularly 12.XX) is one of the worst systems to get jackd running properly.<br/>
+<font color="#A82F2F"><font size="2">(06:48:18 PM)</font> <b>rgareus:</b></font> light_without_he: there&apos;s some info at http://manual.ardour.org/setting-up-your-system/platform-specifics/ubuntu-linux/ <br/>
+<font color="#A82F2F"><font size="2">(06:49:06 PM)</font> <b>rgareus:</b></font> light_without_he: it my understanding that the issue has been fixed in 13.04 and backported as update to 12.XX, but I do not know that for sure.<br/>
+<font color="#A82F2F"><font size="2">(06:50:00 PM)</font> <b>light_without_he:</b></font> I see, yeah I remember in my old setup having done something to the memlock audio settings, but it was so long ago, I can&apos;t remember the fix or if it&apos;ll work for 12.04. Plus I switched to Ardour 2...<br/>
+<font color="#A82F2F"><font size="2">(06:50:39 PM)</font> <b>rgareus:</b></font> light_without_he: oh I&apos;ve missed one step:  check that the ardour&apos;s master-out is connected to system:playback jack-ports.  <br/>
+<font color="#A82F2F"><font size="2">(06:50:44 PM)</font> <b>edogawa:</b></font> rgareus: danke für die blumen ;) wow, electro-pop, is that the genre? i&apos;d think guitar pop with a bit of synth-spice...<br/>
+<font color="#A82F2F"><font size="2">(06:51:11 PM)</font> <b>light_without_he:</b></font> Yeah I did check that - it is indeed connected to system playback 1 and 2<br/>
+<font color="#A82F2F"><font size="2">(06:51:26 PM)</font> <b>light_without_he:</b></font> Thanks for all your help so far, I guess I&apos;ll just keep reading and tweaking things in hopes that it works soon<br/>
+<font color="#A82F2F"><font size="2">(06:51:52 PM)</font> <b>rgareus:</b></font> light_without_he: can other jack applications play back audio?   e.g.  mplayer -ao jack some/file.wav<br/>
+<font color="#A82F2F"><font size="2">(06:53:27 PM)</font> <b>rgareus:</b></font> edogawa: uhm dunno.  &quot;electro-pop&quot; seemed to be appropriate for &quot;guitar pop with a bit of synth-spice&quot; &quot;some rockNroll + weird lyrics&quot; :)<br/>
+<font color="#A82F2F"><font size="2">(06:56:25 PM)</font> <b>rgareus:</b></font> light_without_he: if you use a built-in HDA-Intel soundcard it may also be that jackd is playing to headphones instead of speakers. <br/>
+<font color="#A82F2F"><font size="2">(06:57:35 PM)</font> <b>light_without_he:</b></font> rgareus: thanks for the help, I went into qjackctl and turned on no memory lock, and now it&apos;s working!<br/>
+<font color="#A82F2F"><font size="2">(06:58:02 PM)</font> <b>light_without_he:</b></font> I thought I tried everything, but it really wasn&apos;t that hard to fix (this time)<br/>
+<font color="#A82F2F"><font size="2">(06:58:24 PM)</font> <b>rgareus:</b></font> light_without_he: that&apos;s odd. (eventually you&apos;ll want memory lock), but heck whatever works on Ubuntu.<br/>
+<font color="#A82F2F"><font size="2">(06:58:32 PM)</font> <b>rgareus:</b></font> light_without_he: have fun with ardour.<br/>
+<font color="#A82F2F"><font size="2">(06:58:41 PM)</font> <b>light_without_he:</b></font> Thanks!<br/>
+<font size="2">(07:06:20 PM)</font><b> Arnvidr_ left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:06:37 PM)</font> <b>edogawa:</b></font> rgareus: hehe<br/>
+<font size="2">(07:12:33 PM)</font><b> dal [<em>badea326@gateway/web/freenode/ip.186.222.163.38</em>] entered the room.</b><br/>
+<font size="2">(07:13:34 PM)</font><b> grobda24 [<em>~djbarney@silentflame/member/grobda24</em>] entered the room.</b><br/>
+<font size="2">(07:21:36 PM)</font><b> ShadowStrider left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:23:22 PM)</font><b> dal left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(07:26:32 PM)</font><b> nox- [<em>noident@freebsd/developer/nox</em>] entered the room.</b><br/>
+<font size="2">(07:27:25 PM)</font><b> light_without_he left the room (quit: Quit: Page closed).</b><br/>
+<font size="2">(07:27:38 PM)</font><b> DrCode left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(07:28:26 PM)</font><b> DrCode [<em>~DrCode@gateway/tor-sasl/drcode</em>] entered the room.</b><br/>
+<font size="2">(07:39:34 PM)</font><b> qote left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(07:44:56 PM)</font><b> jpbouza [<em>~jpbouza@201.255.212.173</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:53:51 PM)</font> <b>tom^_:</b></font> edogawa: hey, you did a new gossip mix isee :) btw have you received the session?<br/>
+<font size="2">(07:54:30 PM)</font><b> rsevero [<em>nobody@200-140-85-69.bsace704.dsl.brasiltelecom.net.br</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:55:48 PM)</font> <b>edogawa:</b></font> tom^_: hi, yes i saw the pm too late, but dl&apos;ed it then... i haven&apos;t unpacked and opened it, instead i recorded two more guitar tracks, fixed timing issues and the hihat precense ;)<br/>
+<font color="#A82F2F"><font size="2">(07:56:12 PM)</font> <b>edogawa:</b></font> presence, that is<br/>
+<font color="#A82F2F"><font size="2">(07:56:14 PM)</font> <b>tom^_:</b></font> edogawa: okie :) the hihat, yes<br/>
+<font color="#A82F2F"><font size="2">(07:56:52 PM)</font> <b>tom^_:</b></font> rgareus: i recently run &quot;lv2bench&quot;. it core dumps for ebulv2.cc .. also it reeveals &apos;unknown&apos; symbols. maybe have a look<br/>
+<font color="#062585"><font size="2">(07:58:33 PM)</font> <b>***edogawa</b></font> wonders if headphones hide the hihat annoyance<br/>
+<font color="#A82F2F"><font size="2">(07:59:00 PM)</font> <b>tom^_:</b></font> rgareus: any news for the meterbridge / window manager issue? i have it only on fluxbox (not on gnome)<br/>
+<font color="#A82F2F"><font size="2">(08:01:33 PM)</font> <b>tom^_:</b></font> edogawa: headphones can give a completely different sound than when listening on the speakers. high frequency sounds seem to be more prominent on speakers. good test with headphones is to listen very loudly, and if the high frequencies cause pain, they are too loud :)<br/>
+<font color="#A82F2F"><font size="2">(08:04:16 PM)</font> <b>rsevero:</b></font> I&apos;ve got a few feature suggestions. I wonder if any of them have been discussed here already:<br/>
+<font color="#A82F2F"><font size="2">(08:04:59 PM)</font> <b>rsevero:</b></font> 1. stretch tool should be able to change the position of the begining of the region also, not only the end of it.<br/>
+<font color="#A82F2F"><font size="2">(08:05:56 PM)</font> <b>rsevero:</b></font> 2. the track wheel should change the volume of the track when the mouse is over the track volume itself, not only when it&apos;s over the mixer strip.<br/>
+<font color="#A82F2F"><font size="2">(08:06:44 PM)</font> <b>rsevero:</b></font> 3. create a option to enable the possibility of plugin&apos;s configuration window being openned automaticaly when plugin is added to track.<br/>
+<font color="#A82F2F"><font size="2">(08:07:10 PM)</font> <b>rsevero:</b></font> And comments on any of these suggestions?<br/>
+<font color="#A82F2F"><font size="2">(08:08:08 PM)</font> <b>rsevero:</b></font> If any of them seems desirable, I  could try to implement them. But would like to hear from others before taking the leap.<br/>
+<font size="2">(08:09:22 PM)</font><b> __raven [<em>~raven@dslb-178-007-187-066.pools.arcor-ip.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:09:23 PM)</font> <b>__raven:</b></font> re<br/>
+<font color="#A82F2F"><font size="2">(08:09:57 PM)</font> <b>__raven:</b></font> how do you use ardour with external audio and midi plugins?<br/>
+<font color="#A82F2F"><font size="2">(08:10:06 PM)</font> <b>rgareus:</b></font> rsevero: (2) has been rejected once since it makes accidental changes when scolling possible.<br/>
+<font color="#A82F2F"><font size="2">(08:10:36 PM)</font> <b>thorwil:</b></font> rsevero: some or all of those might be in the bug tracker, for whatever that is worth<br/>
+<font color="#A82F2F"><font size="2">(08:10:39 PM)</font> <b>rgareus:</b></font> rsevero: I don&apos;t know about the other ones but adding them to http://tracker.ardour.org/ might be a good idea<br/>
+<font color="#A82F2F"><font size="2">(08:10:41 PM)</font> <b>LAbot:</b></font> Title: My View - MantisBT (at tracker.ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(08:11:52 PM)</font> <b>thorwil:</b></font> rsevero: (1) sounds like a good idea, as long as regions are long enough on screen to have 2 large enough targets<br/>
+<font color="#A82F2F"><font size="2">(08:12:40 PM)</font> <b>rsevero:</b></font> rgareus: Sure. That&apos;s a possibility I&apos;ve not antecipated. I will try to think about a work around.<br/>
+<font color="#A82F2F"><font size="2">(08:13:18 PM)</font> <b>rsevero:</b></font> thormil and rgareus: I will take a look at the bug tracker and add what is not there already.<br/>
+<font color="#A82F2F"><font size="2">(08:13:20 PM)</font> <b>rgareus:</b></font> tom^_: IIRC lv2bench only worked with plugins that do not managde atom-event ports. lv2bench was a quick hack and is not a maintained project.<br/>
+<font color="#A82F2F"><font size="2">(08:15:28 PM)</font> <b>rgareus:</b></font> rsevero: (3) may also need to distinguish &apos;edit with generic controls&apos; and &apos;edit with plugin UI (if avail)&apos;. though most users will probably want the latter.<br/>
+<font color="#A82F2F"><font size="2">(08:17:16 PM)</font> <b>rsevero:</b></font> rgareus: I believe the option you mentioned should be there no matter if my #3 is implemented or not.<br/>
+<font color="#A82F2F"><font size="2">(08:18:51 PM)</font> <b>rgareus:</b></font> rsevero: the option is already there. - right click on a plugin<br/>
+<font color="#A82F2F"><font size="2">(08:19:19 PM)</font> <b>rgareus:</b></font> rsevero: oh did you mean an &quot;always use generic controls&quot; option?<br/>
+<font color="#A82F2F"><font size="2">(08:20:02 PM)</font> <b>rsevero:</b></font> rgareus: Something like that, yeah.<br/>
+<font color="#A82F2F"><font size="2">(08:20:54 PM)</font> <b>rgareus:</b></font> rsevero: that has been discussed and the consenus was that ardour has too many options already. it was actually removed in 3.1 or 3.2<br/>
+<font color="#A82F2F"><font size="2">(08:21:12 PM)</font> <b>rgareus:</b></font> rsevero: check the history of  gtk2_ardour/processor_box.cc<br/>
+<font color="#A82F2F"><font size="2">(08:21:25 PM)</font> <b>tom^_:</b></font> rgareus: i see<br/>
+<font color="#A82F2F"><font size="2">(08:21:45 PM)</font> <b>tom^_:</b></font> rgareus: maybe the undefined symbols give some hints<br/>
+<font size="2">(08:22:16 PM)</font><b> ShadowStrider [<em>~ShadowStr@cs181082164.pp.htv.fi</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:22:55 PM)</font> <b>rsevero:</b></font> rgareus: I see. Out with it.<br/>
+<font color="#A82F2F"><font size="2">(08:23:31 PM)</font> <b>tom^_:</b></font> rgareus: when i look at the .so file, it has the not found smybol, but unlike others, it&apos;s tagged with &apos;U&apos; (nm --dynamic xyz.so)<br/>
+<font color="#A82F2F"><font size="2">(08:23:44 PM)</font> <b>rsevero:</b></font> I&apos;ve just checked that in ardour 3.5 the wheel track actually changes the volume of the track when over the track itself is I also press control or shift.<br/>
+<font color="#A82F2F"><font size="2">(08:24:07 PM)</font> <b>rgareus:</b></font> rsevero: opening the plugin-ui when adding a processor however seems reasonable. it&apos;s what most people do after adding a new plugin anyway. <br/>
+<font color="#A82F2F"><font size="2">(08:24:18 PM)</font> <b>rsevero:</b></font> I wonder if this was working already in 3.4.<br/>
+<font color="#A82F2F"><font size="2">(08:24:22 PM)</font> <b>rgareus:</b></font> (except if the plugin is copied from another track)<br/>
+<font color="#A82F2F"><font size="2">(08:24:44 PM)</font> <b>rsevero:</b></font> rgareus: About the plugin-ui opening automatically: I agree.<br/>
+<font color="#A82F2F"><font size="2">(08:25:07 PM)</font> <b>rsevero:</b></font> It seems strange to me that someone is only wanting to add a plugin and not adjusting some seeting of it also.<br/>
+<font color="#A82F2F"><font size="2">(08:25:29 PM)</font> <b>rgareus:</b></font> rsevero: well, you can also only automate it.<br/>
+<font color="#A82F2F"><font size="2">(08:25:40 PM)</font> <b>__raven:</b></font> what is your workflow to work with projects with external plugins?<br/>
+<font color="#A82F2F"><font size="2">(08:26:09 PM)</font> <b>rgareus:</b></font> rsevero: ie never use the plugin-ui but only automation-lanes.<br/>
+<font color="#A82F2F"><font size="2">(08:26:15 PM)</font> <b>tom^_:</b></font> rgareus: i thought about that too (opening ui when adding a plugin). but then i thought about a workflow where you blindly add a couple of your favourite plugins and then the screen gets cluttered with uis<br/>
+<font color="#A82F2F"><font size="2">(08:26:35 PM)</font> <b>rsevero:</b></font> Good points.<br/>
+<font color="#A82F2F"><font size="2">(08:26:39 PM)</font> <b>rgareus:</b></font> tom^_: yes, that&apos;s what I do on the master-track.<br/>
+<font color="#A82F2F"><font size="2">(08:27:04 PM)</font> <b>rgareus:</b></font> a modifies key could override auto-opening.<br/>
+<font color="#A82F2F"><font size="2">(08:27:18 PM)</font> <b>rgareus:</b></font> OTOH showing the UI is just a simple dbl-click. <br/>
+<font color="#A82F2F"><font size="2">(08:27:39 PM)</font> <b>rsevero:</b></font> So, the plugin-ui should only be automatically be openned it the user has asked to &quot;Add&quot; the plugin.<br/>
+<font color="#A82F2F"><font size="2">(08:27:42 PM)</font> <b>tom^_:</b></font> rgareus: maybe in the plugin manager ui, a button that adds &amp; opens (if at all)<br/>
+<font color="#A82F2F"><font size="2">(08:28:13 PM)</font> <b>rsevero:</b></font> Not when it&apos;s coping it.<br/>
+<font color="#A82F2F"><font size="2">(08:28:22 PM)</font> <b>rsevero:</b></font> I mean: pasting it.<br/>
+<font color="#062585"><font size="2">(08:28:22 PM)</font> <b>***rgareus</b></font> never had an issue with that. dbl-click is quick. Pretty much everything else is much more time-consuming.<br/>
+<font color="#A82F2F"><font size="2">(08:29:14 PM)</font> <b>rsevero:</b></font> I&apos;ve recently being mixing a song and having to double click after adding seemed kind of burocratic.<br/>
+<font color="#A82F2F"><font size="2">(08:29:58 PM)</font> <b>rgareus:</b></font> rsevero: you&apos;re not wrong.<br/>
+<font color="#A82F2F"><font size="2">(08:30:02 PM)</font> <b>rsevero:</b></font> I see that other workflows would demand different behaviours but the &quot;add and them edit&quot; seems to me as a rather usual workflow.<br/>
+<font color="#A82F2F"><font size="2">(08:31:08 PM)</font> <b>rsevero:</b></font> I&apos;m not sure what to do to deal with the &quot;blindly add a couple of your favourite plugins&quot; workflow.<br/>
+<font color="#A82F2F"><font size="2">(08:31:56 PM)</font> <b>rgareus:</b></font> rsevero: the plugin-manager could have a checkbox  [ open UI after adding plugins(s) ].<br/>
+<font color="#A82F2F"><font size="2">(08:32:19 PM)</font> <b>rgareus:</b></font> rsevero: it may even attempt to be smart . ie default to yes for a single plugin, default to no if more that one plugin is added.<br/>
+<font color="#A82F2F"><font size="2">(08:32:33 PM)</font> <b>rgareus:</b></font> rsevero: not sure if that&apos;s practical. just brainstorming<br/>
+<font color="#A82F2F"><font size="2">(08:32:42 PM)</font> <b>rsevero:</b></font> rgareus: How can I add more than one plugin at a time?<br/>
+<font color="#A82F2F"><font size="2">(08:32:56 PM)</font> <b>rsevero:</b></font> I mean: not pasting.<br/>
+<font color="#A82F2F"><font size="2">(08:33:21 PM)</font> <b>rgareus:</b></font> rsevero: the plugin-manager allows to select a complete (ordered) list<br/>
+<font color="#A82F2F"><font size="2">(08:33:49 PM)</font> <b>rsevero:</b></font> rgareus: I think I don&apos;t know the plugin manager. I will be back in a moment.<br/>
+<font size="2">(08:34:04 PM)</font><b> imeim left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:35:20 PM)</font> <b>rsevero:</b></font> What incantation should I use to see the plugin manager? :)<br/>
+<font color="#A82F2F"><font size="2">(08:36:18 PM)</font> <b>rgareus:</b></font> rsevero: double-click on the processor-box should bring it up.<br/>
+<font color="#A82F2F"><font size="2">(08:36:37 PM)</font> <b>rgareus:</b></font> rsevero: or right-click on it and choose plugin-manager<br/>
+<font size="2">(08:37:07 PM)</font><b> orl [<em>~orl@lns-bzn-48f-81-56-240-95.adsl.proxad.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:37:21 PM)</font> <b>rsevero:</b></font> Double-clicking worked (I&apos;ve never seem it).<br/>
+<font color="#A82F2F"><font size="2">(08:37:38 PM)</font> <b>rsevero:</b></font> Right clicking crashed ardour. (Opening it again)<br/>
+<font color="#A82F2F"><font size="2">(08:37:59 PM)</font> <b>rgareus:</b></font> right-click &gt; new Plugin &gt; plugin manager<br/>
+<font color="#A82F2F"><font size="2">(08:39:05 PM)</font> <b>rsevero:</b></font> Yeah, I found it also. Thanks.<br/>
+<font color="#A82F2F"><font size="2">(08:39:20 PM)</font> <b>rgareus:</b></font> tom^_: as for the meterbridge issue, would you mind helping to debug it?<br/>
+<font color="#A82F2F"><font size="2">(08:39:45 PM)</font> <b>rgareus:</b></font> tom^_: can you add     printf(&quot;%d %d\n&quot;, cur_max_width, geom.max_width);     to gtk2_ardour/meterbridge.cc:364<br/>
+<font color="#A82F2F"><font size="2">(08:40:09 PM)</font> <b>rsevero:</b></font> I would say that adding more than one plugin through the plugin manager should never open the plugin-ui automatically.<br/>
+<font color="#A82F2F"><font size="2">(08:40:21 PM)</font> <b>rsevero:</b></font> Pasting should not open automatically also.<br/>
+<font color="#A82F2F"><font size="2">(08:41:23 PM)</font> <b>rsevero:</b></font> The ui should only be openned automatically if one, and only one plugin is added, either through processor box-&gt;New plugin or through the plugin manager.<br/>
+<font color="#A82F2F"><font size="2">(08:41:25 PM)</font> <b>rgareus:</b></font> rsevero: so only right-click &gt; new plugin &gt; [ by category | by author | favorites] would do that?<br/>
+<font color="#A82F2F"><font size="2">(08:41:40 PM)</font> <b>rsevero:</b></font> Maybe one through the plugin manager also.<br/>
+<font color="#A82F2F"><font size="2">(08:41:46 PM)</font> <b>rsevero:</b></font> What do you think?<br/>
+<font color="#A82F2F"><font size="2">(08:41:54 PM)</font> <b>tom^_:</b></font> rgareus: i can help, sure<br/>
+<font color="#A82F2F"><font size="2">(08:42:02 PM)</font> <b>tom^_:</b></font> rgareus:  let me do that printf<br/>
+<font color="#A82F2F"><font size="2">(08:42:48 PM)</font> <b>rgareus:</b></font> rsevero: seems reasonable.   though the plugin manager could have a checkbox to override.<br/>
+<font color="#A82F2F"><font size="2">(08:43:20 PM)</font> <b>rgareus:</b></font> rsevero: or a 3rd button &quot;close&quot; &quot;insert plugins&quot; &quot;insert plugins and show UIs&quot;<br/>
+<font size="2">(08:43:46 PM)</font><b> __raven left the room (quit: Quit: Verlassend).</b><br/>
+<font color="#A82F2F"><font size="2">(08:43:48 PM)</font> <b>rsevero:</b></font> rgareus: Yeah. That would be even better.<br/>
+<font color="#A82F2F"><font size="2">(08:44:03 PM)</font> <b>thorwil:</b></font> rgareus, rsevero: every single checkbox added costs attention, in some circumstances a decision to be made again and again and space in the gui<br/>
+<font color="#A82F2F"><font size="2">(08:44:37 PM)</font> <b>rgareus:</b></font> thorwil: any thoughts about an extra button?<br/>
+<font color="#A82F2F"><font size="2">(08:45:02 PM)</font> <b>thorwil:</b></font> rgareus: even worse :)<br/>
+<font color="#A82F2F"><font size="2">(08:45:29 PM)</font> <b>rgareus:</b></font> thorwil: how so? because it breaks HIG?<br/>
+<font color="#A82F2F"><font size="2">(08:45:35 PM)</font> <b>thorwil:</b></font> i mean, better in avoiding state, but worse in asking for a decision every time<br/>
+<font color="#A82F2F"><font size="2">(08:45:43 PM)</font> <b>rsevero:</b></font> thorwil, rgareus: If adding only one opens the ui and more than one don&apos;t?<br/>
+<font color="#A82F2F"><font size="2">(08:46:22 PM)</font> <b>thorwil:</b></font> rsevero: seems like rather complex and opaque logic for very little gain<br/>
+<font color="#A82F2F"><font size="2">(08:47:07 PM)</font> <b>rsevero:</b></font> thorwil: Ok. Back to the 2 buttons loginc: the continued use of the UI with the 2 buttons would allow the user to get used to the button it prefers, which ever it is.<br/>
+<font color="#A82F2F"><font size="2">(08:48:15 PM)</font> <b>thorwil:</b></font> rsevero: valid point<br/>
+<font color="#A82F2F"><font size="2">(08:48:16 PM)</font> <b>rsevero:</b></font> Or we could not open the ui automatically when adding through the plugin manager at all.;<br/>
+<font color="#A82F2F"><font size="2">(08:48:49 PM)</font> <b>thorwil:</b></font> i still see huge cost in relation to that one extra action to be taken by some users in some cases<br/>
+<font color="#A82F2F"><font size="2">(08:48:56 PM)</font> <b>tom^_:</b></font> rgareus: printf(&quot;%d %d\n&quot;, cur_max_width, geom.max_width);     to  gtk2_ardour/meterbridge.cc:364<br/>
+<font color="#A82F2F"><font size="2">(08:49:00 PM)</font> <b>tom^_:</b></font> ops<br/>
+<font color="#A82F2F"><font size="2">(08:49:04 PM)</font> <b>tom^_:</b></font> rgareus: the output is<br/>
+<font color="#A82F2F"><font size="2">(08:49:29 PM)</font> <b>rgareus:</b></font> tom^_: it should constantly loop print when the window is toggeling state.<br/>
+<font color="#A82F2F"><font size="2">(08:49:39 PM)</font> <b>tom^_:</b></font> -1 68, 68 116, and then 116 116 for all following<br/>
+<font color="#A82F2F"><font size="2">(08:49:45 PM)</font> <b>rsevero:</b></font> thorwil: Yeah. I thiunk you are right. Maybe adding through the plugin manager shouldn&apos;t automatically open the ui at all.<br/>
+<font color="#A82F2F"><font size="2">(08:49:52 PM)</font> <b>thorwil:</b></font> rsevero: what currently happens regarding keyboard focus after adding plugin(s) via the manager<br/>
+<font color="#A82F2F"><font size="2">(08:50:01 PM)</font> <b>thorwil:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(08:50:39 PM)</font> <b>thorwil:</b></font> could it be feasible to have focus on the newly added plugin and opening its gui on enter?<br/>
+<font color="#A82F2F"><font size="2">(08:50:44 PM)</font> <b>rgareus:</b></font> tom^_: that&apos;s odd.  with  116==116 it should not live-loop anymore.<br/>
+<font color="#A82F2F"><font size="2">(08:50:56 PM)</font> <b>rsevero:</b></font> thorwil: As far as I jsut tested, the plugin is ignored, i.e., the focus seems to stay where it was before the plugin was added.<br/>
+<font color="#A82F2F"><font size="2">(08:51:21 PM)</font> <b>tom^_:</b></font> rgareus: it does that until i deactivate the meterbridge under &apos;window&apos;<br/>
+<font color="#A82F2F"><font size="2">(08:51:59 PM)</font> <b>rgareus:</b></font> tom^_: and it keeps printing &quot;116 116&quot; while it flickers?<br/>
+<font color="#A82F2F"><font size="2">(08:52:08 PM)</font> <b>tom^_:</b></font> rgareus: yep<br/>
+<font color="#A82F2F"><font size="2">(08:52:22 PM)</font> <b>tom^_:</b></font> rgareus: with every flicker on line it seems<br/>
+<font color="#A82F2F"><font size="2">(08:52:34 PM)</font> <b>rsevero:</b></font> thorwil: If we are willing to change the current behaviour (to do what you just suggest for example) why not go all the way and open the ui already?<br/>
+<font color="#A82F2F"><font size="2">(08:53:05 PM)</font> <b>rsevero:</b></font> thorwil: I mean, I can&apos;t see other use to change the focus to the newly added plugin except to open it&apos;s ui.<br/>
+<font color="#A82F2F"><font size="2">(08:53:09 PM)</font> <b>rgareus:</b></font> tom^_: mmh maybe because 116 is not a integer factor of 16, but still.<br/>
+<font color="#A82F2F"><font size="2">(08:53:28 PM)</font> <b>tom^_:</b></font> rgareus: no idea honestly :)<br/>
+<font color="#A82F2F"><font size="2">(08:53:40 PM)</font> <b>tom^_:</b></font> rsevero, rgareus, thorwil i agree that when a single plugin is added via context menu, it could open it&apos;s ui right away<br/>
+<font color="#A82F2F"><font size="2">(08:53:58 PM)</font> <b>rgareus:</b></font> tom^_: oh scrtch that last, only height changes are increments of 16.<br/>
+<font color="#A82F2F"><font size="2">(08:53:59 PM)</font> <b>thorwil:</b></font> rsevero: this depends on whether putting the keyboard focus there feels cosistent with what happens elsewhere<br/>
+<font color="#A82F2F"><font size="2">(08:54:47 PM)</font> <b>tom^_:</b></font> rgareus: should i print other variables too?<br/>
+<font color="#A82F2F"><font size="2">(08:55:07 PM)</font> <b>thorwil:</b></font> rsevero: besides opening gui, there&apos;s also Delete<br/>
+<font color="#A82F2F"><font size="2">(08:55:23 PM)</font> <b>rsevero:</b></font> thorwil: I see. That&apos;s seems to me as the proper way to think about the issue but if there is not other use to have the focus on the newly added plugin, the ui should be opened.<br/>
+<font color="#A82F2F"><font size="2">(08:55:25 PM)</font> <b>rgareus:</b></font> tom^_: I have no idea as well. I cannot reproduce it and the semantics are correct according to gtk and X11.<br/>
+<font color="#A82F2F"><font size="2">(08:55:46 PM)</font> <b>tom^_:</b></font> rgareus: :|<br/>
+<font color="#A82F2F"><font size="2">(08:55:52 PM)</font> <b>rsevero:</b></font> thorwil: The delete option if for the rare cases of &quot;added the wrong plugin&quot;, right?<br/>
+<font color="#A82F2F"><font size="2">(08:56:13 PM)</font> <b>thorwil:</b></font> rsevero: yes. not sure on &quot;rare&quot; :)<br/>
+<font color="#A82F2F"><font size="2">(08:56:29 PM)</font> <b>rsevero:</b></font> thorwil: Ok. Another poitn for you ;)<br/>
+<font color="#A82F2F"><font size="2">(08:56:34 PM)</font> <b>tom^_:</b></font> rgareus: what did you do on the mac to work?<br/>
+<font color="#A82F2F"><font size="2">(08:57:19 PM)</font> <b>tom^_:</b></font> for better keyboard control over plugins, it would be nice to be able to activate/deactivate and move the plugins on the strip<br/>
+<font size="2">(08:57:24 PM)</font><b> __raven [<em>~raven@dslb-178-007-187-066.pools.arcor-ip.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:57:32 PM)</font> <b>rgareus:</b></font> tom^_: the meterbridge window does currently not shrink itself on OSX<br/>
+<font color="#A82F2F"><font size="2">(08:57:49 PM)</font> <b>tom^_:</b></font> rgareus: how could i remove the shrinking too? just to test<br/>
+<font color="#A82F2F"><font size="2">(08:58:05 PM)</font> <b>rgareus:</b></font> tom^_: oh , maybe your window manager defines a minimum window size (e according to window title-length or sth)<br/>
+<font color="#A82F2F"><font size="2">(08:58:06 PM)</font> <b>thorwil:</b></font> rsevero: my motivation for thinking about keyboard focus here is to see if a non-invasive way to make things faster to those in the know can be had<br/>
+<font color="#A82F2F"><font size="2">(08:58:29 PM)</font> <b>rsevero:</b></font> thorwil: I bet it will sound even messier but if we do believe the cases of &quot;added the wrong plugin&quot; isn&apos;t rare, the plugin-ui could have a &quot;remove plugin&quot; button. As I&apos;m writing it I&apos;m feling this isn&apos;t a good idea.<br/>
+<font color="#A82F2F"><font size="2">(08:58:32 PM)</font> <b>tom^_:</b></font> afaik, the plugins can only be moved with the mouse atm<br/>
+<font color="#A82F2F"><font size="2">(08:58:34 PM)</font> <b>rgareus:</b></font> tom^_: replace the     &quot;#ifndef GTKOSX&quot; in   gtk2_ardour/meterbridge.cc:345  with &quot;#if 0&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:58:42 PM)</font> <b>tom^_:</b></font> rgareus: ok<br/>
+<font color="#A82F2F"><font size="2">(08:59:41 PM)</font> <b>rsevero:</b></font> thorwil: Yeah. I see. But as I said, if there is not other use to the &quot;plugin gets focus&quot; solution I believe we should go all the way.<br/>
+<font color="#A82F2F"><font size="2">(09:01:06 PM)</font> <b>rsevero:</b></font> throwil: I&apos;m really not sure the &quot;added the wrong plugin&quot; is common enough for us to worry that much about it. But that&apos;s just my guessing.<br/>
+<font color="#A82F2F"><font size="2">(09:01:44 PM)</font> <b>thorwil:</b></font> rsevero: enter for opening, del and backspace for deleting, ctrl-c copy, some combination with arrows up/down for moving in the list<br/>
+<font color="#A82F2F"><font size="2">(09:02:26 PM)</font> <b>tom^_:</b></font> rgareus: no change <br/>
+<font color="#A82F2F"><font size="2">(09:02:28 PM)</font> <b>rsevero:</b></font> thorwil: that starts to sound as a good set of keyboard shortcuts.<br/>
+<font color="#A82F2F"><font size="2">(09:03:38 PM)</font> <b>rsevero:</b></font> thorwil: AFAICT the whole idea of plugin focus is new, right? Currently plugin can&apos;t ever have focus, or can they?<br/>
+<font color="#A82F2F"><font size="2">(09:04:21 PM)</font> <b>thorwil:</b></font> rsevero: months wooshed by since i last actually used ardour<br/>
+<font color="#A82F2F"><font size="2">(09:04:42 PM)</font> <b>rsevero:</b></font> thorwil: the same for me.<br/>
+<font color="#A82F2F"><font size="2">(09:04:59 PM)</font> <b>rsevero:</b></font> thorwil: and we are the ones discussing it&apos;s ui ;)<br/>
+<font color="#A82F2F"><font size="2">(09:05:26 PM)</font> <b>thorwil:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(09:05:45 PM)</font> <b>rsevero:</b></font> thorwil: in the end your idea of plugin getting focus seems much more radical than mine but I like yours better.<br/>
+<font color="#A82F2F"><font size="2">(09:05:46 PM)</font> <b>tom^_:</b></font> rgareus: i uncommented the block below where i added the printf, now it seems to work<br/>
+<font color="#A82F2F"><font size="2">(09:06:38 PM)</font> <b>tom^_:</b></font> rgareus: if(cur_max_width != geom.max_width) {...}<br/>
+<font color="#A82F2F"><font size="2">(09:06:39 PM)</font> <b>rsevero:</b></font> thorwil: I wonder what las will say about it.<br/>
+<font color="#A82F2F"><font size="2">(09:07:25 PM)</font> <b>thorwil:</b></font> now if we could get rid of having 2 ways of adding plugins ...<br/>
+<font color="#A82F2F"><font size="2">(09:07:58 PM)</font> <b>rgareus:</b></font> tom^_: ok, but that&apos;s odd. as printf showed 116==116, so that block should be called once only.<br/>
+<font color="#A82F2F"><font size="2">(09:09:14 PM)</font> <b>tom^_:</b></font> rgareus: maybe the cur_max_width can never be geom.max_width or something<br/>
+<font color="#A82F2F"><font size="2">(09:09:43 PM)</font> <b>tom^_:</b></font> rgareus: the only thing lost is the autoshrink. i can live without autoshrink :)<br/>
+<font color="#A82F2F"><font size="2">(09:10:26 PM)</font> <b>rgareus:</b></font> tom^_: no this part is about auto-extend.<br/>
+<font color="#A82F2F"><font size="2">(09:10:43 PM)</font> <b>rgareus:</b></font> tom^_: the upper part (OSX disabled) is about shrinking<br/>
+<font color="#A82F2F"><font size="2">(09:11:47 PM)</font> <b>tom^_:</b></font> rgareus: ahh.. yes. i added a few tracks, then it adds a scrollbar. once enlarged, it can&apos;t be resized to a size &lt; all strips<br/>
+<font color="#A82F2F"><font size="2">(09:12:09 PM)</font> <b>tom^_:</b></font> rgareus: works for me<br/>
+<font color="#A82F2F"><font size="2">(09:12:37 PM)</font> <b>rgareus:</b></font> tom^_: I hope you&apos;re just the only one with this problem :)<br/>
+<font color="#A82F2F"><font size="2">(09:12:53 PM)</font> <b>tom^_:</b></font> rgareus: ;)<br/>
+<font size="2">(09:13:00 PM)</font><b> zth left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:13:05 PM)</font> <b>tom^_:</b></font> rgareus: no problem any more :o)<br/>
+<font size="2">(09:13:05 PM)</font><b> Arnvidr [<em>~arve@197.79-160-47.customer.lyse.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:14:09 PM)</font> <b>tom^_:</b></font> rgareus: thanks for the pointer<br/>
+<font color="#A82F2F"><font size="2">(09:14:27 PM)</font> <b>rgareus:</b></font> tom^_: n/p<br/>
+<font color="#A82F2F"><font size="2">(09:14:47 PM)</font> <b>las:</b></font> magnetophon: still around?<br/>
+<font color="#A82F2F"><font size="2">(09:15:19 PM)</font> <b>rgareus:</b></font> tom^_: here I cannot make any window narrower than its window-title. but metacity (gnome&apos;s window-manager) does not constantly re-try to do so.<br/>
+<font color="#A82F2F"><font size="2">(09:15:50 PM)</font> <b>__raven:</b></font> jalv build now fails on checking for jack &gt;= 0.120.0 but jack tells me about version 3.1.1<br/>
+<font color="#062585"><font size="2">(09:16:16 PM)</font> <b>***rgareus</b></font> want jack 3.1.1 too<br/>
+<font color="#A82F2F"><font size="2">(09:16:27 PM)</font> <b>rgareus:</b></font> __raven: there&apos;s no jack 3<br/>
+<font color="#A82F2F"><font size="2">(09:16:36 PM)</font> <b>tom^_:</b></font> rgareus: not sure if related to windo-title, i can normally make windows as tiny as a few pixels<br/>
+<font size="2">(09:16:48 PM)</font><b> zth [<em>~zth@94-137-118-6.customers.ownit.se</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:17:04 PM)</font> <b>__raven:</b></font> rgareus, its something else it depends on<br/>
+<font color="#A82F2F"><font size="2">(09:17:39 PM)</font> <b>rgareus:</b></font> __raven: can you pastebin the complete output of the ./waf configure ?<br/>
+<font color="#A82F2F"><font size="2">(09:18:17 PM)</font> <b>rgareus:</b></font> las: how&apos;d the rowing go?<br/>
+<font color="#A82F2F"><font size="2">(09:18:56 PM)</font> <b>__raven:</b></font> pastebin.com/Me0r7Ezt<br/>
+<font color="#A82F2F"><font size="2">(09:19:08 PM)</font> <b>las:</b></font> rgareus: tiny race; just 5 all-women&apos;s universities racing each other. my daughter&apos;s boat was officially 2nd in their race but she says that they actually won their race by minutes; her college won the overall regatta prize<br/>
+<font color="#A82F2F"><font size="2">(09:19:38 PM)</font> <b>las:</b></font> rgareus: it was the very first race on this part of the schuylkill river, but was where my daughter has practiced for 4 years during high school<br/>
+<font color="#A82F2F"><font size="2">(09:19:59 PM)</font> <b>rgareus:</b></font> __raven: maybe you miss the jack-dev  package?<br/>
+<font color="#A82F2F"><font size="2">(09:20:12 PM)</font> <b>rgareus:</b></font> __raven: on debian it&apos;s called   libjack-jackd2-dev<br/>
+<font color="#A82F2F"><font size="2">(09:20:29 PM)</font> <b>rgareus:</b></font> __raven: apt-get install it.<br/>
+<font color="#A82F2F"><font size="2">(09:20:39 PM)</font> <b>rgareus:</b></font> __raven: (or   libjack-dev if you use jack1)<br/>
+<font color="#A82F2F"><font size="2">(09:21:31 PM)</font> <b>__raven:</b></font> nice it worked<br/>
+<font color="#A82F2F"><font size="2">(09:21:33 PM)</font> <b>rgareus:</b></font> &quot;schuylkill&quot; sounds dutch.<br/>
+<font color="#A82F2F"><font size="2">(09:21:46 PM)</font> <b>__raven:</b></font> now we will see if i get more than 2fps on my metering<br/>
+<font color="#A82F2F"><font size="2">(09:22:35 PM)</font> <b>__raven:</b></font> YEAH!<br/>
+<font color="#A82F2F"><font size="2">(09:23:31 PM)</font> <b>__raven:</b></font> tnx - one step further ;)<br/>
+<font color="#A82F2F"><font size="2">(09:23:32 PM)</font> <b>rgareus:</b></font> las: 2nd while being ahead *minutes* is more odd that magnetophon&apos;s A3 segfault.<br/>
+<font color="#A82F2F"><font size="2">(09:23:35 PM)</font> <b>las:</b></font> rgareus: native american, specifically Lenape<br/>
+<font size="2">(09:23:51 PM)</font><b> Grottenolm left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:24:04 PM)</font><b> Grottenolm [<em>~arnold@ip-176-198-117-119.unitymediagroup.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:24:14 PM)</font> <b>las:</b></font> rgareus: it was what rowers call a &quot;head race&quot; which in other sports would be called a &quot;time trial&quot; - no side-by-side racing, you race against the clock, possibly catching (or being caught) by other boats<br/>
+<font color="#A82F2F"><font size="2">(09:24:32 PM)</font> <b>las:</b></font> rgareus: she said that they were very disorganized at the start and just were not timing starts correctly<br/>
+<font size="2">(09:25:07 PM)</font><b> samae [<em>~Samae@unaffiliated/samae</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:25:11 PM)</font> <b>las:</b></font> rgareus: i suspect she probably has a small case but is exaggerating. <br/>
+<font color="#A82F2F"><font size="2">(09:25:13 PM)</font> <b>samae:</b></font> Hey<br/>
+<font color="#A82F2F"><font size="2">(09:25:25 PM)</font> <b>las:</b></font> rgareus: nice to see her though, down from Boston<br/>
+<font color="#A82F2F"><font size="2">(09:26:12 PM)</font> <b>rgareus:</b></font> las: as long as you guys had fun, all is well.<br/>
+<font color="#A82F2F"><font size="2">(09:26:17 PM)</font> <b>las:</b></font> rgareus: it was wierd. i think of her a semi-mature young woman now, away at university, but looking at all the teams (probably about 130 people) sitting on the ground waiting for the results, they looked like 7 year olds again<br/>
+<font color="#A82F2F"><font size="2">(09:26:51 PM)</font> <b>las:</b></font> rgareus: at least i get real hugs these days! <br/>
+<font color="#A82F2F"><font size="2">(09:28:02 PM)</font> <b>thorwil:</b></font> distance improved hugs?<br/>
+<font size="2">(09:28:22 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:29:01 PM)</font> <b>las:</b></font> thorwil: maybe<br/>
+<font color="#16569E"><font size="2">(09:31:15 PM)</font> <b>magnetophon:</b></font> las: I'm back.<br/>
+<font color="#16569E"><font size="2">(09:31:43 PM)</font> <b>magnetophon:</b></font> las: did you find anything?<br/>
+<font color="#A82F2F"><font size="2">(09:33:29 PM)</font> <b>las:</b></font> magnetophon: no, but you did :)<br/>
+<font color="#A82F2F"><font size="2">(09:33:33 PM)</font> <b>las:</b></font> magnetophon: do you build from git ?<br/>
+<font size="2">(09:33:40 PM)</font><b> dawiba [<em>~dawiba@80.80.186.91</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(09:33:56 PM)</font> <b>magnetophon:</b></font> las: huh? yes I do<br/>
+<font color="#16569E"><font size="2">(09:34:07 PM)</font> <b>magnetophon:</b></font> I found something?<br/>
+<font color="#A82F2F"><font size="2">(09:36:08 PM)</font> <b>las:</b></font> magnetophon: please go back into gdb when you can and type the follow commands<br/>
+<font color="#A82F2F"><font size="2">(09:36:11 PM)</font> <b>las:</b></font> br main<br/>
+<font color="#A82F2F"><font size="2">(09:36:12 PM)</font> <b>las:</b></font> run<br/>
+<font color="#A82F2F"><font size="2">(09:36:14 PM)</font> <b>las:</b></font> ...<br/>
+<font color="#A82F2F"><font size="2">(09:36:14 PM)</font> <b>las:</b></font> ...<br/>
+<font color="#A82F2F"><font size="2">(09:36:33 PM)</font> <b>las:</b></font> gdb) br &apos;ARDOUR_UI::create_editor()&apos;<br/>
+<font size="2">(09:36:35 PM)</font><b> ShadowStrider left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(09:36:38 PM)</font> <b>las:</b></font> gdb) continue<br/>
+<font color="#A82F2F"><font size="2">(09:36:58 PM)</font> <b>las:</b></font> magnetophon: then 1 of 2 things will happen<br/>
+<font color="#A82F2F"><font size="2">(09:37:02 PM)</font> <b>las:</b></font> magnetophon: it will crash as usual<br/>
+<font color="#A82F2F"><font size="2">(09:37:08 PM)</font> <b>las:</b></font> magnetophon: or it will stop again without crashing<br/>
+<font color="#A82F2F"><font size="2">(09:37:38 PM)</font> <b>las:</b></font> magnetophon: if it crashes ... no idea right now<br/>
+<font size="2">(09:37:47 PM)</font><b> glasz left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:37:55 PM)</font> <b>las:</b></font> magnetophon: it it just stops back at the gdb) prompt in ARDOUR_UI::create_editor() then ...<br/>
+<font size="2">(09:38:02 PM)</font><b> jpbouza left the room (quit: Quit: Leaving).</b><br/>
+<font color="#16569E"><font size="2">(09:38:08 PM)</font> <b>magnetophon:</b></font> do I paste the dots as well? no, right?<br/>
+<font color="#A82F2F"><font size="2">(09:38:21 PM)</font> <b>las:</b></font> magnetophon: no, they were just to suggest &quot;stuff happens&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:38:36 PM)</font> <b>las:</b></font> magnetophon: also the &quot;gdb)&quot; is the prompt from gdb, not stuff you type<br/>
+<font color="#A82F2F"><font size="2">(09:38:45 PM)</font> <b>las:</b></font> magnetophon: well, lets just see what happens<br/>
+<font color="#16569E"><font size="2">(09:38:56 PM)</font> <b>magnetophon:</b></font> I got that<br/>
+<font color="#16569E"><font size="2">(09:38:58 PM)</font> <b>magnetophon:</b></font> :)<br/>
+<font color="#16569E"><font size="2">(09:39:41 PM)</font> <b>magnetophon:</b></font> las: Program received signal SIGSEGV, Segmentation fault.<br/>
+<font color="#16569E"><font size="2">(09:39:43 PM)</font> <b>magnetophon:</b></font> :(<br/>
+<font color="#16569E"><font size="2">(09:39:58 PM)</font> <b>magnetophon:</b></font> do you want a paste?<br/>
+<font color="#A82F2F"><font size="2">(09:40:03 PM)</font> <b>las:</b></font> magnetophon: no thanks<br/>
+<font color="#A82F2F"><font size="2">(09:40:41 PM)</font> <b>las:</b></font> magnetophon: so now do the same thing again, but this tme the &quot;br&quot; command is: br &apos;ARDOUR_UI::post_engine()&apos;<br/>
+<font size="2">(09:42:37 PM)</font><b> creatid [<em>~ray@s529d5d79.adsl.online.nl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:42:46 PM)</font> <b>las:</b></font> magnetophon: it really MUST stop this time, without crashing<br/>
+<font size="2">(09:43:19 PM)</font><b> victor__ [<em>~victor@cs181082164.pp.htv.fi</em>] entered the room.</b><br/>
+<font size="2">(09:43:25 PM)</font><b> victor__ left the room (quit: Client Quit).</b><br/>
+<font size="2">(09:44:04 PM)</font><b> victor__ [<em>~victor@cs181082164.pp.htv.fi</em>] entered the room.</b><br/>
+<font size="2">(09:44:11 PM)</font><b> victor__ is now known as ShadowStrider</b><br/>
+<font color="#16569E"><font size="2">(09:44:35 PM)</font> <b>magnetophon:</b></font> las: wait, I substituted br main for br 'ARDOUR_UI::post_engine()'. was that right or did you mean instead of the second br?<br/>
+<font color="#16569E"><font size="2">(09:47:01 PM)</font> <b>magnetophon:</b></font> las: I got another SIGSEGV, but I'm not sure I did it right...<br/>
+<font color="#A82F2F"><font size="2">(09:48:03 PM)</font> <b>las:</b></font> magnetophon: no, sorry, the 2nd br<br/>
+<font color="#A82F2F"><font size="2">(09:48:07 PM)</font> <b>las:</b></font> magnetophon: my mistake there<br/>
+<font color="#A82F2F"><font size="2">(09:48:29 PM)</font> <b>las:</b></font> magnetophon: the &quot;br main&quot; is there so that ardour will stop &quot;early&quot; in its life, and allow you to set another breakpoint in a more interesting place<br/>
+<font color="#16569E"><font size="2">(09:48:34 PM)</font> <b>magnetophon:</b></font> las: np. once more.<br/>
+<font color="#16569E"><font size="2">(09:51:06 PM)</font> <b>magnetophon:</b></font> las: I just noticed I have jack stopped, but that shouldn't matter, right?<br/>
+<font color="#A82F2F"><font size="2">(09:51:19 PM)</font> <b>las:</b></font> magnetophon: well, sort of, maybe<br/>
+<font color="#A82F2F"><font size="2">(09:51:27 PM)</font> <b>las:</b></font> magnetophon: run jack with -t 50000<br/>
+<font color="#A82F2F"><font size="2">(09:51:33 PM)</font> <b>las:</b></font> magnetophon: and -r (no realtime)<br/>
+<font size="2">(09:51:45 PM)</font><b> pdimitrov left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:51:48 PM)</font> <b>las:</b></font> magnetophon: then it won&apos;t care about how slow gdb is making ardour<br/>
+<font size="2">(09:52:12 PM)</font><b> pdimitrov [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(09:52:52 PM)</font> <b>magnetophon:</b></font> las: another SIGSEGV. so once more with jack.<br/>
+<font size="2">(09:53:56 PM)</font><b> pr0ggie left the room (quit: Ping timeout: 303 seconds).</b><br/>
+<font size="2">(09:53:57 PM)</font><b> HisaoNakai left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#062585"><font size="2">(09:54:00 PM)</font> <b>***rgareus</b></font> is curiously watching from the side-lines how ardour could bypass editor instantiation. <br/>
+<font size="2">(09:54:54 PM)</font><b> pr0ggie [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(09:57:11 PM)</font> <b>magnetophon:</b></font> las: so: &quot; /usr/bin/jackd -r -p128 -t50000 -dalsa -dhw:0 -r44100 -p2048 -n2&quot;<br/>
+<font size="2">(09:59:27 PM)</font><b> hansfbaier [<em>~jack@36.73.91.30</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:00:09 PM)</font> <b>magnetophon:</b></font> las: SIGSEGV   :(<br/>
+<font color="#16569E"><font size="2">(10:00:19 PM)</font> <b>magnetophon:</b></font> las: paste?<br/>
+<font size="2">(10:01:46 PM)</font><b> grobda24 left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font size="2">(10:05:16 PM)</font><b> _raven_ [<em>~raven@dslb-178-007-187-066.pools.arcor-ip.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:05:57 PM)</font> <b>_raven_:</b></font> how to program a program/bank change in midi tracks?<br/>
+<font size="2">(10:06:17 PM)</font><b> __raven left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#16569E"><font size="2">(10:07:12 PM)</font> <b>magnetophon:</b></font> las: the suspense is killing me!<br/>
+<font color="#16569E"><font size="2">(10:07:17 PM)</font> <b>magnetophon:</b></font> :P<br/>
+<font size="2">(10:09:20 PM)</font><b> thorwil left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(10:10:36 PM)</font> <b>rgareus:</b></font> magnetophon: I&apos;m curious, can you pastebin the last gdb session (up until the segfault)?<br/>
+<font color="#A82F2F"><font size="2">(10:11:09 PM)</font> <b>rgareus:</b></font> _raven_: right-click on a midi-region,  &lt;region-name&gt; &gt; MIDI &gt; Insert patch change<br/>
+<font color="#16569E"><font size="2">(10:11:17 PM)</font> <b>magnetophon:</b></font> rgareus: sure<br/>
+<font color="#A82F2F"><font size="2">(10:11:29 PM)</font> <b>rgareus:</b></font> _raven_: also available from the main-menu  Region &gt; MIDI &gt; Insert patch change<br/>
+<font color="#A82F2F"><font size="2">(10:11:44 PM)</font> <b>las:</b></font> magnetophon: sorry, was just helping out with some garden cutting<br/>
+<font color="#A82F2F"><font size="2">(10:12:04 PM)</font> <b>las:</b></font> magnetophon: it never stopped, just crashed again ... lets just check the backtrace again to make sure it is the same<br/>
+<font color="#A82F2F"><font size="2">(10:12:04 PM)</font> <b>rgareus:</b></font> talk about multi-tasking<br/>
+<font color="#A82F2F"><font size="2">(10:12:08 PM)</font> <b>_raven_:</b></font> ok tnx<br/>
+<font color="#16569E"><font size="2">(10:13:00 PM)</font> <b>magnetophon:</b></font> http://pastebin.com/VdNF4nYX<br/>
+<font color="#A82F2F"><font size="2">(10:13:22 PM)</font> <b>rgareus:</b></font> _raven_: IIRC you need to be in object mode, with the midi region selected.<br/>
+<font color="#16569E"><font size="2">(10:32:15 PM)</font> <b>magnetophon:</b></font> rgareus, las: does it tell you anything?<br/>
+<font size="2">(10:32:42 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

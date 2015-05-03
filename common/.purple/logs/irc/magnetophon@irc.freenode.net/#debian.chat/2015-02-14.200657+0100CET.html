@@ -1,0 +1,429 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Sat 14 Feb 2015 08:06:57 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Sat 14 Feb 2015 08:06:57 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:06:57 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(08:06:57 PM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(08:06:59 PM)</font> <b>c-c:</b></font> So, any ideas how to add the debian non-free sources in a bash -script? This is for a crunchbang fork install script. The script already adds local deb sources into /etc/apt/sources.list.d/ but wouldn&apos;t adding non-free there be incorrect?<br/>
+<font size="2">(08:22:02 PM)</font><b> mode (+l 1535) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:24:11 PM)</font> <b>teraflops:</b></font> eww kodi on jeesie<br/>
+<font color="#A82F2F"><font size="2">(08:24:17 PM)</font> <b>teraflops:</b></font> jessie*<br/>
+<font color="#A82F2F"><font size="2">(08:24:50 PM)</font> <b>L0aD1nG:</b></font> so jessie gonna come with kernel 3.16, or 3.17?<br/>
+<font color="#A82F2F"><font size="2">(08:25:59 PM)</font> <b>centrx:</b></font> L0aD1nG, 3.16<br/>
+<font color="#A82F2F"><font size="2">(08:26:41 PM)</font> <b>centrx:</b></font> L0aD1nG, https://bits.debian.org/2014/07/kernel-version-for-jessie.html<br/>
+<font color="#A82F2F"><font size="2">(08:26:45 PM)</font> <b>Devastator:</b></font> shouldn&apos;t apt-get -b source packagename get the package source from the deb-src sid line I&apos;ve added?<br/>
+<font color="#A82F2F"><font size="2">(08:27:04 PM)</font> <b>centrx:</b></font> Devastator, Did you run apt-get update first?<br/>
+<font color="#A82F2F"><font size="2">(08:27:28 PM)</font> <b>Devastator:</b></font> I&apos;m trying to backport postgresql from sid on wheezy, following ssb factoid, but it wants to build 134 from wheezy<br/>
+<font color="#A82F2F"><font size="2">(08:27:34 PM)</font> <b>Devastator:</b></font> centrx yes<br/>
+<font color="#A82F2F"><font size="2">(08:27:37 PM)</font> <b>teraflops:</b></font> judd: sorry what repo is that? Package: kodi on i386 -- jessie-multimedia: 5:14.1-dmo2?<br/>
+<font color="#A82F2F"><font size="2">(08:27:50 PM)</font> <b>teraflops:</b></font> i meant jhutchins *<br/>
+<font color="#A82F2F"><font size="2">(08:28:01 PM)</font> <b>teraflops:</b></font> jhutchins: sorry what repo is that? Package: kodi on i386 -- jessie-multimedia: 5:14.1-dmo2?<br/>
+<font color="#A82F2F"><font size="2">(08:28:49 PM)</font> <b>Devastator:</b></font> centrx nevermind, I think I know the issue :D<br/>
+<font size="2">(08:30:09 PM)</font><b> AntiSpamMeta_ is now known as AntiSpamMeta</b><br/>
+<font size="2">(08:31:13 PM)</font><b> martinst is now known as martins-afk</b><br/>
+<font color="#A82F2F"><font size="2">(08:36:15 PM)</font> <b>Devastator:</b></font> centrx postgresql package is a metapackage, that is why it was giving me trouble :)<br/>
+<font size="2">(08:39:17 PM)</font><b> sigur_ is now known as sigur</b><br/>
+<font color="#A82F2F"><font size="2">(08:51:13 PM)</font> <b>ConqueredWarrior:</b></font> Hello<br/>
+<font color="#A82F2F"><font size="2">(08:51:24 PM)</font> <b>ConqueredWarrior:</b></font> I have a distribution based on debian, how do I find out what version of debian it&apos;s using?<br/>
+<font color="#A82F2F"><font size="2">(08:51:33 PM)</font> <b>ConqueredWarrior:</b></font> uname -a just gives Debian 3.2.63-2<br/>
+<font color="#A82F2F"><font size="2">(08:52:41 PM)</font> <b>centrx:</b></font> ConqueredWarrior, maybe cat /etc/debian_version<br/>
+<font color="#A82F2F"><font size="2">(08:53:01 PM)</font> <b>centrx:</b></font> ConqueredWarrior, But if you are using a distribution based on Debian, you are not using a version of _Debian_<br/>
+<font color="#A82F2F"><font size="2">(08:53:02 PM)</font> <b>ConqueredWarrior:</b></font> centrx: it&apos;s 7.7<br/>
+<font color="#A82F2F"><font size="2">(08:53:17 PM)</font> <b>ConqueredWarrior:</b></font> well I think the .debs will work fine<br/>
+<font color="#A82F2F"><font size="2">(08:53:25 PM)</font> <b>ConqueredWarrior:</b></font> I think they even have debian .deb sources, not sure<br/>
+<font color="#A82F2F"><font size="2">(08:55:57 PM)</font> <b>centrx:</b></font> ConqueredWarrior, That means it uses the same package management system<br/>
+<font color="#A82F2F"><font size="2">(08:56:20 PM)</font> <b>centrx:</b></font> ConqueredWarrior, The software included and actual versions of them may be different and incompatible<br/>
+<font color="#A82F2F"><font size="2">(08:58:19 PM)</font> <b>ConqueredWarrior:</b></font> centrx: sources.list points to debian packages, so I think it&apos;s ok<br/>
+<font color="#A82F2F"><font size="2">(08:58:34 PM)</font> <b>ConqueredWarrior:</b></font> I&apos;ll just donwload the emacs 24 deb from the debian site and install it<br/>
+<font color="#A82F2F"><font size="2">(08:59:18 PM)</font> <b>centrx:</b></font> ConqueredWarrior, Why not use apt-get?<br/>
+<font color="#A82F2F"><font size="2">(08:59:38 PM)</font> <b>ConqueredWarrior:</b></font> centrx: cause it has only emacs 23<br/>
+<font color="#A82F2F"><font size="2">(08:59:42 PM)</font> <b>ConqueredWarrior:</b></font> already installed<br/>
+<font color="#A82F2F"><font size="2">(09:00:24 PM)</font> <b>ConqueredWarrior:</b></font> what is a backport?<br/>
+<font color="#A82F2F"><font size="2">(09:00:24 PM)</font> <b>centrx:</b></font> dpkg, tell ConqueredWarrior about backports<br/>
+<font color="#A82F2F"><font size="2">(09:00:43 PM)</font> <b>jelly-home:</b></font> ,v emacs24<br/>
+<font color="#A82F2F"><font size="2">(09:00:44 PM)</font> <b>judd:</b></font> Package: emacs24 on i386 -- wheezy-backports: 24.4+1-4.1~bpo70+1; jessie: 24.4+1-4.1; sid: 24.4+1-4.1<br/>
+<font color="#A82F2F"><font size="2">(09:00:58 PM)</font> <b>ConqueredWarrior:</b></font> I need the wheezy one<br/>
+<font color="#A82F2F"><font size="2">(09:01:42 PM)</font> <b>centrx:</b></font> !wheezy-backports<br/>
+<font color="#A82F2F"><font size="2">(09:01:42 PM)</font> <b>dpkg:</b></font> Selected packages intended for the &quot;Jessie&quot; (8.0) release of Debian but recompiled for use with &quot;Wheezy&quot; (7.x) can be found in the &quot;wheezy-backports&quot; repository.  Note that wheezy-backports are on the regular mirror network, not on backports.debian.org.  A suitable line for your sources.list is «deb http://http.debian.net/debian/ wheezy-backports main».  Also ask me about &lt;bdo&gt;.<br/>
+<font size="2">(09:02:03 PM)</font><b> mode (+l 1529) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:02:14 PM)</font> <b>ConqueredWarrior:</b></font> so I add wheeze-backports next to wheezy in my dev stuff?<br/>
+<font color="#A82F2F"><font size="2">(09:02:19 PM)</font> <b>ConqueredWarrior:</b></font> for both deb and deb-src?<br/>
+<font color="#A82F2F"><font size="2">(09:02:34 PM)</font> <b>centrx:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(09:02:40 PM)</font> <b>centrx:</b></font> deb-src if you want to download source packages<br/>
+<font color="#A82F2F"><font size="2">(09:02:47 PM)</font> <b>centrx:</b></font> *be able to<br/>
+<font color="#A82F2F"><font size="2">(09:03:24 PM)</font> <b>ConqueredWarrior:</b></font> I can edit the file, no need to add a new line?<br/>
+<font color="#A82F2F"><font size="2">(09:03:32 PM)</font> <b>ConqueredWarrior:</b></font> I mean the line<br/>
+<font color="#A82F2F"><font size="2">(09:03:42 PM)</font> <b>centrx:</b></font> oh no, you need to add a new line<br/>
+<font color="#A82F2F"><font size="2">(09:03:45 PM)</font> <b>ConqueredWarrior:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(09:03:55 PM)</font> <b>ConqueredWarrior:</b></font> I thought wheeze main contrib where like packages<br/>
+<font color="#A82F2F"><font size="2">(09:04:09 PM)</font> <b>centrx:</b></font> the wheezy part is separate from main contrib non-free part<br/>
+<font color="#A82F2F"><font size="2">(09:04:14 PM)</font> <b>centrx:</b></font> main contrib non-free do work like that<br/>
+<font color="#A82F2F"><font size="2">(09:04:44 PM)</font> <b>ConqueredWarrior:</b></font> so wheeze is like a main parent stuff and what follows are subgroups?<br/>
+<font color="#A82F2F"><font size="2">(09:05:04 PM)</font> <b>centrx:</b></font> yes, wheezy is the codename of the release<br/>
+<font color="#A82F2F"><font size="2">(09:05:15 PM)</font> <b>centrx:</b></font> Debian 7.x<br/>
+<font color="#A82F2F"><font size="2">(09:05:38 PM)</font> <b>ConqueredWarrior:</b></font> but I mean, in the sources file you have deb URL then names separated by spaces<br/>
+<font color="#A82F2F"><font size="2">(09:06:00 PM)</font> <b>centrx:</b></font> ConqueredWarrior, http://linux.die.net/man/5/sources.list<br/>
+<font size="2">(09:06:37 PM)</font><b> Yukkino is now known as Dhs92</b><br/>
+<font color="#A82F2F"><font size="2">(09:07:23 PM)</font> <b>ConqueredWarrior:</b></font> I didn&apos;t know you can man that<br/>
+<font color="#A82F2F"><font size="2">(09:07:35 PM)</font> <b>ConqueredWarrior:</b></font> cool, thanks centrx<br/>
+<font size="2">(09:14:39 PM)</font><b> Dhs92 is now known as Yukitteru</b><br/>
+<font size="2">(09:15:23 PM)</font><b> Yukitteru is now known as Yukkii</b><br/>
+<font color="#A82F2F"><font size="2">(09:22:36 PM)</font> <b>Josu_:</b></font> Hello everybody. Does someone know Hiawatha webserver? Some experiences? Is source code really secure?<br/>
+<font color="#A82F2F"><font size="2">(09:32:35 PM)</font> <b>sakujo_:</b></font> make -jN where N is roughly the number of *cores* or the number of *threads*?<br/>
+<font color="#A82F2F"><font size="2">(09:32:45 PM)</font> <b>sakujo_:</b></font> i know eventually i have to test this myself to get optimal results<br/>
+<font color="#A82F2F"><font size="2">(09:33:06 PM)</font> <b>valdyn:</b></font> sakujo_: make does not use threads, it uses processes<br/>
+<font color="#A82F2F"><font size="2">(09:33:21 PM)</font> <b>sakujo_:</b></font> yeah, simultaneous jobs<br/>
+<font size="2">(09:33:34 PM)</font><b> zz_optrusty is now known as optrusty</b><br/>
+<font color="#A82F2F"><font size="2">(09:33:38 PM)</font> <b>sakujo_:</b></font> but a 2-core CPU that has 2 threads each, does it like to run 2/3 jobs simultaneously or 4/5 jobs?<br/>
+<font color="#A82F2F"><font size="2">(09:34:08 PM)</font> <b>sakujo_:</b></font> googling always leads to the N vs N+1 question<br/>
+<font color="#A82F2F"><font size="2">(09:35:17 PM)</font> <b>valdyn:</b></font> sakujo_: the benefit of hyperthreading is small<br/>
+<font color="#A82F2F"><font size="2">(09:35:39 PM)</font> <b>sakujo_:</b></font> ok i&apos;ll see, i&apos;ll go for 3 tonight then, somewhat a compromise<br/>
+<font color="#A82F2F"><font size="2">(09:35:43 PM)</font> <b>valdyn:</b></font> sakujo_: without ht i would say you should use N &gt; number of cores<br/>
+<font size="2">(09:36:04 PM)</font><b> optrusty is now known as zz_optrusty</b><br/>
+<font color="#A82F2F"><font size="2">(09:36:18 PM)</font> <b>valdyn:</b></font> sakujo_: with ht it might be that N should not be &gt; hyperthreads<br/>
+<font color="#A82F2F"><font size="2">(09:36:47 PM)</font> <b>sakujo_:</b></font> sounds like 3 cannot be too bad then with 2 cores and 4 threads total<br/>
+<font color="#A82F2F"><font size="2">(09:39:02 PM)</font> <b>valdyn:</b></font> sakujo_: there can be no simple answer to this - number of cores is just one side, amount of ram and disk speed matter too<br/>
+<font size="2">(09:42:02 PM)</font><b> mode (+l 1523) by debhelper</b><br/>
+<font size="2">(09:50:52 PM)</font><b> tcpman is now known as Guest22976</b><br/>
+<font size="2">(10:01:50 PM)</font><b> sleepypc is now known as `hypermist`</b><br/>
+<font size="2">(10:12:03 PM)</font><b> mode (+l 1517) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:18:37 PM)</font> <b>awb99:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(10:19:16 PM)</font> <b>awb99:</b></font> anyone knows how I can hide the auto away messages on xchat app?<br/>
+<font color="#A82F2F"><font size="2">(10:19:51 PM)</font> <b>srg:</b></font> I would ask in the xchat support channel. This is #Debian for debian-specific questions.<br/>
+<font color="#A82F2F"><font size="2">(10:19:59 PM)</font> <b>srg:</b></font> awb99: I imagine it would be in `/set` somewhere<br/>
+<font size="2">(10:22:00 PM)</font><b> awb99 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(10:22:49 PM)</font><b> awb99 [<em>~awb99@188-22-183-31.adsl.highway.telekom.at</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:34:42 PM)</font> <b>mernilio:</b></font> Hi all! :-)<br/>
+<font color="#A82F2F"><font size="2">(10:36:43 PM)</font> <b>mernilio:</b></font> I just heard debb and ian got divorced, and the name debian is officially broken.<br/>
+<font color="#A82F2F"><font size="2">(10:36:51 PM)</font> <b>srg:</b></font> ...<br/>
+<font color="#A82F2F"><font size="2">(10:37:21 PM)</font> <b>mernilio:</b></font> Just testing... ;-)<br/>
+<font color="#062585"><font size="2">(10:37:33 PM)</font> <b>***srg</b></font> wont feed<br/>
+<font size="2">(10:39:06 PM)</font><b> mernilio left the room (quit: Quit: ChatZilla 0.9.91.1 [Firefox 35.0.1/20150122214805]).</b><br/>
+<font size="2">(10:42:02 PM)</font><b> mode (+l 1509) by debhelper</b><br/>
+<font size="2">(10:56:53 PM)</font><b> banksy is now known as bnksy</b><br/>
+<font size="2">(10:59:01 PM)</font><b> tcpman is now known as Guest71452</b><br/>
+<font size="2">(11:02:04 PM)</font><b> Climuffff2 is now known as Climuffff</b><br/>
+<font color="#A82F2F"><font size="2">(11:04:49 PM)</font> <b>Climuffff:</b></font> I have one debian server and I have another one, how can I simply use the IP of the first one to directly forward everything to the second server? Can I just use port forwarding or do I need to install something like a domain server on the first server?<br/>
+<font size="2">(11:06:09 PM)</font><b> FreezingAlt is now known as FreezingCold</b><br/>
+<font color="#A82F2F"><font size="2">(11:08:27 PM)</font> <b>srg:</b></font> Climuffff: ...what?<br/>
+<font color="#A82F2F"><font size="2">(11:09:10 PM)</font> <b>Climuffff:</b></font> srg: on the old server I have a teamspeak server and I have put everything to a new server (better location) but I still want that the people who connect to the server of the old IP join the new TS server<br/>
+<font color="#A82F2F"><font size="2">(11:09:19 PM)</font> <b>srg:</b></font> Climuffff: You shouldn&apos;t want to just forward ALL traffic. For example, if you want it to forward http traffic, install something like nginx as a front-end caching proxy<br/>
+<font color="#A82F2F"><font size="2">(11:10:10 PM)</font> <b>srg:</b></font> Climuffff: I don&apos;t know of a tool to do that. Maybe some fancy iptables rules can do it. But it&apos;d be easier to just tell everyone to use the new server. Those who don&apos;t are left in the dark.<br/>
+<font color="#A82F2F"><font size="2">(11:10:25 PM)</font> <b>srg:</b></font> man iptables<br/>
+<font color="#A82F2F"><font size="2">(11:10:34 PM)</font> <b>garn32:</b></font> any ideas why an acer aspire E 11 won&apos;t shutdown properly in debian 8?<br/>
+<font color="#A82F2F"><font size="2">(11:11:30 PM)</font> <b>Climuffff:</b></font> srg: thanks, but if I use IPtables then all the traffic goes thorugh the old server, right? this would lead to a really high ping for the people who connect to the old server<br/>
+<font color="#A82F2F"><font size="2">(11:11:55 PM)</font> <b>Climuffff:</b></font> so I thought of somethink like a domain<br/>
+<font color="#A82F2F"><font size="2">(11:13:01 PM)</font> <b>srg:</b></font> Climuffff: yeah it would physically route the traffic.<br/>
+<font color="#A82F2F"><font size="2">(11:13:30 PM)</font> <b>srg:</b></font> Well you can get a domain and tell users to connect to. If the ip changes, then update the DNS record and they&apos;ll eventually (delay due to caching) get the new IP.<br/>
+<font color="#A82F2F"><font size="2">(11:13:56 PM)</font> <b>Climuffff:</b></font> I already have a domain<br/>
+<font color="#A82F2F"><font size="2">(11:14:14 PM)</font> <b>Climuffff:</b></font> but some people connect with the IP<br/>
+<font color="#A82F2F"><font size="2">(11:14:25 PM)</font> <b>srg:</b></font> There&apos;s nothing you can do about that<br/>
+<font color="#A82F2F"><font size="2">(11:14:32 PM)</font> <b>Climuffff:</b></font> some strange people that just search in teamspeak server lists and connect to some random server ^^<br/>
+<font color="#A82F2F"><font size="2">(11:14:39 PM)</font> <b>srg:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(11:15:34 PM)</font> <b>Climuffff:</b></font> hmm I thought there might be an easy way to do this, but if not thats sad ^^<br/>
+<font size="2">(11:32:02 PM)</font><b> mode (+l 1499) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:32:03 PM)</font> <b>Klaus_Dieter:</b></font> I would like to set a route for 10.0.0.0/8  and a different one for 10.8.0.0/24. How do I do that? obviously I can set both routes but the broader one is used first. I would like the 10.8.... be used if the net matches<br/>
+<font size="2">(11:42:03 PM)</font><b> mode (+l 1506) by debhelper</b><br/>
+<font size="2">(11:53:08 PM)</font><b> tcpman is now known as Guest34721</b><br/>
+<font size="2">(11:56:31 PM)</font><b> Wayward_One_ is now known as Wayward_One</b><br/>
+<font color="#A82F2F"><font size="2">(12:05:50 AM)</font> <b>lids1:</b></font> Μπήκα!!<br/>
+<font size="2">(12:06:07 AM)</font><b> lids1 left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:08:33 AM)</font> <b>garn32:</b></font> I&apos;m having some problems with a netbook reboot -f and poweroff -f don&apos;t shut the machine down it just hangs<br/>
+<font size="2">(12:12:03 AM)</font><b> mode (+l 1490) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:34:31 AM)</font> <b>teku_:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(12:34:41 AM)</font> <b>garn32:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(12:34:48 AM)</font> <b>teku_:</b></font> debian asked me to &quot;configure locales&quot; but i don&apos;t know what i have to do<br/>
+<font color="#A82F2F"><font size="2">(12:34:59 AM)</font> <b>teku_:</b></font> i think i have to select from &quot;it&quot; because i&apos;m italian<br/>
+<font color="#A82F2F"><font size="2">(12:35:15 AM)</font> <b>teku_:</b></font> but i don&apos;t know if i have to select it_IT.UTF-8 or it_IT or it_IT@euro<br/>
+<font color="#A82F2F"><font size="2">(12:35:18 AM)</font> <b>teku_:</b></font> anyone know?<br/>
+<font color="#A82F2F"><font size="2">(12:37:44 AM)</font> <b>garn32:</b></font> teku_ I don&apos;t know for sure but I would think that it_IT.UTF-8 would be the selection you&apos;d want<br/>
+<font color="#A82F2F"><font size="2">(12:38:15 AM)</font> <b>teku_:</b></font> uhm i try, if i made mistake i can modify this when i have installed?<br/>
+<font size="2">(12:38:37 AM)</font><b> Guest7206 is now known as SPF|Cloud</b><br/>
+<font color="#A82F2F"><font size="2">(12:38:44 AM)</font> <b>garn32:</b></font> teku_ yes you can modify this after installation<br/>
+<font color="#A82F2F"><font size="2">(12:39:00 AM)</font> <b>teku_:</b></font> okok, i try to install, thank you very much<br/>
+<font color="#A82F2F"><font size="2">(12:39:04 AM)</font> <b>teraflops:</b></font> teku_: as many times as you want<br/>
+<font color="#A82F2F"><font size="2">(12:39:17 AM)</font> <b>teku_:</b></font> i had to select english language &apos;cause debian don&apos;t want to install with italian language<br/>
+<font color="#A82F2F"><font size="2">(12:39:29 AM)</font> <b>teku_:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(12:39:40 AM)</font> <b>garn32:</b></font> teku_ you can use expert mode to install and select you locales from there<br/>
+<font color="#A82F2F"><font size="2">(12:40:02 AM)</font> <b>teku_:</b></font> yes, i did it<br/>
+<font color="#A82F2F"><font size="2">(12:40:14 AM)</font> <b>garn32:</b></font> teku_ ah, ok<br/>
+<font color="#A82F2F"><font size="2">(12:40:17 AM)</font> <b>teku_:</b></font> (sorry for my bad english)<br/>
+<font color="#A82F2F"><font size="2">(12:40:30 AM)</font> <b>teku_:</b></font> (and thanks for the support)<br/>
+<font color="#A82F2F"><font size="2">(12:43:40 AM)</font> <b>PoorPeasant:</b></font> Hi, is Jessie coming soon? I&apos;m poor and can&apos;t afford a proper OS<br/>
+<font color="#A82F2F"><font size="2">(12:43:54 AM)</font> <b>garn32:</b></font> is there any way to log the shutdown procedure in debian?<br/>
+<font color="#A82F2F"><font size="2">(12:43:58 AM)</font> <b>Benjaminhusky:</b></font> Debian is a proper OS<br/>
+<font color="#A82F2F"><font size="2">(12:44:16 AM)</font> <b>Benjaminhusky:</b></font> i dont see why it isnt in any way<br/>
+<font color="#A82F2F"><font size="2">(12:44:23 AM)</font> <b>PoorPeasant:</b></font> Benjaminhusky: that&apos;s why I&apos;m asking if Jessie&apos;s coming<br/>
+<font color="#A82F2F"><font size="2">(12:46:00 AM)</font> <b>tau:</b></font> how could i list all wi-fi networks available on linux?<br/>
+<font color="#A82F2F"><font size="2">(12:46:13 AM)</font> <b>tau:</b></font> i have wicd-gtk installed then i click over scan and it doesnt find any network.<br/>
+<font color="#A82F2F"><font size="2">(12:46:20 AM)</font> <b>tau:</b></font> even if there are available networks.<br/>
+<font size="2">(12:49:21 AM)</font><b> damentz__ is now known as damentz</b><br/>
+<font color="#A82F2F"><font size="2">(12:50:24 AM)</font> <b>srg:</b></font> iptables is completely unusable.<br/>
+<font color="#A82F2F"><font size="2">(12:50:48 AM)</font> <b>srg:</b></font> Set a default deny, but then set a rule to allow ALL traffic. Traffic gets denied.<br/>
+<font color="#A82F2F"><font size="2">(12:50:54 AM)</font> <b>Klaus_Dieter:</b></font> tau: you want iwlist scan<br/>
+<font color="#A82F2F"><font size="2">(12:51:03 AM)</font> <b>PoorPeasant:</b></font> use ufw srg<br/>
+<font color="#062585"><font size="2">(12:51:04 AM)</font> <b>***srg</b></font> starts porting openbsd&apos;s pf to linux.<br/>
+<font color="#A82F2F"><font size="2">(12:52:34 AM)</font> <b>sc_:</b></font> relax, Steve.<br/>
+<font color="#A82F2F"><font size="2">(12:53:19 AM)</font> <b>sc_:</b></font> i hate iptables sometimes as well... like when I want to deny a specific IP, but have to rerun my entire script :(<br/>
+<font color="#A82F2F"><font size="2">(12:54:59 AM)</font> <b>srg:</b></font> I don&apos;t want to have to install yet another dependancy just to write a configuration file that is intended to be written by hand.<br/>
+<font color="#A82F2F"><font size="2">(12:55:09 AM)</font> <b>srg:</b></font> it doesn&apos;t make sense.<br/>
+<font color="#A82F2F"><font size="2">(12:56:47 AM)</font> <b>srg:</b></font> Is there a way to have the kernel drop packets on ports with nothing listening on them?<br/>
+<font color="#A82F2F"><font size="2">(12:57:07 AM)</font> <b>srg:</b></font> Like, silently drop them<br/>
+<font color="#A82F2F"><font size="2">(12:57:31 AM)</font> <b>edju:</b></font> Just got a msg from kernel -- kernel:[122683.432003] Bad pagetable: 000d [#1] SMP.  Google found no pages.  Anybody?<br/>
+<font color="#A82F2F"><font size="2">(01:02:41 AM)</font> <b>tau:</b></font> Klaus_Dieter: no idea how i can list them with iwlist.<br/>
+<font color="#A82F2F"><font size="2">(01:02:51 AM)</font> <b>tau:</b></font> Klaus_Dieter: it seems wicd-gtk uses iwlist.<br/>
+<font color="#A82F2F"><font size="2">(01:06:23 AM)</font> <b>Busserl:</b></font> tau: maybe nm-applet with network-manager?<br/>
+<font size="2">(01:06:34 AM)</font><b> fstd_ is now known as fstd</b><br/>
+<font color="#A82F2F"><font size="2">(01:08:07 AM)</font> <b>Busserl:</b></font> tau: the gui is network-manager-gnome<br/>
+<font size="2">(01:12:02 AM)</font><b> mode (+l 1481) by debhelper</b><br/>
+<font size="2">(01:12:41 AM)</font><b> Sir_Designer__ is now known as Sir_Desi</b><br/>
+<font color="#A82F2F"><font size="2">(01:13:19 AM)</font> <b>tau:</b></font> Busserl: hmm<br/>
+<font color="#A82F2F"><font size="2">(01:13:22 AM)</font> <b>tau:</b></font> okay.<br/>
+<font color="#A82F2F"><font size="2">(01:13:24 AM)</font> <b>tau:</b></font> i&apos;ll try that then.<br/>
+<font color="#A82F2F"><font size="2">(01:13:35 AM)</font> <b>tau:</b></font> thank you.<br/>
+<font size="2">(01:18:40 AM)</font><b> tau left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:27:52 AM)</font> <b>PoorPeasant:</b></font> Jessie please I need you!!<br/>
+<font color="#A82F2F"><font size="2">(01:28:27 AM)</font> <b>mernilio:</b></font> Hi all sorry for the inconvinins .. i dont have any smilys left<br/>
+<font color="#A82F2F"><font size="2">(01:29:38 AM)</font> <b>mernilio:</b></font> tho, besides here talking about your shit... is rhtere a debina-off-hourss?<br/>
+<font color="#A82F2F"><font size="2">(01:32:06 AM)</font> <b>mernilio:</b></font> PoorPesant Who is Jessie?<br/>
+<font color="#A82F2F"><font size="2">(01:33:54 AM)</font> <b>PoorPeasant:</b></font> Jessie everynight in my dreams I see you I feel you<br/>
+<font color="#A82F2F"><font size="2">(01:34:35 AM)</font> <b>mernilio:</b></font> Being from poor Oklahoma. I think Jessie, who ever she are, will make it! If you stay out of drugs. Thats the hell on earth<br/>
+<font color="#A82F2F"><font size="2">(01:34:42 AM)</font> <b>PoorPeasant:</b></font> Near far wherever you are Jessie I believe the heart does go on<br/>
+<font color="#A82F2F"><font size="2">(01:35:40 AM)</font> <b>jelly-home:</b></font> mernilio: there&apos;s a #debian-offtopic, yes<br/>
+<font color="#A82F2F"><font size="2">(01:36:15 AM)</font> <b>Devastator:</b></font> is libpq5 the same as libpq-dev provided by postgresql.org?<br/>
+<font color="#A82F2F"><font size="2">(01:36:30 AM)</font> <b>mernilio:</b></font> PoorPeasant: You coulnt provide for her. Why are you complaining. If you arent man enuff you shuldn be here anyway!<br/>
+<font color="#A82F2F"><font size="2">(01:36:47 AM)</font> <b>mernilio:</b></font> jelly-home: thanks :-)<br/>
+<font color="#A82F2F"><font size="2">(01:37:03 AM)</font> <b>jelly-home:</b></font> Devastator: it&apos;s more likely that libpq-dev is comparable to their libpq-dev.<br/>
+<font color="#A82F2F"><font size="2">(01:38:53 AM)</font> <b>Devastator:</b></font> jelly-home I&apos;ve tried to backport postgresql-9.4 from sid to wheezy, even though judd claims all dependencies are satisfied it wouldn&apos;t build, then I&apos;ve used their repo to install, but libpq5 was installed with php5 and it&apos;s outdated, any suggestions? it seems backport fails while building tests<br/>
+<font color="#A82F2F"><font size="2">(01:39:31 AM)</font> <b>jelly-home:</b></font> Devastator: &quot;rebuild php5 with newer pg libs if you need it&quot;<br/>
+<font color="#062585"><font size="2">(01:39:37 AM)</font> <b>***jelly-home</b></font> hides<br/>
+<font color="#A82F2F"><font size="2">(01:39:41 AM)</font> <b>Devastator:</b></font> hahah<br/>
+<font color="#A82F2F"><font size="2">(01:40:18 AM)</font> <b>Devastator:</b></font> I&apos;m trying to backport just libpq5 now, but it seems it wants to build postgresql-9.4 again<br/>
+<font color="#A82F2F"><font size="2">(01:40:32 AM)</font> <b>jelly-home:</b></font> it&apos;s the same source, innit<br/>
+<font color="#A82F2F"><font size="2">(01:40:48 AM)</font> <b>Devastator:</b></font> yes, so that&apos;s about to fail as well<br/>
+<font color="#A82F2F"><font size="2">(01:41:31 AM)</font> <b>jelly-home:</b></font> somehow I doubt that src:postgresql-9.4 requires libpq5 as build dep!<br/>
+<font color="#A82F2F"><font size="2">(01:41:49 AM)</font> <b>Devastator:</b></font> god.. I don&apos;t like php to be honest, but I thought it was a quick way to develop something to play with a database in postgresql<br/>
+<font color="#A82F2F"><font size="2">(01:44:56 AM)</font> <b>Devastator:</b></font> one idea was to backport newer php5-pgsql, but then I need to backport apache2, libgd-dev etc<br/>
+<font color="#A82F2F"><font size="2">(01:45:14 AM)</font> <b>PoorPeasant:</b></font> don&apos;t backport, frontport is the way<br/>
+<font color="#A82F2F"><font size="2">(01:46:39 AM)</font> <b>Devastator:</b></font> boy, you ARE funny<br/>
+<font color="#A82F2F"><font size="2">(01:47:35 AM)</font> <b>PoorPeasant:</b></font> I know I am<br/>
+<font color="#A82F2F"><font size="2">(01:48:19 AM)</font> <b>ksk:</b></font> hey guys.<br/>
+<font color="#A82F2F"><font size="2">(01:48:29 AM)</font> <b>jelly-home:</b></font> PoorPeasant: enough of that.  This channel is for tech support<br/>
+<font color="#A82F2F"><font size="2">(01:48:41 AM)</font> <b>ksk:</b></font> can i get java7 (or an openjdk package) on debian wheezy somehow? apt-cache is not my friend right now :/<br/>
+<font color="#A82F2F"><font size="2">(01:48:50 AM)</font> <b>jelly-home:</b></font> !install java<br/>
+<font color="#A82F2F"><font size="2">(01:48:51 AM)</font> <b>dpkg:</b></font> For the Java web browser plugin, install the icedtea-plugin package.  For other Java programs, install the default-jre package to get the default or manually select one of openjdk-6-jre or openjdk-7-jre yourself.  The old &lt;sun-java6&gt; packages are best avoided as Oracle now forbids Debian providing any security updates to them.  See also &lt;java alternatives&gt;.<br/>
+<font color="#A82F2F"><font size="2">(01:49:22 AM)</font> <b>PoorPeasant:</b></font> ksk: I think someone is maintaining a proper repo somewhere<br/>
+<font color="#A82F2F"><font size="2">(01:49:27 AM)</font> <b>jelly-home:</b></font> ksk: so, openjdk-7-jdk, or default-jdk<br/>
+<font color="#A82F2F"><font size="2">(01:49:43 AM)</font> <b>ksk:</b></font> openjdk-7-jre is installed, a &quot;java -version&quot; howver says: OpenJDK Runtime Environment (IcedTea6 1.13.6) (6b34-1.13.6-1~deb7u1) -- not much &quot;7&quot; in it!?<br/>
+<font color="#A82F2F"><font size="2">(01:50:11 AM)</font> <b>ksk:</b></font> Id rather not install third party software if there is another way PoorPeasant<br/>
+<font color="#A82F2F"><font size="2">(01:50:46 AM)</font> <b>jelly-home:</b></font> ksk: see also: /msg dpkg java alternatives, for when you have mutliple options installed<br/>
+<font color="#A82F2F"><font size="2">(01:51:00 AM)</font> <b>ksk:</b></font> thanks jelly-home<br/>
+<font color="#A82F2F"><font size="2">(01:51:41 AM)</font> <b>ArchDuke:</b></font> Any reason why the same file would save as 10MB in rtf but only 125kB in docx from libre writer?<br/>
+<font color="#A82F2F"><font size="2">(01:52:34 AM)</font> <b>ksk:</b></font> ArchDuke: docx is superior? :x<br/>
+<font color="#A82F2F"><font size="2">(01:56:14 AM)</font> <b>treund:</b></font> ArchDuke: no way<br/>
+<font color="#A82F2F"><font size="2">(01:56:30 AM)</font> <b>bipul:</b></font> Hello,  how can i install mysql-server via shell script, in debian<br/>
+<font color="#A82F2F"><font size="2">(01:57:02 AM)</font> <b>treund:</b></font> echo apt-get install mysql-server &gt;&gt; shell-script-galore<br/>
+<font color="#A82F2F"><font size="2">(01:57:05 AM)</font> <b>owen1:</b></font> i am trying to test the logger client - logger -n 192.168.1.121 -p 514 &quot;Test message&quot;  but see logger: unknown priority name: 514    i am clearly clueless (:  any ideas?<br/>
+<font color="#A82F2F"><font size="2">(01:57:52 AM)</font> <b>bipul:</b></font> I am trying to install Mysql-server  http://pastebin.com/pLSfM1AA but i am failed to reset , mysql root user<br/>
+<font color="#A82F2F"><font size="2">(01:58:53 AM)</font> <b>bipul:</b></font> treund, But how you will reset the password for mysql root?<br/>
+<font color="#A82F2F"><font size="2">(02:00:27 AM)</font> <b>jelly-home:</b></font> dpkg, tell bipul about ifmrp<br/>
+<font color="#A82F2F"><font size="2">(02:00:28 AM)</font> <b>ArchDuke:</b></font> Could ie be because I had an image in the file? It is very much 9.9MB while the same file as docx came out to 125kB o.O<br/>
+<font color="#A82F2F"><font size="2">(02:01:01 AM)</font> <b>jelly-home:</b></font> bipul: might also read /msg dpkg mysql initial password<br/>
+<font color="#A82F2F"><font size="2">(02:01:40 AM)</font> <b>bipul:</b></font> jelly-home, ??<br/>
+<font color="#A82F2F"><font size="2">(02:02:07 AM)</font> <b>jelly-home:</b></font> bipul: read the private message from dpkg bot.<br/>
+<font color="#A82F2F"><font size="2">(02:02:23 AM)</font> <b>bipul:</b></font> Yes, i can see<br/>
+<font color="#A82F2F"><font size="2">(02:03:06 AM)</font> <b>jelly-home:</b></font> bipul: then, if you want, also ask it about &quot;mysql initial password&quot; for some related, but not exactly the same info<br/>
+<font color="#A82F2F"><font size="2">(02:03:46 AM)</font> <b>jelly-home:</b></font> bipul: so, assuming you read it, what was the &quot;??&quot; about?<br/>
+<font color="#A82F2F"><font size="2">(02:04:01 AM)</font> <b>bipul:</b></font> jelly-home, I am trying to write a bash  script that will install Mysql-server<br/>
+<font color="#A82F2F"><font size="2">(02:04:30 AM)</font> <b>bipul:</b></font> May be the forget part will get me into the root account :p<br/>
+<font color="#A82F2F"><font size="2">(02:04:54 AM)</font> <b>bipul:</b></font> sorry reseting the mysql root<br/>
+<font color="#A82F2F"><font size="2">(02:06:00 AM)</font> <b>jelly-home:</b></font> bipul: if you&apos;re installing it initially, there&apos;s nothing to reset<br/>
+<font color="#A82F2F"><font size="2">(02:07:25 AM)</font> <b>bipul:</b></font> jelly-home, how? see this code, pastebin.com/pLSfM1AA between it&apos;s in under developing phase.<br/>
+<font color="#A82F2F"><font size="2">(02:07:35 AM)</font> <b>jelly-home:</b></font> instead, look at preseeding answers to debconf questions that the installation asks<br/>
+<font color="#A82F2F"><font size="2">(02:07:38 AM)</font> <b>bipul:</b></font> But at least it should work.<br/>
+<font color="#A82F2F"><font size="2">(02:08:22 AM)</font> <b>jelly-home:</b></font> it seems you know something about preseeding, so that&apos;s good<br/>
+<font color="#A82F2F"><font size="2">(02:09:22 AM)</font> <b>jelly-home:</b></font> I&apos;m too tired to analyze shell code, tho<br/>
+<font size="2">(02:52:21 AM)</font><b> matthiaskrgr is now known as Guest16911</b><br/>
+<font size="2">(03:02:02 AM)</font><b> mode (+l 1474) by debhelper</b><br/>
+<font size="2">(03:13:49 AM)</font><b> Devastator_ is now known as Devastator</b><br/>
+<font color="#A82F2F"><font size="2">(03:28:23 AM)</font> <b>hikenboot:</b></font> can anyone explain if there is a configuration that allows someone accessing via ssh to access the root path not just a home directory such as /root or /home/username?<br/>
+<font size="2">(03:35:33 AM)</font><b> xeniter_ is now known as xeniter</b><br/>
+<font color="#A82F2F"><font size="2">(03:39:51 AM)</font> <b>hikenboot:</b></font> never mind thanks<br/>
+<font size="2">(03:40:33 AM)</font><b> Duststorm_ is now known as Duststorm</b><br/>
+<font size="2">(03:41:53 AM)</font><b> xeniter is now known as xeniter_</b><br/>
+<font color="#A82F2F"><font size="2">(03:41:54 AM)</font> <b>sakujo_:</b></font> did i read somewhere that update-rc.d was not recommended anymore to manage init.d scripts?<br/>
+<font color="#062585"><font size="2">(03:44:19 AM)</font> <b>***ctmjr_</b></font> thinks only you can answer that    <br/>
+<font color="#A82F2F"><font size="2">(03:44:28 AM)</font> <b>blackyboy:</b></font> Which video editor software we can use in Linux debian and i need to Blur some area in my video which editor will help me to do this ?<br/>
+<font color="#A82F2F"><font size="2">(03:47:10 AM)</font> <b>owen1:</b></font> I changed rsyslog to listen to udp 514 but   logger -n 192.168.1.121 --port 514 &quot;hello&quot;    show me no output. any ideas?<br/>
+<font color="#A82F2F"><font size="2">(03:47:39 AM)</font> <b>vasile:</b></font> Where would I report an error in a http://cdimage.debian.org file (specifically, the unofficial cd-including-firmware jessie netinst)? Thank you.<br/>
+<font color="#A82F2F"><font size="2">(03:48:43 AM)</font> <b>treund:</b></font> blackyboy: don&apos;t blur - be proud<br/>
+<font color="#A82F2F"><font size="2">(03:53:34 AM)</font> <b>squisher:</b></font> vasile, what&apos;s the error?<br/>
+<font color="#A82F2F"><font size="2">(03:54:27 AM)</font> <b>vasile:</b></font> squisher: The jigdo file at @zacchiro The error is that http://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/jessie_di_rc1/amd64/jigdo-cd/ mentions a template file that isn&apos;t found. Turns out the jigdo is looking for a file with an uppercase Jessie but the server supplies a lower case one. Downloading the template and renaming it fixes it, but it should just work.<br/>
+<font color="#A82F2F"><font size="2">(03:54:53 AM)</font> <b>vasile:</b></font> Sorry, didn&apos;t mean to put @zacchiro in there. (Was tweeting him a moment ago...)<br/>
+<font color="#A82F2F"><font size="2">(04:18:31 AM)</font> <b>mathu:</b></font> i want to rebuild mutt against openssl instead of gnutls. is there a clean way to do this in debian or do i have to go edit makefiles<br/>
+<font color="#A82F2F"><font size="2">(04:19:42 AM)</font> <b>treund:</b></font> check the configure first to see if there is an option<br/>
+<font color="#A82F2F"><font size="2">(04:20:20 AM)</font> <b>trysten:</b></font> how do i get clipboard support in vim?<br/>
+<font color="#A82F2F"><font size="2">(04:20:38 AM)</font> <b>mathu:</b></font> treund: the configure? is this an apt command or something i do with the source downloaded<br/>
+<font color="#A82F2F"><font size="2">(04:20:48 AM)</font> <b>mathu:</b></font> sorry, i use debian sparingly<br/>
+<font color="#A82F2F"><font size="2">(04:20:54 AM)</font> <b>treund:</b></font> clipboard = cutnpaste?  you should have it already<br/>
+<font color="#A82F2F"><font size="2">(04:21:06 AM)</font> <b>trysten:</b></font> treund: access to * and + registers<br/>
+<font color="#A82F2F"><font size="2">(04:21:39 AM)</font> <b>treund:</b></font> mathu: your wanting to change from openssl to tls and not knowing about configure is like wanting to do calculus with out first doing algebra - leave it as it is<br/>
+<font size="2">(04:22:03 AM)</font><b> mode (+l 1460) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(04:22:10 AM)</font> <b>mathu:</b></font> treund: i just don&apos;t use apt, haha<br/>
+<font color="#A82F2F"><font size="2">(04:22:26 AM)</font> <b>mathu:</b></font> treund: not important, but i want to go from tls to openssl :P<br/>
+<font color="#A82F2F"><font size="2">(04:22:36 AM)</font> <b>treund:</b></font> why?<br/>
+<font color="#A82F2F"><font size="2">(04:22:49 AM)</font> <b>trysten:</b></font> lol are you too good for apt<br/>
+<font color="#A82F2F"><font size="2">(04:22:54 AM)</font> <b>mathu:</b></font> my mutt build is unable to connect to gmail. on gentoo it&apos;s built with openssl and it works fine, but not on debian<br/>
+<font color="#A82F2F"><font size="2">(04:23:23 AM)</font> <b>mathu:</b></font> treund: no, i just use gentoo. debian is on my server, where i don&apos;t really do a lot of hardcore package management haha<br/>
+<font color="#A82F2F"><font size="2">(04:23:41 AM)</font> <b>mathu:</b></font> i&apos;m not saying apt is bad, i&apos;m just unfamiliar with it<br/>
+<font color="#A82F2F"><font size="2">(04:24:20 AM)</font> <b>treund:</b></font> mathu check out sylpheed you get a lot more control over things<br/>
+<font color="#A82F2F"><font size="2">(04:25:17 AM)</font> <b>mathu:</b></font> is sylpheed a curses client? this is a headless server, hence mutt<br/>
+<font color="#A82F2F"><font size="2">(04:25:57 AM)</font> <b>m0rd3cai:</b></font> can someone help with truecrypt? when prompted for root password in truecrypt, i enter it and it says &quot;failed to gain admin priviledges sorry try again&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:26:32 AM)</font> <b>mathu:</b></font> i don&apos;t think truecrypt asks for your root password. i think it asks for your user password for sudo<br/>
+<font color="#A82F2F"><font size="2">(04:26:51 AM)</font> <b>mathu:</b></font> that&apos;s what it did when i used 7.1a to create a new volume like three hours ago, anyway<br/>
+<font color="#A82F2F"><font size="2">(04:28:27 AM)</font> <b>m0rd3cai:</b></font> mathu http://picpaste.com/Screenshot_from_2015-02-14_22_27_00-dtJnLsA0.png<br/>
+<font color="#A82F2F"><font size="2">(04:28:47 AM)</font> <b>m0rd3cai:</b></font> tried my user pass and root pass, neither work<br/>
+<font color="#A82F2F"><font size="2">(04:29:03 AM)</font> <b>mathu:</b></font> m0rd3cai: can you use sudo on this machine in a command line?<br/>
+<font color="#A82F2F"><font size="2">(04:29:04 AM)</font> <b>m0rd3cai:</b></font> i have added myself to sudoers file and still no luck<br/>
+<font color="#A82F2F"><font size="2">(04:29:09 AM)</font> <b>m0rd3cai:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(04:29:12 AM)</font> <b>mathu:</b></font> well, then i don&apos;t know haha<br/>
+<font color="#A82F2F"><font size="2">(04:29:27 AM)</font> <b>m0rd3cai:</b></font> ive sudo visudo<br/>
+<font color="#A82F2F"><font size="2">(04:30:24 AM)</font> <b>m0rd3cai:</b></font> then added &quot;username ALL=NOPASSWD /usr/bin/truecrypt&quot; and no luck<br/>
+<font color="#A82F2F"><font size="2">(04:30:34 AM)</font> <b>mathu:</b></font> treund: were you referring to dpkg-reconfigure?<br/>
+<font color="#A82F2F"><font size="2">(04:31:22 AM)</font> <b>m0rd3cai:</b></font> mathu, is there a better syntax for adding myself to sudoers file? is what i entered the correct entry?<br/>
+<font color="#A82F2F"><font size="2">(04:31:52 AM)</font> <b>mathu:</b></font> well, i typically do the wheel group thing `%wheel ALL=(ALL) NOPASSWD: ALL`<br/>
+<font size="2">(04:32:02 AM)</font><b> mode (+l 1468) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(04:32:36 AM)</font> <b>mathu:</b></font> and then make sure i&apos;m in the wheel group with usermod<br/>
+<font size="2">(04:33:12 AM)</font><b> CHVNX is now known as LienusTorvalds</b><br/>
+<font size="2">(04:34:54 AM)</font><b> LienusTorvalds is now known as CHVNX</b><br/>
+<font color="#A82F2F"><font size="2">(04:35:29 AM)</font> <b>treund:</b></font> mathu no the source configure<br/>
+<font color="#A82F2F"><font size="2">(04:35:51 AM)</font> <b>mathu:</b></font> oh, yeah, i know about that<br/>
+<font color="#A82F2F"><font size="2">(04:36:23 AM)</font> <b>mathu:</b></font> was hoping apt would have some portage-like interface into doing these configurations<br/>
+<font color="#A82F2F"><font size="2">(04:37:52 AM)</font> <b>treund:</b></font> http://unix.stackexchange.com/questions/66560/mutt-smtp-tls-error-sending-mail<br/>
+<font size="2">(04:41:09 AM)</font><b> infinity0_ is now known as infinity0</b><br/>
+<font color="#A82F2F"><font size="2">(04:44:57 AM)</font> <b>mathu:</b></font> treund: my error occurs before successfully signing in. and only on this debian box<br/>
+<font color="#A82F2F"><font size="2">(04:46:02 AM)</font> <b>mathu:</b></font> imap at my uni&apos;s email server works fine. imap at gmail fails and says &quot;WEBALERT: accounts.google.com.........&quot;. if i copy the config files to my gentoo box, all works fine<br/>
+<font color="#A82F2F"><font size="2">(04:46:24 AM)</font> <b>mathu:</b></font> i kind of suspect it&apos;s something to do with gnutls, which isn&apos;t used on the gentoo installation<br/>
+<font color="#A82F2F"><font size="2">(04:47:16 AM)</font> <b>m0rd3cai:</b></font> mathu: it was incorrect syntax....<br/>
+<font color="#A82F2F"><font size="2">(04:48:01 AM)</font> <b>m0rd3cai:</b></font> the page i found had me ALL= /usr/bin/truecrypt<br/>
+<font color="#A82F2F"><font size="2">(04:48:13 AM)</font> <b>m0rd3cai:</b></font> when i removed the space, it accepted my password and worked<br/>
+<font color="#A82F2F"><font size="2">(04:48:18 AM)</font> <b>m0rd3cai:</b></font> thanks for your help<br/>
+<font size="2">(04:50:47 AM)</font><b> m0rd3cai left the room (quit: Quit: leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(04:51:46 AM)</font> <b>paddy1966:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(04:51:55 AM)</font> <b>mathu:</b></font> &quot;no curses library found&quot; haha okay configure script<br/>
+<font color="#A82F2F"><font size="2">(04:54:14 AM)</font> <b>mathu:</b></font> one thing i do remember about debian systems from years ago is that the first approach to any problem should be &apos;install the dev headers&apos; haha. fixed this one<br/>
+<font color="#A82F2F"><font size="2">(04:59:18 AM)</font> <b>ninjazach:</b></font> mathu: definitely, some distributions separate the headers, etc. I think Red Hat does as well but their I believe their suffix is &quot;-devel&quot; Others don&apos;t i.e. Slackware, Arch, etc.<br/>
+<font color="#A82F2F"><font size="2">(05:02:15 AM)</font> <b>ninjazach:</b></font> Sorry about the typos, I went to edit my text and forgot to delete a portion.<br/>
+<font color="#A82F2F"><font size="2">(05:07:54 AM)</font> <b>mathu:</b></font> well, i&apos;m using openssl over gnutls and nothing is solved haha<br/>
+<font size="2">(05:32:03 AM)</font><b> mode (+l 1455) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:50:49 AM)</font> <b>Devastator:</b></font> what does archignore means in judd&apos;s answer?<br/>
+<font color="#A82F2F"><font size="2">(05:51:50 AM)</font> <b>Devastator:</b></font> I&apos;m trying to backport dpkg-dev, to then backport apache2, php5 and php5-pgsql<br/>
+<font size="2">(05:52:02 AM)</font><b> mode (+l 1465) by debhelper</b><br/>
+<font size="2">(05:58:45 AM)</font><b> Taco is now known as Guest72573</b><br/>
+<font color="#A82F2F"><font size="2">(06:26:24 AM)</font> <b>Mysterytrain:</b></font> how do you restart alsa in jessie? It used to be, you could go /usr/bin/alsa force-reload<br/>
+<font size="2">(06:42:02 AM)</font><b> mode (+l 1457) by debhelper</b><br/>
+<font size="2">(07:16:13 AM)</font><b> Yukitteru is now known as Yukkii</b><br/>
+<font color="#A82F2F"><font size="2">(07:29:15 AM)</font> <b>^BARrE|^:</b></font> does debian support hardware raid<br/>
+<font color="#A82F2F"><font size="2">(07:29:57 AM)</font> <b>OSVG:</b></font> Depends on the card.<br/>
+<font size="2">(07:32:03 AM)</font><b> mode (+l 1449) by debhelper</b><br/>
+<font size="2">(07:35:34 AM)</font><b> ^BARrE|^ left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(07:38:26 AM)</font> <b>miandonmenmian:</b></font> i have a usb sound mic, but can&apos;t seem to find it. which dev should be the audio mic under /dev/ ? or where can I find unrecognized devices?<br/>
+<font color="#A82F2F"><font size="2">(07:40:28 AM)</font> <b>Nyctophilia:</b></font> scan with &quot;lsusb&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:40:42 AM)</font> <b>Nyctophilia:</b></font> just enter it into cli and post the results here by pastebin<br/>
+<font size="2">(07:42:02 AM)</font><b> mode (+l 1458) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:04:33 AM)</font> <b>miandonmenmian:</b></font> Nyctophilia: its a webcam with audio, lsusb just shows all the video params but none for audio<br/>
+<font color="#A82F2F"><font size="2">(08:06:30 AM)</font> <b>somiaj:</b></font> miandonmenmian: cat /proc/asound/cards (should show up as an alsa device)<br/>
+<font color="#A82F2F"><font size="2">(08:08:03 AM)</font> <b>miandonmenmian:</b></font> somiaj: does not i believe: http://paste.ubuntu.com/10234438/<br/>
+<font color="#A82F2F"><font size="2">(08:08:21 AM)</font> <b>miandonmenmian:</b></font> my guess is that first device is the internal audio, not USB<br/>
+<font color="#A82F2F"><font size="2">(08:09:12 AM)</font> <b>somiaj:</b></font> the usb webcam I had put its sound device there.<br/>
+<font color="#A82F2F"><font size="2">(08:09:29 AM)</font> <b>somiaj:</b></font> the one I had integrated with my laptop shared the onboard sound device.<br/>
+<font color="#A82F2F"><font size="2">(08:10:12 AM)</font> <b>somiaj:</b></font> you can also look at teh output of &apos;dmesg&apos; when you plug it in, see what your kernel detects.<br/>
+<font color="#A82F2F"><font size="2">(08:10:18 AM)</font> <b>miandonmenmian:</b></font> somiaj: is that one connected as USB as well?<br/>
+<font color="#A82F2F"><font size="2">(08:10:33 AM)</font> <b>Nyctophilia:</b></font> [08:09] &lt;somiaj&gt; the usb webcam I had put its sound device there.<br/>
+<font color="#A82F2F"><font size="2">(08:10:38 AM)</font> <b>miandonmenmian:</b></font> im trying to track down snd-usb-audio for debian, perhaps i need this<br/>
+<font color="#A82F2F"><font size="2">(08:11:08 AM)</font> <b>miandonmenmian:</b></font> Nyctophilia: wow, thanks. didnt notice it<br/>
+<font color="#A82F2F"><font size="2">(08:11:19 AM)</font> <b>Nyctophilia:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(08:11:21 AM)</font> <b>Nyctophilia:</b></font> np<br/>
+<font size="2">(08:12:02 AM)</font><b> mode (+l 1451) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:12:23 AM)</font> <b>miandonmenmian:</b></font> well, the onboard sound device would not magically load the usb mic probably..<br/>
+<font color="#A82F2F"><font size="2">(08:12:50 AM)</font> <b>somiaj:</b></font> miandonmenmian: yea usb device should be another sound card. What version of debian are you running? How new(ish) is this usb webcam?<br/>
+<font color="#A82F2F"><font size="2">(08:13:22 AM)</font> <b>miandonmenmian:</b></font> somiaj: is quite new usb device. i&apos;m trying on jessie<br/>
+<font color="#A82F2F"><font size="2">(08:13:43 AM)</font> <b>miandonmenmian:</b></font> i&apos;m not expecting to be recognized, im just trying to figure out how to get it working<br/>
+<font color="#A82F2F"><font size="2">(08:14:02 AM)</font> <b>somiaj:</b></font> ahh was gonna suggest using a backported kernel. Do you have the chipset of the actual device? Find anything on google about that chipset/device?<br/>
+<font color="#A82F2F"><font size="2">(08:15:02 AM)</font> <b>somiaj:</b></font> you can sometimes force drivers to assoicate with unknown device id&apos;s, but my experience is look up the chipset and see if someone else has figured it out. Not that experienced with tracking down what isn&apos;t happening.<br/>
+<font color="#A82F2F"><font size="2">(08:16:31 AM)</font> <b>kmai:</b></font> hi folks, ever heard of this error? &quot;usb 1-1.2.2: BOGUS urb xfer, pipe 1 != type 3&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:17:15 AM)</font> <b>miandonmenmian:</b></font> somiaj: 6 results on google, by name or usb ID<br/>
+<font color="#A82F2F"><font size="2">(08:17:46 AM)</font> <b>somiaj:</b></font> miandonmenmian: that is where I would start....can&apos;t really say more than that if it isn&apos;t being detected and you have a fairly new kernel.<br/>
+<font color="#A82F2F"><font size="2">(08:17:47 AM)</font> <b>kmai:</b></font> it keeps crashing my wireless dongle (tl-wn721n). full bug is here https://github.com/qca/open-ath9k-htc-firmware/issues/68<br/>
+<font color="#A82F2F"><font size="2">(08:18:16 AM)</font> <b>Devastator:</b></font> I want to recompile php5-pgsql package, however it depends on libc-client-dev which is a virtual package, libc-client2007e-dev seems to provide libc-client-dev, do I have to rename it somehow?<br/>
+<font color="#A82F2F"><font size="2">(08:20:50 AM)</font> <b>somiaj:</b></font> Devastator: no just have the libary that provides the virtual package installed<br/>
+<font color="#A82F2F"><font size="2">(08:21:20 AM)</font> <b>somiaj:</b></font> Devastator: Does the package you compile depend on that? Or is the ./configure code you are using not deting you have the correct headers installed?<br/>
+<font color="#A82F2F"><font size="2">(08:22:19 AM)</font> <b>Devastator:</b></font> somiaj I have a bit of a mess of packages, it&apos;s not a frankendebian yet but I guess there are some packages that was installed when I tried to backports other packages<br/>
+<font color="#A82F2F"><font size="2">(08:22:51 AM)</font> <b>Devastator:</b></font> somiaj it is asked by aptitude build-dep php5-pgsql<br/>
+<font color="#A82F2F"><font size="2">(08:22:56 AM)</font> <b>somiaj:</b></font> Devastator: as long as they are all from teh same debian version repo and you aren&apos;t mixing say wheezy/jessie or other things you should be fine.<br/>
+<font color="#A82F2F"><font size="2">(08:23:17 AM)</font> <b>somiaj:</b></font> so aptitude build-dep php5-pgsql is failing, then you might have mixed versions of things installed.<br/>
+<font color="#A82F2F"><font size="2">(08:23:27 AM)</font> <b>Devastator:</b></font> let me get the output for you<br/>
+<font color="#A82F2F"><font size="2">(08:23:31 AM)</font> <b>somiaj:</b></font> have you tried apt-get build-dep foo<br/>
+<font color="#A82F2F"><font size="2">(08:24:24 AM)</font> <b>somiaj:</b></font> if aptitude is failing with an error about can&apos;t find virtual package there is something wrong with your sources (or your currently installed packages) causing the logic to not be able to correctly resolve the dependecies<br/>
+<font color="#A82F2F"><font size="2">(08:24:36 AM)</font> <b>somiaj:</b></font> (or you found a bug in a packagE)<br/>
+<font color="#A82F2F"><font size="2">(08:24:43 AM)</font> <b>Devastator:</b></font> somiaj http://codepad.org/Paqu80TW<br/>
+<font color="#A82F2F"><font size="2">(08:25:45 AM)</font> <b>somiaj:</b></font> ,v libjpeg62-dev<br/>
+<font color="#A82F2F"><font size="2">(08:25:46 AM)</font> <b>judd:</b></font> Package: libjpeg62-dev on i386 -- squeeze: 6b1-1; wheezy: 6b1-3+deb7u1<br/>
+<font color="#A82F2F"><font size="2">(08:25:56 AM)</font> <b>somiaj:</b></font> ,v libjpeg8-dev<br/>
+<font color="#A82F2F"><font size="2">(08:25:58 AM)</font> <b>judd:</b></font> Package: libjpeg8-dev on i386 -- squeeze: 8b-1; wheezy: 8d-1+deb7u1; sid: 8d1-2<br/>
+<font color="#A82F2F"><font size="2">(08:26:27 AM)</font> <b>Devastator:</b></font> somiaj apt-get build-dep php5-pgsql gives me no error: http://codepad.org/NXXlmXib<br/>
+<font color="#A82F2F"><font size="2">(08:27:05 AM)</font> <b>Devastator:</b></font> could it be some trace from the sid deb-src line?<br/>
+<font color="#A82F2F"><font size="2">(08:27:07 AM)</font> <b>somiaj:</b></font> I do recall having some issue with the various libjpeg versions when installing the -dev for building, but don&apos;t rember what I did to resolve the issue.<br/>
+<font color="#A82F2F"><font size="2">(08:27:51 AM)</font> <b>somiaj:</b></font> Devastator: it could be build depends of this sid package are not satsifiable in wheezy, and you&apos;ll have to go backport the build depends you are missing<br/>
+<font color="#A82F2F"><font size="2">(08:28:11 AM)</font> <b>somiaj:</b></font> not all backports are easy, and some are very difficult due to build depends not being stasified in wheezy.<br/>
+<font color="#A82F2F"><font size="2">(08:28:55 AM)</font> <b>Devastator:</b></font> somiaj in the case I don&apos;t want to backport anymore, just recompile for it to get latest libraries from the newer version of postgresql 9.4.1<br/>
+<font color="#A82F2F"><font size="2">(08:29:32 AM)</font> <b>somiaj:</b></font> Devastator: another thing to do/pratice, is use a clean chroot to do your backporting in. Sometimes it is far easier to get build depends to work on a minimial chroot for building and not your running system.<br/>
+<font color="#A82F2F"><font size="2">(08:30:01 AM)</font> <b>Devastator:</b></font> somiaj is there a way to clean the references of sid packages?<br/>
+<font color="#A82F2F"><font size="2">(08:30:25 AM)</font> <b>Devastator:</b></font> I commented the sid deb-src line and ran aptitude update, is that enough?<br/>
+<font color="#A82F2F"><font size="2">(08:31:01 AM)</font> <b>somiaj:</b></font> Devastator: that is fine. But a deb-src won&apos;t mess up your system. And using the build depends for the wheezy packge may not be the same as the one from the sid package.<br/>
+<font color="#A82F2F"><font size="2">(08:31:13 AM)</font> <b>somiaj:</b></font> but yea having a deb-src line from sid and then removing it should cause no damage to your system.<br/>
+<font color="#A82F2F"><font size="2">(08:31:58 AM)</font> <b>Devastator:</b></font> I&apos;ve tried to follow this, after trying a few backports<br/>
+<font color="#A82F2F"><font size="2">(08:32:03 AM)</font> <b>Devastator:</b></font> !package recompile<br/>
+<font color="#A82F2F"><font size="2">(08:32:03 AM)</font> <b>dpkg:</b></font> 1) Add a &lt;deb-src&gt; line for your current release to your sources.list 2) aptitude update; aptitude install build-essential devscripts fakeroot; aptitude -R build-dep packagename 3) as any user, apt-get source packagename 4) cd packagename-version/; ask me about &lt;debian/rules&gt;; 5) dpkg-buildpackage -uc -us 6) as root, dpkg -i ../packagename-version.deb.  Ask me about &lt;debian/rules&gt;, &lt;nocheck&gt;, &lt;nostrip&gt;, &lt;apt-get source&gt;.<br/>
+<font size="2">(08:32:16 AM)</font><b> `hypermist` is now known as sleepypc</b><br/>
+<font color="#A82F2F"><font size="2">(08:32:44 AM)</font> <b>somiaj:</b></font> !tell Devastator about ssb<br/>
+<font color="#A82F2F"><font size="2">(08:32:59 AM)</font> <b>somiaj:</b></font> just another one, very simlar but that is designed for backports vs what you are doing with a package-recompile, but very similar<br/>
+<font color="#A82F2F"><font size="2">(08:33:23 AM)</font> <b>somiaj:</b></font> The only thing I may do differently as I said is do all this inside a clean chroot after using debootstrap to create it<br/>
+<font color="#A82F2F"><font size="2">(08:33:30 AM)</font> <b>Devastator:</b></font> yeah, that&apos;s what I use for backporting :)<br/>
+<font color="#A82F2F"><font size="2">(08:33:37 AM)</font> <b>somiaj:</b></font> I am more manual, the package pbuilder just automate the making and using of a clean chroot.<br/>
+<font color="#A82F2F"><font size="2">(08:33:54 AM)</font> <b>Devastator:</b></font> the ssb factoid I mean, never used chroot for it<br/>
+<font color="#A82F2F"><font size="2">(08:34:17 AM)</font> <b>Devastator:</b></font> I guess I will try to recompile anyway<br/>
+<font color="#A82F2F"><font size="2">(08:34:24 AM)</font> <b>somiaj:</b></font> the chroot just makes sure you have a clean system to build in and don&apos;t have some strange conflict due to having built various (maybe comflicting) packages.<br/>
+<font color="#A82F2F"><font size="2">(08:34:27 AM)</font> <b>Devastator:</b></font> somiaj should I report that somewhere?<br/>
+<font color="#A82F2F"><font size="2">(08:34:56 AM)</font> <b>somiaj:</b></font> Devastator: report what, that you can&apos;t backport this paticular package? Or you can&apos;t recompile it using the version from wheezy?<br/>
+<font color="#A82F2F"><font size="2">(08:35:10 AM)</font> <b>Devastator:</b></font> the latter<br/>
+<font color="#A82F2F"><font size="2">(08:35:55 AM)</font> <b>somiaj:</b></font> I would try to reproduce it in a clean chroot make sure it isn&apos;t an artifact on your system and can be reporduced.<br/>
+<font color="#A82F2F"><font size="2">(08:36:16 AM)</font> <b>Devastator:</b></font> is there a factoid for creating a clean chroot?<br/>
+<font color="#A82F2F"><font size="2">(08:36:19 AM)</font> <b>somiaj:</b></font> and if it is for wheezy, you could report a bug if you find it is one, but not sure if much can or will be done about it.<br/>
+<font color="#A82F2F"><font size="2">(08:36:24 AM)</font> <b>somiaj:</b></font> !debootstrap<br/>
+<font color="#A82F2F"><font size="2">(08:36:24 AM)</font> <b>dpkg:</b></font> debootstrap can create a basic Debian system from scratch, without apt/dpkg.  Useful for installing in a &lt;chroot&gt;.  It is key to installing Debian GNU/Linux from a Unix/Linux system, ask me about &lt;install guide&gt;.  http://wiki.debian.org/Debootstrap  http://www.debian-administration.org/article/Installing_new_Debian_systems_with_debootstrap<br/>
+<font color="#A82F2F"><font size="2">(08:36:37 AM)</font> <b>somiaj:</b></font> let me look around, instead of guessing<br/>
+<font color="#A82F2F"><font size="2">(08:36:52 AM)</font> <b>Devastator:</b></font> does it matter if it&apos;s a VM?<br/>
+<font color="#A82F2F"><font size="2">(08:37:35 AM)</font> <b>somiaj:</b></font> https://wiki.debian.org/chroot<br/>
+<font color="#A82F2F"><font size="2">(08:37:40 AM)</font> <b>somiaj:</b></font> A fresh vm would work too<br/>
+<font color="#A82F2F"><font size="2">(08:37:43 AM)</font> <b>phix:</b></font> I like chroot<br/>
+<font color="#A82F2F"><font size="2">(08:38:00 AM)</font> <b>phix:</b></font> lxc is a better chroot<br/>
+<font color="#A82F2F"><font size="2">(08:38:07 AM)</font> <b>somiaj:</b></font> I just find a chroot far easier and don&apos;t need to emulate a virtual machine. You are runnign the binaries on your current machine, just in an enviorment that is clean<br/>
+<font color="#A82F2F"><font size="2">(08:38:24 AM)</font> <b>phix:</b></font> somiaj: I like lxc instead of chroot<br/>
+<font color="#A82F2F"><font size="2">(08:38:25 AM)</font> <b>somiaj:</b></font> yea if you are going to use a chroot for anything production, you want a full container and not a chroot. (:<br/>
+<font color="#A82F2F"><font size="2">(08:38:38 AM)</font> <b>Devastator:</b></font> somiaj can I use amd64 as arch?<br/>
+<font color="#A82F2F"><font size="2">(08:38:44 AM)</font> <b>somiaj:</b></font> phix: for building packages I think it is overkill. If you are actually wanting to run stuff inside the chroot then by all means. (:<br/>
+<font color="#A82F2F"><font size="2">(08:38:57 AM)</font> <b>somiaj:</b></font> Devastator: you can use eitehr on an amd64 system. Use the arch of the version you want to test<br/>
+<font color="#A82F2F"><font size="2">(08:39:13 AM)</font> <b>Devastator:</b></font> okie :)<br/>
+<font color="#A82F2F"><font size="2">(08:39:27 AM)</font> <b>somiaj:</b></font> Devastator: I use i386 when i need to build a 32bit package like wine<br/>
+<font color="#A82F2F"><font size="2">(08:40:15 AM)</font> <b>phix:</b></font>  somiaj I use it for ensuring library versions are consistant for inhouse or legecy software packages<br/>
+<font color="#A82F2F"><font size="2">(08:40:19 AM)</font> <b>Devastator:</b></font> somiaj I guess I can use i386 for php5 then :)<br/>
+<font color="#A82F2F"><font size="2">(08:40:26 AM)</font> <b>phix:</b></font> as well as segregating certain services<br/>
+<font color="#A82F2F"><font size="2">(08:41:13 AM)</font> <b>somiaj:</b></font> phix: yea my use is never needing that. I maybe build one package every few months inside a chroot and then don&apos;t use it until the next time. (:<br/>
+<font color="#A82F2F"><font size="2">(08:41:29 AM)</font> <b>phix:</b></font> ah<br/>
+<font size="2">(08:43:34 AM)</font><b> sleepypc is now known as `hypermist`</b><br/>
+<font color="#A82F2F"><font size="2">(08:44:06 AM)</font> <b>Devastator:</b></font> somiaj doesn&apos;t matter if the &quot;host&quot; is amd64, right?<br/>
+<font color="#A82F2F"><font size="2">(08:44:43 AM)</font> <b>somiaj:</b></font> Devastator: as long as the kernel can run the binaries. But it is rare you have turned off that compadability on an amd64 host<br/>
+<font size="2">(08:52:02 AM)</font><b> mode (+l 1461) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:57:53 AM)</font> <b>Devastator:</b></font> somiaj should I ignore locale errors?<br/>
+<font size="2">(08:59:49 AM)</font><b> gebjgd_ is now known as gebjgd</b><br/>
+<font color="#A82F2F"><font size="2">(09:04:51 AM)</font> <b>slept:</b></font> I think I have found a bug in the (testing) debian installer, but I need some help to further track it down. While configuring the network I am asked for iwlwifi-135-5.ucode on an additional usb key or cd. The problem is, that I can only supply -6.ucode from the repository (firmware-iwlwifi_0.43_all.deb) which does not get detected. Looking at the changelog of the package this version has to be around since Mon, 16 Jun 2014<br/>
+<font color="#A82F2F"><font size="2">(09:04:51 AM)</font> <b>slept:</b></font> 00:49:44. Any suggestions to track down the problem?<br/>
+<font color="#A82F2F"><font size="2">(09:09:35 AM)</font> <b>uwjesq:</b></font> Hello. What licence do my assets need to have so they can be shipped in the free repo of debian?<br/>

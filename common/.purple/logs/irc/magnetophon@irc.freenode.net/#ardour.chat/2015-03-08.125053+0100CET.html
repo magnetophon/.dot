@@ -1,0 +1,43 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Sun 08 Mar 2015 12:50:53 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Sun 08 Mar 2015 12:50:53 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(12:50:53 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(12:50:53 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(01:07:17 PM)</font> <b>oswaldm:</b></font> Hello, I am importing a MIDI file (about 120 bars), but ardour truncates the imported MIDI in the middle of bar 103, so the end is missing. The same MIDI is correctly imported in Rosegarden and LMMS, so did I miss a setting somewhere?<br/>
+<font color="#A82F2F"><font size="2">(01:10:12 PM)</font> <b>rgareus:</b></font> oswaldm: which version of ardour is that?<br/>
+<font color="#A82F2F"><font size="2">(01:10:44 PM)</font> <b>oswaldm:</b></font> Ardour 3.5.43073.5-4628-gf4e5f07 (built from git)<br/>
+<font color="#A82F2F"><font size="2">(01:11:22 PM)</font> <b>rgareus:</b></font> oswaldm: mmh pretty recent.  can you share the midi file ?<br/>
+<font color="#A82F2F"><font size="2">(01:11:38 PM)</font> <b>rgareus:</b></font> oswaldm: smalls like a bug in ardour&apos;s midi parser.<br/>
+<font color="#A82F2F"><font size="2">(01:12:06 PM)</font> <b>rgareus:</b></font> or a slightly broken midi file, ardour is a tad picky about correctness.<br/>
+<font color="#A82F2F"><font size="2">(01:12:56 PM)</font> <b>oswaldm:</b></font> Ok, so shall I open an issue in Mantis and add the MIDI file?<br/>
+<font color="#A82F2F"><font size="2">(01:13:03 PM)</font> <b>rgareus:</b></font> oswaldm: the easiesy would be to attach the file to a ticket at  http://tracker.ardour.org/  - but alternatively could could send the file to drobilla, las or me<br/>
+<font color="#A82F2F"><font size="2">(01:13:06 PM)</font> <b>LAbot:</b></font> Title: My View - MantisBT (at tracker.ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(01:13:35 PM)</font> <b>oswaldm:</b></font> Ok, will do that. Thanks!<br/>
+<font color="#A82F2F"><font size="2">(01:13:38 PM)</font> <b>rgareus:</b></font> oswaldm: if you want to check youself    `midicomp` (or a similar SMF to text dump may releavel what&apos;s going on)<br/>
+<font color="#A82F2F"><font size="2">(01:14:53 PM)</font> <b>rgareus:</b></font> 3.5.43073.5-4628-gf4e5f07 is an odd version number.  I wonder where the &quot;43073.5&quot; part compes from.  local tag?<br/>
+<font color="#A82F2F"><font size="2">(01:15:28 PM)</font> <b>rgareus:</b></font> but 3.5-4628-gf4e5f07 is unique enough. sometime last night.<br/>
+<font color="#A82F2F"><font size="2">(01:19:20 PM)</font> <b>oswaldm:</b></font> No idea wher the 43073.5 comes from, just copied from the about dialog. But yes, I did a git pull sometime yesterday evening.<br/>
+<font color="#A82F2F"><font size="2">(01:25:53 PM)</font> <b>rgareus:</b></font> aah just a missing line break  3.5.4307 (verson used at last &apos;configure&apos;)  3.5-4628-gf4e5f07 (git build revision)<br/>
+<font color="#A82F2F"><font size="2">(01:26:56 PM)</font> <b>rgareus:</b></font> odd there should be a &quot;Eno&quot; in between preparing for upcoming releases named after eno-albums, but that probably came after 3.5.4307 (and needs a ./waf configure)<br/>
+<font color="#A82F2F"><font size="2">(01:31:28 PM)</font> <b>oswaldm:</b></font> Filed a Mantis report with the MIDI file. Also did a new git pull, it builds currently.<br/>
+<font color="#062585"><font size="2">(01:32:07 PM)</font> <b>***rgareus</b></font> found it http://tracker.ardour.org/view.php?id=6196<br/>
+<font color="#A82F2F"><font size="2">(01:32:09 PM)</font> <b>LAbot:</b></font> Title: MantisBT (at tracker.ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(01:32:11 PM)</font> <b>rgareus:</b></font> oswaldm: thanks<br/>
+<font color="#A82F2F"><font size="2">(01:39:32 PM)</font> <b>rgareus:</b></font> oswaldm: I can confirm in Ardour it does just end on bar 103|03|0000<br/>
+<font color="#A82F2F"><font size="2">(01:39:58 PM)</font> <b>rgareus:</b></font> and ardour print a few  &quot;SMF ignoring illegal MIDI event&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:40:15 PM)</font> <b>rgareus:</b></font> when importing the file<br/>
+<font color="#A82F2F"><font size="2">(01:47:31 PM)</font> <b>rgareus:</b></font> 196800 On ch=1 n=87 v=128   <br/>
+<font color="#A82F2F"><font size="2">(01:47:42 PM)</font> <b>rgareus:</b></font> 128 is illegal  values are 0..127<br/>
+<font color="#A82F2F"><font size="2">(01:50:47 PM)</font> <b>rgareus:</b></font> midicomp 24_Piano_edited.mid | sed &apos;s/v=128/v=127/&apos; | midicomp -c &gt; /tmp/24_fixed.mid   # fixes the file<br/>
+<font color="#A82F2F"><font size="2">(01:52:17 PM)</font> <b>rgareus:</b></font> oswaldm: I&apos;m sorry to say, but that&apos;s a bug in rosegarden (which apparently produced the file).<br/>
+<font color="#A82F2F"><font size="2">(01:57:42 PM)</font> <b>oswaldm:</b></font> Ah, ok, thanks very much!<br/>
+<font color="#A82F2F"><font size="2">(01:58:43 PM)</font> <b>rgareus:</b></font> oswaldm: an other option is to lower the velocity of the note in RG.<br/>
+<font color="#A82F2F"><font size="2">(01:58:54 PM)</font> <b>rgareus:</b></font> oswaldm: it&apos;s just a single note<br/>
+<font color="#A82F2F"><font size="2">(02:00:11 PM)</font> <b>rgareus:</b></font> but it still looks odd. some missing note-off it seems<br/>
+<font color="#A82F2F"><font size="2">(02:03:39 PM)</font> <b>oswaldm:</b></font> rgareus: I confirm that the fixed file works. Weird that Rosegarden has this problem, at least it has been around for a quite long time...  <br/>
+<font color="#A82F2F"><font size="2">(02:03:43 PM)</font> <b>oswaldm:</b></font> Thanks again!<br/>
+<font color="#A82F2F"><font size="2">(02:03:43 PM)</font> <b>rgareus:</b></font> or rather overlapping note on&apos;s<br/>
+<font color="#A82F2F"><font size="2">(02:04:11 PM)</font> <b>rgareus:</b></font> oswaldm: there are quite a few bugs in RG as well.<br/>
+<font color="#A82F2F"><font size="2">(03:41:41 PM)</font> <b>Ricardus:</b></font> This one hour change we just made always makes me feel hungover<br/>
+<font color="#A82F2F"><font size="2">(03:52:24 PM)</font> <b>edogawa:</b></font> you made it already? here it will be on march 29th<br/>
+<font color="#A82F2F"><font size="2">(03:52:31 PM)</font> <b>edogawa:</b></font> but i agree<br/>
+<font size="2">(04:29:36 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

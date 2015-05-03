@@ -1,0 +1,82 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Mon 28 Oct 2013 09:06:05 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Mon 28 Oct 2013 09:06:05 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(09:06:05 PM)</font><b> The topic for #ardour is: ardour 3.5 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(09:07:58 PM)</font><b> imeim left the room (quit: Read error: No route to host).</b><br/>
+<font size="2">(09:09:12 PM)</font><b> themanwhosold [<em>~themanwho@natfh3.fh-hof.de</em>] entered the room.</b><br/>
+<font size="2">(09:30:38 PM)</font><b> themanwhosold left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(09:32:06 PM)</font><b> themanwhosold [<em>~themanwho@p4FE176EE.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:34:04 PM)</font> <b>bazz:</b></font> i&apos;m writing a plugin and when i show the plugin window (gtk) and then quit ardour (whether or not i&apos;ve closed the window) i get a segfault.  backtrace here: http://pastebin.com/y4gUk16F  Any ideas on what could cause this?  Plugin works fine in jalv as far as I can tell<br/>
+<font color="#A82F2F"><font size="2">(09:34:42 PM)</font> <b>las:</b></font> bazz: what LV2 extension are you using for the plugin GUI?<br/>
+<font color="#A82F2F"><font size="2">(09:36:06 PM)</font> <b>rgareus:</b></font> las: must be ui:X11UI or ui:gtkUI jalv does not show other UIs on GNU/Linux<br/>
+<font color="#A82F2F"><font size="2">(09:36:18 PM)</font> <b>rgareus:</b></font> bazz: can we see the code? specifically the shutdown callback<br/>
+<font color="#A82F2F"><font size="2">(09:36:43 PM)</font> <b>rgareus:</b></font> bazz:  you either start a thread on your own or don&apos;t refrain from calling visual updates after shutdown() has been called by the host<br/>
+<font color="#A82F2F"><font size="2">(09:36:45 PM)</font> <b>bazz:</b></font> yeah, it&apos;s a GtkUI<br/>
+<font color="#A82F2F"><font size="2">(09:37:43 PM)</font> <b>rgareus:</b></font> bazz: in jalv that&apos;s not usually a problem since the host is a single threaded application and the host usually terminates before the plugin even gets to clean up itself.<br/>
+<font color="#A82F2F"><font size="2">(09:38:16 PM)</font> <b>bazz:</b></font> hrmm, let me see about the shutdown thing<br/>
+<font color="#A82F2F"><font size="2">(09:40:34 PM)</font> <b>rgareus:</b></font> bazz: actually it&apos;s called &apos;cleanup&apos; in the lv2 api<br/>
+<font color="#A82F2F"><font size="2">(09:41:05 PM)</font> <b>rgareus:</b></font> bazz:   void (*cleanup)(LV2UI_Handle ui); part of the LV2UI_Descriptor<br/>
+<font color="#A82F2F"><font size="2">(09:41:32 PM)</font> <b>bazz:</b></font> rgareus: so, i destroy my widget in my cleanup call<br/>
+<font color="#A82F2F"><font size="2">(09:41:49 PM)</font> <b>bazz:</b></font> seems that should be enough to not call updates, or?<br/>
+<font color="#A82F2F"><font size="2">(09:41:51 PM)</font> <b>rgareus:</b></font> bazz: yes, and after that gtk should refrain from calling expose on it.<br/>
+<font color="#A82F2F"><font size="2">(09:42:14 PM)</font> <b>rgareus:</b></font> bazz: does your GUI have its own thread or is it using the idle callback?<br/>
+<font color="#A82F2F"><font size="2">(09:42:34 PM)</font> <b>bazz:</b></font> rgareus: neither, i simply have expose callbacks<br/>
+<font color="#A82F2F"><font size="2">(09:43:21 PM)</font> <b>rgareus:</b></font> bazz: that should work just fine then. <br/>
+<font color="#A82F2F"><font size="2">(09:43:52 PM)</font> <b>rgareus:</b></font> bazz: you can try to run it under valgrind in jalv.<br/>
+<font color="#A82F2F"><font size="2">(09:44:13 PM)</font> <b>rgareus:</b></font> bazz: or post code for others to have a look. could be a subtle thing.<br/>
+<font color="#A82F2F"><font size="2">(09:44:53 PM)</font> <b>bazz:</b></font> okay, lemme see what that does.  anything in particular i should be looking out for?  and yeah, the code will be available sometime soon.  was planning on publishing it once it was a bit more polished<br/>
+<font color="#A82F2F"><font size="2">(09:45:31 PM)</font> <b>rgareus:</b></font> bazz: the backtace itself is not very useful - mainly becaue debug-symbols are missing.<br/>
+<font color="#A82F2F"><font size="2">(09:45:56 PM)</font> <b>bazz:</b></font> rgareus: yeah.  i build the plugin with debug symbols, but i guess it&apos;s not actually in the ui it&apos;s segfaulting annoyingly<br/>
+<font size="2">(09:46:16 PM)</font><b> dennyabrain left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(09:47:10 PM)</font> <b>rgareus:</b></font> bazz: if you&apos;re on a debian-based distro,       apt-get install libgtkmm-2.4-dbg libgtk2.0-0-dbg<br/>
+<font color="#A82F2F"><font size="2">(09:47:29 PM)</font> <b>bazz:</b></font> rgareus: i&apos;m on arch.  lemme see if there&apos;s a debug lib <br/>
+<font color="#A82F2F"><font size="2">(09:49:02 PM)</font> <b>bazz:</b></font> hrmm, doesn&apos;t seem so, annoying<br/>
+<font color="#A82F2F"><font size="2">(09:49:35 PM)</font> <b>bazz:</b></font> so, nothing obvious when I run jalv in valgrind.  in fact, nothing at all in my ui code<br/>
+<font color="#A82F2F"><font size="2">(09:50:37 PM)</font> <b>rgareus:</b></font> bazz: even at exit? <br/>
+<font color="#A82F2F"><font size="2">(09:51:20 PM)</font> <b>bazz:</b></font> rgareus: nope.  i mean, i&apos;m not passing any extra args to valgrind, not sure if I should be?<br/>
+<font size="2">(09:51:41 PM)</font><b> naptastic [<em>~david@99-20-201-27.lightspeed.hstntx.sbcglobal.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:51:57 PM)</font> <b>rgareus:</b></font> --------<br/>
+<font color="#A82F2F"><font size="2">(09:51:57 PM)</font> <b>rgareus:</b></font> jackd -r -n debug -t500000 -d dummy -p 1024<br/>
+<font color="#A82F2F"><font size="2">(09:51:57 PM)</font> <b>rgareus:</b></font> JACK_DEFAULT_SERVER=debug valgrind --tool=memcheck --leak-check=full  --num-callers=50 --log-file=/tmp/plugin-%p.log jalv.gtk $PLUGIN_URL<br/>
+<font color="#A82F2F"><font size="2">(09:52:00 PM)</font> <b>rgareus:</b></font> -------- <br/>
+<font color="#A82F2F"><font size="2">(09:52:23 PM)</font> <b>bazz:</b></font> rgareus: okay, lemme try that<br/>
+<font size="2">(09:52:36 PM)</font><b> ShadowStrider left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(09:53:28 PM)</font> <b>rgareus:</b></font> bazz: you may also just use the &apos;real&apos; jack server. but I find it handy to use a 2nd debug server for development (sometimes also using a real 2nd device instead of dummy)<br/>
+<font color="#A82F2F"><font size="2">(09:56:35 PM)</font> <b>bazz:</b></font> rgareus: hrmm.  i&apos;ve got quite a few definitely lost blocks, although none that seem to originate in my ui code...<br/>
+<font color="#A82F2F"><font size="2">(09:56:54 PM)</font> <b>rgareus:</b></font> bazz: yeah gtk leaks.<br/>
+<font color="#A82F2F"><font size="2">(09:57:01 PM)</font> <b>bazz:</b></font> but they are in gtk stuff, so maybe the stack just isn&apos;t giving the full story<br/>
+<font color="#A82F2F"><font size="2">(09:57:03 PM)</font> <b>bazz:</b></font> ahh, okay<br/>
+<font color="#A82F2F"><font size="2">(09:57:19 PM)</font> <b>bazz:</b></font> i can post the log if you wouldn&apos;t mind having a look, although i&apos;m not sure how useful it is<br/>
+<font color="#A82F2F"><font size="2">(09:57:34 PM)</font> <b>las:</b></font> bazz: lost blocks are not worth worrying about most of the time<br/>
+<font color="#A82F2F"><font size="2">(09:57:54 PM)</font> <b>rgareus:</b></font> bazz: it&apos;s invalid read/write and double free that are most intersting<br/>
+<font size="2">(09:58:14 PM)</font><b> pr0ggie left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:58:28 PM)</font> <b>bazz:</b></font> rgareus: yeah, the only ones of those are a couple of &quot;Conditional jump or move depends on uninitialised value(s)&quot; in my core plugin, which I will fix<br/>
+<font color="#A82F2F"><font size="2">(09:58:33 PM)</font> <b>bazz:</b></font> but i&apos;m pretty sure aren&apos;t the problem here<br/>
+<font size="2">(09:58:41 PM)</font><b> pdimitrov left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(09:58:53 PM)</font><b> pr0ggie [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font size="2">(09:59:32 PM)</font><b> dmonu [<em>~dmonu@81.95.188.118</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:59:46 PM)</font> <b>rgareus:</b></font> bazz: if you use ardour from src. there&apos;s  ./arval (runs ardour (and all its plugins) under valgrind) ;<br/>
+<font color="#A82F2F"><font size="2">(10:00:33 PM)</font> <b>las:</b></font> rgareus, bazz: i almost never need gtk, gtkmm symbols for useful debugging<br/>
+<font color="#A82F2F"><font size="2">(10:01:19 PM)</font> <b>bazz:</b></font> rgareus: okay, i can play with that.  i&apos;ll have to build ardour on this machine, but that&apos;s fine.  thanks for the tips.  your suspicion is that i&apos;m trying to draw something after cleanup though?  i can do some println debugging to see if that&apos;s true i suppose<br/>
+<font size="2">(10:02:08 PM)</font><b> pdimitrov [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font size="2">(10:02:57 PM)</font><b> DrCode left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:03:08 PM)</font> <b>rgareus:</b></font> line 27 of http://pastebin.com/y4gUk16F -- if you can reproduce it - check what GtkWidget the event about.<br/>
+<font color="#A82F2F"><font size="2">(10:03:29 PM)</font> <b>rgareus:</b></font> it may be a ruse though. <br/>
+<font color="#A82F2F"><font size="2">(10:04:00 PM)</font> <b>las:</b></font> rgareus: it is just the normal GTK redraw cycle<br/>
+<font color="#A82F2F"><font size="2">(10:04:16 PM)</font> <b>las:</b></font> rgareus: something changed somewhere that caused the need to redraw part of or all of window<br/>
+<font color="#A82F2F"><font size="2">(10:04:29 PM)</font> <b>las:</b></font> rgareus: you can&apos;t figure out what that change was<br/>
+<font color="#A82F2F"><font size="2">(10:04:44 PM)</font> <b>las:</b></font> rgareus: it isn&apos;t part of the call stack<br/>
+<font color="#A82F2F"><font size="2">(10:05:15 PM)</font> <b>rgareus:</b></font> I think I&apos;ve seen similar things once when calling gtk_widget_destroy in the wrong order. (containers delete their childs if the refcount hits zero, but gtk will print a warning)<br/>
+<font color="#A82F2F"><font size="2">(10:05:30 PM)</font> <b>bazz:</b></font> so, i&apos;m not getting any expose callbacks after i destroy my ui, as far as I can tell.  i have printfs in all my expose callbacks and none of them print after destroy<br/>
+<font color="#A82F2F"><font size="2">(10:07:35 PM)</font> <b>rgareus:</b></font> bazz: it looks that way. -- maybe compare your code to other gtk LV2 Uis that don&apos;t crash.<br/>
+<font color="#A82F2F"><font size="2">(10:08:00 PM)</font> <b>rgareus:</b></font> bazz: or try some other LV2 GTK Uis first just to make sure it&apos;s not a general problem with ardour and/or gtk.<br/>
+<font color="#A82F2F"><font size="2">(10:08:31 PM)</font> <b>bazz:</b></font> rgareus: yeah, the calf ones seem fine, so i guess it&apos;s somehow my fault.  that&apos;s a lot of code to audit though :)<br/>
+<font size="2">(10:09:16 PM)</font><b> Valvalion left the room (quit: Quit: Soundscapes, noises and other things to listen : http://www.youtube.com/user/valvalion/).</b><br/>
+<font size="2">(10:11:11 PM)</font><b> thorwil left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(10:11:15 PM)</font> <b>rgareus:</b></font> bazz: the simple most GTK plugin is probably http://lv2plug.in/repo/trunk/plugins/eg04-sampler.lv2/sampler_ui.c<br/>
+<font color="#A82F2F"><font size="2">(10:11:27 PM)</font> <b>bazz:</b></font> and my other plugin (DrMr) seems to work fine.  considering I used much of the same code from that one, it&apos;s odd.  Probably has something to do with the ui toolkit i&apos;m developing in tandem.  blarg<br/>
+<font size="2">(10:12:17 PM)</font><b> colinf [<em>~colinf@31.81.170.216</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:12:18 PM)</font> <b>rgareus:</b></font> bazz: don&apos;t destroy the top-level window/widget (that is provided by the host).<br/>
+<font color="#A82F2F"><font size="2">(10:12:46 PM)</font> <b>rgareus:</b></font> bazz: doing so could explain the crash<br/>
+<font color="#A82F2F"><font size="2">(10:13:10 PM)</font> <b>rgareus:</b></font> bazz: in the case of eg-sampler  ui-&gt;box <br/>
+<font color="#A82F2F"><font size="2">(10:13:23 PM)</font> <b>bazz:</b></font> rgareus: i&apos;m destroying the top widget I create in instantiate (a gtk_alignment in this case)<br/>
+<font size="2">(10:29:42 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

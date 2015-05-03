@@ -1,0 +1,63 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Tue 24 Feb 2015 04:47:49 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Tue 24 Feb 2015 04:47:49 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:47:49 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(04:47:49 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(04:47:54 PM)</font> <b>viric:</b></font> petar: I meant the &quot;lock&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:48:03 PM)</font> <b>petar:</b></font> define lock :)<br/>
+<font color="#A82F2F"><font size="2">(04:48:08 PM)</font> <b>viric:</b></font> &quot;A password field which starts with a exclamation mark means that the password is locked.&quot;  shadow(5)<br/>
+<font color="#A82F2F"><font size="2">(04:48:23 PM)</font> <b>petar:</b></font> the password, not the account<br/>
+<font color="#A82F2F"><font size="2">(04:48:23 PM)</font> <b>nkar:</b></font> Lethalman: I&apos;m thinking of using this: listen on lo\naccept for any deliver to mbox<br/>
+<font color="#A82F2F"><font size="2">(04:48:32 PM)</font> <b>viric:</b></font> ahm<br/>
+<font color="#A82F2F"><font size="2">(04:48:46 PM)</font> <b>viric:</b></font> what is a password locked?<br/>
+<font color="#A82F2F"><font size="2">(04:48:57 PM)</font> <b>Lethalman:</b></font> nkar, whatever :) I&apos;m using it for sending mails to the internet<br/>
+<font color="#A82F2F"><font size="2">(04:49:08 PM)</font> <b>nkar:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(04:49:14 PM)</font> <b>petar:</b></font> viric: imagine you want to lock somebody out temporarily<br/>
+<font color="#16569E"><font size="2">(04:49:15 PM)</font> <b>magnetophon:</b></font> i'm writing some scripts that might be useful to others outside of nixos. How should I handle shebangs?<br/>
+<font color="#A82F2F"><font size="2">(04:49:30 PM)</font> <b>viric:</b></font> petar: hm I thought that locking also disallowed ssh pubkey access<br/>
+<font color="#A82F2F"><font size="2">(04:49:43 PM)</font> <b>viric:</b></font> but it seems I was wrong. I understand then.<br/>
+<font color="#A82F2F"><font size="2">(04:50:52 PM)</font> <b>niksnut:</b></font> magnetophon: if you mean &quot;what should the shebang line be&quot;: #! /usr/bin/env &lt;interpreter&gt;<br/>
+<font color="#A82F2F"><font size="2">(04:51:13 PM)</font> <b>niksnut:</b></font> viric: probably you need some PAM thing for that<br/>
+<font color="#A82F2F"><font size="2">(04:51:47 PM)</font> <b>viric:</b></font> niksnut: aha. I remember as if I tried... but according to docs, I didn&apos;t test properly. :)<br/>
+<font color="#A82F2F"><font size="2">(04:53:18 PM)</font> <b>petar:</b></font> (which would need sshd_config:UsePAM Yes)<br/>
+<font color="#A82F2F"><font size="2">(04:54:36 PM)</font> <b>niksnut:</b></font> which is the case on NixOS<br/>
+<font color="#16569E"><font size="2">(04:55:20 PM)</font> <b>magnetophon:</b></font> niksnut: thanks. works great.  Does that work in every unix?<br/>
+<font color="#A82F2F"><font size="2">(04:56:24 PM)</font> <b>niksnut:</b></font> every unix that matters ;-)<br/>
+<font color="#16569E"><font size="2">(04:56:42 PM)</font> <b>magnetophon:</b></font> niksnut: and do we have a version of/switch for patchShebangs that does that?<br/>
+<font color="#A82F2F"><font size="2">(04:57:03 PM)</font> <b>iElectric:</b></font> nope<br/>
+<font color="#16569E"><font size="2">(04:57:43 PM)</font> <b>magnetophon:</b></font> iElectric, niksnut: OK, thanks!<br/>
+<font color="#A82F2F"><font size="2">(04:58:17 PM)</font> <b>nkar:</b></font> Lethalman: do you know the syntax for specifying the maildir?  the manpage at https://www.opensmtpd.org/smtpd.conf.5.html says that &apos;accept for any deliver to maildir path&apos; should work, but it only works if I omit the path.<br/>
+<font color="#A82F2F"><font size="2">(04:58:35 PM)</font> <b>niksnut:</b></font> viric: I gues if you want to lock an *account* you need to set the expired field in /etc/shadow<br/>
+<font color="#A82F2F"><font size="2">(04:59:00 PM)</font> <b>viric:</b></font> ahum<br/>
+<font color="#A82F2F"><font size="2">(04:59:22 PM)</font> <b>iElectric:</b></font> usermod has a parameter for that afaik<br/>
+<font color="#A82F2F"><font size="2">(04:59:24 PM)</font> <b>petar:</b></font> magnetophon: if &lt;interpreter&gt; is awk, you&apos;ll need a non-posix env<br/>
+<font color="#A82F2F"><font size="2">(04:59:25 PM)</font> <b>Lethalman:</b></font> nkar, should work as per the man<br/>
+<font color="#A82F2F"><font size="2">(04:59:46 PM)</font> <b>Lethalman:</b></font> faillog ecc. can lock accounts<br/>
+<font color="#A82F2F"><font size="2">(04:59:51 PM)</font> <b>Lethalman:</b></font> ehm<br/>
+<font color="#A82F2F"><font size="2">(04:59:54 PM)</font> <b>Lethalman:</b></font> the pam_tail stuff<br/>
+<font color="#16569E"><font size="2">(05:00:36 PM)</font> <b>magnetophon:</b></font> petar: that's ok, it's for zsh.<br/>
+<font color="#A82F2F"><font size="2">(05:01:52 PM)</font> <b>viric:</b></font> man usermod   (-L)  is quite explicit<br/>
+<font color="#A82F2F"><font size="2">(05:08:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 1 new commit to master: http://git.io/AyZp<br/>
+<font color="#A82F2F"><font size="2">(05:08:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master dad86b4 Eelco Dolstra: Fix building on Xcode...<br/>
+<font color="#A82F2F"><font size="2">(05:13:39 PM)</font> <b>nkar:</b></font> Lethalman: is there a way to send emails to non-existent users?  if I send to foo@localhost, I get sendmail: command failed: 550 Invalid recipient.<br/>
+<font color="#A82F2F"><font size="2">(05:14:11 PM)</font> <b>Lethalman:</b></font> should be recipient any<br/>
+<font color="#A82F2F"><font size="2">(05:16:53 PM)</font> <b>nkar:</b></font> nope, I get an error on nixos-rebuild switch<br/>
+<font color="#A82F2F"><font size="2">(05:53:00 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] viric pushed 1 new commit to master: http://git.io/AyMA<br/>
+<font color="#A82F2F"><font size="2">(05:53:00 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b26e939 Lluís Batlle i Rossell: fix pam (OATH related)...<br/>
+<font color="#A82F2F"><font size="2">(05:53:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] viric pushed 1 new commit to release-14.12: http://git.io/AyDw<br/>
+<font color="#A82F2F"><font size="2">(05:53:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 b8f7da2 Lluís Batlle i Rossell: fix pam (OATH related)...<br/>
+<font color="#A82F2F"><font size="2">(05:57:10 PM)</font> <b>aavogt:</b></font> is there a nix-collect-garbage that keeps files that were downloaded but not ones that were compiled?<br/>
+<font color="#A82F2F"><font size="2">(05:59:39 PM)</font> <b>aavogt:</b></font> mostly it&apos;s that if I build ghc+lots of packages a few times (say ghc with different patches), it&apos;s easy to fill up 30 G in /nix/store<br/>
+<font color="#A82F2F"><font size="2">(06:04:36 PM)</font> <b>joelmo:</b></font> I am trying to unstall chromium with pepper, but I don&apos;t get pepper in chromium. nix-env -i chromium --arg config.chromium.enablePepperFlash true<br/>
+<font color="#A82F2F"><font size="2">(06:08:58 PM)</font> <b>intothemountains:</b></font> join #django<br/>
+<font color="#A82F2F"><font size="2">(06:09:08 PM)</font> <b>intothemountains:</b></font> uh, sorry heh<br/>
+<font color="#A82F2F"><font size="2">(06:10:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 1 new commit to master: http://git.io/Aybc<br/>
+<font color="#A82F2F"><font size="2">(06:10:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3d3db35 Eelco Dolstra: sudo: Update to 1.8.12<br/>
+<font color="#A82F2F"><font size="2">(06:10:20 PM)</font> <b>joelmo:</b></font> #djangogirls - nixos is the new hipster os ;P<br/>
+<font color="#A82F2F"><font size="2">(06:11:31 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nslqqq opened pull request #6552: Correct NetworkManager documentation (master...master) http://git.io/AyNf<br/>
+<font color="#A82F2F"><font size="2">(06:13:43 PM)</font> <b>nkar:</b></font> Lethalman: people on #opensmtpd explained how to do it.  I can share the config, if you&apos;re interested.<br/>
+<font color="#A82F2F"><font size="2">(06:16:16 PM)</font> <b>niksnut:</b></font> impressive: the size of the firefox source tarball went from 172 MB to 391 MB between 35.0 and 36.0<br/>
+<font color="#A82F2F"><font size="2">(06:17:27 PM)</font> <b>viric:</b></font> does it include quake3?<br/>
+<font color="#A82F2F"><font size="2">(06:17:53 PM)</font> <b>ttuegel:</b></font> that&apos;s nothing. qt 5.4 added chromium, went from ~100MB to ~400MB (that&apos;s why i split it up in nixpkgs)<br/>
+<font color="#A82F2F"><font size="2">(06:18:00 PM)</font> <b>niksnut:</b></font> no, but it does include a (binary) copy of gcc<br/>
+<font color="#A82F2F"><font size="2">(06:18:12 PM)</font> <b>ikwildrpepper:</b></font> :o<br/>
+<font color="#A82F2F"><font size="2">(06:18:40 PM)</font> <b>viric:</b></font> ha<br/>
+<font color="#A82F2F"><font size="2">(06:18:56 PM)</font> <b>viric:</b></font> niksnut: in a nix store path? :)<br/>

@@ -1,0 +1,52 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with henrytill at Fri 16 Jan 2015 01:31:53 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with henrytill at Fri 16 Jan 2015 01:31:53 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font color="#A82F2F"><font size="2">(01:31:52 PM)</font> <b>henrytill:</b></font> hey<br/>
+<font color="#16569E"><font size="2">(01:32:23 PM)</font> <b>magnetophon:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(01:33:23 PM)</font> <b>henrytill:</b></font> i was just reading the logs<br/>
+<font color="#16569E"><font size="2">(01:33:35 PM)</font> <b>magnetophon:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(01:33:39 PM)</font> <b>henrytill:</b></font> one thing wasn&apos;t clear<br/>
+<font color="#A82F2F"><font size="2">(01:33:49 PM)</font> <b>henrytill:</b></font> do you have any overrides in ~/.nixpkgs/config.nix ?<br/>
+<font color="#16569E"><font size="2">(01:34:11 PM)</font> <b>magnetophon:</b></font> no, I don't have that file at all.<br/>
+<font color="#A82F2F"><font size="2">(01:34:15 PM)</font> <b>henrytill:</b></font> okay good<br/>
+<font color="#A82F2F"><font size="2">(01:34:33 PM)</font> <b>henrytill:</b></font> cause that would probably screw with nix-shell<br/>
+<font color="#16569E"><font size="2">(01:34:38 PM)</font> <b>magnetophon:</b></font> I do have overrides in my nixos config<br/>
+<font color="#A82F2F"><font size="2">(01:35:08 PM)</font> <b>henrytill:</b></font> you might want to remove faust stuff + overrides from your configuration.nix<br/>
+<font color="#16569E"><font size="2">(01:35:12 PM)</font> <b>magnetophon:</b></font> the shell seems OK now. I &lt;am&gt; having troubles with the tip Lethalman gave me<br/>
+<font color="#A82F2F"><font size="2">(01:35:24 PM)</font> <b>henrytill:</b></font> generally i try to keep packages i&apos;m working on out of my global config<br/>
+<font color="#A82F2F"><font size="2">(01:35:45 PM)</font> <b>henrytill:</b></font> so that there&apos;s no confusion about what i&apos;m working on<br/>
+<font color="#16569E"><font size="2">(01:36:22 PM)</font> <b>magnetophon:</b></font> It's what I'm used to for testing. How do you test?<br/>
+<font color="#A82F2F"><font size="2">(01:36:53 PM)</font> <b>henrytill:</b></font> for application packages, i just do it all with nix-env/nix-shell/nix-build in my user environment<br/>
+<font color="#A82F2F"><font size="2">(01:37:04 PM)</font> <b>henrytill:</b></font> that way i&apos;m not rebuilding my system to test changes<br/>
+<font color="#16569E"><font size="2">(01:37:07 PM)</font> <b>magnetophon:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(01:38:08 PM)</font> <b>henrytill:</b></font> certainly for &quot;system&quot; packages, you have no choice but to rebuild with them<br/>
+<font color="#A82F2F"><font size="2">(01:38:18 PM)</font> <b>henrytill:</b></font> but faust is just an application<br/>
+<font color="#A82F2F"><font size="2">(01:39:26 PM)</font> <b>henrytill:</b></font> to avoid crashing with upgrades, you can use nixos-rebuild boot<br/>
+<font color="#A82F2F"><font size="2">(01:39:48 PM)</font> <b>henrytill:</b></font> which will only switch the system on reboot<br/>
+<font color="#A82F2F"><font size="2">(01:40:07 PM)</font> <b>henrytill:</b></font> much safer when you haven&apos;t updated for a little awhile<br/>
+<font color="#16569E"><font size="2">(01:40:27 PM)</font> <b>magnetophon:</b></font> yeah, I knew that. just never had any problems this way.  Live and learn... :)<br/>
+<font color="#16569E"><font size="2">(01:41:02 PM)</font> <b>magnetophon:</b></font> Did you also follow the last bit of the conversation, about gcc -I?<br/>
+<font color="#A82F2F"><font size="2">(01:41:17 PM)</font> <b>henrytill:</b></font> not there yet... :D<br/>
+<font color="#16569E"><font size="2">(01:42:42 PM)</font> <b>magnetophon:</b></font> OK. When you're there, here's a follow-up that I don't want to bother Lethalman with, as I think he's kinda running out of patience...<br/>
+<font color="#16569E"><font size="2">(01:44:28 PM)</font> <b>magnetophon:</b></font> I did  &quot;sed -i 's@CPPFLAGS=@CPPFLAGS=-I ${lv2}/include/ @g' $out/bin/faust2lv2&quot; in the installPhase, (just before creating the wrappers that I needed anyway). I'm still getting the same error  (preceded by a mention that path/to/include is a directory, which is good, right?). The thing is: faust2lv2 was already able to find the top-level lv2.h, but from that point on something goes wrong.  I think...<br/>
+<font color="#16569E"><font size="2">(01:44:42 PM)</font> <b>magnetophon:</b></font> Here's the complete error:<br/>
+<font color="#16569E"><font size="2">(01:45:06 PM)</font> <b>magnetophon:</b></font> faust2lv2 echo.dsp<br/>
+<font color="#16569E"><font size="2">(01:45:06 PM)</font> <b>magnetophon:</b></font> /nix/store/i3krry3ab8l3wjq26jbxf9dxrahjvyn3-faust-8-1-2015/bin/.faust2lv2-wrapped: line 72: /nix/store/79vrvcyl3xpg5nwzzwq7plghv62ggshr-lv2-1.10.0/include: Is a directory<br/>
+<font color="#16569E"><font size="2">(01:45:06 PM)</font> <b>magnetophon:</b></font> In file included from /tmp/tmp.f2OkAD4Eme/echo.cpp:478:0:<br/>
+<font color="#16569E"><font size="2">(01:45:06 PM)</font> <b>magnetophon:</b></font> /nix/store/79vrvcyl3xpg5nwzzwq7plghv62ggshr-lv2-1.10.0/include/lv2/lv2plug.in/ns/ext/dynmanifest/dynmanifest.h:30:43: fatal error: lv2/lv2plug.in/ns/lv2core/lv2.h: No such file or directory<br/>
+<font color="#16569E"><font size="2">(01:45:06 PM)</font> <b>magnetophon:</b></font>  #include &quot;lv2/lv2plug.in/ns/lv2core/lv2.h&quot;<br/>
+<font color="#16569E"><font size="2">(01:45:06 PM)</font> <b>magnetophon:</b></font>                                            ^<br/>
+<font color="#16569E"><font size="2">(01:45:06 PM)</font> <b>magnetophon:</b></font> compilation terminated.<br/>
+<font color="#16569E"><font size="2">(01:45:06 PM)</font> <b>magnetophon:</b></font> In file included from /tmp/tmp.f2OkAD4Eme/echo.cpp:478:0:<br/>
+<font color="#16569E"><font size="2">(01:45:06 PM)</font> <b>magnetophon:</b></font> /nix/store/79vrvcyl3xpg5nwzzwq7plghv62ggshr-lv2-1.10.0/include/lv2/lv2plug.in/ns/ext/dynmanifest/dynmanifest.h:30:43: fatal error: lv2/lv2plug.in/ns/lv2core/lv2.h: No such file or directory<br/>
+<font color="#16569E"><font size="2">(01:45:06 PM)</font> <b>magnetophon:</b></font>  #include &quot;lv2/lv2plug.in/ns/lv2core/lv2.h&quot;<br/>
+<font color="#16569E"><font size="2">(01:45:06 PM)</font> <b>magnetophon:</b></font>                                            ^<br/>
+<font color="#16569E"><font size="2">(01:45:06 PM)</font> <b>magnetophon:</b></font> compilation terminated.<br/>
+<font color="#16569E"><font size="2">(01:45:06 PM)</font> <b>magnetophon:</b></font> /nix/store/i3krry3ab8l3wjq26jbxf9dxrahjvyn3-faust-8-1-2015/bin/.faust2lv2-wrapped: line 154: /tmp/tmp.f2OkAD4Eme/echo: No such file or directory<br/>
+<font color="#16569E"><font size="2">(01:45:06 PM)</font> <b>magnetophon:</b></font> ./echo.lv2;<br/>
+<font color="#16569E"><font size="2">(01:45:35 PM)</font> <b>magnetophon:</b></font> OK, I'll pastebin that, for readability<br/>
+<font color="#16569E"><font size="2">(01:47:14 PM)</font> <b>magnetophon:</b></font> <a href="http://nixpaste.noip.me/raw/6Q_2ocz1">http://nixpaste.noip.me/raw/6Q_2ocz1</a><br/>
+<font color="#A82F2F"><font size="2">(01:48:54 PM)</font> <b>henrytill:</b></font> i honestly have no clue about any of this<br/>
+<font color="#16569E"><font size="2">(01:49:22 PM)</font> <b>magnetophon:</b></font> OK, np. I'll ask Lethelman then.<br/>
+<font color="#A82F2F"><font size="2">(01:49:45 PM)</font> <b>henrytill:</b></font> faust has become yr white whale! :P<br/>
+<font color="#16569E"><font size="2">(01:50:16 PM)</font> <b>magnetophon:</b></font> and I'm not nearly done....  I've packaged 3 out of 30 scripts.....   :(<br/>
+<font color="#A82F2F"><font size="2">(01:50:33 PM)</font> <b>henrytill:</b></font> wish i had more time to give you, but i&apos;m tied up with other work<br/>
+<font color="#16569E"><font size="2">(01:50:39 PM)</font> <b>magnetophon:</b></font> np<br/>

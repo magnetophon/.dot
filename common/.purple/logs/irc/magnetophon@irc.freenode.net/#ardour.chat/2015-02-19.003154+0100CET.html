@@ -1,0 +1,102 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Thu 19 Feb 2015 12:31:54 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Thu 19 Feb 2015 12:31:54 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(12:31:54 AM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(12:31:54 AM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(12:32:05 AM)</font> <b>las:</b></font> tom-: your confusion is this<br/>
+<font color="#A82F2F"><font size="2">(12:32:17 AM)</font> <b>las:</b></font> tom-: the canvas is very, very much wider than what is visible on the screen<br/>
+<font color="#A82F2F"><font size="2">(12:32:36 AM)</font> <b>las:</b></font> tom-: fitting to show a region just involves picking the nearest samples-per-pixel value<br/>
+<font color="#A82F2F"><font size="2">(12:32:59 AM)</font> <b>las:</b></font> tom-: it may in fact be off by 1 pixel ... in which case the region ends with 1 pixel left to spare or has its last pixel off-screen<br/>
+<font color="#A82F2F"><font size="2">(12:33:00 AM)</font> <b>tom-:</b></font> nearest integer, clear so far<br/>
+<font color="#A82F2F"><font size="2">(12:33:12 AM)</font> <b>las:</b></font> tom-: but it does not make spp be non-integral<br/>
+<font color="#A82F2F"><font size="2">(12:34:07 AM)</font> <b>tom-:</b></font> las: is it so that the last pixel can represent a different number of samples than the non-end pixels?<br/>
+<font color="#A82F2F"><font size="2">(12:34:21 AM)</font> <b>tom-:</b></font> a remainder so to speak?<br/>
+<font color="#A82F2F"><font size="2">(12:34:59 AM)</font> <b>tom-:</b></font> because it can&apos;t fit an exact number of samples as long as the resolution is &gt; 1 sample/pixel<br/>
+<font color="#A82F2F"><font size="2">(12:35:15 AM)</font> <b>las:</b></font> tom-: no, think about this more carefully, please<br/>
+<font color="#A82F2F"><font size="2">(12:35:46 AM)</font> <b>tom-:</b></font> ok :)<br/>
+<font color="#A82F2F"><font size="2">(12:36:26 AM)</font> <b>tom-:</b></font> las: a given samples per pixel integer, i.e. 10. then 99 samples -&gt; 10 pixels needed<br/>
+<font color="#A82F2F"><font size="2">(12:36:36 AM)</font> <b>tom-:</b></font> las: but the last pixel represents only 9 samples<br/>
+<font color="#A82F2F"><font size="2">(12:37:52 AM)</font> <b>tom-:</b></font> las so that pixel is somehow special to others, if there isn&apos;t a fundamentally wrong view to it<br/>
+<font color="#A82F2F"><font size="2">(12:39:01 AM)</font> <b>tom-:</b></font> las: alternative view, every of 10 pixels represents 9.9 samples<br/>
+<font color="#A82F2F"><font size="2">(12:40:46 AM)</font> <b>Stuzz:</b></font> Hey, was that Mr Ardroid?<br/>
+<font color="#A82F2F"><font size="2">(12:44:11 AM)</font> <b>tom-:</b></font> las: i&apos;d have more zoom questions :), better for another day<br/>
+<font color="#A82F2F"><font size="2">(12:47:15 AM)</font> <b>las:</b></font> tom-: region is 99 samples, 10 samples per pixel : fit to width =&gt; 9.99 pixels required; round to 10; region ends between pixel 9 and 10; gets rounded down to 9, some information missing<br/>
+<font color="#A82F2F"><font size="2">(12:47:24 AM)</font> <b>las:</b></font> tom-: not a problem ... this is what zoom is all about<br/>
+<font color="#A82F2F"><font size="2">(12:48:36 AM)</font> <b>tom-:</b></font> las: this is interesting, rounded to 9<br/>
+<font color="#A82F2F"><font size="2">(12:49:51 AM)</font> <b>tom-:</b></font> las: that&apos;s the point, clear enough. either information is missing or there is a &quot;gap&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:50:11 AM)</font> <b>tom-:</b></font> this is not a problem for the screen<br/>
+<font color="#A82F2F"><font size="2">(12:52:03 AM)</font> <b>tom-:</b></font> thanks for the insights<br/>
+<font color="#A82F2F"><font size="2">(12:55:28 AM)</font> <b>tom-:</b></font> i wondered if it has some merit to &quot;always have end pixel&quot;, even if it&apos;s only representing a portion of samples that would get rounded down/away<br/>
+<font color="#A82F2F"><font size="2">(12:56:53 AM)</font> <b>tom-:</b></font> then it would be: what you see is &quot;exactly or at least&quot; so long, while with rounding, it&apos;s &quot;exactly, at least or less&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:42:26 AM)</font> <b>Bernhard_L:</b></font> Hi, I am working on a piece of reggae dub. And ran into a little problem.<br/>
+<font color="#A82F2F"><font size="2">(08:43:02 AM)</font> <b>Bernhard_L:</b></font> There are some parts with a moog synthesizer (Bristol Emulator).<br/>
+<font color="#A82F2F"><font size="2">(08:44:09 AM)</font> <b>Bernhard_L:</b></font> They sound not very loud but take the amplitude far into the red level. If lowering the track it is too silent.<br/>
+<font color="#A82F2F"><font size="2">(08:44:21 AM)</font> <b>Bernhard_L:</b></font> Which plugin for filtering?<br/>
+<font color="#A82F2F"><font size="2">(10:01:00 AM)</font> <b>chaot4_:</b></font> Bernhard_L: You mean the peaks are too high in comparison to the average loudness?<br/>
+<font color="#A82F2F"><font size="2">(12:21:51 PM)</font> <b>Xzu:</b></font> Hi all. Please can we have date format as day/month/year for export, please, please, please? http://tracker.ardour.org/view.php?id=5371<br/>
+<font color="#A82F2F"><font size="2">(12:21:52 PM)</font> <b>LAbot`:</b></font> Title: 0005371: date format for export - MantisBT (at tracker.ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(12:24:12 PM)</font> <b>Bernhard_L:</b></font> &lt;chaot4_&gt;Sorry I am late, but yeas. And I think it is not really hearable. Because if I lower the peak it goes undercover.<br/>
+<font color="#A82F2F"><font size="2">(12:28:23 PM)</font> <b>Bernhard_L:</b></font> chaot4_: Sorry for missspelling<br/>
+<font color="#A82F2F"><font size="2">(12:44:28 PM)</font> <b>nick_m:</b></font> Bernhard_L, limiter / compressor<br/>
+<font color="#A82F2F"><font size="2">(12:44:58 PM)</font> <b>nick_m:</b></font> Bernhard_L, ..without having heard it, that is ..<br/>
+<font color="#A82F2F"><font size="2">(12:45:47 PM)</font> <b>Bernhard_L:</b></font> nick_m - limiter might be good.<br/>
+<font color="#A82F2F"><font size="2">(12:46:29 PM)</font> <b>Bernhard_L:</b></font> nick_m, I wonder, why I hesitate using limiters<br/>
+<font color="#A82F2F"><font size="2">(12:49:10 PM)</font> <b>nick_m:</b></font> Bernhard_L, i have no idea. i don&apos;t know what you&apos;re mixing, but generally live music has a dynamic range that simply won&apos;t translate to a home stereo or phone.<br/>
+<font color="#A82F2F"><font size="2">(12:49:40 PM)</font> <b>nick_m:</b></font> ..at significantly reduced level compared to the original<br/>
+<font color="#A82F2F"><font size="2">(12:49:51 PM)</font> <b>Bernhard_L:</b></font> nick_m, maybe it is because I use rackarack.<br/>
+<font color="#A82F2F"><font size="2">(12:50:45 PM)</font> <b>Bernhard_L:</b></font> nick_m, I am mixing some kind of Dub.<br/>
+<font color="#A82F2F"><font size="2">(12:51:23 PM)</font> <b>Bernhard_L:</b></font> But to be true have been a lot confused, about terms like offbeat backbeat half time count etc. <br/>
+<font color="#A82F2F"><font size="2">(12:53:01 PM)</font> <b>Bernhard_L:</b></font> nick_m, and the right sound for the bassline.<br/>
+<font color="#A82F2F"><font size="2">(12:53:27 PM)</font> <b>nick_m:</b></font> Bernhard_L, listen to some &quot;good&quot; dub.<br/>
+<font color="#A82F2F"><font size="2">(12:53:45 PM)</font> <b>Bernhard_L:</b></font> That is what I do.<br/>
+<font color="#A82F2F"><font size="2">(12:53:52 PM)</font> <b>nick_m:</b></font> Bernhard_L, it all &quot;sits&quot; on the bass<br/>
+<font color="#A82F2F"><font size="2">(12:54:26 PM)</font> <b>nick_m:</b></font> Bernhard_L, so you have to make a nice chair - something comfortable and reliable.<br/>
+<font color="#A82F2F"><font size="2">(12:56:20 PM)</font> <b>Bernhard_L:</b></font> nick_m, that is right. Best a synthesizer for bass, I guess. Not s ampled real one.<br/>
+<font color="#A82F2F"><font size="2">(01:01:49 PM)</font> <b>nick_m:</b></font> Bernhard_L, i don&apos;t know about that - just play it in if you have a bass.<br/>
+<font color="#A82F2F"><font size="2">(01:03:50 PM)</font> <b>Bernhard_L:</b></font> nick_m, please listen at: https://soundcloud.com/oslt/rud-gong-dubfish-side-b<br/>
+<font color="#A82F2F"><font size="2">(01:03:51 PM)</font> <b>LAbot`:</b></font> Title: Rud Gong: Dubfish (Side B) by oslt - Hear the world’s sounds (at soundcloud.com)<br/>
+<font color="#A82F2F"><font size="2">(01:09:36 PM)</font> <b>nick_m:</b></font> Bernhard_L, sounds like you&apos;ve got to turn down your speakers.<br/>
+<font color="#A82F2F"><font size="2">(01:09:53 PM)</font> <b>nick_m:</b></font> Bernhard_L, you want an opinion?<br/>
+<font color="#A82F2F"><font size="2">(01:10:33 PM)</font> <b>Bernhard_L:</b></font> nick_m, right.<br/>
+<font color="#A82F2F"><font size="2">(01:11:21 PM)</font> <b>nick_m:</b></font> Bernhard_L, i&apos;ll give it anyway. the wobble guitar on the 1 should be on the 3. i can&apos;t hear the bass drum. if you want dub sound, there shouldn&apos;t be much top end on the bass at all.<br/>
+<font color="#A82F2F"><font size="2">(01:12:09 PM)</font> <b>Bernhard_L:</b></font> nick_m, do you mean beat 1 and 3?<br/>
+<font color="#A82F2F"><font size="2">(01:12:17 PM)</font> <b>nick_m:</b></font> Bernhard_L, yes<br/>
+<font color="#A82F2F"><font size="2">(01:12:57 PM)</font> <b>Bernhard_L:</b></font> nick_m, that is my trouble, I mentioned before, reggae bubbles must be on the offbeats.<br/>
+<font color="#A82F2F"><font size="2">(01:13:37 PM)</font> <b>Bernhard_L:</b></font> And the backbeat is 2 and 4 depending on the way of counting. I think I mixed something up.<br/>
+<font color="#A82F2F"><font size="2">(01:14:07 PM)</font> <b>Bernhard_L:</b></font> nick_m, if you don&apos;t here the bass you don&apos;t have good speakers.<br/>
+<font color="#A82F2F"><font size="2">(01:14:40 PM)</font> <b>nick_m:</b></font> Bernhard_L, i&apos;m sorry but i think i&apos;ve made more hit records on my speakers than you have on yours.<br/>
+<font color="#A82F2F"><font size="2">(01:15:43 PM)</font> <b>Bernhard_L:</b></font> nick_m, you meant the bd, sorry.<br/>
+<font color="#A82F2F"><font size="2">(01:16:06 PM)</font> <b>Bernhard_L:</b></font> I was wrong.<br/>
+<font color="#A82F2F"><font size="2">(01:16:48 PM)</font> <b>Bernhard_L:</b></font> I should have used 152 bpm instead of 78, and then the backbeat on beat 3.<br/>
+<font color="#A82F2F"><font size="2">(01:17:14 PM)</font> <b>Bernhard_L:</b></font> nick_m, my song seems to slow.<br/>
+<font color="#A82F2F"><font size="2">(01:17:27 PM)</font> <b>nick_m:</b></font> Bernhard_L, that stuff doesn&apos;t matter. you have to be able to feel a groove.<br/>
+<font color="#A82F2F"><font size="2">(01:17:32 PM)</font> <b>speak:</b></font> Bernhard_L this is one crazy dub tune, but I kinda like it :P<br/>
+<font color="#A82F2F"><font size="2">(01:17:42 PM)</font> <b>Bernhard_L:</b></font> I used the bd on beat 3. But bpm might be to slow<br/>
+<font color="#A82F2F"><font size="2">(01:17:44 PM)</font> <b>speak:</b></font> It&apos;s better than the usual whitey dub [/racist]<br/>
+<font color="#A82F2F"><font size="2">(01:17:51 PM)</font> <b>Bernhard_L:</b></font> How do I accent the bd better?<br/>
+<font color="#A82F2F"><font size="2">(01:18:00 PM)</font> <b>speak:</b></font> I can&apos;t even hear the BD<br/>
+<font size="2">(01:18:27 PM)</font><b> nick_m left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(01:19:08 PM)</font> <b>speak:</b></font> Bernhard_L keep working on it, it&apos;s got potential<br/>
+<font color="#A82F2F"><font size="2">(01:19:31 PM)</font> <b>Bernhard_L:</b></font> speak, maybe the bd is deep, as deep or deeper than the bassline.<br/>
+<font color="#A82F2F"><font size="2">(01:19:38 PM)</font> <b>speak:</b></font> Bernhard_L: For inspiration: https://www.youtube.com/watch?v=Qrq6xUp0LI8<br/>
+<font color="#A82F2F"><font size="2">(01:19:39 PM)</font> <b>LAbot`:</b></font> Title: Horace Andy - Control Yourself-Version Under Control 197X - YouTube (at www.youtube.com)<br/>
+<font color="#A82F2F"><font size="2">(01:20:30 PM)</font> <b>speak:</b></font> Bernhard_L you want some punch on the DB, and that will only happen if you have some higher frequencies on it as well as lower ones<br/>
+<font color="#A82F2F"><font size="2">(01:20:59 PM)</font> <b>speak:</b></font> In fact with dub you often want to have just the bass in the low frequencies, and you can cut the BD at around 80hz. It&apos;ll still be plenty punchy<br/>
+<font color="#A82F2F"><font size="2">(01:21:05 PM)</font> <b>Bernhard_L:</b></font> speak, thanx I will try it.<br/>
+<font color="#A82F2F"><font size="2">(01:21:56 PM)</font> <b>Bernhard_L:</b></font> Your example is Roots Reggae. Very good.<br/>
+<font color="#A82F2F"><font size="2">(01:22:16 PM)</font> <b>speak:</b></font> Yes :) That&apos;s my favourite kind of reggae<br/>
+<font color="#A82F2F"><font size="2">(01:22:28 PM)</font> <b>speak:</b></font> There&apos;s a dub version of that tune after the halfway mark in that video<br/>
+<font color="#A82F2F"><font size="2">(01:23:39 PM)</font> <b>speak:</b></font> I don&apos;t much enjoy new reggae, it&apos;s all too clean and lacks the groove and the finesse of the old stuff<br/>
+<font color="#A82F2F"><font size="2">(01:31:13 PM)</font> <b>Bernhard_L:</b></font> speak, https://www.youtube.com/watch?v=Qrq6xUp0LI8<br/>
+<font color="#A82F2F"><font size="2">(01:31:15 PM)</font> <b>LAbot`:</b></font> Title: Horace Andy - Control Yourself-Version Under Control 197X - YouTube (at www.youtube.com)<br/>
+<font color="#A82F2F"><font size="2">(01:32:16 PM)</font> <b>Bernhard_L:</b></font> https://www.youtube.com/watch?v=mCafxek-HDM&amp;index=4&amp;list=PL75CBCA3284E916C7<br/>
+<font color="#A82F2F"><font size="2">(01:32:18 PM)</font> <b>LAbot`:</b></font> Title: King Tubby - Dub I Can Feel - YouTube (at www.youtube.com)<br/>
+<font color="#A82F2F"><font size="2">(01:32:33 PM)</font> <b>speak:</b></font> Bernhard_L: King Tubby is the king :)<br/>
+<font color="#A82F2F"><font size="2">(01:32:40 PM)</font> <b>Bernhard_L:</b></font> Yes<br/>
+<font color="#A82F2F"><font size="2">(01:32:40 PM)</font> <b>speak:</b></font> Best of the best<br/>
+<font color="#A82F2F"><font size="2">(01:33:03 PM)</font> <b>speak:</b></font> I&apos;ve heard that tune many times, like most of his stuff :D<br/>
+<font color="#A82F2F"><font size="2">(01:33:45 PM)</font> <b>Bernhard_L:</b></font> Thank you speak I must leave<br/>
+<font color="#A82F2F"><font size="2">(01:34:03 PM)</font> <b>speak:</b></font> Alright Bernhard_L <br/>
+<font color="#A82F2F"><font size="2">(01:34:05 PM)</font> <b>speak:</b></font> Talk to you some time later!<br/>
+<font color="#A82F2F"><font size="2">(01:34:09 PM)</font> <b>speak:</b></font> Nice to find a roots reggae fan<br/>
+<font color="#A82F2F"><font size="2">(01:34:11 PM)</font> <b>speak:</b></font> :)<br/>
+<font size="2">(02:04:09 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

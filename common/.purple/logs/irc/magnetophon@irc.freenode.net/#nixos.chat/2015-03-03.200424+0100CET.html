@@ -1,0 +1,112 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Tue 03 Mar 2015 08:04:24 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Tue 03 Mar 2015 08:04:24 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:04:25 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(08:04:25 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(08:18:47 PM)</font> <b>ktosiek:</b></font> ambro718: you have to enable rollbacks<br/>
+<font color="#A82F2F"><font size="2">(08:20:13 PM)</font> <b>ambro718:</b></font> ktosiek: I don&apos;t see that documented anywhere<br/>
+<font color="#A82F2F"><font size="2">(08:20:22 PM)</font> <b>ktosiek:</b></font> sec<br/>
+<font color="#A82F2F"><font size="2">(08:22:33 PM)</font> <b>ktosiek:</b></font> hmm, I have `network.enableRollback = true` but can&apos;t find any documentation for it O_o<br/>
+<font color="#A82F2F"><font size="2">(08:23:20 PM)</font> <b>ambro718:</b></font> well I&apos;ve filed https://github.com/NixOS/nixops/issues/272<br/>
+<font color="#A82F2F"><font size="2">(08:29:07 PM)</font> <b>vandenoever:</b></font> what&apos;s the best way to develop haskell on nixos?<br/>
+<font color="#A82F2F"><font size="2">(08:29:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 3 new commits to master: http://git.io/x6A9<br/>
+<font color="#A82F2F"><font size="2">(08:29:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a4e0278 Eelco Dolstra: Create /dev/nvidia-uvm for CUDA support<br/>
+<font color="#A82F2F"><font size="2">(08:29:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8546ec7 Eelco Dolstra: Fix some uid/gid clashes<br/>
+<font color="#A82F2F"><font size="2">(08:29:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1002fb6 Eelco Dolstra: Add &quot;input&quot; group...<br/>
+<font color="#A82F2F"><font size="2">(08:29:29 PM)</font> <b>vandenoever:</b></font> i need conduit-extra which wont install with cabal due to zlib dependency<br/>
+<font size="2">(08:44:39 PM)</font><b> oever is now known as vandenoever</b><br/>
+<font color="#A82F2F"><font size="2">(08:46:59 PM)</font> <b>lseppala:</b></font> vandenoever: generally, using cabal2nix to create a default.nix for your project, writing a shell.nix to set things up, and then using nix-shell to compile &amp; test<br/>
+<font color="#A82F2F"><font size="2">(08:51:42 PM)</font> <b>vandenoever:</b></font> lseppala: even for normal, i.e. not nix-specific development?<br/>
+<font color="#A82F2F"><font size="2">(08:52:56 PM)</font> <b>ktosiek:</b></font> yes. Or you can look into FHS userenv<br/>
+<font color="#A82F2F"><font size="2">(08:53:45 PM)</font> <b>lseppala:</b></font> It&apos;s how I do my haskell development. I can see how you zlib issue might be a problem, since zlib won&apos;t necessarily be in cabal&apos;s path if you&apos;re not using nix<br/>
+<font color="#A82F2F"><font size="2">(08:55:47 PM)</font> <b>vandenoever:</b></font> ktosiek: what&apos;s FHS user env?<br/>
+<font color="#A82F2F"><font size="2">(08:57:32 PM)</font> <b>ktosiek:</b></font> same thing used to run steam + games: https://github.com/NixOS/nixpkgs/tree/master/pkgs/build-support/build-fhs-userenv<br/>
+<font color="#A82F2F"><font size="2">(08:57:47 PM)</font> <b>ktosiek:</b></font> I&apos;m not sure if it&apos;ll help, I&apos;m using cabal2nix too<br/>
+<font size="2">(08:58:55 PM)</font><b> pmahoney left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:59:59 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nix] shlevy pushed 1 new commit to master: http://git.io/xiYR<br/>
+<font color="#A82F2F"><font size="2">(08:59:59 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nix/master 66d612f Dan Peebles: Allow local networking in the darwin sandbox to appease tests<br/>
+<font color="#A82F2F"><font size="2">(09:01:37 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nix] shlevy pushed 2 new commits to master: http://git.io/xiOs<br/>
+<font color="#A82F2F"><font size="2">(09:01:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nix/master 336c427 Dan Peebles: Make the default impure prefix (not actual allowed impurities!) include all of /System/Library, since we also want PrivateFrameworks from there and (briefly) TextEncodings, and who knows what else. Yay infectious impurities?<br/>
+<font color="#A82F2F"><font size="2">(09:01:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nix/master c2699be Shea Levy: Merge branch &apos;allow-system-library&apos; of git://github.com/copumpkin/nix...<br/>
+<font color="#A82F2F"><font size="2">(09:02:00 PM)</font> <b>lseppala:</b></font> vandenoever: if you&apos;re using cabal like you would on another platform, you can use `cabal build --include-dirs=&lt;where zlib is in the nix store&gt;` (or hardcode it in your .cabal file)<br/>
+<font color="#A82F2F"><font size="2">(09:03:03 PM)</font> <b>lseppala:</b></font> I find the nix-shell route relatively unintrusive. Doesn&apos;t cause problems with people who aren&apos;t using nix, too<br/>
+<font size="2">(09:03:06 PM)</font><b> vandenoever left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(09:09:41 PM)</font> <b>ambro718:</b></font> we need to force people to use nix!<br/>
+<font color="#A82F2F"><font size="2">(09:10:49 PM)</font> <b>ktosiek:</b></font> maybe not force, but dropping a default.nix/shell.nix in a package might make some people interested :-)<br/>
+<font color="#A82F2F"><font size="2">(09:10:53 PM)</font> <b>hyper_ch:</b></font> put a gun to their head ;)<br/>
+<font color="#A82F2F"><font size="2">(09:11:07 PM)</font> <b>oever:</b></font> ktosiek: how does that work for stuff that is not on hackage?<br/>
+<font color="#A82F2F"><font size="2">(09:11:27 PM)</font> <b>ktosiek:</b></font> oever: it only works for stuff that&apos;s not on hackage<br/>
+<font color="#A82F2F"><font size="2">(09:11:29 PM)</font> <b>oever:</b></font> &quot;cabal2nix /tmp/hs/hs.cabal&quot; accesses hackage<br/>
+<font color="#A82F2F"><font size="2">(09:11:40 PM)</font> <b>ktosiek:</b></font> ohh, that<br/>
+<font color="#A82F2F"><font size="2">(09:11:54 PM)</font> <b>ambro718:</b></font> ktosiek: Sometimes only supporting Nix simplifies supporting the deployment of software, a lot.<br/>
+<font color="#A82F2F"><font size="2">(09:12:15 PM)</font> <b>ktosiek:</b></font> no clue, I&apos;m only playing with yesod right now. I think you&apos;d have to package the non-hackage parts yourself<br/>
+<font color="#A82F2F"><font size="2">(09:12:51 PM)</font> <b>karshan:</b></font> Hello, it seems haskellPackages.resourcePool fails to build if using the nixpkgs-untable. However if you use the current nixpkgs from git it works fine. I&apos;m trying to install haskellPackages.hedis which depends on resourcePool, but I can&apos;t get it to use the one I installed from nixpkgs git<br/>
+<font color="#A82F2F"><font size="2">(09:12:58 PM)</font> <b>karshan:</b></font> does anyone know how I can solve this ?<br/>
+<font color="#A82F2F"><font size="2">(09:13:09 PM)</font> <b>oever:</b></font> ktosiek: &quot;If your project is not on hackage, please supply the path to the root directory of the project, not to the cabal file.&quot; i just read the error msg :-)<br/>
+<font color="#A82F2F"><font size="2">(09:14:06 PM)</font> <b>karshan:</b></font> to be more clear, I did nix-env -f ~/nixpkgs.git/ -iA haskellPackages.resourcePool, and then I did nix-env -iA nixpkgs.haskellPackages.hedis, and it fails while trying to install haskellPackages.resourcePool even though it is already installed<br/>
+<font size="2">(09:15:57 PM)</font><b> oever is now known as vandenoever</b><br/>
+<font size="2">(09:17:59 PM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#A82F2F"><font size="2">(09:18:11 PM)</font> <b>enthropy:</b></font> then why not nix-env -iA haskellPackages.hedis?<br/>
+<font color="#A82F2F"><font size="2">(09:19:50 PM)</font> <b>enthropy:</b></font> there is probably some way to override nixpkgs.haskellPackages.hedis to use the newer resourcePool, but I dunno how<br/>
+<font color="#A82F2F"><font size="2">(09:21:02 PM)</font> <b>karshan:</b></font> I get error: attribute ‘haskellPackages’ in selection path ‘haskellPackages.hedis’ not found if I do &quot;nix-env -iA haskellPackages.hedis&quot; probably because the package needs to be prefixed with the channel<br/>
+<font color="#A82F2F"><font size="2">(09:33:48 PM)</font> <b>bennofs:</b></font> karshan: nix-env -f ~/nixpkgs.git/ -iA haskellPackages.hedis<br/>
+<font color="#A82F2F"><font size="2">(09:34:06 PM)</font> <b>bennofs:</b></font> karshan: that will build hedis from git also, which makes sure that it uses the fixed resourcePool<br/>
+<font size="2">(09:49:20 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font size="2">(09:54:36 PM)</font><b> MichaelRaskin [<em>~MichaelRa@195.91.224.161</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:59:46 PM)</font> <b>companion_cube:</b></font> hello! I have just installed nixos, and have a few issues: 1/ I can&apos;t find startx with nix-env -qa startx   2/ without a graphic server, I have trouble finding how to make nixos live with another linux OS<br/>
+<font color="#A82F2F"><font size="2">(10:00:03 PM)</font> <b>companion_cube:</b></font> (in particular, how to tell grub to include other menuentry)<br/>
+<font size="2">(10:03:16 PM)</font><b> boegel|afk is now known as boege</b><br/>
+<font size="2">(10:03:18 PM)</font><b> boege is now known as boegel</b><br/>
+<font color="#A82F2F"><font size="2">(10:04:21 PM)</font> <b>Haskellfant:</b></font> companion_cube: I am not on nixos but on arch it is on xorg-xinit so probably on nixos it&apos;s in xlibs.xinit<br/>
+<font color="#A82F2F"><font size="2">(10:04:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 4 new commits to master: http://git.io/xiMj<br/>
+<font color="#A82F2F"><font size="2">(10:04:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f311c15 William A. Kennington III: linux-firmware-nonfree: 2015-02-24 -&gt; 2015-02-27<br/>
+<font color="#A82F2F"><font size="2">(10:04:34 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 731e833 William A. Kennington III: tevent: 0.9.22 -&gt; 0.9.23<br/>
+<font color="#A82F2F"><font size="2">(10:04:34 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 21ce049 William A. Kennington III: spl_git: 2015-02-04 -&gt; 2015-02-27<br/>
+<font color="#A82F2F"><font size="2">(10:04:34 PM)</font> <b>avn:</b></font> Fuuzetsu: https://github.com/NixOS/nixpkgs/issues/6650 I posted bug<br/>
+<font color="#A82F2F"><font size="2">(10:05:05 PM)</font> <b>Haskellfant:</b></font> When I run nix-env without showing it my local git repo it complains with error: attribute ‘interpreterName’ missing, at /home/moritz/code/nix/nixpkgs/pkgs/development/web/nodejs/build-node-package.nix:7:16<br/>
+<font color="#A82F2F"><font size="2">(10:05:16 PM)</font> <b>Haskellfant:</b></font> but if I point it to -f ~/code/nix/nixpkgs it works just fine<br/>
+<font color="#A82F2F"><font size="2">(10:06:29 PM)</font> <b>Haskellfant:</b></font> I&apos;m a bit confused why it searches in my git clone in the first place, I thought nix-env ignores NIX_PATH and if it does it make a difference if I add -f ~/code/nix/nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(10:08:26 PM)</font> <b>Haskellfant:</b></font> NIX_PATH is nixpkgs=/home/moritz/code/nix/nixpkgs:nixpkgs=/home/moritz/.nix-defexpr/channels/nixos<br/>
+<font size="2">(10:10:42 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(10:11:30 PM)</font> <b>intothemountains:</b></font> I&apos;m executing pulseaudio as a user with ID 1001 but it complains about permissions for /run/user/1000/pulse ??<br/>
+<font color="#A82F2F"><font size="2">(10:12:07 PM)</font> <b>goibhniu:</b></font> companion_cube: I don&apos;t think it&apos;s straight forward to run X without a display manager (a systemd thing, IIUC)<br/>
+<font size="2">(10:12:16 PM)</font><b> intothemountains left the room.</b><br/>
+<font size="2">(10:12:19 PM)</font><b> intothemountains [<em>~intothemo@cafe.cis.strath.ac.uk</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:12:31 PM)</font> <b>Haskellfant:</b></font> goibhniu: well on arch with systemd it is straight forward<br/>
+<font color="#A82F2F"><font size="2">(10:12:49 PM)</font> <b>Haskellfant:</b></font> still too lazy for switching so I don&apos;t know about nixos<br/>
+<font color="#A82F2F"><font size="2">(10:13:05 PM)</font> <b>goibhniu:</b></font> Haskellfant: ah, ok ... I don&apos;t know the details TBH<br/>
+<font color="#A82F2F"><font size="2">(10:13:15 PM)</font> <b>companion_cube:</b></font> goibhniu: really? on arch I can use startx from a user shell<br/>
+<font color="#A82F2F"><font size="2">(10:13:32 PM)</font> <b>intothemountains:</b></font> I&apos;m executing pulseaudio as a user with ID 1001 but it complains about permissions for /run/user/1000/pulse ??<br/>
+<font color="#062585"><font size="2">(10:13:46 PM)</font> <b>***goibhniu</b></font> doesn&apos;t find anything on the wiki about it either ... although it comes up regularly<br/>
+<font color="#A82F2F"><font size="2">(10:14:02 PM)</font> <b>companion_cube:</b></font> strange, I can nix-env -i xinit, but not put it in systemPackages<br/>
+<font color="#A82F2F"><font size="2">(10:14:06 PM)</font> <b>goibhniu:</b></font> intothemountains: have you rebooted?<br/>
+<font color="#A82F2F"><font size="2">(10:14:20 PM)</font> <b>Haskellfant:</b></font> companion_cube: you probably neet xlibs.xinit or something like that in systemPackages<br/>
+<font color="#A82F2F"><font size="2">(10:14:32 PM)</font> <b>Haskellfant:</b></font> attributename instead of packagename<br/>
+<font color="#A82F2F"><font size="2">(10:14:36 PM)</font> <b>Haskellfant:</b></font> ^ I hate that distinction so much<br/>
+<font color="#A82F2F"><font size="2">(10:14:39 PM)</font> <b>intothemountains:</b></font> goibhniu: nope is that needed? it&apos;s a server...<br/>
+<font color="#A82F2F"><font size="2">(10:14:59 PM)</font> <b>intothemountains:</b></font> I can do it but I would prefer not to<br/>
+<font color="#A82F2F"><font size="2">(10:15:00 PM)</font> <b>goibhniu:</b></font> intothemountains: I&apos;ve no idea ... was pulseaudio previously running as the user with ID 1000?<br/>
+<font color="#A82F2F"><font size="2">(10:15:15 PM)</font> <b>goibhniu:</b></font> maybe it&apos;s some dbus thing ... but that&apos;s a wild guess<br/>
+<font color="#A82F2F"><font size="2">(10:15:40 PM)</font> <b>companion_cube:</b></font> ok, it doesn&apos;t complain, indeed<br/>
+<font color="#A82F2F"><font size="2">(10:15:56 PM)</font> <b>intothemountains:</b></font> goibhniu: pulseaudio is runned on a per user basis. It works for the user with ID 1000 but aparently not for this one because it doesn&apos;t get it&apos;s ID right<br/>
+<font color="#A82F2F"><font size="2">(10:16:28 PM)</font> <b>goibhniu:</b></font> intothemountains: ah, you have multiple users trying to run it ... I&apos;ve no idea<br/>
+<font color="#A82F2F"><font size="2">(10:17:39 PM)</font> <b>goibhniu:</b></font> companion_cube: before you spend too much time on it: https://botbot.me/freenode/nixos/search/?q=startx<br/>
+<font color="#A82F2F"><font size="2">(10:18:33 PM)</font> <b>companion_cube:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(10:18:37 PM)</font> <b>companion_cube:</b></font> any clue about grub?<br/>
+<font color="#A82F2F"><font size="2">(10:19:53 PM)</font> <b>Haskellfant:</b></font> companion_cube: sorry I seem to have missed it, what exactly is the problem with grub?<br/>
+<font color="#A82F2F"><font size="2">(10:20:53 PM)</font> <b>companion_cube:</b></font> so, I have setup nixos to install grub, no pb; but I have another partition with another distribution on it, and I need to tell nixos to generate the corresponding menuentry<br/>
+<font color="#A82F2F"><font size="2">(10:22:28 PM)</font> <b>DanielJour:</b></font> I&apos;m hanging on a nix expression here: I wrote a shell.nix for a test of a tool that I write. I&apos;ve given that tool a default.nix file, which works as expected. How do I reference that file to be able to use tool during the build of my test? I tried variations of import inside the argument deklaration: { ... , tool ? (import ./../default.nix) } seems to be wrong.<br/>
+<font color="#A82F2F"><font size="2">(10:24:45 PM)</font> <b>joelmo:</b></font> DanielJour: import default.nix { } ?<br/>
+<font color="#A82F2F"><font size="2">(10:25:57 PM)</font> <b>joelmo:</b></font> Did you try with &apos;{ }&apos;<br/>
+<font color="#A82F2F"><font size="2">(10:26:55 PM)</font> <b>avn:</b></font> Surprise -- after `sudo nixos-rebuild switch` I still have:    49   2015-02-24 21:34:59   (current)<br/>
+<font color="#A82F2F"><font size="2">(10:27:05 PM)</font> <b>avn:</b></font> in list of generations<br/>
+<font color="#A82F2F"><font size="2">(10:27:18 PM)</font> <b>DanielJour:</b></font> joelmo: No, with the {} I get &quot;value is a set while an integer was expected&quot; ... oO?<br/>
+<font color="#A82F2F"><font size="2">(10:27:48 PM)</font> <b>Haskellfant:</b></font> companion_cube: I had a quicklook and there is an extraEntries option for grub, no idea how to use it exactly. maybe taking a look at https://github.com/search?q=nixos+extraentries&amp;type=Code&amp;utf8=%E2%9C%93 helps<br/>
+<font color="#A82F2F"><font size="2">(10:27:54 PM)</font> <b>DanielJour:</b></font> Why is it expecting an integer?<br/>
+<font color="#A82F2F"><font size="2">(10:29:40 PM)</font> <b>joelmo:</b></font> DanielJour: don&apos;t know, I think booleans and strings are allowed as default arguments too so I don&apos;t know why it says that<br/>
+<font color="#A82F2F"><font size="2">(10:29:58 PM)</font> <b>companion_cube:</b></font> Haskellfant: I&apos;m trying, thanks<br/>
+<font color="#A82F2F"><font size="2">(10:30:42 PM)</font> <b>DanielJour:</b></font> joelmo: Huh, ok, now (second try) it is working as expected .. I&apos;m using tool ? (import ../default.nix {}) which is working ... (tool is available in nix-shell --pure)<br/>
+<font color="#A82F2F"><font size="2">(10:31:00 PM)</font> <b>DanielJour:</b></font> joelmo: Thanks for the hint with the {} :)<br/>
+<font color="#A82F2F"><font size="2">(10:31:33 PM)</font> <b>joelmo:</b></font> np :)<br/>
+<font color="#A82F2F"><font size="2">(10:33:30 PM)</font> <b>companion_cube:</b></font> Haskellfant: thanks, I could reboot on the other OS<br/>
+<font color="#A82F2F"><font size="2">(10:33:38 PM)</font> <b>Haskellfant:</b></font> companion_cube: great!<br/>
+<font size="2">(11:00:54 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

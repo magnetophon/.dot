@@ -1,0 +1,77 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Thu 20 Nov 2014 07:48:09 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Thu 20 Nov 2014 07:48:09 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(07:48:09 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(07:48:09 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(07:48:27 PM)</font><b> ok2 left the room (quit: Excess Flood).</b><br/>
+<font color="#16569E"><font size="2">(07:48:28 PM)</font> <b>magnetophon:</b></font> aristid: sorry, got disconnected from the wifi...<br/>
+<font color="#A82F2F"><font size="2">(07:48:41 PM)</font> <b>aristid:</b></font> magnetophon: did you get my 2 lines?<br/>
+<font size="2">(07:49:22 PM)</font><b> moha_hunt left the room (quit: Quit: moha_hunt).</b><br/>
+<font size="2">(07:49:28 PM)</font><b> ok2 [<em>~user@31.6.62.135</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(07:51:05 PM)</font> <b>magnetophon:</b></font> aristid: nope<br/>
+<font size="2">(07:52:24 PM)</font><b> dysinger left the room (quit: Quit: dysinger).</b><br/>
+<font size="2">(07:52:41 PM)</font><b> nslqqq1 left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(07:53:01 PM)</font> <b>aristid:</b></font> magnetophon: how did you know i said something then? oO<br/>
+<font color="#A82F2F"><font size="2">(07:53:09 PM)</font> <b>aristid:</b></font> [19:38:14] &lt;magnetophon&gt; Hi, I just installed the wonderfull nixos, and I&apos;m trying to install xdg-utils. Strangely nix-env says it exists, and nixos-rebuild says &quot;error: undefined variable &apos;xdg-utils&apos; at /etc/nixos/configuration.nix:27:5&quot;.  What&apos;s going on?<br/>
+<font color="#A82F2F"><font size="2">(07:53:12 PM)</font> <b>aristid:</b></font> [19:40:54] &lt;aristid&gt; magnetophon: nix-env -qaP|grep xdg-utils will probably show you two different names<br/>
+<font color="#A82F2F"><font size="2">(07:53:12 PM)</font> <b>aristid:</b></font> [19:41:02] &lt;aristid&gt; configuration.nix only accepts one of them.<br/>
+<font color="#16569E"><font size="2">(07:54:01 PM)</font> <b>magnetophon:</b></font> aristid:right, I got the first line, and was able to install xdg-utils, but it doesn't seem to include x-www-browser<br/>
+<font color="#A82F2F"><font size="2">(07:54:39 PM)</font> <b>aristid:</b></font> that is entirely possible:)<br/>
+<font color="#16569E"><font size="2">(07:55:47 PM)</font> <b>magnetophon:</b></font> aristid: seems like I need to update my scripts.<br/>
+<font color="#A82F2F"><font size="2">(07:56:18 PM)</font> <b>aristid:</b></font> i use $BROWSER<br/>
+<font size="2">(07:56:49 PM)</font><b> michiell left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font color="#16569E"><font size="2">(07:57:54 PM)</font> <b>magnetophon:</b></font> aristid: speaking of which: is it necesary toedit all scripts that start with #!/bin/zsh, or is there a workaround?<br/>
+<font color="#A82F2F"><font size="2">(07:58:13 PM)</font> <b>aristid:</b></font> #!/usr/bin/env zsh<br/>
+<font color="#A82F2F"><font size="2">(07:58:25 PM)</font> <b>aristid:</b></font> that will also work on non-nixos machines<br/>
+<font size="2">(07:58:28 PM)</font><b> michiell [<em>~michiell@38-183.surfsnel.dsl.internl.net</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(07:59:07 PM)</font> <b>magnetophon:</b></font> aristid: so I put that in my scripts, or is there a way to git it working without changing my scripts?<br/>
+<font color="#A82F2F"><font size="2">(07:59:29 PM)</font> <b>aristid:</b></font> you have to change your scripts<br/>
+<font color="#A82F2F"><font size="2">(07:59:37 PM)</font> <b>aristid:</b></font> please don&apos;t put a symlink to zsh in /bin :P<br/>
+<font size="2">(07:59:51 PM)</font><b> dysinger [<em>~dysinger@cpe-24-94-75-243.hawaii.res.rr.com</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(08:00:04 PM)</font> <b>magnetophon:</b></font> aristid: OK, thanks a lot! Have to go eat now. bbl<br/>
+<font color="#A82F2F"><font size="2">(08:00:14 PM)</font> <b>aristid:</b></font> hf<br/>
+<font size="2">(08:01:12 PM)</font><b> thawes left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(08:01:15 PM)</font><b> thawes_ [<em>~quassel@168.215.121.235</em>] entered the room.</b><br/>
+<font size="2">(08:01:28 PM)</font><b> thawes_ left the room (quit: Client Quit).</b><br/>
+<font size="2">(08:01:48 PM)</font><b> thawes [<em>~quassel@168.215.121.235</em>] entered the room.</b><br/>
+<font size="2">(08:02:07 PM)</font><b> install_nixos is now known as modafinil</b><br/>
+<font size="2">(08:03:19 PM)</font><b> bitemyapp left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(08:06:01 PM)</font><b> michiell left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(08:06:08 PM)</font><b> michiell [<em>~michiell@38-183.surfsnel.dsl.internl.net</em>] entered the room.</b><br/>
+<font size="2">(08:06:57 PM)</font><b> bitemyapp [<em>~callen@198.199.80.102</em>] entered the room.</b><br/>
+<font size="2">(08:12:33 PM)</font><b> angerman [<em>~m@x590fd324.dyn.telefonica.de</em>] entered the room.</b><br/>
+<font size="2">(08:15:32 PM)</font><b> michiell left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(08:16:04 PM)</font><b> Takle left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:16:09 PM)</font><b> michiell [<em>~michiell@38-183.surfsnel.dsl.internl.net</em>] entered the room.</b><br/>
+<font size="2">(08:20:17 PM)</font><b> henrytill [<em>~henrytill@unaffiliated/henrytill</em>] entered the room.</b><br/>
+<font size="2">(08:20:25 PM)</font><b> sigmundv [<em>~sigmundv@178.167.254.151.threembb.ie</em>] entered the room.</b><br/>
+<font size="2">(08:21:17 PM)</font><b> thawes left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(08:21:52 PM)</font><b> thawes [<em>~quassel@168.215.121.235</em>] entered the room.</b><br/>
+<font size="2">(08:22:15 PM)</font><b> mbrgm [<em>~mbrgm@unaffiliated/mbrgm</em>] entered the room.</b><br/>
+<font size="2">(08:22:38 PM)</font><b> michiell left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font size="2">(08:22:44 PM)</font><b> michiell [<em>~michiell@38-183.surfsnel.dsl.internl.net</em>] entered the room.</b><br/>
+<font size="2">(08:22:45 PM)</font><b> FrozenCow [<em>~FrozenCow@dhcp-089-099-057-228.chello.nl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:23:16 PM)</font> <b>mbrgm:</b></font> hi! is there a way to uninstall the nix package manager base system but keep the installed packages?<br/>
+<font color="#A82F2F"><font size="2">(08:23:29 PM)</font> <b>mbrgm:</b></font> with base system I mean gcc, nixpkgs etc.<br/>
+<font size="2">(08:24:10 PM)</font><b> joneshf-laptop left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(08:25:54 PM)</font> <b>mbrgm:</b></font> my goal is to install nix inside a minimal busybox docker container, then install a nix package, but after that I want to remove all build dependencies and just keep the runtime dependencies<br/>
+<font color="#A82F2F"><font size="2">(08:26:24 PM)</font> <b>ttuegel:</b></font> mbrgm: nix-collect-garbage -d will remove the build dependencies, but it won&apos;t uninstall nix<br/>
+<font color="#A82F2F"><font size="2">(08:26:57 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vbgl opened pull request #5066: Adds Kst (master...kst) http://git.io/qdKiyA<br/>
+<font color="#A82F2F"><font size="2">(08:28:28 PM)</font> <b>Fuuzetsu:</b></font> notably it will remove everything that&apos;s not necessary to keep the current generation going<br/>
+<font size="2">(08:28:42 PM)</font><b> bezirg [<em>~bezirg@31-151-105-123.dynamic.upc.nl</em>] entered the room.</b><br/>
+<font size="2">(08:29:29 PM)</font><b> pharpend [<em>~prh@unaffiliated/l0cust</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:29:40 PM)</font> <b>pharpend:</b></font> Hey, guys, switching one of my computers over to nixos today<br/>
+<font color="#A82F2F"><font size="2">(08:29:50 PM)</font> <b>pharpend:</b></font> Might need y&apos;all<br/>
+<font color="#A82F2F"><font size="2">(08:29:52 PM)</font> <b>pharpend:</b></font> &apos;s help<br/>
+<font color="#A82F2F"><font size="2">(08:30:10 PM)</font> <b>hyper_ch:</b></font> you have my mental support<br/>
+<font color="#A82F2F"><font size="2">(08:30:16 PM)</font> <b>pharpend:</b></font> How&apos;s the dm-crypt support in NixOS?<br/>
+<font color="#A82F2F"><font size="2">(08:30:24 PM)</font> <b>hyper_ch:</b></font> it works<br/>
+<font color="#A82F2F"><font size="2">(08:30:27 PM)</font> <b>pharpend:</b></font> okay<br/>
+<font color="#A82F2F"><font size="2">(08:30:35 PM)</font> <b>hyper_ch:</b></font> https://nixos.org/wiki/Encrypted_Root_on_NixOS<br/>
+<font color="#A82F2F"><font size="2">(08:30:46 PM)</font> <b>pharpend:</b></font> do you need to configure it the normal hellish way, or does it work through the nix configuration way?<br/>
+<font color="#A82F2F"><font size="2">(08:32:16 PM)</font> <b>pharpend:</b></font> well the nixos iso isn&apos;t booting for me<br/>
+<font size="2">(08:33:08 PM)</font><b> dysinger left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:33:22 PM)</font> <b>pharpend:</b></font> checksum is fine<br/>
+<font color="#A82F2F"><font size="2">(08:34:47 PM)</font> <b>pharpend:</b></font> i&apos;ll try a different iso<br/>
+<font size="2">(08:37:18 PM)</font><b> Takle [<em>~takle@80.189.6.146</em>] entered the room.</b><br/>
+<font size="2">(08:37:27 PM)</font><b> mbrgm left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font size="2">(08:37:38 PM)</font><b> mbrgm [<em>~mbrgm@unaffiliated/mbrgm</em>] entered the room.</b><br/>
+<font size="2">(08:43:50 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>

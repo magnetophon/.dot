@@ -1,0 +1,99 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Sat 14 Feb 2015 02:10:32 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Sat 14 Feb 2015 02:10:32 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:10:32 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(02:10:32 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(03:02:57 PM)</font> <b>Ben_at_home:</b></font> the_CLA, Seablade, oofus :    las has implemented a new &quot;drag&quot; modifier which you currently access by dragging regions holding the shift key.  if you do this, it constrains your drag to EITHER up/down or left/right (determined by which axis you first move the mouse). <br/>
+<font color="#A82F2F"><font size="2">(03:03:50 PM)</font> <b>Ben_at_home:</b></font> I propose that we get rid of the &quot;lock&quot; mode,  and instead call it &quot;constrained&quot; mode,   and it works as described above.<br/>
+<font color="#A82F2F"><font size="2">(03:08:43 PM)</font> <b>oofus:</b></font> Ben_at_home: by &apos;lock mode&apos; you mean the drop down top left (?) that stops the movement of any regions in any direction ?<br/>
+<font color="#A82F2F"><font size="2">(03:09:12 PM)</font> <b>oofus:</b></font> Ben_at_home: or do you mean middle mouse button dragging ?<br/>
+<font color="#A82F2F"><font size="2">(03:10:32 PM)</font> <b>Ben_at_home:</b></font> oofus,   both of those are equivalent, and they prevent dragging in the left/right (time) direction only<br/>
+<font color="#A82F2F"><font size="2">(03:11:32 PM)</font> <b>Ben_at_home:</b></font> and yes,  I&apos;m proposing that both of those become the new &quot;constrained&quot; mode<br/>
+<font color="#A82F2F"><font size="2">(03:12:11 PM)</font> <b>oofus:</b></font> Ben_at_home: but the lock mode currently stops the movement of regions 100% doesn&apos;t it<br/>
+<font color="#A82F2F"><font size="2">(03:12:19 PM)</font> <b>Ben_at_home:</b></font> oofus,   no,  try it....<br/>
+<font color="#A82F2F"><font size="2">(03:12:20 PM)</font> <b>oofus:</b></font> Ben_at_home: I would have thought that was still desirable<br/>
+<font color="#A82F2F"><font size="2">(03:12:39 PM)</font> <b>Ben_at_home:</b></font> oofus,   I think you are thinking of &quot;locked&quot; regions which cannot be moved at all.<br/>
+<font color="#A82F2F"><font size="2">(03:14:14 PM)</font> <b>oofus:</b></font> Ben_at_home: has the lock mode always worked like that ?<br/>
+<font color="#A82F2F"><font size="2">(03:14:24 PM)</font> <b>Ben_at_home:</b></font> oofus,   as far as I know, yes<br/>
+<font color="#A82F2F"><font size="2">(03:14:38 PM)</font> <b>oofus:</b></font> Ben_at_home: I have a recollection, maybe from a very long time ago, of it not allowing any movement<br/>
+<font color="#A82F2F"><font size="2">(03:14:40 PM)</font> <b>oofus:</b></font> Ben_at_home: ok<br/>
+<font color="#A82F2F"><font size="2">(03:14:55 PM)</font> <b>oofus:</b></font> Ben_at_home: in that case your suggestion makes sense<br/>
+<font color="#A82F2F"><font size="2">(03:15:02 PM)</font> <b>oofus:</b></font> Ben_at_home: and consolidates things a bit<br/>
+<font color="#A82F2F"><font size="2">(03:15:04 PM)</font> <b>Ben_at_home:</b></font> perhaps lock should really lock (both directions) and a new mode constrain would help you make x-only or y-only changes<br/>
+<font color="#A82F2F"><font size="2">(03:15:24 PM)</font> <b>oofus:</b></font> Ben_at_home: that sounds best of both worlds to me<br/>
+<font color="#A82F2F"><font size="2">(03:15:41 PM)</font> <b>Ben_at_home:</b></font> because now that you mention it,  I do see the benefit in lock mode   (if I were doing a lot of trimming/crossfading, and I didn&apos;t want to accidentally nudge something out of time)<br/>
+<font color="#A82F2F"><font size="2">(03:15:57 PM)</font> <b>oofus:</b></font> Ben_at_home: exactly<br/>
+<font color="#A82F2F"><font size="2">(03:16:13 PM)</font> <b>Ben_at_home:</b></font> and &quot;constrain&quot; would not prevent that.<br/>
+<font color="#A82F2F"><font size="2">(03:16:20 PM)</font> <b>oofus:</b></font> Ben_at_home: so this new constrain mode wouldn&apos;t need a modifier for the drag, it would just work like that ?<br/>
+<font color="#A82F2F"><font size="2">(03:16:46 PM)</font> <b>Ben_at_home:</b></font> right, if you were in that mode you wouldn&apos;t need the modifier<br/>
+<font color="#A82F2F"><font size="2">(03:16:51 PM)</font> <b>oofus:</b></font> Ben_at_home: good<br/>
+<font color="#A82F2F"><font size="2">(03:16:53 PM)</font> <b>oofus:</b></font> Ben_at_home: so<br/>
+<font color="#A82F2F"><font size="2">(03:17:33 PM)</font> <b>oofus:</b></font> Ben_at_home: lock mode, constrain mode, middle mouse dragging, and the new shift+drag constraining. Do we still need them all ?<br/>
+<font color="#A82F2F"><font size="2">(03:17:51 PM)</font> <b>Ben_at_home:</b></font> I&apos;d propose:<br/>
+<font color="#A82F2F"><font size="2">(03:18:04 PM)</font> <b>Ben_at_home:</b></font> lock mode  ( no moves in x or y allowed )<br/>
+<font color="#A82F2F"><font size="2">(03:18:31 PM)</font> <b>Ben_at_home:</b></font> constrain mode  ( triggered by initial mouse move) .... and  middle-mouse dragging toggles this mode<br/>
+<font color="#A82F2F"><font size="2">(03:18:40 PM)</font> <b>oofus:</b></font> Ben_at_home: I suggest Lock mode, Constain mode and the shift+drag.   Middle mouse drag would go.<br/>
+<font color="#A82F2F"><font size="2">(03:19:04 PM)</font> <b>Ben_at_home:</b></font> I&apos;d like to use shift+   as a generic   group-override modifier<br/>
+<font color="#A82F2F"><font size="2">(03:19:14 PM)</font> <b>oofus:</b></font> Ben_at_home: ah, ok<br/>
+<font color="#A82F2F"><font size="2">(03:19:15 PM)</font> <b>Ben_at_home:</b></font> shift+mute  would mute only the channel you click on.<br/>
+<font color="#A82F2F"><font size="2">(03:19:26 PM)</font> <b>oofus:</b></font> Ben_at_home: that would be good<br/>
+<font color="#A82F2F"><font size="2">(03:19:32 PM)</font> <b>Ben_at_home:</b></font> shift_drag on a region (in a grouped track)  would move only that region, not the grouped tracks<br/>
+<font color="#A82F2F"><font size="2">(03:19:41 PM)</font> <b>Ben_at_home:</b></font> however I agree that middle-mouse drag is clumsy<br/>
+<font color="#A82F2F"><font size="2">(03:19:52 PM)</font> <b>oofus:</b></font> Ben_at_home: I was having that problem just the other day with soloing through a set of grouped drums<br/>
+<font color="#A82F2F"><font size="2">(03:20:46 PM)</font> <b>oofus:</b></font> Ben_at_home: although I&apos;d prefer to use a VCA master and be able to solo it, and then anything grouped to it individually and the right thing just happen, but that&apos;s another issue !!<br/>
+<font color="#A82F2F"><font size="2">(03:21:51 PM)</font> <b>Ben_at_home:</b></font> oofus,   mixbus already has the &quot;group override&quot; convention;  I just need to backport it to ardour.<br/>
+<font color="#A82F2F"><font size="2">(03:22:20 PM)</font> <b>Ben_at_home:</b></font> oofus,   I guess there is already some history with middle-mouse drag,   as the constrained drag.  no reason to change it really.   (waves will do something different though)<br/>
+<font size="2">(03:23:01 PM)</font><b> son0p_afk is now known as son0p</b><br/>
+<font color="#A82F2F"><font size="2">(03:23:44 PM)</font> <b>oofus:</b></font> Ben_at_home: then maybe Ardour should just enhance the existing middle mouse drag to be either axis, just like the new feature (shift+drag). That would mean that another modifier wouldn&apos;t be needed.<br/>
+<font color="#A82F2F"><font size="2">(03:23:59 PM)</font> <b>oofus:</b></font> Ben_at_home: but I think that is what you were suggesting anyway wasn&apos;t it ?<br/>
+<font color="#A82F2F"><font size="2">(03:24:42 PM)</font> <b>oofus:</b></font> Ben_at_home: so Ardour would get Lock mode, Constrain Mode and Middle mouse drag (both axis). And that&apos;s it<br/>
+<font color="#A82F2F"><font size="2">(03:25:02 PM)</font> <b>oofus:</b></font> Ben_at_home: then shift+click becomes group overide<br/>
+<font color="#A82F2F"><font size="2">(03:25:30 PM)</font> <b>Ben_at_home:</b></font> oofus,    exactly<br/>
+<font color="#A82F2F"><font size="2">(03:25:42 PM)</font> <b>oofus:</b></font> Ben_at_home: sounds good to me<br/>
+<font color="#A82F2F"><font size="2">(03:25:47 PM)</font> <b>grobda24:</b></font> Hi, is there some list somewhere of currently recommended soundcards for Linux music production ?<br/>
+<font color="#A82F2F"><font size="2">(03:48:04 PM)</font> <b>the_CLA:</b></font> Ben_at_home: Haven&apos;t tried the new mode yet, but I&apos;m using Lock Mode 99.9% of the time. So I&apos;m a bit sceptical removing it...<br/>
+<font color="#A82F2F"><font size="2">(03:49:12 PM)</font> <b>the_CLA:</b></font> Ben_at_home: I&apos;d really like to keep it for being save from accidental drags along the timeline.<br/>
+<font color="#A82F2F"><font size="2">(04:19:49 PM)</font> <b>chaot4_:</b></font> grobda24: I think there are some threads on http://linuxmusicians.com/ and you can find a list of information if a soundcard is supported<br/>
+<font color="#A82F2F"><font size="2">(04:19:50 PM)</font> <b>LAbot`:</b></font> Title: LinuxMusicians Index page (at linuxmusicians.com)<br/>
+<font color="#A82F2F"><font size="2">(04:20:02 PM)</font> <b>chaot4_:</b></font> here http://www.alsa-project.org/main/index.php/Matrix:Main<br/>
+<font color="#A82F2F"><font size="2">(04:20:04 PM)</font> <b>LAbot`:</b></font> Title: Matrix:Main - AlsaProject (at www.alsa-project.org)<br/>
+<font color="#A82F2F"><font size="2">(04:20:43 PM)</font> <b>grobda24:</b></font> chaot4_, thanks, and how could I forget Alsa<br/>
+<font color="#A82F2F"><font size="2">(04:21:46 PM)</font> <b>chaot4_:</b></font> grobda24: And this might also be really helpful: http://libremusicproduction.com/articles/understanding-recording-hardware<br/>
+<font color="#A82F2F"><font size="2">(04:21:47 PM)</font> <b>LAbot`:</b></font> Title: Understanding recording hardware | Libre Music Production (at libremusicproduction.com)<br/>
+<font color="#A82F2F"><font size="2">(04:21:57 PM)</font> <b>the_CLA:</b></font> Ben_at_home: Ok... just tested. The constrained mode doesn&apos;t do it for me. I still would want Lock Mode plus the middle mouse drag to temporary override that, if needed.<br/>
+<font color="#A82F2F"><font size="2">(04:22:06 PM)</font> <b>chaot4_:</b></font> grobda24: you&apos;re welcome.<br/>
+<font color="#A82F2F"><font size="2">(04:22:08 PM)</font> <b>the_CLA:</b></font> oofus: ^^^^<br/>
+<font color="#A82F2F"><font size="2">(04:23:33 PM)</font> <b>grobda24:</b></font> chaot4_, good libre music article ! :D<br/>
+<font color="#A82F2F"><font size="2">(04:23:57 PM)</font> <b>chaot4_:</b></font> grobda24: Try finding a bad libre music article. :-p<br/>
+<font color="#A82F2F"><font size="2">(04:24:04 PM)</font> <b>the_CLA:</b></font> Ben_at_home, oofus: Remember that middle mouse drag is a temporary toggle between Lock Mode and Slide Mode, depending on in wich of those two modes you currently are.<br/>
+<font color="#A82F2F"><font size="2">(04:24:11 PM)</font> <b>grobda24:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(04:28:15 PM)</font> <b>Ben_at_home:</b></font> the_CLA,    yeah that&apos;s where oofus and I landed as well.  You still need lock mode, and it should be a &quot;real&quot; lock.  We think constrained mode could be the new middle-mouse-click.  (temporary toggle to constrained)<br/>
+<font color="#A82F2F"><font size="2">(04:31:11 PM)</font> <b>the_CLA_2:</b></font> In case it didn&apos;t came through anymore...<br/>
+<font color="#A82F2F"><font size="2">(04:31:19 PM)</font> <b>the_CLA_2:</b></font> Ben_at_home: Hm, I think I&apos;d prefer unconstrained slide mode, when middle dragging in Lock Mode. Not sure when in Slide Mode... I use that so rarely. ;)<br/>
+<font color="#A82F2F"><font size="2">(04:35:03 PM)</font> <b>the_CLA_2:</b></font> Ben_at_home: I actually do not see that much use for constraining movement to be along the timeline only. It&apos;s not so likely that you accidently drag regions across tracks.<br/>
+<font color="#A82F2F"><font size="2">(04:35:40 PM)</font> <b>Ben_at_home:</b></font> the_CLA_2,     if the tracks are very small height, and you are dragging a long way on the timeline  (particularly if you let it autoscroll)  I can see how it might be a problem<br/>
+<font color="#A82F2F"><font size="2">(04:36:47 PM)</font> <b>the_CLA_2:</b></font> Ben_at_home: Yeah, to some little degree.<br/>
+<font color="#A82F2F"><font size="2">(04:51:28 PM)</font> <b>tom-:</b></font> could lock mode lock x and y? and then have a modifier that - when pressed in slide mode - restricts the direction to the first pixel move OR in lock mode unlocks the lock<br/>
+<font color="#A82F2F"><font size="2">(04:52:29 PM)</font> <b>tom-:</b></font> so you&apos;d have full lock &quot;lock&quot; and non-lock &quot;slide&quot;, and a modifier to temporary change mode for one operation<br/>
+<font color="#A82F2F"><font size="2">(04:59:02 PM)</font> <b>Ben_at_home:</b></font> tom- :  current proposal is to have &quot;lock&quot; mode, which locks X and Y.   Then a &quot;constrained&quot; mode which locks to X or Y, depending on which direction you drag first.  and a modifier that engages the &quot;constrained&quot; operation (from lock/slide/ripple)  or disengages the constrained mode (if already in constrained mode)<br/>
+<font color="#A82F2F"><font size="2">(04:59:43 PM)</font> <b>the_CLA_2:</b></font> Ben_at_home: Huh? Lock mode only locks x. And I think it&apos;s good that way.<br/>
+<font color="#A82F2F"><font size="2">(04:59:49 PM)</font> <b>tom-:</b></font> Ben_at_home: sounds resonable<br/>
+<font color="#A82F2F"><font size="2">(05:00:00 PM)</font> <b>tom-:</b></font> reasonable<br/>
+<font color="#A82F2F"><font size="2">(05:00:23 PM)</font> <b>Ben_at_home:</b></font> the_CLA_2,    las and oofus both thought that lock really locked.  and I can see how that would sometimes be desirable.<br/>
+<font color="#A82F2F"><font size="2">(05:00:24 PM)</font> <b>tom-:</b></font> seasonable :)<br/>
+<font color="#A82F2F"><font size="2">(05:01:02 PM)</font> <b>the_CLA_2:</b></font> Ben_at_home: No, Lock Mode only locks drags along the timeline. Dragging between tracks is still possible.<br/>
+<font color="#A82F2F"><font size="2">(05:01:12 PM)</font> <b>Ben_at_home:</b></font> the_CLA_2,  yes I know that<br/>
+<font color="#A82F2F"><font size="2">(05:01:35 PM)</font> <b>the_CLA_2:</b></font> Ben_at_home: For real locking there is region lock, IMHO.<br/>
+<font color="#A82F2F"><font size="2">(05:01:53 PM)</font> <b>Ben_at_home:</b></font> the_CLA_2,   that&apos;s what -I- said  :)<br/>
+<font color="#A82F2F"><font size="2">(05:01:55 PM)</font> <b>tom-:</b></font> the_CLA_2: can that be engaged for all regions at once easily?<br/>
+<font color="#A82F2F"><font size="2">(05:02:27 PM)</font> <b>the_CLA_2:</b></font> Ben_at_home: Of course there could be a config option if Lock Mode locks both directions. Las will probably hate having more options. ;)<br/>
+<font color="#A82F2F"><font size="2">(05:02:28 PM)</font> <b>tom-:</b></font> a mode &quot;lock&quot; that only locks one axis is kind of strange<br/>
+<font color="#A82F2F"><font size="2">(05:02:32 PM)</font> <b>Ben_at_home:</b></font> the_CLA_2,   but you have to admit,  &quot;lock&quot; sounds like it should lock.  (why use the same word for 2 different things?)<br/>
+<font color="#A82F2F"><font size="2">(05:03:06 PM)</font> <b>Ben_at_home:</b></font> the_CLA_2,   and &quot;constrained&quot; is clear and it allows operation just like the old &quot;lock&quot; when you want it.<br/>
+<font color="#A82F2F"><font size="2">(05:03:18 PM)</font> <b>tom-:</b></font> but for both axis<br/>
+<font color="#A82F2F"><font size="2">(05:03:56 PM)</font> <b>the_CLA_2:</b></font> Ben_at_home:  I don&apos;t see how the current constrained mode allows operations just like the current lock mode.<br/>
+<font color="#A82F2F"><font size="2">(05:04:40 PM)</font> <b>tom-:</b></font> the_CLA_2: you&apos;d be in &quot;lock&quot;. if you want to drag vertically, you&apos;d press the modifier and drag up or down<br/>
+<font color="#A82F2F"><font size="2">(05:04:52 PM)</font> <b>tom-:</b></font> iiuc<br/>
+<font color="#A82F2F"><font size="2">(05:04:55 PM)</font> <b>the_CLA_2:</b></font> Ben_at_home: It&apos;s still possible to accidently drag along the timeline, wich in some cases might get unnoticed at first - from my experience at last.<br/>
+<font color="#A82F2F"><font size="2">(05:05:06 PM)</font> <b>Ben_at_home:</b></font> the_CLA_2,  grab a region and drag up/down.   it will be constrained to up/down movement, preventing any sliding in time<br/>
+<font color="#A82F2F"><font size="2">(05:06:02 PM)</font> <b>the_CLA_2:</b></font> I dunno. For me the current modes are perfectly fine as they are.<br/>
+<font size="2">(05:23:03 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

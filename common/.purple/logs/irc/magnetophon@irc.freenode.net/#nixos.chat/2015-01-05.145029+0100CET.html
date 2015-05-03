@@ -1,0 +1,39 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Mon 05 Jan 2015 02:50:29 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Mon 05 Jan 2015 02:50:29 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:50:29 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(02:50:29 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#16569E"><font size="2">(02:51:51 PM)</font> <b>magnetophon:</b></font> goibhniu: hmmm, no luck. I noticed now that the boot sequence mentions &quot;resume failed&quot;, with no further explanation. <br/>
+<font color="#A82F2F"><font size="2">(02:52:12 PM)</font> <b>kirelagin:</b></font> Baughn: what’s the problem exactly? I’d say this should work…<br/>
+<font color="#A82F2F"><font size="2">(02:53:10 PM)</font> <b>Baughn:</b></font> Well, /bin/sh exists, but nothing else does.<br/>
+<font color="#A82F2F"><font size="2">(02:53:28 PM)</font> <b>Baughn:</b></font> It doesn&apos;t do whatever it&apos;s supposed to do to build a usable environment<br/>
+<font color="#A82F2F"><font size="2">(02:53:35 PM)</font> <b>kirelagin:</b></font> Baughn: errr<br/>
+<font color="#A82F2F"><font size="2">(02:53:44 PM)</font> <b>kirelagin:</b></font> Baughn: sure it doesn’t<br/>
+<font color="#A82F2F"><font size="2">(02:53:52 PM)</font> <b>Baughn:</b></font> This is a bit of a problem for me. :P<br/>
+<font color="#A82F2F"><font size="2">(02:54:01 PM)</font> <b>Baughn:</b></font> chrooting in has the same result<br/>
+<font color="#A82F2F"><font size="2">(02:54:08 PM)</font> <b>kirelagin:</b></font> Baughn: What do you mean by “everything else”? Do you have /etc/shadow to edit?<br/>
+<font color="#A82F2F"><font size="2">(02:54:26 PM)</font> <b>Baughn:</b></font> According to echo, yes.<br/>
+<font color="#A82F2F"><font size="2">(02:54:39 PM)</font> <b>kirelagin:</b></font> echo?<br/>
+<font color="#A82F2F"><font size="2">(02:54:46 PM)</font> <b>Baughn:</b></font> Aka. echo /etc/*, because I have only shell builtins available.<br/>
+<font color="#A82F2F"><font size="2">(02:55:18 PM)</font> <b>kirelagin:</b></font> ah, well, I see<br/>
+<font color="#16569E"><font size="2">(02:55:41 PM)</font> <b>magnetophon:</b></font> goibhniu: Could this be related to my custom kernel? https://github.com/musnix/musnix/blob/master/default.nix#L9-L21<br/>
+<font color="#A82F2F"><font size="2">(02:55:44 PM)</font> <b>Baughn:</b></font> I think there should be an explanation of how to chroot into a nixos environment, somewhere on the wiki, but I can&apos;t find it.<br/>
+<font color="#A82F2F"><font size="2">(02:55:52 PM)</font> <b>kirelagin:</b></font> so find any editor in your /nis/store and run it ;)<br/>
+<font color="#16569E"><font size="2">(02:56:09 PM)</font> <b>magnetophon:</b></font> henrytill: are you using this kernel too now? ^^  Can you hibernate?<br/>
+<font color="#A82F2F"><font size="2">(02:56:24 PM)</font> <b>Baughn:</b></font> kirelagin: Er, well. That might be a little hard.<br/>
+<font color="#A82F2F"><font size="2">(02:56:29 PM)</font> <b>Baughn:</b></font> Can you tell me the path to, say, nano?<br/>
+<font color="#A82F2F"><font size="2">(02:56:36 PM)</font> <b>kirelagin:</b></font> ah, right, ls is not a shell builtin))<br/>
+<font color="#A82F2F"><font size="2">(02:56:41 PM)</font> <b>kirelagin:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(02:56:46 PM)</font> <b>Baughn:</b></font> echo is<br/>
+<font color="#A82F2F"><font size="2">(02:56:51 PM)</font> <b>goibhniu:</b></font> magnetophon: ah, maybe ... did you try with the default kernel?<br/>
+<font color="#A82F2F"><font size="2">(02:56:51 PM)</font> <b>Baughn:</b></font> So echo * works<br/>
+<font color="#A82F2F"><font size="2">(02:56:55 PM)</font> <b>Baughn:</b></font> But find isn&apos;t..<br/>
+<font color="#A82F2F"><font size="2">(02:57:11 PM)</font> <b>kirelagin:</b></font> cat?<br/>
+<font color="#16569E"><font size="2">(02:57:13 PM)</font> <b>magnetophon:</b></font> goibhniu: I'll try<br/>
+<font color="#A82F2F"><font size="2">(02:57:25 PM)</font> <b>Baughn:</b></font> Not a builtin.<br/>
+<font color="#A82F2F"><font size="2">(02:58:11 PM)</font> <b>Baughn:</b></font> ..screw it, I&apos;ll use the rescue system.<br/>
+<font color="#A82F2F"><font size="2">(02:58:45 PM)</font> <b>kirelagin:</b></font> echo /nix/store/*nano* should do the trick ;)<br/>
+<font color="#A82F2F"><font size="2">(02:59:33 PM)</font> <b>kirelagin:</b></font> that’s funny anyway =)<br/>
+<font color="#A82F2F"><font size="2">(02:59:41 PM)</font> <b>Baughn:</b></font> Hum, that tells me I don&apos;t have nano. Yay.<br/>
+<font color="#A82F2F"><font size="2">(03:00:23 PM)</font> <b>kirelagin:</b></font> omg<br/>
+<font color="#A82F2F"><font size="2">(03:00:31 PM)</font> <b>kirelagin:</b></font> but you definitely have busybox to make your life easier<br/>
+<font color="#A82F2F"><font size="2">(03:00:40 PM)</font> <b>Baughn:</b></font> I think this installation is probably screwed.<br/>
+<font color="#A82F2F"><font size="2">(03:01:06 PM)</font> <b>sivteck:</b></font> `does cat work?<br/>

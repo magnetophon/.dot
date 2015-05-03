@@ -1,0 +1,24 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Mon 22 Dec 2014 01:41:45 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Mon 22 Dec 2014 01:41:45 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(01:41:45 AM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(01:41:45 AM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(02:29:45 AM)</font> <b>Ben_at_home:</b></font> rgareus, FlorianBd :  my windows builds have had the &quot;cyan text&quot; for a few days now, but my linux and osx systems (even after deleting ~/.config/ardour3)  look fine.   I thought it was a windows-specific issue.<br/>
+<font color="#A82F2F"><font size="2">(02:41:38 AM)</font> <b>rgareus:</b></font> las, Ben_at_home: rm -rf build/ ; and full-recompile did not solve it, either.<br/>
+<font color="#A82F2F"><font size="2">(02:42:09 AM)</font> <b>rgareus:</b></font> OSX is fine here, though I didn&apos;t purge build<br/>
+<font color="#A82F2F"><font size="2">(02:43:10 AM)</font> <b>rgareus:</b></font> OSX needed a rm -rf ~/Library/Preferences/Ardour3 though. without that, even resetting the Theme did not make any differences.<br/>
+<font color="#A82F2F"><font size="2">(02:45:51 AM)</font> <b>rgareus:</b></font> found it. the problem is in clearlooks.rc<br/>
+<font color="#A82F2F"><font size="2">(02:46:12 AM)</font> <b>rgareus:</b></font> moving that out of the way and the cyan text is gone<br/>
+<font color="#A82F2F"><font size="2">(02:48:04 AM)</font> <b>rgareus:</b></font> it contains references to colors that were previously defined in ardour&apos;s gtkrc (which is now gone)<br/>
+<font color="#A82F2F"><font size="2">(02:55:47 AM)</font> <b>las:</b></font> rgareus: clearlooks.rc IS the gtkrc<br/>
+<font color="#A82F2F"><font size="2">(02:55:52 AM)</font> <b>las:</b></font> rgareus: with all the colors removed<br/>
+<font color="#A82F2F"><font size="2">(02:56:05 AM)</font> <b>las:</b></font> rgareus: the gtk_color_theme &quot;variable&quot; is now defined via code, after loading dark.colors<br/>
+<font color="#A82F2F"><font size="2">(02:56:27 AM)</font> <b>las:</b></font> rgareus: this, incidentally, is related to the reason why ardour locks up on some systems with &quot;odd&quot; gtkrc files floating around<br/>
+<font color="#A82F2F"><font size="2">(02:56:54 AM)</font> <b>las:</b></font> rgareus: it turns out that defining gtk_color_scheme more than once in an RC file causes a hang in GTK<br/>
+<font color="#A82F2F"><font size="2">(02:57:09 AM)</font> <b>las:</b></font> rgareus: defining it more than once via a function call works fine<br/>
+<font color="#A82F2F"><font size="2">(02:57:38 AM)</font> <b>las:</b></font> rgareus: so if the user has some &quot;system&quot; gtkrc file that defines gtk_color_scheme (and some do), and then they load the ardour gtk rc file, bingo, hang time<br/>
+<font color="#A82F2F"><font size="2">(02:58:00 AM)</font> <b>las:</b></font> rgareus: this will no longer happen because clearlooks.rc no longer defines gtk_color_scheme<br/>
+<font color="#A82F2F"><font size="2">(02:58:12 AM)</font> <b>las:</b></font> rgareus: but instead relies on it having been set via code<br/>
+<font color="#A82F2F"><font size="2">(03:06:10 AM)</font> <b>las:</b></font> rgareus: you can check what the theme manager shows for gtk_text, gtk_foreground and perhaps a couple of others<br/>
+<font color="#A82F2F"><font size="2">(03:09:23 AM)</font> <b>rgareus:</b></font> las: just changing the @color reference in the clearlooks.rc fixes things.  eg instead of @texts   {1.0, 1.0, 1.0} and the cyan is gone<br/>
+<font color="#A82F2F"><font size="2">(03:10:39 AM)</font> <b>rgareus:</b></font> las: where are the gtk colors set before reading the clearlooks.rc ?<br/>
+<font size="2">(03:15:14 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

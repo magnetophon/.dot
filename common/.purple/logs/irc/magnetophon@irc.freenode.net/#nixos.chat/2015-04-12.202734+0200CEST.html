@@ -1,0 +1,340 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sun 12 Apr 2015 08:27:34 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sun 12 Apr 2015 08:27:34 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:27:34 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(08:27:34 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(08:28:14 PM)</font> <b>Guest52176:</b></font> i have the derivation description are described on github (https://github.com/NixOS/nixpkgs) whihc i have a local copy of<br/>
+<font color="#A82F2F"><font size="2">(08:29:00 PM)</font> <b>codehero:</b></font> hmmm.<br/>
+<font color="#A82F2F"><font size="2">(08:29:00 PM)</font> <b>codehero:</b></font> well<br/>
+<font color="#A82F2F"><font size="2">(08:29:13 PM)</font> <b>Guest52176:</b></font> in the derivations description, this problematic package had its test eliminated<br/>
+<font color="#A82F2F"><font size="2">(08:29:13 PM)</font> <b>Guest52176:</b></font> https://github.com/NixOS/nixpkgs/issues/6144<br/>
+<font color="#A82F2F"><font size="2">(08:29:15 PM)</font> <b>codehero:</b></font> calling xonotic starts the systemwide installation<br/>
+<font color="#A82F2F"><font size="2">(08:29:33 PM)</font> <b>codehero:</b></font> can i tell nix to choose the user installation?<br/>
+<font color="#A82F2F"><font size="2">(08:30:18 PM)</font> <b>Guest52176:</b></font> then a fix was given &apos;upstream&apos; in haskell-filesystem<br/>
+<font color="#A82F2F"><font size="2">(08:30:18 PM)</font> <b>Guest52176:</b></font> https://github.com/fpco/haskell-filesystem/pull/6<br/>
+<font color="#A82F2F"><font size="2">(08:30:44 PM)</font> <b>Guest52176:</b></font> leading to test being reenabled in nixpkgs (https://github.com/NixOS/nixpkgs/commit/0af520573205a681545f9ef898158f5c84d92126#diff-8f392bd0e4fd42a66d9e0cd4901ec287)<br/>
+<font color="#A82F2F"><font size="2">(08:31:09 PM)</font> <b>Guest52176:</b></font> however on my system i still have the bug<br/>
+<font color="#A82F2F"><font size="2">(08:32:19 PM)</font> <b>cstrahan:</b></font> Guest52176: how are you trying to build/install the package?<br/>
+<font color="#A82F2F"><font size="2">(08:32:42 PM)</font> <b>Guest52176:</b></font> hence my question : how am is supposed to receive this update ?<br/>
+<font color="#A82F2F"><font size="2">(08:32:43 PM)</font> <b>cstrahan:</b></font> e.g. you should make sure you&apos;re pointing nix at the nixpkgs source, rather than using your channel config<br/>
+<font color="#A82F2F"><font size="2">(08:33:35 PM)</font> <b>cstrahan:</b></font> Guest52176: by default, nix uses one of your channels to fetch the Nixpkgs expressions,<br/>
+<font color="#A82F2F"><font size="2">(08:33:50 PM)</font> <b>Guest52176:</b></font> cstrahan : indeed i made the change to point at the local git copy, not the channel<br/>
+<font color="#A82F2F"><font size="2">(08:34:11 PM)</font> <b>cstrahan:</b></font> oh, ok.<br/>
+<font color="#A82F2F"><font size="2">(08:34:24 PM)</font> <b>cstrahan:</b></font> Guest52176: so are you using nix-build or nix-env?<br/>
+<font color="#A82F2F"><font size="2">(08:34:34 PM)</font> <b>Guest52176:</b></font> is https://github.com/fpco/haskell-filesystem a cabal package ?<br/>
+<font color="#A82F2F"><font size="2">(08:34:36 PM)</font> <b>cstrahan:</b></font> (or you can just paste what you&apos;re entering on the shell)<br/>
+<font color="#A82F2F"><font size="2">(08:35:04 PM)</font> <b>Guest52176:</b></font> nix-env -iA nixpkgs.hsEnv<br/>
+<font color="#A82F2F"><font size="2">(08:35:21 PM)</font> <b>cstrahan:</b></font> gotcha.<br/>
+<font color="#A82F2F"><font size="2">(08:35:57 PM)</font> <b>cstrahan:</b></font> try nix-env -f path/to/your/checkout/of/nixpkgs -iA hsEnv<br/>
+<font color="#A82F2F"><font size="2">(08:36:02 PM)</font> <b>Guest52176:</b></font> where i have in my .nixpkgs/config.nix the following<br/>
+<font color="#A82F2F"><font size="2">(08:36:23 PM)</font> <b>cstrahan:</b></font> otherwise nix will use your nixpkgs channel<br/>
+<font color="#A82F2F"><font size="2">(08:36:38 PM)</font> <b>Guest52176:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(08:38:03 PM)</font> <b>cstrahan:</b></font> let me know if you have any luck with that.<br/>
+<font color="#A82F2F"><font size="2">(08:38:30 PM)</font> <b>cstrahan:</b></font> i&apos;m cleaning up around the house, and then headed out soon, so i apologize if i drop off soon<br/>
+<font color="#A82F2F"><font size="2">(08:38:50 PM)</font> <b>Guest52176:</b></font> do you know what  https://github.com/fpco/haskell-filesystem is to nix ? a acbal package ?<br/>
+<font color="#A82F2F"><font size="2">(08:39:45 PM)</font> <b>cstrahan:</b></font> yeah. we have a tool that turns all of hackage into a big nix expression:<br/>
+<font color="#A82F2F"><font size="2">(08:39:45 PM)</font> <b>cstrahan:</b></font> https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/development/haskell-modules/hackage-packages.nix<br/>
+<font color="#A82F2F"><font size="2">(08:40:06 PM)</font> <b>cstrahan:</b></font> so if it&apos;s on hackage, and assuming we&apos;re doing a good job of keeping that file up to date, then we have it.<br/>
+<font color="#A82F2F"><font size="2">(08:40:38 PM)</font> <b>small-wolf:</b></font> anyone know of a way to install nixos alongside windows and another linux distro w/o overwriting grub?<br/>
+<font color="#A82F2F"><font size="2">(08:40:47 PM)</font> <b>cstrahan:</b></font> Peter Simons (peti) does most of our work in keeping hackage packages up to date.<br/>
+<font color="#A82F2F"><font size="2">(08:40:50 PM)</font> <b>small-wolf:</b></font> err the mbr<br/>
+<font color="#A82F2F"><font size="2">(08:42:39 PM)</font> <b>cstrahan:</b></font> Guest52176: also, remember that you can run `nix-channel --update` to update your channels, in case things have since been fixed and rolled out via Hydra.<br/>
+<font color="#A82F2F"><font size="2">(08:44:08 PM)</font> <b>Guest52176:</b></font> ok. i see. i am trying to understand how this is all linked together. This &quot;system-fileio&quot; derivation refers to a cabal package whose SHA is XXX. do i have any way to know if this SHA contains the fix they made on github<br/>
+<font color="#A82F2F"><font size="2">(08:44:10 PM)</font> <b>Guest52176:</b></font> https://github.com/fpco/haskell-filesystem/pull/6<br/>
+<font color="#A82F2F"><font size="2">(08:44:17 PM)</font> <b>Guest52176:</b></font> i guess not<br/>
+<font size="2">(08:46:00 PM)</font><b> small-wolf left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(08:46:54 PM)</font> <b>cstrahan:</b></font> for which package? system-fileio or system-filepath?<br/>
+<font color="#A82F2F"><font size="2">(08:47:27 PM)</font> <b>cstrahan:</b></font> Guest52176: the version should be right next to the name in hackage-packages.nix<br/>
+<font color="#A82F2F"><font size="2">(08:47:50 PM)</font> <b>cstrahan:</b></font> that version is the hackage version<br/>
+<font color="#A82F2F"><font size="2">(08:48:15 PM)</font> <b>cstrahan:</b></font> so you should be able to see from git/github at what version that fix was released on hackage,<br/>
+<font color="#A82F2F"><font size="2">(08:48:25 PM)</font> <b>cstrahan:</b></font> and then it&apos;s just a matter of comparing the two.<br/>
+<font color="#A82F2F"><font size="2">(08:48:29 PM)</font> <b>Guest52176:</b></font> got it<br/>
+<font color="#A82F2F"><font size="2">(08:49:47 PM)</font> <b>Guest52176:</b></font> writing it for the sake of having it the chat : on https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/development/haskell-modules/hackage-packages.nix we have version  = &quot;0.3.16.2&quot;;<br/>
+<font color="#A82F2F"><font size="2">(08:51:01 PM)</font> <b>cstrahan:</b></font> right, and it looks like version 0.3.16.1 introduced the fix, so you should be good.<br/>
+<font color="#A82F2F"><font size="2">(08:51:16 PM)</font> <b>cstrahan:</b></font> https://github.com/fpco/haskell-filesystem/commit/e5380ed1e2101962bdc16f4fdc8bb0ccf4c81151<br/>
+<font color="#A82F2F"><font size="2">(08:57:19 PM)</font> <b>Guest52176:</b></font> indeed, and the history of master https://github.com/fpco/haskell-filesystem/commits/master shows on 1st of march the system-fileio.cabal had its version bumped to 0.3.16.1 after the merge of the fix<br/>
+<font color="#A82F2F"><font size="2">(09:00:30 PM)</font> <b>Guest52176:</b></font> from this system-fileio.cabal file, new cabal packages were made and uploaded onto hackage<br/>
+<font color="#A82F2F"><font size="2">(09:00:33 PM)</font> <b>Guest52176:</b></font> https://hackage.haskell.org/package/system-fileio<br/>
+<font color="#A82F2F"><font size="2">(09:00:59 PM)</font> <b>Guest52176:</b></font> on the 1st of march as well<br/>
+<font color="#A82F2F"><font size="2">(09:02:30 PM)</font> <b>Guest52176:</b></font> yet I can&apos;t have it to install on my mac<br/>
+<font color="#A82F2F"><font size="2">(09:03:35 PM)</font> <b>Guest52176:</b></font> if i run nix-env with the option --verbose, I see the path are picked up on my local git directory, so it should require the correct cabal package version, and verify the SHA<br/>
+<font size="2">(09:03:44 PM)</font><b> bennofs1 is now known as bennofs</b><br/>
+<font size="2">(09:04:05 PM)</font><b> Guest52176 is now known as nicofcbg</b><br/>
+<font color="#A82F2F"><font size="2">(09:05:52 PM)</font> <b>nicofcbg:</b></font> i will try to install that derivation directly, not as a result of others<br/>
+<font color="#A82F2F"><font size="2">(09:09:21 PM)</font> <b>Havvy:</b></font> So, updating my Sublime3 package, the default font changes to some ugly font and changing the setting in Sublime3&apos;s configuration JSON file doesn&apos;t do anything.<br/>
+<font color="#A82F2F"><font size="2">(09:09:45 PM)</font> <b>Havvy:</b></font> Downgrading the package and the font goes back to what it was, and changing the configuration value works.<br/>
+<font color="#A82F2F"><font size="2">(09:11:58 PM)</font> <b>nicofcbg:</b></font> is nix-env using in any way the definitions of cabal packages i have locally, which are updated by cabal update ?<br/>
+<font color="#A82F2F"><font size="2">(09:14:08 PM)</font> <b>ttuegel:</b></font> nicofcbg: no.<br/>
+<font color="#A82F2F"><font size="2">(09:14:46 PM)</font> <b>ttuegel:</b></font> nicofcbg: although, the package definitions in nixpkgs are automatically updated from hackage daily, but it can take some time for those definitions to appear in the channels<br/>
+<font color="#A82F2F"><font size="2">(09:21:25 PM)</font> <b>fread2282:</b></font> how can I get nix to fetch tarball derivations from my binary cache on lan?<br/>
+<font color="#A82F2F"><font size="2">(09:22:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] C0DEHERO opened pull request #7342: Fix/xonotic update (master...fix/xonotic-update) http://git.io/vvqVw<br/>
+<font color="#A82F2F"><font size="2">(09:23:20 PM)</font> <b>iElectric:</b></font> small-wolf: hey<br/>
+<font color="#A82F2F"><font size="2">(09:23:24 PM)</font> <b>iElectric:</b></font> are in room 510d<br/>
+<font color="#A82F2F"><font size="2">(09:26:43 PM)</font> <b>small-wolf:</b></font> iElectric: are you attending the wrap up keynote?<br/>
+<font color="#A82F2F"><font size="2">(09:27:38 PM)</font> <b>nicofcbg:</b></font> ttuegel : thank you. trying to track the flow of information.<br/>
+<font color="#A82F2F"><font size="2">(09:28:27 PM)</font> <b>MichaelRaskin:</b></font> fread2282: did you try to set up a dynamical binary cache?<br/>
+<font size="2">(09:28:32 PM)</font><b> ehmry is now known as nickmerey</b><br/>
+<font size="2">(09:28:32 PM)</font><b> nickmerey is now known as nickemery</b><br/>
+<font color="#A82F2F"><font size="2">(09:28:41 PM)</font> <b>fread2282:</b></font> MichaelRaskin: I&apos;m using nix-serve<br/>
+<font color="#A82F2F"><font size="2">(09:29:13 PM)</font> <b>MichaelRaskin:</b></font> And the tarballs don&apos;t get fetched? how did you add the new cache to the binary cache list?<br/>
+<font size="2">(09:30:03 PM)</font><b> small-wolf left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:30:55 PM)</font> <b>fread2282:</b></font> --option extra-binary-caches<br/>
+<font color="#A82F2F"><font size="2">(09:32:29 PM)</font> <b>fread2282:</b></font> some stuff gets fetched, but fetchurls still get downloaded from their source<br/>
+<font color="#A82F2F"><font size="2">(09:36:10 PM)</font> <b>viric:</b></font> fread2282: that&apos;s the &quot;mirror&quot;, not the binary cache<br/>
+<font color="#A82F2F"><font size="2">(09:36:21 PM)</font> <b>viric:</b></font> see the fetchurl expression and the env vars involved<br/>
+<font color="#A82F2F"><font size="2">(09:37:07 PM)</font> <b>fread2282:</b></font> how can I tell nix to ignore preferLocalBuild then?<br/>
+<font color="#A82F2F"><font size="2">(09:37:49 PM)</font> <b>viric:</b></font> I don&apos;t know about that option<br/>
+<font color="#A82F2F"><font size="2">(09:37:52 PM)</font> <b>viric:</b></font> I know little.<br/>
+<font color="#A82F2F"><font size="2">(09:38:21 PM)</font> <b>viric:</b></font> but mirror is one thing, binary cache another thing<br/>
+<font color="#A82F2F"><font size="2">(09:38:53 PM)</font> <b>nicofcbg:</b></font> so i think my problem is that ihaskell tries to install system-fileio-0.3.16 the version without the patch. however I dont see what might lead to it using 0.3.16 and not 0.3.16.2<br/>
+<font color="#A82F2F"><font size="2">(09:39:39 PM)</font> <b>nicofcbg:</b></font> i mean installing ghcwithPackage ihaskell tries to install the faulty  system-fileio-0.3.16<br/>
+<font color="#A82F2F"><font size="2">(09:41:46 PM)</font> <b>nicofcbg:</b></font> ~ ❯❯❯ nix-env -qaP \* | grep system-fileio | less                             ⏎ nixpkgs.haskellPackages_ghc784_profiling.systemFileio                       haskell-system-fileio-ghc7.8.4-0.3.16-profiling-shared nixpkgs.haskellPackages_ghc784_no_profiling.systemFileio                    haskell-system-fileio-ghc7.8.4-0.3.16-shared nixpkgs.haskellPackages.systemFileio                                        haskell-system-fileio<br/>
+<font color="#A82F2F"><font size="2">(09:42:13 PM)</font> <b>Forkk_:</b></font> Hello! :D<br/>
+<font size="2">(09:42:17 PM)</font><b> Forkk_ is now known as Forkk</b><br/>
+<font color="#A82F2F"><font size="2">(09:43:34 PM)</font> <b>nicofcbg:</b></font> why nix only sees system-fileinfo-0.3.16 when 0.3.16.2 has been published on hackage and picked up by https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/development/haskell-modules/hackage-packages.nix<br/>
+<font color="#A82F2F"><font size="2">(09:47:22 PM)</font> <b>nicofcbg:</b></font> it might be that nix ignores when names do not conform to semantic versioning X.Y.Z and go with X.Y.Z.A<br/>
+<font color="#A82F2F"><font size="2">(09:48:24 PM)</font> <b>Forkk:</b></font> nicofcbg, I&apos;m pretty sure X.Y.Z.A is the standard version number format for Haskell, though.<br/>
+<font color="#A82F2F"><font size="2">(09:48:49 PM)</font> <b>Forkk:</b></font> although, I have seen a lot of projects using X.Y.Z as well<br/>
+<font color="#A82F2F"><font size="2">(09:48:54 PM)</font> <b>Forkk:</b></font> both should be suported<br/>
+<font color="#A82F2F"><font size="2">(10:02:21 PM)</font> <b>nicofcbg:</b></font> i will try to make a local derivation and test it out<br/>
+<font color="#A82F2F"><font size="2">(10:02:33 PM)</font> <b>nicofcbg:</b></font> forkk : thank you<br/>
+<font color="#A82F2F"><font size="2">(10:03:54 PM)</font> <b>Forkk:</b></font> nicofcbg, don&apos;t fully take my word for what Nix does and doesn&apos;t support. When I said both should be supported, I meant that I would expect both to be supported. Whether or not Nix actually supports both as another matter.<br/>
+<font color="#A82F2F"><font size="2">(10:05:12 PM)</font> <b>Forkk:</b></font> With that said, I can&apos;t imagine it *not* supporting X.Y.Z.A version numbering, as it seems like 75% of all packages on Hackage use that sort of versioning system (especially since that&apos;s the sort of version number cabal init generates).<br/>
+<font color="#A82F2F"><font size="2">(10:10:40 PM)</font> <b>nicofcbg:</b></font> what is very strange is that it does pick up &quot;system-fileio-0.3.16&quot;  as a dependency for ihaskell whereas only 0.3.16.2 is known to it<br/>
+<font color="#A82F2F"><font size="2">(10:10:59 PM)</font> <b>nicofcbg:</b></font> may be it is just printing which truncates the last bits<br/>
+<font color="#A82F2F"><font size="2">(10:12:26 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ttuegel closed pull request #7294: emacs: allow choosing gtk2 or gtk3 (master...emacs) http://git.io/ve70h<br/>
+<font color="#A82F2F"><font size="2">(10:13:17 PM)</font> <b>ttuegel:</b></font> nicofcbg: nix does no dependency resolution. it could be that the maintainer has &quot;pinned&quot; ihaskell to a particular version of that package.<br/>
+<font color="#A82F2F"><font size="2">(10:13:24 PM)</font> <b>nicofcbg:</b></font> i am trying  to override hackage-packages.nix to point to a local system-fileinfo, and so that ihaskell will point to it, and will bump the version to see<br/>
+<font color="#A82F2F"><font size="2">(10:14:41 PM)</font> <b>nicofcbg:</b></font> @ttuegel : so that would only show up in ihaskell&apos;s cabal file ?<br/>
+<font color="#A82F2F"><font size="2">(10:19:07 PM)</font> <b>Havvy:</b></font> WTF? Downgrading and then re-upgrading Sublime3&apos;s package fixed my font issue.<br/>
+<font color="#A82F2F"><font size="2">(10:19:07 PM)</font> <b>ttuegel:</b></font> nicofcbg: you&apos;re trying to override haskellPackagesNg; what step are you at? have you added the new system-fileinfo yet, or are you asking how to do that?<br/>
+<font color="#A82F2F"><font size="2">(10:19:07 PM)</font> <b>nicofcbg:</b></font> progressing, so far it is ok<br/>
+<font color="#A82F2F"><font size="2">(10:19:08 PM)</font> <b>nicofcbg:</b></font> i am not sure how ihaskell would decide to pick up a particular version of system-fileinfo<br/>
+<font color="#A82F2F"><font size="2">(10:19:36 PM)</font> <b>ttuegel:</b></font> nicofcbg: is system-fileinfo a dependency of ihaskell, or is it a package you want to use in ihaskell?<br/>
+<font color="#A82F2F"><font size="2">(10:20:50 PM)</font> <b>aszlig:</b></font> iElectric: does it even work on cygwin anymore?<br/>
+<font color="#A82F2F"><font size="2">(10:23:27 PM)</font> <b>nicofcbg:</b></font> it is a dependency in the transitive closure of ihaskell. it had a bug in 0.3.16 corrected in 0.3.16.1 and upward. the corrected cabal package has been published on hackage and is published in haskell-modules/hackage-packages.nix but ihaskell still tries to install the old one<br/>
+<font color="#A82F2F"><font size="2">(10:25:06 PM)</font> <b>ttuegel:</b></font> nicofcbg: ok, look for ihaskell in haskell-modules/configuration-common.nix. that should tell you if there are package-specific overrides in place<br/>
+<font color="#A82F2F"><font size="2">(10:30:07 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] joachifm opened pull request #7344: nixos: add AppArmor PAM support (master...apparmor-pam) http://git.io/vvq7f<br/>
+<font color="#A82F2F"><font size="2">(10:31:03 PM)</font> <b>codehero:</b></font> does anyone have an idea how i could adapt this to nightly? https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/applications/networking/browsers/firefox-bin/generate_sources.rb<br/>
+<font color="#A82F2F"><font size="2">(10:31:56 PM)</font> <b>nicofcbg:</b></font> why when i run this command<br/>
+<font color="#A82F2F"><font size="2">(10:31:57 PM)</font> <b>nicofcbg:</b></font> ❯ nix-env -qaP \*  | grep system-fileio<br/>
+<font color="#A82F2F"><font size="2">(10:32:02 PM)</font> <b>nicofcbg:</b></font> i have<br/>
+<font color="#A82F2F"><font size="2">(10:32:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] joachifm opened pull request #7345: nixos: condition shadow setuid-wrappers on mutableUsers (master...conditional-shadow-setuids) http://git.io/vvq7g<br/>
+<font color="#A82F2F"><font size="2">(10:32:10 PM)</font> <b>nicofcbg:</b></font> nixpkgs.haskellPackages.systemFileio                                        haskell-system-fileio-ghc7.8.4-0.3.16-shared<br/>
+<font color="#A82F2F"><font size="2">(10:32:24 PM)</font> <b>nicofcbg:</b></font> and not the version 0.3.16.2<br/>
+<font color="#A82F2F"><font size="2">(10:32:36 PM)</font> <b>nicofcbg:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(10:33:19 PM)</font> <b>ttuegel:</b></font> nicofcbg: you must point nix-env at your nixpkgs checkout with the &apos;-f&apos; flag.<br/>
+<font color="#A82F2F"><font size="2">(10:33:27 PM)</font> <b>ttuegel:</b></font> otherwise it uses your channels<br/>
+<font color="#A82F2F"><font size="2">(10:33:34 PM)</font> <b>nicofcbg:</b></font> i am...<br/>
+<font color="#A82F2F"><font size="2">(10:33:55 PM)</font> <b>nicofcbg:</b></font> or so i think..<br/>
+<font color="#A82F2F"><font size="2">(10:34:12 PM)</font> <b>nicofcbg:</b></font> ok i redo<br/>
+<font color="#A82F2F"><font size="2">(10:34:45 PM)</font> <b>nicofcbg:</b></font> yep same<br/>
+<font color="#A82F2F"><font size="2">(10:35:40 PM)</font> <b>nicofcbg:</b></font> and if i add --verbose i can see it reads the modules mylocalgitnixpkgs/pkgs/development/haskell-modules/hackage-packages.nix<br/>
+<font color="#A82F2F"><font size="2">(10:35:52 PM)</font> <b>codehero:</b></font> seems like i&apos;ll have to do that differently<br/>
+<font color="#A82F2F"><font size="2">(10:36:46 PM)</font> <b>ttuegel:</b></font> nicofcbg: ah, i see now. the old one is in haskellPackages. you are looking for haskellPackagesNg, which is not listed in nix-env output by design.<br/>
+<font color="#A82F2F"><font size="2">(10:37:31 PM)</font> <b>nicofcbg:</b></font> good point i forgot about this<br/>
+<font color="#A82F2F"><font size="2">(10:38:18 PM)</font> <b>nicofcbg:</b></font> are there any ways to query the available packages of haskellPackagesNg ?<br/>
+<font color="#A82F2F"><font size="2">(10:41:01 PM)</font> <b>ttuegel:</b></font> nicofcbg: no, you just have to look in hackage-packages.nix<br/>
+<font color="#A82F2F"><font size="2">(10:41:42 PM)</font> <b>kmicu:</b></font> You can use nix-repl.<br/>
+<font color="#A82F2F"><font size="2">(10:42:15 PM)</font> <b>kmicu:</b></font> E.g. ‘nix-repl&gt; pkgs.haskellngPackages.system-filepath<br/>
+<font color="#A82F2F"><font size="2">(10:42:17 PM)</font> <b>kmicu:</b></font> «derivation /nix/store/kiqw14qhqzfrm4qd2d7vnr3fgsw2bf5v-haskell-system-filepath-0.4.13.2.drv»’<br/>
+<font color="#A82F2F"><font size="2">(10:42:25 PM)</font> <b>bb010g:</b></font> Is there an ETA for Gnome 3.16?<br/>
+<font color="#A82F2F"><font size="2">(10:43:05 PM)</font> <b>nicofcbg:</b></font> kmicu : thks<br/>
+<font color="#A82F2F"><font size="2">(10:43:26 PM)</font> <b>kmicu:</b></font> (but grepping source is faster ;)<br/>
+<font color="#A82F2F"><font size="2">(10:43:35 PM)</font> <b>nicofcbg:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(10:44:55 PM)</font> <b>Forkk:</b></font> This https://github.com/ttuegel/nixos-config/blob/master/infinality.nix#L229 seems to suggest that infinality is enabled by default in NixOS. Does this mean I don&apos;t have to do anything at all to use infinality, or am I just being stupid?<br/>
+<font color="#A82F2F"><font size="2">(10:45:30 PM)</font> <b>nicofcbg:</b></font> knicu : i am trying to track down where ihaskell goes on to pick system-fileio version 0.3.16 instead of 0.3.16.2 which has a bugfix, leaerning how info flows into nix on the way<br/>
+<font color="#A82F2F"><font size="2">(10:45:43 PM)</font> <b>kmicu:</b></font> Forkk: Yes, Infinality is an OOTB™ font experience in NixOS.<br/>
+<font color="#A82F2F"><font size="2">(10:45:45 PM)</font> <b>ttuegel:</b></font> Forkk: it is enabled by default, you don&apos;t need to do anything, unless you dislike the default settings :)<br/>
+<font color="#A82F2F"><font size="2">(10:45:53 PM)</font> <b>Forkk:</b></font> sweet :D<br/>
+<font color="#A82F2F"><font size="2">(10:46:24 PM)</font> <b>kmicu:</b></font> It is very sweet and thanks ttuegel for it :)<br/>
+<font color="#A82F2F"><font size="2">(10:47:33 PM)</font> <b>Forkk:</b></font> that explains why emacs&apos;s fonts looked so nice out of the box :D<br/>
+<font color="#A82F2F"><font size="2">(10:47:54 PM)</font> <b>kmicu:</b></font> nicofcbg: are you using ihaskell from Haskell NG or from regular Haskell? :)<br/>
+<font color="#A82F2F"><font size="2">(10:48:11 PM)</font> <b>ttuegel:</b></font> oh, the fonts were fully awful this time last year :0<br/>
+<font color="#A82F2F"><font size="2">(10:48:24 PM)</font> <b>Forkk:</b></font> also, is there an easy way to tell from that file what the config key is to turn it on/off? It looks like it should be fonts.infinality.enable, but I&apos;m not confident enough in how Nix&apos;s language works to say for sure<br/>
+<font color="#A82F2F"><font size="2">(10:48:55 PM)</font> <b>ttuegel:</b></font> Forkk: yes, settings fonts.infinality.enable = false will turn it off<br/>
+<font color="#A82F2F"><font size="2">(10:49:49 PM)</font> <b>Forkk:</b></font> ttuegel, tried, but nix is telling me fonts.infinality does not exist<br/>
+<font color="#A82F2F"><font size="2">(10:50:47 PM)</font> <b>ttuegel:</b></font> Forkk: sorry, it&apos;s not called infinality anymore, i forgot<br/>
+<font color="#A82F2F"><font size="2">(10:50:56 PM)</font> <b>ttuegel:</b></font> i should delete my old configs so they aren&apos;t misleading :)<br/>
+<font color="#A82F2F"><font size="2">(10:51:09 PM)</font> <b>Forkk:</b></font> What&apos;s it called?<br/>
+<font color="#A82F2F"><font size="2">(10:51:17 PM)</font> <b>ttuegel:</b></font> infinality stopped maintaining the packages, it&apos;s now fonts.fontconfig.ultimate.enable<br/>
+<font color="#A82F2F"><font size="2">(10:51:49 PM)</font> <b>Forkk:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(10:52:03 PM)</font> <b>kmicu:</b></font> Original Infinality not http://bohoomil.com/2015/03/30/2015-03-30/<br/>
+<font color="#A82F2F"><font size="2">(10:52:39 PM)</font> <b>nicofcbg:</b></font> kmicu : you nailed it<br/>
+<font color="#A82F2F"><font size="2">(10:53:16 PM)</font> <b>nicofcbg:</b></font> i was defining the derivation with pkgs.haskellPackages_ghc784.ghcWithPackages (....)<br/>
+<font color="#062585"><font size="2">(10:54:05 PM)</font> <b>***kmicu</b></font> ¯\_(ツ)_/¯<br/>
+<font color="#A82F2F"><font size="2">(10:55:14 PM)</font> <b>nicofcbg:</b></font> where do package for this install come from if not hackage-packages.nix ?<br/>
+<font color="#A82F2F"><font size="2">(10:57:11 PM)</font> <b>Forkk:</b></font> So, I&apos;ve noticed /bin on nix is empty except for a symlink to sh. Won&apos;t that break scripts which have #!/bin/bash or #!/usr/bin/python<br/>
+<font color="#A82F2F"><font size="2">(10:57:26 PM)</font> <b>Forkk:</b></font> That could be a serious issue<br/>
+<font color="#A82F2F"><font size="2">(10:58:10 PM)</font> <b>joelteon:</b></font> it sure will<br/>
+<font color="#A82F2F"><font size="2">(10:59:04 PM)</font> <b>kmicu:</b></font> That’s not a serious issue, you need to patchShebangs. That’s all :)<br/>
+<font color="#A82F2F"><font size="2">(10:59:34 PM)</font> <b>Forkk:</b></font> kmicu, is that a config option or did you camelCase it for no reason? :P<br/>
+<font color="#A82F2F"><font size="2">(10:59:38 PM)</font> <b>kmicu:</b></font> And ‘#!/usr/bin/env zsh’ would work in both places.<br/>
+<font color="#A82F2F"><font size="2">(10:59:57 PM)</font> <b>kmicu:</b></font> It’s a name of a function.<br/>
+<font color="#A82F2F"><font size="2">(11:00:30 PM)</font> <b>kmicu:</b></font> nicofcbg: ihaskell from regular packages?<br/>
+<font color="#A82F2F"><font size="2">(11:05:09 PM)</font> <b>Forkk:</b></font> What&apos;s the easiest way to tell what a package&apos;s name is? Like this package https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/emacs-modes/cask/default.nix which isn&apos;t just &quot;cask&quot; as one would expect<br/>
+<font color="#A82F2F"><font size="2">(11:05:21 PM)</font> <b>Forkk:</b></font> is it applications.editors.emacs-modes.cask?<br/>
+<font color="#A82F2F"><font size="2">(11:05:47 PM)</font> <b>Forkk:</b></font> or emacs.cask?<br/>
+<font color="#A82F2F"><font size="2">(11:05:56 PM)</font> <b>kmicu:</b></font> ‘nix-env -qaP &apos;.*&apos; will  show you name nad attribute path.<br/>
+<font color="#A82F2F"><font size="2">(11:06:19 PM)</font> <b>kmicu:</b></font> More at https://nixos.org/wiki/Howto_find_a_package_in_NixOS<br/>
+<font color="#A82F2F"><font size="2">(11:06:50 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] k0ral opened pull request #7346: glances: 2.1 -&gt; 2.3 (master...glances) http://git.io/vvqxV<br/>
+<font color="#A82F2F"><font size="2">(11:07:14 PM)</font> <b>Forkk:</b></font> ah, thanks<br/>
+<font color="#A82F2F"><font size="2">(11:23:17 PM)</font> <b>smw_:</b></font> I am building my first package, how can I debug it not finding my derivation? In all-packages.nix I have sickbeard = callPackage ../servers/sickbeard { }; and in nixpkgs/pkgs/servers/sickbeard/default.nix I have https://gist.github.com/stephenmw/64a2aa45e358d4a06df5<br/>
+<font color="#A82F2F"><font size="2">(11:23:50 PM)</font> <b>smw_:</b></font> the actual error is &quot;error: selector ‘sickbeard’ matches no derivations&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:25:14 PM)</font> <b>nicofcbg:</b></font> so I now use  &quot;pkgs.haskell-ng.packages.ghc784.ghcWithPackages&quot; instead of pkgs.haskellPackages_ghc784.ghcWithPackages<br/>
+<font color="#A82F2F"><font size="2">(11:25:23 PM)</font> <b>nicofcbg:</b></font> and everything works<br/>
+<font color="#A82F2F"><font size="2">(11:25:26 PM)</font> <b>smw_:</b></font> grr, forgot a semicolon. Why can&apos;t I have syntax highlighting outside of gists? :-)<br/>
+<font color="#A82F2F"><font size="2">(11:25:27 PM)</font> <b>kmicu:</b></font> smw_: What is you ‘building’ command?<br/>
+<font color="#A82F2F"><font size="2">(11:26:21 PM)</font> <b>Forkk:</b></font> The cask package seems to be broken. It&apos;s not installing init templates. :|<br/>
+<font color="#A82F2F"><font size="2">(11:26:37 PM)</font> <b>kmicu:</b></font> nicofcbg: great that it works now; not so great that Nix is still so confusing.<br/>
+<font color="#A82F2F"><font size="2">(11:27:04 PM)</font> <b>nicofcbg:</b></font> i understand that in the old config, it might have called the regular ihaskell package, which does not pick up its dependencies from  hackage-packages.nix.<br/>
+<font color="#A82F2F"><font size="2">(11:27:18 PM)</font> <b>kmicu:</b></font> Forkk: what’s a command for that? I will try locally.<br/>
+<font color="#A82F2F"><font size="2">(11:27:26 PM)</font> <b>smw_:</b></font> kmicu, https://gist.github.com/stephenmw/64a2aa45e358d4a06df5<br/>
+<font color="#A82F2F"><font size="2">(11:27:27 PM)</font> <b>Forkk:</b></font> a command for cask?<br/>
+<font color="#A82F2F"><font size="2">(11:27:32 PM)</font> <b>kmicu:</b></font> Yes.<br/>
+<font color="#A82F2F"><font size="2">(11:27:35 PM)</font> <b>Forkk:</b></font> The one that&apos;s broken is `cask init`<br/>
+<font color="#A82F2F"><font size="2">(11:28:10 PM)</font> <b>Forkk:</b></font> I think I can fix it if I override the package&apos;s build script, but I don&apos;t want to have to copy the whole build script into my config. Is there a way to just append to it?<br/>
+<font color="#A82F2F"><font size="2">(11:28:15 PM)</font> <b>kmicu:</b></font> ’Opening input file: no such file or directory, /nix/store/24zkc752qipgxlvxskpwskv78vs1gb1w-cask-0.7.2/templates/init.tpl’<br/>
+<font color="#A82F2F"><font size="2">(11:28:16 PM)</font> <b>smw_:</b></font> kmicu, adding the semicolon did nothing<br/>
+<font color="#A82F2F"><font size="2">(11:28:28 PM)</font> <b>smw_:</b></font> kmicu, although I am sure that was another error<br/>
+<font color="#A82F2F"><font size="2">(11:29:34 PM)</font> <b>kmicu:</b></font> smw_: what gives you ‘&quot;error: selector ‘sickbeard’ matches no derivations&quot;’?<br/>
+<font color="#A82F2F"><font size="2">(11:29:45 PM)</font> <b>smw_:</b></font> kmicu, nix-env -i<br/>
+<font color="#A82F2F"><font size="2">(11:29:53 PM)</font> <b>smw_:</b></font> kmicu, err, nix-env -i sickbeard<br/>
+<font color="#A82F2F"><font size="2">(11:29:54 PM)</font> <b>kmicu:</b></font> Are you using nixpkgs fork?<br/>
+<font color="#A82F2F"><font size="2">(11:29:56 PM)</font> <b>Forkk:</b></font> kmicu, that&apos;s the exact same error<br/>
+<font color="#A82F2F"><font size="2">(11:30:19 PM)</font> <b>smw_:</b></font> kmicu, # echo $NIX_PATH<br/>
+<font color="#A82F2F"><font size="2">(11:30:19 PM)</font> <b>smw_:</b></font> nixpkgs=/host/nixpkgs:nixos=/host/nixpkgs/:nixos-config=/host/configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(11:30:23 PM)</font> <b>Forkk:</b></font> The issue is that the files in `templates/*` need to be installed to the folder in store<br/>
+<font color="#A82F2F"><font size="2">(11:30:26 PM)</font> <b>kmicu:</b></font> Forkk: congrats, you’ve catch a bug. Now fix it :)<br/>
+<font color="#A82F2F"><font size="2">(11:30:39 PM)</font> <b>Forkk:</b></font> Pull request time?<br/>
+<font color="#A82F2F"><font size="2">(11:30:46 PM)</font> <b>kmicu:</b></font> Yep.<br/>
+<font color="#A82F2F"><font size="2">(11:30:54 PM)</font> <b>smw_:</b></font> kmicu, I know that rebuilds are using my modified modules<br/>
+<font color="#A82F2F"><font size="2">(11:31:20 PM)</font> <b>smw_:</b></font> kmicu, this is my first package, but I already have modified modules.<br/>
+<font color="#A82F2F"><font size="2">(11:31:21 PM)</font> <b>kmicu:</b></font> smw_: nix-env requires -f flag.<br/>
+<font color="#A82F2F"><font size="2">(11:31:25 PM)</font> <b>nicofcbg:</b></font> kmicu : it is getting there. there are quite a few namespace convention that are confusing re-haskell + going toward the NG organisation adds to the clutter, but i am hopeful. no doubt it will be very appreciated.<br/>
+<font color="#A82F2F"><font size="2">(11:31:25 PM)</font> <b>kmicu:</b></font> Welcome in hell :)<br/>
+<font color="#A82F2F"><font size="2">(11:31:25 PM)</font> <b>Forkk:</b></font> kmicu, how do I point nixos to a local git copy of the nixpkgs repo, then?<br/>
+<font color="#A82F2F"><font size="2">(11:31:29 PM)</font> <b>smw_:</b></font> kmicu, why is that?<br/>
+<font color="#A82F2F"><font size="2">(11:31:49 PM)</font> <b>kmicu:</b></font> ‘man nix-env’ dunno, legacy reasons?<br/>
+<font color="#A82F2F"><font size="2">(11:32:33 PM)</font> <b>smw_:</b></font> kmicu, ah, ~/.nix-defexpr is the default<br/>
+<font color="#A82F2F"><font size="2">(11:33:07 PM)</font> <b>kmicu:</b></font> Just ‘nix-env SOMECOMMAND -I nixpkgs=/home/kmicu/rps/nixos/nixpkgs -f &apos;&lt;nixpkgs&gt;&apos;’ and it will be good.<br/>
+<font color="#A82F2F"><font size="2">(11:33:19 PM)</font> <b>smw_:</b></font> kmicu, yay, new error<br/>
+<font color="#A82F2F"><font size="2">(11:34:06 PM)</font> <b>smw_:</b></font> kmicu, # nix-env -f &apos;&lt;nixpkgs&gt;&apos; -i sickbeard<br/>
+<font color="#A82F2F"><font size="2">(11:34:06 PM)</font> <b>smw_:</b></font> error: undefined variable ‘fetchgit’ at &quot;/host/nixpkgs/pkgs/servers/sickbeard/default.nix&quot;:6:9<br/>
+<font color="#A82F2F"><font size="2">(11:34:21 PM)</font> <b>smw_:</b></font> kmicu, I understand where I went wrong with this error, thanks :-)<br/>
+<font color="#A82F2F"><font size="2">(11:34:47 PM)</font> <b>kmicu:</b></font> Forkk: e.g. https://nixos.org/wiki/Contributing_to_nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(11:34:55 PM)</font> <b>Forkk:</b></font> awesome<br/>
+<font color="#A82F2F"><font size="2">(11:35:44 PM)</font> <b>kmicu:</b></font> There is also a chapter in https://nixos.org/nixpkgs/manual/#chap-quick-start<br/>
+<font color="#A82F2F"><font size="2">(11:36:11 PM)</font> <b>kmicu:</b></font> There is also another page at Nix wiki :(<br/>
+<font color="#A82F2F"><font size="2">(11:36:48 PM)</font> <b>Forkk:</b></font> damn that&apos;s a big repo :O<br/>
+<font color="#A82F2F"><font size="2">(11:36:57 PM)</font> <b>kmicu:</b></font> and Hydra is still idle https://hydra.nixos.org/machines what a depressing day…<br/>
+<font color="#A82F2F"><font size="2">(11:37:45 PM)</font> <b>kmicu:</b></font> Forkk: you can also work on packages locally w/o forking nixpkgs. (if you don’t want to contribute yet)<br/>
+<font color="#A82F2F"><font size="2">(11:38:00 PM)</font> <b>Forkk:</b></font> nah, I&apos;m fine contributing<br/>
+<font color="#A82F2F"><font size="2">(11:38:05 PM)</font> <b>kmicu:</b></font> \o/<br/>
+<font color="#A82F2F"><font size="2">(11:38:48 PM)</font> <b>Forkk:</b></font> my concern is that it might be a pain to keep up to date with the stable stuff if I&apos;m pulling all my packages from my own fork<br/>
+<font color="#A82F2F"><font size="2">(11:43:03 PM)</font> <b>Forkk:</b></font> kmicu, is there some way around that issue?<br/>
+<font color="#A82F2F"><font size="2">(11:43:28 PM)</font> <b>kmicu:</b></font> ‘stable stuff’?<br/>
+<font color="#A82F2F"><font size="2">(11:44:15 PM)</font> <b>kmicu:</b></font> Are you talking about https://nixos.org/wiki/Create_and_debug_nix_packages#Tracking_upstream_changes_and_avoiding_extra_rebuilding ?<br/>
+<font color="#A82F2F"><font size="2">(11:44:27 PM)</font> <b>Forkk:</b></font> basically, do I end up having to pull changes from the main repo into mine any time I want to update?<br/>
+<font color="#A82F2F"><font size="2">(11:44:30 PM)</font> <b>smw_:</b></font> Forkk, I am not actually using for nixos for anything but I find forking isn&apos;t too hard to keep up to date. I just rebase to the current stable channel.<br/>
+<font color="#A82F2F"><font size="2">(11:44:44 PM)</font> <b>Forkk:</b></font> I guess so<br/>
+<font color="#A82F2F"><font size="2">(11:44:45 PM)</font> <b>smw_:</b></font> Forkk, yep :-(<br/>
+<font color="#A82F2F"><font size="2">(11:44:54 PM)</font> <b>Forkk:</b></font> maybe I&apos;ll just stay on master<br/>
+<font color="#A82F2F"><font size="2">(11:44:59 PM)</font> <b>Forkk:</b></font> I like to live dangerously<br/>
+<font color="#A82F2F"><font size="2">(11:45:27 PM)</font> <b>smw_:</b></font> I tried that once...<br/>
+<font color="#A82F2F"><font size="2">(11:45:30 PM)</font> <b>smw_:</b></font> it was unfun<br/>
+<font color="#A82F2F"><font size="2">(11:46:06 PM)</font> <b>Forkk:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(11:46:20 PM)</font> <b>smw_:</b></font> Forkk, disclaimer: I am very new to nixos<br/>
+<font color="#A82F2F"><font size="2">(11:46:42 PM)</font> <b>Forkk:</b></font> as am I :P<br/>
+<font color="#A82F2F"><font size="2">(11:46:47 PM)</font> <b>smw_:</b></font> Forkk, the one time I tried it, there was a lot of compiling and then stuff broke.<br/>
+<font color="#A82F2F"><font size="2">(11:46:58 PM)</font> <b>Forkk:</b></font> I&apos;m still just trying it out in a VM :P<br/>
+<font color="#A82F2F"><font size="2">(11:47:00 PM)</font> <b>smw_:</b></font> broke as in the rebuild failed<br/>
+<font color="#A82F2F"><font size="2">(11:47:06 PM)</font> <b>smw_:</b></font> Forkk, same here :-)<br/>
+<font color="#A82F2F"><font size="2">(11:47:18 PM)</font> <b>Forkk:</b></font> though I do plan to move over from Arch as soon as I can get everything set up in Nix properly<br/>
+<font color="#A82F2F"><font size="2">(11:47:22 PM)</font> <b>smw_:</b></font> Forkk, the rebuild failed, but everything kept working<br/>
+<font color="#A82F2F"><font size="2">(11:47:37 PM)</font> <b>smw_:</b></font> Forkk, heh, I am working on the same theory, I want to move my htpc to nixos.<br/>
+<font color="#A82F2F"><font size="2">(11:48:05 PM)</font> <b>Forkk:</b></font> why is it rebuilding everything now<br/>
+<font color="#A82F2F"><font size="2">(11:48:16 PM)</font> <b>Forkk:</b></font> probably because I forked master instead of stable :|<br/>
+<font color="#A82F2F"><font size="2">(11:48:18 PM)</font> <b>stepcut:</b></font> the manual says, remote-systems.conf, but I think it is actually /etc/nix/machines?<br/>
+<font color="#A82F2F"><font size="2">(11:48:28 PM)</font> <b>stepcut:</b></font> http://nixos.org/nix/manual/#ex-remote-systems<br/>
+<font color="#A82F2F"><font size="2">(11:48:32 PM)</font> <b>smw_:</b></font> Forkk, yeah, I am forking the stable channel<br/>
+<font color="#A82F2F"><font size="2">(11:48:49 PM)</font> <b>smw_:</b></font> right now I am setting up my last service, then a bit of tuning on folder placement and it will be ready to go. The issue is this last service doesn&apos;t have a package so I am learning that now..<br/>
+<font color="#A82F2F"><font size="2">(11:48:52 PM)</font> <b>Forkk:</b></font> kmicu, should I have forked stable instead of master?<br/>
+<font color="#A82F2F"><font size="2">(11:49:15 PM)</font> <b>smw_:</b></font> Forkk, at least fork a channel.<br/>
+<font color="#A82F2F"><font size="2">(11:49:27 PM)</font> <b>smw_:</b></font> Forkk, channels update when CI passes.<br/>
+<font color="#A82F2F"><font size="2">(11:49:55 PM)</font> <b>smw_:</b></font> kmicu, it would be nice if CI had to pass before push to master :-P<br/>
+<font color="#A82F2F"><font size="2">(11:50:50 PM)</font> <b>smw_:</b></font> kmicu, another useful thing would be if the channels had branches. So you could just checkout origin/stable-channel<br/>
+<font color="#A82F2F"><font size="2">(11:50:52 PM)</font> <b>kmicu:</b></font> Forkk: branch based on ‘nixos-version’<br/>
+<font color="#A82F2F"><font size="2">(11:51:27 PM)</font> <b>kmicu:</b></font> It is explained here https://nixos.org/wiki/Create_and_debug_nix_packages#Tracking_upstream_changes_and_avoiding_extra_rebuilding<br/>
+<font color="#A82F2F"><font size="2">(11:51:30 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] sargon opened pull request #7347: services.x11: Add option for additional InputClass sections. (master...pr-x11) http://git.io/vvmUP<br/>
+<font color="#A82F2F"><font size="2">(11:53:36 PM)</font> <b>smw_:</b></font> kmicu, do I need to build the $out dir in my builder? /nix/store/vhqi26xq103dh9f1dacfxxrqi6qbksq1-sickbeard: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(11:53:51 PM)</font> <b>smw_:</b></font> kmicu, s/build/create/<br/>
+<font color="#A82F2F"><font size="2">(11:55:53 PM)</font> <b>small-wolf:</b></font> Is there a nixlang emacs mode?<br/>
+<font color="#A82F2F"><font size="2">(11:56:22 PM)</font> <b>kmicu:</b></font> smw_: hard to say based on that error :)<br/>
+<font color="#A82F2F"><font size="2">(11:56:23 PM)</font> <b>Forkk:</b></font> ditto. an emacs mode would be awesome<br/>
+<font color="#A82F2F"><font size="2">(11:56:40 PM)</font> <b>kmicu:</b></font> small-wolf: yes poor nix-mode should be in site-lisp.<br/>
+<font color="#A82F2F"><font size="2">(11:57:20 PM)</font> <b>kmicu:</b></font> (it’s poor—synstax highlighting + annoying indentation)<br/>
+<font color="#A82F2F"><font size="2">(11:57:27 PM)</font> <b>kmicu:</b></font> It’s also available on MELPA.<br/>
+<font color="#A82F2F"><font size="2">(11:57:53 PM)</font> <b>smw_:</b></font> kmicu, https://gist.github.com/stephenmw/97fbd0efce5bdb44cb06<br/>
+<font color="#A82F2F"><font size="2">(11:57:56 PM)</font> <b>small-wolf:</b></font> cool is there a primary git repo?<br/>
+<font color="#A82F2F"><font size="2">(11:57:57 PM)</font> <b>small-wolf:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(11:58:01 PM)</font> <b>small-wolf:</b></font> thank you<br/>
+<font color="#A82F2F"><font size="2">(11:59:27 PM)</font> <b>smw_:</b></font> kmicu, although, to be quite honest, that copy probably isn&apos;t necessary, I can just link to it directly. But I will need to create $out/bin/sickbeard<br/>
+<font color="#A82F2F"><font size="2">(12:02:11 AM)</font> <b>smw_:</b></font> kmicu, &quot;builder for ‘/nix/store/dsx6jkkklgc6mm054bh71hbjh21wb2m7-sickbeard.drv’ failed&quot; but $out = /nix/store/kplhp52q9pwm0fmmf62vxn4791nzfpjs-sickbeard<br/>
+<font color="#A82F2F"><font size="2">(12:02:34 AM)</font> <b>smw_:</b></font> kmicu, do I need to add the .drv manually? I am confused.<br/>
+<font color="#A82F2F"><font size="2">(12:03:42 AM)</font> <b>kmicu:</b></font> smw_: you could compare your builder with genericBuilder<br/>
+<font color="#A82F2F"><font size="2">(12:03:56 AM)</font> <b>kmicu:</b></font> ‘/nixpkgs/pkgs/stdenv/generic/’<br/>
+<font color="#A82F2F"><font size="2">(12:04:16 AM)</font> <b>smw_:</b></font> kmicu, I am actually copying https://github.com/NixOS/nixpkgs/blob/15bb4c20e614ed6835c59c7c9101ee59eacbe473/pkgs/servers/sabnzbd/builder.sh<br/>
+<font color="#A82F2F"><font size="2">(12:04:53 AM)</font> <b>kmicu:</b></font> small-wolf: nix-mode is defined somewhere, but I don’t remember where and grepping ‘nix’ is almost impossible :P<br/>
+<font color="#A82F2F"><font size="2">(12:05:03 AM)</font> <b>smw_:</b></font> kmicu, ah, I got it. Thanks<br/>
+<font color="#A82F2F"><font size="2">(12:05:27 AM)</font> <b>Forkk:</b></font> kmicu, so if I make the nixpkgs-channel branch based on a specific commit, then how do I update it?<br/>
+<font color="#A82F2F"><font size="2">(12:05:50 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] dezgeg opened pull request #7348: bastet: new package (master...bastet) http://git.io/vvmLq<br/>
+<font color="#A82F2F"><font size="2">(12:06:30 AM)</font> <b>smw_:</b></font> kmicu, success!<br/>
+<font color="#A82F2F"><font size="2">(12:06:31 AM)</font> <b>kmicu:</b></font> Forkk: are you talking about git repo or about system update? :)<br/>
+<font color="#A82F2F"><font size="2">(12:06:39 AM)</font> <b>Forkk:</b></font> both<br/>
+<font color="#A82F2F"><font size="2">(12:06:52 AM)</font> <b>kmicu:</b></font> smw_: http://i.imgur.com/5OmcbzE.png<br/>
+<font color="#A82F2F"><font size="2">(12:07:03 AM)</font> <b>smw_:</b></font> kmicu, hah<br/>
+<font color="#A82F2F"><font size="2">(12:07:06 AM)</font> <b>Forkk:</b></font> I need to use the git repo to pull system updates from since it includes the fixed packages<br/>
+<font color="#A82F2F"><font size="2">(12:08:35 AM)</font> <b>kmicu:</b></font> Yes, you are pointing nixos-rebuild, nix-env, nix-shell, nix-build,… to your local tree. You don’t need to coordinate with upstream. Just sync it sometimes to latest channel.<br/>
+<font color="#A82F2F"><font size="2">(12:10:24 AM)</font> <b>Forkk:</b></font> so I merge my fix branch into my local nixpkgs-channel branch and then I pull remote changes into that?<br/>
+<font color="#A82F2F"><font size="2">(12:11:20 AM)</font> <b>smw_:</b></font> kmicu, here is my final package: https://gist.github.com/stephenmw/eabff14d0e7044e014c3<br/>
+<font color="#A82F2F"><font size="2">(12:11:26 AM)</font> <b>kmicu:</b></font> That’s more a question about proffered git workflow…<br/>
+<font color="#A82F2F"><font size="2">(12:11:35 AM)</font> <b>kmicu:</b></font> preferred*<br/>
+<font color="#A82F2F"><font size="2">(12:13:20 AM)</font> <b>kmicu:</b></font> I have a branch for each feature, one branch for my system with merged features and I rebase that branch on top of updates to ‘nixos-version’… :)<br/>
+<font color="#A82F2F"><font size="2">(12:13:53 AM)</font> <b>kmicu:</b></font> It’s even more complicated, but working with git from Magit is not a big pain.<br/>
+<font color="#A82F2F"><font size="2">(12:14:15 AM)</font> <b>kmicu:</b></font> Maybe there is a ‘better’ workflow, dunno.<br/>
+<font color="#A82F2F"><font size="2">(12:14:28 AM)</font> <b>Forkk:</b></font> alright<br/>
+<font color="#A82F2F"><font size="2">(12:14:43 AM)</font> <b>Forkk:</b></font> is there something somewhere regarding commit message guidelines?<br/>
+<font color="#A82F2F"><font size="2">(12:14:59 AM)</font> <b>kmicu:</b></font> smw_: great, now create a Pull Request and be famous :)<br/>
+<font color="#A82F2F"><font size="2">(12:15:14 AM)</font> <b>kmicu:</b></font> Forkk: yep, give me a sec.<br/>
+<font color="#A82F2F"><font size="2">(12:15:33 AM)</font> <b>kmicu:</b></font> https://github.com/NixOS/nixpkgs/pull/7237/files<br/>
+<font color="#062585"><font size="2">(12:16:05 AM)</font> <b>***kmicu</b></font> fades away. Good luck!<br/>
+<font color="#A82F2F"><font size="2">(12:19:00 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] aszlig opened pull request #7349: Make it easy to add system-wide custom channels. (master...custom-channels) http://git.io/vvmq9<br/>
+<font color="#A82F2F"><font size="2">(12:20:07 AM)</font> <b>Forkk:</b></font> alright, pushed<br/>
+<font color="#A82F2F"><font size="2">(12:22:11 AM)</font> <b>Forkk:</b></font> kmicu, in case you&apos;re still there, what base branch should I set for the pull request?<br/>
+<font color="#A82F2F"><font size="2">(12:27:29 AM)</font> <b>Forkk:</b></font> :| my commit ended up being based on 14.12, since that&apos;s what I&apos;m running, which means I can&apos;t merge into master without git going nuts? Should I just make a pull request to merge into 14.12 or rebase on master?<br/>
+<font color="#A82F2F"><font size="2">(12:33:06 AM)</font> <b>Forkk:</b></font> smw_, any idea what I should do here?<br/>
+<font color="#A82F2F"><font size="2">(12:34:36 AM)</font> <b>smw_:</b></font> Forkk, cherry-pick<br/>
+<font color="#A82F2F"><font size="2">(12:34:44 AM)</font> <b>Forkk:</b></font> on to master?<br/>
+<font color="#A82F2F"><font size="2">(12:34:55 AM)</font> <b>aszlig:</b></font> Forkk: or rebase (which is roughly the same)<br/>
+<font color="#A82F2F"><font size="2">(12:35:26 AM)</font> <b>smw_:</b></font> if you are attempting to move your commits from stable to master, you probably want to cherry pick them<br/>
+<font color="#A82F2F"><font size="2">(12:35:31 AM)</font> <b>Forkk:</b></font> Wouldn&apos;t it have been better to just make the changes on master in the first place?<br/>
+<font color="#A82F2F"><font size="2">(12:35:41 AM)</font> <b>aszlig:</b></font> git rebase --onto master your_base<br/>
+<font color="#A82F2F"><font size="2">(12:36:00 AM)</font> <b>aszlig:</b></font> in this case:<br/>
+<font color="#A82F2F"><font size="2">(12:36:08 AM)</font> <b>aszlig:</b></font> git rebase --onto master release-14.12<br/>
+<font color="#A82F2F"><font size="2">(12:38:13 AM)</font> <b>smw_:</b></font> aszlig, but then you have all the stable commits as well<br/>
+<font color="#A82F2F"><font size="2">(12:38:18 AM)</font> <b>aszlig:</b></font> which is essentially something like &quot;git reset --hard master &amp;&amp; git cherry-pick your_commit1 your_commet2 ...&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:38:36 AM)</font> <b>aszlig:</b></font> smw_: therefore the --onto<br/>
+<font color="#A82F2F"><font size="2">(12:39:15 AM)</font> <b>Forkk:</b></font> aszlig, since this change fixes a bug which breaks an entire command in this package, shouldn&apos;t it be merged into the release branch, though?<br/>
+<font color="#A82F2F"><font size="2">(12:39:18 AM)</font> <b>smw_:</b></font> aszlig, I need to learn what that does then. I figured that rebasing stable onto master would mean it would try to rebase everything added after stable forked<br/>
+<font color="#A82F2F"><font size="2">(12:40:54 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] Forkk opened pull request #7351: cask: fix issue with &apos;cask init&apos; command (master...fix/cask-init) http://git.io/vvm3l<br/>
+<font color="#A82F2F"><font size="2">(12:41:02 AM)</font> <b>Forkk:</b></font> There we go :D<br/>
+<font color="#A82F2F"><font size="2">(12:41:31 AM)</font> <b>aszlig:</b></font> smw_: the branch you give to rebase is the base commit from which the chain of &quot;cherry-picks&quot; start, the --onto specifies the base commit where that chain is appended to<br/>
+<font color="#A82F2F"><font size="2">(12:42:31 AM)</font> <b>smw_:</b></font> aszlig, ah<br/>
+<font color="#A82F2F"><font size="2">(12:46:46 AM)</font> <b>Forkk:</b></font> now how do I set nixos-rebuild to always pull from my local repo<br/>
+<font color="#A82F2F"><font size="2">(12:46:53 AM)</font> <b>smw_:</b></font> kmicu, I may contribute it later. I need to get approval from work.<br/>
+<font color="#A82F2F"><font size="2">(12:47:40 AM)</font> <b>smw_:</b></font> Forkk, here is my NIX_PATH: nixpkgs=/host/nixpkgs:nixos=/host/nixpkgs/:nixos-config=/host/configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(12:47:45 AM)</font> <b>aszlig:</b></font> Forkk: have a look at NIX_PATH, there is a nixpkgs=... key<br/>
+<font color="#A82F2F"><font size="2">(12:48:02 AM)</font> <b>smw_:</b></font> Forkk, I store everything in /host since that is where I mount a dir from my host in vbox<br/>
+<font color="#A82F2F"><font size="2">(12:48:14 AM)</font> <b>aszlig:</b></font> Forkk: so either change your NIX_PATH or symlink it into /etc/nixos/nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(12:48:29 AM)</font> <b>Forkk:</b></font> I prefer the symlink option<br/>
+<font color="#A82F2F"><font size="2">(12:48:31 AM)</font> <b>smw_:</b></font> aszlig, that makes more sense actually<br/>
+<font color="#A82F2F"><font size="2">(12:48:36 AM)</font> <b>smw_:</b></font> Forkk, same here<br/>

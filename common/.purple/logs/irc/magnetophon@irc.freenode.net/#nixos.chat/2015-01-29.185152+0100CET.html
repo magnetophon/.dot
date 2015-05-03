@@ -1,0 +1,569 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Thu 29 Jan 2015 06:51:52 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Thu 29 Jan 2015 06:51:52 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(06:51:53 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(06:51:53 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(06:52:21 PM)</font> <b>auntie:</b></font> now there&apos;s ghost... come to think of it, I haven&apos;t seen a mailinglist thread for that. maybe I missed it<br/>
+<font color="#A82F2F"><font size="2">(06:53:48 PM)</font> <b>matematikaadit:</b></font> oh. it&apos;s 11.2.202.440<br/>
+<font color="#A82F2F"><font size="2">(06:54:47 PM)</font> <b>matematikaadit:</b></font> let see the nixpkgs version.<br/>
+<font color="#A82F2F"><font size="2">(06:58:37 PM)</font> <b>matematikaadit:</b></font> the master branch in nixpkgs already using flashplayer 11.2.202.440<br/>
+<font color="#A82F2F"><font size="2">(06:58:51 PM)</font> <b>auntie:</b></font> trying to search the log for when rubyLibs was removed, but github doesn&apos;t have that search feature :/<br/>
+<font color="#A82F2F"><font size="2">(07:00:10 PM)</font> <b>matematikaadit:</b></font> my system - nixos 14.12.298.0667587 (Caterpillar) still using the 11.2.202.429 version<br/>
+<font color="#A82F2F"><font size="2">(07:00:23 PM)</font> <b>matematikaadit:</b></font> *425<br/>
+<font color="#A82F2F"><font size="2">(07:01:29 PM)</font> <b>kmicu:</b></font> matematikaadit: 	nixos-14.12.298.0667..&gt;	09-Jan-2015 04:39<br/>
+<font size="2">(07:02:33 PM)</font><b> Lethalman left the room (quit: Quit: Sto andando via).</b><br/>
+<font color="#A82F2F"><font size="2">(07:02:34 PM)</font> <b>turtil:</b></font> question fine people of nixos, i have been following the ISO on a USB Stick Github issue, am i right to assume i need to test /releases/nixos/unstable/nixos-15.05pre57024.db75b5d ?<br/>
+<font color="#A82F2F"><font size="2">(07:02:35 PM)</font> <b>kmicu:</b></font> Did you update your channel with ‘nix-channel --update’ ?<br/>
+<font color="#A82F2F"><font size="2">(07:04:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 2 new commits to master: http://git.io/FoKW<br/>
+<font color="#A82F2F"><font size="2">(07:04:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master ed232ef Edward O&apos;Callaghan: php: update from 5.4.35 to 5.4.37...<br/>
+<font color="#A82F2F"><font size="2">(07:04:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f0f99d5 Eelco Dolstra: Merge pull request #6051 from victoredwardocallaghan/php...<br/>
+<font color="#A82F2F"><font size="2">(07:04:34 PM)</font> <b>matematikaadit:</b></font> kmicu, done that. But it&apos;s still failed. I&apos;m doing `nixos-rebuild switch --upgrade`<br/>
+<font color="#A82F2F"><font size="2">(07:07:40 PM)</font> <b>matematikaadit:</b></font> kmicu, anyway, how do you find that nixos version release date (09-Jan-2015 04:39), is that encoded in those 14.12.298.066 version number?<br/>
+<font color="#A82F2F"><font size="2">(07:07:42 PM)</font> <b>vcunat:</b></font> turtil: no, that pull request hasn&apos;t been merged to unstable/master, so it isn&apos;t in a channel<br/>
+<font color="#A82F2F"><font size="2">(07:07:50 PM)</font> <b>kmicu:</b></font> Probably your new version (e.g. it’s listed in ‘nix-channel --update’) is too old and new version is not ready yet. You need to  override your flash locally then if you want to update today.<br/>
+<font color="#A82F2F"><font size="2">(07:08:28 PM)</font> <b>turtil:</b></font> ok thanks vcunat so pull &gt; merge patch &gt; build iso &gt; test?<br/>
+<font color="#A82F2F"><font size="2">(07:09:27 PM)</font> <b>vcunat:</b></font> turtil: yes, I&apos;d start at some channel version (e.g. that db75b5d) and I&apos;d add the patch<br/>
+<font color="#A82F2F"><font size="2">(07:09:46 PM)</font> <b>kmicu:</b></font> matematikaadit: as described in docs :) last part in ‘nixos-version’ is a commit hash ‘0667587’. You can check releases here http://releases.nixos.org/nixos/14.12/<br/>
+<font color="#A82F2F"><font size="2">(07:09:46 PM)</font> <b>vcunat:</b></font> doing it atop master may force you to build lots of things<br/>
+<font color="#A82F2F"><font size="2">(07:09:54 PM)</font> <b>vcunat:</b></font> s/may/might/<br/>
+<font color="#A82F2F"><font size="2">(07:10:02 PM)</font> <b>turtil:</b></font> vcunat: yeah cool, i will give it a go this morning<br/>
+<font color="#A82F2F"><font size="2">(07:10:32 PM)</font> <b>vcunat:</b></font> OK :-) I have after sunset<br/>
+<font color="#A82F2F"><font size="2">(07:12:01 PM)</font> <b>vcunat:</b></font> matematikaadit: it&apos;s easy... in the latest 14.12 branch flash is still .440<br/>
+<font color="#A82F2F"><font size="2">(07:12:11 PM)</font> <b>vcunat:</b></font> so it can&apos;t be better in the channel following the branch<br/>
+<font color="#A82F2F"><font size="2">(07:13:31 PM)</font> <b>auntie:</b></font> vcunat: oh hey, you might know<br/>
+<font color="#A82F2F"><font size="2">(07:13:34 PM)</font> <b>vcunat:</b></font> ah, sorry, I mixed these up<br/>
+<font color="#A82F2F"><font size="2">(07:13:38 PM)</font> <b>auntie:</b></font> vcunat: do you know what happened to rubyLibs?<br/>
+<font color="#A82F2F"><font size="2">(07:13:46 PM)</font> <b>auntie:</b></font> are they unmaintained or something?<br/>
+<font color="#A82F2F"><font size="2">(07:13:54 PM)</font> <b>vcunat:</b></font> auntie: no idea about ruby(Libs)<br/>
+<font color="#A82F2F"><font size="2">(07:14:31 PM)</font> <b>auntie:</b></font> they were obliterated a few days ago. you commented on the same commit (about terminal_notifier breaking something)<br/>
+<font color="#A82F2F"><font size="2">(07:14:56 PM)</font> <b>auntie:</b></font> the generated ruby derivations were just deleted<br/>
+<font color="#A82F2F"><font size="2">(07:15:11 PM)</font> <b>vcunat:</b></font> auntie: do you know this announcement? http://lists.science.uu.nl/pipermail/nix-dev/2015-January/015780.html<br/>
+<font color="#A82F2F"><font size="2">(07:15:49 PM)</font> <b>auntie:</b></font> ah, that&apos;s why. I figured it was just a change<br/>
+<font color="#A82F2F"><font size="2">(07:15:49 PM)</font> <b>vcunat:</b></font> (I just remember I saw ruby in some titles)<br/>
+<font color="#A82F2F"><font size="2">(07:16:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wmertens opened pull request #6061: fortune: fix Darwin build (master...fortune-darwin) http://git.io/FoyI<br/>
+<font color="#A82F2F"><font size="2">(07:16:47 PM)</font> <b>auntie:</b></font> I guess I gotta package a few ruby things now<br/>
+<font color="#A82F2F"><font size="2">(07:16:49 PM)</font> <b>nkar:</b></font> Haskellfant, kmicu: it seems that haskell packages have different build phases.  checkPhase returns a make-related error, for instance.  where can I find the right phases?<br/>
+<font color="#A82F2F"><font size="2">(07:16:51 PM)</font> <b>auntie:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(07:17:11 PM)</font> <b>vcunat:</b></font> matematikaadit: sorry for confusion. 11.2.202.440 is the version on both branches, only the 14.12 release channel is lagging a bit<br/>
+<font color="#A82F2F"><font size="2">(07:17:23 PM)</font> <b>vcunat:</b></font> it doesn&apos;t include that bump yet<br/>
+<font color="#A82F2F"><font size="2">(07:17:49 PM)</font> <b>matematikaadit:</b></font> well, thanks for the pointer. I&apos;ll try searching about how to overide packages from configuration.nix first then. So that I could change the flash to that newer version.<br/>
+<font color="#A82F2F"><font size="2">(07:18:09 PM)</font> <b>Haskellfant:</b></font> nkar: sry no idea<br/>
+<font color="#A82F2F"><font size="2">(07:18:34 PM)</font> <b>vcunat:</b></font> matematikaadit: you can just use git checkout to the latest branch state<br/>
+<font color="#A82F2F"><font size="2">(07:19:28 PM)</font> <b>auntie:</b></font> matematikaadit: you can checkout the branch, and then use nix-env with the -f flag to install the latest version locally<br/>
+<font color="#A82F2F"><font size="2">(07:19:41 PM)</font> <b>Haskellfant:</b></font> nkar: pkgs/build-support/cabal looks like the right place to look at<br/>
+<font color="#062585"><font size="2">(07:19:51 PM)</font> <b>***nkar</b></font> looks<br/>
+<font color="#A82F2F"><font size="2">(07:19:58 PM)</font> <b>vcunat:</b></font> niksnut: lately I see lots of &quot;hydra-eval-jobs returned signal -1: timeout&quot; on hydra.nixos.org<br/>
+<font color="#A82F2F"><font size="2">(07:19:59 PM)</font> <b>vcunat:</b></font> for example now release-14.12 hasn&apos;t seen an evaluation for over two days because of it<br/>
+<font color="#A82F2F"><font size="2">(07:20:02 PM)</font> <b>Haskellfant:</b></font> nkar: try echoing $checkPhase<br/>
+<font color="#A82F2F"><font size="2">(07:20:15 PM)</font> <b>Haskellfant:</b></font> afaik overwritten phases are available as variables not functions<br/>
+<font color="#A82F2F"><font size="2">(07:20:38 PM)</font> <b>nkar:</b></font> Haskellfant: eval &quot;$preCheck&quot; ./Setup test eval &quot;$postCheck&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:20:56 PM)</font> <b>Haskellfant:</b></font> thet looks like the correct thing<br/>
+<font color="#A82F2F"><font size="2">(07:21:12 PM)</font> <b>Haskellfant:</b></font> nkar: eval &quot;$checkPhase&quot; might work (the &quot; are important)<br/>
+<font color="#A82F2F"><font size="2">(07:21:21 PM)</font> <b>nkar:</b></font> let me try that<br/>
+<font color="#A82F2F"><font size="2">(07:21:47 PM)</font> <b>nkar:</b></font> returns: ./Setup: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(07:22:07 PM)</font> <b>Haskellfant:</b></font> you need to be in the correct directory<br/>
+<font color="#A82F2F"><font size="2">(07:22:17 PM)</font> <b>nkar:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(07:22:47 PM)</font> <b>Haskellfant:</b></font> the directory is usually set after unpacking afaik but in nix-shell it doesn&apos;t change the directory for some reason I don&apos;t know about<br/>
+<font color="#A82F2F"><font size="2">(07:23:38 PM)</font> <b>nkar:</b></font> okay, I moved to the directory, but there&apos;s no ./Setup, only Setup.hs<br/>
+<font color="#A82F2F"><font size="2">(07:23:45 PM)</font> <b>aristid:</b></font> hey guys<br/>
+<font color="#A82F2F"><font size="2">(07:24:05 PM)</font> <b>aristid:</b></font> goibhniu: do you plan to go to the friday evening thing before fosdem that you mentioned?<br/>
+<font color="#A82F2F"><font size="2">(07:24:42 PM)</font> <b>goibhniu:</b></font> aristid hell yeah! :)<br/>
+<font color="#A82F2F"><font size="2">(07:24:42 PM)</font> <b>goibhniu:</b></font> I expect to be there around 20:00<br/>
+<font color="#A82F2F"><font size="2">(07:25:17 PM)</font> <b>aristid:</b></font> goibhniu: hah, my train arrives shortly after that. maybe i&apos;ll join after i&apos;ve checked in at my hotel<br/>
+<font color="#A82F2F"><font size="2">(07:25:25 PM)</font> <b>aristid:</b></font> how would i recognize you?:D<br/>
+<font color="#A82F2F"><font size="2">(07:25:45 PM)</font> <b>aristid:</b></font> also, this place, right? https://www.google.nl/maps/place/Delirium+Caf%C3%A9/@50.848469,4.353875,17z<br/>
+<font color="#A82F2F"><font size="2">(07:26:48 PM)</font> <b>goibhniu:</b></font> aristid cool, do it! ... it will probably be packed, so it would be handy to arrange something .. I&apos;m not convinced my phone is gonna work, or that there will be wifi<br/>
+<font color="#A82F2F"><font size="2">(07:26:55 PM)</font> <b>goibhniu:</b></font> yeah, I think that&apos;s the place<br/>
+<font color="#A82F2F"><font size="2">(07:27:23 PM)</font> <b>aristid:</b></font> goibhniu: query?<br/>
+<font color="#A82F2F"><font size="2">(07:28:25 PM)</font> <b>goibhniu:</b></font> sorry, query what?<br/>
+<font color="#A82F2F"><font size="2">(07:29:08 PM)</font> <b>nkar:</b></font> Haskellfant: does doCheck = false; skip the tests?<br/>
+<font color="#A82F2F"><font size="2">(07:29:23 PM)</font> <b>goibhniu:</b></font> with considerable luck, we can get a table ... I think I&apos;ll bring along a big acrylic nixos snowflake .. as a beacon :)<br/>
+<font color="#A82F2F"><font size="2">(07:30:35 PM)</font> <b>Haskellfant:</b></font> nkar: seems to be the case (but keep in mind, I don&apos;t really know nix atm :))<br/>
+<font color="#A82F2F"><font size="2">(07:30:53 PM)</font> <b>nkar:</b></font> you surely know more than I do :)<br/>
+<font color="#A82F2F"><font size="2">(07:31:09 PM)</font> <b>MP2E:</b></font> yes, doCheck = false; skips the testing phase<br/>
+<font color="#A82F2F"><font size="2">(07:31:15 PM)</font> <b>nkar:</b></font> anyway, thanks for your help.  I disabled the testsuite for now.  will get back to it later.<br/>
+<font color="#A82F2F"><font size="2">(07:31:32 PM)</font> <b>Haskellfant:</b></font> nkar: tell that to my laptop cpu who is rebuilding openjdk for the 10th time now because I&apos;m too stupid to detect my errors beforehand<br/>
+<font color="#A82F2F"><font size="2">(07:31:51 PM)</font> <b>nkar:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(07:32:06 PM)</font> <b>Haskellfant:</b></font> I hate this openjdk stuff<br/>
+<font color="#A82F2F"><font size="2">(07:32:19 PM)</font> <b>Haskellfant:</b></font> sadly I need it<br/>
+<font color="#A82F2F"><font size="2">(07:34:40 PM)</font> <b>nkar:</b></font> btw, if someone wants to help me with debugging, the problematic package is crypto-pubkey and the error is test-crypto-pubkey: KATs/ECC-PKV.txt: openFile: does not exist (No such file or directory)  note that I updated all the deps, so it&apos;s definitely not an tasty-kat issue.<br/>
+<font color="#A82F2F"><font size="2">(07:35:04 PM)</font> <b>nkar:</b></font> too bad that peti is not around<br/>
+<font color="#A82F2F"><font size="2">(07:36:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/FoNP<br/>
+<font color="#A82F2F"><font size="2">(07:36:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8e5cf58 Sibi: imagemagick: rename package to lowercase (close #6056)...<br/>
+<font color="#A82F2F"><font size="2">(07:37:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat closed pull request #6056: Update default.nix (master...patch-1) http://git.io/Fwv6<br/>
+<font color="#A82F2F"><font size="2">(07:37:06 PM)</font> <b>aristid:</b></font> iElectric, brodul: i hear you&apos;re also planning to go to the friday evening bar?:)<br/>
+<font color="#A82F2F"><font size="2">(07:37:49 PM)</font> <b>brodul:</b></font> aristid: yes sure<br/>
+<font color="#A82F2F"><font size="2">(07:38:07 PM)</font> <b>Haskellfant:</b></font> I&apos;m trying to install my changed openjdk derivation but while doing that I&apos;m getting an error for user-environment (which I didn&apos;t change), any idea what could cause this? openjdk8 so that all necessary files are installed<br/>
+<font color="#A82F2F"><font size="2">(07:38:12 PM)</font> <b>Haskellfant:</b></font> ups http://sprunge.us/TYiA<br/>
+<font color="#A82F2F"><font size="2">(07:38:16 PM)</font> <b>Haskellfant:</b></font> that should be after ?<br/>
+<font color="#A82F2F"><font size="2">(07:39:20 PM)</font> <b>aristid:</b></font> brodul: cool<br/>
+<font color="#A82F2F"><font size="2">(07:39:35 PM)</font> <b>brodul:</b></font> what abouth you aristid<br/>
+<font color="#A82F2F"><font size="2">(07:39:37 PM)</font> <b>brodul:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(07:39:52 PM)</font> <b>aristid:</b></font> brodul: i plan so as well:)<br/>
+<font color="#A82F2F"><font size="2">(07:40:13 PM)</font> <b>brodul:</b></font> Nice<br/>
+<font color="#A82F2F"><font size="2">(07:40:24 PM)</font> <b>brodul:</b></font> I always drink to many<br/>
+<font color="#A82F2F"><font size="2">(07:40:46 PM)</font> <b>brodul:</b></font> ~3<br/>
+<font color="#A82F2F"><font size="2">(07:40:50 PM)</font> <b>aristid:</b></font> ;)<br/>
+<font color="#A82F2F"><font size="2">(07:40:59 PM)</font> <b>brodul:</b></font> epic hangover every fosdem<br/>
+<font color="#A82F2F"><font size="2">(07:43:06 PM)</font> <b>brodul:</b></font> we can meet at the bar<br/>
+<font color="#A82F2F"><font size="2">(07:43:08 PM)</font> <b>brodul:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(07:43:41 PM)</font> <b>aristid:</b></font> brodul: i&apos;ll be in brussels at 20:something and then check in at the hotel, after that i could come<br/>
+<font color="#A82F2F"><font size="2">(07:43:53 PM)</font> <b>brodul:</b></font> tomorrow<br/>
+<font color="#A82F2F"><font size="2">(07:43:54 PM)</font> <b>brodul:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(07:43:56 PM)</font> <b>aristid:</b></font> ya<br/>
+<font color="#A82F2F"><font size="2">(07:44:21 PM)</font> <b>aristid:</b></font> if i wouldn&apos;t come tomorrow evening i would miss nbp&apos;s early morning (:D) talk<br/>
+<font color="#A82F2F"><font size="2">(07:45:38 PM)</font> <b>aristid:</b></font> \o/ it&apos;s not impossible to walk from my hotel to delirium cafe<br/>
+<font color="#A82F2F"><font size="2">(07:45:51 PM)</font> <b>aristid:</b></font> (33 minutes says the goog<br/>
+<font color="#A82F2F"><font size="2">(07:47:06 PM)</font> <b>brodul:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(07:47:20 PM)</font> <b>brodul:</b></font> hmm I need to poke iElectric<br/>
+<font color="#A82F2F"><font size="2">(07:47:26 PM)</font> <b>iElectric:</b></font> woot<br/>
+<font color="#A82F2F"><font size="2">(07:47:31 PM)</font> <b>brodul:</b></font> I dont even know were we staying<br/>
+<font color="#A82F2F"><font size="2">(07:47:44 PM)</font> <b>iElectric:</b></font> in Cape Town, of course<br/>
+<font color="#A82F2F"><font size="2">(07:47:56 PM)</font> <b>brodul:</b></font> + we need to go<br/>
+<font color="#A82F2F"><font size="2">(07:48:17 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] viric pushed 2 new commits to release-14.12: http://git.io/FKv0<br/>
+<font color="#A82F2F"><font size="2">(07:48:17 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 56e0562 Lluís Batlle i Rossell: Install more rkflashtools.<br/>
+<font color="#A82F2F"><font size="2">(07:48:17 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 aeefbe5 Lluís Batlle i Rossell: Update cjdns to v15<br/>
+<font color="#A82F2F"><font size="2">(07:48:37 PM)</font> <b>brodul:</b></font> gate closes in 50 mins<br/>
+<font color="#A82F2F"><font size="2">(07:49:34 PM)</font> <b>aristid:</b></font> well cya then:D<br/>
+<font color="#A82F2F"><font size="2">(07:50:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] garbas pushed 1 new commit to master: http://git.io/FKfn<br/>
+<font color="#A82F2F"><font size="2">(07:50:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7f27a9a Rok Garbas: pythonPackages.alot: update to 0.3.6<br/>
+<font color="#A82F2F"><font size="2">(07:50:58 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] viric pushed 2 new commits to master: http://git.io/FKJf<br/>
+<font color="#A82F2F"><font size="2">(07:50:58 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7f29d18 Lluís Batlle i Rossell: Install more rkflashtools....<br/>
+<font color="#A82F2F"><font size="2">(07:50:58 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8ea408b Lluís Batlle i Rossell: Update cjdns to v15...<br/>
+<font size="2">(07:51:27 PM)</font><b> goibhniu left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:56:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wmertens closed pull request #6061: fortune: fix Darwin build (master...fortune-darwin) http://git.io/FoyI<br/>
+<font size="2">(08:07:34 PM)</font><b> Lethalman [<em>~lethal@89.119.188.238</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:15:19 PM)</font> <b>pierron:</b></font> I would be at the Novotel in the center.  Where all the Mozilla people are.<br/>
+<font color="#A82F2F"><font size="2">(08:16:08 PM)</font> <b>pierron:</b></font> I will be there around 20, and I will try to go to the delirium café<br/>
+<font color="#A82F2F"><font size="2">(08:16:28 PM)</font> <b>pierron:</b></font> aristid: I guess we will see each others at the table.<br/>
+<font color="#A82F2F"><font size="2">(08:16:44 PM)</font> <b>pierron:</b></font> wmertens: who is opening the table?<br/>
+<font color="#A82F2F"><font size="2">(08:16:58 PM)</font> <b>wmertens:</b></font> pierron: first one there :)<br/>
+<font color="#A82F2F"><font size="2">(08:17:22 PM)</font> <b>wmertens:</b></font> but goibniu was saying he&apos;d be tehre at 9<br/>
+<font color="#A82F2F"><font size="2">(08:17:27 PM)</font> <b>pierron:</b></font> wmertens: ok, the organizer do not care?<br/>
+<font color="#A82F2F"><font size="2">(08:17:42 PM)</font> <b>pierron:</b></font> wmertens: I will try to be there around 9 too<br/>
+<font color="#A82F2F"><font size="2">(08:17:47 PM)</font> <b>wmertens:</b></font> no... there&apos;s no verification of table holders<br/>
+<font color="#A82F2F"><font size="2">(08:17:59 PM)</font> <b>wmertens:</b></font> you could go sit at the debian table and give terrible advise :)<br/>
+<font color="#A82F2F"><font size="2">(08:18:13 PM)</font> <b>pierron:</b></font> wmertens: at least to drop my 2 screen, until somebody else show-up<br/>
+<font color="#A82F2F"><font size="2">(08:18:48 PM)</font> <b>pierron:</b></font> wmertens: you mean &quot;switch to systemd&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(08:19:01 PM)</font> <b>wmertens:</b></font> ROFL :)<br/>
+<font color="#A82F2F"><font size="2">(08:19:47 PM)</font> <b>wmertens:</b></font> no more like, &quot;Debian has this cool new packaging system, just run this command and then nix-env -iA whatever you need, so easy!&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:20:26 PM)</font> <b>Lethalman:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(08:20:38 PM)</font> <b>Lethalman:</b></font> nix-env -iA nginx<br/>
+<font color="#A82F2F"><font size="2">(08:20:49 PM)</font> <b>Lethalman:</b></font> .oO(uhm why didn&apos;t nginx start...)<br/>
+<font color="#A82F2F"><font size="2">(08:21:07 PM)</font> <b>pierron:</b></font> post-install hell :P<br/>
+<font color="#A82F2F"><font size="2">(08:23:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] aaronlevin closed pull request #4528: New Package: Google Cloud SDK (master...google-cloud-sdk) http://git.io/hp-G1w<br/>
+<font color="#A82F2F"><font size="2">(08:26:51 PM)</font> <b>aszlig:</b></font> haha :-D<br/>
+<font color="#A82F2F"><font size="2">(08:27:51 PM)</font> <b>aszlig:</b></font> how long do you intend to stay at delirium?<br/>
+<font color="#A82F2F"><font size="2">(08:29:17 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] viric pushed 2 new commits to release-14.12: http://git.io/FKlx<br/>
+<font color="#A82F2F"><font size="2">(08:29:17 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 b99fb23 Lluís Batlle i Rossell: Updating gpgme to 1.5.3<br/>
+<font color="#A82F2F"><font size="2">(08:29:17 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 24a89c0 Lluís Batlle i Rossell: Adding GPA, The GNU Privacy Assistant.<br/>
+<font color="#A82F2F"><font size="2">(08:29:25 PM)</font> <b>matematikaadit:</b></font> thanks for the help #nixos<br/>
+<font color="#A82F2F"><font size="2">(08:30:24 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] viric pushed 1 new commit to master: http://git.io/FK8w<br/>
+<font color="#A82F2F"><font size="2">(08:30:24 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 0326fd0 Lluís Batlle i Rossell: Adding GPA, The GNU Privacy Assistant....<br/>
+<font color="#A82F2F"><font size="2">(08:34:17 PM)</font> <b>turtil:</b></font> https://gist.github.com/kylescottmcgill/38667a6d96f2bb0617f3<br/>
+<font color="#A82F2F"><font size="2">(08:35:34 PM)</font> <b>vcunat:</b></font> turtil: it looks like your disk is full<br/>
+<font color="#A82F2F"><font size="2">(08:36:15 PM)</font> <b>Haskellfant:</b></font> sorry for asking again, but I&apos;m a bit helpless, any idea what could cause http://sprunge.us/TYiA<br/>
+<font color="#A82F2F"><font size="2">(08:36:22 PM)</font> <b>turtil:</b></font> vcunat: yeah, i think it might be the virtual disk it creates, as i have a tonne of space left<br/>
+<font color="#A82F2F"><font size="2">(08:36:37 PM)</font> <b>Haskellfant:</b></font> I modified the openjdk8 derivation but I don&apos;t understand how that could cause user-environment to fail<br/>
+<font color="#A82F2F"><font size="2">(08:37:37 PM)</font> <b>vcunat:</b></font> that&apos;s strange, as I can&apos;t imagine why ISO could be full<br/>
+<font color="#A82F2F"><font size="2">(08:37:59 PM)</font> <b>turtil:</b></font> yeah :/<br/>
+<font color="#A82F2F"><font size="2">(08:38:18 PM)</font> <b>turtil:</b></font> even tmpfs has 7.8GB free and / has 80GB free<br/>
+<font color="#A82F2F"><font size="2">(08:38:44 PM)</font> <b>turtil:</b></font> so im sort of at a loss, if anyone has tips, flick em my way, otherwise i will try debug<br/>
+<font color="#A82F2F"><font size="2">(08:40:11 PM)</font> <b>vcunat:</b></font> I&apos;ll try to reproduce<br/>
+<font color="#A82F2F"><font size="2">(08:47:46 PM)</font> <b>MagneticDuck:</b></font> yo guys, newbie here with some problems using the nixos live iso<br/>
+<font color="#A82F2F"><font size="2">(08:48:23 PM)</font> <b>MagneticDuck:</b></font> I have an iso file that checks out with the checksum, but whenever I write it to a USB drive with dd and try to boot from it, not much happens<br/>
+<font color="#A82F2F"><font size="2">(08:48:37 PM)</font> <b>MagneticDuck:</b></font> it sits still for a while, blinks a cursor once, and puts me back in the BIOS<br/>
+<font color="#A82F2F"><font size="2">(08:48:41 PM)</font> <b>MagneticDuck:</b></font> any ideas what could be happening?<br/>
+<font color="#A82F2F"><font size="2">(08:48:55 PM)</font> <b>MagneticDuck:</b></font> the same things have happened when I used CDs and DVDs<br/>
+<font color="#A82F2F"><font size="2">(08:48:58 PM)</font> <b>MagneticDuck:</b></font> nothing&apos;s working<br/>
+<font color="#A82F2F"><font size="2">(08:53:13 PM)</font> <b>MagneticDuck:</b></font> oh hm https://nixos.org/wiki/Installing_NixOS_from_a_USB_stick<br/>
+<font color="#A82F2F"><font size="2">(08:53:21 PM)</font> <b>MagneticDuck:</b></font> apparently just dd&apos;ing isn&apos;t enough?<br/>
+<font color="#A82F2F"><font size="2">(08:53:53 PM)</font> <b>MagneticDuck:</b></font> I can&apos;t get unetbootin to work, it can never find the usb drive (even though it&apos;s clearly listed in lsblk)<br/>
+<font color="#A82F2F"><font size="2">(08:55:01 PM)</font> <b>MP2E:</b></font> I had to use unetbootin in windows<br/>
+<font color="#A82F2F"><font size="2">(08:55:09 PM)</font> <b>MP2E:</b></font> couldn&apos;t get it to work on any of the linux distros i had...<br/>
+<font color="#A82F2F"><font size="2">(08:55:11 PM)</font> <b>MP2E:</b></font> no idea why<br/>
+<font color="#A82F2F"><font size="2">(08:55:13 PM)</font> <b>MagneticDuck:</b></font> okay, now a strange thing<br/>
+<font color="#A82F2F"><font size="2">(08:55:21 PM)</font> <b>MagneticDuck:</b></font> .. why is this wiki page telling me to make it a dos filesystem?<br/>
+<font color="#A82F2F"><font size="2">(08:55:23 PM)</font> <b>MagneticDuck:</b></font> like.. wtf?<br/>
+<font color="#A82F2F"><font size="2">(08:56:21 PM)</font> <b>MP2E:</b></font> unetbootin needs fat32<br/>
+<font color="#A82F2F"><font size="2">(08:56:25 PM)</font> <b>MP2E:</b></font> i dunno why<br/>
+<font color="#A82F2F"><font size="2">(08:56:25 PM)</font> <b>matematikaadit:</b></font> MagneticDuck, you should mount your usbdisk first<br/>
+<font color="#A82F2F"><font size="2">(08:56:26 PM)</font> <b>vcunat1:</b></font> turtil: the ISO built fine for me<br/>
+<font color="#A82F2F"><font size="2">(08:56:36 PM)</font> <b>MagneticDuck:</b></font> matematikaadit: before doing what?<br/>
+<font size="2">(08:56:37 PM)</font><b> vcunat left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:56:40 PM)</font> <b>Ralith:</b></font> it&apos;s really easy to DIY a USB stick<br/>
+<font color="#A82F2F"><font size="2">(08:56:44 PM)</font> <b>Ralith:</b></font> just follow the instructions<br/>
+<font color="#A82F2F"><font size="2">(08:56:47 PM)</font> <b>MagneticDuck:</b></font> I&apos;m not supposed to dd to a mounted device<br/>
+<font color="#A82F2F"><font size="2">(08:56:53 PM)</font> <b>MP2E:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(08:57:05 PM)</font> <b>MP2E:</b></font> that won&apos;t work, i&apos;ve tried to dd it before<br/>
+<font color="#A82F2F"><font size="2">(08:57:09 PM)</font> <b>matematikaadit:</b></font> MagneticDuck, you&apos;re using unetbootin, right? or is it dd?<br/>
+<font color="#A82F2F"><font size="2">(08:57:16 PM)</font> <b>MagneticDuck:</b></font> I&apos;m using dd<br/>
+<font color="#A82F2F"><font size="2">(08:57:19 PM)</font> <b>MagneticDuck:</b></font> unetbootin isn&apos;t working<br/>
+<font color="#A82F2F"><font size="2">(08:57:25 PM)</font> <b>MagneticDuck:</b></font> doesn&apos;t let me select the output device<br/>
+<font color="#A82F2F"><font size="2">(08:57:36 PM)</font> <b>MagneticDuck:</b></font> oh.. I see what you mean xD<br/>
+<font color="#A82F2F"><font size="2">(08:57:39 PM)</font> <b>Ralith:</b></font> the wiki tells you what to do<br/>
+<font color="#A82F2F"><font size="2">(08:57:40 PM)</font> <b>vcunat1:</b></font> I think dd support isn&apos;t merged yet<br/>
+<font color="#A82F2F"><font size="2">(08:57:40 PM)</font> <b>vcunat1:</b></font> https://github.com/NixOS/nixpkgs/pull/4678<br/>
+<font color="#A82F2F"><font size="2">(08:57:44 PM)</font> <b>MagneticDuck:</b></font> k, mounting device and THEN using unetbootin<br/>
+<font color="#062585"><font size="2">(08:57:49 PM)</font> <b>***MagneticDuck</b></font> is stupid<br/>
+<font color="#A82F2F"><font size="2">(08:58:16 PM)</font> <b>MagneticDuck:</b></font> ... k wait, spoke too soon<br/>
+<font color="#A82F2F"><font size="2">(08:58:26 PM)</font> <b>MagneticDuck:</b></font> unetbootin still isn&apos;t let me select the output device<br/>
+<font color="#A82F2F"><font size="2">(09:00:54 PM)</font> <b>aristid:</b></font> pierron, wmertens: there will be a dedicated nixos table?:D<br/>
+<font color="#A82F2F"><font size="2">(09:01:07 PM)</font> <b>matematikaadit:</b></font> MagneticDuck, maybe you should start unetbootin using sudo. I got a warning when starting it as normal user.<br/>
+<font color="#A82F2F"><font size="2">(09:01:19 PM)</font> <b>pierron:</b></font> aristid: yes, I even bought 1000 stickers to distribute<br/>
+<font color="#A82F2F"><font size="2">(09:01:19 PM)</font> <b>wmertens:</b></font> aristid: https://nixos.org/wiki/FOSDEM_2015#Table :)<br/>
+<font color="#A82F2F"><font size="2">(09:01:28 PM)</font> <b>MagneticDuck:</b></font> I&apos;m following the wiki instructions for manual setup like Ralith sensibly suggested<br/>
+<font color="#A82F2F"><font size="2">(09:01:32 PM)</font> <b>aristid:</b></font> aszlig: are you coming too?<br/>
+<font color="#062585"><font size="2">(09:01:51 PM)</font> <b>***aristid</b></font> is afraid he won&apos;t recognize most of you guys:D<br/>
+<font color="#A82F2F"><font size="2">(09:01:53 PM)</font> <b>aszlig:</b></font> aristid: of course<br/>
+<font color="#062585"><font size="2">(09:02:08 PM)</font> <b>***wmertens</b></font> is very very very sad he can&apos;t join :(<br/>
+<font color="#A82F2F"><font size="2">(09:02:20 PM)</font> <b>aszlig:</b></font> aristid: no problem, you won&apos;t be alone...<br/>
+<font color="#A82F2F"><font size="2">(09:02:36 PM)</font> <b>pierron:</b></font> iElectric: do you have a computer for the slide show?<br/>
+<font color="#A82F2F"><font size="2">(09:02:37 PM)</font> <b>Ralith:</b></font> MagneticDuck: if your motherboard supports it, you should probably use the UEFI method<br/>
+<font color="#A82F2F"><font size="2">(09:02:43 PM)</font> <b>aszlig:</b></font> wmertens: oh, wait... you organized the table but cannot join?<br/>
+<font color="#A82F2F"><font size="2">(09:02:44 PM)</font> <b>Ralith:</b></font> it&apos;s easier and boots faster<br/>
+<font color="#A82F2F"><font size="2">(09:03:04 PM)</font> <b>wmertens:</b></font> aszlig: nobody else was organizing it and I had hopes I could join anyway :)<br/>
+<font color="#A82F2F"><font size="2">(09:03:31 PM)</font> <b>wmertens:</b></font> in the end I&apos;ll be there a day later for cfgmgtcamp so not all bad. But still sucky :(<br/>
+<font color="#A82F2F"><font size="2">(09:04:02 PM)</font> <b>Ralith:</b></font> and you don&apos;t have to mess about with installing a bootloader on the usb stick<br/>
+<font color="#16569E"><font size="2">(09:04:36 PM)</font> <b>magnetophon:</b></font> pierron: I'll be providing the slideshow PC<br/>
+<font color="#A82F2F"><font size="2">(09:04:50 PM)</font> <b>iElectric:</b></font> i have one extra laptop<br/>
+<font color="#A82F2F"><font size="2">(09:04:54 PM)</font> <b>iElectric:</b></font> for luve demos<br/>
+<font color="#A82F2F"><font size="2">(09:04:57 PM)</font> <b>iElectric:</b></font> live*<br/>
+<font color="#A82F2F"><font size="2">(09:05:03 PM)</font> <b>pierron:</b></font> magnetophon: iElectric: ok :)<br/>
+<font color="#A82F2F"><font size="2">(09:05:13 PM)</font> <b>iElectric:</b></font> Im on the plane now :)<br/>
+<font color="#A82F2F"><font size="2">(09:05:17 PM)</font> <b>iElectric:</b></font> see you all!<br/>
+<font color="#A82F2F"><font size="2">(09:05:23 PM)</font> <b>MagneticDuck:</b></font> Ralith: what&apos;s that method?<br/>
+<font color="#A82F2F"><font size="2">(09:05:25 PM)</font> <b>MagneticDuck:</b></font> &gt;_&gt;<br/>
+<font color="#A82F2F"><font size="2">(09:05:26 PM)</font> <b>ikwildrpepper:</b></font> please make a group photo at the nixos stand/table<br/>
+<font color="#A82F2F"><font size="2">(09:05:32 PM)</font> <b>iElectric:</b></font> sure<br/>
+<font color="#A82F2F"><font size="2">(09:05:39 PM)</font> <b>MagneticDuck:</b></font> ah nm, learned how to read the manual<br/>
+<font color="#A82F2F"><font size="2">(09:05:52 PM)</font> <b>aristid:</b></font> here&apos;s a tiny shitty photo of me :P https://plus.google.com/+AristidBreitkreuz/posts<br/>
+<font color="#A82F2F"><font size="2">(09:06:11 PM)</font> <b>aristid:</b></font> laptop... to my shame i only have a macbook as laptop /o\<br/>
+<font color="#A82F2F"><font size="2">(09:06:16 PM)</font> <b>aristid:</b></font> and not even nix installed<br/>
+<font color="#A82F2F"><font size="2">(09:06:50 PM)</font> <b>aszlig:</b></font> aristid: well, i remember your github photo, so i _might_ be able to recognize you<br/>
+<font color="#A82F2F"><font size="2">(09:06:50 PM)</font> <b>anty:</b></font> JagaJaga, remember how I said I had found information on vimPlugins? I can&apos;t make sense of it :D<br/>
+<font color="#A82F2F"><font size="2">(09:06:54 PM)</font> <b>aszlig:</b></font> and even the others<br/>
+<font color="#A82F2F"><font size="2">(09:06:59 PM)</font> <b>wmertens:</b></font> aristid: the copumpkin/pure-darwin branch is coming along nicely<br/>
+<font color="#A82F2F"><font size="2">(09:07:06 PM)</font> <b>aszlig:</b></font> but i don&apos;t wear glasses unlike you<br/>
+<font color="#A82F2F"><font size="2">(09:07:07 PM)</font> <b>MagneticDuck:</b></font> lol so many lists of things I can&apos;t mess up<br/>
+<font color="#A82F2F"><font size="2">(09:07:12 PM)</font> <b>Ralith:</b></font> MagneticDuck: did you read the first line of the wiki page<br/>
+<font color="#A82F2F"><font size="2">(09:07:12 PM)</font> <b>JagaJaga:</b></font> anty: what do you mean?<br/>
+<font color="#A82F2F"><font size="2">(09:07:17 PM)</font> <b>MagneticDuck:</b></font> Ralith: yeah I&apos;m there<br/>
+<font color="#A82F2F"><font size="2">(09:07:18 PM)</font> <b>wmertens:</b></font> but basically i&apos;m getting very disappointed with OS X&apos;s &quot;unix-ness&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:07:20 PM)</font> <b>aristid:</b></font> aszlig: you&apos;re the guy with crazy facepaint then? ;)<br/>
+<font color="#A82F2F"><font size="2">(09:07:23 PM)</font> <b>devhell_:</b></font> aszlig: no one is going to miss you for sure<br/>
+<font color="#A82F2F"><font size="2">(09:07:30 PM)</font> <b>Ralith:</b></font> MagneticDuck: then why are you asking me what the UEFI method is<br/>
+<font color="#A82F2F"><font size="2">(09:07:50 PM)</font> <b>anty:</b></font> JagaJaga, https://github.com/NixOS/nixpkgs/blob/master/pkgs/misc/vim-plugins/vim-utils.nix<br/>
+<font color="#A82F2F"><font size="2">(09:08:11 PM)</font> <b>MagneticDuck:</b></font> Ralith: I corrected myself exactly 14 seconds later<br/>
+<font color="#A82F2F"><font size="2">(09:08:21 PM)</font> <b>aristid:</b></font> aszlig: why don&apos;t you wear glasses? that&apos;s crazy<br/>
+<font color="#A82F2F"><font size="2">(09:08:25 PM)</font> <b>MagneticDuck:</b></font> &quot;ah nm, I learned how to read the manual&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:08:31 PM)</font> <b>Ralith:</b></font> MagneticDuck: oh, I see<br/>
+<font color="#A82F2F"><font size="2">(09:08:59 PM)</font> <b>Ralith:</b></font> MagneticDuck: anyway, as you can see from §2.2, the USB setup becomes trivial<br/>
+<font color="#A82F2F"><font size="2">(09:09:04 PM)</font> <b>wmertens:</b></font> I want to run NixOS on http://us.acer.com/ac/en/US/content/model/NX.MQPAA.009<br/>
+<font color="#A82F2F"><font size="2">(09:09:05 PM)</font> <b>JagaJaga:</b></font> anty: aaaand?...<br/>
+<font color="#A82F2F"><font size="2">(09:09:09 PM)</font> <b>anty:</b></font> I tried putting that into my configuration.nix but error: cannot coerce a function to a string, at &quot;/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs/lib/types.nix&quot;:103:79<br/>
+<font color="#A82F2F"><font size="2">(09:09:14 PM)</font> <b>MagneticDuck:</b></font> Ralith: yes<br/>
+<font color="#A82F2F"><font size="2">(09:09:25 PM)</font> <b>anty:</b></font> It&apos;s probably my fault<br/>
+<font color="#A82F2F"><font size="2">(09:09:38 PM)</font> <b>aristid:</b></font> wmertens: i want to buy a thinkpad x1 carbon 2015 and install nixos on it :D<br/>
+<font color="#A82F2F"><font size="2">(09:09:39 PM)</font> <b>pierron:</b></font> https://nbp.github.io/slides/FOSDEM/2015.Nix-NixOS-NixOps/<br/>
+<font color="#A82F2F"><font size="2">(09:09:49 PM)</font> <b>aszlig:</b></font> aristid: well, according to some people[TM] with underscores in their nicks i&apos;m not THAT blind... it&apos;s just that it&apos;s not so easy to recognize people :-)<br/>
+<font color="#A82F2F"><font size="2">(09:09:49 PM)</font> <b>JagaJaga:</b></font> anty: tell me exactly what&apos;s your problem?<br/>
+<font color="#A82F2F"><font size="2">(09:10:01 PM)</font> <b>devhell_:</b></font> XD<br/>
+<font color="#A82F2F"><font size="2">(09:10:17 PM)</font> <b>wmertens:</b></font> pierron: cool! What framework is that?<br/>
+<font size="2">(09:10:21 PM)</font><b> devhell_ is now known as devhell</b><br/>
+<font color="#A82F2F"><font size="2">(09:10:25 PM)</font> <b>devhell:</b></font> *cough*<br/>
+<font color="#A82F2F"><font size="2">(09:10:27 PM)</font> <b>pierron:</b></font> wmertens: framework?<br/>
+<font color="#A82F2F"><font size="2">(09:10:40 PM)</font> <b>wmertens:</b></font> aristid: but did you see that R13 pivots in the middle so the screen is closer to you for touching?<br/>
+<font color="#A82F2F"><font size="2">(09:10:47 PM)</font> <b>wmertens:</b></font> pierron: for the slides, like reveal.js<br/>
+<font size="2">(09:10:56 PM)</font><b> vcunat1 is now known as vcunat</b><br/>
+<font color="#A82F2F"><font size="2">(09:10:59 PM)</font> <b>aristid:</b></font> wmertens: what?:)<br/>
+<font color="#A82F2F"><font size="2">(09:11:06 PM)</font> <b>pierron:</b></font> wmertens: this is *one of* the html template we have for slides at Mozilla<br/>
+<font color="#A82F2F"><font size="2">(09:11:11 PM)</font> <b>wmertens:</b></font> pierron: is https://nbp.github.io/slides/FOSDEM/2015.Nix-NixOS-NixOps/?full#package-manager-basis supposed to have no image?<br/>
+<font color="#A82F2F"><font size="2">(09:11:18 PM)</font> <b>wmertens:</b></font> oh cool<br/>
+<font color="#A82F2F"><font size="2">(09:11:25 PM)</font> <b>aristid:</b></font> pierron: but do your slides work in servo?!<br/>
+<font color="#A82F2F"><font size="2">(09:11:47 PM)</font> <b>devhell:</b></font> if anyone here uses i3 and nm-applet together, please raise your hand<br/>
+<font color="#A82F2F"><font size="2">(09:11:48 PM)</font> <b>anty:</b></font> JagaJaga, as soon as I put vim_configurable.customize { ...}into the file I cannot build my config any longer<br/>
+<font color="#A82F2F"><font size="2">(09:12:13 PM)</font> <b>wmertens:</b></font> aristid: http://www.gizmag.com/acer-aspire-r13-r14/33638/<br/>
+<font color="#A82F2F"><font size="2">(09:12:25 PM)</font> <b>anty:</b></font> is there any working example configuration.nix using this anywhere?<br/>
+<font color="#A82F2F"><font size="2">(09:12:34 PM)</font> <b>devhell:</b></font> aszlig: blind enough is it seems :-P -&gt; xmpp<br/>
+<font color="#A82F2F"><font size="2">(09:12:42 PM)</font> <b>devhell:</b></font> s/is/as<br/>
+<font color="#A82F2F"><font size="2">(09:12:53 PM)</font> <b>turtil:</b></font> vcunat: worked it out i think, waiting for it to finish compiling<br/>
+<font color="#A82F2F"><font size="2">(09:12:59 PM)</font> <b>pierron:</b></font> aristid: yes, because they are using generated svg files :/<br/>
+<font color="#A82F2F"><font size="2">(09:12:59 PM)</font> <b>aristid:</b></font> devhell: what happened to your underscore?<br/>
+<font color="#A82F2F"><font size="2">(09:13:04 PM)</font> <b>wmertens:</b></font> anty: run that eval again with --show-trace so you can see where it goes wrong?<br/>
+<font color="#A82F2F"><font size="2">(09:13:15 PM)</font> <b>aristid:</b></font> pierron: yes, as in: it works?<br/>
+<font color="#A82F2F"><font size="2">(09:13:26 PM)</font> <b>JagaJaga:</b></font> anty: https://github.com/jagajaga/my_configs/blob/master/.nixpkgs/common.nix<br/>
+<font color="#A82F2F"><font size="2">(09:13:30 PM)</font> <b>pierron:</b></font> wmertens: ^<br/>
+<font color="#A82F2F"><font size="2">(09:13:38 PM)</font> <b>pierron:</b></font> aristid: no, I don&apos;t think so.<br/>
+<font color="#A82F2F"><font size="2">(09:13:48 PM)</font> <b>pierron:</b></font> aristid: but I did not test.<br/>
+<font color="#A82F2F"><font size="2">(09:14:11 PM)</font> <b>JagaJaga:</b></font> anty: w8 a bit, I need to relogin<br/>
+<font size="2">(09:14:15 PM)</font><b> JagaJaga left the room (quit: Quit: WeeChat 1.1).</b><br/>
+<font color="#A82F2F"><font size="2">(09:14:27 PM)</font> <b>aristid:</b></font> pierron: nix-build &apos;&lt;mozilla&gt;&apos; -A servo &amp;&amp; ./result/bin/servo slides.html !<br/>
+<font color="#A82F2F"><font size="2">(09:15:07 PM)</font> <b>aristid:</b></font> wmertens: haswell /o\<br/>
+<font size="2">(09:15:09 PM)</font><b> JagaJaga [<em>~JagaJaga@178.62.202.50</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:15:17 PM)</font> <b>aristid:</b></font> wmertens: also, dat horrible display res<br/>
+<font color="#16569E"><font size="2">(09:15:19 PM)</font> <b>magnetophon:</b></font> devhell: I &lt;tried&gt; to run  nm-applet with i3 and failed. May I recommend connman plus it's dmenu? <br/>
+<font color="#A82F2F"><font size="2">(09:15:22 PM)</font> <b>pierron:</b></font> aristid: I will let you fork and test ;)<br/>
+<font color="#A82F2F"><font size="2">(09:15:25 PM)</font> <b>wmertens:</b></font> aristid: nope, there&apos;s broadwell versions also, out just now<br/>
+<font color="#A82F2F"><font size="2">(09:15:32 PM)</font> <b>pierron:</b></font> aristid: s/fork/clone/<br/>
+<font color="#A82F2F"><font size="2">(09:15:35 PM)</font> <b>JagaJaga:</b></font> anty: I&apos;m back.<br/>
+<font color="#A82F2F"><font size="2">(09:15:38 PM)</font> <b>aristid:</b></font> wmertens: ah, at least;)<br/>
+<font color="#A82F2F"><font size="2">(09:15:45 PM)</font> <b>wmertens:</b></font> aristid: fullHD or QWHD to choose<br/>
+<font color="#A82F2F"><font size="2">(09:15:57 PM)</font> <b>pierron:</b></font> wmertens: images are back ;)<br/>
+<font color="#A82F2F"><font size="2">(09:16:08 PM)</font> <b>wmertens:</b></font> \o/<br/>
+<font color="#16569E"><font size="2">(09:16:50 PM)</font> <b>magnetophon:</b></font> devhell: it's WAY quicker then nm or wicd <br/>
+<font color="#A82F2F"><font size="2">(09:17:44 PM)</font> <b>pierron:</b></font> wmertens: as you might notice, I prefer having slides with images and little text as possible.  This is the best for slide reuse :P<br/>
+<font color="#A82F2F"><font size="2">(09:18:33 PM)</font> <b>devhell:</b></font> magnetophon: not working very well I&apos;m afraid, connman is cool but no good with my university wifi<br/>
+<font color="#A82F2F"><font size="2">(09:18:42 PM)</font> <b>vcunat:</b></font> turtil: what was the problem?<br/>
+<font color="#A82F2F"><font size="2">(09:18:43 PM)</font> <b>aristid:</b></font> wmertens: do touchscreens work with nixos?:D<br/>
+<font color="#A82F2F"><font size="2">(09:18:56 PM)</font> <b>devhell:</b></font> magnetophon: also missing connman_dmenu(?!?!)<br/>
+<font color="#A82F2F"><font size="2">(09:19:14 PM)</font> <b>devhell:</b></font> aristid: uhm... it got .... invisibled<br/>
+<font color="#16569E"><font size="2">(09:19:19 PM)</font> <b>magnetophon:</b></font> devhell: it's a separate program, found it on github<br/>
+<font color="#A82F2F"><font size="2">(09:19:38 PM)</font> <b>wmertens:</b></font> great slides pierron! good graphs, very clear<br/>
+<font color="#A82F2F"><font size="2">(09:19:40 PM)</font> <b>aristid:</b></font> devhell: what?<br/>
+<font color="#A82F2F"><font size="2">(09:19:51 PM)</font> <b>devhell:</b></font> aristid: my underscore XD<br/>
+<font color="#A82F2F"><font size="2">(09:19:57 PM)</font> <b>aristid:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(09:20:02 PM)</font> <b>anty:</b></font> JagaJaga, hold on, I&apos;m trying to include it in the way you linked<br/>
+<font color="#A82F2F"><font size="2">(09:20:03 PM)</font> <b>MagneticDuck:</b></font> err, how do I change the label of the disk partition?<br/>
+<font color="#A82F2F"><font size="2">(09:20:08 PM)</font> <b>devhell:</b></font> magnetophon: right, well sadly it&apos;s not working well..<br/>
+<font color="#A82F2F"><font size="2">(09:20:16 PM)</font> <b>MagneticDuck:</b></font> my normal partitioning utilities don&apos;t like this iso9660 format<br/>
+<font color="#16569E"><font size="2">(09:20:32 PM)</font> <b>magnetophon:</b></font> devhell: what's the problem?<br/>
+<font color="#A82F2F"><font size="2">(09:21:20 PM)</font> <b>devhell:</b></font> magnetophon: not working with my university wifi is the major problem, although I tried it again today but, unlike last time, this time it refused to give me any output of &quot;service wifi&quot; or what it&apos;s called.<br/>
+<font color="#A82F2F"><font size="2">(09:22:05 PM)</font> <b>MagneticDuck:</b></font> can anybody help me get this UEFI-bootable usb drive working?<br/>
+<font color="#A82F2F"><font size="2">(09:22:12 PM)</font> <b>MagneticDuck:</b></font> having some trouble with the step &quot;Change the label of the disk partition to the label of the ISO&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:22:46 PM)</font> <b>MagneticDuck:</b></font> how do I change the label of the disk partition? There don&apos;t seem to be any partitions &gt;_&gt;<br/>
+<font color="#A82F2F"><font size="2">(09:23:00 PM)</font> <b>MagneticDuck:</b></font> the single drive /dev/sdb has label &quot;NIXOS_ISO&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:23:07 PM)</font> <b>devhell:</b></font> MagneticDuck: mkfs.vfat -L32 -n ISOs_NAME /dev/sdX?<br/>
+<font color="#A82F2F"><font size="2">(09:23:20 PM)</font> <b>MagneticDuck:</b></font> ahk cool<br/>
+<font color="#A82F2F"><font size="2">(09:23:28 PM)</font> <b>MagneticDuck:</b></font> now how do I get the label of the iso?<br/>
+<font color="#A82F2F"><font size="2">(09:23:29 PM)</font> <b>devhell:</b></font> err<br/>
+<font color="#A82F2F"><font size="2">(09:23:33 PM)</font> <b>devhell:</b></font> -F32<br/>
+<font color="#A82F2F"><font size="2">(09:23:35 PM)</font> <b>devhell:</b></font> wait<br/>
+<font color="#A82F2F"><font size="2">(09:23:37 PM)</font> <b>devhell:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(09:23:42 PM)</font> <b>devhell:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(09:23:44 PM)</font> <b>devhell:</b></font> -F32<br/>
+<font size="2">(09:23:51 PM)</font><b> wmertens left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:23:55 PM)</font> <b>devhell:</b></font> sorry<br/>
+<font color="#A82F2F"><font size="2">(09:23:57 PM)</font> <b>devhell:</b></font> brainfart<br/>
+<font color="#A82F2F"><font size="2">(09:23:59 PM)</font> <b>devhell:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(09:24:18 PM)</font> <b>MagneticDuck:</b></font> now I get how to change the dish label, but how do I get the label of the iso<br/>
+<font color="#062585"><font size="2">(09:24:21 PM)</font> <b>***MagneticDuck</b></font> is a sad, sad duck<br/>
+<font color="#A82F2F"><font size="2">(09:24:40 PM)</font> <b>straycat:</b></font> aww :(<br/>
+<font color="#A82F2F"><font size="2">(09:24:40 PM)</font> <b>MagneticDuck:</b></font> oh, &quot;file&quot; tells me<br/>
+<font color="#A82F2F"><font size="2">(09:24:51 PM)</font> <b>MagneticDuck:</b></font> NIXOS_ISO; okay, so those two things line up<br/>
+<font color="#062585"><font size="2">(09:25:22 PM)</font> <b>***straycat</b></font> throws bread to MagneticDuck<br/>
+<font color="#A82F2F"><font size="2">(09:25:29 PM)</font> <b>devhell:</b></font> magnetophon: unless you have a knowledge of eduroam (and no, the examples don&apos;t work) ;)<br/>
+<font color="#A82F2F"><font size="2">(09:25:55 PM)</font> <b>MagneticDuck:</b></font> devhell: what&apos;s that?<br/>
+<font color="#A82F2F"><font size="2">(09:26:17 PM)</font> <b>MagneticDuck:</b></font> ....<br/>
+<font color="#A82F2F"><font size="2">(09:26:21 PM)</font> <b>devhell:</b></font> MagneticDuck: what&apos;s what?<br/>
+<font color="#A82F2F"><font size="2">(09:26:29 PM)</font> <b>MagneticDuck:</b></font> eduroam<br/>
+<font color="#A82F2F"><font size="2">(09:26:32 PM)</font> <b>MagneticDuck:</b></font> found their site<br/>
+<font color="#A82F2F"><font size="2">(09:26:36 PM)</font> <b>Haskellfant:</b></font> it&apos;s hell<br/>
+<font color="#A82F2F"><font size="2">(09:26:56 PM)</font> <b>MagneticDuck:</b></font> I am dissapointed to see that they don&apos;t have coverage for the Honourable Republic of North Korea<br/>
+<font color="#A82F2F"><font size="2">(09:27:06 PM)</font> <b>devhell:</b></font> MagneticDuck: it&apos;s a scheme used by many universities (mainly european I believe) where you can visit another uni that has eduroam and you can use your university&apos;s login to use their wifi<br/>
+<font color="#A82F2F"><font size="2">(09:27:18 PM)</font> <b>devhell:</b></font> lot&apos;s of RADIUS black magic going on I think<br/>
+<font color="#A82F2F"><font size="2">(09:27:32 PM)</font> <b>MagneticDuck:</b></font> so, anyway, why is this relevant? xD<br/>
+<font color="#16569E"><font size="2">(09:27:42 PM)</font> <b>magnetophon:</b></font> devhell: no, sorry...<br/>
+<font color="#062585"><font size="2">(09:27:57 PM)</font> <b>***MagneticDuck</b></font> goes about trying to UEFI the things<br/>
+<font color="#A82F2F"><font size="2">(09:28:05 PM)</font> <b>devhell:</b></font> MagneticDuck: I was talking to magnetophon about this, it&apos;s a separate topic<br/>
+<font color="#A82F2F"><font size="2">(09:28:08 PM)</font> <b>MagneticDuck:</b></font> cya in a bit when I fail and have to come back here to ask more stupid questions<br/>
+<font size="2">(09:28:11 PM)</font><b> MagneticDuck left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font color="#A82F2F"><font size="2">(09:28:37 PM)</font> <b>devhell:</b></font> magnetophon: no problem... connman is very fast, I&apos;ll give you that :)<br/>
+<font color="#16569E"><font size="2">(09:29:33 PM)</font> <b>magnetophon:</b></font> yup<br/>
+<font color="#A82F2F"><font size="2">(09:30:14 PM)</font> <b>devhell:</b></font> but at the moment nm-applet just refuses to show up.. unless I elevate my privileges, but then it only shows me a red circle and bitches that it can&apos;t find any icons.. and no, I don&apos;t have any custom stuff going on... created a new user to test that, and nope... same problem. :(<br/>
+<font color="#A82F2F"><font size="2">(09:30:16 PM)</font> <b>c74d:</b></font> xplat: You mentioned your &quot;bootstrap&quot; Nix installation being unable to use HTTPS channels? Might your situation be something like &lt;https://gist.github.com/ddc858c56e8613ef148f&gt;?<br/>
+<font size="2">(09:33:22 PM)</font><b> MagneticDuck [<em>~MagneticD@a95-95-113-8.cpe.netcabo.pt</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:33:25 PM)</font> <b>henrytill:</b></font> devhell: i run i3 with nm-applet<br/>
+<font color="#A82F2F"><font size="2">(09:33:35 PM)</font> <b>MagneticDuck:</b></font> okay I failed and I&apos;m back here to ask stupid questions<br/>
+<font color="#A82F2F"><font size="2">(09:33:38 PM)</font> <b>devhell:</b></font> henrytill: OMG I FOUND SOMEONE!!! :)<br/>
+<font color="#A82F2F"><font size="2">(09:33:42 PM)</font> <b>MagneticDuck:</b></font> here&apos;s my first stupid question: why isn&apos;t this working?!<br/>
+<font color="#A82F2F"><font size="2">(09:33:49 PM)</font> <b>henrytill:</b></font> devhell: :D<br/>
+<font color="#A82F2F"><font size="2">(09:34:00 PM)</font> <b>MagneticDuck:</b></font> I followed the wiki&apos;s instructions on setting up a UEFI-enabled flash drive<br/>
+<font color="#A82F2F"><font size="2">(09:34:08 PM)</font> <b>devhell:</b></font> henrytill: lemme guess, from your relaxed way of writing I&apos;m assuming that it&apos;s working without a problem for you?<br/>
+<font color="#A82F2F"><font size="2">(09:34:11 PM)</font> <b>MagneticDuck:</b></font> used an ISO that isn&apos;t corrupted<br/>
+<font color="#A82F2F"><font size="2">(09:34:19 PM)</font> <b>MagneticDuck:</b></font> and I tried to boot from it and nothing happened at all<br/>
+<font color="#A82F2F"><font size="2">(09:34:22 PM)</font> <b>MagneticDuck:</b></font> what should I check?<br/>
+<font color="#A82F2F"><font size="2">(09:34:38 PM)</font> <b>henrytill:</b></font> devhell: yep, have it the corner of i3status<br/>
+<font color="#A82F2F"><font size="2">(09:34:51 PM)</font> <b>devhell:</b></font> henrytill: what nixos-version are you running?<br/>
+<font color="#A82F2F"><font size="2">(09:35:07 PM)</font> <b>devhell:</b></font> MagneticDuck: had that problem too, solved it by using a CD instead :/<br/>
+<font color="#A82F2F"><font size="2">(09:35:08 PM)</font> <b>henrytill:</b></font> devhell: 15.05pre56489.0e8187b<br/>
+<font color="#062585"><font size="2">(09:35:12 PM)</font> <b>***MagneticDuck</b></font> sighs<br/>
+<font color="#A82F2F"><font size="2">(09:35:16 PM)</font> <b>devhell:</b></font> henrytill: damn..<br/>
+<font color="#A82F2F"><font size="2">(09:35:23 PM)</font> <b>devhell:</b></font> henrytill: me too..<br/>
+<font color="#A82F2F"><font size="2">(09:35:35 PM)</font> <b>devhell:</b></font> well, a bit newer than that, but when I was at that rev it was still the same<br/>
+<font color="#A82F2F"><font size="2">(09:35:44 PM)</font> <b>devhell:</b></font> got 2 laptops here, both doing the same stupid thing with nm-applet<br/>
+<font color="#A82F2F"><font size="2">(09:35:54 PM)</font> <b>MagneticDuck:</b></font> ooh, a nix user is having a problem with some sort of configuration<br/>
+<font color="#A82F2F"><font size="2">(09:36:10 PM)</font> <b>MagneticDuck:</b></font> why can&apos;t henrytill just share his relevant .nix files and magically solve everything?<br/>
+<font color="#A82F2F"><font size="2">(09:36:17 PM)</font> <b>henrytill:</b></font> devhell: i also added gnome3.dconf to save config options and gnome3.gnome_icon_theme<br/>
+<font color="#A82F2F"><font size="2">(09:36:18 PM)</font> <b>MagneticDuck:</b></font> are you telling me nixos has problems too sometimes?!<br/>
+<font color="#A82F2F"><font size="2">(09:36:52 PM)</font> <b>henrytill:</b></font> devhell: and i have gnome3.gnome_themes_standard in there as well<br/>
+<font color="#A82F2F"><font size="2">(09:37:00 PM)</font> <b>henrytill:</b></font> devhell: but i can&apos;t remember if that&apos;s related<br/>
+<font color="#A82F2F"><font size="2">(09:37:45 PM)</font> <b>devhell:</b></font> henrytill: oh that&apos;s cool, I&apos;ll try that, thanks for the hint... if you, by any chance, remember more things, please let me know :)<br/>
+<font color="#A82F2F"><font size="2">(09:38:43 PM)</font> <b>henrytill:</b></font> devhell: i have &quot;${pkgs.networkmanagerapplet}/bin/nm-applet &amp;&quot; in my displayManager.sessionCommands<br/>
+<font color="#A82F2F"><font size="2">(09:39:07 PM)</font> <b>henrytill:</b></font> devhell: but that&apos;s just a matter of when/how you want to launch it<br/>
+<font color="#A82F2F"><font size="2">(09:40:50 PM)</font> <b>henrytill:</b></font> devhell: i assume you have &quot;networking.networkmanager.enable = true;&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:41:04 PM)</font> <b>devhell:</b></font> henrytill: yep :)<br/>
+<font color="#A82F2F"><font size="2">(09:41:16 PM)</font> <b>henrytill:</b></font> devhell: and that you added yourself to the group &quot;networkmanager&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:42:12 PM)</font> <b>devhell:</b></font> henrytill: yep, that too :)<br/>
+<font color="#A82F2F"><font size="2">(09:43:30 PM)</font> <b>devhell:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(09:43:41 PM)</font> <b>devhell:</b></font> no I&apos;m not O_o<br/>
+<font color="#A82F2F"><font size="2">(09:43:57 PM)</font> <b>devhell:</b></font> gimme a sec, trying to reproduce what you said here.<br/>
+<font color="#A82F2F"><font size="2">(09:45:06 PM)</font> <b>devhell:</b></font> *rebuilding*<br/>
+<font color="#A82F2F"><font size="2">(09:47:10 PM)</font> <b>devhell:</b></font> henrytill: if this works I&apos;m gonna give you an internet-bear-hug<br/>
+<font color="#A82F2F"><font size="2">(09:48:53 PM)</font> <b>xplat:</b></font> c74d: seems that it was from using system libcurl-dev and WWW::Curl.  i rebuilt those from source and now i can get channels over HTTPS, but i&apos;m still having my other problem<br/>
+<font color="#A82F2F"><font size="2">(09:49:01 PM)</font> <b>henrytill:</b></font> devhell: :)<br/>
+<font color="#A82F2F"><font size="2">(09:51:15 PM)</font> <b>fmapE:</b></font> Hi. I&apos;m trying to use cabal (installed in my local env) to build some of my own software. I get an error saying that it cannot find &apos;ar&apos;. I found a solution here: https://nixos.org/wiki/Haskell#Using_cabal_in_the_direct_installation_scenario<br/>
+<font color="#A82F2F"><font size="2">(09:51:40 PM)</font> <b>fmapE:</b></font> But after running the given nix-env command, &apos;ar&apos; is still not in the path or anywhere where cabal can find it<br/>
+<font color="#A82F2F"><font size="2">(09:52:19 PM)</font> <b>anty:</b></font> JagaJaga, I can&apos;t seem to get it to work but that seems to be mainly caused by my infamiliarity with the nix language... I&apos;ll read up and bug you again if I still need help, thanks!<br/>
+<font size="2">(10:02:22 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:02:51 PM)</font> <b>joehillen:</b></font> nixos-install is failing because it can&apos;t find any source for binutils<br/>
+<font color="#A82F2F"><font size="2">(10:03:04 PM)</font> <b>joehillen:</b></font> where do I report bugs with nixos-install?<br/>
+<font color="#A82F2F"><font size="2">(10:03:34 PM)</font> <b>wmertens:</b></font> joehillen: you mean it can&apos;t download it? You have a proxy issue?<br/>
+<font color="#A82F2F"><font size="2">(10:04:09 PM)</font> <b>wmertens:</b></font> joehillen: issues are reported on githubs nixpkgs issue tracker<br/>
+<font color="#A82F2F"><font size="2">(10:04:15 PM)</font> <b>joehillen:</b></font> no, it&apos;s trying urls that aren&apos;t valid anymore<br/>
+<font color="#A82F2F"><font size="2">(10:04:40 PM)</font> <b>wmertens:</b></font> joehillen: which channel are you on?<br/>
+<font color="#A82F2F"><font size="2">(10:05:10 PM)</font> <b>joehillen:</b></font> it&apos;s from the the minimal iso http://releases.nixos.org/nixos/14.12/nixos-14.12.335.676e8d7/nixos-minimal-14.12.335.676e8d7-x86_64-linux.iso<br/>
+<font color="#A82F2F"><font size="2">(10:05:52 PM)</font> <b>wmertens:</b></font> hmmm that should work. It&apos;s also using the gnu mirrors, so perhaps if you try a few times it works<br/>
+<font color="#A82F2F"><font size="2">(10:05:54 PM)</font> <b>devhell:</b></font> henrytill: I&apos;m going to give you a big internet-bear-hug now *GRRRRRRRRRRRRRR*<br/>
+<font color="#A82F2F"><font size="2">(10:06:27 PM)</font> <b>henrytill:</b></font> devhell: so it worked?<br/>
+<font color="#A82F2F"><font size="2">(10:06:41 PM)</font> <b>devhell:</b></font> henrytill: I wouldn&apos;t give you one if it didn&apos;t :)<br/>
+<font color="#A82F2F"><font size="2">(10:06:52 PM)</font> <b>henrytill:</b></font> devhell: just double-checking :D<br/>
+<font color="#A82F2F"><font size="2">(10:06:56 PM)</font> <b>joehillen:</b></font> wmertens: I thought so too, but I&apos;m on try #10+<br/>
+<font color="#A82F2F"><font size="2">(10:06:58 PM)</font> <b>devhell:</b></font> henrytill: cool :)<br/>
+<font color="#A82F2F"><font size="2">(10:07:02 PM)</font> <b>henrytill:</b></font> devhell: glad to be of help<br/>
+<font color="#A82F2F"><font size="2">(10:07:05 PM)</font> <b>wmertens:</b></font> joehillen: lol<br/>
+<font color="#A82F2F"><font size="2">(10:07:46 PM)</font> <b>devhell:</b></font> henrytill: tomorrow I&apos;ll check if that also means that nm can finally save my EAP wifi password for uni, because that was an issue too, but I suspect that adding gnome3.dconf to the mix might solve that<br/>
+<font color="#A82F2F"><font size="2">(10:08:10 PM)</font> <b>henrytill:</b></font> devhell: yeah dconf did the trick for me<br/>
+<font color="#A82F2F"><font size="2">(10:09:08 PM)</font> <b>joehillen:</b></font> ah, it is trying a valid url, must be a different problem http://ftpmirror.gnu.org/binutils/binutils-2.23.1.tar.gz<br/>
+<font color="#A82F2F"><font size="2">(10:09:14 PM)</font> <b>joehillen:</b></font> maybe it doesn&apos;t like redirects<br/>
+<font color="#A82F2F"><font size="2">(10:09:29 PM)</font> <b>devhell:</b></font> henrytill: excellent, will test tomorrow, for now I&apos;m just damn happy to have that stupid little icon back.. (even though, secretly I really would want connman to work :) )<br/>
+<font color="#A82F2F"><font size="2">(10:09:59 PM)</font> <b>wmertens:</b></font> joehillen: you can use nix-prefetch-url to use a different url<br/>
+<font color="#A82F2F"><font size="2">(10:10:15 PM)</font> <b>henrytill:</b></font> devhell: understood, nm ain&apos;t so bad, but connman has that minimal appeal<br/>
+<font color="#A82F2F"><font size="2">(10:11:25 PM)</font> <b>joehillen:</b></font> wmertens: I&apos;m trying to automate building a vagrant image off the install iso, so I can&apos;t modify anything. it needs to be fixed upstream<br/>
+<font color="#A82F2F"><font size="2">(10:12:01 PM)</font> <b>wmertens:</b></font> joehillen: consider using the already-existing vagrant boxen<br/>
+<font color="#A82F2F"><font size="2">(10:12:44 PM)</font> <b>joehillen:</b></font> wmertens: getting a vagrant instance up is not the problem I am trying to solve, but thanks anyway<br/>
+<font color="#A82F2F"><font size="2">(10:13:11 PM)</font> <b>joehillen:</b></font> fyi, https://gist.github.com/joehillen/dda08888fd0cfce8f1c8<br/>
+<font color="#A82F2F"><font size="2">(10:13:51 PM)</font> <b>avn:</b></font> Need help!  when I try to run wine from debian&apos;s chroot -- I got &quot;libGL: screen 0 does not appear to be DRI3 capable&quot;, does it mean I need change somethingin configuration? or I need rebuild X with DRI3?<br/>
+<font color="#A82F2F"><font size="2">(10:16:11 PM)</font> <b>wmertens:</b></font> joehillen: weird, fetchurl does call curl with --location<br/>
+<font color="#A82F2F"><font size="2">(10:16:58 PM)</font> <b>wmertens:</b></font> joehillen: oh wait, the mirror download code doesn&apos;t :)<br/>
+<font color="#A82F2F"><font size="2">(10:17:49 PM)</font> <b>joehillen:</b></font> ah ha!<br/>
+<font color="#A82F2F"><font size="2">(10:18:07 PM)</font> <b>wmertens:</b></font> joehillen: err no, it *does*, never mind<br/>
+<font color="#A82F2F"><font size="2">(10:18:13 PM)</font> <b>joehillen:</b></font> =(<br/>
+<font color="#A82F2F"><font size="2">(10:18:14 PM)</font> <b>wmertens:</b></font> so, no clue why that would fail<br/>
+<font color="#A82F2F"><font size="2">(10:18:36 PM)</font> <b>wmertens:</b></font> joehillen: https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/fetchurl/builder.sh#L61 uses https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/fetchurl/builder.sh#L61<br/>
+<font color="#A82F2F"><font size="2">(10:18:48 PM)</font> <b>wmertens:</b></font> I mean uses https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/fetchurl/builder.sh#L10-L17<br/>
+<font size="2">(10:19:15 PM)</font><b> Lethalman left the room (quit: Quit: Leaving).</b><br/>
+<font color="#16569E"><font size="2">(10:22:27 PM)</font> <b>magnetophon:</b></font> devhell, henrytill: I missed most of your conversation, but maybe it's content should go into the wiki, to help the next guy? I've seen more people in here fighting nm+i3...<br/>
+<font color="#A82F2F"><font size="2">(10:22:42 PM)</font> <b>devhell:</b></font> magnetophon:<br/>
+<font color="#A82F2F"><font size="2">(10:22:58 PM)</font> <b>devhell:</b></font> good point, just finished up my git commits for this, will do that now<br/>
+<font color="#A82F2F"><font size="2">(10:23:03 PM)</font> <b>wmertens:</b></font> joehillen: wild guess: Try setting NIX_CURL_FLAGS=-v<br/>
+<font color="#16569E"><font size="2">(10:23:22 PM)</font> <b>magnetophon:</b></font> devhell: excellent!<br/>
+<font color="#A82F2F"><font size="2">(10:23:29 PM)</font> <b>joehillen:</b></font> wmertens: do you know how long the default timeout is?<br/>
+<font color="#A82F2F"><font size="2">(10:23:40 PM)</font> <b>joehillen:</b></font> wmertens: it might just be slow<br/>
+<font color="#A82F2F"><font size="2">(10:24:01 PM)</font> <b>wmertens:</b></font> joehillen: --connect-timeout &quot;${NIX_CONNECT_TIMEOUT:-15}&quot;<br/>
+<font color="#A82F2F"><font size="2">(10:24:01 PM)</font> <b>devhell:</b></font> magnetophon: my wiki-fu is a bit shit, so forgive me if it looks nasty.<br/>
+<font color="#A82F2F"><font size="2">(10:24:22 PM)</font> <b>wmertens:</b></font> afk<br/>
+<font color="#16569E"><font size="2">(10:24:25 PM)</font> <b>magnetophon:</b></font> devhell: wcpgw?<br/>
+<font color="#A82F2F"><font size="2">(10:24:41 PM)</font> <b>joehillen:</b></font> wmertens: so 15 seconds? or -15 seconds?<br/>
+<font color="#A82F2F"><font size="2">(10:24:52 PM)</font> <b>devhell:</b></font> magnetophon: wat<br/>
+<font color="#A82F2F"><font size="2">(10:24:55 PM)</font> <b>devhell:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(10:25:01 PM)</font> <b>devhell:</b></font> what could possibly go wrong<br/>
+<font color="#A82F2F"><font size="2">(10:25:03 PM)</font> <b>devhell:</b></font> durrr<br/>
+<font color="#16569E"><font size="2">(10:25:07 PM)</font> <b>magnetophon:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(10:25:16 PM)</font> <b>devhell:</b></font> magnetophon: we&apos;ll see :)<br/>
+<font color="#16569E"><font size="2">(10:30:25 PM)</font> <b>magnetophon:</b></font> Has anyone gotten Easy2Boot and/or grub4dos to work on NixOS?<br/>
+<font color="#16569E"><font size="2">(10:30:59 PM)</font> <b>magnetophon:</b></font> Or can you reccomend me another easy way to setup a usb-stick with multiple iso's?<br/>
+<font color="#A82F2F"><font size="2">(10:37:53 PM)</font> <b>turtil:</b></font> vcunat: sorry had a meeting, the disk we dd during the build isnt big enough<br/>
+<font color="#A82F2F"><font size="2">(10:38:21 PM)</font> <b>turtil:</b></font> nixpkgs/nixos/modules/installer/cd-dvd/iso-image.nix Line 69 is the bad boy<br/>
+<font color="#A82F2F"><font size="2">(10:38:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] viric pushed 1 new commit to release-14.12: http://git.io/F6BY<br/>
+<font color="#A82F2F"><font size="2">(10:38:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 bdc630e Lluís Batlle i Rossell: gpa: using mirror url.<br/>
+<font color="#A82F2F"><font size="2">(10:38:44 PM)</font> <b>turtil:</b></font> i will submit a PR if the iso works<br/>
+<font color="#A82F2F"><font size="2">(10:38:57 PM)</font> <b>pierron:</b></font> wmertens: thanks, very clear, I guess this would depend on the speaker :P<br/>
+<font color="#A82F2F"><font size="2">(10:39:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] viric pushed 1 new commit to master: http://git.io/F6Bu<br/>
+<font color="#A82F2F"><font size="2">(10:39:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e3a93dc Lluís Batlle i Rossell: gpa: using mirror url....<br/>
+<font color="#A82F2F"><font size="2">(10:39:36 PM)</font> <b>ikwildrpepper:</b></font> wmertens: do you know if there are more nixos-er going to configmgmt camp?<br/>
+<font color="#A82F2F"><font size="2">(10:40:25 PM)</font> <b>devhell:</b></font> henrytill, magnetophon: https://nixos.org/wiki/Network_Manager#GTK_applet<br/>
+<font color="#16569E"><font size="2">(10:42:14 PM)</font> <b>magnetophon:</b></font> devhell: can't speak for the content, but  your wiki-fu seems better than mine!  :)    Thanks for making this!<br/>
+<font color="#A82F2F"><font size="2">(10:42:52 PM)</font> <b>devhell:</b></font> magnetophon: I just wish it were a bit more markdown-y, more like GFM... I&apos;m getting so confused with all the different syntax :/<br/>
+<font color="#A82F2F"><font size="2">(10:43:17 PM)</font> <b>devhell:</b></font> magnetophon: not a problem, I&apos;m happy to write documentation, seeing as we&apos;re lacking in that field quite considerably.<br/>
+<font color="#A82F2F"><font size="2">(10:43:39 PM)</font> <b>devhell:</b></font> if anyone wishes to add/modify/delete/slapmyface just go for it<br/>
+<font color="#16569E"><font size="2">(10:44:32 PM)</font> <b>magnetophon:</b></font> yeah, I'd love a world where all syntax (and keyboard-shortcuts for that matter) was uniform...<br/>
+<font color="#A82F2F"><font size="2">(10:45:39 PM)</font> <b>devhell:</b></font> magnetophon: welllll, maybe not that strict, but at least wiki-wise would be nice...<br/>
+<font color="#A82F2F"><font size="2">(10:45:57 PM)</font> <b>devhell:</b></font> for example doing something like foo.bar = &apos;&apos;<br/>
+<font color="#A82F2F"><font size="2">(10:46:03 PM)</font> <b>devhell:</b></font>   blahblahblah<br/>
+<font color="#A82F2F"><font size="2">(10:46:05 PM)</font> <b>devhell:</b></font> &apos;&apos;;<br/>
+<font color="#A82F2F"><font size="2">(10:46:33 PM)</font> <b>devhell:</b></font> is a bit difficult because the wiki seems to interpret the &apos;&apos; too, and I was too lazy to find out if it can be done differently :/ sorry<br/>
+<font color="#16569E"><font size="2">(10:47:54 PM)</font> <b>magnetophon:</b></font> devhell: looks great to me.<br/>
+<font color="#A82F2F"><font size="2">(10:48:18 PM)</font> <b>devhell:</b></font> magnetophon: using &apos;&apos; instead of &quot; is a bit nicer<br/>
+<font color="#A82F2F"><font size="2">(10:48:43 PM)</font> <b>joehillen:</b></font> wmertens: it&apos;s a dns issue, no idea what is causing it<br/>
+<font color="#A82F2F"><font size="2">(10:49:06 PM)</font> <b>wmertens:</b></font> joehillen: maybe chroot?<br/>
+<font color="#A82F2F"><font size="2">(10:49:29 PM)</font> <b>joehillen:</b></font> wmertens: probably, dns works fine when not in a chroot<br/>
+<font color="#A82F2F"><font size="2">(10:50:57 PM)</font> <b>wmertens:</b></font> ikwildrpepper: no idea - although I kinda doubt it. It&apos;s a good place to get new recruits in any case :)<br/>
+<font color="#A82F2F"><font size="2">(10:51:06 PM)</font> <b>joehillen:</b></font> wmertens: how do enter the chroot to test it?<br/>
+<font color="#A82F2F"><font size="2">(10:51:22 PM)</font> <b>wmertens:</b></font> joehillen: so did you try setting NIX_CURL_FLAGS?<br/>
+<font color="#A82F2F"><font size="2">(10:51:42 PM)</font> <b>joehillen:</b></font> wmertens: yeah, that&apos;s how I can see its a DNS issue<br/>
+<font color="#A82F2F"><font size="2">(10:51:48 PM)</font> <b>wmertens:</b></font> aha<br/>
+<font color="#A82F2F"><font size="2">(10:52:36 PM)</font> <b>joehillen:</b></font> &quot;* getaddrinfo(3) failed for ftpmirror.gnu.org&quot;<br/>
+<font color="#A82F2F"><font size="2">(10:53:40 PM)</font> <b>ikwildrpepper:</b></font> wmertens: I&apos;ll likely be going there as well<br/>
+<font color="#A82F2F"><font size="2">(10:53:52 PM)</font> <b>wmertens:</b></font> joehillen: nixos-install has --chroot flag<br/>
+<font color="#A82F2F"><font size="2">(10:54:08 PM)</font> <b>wmertens:</b></font> joehillen: https://github.com/NixOS/nixpkgs/blob/bda39ae4de84786a1e2d75193ed81cddef22dfa3/nixos/modules/installer/tools/nixos-install.sh#L42<br/>
+<font color="#A82F2F"><font size="2">(10:54:28 PM)</font> <b>wmertens:</b></font> ikwildrpepper: yey that would rock! i speak at 14:40<br/>
+<font color="#A82F2F"><font size="2">(10:55:57 PM)</font> <b>ikwildrpepper:</b></font> wmertens: yeah, saw the schedule. also made some advertising for it on the nixos_org twitter<br/>
+<font color="#A82F2F"><font size="2">(10:56:12 PM)</font> <b>wmertens:</b></font> ikwildrpepper: thanks :D<br/>
+<font color="#A82F2F"><font size="2">(10:56:45 PM)</font> <b>ikwildrpepper:</b></font> I&apos;ll add another in the FOSDEM weekend to remind people<br/>
+<font color="#A82F2F"><font size="2">(10:57:16 PM)</font> <b>joehillen:</b></font> wmertens: thanks, I&apos;m trying another build. You can try it for yourself if you are interested. https://github.com/joehillen/nixbox<br/>
+<font color="#A82F2F"><font size="2">(11:03:57 PM)</font> <b>ambro718:</b></font> Can one fetchurl with a local path (file resides along with nix expressions)?<br/>
+<font color="#A82F2F"><font size="2">(11:05:29 PM)</font> <b>joehillen:</b></font> wmertens: can&apos;t chroot into a failed install https://github.com/NixOS/nixpkgs/blob/bda39ae4de84786a1e2d75193ed81cddef22dfa3/nixos/modules/installer/tools/nixos-install.sh#L95<br/>
+<font color="#A82F2F"><font size="2">(11:05:47 PM)</font> <b>wmertens:</b></font> right hmmm<br/>
+<font color="#A82F2F"><font size="2">(11:08:34 PM)</font> <b>joehillen:</b></font> wmertens: and of course removed that check doesn&apos;t help<br/>
+<font color="#A82F2F"><font size="2">(11:08:46 PM)</font> <b>wmertens:</b></font> joehillen: just run the nixos-install with bash -xv and reproduce the commands manually<br/>
+<font color="#A82F2F"><font size="2">(11:09:51 PM)</font> <b>vcunat:</b></font> turtil: I see, but I wonder why it succeeded for me. I&apos;m too tired already anyway for today.<br/>
+<font color="#A82F2F"><font size="2">(11:10:59 PM)</font> <b>joehillen:</b></font> wmertens: it fails because bash isn&apos;t installed<br/>
+<font color="#A82F2F"><font size="2">(11:11:39 PM)</font> <b>wmertens:</b></font> sh -xv<br/>
+<font color="#A82F2F"><font size="2">(11:12:12 PM)</font> <b>joehillen:</b></font> wmertens: sorry I mean &apos;nixos-install --chroot&apos; fails because bash isn&apos;t installed<br/>
+<font color="#A82F2F"><font size="2">(11:12:45 PM)</font> <b>joehillen:</b></font> &quot;/run/current-system/sw/bin/bash: No such file&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:13:23 PM)</font> <b>vcunat:</b></font> turtil: best file a PR or at least an issue, please, so it isn&apos;t forgotten<br/>
+<font color="#A82F2F"><font size="2">(11:14:14 PM)</font> <b>wmertens_:</b></font> joehillen: I mean, run the nixos-install like you were trying to install, only run it with sh -xv so you see all commands it executes<br/>
+<font color="#A82F2F"><font size="2">(11:14:47 PM)</font> <b>joehillen:</b></font> ah I see<br/>
+<font size="2">(11:16:14 PM)</font><b> wmertens left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:19:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/F61b<br/>
+<font color="#A82F2F"><font size="2">(11:19:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b35e0a0 Vladimír Čunát: imagemagick: fixup URL after #6056<br/>
+<font color="#A82F2F"><font size="2">(11:20:30 PM)</font> <b>Digit:</b></font> flash/firefox just started complaining here too.  re: &lt;magnetophon&gt; anyone here on 14.12? Does your firefox also complain about your flash?<br/>
+<font color="#16569E"><font size="2">(11:21:36 PM)</font> <b>magnetophon:</b></font> Digit: just started? as in right after you updated?  (I think that's when mine started)<br/>
+<font color="#A82F2F"><font size="2">(11:22:56 PM)</font> <b>Digit:</b></font> well, i did run update, but had nothing to update.<br/>
+<font color="#A82F2F"><font size="2">(11:23:13 PM)</font> <b>Digit:</b></font> curious that it has started misbehaving after that.<br/>
+<font color="#A82F2F"><font size="2">(11:23:46 PM)</font> <b>Digit:</b></font> high chance i might be doing something wrong though.<br/>
+<font size="2">(11:24:35 PM)</font><b> vcunat left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font color="#16569E"><font size="2">(11:24:50 PM)</font> <b>magnetophon:</b></font> Digit: yeah, I think I also had nothing relevant updated, come to think of it. hmmm.....<br/>
+<font color="#A82F2F"><font size="2">(11:25:08 PM)</font> <b>wmertens_:</b></font> so how does the vim plugin stuff work? Nothing on the wiki :-(<br/>
+<font size="2">(11:25:18 PM)</font><b> wmertens_ is now known as wmertens</b><br/>
+<font color="#062585"><font size="2">(11:25:30 PM)</font> <b>***MagneticDuck</b></font> realises the main nixos package repo is a .. repo on github<br/>
+<font color="#A82F2F"><font size="2">(11:25:46 PM)</font> <b>MagneticDuck:</b></font> ahh<br/>
+<font color="#16569E"><font size="2">(11:25:54 PM)</font> <b>magnetophon:</b></font> Anyone else on 14.12 here, that has flash in firefox?<br/>
+<font color="#16569E"><font size="2">(11:26:15 PM)</font> <b>magnetophon:</b></font> MagneticDuck: cool, huh?<br/>
+<font color="#A82F2F"><font size="2">(11:26:22 PM)</font> <b>MagneticDuck:</b></font> hmmmm<br/>
+<font color="#A82F2F"><font size="2">(11:26:27 PM)</font> <b>Digit:</b></font> magnetophon: for now, i think we can just put up with telling firefox to stfu and allow anyway (by clicking on that red warning icon to the left of the url bar.)<br/>
+<font color="#A82F2F"><font size="2">(11:26:31 PM)</font> <b>MagneticDuck:</b></font> okay, so when you install a package<br/>
+<font color="#A82F2F"><font size="2">(11:26:39 PM)</font> <b>MagneticDuck:</b></font> you copy that package&apos;s .nix file onto your system<br/>
+<font color="#A82F2F"><font size="2">(11:26:51 PM)</font> <b>MagneticDuck:</b></font> and.. okay I need to learn some stuff<br/>
+<font color="#062585"><font size="2">(11:26:53 PM)</font> <b>***MagneticDuck</b></font> wikis the things<br/>
+<font color="#A82F2F"><font size="2">(11:27:09 PM)</font> <b>Haskellfant:</b></font> can I access a nix list as a bash array?<br/>
+<font color="#16569E"><font size="2">(11:27:25 PM)</font> <b>magnetophon:</b></font> Digit: are you sure? Seems like asking to get 0wned.  (not that I would know...)<br/>
+<font color="#A82F2F"><font size="2">(11:27:27 PM)</font> <b>wmertens:</b></font> MagneticDuck: nope, you install the binary result into /nix/store<br/>
+<font color="#A82F2F"><font size="2">(11:27:46 PM)</font> <b>wmertens:</b></font> Haskellfant: nope but you could toJSON it or something<br/>
+<font color="#A82F2F"><font size="2">(11:28:05 PM)</font> <b>Haskellfant:</b></font> wmertens: hm k, I might just use a bash array directly then<br/>
+<font color="#A82F2F"><font size="2">(11:28:07 PM)</font> <b>Haskellfant:</b></font> thx<br/>
+<font color="#A82F2F"><font size="2">(11:28:11 PM)</font> <b>Digit:</b></font> evade firefox where possible, along with my dubious suggestion, is my other suggestion.<br/>
+<font color="#A82F2F"><font size="2">(11:28:16 PM)</font> <b>Digit:</b></font> s/firefox/flash/<br/>
+<font color="#A82F2F"><font size="2">(11:28:36 PM)</font> <b>wmertens:</b></font> Haskellfant: or you could add preBuild = &quot;myarray=(${&lt;convert list to bash syntax&gt;)&quot;<br/>
+<font color="#16569E"><font size="2">(11:29:16 PM)</font> <b>magnetophon:</b></font> Digit: :)<br/>
+<font color="#A82F2F"><font size="2">(11:29:19 PM)</font> <b>Digit:</b></font> magnetophone, seems not just a nixos issue.  widespread.  got a slackware friend with same issue just shown up.<br/>
+<font color="#A82F2F"><font size="2">(11:29:41 PM)</font> <b>MagneticDuck:</b></font> I&apos;m still understanding how this works but it&apos;s definitely a step up from most other things<br/>
+<font color="#A82F2F"><font size="2">(11:29:52 PM)</font> <b>MagneticDuck:</b></font> ^ my current super-informed opinion on nix<br/>
+<font color="#16569E"><font size="2">(11:30:00 PM)</font> <b>magnetophon:</b></font> Digit: Is this a new feature of FF then? <br/>
+<font color="#16569E"><font size="2">(11:30:54 PM)</font> <b>magnetophon:</b></font> Digit: BTW, nick's have tab-completion<br/>
+<font color="#A82F2F"><font size="2">(11:31:05 PM)</font> <b>Haskellfant:</b></font> wmertens: sure, but if there is not builtin to convert it to bash syntax it&apos;s probably easier to just use a bash array directly<br/>
+<font color="#16569E"><font size="2">(11:31:07 PM)</font> <b>magnetophon:</b></font> s/'//<br/>
+<font color="#A82F2F"><font size="2">(11:31:20 PM)</font> <b>wmertens:</b></font> Haskellfant: yup<br/>
+<font color="#A82F2F"><font size="2">(11:32:20 PM)</font> <b>Digit:</b></font> heh, my nick completion is intermittantly broken at the moment<br/>
+<font color="#A82F2F"><font size="2">(11:32:36 PM)</font> <b>Digit:</b></font> magnetophon: but does work sometimes. ^_^<br/>
+<font color="#16569E"><font size="2">(11:33:07 PM)</font> <b>magnetophon:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(11:34:35 PM)</font> <b>Digit:</b></font> and, yeah, presumably this is firefox enroute to firefoxos-homogenaityville or something.  they can reach us all, and are happy to let us know it.  lol<br/>

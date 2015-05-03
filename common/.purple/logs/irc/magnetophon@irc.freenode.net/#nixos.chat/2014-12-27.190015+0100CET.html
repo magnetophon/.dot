@@ -1,0 +1,77 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sat 27 Dec 2014 07:00:15 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sat 27 Dec 2014 07:00:15 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(07:00:15 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(07:00:15 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(07:20:49 PM)</font><b> goibhniu left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font size="2">(07:23:44 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:24:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vbgl pushed 2 new commits to master: http://git.io/3Ck43Q<br/>
+<font color="#A82F2F"><font size="2">(07:24:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master fe5949c Damien Cassou: Update pythonPackages.mutag<br/>
+<font color="#A82F2F"><font size="2">(07:24:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master baeb696 vbgl: Merge pull request #5482 from DamienCassou/mutag-0.0.2...<br/>
+<font color="#A82F2F"><font size="2">(08:03:13 PM)</font> <b>copumpkin:</b></font> is there a function to build a set from another set?<br/>
+<font color="#A82F2F"><font size="2">(08:03:19 PM)</font> <b>copumpkin:</b></font> with a mapping function?<br/>
+<font color="#A82F2F"><font size="2">(08:03:56 PM)</font> <b>copumpkin:</b></font> oh, mapAttrs looks promising<br/>
+<font color="#A82F2F"><font size="2">(08:04:05 PM)</font> <b>MichaelRaskin:</b></font> map primop<br/>
+<font color="#A82F2F"><font size="2">(08:04:18 PM)</font> <b>anty:</b></font> hi i have a pidgin-related question (OTR)<br/>
+<font color="#A82F2F"><font size="2">(08:07:04 PM)</font> <b>anty:</b></font> i have both pidgin and pidginotr in my configuration.nix, however I cannot activate the otr plugin in pidgin<br/>
+<font color="#16569E"><font size="2">(08:16:52 PM)</font> <b>magnetophon:</b></font> Could someone have a look here: https://github.com/musnix/musnix/blob/master/default.nix#L101 and tell my how to get rid of the duplicate lines?<br/>
+<font color="#A82F2F"><font size="2">(08:17:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] thoughtpolice pushed 1 new commit to master: http://git.io/WmOU8g<br/>
+<font color="#A82F2F"><font size="2">(08:17:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5eba046 Austin Seipp: nixpkgs: openresty 1.7.4.1rc2 -&gt; 1.7.7.1...<br/>
+<font color="#A82F2F"><font size="2">(08:18:12 PM)</font> <b>vcunat:</b></font> anty: AFAIK currently you need to use pidgin-with-plugins { plugins = [ ...]; }<br/>
+<font color="#A82F2F"><font size="2">(08:18:42 PM)</font> <b>vcunat:</b></font> ah, it should be pidgin-with-plugins.override {...}<br/>
+<font color="#16569E"><font size="2">(08:18:44 PM)</font> <b>magnetophon:</b></font> tldr: I'm setting a nixos option that is two string lines in one case and two more in another.  Does that make sense??<br/>
+<font color="#A82F2F"><font size="2">(08:19:57 PM)</font> <b>vcunat:</b></font> magnetophon: you can use the fact that if-then-else returns its value<br/>
+<font color="#A82F2F"><font size="2">(08:20:21 PM)</font> <b>vcunat:</b></font> so &apos;&apos;foo bar baz&apos;&apos; + (if foo then bar else baz)<br/>
+<font color="#A82F2F"><font size="2">(08:20:26 PM)</font> <b>vcunat:</b></font> for example<br/>
+<font color="#16569E"><font size="2">(08:20:53 PM)</font> <b>magnetophon:</b></font> vcunat: sorry, I don't understand...<br/>
+<font color="#A82F2F"><font size="2">(08:23:14 PM)</font> <b>anty:</b></font> vcunat, thanks<br/>
+<font color="#16569E"><font size="2">(08:23:51 PM)</font> <b>magnetophon:</b></font> vcunat: do you mean: <br/>
+<font color="#16569E"><font size="2">(08:23:53 PM)</font> <b>magnetophon:</b></font> MyString = &quot;Something&quot; + (if option then &quot;SomethingElseAdded&quot; else &quot;&quot;) <br/>
+<font color="#16569E"><font size="2">(08:26:40 PM)</font> <b>magnetophon:</b></font> ahum, I mean:<br/>
+<font color="#16569E"><font size="2">(08:26:42 PM)</font> <b>magnetophon:</b></font> MyString = ''Something'' + (if option then ''SomethingElseAdded'' else '''')<br/>
+<font color="#16569E"><font size="2">(08:27:17 PM)</font> <b>magnetophon:</b></font> vcunat: I'll just try that. Thanks.<br/>
+<font color="#A82F2F"><font size="2">(08:27:28 PM)</font> <b>iMatejC:</b></font> &apos;&apos; == &quot;<br/>
+<font color="#16569E"><font size="2">(08:28:19 PM)</font> <b>magnetophon:</b></font> iMatejC: huh? Not following<br/>
+<font color="#A82F2F"><font size="2">(08:28:37 PM)</font> <b>anty:</b></font> vcunat is that additionally to having pidgin and pidginotr in the packages list?<br/>
+<font color="#A82F2F"><font size="2">(08:28:57 PM)</font> <b>iMatejC:</b></font> magnetophon: &apos;&apos;text&apos;&apos; == &quot;text&quot;<br/>
+<font color="#16569E"><font size="2">(08:29:47 PM)</font> <b>magnetophon:</b></font> iMatejC: So my first example is correct?   That confuses me, as I need multiline strings.<br/>
+<font color="#A82F2F"><font size="2">(08:29:52 PM)</font> <b>iMatejC:</b></font> anty: add this to packages - havent tested it: (pkgs.pidgin-with-plugins.override { plugins = [ pkgs.pidginotr ]; })<br/>
+<font color="#A82F2F"><font size="2">(08:30:20 PM)</font> <b>iMatejC:</b></font> magnetophon: both are multiline<br/>
+<font color="#A82F2F"><font size="2">(08:30:21 PM)</font> <b>anty:</b></font> iMatejC, undefined variable `pidgin-with-plugins&apos; at /etc/nixos/configuration.nix:49:6<br/>
+<font color="#16569E"><font size="2">(08:30:58 PM)</font> <b>magnetophon:</b></font> iMatejC: Thanks. I'll go get my hands dirty.  :)<br/>
+<font color="#A82F2F"><font size="2">(08:31:17 PM)</font> <b>iMatejC:</b></font> anty: do you have pkgs.pidgin-with-plugins ?<br/>
+<font color="#A82F2F"><font size="2">(08:32:05 PM)</font> <b>iMatejC:</b></font> or just pidgin-with-plugins<br/>
+<font color="#A82F2F"><font size="2">(08:33:14 PM)</font> <b>anty:</b></font> i have environment.systemVariables = with pkgs; { ...<br/>
+<font color="#A82F2F"><font size="2">(08:33:21 PM)</font> <b>anty:</b></font> iMatejC, ;)<br/>
+<font color="#A82F2F"><font size="2">(08:33:24 PM)</font> <b>iMatejC:</b></font> hum<br/>
+<font color="#A82F2F"><font size="2">(08:34:04 PM)</font> <b>iMatejC:</b></font> anty: what does this return? nix-env -qa | grep pidgin-with-plugins<br/>
+<font color="#A82F2F"><font size="2">(08:34:07 PM)</font> <b>anty:</b></font> is this some kind of new feature?<br/>
+<font color="#A82F2F"><font size="2">(08:34:15 PM)</font> <b>iMatejC:</b></font> probably<br/>
+<font color="#A82F2F"><font size="2">(08:34:25 PM)</font> <b>iMatejC:</b></font> using stable 14.04?<br/>
+<font color="#A82F2F"><font size="2">(08:34:42 PM)</font> <b>anty:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(08:34:57 PM)</font> <b>anty:</b></font> returns empty<br/>
+<font color="#16569E"><font size="2">(08:43:01 PM)</font> <b>magnetophon:</b></font> vcunat, iMatejC: I got it working, thanks!<br/>
+<font color="#A82F2F"><font size="2">(08:43:26 PM)</font> <b>stepkut:</b></font> is there a recommended emacs mode for editing .nix files?<br/>
+<font color="#A82F2F"><font size="2">(08:43:31 PM)</font> <b>iMatejC:</b></font> anty: then it is not in 14.04, you could wait for 14.12, well it should be soon, but I am waiting for it for a while :P<br/>
+<font color="#A82F2F"><font size="2">(08:43:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ttuegel opened pull request #5484: Version bump some linear algebra packages (master...linear-algebra) http://git.io/DCl30g<br/>
+<font color="#16569E"><font size="2">(08:44:17 PM)</font> <b>magnetophon:</b></font> iMatejC: I tried with &quot; and '', and both seem to work.  Afaik they are the same, except for when there is a &quot; in the string. Am I missing something?<br/>
+<font color="#A82F2F"><font size="2">(08:44:51 PM)</font> <b>iMatejC:</b></font> magnetophon: you got it :P<br/>
+<font color="#16569E"><font size="2">(08:45:21 PM)</font> <b>magnetophon:</b></font> iMatejC: OK, thanks<br/>
+<font color="#A82F2F"><font size="2">(08:45:31 PM)</font> <b>iMatejC:</b></font> np :)<br/>
+<font color="#A82F2F"><font size="2">(08:45:53 PM)</font> <b>cstrahan_:</b></font> i&apos;m seeing some weird behavior from `nix-build`<br/>
+<font color="#A82F2F"><font size="2">(08:45:58 PM)</font> <b>cstrahan_:</b></font> &quot;these paths will be fetched (0.00 MiB download, 1483.16 MiB unpacked):&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:46:01 PM)</font> <b>anty:</b></font> iMatejC, what is the alternative?<br/>
+<font color="#A82F2F"><font size="2">(08:46:12 PM)</font> <b>cstrahan_:</b></font> what&apos;s with the &quot;0.00 MiB download&quot;?<br/>
+<font color="#16569E"><font size="2">(08:46:51 PM)</font> <b>magnetophon:</b></font> cstrahan_: maybe the stuf that needs downloading is allready in your cache?<br/>
+<font color="#A82F2F"><font size="2">(08:47:21 PM)</font> <b>cstrahan_:</b></font> magnetophon: ah, didn&apos;t consider that!<br/>
+<font color="#A82F2F"><font size="2">(08:50:37 PM)</font> <b>iMatejC:</b></font> anty: you could use 14.12 channel anyway, I do not know what are the recomendations from others, but I am using unstable channel, therefore I do not see the problem of using pre released 14.12 channel<br/>
+<font color="#A82F2F"><font size="2">(08:53:20 PM)</font> <b>vcunat:</b></font> magnetophon: two-apostrophe delimited strings are more suitable for multiline strings, as the indentation is removed (see nix manual for details)<br/>
+<font color="#A82F2F"><font size="2">(08:53:56 PM)</font> <b>anty:</b></font> iMatejC, so sudo nix-channel --add https://nixos.org/channels/nixos-14.12 ?<br/>
+<font color="#A82F2F"><font size="2">(08:54:45 PM)</font> <b>anty:</b></font> sorry, im really new to nixos :D<br/>
+<font color="#16569E"><font size="2">(08:55:05 PM)</font> <b>magnetophon:</b></font> vcunat: Thanks. That's what I thought, and that's why iMatejC confused me.   (no bad feelings/disrespect/anything bad to iMatejC meant!!!)<br/>
+<font color="#A82F2F"><font size="2">(08:55:35 PM)</font> <b>iMatejC:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(08:55:58 PM)</font> <b>iMatejC:</b></font> anty: yes<br/>
+<font color="#A82F2F"><font size="2">(08:56:21 PM)</font> <b>iMatejC:</b></font> and then --update<br/>
+<font color="#A82F2F"><font size="2">(08:56:27 PM)</font> <b>anty:</b></font> iMatejC, and then sudo nixos-rebuild switch --update?<br/>
+<font color="#A82F2F"><font size="2">(08:58:01 PM)</font> <b>iMatejC:</b></font> --update is for the nix-channel command<br/>
+<font color="#A82F2F"><font size="2">(08:58:14 PM)</font> <b>anty:</b></font> ah<br/>
+<font size="2">(09:25:12 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

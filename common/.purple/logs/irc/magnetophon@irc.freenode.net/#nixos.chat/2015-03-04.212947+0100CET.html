@@ -1,0 +1,81 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Wed 04 Mar 2015 09:29:47 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Wed 04 Mar 2015 09:29:47 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(09:29:47 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(09:29:47 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(09:31:05 PM)</font> <b>devhell:</b></font> philandstuff: I wish I knew.<br/>
+<font color="#A82F2F"><font size="2">(09:32:57 PM)</font> <b>vcunat:</b></font> two people make a group already ;-)<br/>
+<font color="#A82F2F"><font size="2">(09:34:02 PM)</font> <b>devhell:</b></font> vcunat: which would be fine, if I wouldn&apos;t be rather far away from London<br/>
+<font color="#A82F2F"><font size="2">(09:34:35 PM)</font> <b>vcunat:</b></font> ah, I thought others wouldn&apos;t wish to know<br/>
+<font color="#A82F2F"><font size="2">(09:34:36 PM)</font> <b>devhell:</b></font> it would be cool to know though that there would be a group when I go to London sometimes<br/>
+<font color="#A82F2F"><font size="2">(09:35:45 PM)</font> <b>devhell:</b></font> it&apos;s difficult to find a LUG not being run by assholes here where I am (South-East) :(<br/>
+<font color="#A82F2F"><font size="2">(09:45:04 PM)</font> <b>lseppala:</b></font> so does setting `nixpkgs.config.allowUnfree = true;` in configuration.nix just not work? Seems to only take effect if I put in in $NIXPKGS_CONFIG instead<br/>
+<font color="#A82F2F"><font size="2">(09:45:51 PM)</font> <b>vcunat:</b></font> lseppala: each works on a different thing<br/>
+<font color="#A82F2F"><font size="2">(09:46:03 PM)</font> <b>vcunat:</b></font> one for stuff in configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(09:46:04 PM)</font> <b>lseppala:</b></font> how so?<br/>
+<font color="#A82F2F"><font size="2">(09:46:13 PM)</font> <b>vcunat:</b></font> other one for stuff installed by nix-env<br/>
+<font color="#A82F2F"><font size="2">(09:48:31 PM)</font> <b>lseppala:</b></font> erh, not my experience. I&apos;m using nixos-rebuild, have a module that uses a non-free package (so it&apos;ll be installed), and it barfs the non-free license error with the suggestion to put the &apos;allowUnfree&apos; stanza in configuration.nix... which doesn&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(09:49:47 PM)</font> <b>vcunat:</b></font> weird<br/>
+<font color="#A82F2F"><font size="2">(09:50:39 PM)</font> <b>vcunat:</b></font> oh, evaluation delaying might be necessary<br/>
+<font color="#A82F2F"><font size="2">(09:51:34 PM)</font> <b>vcunat:</b></font> at the point of module evaluation, the whole nixos config isn&apos;t available<br/>
+<font color="#A82F2F"><font size="2">(09:52:17 PM)</font> <b>vcunat:</b></font> (can&apos;t be in principle, because the modules change it)<br/>
+<font color="#A82F2F"><font size="2">(09:53:00 PM)</font> <b>lseppala:</b></font> hmm...interesting<br/>
+<font color="#A82F2F"><font size="2">(09:53:45 PM)</font> <b>lseppala:</b></font> how do you delay it?<br/>
+<font color="#A82F2F"><font size="2">(09:54:07 PM)</font> <b>vcunat:</b></font> that&apos;s what mkIf and similar are for (if a module depends on something from the config), but in this case I&apos;m unsure<br/>
+<font color="#A82F2F"><font size="2">(09:54:13 PM)</font> <b>vcunat:</b></font> https://nixos.org/nixos/manual/sec-writing-modules.html7<br/>
+<font color="#A82F2F"><font size="2">(09:54:19 PM)</font> <b>vcunat:</b></font> https://nixos.org/nixos/manual/sec-writing-modules.html<br/>
+<font color="#A82F2F"><font size="2">(09:54:37 PM)</font> <b>lseppala:</b></font> right, that&apos;s familair now<br/>
+<font color="#A82F2F"><font size="2">(09:54:40 PM)</font> <b>lseppala:</b></font> familiar*<br/>
+<font color="#A82F2F"><font size="2">(09:54:42 PM)</font> <b>lseppala:</b></font> thanks :)<br/>
+<font color="#A82F2F"><font size="2">(09:55:51 PM)</font> <b>vcunat:</b></font> maybe try it delaying by some always-true mkIf condition strictly depending on nixos.config.allowUnfree<br/>
+<font color="#A82F2F"><font size="2">(09:56:12 PM)</font> <b>vcunat:</b></font> s/nixos/nixpkgs/<br/>
+<font color="#A82F2F"><font size="2">(09:56:38 PM)</font> <b>lseppala:</b></font> a bit hacky, but I see how that can work<br/>
+<font color="#A82F2F"><font size="2">(09:57:30 PM)</font> <b>vcunat:</b></font> I wonder if we never had a service depending on an unfree package<br/>
+<font color="#A82F2F"><font size="2">(09:57:55 PM)</font> <b>lseppala:</b></font> likely. This is for work, and we require oraclejre for some process -_-<br/>
+<font color="#A82F2F"><font size="2">(09:58:56 PM)</font> <b>vcunat:</b></font> ah, I&apos;ve heard it has some advantages in demanding use cases<br/>
+<font color="#A82F2F"><font size="2">(09:59:16 PM)</font> <b>lseppala:</b></font> Cassandra<br/>
+<font color="#A82F2F"><font size="2">(09:59:24 PM)</font> <b>lseppala:</b></font> which is in nixpkgs, but no module for it<br/>
+<font color="#A82F2F"><font size="2">(09:59:51 PM)</font> <b>vcunat:</b></font> I see<br/>
+<font color="#A82F2F"><font size="2">(10:00:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] devhell opened pull request #6661: profanity: 0.4.5 -&gt; 0.4.6 (master...profanity) http://git.io/xHtZ<br/>
+<font color="#A82F2F"><font size="2">(10:00:55 PM)</font> <b>devhell:</b></font> \m/<br/>
+<font color="#A82F2F"><font size="2">(10:03:06 PM)</font> <b>philandstuff:</b></font> devhell: well I know of Bodil and krisajenkins using nix in london as well but don&apos;t know if they have time for yet another meetup...<br/>
+<font color="#A82F2F"><font size="2">(10:03:38 PM)</font> <b>devhell:</b></font> philandstuff: that&apos;s fine, thanks for letting me know though. ;-)<br/>
+<font color="#A82F2F"><font size="2">(10:04:28 PM)</font> <b>pmahoney:</b></font> lseppala: can you override oraclejre to claim it&apos;s not unfree?<br/>
+<font color="#A82F2F"><font size="2">(10:04:56 PM)</font> <b>lseppala:</b></font> pmahoney: yes, but that would be lying ;)<br/>
+<font color="#A82F2F"><font size="2">(10:05:30 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 3 new commits to staging: http://git.io/xHm5<br/>
+<font color="#A82F2F"><font size="2">(10:05:30 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 856d1ff Vladimír Čunát: more build fixups concerning automake defaults<br/>
+<font color="#A82F2F"><font size="2">(10:05:30 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 7e04265 Vladimír Čunát: plymouth: hacky fix build (automake-related)<br/>
+<font color="#A82F2F"><font size="2">(10:05:30 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 2485055 Vladimír Čunát: gtk2: maintenance update...<br/>
+<font color="#A82F2F"><font size="2">(10:05:53 PM)</font> <b>lseppala:</b></font> pmahoney: actually, put together a nix expression to download the oraclejdk tarball, so I&apos;m already breaking the license<br/>
+<font color="#A82F2F"><font size="2">(10:05:59 PM)</font> <b>vcunat:</b></font> if you make it not claim any license, it&apos;s not lying, but just not telling anything<br/>
+<font color="#A82F2F"><font size="2">(10:06:02 PM)</font> <b>lseppala:</b></font> but ++convienence<br/>
+<font color="#A82F2F"><font size="2">(10:06:57 PM)</font> <b>vcunat:</b></font> breaking EULA at work?<br/>
+<font color="#A82F2F"><font size="2">(10:07:10 PM)</font> <b>vcunat:</b></font> or planning to...<br/>
+<font color="#A82F2F"><font size="2">(10:07:54 PM)</font> <b>niksnut:</b></font> urgh, why did we rename gcc to cc?<br/>
+<font color="#A82F2F"><font size="2">(10:08:01 PM)</font> <b>niksnut:</b></font> just causes pointless breakage<br/>
+<font color="#A82F2F"><font size="2">(10:08:34 PM)</font> <b>vcunat:</b></font> niksnut: we could keep both attributes<br/>
+<font color="#A82F2F"><font size="2">(10:08:39 PM)</font> <b>vcunat:</b></font> at least for some period<br/>
+<font color="#A82F2F"><font size="2">(10:09:03 PM)</font> <b>lseppala:</b></font> Well, INAL, but for our deployments at work, yeah, nix expression to download oraclejdk. Works well<br/>
+<font color="#A82F2F"><font size="2">(10:09:07 PM)</font> <b>joelteon:</b></font> well, because clang is cc, not gcc<br/>
+<font color="#A82F2F"><font size="2">(10:09:16 PM)</font> <b>lseppala:</b></font> pmahoney: what&apos;s the easiest way to override?<br/>
+<font size="2">(10:09:52 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(10:09:57 PM)</font> <b>pmahoney:</b></font> lseppala: http://nixos.org/nixos/manual/sec-package-management.html#sec-customising-packages<br/>
+<font color="#A82F2F"><font size="2">(10:09:58 PM)</font> <b>niksnut:</b></font> joelteon: sure, if we did this from scratch, that might have been a compelling argument<br/>
+<font color="#A82F2F"><font size="2">(10:11:50 PM)</font> <b>lseppala:</b></font> thanks. Haven&apos;t gotten this delaying conditional idea to work yet, might be the way to go<br/>
+<font color="#A82F2F"><font size="2">(10:14:09 PM)</font> <b>lseppala:</b></font> oooooooh<br/>
+<font color="#A82F2F"><font size="2">(10:14:48 PM)</font> <b>lseppala:</b></font> It&apos;s because I&apos;m installing the package in a container. Which doesn&apos;t inherit allowUnfree from the host. doi...<br/>
+<font color="#A82F2F"><font size="2">(10:16:19 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 4 new commits to master: http://git.io/xHZ8<br/>
+<font color="#A82F2F"><font size="2">(10:16:19 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 829479d Eelco Dolstra: substract -&gt; subtract<br/>
+<font color="#A82F2F"><font size="2">(10:16:19 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 97fcb33 Eelco Dolstra: cudatoolkit: Fix gcc -&gt; cc...<br/>
+<font color="#A82F2F"><font size="2">(10:16:19 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 694f01d Eelco Dolstra: intersect -&gt; intersectLists, subtract -&gt; subtractLists<br/>
+<font color="#A82F2F"><font size="2">(10:34:56 PM)</font> <b>blueyed:</b></font> After &quot;curl https://nixos.org/nix/install | sh&quot;, where does it hook into to get picked up after re-login?<br/>
+<font color="#A82F2F"><font size="2">(10:36:30 PM)</font> <b>goodwill:</b></font> blueyed: your .bashrc or .bash_profile I think<br/>
+<font color="#A82F2F"><font size="2">(10:36:36 PM)</font> <b>goodwill:</b></font> blueyed: adds a sourcing line<br/>
+<font color="#A82F2F"><font size="2">(10:37:13 PM)</font> <b>blueyed:</b></font> I am using zsh, but also cannot see anything changed in the .bash* files.<br/>
+<font color="#A82F2F"><font size="2">(10:38:07 PM)</font> <b>blueyed:</b></font> I had it setup a while (a few months) ago, but removed /nix in the meantime, and want to use it again.<br/>
+<font color="#A82F2F"><font size="2">(10:38:31 PM)</font> <b>blueyed:</b></font> Oh, it uses ~/.profile.<br/>
+<font color="#A82F2F"><font size="2">(10:47:01 PM)</font> <b>blueyed:</b></font> Where is the &quot;install&quot; script located on Github?<br/>
+<font color="#A82F2F"><font size="2">(10:48:28 PM)</font> <b>blueyed:</b></font> ..or rather the releases/nix/nix-1.8/nix-1.8-$system.tar.bz2 files.<br/>
+<font size="2">(10:49:42 PM)</font><b> vcunat left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(10:51:44 PM)</font> <b>blueyed:</b></font> Isn&apos;t there no shell completion yet? According to https://github.com/NixOS/nix/issues/37 there&apos;s a starting point for nix-env on Zsh.<br/>
+<font color="#A82F2F"><font size="2">(11:19:52 PM)</font> <b>CADD:</b></font> hi guys! trying to install ghcjs with let repo = import /home/cadd/nixpkgs {}; in environment.systemPackages [ repo.haskell-ng.compiler.ghc7101 ], how do i do it? my best guess was repo.haskell-ng.compiler.ghcjs, but that doesnt exist<br/>
+<font size="2">(11:40:07 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

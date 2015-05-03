@@ -1,0 +1,90 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Mon 01 Dec 2014 12:36:21 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Mon 01 Dec 2014 12:36:21 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(12:36:21 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(12:36:22 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(12:37:04 PM)</font> <b>ikwildrpepper:</b></font> iElectric: those warning/errors you just posted here are different right?<br/>
+<font color="#A82F2F"><font size="2">(12:37:11 PM)</font> <b>ikwildrpepper:</b></font> here https://github.com/NixOS/nix/issues/287#issuecomment-64215248<br/>
+<font color="#A82F2F"><font size="2">(12:37:19 PM)</font> <b>iElectric:</b></font> yeah, but on the way to the problem<br/>
+<font color="#A82F2F"><font size="2">(12:40:37 PM)</font> <b>Lethalman:</b></font> iElectric, niksnut solved that with the scrubDrv thing, maybe there&apos;s some new test that needs to be scrub :)<br/>
+<font color="#A82F2F"><font size="2">(12:42:11 PM)</font> <b>iElectric:</b></font> http://dpaste.com/1E9QP1Z<br/>
+<font color="#A82F2F"><font size="2">(12:42:36 PM)</font> <b>iElectric:</b></font> this fixes eval, because those packages don&apos;t evaluate on 32bit<br/>
+<font color="#A82F2F"><font size="2">(12:43:32 PM)</font> <b>iElectric:</b></font> should we make default conditional on 64bit linux?<br/>
+<font color="#A82F2F"><font size="2">(12:44:05 PM)</font> <b>Lethalman:</b></font> iElectric, there&apos;s a test that use those packages?<br/>
+<font color="#A82F2F"><font size="2">(12:44:14 PM)</font> <b>Lethalman:</b></font> iElectric, no I&apos;d make the test conditional<br/>
+<font size="2">(12:47:40 PM)</font><b> JagaJaga [<em>~JagaJaga@178.62.202.50</em>] entered the room.</b><br/>
+<font size="2">(12:51:29 PM)</font><b> vandenoever left the room (quit: Quit: ䷴៚).</b><br/>
+<font size="2">(12:52:28 PM)</font><b> wmertens [<em>~wmertens@031011199182.warszawa.vectranet.pl</em>] entered the room.</b><br/>
+<font size="2">(12:54:44 PM)</font><b> solatis left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(12:56:06 PM)</font><b> silver [<em>~silver@93.84.4.224</em>] entered the room.</b><br/>
+<font size="2">(12:57:43 PM)</font><b> PeterMetz [<em>~petermetz@host81-134-4-122.in-addr.btopenworld.com</em>] entered the room.</b><br/>
+<font size="2">(01:01:35 PM)</font><b> iyzsong [<em>~user@59.172.247.101</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:05:53 PM)</font> <b>ikwildrpepper:</b></font> cstrahan: https://github.com/NixOS/nixpkgs/commit/fcb173f70f692aa6cb112b866fbb99f659b67429<br/>
+<font color="#A82F2F"><font size="2">(01:06:11 PM)</font> <b>ikwildrpepper:</b></font> seems you made a typo (is868-linux)<br/>
+<font size="2">(01:08:27 PM)</font><b> CandidC left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:08:51 PM)</font> <b>cstrahan:</b></font> ikwildrpepper: yes, thanks for the heads up. i tested both cases at some point, but must have inserted that &apos;s&apos; before I committed.<br/>
+<font color="#A82F2F"><font size="2">(01:08:55 PM)</font> <b>cstrahan:</b></font> i blame vim.<br/>
+<font color="#A82F2F"><font size="2">(01:10:05 PM)</font> <b>ikwildrpepper:</b></font> :)<br/>
+<font color="#16569E"><font size="2">(01:11:07 PM)</font> <b>magnetophon:</b></font> nix-build -A rtirq gives me &quot;failed to set up the build environment for&quot;. Could someone have a look? https://github.com/magnetophon/nixpkgs/compare/rtirq?expand=1<br/>
+<font color="#A82F2F"><font size="2">(01:11:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cstrahan pushed 1 new commit to master: http://git.io/BD8iiA<br/>
+<font color="#A82F2F"><font size="2">(01:11:45 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f9dbd4e Charles Strahan: rescuetime: fix typo<br/>
+<font color="#A82F2F"><font size="2">(01:12:09 PM)</font> <b>ikwildrpepper:</b></font> magnetophon: sounds more like a configuration issue of nix<br/>
+<font color="#A82F2F"><font size="2">(01:12:32 PM)</font> <b>goibhniu:</b></font> magnetophon: also, it looks like it should be a module, it installs a systemd service, right?<br/>
+<font color="#16569E"><font size="2">(01:12:59 PM)</font> <b>magnetophon:</b></font> ikwildrpepper: how can you tell? How do I troubleshoot?<br/>
+<font size="2">(01:13:03 PM)</font><b> mizu_no_oto [<em>~textual@c-76-24-18-193.hsd1.ma.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:13:09 PM)</font> <b>ikwildrpepper:</b></font> magnetophon: just from the error<br/>
+<font size="2">(01:13:59 PM)</font><b> sivteck left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#16569E"><font size="2">(01:14:03 PM)</font> <b>magnetophon:</b></font> goibhniu: yes it installs a systemd service. Can you point me to an example of a nix module?<br/>
+<font color="#A82F2F"><font size="2">(01:14:50 PM)</font> <b>ikwildrpepper:</b></font> cstrahan: can you give it the version 2.8.6.1015 (rescuetime)<br/>
+<font color="#16569E"><font size="2">(01:15:53 PM)</font> <b>magnetophon:</b></font> ikwildrpepper: so what could be configured wrong? I'm able to nix-build other packages... (just tested again)<br/>
+<font color="#16569E"><font size="2">(01:16:55 PM)</font> <b>magnetophon:</b></font> goibhniu: I'm reading up on nixos modules atm<br/>
+<font size="2">(01:17:00 PM)</font><b> dontdieych left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(01:17:07 PM)</font> <b>cstrahan:</b></font> ikwildrpepper: sure. any other suggestions?<br/>
+<font size="2">(01:17:35 PM)</font><b> Takle_ [<em>~takle@188.228.85.218</em>] entered the room.</b><br/>
+<font size="2">(01:17:42 PM)</font><b> dontdieych [<em>~dontdieyc@182.226.18.42</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:17:44 PM)</font> <b>ikwildrpepper:</b></font> cstrahan: nope, that was it :) will try it out soon ;)<br/>
+<font color="#A82F2F"><font size="2">(01:17:53 PM)</font> <b>ikwildrpepper:</b></font> cstrahan: can it block IRC as well? ;)<br/>
+<font size="2">(01:17:54 PM)</font><b> Takle left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#16569E"><font size="2">(01:18:54 PM)</font> <b>magnetophon:</b></font> goibhniu: This seems to be about splitting up config files: https://nixos.org/wiki/NixOS:Modules  That's not what you mean is it?<br/>
+<font color="#16569E"><font size="2">(01:20:03 PM)</font> <b>magnetophon:</b></font> ikwildrpepper: If I can build one package but not the other, the problem is in the package, or am I missing something?<br/>
+<font size="2">(01:20:06 PM)</font><b> rejuvyesh [<em>~rejuvyesh@unaffiliated/rejuvyesh</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:20:48 PM)</font> <b>ikwildrpepper:</b></font> magnetophon: yeah, would think so. anyway, hard to say without more information (log etc)<br/>
+<font color="#16569E"><font size="2">(01:21:31 PM)</font> <b>magnetophon:</b></font> ikwildrpepper: which log would you need? What else? <br/>
+<font color="#16569E"><font size="2">(01:22:07 PM)</font> <b>magnetophon:</b></font> Can someone try and build this on their machine?<br/>
+<font color="#A82F2F"><font size="2">(01:22:22 PM)</font> <b>goibhniu:</b></font> magnetophon: http://nixos.org/nixos/manual/#sec-modularity ... so we&apos;d be able to have an option to enable rtirq in configuration.nix<br/>
+<font color="#16569E"><font size="2">(01:22:50 PM)</font> <b>magnetophon:</b></font> goibhniu: thanks.<br/>
+<font color="#A82F2F"><font size="2">(01:23:22 PM)</font> <b>goibhniu:</b></font> magnetophon: http://nixos.org/nixos/manual/#sec-writing-modules<br/>
+<font color="#A82F2F"><font size="2">(01:23:46 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cstrahan pushed 1 new commit to master: http://git.io/F-ddZA<br/>
+<font color="#A82F2F"><font size="2">(01:23:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b90b899 Charles Strahan: rescuetime: add version<br/>
+<font color="#A82F2F"><font size="2">(01:24:34 PM)</font> <b>ikwildrpepper:</b></font> magnetophon: http://pastebin.com/V2JNa4yS<br/>
+<font size="2">(01:24:46 PM)</font><b> DamienCassou [<em>~cassou@193.51.236.213</em>] entered the room.</b><br/>
+<font size="2">(01:25:06 PM)</font><b> silver_ [<em>~silver@178.124.111.125</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:26:23 PM)</font> <b>DamienCassou:</b></font> hi guys<br/>
+<font color="#16569E"><font size="2">(01:26:32 PM)</font> <b>magnetophon:</b></font> ikwildrpepper: thanks. What command did you use to buid?  IOW how come you got a clear error, and I didn't?<br/>
+<font color="#A82F2F"><font size="2">(01:26:50 PM)</font> <b>DamienCassou:</b></font> it looks like the unstable branch has not been updated for 2 weeks now. Is that normal?<br/>
+<font color="#A82F2F"><font size="2">(01:27:55 PM)</font> <b>Lethalman:</b></font> DamienCassou, depends on the tests<br/>
+<font color="#16569E"><font size="2">(01:27:57 PM)</font> <b>magnetophon:</b></font> ikwildrpepper, goibhniu: Thanks guys, I think I can figure it out from here again.<br/>
+<font color="#A82F2F"><font size="2">(01:28:04 PM)</font> <b>ikwildrpepper:</b></font> magnetophon:  nix-build -A rtirq<br/>
+<font size="2">(01:28:21 PM)</font><b> silver left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:28:53 PM)</font> <b>DamienCassou:</b></font> Lethalman: thanks. Do you confirm that the latest unstable is 2 weeks old?<br/>
+<font color="#A82F2F"><font size="2">(01:29:05 PM)</font> <b>Lethalman:</b></font> DamienCassou, yes<br/>
+<font color="#16569E"><font size="2">(01:29:06 PM)</font> <b>magnetophon:</b></font> ikwildrpepper: so it looks like I DO have a problem with my machine/config....  Any ideas on ow I can pinpoint them?<br/>
+<font color="#A82F2F"><font size="2">(01:29:12 PM)</font> <b>DamienCassou:</b></font> ok, thanks Lethalman<br/>
+<font color="#A82F2F"><font size="2">(01:29:17 PM)</font> <b>Lethalman:</b></font> DamienCassou, http://releases.nixos.org/nixos/unstable/<br/>
+<font color="#A82F2F"><font size="2">(01:32:06 PM)</font> <b>DamienCassou:</b></font> thanks<br/>
+<font size="2">(01:35:37 PM)</font><b> Takle_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:35:50 PM)</font><b> silver_ is now known as silver</b><br/>
+<font size="2">(01:36:07 PM)</font><b> Takle [<em>~takle@188.228.85.218</em>] entered the room.</b><br/>
+<font size="2">(01:45:36 PM)</font><b> rejuvyesh left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(01:47:25 PM)</font><b> dontdieych left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:48:16 PM)</font><b> dontdieych [<em>~dontdieyc@182.226.18.42</em>] entered the room.</b><br/>
+<font size="2">(01:55:38 PM)</font><b> vandenoever [<em>~oever@213.236.64.61</em>] entered the room.</b><br/>
+<font size="2">(01:55:38 PM)</font><b> vandenoever left the room (quit: Changing host).</b><br/>
+<font size="2">(01:55:39 PM)</font><b> vandenoever [<em>~oever@kde/vandenoever</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:56:30 PM)</font> <b>vandenoever:</b></font> unf virtualbox machine hangs on starting after successfully installing it with opensuse<br/>
+<font size="2">(01:58:43 PM)</font><b> civodul [<em>~user@gateway/tor-sasl/civodul</em>] entered the room.</b><br/>
+<font size="2">(01:59:50 PM)</font><b> rejuvyesh [<em>~rejuvyesh@unaffiliated/rejuvyesh</em>] entered the room.</b><br/>
+<font size="2">(02:01:13 PM)</font><b> suvash_away is now known as suvash</b><br/>
+<font size="2">(02:05:33 PM)</font><b> Takle left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(02:06:08 PM)</font><b> sprang left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(02:06:10 PM)</font><b> Takle [<em>~takle@188.228.85.218</em>] entered the room.</b><br/>
+<font size="2">(02:42:23 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

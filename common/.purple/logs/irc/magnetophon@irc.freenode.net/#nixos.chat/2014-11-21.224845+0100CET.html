@@ -1,0 +1,262 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Fri 21 Nov 2014 10:48:45 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Fri 21 Nov 2014 10:48:45 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:48:46 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(10:48:46 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#16569E"><font size="2">(10:49:27 PM)</font> <b>magnetophon:</b></font> goibhniu: got disconnected again. I'm tethered to my phone now, should be more reliable. Did I miss anything?<br/>
+<font color="#A82F2F"><font size="2">(10:49:34 PM)</font> <b>goibhniu:</b></font> magnetophon: patchPhase = &quot;rm -rf architecture/osclib/oscpack/ip/win32&quot;; :D<br/>
+<font color="#A82F2F"><font size="2">(10:49:55 PM)</font> <b>goibhniu:</b></font> I think we still need to set PREFIX<br/>
+<font color="#A82F2F"><font size="2">(10:50:22 PM)</font> <b>goibhniu:</b></font> and we&apos;ll need to add some deps for the other parts of faust (I think)<br/>
+<font color="#A82F2F"><font size="2">(10:50:27 PM)</font> <b>goibhniu:</b></font> jack, libsnd etc.<br/>
+<font color="#16569E"><font size="2">(10:51:17 PM)</font> <b>magnetophon:</b></font> goibhniu: the rm -rf seems hackish, but I'm new to nixos, so what do I know :D<br/>
+<font size="2">(10:51:27 PM)</font><b> roni [<em>~roni@tripoint.kitware.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:51:40 PM)</font> <b>goibhniu:</b></font> yeah, I&apos;m sure there&apos;s a better way<br/>
+<font color="#A82F2F"><font size="2">(10:51:40 PM)</font> <b>roni:</b></font> goibhniu: that did it!  i just had to log out / log back in<br/>
+<font color="#A82F2F"><font size="2">(10:51:43 PM)</font> <b>goibhniu:</b></font> roni: awesome!<br/>
+<font color="#A82F2F"><font size="2">(10:51:49 PM)</font> <b>roni:</b></font> if you can explain to me why that fixed it, that would be great<br/>
+<font color="#A82F2F"><font size="2">(10:52:01 PM)</font> <b>roni:</b></font> if you have a minute<br/>
+<font color="#A82F2F"><font size="2">(10:52:11 PM)</font> <b>roni:</b></font> still very much a nixos newbie, i&apos;m afraid :-/<br/>
+<font size="2">(10:52:20 PM)</font><b> mizu_no_oto left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font color="#16569E"><font size="2">(10:53:01 PM)</font> <b>magnetophon:</b></font> roni: If I understood right it's like this:<br/>
+<font color="#16569E"><font size="2">(10:54:00 PM)</font> <b>magnetophon:</b></font> you have an intel card, and so only need an intel driver, and no nvidia<br/>
+<font color="#16569E"><font size="2">(10:54:12 PM)</font> <b>magnetophon:</b></font> goibhniu: right?<br/>
+<font color="#A82F2F"><font size="2">(10:54:35 PM)</font> <b>roni:</b></font> heh that&apos;s simple enough i guess<br/>
+<font color="#A82F2F"><font size="2">(10:54:45 PM)</font> <b>roni:</b></font> i was just using the completely wrong driver?<br/>
+<font size="2">(10:55:04 PM)</font><b> paraseba [<em>~seba@50.59.189.124</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:55:26 PM)</font> <b>magnetophon:</b></font> roni: that;s what I got from your conversation.<br/>
+<font color="#A82F2F"><font size="2">(10:55:35 PM)</font> <b>goibhniu:</b></font> I&apos;m not sure exactly, I have both an intel and an ati GPU in this machine, I&apos;ve got both enabled ... and I think I&apos;ve switched between them previously ... so I thought you could enable multiple drivers<br/>
+<font color="#A82F2F"><font size="2">(10:56:04 PM)</font> <b>goibhniu:</b></font> maybe there can only be one /run/opengl-driver ... you could look up what creates that<br/>
+<font color="#A82F2F"><font size="2">(10:56:38 PM)</font> <b>roni:</b></font> cool<br/>
+<font color="#A82F2F"><font size="2">(10:56:42 PM)</font> <b>roni:</b></font> well thanks for the help!<br/>
+<font color="#A82F2F"><font size="2">(10:56:43 PM)</font> <b>goibhniu:</b></font> perhaps both ati and intel use mesa, so I got lucky<br/>
+<font color="#A82F2F"><font size="2">(10:56:49 PM)</font> <b>roni:</b></font> webgl automatically working now too<br/>
+<font color="#A82F2F"><font size="2">(11:04:07 PM)</font> <b>goibhniu:</b></font> magnetophon: architecture/osclib/oscpack/Makefile ifeq ($(system), Linux) fails<br/>
+<font color="#A82F2F"><font size="2">(11:04:27 PM)</font> <b>goibhniu:</b></font> magnetophon: you could patch it so set system at the top<br/>
+<font color="#A82F2F"><font size="2">(11:05:36 PM)</font> <b>goibhniu:</b></font> hmm .. uname gets called all over the place<br/>
+<font color="#16569E"><font size="2">(11:06:50 PM)</font> <b>magnetophon:</b></font> goibhniu: ah, I see you fixed the PREFIX already. that's where mine just got stuck... :)<br/>
+<font color="#A82F2F"><font size="2">(11:07:15 PM)</font> <b>goibhniu:</b></font> `uname -s` works find in nix-shell .. hmm<br/>
+<font size="2">(11:07:20 PM)</font><b> mattdv left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(11:08:55 PM)</font> <b>goibhniu:</b></font> ^fine<br/>
+<font size="2">(11:09:08 PM)</font><b> roni left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:09:35 PM)</font> <b>goibhniu:</b></font> so the rm trick doesn&apos;t really work<br/>
+<font size="2">(11:09:44 PM)</font><b> mattdv [<em>~matt@76-201-62-110.lightspeed.irvnca.sbcglobal.net</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(11:09:49 PM)</font> <b>magnetophon:</b></font> goibhniu: right<br/>
+<font color="#16569E"><font size="2">(11:12:03 PM)</font> <b>magnetophon:</b></font> goibhniu: actually i'm confused: aren't those compiling isues? Mine is done compiling and started to try to install. I just don't know how to set the PREFIX yet... <br/>
+<font size="2">(11:13:24 PM)</font><b> lucidd left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(11:17:34 PM)</font><b> zz_flazz is now known as flazz</b><br/>
+<font size="2">(11:19:23 PM)</font><b> Hijiri [<em>~oneechan@2602:306:b85c:4820:a49d:cdeb:46da:4db1</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(11:19:46 PM)</font> <b>magnetophon:</b></font> goibhniu: does your .nix compile?<br/>
+<font size="2">(11:20:27 PM)</font><b> pmade [<em>~pmade@c-50-183-90-74.hsd1.co.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:23:05 PM)</font> <b>pmade:</b></font> I&apos;ve been looking through the manual and FAQ but can&apos;t seem to find any info about upgrading to a newer kernel.  I want to try NixOS out on my laptop but would need 3.16 for my wifi drivers.  How does one upgrade the kernel?<br/>
+<font size="2">(11:23:36 PM)</font><b> sivteck left the room (quit: Quit: BLOO).</b><br/>
+<font color="#A82F2F"><font size="2">(11:24:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cillianderoiste pushed 1 new commit to master: http://git.io/IuVCNg<br/>
+<font color="#A82F2F"><font size="2">(11:24:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c9fab7e Cillian de Róiste: ardour: update from 3.5.380 to 3.5.403<br/>
+<font color="#A82F2F"><font size="2">(11:25:26 PM)</font> <b>goibhniu:</b></font> pmade: boot.kernelPackages = pkgs.linuxPackages_3_16;<br/>
+<font color="#A82F2F"><font size="2">(11:25:46 PM)</font> <b>pmade:</b></font> goibhniu: That&apos;s it?  Wow.  Thanks.<br/>
+<font color="#A82F2F"><font size="2">(11:26:32 PM)</font> <b>goibhniu:</b></font> pmade: np, you can see all the options in `man configuration.nix`<br/>
+<font color="#A82F2F"><font size="2">(11:27:15 PM)</font> <b>pmade:</b></font> I suppose I should create a NixOS VM and then play around.  Thank you.<br/>
+<font color="#A82F2F"><font size="2">(11:28:04 PM)</font> <b>goibhniu:</b></font> magnetophon: makeFlags=&quot;PREFIX=$(out)&quot;;<br/>
+<font color="#062585"><font size="2">(11:28:20 PM)</font> <b>***goibhniu</b></font> tries building with that<br/>
+<font color="#A82F2F"><font size="2">(11:28:26 PM)</font> <b>goibhniu:</b></font> pmade: go for it!<br/>
+<font size="2">(11:28:37 PM)</font><b> vizant0 [<em>~Adium@host46.tivo.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:29:11 PM)</font> <b>goibhniu:</b></font> magnetophon: yeah, that works<br/>
+<font size="2">(11:29:42 PM)</font><b> lucidd [<em>~lucid@HSI-KBW-078-042-152-111.hsi3.kabel-badenwuerttemberg.de</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(11:30:34 PM)</font> <b>magnetophon:</b></font> goibhniu: great! I'm trying it too.<br/>
+<font color="#16569E"><font size="2">(11:31:48 PM)</font> <b>magnetophon:</b></font> goibhniu: does that mean we have a package? Should it also work in win32 beforre it is accepted in the official packages?<br/>
+<font color="#16569E"><font size="2">(11:32:09 PM)</font> <b>magnetophon:</b></font> goibhniu: oh, no. unix only...]<br/>
+<font color="#A82F2F"><font size="2">(11:32:14 PM)</font> <b>goibhniu:</b></font> magnetophon: yes, we&apos;re nearly there!<br/>
+<font color="#A82F2F"><font size="2">(11:32:27 PM)</font> <b>goibhniu:</b></font> we just need to set the platform correctly<br/>
+<font color="#A82F2F"><font size="2">(11:33:31 PM)</font> <b>goibhniu:</b></font> I still don&apos;t understand why `uname -s` fails<br/>
+<font size="2">(11:33:49 PM)</font><b> corpix [<em>~corpix@37.204.218.0</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:34:22 PM)</font> <b>goibhniu:</b></font> or maybe it&apos;s more subtle than that<br/>
+<font color="#A82F2F"><font size="2">(11:34:35 PM)</font> <b>goibhniu:</b></font> do you understand what&apos;s happening there?<br/>
+<font color="#A82F2F"><font size="2">(11:41:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 2 new commits to master: http://git.io/Z19lag<br/>
+<font color="#A82F2F"><font size="2">(11:41:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f1b9f88 William A. Kennington III: kernel: 3.10.60 -&gt; 3.10.61<br/>
+<font color="#A82F2F"><font size="2">(11:41:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 30597a9 William A. Kennington III: kernel: 3.12.32 -&gt; 3.12.33<br/>
+<font color="#A82F2F"><font size="2">(11:45:10 PM)</font> <b>goibhniu:</b></font> magnetophon: patchPhase = &quot;sed -i &apos;s#?= $(shell uname -s)#:= Linux#g&apos;  architecture/osclib/oscpack/Makefile&quot;; is what I have at the moment<br/>
+<font color="#062585"><font size="2">(11:47:18 PM)</font> <b>***goibhniu</b></font> isn&apos;t sure if we need any extra deps either<br/>
+<font color="#16569E"><font size="2">(11:50:34 PM)</font> <b>magnetophon:</b></font> goibhniu: I'm not following you. Mine is in the nixstore already! What is this uname proplem you are having? I'll paste my .nix<br/>
+<font color="#16569E"><font size="2">(11:54:41 PM)</font> <b>magnetophon:</b></font> goibhniu: oddly enough nixpaste seems to have stopped working, or has gotten really slow<br/>
+<font size="2">(11:55:27 PM)</font><b> krgn___ left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font size="2">(11:55:36 PM)</font><b> krgn___ [<em>~k@f055051244.adsl.alicedsl.de</em>] entered the room.</b><br/>
+<font color="#062585"><font size="2">(11:56:09 PM)</font> <b>***goibhniu</b></font> is looking forward to seeing it<br/>
+<font color="#A82F2F"><font size="2">(11:56:49 PM)</font> <b>goibhniu:</b></font> it looks like it&apos;s GPL2<br/>
+<font color="#A82F2F"><font size="2">(11:57:01 PM)</font> <b>goibhniu:</b></font> you should add yourself to lib/maintainers.nix too<br/>
+<font color="#16569E"><font size="2">(11:57:18 PM)</font> <b>magnetophon:</b></font> goibhniu: nope, I was just using it wrong... http://nixpa<span style='font-size: medium;'>ste.noip.me/</span>8uQLMmCI<br/>
+<font color="#A82F2F"><font size="2">(11:57:50 PM)</font> <b>goibhniu:</b></font> ah, you&apos;re using rm in the patchPhase<br/>
+<font color="#A82F2F"><font size="2">(11:58:09 PM)</font> <b>goibhniu:</b></font> I think the sed line above is better, otherwise it will skip the linux section IIUC<br/>
+<font color="#A82F2F"><font size="2">(11:58:40 PM)</font> <b>goibhniu:</b></font> I don&apos;t think you need gnumake either, it&apos;s in stdenv<br/>
+<font color="#A82F2F"><font size="2">(11:58:57 PM)</font> <b>goibhniu:</b></font> that, and a bit of indentation, and we can ship it!<br/>
+<font color="#16569E"><font size="2">(11:59:11 PM)</font> <b>magnetophon:</b></font> goibhniu: i think that is what made it work, oddly, but I have to check.<br/>
+<font color="#16569E"><font size="2">(11:59:40 PM)</font> <b>magnetophon:</b></font> goibhniu: sure, I was just wondering what was different in yours, so why mine worked.<br/>
+<font color="#16569E"><font size="2">(11:59:49 PM)</font> <b>magnetophon:</b></font> about the indentation<br/>
+<font color="#A82F2F"><font size="2">(12:01:05 AM)</font> <b>goibhniu:</b></font> http://sprunge.us/UWNR<br/>
+<font size="2">(12:02:10 AM)</font><b> jb55 [<em>~jb55@208.98.200.98</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(12:03:50 AM)</font> <b>magnetophon:</b></font> goibhniu: testing mine with your sed line now. Does yours work?<br/>
+<font color="#A82F2F"><font size="2">(12:03:57 AM)</font> <b>goibhniu:</b></font> yup<br/>
+<font color="#A82F2F"><font size="2">(12:04:10 AM)</font> <b>goibhniu:</b></font> well, it builds and installs, I don&apos;t know how to test it<br/>
+<font color="#16569E"><font size="2">(12:04:28 AM)</font> <b>magnetophon:</b></font> goibhniu: so what was that uname problem you where having?<br/>
+<font color="#16569E"><font size="2">(12:05:12 AM)</font> <b>magnetophon:</b></font> goibhniu: a quick test would be &quot;faust -v&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:05:15 AM)</font> <b>goibhniu:</b></font> magnetophon: see the patchPhase? ... somehow $(shell uname -s) isn&apos;t returning Linux<br/>
+<font color="#A82F2F"><font size="2">(12:05:32 AM)</font> <b>goibhniu:</b></font> which is why it was trying to build the win32 stuff<br/>
+<font color="#A82F2F"><font size="2">(12:05:58 AM)</font> <b>goibhniu:</b></font> `faust -v` looks convincing<br/>
+<font size="2">(12:08:13 AM)</font><b> JagaJaga left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:08:17 AM)</font> <b>goibhniu:</b></font> magnetophon: is this yours? http://www.magnetophon.nl<br/>
+<font color="#16569E"><font size="2">(12:08:22 AM)</font> <b>magnetophon:</b></font> goibhniu: great. So todo: file a bugreport on the uname -s thing, add myself to the maintainers in the two places, and do a pull request. Did I miss anything?<br/>
+<font color="#16569E"><font size="2">(12:08:29 AM)</font> <b>magnetophon:</b></font> goibhniu: yup<br/>
+<font color="#A82F2F"><font size="2">(12:09:12 AM)</font> <b>goibhniu:</b></font> and add the license<br/>
+<font color="#A82F2F"><font size="2">(12:09:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ehmry opened pull request #5076: cjdns: update 20141023 -&gt; 20141121 (master...cjdns) http://git.io/7iG4cg<br/>
+<font size="2">(12:10:06 AM)</font><b> ajhager left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:10:20 AM)</font> <b>goibhniu:</b></font> magnetophon: sweet! that&apos;s funny, I was thinking of packaging some artyfx stuff this evening, and was checking out your studio from a link there :D<br/>
+<font color="#16569E"><font size="2">(12:10:22 AM)</font> <b>magnetophon:</b></font> goibhniu: this is me too, some faust and puredata code: https://github.com/magnetophon<br/>
+<font size="2">(12:10:41 AM)</font><b> dysinger left the room (quit: Quit: dysinger).</b><br/>
+<font color="#A82F2F"><font size="2">(12:10:52 AM)</font> <b>goibhniu:</b></font> excellent, have you got some music online?<br/>
+<font color="#16569E"><font size="2">(12:11:14 AM)</font> <b>magnetophon:</b></font> goibhniu: ah, so you found some of that faust code too, indirectly.. :D<br/>
+<font size="2">(12:11:18 AM)</font><b> ajhager [<em>~ajhager@99-8-18-142.lightspeed.iplsin.sbcglobal.net</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(12:11:53 AM)</font> <b>magnetophon:</b></font> goibhniu: http://www.magnetophon.nl/listen.html<br/>
+<font color="#A82F2F"><font size="2">(12:12:52 AM)</font> <b>goibhniu:</b></font> doh! I totally missed the big &quot;LISTEN&quot; link<br/>
+<font color="#16569E"><font size="2">(12:13:14 AM)</font> <b>magnetophon:</b></font> goibhniu: that's stuff I recorded and mixed. My own (not as good) music is here: http://www.magnetophon.nl/sounds/magnetophon/<br/>
+<font color="#A82F2F"><font size="2">(12:13:45 AM)</font> <b>goibhniu:</b></font> ach, it&apos;s amazing!<br/>
+<font size="2">(12:14:19 AM)</font><b> sogatori left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#16569E"><font size="2">(12:15:18 AM)</font> <b>magnetophon:</b></font> goibhniu: thank you!<br/>
+<font color="#16569E"><font size="2">(12:15:35 AM)</font> <b>magnetophon:</b></font> goibhniu: cool, so you know about audio and nixos. I was wondering, to what degree is the realtime stuff merged into the mainline (nixos) kernel?<br/>
+<font color="#062585"><font size="2">(12:16:00 AM)</font> <b>***goibhniu</b></font> is loving Bjoety<br/>
+<font color="#A82F2F"><font size="2">(12:16:09 AM)</font> <b>goibhniu:</b></font> ah, I&apos;ve never tried the realtime kernel stuff<br/>
+<font color="#16569E"><font size="2">(12:16:23 AM)</font> <b>magnetophon:</b></font> goibhniu: thanks a lot!<br/>
+<font color="#A82F2F"><font size="2">(12:16:29 AM)</font> <b>pmade:</b></font> Is there a Wiki page or FAQ that describes the version number scheme?<br/>
+<font color="#A82F2F"><font size="2">(12:16:43 AM)</font> <b>goibhniu:</b></font> I was under the impression/illusion(?) that it wasn&apos;t so important now, but I don&apos;t do any serious audio stuff either<br/>
+<font color="#A82F2F"><font size="2">(12:17:05 AM)</font> <b>henrytill:</b></font> magnetophon: the stuff on the very bottom of this page is helpful: https://nixos.org/wiki/Audio_HOWTO<br/>
+<font color="#16569E"><font size="2">(12:17:09 AM)</font> <b>magnetophon:</b></font> pmade: you mean the codes in front of package names in the store?<br/>
+<font color="#A82F2F"><font size="2">(12:17:09 AM)</font> <b>goibhniu:</b></font> magnetophon: but it is pretty easy to add kernel variants, if you know what to do<br/>
+<font color="#A82F2F"><font size="2">(12:17:51 AM)</font> <b>pmade:</b></font> I mean the OS version numbers.  They look like Ubuntu numbers, but I don&apos;t know how those work either.  E.g., what the different numbers mean.<br/>
+<font color="#16569E"><font size="2">(12:17:59 AM)</font> <b>magnetophon:</b></font> henrytill: thanks. that page was the reason why I decided to install nixos in the first place :)<br/>
+<font color="#A82F2F"><font size="2">(12:18:06 AM)</font> <b>pmade:</b></font> Stable, LTS, etc.<br/>
+<font color="#A82F2F"><font size="2">(12:18:14 AM)</font> <b>ruediger:</b></font> pmade: year.month<br/>
+<font color="#A82F2F"><font size="2">(12:18:23 AM)</font> <b>pmade:</b></font> Ah, that makes sense.<br/>
+<font color="#A82F2F"><font size="2">(12:18:41 AM)</font> <b>henrytill:</b></font> i&apos;ve not used a rt kernel with nixos, but i&apos;ve gotten stable low latency using supercollider + jack using those settings<br/>
+<font color="#A82F2F"><font size="2">(12:18:41 AM)</font> <b>ruediger:</b></font> pmade: YY.MM<br/>
+<font color="#16569E"><font size="2">(12:18:44 AM)</font> <b>magnetophon:</b></font> pmade: LTS is an ubuntu thing. means long time support<br/>
+<font color="#A82F2F"><font size="2">(12:19:54 AM)</font> <b>ruediger:</b></font> stable is a debian thing.  It means the last release.  LTS is an Ubuntu thing meaning long term support.  Means, that release (every 2 years) is maintained for a longer period.  (regular releases are only updated for ~8 month or so)<br/>
+<font color="#16569E"><font size="2">(12:20:22 AM)</font> <b>magnetophon:</b></font> henrytill, goibhniu: I like to write software untill it maxes out my CPU, while running at 64 samples latency... realtime kernells are good for that :D<br/>
+<font color="#A82F2F"><font size="2">(12:20:47 AM)</font> <b>henrytill:</b></font> magnetophon: heard<br/>
+<font color="#A82F2F"><font size="2">(12:20:54 AM)</font> <b>pmade:</b></font> I&apos;m coming from many years of using Debian, so I&apos;m just trying to wrap my head around NixOS.  I&apos;ll spend more time with the manual.<br/>
+<font color="#A82F2F"><font size="2">(12:20:59 AM)</font> <b>RchrdB:</b></font> henrytill: damn. Damn! DAMN! One of the entries on that sound wiki (how to make Linux blacklist one of two Intel sound cards) took me like 2 days to get a solution for on my Fedora laptop a while back<br/>
+<font color="#A82F2F"><font size="2">(12:21:51 AM)</font> <b>henrytill:</b></font> RchrdB: yeah, that page was a godsend<br/>
+<font color="#062585"><font size="2">(12:21:52 AM)</font> <b>***goibhniu</b></font> thinks NixOS has a lot to offer audio producers<br/>
+<font color="#A82F2F"><font size="2">(12:22:12 AM)</font> <b>RchrdB:</b></font> henrytill: I ended up using the &quot;nuclear&quot; option of writing a udev rule to make Linux blacklist the offending device by its  location<br/>
+<font color="#16569E"><font size="2">(12:22:23 AM)</font> <b>magnetophon:</b></font> RchrdB: Yeah, Ive been getting amazingly quick results with nixos too.  I like!<br/>
+<font color="#A82F2F"><font size="2">(12:22:27 AM)</font> <b>henrytill:</b></font> RchrdB: never fun<br/>
+<font size="2">(12:22:29 AM)</font><b> dysinger [<em>~dysinger@cpe-24-94-75-243.hawaii.res.rr.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:22:42 AM)</font> <b>goibhniu:</b></font> e.g. you could export a closure of the system you used for an album ... in case you ever want to revisit it years later<br/>
+<font color="#A82F2F"><font size="2">(12:23:12 AM)</font> <b>henrytill:</b></font> magnetophon: i may have a crack at packaging a rt kernel at some point<br/>
+<font color="#A82F2F"><font size="2">(12:23:19 AM)</font> <b>RchrdB:</b></font> Thanks for linking that.<br/>
+<font color="#062585"><font size="2">(12:23:58 AM)</font> <b>***henrytill</b></font> laments the uncertain future of the rt patches<br/>
+<font color="#A82F2F"><font size="2">(12:24:06 AM)</font> <b>goibhniu:</b></font> henrytill: have you got a link to some music too? :D<br/>
+<font color="#16569E"><font size="2">(12:24:16 AM)</font> <b>magnetophon:</b></font> goibhniu: that is one of the reasons I got interested nixos: reliable and tiny  backups of your setup!<br/>
+<font color="#A82F2F"><font size="2">(12:24:28 AM)</font> <b>henrytill:</b></font> goibhniu: not at the moment<br/>
+<font color="#16569E"><font size="2">(12:24:46 AM)</font> <b>magnetophon:</b></font> henrytill: what is this uncertainty you speak of?<br/>
+<font color="#A82F2F"><font size="2">(12:24:53 AM)</font> <b>RchrdB:</b></font> I remember seeing some blog pages around 2010 by some person explaining that they managed to get DOOM3 running on a box slower than the officially recommended spec by using an RT kernel<br/>
+<font size="2">(12:25:04 AM)</font><b> khumba [<em>~khumba@50.66.0.34</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:25:13 AM)</font> <b>RchrdB:</b></font> *smoothly running, I mean.<br/>
+<font color="#A82F2F"><font size="2">(12:25:19 AM)</font> <b>henrytill:</b></font> magnetophon: http://lwn.net/Articles/617140/<br/>
+<font color="#A82F2F"><font size="2">(12:25:20 AM)</font> <b>goibhniu:</b></font> henrytill: ah cool<br/>
+<font color="#16569E"><font size="2">(12:25:27 AM)</font> <b>magnetophon:</b></font> henrytill: thanks<br/>
+<font color="#A82F2F"><font size="2">(12:26:12 AM)</font> <b>henrytill:</b></font> magnetophon: tl;dr -&gt; it needs more financial/material support to be a viable project<br/>
+<font color="#A82F2F"><font size="2">(12:26:28 AM)</font> <b>henrytill:</b></font> magnetophon: which it deserves given the number of big corporate users<br/>
+<font color="#16569E"><font size="2">(12:27:07 AM)</font> <b>magnetophon:</b></font> henrytill: I heard it's widely used in high speed trading, how can it lack funding?<br/>
+<font color="#062585"><font size="2">(12:27:55 AM)</font> <b>***magnetophon</b></font> has heard stories of bankers looking only at the short term, but this beats everything...<br/>
+<font color="#A82F2F"><font size="2">(12:28:05 AM)</font> <b>henrytill:</b></font> magnetophon: unfortunate, i know<br/>
+<font size="2">(12:28:14 AM)</font><b> joneshf-laptop [<em>~joneshf@campus-017-118.ucdavis.edu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:28:32 AM)</font> <b>pharpend:</b></font> is there somewhere the default configuration.nix file is online?<br/>
+<font color="#A82F2F"><font size="2">(12:28:33 AM)</font> <b>henrytill:</b></font> magnetophon: i do think the mainline kernel has improved quite a bit though<br/>
+<font color="#A82F2F"><font size="2">(12:28:44 AM)</font> <b>ruediger:</b></font> magnetophon: people taking it for granted<br/>
+<font color="#A82F2F"><font size="2">(12:28:58 AM)</font> <b>pharpend:</b></font> I would like to edit it on my normal computer with emacs, and then download it onto the machine on which I am installing nixos<br/>
+<font color="#A82F2F"><font size="2">(12:29:36 AM)</font> <b>henrytill:</b></font> magnetophon: (in terms of realtime performance)<br/>
+<font color="#A82F2F"><font size="2">(12:29:38 AM)</font> <b>goibhniu:</b></font> pharpend: generating it on the target machine should detect the hardware etc.<br/>
+<font size="2">(12:29:50 AM)</font><b> Lowl3v3l [<em>~Lowl3v3l@2a02:810a:8380:92c:f966:71d:c415:5dd1</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:30:33 AM)</font> <b>henrytill:</b></font> pharpend: you can use nixos-generate-config --dir ~/tmp or something along those lines<br/>
+<font color="#16569E"><font size="2">(12:30:44 AM)</font> <b>magnetophon:</b></font> It seems like there is quite an audio community on nixos, isn't there? Or at least some quite active packagers!<br/>
+<font color="#A82F2F"><font size="2">(12:31:10 AM)</font> <b>pharpend:</b></font> goibhniu: you know what I can do, generate it on the target machine, put it on my server, then download it onto my normal computer<br/>
+<font color="#A82F2F"><font size="2">(12:31:21 AM)</font> <b>goibhniu:</b></font> pharpend: sounds like a plan!<br/>
+<font color="#A82F2F"><font size="2">(12:31:32 AM)</font> <b>pharpend:</b></font> henrytill: my working machine is running gentoo, so that won&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(12:31:33 AM)</font> <b>henrytill:</b></font> pharpend: (see my last message)<br/>
+<font color="#A82F2F"><font size="2">(12:31:38 AM)</font> <b>henrytill:</b></font> pharpend: ah<br/>
+<font color="#062585"><font size="2">(12:31:47 AM)</font> <b>***goibhniu</b></font> knows a few people who do music on NixOS ... but not loads and loads<br/>
+<font color="#A82F2F"><font size="2">(12:31:53 AM)</font> <b>pharpend:</b></font> well, it&apos;s gentoo, so odds are, nothing will work<br/>
+<font size="2">(12:31:53 AM)</font><b> npcomp_ is now known as npcomp</b><br/>
+<font color="#A82F2F"><font size="2">(12:32:01 AM)</font> <b>henrytill:</b></font> heh<br/>
+<font color="#062585"><font size="2">(12:32:56 AM)</font> <b>***goibhniu</b></font> has been trying to promote NixOS on #opensourcemusicans for ages ... to no avail<br/>
+<font color="#16569E"><font size="2">(12:33:50 AM)</font> <b>magnetophon:</b></font> goibhniu: so who made all those packages?<br/>
+<font color="#A82F2F"><font size="2">(12:34:02 AM)</font> <b>pharpend:</b></font> I know this isn&apos;t high priority, but y&apos;all ought to have a graphical option besides KDE. KDE is slow as hell<br/>
+<font color="#A82F2F"><font size="2">(12:34:14 AM)</font> <b>henrytill:</b></font> goibhniu: that&apos;s a great idea about copying closures for seperate musical projects, btw<br/>
+<font color="#A82F2F"><font size="2">(12:34:14 AM)</font> <b>pharpend:</b></font> I guess I&apos;m used to tiling window manager lala land, but still<br/>
+<font color="#A82F2F"><font size="2">(12:34:29 AM)</font> <b>henrytill:</b></font> pharpend: you don&apos;t have to use KDE<br/>
+<font color="#A82F2F"><font size="2">(12:34:33 AM)</font> <b>goibhniu:</b></font> I&apos;d say I did a fair few ... it&apos;s mostly really easy to make nix packages, you got a bit unlucky with faust magnetophon :D<br/>
+<font color="#A82F2F"><font size="2">(12:34:43 AM)</font> <b>henrytill:</b></font> pharpend: there&apos;s XFCE, Gnome, etc<br/>
+<font color="#A82F2F"><font size="2">(12:34:53 AM)</font> <b>henrytill:</b></font> pharpend: i use a barebones xmonad setup myself<br/>
+<font color="#A82F2F"><font size="2">(12:35:19 AM)</font> <b>pharpend:</b></font> henrytill: i&apos;m aware. the minimal disk is horrible, so I&apos;m doing the installation with the graphical live medium. I&apos;m saying you should have a live medium with something graphical, yet reasonably lightweight, like lxde or xfce<br/>
+<font color="#A82F2F"><font size="2">(12:35:19 AM)</font> <b>henrytill:</b></font> pharpend: plenty of people using awesome, i3, etc<br/>
+<font color="#A82F2F"><font size="2">(12:35:23 AM)</font> <b>pharpend:</b></font> I use i3<br/>
+<font color="#A82F2F"><font size="2">(12:35:51 AM)</font> <b>pharpend:</b></font> I used to use xmonad, but it just isn&apos;t as good<br/>
+<font color="#16569E"><font size="2">(12:36:23 AM)</font> <b>magnetophon:</b></font> goibhniu: Well, I've never been able to make a debian package in almost ten years, and on nixos I made one on my second day, so I'd say I got lucky ;) <br/>
+<font color="#16569E"><font size="2">(12:36:37 AM)</font> <b>magnetophon:</b></font> pharpend: i3 ftw<br/>
+<font color="#A82F2F"><font size="2">(12:36:37 AM)</font> <b>henrytill:</b></font> pharpend: so i&apos;ve heard<br/>
+<font size="2">(12:37:22 AM)</font><b> goibhniu1 [<em>~goibhniu@e181005112.adsl.alicedsl.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:37:24 AM)</font> <b>henrytill:</b></font> pharpend: a minimal desktop is only a nixos-rebuild and garbage collection away<br/>
+<font color="#A82F2F"><font size="2">(12:37:46 AM)</font> <b>o11c:</b></font> magnetophon: nix and gentoo are like that<br/>
+<font color="#A82F2F"><font size="2">(12:38:01 AM)</font> <b>o11c:</b></font> and if you complain to Debian about their process, they just say &quot;it&apos;s complicated because reasons!&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:38:05 AM)</font> <b>henrytill:</b></font> pharpend: seems silly to have to package different installers based on user preference<br/>
+<font color="#A82F2F"><font size="2">(12:38:13 AM)</font> <b>o11c:</b></font> completely ignoring the fact that both Gentoo and Nix have binary packages<br/>
+<font size="2">(12:38:37 AM)</font><b> goibhniu left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#16569E"><font size="2">(12:39:10 AM)</font> <b>magnetophon:</b></font> o11c: I guess their way has quite some procedures for quyualitycontroll and such, but still...<br/>
+<font color="#A82F2F"><font size="2">(12:39:31 AM)</font> <b>o11c:</b></font> nah, it&apos;s not even that<br/>
+<font color="#A82F2F"><font size="2">(12:39:45 AM)</font> <b>henrytill:</b></font> o11c, magnetophon: they have procedures for procedures<br/>
+<font color="#A82F2F"><font size="2">(12:39:45 AM)</font> <b>o11c:</b></font> part if it is cultural<br/>
+<font color="#16569E"><font size="2">(12:39:48 AM)</font> <b>magnetophon:</b></font> o11c: speaking of quality controll: spelling...<br/>
+<font color="#A82F2F"><font size="2">(12:39:57 AM)</font> <b>o11c:</b></font> in Debian it is strongly encouraged to modify the package from upstream<br/>
+<font color="#A82F2F"><font size="2">(12:40:01 AM)</font> <b>o11c:</b></font> which, as an upstream, sucks<br/>
+<font color="#A82F2F"><font size="2">(12:40:24 AM)</font> <b>o11c:</b></font> in Gentoo, most packages only have patches that are backported from upstream<br/>
+<font color="#16569E"><font size="2">(12:40:38 AM)</font> <b>magnetophon:</b></font> o11c: encouraged as in not discouraged, or actualy encouraged? Why?<br/>
+<font size="2">(12:40:46 AM)</font><b> civodul left the room (quit: Quit: ERC Version 5.3 (IRC client for Emacs)).</b><br/>
+<font color="#A82F2F"><font size="2">(12:40:46 AM)</font> <b>o11c:</b></font> actually encourage<br/>
+<font color="#16569E"><font size="2">(12:41:10 AM)</font> <b>magnetophon:</b></font> o11c: why?<br/>
+<font color="#16569E"><font size="2">(12:41:57 AM)</font> <b>magnetophon:</b></font> o11c: otoh: no need to go into that; we've got nixos... <br/>
+<font color="#A82F2F"><font size="2">(12:43:13 AM)</font> <b>o11c:</b></font> if I understood why, it wouldn&apos;t be such a frustration<br/>
+<font size="2">(12:45:53 AM)</font><b> sigmundv [<em>~sigmundv@178.167.254.151.threembb.ie</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:46:37 AM)</font> <b>pharpend:</b></font> henrytill: It&apos;s not so much a matter of preference as it is a matter of practicality. I, for instance, use a non-standard keyboard layout, which isn&apos;t supported in the minimal installer, so I have to use the graphical installer. However, KDE is so slow, that using the graphical installer is somewhat painful (albeit less painful than using a keyboard layout I don&apos;t know)<br/>
+<font color="#A82F2F"><font size="2">(12:49:46 AM)</font> <b>henrytill:</b></font> pharpend: just out of curiosity, what&apos;s your CPU/RAM?<br/>
+<font size="2">(12:50:01 AM)</font><b> rickynils left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(12:50:18 AM)</font> <b>pharpend:</b></font> henrytill: um, 16GB ram, 3 year old i5 cpu<br/>
+<font color="#A82F2F"><font size="2">(12:50:41 AM)</font> <b>henrytill:</b></font> pharpend: surprised that the KDE experience seems slow for you<br/>
+<font size="2">(12:51:10 AM)</font><b> flazz is now known as zz_flazz</b><br/>
+<font size="2">(12:51:13 AM)</font><b> _Vi [<em>~vi@2001:470:7bd6:c000::2</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:51:18 AM)</font> <b>pharpend:</b></font> henrytill: once everything is initialized, it&apos;s fine. The startup is horribly slow, at least compared to i3<br/>
+<font color="#A82F2F"><font size="2">(12:52:20 AM)</font> <b>henrytill:</b></font> pharpend: one of my machines is 6 year old C2D with 4GB RAM and i was pleasantly surprised by the KDE desktop when I installed NixOS on it<br/>
+<font color="#A82F2F"><font size="2">(12:52:34 AM)</font> <b>henrytill:</b></font> pharpend: in terms of responsiveness<br/>
+<font color="#A82F2F"><font size="2">(12:52:45 AM)</font> <b>henrytill:</b></font> pharpend: i expected much worse<br/>
+<font color="#A82F2F"><font size="2">(12:53:00 AM)</font> <b>pharpend:</b></font> for me, 10s=slow<br/>
+<font color="#A82F2F"><font size="2">(12:53:08 AM)</font> <b>henrytill:</b></font> pharpend: fair enough<br/>
+<font color="#A82F2F"><font size="2">(12:53:14 AM)</font> <b>henrytill:</b></font> pharpend: that&apos;s boot time?<br/>
+<font color="#A82F2F"><font size="2">(12:54:00 AM)</font> <b>chirpsalot:</b></font> Hmmmm. Anyone know anything about getting hoogle to work under nix? hoogle data seems to fail: https://github.com/NixOS/cabal2nix/issues/52<br/>
+<font color="#A82F2F"><font size="2">(12:54:50 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker pushed 2 new commits to master: http://git.io/Y9yZVg<br/>
+<font color="#A82F2F"><font size="2">(12:54:51 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 52b8488 Jaka Hudoklin: Add kubernetes<br/>
+<font color="#A82F2F"><font size="2">(12:54:51 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 99ab2b1 Jaka Hudoklin: Merge pull request #4992 from offlinehacker/pkgs/kubernetes/add...<br/>
+<font color="#A82F2F"><font size="2">(12:55:18 AM)</font> <b>pharpend:</b></font> henrytill: no, just the startup time once I type start display-manager<br/>
+<font size="2">(12:59:21 AM)</font><b> joneshf-laptop left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#16569E"><font size="2">(01:00:04 AM)</font> <b>magnetophon:</b></font> goibhniu1: Under which name would you like to appear in the credits of the faust package?<br/>
+<font color="#A82F2F"><font size="2">(01:01:03 AM)</font> <b>goibhniu1:</b></font> magnetophon: ah, no need at all, but thanks!<br/>
+<font color="#16569E"><font size="2">(01:02:27 AM)</font> <b>magnetophon:</b></font> goibhniu1: well, you DID provide most of the code, so thank YOU!<br/>
+<font color="#A82F2F"><font size="2">(01:03:05 AM)</font> <b>goibhniu1:</b></font> my pleasure<br/>
+<font color="#A82F2F"><font size="2">(01:03:20 AM)</font> <b>goibhniu1:</b></font> adding yourself as a maintainer is handy<br/>
+<font color="#A82F2F"><font size="2">(01:03:28 AM)</font> <b>goibhniu1:</b></font> it means you get emails if the build fails<br/>
+<font color="#A82F2F"><font size="2">(01:03:49 AM)</font> <b>goibhniu1:</b></font> and you can easily find the packages you maintain on monitor etc.<br/>
+<font color="#16569E"><font size="2">(01:04:56 AM)</font> <b>magnetophon:</b></font> goibhniu1: will do<br/>
+<font size="2">(01:09:55 AM)</font><b> Mathnerd314 [<em>~quassel@dsl-206-53-27-58.den.pcisys.net</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(01:11:11 AM)</font> <b>magnetophon:</b></font> goibhniu1: hmm, seems like there's more work to be done on faust: it has hardcoded paths in it's easy-compilation-for-various-architectures scripts.<br/>
+<font color="#16569E"><font size="2">(01:11:42 AM)</font> <b>magnetophon:</b></font> that'll have to wait till tomorrow though. I'm getting ready for bed.<br/>
+<font color="#A82F2F"><font size="2">(01:13:58 AM)</font> <b>goibhniu1:</b></font> ahh, ok<br/>
+<font color="#062585"><font size="2">(01:14:02 AM)</font> <b>***goibhniu1</b></font> too<br/>
+<font color="#A82F2F"><font size="2">(01:14:07 AM)</font> <b>goibhniu1:</b></font> good night!<br/>
+<font size="2">(01:14:40 AM)</font><b> vizant0 left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#16569E"><font size="2">(01:14:41 AM)</font> <b>magnetophon:</b></font> goibhniu1: you too1<br/>
+<font size="2">(01:22:36 AM)</font><b> hexagoxel_ [<em>~hexagoxel@kiel-5f769494.pool.mediaWays.net</em>] entered the room.</b><br/>
+<font size="2">(01:46:37 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,213 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Tue 30 Dec 2014 02:04:53 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Tue 30 Dec 2014 02:04:53 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:04:54 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(02:04:54 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(02:05:14 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bjornfor pushed 1 new commit to release-14.12: http://git.io/t-ATKw<br/>
+<font color="#A82F2F"><font size="2">(02:05:14 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 a55eb1a Bjørn Forsman: xidel: new package...<br/>
+<font color="#A82F2F"><font size="2">(02:09:41 PM)</font> <b>Fuuzetsu:</b></font> cstrahan_: I saw you commit to strongswan expr, do you actually have it working?<br/>
+<font color="#A82F2F"><font size="2">(02:09:55 PM)</font> <b>Fuuzetsu:</b></font> (and are you on NixOS)<br/>
+<font color="#A82F2F"><font size="2">(02:54:50 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] k0ral opened pull request #5510: fast-export: update to last revision from upstream (master...fast-export) http://git.io/8sXbeQ<br/>
+<font color="#A82F2F"><font size="2">(03:23:53 PM)</font> <b>sars:</b></font> when nix-env downloads a file from a site, where does it store them?<br/>
+<font color="#A82F2F"><font size="2">(03:26:13 PM)</font> <b>iElectric:</b></font> in /nix/store/<br/>
+<font color="#A82F2F"><font size="2">(03:26:41 PM)</font> <b>viric:</b></font> http://hydra.nixos.org/jobset/nixos/release-14.04    this says &quot;with errors!&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:26:50 PM)</font> <b>viric:</b></font> is this the reason why the stable channel is not updated?<br/>
+<font color="#A82F2F"><font size="2">(03:27:03 PM)</font> <b>sars:</b></font> so to get it to recognize when i manually download a file, do i have to rename it with that identifier or something?<br/>
+<font color="#A82F2F"><font size="2">(03:27:27 PM)</font> <b>viric:</b></font> there isn&apos;t a history of this &quot;with errors!&quot;, right? Only for the last time.<br/>
+<font color="#A82F2F"><font size="2">(03:28:02 PM)</font> <b>sars:</b></font> because it umm..deleted the file that i dropped there<br/>
+<font color="#A82F2F"><font size="2">(03:28:03 PM)</font> <b>viric:</b></font> sars: use nix-prefetch-url<br/>
+<font color="#A82F2F"><font size="2">(03:28:05 PM)</font> <b>iElectric:</b></font> viric: http://hydra.nixos.org/job/nixos/release-14.04/tested#tabs-constituents<br/>
+<font color="#A82F2F"><font size="2">(03:28:06 PM)</font> <b>sars:</b></font> k, thx<br/>
+<font color="#A82F2F"><font size="2">(03:28:16 PM)</font> <b>viric:</b></font> sars: even with file:// if you want<br/>
+<font color="#A82F2F"><font size="2">(03:28:31 PM)</font> <b>viric:</b></font> that knows how to put a file in /nix/store. Never touch anything manually in /nix/store.<br/>
+<font color="#A82F2F"><font size="2">(03:29:03 PM)</font> <b>viric:</b></font> iElectric: so the channel is not updated because of the failing tests?<br/>
+<font color="#A82F2F"><font size="2">(03:29:07 PM)</font> <b>sars:</b></font> kk, thx u<br/>
+<font color="#A82F2F"><font size="2">(03:29:14 PM)</font> <b>iElectric:</b></font> viric: yes<br/>
+<font color="#A82F2F"><font size="2">(03:29:20 PM)</font> <b>iElectric:</b></font> firefox in this case<br/>
+<font color="#A82F2F"><font size="2">(03:29:27 PM)</font> <b>viric:</b></font> 22nd of december<br/>
+<font color="#A82F2F"><font size="2">(03:30:17 PM)</font> <b>viric:</b></font> the channel binaries I mean. So where is the channel pointing at?<br/>
+<font color="#A82F2F"><font size="2">(03:30:33 PM)</font> <b>benmos:</b></font> I&apos;m seeing a warning &quot;trace: Obsolete option `services.virtualbox.enable&apos; is used. It was renamed to `services.virtualboxGuest.enable&apos;.&quot; when I do a &quot;nixos-rebuild switch&quot; - even though I&apos;ve updated my configuration to use the new &apos;virtualGuest&apos; name. (Using the 14.12 branch of Nixpkgs) - anyone got any suggestions on how I could track down what&apos;s causing this?<br/>
+<font color="#A82F2F"><font size="2">(03:30:52 PM)</font> <b>viric:</b></font> ok http://nixos.org/channels/ 22nd of dec.<br/>
+<font color="#A82F2F"><font size="2">(03:31:11 PM)</font> <b>sars:</b></font> so what if my /nix/store is in a different location than where nix-prefetch-url thinks it is<br/>
+<font color="#A82F2F"><font size="2">(03:31:28 PM)</font> <b>sars:</b></font> chroot or symlink? modify its code?<br/>
+<font color="#A82F2F"><font size="2">(03:31:42 PM)</font> <b>viric:</b></font> env vars<br/>
+<font color="#A82F2F"><font size="2">(03:32:13 PM)</font> <b>sars:</b></font> ok, in it&apos;s code it&apos;s grabbing NIX_DOWNLOAD_CACHE<br/>
+<font color="#A82F2F"><font size="2">(03:32:23 PM)</font> <b>sars:</b></font> thx<br/>
+<font color="#A82F2F"><font size="2">(03:32:38 PM)</font> <b>benmos:</b></font> NIX_STORE_DIR ?<br/>
+<font color="#A82F2F"><font size="2">(03:32:53 PM)</font> <b>sars:</b></font> another thing to add to my todo to update manpage w/ list of env vars<br/>
+<font size="2">(03:33:10 PM)</font><b> phreedom_ is now known as phreedom</b><br/>
+<font color="#A82F2F"><font size="2">(03:33:26 PM)</font> <b>sars:</b></font> benmos: there&apos;s no reference to that string even in nix-prefetch-url<br/>
+<font color="#A82F2F"><font size="2">(03:33:39 PM)</font> <b>viric:</b></font> iElectric: how did you get to the /tested?<br/>
+<font color="#A82F2F"><font size="2">(03:33:51 PM)</font> <b>benmos:</b></font> sars: ok - I just saw it at: http://nixos.org/nix/manual/#sec-common-env<br/>
+<font color="#A82F2F"><font size="2">(03:33:55 PM)</font> <b>sars:</b></font> i could start looking through the modules it &apos;use&apos;s if you&apos;re sure<br/>
+<font color="#A82F2F"><font size="2">(03:34:04 PM)</font> <b>sars:</b></font> k, lemme check just to be sure. thx<br/>
+<font color="#A82F2F"><font size="2">(03:34:54 PM)</font> <b>benmos:</b></font> well, code is of course the ultimate arbiter of truth ;-)<br/>
+<font color="#A82F2F"><font size="2">(03:34:56 PM)</font> <b>viric:</b></font> iElectric: ah job tested<br/>
+<font color="#A82F2F"><font size="2">(03:35:21 PM)</font> <b>viric:</b></font> sars: nix-prefetch-url calls nix pieces that use common env vars<br/>
+<font color="#A82F2F"><font size="2">(03:36:18 PM)</font> <b>benmos:</b></font> For the &quot;services.virtualbox.enable&quot; thing, I see the warning even if I remove all references to virtualbox from my /etc/nixos/configuration.nix ... which puzzles me. (And I am editing the right file as inserting syntax errors in it trips it up)<br/>
+<font color="#A82F2F"><font size="2">(03:36:51 PM)</font> <b>sars:</b></font> benmos: you&apos;re right. in Nix/Config.pm is where it defaults all the vars that are used and it grabs NIX_STORE_DIR from the env<br/>
+<font color="#A82F2F"><font size="2">(03:37:00 PM)</font> <b>benmos:</b></font> cool<br/>
+<font color="#A82F2F"><font size="2">(03:37:09 PM)</font> <b>sars:</b></font> viric: what/where are the common env vars?<br/>
+<font color="#A82F2F"><font size="2">(03:37:15 PM)</font> <b>sars:</b></font> _common_ rather<br/>
+<font color="#A82F2F"><font size="2">(03:37:36 PM)</font> <b>viric:</b></font> man nix-store<br/>
+<font color="#A82F2F"><font size="2">(03:38:27 PM)</font> <b>sars:</b></font> ah awesome. thx again<br/>
+<font color="#A82F2F"><font size="2">(03:38:56 PM)</font> <b>viric:</b></font> make sure that NIX_STORE_DIR and NIX_STATE_DIR point to the same tree<br/>
+<font color="#A82F2F"><font size="2">(03:39:04 PM)</font> <b>sars:</b></font> it&apos;s taken me about 4 days through get through installing this on a laptop, so i have a list of work to do to give back so that others don&apos;t have to suffer<br/>
+<font color="#A82F2F"><font size="2">(03:39:46 PM)</font> <b>sars:</b></font> k<br/>
+<font color="#A82F2F"><font size="2">(03:39:49 PM)</font> <b>viric:</b></font> maybe you didn&apos;t take the easiest paths to solve your problems<br/>
+<font color="#A82F2F"><font size="2">(03:40:07 PM)</font> <b>sars:</b></font> i swear i pretty much followed the tutorial<br/>
+<font color="#A82F2F"><font size="2">(03:40:13 PM)</font> <b>sars:</b></font> the first time tho, i switched my swap into lvm<br/>
+<font color="#A82F2F"><font size="2">(03:40:23 PM)</font> <b>sars:</b></font> and then the emergency shell kept kicking in<br/>
+<font color="#A82F2F"><font size="2">(03:40:31 PM)</font> <b>sars:</b></font> re-entering itself anyways<br/>
+<font color="#A82F2F"><font size="2">(03:40:53 PM)</font> <b>sars:</b></font> then i insisted on having kermit as part of my systempackages<br/>
+<font color="#A82F2F"><font size="2">(03:40:58 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra closed pull request #5507: Add systemd.user.timers (master...systemd-user-timers) http://git.io/kVkqpw<br/>
+<font color="#A82F2F"><font size="2">(03:41:11 PM)</font> <b>sars:</b></font> so i played aroudn in the language to add the override for the latest kermit w/ the correct url<br/>
+<font color="#A82F2F"><font size="2">(03:42:01 PM)</font> <b>sars:</b></font> i also had wanted headers from a kernel so i added a system pkg that included linux-3.6-rpi<br/>
+<font color="#A82F2F"><font size="2">(03:42:06 PM)</font> <b>sars:</b></font> which it had tried to build<br/>
+<font color="#A82F2F"><font size="2">(03:42:21 PM)</font> <b>sars:</b></font> and failing partway through, the install would term<br/>
+<font color="#A82F2F"><font size="2">(03:42:24 PM)</font> <b>sars:</b></font> etc<br/>
+<font color="#A82F2F"><font size="2">(03:42:38 PM)</font> <b>sars:</b></font> the installer could be made modular as a fix<br/>
+<font color="#A82F2F"><font size="2">(03:42:59 PM)</font> <b>viric:</b></font> do you install to a raspberry pi?<br/>
+<font color="#A82F2F"><font size="2">(03:43:09 PM)</font> <b>sars:</b></font> nope<br/>
+<font color="#A82F2F"><font size="2">(03:43:12 PM)</font> <b>sars:</b></font> but i want the headers<br/>
+<font color="#A82F2F"><font size="2">(03:43:15 PM)</font> <b>sars:</b></font> so i can cross-compile<br/>
+<font color="#A82F2F"><font size="2">(03:43:18 PM)</font> <b>sars:</b></font> but i realized that mistake<br/>
+<font color="#A82F2F"><font size="2">(03:43:26 PM)</font> <b>sars:</b></font> so i removed it because it was not too important<br/>
+<font color="#A82F2F"><font size="2">(03:43:39 PM)</font> <b>sars:</b></font> the next thing was that i had updated my channels to the latest one at the url<br/>
+<font color="#A82F2F"><font size="2">(03:43:45 PM)</font> <b>sars:</b></font> not realizing that it&apos;s actually unstable<br/>
+<font color="#A82F2F"><font size="2">(03:43:48 PM)</font> <b>viric:</b></font> there is a system to cross-compile things<br/>
+<font color="#A82F2F"><font size="2">(03:44:09 PM)</font> <b>sars:</b></font> yeah there usually is. ;)<br/>
+<font color="#A82F2F"><font size="2">(03:44:11 PM)</font> <b>viric:</b></font> which does not work by putting kernel headers into systemPackages<br/>
+<font color="#A82F2F"><font size="2">(03:44:40 PM)</font> <b>sars:</b></font> yea, i figured it&apos;d just drop the headers that i care about into a directory that i could set my include dir too<br/>
+<font color="#A82F2F"><font size="2">(03:49:30 PM)</font> <b>sars:</b></font> so hey, nixos-install wants to download to /nix/store/821xq4fwx0pdkix0z4x3lizanikxms10-mutt-1.5.22.tar.gz; nix-prefetch-url does /mnt/nix/store/vgsqzv81yyaimgbaa8yh4kw590mlsjvk-mutt-1.5.22.tar.gz; one of it&apos;s arguments lets me specify the hash. i take it i need to convert those letters into the actual hash value?<br/>
+<font color="#A82F2F"><font size="2">(03:50:08 PM)</font> <b>sars:</b></font> is there a proper way to determine where nixos-install/nix-env is to fetch it&apos;s file?<br/>
+<font color="#A82F2F"><font size="2">(03:59:59 PM)</font> <b>zmbmartin:</b></font> I am trying to get nixos installed on my macbook pro under virtualbox. The fonts are ugly and really big.<br/>
+<font color="#A82F2F"><font size="2">(04:00:55 PM)</font> <b>zmbmartin:</b></font> I added the services.virtualboxGuest.enable = true;<br/>
+<font color="#A82F2F"><font size="2">(04:01:17 PM)</font> <b>zmbmartin:</b></font> Fonts are slightly blurred and ugly as well.<br/>
+<font color="#A82F2F"><font size="2">(04:03:57 PM)</font> <b>iElectric:</b></font> using 14.12?<br/>
+<font color="#A82F2F"><font size="2">(04:04:01 PM)</font> <b>sars:</b></font> ok, so i accomplished prefetching a url via writing a quick perl oneliner to add my file to the store with the correct path that nixos-install demands. hopefully it picks it up this time... :)<br/>
+<font size="2">(04:05:23 PM)</font><b> niksnut [<em>~eelco@ec2-54-228-213-75.eu-west-1.compute.amazonaws.com</em>] entered the room.</b><br/>
+<font size="2">(04:08:33 PM)</font><b> vcunat [<em>~admin@nat-34.starnet.cz</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:09:15 PM)</font> <b>ttuegel:</b></font> does anyone know why our gstreamer-1.0 says it&apos;s gstreamer-0.10.36?<br/>
+<font color="#A82F2F"><font size="2">(04:09:50 PM)</font> <b>vcunat:</b></font> ttuegel: ugh, where?<br/>
+<font color="#A82F2F"><font size="2">(04:10:05 PM)</font> <b>vcunat:</b></font> (revision, command, etc.)<br/>
+<font color="#A82F2F"><font size="2">(04:10:27 PM)</font> <b>ttuegel:</b></font> vcunat: applications and libraries that are linked against it say they&apos;re using gstreamer 0.10.36, even though they&apos;re clearly linked against 1.4.5<br/>
+<font color="#A82F2F"><font size="2">(04:10:51 PM)</font> <b>ttuegel:</b></font> it may just be a version string bug, but i wanted to find out before i get too deep in debugging<br/>
+<font color="#A82F2F"><font size="2">(04:11:05 PM)</font> <b>viric:</b></font> mh<br/>
+<font color="#A82F2F"><font size="2">(04:11:09 PM)</font> <b>viric:</b></font> http://hydra.nixos.org/build/17689092  what&apos;s this?<br/>
+<font color="#A82F2F"><font size="2">(04:11:12 PM)</font> <b>viric:</b></font> Summary: Success<br/>
+<font color="#A82F2F"><font size="2">(04:11:16 PM)</font> <b>ttuegel:</b></font> specifically, phonon-backend-gstreamer-4.8.2 and clementine-1.2.3<br/>
+<font color="#A82F2F"><font size="2">(04:11:25 PM)</font> <b>viric:</b></font> Build Steps: Failed<br/>
+<font color="#A82F2F"><font size="2">(04:11:43 PM)</font> <b>viric:</b></font> this is having weird consequences to the channel<br/>
+<font color="#A82F2F"><font size="2">(04:12:27 PM)</font> <b>vcunat:</b></font> viric: maybe a job that suceeded after being restarted<br/>
+<font color="#A82F2F"><font size="2">(04:12:42 PM)</font> <b>viric:</b></font> build steps has the failing log<br/>
+<font color="#A82F2F"><font size="2">(04:12:51 PM)</font> <b>rost:</b></font> Hello, compiling openjdk-7u65b32 fails with &quot;Error: time is more than 10 years from present:&quot; . Is this a known issue ?<br/>
+<font color="#A82F2F"><font size="2">(04:13:42 PM)</font> <b>zmbmartin:</b></font> Is there vmware-tools for nixos?<br/>
+<font color="#A82F2F"><font size="2">(04:14:45 PM)</font> <b>iElectric:</b></font> rost: could you open an issue?<br/>
+<font color="#A82F2F"><font size="2">(04:14:49 PM)</font> <b>iElectric:</b></font> mention nixos-version output<br/>
+<font color="#A82F2F"><font size="2">(04:16:48 PM)</font> <b>vcunat:</b></font> oh, that&apos;s probably connected to attempts to reduce impurities by faking date/time<br/>
+<font color="#A82F2F"><font size="2">(04:17:09 PM)</font> <b>vcunat:</b></font> some of those aren&apos;t too long in master<br/>
+<font color="#A82F2F"><font size="2">(04:17:15 PM)</font> <b>vcunat:</b></font> (~months)<br/>
+<font color="#A82F2F"><font size="2">(04:19:41 PM)</font> <b>vcunat:</b></font> ttuegel: I only see the old 0.10 gstreamer in phonon, qt4, and qt5 dependencies<br/>
+<font color="#A82F2F"><font size="2">(04:20:10 PM)</font> <b>ttuegel:</b></font> vcunat: oh, sorry, somebody reverted by update to phonon in master, i forgot that<br/>
+<font color="#A82F2F"><font size="2">(04:20:14 PM)</font> <b>vcunat:</b></font> (I just skimmed the sources, though)<br/>
+<font color="#A82F2F"><font size="2">(04:20:16 PM)</font> <b>ttuegel:</b></font> clementine, though<br/>
+<font color="#A82F2F"><font size="2">(04:20:47 PM)</font> <b>vcunat:</b></font> ttuegel: same for clementine<br/>
+<font color="#A82F2F"><font size="2">(04:20:55 PM)</font> <b>vcunat:</b></font> (even clearer; speaking of recent master)<br/>
+<font color="#A82F2F"><font size="2">(04:21:36 PM)</font> <b>ttuegel:</b></font> hm. ignore me then, i guess<br/>
+<font color="#A82F2F"><font size="2">(04:22:46 PM)</font> <b>vcunat:</b></font> I even checked the closure of the clementine derivation, and there&apos;s only the old gstreamer<br/>
+<font color="#A82F2F"><font size="2">(04:23:38 PM)</font> <b>rost:</b></font> iElectric: done<br/>
+<font color="#A82F2F"><font size="2">(04:24:16 PM)</font> <b>ttuegel:</b></font> vcunat: i&apos;m probably looking at something leftover from my attempts to upgrade all these things<br/>
+<font color="#A82F2F"><font size="2">(04:24:45 PM)</font> <b>vcunat:</b></font> I see<br/>
+<font color="#A82F2F"><font size="2">(04:25:11 PM)</font> <b>vcunat:</b></font> So these package do support newer gstreamer?<br/>
+<font color="#A82F2F"><font size="2">(04:25:15 PM)</font> <b>vcunat:</b></font> *packages<br/>
+<font color="#A82F2F"><font size="2">(04:25:20 PM)</font> <b>ttuegel:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(04:25:46 PM)</font> <b>ttuegel:</b></font> they weren&apos;t working correctly before because GST_PLUGIN_SYSTEM_PATH{,_1_0} was set incorrectly<br/>
+<font color="#A82F2F"><font size="2">(04:25:57 PM)</font> <b>ttuegel:</b></font> that&apos;s why my phonon upgrade got reverted<br/>
+<font color="#A82F2F"><font size="2">(04:26:17 PM)</font> <b>vcunat:</b></font> ah, but that&apos;s fixed already? (from the way you write it)<br/>
+<font color="#A82F2F"><font size="2">(04:26:32 PM)</font> <b>CodeWarrior:</b></font> guys, just moved to 14.12; getting Distribution/Client/Types.hs:31:8: Could not find module ‘Network.URI’ when switching. Suggests that it is a hidden package and I should add it to my .cabal file. What&apos;s the path forward here?<br/>
+<font color="#A82F2F"><font size="2">(04:27:40 PM)</font> <b>ttuegel:</b></font> vcunat: well, i&apos;m trying to fix it now<br/>
+<font color="#A82F2F"><font size="2">(04:28:02 PM)</font> <b>ttuegel:</b></font> gstreamer+phonon is just complicated<br/>
+<font color="#A82F2F"><font size="2">(04:28:51 PM)</font> <b>vcunat:</b></font> well, qt4 probably won&apos;t support gst-1.0, so it&apos;s just with qt5 I guess?<br/>
+<font color="#A82F2F"><font size="2">(04:29:28 PM)</font> <b>ttuegel:</b></font> vcunat: what does the qt version have to do with it?<br/>
+<font color="#A82F2F"><font size="2">(04:30:07 PM)</font> <b>vcunat:</b></font> qt uses gstreamer, so if you pass a different version, then the configure phase might see both<br/>
+<font color="#A82F2F"><font size="2">(04:31:12 PM)</font> <b>ttuegel:</b></font> that explains why i can&apos;t get clementine to see gst-1<br/>
+<font color="#A82F2F"><font size="2">(04:31:49 PM)</font> <b>vcunat:</b></font> ttuegel: try adding it as the first buildInput<br/>
+<font color="#A82F2F"><font size="2">(04:32:16 PM)</font> <b>vcunat:</b></font> (the order in search paths often determines what is seen first)<br/>
+<font color="#A82F2F"><font size="2">(04:33:18 PM)</font> <b>vcunat:</b></font> qt4 even propagates gstreamer<br/>
+<font color="#A82F2F"><font size="2">(04:41:26 PM)</font> <b>levi__:</b></font> Why am I getting the error &quot;&quot;error: syntax error, unexpected $end, at &quot;/etc/nixos/configuration.nix&quot;:1:1n&quot;&quot; when trying to install nixos?<br/>
+<font size="2">(04:41:57 PM)</font><b> vcunat left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:43:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 1 new commit to master: http://git.io/8L6Y6g<br/>
+<font color="#A82F2F"><font size="2">(04:43:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9b81769 Karn Kallio: openjdk : Patch to extend valid currency change dates to 20 years.<br/>
+<font color="#A82F2F"><font size="2">(04:44:06 PM)</font> <b>CodeWarrior:</b></font> well that wasn&apos;t fun. X / nvidia funk killing X.<br/>
+<font color="#A82F2F"><font size="2">(04:47:24 PM)</font> <b>levi__:</b></font> CodeWarrior: been there, done that, and have the T-shirt :-D<br/>
+<font color="#A82F2F"><font size="2">(04:48:35 PM)</font> <b>CodeWarrior:</b></font> levi__: it honestly all started when I moved up to 14.12 (see above) with cabal throwing some shit my way.<br/>
+<font color="#A82F2F"><font size="2">(04:48:57 PM)</font> <b>CodeWarrior:</b></font> so I removed my haskell packages and rebuilt; then that screwed up X<br/>
+<font color="#A82F2F"><font size="2">(04:49:29 PM)</font> <b>CodeWarrior:</b></font> so now I&apos;m on 14.04 again with haskell.<br/>
+<font size="2">(04:51:02 PM)</font><b> vcunat [<em>~admin@nat-34.starnet.cz</em>] entered the room.</b><br/>
+<font size="2">(04:55:46 PM)</font><b> levi__ left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font size="2">(04:56:56 PM)</font><b> levi__ [<em>45911501@gateway/web/freenode/ip.69.145.21.1</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:02:31 PM)</font> <b>CodeWarrior:</b></font> so then; after looking through some the irc logs for the channel; I ran across this: https://gist.github.com/Eternity-Yarr/326f1f7de84cbeb3b403<br/>
+<font color="#A82F2F"><font size="2">(05:02:48 PM)</font> <b>CodeWarrior:</b></font> which is the issue I had upon upgrading from 14.04 to 14.12<br/>
+<font color="#A82F2F"><font size="2">(05:05:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 3 new commits to staging: http://git.io/FdF-mA<br/>
+<font color="#A82F2F"><font size="2">(05:05:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging d0bad14 Alexander Kjeldaas: perl-modules: do not create perllocal.pod, for determinism<br/>
+<font color="#A82F2F"><font size="2">(05:05:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging e53471e Alexander Kjeldaas: makeInitrd: use deterministic compression<br/>
+<font color="#A82F2F"><font size="2">(05:05:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging d8c5d95 Vladimír Čunát: determinism: change some fixed timestamp to != (time_t)0...<br/>
+<font color="#A82F2F"><font size="2">(05:06:42 PM)</font> <b>levi__:</b></font> I would give both my legs to have a nix expression validator somewhere.<br/>
+<font color="#A82F2F"><font size="2">(05:07:33 PM)</font> <b>zmbmartin:</b></font> I am getting an error that option isNormalUser does not exist?<br/>
+<font color="#A82F2F"><font size="2">(05:08:07 PM)</font> <b>zmbmartin:</b></font> I tried in users.extraUsers.extra = {isNormalUser = true;…};<br/>
+<font color="#A82F2F"><font size="2">(05:08:46 PM)</font> <b>devhell:</b></font> anyone here using nixos on a thinkpad t420?<br/>
+<font color="#A82F2F"><font size="2">(05:08:57 PM)</font> <b>vcunat:</b></font> levi__: there&apos;s nix-instantiate --eval --strict, for example<br/>
+<font color="#062585"><font size="2">(05:09:37 PM)</font> <b>***CodeWarrior</b></font> tries this again.<br/>
+<font color="#A82F2F"><font size="2">(05:12:43 PM)</font> <b>levi__:</b></font> vcunat: for the love of okami amatarasu, thank you! but why would a few comments at the beginning of a file cause a parse error?<br/>
+<font color="#062585"><font size="2">(05:12:52 PM)</font> <b>***levi__</b></font> shrugs shoulders<br/>
+<font color="#A82F2F"><font size="2">(05:13:15 PM)</font> <b>vcunat:</b></font> levi__: show me the file<br/>
+<font color="#A82F2F"><font size="2">(05:13:35 PM)</font> <b>vcunat:</b></font> and it&apos;s often useful to try --show-trace in such cases<br/>
+<font color="#A82F2F"><font size="2">(05:14:18 PM)</font> <b>levi__:</b></font> vcunat: http://pastebin.com/UNkujcyx<br/>
+<font size="2">(05:16:31 PM)</font><b> CodeWarrior left the room (quit: Quit: brb).</b><br/>
+<font color="#A82F2F"><font size="2">(05:21:32 PM)</font> <b>vcunat:</b></font> levi__: my nixos-rebuild evaluates your file OK<br/>
+<font color="#A82F2F"><font size="2">(05:21:39 PM)</font> <b>vcunat:</b></font> (and would build the whole system)<br/>
+<font size="2">(05:21:43 PM)</font><b> nikogonz1 is now known as nikogonzo</b><br/>
+<font size="2">(05:24:14 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(05:50:16 PM)</font> <b>bnj:</b></font> hey there, is there a predefined account / password combination for logging in a VM created with build-vm?<br/>
+<font color="#A82F2F"><font size="2">(06:07:59 PM)</font> <b>CodeWarrior:</b></font> well that wasn&apos;t fun<br/>
+<font color="#A82F2F"><font size="2">(06:08:03 PM)</font> <b>CodeWarrior:</b></font> again.<br/>
+<font color="#A82F2F"><font size="2">(06:08:34 PM)</font> <b>CodeWarrior:</b></font> ended up blowing away the entire install and redoing it on 14.04 again; like mkfs all over again.<br/>
+<font size="2">(06:08:59 PM)</font><b> joachifm_ is now known as joachifm</b><br/>
+<font color="#A82F2F"><font size="2">(06:11:04 PM)</font> <b>zmbmartin:</b></font> which package provides more?<br/>
+<font color="#A82F2F"><font size="2">(06:11:23 PM)</font> <b>niksnut:</b></font> util-linux<br/>
+<font color="#A82F2F"><font size="2">(06:12:00 PM)</font> <b>niksnut:</b></font> uh, no<br/>
+<font color="#A82F2F"><font size="2">(06:12:48 PM)</font> <b>zmbmartin:</b></font> niksnut: That is right. I have it now. Thanks!<br/>
+<font color="#A82F2F"><font size="2">(06:13:12 PM)</font> <b>zmbmartin:</b></font> How do you know that.<br/>
+<font color="#A82F2F"><font size="2">(06:14:00 PM)</font> <b>bnj:</b></font> what&apos;s the hash function used for hashing passwords, in configuration.nix files?<br/>
+<font color="#A82F2F"><font size="2">(06:23:02 PM)</font> <b>niksnut:</b></font> zmbmartin: on NixOS, running a missing command tells you what package it is in<br/>
+<font color="#A82F2F"><font size="2">(06:24:05 PM)</font> <b>niksnut:</b></font> bnj: it&apos;s the format specified in the crypt(3) manpage<br/>
+<font color="#A82F2F"><font size="2">(06:24:08 PM)</font> <b>niksnut:</b></font> i.e. $id$salt$encrypted<br/>
+<font color="#A82F2F"><font size="2">(06:25:19 PM)</font> <b>bnj:</b></font> niksnut: thanks, will try this<br/>
+<font color="#A82F2F"><font size="2">(06:25:49 PM)</font> <b>bnj:</b></font> niksnut: any chance you know how to log in as root into a VM created with |nix-build -A vm|?<br/>
+<font color="#A82F2F"><font size="2">(06:26:10 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 2 new commits to master: http://git.io/GWxtKw<br/>
+<font color="#A82F2F"><font size="2">(06:26:10 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5f2d5fc Eelco Dolstra: Release date<br/>
+<font color="#A82F2F"><font size="2">(06:26:10 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c502369 Eelco Dolstra: Release notes<br/>
+<font color="#A82F2F"><font size="2">(06:27:47 PM)</font> <b>niksnut:</b></font> bnj: probably you need to set users.extraUsers.root.hashedPassword = &quot;&quot;;<br/>
+<font size="2">(06:28:15 PM)</font><b> vcunat left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(06:28:25 PM)</font> <b>zmbmartin:</b></font> niksnut: Hmm…. I thought I tried running more and nothing happened but maybe I didn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(06:32:43 PM)</font> <b>bnj:</b></font> niksnut: well, it doesn&apos;t work, i&apos;ll try with crypt<br/>
+<font color="#A82F2F"><font size="2">(06:32:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 1 new commit to master: http://git.io/CkrHqQ<br/>
+<font color="#A82F2F"><font size="2">(06:32:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master adf62ba Eelco Dolstra: Drop reference to obsolete ControlGroupAttribute option<br/>
+<font color="#A82F2F"><font size="2">(06:33:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 2 new commits to master: http://git.io/wuJXsg<br/>
+<font color="#A82F2F"><font size="2">(06:33:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 512d788 Eelco Dolstra: Create AMIs in the lb-nixos account<br/>
+<font color="#A82F2F"><font size="2">(06:33:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 035e502 Eelco Dolstra: Disambiguate util-linux package names<br/>
+<font color="#A82F2F"><font size="2">(06:33:09 PM)</font> <b>zmbmartin:</b></font> I am trying to manually install vmware tools. Where are the init dirs?<br/>
+<font color="#A82F2F"><font size="2">(06:37:12 PM)</font> <b>ttuegel:</b></font> bnj: you can also use mkpasswd to hash your password, it seems to &quot;just do the right thing&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:39:17 PM)</font> <b>iElectric:</b></font> we should really document that.<br/>
+<font color="#A82F2F"><font size="2">(06:42:52 PM)</font> <b>bnj:</b></font> ha, found this on the wiki https://nixos.org/wiki/NixOS:extend_NixOS<br/>
+<font color="#A82F2F"><font size="2">(06:42:56 PM)</font> <b>bnj:</b></font> and it works \o/<br/>
+<font color="#A82F2F"><font size="2">(06:43:02 PM)</font> <b>bnj:</b></font> ttuegel, niksnut, thanks anyways<br/>
+<font color="#A82F2F"><font size="2">(06:43:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 2 new commits to master: http://git.io/HoUj0w<br/>
+<font color="#A82F2F"><font size="2">(06:43:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 4df1ca0 Eelco Dolstra: Sort stuff<br/>
+<font color="#A82F2F"><font size="2">(06:43:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master cf1d9ed Eelco Dolstra: Release notes tweak<br/>
+<font color="#A82F2F"><font size="2">(06:47:19 PM)</font> <b>bnj:</b></font> is there a website for nix/nixos recipes? that could be really useful for documentation<br/>
+<font color="#A82F2F"><font size="2">(06:47:30 PM)</font> <b>bnj:</b></font> searching for examples on github is quite hard<br/>
+<font color="#A82F2F"><font size="2">(07:08:47 PM)</font> <b>_um:</b></font> !quote<br/>
+<font color="#A82F2F"><font size="2">(07:08:57 PM)</font> <b>_um:</b></font> Sorry! wrong channel.<br/>
+<font color="#A82F2F"><font size="2">(07:10:26 PM)</font> <b>petar:</b></font> I need to put an own CA certificate somewhere where all the nix-apps can find it.. but I&apos;m not really sure where.  All the certs of my Arch-install are in /etc/ssl, would that work for ~/.nix-profile/etc/ssl too?<br/>
+<font size="2">(10:37:18 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

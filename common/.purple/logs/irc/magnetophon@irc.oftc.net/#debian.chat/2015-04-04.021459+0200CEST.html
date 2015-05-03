@@ -1,0 +1,214 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Sat 04 Apr 2015 02:14:59 AM CEST on magnetophon@irc.oftc.net (irc)</title></head><body><h3>Conversation with #debian at Sat 04 Apr 2015 02:14:59 AM CEST on magnetophon@irc.oftc.net (irc)</h3>
+<font size="2">(02:15:00 AM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next | chanlogs: /msg dpkg irclog | Broken suspend with 7.8? <a href="http://deb.li/5tYG">http://deb.li/5tYG</a></b><br/>
+<font size="2">(02:15:00 AM)</font><b> Topic for #debian set by Maulkin!~maulkin@maulkin.noc.oftc.net at 04:53:46 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(02:22:00 AM)</font> <b>pwlandoll:</b></font> Hey #debian, I&apos;ve got an old desktop with a front headphone jack and a digital output in the back, and debian seems to only want to play out of the S/PDIF. What can I do to disable the s/pdif (that I will never use) and make debian output audio to the analog outputs?<br/>
+<font color="#A82F2F"><font size="2">(02:24:03 AM)</font> <b>fft:</b></font> is the headphone jack muted?  <br/>
+<font color="#A82F2F"><font size="2">(02:24:09 AM)</font> <b>fft:</b></font> might look at alsamixer<br/>
+<font size="2">(02:26:09 AM)</font><b> fsteinel is now known as Guest995</b><br/>
+<font size="2">(02:26:09 AM)</font><b> Guest995 is now known as Guest996</b><br/>
+<font color="#A82F2F"><font size="2">(02:30:41 AM)</font> <b>Chanku:</b></font> I&apos;m back<br/>
+<font color="#A82F2F"><font size="2">(02:31:05 AM)</font> <b>Chanku:</b></font> ended up having to re-install the correct headers and stuff so I could use the nvidia graphics driver...<br/>
+<font color="#A82F2F"><font size="2">(02:31:28 AM)</font> <b>Chanku:</b></font> somiaj<br/>
+<font color="#A82F2F"><font size="2">(02:41:39 AM)</font> <b>somiaj:</b></font> Chanku: non-free firmware sometimes needs updated too. anyways, can you mount your cddrom now?<br/>
+<font color="#A82F2F"><font size="2">(02:41:46 AM)</font> <b>Chanku:</b></font> Nop<br/>
+<font color="#A82F2F"><font size="2">(02:41:47 AM)</font> <b>Chanku:</b></font> *Nope<br/>
+<font color="#A82F2F"><font size="2">(02:42:32 AM)</font> <b>Chanku:</b></font> Wodim --devices now gives this: Cannot open SCSI driver! For possible targets try &apos;wodim --devices&apos; or &apos;wodim -scanbus&apos;.For possible transport specifiers try &apos;wodim dev=help&apos;.For IDE/ATAPI devices configuration, see the file README.ATAPI.setup from the wodim documentation.<br/>
+<font color="#A82F2F"><font size="2">(02:42:45 AM)</font> <b>somiaj:</b></font> yea I still think hardware, could be just a bad cable, maybe change it from master to slave. But I can&apos;t think of anything else. It could still be a driver issue, but I only found a few hits that suggested that and my experience with core things like pata and sata is that is rarely the case.<br/>
+<font color="#A82F2F"><font size="2">(02:43:00 AM)</font> <b>somiaj:</b></font> Chanku: dmesg | grep CD-ROM<br/>
+<font color="#A82F2F"><font size="2">(02:43:11 AM)</font> <b>somiaj:</b></font> Chanku: do you still see the line that says it assigned your cdrom to a scsi device?<br/>
+<font color="#A82F2F"><font size="2">(02:43:15 AM)</font> <b>Chanku:</b></font> nope<br/>
+<font color="#A82F2F"><font size="2">(02:43:33 AM)</font> <b>Chanku:</b></font> Nothing<br/>
+<font color="#A82F2F"><font size="2">(02:54:43 AM)</font> <b>pwlandoll:</b></font> @ fft Nothing&apos;s muted. volume buttons control the Digital Output (S/PDIF)<br/>
+<font color="#A82F2F"><font size="2">(02:56:01 AM)</font> <b>somiaj:</b></font> pwlandoll: can you paste the output of aplay -l at paste.debian.org<br/>
+<font color="#A82F2F"><font size="2">(02:56:38 AM)</font> <b>somiaj:</b></font> sorry paste.debian.net<br/>
+<font size="2">(02:58:00 AM)</font><b> mode (+l 695) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:07:33 AM)</font> <b>pwlandoll:</b></font> @ somiaj http://paste.debian.net/164828<br/>
+<font color="#A82F2F"><font size="2">(03:09:13 AM)</font> <b>somiaj:</b></font> pwlandoll: wonder if it is just defaulting to use card 0 device 1 as opposed to card 0 device 0 for the output. (I.e. digital over analog)<br/>
+<font color="#A82F2F"><font size="2">(03:09:23 AM)</font> <b>somiaj:</b></font> pwlandoll: what are you using to configure which device you use.<br/>
+<font color="#A82F2F"><font size="2">(03:16:47 AM)</font> <b>awal:</b></font> Chanku: can you paste the outputs of this command  dmesg | egrep -i --color &apos;cdrom|dvd|cd/rw|writer&apos; &amp;&amp; more /proc/sys/dev/cdrom/info  ?<br/>
+<font color="#A82F2F"><font size="2">(03:17:17 AM)</font> <b>Chanku:</b></font> awal nothing appears<br/>
+<font color="#A82F2F"><font size="2">(03:17:46 AM)</font> <b>awal:</b></font> Chanku: nothing appear when you run  dmesg | egrep -i --color &apos;cdrom|dvd|cd/rw|writer&apos; &amp;&amp; more /proc/sys/dev/cdrom/info<br/>
+<font color="#A82F2F"><font size="2">(03:17:48 AM)</font> <b>awal:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(03:18:11 AM)</font> <b>somiaj:</b></font> pwlandoll: also are you sure the front plug is actually pluged into the sound card? It is possible it was never hooked up<br/>
+<font color="#A82F2F"><font size="2">(03:18:44 AM)</font> <b>Chanku:</b></font> yes awal<br/>
+<font color="#A82F2F"><font size="2">(03:18:45 AM)</font> <b>awal:</b></font> Chanku: try again and check if you don&apos;t missed something in the command<br/>
+<font color="#A82F2F"><font size="2">(03:19:05 AM)</font> <b>somiaj:</b></font> awal: his cdrom isn&apos;t showing up on the new kernel, and I can&apos;t think why.<br/>
+<font color="#A82F2F"><font size="2">(03:19:14 AM)</font> <b>somiaj:</b></font> Chanku: dmesg &gt; tmp.text -- paste the resulting file. (:<br/>
+<font color="#A82F2F"><font size="2">(03:19:22 AM)</font> <b>somiaj:</b></font> better to just have the whole thing to search though<br/>
+<font color="#A82F2F"><font size="2">(03:19:30 AM)</font> <b>awal:</b></font> Chanku: that&apos;s weird if you dont get any output<br/>
+<font color="#A82F2F"><font size="2">(03:19:43 AM)</font> <b>Chanku:</b></font> I&apos;m sure<br/>
+<font color="#A82F2F"><font size="2">(03:20:14 AM)</font> <b>somiaj:</b></font> awal: not if he has hardware issues and it isn&apos;t being detected in teh first place. It may be driver issues, but I think it is hardware.<br/>
+<font color="#A82F2F"><font size="2">(03:20:45 AM)</font> <b>Chanku:</b></font> Then why was it being detected before?<br/>
+<font color="#A82F2F"><font size="2">(03:22:09 AM)</font> <b>awal:</b></font> somiaj: probably it&apos;s a hardware issueyeah, but he said he booted twice with that install cd, so I really don&apos;t know<br/>
+<font color="#A82F2F"><font size="2">(03:22:32 AM)</font> <b>somiaj:</b></font> Chanku: could be it is in the process of going bad, I was going to purse your dmesg see if I saw anything else that poped out.<br/>
+<font color="#A82F2F"><font size="2">(03:22:58 AM)</font> <b>somiaj:</b></font> Chanku: you can always boot up off the old kernel and see if that still detects it. If so could be you just need to load the correct module. But it is hard for me to debug without having the hardware in my position. :/<br/>
+<font color="#A82F2F"><font size="2">(03:23:20 AM)</font> <b>pwlandoll:</b></font> @ somiaj I can&apos;t say for certain that I used it back in windows/my old linux mint install, but I just had the tower open today and it looked like it&apos;d been hooked up. I get that little static sound when I plug in headphones, and in alsamixer it looks like it has an option for the front jack. I&apos;m using alsa, but I don&apos;t know for sure if pulseaudio is running on top of that. It&apos;d probably be whatever is th<br/>
+<font color="#A82F2F"><font size="2">(03:23:26 AM)</font> <b>pwlandoll:</b></font> e default with a debian install<br/>
+<font color="#A82F2F"><font size="2">(03:25:01 AM)</font> <b>somiaj:</b></font> pwlandoll: using pulseaudio or just alsa? Not sure if gnome has any fancy tool to configure the default sound card device<br/>
+<font color="#A82F2F"><font size="2">(03:25:05 AM)</font> <b>awal:</b></font> Chanku: have you tried mount another iso cd? debian cd for example<br/>
+<font color="#A82F2F"><font size="2">(03:25:46 AM)</font> <b>Chanku:</b></font> I noticed these lines: [    0.679520] ata1: PATA max UDMA/100 cmd 0x1018 ctl 0x1024 bmdma 0x1000 irq 17<br/>
+<font color="#A82F2F"><font size="2">(03:25:46 AM)</font> <b>Chanku:</b></font> [    0.679523] ata2: DUMMY<br/>
+<font color="#A82F2F"><font size="2">(03:26:08 AM)</font> <b>somiaj:</b></font> Chanku: it is just ata1 you are intersted in, that is your PATA cdrom device.<br/>
+<font color="#A82F2F"><font size="2">(03:26:16 AM)</font> <b>pwlandoll:</b></font> @ somiaj pulseaudio is running for sure, doesn&apos;t seem to be any difference after I kill it or kill/restart<br/>
+<font color="#A82F2F"><font size="2">(03:26:38 AM)</font> <b>Chanku:</b></font> found two more lines containing pata: [    1.151002] ata9: PATA max UDMA/100 cmd 0x3430 ctl 0x3444 bmdma 0x3400 irq 18<br/>
+<font color="#A82F2F"><font size="2">(03:26:39 AM)</font> <b>Chanku:</b></font> [    1.151005] ata10: PATA max UDMA/100 cmd 0x3428 ctl 0x3440 bmdma 0x3408 irq 18<br/>
+<font color="#A82F2F"><font size="2">(03:27:05 AM)</font> <b>pwlandoll:</b></font> @ somiaj It probably is defaulting to device 1 over device 0<br/>
+<font color="#A82F2F"><font size="2">(03:27:37 AM)</font> <b>somiaj:</b></font> pwlandoll: you can use pavucontrol to configure puluseaudio.<br/>
+<font color="#A82F2F"><font size="2">(03:29:32 AM)</font> <b>pwlandoll:</b></font> @ somiaj pavucontrol only has one port, the digital<br/>
+<font color="#A82F2F"><font size="2">(03:30:03 AM)</font> <b>awal:</b></font> Chanku: what gives you ls -l /dev/cd* ?<br/>
+<font color="#A82F2F"><font size="2">(03:30:38 AM)</font> <b>pwlandoll:</b></font> Where can I see if I have the right drivers/module for my sound card?<br/>
+<font color="#A82F2F"><font size="2">(03:31:00 AM)</font> <b>somiaj:</b></font> pwlandoll: maybe it isn&apos;t detecting you have anything pluged into the port, the port isn&apos;t properly set up, or you need to load the intel snd_hda codec with a different model number to work on that system.<br/>
+<font color="#A82F2F"><font size="2">(03:31:29 AM)</font> <b>Chanku:</b></font> pwlandoll<br/>
+<font color="#A82F2F"><font size="2">(03:31:54 AM)</font> <b>somiaj:</b></font> pwlandoll: http://lxr.linux.no/linux+v3.2.19/Documentation/sound/alsa/HD-Audio-Models.txt -- could be you need to specifiy the correct model number to get all the ports to work right.<br/>
+<font color="#A82F2F"><font size="2">(03:33:37 AM)</font> <b>pwlandoll:</b></font> somiaj: I&apos;ve been to that page before, is /etc/modprobe.d/alsa-base the right place to put that?<br/>
+<font color="#A82F2F"><font size="2">(03:33:40 AM)</font> <b>somiaj:</b></font> pwlandoll: cat /proc/asound/card0/codec* | grep Codec<br/>
+<font size="2">(03:34:28 AM)</font><b> thunderrd_ is now known as thunderrd</b><br/>
+<font color="#A82F2F"><font size="2">(03:43:28 AM)</font> <b>pwlandoll:</b></font> Codec: Realtek ALC880<br/>
+<font color="#A82F2F"><font size="2">(03:44:27 AM)</font> <b>pwlandoll:</b></font> somiaj: what I&apos;ve got is 6 jacks in the back, plus the digout, and one headphone jack in the front<br/>
+<font size="2">(03:56:00 AM)</font><b> kevin is now known as Guest1002</b><br/>
+<font color="#A82F2F"><font size="2">(03:57:43 AM)</font> <b>Guest1002:</b></font> Hey guys, I&apos;m trying to install gnome extensions (dash-to-dock in particular), but it&apos;s not showing up in tweak tool - auto install via the website doesn&apos;t work, and manual installs aren&apos;t working either<br/>
+<font color="#A82F2F"><font size="2">(03:58:06 AM)</font> <b>Guest1002:</b></font> can anyone help me out?<br/>
+<font color="#A82F2F"><font size="2">(04:01:01 AM)</font> <b>pwlandoll:</b></font> Guest1002: are you on https://extensions.gnome.org/extension/307/dash-to-dock/ ?<br/>
+<font color="#A82F2F"><font size="2">(04:01:11 AM)</font> <b>Guest1002:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(04:02:01 AM)</font> <b>Guest1002:</b></font> at first I had the red banner and couldn&apos;t see the on/off button. now I can, and clicking on asks if I want to install the extension, but nothing downloads/installs<br/>
+<font color="#A82F2F"><font size="2">(04:02:17 AM)</font> <b>pwlandoll:</b></font> Guest1002: what browser?<br/>
+<font color="#A82F2F"><font size="2">(04:02:22 AM)</font> <b>Guest1002:</b></font> iceweasel<br/>
+<font color="#A82F2F"><font size="2">(04:02:36 AM)</font> <b>pwlandoll:</b></font> any adblocks, etc?<br/>
+<font color="#A82F2F"><font size="2">(04:02:56 AM)</font> <b>Guest1002:</b></font> naw, pretty fresh install<br/>
+<font color="#A82F2F"><font size="2">(04:03:34 AM)</font> <b>Guest1002:</b></font> im on a chromebook using crouton if that helps any<br/>
+<font color="#A82F2F"><font size="2">(04:04:38 AM)</font> <b>somiaj:</b></font> Guest1002: so are you even running debian then? chromebook usually use their own os.<br/>
+<font color="#A82F2F"><font size="2">(04:05:08 AM)</font> <b>Guest1002:</b></font> it&apos;s on top of the chromeOS kernel<br/>
+<font color="#A82F2F"><font size="2">(04:05:14 AM)</font> <b>pwlandoll:</b></font> somiaj: crouton runs debian/ubuntu with chromeOS kernel<br/>
+<font color="#A82F2F"><font size="2">(04:05:33 AM)</font> <b>pwlandoll:</b></font> Guest1002: what version of gnome shell is it?<br/>
+<font color="#A82F2F"><font size="2">(04:05:38 AM)</font> <b>Guest1002:</b></font> 3.14<br/>
+<font color="#A82F2F"><font size="2">(04:05:50 AM)</font> <b>Guest1002:</b></font> running jessie<br/>
+<font color="#A82F2F"><font size="2">(04:06:06 AM)</font> <b>somiaj:</b></font> !crouton<br/>
+<font color="#A82F2F"><font size="2">(04:06:16 AM)</font> <b>somiaj:</b></font> pwlandoll: doesn&apos;t sound like debian to me.<br/>
+<font color="#A82F2F"><font size="2">(04:06:19 AM)</font> <b>somiaj:</b></font> !based on debian<br/>
+<font color="#A82F2F"><font size="2">(04:06:19 AM)</font> <b>dpkg:</b></font> Your distribution may be based on and have software in common with Debian, but it is not Debian.  We don&apos;t and cannot know what changes were made by your distribution (compare http://futurist.se/gldt/).  #debian only supports Debian and pure &lt;blend&gt;s; please respect our choice to volunteer here to help Debian users.  Support for other distributions is off-topic on #debian, even if your own distro&apos;s channel is clueless or non-existent.<br/>
+<font color="#A82F2F"><font size="2">(04:07:16 AM)</font> <b>somiaj:</b></font> pwlandoll: do you think you have the 5stack + digout or the 6stack + digitout (5 or 6 in back + 2jack in front, + SPDIF out.<br/>
+<font color="#A82F2F"><font size="2">(04:07:21 AM)</font> <b>pwlandoll:</b></font> somiaj: crouton is a script that downloads a debian/ubuntu/kali release onto a chromebook and runs it as a chroot. <br/>
+<font color="#A82F2F"><font size="2">(04:07:35 AM)</font> <b>pwlandoll:</b></font> if you aren&apos;t familiar<br/>
+<font color="#A82F2F"><font size="2">(04:07:48 AM)</font> <b>pwlandoll:</b></font> Guest1002: https://extensions.gnome.org/about/ might be helpful, second section from the bottom<br/>
+<font color="#A82F2F"><font size="2">(04:08:07 AM)</font> <b>somiaj:</b></font> pwlandoll: yea, I guess if it is an offical debian chroot it might be supported here.<br/>
+<font color="#A82F2F"><font size="2">(04:08:16 AM)</font> <b>pwlandoll:</b></font> Guest1002: I&apos;m pretty sure you can&apos;t, but can you get a newer version of gnome on?<br/>
+<font color="#A82F2F"><font size="2">(04:08:59 AM)</font> <b>Guest1002:</b></font> pwlandoll: no I can&apos;t, and I&apos;ve tried the things in that section<br/>
+<font color="#A82F2F"><font size="2">(04:09:26 AM)</font> <b>somiaj:</b></font> Guest1002: what os are you running. This channel is for #debian stable, which gnome 3.4 is what it is running.<br/>
+<font color="#A82F2F"><font size="2">(04:09:43 AM)</font> <b>somiaj:</b></font> oh I missed running jessie. Might get better support in #debian-next<br/>
+<font color="#A82F2F"><font size="2">(04:09:59 AM)</font> <b>Guest1002:</b></font> pwlandoll: and also https://micheleg.github.io/dash-to-dock/download.html all the manual install instructions there<br/>
+<font color="#A82F2F"><font size="2">(04:11:42 AM)</font> <b>pwlandoll:</b></font> somiaj: http://goo.gl/k3F2VA is what I have, I didn&apos;t see a 6-jack + digout + 1/2 in front<br/>
+<font color="#A82F2F"><font size="2">(04:11:47 AM)</font> <b>somiaj:</b></font> pwlandoll: I think your model is &apos;6stack-digout&apos; for that sound card and codec. You might be able to get it to wrk if you try &apos;option snd-hda-intel model=6stack-digiout&apos; in the /etc/modprobe.d/alsa-base.conf. Then you&apos;ll need to reload your alsa drivers.<br/>
+<font color="#A82F2F"><font size="2">(04:12:14 AM)</font> <b>somiaj:</b></font> pwlandoll: http://lxr.linux.no/linux+v3.2.19/Documentation/sound/alsa/HD-Audio-Models.txt -- you have the ALC880 soundcard (so top one)...<br/>
+<font color="#A82F2F"><font size="2">(04:13:13 AM)</font> <b>Guest1002:</b></font> somiaj: alright i&apos;ll check it out<br/>
+<font color="#A82F2F"><font size="2">(04:13:32 AM)</font> <b>pwlandoll:</b></font> Guest1002: that link you sent &gt; Installation &gt; Compatibility says gnome 3.2 and on. I don&apos;t think it&apos;s going to work on 3.14. If there&apos;s not a way to update gnome to 3.2 (which I doubt there is, but keep on looking) I think you&apos;re out of luck<br/>
+<font color="#A82F2F"><font size="2">(04:13:47 AM)</font> <b>somiaj:</b></font> Guest1002: yea I don&apos;t use gnome so can&apos;t be of much help, but we try to only help debian wheezy-support in this channel. Hope you figure it out.<br/>
+<font color="#A82F2F"><font size="2">(04:14:01 AM)</font> <b>pwlandoll:</b></font> Guest1002: I&apos;d go ask the crouton people about it<br/>
+<font color="#A82F2F"><font size="2">(04:14:05 AM)</font> <b>somiaj:</b></font> pwlandoll: 3.14 &gt; 3.2<br/>
+<font color="#A82F2F"><font size="2">(04:14:17 AM)</font> <b>somiaj:</b></font> so it woudlnt&apos; be an &quot;upgrade&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:14:25 AM)</font> <b>pwlandoll:</b></font> *facepalm*<br/>
+<font color="#A82F2F"><font size="2">(04:14:41 AM)</font> <b>Guest1002:</b></font> random question - but why is 3.14 after 3.2 and all that anyway? I&apos;ve been wondering that<br/>
+<font color="#A82F2F"><font size="2">(04:14:48 AM)</font> <b>somiaj:</b></font> 14 &gt; 2<br/>
+<font color="#A82F2F"><font size="2">(04:14:59 AM)</font> <b>somiaj:</b></font> 3.0, 3.2, 3.4, 3.6, have been the gnome 3 releases<br/>
+<font color="#A82F2F"><font size="2">(04:15:08 AM)</font> <b>Guest1002:</b></font> ah!<br/>
+<font color="#A82F2F"><font size="2">(04:15:20 AM)</font> <b>somiaj:</b></font> note 3.1.4 would be different than 3.14 which is how I think you were reading it.<br/>
+<font color="#A82F2F"><font size="2">(04:15:33 AM)</font> <b>pwlandoll:</b></font> that is exactly how I was reading it.<br/>
+<font color="#A82F2F"><font size="2">(04:15:50 AM)</font> <b>pwlandoll:</b></font> disregard the update comment!<br/>
+<font color="#A82F2F"><font size="2">(04:15:59 AM)</font> <b>Guest1002:</b></font> that&apos;s how I was reading it too =P<br/>
+<font color="#A82F2F"><font size="2">(04:16:15 AM)</font> <b>pwlandoll:</b></font> in any case, crouton support channels/github page would know more about it I would expect<br/>
+<font color="#A82F2F"><font size="2">(04:17:00 AM)</font> <b>pwlandoll:</b></font> somiaj: 6stack-digout you think is the way to go?<br/>
+<font color="#A82F2F"><font size="2">(04:17:03 AM)</font> <b>Guest1002:</b></font> there&apos;s noone over at #crouton<br/>
+<font color="#A82F2F"><font size="2">(04:17:09 AM)</font> <b>somiaj:</b></font> well if crouton is just a script to create a chroot, I would see the chroot as actual jessie (though nice to nkow it is a chroot just in case it was a hardware or some issue on the chromebook kernel)<br/>
+<font color="#A82F2F"><font size="2">(04:17:16 AM)</font> <b>somiaj:</b></font> pwlandoll: It is worth a try.<br/>
+<font color="#A82F2F"><font size="2">(04:17:36 AM)</font> <b>somiaj:</b></font> Guest1002: are you sure they are on oftc, maybe they have a channel on freenode<br/>
+<font size="2">(04:18:00 AM)</font><b> mode (+l 689) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(04:18:31 AM)</font> <b>pwlandoll:</b></font> Guest1002: freenode #crouton<br/>
+<font color="#A82F2F"><font size="2">(04:18:39 AM)</font> <b>Guest1002:</b></font> doh, yeah you&apos;re right<br/>
+<font color="#A82F2F"><font size="2">(04:19:26 AM)</font> <b>pwlandoll:</b></font> Guest1002: best of luck!<br/>
+<font color="#A82F2F"><font size="2">(04:19:32 AM)</font> <b>Guest1002:</b></font> thanks!<br/>
+<font color="#A82F2F"><font size="2">(04:19:42 AM)</font> <b>pwlandoll:</b></font> somiaj: where do I specify that?<br/>
+<font color="#A82F2F"><font size="2">(04:20:29 AM)</font> <b>somiaj:</b></font> pwlandoll: a config file in /etc/modprobe.d/ -- you could grep the files for snd-intel-hda see if there are options set. Many suggest alsa-base.conf, you could also make your own custom.conf file (they all get read by nmodprobe)<br/>
+<font color="#A82F2F"><font size="2">(04:20:33 AM)</font> <b>somiaj:</b></font> modprobe)<br/>
+<font size="2">(04:20:40 AM)</font><b> Guest1002 left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(04:23:45 AM)</font> <b>pwlandoll:</b></font> my /etc/modprobe.d/alsa-base.conf now says &quot;options snd-hda-intel model=6stack-digout<br/>
+<font color="#A82F2F"><font size="2">(04:24:03 AM)</font> <b>pwlandoll:</b></font> there was nothing before. Is this the right setup?<br/>
+<font color="#A82F2F"><font size="2">(04:24:06 AM)</font> <b>somiaj:</b></font> pwlandoll: now reload the alsa modules.<br/>
+<font color="#A82F2F"><font size="2">(04:24:22 AM)</font> <b>somiaj:</b></font> correct, this will now force it to use that model over the default &apos;auto&apos; one. Sometimes it doesn&apos;t detect things correctly.<br/>
+<font color="#A82F2F"><font size="2">(04:24:42 AM)</font> <b>somiaj:</b></font> now alsa force-reload<br/>
+<font color="#A82F2F"><font size="2">(04:24:54 AM)</font> <b>somiaj:</b></font> check the output of dmesg, make sure you see messages about reloading the snd module<br/>
+<font color="#A82F2F"><font size="2">(04:26:20 AM)</font> <b>pwlandoll:</b></font> somiaj: alsa command not found?<br/>
+<font color="#A82F2F"><font size="2">(04:27:32 AM)</font> <b>somiaj:</b></font> pwlandoll: run as root<br/>
+<font color="#A82F2F"><font size="2">(04:28:14 AM)</font> <b>somiaj:</b></font> if that doesn&apos;t work, just &apos;modprbe -r snd_hda_intel&apos; and &apos;modprobe snd_hda_intel&apos; -- reload the module<br/>
+<font color="#A82F2F"><font size="2">(04:28:21 AM)</font> <b>Chanku:</b></font> and it&apos;s working<br/>
+<font color="#062585"><font size="2">(04:28:25 AM)</font> <b>***Chanku</b></font> smiles a little<br/>
+<font color="#A82F2F"><font size="2">(04:28:32 AM)</font> <b>somiaj:</b></font> Chanku: what got it to work?<br/>
+<font color="#A82F2F"><font size="2">(04:28:34 AM)</font> <b>Chanku:</b></font> apparently the Ribbon Cable was bad or something<br/>
+<font color="#A82F2F"><font size="2">(04:28:39 AM)</font> <b>Chanku:</b></font> and my CD Drive<br/>
+<font color="#A82F2F"><font size="2">(04:28:48 AM)</font> <b>somiaj:</b></font> Chanku: yea it was acting like bad hardware...wires are a common thing to go bad<br/>
+<font color="#A82F2F"><font size="2">(04:28:50 AM)</font> <b>Chanku:</b></font> I just opened it up swapped out the ribbon cable and it worked...<br/>
+<font color="#A82F2F"><font size="2">(04:28:57 AM)</font> <b>somiaj:</b></font> (which I belive Imetioned really early on)<br/>
+<font color="#A82F2F"><font size="2">(04:29:19 AM)</font> <b>Chanku:</b></font> thankfully I have an old dell(which was killed by lighting through the phone lines)<br/>
+<font color="#A82F2F"><font size="2">(04:29:31 AM)</font> <b>Chanku:</b></font> that only use PATA/IDE<br/>
+<font color="#A82F2F"><font size="2">(04:29:47 AM)</font> <b>Chanku:</b></font> Although the inside of my computer was a bit hot...<br/>
+<font color="#A82F2F"><font size="2">(04:29:58 AM)</font> <b>Chanku:</b></font> I cleaned up the front part (where most of the air gets sucked in)<br/>
+<font color="#A82F2F"><font size="2">(04:31:14 AM)</font> <b>somiaj:</b></font> Chanku: glad you fixed it, and glad I&apos;m not crazy and it was hardware. (:<br/>
+<font color="#A82F2F"><font size="2">(04:32:12 AM)</font> <b>pwlandoll:</b></font> somiaj: still not found... <br/>
+<font color="#A82F2F"><font size="2">(04:32:45 AM)</font> <b>pwlandoll:</b></font> did my upgrade to sid go badly?<br/>
+<font color="#A82F2F"><font size="2">(04:32:51 AM)</font> <b>somiaj:</b></font> pwlandoll: I was reading a ubuntu howto, just reload the module as I suggested (or reboot)<br/>
+<font color="#A82F2F"><font size="2">(04:33:03 AM)</font> <b>somiaj:</b></font> pwlandoll: can could be a ubuntusim, sometimes their howtos work sometimes they don&apos;t<br/>
+<font color="#A82F2F"><font size="2">(04:33:21 AM)</font> <b>somiaj:</b></font> also for sid you should also be in #debian-next<br/>
+<font color="#A82F2F"><font size="2">(04:34:41 AM)</font> <b>pwlandoll:</b></font> well I&apos;ll try rebooting then go to debian-next for help<br/>
+<font size="2">(04:39:01 AM)</font><b> pwlandoll left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(04:43:18 AM)</font><b> pwlandoll [<em>~peter@ip68-99-48-87.cl.ri.cox.net</em>] entered the room.</b><br/>
+<font size="2">(05:21:15 AM)</font><b> cornerman is now known as Guest1010</b><br/>
+<font color="#A82F2F"><font size="2">(05:45:47 AM)</font> <b>dgriffi:</b></font> I&apos;m trying to enable backport packages during preseed, but it doesn&apos;t seem to work<br/>
+<font color="#A82F2F"><font size="2">(05:46:02 AM)</font> <b>dgriffi:</b></font> can someone help me with this?<br/>
+<font color="#A82F2F"><font size="2">(05:47:29 AM)</font> <b>dgriffi:</b></font> is anyone awake in here?<br/>
+<font color="#A82F2F"><font size="2">(05:58:20 AM)</font> <b>kevin260:</b></font> hey guys I was in here earlier and unable to get help elsewhere. I&apos;m having trouble installing new extensions from extensions.gnome.org on gnome 3.14 - can anyone help me out?<br/>
+<font color="#A82F2F"><font size="2">(05:59:13 AM)</font> <b>dgriffi:</b></font> gnome3.. nope<br/>
+<font color="#A82F2F"><font size="2">(06:01:32 AM)</font> <b>kevin260:</b></font> I did find out that I can in fact enable/disable extensions I see in the gnome tweak tool, but I can&apos;t download/install any new extensions - neither via the website nor manually<br/>
+<font color="#A82F2F"><font size="2">(06:03:28 AM)</font> <b>lostson:</b></font> normally you just click on the slider and it will install <br/>
+<font color="#A82F2F"><font size="2">(06:03:43 AM)</font> <b>lostson:</b></font> at least that works for me <br/>
+<font color="#A82F2F"><font size="2">(06:04:22 AM)</font> <b>kevin260:</b></font> yeah i do that and click install but nothing happens<br/>
+<font color="#A82F2F"><font size="2">(06:04:38 AM)</font> <b>lostson:</b></font> hmm I have never had to click install <br/>
+<font color="#A82F2F"><font size="2">(06:04:38 AM)</font> <b>kevin260:</b></font> do you see a download in your browser or anything when you install them? I&apos;m pretty new to linux<br/>
+<font color="#A82F2F"><font size="2">(06:06:24 AM)</font> <b>lostson:</b></font> no there is a button it says off I click on it to turn it on and I get the extension simple as that for me <br/>
+<font color="#A82F2F"><font size="2">(06:06:56 AM)</font> <b>lostson:</b></font> a window pops up and asks me to install I click accept and all good <br/>
+<font color="#A82F2F"><font size="2">(06:07:45 AM)</font> <b>kevin260:</b></font> wonder what the problem could be then<br/>
+<font color="#A82F2F"><font size="2">(06:08:14 AM)</font> <b>kevin260:</b></font> trying to get https://extensions.gnome.org/extension/307/dash-to-dock/ in particular<br/>
+<font color="#A82F2F"><font size="2">(06:08:19 AM)</font> <b>lostson:</b></font> not sure I just installed the media player indicator <br/>
+<font color="#A82F2F"><font size="2">(06:09:22 AM)</font> <b>lostson:</b></font> does your browser ask to you to allow the site to identify your verison of Gnome <br/>
+<font color="#A82F2F"><font size="2">(06:09:44 AM)</font> <b>kevin260:</b></font> not anymore, i have it set to always allow for the extensions site<br/>
+<font color="#A82F2F"><font size="2">(06:10:06 AM)</font> <b>lostson:</b></font> I just installed that Dash to Dock with no issues <br/>
+<font color="#A82F2F"><font size="2">(06:11:55 AM)</font> <b>kevin260:</b></font> what gnome are you running?<br/>
+<font color="#A82F2F"><font size="2">(06:12:05 AM)</font> <b>lostson:</b></font> 3.14 on Debian Jessie <br/>
+<font color="#A82F2F"><font size="2">(06:12:16 AM)</font> <b>kevin260:</b></font> hm<br/>
+<font color="#A82F2F"><font size="2">(06:13:40 AM)</font> <b>kevin260:</b></font> the only thing i could think of is that im running jessie through crouton, or my gnome settings got messed up somehow?<br/>
+<font color="#A82F2F"><font size="2">(06:14:06 AM)</font> <b>lostson:</b></font> does it error out in any way ?<br/>
+<font color="#A82F2F"><font size="2">(06:14:24 AM)</font> <b>kevin260:</b></font> nope nothing at all happens<br/>
+<font color="#A82F2F"><font size="2">(06:14:36 AM)</font> <b>kevin260:</b></font> i click install and it doesn&apos;t give any feedbacl<br/>
+<font color="#A82F2F"><font size="2">(06:14:47 AM)</font> <b>lostson:</b></font> odd<br/>
+<font color="#A82F2F"><font size="2">(06:16:50 AM)</font> <b>kevin260:</b></font> im trying to look at .xsession-errors for anything<br/>
+<font color="#A82F2F"><font size="2">(06:17:20 AM)</font> <b>lostson:</b></font> does the extension appear in gnome tweak tool <br/>
+<font color="#A82F2F"><font size="2">(06:18:03 AM)</font> <b>kevin260:</b></font> no - not even if i try to add it to /.local/share/gnome-shell/extensions<br/>
+<font color="#A82F2F"><font size="2">(06:18:08 AM)</font> <b>kevin260:</b></font> manually<br/>
+<font color="#A82F2F"><font size="2">(06:18:27 AM)</font> <b>lostson:</b></font> not sure then <br/>
+<font color="#A82F2F"><font size="2">(06:18:42 AM)</font> <b>lostson:</b></font> well I have to run good luck <br/>
+<font color="#A82F2F"><font size="2">(06:18:49 AM)</font> <b>kevin260:</b></font> thanks!<br/>
+<font color="#A82F2F"><font size="2">(06:26:04 AM)</font> <b>kevin260:</b></font> can anyone help me out with my inability to install gnome extensions?<br/>
+<font color="#A82F2F"><font size="2">(06:37:17 AM)</font> <b>kevin260:</b></font> solved my problem!<br/>
+<font size="2">(06:41:15 AM)</font><b> kevin260 left the room (quit: Quit: Page closed).</b><br/>
+<font size="2">(06:43:49 AM)</font><b> azuth is now known as ermahbert</b><br/>
+<font color="#A82F2F"><font size="2">(08:15:05 AM)</font> <b>independent:</b></font> hello? anyone alive?<br/>
+<font size="2">(08:16:42 AM)</font><b> independent left the room.</b><br/>
+<font size="2">(08:47:02 AM)</font><b> gusnan_ is now known as gusnan</b><br/>
+<font color="#A82F2F"><font size="2">(08:54:50 AM)</font> <b>FlyingSquirl456:</b></font> yo<br/>
+<font color="#A82F2F"><font size="2">(09:43:07 AM)</font> <b>sami:</b></font> I&apos;m running debian testing and noticed that the boot gets stuck for about 3mins. kern.log says at that point like this<br/>
+<font color="#A82F2F"><font size="2">(09:43:10 AM)</font> <b>sami:</b></font> Apr  3 19:44:37 htpc kernel: [    9.020177] EXT3-fs (sda3): using internal journal<br/>
+<font color="#A82F2F"><font size="2">(09:43:13 AM)</font> <b>sami:</b></font> Apr  3 19:44:37 htpc kernel: [  194.788120] Adding 3145724k swap on /swapfile.  Priority:-1 extents:795 across:3219320k SS<br/>
+<font color="#A82F2F"><font size="2">(09:44:02 AM)</font> <b>sami:</b></font> and on the display: <br/>
+<font color="#A82F2F"><font size="2">(09:44:04 AM)</font> <b>sami:</b></font> activating lvm and md swap<br/>
+<font color="#A82F2F"><font size="2">(09:44:25 AM)</font> <b>sami:</b></font> swap is a swapfile, defined in /etc/fstab<br/>
+<font color="#A82F2F"><font size="2">(09:44:39 AM)</font> <b>sami:</b></font> I have no lvm, no md<br/>
+<font size="2">(09:47:56 AM)</font><b> sami left the room (quit: Quit: Lost terminal).</b><br/>
+<font size="2">(10:18:00 AM)</font><b> mode (+l 695) by debhelper</b><br/>
+<font size="2">(10:58:01 AM)</font><b> mode (+l 702) by debhelper</b><br/>

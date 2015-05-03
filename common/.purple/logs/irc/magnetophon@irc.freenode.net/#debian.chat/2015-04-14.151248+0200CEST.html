@@ -1,0 +1,861 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Tue 14 Apr 2015 03:12:48 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Tue 14 Apr 2015 03:12:48 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(03:12:48 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(03:12:48 PM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(03:12:50 PM)</font> <b>wilhelm.freenode.net:</b></font> (notice) [freenode-info] channel trolls and no channel staff around to help? please check with freenode support: http://freenode.net/faq.shtml#gettinghelp<br/>
+<font color="#A82F2F"><font size="2">(03:13:07 PM)</font> <b>Deiwsots:</b></font> themill: few days ago docker was in jessie-rep<br/>
+<font color="#A82F2F"><font size="2">(03:13:12 PM)</font> <b>themill:</b></font> Deiwsots: packages do not migrate to jessie-backports<br/>
+<font color="#A82F2F"><font size="2">(03:17:59 PM)</font> <b>Roberth1990:</b></font> themill: what do you mean by that?<br/>
+<font color="#A82F2F"><font size="2">(03:18:18 PM)</font> <b>themill:</b></font> No more or less than what I said.<br/>
+<font color="#A82F2F"><font size="2">(03:18:48 PM)</font> <b>Roberth1990:</b></font> why dont they migrate? what do they do instead?<br/>
+<font color="#A82F2F"><font size="2">(03:20:04 PM)</font> <b>themill:</b></font> There is no way in which &quot;migrate&quot; makes any sense for backports.<br/>
+<font color="#A82F2F"><font size="2">(03:21:13 PM)</font> <b>themill:</b></font> (any more than it does for stable, unstable or experimental)<br/>
+<font color="#A82F2F"><font size="2">(03:22:51 PM)</font> <b>petn-randall:</b></font> Roberth1990: Packages never migrate to backports. Someone from the backports team builds them and puts them in the backports repo. It&apos;s a process where someone decides to put it there.<br/>
+<font color="#A82F2F"><font size="2">(03:24:02 PM)</font> <b>Roberth1990:</b></font> petn-randall: ah okay<br/>
+<font size="2">(03:29:53 PM)</font><b> epsilon_ is now known as epsilon</b><br/>
+<font color="#A82F2F"><font size="2">(03:30:33 PM)</font> <b>duelle:</b></font> Hi there, is there a good guide/howto on how to install debian base install without the installer? I have to do an installation via debootstrap where I can&apos;t use the installer - or are there ways to use it?<br/>
+<font color="#A82F2F"><font size="2">(03:31:28 PM)</font> <b>petn-randall:</b></font> duelle: What are your reasons not to use the installer? There are many ways to skin the cat. :)<br/>
+<font color="#A82F2F"><font size="2">(03:32:42 PM)</font> <b>duelle:</b></font> petn-randall, I have a dedicated server which has only &quot;default&quot; templates of installations. And I would like to use RAID/LVM/LUKS. So I seem to have to(?) use the recovery mode and debootstrap to do so - don&apos;t I?<br/>
+<font color="#A82F2F"><font size="2">(03:35:35 PM)</font> <b>WormFood:</b></font> duelle, why don&apos;t you simply state what exactly your goals are. Your question is too broad<br/>
+<font color="#A82F2F"><font size="2">(03:35:40 PM)</font> <b>petn-randall:</b></font> duelle: It it a rented root server where you can boot into a live system?<br/>
+<font size="2">(03:38:01 PM)</font><b> mode (+l 1663) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:38:32 PM)</font> <b>AnotherNode:</b></font> Hey I run a headless server and debain comes with consolekit, I only ever plan to use SSH and maybe serial console - would It be safe to remove console kit?<br/>
+<font color="#A82F2F"><font size="2">(03:39:37 PM)</font> <b>duelle:</b></font> WormFood, petn-randall That is a rented dedicated server where I want to use RAID/LVM/LUKS. But the default templates do not have all of these available. So I want to install it on my own. My current approach is to boot in rescue mode (some GRML live system) and use debootstrap. Although I have some experience with Linux/Debian I am not 100% confident in all steps of the installation done manually. So I am looking for a howto/guide for the manual<br/>
+<font color="#A82F2F"><font size="2">(03:39:37 PM)</font> <b>duelle:</b></font> installation steps or a way to use the installer to do so.<br/>
+<font color="#A82F2F"><font size="2">(03:41:24 PM)</font> <b>AnotherNode:</b></font> duelle: https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption &lt;- but it will only be encrypted when powered off or unmounted<br/>
+<font size="2">(03:41:42 PM)</font><b> sidv is now known as zz_sidv</b><br/>
+<font color="#A82F2F"><font size="2">(03:41:43 PM)</font> <b>petn-randall:</b></font> duelle: You&apos;ll probably not find a howto for that, it&apos;s fairly specific. You can however partition the system, use debootstrap to put everything in place, unmount everything and use kvm to test boot the system. Repeat until it cleanly boots. Then reboot the physical machine into that system.<br/>
+<font color="#A82F2F"><font size="2">(03:43:08 PM)</font> <b>petn-randall:</b></font> duelle: The way I did it (I have a very similar setup), is a small /boot, the rest is LUKS, in there a PV, and then /home and / as LV on top.<br/>
+<font color="#A82F2F"><font size="2">(03:45:31 PM)</font> <b>nonickn:</b></font> hello !<br/>
+<font color="#A82F2F"><font size="2">(03:46:05 PM)</font> <b>nonickn:</b></font> how to write line00 in file00 if line00 is not yet in file00<br/>
+<font color="#A82F2F"><font size="2">(03:46:08 PM)</font> <b>nonickn:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(03:46:20 PM)</font> <b>duelle:</b></font> petn-randall, that is exactly what I want to do.<br/>
+<font color="#A82F2F"><font size="2">(03:46:27 PM)</font> <b>kobra85:</b></font> hello!<br/>
+<font color="#A82F2F"><font size="2">(03:46:43 PM)</font> <b>nonickn:</b></font> hello kobra85<br/>
+<font color="#A82F2F"><font size="2">(03:47:26 PM)</font> <b>Evropi:</b></font> hiya, is there a way to get Firefox w/ proprietary codecs under debian, but with package updating as well?<br/>
+<font size="2">(03:48:01 PM)</font><b> mode (+l 1656) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:49:31 PM)</font> <b>duelle:</b></font> petn-randall, do you use GPT partitions in your setup? I couldn&apos;t find details about whether I need some BIOS-partition in a MBR/GPT setup.<br/>
+<font color="#A82F2F"><font size="2">(03:51:12 PM)</font> <b>petn-randall:</b></font> duelle: If you boot via UEFI, GPT is a &quot;nice to have&quot;. But you can technically boot UEFI and legacy BIOS from GPT and MSDOS partition tables. There&apos;s no strong dependency between all of them.<br/>
+<font color="#A82F2F"><font size="2">(03:52:35 PM)</font> <b>duelle:</b></font> petn-randall, thanks a lot for your help! Now I will first try the setup in a local VM and then proceed with the real machine.<br/>
+<font color="#A82F2F"><font size="2">(03:53:30 PM)</font> <b>jelly:</b></font> Evropi: no.  You can unpack mozilla&apos;s firefox .tar.gz as the user that will run it somewhere.  If you start it from there mozilla&apos;s update mechanism will work<br/>
+<font color="#A82F2F"><font size="2">(03:55:12 PM)</font> <b>tuxcrafter:</b></font> http://paste.debian.net/166685/ &lt; why does chmod not change the group bit with chmod 0775<br/>
+<font color="#A82F2F"><font size="2">(03:55:20 PM)</font> <b>tuxcrafter:</b></font> only chmod g-s seem to work<br/>
+<font color="#A82F2F"><font size="2">(03:55:31 PM)</font> <b>tuxcrafter:</b></font> got this both on debian and centos<br/>
+<font color="#A82F2F"><font size="2">(03:55:36 PM)</font> <b>tuxcrafter:</b></font> wondering why this is<br/>
+<font color="#A82F2F"><font size="2">(03:55:47 PM)</font> <b>Evropi:</b></font> jelly: ah thank you, wasn&apos;t aware Fx had its own update mechanism, I&apos;ll give that a go<br/>
+<font color="#A82F2F"><font size="2">(03:57:25 PM)</font> <b>tuxcrafter:</b></font> &quot;chmod preserves a directory&apos;s set-user-ID and set-group-ID bits unless you explicitly specify otherwise&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:57:45 PM)</font> <b>tuxcrafter:</b></font> &quot;chmod preserves a directory&apos;s set-user-ID and set-group-ID bits unless you explicitly specify otherwise.  You can set or clear the bits with symbolic modes like u+s and g-s, and you can set (but not clear) the bits with a numeric mode.&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:57:55 PM)</font> <b>jelly:</b></font> !win tuxcrafter<br/>
+<font color="#A82F2F"><font size="2">(03:57:56 PM)</font> <b>dpkg:</b></font> Congratulations, tuxcrafter!  You have won second prize in a beauty contest!<br/>
+<font color="#A82F2F"><font size="2">(03:58:06 PM)</font> <b>Evropi:</b></font> appears to be a bz2, hehe<br/>
+<font color="#A82F2F"><font size="2">(03:58:17 PM)</font> <b>Evropi:</b></font> I don&apos;t know why developers still ship in bz2 when xz is a thing<br/>
+<font color="#A82F2F"><font size="2">(03:58:40 PM)</font> <b>Evropi:</b></font> it offers roundabout the same decompression speed and is more efficient and now every distro (to my knowledge) ships with it by default<br/>
+<font color="#A82F2F"><font size="2">(03:58:59 PM)</font> <b>Evropi:</b></font> if you don&apos;t care about decompression speed just use xz over bz2<br/>
+<font color="#A82F2F"><font size="2">(03:59:16 PM)</font> <b>themill:</b></font> it&apos;s certainly not a default and any time you change something like that, you break things for people<br/>
+<font color="#A82F2F"><font size="2">(03:59:55 PM)</font> <b>Evropi:</b></font> don&apos;t think you&apos;re breaking anything if you force the users to download the archive themselves =p<br/>
+<font color="#A82F2F"><font size="2">(04:02:14 PM)</font> <b>petn-randall:</b></font> duelle: You don&apos;t need a VM for that, you can try it straight on the machine. I just meant you can use &apos;kvm -hda /dev/sda -curses&apos; to actually test your system, without having to physically reboot the machine (which takes 5 minutes, and you never no for sure if it&apos;s still booting or the boot actually failed).<br/>
+<font color="#A82F2F"><font size="2">(04:04:25 PM)</font> <b>duelle:</b></font> petn-randall, ah cool - never heard of such a way. But I will give it a try. thanks!<br/>
+<font color="#A82F2F"><font size="2">(04:07:13 PM)</font> <b>aarshkshah1992:</b></font> Hello<br/>
+<font size="2">(04:09:17 PM)</font><b> mrt333_ is now known as mrt333</b><br/>
+<font size="2">(04:14:23 PM)</font><b> SirLagz_ is now known as SirLagz</b><br/>
+<font color="#A82F2F"><font size="2">(04:15:20 PM)</font> <b>iuz:</b></font> Hi, my update-rc.d always put s01 on the NN arg<br/>
+<font color="#A82F2F"><font size="2">(04:15:46 PM)</font> <b>iuz:</b></font> even tho I&apos;m doing it with update-rc.d tomcat7 start 50 2 3 4 5 stop 50 1 6<br/>
+<font color="#A82F2F"><font size="2">(04:15:50 PM)</font> <b>iuz:</b></font> what is going on?<br/>
+<font color="#A82F2F"><font size="2">(04:16:38 PM)</font> <b>themill:</b></font> the numbers are not relevant since squeeze<br/>
+<font color="#A82F2F"><font size="2">(04:17:00 PM)</font> <b>iuz:</b></font> so I&apos;m not able to change init order anymore?<br/>
+<font color="#A82F2F"><font size="2">(04:17:22 PM)</font> <b>themill:</b></font> You do so by declaring the dependencies<br/>
+<font color="#A82F2F"><font size="2">(04:17:43 PM)</font> <b>themill:</b></font> !lsb tags<br/>
+<font color="#A82F2F"><font size="2">(04:17:43 PM)</font> <b>dpkg:</b></font> From 6.0 &quot;Squeeze&quot; onwards, Debian uses a dependency-based boot sequence (see /usr/share/doc/sysv-rc/README.Debian).  This requires all init scripts having appropriate headers, so that the correct order of execution can be determined.  Scripts like S25libdevmapper1.02 are left over from 3.1 &quot;Sarge&quot; and can be deleted; your own scripts will need LSB headers added: http://wiki.debian.org/LSBInitScripts<br/>
+<font color="#A82F2F"><font size="2">(04:17:53 PM)</font> <b>iuz:</b></font> thank you man.<br/>
+<font size="2">(04:23:24 PM)</font><b> marsjaninzmarsa` is now known as marsjaninzmarsa</b><br/>
+<font size="2">(04:38:00 PM)</font><b> mode (+l 1669) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(04:41:47 PM)</font> <b>Eduard_Munteanu:</b></font> Why do Haskell packages depend on exact builds of other packages? How do you even replace a package without rebuilding all of them?<br/>
+<font color="#A82F2F"><font size="2">(04:43:56 PM)</font> <b>joobus:</b></font> Eduard_Munteanu: you&apos;ll get better answers in #haskell<br/>
+<font color="#A82F2F"><font size="2">(04:44:07 PM)</font> <b>Eduard_Munteanu:</b></font> Already tried, thanks.<br/>
+<font size="2">(05:03:10 PM)</font><b> `hypermist` is now known as sleepypc</b><br/>
+<font color="#A82F2F"><font size="2">(05:04:16 PM)</font> <b>Ooze:</b></font> Is it possible to change autocomplete to another key if the board doesn&apos;t have tab?<br/>
+<font color="#A82F2F"><font size="2">(05:04:33 PM)</font> <b>StatelessCat:</b></font> hey<br/>
+<font color="#A82F2F"><font size="2">(05:06:02 PM)</font> <b>StatelessCat:</b></font> i just try to apt-get upgrade my debian stable, and got &quot;libxrender1 : Breaks: libxrender1:i386&quot;, &quot;libxrender1:i386 : Breaks: libxrender1&quot; ... ( http://paste.debian.net/166706/ )<br/>
+<font color="#A82F2F"><font size="2">(05:06:04 PM)</font> <b>greycat:</b></font> Ooze: if you mean in bash, it *should* be possible, using the bind builtin, but I don&apos;t know all the steps required<br/>
+<font color="#A82F2F"><font size="2">(05:06:16 PM)</font> <b>StatelessCat:</b></font> is it ok to use the force for this problem ?<br/>
+<font color="#A82F2F"><font size="2">(05:07:07 PM)</font> <b>themill:</b></font> StatelessCat: either tell dpkg to force-overwrite or wait until fixed packages appear<br/>
+<font color="#062585"><font size="2">(05:07:19 PM)</font> <b>***greycat</b></font> managed to break his &apos;c&apos; key while trying, though!  That was exciting.<br/>
+<font color="#A82F2F"><font size="2">(05:07:57 PM)</font> <b>StatelessCat:</b></font> themill: so i will wait fixed package, if the bug is known :)<br/>
+<font size="2">(05:08:01 PM)</font><b> mode (+l 1679) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:08:28 PM)</font> <b>greycat:</b></font> Ah, there we go.   To make Ctrl-Y act like tab:   bind &apos;&quot;\C-y&quot;: complete&apos;<br/>
+<font color="#A82F2F"><font size="2">(05:08:44 PM)</font> <b>StatelessCat:</b></font> greycat: meow<br/>
+<font color="#A82F2F"><font size="2">(05:08:55 PM)</font> <b>greycat:</b></font> there&apos;s a similar incantation you can put in ~/.inputrc to make it permanent for all readline apps<br/>
+<font color="#A82F2F"><font size="2">(05:10:16 PM)</font> <b>jhutchins:</b></font> What is the deal where you delete files from a full disk and it doesn&apos;t report any free space?<br/>
+<font color="#A82F2F"><font size="2">(05:10:19 PM)</font> <b>jhutchins:</b></font> I&apos;ve never tracked down the actual reason, usually I just end up rebooting with fsck.<br/>
+<font color="#A82F2F"><font size="2">(05:10:31 PM)</font> <b>Ooze:</b></font> Oh nice<br/>
+<font color="#A82F2F"><font size="2">(05:10:33 PM)</font> <b>Ooze:</b></font> Yeah that&apos;d work<br/>
+<font color="#A82F2F"><font size="2">(05:10:51 PM)</font> <b>themill:</b></font> jhutchins: open files are still open -- surely you&apos;ve been here long enough to know that?<br/>
+<font color="#A82F2F"><font size="2">(05:11:57 PM)</font> <b>jhutchins:</b></font> themill: Shouldn&apos;t be any open, but it&apos;s an NFS share, so that might constitute &quot;open&quot;.<br/>
+<font color="#A82F2F"><font size="2">(05:13:10 PM)</font> <b>abrotman:</b></font> I&apos;m surprised he uses a network filesystem .. such a new age solution<br/>
+<font size="2">(05:21:55 PM)</font><b> timvishe_ is now known as timvisher</b><br/>
+<font color="#A82F2F"><font size="2">(05:23:41 PM)</font> <b>ChrisH:</b></font> jhutchins: check for .nfs* named files. They are the equivalant for open-but-deleted files with NFS<br/>
+<font color="#A82F2F"><font size="2">(05:23:48 PM)</font> <b>Miesco:</b></font> Hi<br/>
+<font color="#A82F2F"><font size="2">(05:24:05 PM)</font> <b>Miesco:</b></font> How do I make it so it doesn&apos;t wait for 90 seconds for my network interface to raise at boot?<br/>
+<font color="#A82F2F"><font size="2">(05:25:55 PM)</font> <b>ChrisH:</b></font> Miesco: fix the reason the interface does not come up<br/>
+<font color="#A82F2F"><font size="2">(05:26:19 PM)</font> <b>greycat:</b></font> timeouts that are a multiple of 30 s are often DNS related<br/>
+<font color="#A82F2F"><font size="2">(05:26:25 PM)</font> <b>greycat:</b></font> (not always, though)<br/>
+<font color="#A82F2F"><font size="2">(05:26:38 PM)</font> <b>ThatnowGuy:</b></font> Hey all, anyone know how to disable grouping of methods in vim? (editing a perl script)<br/>
+<font color="#A82F2F"><font size="2">(05:28:02 PM)</font> <b>ThatnowGuy:</b></font> zR &lt;- answer<br/>
+<font color="#A82F2F"><font size="2">(05:28:06 PM)</font> <b>ThatnowGuy:</b></font> thnx anyway<br/>
+<font color="#A82F2F"><font size="2">(05:29:53 PM)</font> <b>phy1729:</b></font> ThatnowGuy: fwiw there&apos;s #vim for those questions ;)<br/>
+<font color="#A82F2F"><font size="2">(05:30:48 PM)</font> <b>ThatnowGuy:</b></font> thnx phy1729<br/>
+<font color="#A82F2F"><font size="2">(05:32:07 PM)</font> <b>i00nsu:</b></font> yo all, i start debian without static ip/dinamic. since the resolv.conf have already the dns servers I use, is supose to login beeing offline. in fact i &apos;ping google.com -c 1&apos; and the google IP shows up. then I su get root and tcproute google(IP)... my dns server comes up and I can connect and ping google without explicity connecting<br/>
+<font size="2">(05:39:45 PM)</font><b> phy1729 left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(05:43:50 PM)</font> <b>Miesco:</b></font> greycat: I don&apos;t even want it to wait<br/>
+<font color="#A82F2F"><font size="2">(05:44:16 PM)</font> <b>Miesco:</b></font> I don&apos;t want it to wait a millisecond for my network interface to raise on startup<br/>
+<font color="#A82F2F"><font size="2">(05:44:19 PM)</font> <b>greycat:</b></font> You have to figure out what&apos;s happening at the time.<br/>
+<font color="#A82F2F"><font size="2">(05:44:36 PM)</font> <b>Miesco:</b></font> I don&apos;t even want my network interface up at boot<br/>
+<font color="#A82F2F"><font size="2">(05:46:19 PM)</font> <b>jelly:</b></font> Miesco: don&apos;t have &quot;auto&quot; or &quot;allow-hotplug&quot; lines for any interfaces in /etc/network/interfaces<br/>
+<font color="#A82F2F"><font size="2">(05:46:29 PM)</font> <b>jelly:</b></font> except &quot;lo&quot;, probably<br/>
+<font color="#A82F2F"><font size="2">(05:46:32 PM)</font> <b>Miesco:</b></font> jelly: I tried that<br/>
+<font color="#A82F2F"><font size="2">(05:47:05 PM)</font> <b>jelly:</b></font> Miesco: what happened?<br/>
+<font color="#A82F2F"><font size="2">(05:47:34 PM)</font> <b>cap3lla:</b></font> hey all. I am running a cron job every minute, and so far everything works fine. But I have a condition defined which should &quot;poweroff&quot; my notebook. Unfortunately neither &quot;/sbin/poweroff&quot; and &quot;/sbin/shutdown -h now&quot; works. And I cannot explain myself why the command is ignored in the script. It works fine when I run the script in terminal<br/>
+<font color="#A82F2F"><font size="2">(05:48:08 PM)</font> <b>cap3lla:</b></font> I also tried &quot;/sbin/poweroff&amp;&quot; or /sbin/shutdown -h now&amp; but doesn&apos;t work either<br/>
+<font color="#A82F2F"><font size="2">(05:49:12 PM)</font> <b>cap3lla:</b></font> the command is simple ==&gt; if [[ -f /tmp/flag.file ]]; then rm -f /tmp/flag.file; /sbin/poweroff; fi<br/>
+<font color="#A82F2F"><font size="2">(05:49:16 PM)</font> <b>tuxx-:</b></font> what user do you run the crontab from cap3lla ?<br/>
+<font color="#A82F2F"><font size="2">(05:49:47 PM)</font> <b>cap3lla:</b></font> oh tuxx, you&apos;re right. That should explain why shutdown doesn&apos;t seem to work, right? it&apos;s executed from users account.<br/>
+<font color="#A82F2F"><font size="2">(05:49:54 PM)</font> <b>tuxx-:</b></font> exactly :)<br/>
+<font color="#A82F2F"><font size="2">(05:50:00 PM)</font> <b>cap3lla:</b></font> what is the correct command for allowing my user to shutdown the notebook?<br/>
+<font color="#A82F2F"><font size="2">(05:50:04 PM)</font> <b>cap3lla:</b></font> I don&apos;t have  sudo installed<br/>
+<font color="#A82F2F"><font size="2">(05:50:10 PM)</font> <b>tuxx-:</b></font> cap3lla: i was gonna say sudo..<br/>
+<font color="#A82F2F"><font size="2">(05:50:11 PM)</font> <b>tuxx-:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(05:50:12 PM)</font> <b>greycat:</b></font> And your user didn&apos;t get errors from the job in email?<br/>
+<font color="#A82F2F"><font size="2">(05:50:30 PM)</font> <b>tlkr:</b></font> you could run a setuid script<br/>
+<font color="#A82F2F"><font size="2">(05:50:45 PM)</font> <b>tlkr:</b></font> although that sounds like a terrible iea<br/>
+<font color="#A82F2F"><font size="2">(05:51:24 PM)</font> <b>cap3lla:</b></font> shouldn&apos;t a &quot;su -c /sbin/poweroff&quot; be enough ?<br/>
+<font color="#A82F2F"><font size="2">(05:51:36 PM)</font> <b>greycat:</b></font> crontab can&apos;t prompt for the root password<br/>
+<font color="#A82F2F"><font size="2">(05:51:38 PM)</font> <b>cap3lla:</b></font> I&apos;ll try<br/>
+<font color="#A82F2F"><font size="2">(05:51:44 PM)</font> <b>cap3lla:</b></font> ah ok<br/>
+<font color="#A82F2F"><font size="2">(05:51:45 PM)</font> <b>blackflow:</b></font> just install sudo<br/>
+<font color="#A82F2F"><font size="2">(05:51:52 PM)</font> <b>jelly:</b></font> isn&apos;t [[ ]] a bashism<br/>
+<font color="#A82F2F"><font size="2">(05:52:01 PM)</font> <b>greycat:</b></font> you would *also* have to configure sudoers to allow that user to issue that command without a password prompt<br/>
+<font color="#A82F2F"><font size="2">(05:52:03 PM)</font> <b>cap3lla:</b></font> jelly: yes :)<br/>
+<font color="#A82F2F"><font size="2">(05:52:14 PM)</font> <b>greycat:</b></font> [[ ]] is present in bash and ksh, but not posix sh<br/>
+<font color="#A82F2F"><font size="2">(05:52:16 PM)</font> <b>jelly:</b></font> cap3lla: and your #! line is correct?<br/>
+<font color="#A82F2F"><font size="2">(05:52:21 PM)</font> <b>cap3lla:</b></font> greycat: blackflow: but how can my user shutdown the notebook through gnome?<br/>
+<font size="2">(05:52:44 PM)</font><b> Miesco left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:52:46 PM)</font> <b>greycat:</b></font> gnome presumably calls some setuid wrapper thingy<br/>
+<font color="#A82F2F"><font size="2">(05:52:47 PM)</font> <b>cap3lla:</b></font> jelly: yes, the shebang is on the beginning of my script, the condition works fine, I tested<br/>
+<font color="#062585"><font size="2">(05:52:52 PM)</font> <b>***greycat</b></font> knows nothing of gnomes<br/>
+<font color="#A82F2F"><font size="2">(05:53:03 PM)</font> <b>blackflow:</b></font> afaik gnome does it through polkit<br/>
+<font color="#A82F2F"><font size="2">(05:53:12 PM)</font> <b>jelly:</b></font> cap3lla: I mean, does it use the right /bin/bash interpreter<br/>
+<font color="#A82F2F"><font size="2">(05:53:36 PM)</font> <b>greycat:</b></font> if not, that should *also* be in the error email you are getting<br/>
+<font color="#A82F2F"><font size="2">(05:54:32 PM)</font> <b>jelly:</b></font> unless cap3lla ignored the Recommends: ... mail-transport-agent and is receiving no mail from cron<br/>
+<font color="#A82F2F"><font size="2">(05:54:47 PM)</font> <b>greycat:</b></font> or did 2&gt;/dev/null or some other stupid thing, yes<br/>
+<font size="2">(06:03:05 PM)</font><b> fraff is now known as fraff_</b><br/>
+<font color="#A82F2F"><font size="2">(06:05:18 PM)</font> <b>Miesco:</b></font> jelly: Sorry, yea it does the exact same thing when I reboot<br/>
+<font color="#A82F2F"><font size="2">(06:05:46 PM)</font> <b>jelly:</b></font> Miesco: what thing?<br/>
+<font color="#A82F2F"><font size="2">(06:06:29 PM)</font> <b>jelly:</b></font> Miesco: can you tell precisely which service you experience a delay with?  Which debian release are you using?<br/>
+<font color="#A82F2F"><font size="2">(06:06:39 PM)</font> <b>applepi:</b></font> Hi all..  I&apos;m working on making a .deb that is a minor upgrade to another .deb, but when I try to apt-get it, dpkg complains about trying to overwrite files which are also in the previous version of the package<br/>
+<font color="#A82F2F"><font size="2">(06:07:04 PM)</font> <b>jelly:</b></font> Miesco: it might not be the networking service at all, but something else that depends on networking.<br/>
+<font color="#A82F2F"><font size="2">(06:07:27 PM)</font> <b>applepi:</b></font> I have tried using &quot;replaces&quot; and &quot;breaks&quot; in my DEBIAN/control file but it doesn&apos;t seem to be respecting it<br/>
+<font color="#A82F2F"><font size="2">(06:07:39 PM)</font> <b>greycat:</b></font> Oh, that reminds me!  HOW do you remove the word &quot;quiet&quot; from the grub kernel boot lines properly in Debian?<br/>
+<font color="#A82F2F"><font size="2">(06:07:50 PM)</font> <b>jelly:</b></font> greycat: /etc/default/grub, update-grub<br/>
+<font size="2">(06:08:01 PM)</font><b> mode (+l 1685) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(06:08:12 PM)</font> <b>greycat:</b></font> Ah, I had looked in /etc/grub.d/ and /boot/grub/ ...<br/>
+<font color="#A82F2F"><font size="2">(06:08:54 PM)</font> <b>applepi:</b></font> what am I missing here?  i thought that &quot;replaces&quot; and &quot;breaks&quot; told dpkg not to worry about the fact that it was overwriting files?<br/>
+<font color="#A82F2F"><font size="2">(06:09:34 PM)</font> <b>greycat:</b></font> you need dpkg options like --force-overwrite IIRC<br/>
+<font color="#A82F2F"><font size="2">(06:09:47 PM)</font> <b>greycat:</b></font> see dpkg --force-help<br/>
+<font color="#A82F2F"><font size="2">(06:11:19 PM)</font> <b>applepi:</b></font> greycat:  I&apos;ve seen that around but then what would the &quot;replaces&quot; and &quot;breaks&quot; be for...  and/or how do upgrades to older packages happen normally?  I&apos;ve not had to force other packages..<br/>
+<font color="#A82F2F"><font size="2">(06:11:40 PM)</font> <b>greycat:</b></font> If you mean in a package metadata, I don&apos;t know.<br/>
+<font color="#A82F2F"><font size="2">(06:14:22 PM)</font> <b>Miesco:</b></font> jelly: Well my network card doesn&apos;t work so I don&apos;t expect it to load, but I have Jessie<br/>
+<font color="#A82F2F"><font size="2">(06:15:03 PM)</font> <b>greycat:</b></font> So, where is it hanging?  What&apos;s it doing at that point?<br/>
+<font color="#A82F2F"><font size="2">(06:15:59 PM)</font> <b>jelly:</b></font> Miesco: you&apos;ll probably want to use systemd-analyze to look at possible causes of delay<br/>
+<font color="#A82F2F"><font size="2">(06:18:23 PM)</font> <b>jhutchins:</b></font> ChrisH: .nfs* files? On the server?  Where?<br/>
+<font color="#062585"><font size="2">(06:18:35 PM)</font> <b>***jelly</b></font> heard result of &quot;systemd-analyze plot &gt; foo.svg&quot; was nifty<br/>
+<font color="#A82F2F"><font size="2">(06:20:07 PM)</font> <b>cap3lla:</b></font> thanks to you guys, I solved it through polkit, didn&apos;t need to install sudo<br/>
+<font color="#A82F2F"><font size="2">(06:21:38 PM)</font> <b>jelly:</b></font> cap3lla: ooh, can you share the solution<br/>
+<font color="#A82F2F"><font size="2">(06:23:46 PM)</font> <b>cap3lla:</b></font> sure, I just edited the file /usr/share/polkit-1/actions/org.freedesktop.login1.policy to fit my needs (section power-off and power-off-multiple-sessions)<br/>
+<font size="2">(06:28:00 PM)</font><b> mode (+l 1676) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(06:28:08 PM)</font> <b>jelly:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(06:32:58 PM)</font> <b>Miesco:</b></font> jelly: It says &quot;A start job is running for LSB: Raise network interfaces. (55s / no limit)&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:36:21 PM)</font> <b>Miesco:</b></font> jelly: Now since it says &quot;no limit&quot; I guess I can set a limit?<br/>
+<font size="2">(06:37:15 PM)</font><b> marsjaninzmarsa` is now known as marsjaninzmarsa</b><br/>
+<font color="#A82F2F"><font size="2">(06:38:09 PM)</font> <b>Miesco:</b></font> there is this setting in /etc/systemd/user.conf: #DefaultTimeoutStartSec=90s<br/>
+<font color="#A82F2F"><font size="2">(06:38:51 PM)</font> <b>ChrisH:</b></font> jhutchins: on the client in the directory where the original file was.<br/>
+<font color="#A82F2F"><font size="2">(06:52:49 PM)</font> <b>jhutchins:</b></font> ChrisH: Ah, we&apos;re just dealing with the server.<br/>
+<font size="2">(06:58:00 PM)</font><b> mode (+l 1682) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(07:05:30 PM)</font> <b>wathek:</b></font> Hi everybody I&apos;m experiencing a problem with Debian as a client and OpenVPN<br/>
+<font color="#A82F2F"><font size="2">(07:06:48 PM)</font> <b>wathek:</b></font> I&apos;d like that my server pushs his own DNS (I got a local DNS server). My client gets the DNS addresses but it doesn&apos;t seem to work correctly. I mean when I do dig google.com it says that it finds nothing however doing the same thing on my DNS server it returns the right result<br/>
+<font color="#A82F2F"><font size="2">(07:07:38 PM)</font> <b>wathek:</b></font> when I do a dig (from client) on mydomain.local (which is configured in my DNS server) it returns the right result from the DNS server<br/>
+<font color="#A82F2F"><font size="2">(07:08:16 PM)</font> <b>wathek:</b></font> I&apos;ve already set the forwarders {                 8.8.8.8;                 8.8.4.4;          }; on my DNS server<br/>
+<font size="2">(07:13:12 PM)</font><b> Tachyon` is now known as Tach[Away]</b><br/>
+<font color="#A82F2F"><font size="2">(07:14:53 PM)</font> <b>wathek:</b></font> Hi everybody<br/>
+<font size="2">(07:19:07 PM)</font><b> tcpman is now known as Guest38823</b><br/>
+<font color="#A82F2F"><font size="2">(07:29:42 PM)</font> <b>timdau:</b></font> how/where does /run get mounted?  I need to resize it and the stfw suggests a remount in rc.local which is uuuuugly<br/>
+<font color="#A82F2F"><font size="2">(07:30:13 PM)</font> <b>greycat:</b></font> it&apos;s a ramdisk or something.  type is &apos;tmpfs&apos;<br/>
+<font color="#A82F2F"><font size="2">(07:30:28 PM)</font> <b>timdau:</b></font> I know what it is, I am asking how it gets mounted.<br/>
+<font color="#A82F2F"><font size="2">(07:30:32 PM)</font> <b>timdau:</b></font> What mechanism.<br/>
+<font color="#A82F2F"><font size="2">(07:30:50 PM)</font> <b>timdau:</b></font> It isn&apos;t in the fstab.  It doesn&apos;t appear to be mounted via init.d<br/>
+<font color="#A82F2F"><font size="2">(07:31:35 PM)</font> <b>greycat:</b></font> cd /etc/init.d &amp;&amp; grep /run *   looks like udev<br/>
+<font color="#A82F2F"><font size="2">(07:32:42 PM)</font> <b>timdau:</b></font> Not on wheezy, maybe you are jessie or something.<br/>
+<font color="#A82F2F"><font size="2">(07:32:52 PM)</font> <b>greycat:</b></font> I checked that on a wheezy box.<br/>
+<font color="#A82F2F"><font size="2">(07:32:53 PM)</font> <b>timdau:</b></font> my udev script just moves stuff into /run<br/>
+<font color="#A82F2F"><font size="2">(07:33:20 PM)</font> <b>greycat:</b></font> I didn&apos;t actually *read* the thing.  I just got lots of hits in the udev script that looked relevant at a glance.<br/>
+<font color="#A82F2F"><font size="2">(07:33:35 PM)</font> <b>greycat:</b></font> if that&apos;s not it, then keep diggging<br/>
+<font color="#A82F2F"><font size="2">(07:34:04 PM)</font> <b>timdau:</b></font> Right, like I said, its not there.<br/>
+<font color="#A82F2F"><font size="2">(07:34:14 PM)</font> <b>timdau:</b></font> Potentially its built into the initrd I suppose.<br/>
+<font size="2">(07:35:30 PM)</font><b> first-healer is now known as healer</b><br/>
+<font color="#A82F2F"><font size="2">(07:40:43 PM)</font> <b>incal:</b></font> is there a command-sound-recorder-command so I can execute an arbitrary command and save whatever sound it makes to a file? i.e., much like redirection of text?<br/>
+<font size="2">(07:41:26 PM)</font><b> cyboman34 is now known as cyboman33</b><br/>
+<font color="#A82F2F"><font size="2">(07:41:39 PM)</font> <b>jelly:</b></font> timdau: /etc/init.d/mountkernfs.sh<br/>
+<font color="#A82F2F"><font size="2">(07:42:28 PM)</font> <b>jelly:</b></font> on wheezy.  Dunno on jessie.<br/>
+<font color="#A82F2F"><font size="2">(07:45:29 PM)</font> <b>timdau:</b></font> jelly: thx<br/>
+<font color="#A82F2F"><font size="2">(07:45:34 PM)</font> <b>ctmjr:</b></font> incal: arecord/aplay do not know about the arbitrary command part<br/>
+<font color="#A82F2F"><font size="2">(07:49:26 PM)</font> <b>incal:</b></font> ctmjr: yeah, does it work if I have a mplayer on playing music or will it get that as well?<br/>
+<font color="#A82F2F"><font size="2">(07:50:08 PM)</font> <b>incal:</b></font> perhaps impossible to tell what command generate what sound...<br/>
+<font color="#A82F2F"><font size="2">(07:53:28 PM)</font> <b>ctmjr:</b></font> incal: it records from the audio source  not the player, if i remember correctly. read the man page<br/>
+<font color="#A82F2F"><font size="2">(07:53:51 PM)</font> <b>acz32:</b></font> is anything required to make changes to .fonts.conf take effect?<br/>
+<font size="2">(07:56:09 PM)</font><b> root is now known as Guest63514</b><br/>
+<font size="2">(07:58:00 PM)</font><b> mode (+l 1689) by debhelper</b><br/>
+<font size="2">(08:01:41 PM)</font><b> module001 is now known as module000</b><br/>
+<font size="2">(08:07:36 PM)</font><b> Rundfyrkant is now known as bacondither</b><br/>
+<font size="2">(08:07:38 PM)</font><b> zz_AlphaTech is now known as AlphaTech</b><br/>
+<font size="2">(08:08:11 PM)</font><b> bacondither is now known as Rundfyrkant</b><br/>
+<font color="#A82F2F"><font size="2">(08:11:10 PM)</font> <b>teraflop:</b></font> acz32: i dont think .fonts.conf is the right name. where is that file located?<br/>
+<font color="#A82F2F"><font size="2">(08:11:40 PM)</font> <b>greycat:</b></font> You can create a ~/.fonts.conf file.<br/>
+<font color="#A82F2F"><font size="2">(08:12:11 PM)</font> <b>teraflop:</b></font> greycat: that location is deprecated<br/>
+<font color="#A82F2F"><font size="2">(08:12:17 PM)</font> <b>greycat:</b></font> Joy.<br/>
+<font color="#A82F2F"><font size="2">(08:12:35 PM)</font> <b>greycat:</b></font> So where was I supposed to create the file to fix the atrociously horrible Lucicda font issue?<br/>
+<font color="#A82F2F"><font size="2">(08:13:17 PM)</font> <b>teraflop:</b></font> ~/.config/fontconfig/fonts.conf<br/>
+<font color="#A82F2F"><font size="2">(08:13:48 PM)</font> <b>greycat:</b></font> Oh, because you&apos;re supposed to be using a Desktop Environment (tm).  Right.  I am not.<br/>
+<font color="#A82F2F"><font size="2">(08:13:57 PM)</font> <b>teraflop:</b></font> greycat: i do not use DE<br/>
+<font color="#A82F2F"><font size="2">(08:14:04 PM)</font> <b>teraflop:</b></font> greycat: thats the right location<br/>
+<font color="#A82F2F"><font size="2">(08:14:19 PM)</font> <b>timdau:</b></font> jelly: do you happen to know where the size of /run is specified?<br/>
+<font color="#A82F2F"><font size="2">(08:14:56 PM)</font> <b>greycat:</b></font> http://www.freedesktop.org/software/fontconfig/fontconfig-user.html lists ~/.fonts.conf right there at the bottom of the list<br/>
+<font color="#A82F2F"><font size="2">(08:15:16 PM)</font> <b>canvon_:</b></font> timdau: /etc/default/tmpfs perhaps?<br/>
+<font size="2">(08:15:20 PM)</font><b> canvon_ is now known as canvon</b><br/>
+<font color="#A82F2F"><font size="2">(08:15:20 PM)</font> <b>greycat:</b></font> since I don&apos;t have an XDG_CONFIG_HOME variable I figured ~/.fonts.conf was safer.<br/>
+<font color="#A82F2F"><font size="2">(08:15:26 PM)</font> <b>jelly:</b></font> timdau: man 5 tmpfs<br/>
+<font color="#A82F2F"><font size="2">(08:16:10 PM)</font> <b>teraflop:</b></font> greycat: and? may be it gets piked untill it stops working, that location is deprecated<br/>
+<font color="#A82F2F"><font size="2">(08:16:59 PM)</font> <b>greycat:</b></font> Then they should put that in the listbox at the top of the page instead of burying it at the end!<br/>
+<font color="#A82F2F"><font size="2">(08:17:20 PM)</font> <b>acz32:</b></font> i guess that&apos;s right. ~/.fonts.conf is the old location, but it still works<br/>
+<font color="#A82F2F"><font size="2">(08:18:23 PM)</font> <b>timdau:</b></font> thx canvon / jelly<br/>
+<font color="#A82F2F"><font size="2">(08:18:25 PM)</font> <b>greycat:</b></font> And then need to discuss what happens if you don&apos;t have XDG_CONFIG_HOME set.  I don&apos;t see anything on this page about it.<br/>
+<font color="#A82F2F"><font size="2">(08:18:50 PM)</font> <b>greycat:</b></font> For some reason I have XDG_RUNTIME_DIR=/run/user/1000 but I have no idea why.<br/>
+<font color="#A82F2F"><font size="2">(08:19:28 PM)</font> <b>acz32:</b></font> i found a .fonts.conf which pretty closely emulates infinality without having to install or compile anything from other repos<br/>
+<font color="#A82F2F"><font size="2">(08:20:26 PM)</font> <b>eugenmayer:</b></font> are there any (newer) sources for powerdns then the wheezy backports (3.3)<br/>
+<font color="#A82F2F"><font size="2">(08:20:34 PM)</font> <b>greycat:</b></font> In fact env says I have XDG_VTNR, XDG_SESSION_ID, XDG_SESSION_COOKIE, XDG_SEAT and XDG_RUNTIME_DIR but nothing with HOME<br/>
+<font color="#A82F2F"><font size="2">(08:20:41 PM)</font> <b>teraflop:</b></font> acz32: also if you want fontconfig pick your user configuration may be you have to deal with the symlinks into /etc/fonts/conf.d<br/>
+<font color="#A82F2F"><font size="2">(08:21:39 PM)</font> <b>acz32:</b></font> teraflop: what do you mean. if i use the deprecated location?<br/>
+<font color="#A82F2F"><font size="2">(08:21:55 PM)</font> <b>teraflop:</b></font> acz32: nope, i mean in general<br/>
+<font color="#A82F2F"><font size="2">(08:22:26 PM)</font> <b>teraflop:</b></font> greycat: you can set the variables by yourself<br/>
+<font color="#A82F2F"><font size="2">(08:23:05 PM)</font> <b>greycat:</b></font> Great.  So they are taking away the one sane working choice and forcing me to emulate a Desktop Environment(tm) if I want things to continue working in the future.<br/>
+<font color="#A82F2F"><font size="2">(08:23:23 PM)</font> <b>teraflop:</b></font> greycat: no<br/>
+<font color="#A82F2F"><font size="2">(08:23:37 PM)</font> <b>greycat:</b></font> Then explain what you meant.<br/>
+<font color="#A82F2F"><font size="2">(08:23:59 PM)</font> <b>desrt:</b></font> greycat: hi.  i created XDG_RUNTIME_DIR<br/>
+<font color="#A82F2F"><font size="2">(08:24:02 PM)</font> <b>desrt:</b></font> what did you want to know about it?<br/>
+<font color="#A82F2F"><font size="2">(08:24:03 PM)</font> <b>teraflop:</b></font> greycat: i do not know whay are you talking about DE, but it has nothing to deal with the XDG stuff<br/>
+<font color="#A82F2F"><font size="2">(08:24:12 PM)</font> <b>teraflop:</b></font> why*<br/>
+<font color="#A82F2F"><font size="2">(08:24:40 PM)</font> <b>greycat:</b></font> desrt: teraflop is telling me I am Doing It Wrong, because I only read part of the page instead of the whole page, and buried at the BOTTOM of the page it says the location that they listed at the TOP of the page is deprecated.<br/>
+<font color="#A82F2F"><font size="2">(08:25:04 PM)</font> <b>greycat:</b></font> desrt: and all of the NON-DEPRECATED OPTIONS require the presence of an environment variable called XDG_CONFIG_HOME which is not set in my window manager/X session.<br/>
+<font color="#A82F2F"><font size="2">(08:25:17 PM)</font> <b>desrt:</b></font> XDG_CONFIG_HOME is ~/.config/<br/>
+<font color="#A82F2F"><font size="2">(08:25:19 PM)</font> <b>desrt:</b></font> by default<br/>
+<font color="#A82F2F"><font size="2">(08:25:31 PM)</font> <b>desrt:</b></font> read http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html<br/>
+<font color="#A82F2F"><font size="2">(08:26:13 PM)</font> <b>teraflop:</b></font> greycat: im telling you that you are wrong about all youre talking about XDG, but the funny thing is that im not telling you nothing about that .font stuff<br/>
+<font color="#A82F2F"><font size="2">(08:26:36 PM)</font> <b>desrt:</b></font> when people say XDG_CONFIG_HOME they mean &quot;the value of ${XDG_CONFIG_HOME} if set, or ~/.config/ if unset&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:26:41 PM)</font> <b>greycat:</b></font> Then whoever is maintaining http://www.freedesktop.org/software/fontconfig/fontconfig-user.html should link to that page, and put the deprecation notice in the TOP of the page, right next to the entry in the big grey synopsis box.<br/>
+<font color="#A82F2F"><font size="2">(08:26:43 PM)</font> <b>teraflop:</b></font> i just told you is deprecated and it will stop working that&apos;s all<br/>
+<font color="#A82F2F"><font size="2">(08:27:20 PM)</font> <b>desrt:</b></font> greycat: the page says . If &apos;prefix&apos; is set to &quot;xdg&quot;, the value in the XDG_CONFIG_HOME environment variable will be added as the path prefix. please see XDG Base Directory Specification for more details.<br/>
+<font color="#A82F2F"><font size="2">(08:27:38 PM)</font> <b>teraflop:</b></font> greycat: i do not care about that and i do not care if you believe me or not<br/>
+<font color="#A82F2F"><font size="2">(08:27:41 PM)</font> <b>desrt:</b></font> it&apos;s not an actual link to the spec, but it&apos;s definitely a citation, and it&apos;s the first google hit<br/>
+<font color="#A82F2F"><font size="2">(08:28:02 PM)</font> <b>greycat:</b></font> I don&apos;t even understand that sentence, desrt.<br/>
+<font color="#A82F2F"><font size="2">(08:28:35 PM)</font> <b>desrt:</b></font> greycat: the page you&apos;re complaining about, in three separate places, says &quot;please see XDG Base Directory Specification for more details&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:28:50 PM)</font> <b>desrt:</b></font> i linked you to the document called &quot;XDG Base Directory Specification&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:28:53 PM)</font> <b>greycat:</b></font> I just want to know where I am supposed to put shit.  In simple English.  I thought the list of places in the grey box at the top of the page were all allowed.<br/>
+<font color="#A82F2F"><font size="2">(08:29:10 PM)</font> <b>desrt:</b></font> and it says very clearly &quot; $XDG_CONFIG_HOME defines the base directory relative to which user specific configuration files should be stored. If $XDG_CONFIG_HOME is either not set or empty, a default equal to $HOME/.config should be used.&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:29:21 PM)</font> <b>teraflop:</b></font> greycat: read the fine manual ;)<br/>
+<font color="#A82F2F"><font size="2">(08:29:56 PM)</font> <b>desrt:</b></font> the xdg basedir spec is extremely widely used.  arguably, if this is your first interaction with it, it might seem kinda annoying that every single place using the spec doesn&apos;t spell it out in full when they use it...<br/>
+<font color="#A82F2F"><font size="2">(08:34:21 PM)</font> <b>emash:</b></font> where do i start to get debian working on 2009 macbook?<br/>
+<font color="#A82F2F"><font size="2">(08:37:27 PM)</font> <b>rgr:</b></font> https://duckduckgo.com/?q=debian+macbook&amp;t=debian<br/>
+<font size="2">(08:37:43 PM)</font><b> rgr left the room (quit: Quit: ERC Version 5.3 (IRC client for Emacs)).</b><br/>
+<font color="#A82F2F"><font size="2">(08:40:46 PM)</font> <b>Pegasus_RPG:</b></font> Hello. How can I get apt-cacher to listen on the host&apos;s IPv6 address as well on Wheezy?<br/>
+<font color="#A82F2F"><font size="2">(08:41:52 PM)</font> <b>emash:</b></font> thank you. When i get to the page with iso&apos;s why there are three of them? why so many<br/>
+<font color="#A82F2F"><font size="2">(08:41:58 PM)</font> <b>emash:</b></font> i need all?<br/>
+<font color="#A82F2F"><font size="2">(08:42:28 PM)</font> <b>mtn:</b></font> emash: you only need the netinstall or disk 1<br/>
+<font color="#A82F2F"><font size="2">(08:44:49 PM)</font> <b>debn00b:</b></font> hi :)<br/>
+<font color="#A82F2F"><font size="2">(08:45:01 PM)</font> <b>pangolinrollin:</b></font> hello debn00b<br/>
+<font color="#A82F2F"><font size="2">(08:45:16 PM)</font> <b>debn00b:</b></font> what are the  packages i need to installl for audio to work?<br/>
+<font color="#A82F2F"><font size="2">(08:45:30 PM)</font> <b>debn00b:</b></font> pulseaudio and alsa-base?<br/>
+<font color="#A82F2F"><font size="2">(08:45:53 PM)</font> <b>greycat:</b></font> You don&apos;t need pulseaudio...<br/>
+<font color="#A82F2F"><font size="2">(08:46:07 PM)</font> <b>zinx:</b></font> especially if you want audio to actually work<br/>
+<font color="#A82F2F"><font size="2">(08:46:30 PM)</font> <b>emash:</b></font> i can&apos;t find bittorent download for testing<br/>
+<font color="#A82F2F"><font size="2">(08:46:47 PM)</font> <b>greycat:</b></font> The dpkg bot suggests installing &quot;alsa-utils&quot; in &lt;install alsa&gt;<br/>
+<font color="#A82F2F"><font size="2">(08:48:33 PM)</font> <b>debn00b:</b></font> emash http://cdimage.debian.org/cdimage/weekly-builds/<br/>
+<font size="2">(08:49:00 PM)</font><b> fran` is now known as fran</b><br/>
+<font color="#A82F2F"><font size="2">(08:50:22 PM)</font> <b>greycat:</b></font> So anyway, something (not me) seems to have copied my ~/.fonts.conf file to ~/.config/fontconfig/fonts.conf so I went ahead and removed ~/.fonts.conf<br/>
+<font color="#A82F2F"><font size="2">(08:50:33 PM)</font> <b>Pegasus_RPG:</b></font> Does anyone else use apt-cacher here?<br/>
+<font color="#A82F2F"><font size="2">(08:50:35 PM)</font> <b>greycat:</b></font> I still think the documentation could be improved.<br/>
+<font size="2">(08:53:54 PM)</font><b> Metaleer is now known as Dredd</b><br/>
+<font size="2">(08:54:01 PM)</font><b> Dredd is now known as Metaleer</b><br/>
+<font color="#A82F2F"><font size="2">(08:55:47 PM)</font> <b>Roberth1990:</b></font> Pegasus_RPG: yeah with the search or show paramter only<br/>
+<font color="#A82F2F"><font size="2">(08:56:13 PM)</font> <b>Pegasus_RPG:</b></font> Roberth1990: huh?<br/>
+<font color="#A82F2F"><font size="2">(08:56:59 PM)</font> <b>Roberth1990:</b></font> Pegasus_RPG: nevermind...<br/>
+<font size="2">(08:57:28 PM)</font><b> mpmc_ is now known as mpmc</b><br/>
+<font color="#A82F2F"><font size="2">(08:59:13 PM)</font> <b>teraflop:</b></font> greycat: sure, and sorry if I answered rude, it&apos;s been a long day<br/>
+<font color="#A82F2F"><font size="2">(09:01:10 PM)</font> <b>emash:</b></font> when i am installing debian, should i select &apos;debian desktop env&apos; with de of my choice? or i can only tick mate<br/>
+<font size="2">(09:01:24 PM)</font><b> Tach[Away] is now known as Tachyon`</b><br/>
+<font color="#A82F2F"><font size="2">(09:01:25 PM)</font> <b>emash:</b></font> and leave it unchecked?<br/>
+<font color="#A82F2F"><font size="2">(09:01:56 PM)</font> <b>greycat:</b></font> Personally I like to leave those things unchecked, then just apt-get install the things I actually want.  But I have several years of experience with Debian.<br/>
+<font color="#A82F2F"><font size="2">(09:02:39 PM)</font> <b>emash:</b></font> i just don&apos;t understand what is &quot;Debian desktop enviroment&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:03:06 PM)</font> <b>debn00b:</b></font> if you tick yes to debian desktop environment, it will install the default desktop environment<br/>
+<font color="#A82F2F"><font size="2">(09:03:16 PM)</font> <b>debn00b:</b></font> (gnome or something)<br/>
+<font color="#A82F2F"><font size="2">(09:03:23 PM)</font> <b>emash:</b></font> already did that, now i regret<br/>
+<font color="#A82F2F"><font size="2">(09:03:31 PM)</font> <b>emash:</b></font> wanted mate only<br/>
+<font color="#A82F2F"><font size="2">(09:03:34 PM)</font> <b>debn00b:</b></font> you can remove it afterwards<br/>
+<font color="#A82F2F"><font size="2">(09:03:51 PM)</font> <b>Roberth1990:</b></font> yeah just remove the meta packagee and the run auto remove<br/>
+<font color="#A82F2F"><font size="2">(09:03:56 PM)</font> <b>greycat:</b></font> it&apos;ll be some version of GNOME with a whole lot of stuff added<br/>
+<font color="#A82F2F"><font size="2">(09:03:57 PM)</font> <b>Roberth1990:</b></font> *then<br/>
+<font color="#A82F2F"><font size="2">(09:04:07 PM)</font> <b>debn00b:</b></font> i&apos;ve gone ultraminimalist and dont actually have a desktop environment right now :D<br/>
+<font color="#A82F2F"><font size="2">(09:04:39 PM)</font> <b>debn00b:</b></font> still climbing out of the pit with the help of you guys haha<br/>
+<font color="#A82F2F"><font size="2">(09:05:04 PM)</font> <b>Roberth1990:</b></font> debn00b: is that you rms?<br/>
+<font color="#A82F2F"><font size="2">(09:05:07 PM)</font> <b>mtn:</b></font> emash: under advanced option (I think) in the installer, you can choose which desktop you want installed<br/>
+<font color="#A82F2F"><font size="2">(09:05:30 PM)</font> <b>mtn:</b></font> emash: might be expert install<br/>
+<font color="#A82F2F"><font size="2">(09:05:36 PM)</font> <b>emash:</b></font> i chose graphical install<br/>
+<font color="#A82F2F"><font size="2">(09:05:58 PM)</font> <b>debn00b:</b></font> i dont eat the skin of my feet<br/>
+<font color="#A82F2F"><font size="2">(09:06:04 PM)</font> <b>pankid:</b></font> debn00b: did you choose a good font at least?<br/>
+<font color="#A82F2F"><font size="2">(09:06:24 PM)</font> <b>emash:</b></font> it presented me with options to select DE&apos;s and one of them was debian desktop enviroment i ticked mate and left deb de checked<br/>
+<font color="#A82F2F"><font size="2">(09:06:28 PM)</font> <b>emash:</b></font> nevermind<br/>
+<font color="#A82F2F"><font size="2">(09:06:35 PM)</font> <b>debn00b:</b></font> sounded like tasksel<br/>
+<font size="2">(09:06:55 PM)</font><b> mtn left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(09:06:56 PM)</font> <b>debn00b:</b></font> Roberth1990: i&apos;m just learning how a DE is put together in the process :)<br/>
+<font color="#A82F2F"><font size="2">(09:07:02 PM)</font> <b>debn00b:</b></font> just using openbox for now<br/>
+<font color="#A82F2F"><font size="2">(09:08:38 PM)</font> <b>debn00b:</b></font> i wish xfce would recommend rather than depend on osme of its packages (e.g. orage)<br/>
+<font color="#A82F2F"><font size="2">(09:09:08 PM)</font> <b>debn00b:</b></font> icedove does what i want<br/>
+<font color="#A82F2F"><font size="2">(09:09:20 PM)</font> <b>acz32:</b></font> greycat: which WM do you use, since you said you don&apos;t use a DE<br/>
+<font color="#A82F2F"><font size="2">(09:10:37 PM)</font> <b>greycat:</b></font> I use fvwm2<br/>
+<font color="#A82F2F"><font size="2">(09:11:55 PM)</font> <b>acz32:</b></font> never heard of it<br/>
+<font color="#A82F2F"><font size="2">(09:12:19 PM)</font> <b>debn00b:</b></font> i&apos;m going to switch to fluxbox when i get more time to configure things<br/>
+<font color="#A82F2F"><font size="2">(09:12:39 PM)</font> <b>acz32:</b></font> looks like a stacking WM. i switched to tiling and am regretting it<br/>
+<font color="#A82F2F"><font size="2">(09:13:33 PM)</font> <b>greycat:</b></font> fvwm is a very old, very traditional, very SMALL(!) wm<br/>
+<font color="#A82F2F"><font size="2">(09:14:34 PM)</font> <b>acz32:</b></font> it looks old. looks like whatever openbsd ships by default<br/>
+<font color="#062585"><font size="2">(09:15:22 PM)</font> <b>***greycat</b></font> loves old things... they remind me of me.<br/>
+<font color="#A82F2F"><font size="2">(09:15:25 PM)</font> <b>blackflow:</b></font> so much hate for gnome 3. I quite like it :)<br/>
+<font color="#A82F2F"><font size="2">(09:15:38 PM)</font> <b>emash:</b></font> sudo: command not found?<br/>
+<font color="#A82F2F"><font size="2">(09:15:43 PM)</font> <b>acz32:</b></font> oh, just looked it up and that is what openbsd uses. fvwm<br/>
+<font color="#A82F2F"><font size="2">(09:15:43 PM)</font> <b>greycat:</b></font> install it if you want it<br/>
+<font color="#A82F2F"><font size="2">(09:16:02 PM)</font> <b>acz32:</b></font> (1)<br/>
+<font size="2">(09:18:01 PM)</font><b> mode (+l 1695) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:18:19 PM)</font> <b>emash:</b></font> i figured that out but it was ehm unusual)<br/>
+<font color="#A82F2F"><font size="2">(09:19:18 PM)</font> <b>acz32:</b></font> blackflow: most people like customizing their systems and gnome3 doesn&apos;t make that easy.<br/>
+<font color="#A82F2F"><font size="2">(09:19:26 PM)</font> <b>acz32:</b></font> that<br/>
+<font color="#A82F2F"><font size="2">(09:19:40 PM)</font> <b>acz32:</b></font> that probably accounts for a lot of the hate<br/>
+<font color="#A82F2F"><font size="2">(09:21:45 PM)</font> <b>emash:</b></font> i can&apos;t get to install mate, it says unable to locate (deb-testing)<br/>
+<font color="#A82F2F"><font size="2">(09:21:56 PM)</font> <b>emash:</b></font> done apt-get update<br/>
+<font color="#A82F2F"><font size="2">(09:24:45 PM)</font> <b>elcheckito:</b></font> i have /etc/foo that is installed by package bar. i wanna compare my current (changed) version of /etc/foo with the default (unchanged) version i got when i first install bar. how?<br/>
+<font color="#A82F2F"><font size="2">(09:24:46 PM)</font> <b>acz32:</b></font> greycat: is fvwm and fvwm2 the same thing? the latter isn&apos;t available in debian if so<br/>
+<font color="#A82F2F"><font size="2">(09:25:15 PM)</font> <b>acz32:</b></font> if not so, i mean<br/>
+<font color="#A82F2F"><font size="2">(09:33:46 PM)</font> <b>richied:</b></font> hey guys where can i find the files pertaining to any application which i have installed in debian jessie<br/>
+<font color="#A82F2F"><font size="2">(09:34:17 PM)</font> <b>greycat:</b></font> richied: dpkg -L pkgname    will list the files that are installed as part of the package, but not the files created when the package programs are used<br/>
+<font color="#A82F2F"><font size="2">(09:38:13 PM)</font> <b>Miesco:</b></font> Anyone use iwlwifi-7602?<br/>
+<font color="#A82F2F"><font size="2">(09:38:50 PM)</font> <b>towo`:</b></font> !anyone<br/>
+<font color="#A82F2F"><font size="2">(09:38:50 PM)</font> <b>dpkg:</b></font> Please do not ask if anyone can help you, knows &apos;something&apos; or uses &apos;some_program&apos;.  Instead, ask your real question.  (If the real question _was_ &quot;does anyone use &apos;some_program&apos;?&quot; ask me about &lt;popcon&gt; instead.)  See &lt;ask&gt; &lt;ask to ask&gt; &lt;polls&gt; &lt;search&gt; &lt;sicco&gt; &lt;smart questions&gt;.<br/>
+<font color="#A82F2F"><font size="2">(09:43:54 PM)</font> <b>Miesco:</b></font> towo`: How do I get it to work?<br/>
+<font color="#A82F2F"><font size="2">(09:44:05 PM)</font> <b>Miesco:</b></font> Okay okay, i&apos;ll be more specific<br/>
+<font color="#A82F2F"><font size="2">(09:46:20 PM)</font> <b>ompaul:</b></font> Miesco: your question is strange, please list, (A) machine type (B) machine age (C) is it an intel card for wifi<br/>
+<font size="2">(09:49:07 PM)</font><b> brandon is now known as Guest54945</b><br/>
+<font color="#A82F2F"><font size="2">(09:49:36 PM)</font> <b>Miesco:</b></font> I have Thinkpad x240, got it new like just over a year ago.  I have iwlwifi-7260 drivers for my wifi card (Network controller: Intel Corporation Wireless 7260 (rev 6b)).  My wifi interface keeps failing.  It will keep reconnecting (in wpa_supplicant) or not connect at all, and when I type ifdown wlan0 I get: &quot;dhclient.c:2331: Failed to send 300 byte long packet over fallback interface.&quot;  What is the first s<br/>
+<font color="#A82F2F"><font size="2">(09:49:41 PM)</font> <b>Miesco:</b></font> tep I would take to prevent my wifi drivers from failing?<br/>
+<font color="#A82F2F"><font size="2">(09:50:14 PM)</font> <b>towo`:</b></font> what are iwlwifi-7260 drivers?<br/>
+<font color="#A82F2F"><font size="2">(09:50:23 PM)</font> <b>towo`:</b></font> which kernel you use?<br/>
+<font color="#A82F2F"><font size="2">(09:50:47 PM)</font> <b>Pegasus_RPG:</b></font> I just installed a new Wheezy system and /etc/resolv.conf keeps getting overwritten every minute. Why and how can I stop it?<br/>
+<font color="#A82F2F"><font size="2">(09:51:19 PM)</font> <b>greycat:</b></font> first figure out why your dhcp client is getting a new lease from the dhcp server every minute :-/<br/>
+<font color="#A82F2F"><font size="2">(09:51:57 PM)</font> <b>Pegasus_RPG:</b></font> The system is configured with a static address<br/>
+<font color="#062585"><font size="2">(09:52:25 PM)</font> <b>***greycat</b></font> starts writing &quot;Anyway, if it is indeed coming from DHCP, remove the line that has &quot;domain-name, domain-name-servers, domain-search, host-name,&quot; from /etc/dhcp/dhclient.conf&quot; and then sees THAT.<br/>
+<font color="#A82F2F"><font size="2">(09:52:28 PM)</font> <b>greycat:</b></font> What.<br/>
+<font color="#A82F2F"><font size="2">(09:52:41 PM)</font> <b>blackflow:</b></font> just domain-name-servers<br/>
+<font color="#A82F2F"><font size="2">(09:52:45 PM)</font> <b>greycat:</b></font> Are you SURE it&apos;s not got a dhclient running...?<br/>
+<font color="#A82F2F"><font size="2">(09:53:15 PM)</font> <b>towo`:</b></font> Pegasus_RPG, apt-get purge resolvconf<br/>
+<font color="#A82F2F"><font size="2">(09:53:33 PM)</font> <b>Pegasus_RPG:</b></font> greycat: it probably does for the IPv6 side since my network has autoconfiguration enabled<br/>
+<font color="#A82F2F"><font size="2">(09:53:38 PM)</font> <b>Pegasus_RPG:</b></font> towo`: not installed<br/>
+<font color="#A82F2F"><font size="2">(09:53:47 PM)</font> <b>Pegasus_RPG:</b></font> greycat: dhclient is though<br/>
+<font color="#A82F2F"><font size="2">(09:54:03 PM)</font> <b>ompaul:</b></font> Miesco:  paste in http://paste.debian.net  the output of this please       lspci -k<br/>
+<font color="#A82F2F"><font size="2">(09:54:11 PM)</font> <b>greycat:</b></font> Anyway, if it is indeed coming from DHCP, remove the line that has &quot;domain-name, domain-name-servers, domain-search, host-name,&quot; from /etc/dhcp/dhclient.conf and then stop &amp; restart the dhclient (usually by doing ifdown ... ; ifup ...)<br/>
+<font color="#A82F2F"><font size="2">(09:54:21 PM)</font> <b>Pegasus_RPG:</b></font> ok thanks<br/>
+<font color="#A82F2F"><font size="2">(09:54:37 PM)</font> <b>Miesco:</b></font> ompaul: http://paste.pound-python.org/show/28gdy317JKYWQi0Lr7iD/<br/>
+<font color="#A82F2F"><font size="2">(09:54:40 PM)</font> <b>Miesco:</b></font> wait<br/>
+<font color="#A82F2F"><font size="2">(09:54:50 PM)</font> <b>blackflow:</b></font> greycat: just domain-name-servers and maybe domain-search<br/>
+<font color="#A82F2F"><font size="2">(09:54:52 PM)</font> <b>Miesco:</b></font> ompaul: http://paste.pound-python.org/show/OftVnNeOVvsl2Fchp6DB/<br/>
+<font color="#A82F2F"><font size="2">(09:55:40 PM)</font> <b>greycat:</b></font> blackflow: why would you want your networking department&apos;s DHCP server that is set up for Windows PCs to fuck with your resolv.conf on your Debian box?  Ever?  At all?  Just make it stop.<br/>
+<font color="#A82F2F"><font size="2">(09:56:12 PM)</font> <b>Pegasus_RPG:</b></font> greycat: commenting that line still doesn&apos;t help<br/>
+<font color="#A82F2F"><font size="2">(09:56:13 PM)</font> <b>greycat:</b></font> I never want anything from my networking department&apos;s DHCP server in my resolv.conf.<br/>
+<font color="#A82F2F"><font size="2">(09:56:18 PM)</font> <b>mueslo:</b></font> hey, while doing a debian netinst, how would you install from a custom mirror?<br/>
+<font color="#A82F2F"><font size="2">(09:56:26 PM)</font> <b>greycat:</b></font> Pegasus_RPG: you restarted all of the interfaces that use DHCP?<br/>
+<font color="#A82F2F"><font size="2">(09:56:38 PM)</font> <b>Pegasus_RPG:</b></font> I run my DHCP server though so it&apos;s okay, I just need the domain and search params added. I guess I should add those to /etc/networking<br/>
+<font color="#A82F2F"><font size="2">(09:56:44 PM)</font> <b>Pegasus_RPG:</b></font> er you know networks<br/>
+<font color="#A82F2F"><font size="2">(09:57:12 PM)</font> <b>ompaul:</b></font> Miesco: there is a debian pastebin<br/>
+<font color="#A82F2F"><font size="2">(09:57:33 PM)</font> <b>Miesco:</b></font> ompaul: Okay, i&apos;ll see if I can get pastebinit to run it<br/>
+<font color="#A82F2F"><font size="2">(09:57:38 PM)</font> <b>ompaul:</b></font> don&apos;t bother -<br/>
+<font color="#A82F2F"><font size="2">(09:57:59 PM)</font> <b>ompaul:</b></font> I&apos;ve read those I don&apos;t mind the python ones but others I won&apos;t look at<br/>
+<font color="#A82F2F"><font size="2">(09:58:09 PM)</font> <b>ompaul:</b></font> Miesco: so a couple of questions<br/>
+<font color="#A82F2F"><font size="2">(09:58:33 PM)</font> <b>ompaul:</b></font> Miesco: you&apos;re disconnecting<br/>
+<font color="#A82F2F"><font size="2">(09:58:33 PM)</font> <b>Miesco:</b></font> http://paste.debian.net/166800/<br/>
+<font color="#A82F2F"><font size="2">(09:58:57 PM)</font> <b>ompaul:</b></font> Miesco: what is the distance from the network hub<br/>
+<font color="#A82F2F"><font size="2">(09:59:00 PM)</font> <b>mueslo:</b></font> any ideas? i really don&apos;t see why installing from a custom mirror isn&apos;t an option :8<br/>
+<font color="#A82F2F"><font size="2">(09:59:03 PM)</font> <b>ompaul:</b></font>  router / switch<br/>
+<font color="#A82F2F"><font size="2">(09:59:51 PM)</font> <b>ompaul:</b></font> mueslo: do the work to make it happen ;-) start by finding all your options by /msg dpkg install      that will give you some reading material and there are a lot of ways to install<br/>
+<font color="#A82F2F"><font size="2">(10:00:17 PM)</font> <b>ompaul:</b></font> Miesco: ?<br/>
+<font color="#A82F2F"><font size="2">(10:01:17 PM)</font> <b>Miesco:</b></font> ompaul: Well this started happening recently; I had it semi good, it only broke when I closed my laptop lid, but now that I installed iwlwifi-firmware package, it keeps breaking<br/>
+<font color="#A82F2F"><font size="2">(10:01:36 PM)</font> <b>ompaul:</b></font> Miesco: - what had you got before t<br/>
+<font color="#A82F2F"><font size="2">(10:01:40 PM)</font> <b>ompaul:</b></font> that<br/>
+<font color="#A82F2F"><font size="2">(10:01:47 PM)</font> <b>ompaul:</b></font> that didn&apos;t break it<br/>
+<font color="#A82F2F"><font size="2">(10:01:55 PM)</font> <b>Pegasus_RPG:</b></font> greycat: I have four physical interfaces, two of which are slaves for bond0, and the other two are not defined in /etc/network/interfaces at all<br/>
+<font color="#A82F2F"><font size="2">(10:02:07 PM)</font> <b>Miesco:</b></font> ompaul: Some other /lib/firmware/iwlwifi-7602-9.ucode<br/>
+<font color="#A82F2F"><font size="2">(10:02:11 PM)</font> <b>Pegasus_RPG:</b></font> bond0 is static addressed<br/>
+<font color="#A82F2F"><font size="2">(10:02:21 PM)</font> <b>Pegasus_RPG:</b></font> though it gets its IPv6 one via autodiscovery<br/>
+<font color="#A82F2F"><font size="2">(10:02:23 PM)</font> <b>ompaul:</b></font> Miesco: how did you install that?<br/>
+<font color="#A82F2F"><font size="2">(10:02:24 PM)</font> <b>greycat:</b></font> well, if it&apos;s not the dhclient overwriting resolv.conf then you&apos;ll have to find out who/what is overwriting it<br/>
+<font color="#A82F2F"><font size="2">(10:02:25 PM)</font> <b>Pegasus_RPG:</b></font> opr whatever it&apos;s called<br/>
+<font color="#A82F2F"><font size="2">(10:02:34 PM)</font> <b>Miesco:</b></font> ompaul: I forget, but it was still broken, just less broken<br/>
+<font color="#A82F2F"><font size="2">(10:02:53 PM)</font> <b>greycat:</b></font> (or just play big dumb Linux guy and bust out the chattr -i)<br/>
+<font color="#A82F2F"><font size="2">(10:02:59 PM)</font> <b>ompaul:</b></font> Miesco: please do this /msg dpkg don&apos;t break debian<br/>
+<font color="#A82F2F"><font size="2">(10:03:25 PM)</font> <b>Pegasus_RPG:</b></font> greycat: how might I be able to find out who is overwriting it? Set permissions to read only and see who complains in the syslog?<br/>
+<font color="#A82F2F"><font size="2">(10:04:05 PM)</font> <b>greycat:</b></font> I guess that&apos;s one way.<br/>
+<font color="#A82F2F"><font size="2">(10:04:13 PM)</font> <b>Miesco:</b></font> ompaul: Oh yea I am running Jessie<br/>
+<font color="#A82F2F"><font size="2">(10:04:31 PM)</font> <b>mueslo:</b></font> ompaul: not sure what that has to do with my problem, the only relevant thing for me is a netinst, and I have a local debian mirror I can use, but I can&apos;t use it since the installer doesn&apos;t allow custom mirrors and going the the installer shell it also seems like there&apos;s no way to modify sources.list or whatever the installer uses<br/>
+<font color="#A82F2F"><font size="2">(10:05:09 PM)</font> <b>ompaul:</b></font> mueslo: check out preseed you should be able to do something you could fudge dns and point to your stack<br/>
+<font color="#A82F2F"><font size="2">(10:05:44 PM)</font> <b>ompaul:</b></font> Miesco: so here&apos;s the thing, if you installed using some random method,  we don&apos;t know what that was. You then added a package (at least I presume you added a package) now you don&apos;t know what&apos;s going on but can&apos;t tell us how you got to this place.<br/>
+<font color="#A82F2F"><font size="2">(10:06:16 PM)</font> <b>Miesco:</b></font> ompaul: But this is what was happening before I did the random method<br/>
+<font color="#A82F2F"><font size="2">(10:06:24 PM)</font> <b>Miesco:</b></font> ompaul: Its naturally like this<br/>
+<font color="#A82F2F"><font size="2">(10:06:44 PM)</font> <b>Miesco:</b></font> ompaul: Its the debian drivers that are broken<br/>
+<font size="2">(10:08:00 PM)</font><b> mode (+l 1686) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:08:04 PM)</font> <b>ompaul:</b></font> Miesco: breaking down what you said this is the course of events. Installed some random firmware which kind of made stuff work. Installed correct package which seems to now misbehave. Is that a fair summary so far.<br/>
+<font color="#A82F2F"><font size="2">(10:09:10 PM)</font> <b>Pegasus_RPG:</b></font> greycat: I&apos;m convinced it&apos;s the IPv6 autoconfiguration<br/>
+<font color="#A82F2F"><font size="2">(10:09:19 PM)</font> <b>Pegasus_RPG:</b></font> But I ahve no proof XD<br/>
+<font color="#A82F2F"><font size="2">(10:10:33 PM)</font> <b>Pegasus_RPG:</b></font> rdnssd<br/>
+<font color="#A82F2F"><font size="2">(10:11:21 PM)</font> <b>greycat:</b></font> chattr -i is tempting as a short-term solution until you can find the real problem<br/>
+<font color="#A82F2F"><font size="2">(10:13:40 PM)</font> <b>Pegasus_RPG:</b></font> greycat: I think it&apos;s rdnssd<br/>
+<font size="2">(10:14:01 PM)</font><b> austin_laptop is now known as austin987</b><br/>
+<font color="#A82F2F"><font size="2">(10:15:45 PM)</font> <b>Miesco:</b></font> ompaul: Yea.  Since I installed debian package, I am back to the old broken ones.<br/>
+<font color="#A82F2F"><font size="2">(10:16:23 PM)</font> <b>Miesco:</b></font> ompaul: All I did was add iwlwifi-7602-blah.ucode to /lib/firmware/.  That was the random method.<br/>
+<font color="#A82F2F"><font size="2">(10:16:36 PM)</font> <b>Miesco:</b></font> And the debian package overwrites that<br/>
+<font color="#A82F2F"><font size="2">(10:16:46 PM)</font> <b>ompaul:</b></font> are you sure?<br/>
+<font color="#A82F2F"><font size="2">(10:17:27 PM)</font> <b>Miesco:</b></font> ompaul: no<br/>
+<font color="#A82F2F"><font size="2">(10:17:34 PM)</font> <b>Miesco:</b></font> ompaul: But fairly sure<br/>
+<font color="#A82F2F"><font size="2">(10:17:40 PM)</font> <b>ompaul:</b></font> not good enough<br/>
+<font color="#A82F2F"><font size="2">(10:17:50 PM)</font> <b>ompaul:</b></font> ls -al in that directory<br/>
+<font color="#A82F2F"><font size="2">(10:17:54 PM)</font> <b>ompaul:</b></font> check the dates<br/>
+<font size="2">(10:18:01 PM)</font><b> mode (+l 1692) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:18:41 PM)</font> <b>Miesco:</b></font> http://paste.debian.net/166805/<br/>
+<font color="#A82F2F"><font size="2">(10:19:01 PM)</font> <b>ompaul:</b></font>  Nov 30 07:14 iwlwifi-7260-9.ucode<br/>
+<font size="2">(10:19:07 PM)</font><b> Pegasus_RPG left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:19:21 PM)</font> <b>Miesco:</b></font> ompaul: Yea I don&apos;t know why it says Nov<br/>
+<font color="#A82F2F"><font size="2">(10:19:25 PM)</font> <b>Miesco:</b></font> I just changed it today<br/>
+<font color="#A82F2F"><font size="2">(10:19:50 PM)</font> <b>Miesco:</b></font> I renamed the debian one with a .fromdeb, and added that one<br/>
+<font color="#A82F2F"><font size="2">(10:20:12 PM)</font> <b>ompaul:</b></font> Miesco: now you are telling me you did it the other way around<br/>
+<font size="2">(10:20:17 PM)</font><b> martinst is now known as martins-afk</b><br/>
+<font color="#A82F2F"><font size="2">(10:20:24 PM)</font> <b>ompaul:</b></font> you should really remove the package with apt-get remove packagename<br/>
+<font color="#A82F2F"><font size="2">(10:20:32 PM)</font> <b>ompaul:</b></font> kill the other bit of firmware<br/>
+<font color="#A82F2F"><font size="2">(10:20:36 PM)</font> <b>ompaul:</b></font> reinstall the package<br/>
+<font color="#A82F2F"><font size="2">(10:20:42 PM)</font> <b>ompaul:</b></font> and then you can get the right to complani<br/>
+<font color="#A82F2F"><font size="2">(10:20:44 PM)</font> <b>ompaul:</b></font> complain<br/>
+<font color="#A82F2F"><font size="2">(10:20:48 PM)</font> <b>Miesco:</b></font> ompaul: Okay<br/>
+<font color="#A82F2F"><font size="2">(10:20:50 PM)</font> <b>ompaul:</b></font> and if it isn&apos;t working<br/>
+<font color="#A82F2F"><font size="2">(10:20:53 PM)</font> <b>ompaul:</b></font> you can file a bug<br/>
+<font color="#A82F2F"><font size="2">(10:20:59 PM)</font> <b>ompaul:</b></font> but remember to do this first<br/>
+<font color="#A82F2F"><font size="2">(10:21:48 PM)</font> <b>ompaul:</b></font> (A) install on an $android phone wifi analyzer check bands and density and strength where you are<br/>
+<font color="#A82F2F"><font size="2">(10:22:27 PM)</font> <b>ompaul:</b></font> (B) if the box is broadcasting on a channel that is very busy in that neighbourhood consider some other legal channel in that area for the box to broadcast on<br/>
+<font color="#A82F2F"><font size="2">(10:23:00 PM)</font> <b>Miesco:</b></font> ompaul: Oh yea, and I also added add this to /etc/modprobe.d/: options iwlwifi 11n_disable=1<br/>
+<font color="#A82F2F"><font size="2">(10:23:28 PM)</font> <b>Miesco:</b></font> ompaul: I use wifi here all the time, its my office<br/>
+<font color="#A82F2F"><font size="2">(10:23:33 PM)</font> <b>ompaul:</b></font> that is the first time I ever saw that written in this channel<br/>
+<font color="#A82F2F"><font size="2">(10:23:57 PM)</font> <b>ompaul:</b></font> it might be but the building might be full of boxes chatting on the same frequency<br/>
+<font color="#A82F2F"><font size="2">(10:24:10 PM)</font> <b>ompaul:</b></font> I&apos;ve said all I have to say on that<br/>
+<font color="#A82F2F"><font size="2">(10:25:01 PM)</font> <b>elcheckito:</b></font> can i have a symlink to /etc/init.d/a as /etc/init.d/b and install the service and update-rc.d defaults it?<br/>
+<font color="#A82F2F"><font size="2">(10:25:11 PM)</font> <b>elcheckito:</b></font> can i have a symlink in /etc/init.d at all?<br/>
+<font color="#A82F2F"><font size="2">(10:27:34 PM)</font> <b>debn00b:</b></font> hmmm aueio input isnt workign<br/>
+<font color="#A82F2F"><font size="2">(10:31:14 PM)</font> <b>blocky:</b></font> can anyone help me install gcc-mips-linux-gnu on jessie? I&apos;ve added the repo but it&apos;s complaining about not being able to install libgcc-4.9-dev:mips<br/>
+<font color="#A82F2F"><font size="2">(10:37:56 PM)</font> <b>FreeyMan:</b></font> ok first prize to best of op freenode to errantego<br/>
+<font color="#A82F2F"><font size="2">(10:38:00 PM)</font> <b>FreeyMan:</b></font> he banned everyone from #antispammeta<br/>
+<font size="2">(10:38:00 PM)</font><b> mode (+l 1686) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:38:05 PM)</font> <b>FreeyMan:</b></font> after kicking me out<br/>
+<font color="#A82F2F"><font size="2">(10:38:08 PM)</font> <b>FreeyMan:</b></font> i looked at the ban list<br/>
+<font color="#A82F2F"><font size="2">(10:39:34 PM)</font> <b>bolt:</b></font> FreeyMan: you&apos;re not winning any awards for being on topic...<br/>
+<font color="#A82F2F"><font size="2">(10:41:27 PM)</font> <b>FreeyMan:</b></font> bolt man<br/>
+<font size="2">(10:41:35 PM)</font><b> alvesadrian is now known as adrian</b><br/>
+<font color="#A82F2F"><font size="2">(10:41:37 PM)</font> <b>FreeyMan:</b></font> bolt all im gonna say is<br/>
+<font color="#A82F2F"><font size="2">(10:42:47 PM)</font> <b>phiberbug:</b></font> hello!<br/>
+<font color="#A82F2F"><font size="2">(10:42:53 PM)</font> <b>NoImNotN1neVolt:</b></font> FreeyMan: yes?<br/>
+<font color="#A82F2F"><font size="2">(10:45:52 PM)</font> <b>FreeyMan:</b></font> hey Metaleer<br/>
+<font size="2">(10:49:13 PM)</font><b> martins-afk is now known as martinst</b><br/>
+<font size="2">(10:51:18 PM)</font><b> martinst is now known as martins-afk</b><br/>
+<font color="#A82F2F"><font size="2">(10:53:53 PM)</font> <b>marens:</b></font> hey, how can i make sure that a service (mpd in my case) only gets started once dhclient assigned an ip to the wlan0 interface? i think the problem is that dhclient just returns to early. I see this problem during normal system startup and in if-up.d scripts that are called when the interface doesn&apos;t have an ip yet<br/>
+<font color="#A82F2F"><font size="2">(10:55:18 PM)</font> <b>greycat:</b></font> you can put the service invocation in an &quot;up&quot; hook in the interface block in /etc/network/interfaces<br/>
+<font color="#A82F2F"><font size="2">(10:55:48 PM)</font> <b>NoImNotN1neVolt:</b></font> which systemd target are you using?<br/>
+<font color="#A82F2F"><font size="2">(10:56:07 PM)</font> <b>marens:</b></font> this is wheezy, no systemd yet<br/>
+<font color="#A82F2F"><font size="2">(10:56:14 PM)</font> <b>NoImNotN1neVolt:</b></font> oh :(<br/>
+<font color="#A82F2F"><font size="2">(10:57:15 PM)</font> <b>balleyne:</b></font> I&apos;ve been having problems for a while in Debian testing. My screen freezes up often -- I can move my mouse, but nothing else -- and it might hold for 10 seconds or for 3 minutes. Then it unfreezes and catches up. Any idea how to fix? Wrong display driver or something?<br/>
+<font color="#A82F2F"><font size="2">(10:57:16 PM)</font> <b>marens:</b></font> greycat: wouldn&apos;t that be the same as putting a script in network/if-up.d ?<br/>
+<font color="#A82F2F"><font size="2">(10:57:29 PM)</font> <b>greycat:</b></font> I don&apos;t know.<br/>
+<font color="#A82F2F"><font size="2">(10:58:35 PM)</font> <b>centrx:</b></font> marens, You can change the boot order of a script with update-rc.d (you can see the order by the number at the start of the filename)<br/>
+<font color="#A82F2F"><font size="2">(10:58:49 PM)</font> <b>centrx:</b></font> marens, filenames in /etc/rc2.d<br/>
+<font color="#A82F2F"><font size="2">(10:59:00 PM)</font> <b>centrx:</b></font> marens, but use update-rc.d to change it<br/>
+<font color="#A82F2F"><font size="2">(10:59:05 PM)</font> <b>marens:</b></font> i even tried to depend on the $all facility in the init script to wait until everything is started but that didn&apos;t help, dhclient still wasn&apos;t finished<br/>
+<font color="#A82F2F"><font size="2">(10:59:37 PM)</font> <b>marens:</b></font> and that doesn&apos;t help when i restart the service via if-up.d when the wlan comes back up<br/>
+<font color="#A82F2F"><font size="2">(11:00:25 PM)</font> <b>marens:</b></font> i&apos;m already whinking about a script that checks if the iface got an ip but that is soo hacky, this can&apos;t be the only place where a service needs a fully configured iface with ip<br/>
+<font color="#A82F2F"><font size="2">(11:00:59 PM)</font> <b>marens:</b></font> *thinking about<br/>
+<font color="#A82F2F"><font size="2">(11:01:06 PM)</font> <b>centrx:</b></font> marens, Did you create the service?<br/>
+<font color="#A82F2F"><font size="2">(11:01:21 PM)</font> <b>centrx:</b></font> marens, Did you try the Required-Start keyword in the init script?<br/>
+<font color="#A82F2F"><font size="2">(11:01:35 PM)</font> <b>marens:</b></font> no, it&apos;s the default mpd initscript from debian wheezy, i just experimented with the $all facilty<br/>
+<font color="#A82F2F"><font size="2">(11:02:08 PM)</font> <b>marens:</b></font> centrx: yes, $all in Required-Start, still the interface didn&apos;t have an ip assigned<br/>
+<font color="#A82F2F"><font size="2">(11:04:03 PM)</font> <b>centrx:</b></font> marens, what command did you run after changing the file?<br/>
+<font size="2">(11:04:03 PM)</font><b> balleyne left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(11:05:47 PM)</font> <b>marens:</b></font> i did a complete reboot to check the behaviour<br/>
+<font size="2">(11:06:57 PM)</font><b> greycat left the room (quit: Quit: This time the bullet cold rocked ya / A yellow ribbon instead of a swastika).</b><br/>
+<font color="#A82F2F"><font size="2">(11:07:49 PM)</font> <b>centrx:</b></font> marens, You have to re-run the program that sets up the boot scripts. Try dpkg-reconfigure insserv sysv-rc<br/>
+<font size="2">(11:08:00 PM)</font><b> mode (+l 1680) by debhelper</b><br/>
+<font size="2">(11:20:52 PM)</font><b> tomivs is now known as Guest17039</b><br/>
+<font size="2">(11:21:06 PM)</font><b> wanderer is now known as Guest6313</b><br/>
+<font color="#A82F2F"><font size="2">(11:21:26 PM)</font> <b>marens:</b></font> centrx: didn&apos;t seem to help, i changed the Required line to &quot;# Required-Start:    $all&quot; ran &quot;dpkg-reconfigure insserv sysv-rc&quot; yet services like cran, dbus get started after mpd. and again the interface didn&apos;t get an ip in time, tried with auto wlan0 and allow-hotplug wlan0<br/>
+<font color="#A82F2F"><font size="2">(11:22:27 PM)</font> <b>centrx:</b></font> marens, try removing the service and re-adding it with update-rc.d ?<br/>
+<font color="#A82F2F"><font size="2">(11:22:50 PM)</font> <b>centrx:</b></font> I think it would be: update-rc.d scriptname remove &amp;&amp; update-rc.d scriptname defaults<br/>
+<font color="#A82F2F"><font size="2">(11:27:50 PM)</font> <b>blackflow:</b></font> shouldn&apos;t have<br/>
+<font color="#A82F2F"><font size="2">(11:27:53 PM)</font> <b>marens:</b></font> centrx: that finally seems to work<br/>
+<font color="#A82F2F"><font size="2">(11:28:21 PM)</font> <b>marens:</b></font> thanks, hopefully this will work for my invocation from if-up.d/, too<br/>
+<font color="#A82F2F"><font size="2">(11:28:30 PM)</font> <b>centrx:</b></font> cool<br/>
+<font color="#A82F2F"><font size="2">(11:32:38 PM)</font> <b>marens:</b></font> meh, doesn&apos;t work for the if-up.d script when the wlan comes back up (it simply starts the mpd init script again), yet again no ip assigned at that time<br/>
+<font size="2">(11:38:00 PM)</font><b> mode (+l 1672) by debhelper</b><br/>
+<font size="2">(11:48:01 PM)</font><b> mode (+l 1666) by debhelper</b><br/>
+<font size="2">(11:50:16 PM)</font><b> seconds_ is now known as Coca_Cola</b><br/>
+<font size="2">(11:51:49 PM)</font><b> Coca_Cola is now known as optrusty</b><br/>
+<font color="#A82F2F"><font size="2">(12:03:00 AM)</font> <b>acz32:</b></font> is there any reason to not always use dist-upgrade instead of upgrade?<br/>
+<font color="#A82F2F"><font size="2">(12:03:51 AM)</font> <b>mutante:</b></font> acz32: if you dont want to reboot for kernel upgrades i guess<br/>
+<font color="#A82F2F"><font size="2">(12:05:34 AM)</font> <b>centrx:</b></font> acz32, dist-upgrade will choose to uninstall things<br/>
+<font color="#A82F2F"><font size="2">(12:05:52 AM)</font> <b>centrx:</b></font> acz32, there&apos;s no reason to use it on stable unless upgrading releases<br/>
+<font size="2">(12:06:32 AM)</font><b> sleepypc is now known as `hypermist`</b><br/>
+<font color="#A82F2F"><font size="2">(12:09:33 AM)</font> <b>acz32:</b></font> centrx: you mean only after changing sources.list to a new release and dist-upgrading?<br/>
+<font color="#A82F2F"><font size="2">(12:11:51 AM)</font> <b>centrx:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(12:12:06 AM)</font> <b>centrx:</b></font> dist-upgrade is potentially unsafe, though nothing should ever go wrong on stable<br/>
+<font color="#A82F2F"><font size="2">(12:12:25 AM)</font> <b>centrx:</b></font> automated upgrades for example<br/>
+<font size="2">(12:18:01 AM)</font><b> mode (+l 1659) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:18:35 AM)</font> <b>hiexpo:</b></font> thanks again guys<br/>
+<font color="#A82F2F"><font size="2">(12:18:50 AM)</font> <b>hiexpo:</b></font> i am grateful<br/>
+<font color="#A82F2F"><font size="2">(12:20:02 AM)</font> <b>duelle:</b></font> Hi there, now I am trying for a whole day to get debian installed in a VM or on a dedicated server using RAID1/LUKS/LVM. As I needed reference configs for my dedicated server I tried to install a similar setup in a VM. But even the installer shows an error message when it tries to setup grub. Are there any things/limitations I might have missed when it comes to RAID1/LVM/LUKS setups using the installer?<br/>
+<font color="#A82F2F"><font size="2">(12:20:25 AM)</font> <b>rootsudo:</b></font> duelle: what does the log say?<br/>
+<font color="#A82F2F"><font size="2">(12:21:19 AM)</font> <b>duelle:</b></font> rootsudo, how can I access the logs of the installer? Sorry - never needed that :/<br/>
+<font color="#A82F2F"><font size="2">(12:21:53 AM)</font> <b>duelle:</b></font> rootsudo, the error message ist just &quot;Executing &apos;grub-install /dev/sda&apos; failed. This is a fatal error.&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:22:10 AM)</font> <b>hiexpo:</b></font> maybe /var/logs<br/>
+<font color="#A82F2F"><font size="2">(12:24:23 AM)</font> <b>duelle:</b></font> The last lines of syslog contain: Volume group &quot;md0&quot; not found [that should have been the boot partition]<br/>
+<font color="#A82F2F"><font size="2">(12:24:33 AM)</font> <b>duelle:</b></font> Later there are only messages that grub-installer failed with error<br/>
+<font size="2">(12:25:08 AM)</font><b> turnedtodust is now known as turnedtodust|vps</b><br/>
+<font color="#A82F2F"><font size="2">(12:26:55 AM)</font> <b>duelle:</b></font> My experimental setup contained two md devices. The first one for the boot partition and the second for all the rest (including LUKS/LVM). Unfortunately this is at least the second time I try to install such a setup with the installer that fails.<br/>
+<font size="2">(12:28:00 AM)</font><b> mode (+l 1645) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:30:53 AM)</font> <b>Vasistha:</b></font> I&apos;d like to buy a wireless network card for my desktop computer. Are there any recommended brands where I can rely on good linux support, including WPA, etc?<br/>
+<font color="#A82F2F"><font size="2">(12:31:53 AM)</font> <b>vandox:</b></font> Tplink ones work fine, for me at least<br/>
+<font color="#A82F2F"><font size="2">(12:32:11 AM)</font> <b>Vasistha:</b></font> thanks for the tip<br/>
+<font size="2">(12:33:12 AM)</font><b> duelle left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(12:45:20 AM)</font> <b>g00gz:</b></font> hello everyone…anyone currently running OVS on a deb host?<br/>
+<font color="#A82F2F"><font size="2">(12:45:55 AM)</font> <b>g00gz:</b></font> I&apos;m looking for info on how VM to VM communication works on the same host<br/>
+<font color="#A82F2F"><font size="2">(12:46:42 AM)</font> <b>g00gz:</b></font> does anyone know of a good site i can reference?<br/>
+<font size="2">(12:48:00 AM)</font><b> mode (+l 1638) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:52:38 AM)</font> <b>balleyne:</b></font> how can I find out which Xorg driver is currently in use on my machine?<br/>
+<font color="#A82F2F"><font size="2">(12:57:45 AM)</font> <b>cpc26:</b></font> it is in the Xorg log file<br/>
+<font color="#A82F2F"><font size="2">(01:06:37 AM)</font> <b>vanila:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(01:16:05 AM)</font> <b>srg:</b></font> I have an external 4 TB drive. I&apos;m gonna use it for backups. Should I use ext4 or btrfs? I&apos;ve used zfs in the past, but I think that&apos;s overkill. Is btrfs well supported on Jessie?<br/>
+<font color="#A82F2F"><font size="2">(01:19:10 AM)</font> <b>acz32:</b></font> srg: i would use ext4 or ntfs (if you want to be able to use it on windows) personally<br/>
+<font color="#A82F2F"><font size="2">(01:19:21 AM)</font> <b>acz32:</b></font> btrfs isn&apos;t as stable yet, i believe<br/>
+<font color="#A82F2F"><font size="2">(01:21:51 AM)</font> <b>srg:</b></font> oh, ok. THanks for the info. I don&apos;t want to use ntfs, I don&apos;t use windows anywhere<br/>
+<font color="#A82F2F"><font size="2">(01:22:00 AM)</font> <b>srg:</b></font> and don&apos;t want to worry about ntfs-3g bugs or whatever<br/>
+<font color="#A82F2F"><font size="2">(01:22:26 AM)</font> <b>teraflop:</b></font> srg: unless you want snapshots you won&apos;t need btrfs I think<br/>
+<font color="#A82F2F"><font size="2">(01:23:39 AM)</font> <b>teraflop:</b></font> if yes and you use subvols btrfs send is quite useful<br/>
+<font size="2">(01:25:48 AM)</font><b> Tachyon` is now known as Tach[Away]</b><br/>
+<font size="2">(01:28:00 AM)</font><b> mode (+l 1630) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(01:28:34 AM)</font> <b>srg:</b></font> Nah, I&apos;m just rsycing from my server and laptop on to this external drive. I don&apos;t think I&apos;d need snapshots. Thank you guys!<br/>
+<font size="2">(01:41:27 AM)</font><b> CrypticS_ is now known as CrypticSquared</b><br/>
+<font color="#A82F2F"><font size="2">(01:50:50 AM)</font> <b>kWO901:</b></font> my wireless interface turns off at random (very rarely)<br/>
+<font color="#A82F2F"><font size="2">(01:56:12 AM)</font> <b>roundcirle:</b></font> heyho<br/>
+<font color="#A82F2F"><font size="2">(01:56:58 AM)</font> <b>kWO901:</b></font> roundcirle: hello<br/>
+<font color="#A82F2F"><font size="2">(01:57:16 AM)</font> <b>roundcirle:</b></font> is it safe to install debian 8?<br/>
+<font color="#A82F2F"><font size="2">(01:57:50 AM)</font> <b>roundcirle:</b></font> does much will change until 8 is officially release?<br/>
+<font color="#A82F2F"><font size="2">(01:57:51 AM)</font> <b>ryouma:</b></font> what is this error i keep getting in iceweasel recently?  &quot;Secure Connection Failed An error occurred during a connection to startpage.com. The server rejected the handshake because the client downgraded to a lower TLS version than the server supports. (Error code: ssl_error_inappropriate_fallback_alert)&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:58:52 AM)</font> <b>ryouma:</b></font> my iceweasel version is from the debian mozilla repo; should i ask in debian-next?<br/>
+<font color="#A82F2F"><font size="2">(02:00:10 AM)</font> <b>roundcirle:</b></font> do i have to change the apt sources (afaik i dont have to, but better be sure)<br/>
+<font color="#A82F2F"><font size="2">(02:00:14 AM)</font> <b>roundcirle:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(02:07:02 AM)</font> <b>iWaldo_:</b></font> i&apos;m rebuilding the 3.16 kernel in jessie and i&apos;m trying to enable 3 options (all supposedly under &quot;Bus options (PCI etc.)&quot;: 1) &quot;Support for DMA Remapping Devices&quot;, 2) &quot;Enable DMA Remapping Devices&quot;, and 3) &quot;PCI Stub driver&quot;.  I found &quot;PCI Stub driver&quot; and changed it from a module to enabled, but 1 and 2 aren&apos;t found in the &quot;Bus Options (PCI etc.)&quot; menu.  Any advice?<br/>
+<font color="#A82F2F"><font size="2">(02:13:20 AM)</font> <b>iWaldo_:</b></font> although<br/>
+<font color="#A82F2F"><font size="2">(02:13:22 AM)</font> <b>iWaldo_:</b></font> now that i look<br/>
+<font color="#A82F2F"><font size="2">(02:14:49 AM)</font> <b>iWaldo_:</b></font> i already get &quot;AMD-Vi: Using passthrough domain for device 0000:00:01.0/0000:01:00.0 which are both of the video cards that i&apos;d like to pass through in the first place.<br/>
+<font color="#A82F2F"><font size="2">(02:15:11 AM)</font> <b>iWaldo_:</b></font> maybe i don&apos;t even have to rebuild<br/>
+<font color="#A82F2F"><font size="2">(02:17:42 AM)</font> <b>ctmjr:</b></font> iWaldo_: what are you trying to do vga pass through with kvm?<br/>
+<font color="#A82F2F"><font size="2">(02:37:57 AM)</font> <b>kWO901:</b></font> my wireless interface turns off at random (very rarely)<br/>
+<font size="2">(02:38:01 AM)</font><b> mode (+l 1621) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(02:38:04 AM)</font> <b>kWO901:</b></font> why<br/>
+<font color="#A82F2F"><font size="2">(02:41:00 AM)</font> <b>shay_shay:</b></font> anyone ever build kfreebsd on debian kfreebsd?<br/>
+<font color="#A82F2F"><font size="2">(02:41:05 AM)</font> <b>shay_shay:</b></font> i mean, the kernel<br/>
+<font color="#A82F2F"><font size="2">(02:41:15 AM)</font> <b>shay_shay:</b></font> it seems like I need bsd make in order to do it<br/>
+<font color="#A82F2F"><font size="2">(02:48:29 AM)</font> <b>iWaldo_:</b></font> ctmjr: primary- create a VM that can run openCL.  secondary - create a windows guest that can game if any gamers visit<br/>
+<font color="#A82F2F"><font size="2">(02:49:11 AM)</font> <b>iWaldo_:</b></font> also i want to keep the server host machine headless, and it seems equally tricky to set up a VM with X for openCL and to set up headless AMD drivers at the moment<br/>
+<font color="#A82F2F"><font size="2">(02:56:33 AM)</font> <b>Pegasus_RPG:</b></font> Hello. I&apos;m trying to roll back from a system installation that put a custom version of tar on my system. I force-removed tar but now see that dpkg depends on it to install the Debian original tar package. How can I achieve this reinstallation? Boot to rescue mode and install it there?<br/>
+<font color="#A82F2F"><font size="2">(02:58:34 AM)</font> <b>centrx:</b></font> Pegasus_RPG, easiest thing might be to just put a tar binary in /bin/tar<br/>
+<font color="#A82F2F"><font size="2">(02:58:48 AM)</font> <b>centrx:</b></font> extract it from the Debian package<br/>
+<font color="#A82F2F"><font size="2">(02:59:03 AM)</font> <b>centrx:</b></font> Then install the package normally<br/>
+<font color="#A82F2F"><font size="2">(02:59:12 AM)</font> <b>Pegasus_RPG:</b></font> ok cool thanks centrx<br/>
+<font color="#A82F2F"><font size="2">(03:04:43 AM)</font> <b>zykotick9:</b></font> shay_shay: fyi there is a #debian-kbsd on oftc, good luck.  /me knows nothin&apos; about kbsd<br/>
+<font color="#A82F2F"><font size="2">(03:07:40 AM)</font> <b>nmschulte:</b></font> Does there exist a way to defer the loading of a PCI device driver (or any driver) to the user via GUI?<br/>
+<font size="2">(03:13:54 AM)</font><b> Guest11998 is now known as sc_</b><br/>
+<font size="2">(03:18:00 AM)</font><b> mode (+l 1613) by debhelper</b><br/>
+<font size="2">(03:26:29 AM)</font><b> Lingo is now known as oprtusty</b><br/>
+<font size="2">(03:26:34 AM)</font><b> oprtusty is now known as optrusty</b><br/>
+<font color="#A82F2F"><font size="2">(03:27:42 AM)</font> <b>sslb:</b></font> I&apos;m going to install debian after I just installed Windows. Can I use debian installer to partition the single hard drive or should I use a tool in windows?<br/>
+<font size="2">(03:28:00 AM)</font><b> mode (+l 1607) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:28:53 AM)</font> <b>mutante:</b></font> sslb: should be possible to do the partioning in the Debian installer<br/>
+<font color="#A82F2F"><font size="2">(03:29:33 AM)</font> <b>sslb:</b></font> mutante, okay thanks.<br/>
+<font size="2">(03:33:51 AM)</font><b> sslb left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(03:39:37 AM)</font> <b>tapout:</b></font> with libjson-maybexs-perl, why would SID have it, wheezy nope, jessie yes.. why skip wheezy?<br/>
+<font color="#A82F2F"><font size="2">(03:43:16 AM)</font> <b>pantato:</b></font> I&apos;m trying to etherwake my server upon powering up a client. The only puzzle is I need to put a delay on the mounting of the samba  shares of said server or else it&apos;ll fail. Any ideas?<br/>
+<font color="#A82F2F"><font size="2">(03:43:57 AM)</font> <b>centrx:</b></font> tapout, wheezy is a previously released version of Debian<br/>
+<font color="#A82F2F"><font size="2">(03:44:18 AM)</font> <b>centrx:</b></font> tapout, new software that is present in unstable or testing is not added to the stable release until the next major release<br/>
+<font color="#A82F2F"><font size="2">(03:47:02 AM)</font> <b>mutante:</b></font> wants something like webalizer for mbox files. throw mbox mailboxes at it and have it generate stats for number of senders, country of origin etc<br/>
+<font color="#A82F2F"><font size="2">(03:48:40 AM)</font> <b>sslb:</b></font> I&apos;m partitioning the disk that windows is installed on (has 300gb unallocated) but in the debian graphical installer I don&apos;t see any partitions. It only shows the whole disk. Any reason why?<br/>
+<font color="#A82F2F"><font size="2">(03:48:58 AM)</font> <b>corndog:</b></font> Is there a software package to maintain a reverse ssh tunnel indefinitely ?<br/>
+<font color="#A82F2F"><font size="2">(03:49:26 AM)</font> <b>corndog:</b></font> I had a script that used &apos;wait&apos; but it never seems to work, not sure why this time, but just came all the way home and can&apos;t ssh into my box at work<br/>
+<font color="#A82F2F"><font size="2">(03:49:45 AM)</font> <b>centrx:</b></font> ah because you can&apos;t host a server<br/>
+<font color="#A82F2F"><font size="2">(03:57:00 AM)</font> <b>sslb:</b></font> I&apos;m doing a manual install using the graphical installer. How do I setup an encrypted system using the 300gb of unallocated space?<br/>
+<font color="#A82F2F"><font size="2">(03:57:27 AM)</font> <b>sslb:</b></font> I am using 1gb for swap and the rest for the encrypted debian install<br/>
+<font size="2">(03:58:00 AM)</font><b> mode (+l 1601) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:58:24 AM)</font> <b>sslb:</b></font> I also want to use LVM. I don&apos;t know whether I should setup the 299gb as LVM then configure that or if I should set it up as a physical block for encryption then configure it.<br/>
+<font color="#A82F2F"><font size="2">(03:59:39 AM)</font> <b>zykotick9:</b></font> sslb: i don&apos;t use the graphical install, so don&apos;t know, but the regular text d-i offers Encrypted LVM as an option during partitioning.  good luck.<br/>
+<font color="#A82F2F"><font size="2">(04:00:08 AM)</font> <b>aspect:</b></font> I have both iceweasel and firefox installed (debian 8.0), with /etc/alternatives/x-www-browser pointing at /usr/bin/firefox.  When I invoke x-www-browser, it starts iceweasel.  I&apos;m guessing firefox is doing something horrible in examining argv[0], but don&apos;t know how fix it.  Help?<br/>
+<font color="#A82F2F"><font size="2">(04:00:48 AM)</font> <b>sslb:</b></font> zykotick9: that is available as well, but it only shows use entire disk and setup encrypted LVM - I don&apos;t want to use the entire disk<br/>
+<font color="#A82F2F"><font size="2">(04:03:36 AM)</font> <b>mutante:</b></font> aspect: does &apos;update-alternatives --get-selections&apos; really show it as firefox?<br/>
+<font color="#A82F2F"><font size="2">(04:03:49 AM)</font> <b>zykotick9:</b></font> sslb: ahhh... /me understands issue now...  sorry i have nothin&apos; to suggest.  good luck!<br/>
+<font color="#A82F2F"><font size="2">(04:04:29 AM)</font> <b>sslb:</b></font> zykotick9: thanks anyways! :)<br/>
+<font color="#A82F2F"><font size="2">(04:05:37 AM)</font> <b>mutante:</b></font> aspect: update-alternatives --config x-www-browser  ?<br/>
+<font color="#A82F2F"><font size="2">(04:07:06 AM)</font> <b>aspect:</b></font> mutante: yes on both counts, and the symlink is to /usr/bin/firefox.  It must be hitting the correct executable, which is why I&apos;m disturbed :)<br/>
+<font color="#A82F2F"><font size="2">(04:08:34 AM)</font> <b>aspect:</b></font> creating a random symlink to /usr/bin/firefox and invoking it via that has the same effect:  iceweasel starts<br/>
+<font color="#062585"><font size="2">(04:08:36 AM)</font> <b>***zykotick9</b></font> remembers setting a new &quot;alternative&quot; as being more complicated then just a symlink...  but it&apos;s been a while...  further, installing firefox seems redundant and a PITA imo...<br/>
+<font color="#A82F2F"><font size="2">(04:09:13 AM)</font> <b>aspect:</b></font> .. even if that new symlink&apos;s basename is firefox<br/>
+<font color="#A82F2F"><font size="2">(04:10:41 AM)</font> <b>kWO901:</b></font> my wireless interface turns off at random (very rarely) why??<br/>
+<font color="#A82F2F"><font size="2">(04:11:18 AM)</font> <b>aspect:</b></font> at this point the best solution seems to be creating a pseudo-package with a shell script that execs firefox, then pointing alternatives at that.  Which is horrible.<br/>
+<font color="#A82F2F"><font size="2">(04:15:37 AM)</font> <b>aspect:</b></font> oh crap, /usr/bin/firefox is the culprit .. it&apos;s a shell script which invokes $0.real (if it exists), and falls back on iceweasel<br/>
+<font color="#A82F2F"><font size="2">(04:16:41 AM)</font> <b>aspect:</b></font> a bit of $(readlink $0) will fix that, then I can figure out where to send the patch .. thanks for listening :)<br/>
+<font size="2">(04:23:18 AM)</font><b> Devastator_ is now known as Devastator</b><br/>
+<font color="#A82F2F"><font size="2">(04:23:58 AM)</font> <b>donofrio:</b></font> paste.debian.net/166890 - anyone want to help me get audio and 3d working on this box (it&apos;s netinstalled jessie) fully updated<br/>
+<font color="#A82F2F"><font size="2">(04:26:47 AM)</font> <b>centrx:</b></font> donofrio, It seems like you already have 3D because: GLX Renderer: Mesa DRI nv18 GLX Version: 1.2 Mesa 10.3.2 Direct Rendering: Yes<br/>
+<font color="#A82F2F"><font size="2">(04:27:21 AM)</font> <b>donofrio:</b></font> humm.....xbmc didn&apos;t want to start....so figured it was not running<br/>
+<font color="#062585"><font size="2">(04:27:42 AM)</font> <b>***abrotman</b></font> wonders why xbmc would need 3d acceleration<br/>
+<font color="#A82F2F"><font size="2">(04:28:34 AM)</font> <b>donofrio:</b></font> I dunno checking xbmc.log now, would love to have sound working, this is imac (lampshade)<br/>
+<font color="#A82F2F"><font size="2">(04:31:40 AM)</font> <b>pengown:</b></font> sound on my alienware gave me a ton of issues for a while and i just broke it more trying to fix it<br/>
+<font color="#A82F2F"><font size="2">(04:31:41 AM)</font> <b>donofrio:</b></font> paste.debian.net/166891<br/>
+<font color="#A82F2F"><font size="2">(04:32:09 AM)</font> <b>pengown:</b></font> turned out i had to shutdown (runlevel 0) not runlevel 6 to fix the alsa drivers failing<br/>
+<font color="#A82F2F"><font size="2">(04:32:17 AM)</font> <b>pengown:</b></font> i now know as it does it from time to time<br/>
+<font color="#A82F2F"><font size="2">(04:33:28 AM)</font> <b>pengown:</b></font> i doubt i know how to fix it for an imac but i dont suggest trying to add tons and tons of kernel modules to fix it xD<br/>
+<font color="#A82F2F"><font size="2">(04:33:42 AM)</font> <b>pengown:</b></font> which is what i did and i just ended up with a ton of errors when i booted<br/>
+<font color="#A82F2F"><font size="2">(04:45:47 AM)</font> <b>srg:</b></font> What&apos;s the best/recommended way to encrypt a non-system drive? LUKS/cryptsetup?<br/>
+<font color="#A82F2F"><font size="2">(04:46:15 AM)</font> <b>greggory:</b></font> LUKS i think is whats currently recommended, however i may be wrong<br/>
+<font color="#A82F2F"><font size="2">(04:46:15 AM)</font> <b>pengown:</b></font> thats what i use<br/>
+<font size="2">(04:48:00 AM)</font><b> mode (+l 1592) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(04:53:45 AM)</font> <b>dgriffi:</b></font> could someone who knows pthreads take a look at http://pastebin.com/KA0JUGjF and tell me what I&apos;m doing wrong with line 182?<br/>
+<font color="#A82F2F"><font size="2">(04:54:57 AM)</font> <b>buu:</b></font> using threads<br/>
+<font color="#A82F2F"><font size="2">(04:55:16 AM)</font> <b>buu:</b></font> dgriffi: Isn&apos;t this a ##c question<br/>
+<font color="#A82F2F"><font size="2">(04:55:55 AM)</font> <b>dgriffi:</b></font> whoops.. wrong channel<br/>
+<font color="#A82F2F"><font size="2">(05:07:43 AM)</font> <b>zRecursive:</b></font> If the NIC plugged into PCI slot cannot be detected by OS, then the NIC is bad ?<br/>
+<font size="2">(05:08:00 AM)</font><b> mode (+l 1583) by debhelper</b><br/>
+<font size="2">(05:12:18 AM)</font><b> aceofdatabase_ is now known as aceofdatabase</b><br/>
+<font size="2">(05:23:12 AM)</font><b> hgl- is now known as hgl</b><br/>
+<font size="2">(05:25:28 AM)</font><b> John is now known as Guest78316</b><br/>
+<font color="#A82F2F"><font size="2">(05:27:21 AM)</font> <b>sslb:</b></font> well I got the LVM with encryption setup - now I can&apos;t boot into debian because of a nouveau error -_-<br/>
+<font size="2">(05:35:08 AM)</font><b> Guest78316 is now known as Xyle-</b><br/>
+<font size="2">(05:40:58 AM)</font><b> cafuego is now known as c|AFK|uego</b><br/>
+<font size="2">(05:54:57 AM)</font><b> `hypermist` is now known as sleepypc</b><br/>
+<font color="#A82F2F"><font size="2">(06:01:48 AM)</font> <b>nmschulte:</b></font> It seems that my SSD likely has a 1536 K erase block size (1024 + 512).  I&apos;ve aligned all of my partitions to 1 M (1024 K), as the tools do.  Am I correct that as long as I&apos;ve also aligned to 3 M boundaries, then I should be good for both 1024 K erase blocks size and 1536 K erase block sizes?<br/>
+<font color="#A82F2F"><font size="2">(06:02:17 AM)</font> <b>nmschulte:</b></font> As well, I feel the tools should be updated to account for this.  Perhaps even by switching to 3 M alignment rather than 1 M alignment...<br/>
+<font color="#A82F2F"><font size="2">(06:11:17 AM)</font> <b>nmschulte:</b></font> Hmm... it seems like the point is moot: the odds of seeing &quot;speedup&quot; from &quot;alignment&quot; here (or &quot;slowdown&quot; from &quot;misalignment&quot;) are very slim: only writes at the ends of partitions will potentially incurr this cost, and in that case it&apos;s only a loss if the write is larger than the erase block size to begin with.<br/>
+<font color="#A82F2F"><font size="2">(06:11:46 AM)</font> <b>nmschulte:</b></font> This is due to the fact that the file system is likely using 4K blocks anyway.<br/>
+<font size="2">(06:38:01 AM)</font><b> mode (+l 1576) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(06:38:30 AM)</font> <b>Lady_Aleena:</b></font> Hello. Where would I look up which video bards take which drivers? Hubby wants to install a GeForce 8400GS DDR3 512MB PCI in this computer. So just in case plug and play doesn&apos;t kick in, which driver would it take?<br/>
+<font size="2">(06:42:40 AM)</font><b> pquarles is now known as p_quarles</b><br/>
+<font size="2">(06:43:09 AM)</font><b> p_quarles is now known as Guest96664</b><br/>
+<font size="2">(07:09:16 AM)</font><b> pquarles is now known as p_quarles</b><br/>
+<font size="2">(07:09:46 AM)</font><b> p_quarles is now known as Guest84266</b><br/>
+<font size="2">(07:09:50 AM)</font><b> Guest84266 is now known as pquarles</b><br/>
+<font size="2">(07:17:32 AM)</font><b> c|AFK|uego is now known as cafuego</b><br/>
+<font color="#A82F2F"><font size="2">(07:38:44 AM)</font> <b>pengown:</b></font> someone said this channel doesnt let you in as root?<br/>
+<font color="#A82F2F"><font size="2">(07:39:35 AM)</font> <b>pengown:</b></font> i couldve sworn i logged into it back in the day when i didnt know how to use a regular user account :P<br/>
+<font color="#A82F2F"><font size="2">(07:44:28 AM)</font> <b>darxmurf:</b></font> hi all<br/>
+<font color="#A82F2F"><font size="2">(07:56:30 AM)</font> <b>kWO901:</b></font> wireless interface turns off and on at random times (very rarely), sometimes even remains off. what could it be?<br/>
+<font color="#A82F2F"><font size="2">(07:56:49 AM)</font> <b>bolt:</b></font> check your logs<br/>
+<font color="#A82F2F"><font size="2">(07:56:58 AM)</font> <b>centurion18:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(07:57:19 AM)</font> <b>kWO901:</b></font> bolt: where<br/>
+<font color="#A82F2F"><font size="2">(07:57:23 AM)</font> <b>centurion18:</b></font> does someone knows how to set up tor package to torify iceweasel? socks settings and stuff?<br/>
+<font color="#A82F2F"><font size="2">(07:57:27 AM)</font> <b>centurion18:</b></font> maybve tor channel?<br/>
+<font color="#A82F2F"><font size="2">(07:57:29 AM)</font> <b>bolt:</b></font> kWO901: /var/log<br/>
+<font color="#A82F2F"><font size="2">(07:58:39 AM)</font> <b>kWO901:</b></font> bolt: lots of stuff in there.<br/>
+<font color="#A82F2F"><font size="2">(07:59:54 AM)</font> <b>kWO901:</b></font> bolt: http://paste.debian.net/166898/<br/>
+<font color="#A82F2F"><font size="2">(08:00:26 AM)</font> <b>cy5:</b></font> How to block all incoming request from wifi<br/>
+<font color="#A82F2F"><font size="2">(08:04:11 AM)</font> <b>kWO901:</b></font> bolt:<br/>
+<font color="#A82F2F"><font size="2">(08:05:47 AM)</font> <b>ChrisH:</b></font> cy5: ifconfig down?<br/>
+<font color="#A82F2F"><font size="2">(08:07:18 AM)</font> <b>bolt:</b></font> kWO901: you need to look through kern.log, messages, and possibly others, for the time when your problems occurred<br/>
+<font color="#A82F2F"><font size="2">(08:07:21 AM)</font> <b>cy5:</b></font> chrish: you mean my ifconfig must be down<br/>
+<font color="#A82F2F"><font size="2">(08:08:06 AM)</font> <b>bolt:</b></font> cy5: he&apos;s being sarcastic. you probably want a firewall. check out something like shorewall<br/>
+<font color="#A82F2F"><font size="2">(08:08:25 AM)</font> <b>bolt:</b></font> cy5: or just don&apos;t run your services on that interface in the first place<br/>
+<font size="2">(08:09:09 AM)</font><b> pquarles is now known as p_quarles</b><br/>
+<font color="#A82F2F"><font size="2">(08:12:11 AM)</font> <b>cy5:</b></font> bolt:when i try this command iptables -A INPUT -i eth0 -s 192.168.0.102 -j DROP this command blocks ipuser from pinging but still he can use my wifi<br/>
+<font color="#A82F2F"><font size="2">(08:17:46 AM)</font> <b>cy5:</b></font> Iam trying to block incoming request form wifi so i&apos;m blocking wifi interface but it doesn&apos;t work iptables -A INPUT -i wlan0 -j DROP<br/>
+<font color="#A82F2F"><font size="2">(08:23:48 AM)</font> <b>ChrisH:</b></font> cy5: I still did not get what is your goal? remove services listening from wlan/wifi interface is step one. Then find out which services are still listening like netstat -an | grep LISTEN<br/>
+<font color="#A82F2F"><font size="2">(08:24:59 AM)</font> <b>tapout:</b></font> do people ever store files and paths with utf8 ?<br/>
+<font color="#A82F2F"><font size="2">(08:25:50 AM)</font> <b>themill:</b></font> tapout: sure. that&apos;s the default<br/>
+<font color="#A82F2F"><font size="2">(08:26:13 AM)</font> <b>cy5:</b></font> chrish:thanks for reply how to remove all service listening from wlan0 interface<br/>
+<font size="2">(08:28:18 AM)</font><b> vlt_ is now known as vlt</b><br/>
+<font color="#A82F2F"><font size="2">(08:29:31 AM)</font> <b>ChrisH:</b></font> cy5: depends on the service. most allow to specify the listening interface... but still why do you want to do that?<br/>
+<font color="#A82F2F"><font size="2">(08:31:28 AM)</font> <b>cy5:</b></font> actually we are working on wifi captive portal and we are stuck on iptables routing<br/>
+<font color="#A82F2F"><font size="2">(08:32:16 AM)</font> <b>ChrisH:</b></font> cy5: what does captive mean? company internal?<br/>
+<font color="#A82F2F"><font size="2">(08:33:53 AM)</font> <b>cy5:</b></font> chrish: A captive portal is a special web page that is shown before using the Internet normally.<br/>
+<font size="2">(08:33:55 AM)</font><b> newbie is now known as Guest49150</b><br/>
+<font color="#A82F2F"><font size="2">(08:34:43 AM)</font> <b>cy5:</b></font> chrish: what we have tried to route http://pastebin.com/PYucn3uF<br/>
+<font color="#A82F2F"><font size="2">(08:35:39 AM)</font> <b>ChrisH:</b></font> cy5: I see... never heard that term before. So you want a tranparent proxy forcing the users through a proxy and eg. without cookie you will redirect then to your webserver first.<br/>
+<font size="2">(08:38:00 AM)</font><b> mode (+l 1583) by debhelper</b><br/>
+<font size="2">(08:38:54 AM)</font><b> cafuego is now known as c|AFK|uego</b><br/>
+<font color="#A82F2F"><font size="2">(08:47:50 AM)</font> <b>cy5:</b></font> chrish: how to block port 80 so that i can block the access<br/>
+<font size="2">(08:48:00 AM)</font><b> mode (+l 1591) by debhelper</b><br/>
+<font size="2">(08:48:02 AM)</font><b> sleepypc is now known as `hypermist`</b><br/>
+<font color="#A82F2F"><font size="2">(08:48:45 AM)</font> <b>ChrisH:</b></font> cy5: google for transparent proxy  and you will find enough ideas.<br/>
+<font size="2">(08:51:42 AM)</font><b> fran` is now known as fran</b><br/>
+<font size="2">(08:54:55 AM)</font><b> WormDude is now known as WormFood</b><br/>
+<font size="2">(09:02:40 AM)</font><b> AlphaTech is now known as zz_AlphaTech</b><br/>
+<font size="2">(09:08:00 AM)</font><b> mode (+l 1597) by debhelper</b><br/>
+<font size="2">(09:08:22 AM)</font><b> `hypermist` is now known as sleepypc</b><br/>
+<font color="#A82F2F"><font size="2">(09:12:53 AM)</font> <b>fUNKIAM`:</b></font> hi<br/>
+<font size="2">(09:18:00 AM)</font><b> mode (+l 1606) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:29:50 AM)</font> <b>kWO901:</b></font> can anyone see why my wireless interface randomly turns off at times ? http://paste.debian.net/166902/<br/>
+<font size="2">(09:38:00 AM)</font><b> mode (+l 1614) by debhelper</b><br/>
+<font size="2">(09:42:05 AM)</font><b> ojdo_ is now known as ojdo</b><br/>
+<font color="#A82F2F"><font size="2">(09:48:01 AM)</font> <b>tapout:</b></font> i have a large file, and i want to goto offset but the file won&apos;t open in vim.. any ideas?<br/>
+<font color="#A82F2F"><font size="2">(09:49:11 AM)</font> <b>aborrero:</b></font> tapout: what about tail/head or something?<br/>
+<font color="#A82F2F"><font size="2">(09:49:43 AM)</font> <b>tapout:</b></font> ahh right, i forgot about those<br/>
+<font color="#A82F2F"><font size="2">(09:55:55 AM)</font> <b>emash:</b></font> hello everyone! i just installed testing in vm, without any DE. When i try to install mate-desktop-enviroment via apt-get i get &apos;unable to locate package&apos;<br/>
+<font color="#A82F2F"><font size="2">(09:56:38 AM)</font> <b>Knaldgas:</b></font> Trying to set up Jessie bluetooth so I can connect via IP to an Lego EV3 device. So far I&apos;ve managed to pair the devices, and most of the guides I found relate to making an ethernet-bridge, but I would really just like to connect from the PC to the device.<br/>
+<font color="#A82F2F"><font size="2">(09:56:55 AM)</font> <b>themill:</b></font> emash: sounds like you need to fix your sources.list -- /msg dpkg jessie sources.list<br/>
+<font color="#A82F2F"><font size="2">(09:57:09 AM)</font> <b>emash:</b></font> ty<br/>
+<font color="#A82F2F"><font size="2">(09:59:07 AM)</font> <b>Knaldgas:</b></font> I&apos;ve tried http://www.redtreerobotics.com/ip-over-bluetooth-with-linux/ which creates a bridge, but the python test-script fails claiming that the DefaultAdapter method does not exist.<br/>
+<font color="#A82F2F"><font size="2">(09:59:36 AM)</font> <b>Knaldgas:</b></font> &quot;qdbus --system org.bluez&quot; does not present any Manager, so I guess that&apos;s why, or?<br/>
+<font color="#A82F2F"><font size="2">(10:01:28 AM)</font> <b>emash:</b></font> i have &quot;ftp.se.debian.org&quot; in them, is it okay?<br/>
+<font color="#A82F2F"><font size="2">(10:02:50 AM)</font> <b>themill:</b></font> should be fine<br/>
+<font size="2">(10:03:40 AM)</font><b> Tach[Away] is now known as Tachyon`</b><br/>
+<font color="#A82F2F"><font size="2">(10:08:13 AM)</font> <b>Knaldgas:</b></font> Hmm, on second thoughts, I do need it bridged...<br/>
+<font color="#A82F2F"><font size="2">(10:08:44 AM)</font> <b>julius_-:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(10:09:05 AM)</font> <b>julius_-:</b></font> update-alternatives --install &quot;/usr/bin/java&quot; &quot;java&quot; &quot;/usr/lib/jvm/java-8-oracle/bin/java&quot; 1        &lt;- do i need to relog after this command?<br/>
+<font color="#A82F2F"><font size="2">(10:11:16 AM)</font> <b>emash:</b></font> still no luck in installing mate-desktop, sources seem to be fine, and when i launch aptitude there is no mate in the list of not installed<br/>
+<font color="#A82F2F"><font size="2">(10:13:06 AM)</font> <b>marens:</b></font> julius_-: no, just set the preferred java runtime with &quot;update-alternatives --config java&quot; and check via &quot;java -version&quot;<br/>
+<font color="#A82F2F"><font size="2">(10:13:31 AM)</font> <b>themill:</b></font> dpkg: tell emash about bat<br/>
+<font size="2">(10:18:01 AM)</font><b> mode (+l 1626) by debhelper</b><br/>
+<font size="2">(10:20:23 AM)</font><b> zz_mbainrot is now known as mbainrot</b><br/>
+<font size="2">(10:24:12 AM)</font><b> newbie is now known as Guest66766</b><br/>
+<font size="2">(10:25:32 AM)</font><b> Tachyon` is now known as Tach[Out]</b><br/>
+<font color="#A82F2F"><font size="2">(10:25:50 AM)</font> <b>emash:</b></font> themill i don&apos;t know how to select text and copy it in command line interface :,(<br/>
+<font color="#A82F2F"><font size="2">(10:27:39 AM)</font> <b>Knaldgas:</b></font> Yes! - Found the solution here: http://blog.fraggod.net/2015/03/28/bluetooth-pan-network-setup-with-bluez-5x.html<br/>
+<font size="2">(10:29:45 AM)</font><b> fraff_ is now known as fraff</b><br/>
+<font color="#A82F2F"><font size="2">(10:30:03 AM)</font> <b>Aldaron:</b></font> Hiya. Just tried to install Jessie RC2, but get grub rescue mode. &quot;ls (hd0,msdos6)/boot/grub&quot; lists only unicode.pf2 and grub.cfg. The whole i386-pc/ dir seems to be missing. Any ideas where to find this dir &amp; whether I should report a bug somewhere?<br/>
+<font size="2">(10:34:58 AM)</font><b> Tekken2 is now known as Tekken</b><br/>
+<font size="2">(10:43:31 AM)</font><b> nessessary129 is now known as necessary129</b><br/>
+<font color="#A82F2F"><font size="2">(10:45:51 AM)</font> <b>debn00b:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(10:46:30 AM)</font> <b>debn00b:</b></font> i have a live install of debian and cant boot from it for some reason<br/>
+<font color="#A82F2F"><font size="2">(10:46:57 AM)</font> <b>debn00b:</b></font> i get errors about Id &quot;n&quot; respawning too quickly disable for 5 minutes<br/>
+<font color="#A82F2F"><font size="2">(10:47:49 AM)</font> <b>iaj:</b></font> hi there, when I have a global logrotate setting in my config file which says, rotate 4, and then I specify a configuration for a file afterwards that says, size 500k for that file - which one is gonna be used? I want the file not to be rotated before it gets 500k in size<br/>
+<font color="#A82F2F"><font size="2">(10:48:58 AM)</font> <b>emash:</b></font> my problem is solved, thanks everyone<br/>
+<font color="#A82F2F"><font size="2">(10:51:05 AM)</font> <b>debn00b:</b></font> &quot;no more processes left in this runlevel&quot;?<br/>
+<font color="#A82F2F"><font size="2">(10:57:01 AM)</font> <b>fraff:</b></font> iaj: no idea but you can figure out with logrotate --debug<br/>
+<font size="2">(10:59:02 AM)</font><b> debn00b left the room (quit: Quit: Page closed).</b><br/>
+<font size="2">(11:00:32 AM)</font><b> Tach[Out] is now known as Tachyon`</b><br/>
+<font color="#A82F2F"><font size="2">(11:02:35 AM)</font> <b>iaj:</b></font> fraff: thanks man =)  Figured that I needed a &quot;minsize&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:09:28 AM)</font> <b>gribouille:</b></font> hi<br/>
+<font size="2">(11:28:00 AM)</font><b> mode (+l 1632) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:30:59 AM)</font> <b>cy5:</b></font> my network layout is this gateway---(wlan0)pi(eth0)----client  i want to block all my wifi user from accessing internet I tried cmd but its not working iptables -A FORWARD -o wlan0 -j DROP<br/>
+<font color="#A82F2F"><font size="2">(11:35:34 AM)</font> <b>ChrisH:</b></font> cy5: did you google for transparent proxy? all restriction shoyuld be applied on our ptoxy afterwrds<br/>
+<font color="#A82F2F"><font size="2">(11:39:08 AM)</font> <b>cy5:</b></font> chrish: yeah i did but didn&apos;t help<br/>
+<font color="#A82F2F"><font size="2">(11:40:44 AM)</font> <b>cy5:</b></font> this is my network layout gateway---(wlan0)pi(eth0)----client<br/>
+<font color="#A82F2F"><font size="2">(11:42:56 AM)</font> <b>Iridos:</b></font> it&apos;s simple... eat the pie<br/>
+<font color="#A82F2F"><font size="2">(11:44:27 AM)</font> <b>Iridos:</b></font> and from what you draw there your network layout doesn&apos;t get clear at all<br/>
+<font size="2">(11:48:15 AM)</font><b> n00bsaurus is now known as looooser</b><br/>
+<font color="#A82F2F"><font size="2">(11:52:09 AM)</font> <b>vvuja:</b></font> cy5, and on which interface on pi ends up wlan0<br/>
+<font color="#A82F2F"><font size="2">(11:52:26 AM)</font> <b>vvuja:</b></font> if you say you have wlan0 - pi - eth0 --- client<br/>
+<font color="#A82F2F"><font size="2">(11:52:44 AM)</font> <b>vvuja:</b></font> then I guess that on pi you have also wlan0 interface<br/>
+<font color="#A82F2F"><font size="2">(11:52:56 AM)</font> <b>vvuja:</b></font> to connect wi-fi to wi-fi<br/>
+<font color="#A82F2F"><font size="2">(11:53:26 AM)</font> <b>vvuja:</b></font> and then traffic goes to eth0 and later on to client<br/>
+<font color="#A82F2F"><font size="2">(11:56:12 AM)</font> <b>vvuja:</b></font> cy5, are you there?<br/>
+<font color="#A82F2F"><font size="2">(11:57:01 AM)</font> <b>cy5:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(11:57:15 AM)</font> <b>vvuja:</b></font> cy5 that pi have wlan0 and eth0<br/>
+<font color="#A82F2F"><font size="2">(11:57:35 AM)</font> <b>vvuja:</b></font> so you have wi-fi clients connecting to PI over wlan0<br/>
+<font size="2">(11:58:00 AM)</font><b> mode (+l 1638) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:58:26 AM)</font> <b>vvuja:</b></font> and you want to disable wi-fi connections on pi<br/>
+<font color="#A82F2F"><font size="2">(11:58:29 AM)</font> <b>vvuja:</b></font> right?<br/>
+<font color="#A82F2F"><font size="2">(11:58:38 AM)</font> <b>cy5:</b></font> i&apos;m sorry but my i&apos;m not good at drawing layout i&apos;ll just describe my layout internet is coming from lan to pi and pi has created hotspot so how should be layout?<br/>
+<font color="#A82F2F"><font size="2">(11:58:47 AM)</font> <b>ChrisH:</b></font> I still do not understand where the proxy is located, how to the wifi-clients connect and what the PI is used for as the gateway should handle the transpatrent proxy stuff.<br/>
+<font color="#A82F2F"><font size="2">(11:59:06 AM)</font> <b>vvuja:</b></font> cy5 if it goes this way<br/>
+<font color="#A82F2F"><font size="2">(11:59:20 AM)</font> <b>vvuja:</b></font> example 1. - PI have wlan0 and eth0 interfaces<br/>
+<font color="#A82F2F"><font size="2">(11:59:27 AM)</font> <b>vvuja:</b></font> which means wi-fi and ethernet<br/>
+<font color="#A82F2F"><font size="2">(11:59:32 AM)</font> <b>cy5:</b></font> i want to redirect my wifi user to server page or specific ip<br/>
+<font color="#A82F2F"><font size="2">(11:59:44 AM)</font> <b>ChrisH:</b></font> (nomading client) --wifi--- (pi-wlan0) proxy (pi-eth0) -- LAN -- Internetgateway<br/>
+<font color="#A82F2F"><font size="2">(12:00:07 PM)</font> <b>vvuja:</b></font> that is simple cy5<br/>
+<font color="#A82F2F"><font size="2">(12:00:43 PM)</font> <b>cy5:</b></font> how it&apos;s done i&apos;m hitting bushes from 2 months<br/>
+<font color="#A82F2F"><font size="2">(12:00:50 PM)</font> <b>vvuja:</b></font> make in script that brings up wi-fi connection to any wifi user that he uses defined default gateway<br/>
+<font color="#A82F2F"><font size="2">(12:00:54 PM)</font> <b>vvuja:</b></font> then make eth0 alias<br/>
+<font color="#A82F2F"><font size="2">(12:01:06 PM)</font> <b>vvuja:</b></font> ifconfig eth0:1 &lt;ip_addr&gt; &lt;netmask&gt; up<br/>
+<font color="#A82F2F"><font size="2">(12:01:20 PM)</font> <b>vvuja:</b></font> configure that as default gateway for your wi-fi user<br/>
+<font color="#A82F2F"><font size="2">(12:01:35 PM)</font> <b>vvuja:</b></font> and on that IP address on alias of interfce configure that it listens on specific port<br/>
+<font color="#A82F2F"><font size="2">(12:01:45 PM)</font> <b>vvuja:</b></font> when he opens browser<br/>
+<font color="#A82F2F"><font size="2">(12:01:57 PM)</font> <b>vvuja:</b></font> for that to be his homepage<br/>
+<font color="#A82F2F"><font size="2">(12:02:06 PM)</font> <b>vvuja:</b></font> by setting up automatic proxy<br/>
+<font color="#A82F2F"><font size="2">(12:02:17 PM)</font> <b>vvuja:</b></font> you can go this way<br/>
+<font color="#A82F2F"><font size="2">(12:02:37 PM)</font> <b>vvuja:</b></font> if user does not know how to turn off automatic proxy then you are fine<br/>
+<font size="2">(12:02:46 PM)</font><b> first-healer is now known as healer</b><br/>
+<font color="#A82F2F"><font size="2">(12:02:48 PM)</font> <b>vvuja:</b></font> and it is configured by proxy.pac file in /var/www/html<br/>
+<font color="#A82F2F"><font size="2">(12:02:53 PM)</font> <b>vvuja:</b></font> DocumentRoot of your website<br/>
+<font color="#A82F2F"><font size="2">(12:03:09 PM)</font> <b>vvuja:</b></font> then browser will pickup configuration and setup homepage<br/>
+<font color="#A82F2F"><font size="2">(12:03:23 PM)</font> <b>vvuja:</b></font> that homepage is what you want to serve to your wi-fi users<br/>
+<font color="#A82F2F"><font size="2">(12:03:24 PM)</font> <b>vvuja:</b></font> right?<br/>
+<font size="2">(12:03:29 PM)</font><b> necessary129 is now known as noteness</b><br/>
+<font size="2">(12:04:23 PM)</font><b> noteness is now known as necessary129</b><br/>
+<font color="#A82F2F"><font size="2">(12:04:48 PM)</font> <b>cy5:</b></font> thanks for reply but i&apos;m novice can you help me more on this topic  like link for tutorial or Paste bin example<br/>
+<font color="#A82F2F"><font size="2">(12:05:10 PM)</font> <b>vvuja:</b></font> also if you want more strict restriction you can always use iptables<br/>
+<font color="#A82F2F"><font size="2">(12:05:19 PM)</font> <b>vvuja:</b></font> and use port redirection<br/>
+<font color="#A82F2F"><font size="2">(12:05:23 PM)</font> <b>cy5:</b></font> vvuja: thanks for reply but i&apos;m novice can you help me more on this topic  like link for tutorial or Paste bin example<br/>
+<font color="#A82F2F"><font size="2">(12:05:32 PM)</font> <b>vvuja:</b></font> well I don&apos;t have it<br/>
+<font color="#A82F2F"><font size="2">(12:05:44 PM)</font> <b>vvuja:</b></font> I can not write you set of commands that you actuallly do<br/>
+<font color="#A82F2F"><font size="2">(12:05:50 PM)</font> <b>vvuja:</b></font> you need to tweak around a little bit<br/>
+<font color="#A82F2F"><font size="2">(12:05:51 PM)</font> <b>cy5:</b></font> yeah i&apos;m doing through port direction but its not working<br/>
+<font color="#A82F2F"><font size="2">(12:05:58 PM)</font> <b>vvuja:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(12:06:49 PM)</font> <b>cy5:</b></font> here&apos;s what i tried for port http://pastebin.com/PYucn3uF<br/>
+<font color="#A82F2F"><font size="2">(12:08:19 PM)</font> <b>vvuja:</b></font> this is correct<br/>
+<font color="#A82F2F"><font size="2">(12:08:31 PM)</font> <b>vvuja:</b></font> although you don&apos;t need part in FORWARD chain<br/>
+<font color="#A82F2F"><font size="2">(12:08:37 PM)</font> <b>vvuja:</b></font> only in nat table<br/>
+<font color="#A82F2F"><font size="2">(12:08:47 PM)</font> <b>vvuja:</b></font> since it will go to INPUT chain<br/>
+<font color="#A82F2F"><font size="2">(12:08:59 PM)</font> <b>vvuja:</b></font> and DNAT it to defined IP and port<br/>
+<font color="#A82F2F"><font size="2">(12:09:13 PM)</font> <b>vvuja:</b></font> each attempt to port 80 and port 443<br/>
+<font color="#A82F2F"><font size="2">(12:09:17 PM)</font> <b>cy5:</b></font> i think my wlan0 is not configured<br/>
+<font color="#A82F2F"><font size="2">(12:09:23 PM)</font> <b>vvuja:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(12:09:42 PM)</font> <b>vvuja:</b></font> this is correct setting of iptables<br/>
+<font color="#A82F2F"><font size="2">(12:10:01 PM)</font> <b>cy5:</b></font> ifdown: interface wlan0 not configured<br/>
+<font color="#A82F2F"><font size="2">(12:10:03 PM)</font> <b>vvuja:</b></font> you just need to accept packets on interface and see if they will be forwarded to your LAN network IP<br/>
+<font color="#A82F2F"><font size="2">(12:10:18 PM)</font> <b>vvuja:</b></font> cy5 configure wlan0<br/>
+<font color="#A82F2F"><font size="2">(12:10:27 PM)</font> <b>vvuja:</b></font> that is somehow easy part<br/>
+<font color="#A82F2F"><font size="2">(12:11:09 PM)</font> <b>cy5:</b></font> can you help me please<br/>
+<font color="#A82F2F"><font size="2">(12:12:00 PM)</font> <b>vvuja:</b></font> well configuring of wlan0 needs more then just input of IP addr and gateway<br/>
+<font color="#A82F2F"><font size="2">(12:12:06 PM)</font> <b>vvuja:</b></font> you need to configure DHCP server<br/>
+<font color="#A82F2F"><font size="2">(12:12:18 PM)</font> <b>vvuja:</b></font> and to put wlan0 on IP which will be the IP of DHCP server<br/>
+<font color="#A82F2F"><font size="2">(12:12:50 PM)</font> <b>vvuja:</b></font> and every wi-fi client will get defined IP from set of IPs from that DHCP server<br/>
+<font color="#A82F2F"><font size="2">(12:13:02 PM)</font> <b>vvuja:</b></font> and it will be able to communicate<br/>
+<font color="#A82F2F"><font size="2">(12:13:03 PM)</font> <b>cy5:</b></font> i&apos;m using static ipaddress for raspberry pi so do i need dhcp server<br/>
+<font color="#A82F2F"><font size="2">(12:13:35 PM)</font> <b>vvuja:</b></font> which later means that connection on port 80 on every web address will be forwarded to your LAN network IP address<br/>
+<font color="#A82F2F"><font size="2">(12:13:46 PM)</font> <b>vvuja:</b></font> make sure it is from same network as your DHCP sets of IP<br/>
+<font color="#A82F2F"><font size="2">(12:13:48 PM)</font> <b>vvuja:</b></font> yes you need DHCP<br/>
+<font color="#A82F2F"><font size="2">(12:14:00 PM)</font> <b>vvuja:</b></font> you can not have wlan0 with static IP addrs<br/>
+<font color="#A82F2F"><font size="2">(12:14:06 PM)</font> <b>vvuja:</b></font> only if you plan to have only one client<br/>
+<font color="#A82F2F"><font size="2">(12:14:18 PM)</font> <b>vvuja:</b></font> or you will set up manually wi-fi on each client<br/>
+<font color="#A82F2F"><font size="2">(12:14:21 PM)</font> <b>vvuja:</b></font> which is not the way it is done<br/>
+<font color="#A82F2F"><font size="2">(12:14:36 PM)</font> <b>vvuja:</b></font> wi-fi connects to hotspot and gets all the settings from there<br/>
+<font color="#A82F2F"><font size="2">(12:14:41 PM)</font> <b>vvuja:</b></font> no need to configure client also<br/>
+<font color="#A82F2F"><font size="2">(12:20:29 PM)</font> <b>cy5:</b></font> vvuja: thanks for elp we will configure wlan0 and if any doubts we will post here<br/>
+<font color="#A82F2F"><font size="2">(12:20:38 PM)</font> <b>cy5:</b></font> sorry help<br/>
+<font color="#A82F2F"><font size="2">(12:21:15 PM)</font> <b>vvuja:</b></font> ok cy5<br/>
+<font size="2">(12:28:01 PM)</font><b> mode (+l 1632) by debhelper</b><br/>
+<font size="2">(12:55:57 PM)</font><b> Symmetri1 is now known as Symmetria</b><br/>
+<font color="#A82F2F"><font size="2">(01:02:02 PM)</font> <b>oskie:</b></font> does Debian create /var/run/reboot-required like Ubuntu does on kernel upgrades?<br/>
+<font size="2">(01:08:00 PM)</font><b> mode (+l 1643) by debhelper</b><br/>
+<font size="2">(01:12:23 PM)</font><b> mbainrot is now known as zz_mbainrot</b><br/>
+<font color="#A82F2F"><font size="2">(01:12:26 PM)</font> <b>shingouz:</b></font> oskie: not that i know of. of course, if you want to actually run the new kernel, you need to reboot on it<br/>
+<font size="2">(01:34:21 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

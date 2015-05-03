@@ -1,0 +1,60 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Tue 03 Mar 2015 11:01:35 PM CET on magnetophon@irc.oftc.net (irc)</title></head><body><h3>Conversation with #debian at Tue 03 Mar 2015 11:01:35 PM CET on magnetophon@irc.oftc.net (irc)</h3>
+<font size="2">(11:01:35 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next | chanlogs: /msg dpkg irclog | Broken suspend with 7.8? <a href="http://deb.li/5tYG">http://deb.li/5tYG</a></b><br/>
+<font size="2">(11:01:36 PM)</font><b> Topic for #debian set by Maulkin!~maulkin@maulkin.noc.oftc.net at 04:53:46 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(11:01:43 PM)</font> <b>retrospectacus:</b></font> ziGuy: forget all that<br/>
+<font color="#A82F2F"><font size="2">(11:02:07 PM)</font> <b>retrospectacus:</b></font> !nvidia dkms<br/>
+<font color="#A82F2F"><font size="2">(11:02:07 PM)</font> <b>dpkg:</b></font> For Debian 7 &quot;Wheezy&quot; and later systems.  Ask me about &lt;contrib&gt; and &lt;non-free sources&gt;.  «aptitude -r install linux-headers-`uname -r|sed &apos;s,[^-]*-[^-]*-,,&apos;` nvidia-kernel-dkms &amp;&amp; mkdir /etc/X11/xorg.conf.d ; echo -e &apos;Section &quot;Device&quot;\n\tIdentifier &quot;My GPU&quot;\n\tDriver &quot;nvidia&quot;\nEndSection&apos; &gt; /etc/X11/xorg.conf.d/20-nvidia.conf».  Restart your system to enable the &lt;nouveau&gt; blacklist.<br/>
+<font color="#A82F2F"><font size="2">(11:03:08 PM)</font> <b>retrospectacus:</b></font> ziGuy: those are the supported steps to install nvidia driver<br/>
+<font color="#A82F2F"><font size="2">(11:03:21 PM)</font> <b>retrospectacus:</b></font> ziGuy: any questions, you know where to ask<br/>
+<font color="#A82F2F"><font size="2">(11:04:51 PM)</font> <b>ziGuy:</b></font> Are you human or angles?<br/>
+<font color="#A82F2F"><font size="2">(11:05:04 PM)</font> <b>awal:</b></font> ziGuy: do you understand all that command for nvidia dkms?<br/>
+<font color="#A82F2F"><font size="2">(11:06:20 PM)</font> <b>ziGuy:</b></font> most of it, but i think all i need is the reinstallation of the linux-headers, because it used to work before. if it won&apos;t work i&apos;ll try your steps<br/>
+<font color="#A82F2F"><font size="2">(11:07:28 PM)</font> <b>awal:</b></font> that command is so f***** crazy :)<br/>
+<font size="2">(11:08:01 PM)</font><b> mode (+l 702) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:08:57 PM)</font> <b>ziGuy:</b></font> thank you all guys. have a great life.<br/>
+<font size="2">(11:09:02 PM)</font><b> ziGuy left the room (quit: Quit: http://www.kiwiirc.com/ - A hand crafted IRC client).</b><br/>
+<font color="#A82F2F"><font size="2">(11:12:28 PM)</font> <b>awal:</b></font> What does this part of the command step by step exactly?           aptitude -r install linux-headers-`uname -r|sed &apos;s,[^-]*-[^-]*-,,&apos;` nvidia-kernel-dkms<br/>
+<font color="#A82F2F"><font size="2">(11:14:36 PM)</font> <b>jhutchins:</b></font> how do you test jobs in /etc/crontab?<br/>
+<font color="#A82F2F"><font size="2">(11:14:59 PM)</font> <b>valdyn:</b></font> awal: you can use $(uname -r)<br/>
+<font color="#A82F2F"><font size="2">(11:15:49 PM)</font> <b>abrotman:</b></font> jhutchins: su to that user, run the command?<br/>
+<font color="#A82F2F"><font size="2">(11:15:58 PM)</font> <b>retrospectacus:</b></font> awal: run uname -r <br/>
+<font color="#A82F2F"><font size="2">(11:15:59 PM)</font> <b>valdyn:</b></font> jhutchins: first of all you probably should not mess with that file at all<br/>
+<font color="#A82F2F"><font size="2">(11:16:11 PM)</font> <b>retrospectacus:</b></font> awal: run uname -r | sed &apos;s,[^-]*-[^-]*-,,&apos;<br/>
+<font color="#A82F2F"><font size="2">(11:16:40 PM)</font> <b>retrospectacus:</b></font> awal: that output will be appended to &quot;linux-headers-&quot; for the install command<br/>
+<font color="#A82F2F"><font size="2">(11:16:48 PM)</font> <b>jhutchins:</b></font> valdyn: I know, but a lot of admins dump system jobs there.<br/>
+<font color="#A82F2F"><font size="2">(11:17:27 PM)</font> <b>awal:</b></font> valdyn: that is easy; i know what mean uname -r  but lost with the part linux-headers-`uname -r|sed &apos;s,[^-]*-[^-]*-,,&apos;`<br/>
+<font color="#A82F2F"><font size="2">(11:17:30 PM)</font> <b>valdyn:</b></font> jhutchins: i dont know of any useful way to test cronjobs except by putting them in some crontab<br/>
+<font color="#A82F2F"><font size="2">(11:17:59 PM)</font> <b>valdyn:</b></font> awal: its a &quot;regular expression&quot;. You will need to read up on that to really understand it.<br/>
+<font color="#A82F2F"><font size="2">(11:18:03 PM)</font> <b>awal:</b></font> retrospectacus: hm, I understand the idea yeah<br/>
+<font color="#A82F2F"><font size="2">(11:18:20 PM)</font> <b>awal:</b></font> valdyn: sure<br/>
+<font color="#A82F2F"><font size="2">(11:18:30 PM)</font> <b>retrospectacus:</b></font> jhutchins: make the cronjob write to some file, also make it run every minute - ways to test in some fashion<br/>
+<font color="#A82F2F"><font size="2">(11:18:34 PM)</font> <b>awal:</b></font> i&apos;ll have to be an expert in aptitude<br/>
+<font color="#A82F2F"><font size="2">(11:18:46 PM)</font> <b>valdyn:</b></font> awal: it just removes stuff that starts with - and ends with -<br/>
+<font color="#A82F2F"><font size="2">(11:19:08 PM)</font> <b>valdyn:</b></font> awal: regular expressions are &quot;standard knowledge&quot;, they are not aptitude specific<br/>
+<font color="#A82F2F"><font size="2">(11:19:38 PM)</font> <b>retrospectacus:</b></font> the regular expression is used by sed (stream editor) not aptitude<br/>
+<font color="#A82F2F"><font size="2">(11:21:42 PM)</font> <b>valdyn:</b></font> awal: but in fact, that advice to use that command is not a good one<br/>
+<font color="#A82F2F"><font size="2">(11:22:00 PM)</font> <b>valdyn:</b></font> awal: just use `uname -r` or $(uname -r) without the sed stuff<br/>
+<font color="#A82F2F"><font size="2">(11:23:12 PM)</font> <b>awal:</b></font> Ok, guys. I think I must kill time learning more about gnu/linux instead of customizing stuffs :)<br/>
+<font color="#A82F2F"><font size="2">(11:24:12 PM)</font> <b>valdyn:</b></font> awal: there&apos;s just 2 computer sciency things you really need to know for debian, one is bachus-naur form, the other is regular expressions<br/>
+<font color="#A82F2F"><font size="2">(11:24:25 PM)</font> <b>valdyn:</b></font> awal: having a rough idea is usually enough, not deep knowledge needed<br/>
+<font color="#A82F2F"><font size="2">(11:25:42 PM)</font> <b>awal:</b></font> valdyn: ok, thanks for the advice (Y)<br/>
+<font size="2">(11:28:00 PM)</font><b> mode (+l 695) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:43:42 PM)</font> <b>jhutchins:</b></font> valdyn: Where is BNF used?<br/>
+<font color="#A82F2F"><font size="2">(11:50:50 PM)</font> <b>joseph-soares:</b></font> hi, I have a sd card but it cannot be formated by a smartphone or a tablet or a digital camera. How cai I force do something on it. It&apos;s on /dev/sdd<br/>
+<font color="#A82F2F"><font size="2">(11:51:10 PM)</font> <b>joseph-soares:</b></font> But neither Linux can mount this sd-card, but it&apos;s refered at /dev/sdd<br/>
+<font color="#A82F2F"><font size="2">(12:02:48 AM)</font> <b>retrospectacus:</b></font> joseph-soares: try fdisk<br/>
+<font color="#A82F2F"><font size="2">(12:03:28 AM)</font> <b>dondelelcaro:</b></font> joseph-soares: if less -f /dev/sdd; or fdisk /dev/sdd; doesn&apos;t work, the sd card may be dead<br/>
+<font color="#A82F2F"><font size="2">(12:05:12 AM)</font> <b>joseph-soares:</b></font> dondelelcaro, media not found<br/>
+<font color="#A82F2F"><font size="2">(12:05:44 AM)</font> <b>dondelelcaro:</b></font> joseph-soares: check dmesg, but it&apos;s likely that either the sd reader doesn&apos;t work, or the card is bad<br/>
+<font size="2">(12:07:47 AM)</font><b> fstd_ is now known as fstd</b><br/>
+<font color="#A82F2F"><font size="2">(12:20:08 AM)</font> <b>bondao:</b></font> hello guys<br/>
+<font color="#A82F2F"><font size="2">(12:21:03 AM)</font> <b>bondao:</b></font> ....someone know ocsinventory and glpi.<br/>
+<font color="#A82F2F"><font size="2">(12:21:29 AM)</font> <b>bondao:</b></font> i have a problem with Apache2::SOAP...<br/>
+<font color="#A82F2F"><font size="2">(12:22:45 AM)</font> <b>bondao:</b></font> please<br/>
+<font color="#A82F2F"><font size="2">(12:23:45 AM)</font> <b>bondao:</b></font> ok....nobody.....no problem<br/>
+<font color="#A82F2F"><font size="2">(12:23:51 AM)</font> <b>bondao:</b></font> bye <br/>
+<font size="2">(12:24:53 AM)</font><b> bondao left the room.</b><br/>
+<font size="2">(12:35:47 AM)</font><b> Corey84 is now known as Guest520</b><br/>
+<font color="#A82F2F"><font size="2">(12:40:27 AM)</font> <b>gnok:</b></font> hello everyone! which would be an appropriate channel to ask questions about cross building debian packages?<br/>
+<font size="2">(01:06:18 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,59 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Mon 02 Mar 2015 01:00:27 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Mon 02 Mar 2015 01:00:27 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(01:00:27 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(01:00:27 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(01:05:04 PM)</font><b> You are now known as magnetophon</b><br/>
+<font color="#A82F2F"><font size="2">(01:06:19 PM)</font> <b>qknight:</b></font> garbas: the gitlab is supposed to be used via ssh over https or directly by connecting with ssh to port 22?<br/>
+<font color="#A82F2F"><font size="2">(01:06:30 PM)</font> <b>qknight:</b></font> garbas: is there any documentaiton already?<br/>
+<font color="#A82F2F"><font size="2">(01:35:44 PM)</font> <b>_torpor_:</b></font> is there some documentation on using the ruby and bundix?<br/>
+<font color="#A82F2F"><font size="2">(01:36:44 PM)</font> <b>_torpor_:</b></font> ah just found http://nix-dev.science.uu.narkive.com/mqHApvU4/announcing-new-ruby-support -- might suffice..<br/>
+<font size="2">(01:41:04 PM)</font><b> boegel|afk is now known as boegel</b><br/>
+<font color="#A82F2F"><font size="2">(01:49:00 PM)</font> <b>Fuuzetsu:</b></font> that is also the only documentation I think<br/>
+<font color="#A82F2F"><font size="2">(01:52:06 PM)</font> <b>_torpor_:</b></font> hmm `bundler package` the `--no-install` for the only version i have available (1.7.9). only need one gem, this is too much work already.<br/>
+<font color="#A82F2F"><font size="2">(01:52:30 PM)</font> <b>_torpor_:</b></font> * --no-install flag not available<br/>
+<font color="#A82F2F"><font size="2">(01:52:55 PM)</font> <b>Fuuzetsu:</b></font> you need newer version for that flag IIRC<br/>
+<font color="#A82F2F"><font size="2">(01:53:02 PM)</font> <b>Fuuzetsu:</b></font> just something I recall reading on the list<br/>
+<font color="#A82F2F"><font size="2">(01:54:33 PM)</font> <b>_torpor_:</b></font> ah i can see where its mentioned, &apos;ruby-1.9.3-p547-bundler-HEAD&apos; didn&apos;t work for me (&apos;bundler: command not found!&apos;), maybe my error..<br/>
+<font color="#A82F2F"><font size="2">(01:56:17 PM)</font> <b>_torpor_:</b></font> ah not bundler &apos;/nix/store/ywz91g42p1fir3davm11k5affj64s7ar-coreutils-8.23/bin/env: ruby: No such file or directory&apos;<br/>
+<font color="#A82F2F"><font size="2">(01:58:40 PM)</font> <b>Fuuzetsu:</b></font> that would imply you don&apos;t have ruby in whatever env you are running the commands in<br/>
+<font color="#A82F2F"><font size="2">(02:01:18 PM)</font> <b>_torpor_:</b></font> hmm yeh i don&apos;t have a good enough idea of whats going on, ruby was available but installing &apos;ruby-1.9.3-p547-bundler-HEAD` &apos;replaced&apos; it.<br/>
+<font color="#A82F2F"><font size="2">(02:02:08 PM)</font> <b>_torpor_:</b></font> d/m got that bit working within nix-shell<br/>
+<font color="#A82F2F"><font size="2">(02:09:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wavewave closed pull request #6574: haskell-hoodle: update to version 0.4 (master...hoodle-0.4) http://git.io/xvBV<br/>
+<font color="#A82F2F"><font size="2">(02:28:25 PM)</font> <b>_torpor_:</b></font> Incidentally, got it working. I can see this is cleaner, but quite a lot manual work as a user. FWIW I agree with the suggestion of a syntax like `nix-env -iA pkgs.rubyGems.&lt;insert arbitrary gem&gt;`<br/>
+<font color="#A82F2F"><font size="2">(02:31:58 PM)</font> <b>goibhniu:</b></font> _torpor_: it would be awesome if you could add some info on the wiki or the mailing list, a lot of people have run into this<br/>
+<font color="#A82F2F"><font size="2">(02:33:09 PM)</font> <b>_torpor_:</b></font> Yep absolutely, should have thought of that. I&apos;ll add a Wiki entry shortly :)<br/>
+<font color="#A82F2F"><font size="2">(02:33:24 PM)</font> <b>goibhniu:</b></font> thanks!<br/>
+<font color="#A82F2F"><font size="2">(03:07:56 PM)</font> <b>Haskellfant:</b></font> as nixpkgs hasn&apos;t updated for nearly a month: can I switch to nixos-unstable if I am not on nixos? if so what&apos;s the point of the nixpkgs channel?<br/>
+<font color="#A82F2F"><font size="2">(03:09:40 PM)</font> <b>Lethalman:</b></font> Haskellfant, yes you can switch<br/>
+<font color="#A82F2F"><font size="2">(03:09:54 PM)</font> <b>Lethalman:</b></font> Haskellfant, different tests, nixpkgs is supposed to also serve darwin<br/>
+<font color="#A82F2F"><font size="2">(03:09:56 PM)</font> <b>Lethalman:</b></font> nixos is only linux<br/>
+<font color="#A82F2F"><font size="2">(03:10:04 PM)</font> <b>Lethalman:</b></font> I mean, for the tests<br/>
+<font color="#A82F2F"><font size="2">(03:10:20 PM)</font> <b>Lethalman:</b></font> Haskellfant, nixpkgs is stuck because of darwin stuff in fact<br/>
+<font color="#A82F2F"><font size="2">(03:11:18 PM)</font> <b>Haskellfant:</b></font> Lethalman: ah thx! I&apos;ll switch<br/>
+<font color="#A82F2F"><font size="2">(03:11:30 PM)</font> <b>Lethalman:</b></font> make sure you also update your NIX_PATH<br/>
+<font color="#A82F2F"><font size="2">(03:14:11 PM)</font> <b>Haskellfant:</b></font> ah thx for pointing that out, I would have forgot that<br/>
+<font color="#062585"><font size="2">(03:26:32 PM)</font> <b>***kmicu</b></font> suffers b/c of darwin people…<br/>
+<font size="2">(03:55:52 PM)</font><b> goibhniu left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(03:56:03 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(03:59:43 PM)</font> <b>magnetophon:</b></font> How do I put an url with a tilde in it in a nix expression? I get &quot;invalid character ‘~’ in name ‘helmholtz~.zip’&quot;. I also tried ‘helmholtz%7E.zip'  same error.<br/>
+<font color="#A82F2F"><font size="2">(04:00:43 PM)</font> <b>Lethalman:</b></font> magnetophon, you don&apos;t :P<br/>
+<font color="#16569E"><font size="2">(04:00:52 PM)</font> <b>magnetophon:</b></font> hmmm<br/>
+<font color="#A82F2F"><font size="2">(04:08:10 PM)</font> <b>niksnut:</b></font> magnetophon: with fetchurl, you can pass a name attribute without the ~<br/>
+<font color="#A82F2F"><font size="2">(04:08:23 PM)</font> <b>niksnut:</b></font> and you can put the URL between quotes<br/>
+<font color="#A82F2F"><font size="2">(04:08:34 PM)</font> <b>niksnut:</b></font> but that&apos;s probably not needed<br/>
+<font color="#16569E"><font size="2">(04:08:46 PM)</font> <b>magnetophon:</b></font> niksnut: thanks. I'll try that.<br/>
+<font color="#16569E"><font size="2">(04:09:14 PM)</font> <b>magnetophon:</b></font> ah, and now I see that is what Lethalman meant too, right?<br/>
+<font color="#A82F2F"><font size="2">(04:09:50 PM)</font> <b>Lethalman:</b></font> magnetophon, yes you can&apos;t have ~ in derivation names<br/>
+<font color="#16569E"><font size="2">(04:10:04 PM)</font> <b>magnetophon:</b></font> niksnut: hmm, I spoke too fast: I already had both of those tips, and I still get the error.<br/>
+<font size="2">(04:10:36 PM)</font><b> pmahoney [<em>user@nat/rackspace/x-vfycajrrbphvehct</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(04:11:27 PM)</font> <b>magnetophon:</b></font> the error says the invalid char is in the name, but then mentions helmholtz~.zip, which is only in the url.  (which is quoted)<br/>
+<font color="#16569E"><font size="2">(04:15:05 PM)</font> <b>magnetophon:</b></font> Lethalman, niksnut: Unfortunately url's with a ~ are quite common for puredata externals. Can you guys think of any other possible solutions? Would you say this is a bug in Nix? If so, I'll create an issue...<br/>
+<font color="#A82F2F"><font size="2">(04:15:24 PM)</font> <b>Lethalman:</b></font> magnetophon, you can pass the url with ~ as niksnut said, but give the filename another name<br/>
+<font color="#A82F2F"><font size="2">(04:15:40 PM)</font> <b>Lethalman:</b></font> magnetophon, fetchurl { url = &quot;foo~bar&quot;; name = &quot;foo_bar&quot;;<br/>
+<font color="#16569E"><font size="2">(04:16:27 PM)</font> <b>magnetophon:</b></font> Lethalman: ah, I thought you meant the pkg name. now I understand. Thanks.<br/>
+<font size="2">(04:17:27 PM)</font><b> boegel is now known as boegel|afk</b><br/>
+<font color="#A82F2F"><font size="2">(04:24:30 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 1 new commit to master: http://git.io/x0PO<br/>
+<font color="#A82F2F"><font size="2">(04:24:30 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 95800b2 Pascal Wittmann: abduco: update from 0.2 to 0.3<br/>
+<font color="#A82F2F"><font size="2">(04:33:22 PM)</font> <b>Haskellfant:</b></font> how can I avoid complete recompilations when I have two depending projects? Cabal and cabal-install in my case. The problem is that my shell.nix of cabal-install depends on the nix derivation from Cabal, but that results in recompiling Cabal completely for every change because it runs cabal configure.<br/>
+<font color="#A82F2F"><font size="2">(04:34:02 PM)</font> <b>Fuuzetsu:</b></font> it should not recompile Cabal<br/>
+<font size="2">(04:38:43 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

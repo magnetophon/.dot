@@ -1,0 +1,226 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Thu 29 Jan 2015 01:35:56 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Thu 29 Jan 2015 01:35:56 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(01:35:56 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(01:35:56 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(01:36:03 PM)</font> <b>Sibi__:</b></font> How do I install imagemagick package using nix ? I did a nix-env -qa imagemagi.* but it shows me this &quot;error: selector ‘imagemagi.*’ matches no derivations&quot;. But in the web interface (https://nixos.org/nixos/packages.html), I&apos;m able to find that package.<br/>
+<font color="#A82F2F"><font size="2">(01:36:24 PM)</font> <b>Sibi__:</b></font> I did a channel update just to be sure.<br/>
+<font color="#A82F2F"><font size="2">(01:36:51 PM)</font> <b>mister12:</b></font> Hello all<br/>
+<font color="#A82F2F"><font size="2">(01:37:03 PM)</font> <b>mister12:</b></font> I removed by a mistake &quot;/nix/store/nk1hw5c6jzin073difisgi0jfbbrqj7g-python-2.7.9&quot; , what is the correct way to recover from this situation?<br/>
+<font color="#A82F2F"><font size="2">(01:37:13 PM)</font> <b>MagneticDuck:</b></font> look, somebody else deleting files!<br/>
+<font color="#A82F2F"><font size="2">(01:37:18 PM)</font> <b>MagneticDuck:</b></font> I think I found a friend<br/>
+<font color="#A82F2F"><font size="2">(01:37:23 PM)</font> <b>mister12:</b></font> it&apos;s part of Manifest http://nixos.org/releases/nixos/14.12-small/nixos-14.12.323.9164307/MANIFEST<br/>
+<font color="#A82F2F"><font size="2">(01:37:34 PM)</font> <b>mister12:</b></font> of course, you are a Magnetic Duck<br/>
+<font color="#A82F2F"><font size="2">(01:37:53 PM)</font> <b>MagneticDuck:</b></font> I love hard disks!<br/>
+<font color="#A82F2F"><font size="2">(01:38:08 PM)</font> <b>mister12:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(01:38:12 PM)</font> <b>instantepiphany:</b></font> mister12: I am not an expert but you should be able to just regenerate it by running nixos-rebuild switch if you are on nixos<br/>
+<font color="#A82F2F"><font size="2">(01:38:30 PM)</font> <b>Lethalman:</b></font> funfunctor, I think you should just open a PR for each of those<br/>
+<font color="#A82F2F"><font size="2">(01:38:35 PM)</font> <b>mister12:</b></font> I&apos;ve noticed that its hash is inside /nix/var/nix/binary-cache-v3.sqlite &amp; /nix/var/nix/db/db.sqlite files<br/>
+<font color="#A82F2F"><font size="2">(01:38:38 PM)</font> <b>Lethalman:</b></font> and for example ping some people for security updates like that<br/>
+<font color="#A82F2F"><font size="2">(01:38:58 PM)</font> <b>goibhniu:</b></font> hi Sibi__ it&apos;s actually &quot;ImageMagick&quot; ... we should fix that name, it should be in lowercase .. maybe you can open an issue about it?<br/>
+<font color="#A82F2F"><font size="2">(01:39:04 PM)</font> <b>instantepiphany:</b></font> as long as you haven&apos;t changed any options that effect the build of python-2.7.9 since you first installed it, that exact same store path should be rebuilt - because the hash is all of the build input hashed.<br/>
+<font color="#A82F2F"><font size="2">(01:39:18 PM)</font> <b>mister12:</b></font> I&apos;m going to http://nixos.org/nixos/manual/ch-troubleshooting.html#sec-nix-store-corruption  :) to try<br/>
+<font color="#A82F2F"><font size="2">(01:40:59 PM)</font> <b>mister12:</b></font> early alarm! solution to my issue was: nixos-rebuild switch --repair    :D<br/>
+<font color="#A82F2F"><font size="2">(01:42:13 PM)</font> <b>Sibi__:</b></font> @goibhniu Thanks, will open an issue on that. :)<br/>
+<font color="#A82F2F"><font size="2">(01:42:29 PM)</font> <b>goibhniu:</b></font> Sibi__: great, cheers!<br/>
+<font color="#A82F2F"><font size="2">(01:42:50 PM)</font> <b>Sibi__:</b></font> @goibhniu Is it a convention that it should be lowercase or is it mandatory ?<br/>
+<font size="2">(01:43:19 PM)</font><b> ragge_ is now known as ragge`</b><br/>
+<font color="#16569E"><font size="2">(01:43:35 PM)</font> <b>magnetophon:</b></font> anyone here on 14.12? Does your firefox also complain about your flash? <br/>
+<font color="#16569E"><font size="2">(01:44:02 PM)</font> <b>magnetophon:</b></font> outdated version and all....<br/>
+<font color="#A82F2F"><font size="2">(01:44:41 PM)</font> <b>goibhniu:</b></font> Sibi__: it&apos;s a convention ... http://nixos.org/nixpkgs/manual/#chap-conventions has the details<br/>
+<font size="2">(01:45:13 PM)</font><b> ragge` is now known as ragge</b><br/>
+<font size="2">(01:46:17 PM)</font><b> mister12 left the room (quit: Quit: http://www.kiwiirc.com/ - A hand crafted IRC client).</b><br/>
+<font color="#A82F2F"><font size="2">(01:46:53 PM)</font> <b>John[Lisbeth]:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(01:46:57 PM)</font> <b>John[Lisbeth]:</b></font> well my first install failed<br/>
+<font color="#A82F2F"><font size="2">(01:48:45 PM)</font> <b>Sibi__:</b></font> @goibhniu thanks :)<br/>
+<font color="#A82F2F"><font size="2">(01:51:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] victoredwardocallaghan opened pull request #6048: gnupatch: update from 2.7.1 to 2.7.3 (master...gnupatch) http://git.io/Fwek<br/>
+<font color="#A82F2F"><font size="2">(01:51:59 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] victoredwardocallaghan opened pull request #6049: version-management/gitolite: Bump version 3.6.1 -&gt; 3.6.2 (master...gitolite) http://git.io/Fwes<br/>
+<font color="#A82F2F"><font size="2">(01:52:14 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] victoredwardocallaghan opened pull request #6050: lirc: update from 0.9.1a to 0.9.2 (master...lirc) http://git.io/Fwel<br/>
+<font color="#A82F2F"><font size="2">(01:52:31 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] victoredwardocallaghan opened pull request #6051: php: update from 5.4.35 to 5.4.37 (master...php) http://git.io/Fweu<br/>
+<font color="#A82F2F"><font size="2">(01:52:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] victoredwardocallaghan opened pull request #6052: openssl: update from 1.0.1k to 1.0.2 (master...openssl) http://git.io/Fwew<br/>
+<font color="#A82F2F"><font size="2">(01:55:24 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] victoredwardocallaghan opened pull request #6053: libraries/bullet: Bump version 2.80 -&gt; 2.82 (master...bullet) http://git.io/Fwv0<br/>
+<font color="#A82F2F"><font size="2">(01:55:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] victoredwardocallaghan opened pull request #6054: nfs-utils: update from 1.2.5 to 1.3.1 (master...nfs-utils) http://git.io/Fwvz<br/>
+<font color="#A82F2F"><font size="2">(01:55:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] victoredwardocallaghan opened pull request #6055: zd1211fw: update from 1.4 to 1.5 (master...zd1211fw) http://git.io/Fwvw<br/>
+<font color="#A82F2F"><font size="2">(01:55:49 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] psibi opened pull request #6056: Update default.nix (master...patch-1) http://git.io/Fwv6<br/>
+<font size="2">(01:56:11 PM)</font><b> John[Lisbeth] left the room (quit: Quit: http://www.kiwiirc.com/ - A hand crafted IRC client).</b><br/>
+<font color="#A82F2F"><font size="2">(01:57:35 PM)</font> <b>funfunctor:</b></font> Lethalman: done, but it kind of sucks to have so many branches<br/>
+<font size="2">(02:02:40 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(02:09:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nckx opened pull request #6058: Update Perl Gtk2 &amp; Glib (master...update-perl-Gtk-Glib) http://git.io/Fwkg<br/>
+<font color="#A82F2F"><font size="2">(02:12:59 PM)</font> <b>funfunctor:</b></font> I don&apos;t really understand this build failure https://travis-ci.org/NixOS/nixpkgs/builds/48754372<br/>
+<font color="#A82F2F"><font size="2">(02:13:46 PM)</font> <b>funfunctor:</b></font> what has any of that got to do with my package update?<br/>
+<font color="#A82F2F"><font size="2">(02:30:11 PM)</font> <b>instantepiphany:</b></font> is there a way to override certain parts of a package in nixpkgs? e.g I want to install mono 2.10.11, the current version in nixpkgs is 3.8 - I know I can just rewrite the version number and sha256 in default.nix, but is there a way to change JUST those 2 variables and still import the same .nix file within configuratio.nix?<br/>
+<font color="#A82F2F"><font size="2">(02:31:00 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] joelmo opened pull request #6059: add graph-tool (master...python-graph-tool) http://git.io/Fw3s<br/>
+<font color="#A82F2F"><font size="2">(02:31:33 PM)</font> <b>viric:</b></font> instantepiphany: there is overrideDerivation iirc<br/>
+<font color="#A82F2F"><font size="2">(02:35:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lethalman closed pull request #6049: version-management/gitolite: Bump version 3.6.1 -&gt; 3.6.2 (master...gitolite) http://git.io/Fwes<br/>
+<font color="#A82F2F"><font size="2">(02:37:25 PM)</font> <b>instantepiphany:</b></font> viric: Thanks, found some info on https://nixos.org/wiki/Nix_Modifying_Packages<br/>
+<font size="2">(02:55:15 PM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#A82F2F"><font size="2">(02:59:59 PM)</font> <b>Phlogistique:</b></font> is there a way to search for a package that installs a specific executable?<br/>
+<font color="#A82F2F"><font size="2">(03:01:43 PM)</font> <b>MagneticDuck:</b></font> also my question ^<br/>
+<font color="#A82F2F"><font size="2">(03:01:46 PM)</font> <b>MagneticDuck:</b></font> like pkgfile on archlinux<br/>
+<font color="#A82F2F"><font size="2">(03:02:16 PM)</font> <b>rushmorem:</b></font> I use command-not-found<br/>
+<font color="#A82F2F"><font size="2">(03:02:55 PM)</font> <b>Phlogistique:</b></font> error: selector ‘command-not-found’ matches no derivations<br/>
+<font color="#A82F2F"><font size="2">(03:02:55 PM)</font> <b>rushmorem:</b></font> `command-not-found tmux` for example.<br/>
+<font color="#A82F2F"><font size="2">(03:03:27 PM)</font> <b>ifur:</b></font> wkennington: that you have C1E-HSW to C7-HSW under idle stats<br/>
+<font color="#A82F2F"><font size="2">(03:06:34 PM)</font> <b>Phlogistique:</b></font> rushmorem: may you run &quot;ls -l $(which command-not-found)&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(03:06:52 PM)</font> <b>rushmorem:</b></font> Phlogistique: are you using NixOS or just Nix?<br/>
+<font color="#A82F2F"><font size="2">(03:06:59 PM)</font> <b>Phlogistique:</b></font> nix<br/>
+<font color="#A82F2F"><font size="2">(03:07:33 PM)</font> <b>rushmorem:</b></font> Maybe, that&apos;s why...<br/>
+<font color="#A82F2F"><font size="2">(03:07:44 PM)</font> <b>rushmorem:</b></font> I use NixOS.<br/>
+<font color="#A82F2F"><font size="2">(03:08:00 PM)</font> <b>rushmorem:</b></font> It&apos;s installed by default.<br/>
+<font color="#A82F2F"><font size="2">(03:08:02 PM)</font> <b>Phlogistique:</b></font> but if you run &quot;ls -l $(which command-not-found)&quot; I might take a look at the package<br/>
+<font color="#A82F2F"><font size="2">(03:08:12 PM)</font> <b>Phlogistique:</b></font> to see how it&apos;s implemented<br/>
+<font color="#A82F2F"><font size="2">(03:08:37 PM)</font> <b>MagneticDuck:</b></font> k I&apos;ve put all my stuff in a 1.6G tar archive and am now ready to nuke my system and install nix<br/>
+<font color="#A82F2F"><font size="2">(03:08:39 PM)</font> <b>MagneticDuck:</b></font> :&gt;<br/>
+<font color="#A82F2F"><font size="2">(03:10:55 PM)</font> <b>rushmorem:</b></font> It&apos;s a symlink to /nix/store/sx916lnma2l9rjbcsh7z9v5m2pqix4p9-command-not-found/bin/command-not-found on mine<br/>
+<font color="#A82F2F"><font size="2">(03:11:33 PM)</font> <b>Phlogistique:</b></font> ok, it seems it is in the nixos channel<br/>
+<font size="2">(03:12:13 PM)</font><b> MagneticDuck left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(03:22:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub closed pull request #6058: Update Perl Gtk2 &amp; Glib (master...update-perl-Gtk-Glib) http://git.io/Fwkg<br/>
+<font color="#A82F2F"><font size="2">(03:29:09 PM)</font> <b>fatlazycat:</b></font> Hi, can anyone help with a nix expr / haskell project issue - have stuck it on stackoverflow http://stackoverflow.com/questions/28202394/nix-haskell-using-default-nix-from-cabal2nix-and-a-generic-shell-nix<br/>
+<font color="#A82F2F"><font size="2">(03:32:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 5 new commits to master: http://git.io/Fwij<br/>
+<font color="#A82F2F"><font size="2">(03:32:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a065319 Peter Simons: hackage-packages.nix: re-generate from Hackage 2015-01-29T10:57:55+0100<br/>
+<font color="#A82F2F"><font size="2">(03:32:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c924672 Peter Simons: haskell-configuration-ghc-7.8.x: smtp-mail-ng compiles now<br/>
+<font color="#A82F2F"><font size="2">(03:32:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 51de585 Peter Simons: haskell-text-show: test suite doesn&apos;t compile because of missing overlap.h header<br/>
+<font color="#A82F2F"><font size="2">(03:39:51 PM)</font> <b>MagneticDuck:</b></font> sanity check: I should be able to install nixos from a DVD-R, right?<br/>
+<font color="#A82F2F"><font size="2">(03:39:55 PM)</font> <b>MagneticDuck:</b></font> I don&apos;t need RW?<br/>
+<font color="#A82F2F"><font size="2">(03:41:22 PM)</font> <b>goibhniu:</b></font> MagneticDuck: sure<br/>
+<font color="#062585"><font size="2">(03:50:00 PM)</font> <b>***gugu</b></font> takes out his shootgun. Opens up a slug and takes out the lead. Insersts steel pieces and closes the slug. Insersts it into the shootgun and fires at MagneticDuck.<br/>
+<font color="#A82F2F"><font size="2">(03:51:01 PM)</font> <b>MagneticDuck:</b></font> I&apos;m.. sorry I wasn&apos;t sure whether the system relied on disk IO?<br/>
+<font color="#A82F2F"><font size="2">(03:51:24 PM)</font> <b>MagneticDuck:</b></font> but anyway<br/>
+<font color="#A82F2F"><font size="2">(03:51:31 PM)</font> <b>MagneticDuck:</b></font> pretty sure that wouldn&apos;t help you hit me<br/>
+<font color="#A82F2F"><font size="2">(03:51:36 PM)</font> <b>MagneticDuck:</b></font> bullets go very fast you know<br/>
+<font color="#A82F2F"><font size="2">(03:51:40 PM)</font> <b>MagneticDuck:</b></font> and ducks also go very fast<br/>
+<font color="#A82F2F"><font size="2">(03:51:58 PM)</font> <b>gugu:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(03:52:09 PM)</font> <b>suvash:</b></font> hey folks ! what&apos;s the simplest method/tool to get multiple keyboard input support on x ? i&apos;m using nixos with xmonad. curious as i haven&apos;t used linux in a long time.<br/>
+<font color="#A82F2F"><font size="2">(03:52:47 PM)</font> <b>gugu:</b></font> MagneticDuck, Not fast enough though.<br/>
+<font color="#A82F2F"><font size="2">(03:52:50 PM)</font> <b>suvash:</b></font> i  basically mean multiple language keyboards/input and to be able to switch between them on the fly.<br/>
+<font color="#A82F2F"><font size="2">(03:54:59 PM)</font> <b>MagneticDuck:</b></font> ..something something xmodmap<br/>
+<font color="#A82F2F"><font size="2">(03:55:09 PM)</font> <b>MagneticDuck:</b></font> something something..<br/>
+<font color="#A82F2F"><font size="2">(03:56:02 PM)</font> <b>suvash:</b></font> ah, okies. if that&apos;s the still the recommended one.<br/>
+<font color="#A82F2F"><font size="2">(03:57:56 PM)</font> <b>Lethalman:</b></font> well DE can do it, for example gnome<br/>
+<font color="#A82F2F"><font size="2">(03:58:02 PM)</font> <b>Lethalman:</b></font> not sure on nixos, never tried<br/>
+<font color="#A82F2F"><font size="2">(03:58:12 PM)</font> <b>dredozubov:</b></font> Hi guys. Can you point me to the relatively fresh nixos image for vagrant/virtualbox?<br/>
+<font color="#062585"><font size="2">(03:58:16 PM)</font> <b>***MagneticDuck</b></font> off to boot up nixos<br/>
+<font size="2">(03:58:17 PM)</font><b> MagneticDuck left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font color="#A82F2F"><font size="2">(03:59:49 PM)</font> <b>funfunctor:</b></font> Hi<br/>
+<font size="2">(04:03:14 PM)</font><b> MagneticDuck [<em>~MagneticD@a95-95-113-8.cpe.netcabo.pt</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:03:20 PM)</font> <b>MagneticDuck:</b></font> uhm. live cd isn&apos;t working<br/>
+<font color="#A82F2F"><font size="2">(04:03:27 PM)</font> <b>MagneticDuck:</b></font> now using a DVD-RW<br/>
+<font color="#A82F2F"><font size="2">(04:03:40 PM)</font> <b>MagneticDuck:</b></font> I try to boot off it<br/>
+<font color="#A82F2F"><font size="2">(04:03:47 PM)</font> <b>MagneticDuck:</b></font> but it just gives me a blank screen for a bit<br/>
+<font color="#A82F2F"><font size="2">(04:03:51 PM)</font> <b>MagneticDuck:</b></font> and then returns<br/>
+<font color="#A82F2F"><font size="2">(04:04:47 PM)</font> <b>pipo:</b></font> Hello, can anyone help me to activate mysql service on NixOs ?<br/>
+<font color="#A82F2F"><font size="2">(04:04:50 PM)</font> <b>dredozubov:</b></font> argh, can&apos;t find any working links<br/>
+<font color="#A82F2F"><font size="2">(04:05:00 PM)</font> <b>goibhniu:</b></font> MagneticDuck: I don&apos;t think the problem is with the disc<br/>
+<font color="#A82F2F"><font size="2">(04:05:10 PM)</font> <b>goibhniu:</b></font> dredozubov: aren&apos;t they on the downloads page?<br/>
+<font color="#062585"><font size="2">(04:05:12 PM)</font> <b>***goibhniu</b></font> checks<br/>
+<font color="#A82F2F"><font size="2">(04:06:05 PM)</font> <b>goibhniu:</b></font> dredozubov: http://nixos.org/nixos/download.html -&gt; https://nixos.org/releases/nixos/latest-ova-x86_64-linux ... is that not what you need?<br/>
+<font color="#A82F2F"><font size="2">(04:06:25 PM)</font> <b>goibhniu:</b></font> pipo: have you enabled it in your configuration.nix?<br/>
+<font color="#A82F2F"><font size="2">(04:07:11 PM)</font> <b>dredozubov:</b></font> goibhniu: i was not entirely sure it&apos;ll work and i skipped it for some reason :\<br/>
+<font color="#A82F2F"><font size="2">(04:07:15 PM)</font> <b>pipo:</b></font> goibhninu , I add &apos;services.mysql.enable =true; in the configuration.nix file I get &quot;services.mysql.package is used but not defined&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:07:49 PM)</font> <b>dredozubov:</b></font> there are some tools to convert ova to box<br/>
+<font color="#A82F2F"><font size="2">(04:07:52 PM)</font> <b>dredozubov:</b></font> i&apos;ll try that<br/>
+<font color="#A82F2F"><font size="2">(04:08:02 PM)</font> <b>goibhniu:</b></font> pipo: services.mysql.package = pkgs.mysql ... but pkgs.mysql needs to be something valid<br/>
+<font color="#A82F2F"><font size="2">(04:08:22 PM)</font> <b>pipo:</b></font> goi: what do you mean by valid ?<br/>
+<font color="#A82F2F"><font size="2">(04:08:23 PM)</font> <b>dredozubov:</b></font> it&apos;ll be extremely nice if nixos.org will have a .box distribution for vagrant<br/>
+<font color="#A82F2F"><font size="2">(04:08:24 PM)</font> <b>funfunctor:</b></font> Why not use libressl instead of openssl<br/>
+<font color="#A82F2F"><font size="2">(04:08:31 PM)</font> <b>goibhniu:</b></font> pipo: there is usually an example in `man configuration.nix`<br/>
+<font color="#A82F2F"><font size="2">(04:08:43 PM)</font> <b>dredozubov:</b></font> goibhniu: thanks, i guess i&apos;ll go with that<br/>
+<font color="#A82F2F"><font size="2">(04:08:49 PM)</font> <b>goibhniu:</b></font> pipo: nix-env -qaP msql.*<br/>
+<font color="#A82F2F"><font size="2">(04:08:50 PM)</font> <b>funfunctor:</b></font> actually openssl /is/ very poor code, I read over it because I wanted to know if it was FUD or not.<br/>
+<font color="#A82F2F"><font size="2">(04:08:53 PM)</font> <b>goibhniu:</b></font> dredozubov: cool, np<br/>
+<font color="#A82F2F"><font size="2">(04:09:03 PM)</font> <b>k0ral:</b></font> are there many people using nix outside nixos ? (I&apos;m one of them) Is it a viable long-term situation, or is nix going to be more and more dependent on nixos features ?<br/>
+<font color="#A82F2F"><font size="2">(04:09:32 PM)</font> <b>dredozubov:</b></font> k0ral: i tried to use it on os x and it was definitely not ready<br/>
+<font color="#A82F2F"><font size="2">(04:09:46 PM)</font> <b>avn:</b></font> dredozubov: vagrant init zimbatm/nixbox64  -- bit outdated, but works<br/>
+<font color="#A82F2F"><font size="2">(04:09:52 PM)</font> <b>pipo:</b></font> goi: i added pkgs.mysql55, it&apos;s downloading something at the moment :-)<br/>
+<font color="#A82F2F"><font size="2">(04:10:24 PM)</font> <b>MagneticDuck:</b></font> trying unetbootin with a 1gb flash drive<br/>
+<font color="#A82F2F"><font size="2">(04:10:28 PM)</font> <b>k0ral:</b></font> I&apos;m on arch, and I&apos;ve had some minor issues/inconveniences running nix, but up to now it has been viable<br/>
+<font color="#A82F2F"><font size="2">(04:10:32 PM)</font> <b>MagneticDuck:</b></font> .. but unetbootin can&apos;t see it?<br/>
+<font color="#A82F2F"><font size="2">(04:10:35 PM)</font> <b>MagneticDuck:</b></font> lsblk says it&apos;s there<br/>
+<font color="#A82F2F"><font size="2">(04:10:51 PM)</font> <b>kmicu:</b></font> Does anyone have a Nix logo (with transparent bg) in xpm/xbm format? (Asking after 5th Inkscape crash) ;)<br/>
+<font color="#A82F2F"><font size="2">(04:11:04 PM)</font> <b>pipo:</b></font> Also, is there a way to find nixos package/documentation without having to find/read the code ?<br/>
+<font color="#A82F2F"><font size="2">(04:11:08 PM)</font> <b>k0ral:</b></font> MagneticDuck: why not using dd directly ?<br/>
+<font color="#A82F2F"><font size="2">(04:11:16 PM)</font> <b>MagneticDuck:</b></font> okay<br/>
+<font color="#A82F2F"><font size="2">(04:11:22 PM)</font> <b>MagneticDuck:</b></font> any suggested parameters?<br/>
+<font color="#A82F2F"><font size="2">(04:11:26 PM)</font> <b>MagneticDuck:</b></font> I haven&apos;t done this in a while<br/>
+<font color="#A82F2F"><font size="2">(04:11:31 PM)</font> <b>MagneticDuck:</b></font> I only remember if and of x)<br/>
+<font color="#A82F2F"><font size="2">(04:11:33 PM)</font> <b>goibhniu:</b></font> kmicu: I can export one for you ... but I&apos;m not sure if the font is gonna change soon<br/>
+<font color="#A82F2F"><font size="2">(04:12:04 PM)</font> <b>k0ral:</b></font> MagneticDuck: bs=4M maybe ?<br/>
+<font color="#A82F2F"><font size="2">(04:12:10 PM)</font> <b>pipo:</b></font> goi: It works, thank you very much. That&apos;s the smoothest MySQL install I have ever done ...<br/>
+<font color="#A82F2F"><font size="2">(04:12:22 PM)</font> <b>kmicu:</b></font> goibhniu: It would be great — only beautiful lambda logo (w/o ‘NixOS’).<br/>
+<font color="#A82F2F"><font size="2">(04:12:37 PM)</font> <b>goibhniu:</b></font> pipo: super!<br/>
+<font color="#A82F2F"><font size="2">(04:12:55 PM)</font> <b>MagneticDuck:</b></font> k0ral: right<br/>
+<font color="#A82F2F"><font size="2">(04:12:56 PM)</font> <b>dredozubov:</b></font> thank avn, i&apos;ll try it if https://github.com/oxdi/nixos won&apos;t work :)<br/>
+<font color="#A82F2F"><font size="2">(04:13:00 PM)</font> <b>MagneticDuck:</b></font> .. do I have to paritition it first?<br/>
+<font color="#A82F2F"><font size="2">(04:13:04 PM)</font> <b>MagneticDuck:</b></font> set bootable flags etc?<br/>
+<font color="#A82F2F"><font size="2">(04:13:07 PM)</font> <b>goibhniu:</b></font> kmicu: I have a cleaned up version of the &quot;snowflake&quot; in svg too ... if you need it for something<br/>
+<font color="#A82F2F"><font size="2">(04:13:13 PM)</font> <b>goibhniu:</b></font> (without the overlaps)<br/>
+<font color="#A82F2F"><font size="2">(04:14:00 PM)</font> <b>k0ral:</b></font> MagneticDuck: no<br/>
+<font color="#A82F2F"><font size="2">(04:14:05 PM)</font> <b>MagneticDuck:</b></font> kk<br/>
+<font color="#062585"><font size="2">(04:14:13 PM)</font> <b>***MagneticDuck</b></font> tries to boot off dd&apos;d usb drive<br/>
+<font size="2">(04:14:16 PM)</font><b> MagneticDuck left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font color="#A82F2F"><font size="2">(04:14:44 PM)</font> <b>k0ral:</b></font> MagneticDuck: partitions are a higher level feature, dd will copy bitwise the iso which includes a partition<br/>
+<font color="#A82F2F"><font size="2">(04:15:35 PM)</font> <b>kmicu:</b></font> goibhniu: Why your version is not at https://github.com/NixOS/nixos-artwork? I only want an icon 16x16 in xpm/xbm format, but each time I will go to ‘Document properties’ in Inkscape to set alpha I see crash. :)<br/>
+<font color="#A82F2F"><font size="2">(04:16:37 PM)</font> <b>goibhniu:</b></font> kmicu true, I have some stuff I need to push there<br/>
+<font size="2">(04:17:11 PM)</font><b> MagneticDuck [<em>~MagneticD@a95-95-113-8.cpe.netcabo.pt</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:17:14 PM)</font> <b>MagneticDuck:</b></font> didn&apos;t work.<br/>
+<font color="#A82F2F"><font size="2">(04:17:18 PM)</font> <b>MagneticDuck:</b></font> same problem as the disk<br/>
+<font color="#A82F2F"><font size="2">(04:17:23 PM)</font> <b>goibhniu:</b></font> kmicu: do you want some margin on it?<br/>
+<font color="#A82F2F"><font size="2">(04:17:41 PM)</font> <b>MagneticDuck:</b></font> it just... didn&apos;t do anything for a little bit (blinked an underscore cursor once actually)<br/>
+<font color="#A82F2F"><font size="2">(04:17:45 PM)</font> <b>MagneticDuck:</b></font> and then returned to the BIOS<br/>
+<font color="#A82F2F"><font size="2">(04:18:05 PM)</font> <b>kmicu:</b></font> goibhniu: it’s for status bar. No margins needed.<br/>
+<font color="#062585"><font size="2">(04:18:13 PM)</font> <b>***MagneticDuck</b></font> checks download integrity<br/>
+<font color="#A82F2F"><font size="2">(04:19:05 PM)</font> <b>MagneticDuck:</b></font> oh, download corrupted<br/>
+<font color="#062585"><font size="2">(04:19:09 PM)</font> <b>***MagneticDuck</b></font> signs<br/>
+<font color="#A82F2F"><font size="2">(04:19:11 PM)</font> <b>MagneticDuck:</b></font> *sighs<br/>
+<font color="#A82F2F"><font size="2">(04:19:44 PM)</font> <b>MagneticDuck:</b></font> TCP, you had one job!<br/>
+<font color="#A82F2F"><font size="2">(04:20:37 PM)</font> <b>dredozubov:</b></font> avn: thanks for the pointer, i&apos;m using it after all<br/>
+<font color="#A82F2F"><font size="2">(04:21:02 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 2 new commits to master: http://git.io/FrJ7<br/>
+<font color="#A82F2F"><font size="2">(04:21:02 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 2a64bd0 koral: webkitgtk: 2.6.4 -&gt; 2.6.5<br/>
+<font color="#A82F2F"><font size="2">(04:21:02 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master d25bf15 Pascal Wittmann: Merge pull request #6047 from k0ral/webkitgtk...<br/>
+<font color="#A82F2F"><font size="2">(04:21:44 PM)</font> <b>goibhniu:</b></font> kmicu: so I&apos;m exporting as a png (14x16) and then I&apos;ll convert in the gimp ... does that do the trick, or did you have something else in mind?<br/>
+<font color="#A82F2F"><font size="2">(04:22:35 PM)</font> <b>kmicu:</b></font> goibhniu: Are you using Inkscape 0.48.5 r10040? If yes, are you able to open ‘File 🠾 Document Properties’?<br/>
+<font color="#A82F2F"><font size="2">(04:23:12 PM)</font> <b>goibhniu:</b></font> no, I&apos;m on 0.48.4 r9939<br/>
+<font color="#A82F2F"><font size="2">(04:23:23 PM)</font> <b>goibhniu:</b></font> but I can open document properties<br/>
+<font color="#A82F2F"><font size="2">(04:24:04 PM)</font> <b>goibhniu:</b></font> ah, I have it installed in my root profile<br/>
+<font color="#A82F2F"><font size="2">(04:25:12 PM)</font> <b>kmicu:</b></font> GIMP way is ok.<br/>
+<font color="#A82F2F"><font size="2">(04:26:16 PM)</font> <b>kmicu:</b></font> ‘convert nix.png nix.{xpm,xbm}’ is also enough (sometimes).<br/>
+<font color="#A82F2F"><font size="2">(04:27:06 PM)</font> <b>kmicu:</b></font> Are you suggesting that Inkscape could behave differently in root profile vs user profile?<br/>
+<font color="#A82F2F"><font size="2">(04:27:40 PM)</font> <b>goibhniu:</b></font> nope, just that&apos;s why I have an older version ... I didn&apos;t realise :)<br/>
+<font color="#A82F2F"><font size="2">(04:30:34 PM)</font> <b>goibhniu:</b></font> kmicu: http://dodoburgers.com/nixos/<br/>
+<font size="2">(04:31:03 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(04:31:46 PM)</font> <b>goibhniu:</b></font> kmicu: and on 0.48.5 r10040 I can open document properties<br/>
+<font color="#A82F2F"><font size="2">(04:32:33 PM)</font> <b>kmicu:</b></font> You could open it on https://github.com/NixOS/nixos-artwork/blob/master/logo/nixos.svg<br/>
+<font color="#A82F2F"><font size="2">(04:33:48 PM)</font> <b>goibhniu:</b></font> oh, lemme try<br/>
+<font color="#A82F2F"><font size="2">(04:34:26 PM)</font> <b>kmicu:</b></font> goibhniu: thanks for conversion and your time. Please add it to that repo :)<br/>
+<font color="#A82F2F"><font size="2">(04:34:27 PM)</font> <b>goibhniu:</b></font> yep, no problem<br/>
+<font color="#A82F2F"><font size="2">(04:34:48 PM)</font> <b>goibhniu:</b></font> will do, I just need to figure out what goes where<br/>
+<font color="#A82F2F"><font size="2">(04:35:11 PM)</font> <b>goibhniu:</b></font> I don&apos;t even know what one would use these xpm files for ... maybe you can add them somewhere sensible?<br/>
+<font color="#A82F2F"><font size="2">(04:35:18 PM)</font> <b>kmicu:</b></font> Strange then. I have ‘an internal error and crash’.<br/>
+<font color="#A82F2F"><font size="2">(04:35:46 PM)</font> <b>goibhniu:</b></font> yeah, odd<br/>
+<font color="#A82F2F"><font size="2">(04:35:56 PM)</font> <b>kmicu:</b></font> You can use xpm|xbm as an icon in xmobar.<br/>
+<font color="#A82F2F"><font size="2">(04:36:14 PM)</font> <b>kmicu:</b></font> Next to email counter at nix-dev ML :)<br/>
+<font color="#A82F2F"><font size="2">(04:36:50 PM)</font> <b>goibhniu:</b></font> yeah, but what&apos;s xmobar ... where would you put it in the repo?<br/>
+<font color="#A82F2F"><font size="2">(04:36:56 PM)</font> <b>goibhniu:</b></font> icons?<br/>
+<font color="#A82F2F"><font size="2">(04:37:44 PM)</font> <b>goibhniu:</b></font> I can lash them into &quot;logo&quot; for now :)<br/>
+<font color="#A82F2F"><font size="2">(04:38:59 PM)</font> <b>kmicu:</b></font> Oh, just create folder icons for… icons (small png|xpm|xbm :) and add your modified logo to logo folder.<br/>
+<font color="#A82F2F"><font size="2">(04:39:04 PM)</font> <b>goibhniu:</b></font> kmicu: by the way, I&apos;ve been thinking about the font and picked out some options .. maybe you could take a look at some stage: https://nixos.org/wiki/Style_Guide<br/>
+<font color="#A82F2F"><font size="2">(04:39:16 PM)</font> <b>goibhniu:</b></font> kk<br/>
+<font color="#A82F2F"><font size="2">(04:39:35 PM)</font> <b>kmicu:</b></font> As a Nix(OS) user I expect to find “cool” graphics in that repo. Including yours. :)<br/>
+<font color="#062585"><font size="2">(04:39:37 PM)</font> <b>***goibhniu</b></font> will work on the fonts a bit, add the logo beside them etc.<br/>
+<font color="#A82F2F"><font size="2">(04:43:59 PM)</font> <b>goibhniu:</b></font> oh, I don&apos;t have permission to push directly<br/>
+<font color="#A82F2F"><font size="2">(04:46:10 PM)</font> <b>kmicu:</b></font> I would clarify what defines logo — it’s only the lambda snowflake or snowflake next to ‘NixOS’ text? For font comparison I would show fonts with the same boldness (and script for double blind font testing) :)<br/>
+<font color="#A82F2F"><font size="2">(04:47:44 PM)</font> <b>kmicu:</b></font> Space between ‘i’ and ‘x’ in white-rabbit is ugly as hell :)<br/>
+<font color="#A82F2F"><font size="2">(04:50:34 PM)</font> <b>goibhniu:</b></font> great thanks .. should we dump white rabbit altogether?<br/>
+<font color="#A82F2F"><font size="2">(04:50:54 PM)</font> <b>kmicu:</b></font> I will add it to that page if I figure out how discuss/talk at wiki.<br/>
+<font color="#A82F2F"><font size="2">(04:51:01 PM)</font> <b>goibhniu:</b></font> excellent!<br/>
+<font color="#062585"><font size="2">(04:51:19 PM)</font> <b>***kmicu</b></font> hates media-wiki no-repo style.<br/>
+<font color="#A82F2F"><font size="2">(04:51:38 PM)</font> <b>kmicu:</b></font> goibhniu: can I somehow clone wiki?<br/>
+<font color="#A82F2F"><font size="2">(04:51:41 PM)</font> <b>viric:</b></font> I hate mediawiki too<br/>
+<font color="#A82F2F"><font size="2">(04:51:49 PM)</font> <b>viric:</b></font> fwiw<br/>
+<font color="#A82F2F"><font size="2">(04:52:17 PM)</font> <b>goibhniu:</b></font> kmicu: not in a practical way AFAIK, it is possible to export content and then import it again<br/>
+<font color="#A82F2F"><font size="2">(04:52:38 PM)</font> <b>kmicu:</b></font> It’s like &apos;90<br/>
+<font color="#A82F2F"><font size="2">(04:53:58 PM)</font> <b>kmicu:</b></font> I thought about creating alternative docs for Nix(OS) based on excellent Racket’s docs http://docs.racket-lang.org/<br/>
+<font color="#A82F2F"><font size="2">(04:54:48 PM)</font> <b>kmicu:</b></font> (Of course as an alternative for me to not look at media-wiki. ;)<br/>
+<font color="#A82F2F"><font size="2">(04:55:52 PM)</font> <b>viric:</b></font> damn mutt damn mutt. It can&apos;t do pgpinline with gpgme and they wrote that nowhere.<br/>
+<font color="#A82F2F"><font size="2">(04:56:32 PM)</font> <b>viric:</b></font> neither they provide gpg2-ready rc scripts<br/>
+<font size="2">(04:56:48 PM)</font><b> malyn_ is now known as malyn</b><br/>
+<font size="2">(05:15:42 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

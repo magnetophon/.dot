@@ -1,0 +1,81 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Thu 11 Dec 2014 11:42:26 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Thu 11 Dec 2014 11:42:26 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(11:42:26 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(11:42:26 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(11:42:42 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/k1MOKA<br/>
+<font color="#A82F2F"><font size="2">(11:42:42 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5ff896f Peter Simons: haskell-hackage-db: update to version 1.10<br/>
+<font color="#A82F2F"><font size="2">(11:43:10 AM)</font> <b>torpor_`:</b></font> has anyone got an example of a nixops configuration targetting a vmware box?<br/>
+<font color="#A82F2F"><font size="2">(11:43:10 AM)</font> <b>allan:</b></font> Lethalman: right, I wouldn’t want to do it, but just wanted to understand the flexibility provided<br/>
+<font color="#A82F2F"><font size="2">(11:43:53 AM)</font> <b>wmertens:</b></font> allan: try to think of it as, every file under /run/current-system is completely under your programmatic control. nixos-rebuild makes sure the important bits are referenced from /etc/ and so on by symlinks. You have complete control over your filesystem state and can upgrade/roll back atomically<br/>
+<font color="#A82F2F"><font size="2">(11:43:59 AM)</font> <b>Lethalman:</b></font> allan, flexibility is about how things are programmed in the end<br/>
+<font size="2">(11:44:08 AM)</font><b> skiold [<em>~skiold@host81-134-189-62.in-addr.btopenworld.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:44:47 AM)</font> <b>allan:</b></font> wmertens: right, I think I do get the basic concept, it’s the execution I wasn’t sure about<br/>
+<font size="2">(11:45:11 AM)</font><b> komarov [<em>~komarov@178.62.189.37</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:46:03 AM)</font> <b>allan:</b></font> Lethalman: as for your example skipping the generation, so doing this would be if say, I am playing with DNS domain config and some trial-and-error is required, I just skip generating the file, then I can manually create (copy) it, edit and just relaunch/reload the DNS service, rather than rebuild full box?<br/>
+<font color="#A82F2F"><font size="2">(11:46:16 AM)</font> <b>wmertens:</b></font> allan: I must admit there&apos;s a bit of a learning curve :) There&apos;s a ton of good blog posts though.<br/>
+<font color="#A82F2F"><font size="2">(11:46:32 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 1 new commit to release-14.12: http://git.io/EtWsYw<br/>
+<font color="#A82F2F"><font size="2">(11:46:32 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 c8d9073 Domen Kožar: pythonPackages.pyptlib: disable tests<br/>
+<font color="#A82F2F"><font size="2">(11:46:54 AM)</font> <b>Lethalman:</b></font> allan, yes<br/>
+<font color="#A82F2F"><font size="2">(11:46:55 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 1 new commit to master: http://git.io/eaoP3w<br/>
+<font color="#A82F2F"><font size="2">(11:46:55 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8853d30 Domen Kožar: pythonPackages.pyptlib: disable tests...<br/>
+<font size="2">(11:47:02 AM)</font><b> gilligan_ [<em>~gilligan@p4FEA4E17.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:47:07 AM)</font> <b>Lethalman:</b></font> allan, potentially yes<br/>
+<font color="#A82F2F"><font size="2">(11:47:13 AM)</font> <b>Lethalman:</b></font> also depends on the service<br/>
+<font color="#A82F2F"><font size="2">(11:47:16 AM)</font> <b>wmertens:</b></font> allan, lethalman: in that case you could just skip the nixos-rebuild and play with the file in /etc, no? Normally it&apos;s a symlink to etc-static but you can overwrite it<br/>
+<font color="#A82F2F"><font size="2">(11:47:20 AM)</font> <b>Lethalman:</b></font> some services don&apos;t use /etc at all<br/>
+<font color="#A82F2F"><font size="2">(11:47:34 AM)</font> <b>Lethalman:</b></font> wmertens, nix store is readonly, no?<br/>
+<font color="#A82F2F"><font size="2">(11:47:43 AM)</font> <b>wmertens:</b></font> Lethalman: but /etc isn&apos;t :)<br/>
+<font color="#A82F2F"><font size="2">(11:48:12 AM)</font> <b>Lethalman:</b></font> wmertens, it would be replaced on the next nixos-rebuild<br/>
+<font color="#A82F2F"><font size="2">(11:48:13 AM)</font> <b>wmertens:</b></font> and for the services that don&apos;t use /etc you could copy the wrapper and configuration files and run locally<br/>
+<font color="#A82F2F"><font size="2">(11:48:18 AM)</font> <b>wmertens:</b></font> Lethalman: indeed<br/>
+<font color="#A82F2F"><font size="2">(11:48:36 AM)</font> <b>wmertens:</b></font> this would just be for getting the config right<br/>
+<font color="#A82F2F"><font size="2">(11:50:34 AM)</font> <b>wmertens:</b></font> so did anybody play with launching nixos boxes from vagrant?<br/>
+<font color="#A82F2F"><font size="2">(11:53:44 AM)</font> <b>Lethalman:</b></font> wmertens, searching nixos vagrant has some results :)<br/>
+<font color="#A82F2F"><font size="2">(11:54:01 AM)</font> <b>wmertens:</b></font> :-P<br/>
+<font size="2">(11:54:02 AM)</font><b> komarov left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(11:54:15 AM)</font><b> torpet [<em>~torpet@84-115-42-228.dynamic.surfer.at</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:54:46 AM)</font> <b>wmertens:</b></font> so now should I use nixbox or vagrant-nixos, hmmm<br/>
+<font color="#A82F2F"><font size="2">(11:55:00 AM)</font> <b>torpor_`:</b></font> `nixops deploy --debug -d trivial` gives me &quot;Permission denied (publickey,password,keyboard-interactive).&quot; ...but I can&apos;t figure out which ssh keys its authenticating against :/??<br/>
+<font size="2">(11:55:42 AM)</font><b> Takle left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:56:07 AM)</font><b> sogatori left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:58:25 AM)</font><b> Takle [<em>~takle@130.185.130.212</em>] entered the room.</b><br/>
+<font size="2">(11:58:27 AM)</font><b> torpet left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:02:13 PM)</font> <b>wmertens:</b></font> torpor_`: how did you configurate trivial, is it a virtualbox instance? Is it already started?<br/>
+<font color="#A82F2F"><font size="2">(12:02:34 PM)</font> <b>wmertens:</b></font> torpor_`: try nixops ssh<br/>
+<font color="#A82F2F"><font size="2">(12:03:39 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to release-14.04: http://git.io/Wx-_QA<br/>
+<font color="#A82F2F"><font size="2">(12:03:39 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.04 9ff4738 Vladimír Čunát: kde: move patch to the correct location...<br/>
+<font size="2">(12:05:21 PM)</font><b> MP2E left the room (quit: Quit: sleep).</b><br/>
+<font color="#A82F2F"><font size="2">(12:10:14 PM)</font> <b>torpor_`:</b></font> wmertens vmware instance, already started<br/>
+<font color="#A82F2F"><font size="2">(12:10:52 PM)</font> <b>torpor_`:</b></font> I&apos;m using targetEnv &quot;none&quot;, and provided targetHost with IP for box<br/>
+<font color="#A82F2F"><font size="2">(12:11:21 PM)</font> <b>wmertens:</b></font> torpor_`: ok so then you have to manage the ssh keys<br/>
+<font color="#A82F2F"><font size="2">(12:11:43 PM)</font> <b>torpor_`:</b></font> deployment.keys ?<br/>
+<font color="#A82F2F"><font size="2">(12:11:57 PM)</font> <b>torpor_`:</b></font> i&apos;m a bit unclear on that bit<br/>
+<font color="#A82F2F"><font size="2">(12:12:10 PM)</font> <b>wmertens:</b></font> hmmm actually not 100% sure. I think it will use your ssh agent to connect to the box<br/>
+<font size="2">(12:12:14 PM)</font><b> komarov [<em>~komarov@178.70.68.122</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:12:28 PM)</font> <b>wmertens:</b></font> play around with nixops ssh to get it working<br/>
+<font color="#A82F2F"><font size="2">(12:12:41 PM)</font> <b>wmertens:</b></font> maybe @ikwildrpepper knows<br/>
+<font color="#A82F2F"><font size="2">(12:13:26 PM)</font> <b>torpor_`:</b></font> thanks for input wmertens, currently https://nixos.org/nixops/manual/ is my only resource<br/>
+<font size="2">(12:13:51 PM)</font><b> Takle left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(12:15:46 PM)</font> <b>wmertens:</b></font> torpor_`: if you don&apos;t have an ssh key set for root, try setting NIXOPS_SSH_PASSWORD to your root password<br/>
+<font color="#A82F2F"><font size="2">(12:16:03 PM)</font> <b>wmertens:</b></font> I&apos;m looking at https://github.com/NixOS/nixops/blob/master/nixops/ssh_util.py<br/>
+<font color="#A82F2F"><font size="2">(12:16:19 PM)</font> <b>wmertens:</b></font> the None backend is pretty much empty<br/>
+<font color="#A82F2F"><font size="2">(12:16:38 PM)</font> <b>wmertens:</b></font> and it doesn&apos;t seem to touch SSH_AUTH_SOCKET so it should use your agent<br/>
+<font color="#A82F2F"><font size="2">(12:16:50 PM)</font> <b>wmertens:</b></font> you can ssh to the box, right? :)<br/>
+<font color="#A82F2F"><font size="2">(12:16:59 PM)</font> <b>torpor_`:</b></font> yup :)<br/>
+<font color="#A82F2F"><font size="2">(12:20:27 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bflyblue opened pull request #5293: Updated haskell-wreq to 0.3.0 (master...master) http://git.io/fs3P5Q<br/>
+<font color="#A82F2F"><font size="2">(12:20:44 PM)</font> <b>torpor_`:</b></font> ...well, i can ssh in as my non-root user. root@ login disabled!<br/>
+<font color="#A82F2F"><font size="2">(12:21:29 PM)</font> <b>torpor_`:</b></font> which is usually desirable<br/>
+<font color="#A82F2F"><font size="2">(12:22:12 PM)</font> <b>wmertens:</b></font> torpor_`: I do believe nixops needs a root login, it doesn&apos;t do sudo<br/>
+<font color="#A82F2F"><font size="2">(12:22:36 PM)</font> <b>torpor_`:</b></font> aye looks that way<br/>
+<font size="2">(12:22:51 PM)</font><b> Lowl3v3l left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(12:23:58 PM)</font> <b>wmertens:</b></font> torpor_`: but if you set root logins to ssh key only, it&apos;s pretty safe<br/>
+<font color="#A82F2F"><font size="2">(12:24:22 PM)</font> <b>wmertens:</b></font> sudo would just obfuscate things, not make it more secure<br/>
+<font color="#A82F2F"><font size="2">(12:24:45 PM)</font> <b>torpor_`:</b></font> ah good to know thanks, read my thoughts somewhat there<br/>
+<font size="2">(12:29:17 PM)</font><b> komarov left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(12:29:38 PM)</font><b> Takle [<em>~takle@130.185.130.212</em>] entered the room.</b><br/>
+<font size="2">(12:30:48 PM)</font><b> torpet [<em>~torpet@84-115-42-228.dynamic.surfer.at</em>] entered the room.</b><br/>
+<font size="2">(12:31:13 PM)</font><b> wscott [<em>~wscott@pf-wan.bitkeeper.com</em>] entered the room.</b><br/>
+<font size="2">(12:32:08 PM)</font><b> Takle left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(12:32:19 PM)</font> <b>wscott:</b></font> Hello, newbie here.  Just starting to play with nix after seeing it in the Hacker News discussion of Ubuntu/core snappy.<br/>
+<font size="2">(12:32:45 PM)</font><b> Takle [<em>~takle@130.185.130.212</em>] entered the room.</b><br/>
+<font size="2">(12:51:29 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

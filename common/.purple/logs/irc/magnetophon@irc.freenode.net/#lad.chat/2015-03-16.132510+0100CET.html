@@ -1,0 +1,114 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Mon 16 Mar 2015 01:25:10 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Mon 16 Mar 2015 01:25:10 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(01:25:10 PM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font size="2">(01:25:10 PM)</font><b> Topic for #lad set by tapas!~tapas@static.231.2.63.178.clients.your-server.de at 10:37:26 AM on 05/13/2013</b><br/>
+<font color="#16569E"><font size="2">(01:25:57 PM)</font> <b>magnetophon:</b></font> So, who here enlisted in the faust competition?<br/>
+<font size="2">(02:11:42 PM)</font><b> bpe is now known as adq</b><br/>
+<font color="#A82F2F"><font size="2">(02:39:55 PM)</font> <b>AndreeeCZ:</b></font> rgareus, the lpf was a good idea, it worked after all, thanks :)<br/>
+<font color="#A82F2F"><font size="2">(02:40:40 PM)</font> <b>AndreeeCZ:</b></font> qestion: i am starting making a simple granular synth plugin. How bad idea is it to have use dynamic allocation for the grains?<br/>
+<font color="#A82F2F"><font size="2">(02:47:12 PM)</font> <b>AndreeeCZ:</b></font> falktx, ping<br/>
+<font color="#A82F2F"><font size="2">(02:47:16 PM)</font> <b>rgareus:</b></font> bad? it&apos;s cool to dynamically allocate new grains?  -- unless you mean malloc :)<br/>
+<font color="#A82F2F"><font size="2">(02:47:37 PM)</font> <b>falktx:</b></font> AndreeeCZ: pong<br/>
+<font color="#A82F2F"><font size="2">(02:47:53 PM)</font> <b>AndreeeCZ:</b></font> rgareus, i mean c++ new<br/>
+<font color="#A82F2F"><font size="2">(02:48:23 PM)</font> <b>AndreeeCZ:</b></font> falktx, whats the current way of starting a new plugin from scratch? do i go for the examples? or for openGL ui examples?<br/>
+<font color="#A82F2F"><font size="2">(02:48:36 PM)</font> <b>rgareus:</b></font> AndreeeCZ: in RT context, avoid it.<br/>
+<font color="#A82F2F"><font size="2">(02:48:42 PM)</font> <b>falktx:</b></font> AndreeeCZ: your current ones should be good<br/>
+<font color="#A82F2F"><font size="2">(02:48:53 PM)</font> <b>AndreeeCZ:</b></font> i mean maybe grabbing a simple bare-bone plugin and hacking on it<br/>
+<font color="#A82F2F"><font size="2">(02:48:55 PM)</font> <b>AndreeeCZ:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(02:48:56 PM)</font> <b>falktx:</b></font> AndreeeCZ: or see the mini-series or nekobi<br/>
+<font color="#A82F2F"><font size="2">(02:49:00 PM)</font> <b>AndreeeCZ:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(02:49:10 PM)</font> <b>falktx:</b></font> https://github.com/DISTRHO/mini-series<br/>
+<font color="#A82F2F"><font size="2">(02:49:22 PM)</font> <b>AndreeeCZ:</b></font> rgareus, why?<br/>
+<font color="#A82F2F"><font size="2">(02:49:40 PM)</font> <b>rgareus:</b></font> AndreeeCZ: because its not realtime safe<br/>
+<font color="#A82F2F"><font size="2">(02:50:00 PM)</font> <b>falktx:</b></font> you want to use new/delete on the process function?<br/>
+<font color="#A82F2F"><font size="2">(02:50:10 PM)</font> <b>AndreeeCZ:</b></font> falktx, yes<br/>
+<font color="#A82F2F"><font size="2">(02:50:13 PM)</font> <b>rgareus:</b></font> AndreeeCZ:  http://www.rossbencina.com/code/real-time-audio-programming-101-time-waits-for-nothing<br/>
+<font color="#A82F2F"><font size="2">(02:50:15 PM)</font> <b>LAbot:</b></font> Title: Real-time audio programming 101: time waits for nothing | Ross Bencina (at www.rossbencina.com)<br/>
+<font color="#A82F2F"><font size="2">(02:50:19 PM)</font> <b>falktx:</b></font> well, you shouldn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(02:51:04 PM)</font> <b>rgareus:</b></font> AndreeeCZ: malloc new/delete etc  do not have any time limts.  they can be quick or can take forever.<br/>
+<font color="#A82F2F"><font size="2">(02:51:26 PM)</font> <b>rgareus:</b></font> and hence it is not safe to use them in realtime code<br/>
+<font color="#A82F2F"><font size="2">(02:52:27 PM)</font> <b>rgareus:</b></font> ross&apos; article is a great read.<br/>
+<font color="#A82F2F"><font size="2">(02:53:35 PM)</font> <b>AndreeeCZ:</b></font> i&apos;ll read and think, thank you<br/>
+<font color="#A82F2F"><font size="2">(02:54:29 PM)</font> <b>falktx:</b></font> adding stuff to a list is usually not safe either<br/>
+<font color="#A82F2F"><font size="2">(02:54:38 PM)</font> <b>falktx:</b></font> since that would usually involve allocations too<br/>
+<font color="#A82F2F"><font size="2">(02:54:59 PM)</font> <b>rgareus:</b></font> &quot;If you don’t know how long it will take, don&apos;t do it.&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:56:17 PM)</font> <b>falktx:</b></font> does that mean sleep(1) is safe? :P<br/>
+<font color="#A82F2F"><font size="2">(02:56:28 PM)</font> <b>falktx:</b></font> I know exactly how long it will take...<br/>
+<font color="#A82F2F"><font size="2">(02:57:20 PM)</font> <b>rgareus:</b></font> falktx: no you don&apos;t<br/>
+<font color="#A82F2F"><font size="2">(02:57:32 PM)</font> <b>rgareus:</b></font> falktx: sleep() sleeps _at least_ a given time<br/>
+<font color="#A82F2F"><font size="2">(02:57:38 PM)</font> <b>rgareus:</b></font> falktx: and it&apos;s implementation specific.<br/>
+<font color="#A82F2F"><font size="2">(02:58:02 PM)</font> <b>rgareus:</b></font> falktx: but yes.. for your case it&apos;s safe to use.<br/>
+<font color="#062585"><font size="2">(03:00:10 PM)</font> <b>***falktx</b></font> sleeps<br/>
+<font size="2">(03:24:45 PM)</font><b> D-HUND is now known as debdog</b><br/>
+<font color="#A82F2F"><font size="2">(03:26:01 PM)</font> <b>AndreeeCZ:</b></font> falktx, are you really asleep or was it a pun?<br/>
+<font color="#A82F2F"><font size="2">(03:26:13 PM)</font> <b>falktx:</b></font> really asleep<br/>
+<font color="#A82F2F"><font size="2">(03:26:49 PM)</font> <b>AndreeeCZ:</b></font> what was that thing that needs to be done with the alpha channel?<br/>
+<font color="#A82F2F"><font size="2">(03:26:51 PM)</font> <b>rgareus:</b></font> afternoon nap in Berlin. not unusual for those who only start going out at 2am ..<br/>
+<font color="#A82F2F"><font size="2">(03:26:59 PM)</font> <b>rgareus:</b></font> falktx: how&apos;s berlin?<br/>
+<font color="#A82F2F"><font size="2">(03:26:59 PM)</font> <b>AndreeeCZ:</b></font> in the artwork<br/>
+<font color="#A82F2F"><font size="2">(03:27:11 PM)</font> <b>falktx:</b></font> rgareus: kinda boring<br/>
+<font color="#A82F2F"><font size="2">(03:27:18 PM)</font> <b>rgareus:</b></font> what?<br/>
+<font color="#A82F2F"><font size="2">(03:27:23 PM)</font> <b>falktx:</b></font> AndreeeCZ: remove the alpha channel<br/>
+<font color="#A82F2F"><font size="2">(03:28:05 PM)</font> <b>falktx:</b></font> rgareus: I&apos;m having trouble sleeping, my back hurts and I don&apos;t feel so well...<br/>
+<font color="#A82F2F"><font size="2">(03:28:19 PM)</font> <b>falktx:</b></font> so I could be more excited...<br/>
+<font color="#A82F2F"><font size="2">(03:29:24 PM)</font> <b>rgareus:</b></font> falktx: I hope your back gets well soon<br/>
+<font color="#A82F2F"><font size="2">(03:29:32 PM)</font> <b>falktx:</b></font> it&apos;s all related<br/>
+<font color="#062585"><font size="2">(03:29:53 PM)</font> <b>***falktx</b></font> needs some extra pillows<br/>
+<font color="#A82F2F"><font size="2">(03:31:10 PM)</font> <b>AndreeeCZ:</b></font> falktx, drink some balm tea<br/>
+<font color="#A82F2F"><font size="2">(03:43:17 PM)</font> <b>AndreeeCZ:</b></font> falktx, the knobs&apos; 0,0 is at bottom left?<br/>
+<font color="#A82F2F"><font size="2">(03:43:21 PM)</font> <b>AndreeeCZ:</b></font> or top left?<br/>
+<font color="#A82F2F"><font size="2">(03:43:33 PM)</font> <b>falktx:</b></font> top-left usually<br/>
+<font size="2">(03:43:35 PM)</font><b> HarryHaaren left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(03:43:51 PM)</font> <b>falktx:</b></font> you can use vertical or horizontal layout, both will work<br/>
+<font color="#A82F2F"><font size="2">(03:43:56 PM)</font> <b>AndreeeCZ:</b></font> k<br/>
+<font color="#A82F2F"><font size="2">(03:45:51 PM)</font> <b>falktx:</b></font> hmm that JIT faust thing looks interesting<br/>
+<font color="#A82F2F"><font size="2">(03:46:26 PM)</font> <b>falktx:</b></font> https://vimeo.com/122268573<br/>
+<font color="#A82F2F"><font size="2">(03:49:17 PM)</font> <b>falktx:</b></font> https://github.com/CMRCYork/juce_faustllvm<br/>
+<font color="#A82F2F"><font size="2">(03:55:43 PM)</font> <b>rgareus:</b></font> yeah, they presented it an ICMC/SMC and I think you&apos;ll see more of it at the LAC&gt;<br/>
+<font color="#A82F2F"><font size="2">(03:56:07 PM)</font> <b>falktx:</b></font> it makes me wonder if I can add it to carla<br/>
+<font color="#A82F2F"><font size="2">(03:56:30 PM)</font> <b>falktx:</b></font> drag&amp;drop of faust dsp files, loads as plugin<br/>
+<font color="#A82F2F"><font size="2">(03:57:04 PM)</font> <b>falktx:</b></font> or maybe a generic plugin, although handling parameters would be tricky<br/>
+<font color="#A82F2F"><font size="2">(04:00:21 PM)</font> <b>AndreeeCZ:</b></font> falktx, what was that script that i run to generate the arworks?<br/>
+<font color="#A82F2F"><font size="2">(04:00:36 PM)</font> <b>falktx:</b></font> png2rgba.py or something<br/>
+<font color="#A82F2F"><font size="2">(04:00:45 PM)</font> <b>falktx:</b></font> in the dpf/utils dir<br/>
+<font color="#A82F2F"><font size="2">(04:01:44 PM)</font> <b>AndreeeCZ:</b></font> oh right and i also need dpf, makes sense :))<br/>
+<font color="#A82F2F"><font size="2">(04:04:08 PM)</font> <b>falktx:</b></font> :P<br/>
+<font color="#A82F2F"><font size="2">(04:04:29 PM)</font> <b>AndreeeCZ:</b></font> falktx, PARAMETER_IS_FLOAT exists or do i just omit this?<br/>
+<font color="#A82F2F"><font size="2">(04:04:42 PM)</font> <b>falktx:</b></font> parameter is float by default<br/>
+<font color="#A82F2F"><font size="2">(04:04:57 PM)</font> <b>falktx:</b></font> btw, that changed now. not sure which version of dpf you&apos;re using...<br/>
+<font color="#A82F2F"><font size="2">(04:05:14 PM)</font> <b>falktx:</b></font> the juice-plugins repo has an old one<br/>
+<font color="#A82F2F"><font size="2">(04:05:50 PM)</font> <b>falktx:</b></font> I updated wobble and vector juice (for carla), not the rest yet<br/>
+<font color="#A82F2F"><font size="2">(04:06:25 PM)</font> <b>AndreeeCZ:</b></font> i pulled dpf from git<br/>
+<font color="#A82F2F"><font size="2">(04:06:54 PM)</font> <b>falktx:</b></font> ok, it&apos;s just that PARAMETER_IS_FLOAT reminds me of the old code<br/>
+<font color="#A82F2F"><font size="2">(04:07:08 PM)</font> <b>falktx:</b></font> now it should be kParameterIsFloat (if it existed)<br/>
+<font color="#A82F2F"><font size="2">(04:07:23 PM)</font> <b>AndreeeCZ:</b></font> PARAMETER_IS_AUTOMABLE ?<br/>
+<font color="#A82F2F"><font size="2">(04:07:33 PM)</font> <b>AndreeeCZ:</b></font> kParameterIs .. ?<br/>
+<font color="#A82F2F"><font size="2">(04:08:00 PM)</font> <b>falktx:</b></font> kParameterIsAutomable<br/>
+<font color="#A82F2F"><font size="2">(04:08:06 PM)</font> <b>falktx:</b></font> it&apos;s all defined in the headers<br/>
+<font color="#A82F2F"><font size="2">(04:08:19 PM)</font> <b>AndreeeCZ:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(04:08:30 PM)</font> <b>falktx:</b></font> https://github.com/DISTRHO/DPF/blob/master/distrho/DistrhoPlugin.hpp#L37<br/>
+<font color="#A82F2F"><font size="2">(04:08:44 PM)</font> <b>falktx:</b></font> I added a few comments in there<br/>
+<font color="#A82F2F"><font size="2">(04:16:18 PM)</font> <b>AndreeeCZ:</b></font> falktx, i ran python2 ../../dpf/utils/png2rgba.py GrainJuice ./artwork<br/>
+<font color="#A82F2F"><font size="2">(04:16:27 PM)</font> <b>AndreeeCZ:</b></font> it said generating data for all the things<br/>
+<font color="#A82F2F"><font size="2">(04:16:37 PM)</font> <b>AndreeeCZ:</b></font> but no artwork cpp/hpp files were generated<br/>
+<font color="#A82F2F"><font size="2">(04:16:55 PM)</font> <b>falktx:</b></font> should be there on the current folder<br/>
+<font color="#A82F2F"><font size="2">(04:17:56 PM)</font> <b>AndreeeCZ:</b></font> falktx, http://pastie.org/10030636<br/>
+<font color="#A82F2F"><font size="2">(04:17:57 PM)</font> <b>LAbot:</b></font> Title: #10030636 - Pastie (at pastie.org)<br/>
+<font color="#A82F2F"><font size="2">(04:19:23 PM)</font> <b>AndreeeCZ:</b></font> oh right<br/>
+<font color="#A82F2F"><font size="2">(04:19:28 PM)</font> <b>AndreeeCZ:</b></font> nevermind, my dumbness<br/>
+<font color="#A82F2F"><font size="2">(04:20:07 PM)</font> <b>falktx:</b></font> GrainJuice.hpp is there :)<br/>
+<font color="#A82F2F"><font size="2">(04:20:59 PM)</font> <b>AndreeeCZ:</b></font> yes sorry<br/>
+<font color="#A82F2F"><font size="2">(04:23:34 PM)</font> <b>AndreeeCZ:</b></font> falktx, GrainJuiceUI.hpp:54:10: error: ?uint DISTRHO::GrainJuiceUI::d_getHeight() const? marked override, but does not override<br/>
+<font color="#A82F2F"><font size="2">(04:23:34 PM)</font> <b>AndreeeCZ:</b></font>      uint d_getHeight() const noexcept override<br/>
+<font color="#A82F2F"><font size="2">(04:24:36 PM)</font> <b>AndreeeCZ:</b></font> i&apos;ll look at the other sources :)<br/>
+<font color="#A82F2F"><font size="2">(04:35:43 PM)</font> <b>AndreeeCZ:</b></font> falktx, what was that script for generating the makefiles?<br/>
+<font color="#A82F2F"><font size="2">(04:36:23 PM)</font> <b>AndreeeCZ:</b></font> oh and i fixed the compile issues by looking at the pingpong pan code :)<br/>
+<font color="#A82F2F"><font size="2">(04:37:26 PM)</font> <b>fundamental:</b></font> falktx: is there a particular reason why you force CC and CXX in carla&apos;s makefile?<br/>
+<font color="#A82F2F"><font size="2">(04:49:01 PM)</font> <b>falktx:</b></font> I don&apos;t<br/>
+<font color="#A82F2F"><font size="2">(04:50:21 PM)</font> <b>fundamental:</b></font> hm, perhaps I messed up my checkout<br/>
+<font color="#A82F2F"><font size="2">(04:50:57 PM)</font> <b>falktx:</b></font> CC ?= gcc<br/>
+<font color="#A82F2F"><font size="2">(04:50:59 PM)</font> <b>falktx:</b></font> CC  ?= gcc<br/>
+<font color="#A82F2F"><font size="2">(04:51:00 PM)</font> <b>falktx:</b></font> CXX ?= g++<br/>
+<font color="#A82F2F"><font size="2">(04:52:48 PM)</font> <b>fundamental:</b></font> yep, it looks like I had a dirty checkout<br/>
+<font color="#A82F2F"><font size="2">(04:52:49 PM)</font> <b>fundamental:</b></font> my bad<br/>
+<font size="2">(06:52:50 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

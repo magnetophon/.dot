@@ -1,0 +1,245 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Wed 18 Feb 2015 05:47:19 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Wed 18 Feb 2015 05:47:19 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(05:47:19 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(05:47:20 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(05:51:49 PM)</font> <b>JL__:</b></font> las: cannot find it, couldnt stop A with ctrl-c ardour<br/>
+<font color="#A82F2F"><font size="2">(05:52:39 PM)</font> <b>las:</b></font> JL: ctrl-c stops more or less ANY program running in the terminal where you use it<br/>
+<font color="#A82F2F"><font size="2">(05:55:13 PM)</font> <b>JL__:</b></font> las: ok i try again, could stop in terminal twice, but couldnt find the &quot; &quot;out&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:56:15 PM)</font> <b>las:</b></font> JL__: it will be in the directory where you ran the command; you can find its name with the command: pwd<br/>
+<font color="#A82F2F"><font size="2">(06:03:25 PM)</font> <b>JL__:</b></font> las: got it, thanks, i send it<br/>
+<font color="#A82F2F"><font size="2">(06:06:26 PM)</font> <b>JL__:</b></font> las: sent, please say me if you got the terminal reports and the &quot; out&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:12:40 PM)</font> <b>las:</b></font> JL__: received. probably going to wait for ben@harrison, since he sees the same issue and it will be easier to debug it with him<br/>
+<font color="#A82F2F"><font size="2">(06:13:43 PM)</font> <b>JL__:</b></font> las: ok, so i wasnt dreaming ? it&apos;s an issue ?<br/>
+<font color="#A82F2F"><font size="2">(06:14:24 PM)</font> <b>las:</b></font> JL__: it is<br/>
+<font color="#A82F2F"><font size="2">(06:14:58 PM)</font> <b>las:</b></font> Xzu: that&apos;s a very, very bad crash<br/>
+<font color="#A82F2F"><font size="2">(06:14:59 PM)</font> <b>JL__:</b></font> las: ok, thanks, you brought me in doubt !<br/>
+<font color="#A82F2F"><font size="2">(06:15:09 PM)</font> <b>las:</b></font> Xzu: is this a self-build or one of the nightlies?<br/>
+<font color="#A82F2F"><font size="2">(06:16:17 PM)</font> <b>JL__:</b></font> las: Xzu is another frenchy ! welcome to the machine !<br/>
+<font color="#A82F2F"><font size="2">(07:01:48 PM)</font> <b>Xzu:</b></font> If anyone is interested by this issue, it&apos;s a build from git.<br/>
+<font color="#A82F2F"><font size="2">(07:09:32 PM)</font> <b>rgareus:</b></font> Xzu: sure.<br/>
+<font color="#A82F2F"><font size="2">(07:10:56 PM)</font> <b>Xzu:</b></font> I&apos;m the only one with that?<br/>
+<font color="#A82F2F"><font size="2">(07:11:38 PM)</font> <b>rgareus:</b></font> Xzu: I don&apos;t know.<br/>
+<font color="#A82F2F"><font size="2">(07:11:42 PM)</font> <b>rgareus:</b></font> Xzu: what issue?<br/>
+<font color="#A82F2F"><font size="2">(07:12:17 PM)</font> <b>rgareus:</b></font> Xzu: there&apos;s some current transport bug in git-head. las is investigating but cannot reproduce.<br/>
+<font color="#A82F2F"><font size="2">(07:12:27 PM)</font> <b>Xzu:</b></font> rgareus, http://pastebin.com/iJxYB3ae<br/>
+<font color="#A82F2F"><font size="2">(07:13:04 PM)</font> <b>rgareus:</b></font> Xzu: is this an optimized build?<br/>
+<font color="#A82F2F"><font size="2">(07:13:08 PM)</font> <b>Xzu:</b></font> 100% reproducible for me. Juste open a session and play<br/>
+<font color="#A82F2F"><font size="2">(07:13:24 PM)</font> <b>Xzu:</b></font> optimized? i don&apos;t think so.<br/>
+<font color="#062585"><font size="2">(07:13:38 PM)</font> <b>***rgareus</b></font> dimly recalls some issues with stl iterators due to compiler optimizations. but no idea<br/>
+<font color="#A82F2F"><font size="2">(07:14:54 PM)</font> <b>rgareus:</b></font> and issue in usr/include/c++/4.6/bits/list.tcc very odd.<br/>
+<font color="#A82F2F"><font size="2">(07:15:04 PM)</font> <b>rgareus:</b></font> Xzu: are you using any plugins in that session?<br/>
+<font color="#A82F2F"><font size="2">(07:15:24 PM)</font> <b>rgareus:</b></font> Xzu: my best guess would be memory corruption (some rogue plugin)<br/>
+<font color="#A82F2F"><font size="2">(07:15:36 PM)</font> <b>Xzu:</b></font> I&apos;created the session without template. so no.<br/>
+<font color="#A82F2F"><font size="2">(07:17:23 PM)</font> <b>Xzu:</b></font> About &quot;build&quot;, I carefully follow the instructions. (if I dont forgot!)<br/>
+<font color="#A82F2F"><font size="2">(07:18:22 PM)</font> <b>rgareus:</b></font> Xzu: yeah, it&apos;s another weird issue. I&apos;m sorry no idea really. best bet is to wait for las to come back<br/>
+<font color="#A82F2F"><font size="2">(07:19:12 PM)</font> <b>rgareus:</b></font> best guess (line 629 in the paste) is some unitialized variable in cross_thread. but I don&apos;t see it.<br/>
+<font color="#A82F2F"><font size="2">(07:19:40 PM)</font> <b>rgareus:</b></font> and I cannot reproduce the issue, either :(<br/>
+<font color="#A82F2F"><font size="2">(07:20:05 PM)</font> <b>rgareus:</b></font> Xzu: would you mind checking if the same issue happens with one of these builds: http://nightly.ardour.org/ ?<br/>
+<font color="#A82F2F"><font size="2">(07:20:06 PM)</font> <b>LAbot`:</b></font> Title: Ardour - Nightly Builds (at nightly.ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(07:20:22 PM)</font> <b>Xzu:</b></font> rgareus, rgareus all right...<br/>
+<font color="#A82F2F"><font size="2">(07:21:13 PM)</font> <b>rgareus:</b></font> if so, then it&apos;s something specific to your machine  (maybe a plugin during scan)<br/>
+<font color="#A82F2F"><font size="2">(07:21:17 PM)</font> <b>Xzu:</b></font> I&apos;m unlucky, stable bug with region trim/move, dev is broken... ok for teste this buld! :D<br/>
+<font color="#A82F2F"><font size="2">(07:21:40 PM)</font> <b>rgareus:</b></font> Xzu: if the nightly works,... then your build (or one dependency of it) is broken.<br/>
+<font color="#A82F2F"><font size="2">(07:22:20 PM)</font> <b>Xzu:</b></font> rgareus, would you like to check my ./wafconfigure?<br/>
+<font color="#A82F2F"><font size="2">(07:23:04 PM)</font> <b>rgareus:</b></font> Xzu: no, we&apos;d have to check the complete build-dependencies (and how they&apos;re built)<br/>
+<font color="#A82F2F"><font size="2">(07:23:20 PM)</font> <b>circ-user-nr8JD:</b></font> NICK lincoln.spiteri<br/>
+<font color="#A82F2F"><font size="2">(07:23:26 PM)</font> <b>rgareus:</b></font> Xzu: ie  http://nightly.ardour.org/i/A_Linux_x86_64/info.txt<br/>
+<font color="#A82F2F"><font size="2">(07:23:27 PM)</font> <b>LAbot`:</b></font> Title: Ardour - Nightly Builds (at nightly.ardour.org)<br/>
+<font size="2">(07:24:00 PM)</font><b> circ-user-nr8JD is now known as lincolns</b><br/>
+<font color="#A82F2F"><font size="2">(07:26:59 PM)</font> <b>rgareus:</b></font> Xzu: if the nightly-build has the same issue.. well then we don&apos;t need to do that:)<br/>
+<font color="#A82F2F"><font size="2">(07:28:28 PM)</font> <b>Xzu:</b></font> rgareus,  wait for download<br/>
+<font color="#A82F2F"><font size="2">(07:34:15 PM)</font> <b>rock_theory:</b></font> &lt;3 nightly builds<br/>
+<font color="#A82F2F"><font size="2">(07:34:45 PM)</font> <b>rock_theory:</b></font> before i try, anyone know if ardour works on fedora?<br/>
+<font color="#A82F2F"><font size="2">(07:35:08 PM)</font> <b>rgareus:</b></font> rock_theory: sure does<br/>
+<font color="#A82F2F"><font size="2">(07:35:13 PM)</font> <b>rock_theory:</b></font> nice<br/>
+<font color="#A82F2F"><font size="2">(07:35:39 PM)</font> <b>rock_theory:</b></font> ive been moving from debian to fedora. now the only thing im worried about is all the plugins<br/>
+<font color="#A82F2F"><font size="2">(07:36:08 PM)</font> <b>rock_theory:</b></font> i might still move to arch though.. such tough decisions.<br/>
+<font color="#A82F2F"><font size="2">(07:36:31 PM)</font> <b>rgareus:</b></font> rock_theory: it works on pretty much every distro since 2009 all ardour binaries  need is libc &gt;= 2.2.5 and X11.<br/>
+<font color="#A82F2F"><font size="2">(07:36:31 PM)</font> <b>Xzu:</b></font> rock_theory, don&apos;t decide, install them all<br/>
+<font color="#A82F2F"><font size="2">(07:36:43 PM)</font> <b>rgareus:</b></font> and jack <br/>
+<font color="#A82F2F"><font size="2">(07:36:53 PM)</font> <b>rock_theory:</b></font> Xzu: i actually do have them all installed.<br/>
+<font color="#A82F2F"><font size="2">(07:37:09 PM)</font> <b>rock_theory:</b></font> i just dont have much time to test anything.<br/>
+<font color="#A82F2F"><font size="2">(07:37:24 PM)</font> <b>rgareus:</b></font> rock_theory: From debian to fedora sounds like a major regression to me :)<br/>
+<font color="#A82F2F"><font size="2">(07:37:35 PM)</font> <b>rock_theory:</b></font> debian has become annoying tbh<br/>
+<font color="#A82F2F"><font size="2">(07:37:59 PM)</font> <b>rock_theory:</b></font> they locked their &quot;testing&quot; build for release... could be 6 months or more for updates ..<br/>
+<font color="#A82F2F"><font size="2">(07:38:17 PM)</font> <b>rock_theory:</b></font> whats worse, theyve also locked sid for some stupid reason<br/>
+<font color="#A82F2F"><font size="2">(07:38:50 PM)</font> <b>rock_theory:</b></font> i cant be stagnant for an unknown majority of the year. there are things i need<br/>
+<font color="#A82F2F"><font size="2">(07:39:43 PM)</font> <b>drobilla:</b></font> Therefore move from occasionally stagnant rolling distro to always stagnant distro.  Okay. :)<br/>
+<font color="#A82F2F"><font size="2">(07:40:10 PM)</font> <b>rock_theory:</b></font> drobilla: it has what i need, and it is much more recent than debian.<br/>
+<font color="#A82F2F"><font size="2">(07:40:52 PM)</font> <b>drobilla:</b></font> rock_theory: What does Fedora have that testing doesn&apos;t?<br/>
+<font color="#A82F2F"><font size="2">(07:40:53 PM)</font> <b>Xzu:</b></font> rgareus, what a beautifull build! http://www.zimagez.com/zimage/capturedcran-18022015-193910.php<br/>
+<font color="#062585"><font size="2">(07:41:01 PM)</font> <b>***drobilla</b></font> doesn&apos;t care, all distros suck.  Just curious<br/>
+<font color="#A82F2F"><font size="2">(07:41:26 PM)</font> <b>rock_theory:</b></font> ^<br/>
+<font color="#A82F2F"><font size="2">(07:41:32 PM)</font> <b>Xzu:</b></font> rgareus, And got exactly same issue: play=crash!<br/>
+<font color="#A82F2F"><font size="2">(07:41:37 PM)</font> <b>rock_theory:</b></font> true<br/>
+<font color="#A82F2F"><font size="2">(07:41:44 PM)</font> <b>Xzu:</b></font> (after creat session)<br/>
+<font color="#A82F2F"><font size="2">(07:41:49 PM)</font> <b>rock_theory:</b></font> drobilla: virt manager 1.1.0<br/>
+<font color="#A82F2F"><font size="2">(07:42:03 PM)</font> <b>drobilla:</b></font> Ah, the Ardour Material Design edition<br/>
+<font color="#A82F2F"><font size="2">(07:43:06 PM)</font> <b>drobilla:</b></font> rock_theory: Fair enough.<br/>
+<font color="#A82F2F"><font size="2">(07:43:40 PM)</font> <b>rgareus:</b></font> Xzu: reset the theme on first run <br/>
+<font color="#A82F2F"><font size="2">(07:43:59 PM)</font> <b>rgareus:</b></font> Xzu: Edit &gt; preferences &gt; Theme &gt; Reset.  restart<br/>
+<font color="#A82F2F"><font size="2">(07:44:01 PM)</font> <b>rock_theory:</b></font> im looking for a qemu manager that is web based and supports q35 chipset. then distro doesnt matter so much if i no longer need virt manager<br/>
+<font color="#A82F2F"><font size="2">(07:44:03 PM)</font> <b>drobilla:</b></font> Personally I&apos;m probably going the other direction.  Rolling was great when the way we did things was generally constant and sane.  Now doeverythingeverd increasingly being the entire damned system breaks everything constantly.  I&apos;ll probably just stay on Jessie forever until next release<br/>
+<font color="#A82F2F"><font size="2">(07:44:07 PM)</font> <b>rock_theory:</b></font> anyway, back on topic<br/>
+<font color="#A82F2F"><font size="2">(07:45:49 PM)</font> <b>drobilla:</b></font> that, or get grumpy and switch to FreeBSD or something because kids these days suck at everything :)<br/>
+<font color="#A82F2F"><font size="2">(07:46:06 PM)</font> <b>Fyr:</b></font> guys, I have two audio files that sounds almost identical. is there a diff tool for sound to analyze their difference?<br/>
+<font color="#A82F2F"><font size="2">(07:47:00 PM)</font> <b>lfzawacki:</b></font> Fyr: for one you could open up both in audacity and zoom in on the wave to visually see the difference<br/>
+<font color="#A82F2F"><font size="2">(07:47:30 PM)</font> <b>Fyr:</b></font> I can&apos;t see the difference with my eye. =)<br/>
+<font color="#A82F2F"><font size="2">(07:48:10 PM)</font> <b>Fyr:</b></font> it looks like in the end one of them contain redundant frames.<br/>
+<font color="#A82F2F"><font size="2">(07:48:27 PM)</font> <b>tom-:</b></font> Fyr: you&apos;d play both where one is inverted, and look to the &quot;mix&quot; -&gt; if flat, the files are identical<br/>
+<font color="#A82F2F"><font size="2">(07:48:40 PM)</font> <b>Fyr:</b></font> thanks!<br/>
+<font color="#A82F2F"><font size="2">(07:48:41 PM)</font> <b>tom-:</b></font> tom-: so far the theory<br/>
+<font color="#A82F2F"><font size="2">(07:53:19 PM)</font> <b>Xzu:</b></font> rgareus, can&apos;t try nightly -dbg Try to re-subscrib<br/>
+<font color="#A82F2F"><font size="2">(08:01:32 PM)</font> <b>Fyr:</b></font> there is no flat line, one file has some silent frames in the beggining. =(<br/>
+<font color="#A82F2F"><font size="2">(08:01:57 PM)</font> <b>Fyr:</b></font> that&apos;s why the diff tool would create magic. =/<br/>
+<font color="#A82F2F"><font size="2">(08:28:00 PM)</font> <b>Xzu:</b></font> rgareus, nightly build: http://pastebin.com/7cmiC2Hs<br/>
+<font color="#A82F2F"><font size="2">(08:32:14 PM)</font> <b>rgareus:</b></font> Xzu: that smells like a plugin wreaking havoc<br/>
+<font color="#A82F2F"><font size="2">(08:33:16 PM)</font> <b>rgareus:</b></font> segfault in libz. in one build, segfault in stl-iterators in another. really can&apos;t be - unless something overwrites memory.<br/>
+<font color="#A82F2F"><font size="2">(08:33:34 PM)</font> <b>rgareus:</b></font> and that something must be outside ardour in this case e.g. a plugin<br/>
+<font color="#A82F2F"><font size="2">(08:34:40 PM)</font> <b>rgareus:</b></font> all those &apos;lilv&apos; warning at the top hint at that as well. (those are from plugins)<br/>
+<font color="#A82F2F"><font size="2">(08:35:32 PM)</font> <b>rgareus:</b></font> drobilla: did you verify pianoteq?   ^^ log from nightly which uses lilv-svn:  error: /usr/lib/lv2/Pianoteq 4.lv2/manifest.ttl:7:24: invalid IRI character ` &apos; (escape %20)<br/>
+<font color="#A82F2F"><font size="2">(08:35:50 PM)</font> <b>rgareus:</b></font> drobilla: I was under the impression this was fixed.<br/>
+<font color="#A82F2F"><font size="2">(08:35:52 PM)</font> <b>drobilla:</b></font> rgareus: It should work correctly, but that warning will still be printed<br/>
+<font color="#A82F2F"><font size="2">(08:36:10 PM)</font> <b>rgareus:</b></font> drobilla: &apos;warning&apos; ? it says &apos;error&apos; :)<br/>
+<font color="#A82F2F"><font size="2">(08:36:18 PM)</font> <b>drobilla:</b></font> Yeah, well, I don&apos;t have a macro for that :P<br/>
+<font color="#A82F2F"><font size="2">(08:36:23 PM)</font> <b>drobilla:</b></font> (and it is an error in the data anyway)<br/>
+<font color="#A82F2F"><font size="2">(08:36:52 PM)</font> <b>drobilla:</b></font> Also I&apos;m told their latest release lacks the spaces anyway<br/>
+<font color="#A82F2F"><font size="2">(08:37:33 PM)</font> <b>rgareus:</b></font> drobilla: I&apos;m really tempted to just patch lilv to ignore all invalid plugins.  -&gt;  all errors are fatal. that way plugin ttls get fixed.<br/>
+<font color="#A82F2F"><font size="2">(08:38:08 PM)</font> <b>rgareus:</b></font> drobilla: falktx sent a lot of fixes upstream and kxstudio these days loads all plugins w/o any lilv warnings. YAY!<br/>
+<font color="#A82F2F"><font size="2">(08:38:13 PM)</font> <b>drobilla:</b></font> rgareus: I had the same thought.  sord_validator doesn&apos;t have a library API at the moment, though.<br/>
+<font color="#A82F2F"><font size="2">(08:38:44 PM)</font> <b>drobilla:</b></font> it also depends on PCRE<br/>
+<font color="#A82F2F"><font size="2">(08:39:16 PM)</font> <b>rgareus:</b></font> drobilla: sord_validate may not get it all correct in case of custom extensions. but still at runtime the .ttl should parse.<br/>
+<font color="#A82F2F"><font size="2">(08:39:30 PM)</font> <b>Xzu:</b></font> rgareus, what plugin?<br/>
+<font color="#A82F2F"><font size="2">(08:39:45 PM)</font> <b>rgareus:</b></font> Xzu: I don&apos;t know<br/>
+<font color="#A82F2F"><font size="2">(08:40:02 PM)</font> <b>Xzu:</b></font> rgareus, it&apos;s empty session there is no plugin.<br/>
+<font color="#A82F2F"><font size="2">(08:40:03 PM)</font> <b>rgareus:</b></font> Xzu: the first 800 lines of your paste are all plugin-errors<br/>
+<font color="#A82F2F"><font size="2">(08:40:13 PM)</font> <b>rgareus:</b></font> Xzu: ardour does scan for plugins at start<br/>
+<font color="#A82F2F"><font size="2">(08:40:14 PM)</font> <b>Xzu:</b></font> i know<br/>
+<font color="#A82F2F"><font size="2">(08:40:32 PM)</font> <b>Xzu:</b></font> kx-studio distro<br/>
+<font color="#A82F2F"><font size="2">(08:40:39 PM)</font> <b>Xzu:</b></font> lots of broken plug<br/>
+<font color="#A82F2F"><font size="2">(08:40:51 PM)</font> <b>rgareus:</b></font> Xzu: I don&apos;t believe it. falktx fixed all those a few months ago :)<br/>
+<font color="#A82F2F"><font size="2">(08:40:59 PM)</font> <b>Xzu:</b></font> haha<br/>
+<font color="#A82F2F"><font size="2">(08:41:10 PM)</font> <b>drobilla:</b></font> rgareus: That is already the case if things don&apos;t parse at all<br/>
+<font color="#A82F2F"><font size="2">(08:41:32 PM)</font> <b>rgareus:</b></font> drobilla: but lilv just prints a warning and goes along anyway<br/>
+<font color="#A82F2F"><font size="2">(08:41:38 PM)</font> <b>drobilla:</b></font> rgareus: Unless you mean they pretend to not exist whatsoever, but that would mean parsing 100% of the data on the system just to discover.<br/>
+<font color="#A82F2F"><font size="2">(08:42:17 PM)</font> <b>rgareus:</b></font> Xzu: likley a LADSPA or VST (those are instantiated when ardour opens)<br/>
+<font color="#A82F2F"><font size="2">(08:43:00 PM)</font> <b>drobilla:</b></font> rgareus: I suppose it could unload all the data on failure and such.  I dunno.  Needs thought.<br/>
+<font color="#A82F2F"><font size="2">(08:43:00 PM)</font> <b>rgareus:</b></font> drobilla: yep. ignore all plugins errors in the description.  if lilv would print a warning -&gt; don&apos;t include plugin in world.<br/>
+<font color="#A82F2F"><font size="2">(08:43:26 PM)</font> <b>rgareus:</b></font> drobilla: but if it&apos;s too much work.. n/m<br/>
+<font color="#A82F2F"><font size="2">(08:44:19 PM)</font> <b>Xzu:</b></font> rgareus, instantiated? I don&apos;t see what that mean<br/>
+<font color="#A82F2F"><font size="2">(08:44:32 PM)</font> <b>drobilla:</b></font> rgareus: Problem is plugins in the world are discovered just by reading manifests.<br/>
+<font color="#A82F2F"><font size="2">(08:44:37 PM)</font> <b>rgareus:</b></font> drobilla: i&apos;m only really complaining because for 99% of all ardour backtraces  &gt; 80% of the &quot;backtrace&quot; are lilv warnings.<br/>
+<font color="#A82F2F"><font size="2">(08:45:07 PM)</font> <b>rgareus:</b></font> Xzu: ardour opens the plugin (as if you would add it to the session) in order to &apos;discover&apos; it.<br/>
+<font color="#A82F2F"><font size="2">(08:45:10 PM)</font> <b>drobilla:</b></font> rgareus: Well, yeah, though you&apos;d think warnings would be enough...<br/>
+<font color="#A82F2F"><font size="2">(08:45:23 PM)</font> <b>rgareus:</b></font> Xzu: that is the way how things are done for VST and LADSPA.<br/>
+<font color="#A82F2F"><font size="2">(08:45:29 PM)</font> <b>drobilla:</b></font> rgareus: Lots of them are because the strictness has increased though.  e.g. ll-plugins severely predates lilv actually checking symbol validity<br/>
+<font color="#A82F2F"><font size="2">(08:46:01 PM)</font> <b>Xzu:</b></font> rgareus, ok. but A3 &quot;stable&quot; version don&apos;t crash<br/>
+<font color="#A82F2F"><font size="2">(08:46:09 PM)</font> <b>rgareus:</b></font> Xzu: you&apos;re just lucky<br/>
+<font color="#A82F2F"><font size="2">(08:46:13 PM)</font> <b>Xzu:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(08:46:20 PM)</font> <b>rgareus:</b></font> Xzu: I&apos;m sure the memory corruption is present there as well<br/>
+<font color="#062585"><font size="2">(08:46:25 PM)</font> <b>***drobilla</b></font> wonders what idiot decided to invent miplug.in<br/>
+<font color="#A82F2F"><font size="2">(08:46:43 PM)</font> <b>rgareus:</b></font> Xzu: and will only bite later<br/>
+<font color="#A82F2F"><font size="2">(08:47:02 PM)</font> <b>rgareus:</b></font> Xzu: depending on where the plugin(s) in question overwrite memory it can even go unnoticed<br/>
+<font color="#A82F2F"><font size="2">(08:47:30 PM)</font> <b>drobilla:</b></font> The URI thing is funny, really.  Bunch of people shocked and outraged at the (incorrect) assumption that this means HTTP stuff is actually going on, meanwhile others just pull fabricated domains out their asses and/or inject themselves into other people&apos;s namespaces without permission.  You can&apos;t win :)<br/>
+<font color="#A82F2F"><font size="2">(08:47:40 PM)</font> <b>Xzu:</b></font> rgareus, but I can try whithout plug no?<br/>
+<font color="#A82F2F"><font size="2">(08:48:20 PM)</font> <b>rgareus:</b></font> Xzu: try   LV_PATH=/nonexistent LADSPA_PATH=/nonexistent ./ardev<br/>
+<font color="#A82F2F"><font size="2">(08:48:42 PM)</font> <b>rgareus:</b></font> oops LV2_PATH <br/>
+<font color="#A82F2F"><font size="2">(08:49:15 PM)</font> <b>rgareus:</b></font>     LV2_PATH=/nonexistent LADSPA_PATH=/nonexistent LXVST_PATH=/nonexistent ./ardev<br/>
+<font color="#A82F2F"><font size="2">(08:50:03 PM)</font> <b>Xzu:</b></font> rgareus, paste this in a terminal? there no &quot;-noplug&quot; option?<br/>
+<font color="#A82F2F"><font size="2">(08:50:33 PM)</font> <b>rgareus:</b></font> Xzu: there is, but I think it just disables plugins. <br/>
+<font color="#A82F2F"><font size="2">(08:50:39 PM)</font> <b>Xzu:</b></font> got it -disable-plugins  don&apos;t work?<br/>
+<font color="#A82F2F"><font size="2">(08:51:03 PM)</font> <b>rgareus:</b></font> not sure if it skips the scan completely<br/>
+<font color="#A82F2F"><font size="2">(08:51:17 PM)</font> <b>rgareus:</b></font>     ./ardev --disable-plugins -D Pluginmanager   #  would tell<br/>
+<font color="#A82F2F"><font size="2">(08:53:57 PM)</font> <b>Xzu:</b></font> &quot;-d&quot; flag don&apos;t change anything<br/>
+<font color="#A82F2F"><font size="2">(08:54:33 PM)</font> <b>falktx:</b></font> rgareus: there are new ones, but very minor<br/>
+<font color="#A82F2F"><font size="2">(08:56:48 PM)</font> <b>rgareus:</b></font> falktx: as long as it&apos;s not 1000 lines, I&apos;m happy.<br/>
+<font color="#A82F2F"><font size="2">(08:57:01 PM)</font> <b>Xzu:</b></font> rgareus, nothing better with &quot;./ardev --disable-plugins -D Pluginmanager&quot; play=crash<br/>
+<font color="#A82F2F"><font size="2">(08:57:09 PM)</font> <b>Xzu:</b></font> ne backtrace?<br/>
+<font color="#A82F2F"><font size="2">(08:57:11 PM)</font> <b>rgareus:</b></font> Xzu: LV2_PATH=/nonexistent LADSPA_PATH=/nonexistent LXVST_PATH=/nonexistent ./ardev ?<br/>
+<font color="#A82F2F"><font size="2">(08:57:13 PM)</font> <b>Xzu:</b></font> *need<br/>
+<font color="#A82F2F"><font size="2">(08:57:41 PM)</font> <b>rgareus:</b></font> the &quot;play=crash&quot; is a different thing.<br/>
+<font color="#A82F2F"><font size="2">(08:57:59 PM)</font> <b>rgareus:</b></font> las broke that two days ago (git is currently broken).<br/>
+<font color="#A82F2F"><font size="2">(08:58:47 PM)</font> <b>rgareus:</b></font> Xzu: if it starts with LV2_PATH=/nonexistent LADSPA_PATH=/nonexistent LXVST_PATH=/nonexistent ./ardev   and just ./ardev crashes on start -&gt; plugin issue<br/>
+<font color="#A82F2F"><font size="2">(08:59:40 PM)</font> <b>rgareus:</b></font> Xzu: if so, next step is to only use   LADSPA_PATH=  or LXVST_PATH= ... and find which &quot;type&quot; of plugin causes the issue -&gt; narrow down things<br/>
+<font color="#A82F2F"><font size="2">(08:59:55 PM)</font> <b>Xzu:</b></font> ok, my issue is only play=crash with last version<br/>
+<font color="#A82F2F"><font size="2">(09:00:24 PM)</font> <b>rgareus:</b></font> yeah, sadly this sometimes happens. git-head = broken.<br/>
+<font color="#A82F2F"><font size="2">(09:00:26 PM)</font> <b>Xzu:</b></font> don&apos;t understand all is broken<br/>
+<font color="#A82F2F"><font size="2">(09:00:38 PM)</font> <b>Xzu:</b></font> well,<br/>
+<font color="#A82F2F"><font size="2">(09:00:41 PM)</font> <b>Xzu:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(09:04:27 PM)</font> <b>rgareus:</b></font> Xzu: try a  git reset --hard ef99814  #  and recompile<br/>
+<font color="#A82F2F"><font size="2">(09:07:26 PM)</font> <b>Xzu:</b></font> rgareus, thx!<br/>
+<font color="#A82F2F"><font size="2">(09:34:00 PM)</font> <b>Xzu:</b></font> rgareus, &quot;git reset --hard ef9981&quot;  -&gt;works, thank you!<br/>
+<font color="#A82F2F"><font size="2">(09:35:04 PM)</font> <b>rgareus:</b></font> Xzu: once the issue has been fixed, just a `git pull` will get you back to the latest<br/>
+<font color="#A82F2F"><font size="2">(09:35:24 PM)</font> <b>rgareus:</b></font> &quot;ef9981&quot; is monday&apos;s git versionC[C[C[C[C<br/>
+<font color="#A82F2F"><font size="2">(09:41:13 PM)</font> <b>las:</b></font> rgareus: do we have any idea what the issue is?<br/>
+<font color="#A82F2F"><font size="2">(09:41:31 PM)</font> <b>rgareus:</b></font> las: the royal we? <br/>
+<font color="#A82F2F"><font size="2">(09:41:36 PM)</font> <b>rgareus:</b></font> las: I have no idea.<br/>
+<font color="#A82F2F"><font size="2">(09:41:44 PM)</font> <b>las:</b></font> rgareus: the royal we<br/>
+<font color="#A82F2F"><font size="2">(09:41:53 PM)</font> <b>las:</b></font> rgareus: i&apos;ve never seen anything like that crash before<br/>
+<font color="#A82F2F"><font size="2">(09:42:13 PM)</font> <b>las:</b></font> rgareus: it is obvious what is &quot;related to&quot;, but i have no idea how any of that could go wrong<br/>
+<font color="#A82F2F"><font size="2">(09:42:39 PM)</font> <b>rgareus:</b></font> las: we do know that it was introduced after ef9981.<br/>
+<font color="#A82F2F"><font size="2">(09:43:36 PM)</font> <b>rgareus:</b></font> las: and that with current git pressing play -&gt; crash<br/>
+<font color="#A82F2F"><font size="2">(09:44:15 PM)</font> <b>las:</b></font> rgareus: well, there seem to be two behaviours<br/>
+<font color="#A82F2F"><font size="2">(09:44:22 PM)</font> <b>las:</b></font> rgareus: causing issues<br/>
+<font color="#A82F2F"><font size="2">(09:44:27 PM)</font> <b>las:</b></font> rgareus: one is play =&gt; can&apos;t stop<br/>
+<font color="#A82F2F"><font size="2">(09:44:31 PM)</font> <b>las:</b></font> rgareus: the other is play =&gt; crash<br/>
+<font color="#A82F2F"><font size="2">(09:44:40 PM)</font> <b>las:</b></font> rgareus: the former seems to have been introduced earlier<br/>
+<font color="#A82F2F"><font size="2">(09:44:52 PM)</font> <b>las:</b></font> rgareus: the latter appears (thus far) to be post-ef9981<br/>
+<font color="#A82F2F"><font size="2">(09:44:54 PM)</font> <b>rgareus:</b></font> maybe some lingering buffersize config things (users who still have those 20sec playback buffers and large chunksizes)C[C[C[C[C[C<br/>
+<font color="#A82F2F"><font size="2">(09:48:16 PM)</font> <b>las:</b></font> rgareus: aha!<br/>
+<font color="#A82F2F"><font size="2">(09:48:22 PM)</font> <b>las:</b></font> rgareus: excellent intuition<br/>
+<font color="#A82F2F"><font size="2">(09:48:37 PM)</font> <b>las:</b></font> rgareus: things are so chaotic with waves right now that i omitted to cherry-pick over a critical fix<br/>
+<font color="#A82F2F"><font size="2">(09:48:55 PM)</font> <b>las:</b></font> rgareus: ah no, that&apos;s only for the varifill branch, damn<br/>
+<font color="#A82F2F"><font size="2">(09:49:40 PM)</font> <b>las:</b></font> rgareus: did anyone ask Xzu to try removing his config file(s) ?<br/>
+<font color="#062585"><font size="2">(09:50:36 PM)</font> <b>***las</b></font> renews community.ardour.org SSL certs ... credit card got hacked last week ... autopayment systems falling down all over<br/>
+<font size="2">(10:05:32 PM)</font><b> clark|w is now known as clark|w|afk</b><br/>
+<font color="#A82F2F"><font size="2">(10:06:00 PM)</font> <b>leopardman:</b></font> quit<br/>
+<font size="2">(10:06:18 PM)</font><b> leopardman left the room (quit: Quit: ERC Version 5.3 (IRC client for Emacs)).</b><br/>
+<font color="#A82F2F"><font size="2">(10:21:23 PM)</font> <b>lincolns:</b></font> hi las<br/>
+<font color="#A82F2F"><font size="2">(10:22:57 PM)</font> <b>las:</b></font> lincolns: hi lincoln<br/>
+<font color="#A82F2F"><font size="2">(10:23:02 PM)</font> <b>las:</b></font> lincolns: thanks for stopping by<br/>
+<font color="#A82F2F"><font size="2">(10:23:34 PM)</font> <b>las:</b></font> lincolns: maybe it already exists somewhere, but i was not able to unearth a clear explanation of what your non-layered editing mode was intended to accomplish<br/>
+<font color="#A82F2F"><font size="2">(10:24:13 PM)</font> <b>las:</b></font> lincolns: when i looked into the code, it seemed to be missing a significant set of things i would have expected. but i think this is because i do not understand what the goal was<br/>
+<font color="#A82F2F"><font size="2">(10:28:08 PM)</font> <b>lincolns:</b></font> las, this was mainly intended to make the region views not overlap, so where one ends, the other starts with no overlap.<br/>
+<font color="#A82F2F"><font size="2">(10:28:43 PM)</font> <b>lincolns:</b></font> the intent was to give Ardour behavior similar to Pro Tools<br/>
+<font size="2">(10:32:16 PM)</font><b> clark|w|afk is now known as clark|w</b><br/>
+<font color="#A82F2F"><font size="2">(10:33:49 PM)</font> <b>las:</b></font> lincolns: right, OK<br/>
+<font color="#A82F2F"><font size="2">(10:34:05 PM)</font> <b>las:</b></font> lincolns: but there seemed to be almost no evidence of this in the backend code<br/>
+<font color="#A82F2F"><font size="2">(10:34:35 PM)</font> <b>las:</b></font> lincolns: so if you carry out, for example, a paste of 1 region into a playlist, i couldn&apos;t find any code that would ensure the resulting playlist was single-layered<br/>
+<font color="#A82F2F"><font size="2">(10:34:50 PM)</font> <b>las:</b></font> lincolns: do you think i missed it, or do you recall trying to do all this at the GUI editing level?<br/>
+<font color="#A82F2F"><font size="2">(10:36:08 PM)</font> <b>lincolns:</b></font> I think it was all done at the the GUI layer, which then reflected back to the model<br/>
+<font color="#A82F2F"><font size="2">(10:36:48 PM)</font> <b>lincolns:</b></font> I do not recall the behavior of the scenario you mention at this stage<br/>
+<font color="#A82F2F"><font size="2">(10:37:30 PM)</font> <b>lincolns:</b></font> I think setting the mode to non-overlapping affected the recording phase<br/>
+<font color="#A82F2F"><font size="2">(10:38:19 PM)</font> <b>lincolns:</b></font> than there were key modifiers to trim without overlap behavior<br/>
+<font color="#A82F2F"><font size="2">(10:38:22 PM)</font> <b>las:</b></font> lincolns: right<br/>
+<font color="#A82F2F"><font size="2">(10:38:46 PM)</font> <b>las:</b></font> lincolns: but not the editing phase, so if you actually dragged stuff around, you could still end up with overlaps (i think)<br/>
+<font color="#A82F2F"><font size="2">(10:40:47 PM)</font> <b>Xzu:</b></font> las&gt; rgareus: did anyone ask Xzu to try removing his config file(s) ? =&gt;No. What file (exactly for &quot;ardev&quot;) is this?<br/>
+<font color="#A82F2F"><font size="2">(10:41:43 PM)</font> <b>rgareus:</b></font> Xzu: I don&apos;t have any evidence that it would be related. just an intuition<br/>
+<font color="#A82F2F"><font size="2">(10:41:50 PM)</font> <b>rgareus:</b></font> Xzu: ~/.config/ardour3/<br/>
+<font color="#A82F2F"><font size="2">(10:41:53 PM)</font> <b>lincolns:</b></font> las, I am not sure, I guess the best way to find out is to test it.<br/>
+<font color="#A82F2F"><font size="2">(10:43:56 PM)</font> <b>rgareus:</b></font> Xzu: it would also only be an issue if you were an unlucky person to run a self-compiled version between Jan 19 and 22. (which created wrong new default values in the config)<br/>
+<font color="#A82F2F"><font size="2">(10:46:26 PM)</font> <b>las:</b></font> lincolns: i think your comments above clarify things for me<br/>
+<font color="#A82F2F"><font size="2">(10:46:40 PM)</font> <b>las:</b></font> lincolns: i suspect that if you had tried to tackle this inside libardour, you&apos;d remember it :)<br/>
+<font color="#A82F2F"><font size="2">(10:47:10 PM)</font> <b>las:</b></font> lincolns: i&apos;m being asked to do a version of non-layered mode that is &quot;100%&quot; - i.e. there is no way to ever create overlaps<br/>
+<font color="#A82F2F"><font size="2">(10:48:40 PM)</font> <b>Xzu:</b></font> rgareus,  no &quot; self-compiled version between Jan 19 and 22&quot; for me.<br/>
+<font color="#A82F2F"><font size="2">(10:48:50 PM)</font> <b>lincolns:</b></font> I am trying to remember if I had added code to trim a region at start and end, I can pull the code see if it jogs my memory<br/>
+<font color="#A82F2F"><font size="2">(10:49:26 PM)</font> <b>lincolns:</b></font> however I remember that is was pretty straight forward overall, basically MVC doing its thing.<br/>
+<font color="#A82F2F"><font size="2">(10:52:09 PM)</font> <b>las:</b></font> lincolns: yes. i think the issue is that it was limited mosted to trimming and recording<br/>
+<font color="#A82F2F"><font size="2">(10:52:38 PM)</font> <b>las:</b></font> lincolns: once you start actually moving regions around, the &quot;restrictions&quot; in single layer mode turn out not to be that deep/solid<br/>
+<font color="#A82F2F"><font size="2">(10:54:24 PM)</font> <b>lincolns:</b></font> las: I guess you would want to do something like split the underlying region at the drop point of region that is being moved<br/>
+<font color="#A82F2F"><font size="2">(10:55:03 PM)</font> <b>lincolns:</b></font> las: then trim the right region the the end of the region being dropped + 1 frame<br/>
+<font color="#A82F2F"><font size="2">(10:58:09 PM)</font> <b>Xzu:</b></font> how to create template for channel?<br/>
+<font color="#A82F2F"><font size="2">(11:05:46 PM)</font> <b>Xzu:</b></font> I don&apos;t find any option for that (http://libremusicproduction.com/articles/ardour-3-tips-and-tricks)<br/>
+<font color="#A82F2F"><font size="2">(11:05:48 PM)</font> <b>LAbot`:</b></font> Title: Ardour 3 Tips and Tricks | Libre Music Production (at libremusicproduction.com)<br/>
+<font color="#A82F2F"><font size="2">(11:06:30 PM)</font> <b>las:</b></font> lincolns: yes, it would all have to move into the libardour code for Playlist<br/>
+<font color="#A82F2F"><font size="2">(11:06:35 PM)</font> <b>las:</b></font> lincolns: rather than in the GUI<br/>
+<font color="#A82F2F"><font size="2">(11:06:53 PM)</font> <b>las:</b></font> Xzu: use the mixer strip. right click on the name button. IIRC<br/>
+<font color="#A82F2F"><font size="2">(11:09:17 PM)</font> <b>las:</b></font> lincolns: i think i am clear on this now<br/>
+<font color="#A82F2F"><font size="2">(11:09:29 PM)</font> <b>las:</b></font> lincolns: how are you enjoying london? which part of the city do you live in?<br/>
+<font color="#A82F2F"><font size="2">(11:11:21 PM)</font> <b>lincolns:</b></font> las: ok, it is all good right now. I am quite central, Camden Town, a came here with the family in April 2013, I am working in media technology, video workflow engines, metadata, transcode, all with a dash of cloud<br/>
+<font color="#A82F2F"><font size="2">(11:14:52 PM)</font> <b>rgareus:</b></font> lincolns: sounds like a great job!<br/>
+<font color="#A82F2F"><font size="2">(11:15:31 PM)</font> <b>rgareus:</b></font> lincolns: may I ask if you are freelancing.. or working for the BBC?<br/>
+<font color="#A82F2F"><font size="2">(11:17:25 PM)</font> <b>lincolns:</b></font> rgareus: I work for a company called Nativ, we work for the likes of ITV and other broadcaster/media companies in the US and Europe<br/>
+<font color="#A82F2F"><font size="2">(11:20:43 PM)</font> <b>rgareus:</b></font> nice<br/>
+<font color="#A82F2F"><font size="2">(11:21:24 PM)</font> <b>rgareus:</b></font> mmh smells of Java, J2EE, Swing, servlets though :D<br/>
+<font size="2">(11:40:35 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,116 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sat 22 Nov 2014 07:59:56 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sat 22 Nov 2014 07:59:56 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(07:59:56 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(07:59:56 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(08:01:15 PM)</font><b> krgn___ left the room (&quot;WeeChat 1.0.1&quot;).</b><br/>
+<font size="2">(08:03:53 PM)</font><b> chexxor_ left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(08:10:46 PM)</font><b> carter_cloud left the room (quit: ).</b><br/>
+<font size="2">(08:11:56 PM)</font><b> stepkut left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(08:15:01 PM)</font><b> petar left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(08:16:06 PM)</font><b> moha_hunt [<em>~moha@95.90.232.1</em>] entered the room.</b><br/>
+<font size="2">(08:17:50 PM)</font><b> joneshf left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font size="2">(08:17:57 PM)</font><b> joneshf-laptop left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font size="2">(08:18:44 PM)</font><b> tv2 left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font size="2">(08:18:58 PM)</font><b> tv [<em>~tv@unaffiliated/tv</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:24:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ip1981 opened pull request #5085: Strongswan service (master...strongswan) http://git.io/HrMhSQ<br/>
+<font size="2">(08:24:29 PM)</font><b> dysinger [<em>~dysinger@cpe-24-94-75-243.hawaii.res.rr.com</em>] entered the room.</b><br/>
+<font size="2">(08:27:36 PM)</font><b> psnively [<em>~psnively@pool-98-119-9-129.lsanca.fios.verizon.net</em>] entered the room.</b><br/>
+<font size="2">(08:29:09 PM)</font><b> mizu_no_oto left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(08:30:55 PM)</font><b> eddyb left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(08:32:36 PM)</font> <b>ro6:</b></font> I&apos;m trying to write a package for a compiler that&apos;s distributed as a jar, so basically I just need to install a wrapper, but I&apos;m not sure how to get the correct name (with hash) for the resulting jar<br/>
+<font size="2">(08:33:07 PM)</font><b> eddyb [<em>~eddyb@unaffiliated/eddyb</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:34:17 PM)</font> <b>MichaelRaskin:</b></font> &quot;$out&quot; variable is available during the build<br/>
+<font color="#A82F2F"><font size="2">(08:34:21 PM)</font> <b>MichaelRaskin:</b></font> For the builder<br/>
+<font size="2">(08:34:43 PM)</font><b> mizu_no_oto [<em>~textual@50.153.149.46</em>] entered the room.</b><br/>
+<font size="2">(08:35:25 PM)</font><b> dysinger left the room (quit: Quit: dysinger).</b><br/>
+<font color="#A82F2F"><font size="2">(08:37:25 PM)</font> <b>ro6:</b></font> I thought that was the location in the Nix store...<br/>
+<font size="2">(08:37:25 PM)</font><b> bennofs [<em>~benno@ip92342b4f.dynamic.kabel-deutschland.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:37:25 PM)</font> <b>ro6:</b></font> what I need is the $src variable without the /nix/store part on the front<br/>
+<font color="#A82F2F"><font size="2">(08:37:25 PM)</font> <b>copumpkin:</b></font> $sourceRoot?<br/>
+<font color="#A82F2F"><font size="2">(08:38:40 PM)</font> <b>MichaelRaskin:</b></font> basename $src<br/>
+<font color="#A82F2F"><font size="2">(08:38:40 PM)</font> <b>psnively:</b></font> Hi everyone! Is there some way, by configuration, that I can turn this:<br/>
+<font color="#A82F2F"><font size="2">(08:38:43 PM)</font> <b>psnively:</b></font> nix-env -i nixops --fallback --option use-binary-caches false --argstr system x86_64-linux<br/>
+<font color="#A82F2F"><font size="2">(08:38:45 PM)</font> <b>psnively:</b></font> into just:<br/>
+<font size="2">(08:38:57 PM)</font><b> rost left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font color="#A82F2F"><font size="2">(08:38:57 PM)</font> <b>psnively:</b></font> nix-env -i nixops<br/>
+<font color="#A82F2F"><font size="2">(08:39:28 PM)</font> <b>psnively:</b></font> In other words: default system = x86_64-linux, avoid binary caches<br/>
+<font color="#A82F2F"><font size="2">(08:39:30 PM)</font> <b>MichaelRaskin:</b></font> On what system are you that x86_64-linux is possible but not default?<br/>
+<font color="#A82F2F"><font size="2">(08:39:38 PM)</font> <b>psnively:</b></font> Darwin.<br/>
+<font color="#A82F2F"><font size="2">(08:40:02 PM)</font> <b>MichaelRaskin:</b></font> use-binary-caches can be set in nix.conf<br/>
+<font color="#A82F2F"><font size="2">(08:40:30 PM)</font> <b>MichaelRaskin:</b></font> Can Darwin build Linux packages?<br/>
+<font color="#A82F2F"><font size="2">(08:40:30 PM)</font> <b>psnively:</b></font> I’m using remote building, but even so, it tries to build locally unless I specify the syste.<br/>
+<font color="#A82F2F"><font size="2">(08:41:03 PM)</font> <b>psnively:</b></font>  /etc/nix/nix.conf?<br/>
+<font color="#A82F2F"><font size="2">(08:41:20 PM)</font> <b>MichaelRaskin:</b></font> You can create a default.nix such that it imports nixpkgs but defaults system parameter to what you need<br/>
+<font color="#A82F2F"><font size="2">(08:42:50 PM)</font> <b>MichaelRaskin:</b></font> I think /etc/nix/nix.conf, yes<br/>
+<font size="2">(08:42:59 PM)</font><b> JagaJaga [<em>~JagaJaga@178.62.202.50</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:43:04 PM)</font> <b>psnively:</b></font> Yep, works, thanks.<br/>
+<font color="#A82F2F"><font size="2">(08:43:53 PM)</font> <b>psnively:</b></font> Sorry, default.nix where? My .nix-profile?<br/>
+<font color="#A82F2F"><font size="2">(08:44:11 PM)</font> <b>MichaelRaskin:</b></font> Maybe ~/.nix-defexpr<br/>
+<font color="#A82F2F"><font size="2">(08:45:45 PM)</font> <b>psnively:</b></font> Yeah. There’s one at ~/.nix-defexpr/channels/nixpkgs/default.nix. Editing it seems unwise.<br/>
+<font color="#A82F2F"><font size="2">(08:47:23 PM)</font> <b>MichaelRaskin:</b></font> What about just creating ~/.nix-defexpr/default.nix<br/>
+<font color="#A82F2F"><font size="2">(08:47:35 PM)</font> <b>pharpend:</b></font> Hey, I&apos;m trying ton install cabal-install, getting this error - http://ix.io/fiI<br/>
+<font color="#A82F2F"><font size="2">(08:47:50 PM)</font> <b>pharpend:</b></font> That&apos;s the output of &quot;\cabal install cabal-install -v3&quot;<br/>
+<font size="2">(08:50:58 PM)</font><b> rejuvyesh left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font size="2">(08:51:15 PM)</font><b> turtlethumper [<em>~turtlethu@73.32.169.106</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:53:15 PM)</font> <b>psnively:</b></font> @MichaelRaskin: OK, it’s used. Now, to get the import all-packages.nix to pass system = x86_64-linux somehow...<br/>
+<font color="#A82F2F"><font size="2">(08:53:57 PM)</font> <b>sivteck:</b></font> pharpend, you shall not use `cabal install bleh` in NixOS<br/>
+<font color="#A82F2F"><font size="2">(08:54:24 PM)</font> <b>pharpend:</b></font> okay, how do I go about installing haskell packages?<br/>
+<font color="#A82F2F"><font size="2">(08:55:45 PM)</font> <b>sivteck:</b></font> you can find nix exprs for most haskellPackages<br/>
+<font color="#A82F2F"><font size="2">(08:56:14 PM)</font> <b>sivteck:</b></font> have you read: https://ocharles.org.uk/blog/posts/2014-02-04-how-i-develop-with-nixos.html and http://fuuzetsu.co.uk/blog/posts/2014-06-28-My-experience-with-NixOS.html ?<br/>
+<font color="#A82F2F"><font size="2">(08:56:33 PM)</font> <b>kmicu:</b></font> https://gist.github.com/bennofs/a1720859b53fcc743894<br/>
+<font color="#A82F2F"><font size="2">(08:56:41 PM)</font> <b>kmicu:</b></font> http://www.cse.chalmers.se/~bernardy/nix.html<br/>
+<font color="#A82F2F"><font size="2">(08:57:01 PM)</font> <b>iElectric:</b></font> aszlig: cups-pdf-filter is broken due to cups bump<br/>
+<font color="#A82F2F"><font size="2">(08:57:13 PM)</font> <b>pharpend:</b></font> sivteck: no, i&apos;ll take a look<br/>
+<font color="#A82F2F"><font size="2">(08:57:26 PM)</font> <b>sivteck:</b></font> also see links kmicu posted<br/>
+<font size="2">(09:00:06 PM)</font><b> goibhniu left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(09:01:30 PM)</font> <b>pharpend:</b></font> Not having to deal with cabal is good<br/>
+<font color="#A82F2F"><font size="2">(09:02:01 PM)</font> <b>kmicu:</b></font> It is a blessing :)<br/>
+<font color="#A82F2F"><font size="2">(09:02:16 PM)</font> <b>psnively:</b></font>   system = &quot;x86_64-linux&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:02:16 PM)</font> <b>psnively:</b></font>   import ./channels/nixpkgs/pkgs/top-level/all-packages.nix<br/>
+<font color="#A82F2F"><font size="2">(09:02:27 PM)</font> <b>kmicu:</b></font> But also keep in mind that Cabal is not the same as cabal-install ;)<br/>
+<font color="#A82F2F"><font size="2">(09:02:43 PM)</font> <b>psnively:</b></font> This obviously doesn’t work, in addition to being offensive. :-)<br/>
+<font size="2">(09:03:55 PM)</font><b> contrapumpkin [<em>~copumpkin@unaffiliated/copumpkin</em>] entered the room.</b><br/>
+<font size="2">(09:04:49 PM)</font><b> copumpkin left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(09:05:36 PM)</font><b> MichaelRaskin left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:07:37 PM)</font> <b>seagreen-:</b></font> I&apos;m installing NixOS in VirtualBox on OsX. I see there are two ways to do it, the virtualbox appliances here: http://nixos.org/nixos/download.html, and the ISO strategy here: https://nixos.org/wiki/Installing_NixOS_in_a_VirtualBox_guest<br/>
+<font color="#A82F2F"><font size="2">(09:08:23 PM)</font> <b>seagreen-:</b></font> Is there an important difference between the two? The virtualbox appliance looks more convenient, but says &quot;demo&quot;, so I&apos;m not sure if you get the same thing.<br/>
+<font color="#A82F2F"><font size="2">(09:10:34 PM)</font> <b>psnively:</b></font> @seagreen-: AFAICT, the difference is that there are different flavors of ISO, e.g. there’s a “minimal” variant. I followed those instructions successfully, but ultimately the convenience of the Vagrant box won.<br/>
+<font size="2">(09:10:54 PM)</font><b> Lethalman [<em>~lethal@89.119.188.238</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:11:13 PM)</font> <b>psnively:</b></font> Oh, that is, I used https://github.com/zimbatm/nixbox<br/>
+<font color="#A82F2F"><font size="2">(09:11:34 PM)</font> <b>psnively:</b></font> Literally vagrant init zimbatm/nixbox64<br/>
+<font color="#A82F2F"><font size="2">(09:13:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 1 new commit to master: http://git.io/FntqJQ<br/>
+<font color="#A82F2F"><font size="2">(09:13:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master d562934 Domen Kožar: nokogiri: use libiconvOrEmpty. assert libiconv is not used on linux<br/>
+<font color="#A82F2F"><font size="2">(09:14:36 PM)</font> <b>Fuuzetsu:</b></font> how can I tell nix-build to not fetch from cache? I absolutely need to build this thing locally<br/>
+<font size="2">(09:14:42 PM)</font><b> lucidd left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:15:56 PM)</font> <b>contrapumpkin:</b></font> anyone know how https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-darwin.tar.bz2 is built?<br/>
+<font color="#A82F2F"><font size="2">(09:16:06 PM)</font> <b>contrapumpkin:</b></font> Fuuzetsu --option use-binary-caches false ?<br/>
+<font color="#A82F2F"><font size="2">(09:16:38 PM)</font> <b>Fuuzetsu:</b></font> [shana@lenalee:~]$ nix-build ~/programming/nixpkgs -o /tmp/http-client -A haskellPackages.httpClient --cores 4 --option use-binary-caches false --dry-run<br/>
+<font color="#A82F2F"><font size="2">(09:16:38 PM)</font> <b>Fuuzetsu:</b></font> these paths will be fetched (0.00 MiB download, 5.78 MiB unpacked):<br/>
+<font color="#A82F2F"><font size="2">(09:16:38 PM)</font> <b>Fuuzetsu:</b></font>   /nix/store/b4wnq8kpjn091y60n4c02zsqj80zhmkm-haskell-http-client-ghc7.8.3-0.3.8.2-shared<br/>
+<font color="#A82F2F"><font size="2">(09:16:40 PM)</font> <b>Fuuzetsu:</b></font>  <br/>
+<font size="2">(09:16:55 PM)</font><b> ajhager left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font color="#A82F2F"><font size="2">(09:17:16 PM)</font> <b>contrapumpkin:</b></font> it says 0 to download, perhaps it already had the contents of the binary cache in your store<br/>
+<font color="#062585"><font size="2">(09:17:25 PM)</font> <b>***contrapumpkin</b></font> doesn&apos;t know<br/>
+<font size="2">(09:17:37 PM)</font><b> woberto left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(09:17:49 PM)</font> <b>Fuuzetsu:</b></font> hm<br/>
+<font color="#A82F2F"><font size="2">(09:18:44 PM)</font> <b>contrapumpkin:</b></font> it definitely worked for me earlier when I was offline<br/>
+<font color="#A82F2F"><font size="2">(09:18:54 PM)</font> <b>contrapumpkin:</b></font> (stopped it from complaining that it couldn&apos;t connect to the net)<br/>
+<font color="#A82F2F"><font size="2">(09:19:13 PM)</font> <b>contrapumpkin:</b></font> but I don&apos;t know what it does if the cached file is already present on your computer<br/>
+<font color="#A82F2F"><font size="2">(09:19:29 PM)</font> <b>Fuuzetsu:</b></font> I cleaned all refs to http-client from store<br/>
+<font color="#A82F2F"><font size="2">(09:19:38 PM)</font> <b>Fuuzetsu:</b></font> but apparently not…<br/>
+<font color="#A82F2F"><font size="2">(09:19:54 PM)</font> <b>contrapumpkin:</b></font> I think some of the cached things just show up as /nix/store/&lt;some-long-hash&gt;<br/>
+<font color="#A82F2F"><font size="2">(09:19:55 PM)</font> <b>Fuuzetsu:</b></font> oh now I did<br/>
+<font color="#A82F2F"><font size="2">(09:19:57 PM)</font> <b>contrapumpkin:</b></font> with no hyphen<br/>
+<font color="#A82F2F"><font size="2">(09:20:04 PM)</font> <b>seagreen-:</b></font> psnively: Interesting. I&apos;m going to use my own config, so that doesn&apos;t matter too much, but it would be nice to have the formatting of the virtual disk done for me.<br/>
+<font color="#A82F2F"><font size="2">(09:20:09 PM)</font> <b>Fuuzetsu:</b></font> hm<br/>
+<font color="#A82F2F"><font size="2">(09:20:16 PM)</font> <b>contrapumpkin:</b></font> Fuuzetsu: what was it?<br/>
+<font color="#A82F2F"><font size="2">(09:20:19 PM)</font> <b>Fuuzetsu:</b></font> it&apos;s vital this builds locally…<br/>
+<font size="2">(09:20:20 PM)</font><b> joneshf-laptop [<em>~joneshf@98.208.35.89</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:20:22 PM)</font> <b>Fuuzetsu:</b></font> not fixed yet ;)<br/>
+<font color="#A82F2F"><font size="2">(09:21:29 PM)</font> <b>psnively:</b></font> @seagreen-: If nothing else, it’s a nice starting point.<br/>
+<font size="2">(09:21:37 PM)</font><b> angerman left the room (quit: Quit: Gone).</b><br/>
+<font size="2">(09:21:57 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font size="2">(09:22:54 PM)</font><b> goibhniu left the room.</b><br/>
+<font size="2">(09:23:25 PM)</font><b> contrapumpkin left the room (quit: Quit: My MacBook Pro has gone to sleep. ZZZzzz…).</b><br/>
+<font size="2">(09:24:00 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font size="2">(09:35:49 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

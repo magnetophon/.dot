@@ -1,0 +1,324 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Tue 27 Aug 2013 03:31:21 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Tue 27 Aug 2013 03:31:21 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(03:31:21 PM)</font><b> The topic for #ardour is: ardour 3.3 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font color="#A82F2F"><font size="2">(03:32:19 PM)</font> <b>daeavelwyn:</b></font> las: I don&apos;t exactly how, probably because of cubase/sonar/ pro tools experiences, I don&apos;t know exactly which one do this, but i&apos;ve worked on so many DAW !<br/>
+<font color="#A82F2F"><font size="2">(03:32:40 PM)</font> <b>daeavelwyn:</b></font> las: but it&apos;s not really a problem now i now what is the way to do this :)<br/>
+<font color="#A82F2F"><font size="2">(03:33:00 PM)</font> <b>daeavelwyn:</b></font> i know*<br/>
+<font size="2">(03:33:06 PM)</font><b> clark|w [<em>clark_will@nat/redhat/x-kubarpvfwitkcwdd</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:36:20 PM)</font> <b>las:</b></font> daeavelwyn: shift-click is &quot;reset to default&quot; all over ardour, just FYI<br/>
+<font color="#062585"><font size="2">(03:36:32 PM)</font> <b>***daeavelwyn</b></font> thinks *know* is a really hard word to write with an azerty keyboard :-)<br/>
+<font color="#A82F2F"><font size="2">(03:36:45 PM)</font> <b>daeavelwyn:</b></font> las: oh, ok, good tricks :)<br/>
+<font color="#A82F2F"><font size="2">(03:36:50 PM)</font> <b>daeavelwyn:</b></font> thks<br/>
+<font size="2">(03:42:24 PM)</font><b> JimmyEggs [<em>~jim@adsl-75-25-41-24.dsl.wlfrct.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(03:46:47 PM)</font><b> JimmyEggs left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(03:46:56 PM)</font><b> JimmyEggs [<em>~jim@76.200.214.90</em>] entered the room.</b><br/>
+<font size="2">(03:52:30 PM)</font><b> mastergreg [<em>~mastergre@snf-96495.vm.okeanos.grnet.gr</em>] entered the room.</b><br/>
+<font size="2">(04:05:01 PM)</font><b> hansfbaier left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font size="2">(04:10:16 PM)</font><b> queller_ left the room (quit: Quit: Page closed).</b><br/>
+<font size="2">(04:18:29 PM)</font><b> hansfbaier [<em>~jack@125.163.225.219</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:33:32 PM)</font> <b>daeavelwyn:</b></font> las: damned, this CTRL / SHIFT behaviour is one another thing I&apos;m lame to haven&apos;t ear before ! It saves me many time!<br/>
+<font size="2">(04:33:48 PM)</font><b> JimmyEggs left the room (quit: Quit: feed thou technolust).</b><br/>
+<font color="#A82F2F"><font size="2">(04:34:58 PM)</font> <b>las:</b></font> daeavelwyn: read the cheat sheet at http://ardour.org/support<br/>
+<font color="#A82F2F"><font size="2">(04:35:04 PM)</font> <b>las:</b></font> daeavelwyn: then read it again<br/>
+<font color="#A82F2F"><font size="2">(04:37:55 PM)</font> <b>tom^_:</b></font> las: i&apos;m looking at how i could control the &apos;click on fader changes value&apos;<br/>
+<font color="#A82F2F"><font size="2">(04:38:24 PM)</font> <b>tom^_:</b></font> las: gain_meter.cc -&gt; gain_slider_button_press() -&gt; start_touch() -&gt;? <br/>
+<font color="#A82F2F"><font size="2">(04:38:42 PM)</font> <b>oofus:</b></font> las:  crash on quit of audioengine branch      http://pastebin.com/kTpWyvyX<br/>
+<font color="#A82F2F"><font size="2">(04:38:57 PM)</font> <b>tom^_:</b></font> las: i did not find out where the mouse click is handled to issue gain-increment / gain-decrement<br/>
+<font color="#A82F2F"><font size="2">(04:39:11 PM)</font> <b>tom^_:</b></font> las: maybe you have it present<br/>
+<font color="#A82F2F"><font size="2">(04:39:23 PM)</font> <b>las:</b></font> oofus: that&apos;s a plugin crash that you&apos;ve encountered before<br/>
+<font color="#A82F2F"><font size="2">(04:39:29 PM)</font> <b>las:</b></font> oofus: in the FC70<br/>
+<font color="#A82F2F"><font size="2">(04:39:47 PM)</font> <b>las:</b></font> oofus: its fini() function, specifically<br/>
+<font color="#A82F2F"><font size="2">(04:39:58 PM)</font> <b>oofus:</b></font> las: ok, I don&apos;t recognise these things when I look at them<br/>
+<font color="#A82F2F"><font size="2">(04:40:00 PM)</font> <b>las:</b></font> oofus: that&apos;s ok, that&apos;s part of my job<br/>
+<font color="#A82F2F"><font size="2">(04:40:07 PM)</font> <b>oofus:</b></font> las: ta :)<br/>
+<font color="#A82F2F"><font size="2">(04:41:21 PM)</font> <b>las:</b></font> oofus: of course, it could be *caused* by ardour (i.e. some malloc corruption) or it could be the plugn actually freeing memory it should not<br/>
+<font size="2">(04:41:43 PM)</font><b> dawiba [<em>~dawiba@80.80.186.91</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:41:49 PM)</font> <b>daeavelwyn:</b></font> las: ok ;-)<br/>
+<font color="#A82F2F"><font size="2">(04:41:56 PM)</font> <b>oofus:</b></font> las: yes<br/>
+<font color="#A82F2F"><font size="2">(04:42:17 PM)</font> <b>daeavelwyn:</b></font> las: it could be a good idea to put this cheat sheet in the manual no ? at manual.ardour.org ?<br/>
+<font color="#A82F2F"><font size="2">(04:42:57 PM)</font> <b>las:</b></font> tom^_: PixFader::on_button_release_event<br/>
+<font color="#A82F2F"><font size="2">(04:43:17 PM)</font> <b>las:</b></font> daeavelwyn: maybe. /support is the first place to go for support/help/info<br/>
+<font color="#A82F2F"><font size="2">(04:46:42 PM)</font> <b>tom^_:</b></font> las: oh.. found it (i was looking in gtk2_ardour). thanks!<br/>
+<font color="#A82F2F"><font size="2">(05:05:04 PM)</font> <b>daeavelwyn:</b></font> las: I know why i thought double clicking should reset to 0, it because i use double click for pan in the mixer view. When I double click on the pan, if it&apos;s close from the center, it resets it to 50/50.<br/>
+<font color="#A82F2F"><font size="2">(05:05:30 PM)</font> <b>daeavelwyn:</b></font> las: that could explain a bit...<br/>
+<font size="2">(05:07:26 PM)</font><b> ahellquist_lt left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(05:28:06 PM)</font><b> jk_l [<em>~jk@ip68-102-203-95.ks.ok.cox.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:31:47 PM)</font> <b>jk_l:</b></font> waf build fail git 3.3-180 <br/>
+<font color="#A82F2F"><font size="2">(05:31:54 PM)</font> <b>jk_l:</b></font> Build failed<br/>
+<font color="#A82F2F"><font size="2">(05:31:55 PM)</font> <b>jk_l:</b></font>  -&gt; task in &apos;libevoral&apos; failed (exit status 1):                                                                  <br/>
+<font color="#A82F2F"><font size="2">(05:31:55 PM)</font> <b>jk_l:</b></font>         {task 171947596: cxx ControlList.cpp -&gt; ControlList.cpp.2.o}           <br/>
+<font color="#A82F2F"><font size="2">(05:32:15 PM)</font> <b>las:</b></font> jk_l: unreported by anyone else<br/>
+<font color="#A82F2F"><font size="2">(05:32:30 PM)</font> <b>las:</b></font> jk_l: which likely means some system error. run with ./waf -v<br/>
+<font color="#A82F2F"><font size="2">(05:32:48 PM)</font> <b>jk_l:</b></font> Ok my be my system<br/>
+<font color="#A82F2F"><font size="2">(05:33:03 PM)</font> <b>jk_l:</b></font> Will do<br/>
+<font size="2">(05:33:41 PM)</font><b> oofus_s3 [<em>~oofus@213.205.228.187</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:35:08 PM)</font> <b>jk_l:</b></font> In file included from /usr/include/boost/thread/pthread/mutex.hpp:14:0,<br/>
+<font color="#A82F2F"><font size="2">(05:35:09 PM)</font> <b>jk_l:</b></font>                  from /usr/include/boost/thread/mutex.hpp:16,<br/>
+<font color="#A82F2F"><font size="2">(05:35:09 PM)</font> <b>jk_l:</b></font>                  from /usr/include/boost/pool/detail/mutex.hpp:14,<br/>
+<font color="#A82F2F"><font size="2">(05:35:09 PM)</font> <b>jk_l:</b></font>                  from /usr/include/boost/pool/poolfwd.hpp:24,<br/>
+<font color="#A82F2F"><font size="2">(05:35:09 PM)</font> <b>jk_l:</b></font>                  from /usr/include/boost/pool/pool.hpp:27,<br/>
+<font color="#A82F2F"><font size="2">(05:35:09 PM)</font> <b>jk_l:</b></font>                  from /home/jk/3.0/libs/evoral/evoral/ControlList.hpp:24,<br/>
+<font color="#A82F2F"><font size="2">(05:35:11 PM)</font> <b>jk_l:</b></font>                  from ../libs/evoral/src/ControlList.cpp:23:<br/>
+<font color="#A82F2F"><font size="2">(05:35:13 PM)</font> <b>jk_l:</b></font> /usr/include/boost/thread/xtime.hpp:23:5: error: expected identifier before numeric constant<br/>
+<font color="#A82F2F"><font size="2">(05:35:14 PM)</font> <b>jk_l:</b></font> /usr/include/boost/thread/xtime.hpp:23:5: error: expected ?}? before numeric constant<br/>
+<font color="#A82F2F"><font size="2">(05:35:17 PM)</font> <b>jk_l:</b></font> /usr/include/boost/thread/xtime.hpp:23:5: error: expected unqualified-id before numeric constant<br/>
+<font color="#A82F2F"><font size="2">(05:35:18 PM)</font> <b>jk_l:</b></font> /usr/include/boost/thread/xtime.hpp:46:14: error: expected type-specifier before ?system_time?<br/>
+<font color="#A82F2F"><font size="2">(05:35:23 PM)</font> <b>jk_l:</b></font> In file included from /usr/include/boost/thread/pthread/mutex.hpp:14:0,<br/>
+<font color="#A82F2F"><font size="2">(05:35:25 PM)</font> <b>jk_l:</b></font>                  from /usr/include/boost/thread/mutex.hpp:16,<br/>
+<font color="#A82F2F"><font size="2">(05:35:26 PM)</font> <b>jk_l:</b></font>                  from /usr/include/boost/pool/detail/mutex.hpp:14,<br/>
+<font color="#A82F2F"><font size="2">(05:35:28 PM)</font> <b>jk_l:</b></font>                  from /usr/include/boost/pool/poolfwd.hpp:24,<br/>
+<font color="#A82F2F"><font size="2">(05:35:30 PM)</font> <b>jk_l:</b></font>                  from /usr/include/boost/pool/pool.hpp:27,<br/>
+<font color="#A82F2F"><font size="2">(05:35:32 PM)</font> <b>jk_l:</b></font>                  from /home/jk/3.0/libs/evoral/evoral/ControlList.hpp:24,<br/>
+<font color="#A82F2F"><font size="2">(05:35:34 PM)</font> <b>jk_l:</b></font>                  from ../libs/evoral/src/ControlList.cpp:23:<br/>
+<font color="#A82F2F"><font size="2">(05:35:36 PM)</font> <b>jk_l:</b></font> /usr/include/boost/thread/xtime.hpp: In function ?int xtime_get(xtime*, int)?:<br/>
+<font color="#A82F2F"><font size="2">(05:35:38 PM)</font> <b>jk_l:</b></font> /usr/include/boost/thread/xtime.hpp:73:40: error: ?get_system_time? was not declared in this scope<br/>
+<font color="#A82F2F"><font size="2">(05:35:41 PM)</font> <b>jk_l:</b></font> /usr/include/boost/thread/xtime.hpp:73:40: note: suggested alternative:<br/>
+<font color="#A82F2F"><font size="2">(05:35:42 PM)</font> <b>jk_l:</b></font> /usr/include/boost/thread/thread_time.hpp:19:24: note:   ?boost::get_system_time?<br/>
+<font color="#A82F2F"><font size="2">(05:35:44 PM)</font> <b>jk_l:</b></font> /usr/include/boost/thread/xtime.hpp: At global scope:<br/>
+<font color="#A82F2F"><font size="2">(05:35:47 PM)</font> <b>jk_l:</b></font> /usr/include/boost/thread/xtime.hpp:88:1: error: expected declaration before ?}? token<br/>
+<font color="#A82F2F"><font size="2">(05:35:49 PM)</font> <b>jk_l:</b></font> In file included from /usr/include/boost/thread/pthread/mutex.hpp:14:0,<br/>
+<font color="#A82F2F"><font size="2">(05:35:53 PM)</font> <b>jk_l:</b></font>                  from /usr/include/boost/thread/mutex.hpp:16,<br/>
+<font color="#A82F2F"><font size="2">(05:35:55 PM)</font> <b>jk_l:</b></font>                  from /usr/include/boost/pool/detail/mutex.hpp:14,<br/>
+<font color="#A82F2F"><font size="2">(05:35:57 PM)</font> <b>jk_l:</b></font>                  from /usr/include/boost/pool/poolfwd.hpp:24,<br/>
+<font color="#A82F2F"><font size="2">(05:35:58 PM)</font> <b>jk_l:</b></font>                  from /usr/<br/>
+<font color="#A82F2F"><font size="2">(05:36:57 PM)</font> <b>las:</b></font> jk_l: please NEVER EVER paste into an IRC channel<br/>
+<font color="#A82F2F"><font size="2">(05:37:05 PM)</font> <b>las:</b></font> jk_l: use a paste site like pastebin.com or similar<br/>
+<font color="#A82F2F"><font size="2">(05:37:20 PM)</font> <b>jk_l:</b></font> ok sorry<br/>
+<font color="#A82F2F"><font size="2">(05:37:24 PM)</font> <b>las:</b></font> jk_l: you have an incompatible version of boost<br/>
+<font size="2">(05:38:03 PM)</font><b> Valvalion [<em>~valvalion@91.179.44.126</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:38:54 PM)</font> <b>jk_l:</b></font> What ver do I need?<br/>
+<font color="#A82F2F"><font size="2">(05:38:54 PM)</font> <b>las:</b></font> jk_l: most versions are compatible. what do you have?<br/>
+<font color="#A82F2F"><font size="2">(05:39:57 PM)</font> <b>jk_l:</b></font> ver 1.49<br/>
+<font color="#A82F2F"><font size="2">(05:39:57 PM)</font> <b>jk_l:</b></font> 1.49-3.2<br/>
+<font size="2">(05:40:32 PM)</font><b> clark|w is now known as clark|w|afk</b><br/>
+<font color="#A82F2F"><font size="2">(05:41:02 PM)</font> <b>las:</b></font> jk_l: AFAIK versions through 1.52 (at least) are OK <br/>
+<font color="#A82F2F"><font size="2">(05:41:19 PM)</font> <b>las:</b></font> jk_l: i suspect you have ended up with an &quot;in-between&quot; version of boost which is broken<br/>
+<font color="#A82F2F"><font size="2">(05:42:54 PM)</font> <b>las:</b></font> jk_l: you need to go forwards or backwards<br/>
+<font size="2">(05:42:55 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(05:43:12 PM)</font><b> AndreeeCZ [<em>~AndreeeCZ@88.103.20.84</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:43:40 PM)</font> <b>jk_l:</b></font> ok will try new version If possible i&apos;m using  deb squeeze <br/>
+<font size="2">(05:43:59 PM)</font><b> dawiba left the room (quit: Quit: leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(05:44:53 PM)</font> <b>rgareus:</b></font> jk_l: https://bbs.archlinux.org/viewtopic.php?pid=1126374 affects debian, too<br/>
+<font color="#A82F2F"><font size="2">(05:46:16 PM)</font> <b>jk_l:</b></font> I will check that<br/>
+<font color="#A82F2F"><font size="2">(05:46:25 PM)</font> <b>rgareus:</b></font> jk_l: either update to boost to 1.52 (avail in testing and sid) or apply the workaround mentioned at the bottom of the thread<br/>
+<font color="#A82F2F"><font size="2">(05:48:08 PM)</font> <b>jk_l:</b></font> reading<br/>
+<font size="2">(05:51:35 PM)</font><b> nphilipp left the room (quit: Quit: Leaving).</b><br/>
+<font color="#062585"><font size="2">(05:52:02 PM)</font> <b>***tom^_</b></font> just created &apos;do all necessary to start recording on stereo track when there is no track available yet&apos; instead of the dialogue. for dummies, this means after creating a new session, shift+space will start recording right away<br/>
+<font color="#A82F2F"><font size="2">(05:52:54 PM)</font> <b>las:</b></font> tom^_: where does this show up?<br/>
+<font color="#A82F2F"><font size="2">(05:53:27 PM)</font> <b>rgareus:</b></font> ardour for dummies ?!<br/>
+<font color="#A82F2F"><font size="2">(05:53:30 PM)</font> <b>tom^_:</b></font> las: the dialogue would show up if you want to record (main record enable) and there is no track yet<br/>
+<font color="#A82F2F"><font size="2">(05:54:02 PM)</font> <b>tom^_:</b></font> las: now it just calls two actions (add-stereo-track and track-record-enable-toggle<br/>
+<font color="#A82F2F"><font size="2">(05:54:04 PM)</font> <b>tom^_:</b></font> )<br/>
+<font color="#A82F2F"><font size="2">(05:54:38 PM)</font> <b>tom^_:</b></font> rgareus: do you think this is a bad idea?<br/>
+<font color="#A82F2F"><font size="2">(05:54:45 PM)</font> <b>tom^_:</b></font> rgareus: (for dummies)<br/>
+<font color="#A82F2F"><font size="2">(05:57:14 PM)</font> <b>tom^_:</b></font> rgareus: a non-dummy would not try to record without a track. so he will never run into this automatism<br/>
+<font size="2">(05:57:58 PM)</font><b> hansfbaier left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:00:33 PM)</font> <b>oofus_s3:</b></font> tom^_: why stereo, why not mono, or some other config?<br/>
+<font color="#A82F2F"><font size="2">(06:00:48 PM)</font> <b>jk_l:</b></font> Made the changes to boost TIME_UTC_     waf building now  Thank You  <br/>
+<font color="#A82F2F"><font size="2">(06:01:12 PM)</font> <b>tom^_:</b></font> oofus_s3: because then you can&apos;t do without questioning. decision is already made for dummy<br/>
+<font color="#A82F2F"><font size="2">(06:02:03 PM)</font> <b>tom^_:</b></font> oofus_s3: and it&apos;s not sharp. you could also create a midi track by default, so it&apos;s about speculating on most useful default value<br/>
+<font color="#A82F2F"><font size="2">(06:02:25 PM)</font> <b>tom^_:</b></font> oofus_s3: (for dummy)<br/>
+<font size="2">(06:04:42 PM)</font><b> DrCode left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(06:10:33 PM)</font><b> colinf left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(06:10:37 PM)</font> <b>las:</b></font> tom^_: templates, templates, templates<br/>
+<font color="#A82F2F"><font size="2">(06:10:46 PM)</font> <b>las:</b></font> tom^_: i&apos;d rather push the user to pick a (useful) template at the outset<br/>
+<font color="#A82F2F"><font size="2">(06:11:18 PM)</font> <b>las:</b></font> &quot;singer/songwriter voice+guitar&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:11:19 PM)</font> <b>tom^_:</b></font> las: i agree<br/>
+<font size="2">(06:11:19 PM)</font><b> DrCode [<em>~DrCode@gateway/tor-sasl/drcode</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:11:19 PM)</font> <b>las:</b></font> &quot;drums,bass,guitars,voice&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:11:23 PM)</font> <b>tom^_:</b></font> las: but .. last time i tried it wasn&apos;t doing that very good<br/>
+<font color="#A82F2F"><font size="2">(06:11:30 PM)</font> <b>las:</b></font> &quot;polyphonic spree&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:11:40 PM)</font> <b>las:</b></font> tom^_: it could be improved<br/>
+<font color="#A82F2F"><font size="2">(06:11:49 PM)</font> <b>tom^_:</b></font> las: yes<br/>
+<font color="#A82F2F"><font size="2">(06:12:30 PM)</font> <b>zth:</b></font> speaking of this, las do you remember me asking about the possibility to add templates to an already active session? does this ring a bell?<br/>
+<font color="#A82F2F"><font size="2">(06:13:13 PM)</font> <b>las:</b></font> zth: we have only track/bus templates to add at present<br/>
+<font color="#A82F2F"><font size="2">(06:13:17 PM)</font> <b>tom^_:</b></font> las: i need better overview on the default / pre-configured / precedenced / templated aspects of a session<br/>
+<font color="#A82F2F"><font size="2">(06:13:31 PM)</font> <b>las:</b></font> tom^_: no overview is neede<br/>
+<font color="#A82F2F"><font size="2">(06:13:31 PM)</font> <b>las:</b></font> d<br/>
+<font color="#A82F2F"><font size="2">(06:13:44 PM)</font> <b>las:</b></font> tom^_: the goal is very simple, anywhere we don&apos;t meet the goal is just a bug<br/>
+<font color="#A82F2F"><font size="2">(06:13:54 PM)</font> <b>las:</b></font> tom^_: a session template is just a session with no data, nothing more or less<br/>
+<font color="#A82F2F"><font size="2">(06:15:31 PM)</font> <b>tom^_:</b></font> las: ok<br/>
+<font color="#A82F2F"><font size="2">(06:16:32 PM)</font> <b>las:</b></font> tom^_: it should have everything else. just no sources, no regions, no playlists<br/>
+<font color="#A82F2F"><font size="2">(06:16:53 PM)</font> <b>tom^_:</b></font> las: also the visibility aspects?<br/>
+<font color="#A82F2F"><font size="2">(06:17:35 PM)</font> <b>tom^_:</b></font> las: iirc it was details with visibility mixed with instant.xml and rc file in .config <br/>
+<font color="#A82F2F"><font size="2">(06:17:38 PM)</font> <b>las:</b></font> tom^_: everything<br/>
+<font color="#A82F2F"><font size="2">(06:17:43 PM)</font> <b>tom^_:</b></font> las: i have to retry<br/>
+<font color="#A82F2F"><font size="2">(06:17:57 PM)</font> <b>las:</b></font> tom^_: well..<br/>
+<font color="#A82F2F"><font size="2">(06:18:15 PM)</font> <b>las:</b></font> tom^_: you&apos;re right that instant.xml covers visibility/GUI stuff - that isn&apos;t in a session until ... it is<br/>
+<font color="#A82F2F"><font size="2">(06:18:59 PM)</font> <b>tom^_:</b></font> las: and some keys are only in the .ardour file (which could also be in the instant.xml)<br/>
+<font color="#A82F2F"><font size="2">(06:20:27 PM)</font> <b>las:</b></font> tom^_: GUI/visibility stuff is intended to remain separate from the session data but it is hard sometimes to decide whether a particular parameter is GUI/visibility stuff or not<br/>
+<font color="#A82F2F"><font size="2">(06:20:53 PM)</font> <b>tom^_:</b></font> las: yes, absolutely<br/>
+<font color="#A82F2F"><font size="2">(06:21:12 PM)</font> <b>tom^_:</b></font> las: also the distinction of settings and preferences is hard to draw<br/>
+<font color="#A82F2F"><font size="2">(06:22:44 PM)</font> <b>tom^_:</b></font> las: a graphic of how all relevant keys are made up until they are in effect would be good for visually thinking ppl<br/>
+<font color="#A82F2F"><font size="2">(06:23:37 PM)</font> <b>las:</b></font> tom^_: actually i think properties vs. preferences is much more straight forward<br/>
+<font color="#A82F2F"><font size="2">(06:23:57 PM)</font> <b>las:</b></font> tom^_: &quot;is this something we want to offer per-session options for (i.e. it can vary from session to session) ?&quot; yes =&gt; property no=&gt; preference<br/>
+<font color="#A82F2F"><font size="2">(06:24:34 PM)</font> <b>tom^_:</b></font> las: this isn&apos;t easy to answer for all variables<br/>
+<font color="#A82F2F"><font size="2">(06:25:33 PM)</font> <b>las:</b></font> tom^_: name one<br/>
+<font color="#A82F2F"><font size="2">(06:28:45 PM)</font> <b>tom^_:</b></font> las: &quot;MIDI region copies are independent&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:29:05 PM)</font> <b>tom^_:</b></font> las: bad one, let me take an audio-centric<br/>
+<font color="#A82F2F"><font size="2">(06:30:01 PM)</font> <b>las:</b></font> tom^_: i think that one is easy to answer, and the answer is that it is session dependent<br/>
+<font color="#A82F2F"><font size="2">(06:31:05 PM)</font> <b>tom^_:</b></font> las: everything in preferences could also be session dependent<br/>
+<font color="#A82F2F"><font size="2">(06:31:31 PM)</font> <b>tom^_:</b></font> las: i&apos;m behind, i did not think very far<br/>
+<font color="#A82F2F"><font size="2">(06:31:54 PM)</font> <b>las:</b></font> tom^_: no, because most/all of preferences depends on h/w configuration<br/>
+<font color="#A82F2F"><font size="2">(06:32:09 PM)</font> <b>las:</b></font> tom^_: i.e. it varies setup to setup, not session to session<br/>
+<font color="#A82F2F"><font size="2">(06:32:43 PM)</font> <b>tom^_:</b></font> las: for instance &apos;keep record-enable engaged on stop&apos;<br/>
+<font color="#A82F2F"><font size="2">(06:32:57 PM)</font> <b>tom^_:</b></font> las: for one session that makes sense. for the other, no<br/>
+<font color="#A82F2F"><font size="2">(06:34:20 PM)</font> <b>tom^_:</b></font> las: i don&apos;t say it has to be like this. just the decision is not sharp<br/>
+<font color="#A82F2F"><font size="2">(06:34:42 PM)</font> <b>las:</b></font> tom^_: let me refine the distinction<br/>
+<font color="#A82F2F"><font size="2">(06:35:06 PM)</font> <b>las:</b></font> tom^_: preferences are about things that are not dependent on the data in the session<br/>
+<font color="#A82F2F"><font size="2">(06:36:00 PM)</font> <b>las:</b></font> tom^_: the reason rec-enable-stays-on-stop is a preference is that a user&apos;s preference for it is 100% independent of whether they are working (a) on a RME MadiFX or an intel HDA (b) working on dubstep or string quartets<br/>
+<font color="#A82F2F"><font size="2">(06:36:01 PM)</font> <b>tom^_:</b></font> las: what is in the session is variable (and could be changed) so the decision was just taken earlier<br/>
+<font color="#A82F2F"><font size="2">(06:36:35 PM)</font> <b>las:</b></font> tom^_: by contrast, sync options, MIDI cloning, etc. are dependent on the nature of the session data<br/>
+<font color="#A82F2F"><font size="2">(06:36:43 PM)</font> <b>las:</b></font> tom^_: so they are session properties<br/>
+<font color="#A82F2F"><font size="2">(06:38:12 PM)</font> <b>tom^_:</b></font> las: i have to think over it again<br/>
+<font color="#A82F2F"><font size="2">(06:41:35 PM)</font> <b>tom^_:</b></font> las: maybe it will be enough to make the merging of relevant configuration keys more obvious<br/>
+<font color="#A82F2F"><font size="2">(06:44:16 PM)</font> <b>tom^_:</b></font> las: there are at least 5 &apos;levels&apos; that play a role in this<br/>
+<font color="#A82F2F"><font size="2">(06:45:54 PM)</font> <b>tom^_:</b></font> las: do you think it would be relatively easy to put the language setting somewhere _inside_ of ardour gui?<br/>
+<font size="2">(06:46:52 PM)</font><b> clark|w|afk is now known as clark|w</b><br/>
+<font size="2">(06:47:12 PM)</font><b> ANero [<em>~nero@unaffiliated/anero</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:50:58 PM)</font> <b>tom^_:</b></font> las: a language selector could be placed in preferences or in help. but my guess is that all the language stuff happens relatively early on ardour startup, so a restart would be probably needed<br/>
+<font size="2">(06:51:40 PM)</font><b> imeim_ left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(06:52:34 PM)</font> <b>tom^_:</b></font> las: or as simple as an option to pass on the command line<br/>
+<font color="#A82F2F"><font size="2">(06:53:06 PM)</font> <b>las:</b></font> tom^_: LANG=de ...restofcommand.....<br/>
+<font size="2">(06:53:13 PM)</font><b> err-or left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(06:53:58 PM)</font> <b>tom^_:</b></font> las: i&apos;ve tried that one<br/>
+<font color="#A82F2F"><font size="2">(06:54:07 PM)</font> <b>las:</b></font> tom^_: it works<br/>
+<font color="#A82F2F"><font size="2">(06:54:25 PM)</font> <b>tom^_:</b></font> las: the locale gets listed with locale -a<br/>
+<font color="#A82F2F"><font size="2">(06:54:26 PM)</font> <b>las:</b></font> tom^_: there is an option to disable translation<br/>
+<font color="#A82F2F"><font size="2">(06:54:33 PM)</font> <b>tom^_:</b></font> las: ardev doesn&apos;t complain<br/>
+<font color="#A82F2F"><font size="2">(06:54:35 PM)</font> <b>las:</b></font> tom^_: that&apos;s about as far as i want to go <br/>
+<font size="2">(06:54:36 PM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:56:06 PM)</font> <b>tom^_:</b></font> las: is that a waf configure option? i only see there is --nls that is on by default<br/>
+<font color="#A82F2F"><font size="2">(06:57:54 PM)</font> <b>tom^_:</b></font> las: when i do LANG=de it says &apos;not supported by c library&apos;. when i use LANG=de_DE.utf8, no warnings but no difference<br/>
+<font color="#A82F2F"><font size="2">(07:08:06 PM)</font> <b>tom^_:</b></font> las: i understand there is &apos;use translations of ardour messages&apos; in the bundled version. it&apos;s enabled. the effect remains the same when starting like &apos;LANG=de_DE.utf8 /opt/Ardour/bin/ardour3&apos;<br/>
+<font color="#A82F2F"><font size="2">(07:08:25 PM)</font> <b>tom^_:</b></font> las: i&apos;m not sure if this is an isolated problem that hits just me<br/>
+<font color="#A82F2F"><font size="2">(07:10:43 PM)</font> <b>tom^_:</b></font> las: this is ardour 3.3-1-gfc0053a<br/>
+<font size="2">(07:11:15 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:15:01 PM)</font> <b>las:</b></font> tom^_: http://fpaste.org/35178/24068137/<br/>
+<font size="2">(07:15:33 PM)</font><b> Leatuspenguin [<em>~Leatuspen@188.141.14.110</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:16:18 PM)</font> <b>jablo:</b></font> Finally solved my &quot;plugin manager search hogs 100%cpu&quot; problem. I discovered that a freshly created user account on my system does not show this strange behaviour. So, I have re-created my own user and now ardour plugin search works flawlessly. Strange, since to my knowledge I did not really tamper with my settings. Oh well, problem gone - I&apos;m happy.<br/>
+<font color="#062585"><font size="2">(07:16:20 PM)</font> <b>***las</b></font> wonders how much of his life has been subconsciously structured by listening to kraftwerk as a kid<br/>
+<font color="#A82F2F"><font size="2">(07:16:38 PM)</font> <b>las:</b></font> &quot;i program my own computer, beam myself into the future&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:18:00 PM)</font> <b>las:</b></font> i mean, g&apos;damn these old guys still get beats in a way that most electronica artists today can barely dream of<br/>
+<font color="#062585"><font size="2">(07:18:17 PM)</font> <b>***las</b></font> is watching kraftwerk at a UK festival in july<br/>
+<font size="2">(07:18:26 PM)</font><b> schiv [<em>~schiv@archlinux/developer/schiv</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:18:33 PM)</font> <b>jablo:</b></font> las: link?<br/>
+<font color="#A82F2F"><font size="2">(07:18:50 PM)</font> <b>las:</b></font> http://www.youtube.com/watch?v=KFkdI7jffhI<br/>
+<font color="#A82F2F"><font size="2">(07:18:51 PM)</font> <b>Tecan:</b></font> <span style='color: purple;'>(KFkdI7jffhI)</span> &quot;<span style='color: dark green;'>Kraftwerk - Live - LATITUDE FESTIVAL 20 July 2013 - SOUTHWOLD (UK) (Radio 6 - Red button)</span>&quot; by &quot;<span style='color: blue;'>jerometv</span>&quot; is &quot;<span style='color: dark green;'>Music</span>&quot; - Length: <span style='color: brown;'>0:33:34</span><br/>
+<font size="2">(07:19:17 PM)</font><b> Gethiox left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(07:20:03 PM)</font><b> Gethiox [<em>~gethiox@host-2-121.24.net.pl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:22:29 PM)</font> <b>tom^_:</b></font> las, interesting .. here it looks like this: http://pastebin.com/zpk6aSnP<br/>
+<font color="#A82F2F"><font size="2">(07:23:59 PM)</font> <b>las:</b></font> tom^_:  find /opt/Ardour-3.3.1-dbg/bin/ardour3 -name \*.mo<br/>
+<font color="#A82F2F"><font size="2">(07:25:38 PM)</font> <b>tom^_:</b></font> las: http://pastebin.com/EpnDrfBH<br/>
+<font color="#A82F2F"><font size="2">(07:25:57 PM)</font> <b>las:</b></font> jablo: 23:15 ...<br/>
+<font color="#A82F2F"><font size="2">(07:25:58 PM)</font> <b>las:</b></font> tom^_: odd. the files are there then<br/>
+<font color="#A82F2F"><font size="2">(07:25:58 PM)</font> <b>tom^_:</b></font> las, kraftwerk is something indeed<br/>
+<font color="#A82F2F"><font size="2">(07:26:11 PM)</font> <b>tom^_:</b></font> las: i&apos;ve seen several times <br/>
+<font color="#A82F2F"><font size="2">(07:26:26 PM)</font> <b>las:</b></font> jablo: 26:30<br/>
+<font color="#A82F2F"><font size="2">(07:26:57 PM)</font> <b>jablo:</b></font> las, I never really did hear that much kraftwerk - nor even elektronika. But. I had to hear &quot;We are the robots&quot;. Going to 23:15 after that<br/>
+<font color="#A82F2F"><font size="2">(07:27:26 PM)</font> <b>tom^_:</b></font> &apos;tour de france&apos; is a great album<br/>
+<font color="#A82F2F"><font size="2">(07:27:29 PM)</font> <b>las:</b></font> jablo: these songs are 30+ years old<br/>
+<font color="#A82F2F"><font size="2">(07:27:52 PM)</font> <b>jablo:</b></font> I know. They&apos;re from my childhood, lol (I was born in 1968)<br/>
+<font size="2">(07:28:35 PM)</font><b> prokoudine [<em>~prokoudin@ppp85-141-138-182.pppoe.mtu-net.ru</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:28:43 PM)</font> <b>jablo:</b></font> Was definititely not mainstream back then. More avantgarde-like.<br/>
+<font color="#A82F2F"><font size="2">(07:29:25 PM)</font> <b>las:</b></font> jablo: well, yes and no<br/>
+<font color="#A82F2F"><font size="2">(07:29:40 PM)</font> <b>las:</b></font> jablo: autobahn went nearly to the top of the UK charts<br/>
+<font color="#A82F2F"><font size="2">(07:30:09 PM)</font> <b>las:</b></font> jablo: and the cool kids in 1979 all knew that the grooves on the man machine were the future (and the present)<br/>
+<font color="#A82F2F"><font size="2">(07:30:23 PM)</font> <b>tom^_:</b></font> this electro bass burned into my head, dagadugudagadugudaga..digi..dagadugudagadugudagadagdaga<br/>
+<font color="#A82F2F"><font size="2">(07:30:25 PM)</font> <b>jablo:</b></font> Well, there you have it - I wasn&apos;t a cool kid :)<br/>
+<font color="#A82F2F"><font size="2">(07:30:46 PM)</font> <b>jablo:</b></font> %¤%¤# for some reason youtube is awfully slow here.<br/>
+<font color="#A82F2F"><font size="2">(07:31:49 PM)</font> <b>las:</b></font> jablo: not many were. to be honest, i wasn&apos;t happy in 1978-80 with what kraftwerk were doing. i thought that this beat-driven stuff was not what they should do<br/>
+<font color="#A82F2F"><font size="2">(07:32:09 PM)</font> <b>jablo:</b></font> I wonder if they are using analog or digital synths... or digital synths emulating analog...<br/>
+<font color="#A82F2F"><font size="2">(07:32:28 PM)</font> <b>las:</b></font> jablo: and i still think that in some ways, but then in 1981 or so, &quot;planet rock&quot; came out and it was clear that they had cleared the table for electrofunk and later house to start something new<br/>
+<font color="#A82F2F"><font size="2">(07:32:43 PM)</font> <b>las:</b></font> jablo: they apparently use abelton these days<br/>
+<font color="#A82F2F"><font size="2">(07:32:54 PM)</font> <b>las:</b></font> jablo: with software synthesis<br/>
+<font color="#A82F2F"><font size="2">(07:33:28 PM)</font> <b>tom^_:</b></font> las: output of strace grep on .mo http://pastebin.com/ebGLKpNt<br/>
+<font size="2">(07:33:32 PM)</font><b> err-or left the room (quit: Quit: No Ping reply in 180 seconds.).</b><br/>
+<font size="2">(07:33:58 PM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:34:22 PM)</font> <b>las:</b></font> tom^_: you didn&apos;t set LANG, there are no en-* .mo files<br/>
+<font color="#A82F2F"><font size="2">(07:37:09 PM)</font> <b>tom^_:</b></font> las: ok, i exported LANG before starting it. now it&apos;s http://pastebin.com/vrynUepx<br/>
+<font color="#A82F2F"><font size="2">(07:37:37 PM)</font> <b>tom^_:</b></font> las, funnily it even tries to load from /home/harrison .. :)<br/>
+<font color="#A82F2F"><font size="2">(07:38:18 PM)</font> <b>las:</b></font> tom^_: it is still looking for /opt/Ardour-3.3.1-dbg/share/locale/en_US/LC_MESSAGES/gtk20-properties.mo<br/>
+<font color="#A82F2F"><font size="2">(07:38:24 PM)</font> <b>las:</b></font> tom^_: thus, LANG is not set<br/>
+<font color="#A82F2F"><font size="2">(07:38:42 PM)</font> <b>las:</b></font> tom^_: how do you think you exported it ?<br/>
+<font color="#A82F2F"><font size="2">(07:40:05 PM)</font> <b>tom^_:</b></font> las: export LANG=.. ; echo $LANG confirms it&apos;s set<br/>
+<font color="#A82F2F"><font size="2">(07:40:28 PM)</font> <b>las:</b></font> tom^_: suggests that you translations disabled<br/>
+<font color="#A82F2F"><font size="2">(07:41:03 PM)</font> <b>tom^_:</b></font> las: i&apos;ve checked, it&apos;s on. i&apos;ve also moved away .config/ardour3 to be sure it&apos;s note pre-set there from another instance<br/>
+<font color="#A82F2F"><font size="2">(07:43:03 PM)</font> <b>tom^_:</b></font> las: i&apos;m stuck right at this point. but your example shows it runs nicely on !my machine<br/>
+<font size="2">(07:43:03 PM)</font><b> Gethiox left the room (quit: Read error: Operation timed out).</b><br/>
+<font color="#A82F2F"><font size="2">(07:43:03 PM)</font> <b>las:</b></font> tom^_: paste the startup output again<br/>
+<font size="2">(07:44:23 PM)</font><b> queller_ [<em>5ae7e991@gateway/web/freenode/ip.90.231.233.145</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:44:46 PM)</font> <b>las:</b></font> tom^_: i have it anyway, no need<br/>
+<font color="#A82F2F"><font size="2">(07:44:51 PM)</font> <b>tom^_:</b></font> las: http://pastebin.com/UqqPDd5b<br/>
+<font color="#A82F2F"><font size="2">(07:44:56 PM)</font> <b>tom^_:</b></font> las: ok :)<br/>
+<font color="#A82F2F"><font size="2">(07:45:12 PM)</font> <b>las:</b></font> tom^_: not sure what is happening there then<br/>
+<font color="#A82F2F"><font size="2">(07:45:45 PM)</font> <b>tom^_:</b></font> las: oh, i thought you found a wrinkle <br/>
+<font color="#A82F2F"><font size="2">(07:48:07 PM)</font> <b>tom^_:</b></font> las: i assume LANG is the only thing that is looked at to decide on the language, is that correct?<br/>
+<font color="#A82F2F"><font size="2">(07:49:03 PM)</font> <b>las:</b></font> tom^_: yep<br/>
+<font color="#A82F2F"><font size="2">(07:50:05 PM)</font> <b>tom^_:</b></font> las: should that theoretically work from gtk2_ardour when starting with ardev? then i will cerr &lt;&lt; foo follow that issue<br/>
+<font size="2">(07:52:46 PM)</font><b> oofus_s3 left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:53:28 PM)</font> <b>las:</b></font> tom^_: no, i18n doesn&apos;t work inside ardev<br/>
+<font color="#A82F2F"><font size="2">(07:55:11 PM)</font> <b>tom^_:</b></font> las: in cocoacarbon.mm:  (g_getenv (&quot;LANGUAGE&quot;) || g_getenv (&quot;LC_ALL&quot;) || g_getenv (&quot;LA<br/>
+<font color="#A82F2F"><font size="2">(07:55:22 PM)</font> <b>tom^_:</b></font> las: this means if LANGUAGE is set, LANG is ignored<br/>
+<font color="#A82F2F"><font size="2">(07:55:50 PM)</font> <b>tom^_:</b></font> las: no, scratch that immediately<br/>
+<font color="#A82F2F"><font size="2">(07:57:03 PM)</font> <b>tom^_:</b></font> las: actually i also have a LANGUAGE env setting. let&apos;s try with this<br/>
+<font color="#A82F2F"><font size="2">(07:59:02 PM)</font> <b>tom^_:</b></font> las: it works when i set LANGUAGE<br/>
+<font color="#A82F2F"><font size="2">(07:59:34 PM)</font> <b>tom^_:</b></font> interesting<br/>
+<font size="2">(07:59:56 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font size="2">(08:00:48 PM)</font><b> Gethiox [<em>~gethiox@host-2-121.24.net.pl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:02:06 PM)</font> <b>las:</b></font> tom^_: cocoacarbon.mm is for OS X<br/>
+<font color="#A82F2F"><font size="2">(08:02:39 PM)</font> <b>tom^_:</b></font> las: yep, i figured<br/>
+<font color="#A82F2F"><font size="2">(08:03:27 PM)</font> <b>tom^_:</b></font> las: it&apos;s the only file i found LANG(UAGE) in it (in gtk2_ardour directory)<br/>
+<font color="#A82F2F"><font size="2">(08:04:36 PM)</font> <b>las:</b></font> tom^_: OS X has different conventions for i18n<br/>
+<font color="#A82F2F"><font size="2">(08:07:13 PM)</font> <b>tom^_:</b></font> las: ok, facit is to simply use LANGUAGE and it works<br/>
+<font color="#A82F2F"><font size="2">(08:09:34 PM)</font> <b>tom^_:</b></font> las: that could possibly be a note when doing ardour3 --help<br/>
+<font color="#A82F2F"><font size="2">(08:10:40 PM)</font> <b>las:</b></font> tom^_: well, except that LANG is canonical and works elsewhere :)<br/>
+<font color="#A82F2F"><font size="2">(08:11:37 PM)</font> <b>tom^_:</b></font> las: that must be true<br/>
+<font color="#A82F2F"><font size="2">(08:12:18 PM)</font> <b>tom^_:</b></font> no idea why i have both LANG and LANGUAGE<br/>
+<font color="#A82F2F"><font size="2">(08:12:52 PM)</font> <b>tom^_:</b></font> las: you only have LANG, right?<br/>
+<font color="#A82F2F"><font size="2">(08:12:55 PM)</font> <b>las:</b></font> tom^_: your glibc is different than mine (which is where gettext lives on linux)<br/>
+<font color="#A82F2F"><font size="2">(08:13:43 PM)</font> <b>tom^_:</b></font> las: so this mechanism is dependent on the concrete glibc (that is locally provided and not from the bundel)<br/>
+<font size="2">(08:20:32 PM)</font><b> nextloop [<em>~kvirc@dslb-188-099-121-189.pools.arcor-ip.net</em>] entered the room.</b><br/>
+<font size="2">(08:21:51 PM)</font><b> mastergreg left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(08:21:51 PM)</font><b> mastergreg [<em>~mastergre@snf-96495.vm.okeanos.grnet.gr</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:23:22 PM)</font> <b>tom^_:</b></font> las: would it be a big task to add i18n to work with ardev?<br/>
+<font size="2">(08:29:16 PM)</font><b> HisaoNakai left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(08:34:35 PM)</font><b> juser123 [<em>~juser123@d149-67-30-116.try.wideopenwest.com</em>] entered the room.</b><br/>
+<font size="2">(08:36:49 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(08:36:52 PM)</font><b> jk_l left the room (&quot;Leaving&quot;).</b><br/>
+<font size="2">(08:38:37 PM)</font><b> nox- [<em>noident@freebsd/developer/nox</em>] entered the room.</b><br/>
+<font size="2">(08:38:55 PM)</font><b> HisaoNakai left the room (quit: Excess Flood).</b><br/>
+<font size="2">(08:39:21 PM)</font><b> HisaoNakai [<em>~HisaoNaka@14.96.140.77</em>] entered the room.</b><br/>
+<font size="2">(08:39:28 PM)</font><b> HisaoNakai left the room (quit: Changing host).</b><br/>
+<font size="2">(08:39:29 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(08:40:23 PM)</font><b> juser123 left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:47:49 PM)</font> <b>tom^_:</b></font> the german translation says &apos;exportiere audio dateien&apos; where it should be video<br/>
+<font color="#A82F2F"><font size="2">(08:50:22 PM)</font> <b>rgareus:</b></font> tom^_: likley a &apos;fuzzy&apos; match<br/>
+<font color="#A82F2F"><font size="2">(08:51:24 PM)</font> <b>tom^_:</b></font> and &apos;open video&apos; is &apos;projekt oeffnen&apos; ...<br/>
+<font size="2">(08:52:43 PM)</font><b> err-or left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(08:54:28 PM)</font> <b>rgareus:</b></font> tom^_: it&apos;s your fault!! Just use it in the language it was written for...<br/>
+<font color="#A82F2F"><font size="2">(08:54:36 PM)</font> <b>rgareus:</b></font> tom^_: https://www.youtube.com/watch?v=xWhVLaGy0NU<br/>
+<font color="#A82F2F"><font size="2">(08:55:34 PM)</font> <b>tom^_:</b></font> rgareus: :)<br/>
+<font color="#A82F2F"><font size="2">(08:56:28 PM)</font> <b>tom^_:</b></font> rgareus: the view on that as you said from fons (cockpit in english, pilots must learn that) makes sense for me<br/>
+<font color="#A82F2F"><font size="2">(08:58:40 PM)</font> <b>tom^_:</b></font> rgareus: do you know how to create the files found in locale/&lt;lang&gt; from the source po file?<br/>
+<font color="#A82F2F"><font size="2">(08:59:51 PM)</font> <b>rgareus:</b></font> tom^_: not from the top of my head.  i think it&apos;s mentioned in the TRANSLATORS file<br/>
+<font color="#A82F2F"><font size="2">(09:01:14 PM)</font> <b>tom^_:</b></font> rgareus: great pointer, thanks<br/>
+<font size="2">(09:01:18 PM)</font><b> aloiece [<em>~Thunderbi@2001:8b0:fbbd:191c:7520:c8e3:e18c:989e</em>] entered the room.</b><br/>
+<font size="2">(09:02:27 PM)</font><b> thorwil [<em>~thorwil@p4FFB5F9E.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:06:34 PM)</font> <b>las:</b></font> tom^_: ./waf i18n<br/>
+<font size="2">(09:07:58 PM)</font><b> Joschiii left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:10:18 PM)</font> <b>tom^_:</b></font> las: nice. that one doesn&apos;t show up in ./waf --help<br/>
+<font color="#A82F2F"><font size="2">(09:10:47 PM)</font> <b>tom^_:</b></font> las: it&apos;s mentioned in TRANSLATORS however<br/>
+<font size="2">(09:25:10 PM)</font><b> HarryHaaren left the room (quit: Quit: Quittin&apos;).</b><br/>
+<font size="2">(09:25:33 PM)</font><b> Valvalion left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font size="2">(09:26:17 PM)</font><b> tnaugle left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(09:26:22 PM)</font><b> BenLoftis left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(09:26:32 PM)</font><b> theothertim left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:27:01 PM)</font> <b>MountainX:</b></font> las: hi<br/>
+<font color="#A82F2F"><font size="2">(09:27:09 PM)</font> <b>MountainX:</b></font> rgareus: hi <br/>
+<font color="#A82F2F"><font size="2">(09:27:15 PM)</font> <b>MountainX:</b></font> I want to thank both of you again for your help yesterday<br/>
+<font color="#A82F2F"><font size="2">(09:30:52 PM)</font> <b>las:</b></font> MountainX: you&apos;re welcome<br/>
+<font size="2">(09:32:24 PM)</font><b> corresponder left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(09:34:30 PM)</font><b> idragosani left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(09:34:53 PM)</font> <b>rgareus:</b></font> MountainX: so, did you get things to work to your liking?<br/>
+<font size="2">(09:50:24 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

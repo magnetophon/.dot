@@ -1,0 +1,408 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sun 30 Nov 2014 07:39:35 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sun 30 Nov 2014 07:39:35 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(07:39:35 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(07:39:36 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(07:43:00 PM)</font><b> romildo [<em>~romildo@187.86.70.161</em>] entered the room.</b><br/>
+<font size="2">(07:43:13 PM)</font><b> romildo left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:54:22 PM)</font> <b>darlinger:</b></font> what kind of kernel does nixos use?<br/>
+<font color="#A82F2F"><font size="2">(07:54:29 PM)</font> <b>darlinger:</b></font> and is it easy to install?<br/>
+<font color="#A82F2F"><font size="2">(07:54:43 PM)</font> <b>MichaelRaskin:</b></font> vanilla latest mainline is a popular choice<br/>
+<font color="#A82F2F"><font size="2">(07:54:51 PM)</font> <b>MichaelRaskin:</b></font> With very minimal patches<br/>
+<font color="#A82F2F"><font size="2">(07:55:19 PM)</font> <b>darlinger:</b></font> MichaelRaskin: coming from gentoo... would it be easy to pull from my gentoo .config? or do i have to start over entirely?<br/>
+<font color="#A82F2F"><font size="2">(07:56:01 PM)</font> <b>MichaelRaskin:</b></font> If you have a .config , it is reasonably simple to feed it to the kernel expression<br/>
+<font color="#A82F2F"><font size="2">(07:56:50 PM)</font> <b>darlinger:</b></font> MichaelRaskin: what do you mean? like $ make oldconfig ?<br/>
+<font color="#A82F2F"><font size="2">(07:57:03 PM)</font> <b>MichaelRaskin:</b></font> Not really<br/>
+<font color="#A82F2F"><font size="2">(07:57:35 PM)</font> <b>MichaelRaskin:</b></font> boot.kernelPackages = kernelPackagesFor (linuxManualConfig linux_3_17.src ./.config)<br/>
+<font color="#A82F2F"><font size="2">(07:57:51 PM)</font> <b>MichaelRaskin:</b></font> This probably has multiple minor mistakes<br/>
+<font color="#A82F2F"><font size="2">(07:57:55 PM)</font> <b>darlinger:</b></font> o.o<br/>
+<font color="#A82F2F"><font size="2">(07:58:19 PM)</font> <b>MichaelRaskin:</b></font> But you set this as a configuration option in configuration.nix and then rebuild your system<br/>
+<font color="#A82F2F"><font size="2">(07:58:33 PM)</font> <b>MichaelRaskin:</b></font> (of course, things already built are reused)<br/>
+<font color="#A82F2F"><font size="2">(07:58:47 PM)</font> <b>MichaelRaskin:</b></font> (so you really rebuild just initrd and a few scripts)<br/>
+<font color="#A82F2F"><font size="2">(07:59:30 PM)</font> <b>darlinger:</b></font> MichaelRaskin: hmmmm okay. :) does nixos have you build your own kernel by default?<br/>
+<font color="#A82F2F"><font size="2">(08:00:41 PM)</font> <b>MichaelRaskin:</b></font> You are expected to choose one of the all-mod-config (with some changes) kernels provided by the build farm<br/>
+<font color="#A82F2F"><font size="2">(08:01:04 PM)</font> <b>darlinger:</b></font> MichaelRaskin: all-mod-config?<br/>
+<font color="#A82F2F"><font size="2">(08:01:24 PM)</font> <b>MichaelRaskin:</b></font> Almost everything is built as modules<br/>
+<font color="#A82F2F"><font size="2">(08:01:34 PM)</font> <b>MichaelRaskin:</b></font> So you can modprobe what you need<br/>
+<font color="#A82F2F"><font size="2">(08:01:54 PM)</font> <b>MichaelRaskin:</b></font> It is not precisely the upstream allmodconfig<br/>
+<font size="2">(08:02:03 PM)</font><b> Takle left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:02:19 PM)</font><b> bergey [<em>~user@pool-71-175-178-253.phlapa.east.verizon.net</em>] entered the room.</b><br/>
+<font size="2">(08:02:40 PM)</font><b> lucidd left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(08:04:36 PM)</font><b> nslqqq left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(08:06:38 PM)</font><b> MichaelRaskin left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:07:05 PM)</font> <b>roconnor:</b></font> that said you can totally build your own kernel.  I do that for my chromebook.<br/>
+<font size="2">(08:08:04 PM)</font><b> Takle [<em>~takle@2a00:fd00:fff1:5768:7954:1625:b389:3618</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(08:08:29 PM)</font> <b>magnetophon:</b></font> goibhniu, henrytill: I did most of https://wiki.archlinux.org/index.php/Pro_Audio#Realtime_Kernel  , except rtirq and a realtime kernel. Maybe you cacn take a look to see what you can add/take: https://github.com/magnetophon/nixosConfig/blob/master/configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(08:08:33 PM)</font> <b>darlinger:</b></font> roconnor: okay! i just use a luks/lvm setup in most cases and would like to keep that<br/>
+<font color="#A82F2F"><font size="2">(08:09:47 PM)</font> <b>roconnor:</b></font> I know there is a module to support luks; though I haven&apos;t used it lately.  I think it supported both pre and post lvm setups.  I can help you with the configuration if you need it.<br/>
+<font size="2">(08:09:57 PM)</font><b> MichaelRaskin [<em>~MichaelRa@195.91.224.161</em>] entered the room.</b><br/>
+<font size="2">(08:10:05 PM)</font><b> med\_ left the room (quit: Quit: Leaving).</b><br/>
+<font color="#16569E"><font size="2">(08:10:24 PM)</font> <b>magnetophon:</b></font> It seems to be working well enough on my netbook. Can't wait to test it on my studio PC :)<br/>
+<font color="#A82F2F"><font size="2">(08:12:29 PM)</font> <b>Kehlyos:</b></font> Hey, I want to use the buildFHSChrootEnv{} nix expression, before using I would want to import the packages required in the chroot. How could I ,for example, import firefox, do i only need to write firefox or is there a special syntax like nixpkgs.firefox ,or something else ?<br/>
+<font size="2">(08:15:13 PM)</font><b> med\ [<em>~med@105.104.29.178</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:15:17 PM)</font> <b>darlinger:</b></font> roconnor: the issue is that luks/lvm need to be built in, not as modules<br/>
+<font size="2">(08:15:21 PM)</font><b> lucidd [<em>~lucid@HSI-KBW-078-042-152-111.hsi3.kabel-badenwuerttemberg.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:17:48 PM)</font> <b>roconnor:</b></font> darlinger: what&apos;s the config line?  I can check my stock proc/config.gz<br/>
+<font color="#A82F2F"><font size="2">(08:18:33 PM)</font> <b>darlinger:</b></font> roconnor: give me a sec :)<br/>
+<font size="2">(08:18:58 PM)</font><b> komarov left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:19:27 PM)</font> <b>MichaelRaskin:</b></font> LVM2 definitely doesn&apos;t need to be built in on its own<br/>
+<font color="#A82F2F"><font size="2">(08:19:27 PM)</font> <b>darlinger:</b></font> MichaelRaskin: are you sure?<br/>
+<font color="#A82F2F"><font size="2">(08:19:40 PM)</font> <b>MichaelRaskin:</b></font> Don&apos;t we have initrd for that?<br/>
+<font color="#A82F2F"><font size="2">(08:19:49 PM)</font> <b>MichaelRaskin:</b></font> It uses dm_mod, right?<br/>
+<font color="#A82F2F"><font size="2">(08:20:05 PM)</font> <b>darlinger:</b></font> MichaelRaskin: well yes, but you still need it built in i believe<br/>
+<font color="#A82F2F"><font size="2">(08:20:30 PM)</font> <b>MichaelRaskin:</b></font> I have LVM and dm_mod as a module<br/>
+<font color="#A82F2F"><font size="2">(08:20:39 PM)</font> <b>MichaelRaskin:</b></font> With LUKS it may be more complex<br/>
+<font size="2">(08:20:40 PM)</font><b> Takle_ [<em>~takle@2a00:fd00:fff1:5768:1d32:e86e:ee5:f986</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:20:58 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] thoughtpolice pushed 1 new commit to master: http://git.io/b_mh0w<br/>
+<font color="#A82F2F"><font size="2">(08:20:58 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8f6279b Austin Seipp: afl: 0.68b -&gt; 0.79b...<br/>
+<font color="#A82F2F"><font size="2">(08:21:15 PM)</font> <b>roconnor:</b></font> I&apos;m pretty sure LUKS works with kernel modules; I&apos;ve certainly used luks in the past with stock kernels.<br/>
+<font color="#A82F2F"><font size="2">(08:21:29 PM)</font> <b>roconnor:</b></font> That said, it is not very hard to build your own custom kernel.<br/>
+<font color="#A82F2F"><font size="2">(08:22:28 PM)</font> <b>darlinger:</b></font> roconnor: i&apos;ll give it a shot (fingers crossed). i think i&apos;m going to install NixOS on hardware for a while. both nixos and guix have very interesting things to say about functional package managing<br/>
+<font color="#A82F2F"><font size="2">(08:22:51 PM)</font> <b>roconnor:</b></font> I do it on my chromebook because CONFIG_CHROME_PLATFORMS is not set in the stock kernels.<br/>
+<font size="2">(08:22:55 PM)</font><b> emery left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(08:23:32 PM)</font><b> T_S_ [<em>~timsears@c-98-207-41-148.hsd1.ca.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:23:37 PM)</font> <b>roconnor:</b></font> IIRC I did lvm on top of luks.<br/>
+<font size="2">(08:23:51 PM)</font><b> Takle left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:24:04 PM)</font> <b>darlinger:</b></font> roconnor: that&apos;s the way i prefer it too, though i am reconsidering doing luks on top of lvm for once<br/>
+<font color="#A82F2F"><font size="2">(08:24:31 PM)</font> <b>darlinger:</b></font> especially since i&apos;m using my thinkpad with two harddisks<br/>
+<font size="2">(08:26:39 PM)</font><b> marcvreuls [<em>~marcvreul@2001:981:80ca:1:3128:1875:17aa:d320</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:26:45 PM)</font> <b>goibhniu:</b></font> magnetophon: looks great! Maybe you can also add that to: https://nixos.org/wiki/Audio_HOWTO?<br/>
+<font size="2">(08:27:19 PM)</font><b> emery [<em>~emery@gateway/tor-sasl/nickemery</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(08:27:30 PM)</font> <b>magnetophon:</b></font> goibhniu: Will do. I'm looking into packaging rtirq now.<br/>
+<font color="#A82F2F"><font size="2">(08:28:07 PM)</font> <b>goibhniu:</b></font> super!<br/>
+<font size="2">(08:29:35 PM)</font><b> rejuvyesh left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font color="#A82F2F"><font size="2">(08:29:49 PM)</font> <b>darlinger:</b></font> i think the config lines are CONFIG_BLK_DEV_DM:<br/>
+<font color="#A82F2F"><font size="2">(08:30:05 PM)</font> <b>darlinger:</b></font> and CONFIG_DM_CRYPT<br/>
+<font color="#A82F2F"><font size="2">(08:30:31 PM)</font> <b>roconnor:</b></font> So the lines I have in my config are<br/>
+<font color="#A82F2F"><font size="2">(08:30:38 PM)</font> <b>roconnor:</b></font> CONFIG_BLK_DEV_DM_BUILTIN=y<br/>
+<font color="#A82F2F"><font size="2">(08:30:40 PM)</font> <b>roconnor:</b></font> CONFIG_BLK_DEV_DM=m<br/>
+<font color="#A82F2F"><font size="2">(08:30:41 PM)</font> <b>roconnor:</b></font> #<br/>
+<font color="#A82F2F"><font size="2">(08:30:45 PM)</font> <b>roconnor:</b></font> CONFIG_DM_CRYPT=m<br/>
+<font size="2">(08:30:53 PM)</font><b> komarov [<em>~komarov@46.227.191.246</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:31:03 PM)</font> <b>roconnor:</b></font> That said, I think luks and lvm work out of the box with these settings<br/>
+<font color="#A82F2F"><font size="2">(08:31:22 PM)</font> <b>roconnor:</b></font> https://nixos.org/wiki/Encrypted_Root_on_NixOS  is a bit of a guide on setting up encrypted root with luks.<br/>
+<font color="#A82F2F"><font size="2">(08:32:01 PM)</font> <b>roconnor:</b></font> Unfortunately if you are not yet familiar with NixOS, it might not make that much sense.  So you should ask here for help if you need some to get started<br/>
+<font color="#A82F2F"><font size="2">(08:35:56 PM)</font> <b>darlinger:</b></font> roconnor: i just finished reading the docs actually. at least the user&apos;s manual<br/>
+<font color="#A82F2F"><font size="2">(08:36:51 PM)</font> <b>darlinger:</b></font> oh this stuff DOES seem a bit unfamiliar<br/>
+<font color="#A82F2F"><font size="2">(08:37:02 PM)</font> <b>kmicu:</b></font> darlinger: NixOS’ manual is like 10% of Nix manuals :)<br/>
+<font color="#A82F2F"><font size="2">(08:37:39 PM)</font> <b>darlinger:</b></font> kmicu: oh dear me ._.<br/>
+<font color="#A82F2F"><font size="2">(08:38:03 PM)</font> <b>kmicu:</b></font> Nix manual, nixpkgs manual and NixOS wiki are waiting for you.<br/>
+<font size="2">(08:38:07 PM)</font><b> Takle [<em>~takle@188.228.85.218</em>] entered the room.</b><br/>
+<font size="2">(08:38:10 PM)</font><b> Takle_ left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:38:16 PM)</font> <b>roconnor:</b></font> darlinger: It&apos;s not so bad once you get used to it.  Ideally we&apos;d have a tutorial for you to get started with LUKS<br/>
+<font color="#A82F2F"><font size="2">(08:38:27 PM)</font> <b>darlinger:</b></font> kmicu: but but... finals... ugh i&apos;m going to end up reading it anyway<br/>
+<font color="#A82F2F"><font size="2">(08:39:26 PM)</font> <b>roconnor:</b></font> you don&apos;t have to read much beyond the nixos manual quick start and the few configuration options you will care about.<br/>
+<font color="#A82F2F"><font size="2">(08:39:27 PM)</font> <b>darlinger:</b></font> roconnor: well i hope to get to that point :)<br/>
+<font size="2">(08:39:34 PM)</font><b> RioS2 left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(08:40:00 PM)</font> <b>darlinger:</b></font> oh. that&apos;s great :) ugh i really like nixos but i also really like guix. functional stuff is just awesome in general<br/>
+<font color="#A82F2F"><font size="2">(08:42:22 PM)</font> <b>roconnor:</b></font> darlinger: what sort of swap configuration are you planning?<br/>
+<font color="#A82F2F"><font size="2">(08:42:31 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 3 new commits to master: http://git.io/szjhRg<br/>
+<font color="#A82F2F"><font size="2">(08:42:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9218987 Domen Kožar: setuptools: 5.8 -&gt; 7.0<br/>
+<font color="#A82F2F"><font size="2">(08:42:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7f021fe Domen Kožar: munin: 2.0.21 -&gt; 2.0.25<br/>
+<font color="#A82F2F"><font size="2">(08:42:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 304b71b Domen Kožar: deluge: 1.3.7 -&gt; 1.3.10<br/>
+<font color="#16569E"><font size="2">(08:43:36 PM)</font> <b>magnetophon:</b></font> goibhniu: How's this: https://nixos.org/wiki/Audio_HOWTO#System_optimizations_for_low_latency_audio_with_JACK<br/>
+<font color="#A82F2F"><font size="2">(08:45:06 PM)</font> <b>darlinger:</b></font> roconnor: lvm over luks. it&apos;s always safe to keep swap encrypted ;) so i&apos;ll just use an lv for it<br/>
+<font size="2">(08:45:48 PM)</font><b> sheerun left the room (quit: Quit: http://sheerun.net).</b><br/>
+<font size="2">(08:45:54 PM)</font><b> eddyb__ [<em>~eddyb@unaffiliated/eddyb</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:46:44 PM)</font> <b>roconnor:</b></font> darlinger: are you planning to set up your system today?<br/>
+<font size="2">(08:47:00 PM)</font><b> Kehlyos left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font color="#A82F2F"><font size="2">(08:47:47 PM)</font> <b>darlinger:</b></font> roconnor: possibly. that would be optimal. right now i&apos;m making sure i have everything backed up from my gentoo installation.<br/>
+<font size="2">(08:48:07 PM)</font><b> JagaJaga [<em>~JagaJaga@178.62.202.50</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:48:16 PM)</font> <b>roconnor:</b></font> darlinger: oh you will be overwritting a current gentoo install?<br/>
+<font color="#A82F2F"><font size="2">(08:48:29 PM)</font> <b>darlinger:</b></font> i currently have a lvm over luks over bcache set up. but bcache is a little too much of a pain for me at the moment. especially since i want to dualboot windows some<br/>
+<font color="#A82F2F"><font size="2">(08:48:37 PM)</font> <b>darlinger:</b></font> roconnor: yes :)<br/>
+<font color="#A82F2F"><font size="2">(08:48:57 PM)</font> <b>darlinger:</b></font> i&apos;m tired of compiling everything for fifty years and having a build fail due to a wonky dependency<br/>
+<font color="#A82F2F"><font size="2">(08:49:02 PM)</font> <b>goibhniu:</b></font> magnetophon: excellent!<br/>
+<font color="#A82F2F"><font size="2">(08:49:16 PM)</font> <b>darlinger:</b></font> even on my i7 arandale, it&apos;s really slow<br/>
+<font color="#16569E"><font size="2">(08:49:17 PM)</font> <b>magnetophon:</b></font> goibhniu: :)<br/>
+<font color="#A82F2F"><font size="2">(08:49:50 PM)</font> <b>roconnor:</b></font> okay;  I can probably walk you through the install procedure today.<br/>
+<font color="#A82F2F"><font size="2">(08:50:21 PM)</font> <b>darlinger:</b></font> roconnor: is installing nixos that hard?<br/>
+<font color="#A82F2F"><font size="2">(08:50:31 PM)</font> <b>roconnor:</b></font> assuming you can access IRC at the same time you do the install.<br/>
+<font color="#A82F2F"><font size="2">(08:51:27 PM)</font> <b>darlinger:</b></font> roconnor: i should be able to. i have the graphical install iso and my NIC tends to work out of the box<br/>
+<font color="#A82F2F"><font size="2">(08:51:41 PM)</font> <b>darlinger:</b></font> on live boots<br/>
+<font color="#A82F2F"><font size="2">(08:51:50 PM)</font> <b>darlinger:</b></font> s/boots/cds/<br/>
+<font color="#A82F2F"><font size="2">(08:52:28 PM)</font> <b>roconnor:</b></font> Installing nixos can be a little tricky, especially with non-standard boot configurations.<br/>
+<font color="#A82F2F"><font size="2">(08:52:53 PM)</font> <b>roconnor:</b></font> you have to format and setup LUKS by hand, and then make sure your system&apos;s boot configuration matches the configuration you made by hand.<br/>
+<font color="#A82F2F"><font size="2">(08:53:03 PM)</font> <b>MichaelRaskin:</b></font> Wrong<br/>
+<font color="#A82F2F"><font size="2">(08:53:16 PM)</font> <b>MichaelRaskin:</b></font> You have to _backup_, _verify your backup_,<br/>
+<font color="#A82F2F"><font size="2">(08:53:23 PM)</font> <b>MichaelRaskin:</b></font> format, setup....<br/>
+<font color="#A82F2F"><font size="2">(08:53:43 PM)</font> <b>darlinger:</b></font> MichaelRaskin: LOL<br/>
+<font color="#A82F2F"><font size="2">(08:54:06 PM)</font> <b>roconnor:</b></font> There has been some recent advances in detecting your setup and automatically building the configuration, but I suspect it won&apos;t detect thinks like LUKs.<br/>
+<font color="#A82F2F"><font size="2">(08:54:23 PM)</font> <b>darlinger:</b></font> MichaelRaskin: i&apos;m used to jumping around distros so i don&apos;t really have anything i&apos;m afraid to lose<br/>
+<font color="#A82F2F"><font size="2">(08:56:12 PM)</font> <b>darlinger:</b></font> roconnor: are you frequently here?<br/>
+<font color="#A82F2F"><font size="2">(08:56:44 PM)</font> <b>roconnor:</b></font> not as frequently as I like.<br/>
+<font color="#A82F2F"><font size="2">(08:57:47 PM)</font> <b>darlinger:</b></font> roconnor: i may not get to it today. unfortunately i have to do some windows work (more like i just got guild wars 2 and i&apos;ve been a little ancy to try it out)<br/>
+<font color="#A82F2F"><font size="2">(08:58:19 PM)</font> <b>darlinger:</b></font> also testout requires silverlight -_- which means i gotta use windows. i would use it with gentoo but i keep on getting a failed build for wine so i just rage quit<br/>
+<font color="#A82F2F"><font size="2">(08:58:32 PM)</font> <b>MichaelRaskin:</b></font> Hehe<br/>
+<font color="#A82F2F"><font size="2">(08:58:43 PM)</font> <b>MichaelRaskin:</b></font> We have working pipelight<br/>
+<font color="#A82F2F"><font size="2">(08:58:47 PM)</font> <b>roconnor:</b></font> If you want we can try to make an appointment some evening eastern time for me to be around.<br/>
+<font size="2">(08:59:21 PM)</font><b> marcvreuls left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:03:06 PM)</font> <b>darlinger:</b></font> MichaelRaskin: oh really? lol maybe in the future. unfortunately i have to have all my A+ stuff done by today (which shouldn&apos;t be too hard, i&apos;ve been blazing through it with ease)<br/>
+<font size="2">(09:03:11 PM)</font><b> marcvreuls [<em>~marcvreul@a83-161-198-232.adsl.xs4all.nl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:03:51 PM)</font> <b>MichaelRaskin:</b></font> I wish you success in this endeavour<br/>
+<font color="#A82F2F"><font size="2">(09:04:09 PM)</font> <b>darlinger:</b></font> MichaelRaskin: thankyou, kind sir<br/>
+<font color="#A82F2F"><font size="2">(09:04:32 PM)</font> <b>darlinger:</b></font> i like the community here so i&apos;ll be popping on from time to time<br/>
+<font color="#A82F2F"><font size="2">(09:09:43 PM)</font> <b>JagaJaga:</b></font> Is there a way to write smth like `nix-env --set-flag priority` in a .nixpkgs/config.nix?<br/>
+<font size="2">(09:12:25 PM)</font><b> marcvreuls left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:14:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ttuegel opened pull request #5194: New Fontconfig NixOS module, with fontconfig-ultimate (staging...fontconfig-ultimate) http://git.io/oiizJw<br/>
+<font size="2">(09:14:53 PM)</font><b> marcvreuls [<em>~marcvreul@a83-161-198-232.adsl.xs4all.nl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:14:57 PM)</font> <b>MichaelRaskin:</b></font> There is lowPrio etc that you can try to use with packageoverrides<br/>
+<font size="2">(09:17:30 PM)</font><b> marcvreuls left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:17:54 PM)</font><b> marcvreuls [<em>~marcvreul@a83-161-198-232.adsl.xs4all.nl</em>] entered the room.</b><br/>
+<font size="2">(09:20:15 PM)</font><b> aaronlevin [<em>~aaron@CPEbcc81013bcec-CMbcc81013bce9.cpe.net.cable.rogers.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:20:58 PM)</font> <b>aaronlevin:</b></font> does anyone have ghcjs (+ cabal support) working with nix?<br/>
+<font size="2">(09:23:07 PM)</font><b> darlinger left the room.</b><br/>
+<font size="2">(09:25:19 PM)</font><b> doublec left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(09:27:20 PM)</font><b> doublec [<em>~doublec@gateway/tor-sasl/doublec</em>] entered the room.</b><br/>
+<font size="2">(09:27:29 PM)</font><b> hexagoxel left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(09:28:58 PM)</font><b> meditans [<em>~user@adsl-ull-142-139.51-151.net24.it</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:31:47 PM)</font> <b>meditans:</b></font> Hi, I have a question for those using nixOS not natively<br/>
+<font color="#A82F2F"><font size="2">(09:32:03 PM)</font> <b>meditans:</b></font> (i mean, inside a VM, or a docker container, or vagrant, what have you)<br/>
+<font color="#A82F2F"><font size="2">(09:32:52 PM)</font> <b>meditans:</b></font> the question is this: I&apos;m using a laptop with windows 8 (vaio duo 11)<br/>
+<font color="#A82F2F"><font size="2">(09:32:54 PM)</font> <b>JagaJaga:</b></font> MichaelRaskin: thx.<br/>
+<font color="#A82F2F"><font size="2">(09:33:32 PM)</font> <b>meditans:</b></font> and I&apos;m not too confortable in switching completely to nixOS because of the n-trig digitizer, touchscreen etc..<br/>
+<font color="#A82F2F"><font size="2">(09:33:42 PM)</font> <b>meditans:</b></font> (fast suspension on SSD, also)<br/>
+<font color="#A82F2F"><font size="2">(09:34:22 PM)</font> <b>meditans:</b></font> so, what is the most lightweight solution to run nixOS on windows, in your opinion?<br/>
+<font size="2">(09:35:02 PM)</font><b> sjkelly [<em>~steve@c-50-138-183-196.hsd1.ma.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:35:11 PM)</font> <b>MichaelRaskin:</b></font> Is coLinux still alive enough to have a Windows 8 release?<br/>
+<font color="#A82F2F"><font size="2">(09:35:19 PM)</font> <b>meditans:</b></font> (for the moment, I&apos;m using virtualbox)<br/>
+<font color="#A82F2F"><font size="2">(09:35:49 PM)</font> <b>meditans:</b></font> MichaelRaskin: I fear not.. last time they only had a 32bit version<br/>
+<font color="#A82F2F"><font size="2">(09:36:08 PM)</font> <b>iElectric:</b></font> meditans: virtualbox is fine, that&apos;s how I also started<br/>
+<font color="#A82F2F"><font size="2">(09:37:00 PM)</font> <b>meditans:</b></font> iElectric: yes, but, as I pass most of my time inside a virtual machine (emacs, programming, also browsing) I wanted to know is there is a better solution<br/>
+<font color="#A82F2F"><font size="2">(09:37:08 PM)</font> <b>MichaelRaskin:</b></font> Maybe Hyper-V shares some part of its infrastructure with Windows core<br/>
+<font color="#A82F2F"><font size="2">(09:37:29 PM)</font> <b>T_S_:</b></font> noob here. running nix-instantiate on my git-managed haskell source code with a default.nix file in it. I looked at the resulting derivation in /nix/store/… and noticed that the entire git repo is stored along with the source code. What’s up with that? Is there any way to make it just take a snapshot of the source code and ignore .git/ ?<br/>
+<font color="#A82F2F"><font size="2">(09:37:39 PM)</font> <b>meditans:</b></font> as a tangential question: is someone here using inusual driver to get a working multitouch or digitizer pen, or fast SSD supension on nixos?<br/>
+<font size="2">(09:37:45 PM)</font><b> wmertens [<em>~wmertens@031011199182.warszawa.vectranet.pl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:37:59 PM)</font> <b>MichaelRaskin:</b></font> Dunnoy, I just suspend to RAM<br/>
+<font color="#A82F2F"><font size="2">(09:38:15 PM)</font> <b>meditans:</b></font> MichaelRaskin: right, thanks, I forgot Hyper-V, I should check it.<br/>
+<font color="#A82F2F"><font size="2">(09:38:26 PM)</font> <b>meditans:</b></font> MichaelRaskin: are you running nixOS natively?<br/>
+<font color="#A82F2F"><font size="2">(09:38:41 PM)</font> <b>MichaelRaskin:</b></font> I would also try to run a headless install inside Virtualbox/HyperV/whatever, run a vnc server and connect to it with a VNC viewer<br/>
+<font color="#A82F2F"><font size="2">(09:39:24 PM)</font> <b>MichaelRaskin:</b></font> I run NixOS natively, somtimes NixOS-on-NixOS in KVM-accelerated Qemu, also NixPkgs-on-Fedora<br/>
+<font color="#A82F2F"><font size="2">(09:39:44 PM)</font> <b>meditans:</b></font> MichaelRaskin: could you get also an X server via a VNC viewer, or is only textual?<br/>
+<font color="#A82F2F"><font size="2">(09:40:07 PM)</font> <b>MichaelRaskin:</b></font> That&apos;s the point: Xvnc is an X server with no hardware part<br/>
+<font color="#A82F2F"><font size="2">(09:40:16 PM)</font> <b>meditans:</b></font> MichaelRaskin: so, how do you suspend on RAM when using it natively? I wasn&apos;t aware that was a possibility<br/>
+<font size="2">(09:40:30 PM)</font><b> hexagoxel [<em>~hexagoxel@kiel-5f77b721.pool.mediaWays.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:40:36 PM)</font> <b>MichaelRaskin:</b></font> Sorry? echo mem &gt; /sys/power/state<br/>
+<font color="#A82F2F"><font size="2">(09:41:03 PM)</font> <b>MichaelRaskin:</b></font> OK, it&apos;s battery-dependent, but consumes so little I have yet to see it die because of battery<br/>
+<font color="#A82F2F"><font size="2">(09:41:17 PM)</font> <b>meditans:</b></font> MichaelRaskin: wow, so much information.. I should go and search all this stuff, and then return for followup questions<br/>
+<font color="#A82F2F"><font size="2">(09:41:18 PM)</font> <b>MichaelRaskin:</b></font> There is even suspend-to-both<br/>
+<font color="#A82F2F"><font size="2">(09:41:43 PM)</font> <b>meditans:</b></font> MichaelRaskin: you&apos;ve been very helpful, thanks<br/>
+<font color="#A82F2F"><font size="2">(09:41:46 PM)</font> <b>MichaelRaskin:</b></font> I heard some VNC setups allow you to do single-window VNC connections<br/>
+<font size="2">(09:45:50 PM)</font><b> meditans left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:46:24 PM)</font><b> meditans [<em>~user@adsl-ull-142-139.51-151.net24.it</em>] entered the room.</b><br/>
+<font size="2">(09:46:51 PM)</font><b> marcvreuls left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:47:40 PM)</font> <b>MichaelRaskin:</b></font> Let&apos;s try to build an urxvt with the fontconfig PR<br/>
+<font size="2">(09:49:46 PM)</font><b> komarov left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(09:50:44 PM)</font><b> komarov [<em>~komarov@46.227.191.216</em>] entered the room.</b><br/>
+<font size="2">(09:52:06 PM)</font><b> goodwill left the room (&quot;+++ OK ATH OK&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(09:53:47 PM)</font> <b>MichaelRaskin:</b></font> Hm, done<br/>
+<font color="#A82F2F"><font size="2">(09:53:54 PM)</font> <b>MichaelRaskin:</b></font> Strange<br/>
+<font color="#A82F2F"><font size="2">(09:54:22 PM)</font> <b>MichaelRaskin:</b></font> Is is pure-NixOS patch??<br/>
+<font color="#A82F2F"><font size="2">(09:54:28 PM)</font> <b>ttuegel:</b></font> MichaelRaskin: if it&apos;s my fontconfig PR, it is<br/>
+<font color="#A82F2F"><font size="2">(09:54:44 PM)</font> <b>ttuegel:</b></font> it&apos;s just config files<br/>
+<font color="#A82F2F"><font size="2">(09:54:53 PM)</font> <b>MichaelRaskin:</b></font> I thought we had a problem with fontconfig package containing too much enabled configuration snippets<br/>
+<font color="#A82F2F"><font size="2">(09:55:23 PM)</font> <b>ttuegel:</b></font> we did, but it&apos;s fixed in staging previously<br/>
+<font color="#A82F2F"><font size="2">(09:55:28 PM)</font> <b>MichaelRaskin:</b></font> Ah<br/>
+<font size="2">(09:55:43 PM)</font><b> wmertens left the room (quit: Quit: wmertens).</b><br/>
+<font color="#A82F2F"><font size="2">(09:56:05 PM)</font> <b>MichaelRaskin:</b></font> Then I am all for that PR, given that nothing in it is costly to fix if minor problems are found<br/>
+<font size="2">(09:58:14 PM)</font><b> wmertens [<em>~wmertens@031011199182.warszawa.vectranet.pl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:58:15 PM)</font> <b>MichaelRaskin:</b></font> Yes, staging font rendering is very nice<br/>
+<font color="#A82F2F"><font size="2">(09:58:43 PM)</font> <b>MichaelRaskin:</b></font> I am afraid to return to X habits yet, though<br/>
+<font size="2">(09:59:34 PM)</font><b> darlinger [<em>~jd@172.56.38.107</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:59:55 PM)</font> <b>darlinger:</b></font> is there anything different about nixos from other distros, other than the package manager?<br/>
+<font color="#A82F2F"><font size="2">(10:00:44 PM)</font> <b>ttuegel:</b></font> darlinger: Nix is also used to manage the entire system configuration. your entire system is declared in /etc/nixos/configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(10:01:02 PM)</font> <b>ttuegel:</b></font> when you want to change something, you edit that file and call nixos-rebuild<br/>
+<font color="#A82F2F"><font size="2">(10:01:35 PM)</font> <b>ttuegel:</b></font> and that can be used to configure anything: services started at boot, users and passwords, installed programs...<br/>
+<font color="#A82F2F"><font size="2">(10:02:41 PM)</font> <b>darlinger:</b></font> ttuegel: hmmmm okay. :) just wondering. i was considering the possibility of just bootstrapping it onto a non-systemd distro but that doesn&apos;t seem like much of an option<br/>
+<font color="#A82F2F"><font size="2">(10:03:24 PM)</font> <b>MichaelRaskin:</b></font> NixPkgs work fine on almost anything<br/>
+<font color="#A82F2F"><font size="2">(10:04:04 PM)</font> <b>ttuegel:</b></font> yes, no reason you can&apos;t use nixpkgs to install whatever you like, it just won&apos;t manage your operating system<br/>
+<font color="#A82F2F"><font size="2">(10:04:21 PM)</font> <b>MichaelRaskin:</b></font> Actually, you can create Nix-based NixPkgs-using s6-as-init distribution and then negotiate a refactoring of NixOS services so PostgreSQL config generator can be shared<br/>
+<font color="#A82F2F"><font size="2">(10:04:56 PM)</font> <b>MichaelRaskin:</b></font> I think NixOS service generatiion code needs a refactoring anyway into a more pure-functional direction<br/>
+<font color="#A82F2F"><font size="2">(10:05:26 PM)</font> <b>MichaelRaskin:</b></font> Which would simplify not only sharing, but also composition of some niche configurations that NixOS cannot currently manage correctly<br/>
+<font color="#A82F2F"><font size="2">(10:06:26 PM)</font> <b>darlinger:</b></font> hmmm very good points...<br/>
+<font color="#A82F2F"><font size="2">(10:06:43 PM)</font> <b>darlinger:</b></font> i was thinking either lfs or slackware with just nix on it for package management<br/>
+<font size="2">(10:06:55 PM)</font><b> ambro718 [<em>~ambro@gentoo/contributor/ambro718</em>] entered the room.</b><br/>
+<font size="2">(10:08:13 PM)</font><b> JagaJaga left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(10:08:33 PM)</font><b> silver left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(10:09:17 PM)</font><b> mhi^ left the room (quit: Quit: Lost terminal).</b><br/>
+<font color="#A82F2F"><font size="2">(10:09:20 PM)</font> <b>MichaelRaskin:</b></font> lfs with nix for packages makes little sense<br/>
+<font color="#A82F2F"><font size="2">(10:09:46 PM)</font> <b>MichaelRaskin:</b></font> LFS as-is is written for SystemD in the latest releases<br/>
+<font color="#A82F2F"><font size="2">(10:10:27 PM)</font> <b>MichaelRaskin:</b></font> And writing a minimal script that builds all the components with Nix for a minimal boot is a task comparable with LFS installation per se<br/>
+<font color="#A82F2F"><font size="2">(10:10:45 PM)</font> <b>MichaelRaskin:</b></font> Of course, A/BLFS installation makes you learn something<br/>
+<font color="#A82F2F"><font size="2">(10:10:52 PM)</font> <b>MichaelRaskin:</b></font> Defenitely made me learn some things<br/>
+<font color="#A82F2F"><font size="2">(10:11:45 PM)</font> <b>MichaelRaskin:</b></font> Writing a Nix expression for boot installation also makes you learn things, but not the same set<br/>
+<font color="#A82F2F"><font size="2">(10:11:50 PM)</font> <b>darlinger:</b></font> MichaelRaskin: hmmm i thought lfs was all about putting together your own system<br/>
+<font color="#A82F2F"><font size="2">(10:13:02 PM)</font> <b>MichaelRaskin:</b></font> LFS is about putting together a system from scratch<br/>
+<font color="#A82F2F"><font size="2">(10:13:34 PM)</font> <b>MichaelRaskin:</b></font> It is a hard and complex task (NixPkgs stdenv does the same, though), so the book has to lead you through it by hand<br/>
+<font color="#A82F2F"><font size="2">(10:13:53 PM)</font> <b>MichaelRaskin:</b></font> ALFS just allows you not to retype the commands<br/>
+<font color="#A82F2F"><font size="2">(10:14:22 PM)</font> <b>MichaelRaskin:</b></font> And to get precisely correct versions, which is maybe even more important<br/>
+<font color="#A82F2F"><font size="2">(10:15:01 PM)</font> <b>darlinger:</b></font> hmmmm i&apos;m going to end up doing that eventually. ugh so should i use slackware with nix or should i go the full monty with nixos?<br/>
+<font color="#A82F2F"><font size="2">(10:15:57 PM)</font> <b>MichaelRaskin:</b></font> Well, if you start with NixOS, you&apos;ll know better which parts to reuse when building up a system with nosh/s6/whatever<br/>
+<font size="2">(10:16:38 PM)</font><b> mizu_no_oto [<em>~textual@50.153.148.126</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:16:49 PM)</font> <b>darlinger:</b></font> MichaelRaskin: true. :) i guess i&apos;ll just go with nixos lol<br/>
+<font color="#A82F2F"><font size="2">(10:17:22 PM)</font> <b>darlinger:</b></font> it&apos;ll help me over time decide whether i want to go the guix or nixos direction.<br/>
+<font size="2">(10:21:44 PM)</font><b> JagaJaga [<em>~JagaJaga@178.62.202.50</em>] entered the room.</b><br/>
+<font size="2">(10:35:46 PM)</font><b> darlinger left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(10:37:11 PM)</font><b> sjkelly left the room (quit: Quit: sjkelly).</b><br/>
+<font size="2">(10:40:37 PM)</font><b> ambro718 left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font size="2">(10:41:10 PM)</font><b> Rastus_Vernon [<em>uid15187@wikimedia/Rastus-Vernon</em>] entered the room.</b><br/>
+<font size="2">(10:59:12 PM)</font><b> jb55 [<em>~jb55@S0106f46d049a0b83.vc.shawcable.net</em>] entered the room.</b><br/>
+<font size="2">(11:00:45 PM)</font><b> aaronlevin left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font size="2">(11:05:35 PM)</font><b> mizu_no_oto left the room (quit: Quit: Computer has gone to sleep.).</b><br/>
+<font size="2">(11:06:42 PM)</font><b> ambro718 [<em>~ambro@gentoo/contributor/ambro718</em>] entered the room.</b><br/>
+<font size="2">(11:07:26 PM)</font><b> crobbins [<em>~crobbins@2602:306:3403:d520:7d3e:e56c:c405:d5d6</em>] entered the room.</b><br/>
+<font size="2">(11:09:45 PM)</font><b> T_S_ left the room (quit: Quit: T_S_).</b><br/>
+<font size="2">(11:11:14 PM)</font><b> jb55 left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:11:46 PM)</font><b> jb55 [<em>~jb55@S0106f46d049a0b83.vc.shawcable.net</em>] entered the room.</b><br/>
+<font size="2">(11:15:57 PM)</font><b> justbeingglad [<em>~justbeing@cpc10-warw15-2-0-cust75.3-2.cable.virginm.net</em>] entered the room.</b><br/>
+<font size="2">(11:16:28 PM)</font><b> jb55 left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(11:16:48 PM)</font><b> sivteck left the room (quit: Quit: The Beginning of the End of The Beginning of the End of The Beginning of the End of The Beginning of the End of The Beginning of The End.).</b><br/>
+<font size="2">(11:20:04 PM)</font><b> komarov left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#16569E"><font size="2">(11:23:41 PM)</font> <b>magnetophon:</b></font> wtf:    [nix-shell:/tmp]$ unpackPhase <br/>
+<font color="#16569E"><font size="2">(11:23:41 PM)</font> <b>magnetophon:</b></font> unpacking source archive /nix/store/f5xpv009ijd51pxrb8qvgmsfzafiwjyg-rtirq-20140413.tar.gz<br/>
+<font color="#16569E"><font size="2">(11:23:41 PM)</font> <b>magnetophon:</b></font> source root is cpio-2.11<br/>
+<font color="#A82F2F"><font size="2">(11:23:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] prikhi opened pull request #5195: Fix the Vim Plugins Documentation (master...fix-vimplugin-docu) http://git.io/gsOMUg<br/>
+<font color="#A82F2F"><font size="2">(11:23:50 PM)</font> <b>meditans:</b></font> MichaelRaskin: so, I read about your virtualization solution. In your opinion is it possibile to conclude that HyperV, being a level I hypervisor (hardware), should be faster/smoother than a headless VM with Xvnc?<br/>
+<font color="#A82F2F"><font size="2">(11:24:27 PM)</font> <b>roconnor:</b></font> magnetophon: is /tmp empty?<br/>
+<font color="#16569E"><font size="2">(11:25:03 PM)</font> <b>magnetophon:</b></font> roconnor: no. I'll try again in an empty dir. Why is that important?<br/>
+<font color="#A82F2F"><font size="2">(11:25:48 PM)</font> <b>MichaelRaskin:</b></font> meditans: these are orthogonal things<br/>
+<font color="#A82F2F"><font size="2">(11:25:51 PM)</font> <b>roconnor:</b></font> magnetophon: I think souce root is found by just looking around the directory after the unpack phase<br/>
+<font color="#A82F2F"><font size="2">(11:26:20 PM)</font> <b>MichaelRaskin:</b></font> And, frankly, both should be given a brief test run to find out whether they improve things or not in your specific situation<br/>
+<font color="#A82F2F"><font size="2">(11:26:36 PM)</font> <b>meditans:</b></font> MichaelRaskin: I see, so I could use a headless vm in HyperV through Xvnc?<br/>
+<font color="#A82F2F"><font size="2">(11:26:53 PM)</font> <b>meditans:</b></font> MichaelRaskin: where do you suggest me to begin?<br/>
+<font color="#A82F2F"><font size="2">(11:26:55 PM)</font> <b>MichaelRaskin:</b></font> There is the question whether VirtualBox or Hyper-V performs better<br/>
+<font color="#A82F2F"><font size="2">(11:27:12 PM)</font> <b>MichaelRaskin:</b></font> I _hope_ that evaluating this should be quite cheap<br/>
+<font color="#16569E"><font size="2">(11:27:32 PM)</font> <b>magnetophon:</b></font> roconnor: nope, same result.   odd...<br/>
+<font color="#A82F2F"><font size="2">(11:28:07 PM)</font> <b>MichaelRaskin:</b></font> But the results may differ for virtual-X11 and Xvnc<br/>
+<font color="#A82F2F"><font size="2">(11:28:23 PM)</font> <b>MichaelRaskin:</b></font> And for virtual X11 the results may differ between fullscreen and windowed mode<br/>
+<font color="#16569E"><font size="2">(11:28:23 PM)</font> <b>magnetophon:</b></font> roconnor: I also tried garbage collecting, thinking the path to my archive got messed up.    Nothing...<br/>
+<font color="#A82F2F"><font size="2">(11:28:27 PM)</font> <b>goibhniu:</b></font> what&apos;s the problem magnetophon?<br/>
+<font size="2">(11:28:29 PM)</font><b> CandidC [<em>~Candid@1.178.44.122</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:28:50 PM)</font> <b>MichaelRaskin:</b></font> I think a quick evaluation of full-screen VNC should also be quick<br/>
+<font color="#16569E"><font size="2">(11:28:57 PM)</font> <b>magnetophon:</b></font> goibhniu: I'm trying to unpack one package in the nix-shell, and out comes another<br/>
+<font color="#A82F2F"><font size="2">(11:29:02 PM)</font> <b>MichaelRaskin:</b></font> Just to see if it is worth digging deeper<br/>
+<font color="#A82F2F"><font size="2">(11:29:23 PM)</font> <b>goibhniu:</b></font> magnetophon: oh, can you post your expression?<br/>
+<font color="#16569E"><font size="2">(11:29:42 PM)</font> <b>magnetophon:</b></font> goibhniu: coming up<br/>
+<font color="#A82F2F"><font size="2">(11:29:44 PM)</font> <b>meditans:</b></font> MichaelRaskin: ok, I&apos;m going to try them out, then. Thanks again :)<br/>
+<font color="#A82F2F"><font size="2">(11:30:29 PM)</font> <b>roconnor:</b></font> magnetophon: oh I bet I know what happend<br/>
+<font color="#16569E"><font size="2">(11:30:55 PM)</font> <b>magnetophon:</b></font> roconnor: ????<br/>
+<font color="#A82F2F"><font size="2">(11:31:02 PM)</font> <b>roconnor:</b></font> wait nevermind.<br/>
+<font color="#16569E"><font size="2">(11:31:11 PM)</font> <b>magnetophon:</b></font> :-/<br/>
+<font color="#A82F2F"><font size="2">(11:31:48 PM)</font> <b>roconnor:</b></font> magnetophon: I was going to say you copied a nix expression but didn&apos;t update the hash, and now you are unpacking the file with the hash instead of the file you want.<br/>
+<font size="2">(11:31:59 PM)</font><b> komarov [<em>~komarov@46.227.191.207</em>] entered the room.</b><br/>
+<font size="2">(11:32:02 PM)</font><b> civodul left the room (quit: Quit: ERC Version 5.3 (IRC client for Emacs)).</b><br/>
+<font color="#A82F2F"><font size="2">(11:32:05 PM)</font> <b>roconnor:</b></font> magnetophon: but I don&apos;t think that is consistent with the observations you have posted.<br/>
+<font color="#16569E"><font size="2">(11:32:37 PM)</font> <b>magnetophon:</b></font> roconnor: went trough my mind too, but I think you actually get an error then<br/>
+<font color="#A82F2F"><font size="2">(11:32:52 PM)</font> <b>roconnor:</b></font> no you do not<br/>
+<font color="#A82F2F"><font size="2">(11:33:01 PM)</font> <b>roconnor:</b></font> you do not get an error<br/>
+<font size="2">(11:33:29 PM)</font><b> sigmundv left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#16569E"><font size="2">(11:34:30 PM)</font> <b>magnetophon:</b></font> goibhniu: https://github.com/magnetophon/nixpkgs/compare/rtirq?expand=1<br/>
+<font color="#16569E"><font size="2">(11:36:25 PM)</font> <b>magnetophon:</b></font> roconnor: Are we both talking about when the url and the hash don't match?<br/>
+<font color="#A82F2F"><font size="2">(11:36:28 PM)</font> <b>roconnor:</b></font> magnetophon: according to my fetch, your hash is wrong.<br/>
+<font color="#16569E"><font size="2">(11:36:44 PM)</font> <b>magnetophon:</b></font> roconnor: if not I misunderstood you<br/>
+<font color="#A82F2F"><font size="2">(11:37:00 PM)</font> <b>roconnor:</b></font> magnetophon: fetch url looks at the hash first.   If it is the database, then it doesn&apos;t even look at your url.<br/>
+<font color="#A82F2F"><font size="2">(11:37:23 PM)</font> <b>roconnor:</b></font> so if you can change the url all you want; if you dont&apos; touch the hash and have already downloaded it, nothing will happen.<br/>
+<font color="#16569E"><font size="2">(11:37:29 PM)</font> <b>magnetophon:</b></font> roconnor: ah, that's why I had seen other behaviour earlier. Thanks!<br/>
+<font color="#A82F2F"><font size="2">(11:37:48 PM)</font> <b>kmicu:</b></font> Is this up-to-date? https://nixos.org/wiki/How_to_enable_subpixel_rendering_in_freetype<br/>
+<font color="#A82F2F"><font size="2">(11:37:56 PM)</font> <b>roconnor:</b></font> according to google, your hash is for mirror://gnu/cpio/cpio-2.11.tar.bz2;<br/>
+<font color="#A82F2F"><font size="2">(11:38:13 PM)</font> <b>kmicu:</b></font> It gives me ”The option `environment.variables.LD_LIBRARY_PATH&apos; is defined multiple times”<br/>
+<font color="#A82F2F"><font size="2">(11:38:14 PM)</font> <b>roconnor:</b></font> 0nbsbk5m4yvhmgcw41hdva51b0v97015cqdamlby0p5kqvy213v6 is the correct hash.<br/>
+<font size="2">(11:38:23 PM)</font><b> bergey left the room (quit: Quit: ERC Version 5.3 (IRC client for Emacs)).</b><br/>
+<font color="#16569E"><font size="2">(11:38:41 PM)</font> <b>magnetophon:</b></font> roconnor: thanks<br/>
+<font size="2">(11:39:24 PM)</font><b> bergey [<em>~user@pool-71-175-178-253.phlapa.east.verizon.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:39:30 PM)</font> <b>roconnor:</b></font> magnetophon: This is a common problem, and I don&apos;t think there has been a good solution to it proposed.<br/>
+<font color="#A82F2F"><font size="2">(11:40:18 PM)</font> <b>goibhniu:</b></font> kmicu: did you notice the pull request which will change all of that, it looks really great!<br/>
+<font color="#16569E"><font size="2">(11:40:25 PM)</font> <b>magnetophon:</b></font> roconnor: why not just look at both the hash and the url, en throw an error if they don't match?<br/>
+<font color="#A82F2F"><font size="2">(11:40:54 PM)</font> <b>roconnor:</b></font> magnetophon: because then you&apos;d waste time downloading a url when you already have the file.<br/>
+<font color="#A82F2F"><font size="2">(11:40:57 PM)</font> <b>aristid:</b></font> magnetophon: are you dutch?<br/>
+<font color="#A82F2F"><font size="2">(11:41:15 PM)</font> <b>roconnor:</b></font> magnetophon: or maybe you don&apos;t have a network connection at the moment.<br/>
+<font color="#16569E"><font size="2">(11:41:17 PM)</font> <b>magnetophon:</b></font> aristid: jij ook?<br/>
+<font color="#A82F2F"><font size="2">(11:41:53 PM)</font> <b>aristid:</b></font> magnetophon: nee, ben duitser, maar ik leer jouw taal en het is echt een typisch nederlands fout, in het engels ook &quot;en&quot; te gebruiken<br/>
+<font color="#A82F2F"><font size="2">(11:41:57 PM)</font> <b>kmicu:</b></font> goibhniu: I’m checking manuals and wiki for correctness. Still w/o time to check github Issues and PRs :/<br/>
+<font color="#A82F2F"><font size="2">(11:42:14 PM)</font> <b>roconnor:</b></font> magnetophon: also, so called fixed-derivations can actually be arbitrarily complicated.<br/>
+<font color="#16569E"><font size="2">(11:42:18 PM)</font> <b>magnetophon:</b></font> aristid cought! :D<br/>
+<font color="#A82F2F"><font size="2">(11:42:50 PM)</font> <b>goibhniu:</b></font> kmicu: https://github.com/NixOS/nixpkgs/pull/5194<br/>
+<font color="#A82F2F"><font size="2">(11:43:33 PM)</font> <b>kmicu:</b></font> goibhniu: do you have some interesting workflow for interaction with Github w/o touching Github web UI?<br/>
+<font color="#A82F2F"><font size="2">(11:43:54 PM)</font> <b>goibhniu:</b></font> kmicu: email! :D<br/>
+<font color="#A82F2F"><font size="2">(11:44:15 PM)</font> <b>aristid:</b></font> magnetophon: duitsers schrijven vaak &quot;ist&quot; in plaats van &quot;is&quot;:D<br/>
+<font color="#A82F2F"><font size="2">(11:44:27 PM)</font> <b>aristid:</b></font> sorry for the derailing<br/>
+<font color="#A82F2F"><font size="2">(11:44:33 PM)</font> <b>MichaelRaskin:</b></font> Also curl -L github.com/nixos/nixpkgs/pull/5194.patch<br/>
+<font color="#16569E"><font size="2">(11:45:48 PM)</font> <b>magnetophon:</b></font> roconnor: google couldn't find anything usefull on fixed-derivations and nixos<br/>
+<font color="#A82F2F"><font size="2">(11:45:59 PM)</font> <b>MichaelRaskin:</b></font> fixed-output derivations<br/>
+<font color="#A82F2F"><font size="2">(11:46:32 PM)</font> <b>aristid:</b></font> fixed-output derivations are those where you have a sha256=bla argument or equivalent<br/>
+<font color="#A82F2F"><font size="2">(11:46:53 PM)</font> <b>aristid:</b></font> they are allowed to do some more impure things, like use the network<br/>
+<font color="#A82F2F"><font size="2">(11:47:07 PM)</font> <b>aristid:</b></font> which is important for example for fetchurl, which uses them<br/>
+<font color="#A82F2F"><font size="2">(11:48:46 PM)</font> <b>roconnor:</b></font> oops; I got the keyword wrong<br/>
+<font color="#16569E"><font size="2">(11:50:08 PM)</font> <b>magnetophon:</b></font> Not sure I undertand the above, but couldn't you make it an option to strictly check the hash vs url?<br/>
+<font color="#A82F2F"><font size="2">(11:51:19 PM)</font> <b>roconnor:</b></font> magnetophon: not hash vs url; hash vs output of arbitrary script. ... but perhaps your point still holds.<br/>
+<font size="2">(11:58:44 PM)</font><b> houshuang [<em>~textual@198-91-165-2.cpe.distributel.net</em>] entered the room.</b><br/>
+<font size="2">(12:00:14 AM)</font><b> med\ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(12:01:43 AM)</font><b> komarov left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(12:03:25 AM)</font><b> crobbins left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(12:05:31 AM)</font><b> vandenoever left the room (quit: Quit: ䷴៚).</b><br/>
+<font size="2">(12:05:36 AM)</font><b> RioS2 [<em>~RioS2@unaffiliated/rios2</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:10:11 AM)</font> <b>roconnor:</b></font> magnetophon: things could get interesting when/if firefox becomes a fixed-output derivation. :)<br/>
+<font color="#A82F2F"><font size="2">(12:11:08 AM)</font> <b>RioS2:</b></font> where are the configuration knobs defined? like services.httpd.extraModules = [&quot;proxy_balancer&quot;];<br/>
+<font size="2">(12:11:15 AM)</font><b> houshuang left the room (quit: Quit: My Mac has gone to sleep. ZZZzzz…).</b><br/>
+<font size="2">(12:13:12 AM)</font><b> goibhniu left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:16:53 AM)</font> <b>roconnor:</b></font> &lt;nixpkgs/nixos/modules/services/web-servers/apache-httpd/default.nix&gt; ?<br/>
+<font color="#A82F2F"><font size="2">(12:17:34 AM)</font> <b>RioS2:</b></font> thanks<br/>
+<font size="2">(12:18:29 AM)</font><b> justbeingglad left the room.</b><br/>
+<font size="2">(12:21:59 AM)</font><b> petar left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(12:23:17 AM)</font><b> eddyb__ left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:23:50 AM)</font> <b>RioS2:</b></font> anyone deployed a hadoop cluster with nixops?<br/>
+<font color="#A82F2F"><font size="2">(12:25:39 AM)</font> <b>ttuegel:</b></font> kmicu: regarding your question about the wiki and subpixel rendering: subpixel has been enabled by default for a long time, that wiki page can just be deleted<br/>
+<font size="2">(12:26:14 AM)</font><b> JagaJaga left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font size="2">(12:27:24 AM)</font><b> aaronlevin [<em>~aaron@24.140.238.176</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(12:27:28 AM)</font> <b>magnetophon:</b></font> where should I put system-wide user editable config files?<br/>
+<font color="#16569E"><font size="2">(12:28:28 AM)</font> <b>magnetophon:</b></font> so maybe not user editble but rather root editable<br/>
+<font color="#16569E"><font size="2">(12:29:42 AM)</font> <b>magnetophon:</b></font> Sorry that was not clear: in the context of macking a package, I mean.<br/>
+<font color="#A82F2F"><font size="2">(12:30:31 AM)</font> <b>roconnor:</b></font> magnetophon: new packages should be submitted to the nixpkgs github repo. :)<br/>
+<font color="#16569E"><font size="2">(12:31:24 AM)</font> <b>magnetophon:</b></font> roconnor: no, I mean where in the path should I install a file that needs to be hand-edited after the instalation.<br/>
+<font color="#A82F2F"><font size="2">(12:32:14 AM)</font> <b>roconnor:</b></font> magnetophon: /var/lib<br/>
+<font color="#A82F2F"><font size="2">(12:32:27 AM)</font> <b>roconnor:</b></font> I think<br/>
+<font color="#062585"><font size="2">(12:33:33 AM)</font> <b>***magnetophon</b></font> is looking around in there<br/>
+<font size="2">(12:34:21 AM)</font><b> mizu_no_oto [<em>~textual@c-24-60-13-249.hsd1.ma.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(12:35:00 AM)</font><b> angerman left the room (quit: Quit: Gone).</b><br/>
+<font color="#16569E"><font size="2">(12:35:08 AM)</font> <b>magnetophon:</b></font> roconnor: yeah, that looks alright. :) thanks!<br/>
+<font color="#A82F2F"><font size="2">(12:38:56 AM)</font> <b>RioS2:</b></font> hm, nixpkgs/pkgs and nixpkgs/nixos/modules structure don&apos;t exactly line up<br/>
+<font color="#A82F2F"><font size="2">(12:40:20 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker pushed 1 new commit to master: http://git.io/6KGUZQ<br/>
+<font color="#A82F2F"><font size="2">(12:40:20 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 61e19d6 Jaka Hudoklin: rubyLibs: add tmuxinator, update<br/>
+<font size="2">(12:47:20 AM)</font><b> marcvreuls [<em>~marcvreul@a83-161-198-232.adsl.xs4all.nl</em>] entered the room.</b><br/>
+<font size="2">(12:51:55 AM)</font><b> marcvreuls left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font size="2">(01:04:52 AM)</font><b> suffering [<em>~suffering@cpe-72-227-184-166.nyc.res.rr.com</em>] entered the room.</b><br/>
+<font size="2">(01:11:17 AM)</font><b> hexagoxel left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(01:14:18 AM)</font><b> mizu_no_oto left the room (quit: Quit: Computer has gone to sleep.).</b><br/>
+<font size="2">(01:27:56 AM)</font><b> aaronlevin left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(01:28:20 AM)</font><b> ambro718 left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font size="2">(01:28:54 AM)</font><b> ryantrinkle left the room.</b><br/>
+<font size="2">(01:44:10 AM)</font><b> suffering left the room (quit: Quit: My MacBook has gone to sleep. ZZZzzz…).</b><br/>
+<font size="2">(01:48:50 AM)</font><b> ikervagyok [<em>d4602529@gateway/web/freenode/ip.212.96.37.41</em>] entered the room.</b><br/>
+<font size="2">(01:54:52 AM)</font><b> ikervagyok left the room (quit: Quit: Page closed).</b><br/>
+<font size="2">(01:56:21 AM)</font><b> lucidd left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(02:04:37 AM)</font><b> aaronlevin [<em>~aaron@24.140.238.176</em>] entered the room.</b><br/>
+<font size="2">(02:08:24 AM)</font><b> lucidd [<em>~lucid@HSI-KBW-078-042-152-111.hsi3.kabel-badenwuerttemberg.de</em>] entered the room.</b><br/>
+<font size="2">(02:12:39 AM)</font><b> mmmm left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(02:14:13 AM)</font><b> Takle left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:24:48 AM)</font><b> mizu_no_oto [<em>~textual@50.153.149.61</em>] entered the room.</b><br/>
+<font size="2">(02:25:33 AM)</font><b> meditans left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:29:34 AM)</font><b> mizu_no_oto left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(02:33:16 AM)</font><b> wmertens left the room (quit: Quit: wmertens).</b><br/>
+<font size="2">(02:34:46 AM)</font><b> mizu_no_oto [<em>~textual@50.153.149.61</em>] entered the room.</b><br/>
+<font size="2">(02:58:31 AM)</font><b> enolan [<em>~enolan@c-67-189-87-218.hsd1.wa.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:59:53 AM)</font> <b>enolan:</b></font> I just installed Nix and it&apos;s printing the the help for the btrfs executable early in the boot process<br/>
+<font color="#A82F2F"><font size="2">(03:00:27 AM)</font> <b>enolan:</b></font> like a script is calling it with bad parameters or something<br/>
+<font color="#A82F2F"><font size="2">(03:05:17 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker pushed 1 new commit to master: http://git.io/Ggyv8A<br/>
+<font color="#A82F2F"><font size="2">(03:05:17 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 725c55c Jaka Hudoklin: nodePackages: hack version override sed some more to support github packages, until better solution is found<br/>
+<font size="2">(03:14:21 AM)</font><b> sogatori [<em>~quassel@dslb-188-105-083-039.188.105.pools.vodafone-ip.de</em>] entered the room.</b><br/>
+<font size="2">(03:14:42 AM)</font><b> Takle [<em>~takle@188.228.85.218</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:19:30 AM)</font> <b>ewemoa:</b></font> the-kenny: via nixpkgs master, i get the following error output for &apos;lein repl&apos; -- any ideas as to what might be going on? https://pastee.org/zkuqf<br/>
+<font size="2">(03:19:36 AM)</font><b> Takle left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font size="2">(03:28:36 AM)</font><b> tobik left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(03:30:27 AM)</font><b> tobik [<em>~tobik@p5DCCC566.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:34:36 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] aszlig pushed 1 new commit to master: http://git.io/L8ieXg<br/>
+<font color="#A82F2F"><font size="2">(03:34:37 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 2b58a6a aszlig: virtualbox: Fix extension pack installation....<br/>
+<font size="2">(03:45:42 AM)</font><b> ebzzry__ [<em>~ebzzry@112.204.28.97</em>] entered the room.</b><br/>
+<font size="2">(03:46:11 AM)</font><b> ebzzry_ left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(03:48:00 AM)</font><b> meditans [<em>~user@adsl-ull-142-139.51-151.net24.it</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:49:34 AM)</font> <b>meditans:</b></font> I have a doubt: when I install nixOS in a VM, should I provide swap space?<br/>
+<font size="2">(04:11:17 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

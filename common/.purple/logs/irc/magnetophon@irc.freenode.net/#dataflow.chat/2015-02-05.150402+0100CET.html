@@ -1,0 +1,141 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #dataflow at Thu 05 Feb 2015 03:04:02 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #dataflow at Thu 05 Feb 2015 03:04:02 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(03:04:02 PM)</font><b> The topic for #dataflow is: ∿∿ The PureData Chatline ♫ ENGLISH FRANÇAIS DEUTSCH ♫ The Diagram is the Program™ ∿∿ Readymade Solutions Require Readymade Problems ; For Everything Else There Is PureData.™ ♫ <a href="http://puredata.info/">http://puredata.info/</a> ∿∿ <a href="http://gridflow.ca/">http://gridflow.ca/</a> ♫ ♩♬♫♩♪♩ <a href="http://wiki.dataflow.ws/DataFlow">http://wiki.dataflow.ws/DataFlow</a> ∿∿</b><br/>
+<font size="2">(03:04:02 PM)</font><b> Topic for #dataflow set by matju at 07:06:16 AM on 11/07/2011</b><br/>
+<font color="#A82F2F"><font size="2">(03:04:02 PM)</font> <b>sinisalo.freenode.net:</b></font> (notice) [freenode-info] if you&apos;re at a conference and other people are having trouble connecting, please mention it to staff: http://freenode.net/faq.shtml#gettinghelp<br/>
+<font color="#A82F2F"><font size="2">(03:51:42 PM)</font> <b>cougarten_:</b></font> ah, now i got would made me stuck at the arrays.... there are no multi-dimensional arrays??<br/>
+<font color="#A82F2F"><font size="2">(04:11:22 PM)</font> <b>cougarten_:</b></font> how would i trigger in sequence? like this, only working :) http://malea.lacerta.uberspace.de/shots/2015-02-05_1610.png<br/>
+<font color="#A82F2F"><font size="2">(04:15:14 PM)</font> <b>cougarten_:</b></font> ah, maybe packing helps<br/>
+<font color="#A82F2F"><font size="2">(04:18:43 PM)</font> <b>cougarten_:</b></font> nope<br/>
+<font color="#A82F2F"><font size="2">(04:42:00 PM)</font> <b>rdz:</b></font> cougarten_, oh... i feel the pain with you..<br/>
+<font color="#A82F2F"><font size="2">(04:42:10 PM)</font> <b>rdz:</b></font> there are no built-in multi-dimensional arrays<br/>
+<font color="#A82F2F"><font size="2">(04:42:44 PM)</font> <b>rdz:</b></font> either you build someting yourself (great PITA) or you use a dedicated external<br/>
+<font color="#A82F2F"><font size="2">(04:43:19 PM)</font> <b>rdz:</b></font> there is iemmatrix for 2d-arrays and the graphics-oriented gridflow library that supports n dimensions<br/>
+<font color="#A82F2F"><font size="2">(04:43:36 PM)</font> <b>rdz:</b></font> iemmatrix is included in pd-extended, from what i know<br/>
+<font color="#A82F2F"><font size="2">(04:44:29 PM)</font> <b>rdz:</b></font> hm..<br/>
+<font color="#A82F2F"><font size="2">(04:44:37 PM)</font> <b>rdz:</b></font> what is the idea of the image you posted?<br/>
+<font color="#A82F2F"><font size="2">(04:45:11 PM)</font> <b>rdz:</b></font> you want to save many values in a table?<br/>
+<font color="#A82F2F"><font size="2">(04:49:14 PM)</font> <b>cougarten_:</b></font> yes, thats all i want :)<br/>
+<font color="#A82F2F"><font size="2">(04:49:23 PM)</font> <b>cougarten_:</b></font> rdz, <br/>
+<font color="#A82F2F"><font size="2">(04:50:44 PM)</font> <b>rdz:</b></font> do you want the data to be saved with the patch?<br/>
+<font color="#A82F2F"><font size="2">(04:50:49 PM)</font> <b>rdz:</b></font> cougarten_, <br/>
+<font color="#A82F2F"><font size="2">(04:51:23 PM)</font> <b>cougarten_:</b></font> no, I don&apos;t care. <br/>
+<font color="#A82F2F"><font size="2">(04:52:14 PM)</font> <b>rdz:</b></font> and how do you want to retrieve your data?<br/>
+<font color="#A82F2F"><font size="2">(04:52:23 PM)</font> <b>cougarten_:</b></font> I&apos;m just trying to build a sound mutation thing with A/B testing :)<br/>
+<font color="#A82F2F"><font size="2">(04:53:14 PM)</font> <b>cougarten_:</b></font> i thought of reading the table :)<br/>
+<font color="#A82F2F"><font size="2">(04:54:15 PM)</font> <b>cougarten_:</b></font> I just need to save and recall multiple values<br/>
+<font color="#A82F2F"><font size="2">(04:55:36 PM)</font> <b>rdz:</b></font> so you press a button and it spits out many values?<br/>
+<font color="#A82F2F"><font size="2">(04:56:00 PM)</font> <b>rdz:</b></font> or do you wanna toggle between two different sets of data?<br/>
+<font color="#A82F2F"><font size="2">(05:00:47 PM)</font> <b>cougarten_:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(05:01:06 PM)</font> <b>cougarten_:</b></font> all of that :)<br/>
+<font color="#A82F2F"><font size="2">(05:02:55 PM)</font> <b>cougarten_:</b></font> I got 3 states: old, new1, new2. I read old and save it, than I generate values for new1 and new2. Now i need to toggle between all 3 states and finally save one as &quot;old&quot; and generate 2 new again<br/>
+<font color="#A82F2F"><font size="2">(05:03:20 PM)</font> <b>cougarten_:</b></font> generate values for new1 und new2 again<br/>
+<font color="#A82F2F"><font size="2">(05:09:21 PM)</font> <b>rdz:</b></font> cougarten_, what does it mean: you read old and then you save it. why do you need to save it, when you can read it? it&apos;s stored somewhere already, isn&apos;t it?<br/>
+<font color="#A82F2F"><font size="2">(05:10:34 PM)</font> <b>cougarten_:</b></font> yes, but as i want to toggle later on, I have to save it, so i can restore it<br/>
+<font color="#A82F2F"><font size="2">(05:10:42 PM)</font> <b>rdz:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(05:11:03 PM)</font> <b>rdz:</b></font> you need to be able to call three different states for a set of parameters, right?<br/>
+<font color="#A82F2F"><font size="2">(05:11:09 PM)</font> <b>cougarten_:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(05:16:39 PM)</font> <b>rdz:</b></font> lemme finish something else.. maybe i&apos;ll have time then to look into this<br/>
+<font color="#A82F2F"><font size="2">(05:16:56 PM)</font> <b>cougarten_:</b></font> cool, thank you<br/>
+<font color="#A82F2F"><font size="2">(05:17:29 PM)</font> <b>cougarten_:</b></font> I&apos;ll be arround for 2h and than aigain after riding home from work (another h)<br/>
+<font color="#A82F2F"><font size="2">(05:18:38 PM)</font> <b>Ceeram_:</b></font> cougarten_: while you are still around, maybe you could enlighten me a bit. Im completely new to pd, im wondering how values are stored<br/>
+<font color="#A82F2F"><font size="2">(05:19:16 PM)</font> <b>Ceeram_:</b></font> as in, is this actually stored in a database, or save to file?<br/>
+<font color="#A82F2F"><font size="2">(05:19:41 PM)</font> <b>cougarten_:</b></font> which values?<br/>
+<font color="#A82F2F"><font size="2">(05:19:58 PM)</font> <b>Ceeram_:</b></font> i have not worked with pd myself, only seen a maxmsp demo last night, but i dont have a mac, so found pd as alternative today<br/>
+<font color="#A82F2F"><font size="2">(05:20:08 PM)</font> <b>cougarten_:</b></font> it depends on whether you hardcode them, like [f 0.3] or use the number box<br/>
+<font color="#A82F2F"><font size="2">(05:20:17 PM)</font> <b>Ceeram_:</b></font> those 3 states you were talking about, which have to be restored later<br/>
+<font color="#A82F2F"><font size="2">(05:20:45 PM)</font> <b>cougarten_:</b></font> changing values are not stored at all upon closing the patch<br/>
+<font color="#A82F2F"><font size="2">(05:21:15 PM)</font> <b>Ceeram_:</b></font> ? I have to save it, so i can restore it?, what does save mean in this context<br/>
+<font color="#A82F2F"><font size="2">(05:22:07 PM)</font> <b>cougarten_:</b></font> I want to backup a number (actually i want 3 backups), change the original and revert to one of my backups<br/>
+<font color="#A82F2F"><font size="2">(05:22:33 PM)</font> <b>cougarten_:</b></font> and to make things more complicated, I want several backups with sets of a few (4) numbers<br/>
+<font color="#A82F2F"><font size="2">(05:22:35 PM)</font> <b>Ceeram_:</b></font> right, what is this backup<br/>
+<font color="#A82F2F"><font size="2">(05:23:00 PM)</font> <b>cougarten_:</b></font> could be an array, that would be the smart way to do it in most programming language<br/>
+<font color="#A82F2F"><font size="2">(05:23:04 PM)</font> <b>Ceeram_:</b></font> is that number written to a file as backup, stored in a database, or something else<br/>
+<font color="#A82F2F"><font size="2">(05:23:27 PM)</font> <b>cougarten_:</b></font> but since arrays are a pain in the *** I might aswell use i text file...<br/>
+<font color="#A82F2F"><font size="2">(05:23:29 PM)</font> <b>Ceeram_:</b></font> yeah i come from php programming background, so i know all about arrays :)<br/>
+<font color="#A82F2F"><font size="2">(05:23:37 PM)</font> <b>Ceeram_:</b></font> arrays are king in php ;)<br/>
+<font color="#A82F2F"><font size="2">(05:23:45 PM)</font> <b>cougarten_:</b></font> :) they allways are anywhere<br/>
+<font color="#A82F2F"><font size="2">(05:24:10 PM)</font> <b>Ceeram_:</b></font> i guess with pd, you dont really need to know the internals of how something is stored/saved<br/>
+<font color="#A82F2F"><font size="2">(05:24:12 PM)</font> <b>cougarten_:</b></font> maybe I&apos;ll go for a cvs file, though it&apos;s really a waste of recources to make my hard drive do some work<br/>
+<font color="#A82F2F"><font size="2">(05:24:18 PM)</font> <b>cougarten_:</b></font> yes :)<br/>
+<font color="#A82F2F"><font size="2">(05:24:48 PM)</font> <b>cougarten_:</b></font> it doesn&apos;t get saved when you close the patch or is hardcoded. the rest is transparent/invisible to you and doesn&apos;t matter<br/>
+<font color="#A82F2F"><font size="2">(05:25:16 PM)</font> <b>cougarten_:</b></font> or you need to dump settings files or manipulate &quot;init&quot; values of stuff<br/>
+<font color="#A82F2F"><font size="2">(05:26:07 PM)</font> <b>Ceeram_:</b></font> cougarten_: ah so no persistent save<br/>
+<font color="#A82F2F"><font size="2">(05:26:09 PM)</font> <b>Ceeram_:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(05:26:10 PM)</font> <b>cougarten_:</b></font> ah damn, I just remembered, that I indeed used cvs files in thes project, but that part was in sweet processing/js<br/>
+<font color="#A82F2F"><font size="2">(05:26:13 PM)</font> <b>cougarten_:</b></font> jup<br/>
+<font color="#A82F2F"><font size="2">(05:27:10 PM)</font> <b>cougarten_:</b></font> throwing more time at this tiny problem and soon I&apos;d have been better off with pen+paper and manually entering and noting the values, haha<br/>
+<font color="#A82F2F"><font size="2">(05:27:51 PM)</font> <b>cougarten_:</b></font> you&apos;re on linux?<br/>
+<font color="#A82F2F"><font size="2">(05:27:57 PM)</font> <b>Ceeram_:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(05:28:14 PM)</font> <b>Ceeram_:</b></font> well, currently im on a windows machine at work, but at home i use ubuntu <br/>
+<font color="#A82F2F"><font size="2">(05:28:18 PM)</font> <b>cougarten_:</b></font> :) i see<br/>
+<font color="#A82F2F"><font size="2">(05:28:33 PM)</font> <b>cougarten_:</b></font> what do you want to use PD for?<br/>
+<font color="#A82F2F"><font size="2">(05:28:39 PM)</font> <b>Ceeram_:</b></font> dont know yet<br/>
+<font color="#A82F2F"><font size="2">(05:28:40 PM)</font> <b>Ceeram_:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(05:28:55 PM)</font> <b>cougarten_:</b></font> hehe<br/>
+<font color="#A82F2F"><font size="2">(05:29:04 PM)</font> <b>cougarten_:</b></font> I have to admit, I dont recommend it<br/>
+<font color="#A82F2F"><font size="2">(05:29:07 PM)</font> <b>Ceeram_:</b></font> im both interested in programming and music, and i will see what fun thing comes out of it<br/>
+<font color="#A82F2F"><font size="2">(05:29:30 PM)</font> <b>Ceeram_:</b></font> i had seen a demo of maxmsp last night, but can only run that on win/mac<br/>
+<font color="#A82F2F"><font size="2">(05:29:36 PM)</font> <b>Ceeram_:</b></font> why not recommending it?<br/>
+<font color="#A82F2F"><font size="2">(05:29:41 PM)</font> <b>cougarten_:</b></font> I&apos;d go for processing for programming experiments and supercollider for pure sound stuff<br/>
+<font color="#A82F2F"><font size="2">(05:30:12 PM)</font> <b>cougarten_:</b></font> If you&apos;re acustomed to code, it will probably be easier not to get tangled in these patch cables here<br/>
+<font color="#A82F2F"><font size="2">(05:30:27 PM)</font> <b>cougarten_:</b></font> also I couldn&apos;t find any proper documentation for pd<br/>
+<font color="#A82F2F"><font size="2">(05:30:33 PM)</font> <b>Ceeram_:</b></font> yeah, to me it was a weird kind of ?programming? :)<br/>
+<font color="#A82F2F"><font size="2">(05:30:50 PM)</font> <b>cougarten_:</b></font> it wroks well for quick n dirty patching<br/>
+<font color="#A82F2F"><font size="2">(05:30:56 PM)</font> <b>cougarten_:</b></font> ~works<br/>
+<font color="#A82F2F"><font size="2">(05:30:57 PM)</font> <b>Ceeram_:</b></font> gonna reinstall fresh ubuntu tonight and then install pd and see where i get<br/>
+<font color="#A82F2F"><font size="2">(05:31:15 PM)</font> <b>cougarten_:</b></font> today I learned there are no multideminsional arrays...<br/>
+<font color="#A82F2F"><font size="2">(05:31:27 PM)</font> <b>cougarten_:</b></font> aww damn, sorry for my spelling...<br/>
+<font color="#A82F2F"><font size="2">(05:31:33 PM)</font> <b>cougarten_:</b></font> do you know processing?<br/>
+<font color="#A82F2F"><font size="2">(05:31:45 PM)</font> <b>Ceeram_:</b></font> heard of hat last night as well<br/>
+<font color="#A82F2F"><font size="2">(05:31:50 PM)</font> <b>Ceeram_:</b></font> this is all new to me<br/>
+<font color="#A82F2F"><font size="2">(05:31:59 PM)</font> <b>Ceeram_:</b></font> entered a whole new spectrum last night :)<br/>
+<font color="#A82F2F"><font size="2">(05:32:01 PM)</font> <b>cougarten_:</b></font> not the most performant one, but real quick to throw stuff together<br/>
+<font color="#A82F2F"><font size="2">(05:32:07 PM)</font> <b>cougarten_:</b></font> :) cool, where have you been?<br/>
+<font color="#A82F2F"><font size="2">(05:32:56 PM)</font> <b>Ceeram_:</b></font> guy did a demo in a coffeeshop around the corner<br/>
+<font color="#A82F2F"><font size="2">(05:33:11 PM)</font> <b>cougarten_:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(05:33:31 PM)</font> <b>cougarten_:</b></font> supercollider is the king of sound, but as it can do everything, it&apos;s relatively low-level<br/>
+<font color="#A82F2F"><font size="2">(05:33:41 PM)</font> <b>Ceeram_:</b></font> i like the low level stuff<br/>
+<font color="#A82F2F"><font size="2">(05:33:46 PM)</font> <b>cougarten_:</b></font> (but I didn&apos;t look to far into it)<br/>
+<font color="#A82F2F"><font size="2">(05:34:08 PM)</font> <b>cougarten_:</b></font> hehe, I once heard a talk of a guy developing his own audio manipulation software<br/>
+<font color="#A82F2F"><font size="2">(05:34:11 PM)</font> <b>cougarten_:</b></font> it was so amazing<br/>
+<font color="#A82F2F"><font size="2">(05:34:37 PM)</font> <b>cougarten_:</b></font> he began with the first PCs and kept porting on to newer systems<br/>
+<font color="#A82F2F"><font size="2">(05:34:51 PM)</font> <b>cougarten_:</b></font> with the most unintuitive interface ever<br/>
+<font color="#A82F2F"><font size="2">(05:34:58 PM)</font> <b>cougarten_:</b></font> but could to awesome stuff<br/>
+<font color="#A82F2F"><font size="2">(05:35:49 PM)</font> <b>cougarten_:</b></font> like cutting consonants from speech and than itterating them randomized. so you could make really naturall sounding stutterrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrring<br/>
+<font color="#A82F2F"><font size="2">(05:36:30 PM)</font> <b>Ceeram_:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(05:36:56 PM)</font> <b>Ceeram_:</b></font> ok, took notes of both processing and supercollider, will look into that tonight as well, thx<br/>
+<font color="#A82F2F"><font size="2">(05:39:14 PM)</font> <b>cougarten_:</b></font> that guy i spoke of: www.youtube.com/watch?v=5lxHAZLWQpU<br/>
+<font color="#A82F2F"><font size="2">(05:50:25 PM)</font> <b>Ceeram_:</b></font> thx, will watch that tonight at home<br/>
+<font color="#A82F2F"><font size="2">(05:50:39 PM)</font> <b>Ceeram_:</b></font> im off now, hometime, thanks for the info, later<br/>
+<font size="2">(05:51:01 PM)</font><b> Ceeram_ left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(05:54:08 PM)</font> <b>pdbot54321:</b></font>  testing ircclient<br/>
+<font color="#A82F2F"><font size="2">(05:54:56 PM)</font> <b>pdbot54321:</b></font>  hello anyone here?<br/>
+<font color="#A82F2F"><font size="2">(05:55:11 PM)</font> <b>[thoughtful]:</b></font> yep<br/>
+<font color="#A82F2F"><font size="2">(05:55:24 PM)</font> <b>[thoughtful]:</b></font> building an irc bot in pd<br/>
+<font color="#A82F2F"><font size="2">(05:55:27 PM)</font> <b>[thoughtful]:</b></font> -_-;<br/>
+<font color="#A82F2F"><font size="2">(05:56:16 PM)</font> <b>pdbot54321:</b></font>  very funny bye<br/>
+<font size="2">(05:57:25 PM)</font><b> pdbot54321 left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(06:18:03 PM)</font><b> lorenzosu is now known as lorenzosu_</b><br/>
+<font color="#A82F2F"><font size="2">(08:20:09 PM)</font> <b>cougarten:</b></font> I?m back<br/>
+<font color="#A82F2F"><font size="2">(09:29:22 PM)</font> <b>rdz:</b></font> cougarten, back too<br/>
+<font color="#A82F2F"><font size="2">(09:29:33 PM)</font> <b>cougarten:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(09:41:44 PM)</font> <b>rdz:</b></font> cougarten, http://www.netpd.org/~roman/tmp/old-new1-new2.pd<br/>
+<font color="#A82F2F"><font size="2">(09:43:57 PM)</font> <b>cougarten:</b></font> oh wow<br/>
+<font color="#A82F2F"><font size="2">(09:44:02 PM)</font> <b>cougarten:</b></font> thank you so much rdz <br/>
+<font color="#A82F2F"><font size="2">(09:44:16 PM)</font> <b>rdz:</b></font> cougarten, you&apos;re welcome<br/>
+<font color="#A82F2F"><font size="2">(09:44:25 PM)</font> <b>rdz:</b></font> can you make sense out of it?<br/>
+<font color="#A82F2F"><font size="2">(09:44:54 PM)</font> <b>cougarten:</b></font> for now it works seemless enough that I don&apos;t have to understand the middlepart :)<br/>
+<font color="#A82F2F"><font size="2">(09:45:27 PM)</font> <b>rdz:</b></font> i&apos;m glad to hear that is what you was looking for.. i wasn&apos;t totally sure<br/>
+<font color="#A82F2F"><font size="2">(09:45:33 PM)</font> <b>cougarten:</b></font> hehe :)<br/>
+<font color="#A82F2F"><font size="2">(09:45:49 PM)</font> <b>rdz:</b></font> it&apos;s kind of a pseudo 2d-array<br/>
+<font color="#A82F2F"><font size="2">(09:46:06 PM)</font> <b>cougarten:</b></font> yes, I figured that out, thats the offset, right? i mustn&apos;t have more than 100 vars :)<br/>
+<font color="#A82F2F"><font size="2">(09:46:11 PM)</font> <b>rdz:</b></font> it just packs 3 sets of 100 values into a table with 300 elements<br/>
+<font color="#A82F2F"><font size="2">(09:46:13 PM)</font> <b>cougarten:</b></font> as i need 4, thats cool<br/>
+<font color="#A82F2F"><font size="2">(09:46:19 PM)</font> <b>cougarten:</b></font> right :)<br/>
+<font color="#A82F2F"><font size="2">(09:46:45 PM)</font> <b>cougarten:</b></font> and your patch is sooo tidy, hehe<br/>
+<font color="#A82F2F"><font size="2">(09:46:49 PM)</font> <b>cougarten:</b></font> mine grew organically :)<br/>
+<font color="#A82F2F"><font size="2">(10:11:37 PM)</font> <b>cougarten:</b></font> rdz, if there is anything I can do for you... :) I owe you<br/>
+<font size="2">(09:01:19 AM)</font><b> lorenzosu_ is now known as lorenzosu</b><br/>
+<font size="2">(10:57:32 AM)</font><b> lorenzosu is now known as lorenzosu_</b><br/>
+<font size="2">(11:58:29 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

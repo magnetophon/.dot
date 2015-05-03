@@ -1,0 +1,147 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Wed 26 Nov 2014 06:00:26 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Wed 26 Nov 2014 06:00:26 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(06:00:26 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(06:00:27 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(06:01:40 PM)</font> <b>Knight80:</b></font> I&apos;ll be back<br/>
+<font color="#A82F2F"><font size="2">(06:01:53 PM)</font> <b>Knight80:</b></font> see you in a minute<br/>
+<font size="2">(06:02:19 PM)</font><b> Knight80 left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(06:02:25 PM)</font> <b>avlinux:</b></font> Knight80, OK I&apos;ll be back and forth myself for the next while<br/>
+<font size="2">(06:08:43 PM)</font><b> Knight80 [<em>028971ce@gateway/web/freenode/ip.2.137.113.206</em>] entered the room.</b><br/>
+<font size="2">(06:09:29 PM)</font><b> eddrog [<em>~eddrog@ipservice-092-211-082-007.092.211.pools.vodafone-ip.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:10:58 PM)</font> <b>Knight80:</b></font> Hello again<br/>
+<font size="2">(06:11:59 PM)</font><b> falktx [<em>~falktx@193-126-139-137.net.novis.pt</em>] entered the room.</b><br/>
+<font size="2">(06:14:27 PM)</font><b> ahellquist [<em>~aht@h25n1-aahm-a11.ias.bredband.telia.com</em>] entered the room.</b><br/>
+<font size="2">(06:17:40 PM)</font><b> las left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(06:17:54 PM)</font> <b>drobilla:</b></font> IPC, if you&apos;re just setting controls, is trivial.  For doing more complicated things, yeah, it gets trickier<br/>
+<font size="2">(06:18:01 PM)</font><b> las [<em>~paul@84.94.124.131.cable.012.net.il</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:18:20 PM)</font> <b>drobilla:</b></font> Problem with the alternative is, sure, plugin authors like it, but then you have plugin GUIs that lock up your audio by doing braindead things.<br/>
+<font size="2">(06:18:28 PM)</font><b> colinf1 left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(06:18:38 PM)</font> <b>drobilla:</b></font> Because shared mutable state in a multi-threaded environment is *not easy* at all.  It&apos;s The hard thing.<br/>
+<font color="#A82F2F"><font size="2">(06:18:45 PM)</font> <b>drobilla:</b></font> It&apos;s easy to make it compile, maybe...<br/>
+<font color="#A82F2F"><font size="2">(06:19:36 PM)</font> <b>drobilla:</b></font> But making the host do it right does make it dramatically easier on the plugins to do it right<br/>
+<font color="#A82F2F"><font size="2">(06:20:07 PM)</font> <b>drobilla:</b></font> Unfortunately porting plugins to such a scheme that were designed poorly in the first place can be difficult/infeasible<br/>
+<font size="2">(06:20:20 PM)</font><b> zth [<em>~zth@c83-250-89-15.bredband.comhem.se</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:20:21 PM)</font> <b>drobilla:</b></font> (Though I don&apos;t literally mean &quot;IPC&quot; here)<br/>
+<font color="#A82F2F"><font size="2">(06:21:25 PM)</font> <b>tom-_:</b></font> drobilla: you say the &quot;back-channel&quot; makes it complicated?<br/>
+<font color="#A82F2F"><font size="2">(06:21:38 PM)</font> <b>drobilla:</b></font> abique: If you want a minimal layer over the native window stuff, check http://drobilla.net/software/pugl/<br/>
+<font color="#A82F2F"><font size="2">(06:21:39 PM)</font> <b>LAbot:</b></font> Title: Pugl | drobilla.net (at drobilla.net)<br/>
+<font color="#A82F2F"><font size="2">(06:22:05 PM)</font> <b>drobilla:</b></font> abique: But not a toolkit.  Minimal thing to get you a drawable window and events.  Currently only GL is portable to all three platforms, we&apos;re working on Cairo<br/>
+<font color="#A82F2F"><font size="2">(06:22:33 PM)</font> <b>Knight80:</b></font> Can anybody tell me why there&apos;s always a gap at the end of every sample I record from Hydrogen, please?<br/>
+<font color="#A82F2F"><font size="2">(06:23:04 PM)</font> <b>Knight80:</b></font> I mean it doesn&apos;t reach the next beat line... :-(<br/>
+<font color="#A82F2F"><font size="2">(06:23:49 PM)</font> <b>drobilla:</b></font> But the problems with Gtk aren&apos;t really technical or related to plugin API.  It&apos;s just not designed for shipping binaries, at all, and isn&apos;t present on the other platforms.<br/>
+<font color="#A82F2F"><font size="2">(06:24:11 PM)</font> <b>drobilla:</b></font> If the toolkit you use is system-installed and you can depend on compatibility with that, party time.  Unfortunately that&apos;s not the case with Gtk<br/>
+<font color="#062585"><font size="2">(06:24:27 PM)</font> <b>***tom-_</b></font> knows a gui toolkit that&apos;s designed from the start to run on all platforms<br/>
+<font color="#A82F2F"><font size="2">(06:25:21 PM)</font> <b>las:</b></font> tom-_: no, you don&apos;t<br/>
+<font color="#A82F2F"><font size="2">(06:25:25 PM)</font> <b>drobilla:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(06:25:43 PM)</font> <b>drobilla:</b></font> tom-_: It&apos;s multi-threaded code with shared mutable state where one of the threads is hard real-time.  It&apos;s inherently complicated.<br/>
+<font color="#A82F2F"><font size="2">(06:26:07 PM)</font> <b>drobilla:</b></font> The overwhelming majority of programmers don&apos;t know how to do that right, and those that do very often screw it up anyway<br/>
+<font color="#A82F2F"><font size="2">(06:26:10 PM)</font> <b>falktx:</b></font> tom-_: jue almost runs on all platforms<br/>
+<font color="#A82F2F"><font size="2">(06:26:12 PM)</font> <b>falktx:</b></font> *juce<br/>
+<font color="#A82F2F"><font size="2">(06:26:23 PM)</font> <b>tom-_:</b></font> drobilla: the gui shouldn&apos;t bother about hard realtime imho<br/>
+<font color="#A82F2F"><font size="2">(06:26:40 PM)</font> <b>las:</b></font> falktx: it runs above X11 on Linux, yes?<br/>
+<font color="#A82F2F"><font size="2">(06:26:45 PM)</font> <b>falktx:</b></font> las: yes<br/>
+<font color="#A82F2F"><font size="2">(06:26:55 PM)</font> <b>drobilla:</b></font> tom-_: Well..... yeah.  That&apos;s the point.<br/>
+<font color="#A82F2F"><font size="2">(06:26:57 PM)</font> <b>las:</b></font> tom-_: *communicating* to the GUI from the DSP has to worry about hard-realtime<br/>
+<font color="#A82F2F"><font size="2">(06:27:04 PM)</font> <b>falktx:</b></font> a lot of plugins share a common mutex between dsp and UI. that&apos;s usually the case for xruns<br/>
+<font color="#A82F2F"><font size="2">(06:27:09 PM)</font> <b>drobilla:</b></font> ^ this<br/>
+<font color="#A82F2F"><font size="2">(06:27:28 PM)</font> <b>falktx:</b></font> the solution to this is to not allow dsp to UI direct access<br/>
+<font color="#A82F2F"><font size="2">(06:27:40 PM)</font> <b>falktx:</b></font> but if we do this UIs will end up using other techiques like semaphores<br/>
+<font color="#A82F2F"><font size="2">(06:27:43 PM)</font> <b>tom-_:</b></font> las: the dsp part can do that, through a buffer in-between the dsp and the gui<br/>
+<font color="#A82F2F"><font size="2">(06:27:43 PM)</font> <b>las:</b></font> falktx: hence the word &quot;communication&quot; :)<br/>
+<font color="#A82F2F"><font size="2">(06:28:39 PM)</font> <b>tom-_:</b></font> las: the gui can ignore it if it feels to. no hard realtime necessity in the gui whatsoever<br/>
+<font color="#A82F2F"><font size="2">(06:29:43 PM)</font> <b>las:</b></font> tom-_: nobody ever mentioned it in the GUI<br/>
+<font color="#A82F2F"><font size="2">(06:30:58 PM)</font> <b>drobilla:</b></font> I will probably add a &quot;mucking with your instance pointer&quot; example to the coming simple VST-ish C++ example plugins with a gigantic red warning, because ultimately that&apos;s what a lot of porters need to do, but c&apos;est la vie<br/>
+<font color="#A82F2F"><font size="2">(06:31:17 PM)</font> <b>drobilla:</b></font> Better working shitty plugins than none at all.  Sort of. :)<br/>
+<font size="2">(06:31:18 PM)</font><b> abique|home [<em>~abique@84-75-29-81.dclient.hispeed.ch</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:33:17 PM)</font> <b>tom-_:</b></font> full separation of gui and dsp needs some kind of IPC. i don&apos;t see any other reasonable way, please tell me if there is<br/>
+<font color="#A82F2F"><font size="2">(06:34:46 PM)</font> <b>tom-_:</b></font> a gui should always be the first implementation of a &quot;surface&quot;. this is at the same time proof-of-concept for other surfaces and well decoupled design<br/>
+<font color="#A82F2F"><font size="2">(06:35:09 PM)</font> <b>tom-_:</b></font> imo<br/>
+<font color="#A82F2F"><font size="2">(06:35:19 PM)</font> <b>Knight80:</b></font> ¿Alguien habla castellano aquí?<br/>
+<font color="#A82F2F"><font size="2">(06:36:44 PM)</font> <b>drobilla:</b></font> You don&apos;t need IPC.  You just need a host-marshaled interface to do the comm, which could be, but isn&apos;t necessarily (and isn&apos;t, in the case of most like Ardour) actually IPC.<br/>
+<font color="#A82F2F"><font size="2">(06:36:59 PM)</font> <b>drobilla:</b></font> (pair of ringbuffers)<br/>
+<font color="#A82F2F"><font size="2">(06:37:54 PM)</font> <b>tom-_:</b></font> drobilla: how i understand it, the ringbuffer is a commonly accessible data structure. separation is only partial in that case<br/>
+<font color="#A82F2F"><font size="2">(06:38:33 PM)</font> <b>tom-_:</b></font> drobilla: while for full separation, you&apos;d need IPC that can communicate to a black hole<br/>
+<font color="#A82F2F"><font size="2">(06:39:06 PM)</font> <b>drobilla:</b></font> So?  Ringbuffer is one potential *implementation*<br/>
+<font color="#A82F2F"><font size="2">(06:39:24 PM)</font> <b>drobilla:</b></font> We don&apos;t even want &quot;full separation&quot; unless you actually need it.  IPC is slow.<br/>
+<font color="#A82F2F"><font size="2">(06:39:27 PM)</font> <b>tom-_:</b></font> drobilla: yes, one in the gui and possibly one in the dsp part<br/>
+<font color="#A82F2F"><font size="2">(06:40:23 PM)</font> <b>tom-_:</b></font> drobilla: agreed there are different &quot;levels&quot; of IPC<br/>
+<font color="#A82F2F"><font size="2">(06:40:25 PM)</font> <b>drobilla:</b></font> That&apos;s not how a ringbuffer works.<br/>
+<font color="#A82F2F"><font size="2">(06:41:28 PM)</font> <b>drobilla:</b></font> For the record, lest Tom Education Hour confuse the issue, this is both totally figured out long ago and widely implemented (at least in LV2ville).  No questions here.<br/>
+<font color="#A82F2F"><font size="2">(06:41:32 PM)</font> <b>drobilla:</b></font> The GUI toolkit thing is a mess, though.<br/>
+<font color="#A82F2F"><font size="2">(06:41:35 PM)</font> <b>tom-_:</b></font> drobilla: IPC test: start engine, start gui. exchange gui. all still works (engine wasn&apos;t restarted)<br/>
+<font color="#A82F2F"><font size="2">(06:42:47 PM)</font> <b>tom-_:</b></font> drobilla: can you do that in lv2ville?<br/>
+<font color="#A82F2F"><font size="2">(06:43:14 PM)</font> <b>las:</b></font> tom-_: nobody wants to do that with plugins<br/>
+<font size="2">(06:43:29 PM)</font><b> melhiors left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(06:43:49 PM)</font> <b>tom-_:</b></font> las: it&apos;s a generic aspect of fully separated model / gui<br/>
+<font size="2">(06:44:03 PM)</font><b> EugeneBandit [<em>~mtrd@rab34-2-82-230-28-167.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(06:44:03 PM)</font><b> EugeneBandit left the room (quit: Changing host).</b><br/>
+<font size="2">(06:44:03 PM)</font><b> EugeneBandit [<em>~mtrd@unaffiliated/waxon</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:44:55 PM)</font> <b>tom-_:</b></font> las: it also would allow multiple &quot;views&quot; and &quot;controllers&quot; to the same model<br/>
+<font color="#A82F2F"><font size="2">(06:45:02 PM)</font> <b>drobilla:</b></font> tom-_: Yes.  The plugin neither knows nor cares if a custom &quot;GUI&quot; is present, or can even tell the difference between changes from its UI or elsewhere (like the host).  As it should be.<br/>
+<font color="#A82F2F"><font size="2">(06:45:42 PM)</font> <b>drobilla:</b></font> MIDI CC27=64 (or whatever) means what it means.<br/>
+<font color="#A82F2F"><font size="2">(06:46:07 PM)</font> <b>las:</b></font> tom-_: nobody does that for plugins<br/>
+<font color="#A82F2F"><font size="2">(06:46:12 PM)</font> <b>las:</b></font> tom-_: not developers, not users<br/>
+<font color="#A82F2F"><font size="2">(06:48:00 PM)</font> <b>drobilla:</b></font> Though as las says that particular use case isn&apos;t particularly relevant<br/>
+<font color="#A82F2F"><font size="2">(06:48:03 PM)</font> <b>tom-_:</b></font> las: if you think of widgets being plugins, it will be more obvious that multiple views are useful<br/>
+<font color="#A82F2F"><font size="2">(06:48:12 PM)</font> <b>las:</b></font> tom-_: widgets are not plugins<br/>
+<font color="#A82F2F"><font size="2">(06:48:19 PM)</font> <b>las:</b></font> tom-_: plugins don&apos;t have multiple GUIs<br/>
+<font color="#A82F2F"><font size="2">(06:48:25 PM)</font> <b>drobilla:</b></font> But you do need to launch the GUI after the plugin has trucked along and done some stuff for a while<br/>
+<font color="#A82F2F"><font size="2">(06:48:30 PM)</font> <b>las:</b></font> tom-_: people don&apos;t start GUIs for plugins from outside of a host<br/>
+<font color="#A82F2F"><font size="2">(06:48:42 PM)</font> <b>drobilla:</b></font> From which you get the ability to (re-)launch several GUIs or whatever for free<br/>
+<font color="#A82F2F"><font size="2">(06:48:49 PM)</font> <b>las:</b></font> tom-_: the use cases you&apos;re talking about don&apos;t involve plugins<br/>
+<font color="#A82F2F"><font size="2">(06:49:10 PM)</font> <b>las:</b></font> tom-_: the reason to separate DSP &amp; GUI in a plugin is entirely different from the reasons to do it in a host<br/>
+<font color="#A82F2F"><font size="2">(06:49:20 PM)</font> <b>las:</b></font> s/entirely/significantly/<br/>
+<font color="#A82F2F"><font size="2">(06:50:47 PM)</font> <b>tom-_:</b></font> las: it would be perfectly alright to start a gui external from the host that runs the dsp<br/>
+<font color="#A82F2F"><font size="2">(06:51:50 PM)</font> <b>Knight80:</b></font> I&apos;m having a problem with Ardour and Hydrogen: I record samples but they don&apos;t link with the next one because there&apos;s a gap at the very end of them.<br/>
+<font color="#A82F2F"><font size="2">(06:51:53 PM)</font> <b>tom-_:</b></font> las: the host handling the gui for the dsp it runs is just one case of several ways to give the dsp a &quot;face&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:52:24 PM)</font> <b>tom-_:</b></font> or multiple<br/>
+<font size="2">(06:52:43 PM)</font><b> drobilla left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(06:53:37 PM)</font> <b>HarryHaaren:</b></font> re GUI; a solution I wish for is to draw Cairo (using some sort of widget class abstraction for events) directly on PUGL. PUGL being generic, no toolkit, no notion of threads etc, is perfect (and *designed*) for this use case, while Cairo is an awesome lib for drawing vectors.<br/>
+<font color="#A82F2F"><font size="2">(06:54:06 PM)</font> <b>HarryHaaren:</b></font> this needs doing - making Cairo x-platform drawing on GL is the part I can&apos;t do; i have no experience there.<br/>
+<font color="#A82F2F"><font size="2">(06:54:31 PM)</font> <b>HarryHaaren:</b></font> Also, I have no xplatform developing static-libraries either: again necessary to compile Cairo into a GUI<br/>
+<font color="#A82F2F"><font size="2">(06:55:16 PM)</font> <b>HarryHaaren:</b></font> given the above, we have CustomWidget drawing using Cairo using a widget abstraction for redraw speed, and PUGL for &quot;output&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:55:58 PM)</font> <b>HarryHaaren:</b></font> this would solve the &quot;issue&quot;, if all plugin devs used it. I know rgareus and I discussed this before, and it seemed a good idea at the time.<br/>
+<font color="#A82F2F"><font size="2">(06:56:23 PM)</font> <b>HarryHaaren:</b></font> IIRC, the other invested parties (drobilla, falktx and others) don&apos;t object to such an idea?<br/>
+<font color="#A82F2F"><font size="2">(06:57:01 PM)</font> <b>falktx:</b></font> HarryHaaren: dpf already has support for ntk and opengl based plugins<br/>
+<font size="2">(06:57:10 PM)</font><b> las left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(06:57:10 PM)</font> <b>falktx:</b></font> HarryHaaren: I&apos;ll add direct cairo support soon thanks to pugl<br/>
+<font color="#A82F2F"><font size="2">(06:57:50 PM)</font> <b>falktx:</b></font> in my opinion developing for a single plugin API is a mistake<br/>
+<font size="2">(06:57:56 PM)</font><b> clark|w is now known as clark|w|afk</b><br/>
+<font color="#A82F2F"><font size="2">(06:58:04 PM)</font> <b>HarryHaaren:</b></font> i think the original cause of this whole conversation originated from abique asking about why its so difficult to write plugin UI&apos;s on linux.. abique, does this ^^^ answer your question?  <br/>
+<font color="#A82F2F"><font size="2">(06:58:23 PM)</font> <b>falktx:</b></font> HarryHaaren: he&apos;s looking in the wrong direction<br/>
+<font size="2">(06:59:09 PM)</font><b> melhiors [<em>~melhiors@89.201.83.27</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:59:17 PM)</font> <b>falktx:</b></font> but well, he&apos;s porting existing code which was never intended to work on linux<br/>
+<font color="#A82F2F"><font size="2">(06:59:38 PM)</font> <b>falktx:</b></font> it the code was open I&apos;m sure there would be a few devs willing to help<br/>
+<font color="#A82F2F"><font size="2">(06:59:41 PM)</font> <b>falktx:</b></font> *if<br/>
+<font color="#A82F2F"><font size="2">(06:59:58 PM)</font> <b>tom-_:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(07:00:26 PM)</font> <b>falktx:</b></font> I&apos;ve fixed some random stuff on quite a few plugins already<br/>
+<font color="#A82F2F"><font size="2">(07:00:28 PM)</font> <b>HarryHaaren:</b></font> anyway, the other participants of this conversation are gone, another time.<br/>
+<font color="#A82F2F"><font size="2">(07:00:45 PM)</font> <b>falktx:</b></font> I wasn&apos;t paying much attention before too, sorry<br/>
+<font color="#A82F2F"><font size="2">(07:01:12 PM)</font> <b>Knight80:</b></font> HarryHaaren Do you know why Ardour and Hydrogen don&apos;t work together fine?<br/>
+<font color="#A82F2F"><font size="2">(07:01:15 PM)</font> <b>falktx:</b></font> I should really finalize DPF and make some big splashy news...<br/>
+<font color="#A82F2F"><font size="2">(07:01:33 PM)</font> <b>falktx:</b></font> but with the recent cairo in pugl I kinda want to have it now too...<br/>
+<font color="#A82F2F"><font size="2">(07:02:15 PM)</font> <b>HarryHaaren:</b></font> Knight80, nope. I know that its really hard to get that type of functionality right, and even harder to test it to stay consistently right<br/>
+<font color="#A82F2F"><font size="2">(07:02:26 PM)</font> <b>HarryHaaren:</b></font> i have my own sync-issues to fix :)<br/>
+<font color="#A82F2F"><font size="2">(07:02:52 PM)</font> <b>Knight80:</b></font> HarryHaaren Ok<br/>
+<font color="#A82F2F"><font size="2">(07:03:27 PM)</font> <b>HarryHaaren:</b></font> Knight80, i&apos;m going for food now, but if its live-performance you&apos;re interested in, then I&apos;m interested in what you want/need<br/>
+<font color="#A82F2F"><font size="2">(07:03:42 PM)</font> <b>HarryHaaren:</b></font> Knight80, actually, if you can summarize what you&apos;re trying to do, please email me at harryhaaren@gmail.com<br/>
+<font color="#A82F2F"><font size="2">(07:04:08 PM)</font> <b>Knight80:</b></font> HaaryHaaren Ok, thank you.<br/>
+<font color="#A82F2F"><font size="2">(07:04:10 PM)</font> <b>HarryHaaren:</b></font> Knight80, full disclosure, i&apos;m running OpenAV, and I like musician / producer feedback : http://openavproductions.com<br/>
+<font color="#A82F2F"><font size="2">(07:04:11 PM)</font> <b>LAbot:</b></font> Title: OpenAV | Software For Artists (at openavproductions.com)<br/>
+<font color="#062585"><font size="2">(07:04:15 PM)</font> <b>***HarryHaaren</b></font> out! Laters<br/>
+<font size="2">(07:04:20 PM)</font><b> HarryHaaren left the room (quit: Quit: HarryHaaren).</b><br/>
+<font size="2">(07:05:36 PM)</font><b> Lex_NewtoN left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font size="2">(07:06:34 PM)</font><b> Lex_NewtoN [<em>~quassel@nat4.academ.org</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:13:51 PM)</font> <b>tom-_:</b></font> if widgets are plugins, a gui would be just a bunch of plugin views/controllers<br/>
+<font size="2">(07:17:06 PM)</font><b> avlinux left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(07:17:12 PM)</font><b> AlexRussia left the room (quit: Changing host).</b><br/>
+<font size="2">(07:17:12 PM)</font><b> AlexRussia [<em>~Alex@unaffiliated/alexrussia</em>] entered the room.</b><br/>
+<font color="#062585"><font size="2">(07:21:02 PM)</font> <b>***tom-_</b></font> asks himself if anyone can feel offended by just discussing &quot;stuff&quot;<br/>
+<font size="2">(07:21:51 PM)</font><b> JL___ [<em>52e3be7c@gateway/web/freenode/ip.82.227.190.124</em>] entered the room.</b><br/>
+<font size="2">(07:24:21 PM)</font><b> Knight80 left the room (quit: Quit: Page closed).</b><br/>
+<font size="2">(07:34:01 PM)</font><b> djzn [<em>~dbarros@187.75.25.123</em>] entered the room.</b><br/>
+<font size="2">(07:38:56 PM)</font><b> reen1 left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font size="2">(07:40:13 PM)</font><b> djzn left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(07:44:37 PM)</font><b> oofus [<em>~chris@oofus1-adsl.demon.co.uk</em>] entered the room.</b><br/>
+<font size="2">(07:48:44 PM)</font><b> lerni [<em>~lerni@202-245.104-92.cust.bluewin.ch</em>] entered the room.</b><br/>
+<font size="2">(08:19:10 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

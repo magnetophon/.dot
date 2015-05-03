@@ -1,0 +1,78 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sun 08 Mar 2015 12:50:54 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sun 08 Mar 2015 12:50:54 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(12:50:54 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(12:50:54 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(01:03:17 PM)</font> <b>azriphale:</b></font> Is there a way I can test-build my nixos config without having it in /etc/nixos ?<br/>
+<font color="#A82F2F"><font size="2">(01:03:43 PM)</font> <b>azriphale:</b></font> i.e. something like nixos-rebuild /path/to/untested/configuration.nix build<br/>
+<font color="#A82F2F"><font size="2">(01:03:59 PM)</font> <b>Lethalman:</b></font> NIXOS_CONFIG=...<br/>
+<font color="#A82F2F"><font size="2">(01:04:06 PM)</font> <b>azriphale:</b></font> Thanks<br/>
+<font color="#A82F2F"><font size="2">(01:04:06 PM)</font> <b>ktosiek:</b></font> NIXOS_CONFIG=/path/to/untested/configuration.nix nixos-rebuild<br/>
+<font color="#A82F2F"><font size="2">(01:04:27 PM)</font> <b>azriphale:</b></font> and there I see it in the man page now...<br/>
+<font color="#A82F2F"><font size="2">(01:14:23 PM)</font> <b>azriphale:</b></font> So I am trying to use overrideDerivation to inject a new build dependency to dwm: https://github.com/sjagoe/nix-config/blob/fix-dwm-derivation/configuration.nix#L119<br/>
+<font color="#A82F2F"><font size="2">(01:14:48 PM)</font> <b>azriphale:</b></font> When trying to build, the dwm build fails with drw.c:6:25: fatal error: X11/Xft/Xft.h: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(01:15:12 PM)</font> <b>azriphale:</b></font> If I go in and edit the nixpkgs derivation for dwn and add the libXft dependency there, it all builds fine.<br/>
+<font color="#A82F2F"><font size="2">(01:15:44 PM)</font> <b>azriphale:</b></font> I must be doing something wrong with buildInputs in my overrideDerivation. Any ideas?<br/>
+<font color="#A82F2F"><font size="2">(01:20:06 PM)</font> <b>azriphale:</b></font> The overridden src in my overrideDerivation adds the dependency on Xft in the dwm sources, all I need to do is override the derivation to get libXft into the buildInputs without direct modification to nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(01:23:52 PM)</font> <b>azriphale:</b></font> output from the build is here: https://gist.github.com/sjagoe/be3585c3193efa7344e7<br/>
+<font color="#A82F2F"><font size="2">(01:26:12 PM)</font> <b>ikwildrpepper:</b></font> azriphale: override buildNativeInputs in stead. I think there was an issue or mailing discussion about this a few days ago<br/>
+<font color="#A82F2F"><font size="2">(01:26:59 PM)</font> <b>ikwildrpepper:</b></font> https://github.com/NixOS/nixpkgs/issues/4855<br/>
+<font color="#A82F2F"><font size="2">(01:30:05 PM)</font> <b>azriphale:</b></font> Progress, of a kind<br/>
+<font color="#A82F2F"><font size="2">(01:30:27 PM)</font> <b>azriphale:</b></font> It looks like it is nativeBuildInputs, which setting as nativeBuildInputs = attrs.buildInputs ++ [ xlibs.libXft ];<br/>
+<font color="#A82F2F"><font size="2">(01:30:33 PM)</font> <b>azriphale:</b></font> leaves me with a new build error ;-)<br/>
+<font color="#A82F2F"><font size="2">(01:30:42 PM)</font> <b>azriphale:</b></font> dwm.c:40:37: fatal error: X11/extensions/Xinerama.h: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(01:31:05 PM)</font> <b>azriphale:</b></font> Which seems that it has not taken the `attrs.buildInputs`<br/>
+<font color="#A82F2F"><font size="2">(01:31:43 PM)</font> <b>azriphale:</b></font> libXinerama is already specified pin nixpkgs ... let me confirm that<br/>
+<font color="#A82F2F"><font size="2">(01:33:17 PM)</font> <b>azriphale:</b></font> ah, per the bug you referenced, I should have used nativeBuildInputs = attrs.nativeBuildInputs ++ ...<br/>
+<font color="#A82F2F"><font size="2">(01:33:23 PM)</font> <b>azriphale:</b></font> It is building now, thanks!<br/>
+<font color="#A82F2F"><font size="2">(01:35:58 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] phile314 opened pull request #6711: haskell: Add uhc compiler (master...dev) http://git.io/pYks<br/>
+<font color="#A82F2F"><font size="2">(01:39:20 PM)</font> <b>azriphale:</b></font> one less hack to apply to nixpkgs ;-) I guess I can do my vagrant fix as an override too..<br/>
+<font color="#A82F2F"><font size="2">(01:41:14 PM)</font> <b>joelmo:</b></font> can I return multiple derivations in a function and install them with nix-env?<br/>
+<font color="#A82F2F"><font size="2">(01:44:41 PM)</font> <b>ikwildrpepper:</b></font> azriphale: if it is a useful change, you can make a PR for it?<br/>
+<font color="#A82F2F"><font size="2">(01:44:54 PM)</font> <b>ikwildrpepper:</b></font> joelmo: yes<br/>
+<font color="#A82F2F"><font size="2">(01:45:01 PM)</font> <b>ikwildrpepper:</b></font> nix-env -i &apos;*&apos; -f your-nix-file.nix<br/>
+<font color="#A82F2F"><font size="2">(01:47:13 PM)</font> <b>joelmo:</b></font> ikwildrpepper: thanks<br/>
+<font color="#A82F2F"><font size="2">(02:06:20 PM)</font> <b>azriphale:</b></font> ikwildrpepper: The dwm change is due to a patch I have applied to my own dwm tree (it is not required for the version in nixpkgs).<br/>
+<font color="#A82F2F"><font size="2">(02:06:50 PM)</font> <b>azriphale:</b></font> I have opened a PR for the vagrant thing, but the more I think about it the more I believe it works by coincidence rather than design ;-)<br/>
+<font color="#A82F2F"><font size="2">(02:08:25 PM)</font> <b>azriphale:</b></font> I started looking into bundix for fully repackaging vagrant. I need to look into installing bundix from source first. Using &quot;nix-env -i bundix&quot; fails with output path ‘/nix/store/q7aq9f95rnybb1snsif9271139vgsjvg-git-export’ should have r:sha256 hash ‘1l4r55n1wzr817l225l6pm97li1mxg9icd8s51cpfihh91nkdz68’, instead has ‘1fywz0m3bb0fmcikhqbw9iaw67k29srwi8dllq6ni1cbm1xfyj46’<br/>
+<font color="#A82F2F"><font size="2">(02:11:39 PM)</font> <b>azriphale:</b></font> I might come back to this when I have had more than a week of running nixos ;-) In the meantime, I plan to add some more python packages (well, one that I can think of now) that are missing from my workflow as they are not packaged yet.<br/>
+<font color="#A82F2F"><font size="2">(02:19:05 PM)</font> <b>JagaJaga_:</b></font> what&apos;s wrong with the unstable channel? so outdated. where on hydra I can see, what&apos;s happening?<br/>
+<font color="#A82F2F"><font size="2">(02:22:11 PM)</font> <b>azriphale:</b></font> Has anybody attempted to build a derivation to install vmware workstation on nixos?<br/>
+<font color="#A82F2F"><font size="2">(02:25:22 PM)</font> <b>goibhniu:</b></font> azriphale: I&apos;m afraid bundix is still new and undocumented (I failed to get it to work too)<br/>
+<font size="2">(02:26:19 PM)</font><b> JagaJaga_ left the room (quit: Quit: WeeChat 1.1.1).</b><br/>
+<font size="2">(02:26:27 PM)</font><b> goibhniu left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(02:34:02 PM)</font><b> jaga1 is now known as JagaJaga_</b><br/>
+<font color="#A82F2F"><font size="2">(02:41:03 PM)</font> <b>ikwildrpepper:</b></font> JagaJaga_: http://howoldis.herokuapp.com/<br/>
+<font color="#A82F2F"><font size="2">(02:43:50 PM)</font> <b>Haskellfant:</b></font> JagaJaga_: nixpkgs-unstable is failing due to darwing stuff afaik<br/>
+<font color="#A82F2F"><font size="2">(02:43:59 PM)</font> <b>Haskellfant:</b></font> no idea what happened to nixos-unstable<br/>
+<font color="#A82F2F"><font size="2">(02:46:03 PM)</font> <b>kmicu:</b></font> “Darwin People, what a bunch of bastards” Roy, IT Crowd<br/>
+<font color="#A82F2F"><font size="2">(02:49:28 PM)</font> <b>garbas:</b></font> ikwildrpepper: niksnut: just to remind you to merge this 2 PRs https://github.com/NixOS/nixos-org-configurations/pulls<br/>
+<font color="#A82F2F"><font size="2">(02:53:20 PM)</font> <b>JagaJaga_:</b></font> ikwildrpepper: http://hydra.nixos.org/job/nixos/trunk-combined/tested#tabs-constituents everything seems to be green..<br/>
+<font color="#A82F2F"><font size="2">(02:54:09 PM)</font> <b>JagaJaga_:</b></font> http://hydra.nixos.org/job/nixpkgs/trunk/unstable#tabs-constituents same here<br/>
+<font color="#A82F2F"><font size="2">(03:03:28 PM)</font> <b>MarcWeber:</b></font> blueyed: vim-addon-nix is using vim-addon-goto-thing-at-cursor which might be useful in many cases<br/>
+<font color="#A82F2F"><font size="2">(03:03:56 PM)</font> <b>MarcWeber:</b></font> github.com/MarcWeber/nixpkgs contains a ctagswrapped which should be working - because I&apos;m still using it..<br/>
+<font color="#A82F2F"><font size="2">(03:04:18 PM)</font> <b>MarcWeber:</b></font> cannot install without &quot;what goes wrong&quot; is a bad error reporting style<br/>
+<font size="2">(03:11:06 PM)</font><b> vcunat [<em>~admin@nat-34.starnet.cz</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:11:16 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/pYra<br/>
+<font color="#A82F2F"><font size="2">(03:11:16 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 358e9af Nathaniel Baxter: wineUnstable: updates (close #6508)<br/>
+<font color="#A82F2F"><font size="2">(03:11:34 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat closed pull request #6508: wineUnstable updates (master...dev/wine_update) http://git.io/AuBJ<br/>
+<font size="2">(03:23:09 PM)</font><b> vcunat left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(03:35:32 PM)</font><b> vcunat [<em>~admin@nat-34.starnet.cz</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:38:19 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/pYMj<br/>
+<font color="#A82F2F"><font size="2">(03:38:19 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 2d8f788 Andraz Brodnik: Add scrolls game (unfree). Close #6456....<br/>
+<font color="#A82F2F"><font size="2">(03:38:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat closed pull request #6456: Add scrolls game (unfree) (master...scrolls) http://git.io/AYyt<br/>
+<font color="#A82F2F"><font size="2">(03:47:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/pYSQ<br/>
+<font color="#A82F2F"><font size="2">(03:47:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3d0a681 Vladimír Čunát: wmutils-core: add to tools/X11 (close #6585)...<br/>
+<font color="#A82F2F"><font size="2">(03:47:47 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat closed pull request #6585: Add: wmutils-core (master...master) http://git.io/xkAn<br/>
+<font color="#A82F2F"><font size="2">(03:57:45 PM)</font> <b>bubblegun:</b></font> huhu hey<br/>
+<font color="#A82F2F"><font size="2">(03:58:08 PM)</font> <b>bubblegun:</b></font> Greatings, travlers :P<br/>
+<font color="#A82F2F"><font size="2">(03:58:26 PM)</font> <b>bubblegun:</b></font> -s<br/>
+<font color="#A82F2F"><font size="2">(03:59:40 PM)</font> <b>bubblegun:</b></font> does anyone know the name of cinnamon package?<br/>
+<font size="2">(04:01:51 PM)</font><b> Lethalman left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(04:03:16 PM)</font> <b>bubblegun:</b></font> !nix<br/>
+<font color="#A82F2F"><font size="2">(04:03:25 PM)</font> <b>bubblegun:</b></font> ??nix<br/>
+<font color="#A82F2F"><font size="2">(04:03:37 PM)</font> <b>bubblegun:</b></font> !topic<br/>
+<font color="#A82F2F"><font size="2">(04:08:01 PM)</font> <b>xplat:</b></font> say, is there a way to specify patches in your nix config instead of having to checkout nixpkgs and modify it?<br/>
+<font color="#A82F2F"><font size="2">(04:08:43 PM)</font> <b>bubblegun:</b></font> hi :)<br/>
+<font color="#A82F2F"><font size="2">(04:08:50 PM)</font> <b>bubblegun:</b></font> phone<br/>
+<font color="#A82F2F"><font size="2">(04:10:22 PM)</font> <b>bubblegun:</b></font> back<br/>
+<font size="2">(04:29:36 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,99 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Wed 25 Mar 2015 01:47:38 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Wed 25 Mar 2015 01:47:38 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(01:47:38 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(01:47:38 PM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(01:49:32 PM)</font> <b>dolf:</b></font> nvm. File I was looking for was /var/lib/dpkg/status<br/>
+<font color="#A82F2F"><font size="2">(01:50:03 PM)</font> <b>Brigo:</b></font> dolf, apt doesn&apos;t stuck for configuring a package twice. It shuold be a problem with those packages.<br/>
+<font color="#A82F2F"><font size="2">(01:50:50 PM)</font> <b>JotaMG:</b></font> Hi! In wheezy, installed python from jessie, try to downgrade, but now my python is broken : &quot;ImportError: No module named site<br/>
+<font color="#A82F2F"><font size="2">(01:51:19 PM)</font> <b>JotaMG:</b></font> I cannot use python now<br/>
+<font color="#A82F2F"><font size="2">(01:51:32 PM)</font> <b>tar-xvf:</b></font> #DataHoarder<br/>
+<font color="#A82F2F"><font size="2">(01:51:44 PM)</font> <b>JotaMG:</b></font> any help, please?<br/>
+<font color="#A82F2F"><font size="2">(01:52:22 PM)</font> <b>Brigo:</b></font> JotaMG, uninstall python at all and install it again?<br/>
+<font size="2">(01:52:32 PM)</font><b> tar-xvf left the room (&quot;Leaving&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(01:52:54 PM)</font> <b>JotaMG:</b></font> but if I do that I also lost other packages<br/>
+<font color="#A82F2F"><font size="2">(01:53:08 PM)</font> <b>JotaMG:</b></font> and probably their configuration?<br/>
+<font color="#A82F2F"><font size="2">(01:53:28 PM)</font> <b>JotaMG:</b></font> is that the only solution?<br/>
+<font color="#A82F2F"><font size="2">(01:53:51 PM)</font> <b>Brigo:</b></font> JotaMG, reinstall them too.<br/>
+<font color="#A82F2F"><font size="2">(01:54:07 PM)</font> <b>dolf:</b></font> Brigo, I&apos;m downgrading some packages and the postinst scripts dont fully support that<br/>
+<font color="#A82F2F"><font size="2">(01:54:14 PM)</font> <b>dolf:</b></font> by manually updating dpkg&apos;s db I now fixed it<br/>
+<font color="#A82F2F"><font size="2">(01:54:39 PM)</font> <b>Brigo:</b></font> JotaMG, you will not lose their configuration.<br/>
+<font color="#A82F2F"><font size="2">(01:55:09 PM)</font> <b>Iridos:</b></font> JotaMG, no surprise... you should never mix testing/unstable packages into stable... and downgrades are not supported<br/>
+<font color="#A82F2F"><font size="2">(01:55:29 PM)</font> <b>JotaMG:</b></font> yes, now I understand that<br/>
+<font color="#A82F2F"><font size="2">(01:55:37 PM)</font> <b>Brigo:</b></font> because downgrade is not supported at all. Your system could be hardly damaged<br/>
+<font color="#A82F2F"><font size="2">(01:56:15 PM)</font> <b>JotaMG:</b></font> the problem seems to be only at python2.7-minimal<br/>
+<font color="#A82F2F"><font size="2">(01:56:44 PM)</font> <b>JotaMG:</b></font> should I just remove or need to purge??<br/>
+<font color="#A82F2F"><font size="2">(01:59:51 PM)</font> <b>Brigo:</b></font> JotaMG, remove is ok, purge will remove the config files, you could need them in the future.<br/>
+<font color="#A82F2F"><font size="2">(02:00:38 PM)</font> <b>JotaMG:</b></font> ok will try that<br/>
+<font color="#A82F2F"><font size="2">(02:00:58 PM)</font> <b>JotaMG:</b></font> I need to take a note of all the packages that will be also removed<br/>
+<font color="#A82F2F"><font size="2">(02:02:52 PM)</font> <b>Iridos:</b></font> but downgrades are exactly not supported because software packages don&apos;t support downgrading config files<br/>
+<font color="#A82F2F"><font size="2">(02:03:11 PM)</font> <b>Iridos:</b></font> and packages cannot magically do that for every software<br/>
+<font color="#A82F2F"><font size="2">(02:03:16 PM)</font> <b>Iridos:</b></font> dpkg, downgrade<br/>
+<font color="#A82F2F"><font size="2">(02:03:16 PM)</font> <b>dpkg:</b></font> Downgrading is not, nor will ever be supported by apt.  Programs change their data in a way that can&apos;t be rolled back, and package maintainer scripts support upgrades to new config file formats but not downgrades.  Try: &quot;dpkg -i olderversion.deb&quot; or &quot;aptitude install package=version&quot; using &quot;apt-cache policy package&quot; to get the old version number.  See also &lt;partial downgrade&gt;, &lt;unstable-&gt;testing&gt;, &lt;sdo&gt;.<br/>
+<font color="#A82F2F"><font size="2">(02:06:34 PM)</font> <b>JotaMG:</b></font> ok, thank very much<br/>
+<font color="#A82F2F"><font size="2">(02:23:26 PM)</font> <b>Savemech:</b></font> hi guys! i have ftp, and trying to save some space; but mounted nfs arent acessible via ftp, its says &quot;550 Failed to change directory.<br/>
+<font color="#A82F2F"><font size="2">(02:23:26 PM)</font> <b>Savemech:</b></font> &quot;<br/>
+<font color="#A82F2F"><font size="2">(02:23:54 PM)</font> <b>Savemech:</b></font> maybee its a way to mount in ftp export directory, or some another more &quot;handy&quot; way around?<br/>
+<font color="#A82F2F"><font size="2">(02:25:37 PM)</font> <b>lroe:</b></font> server A is sending syslog to server B.  Server B logs these messages but instead of using its IP it is using its hostname.  Which host do I need to look at to change that so on server B I see the IP address that logs the message<br/>
+<font color="#A82F2F"><font size="2">(02:27:09 PM)</font> <b>Synthase_:</b></font> Server B has the rsyslog settings for log options.<br/>
+<font size="2">(02:29:47 PM)</font><b> mode (+o jelly) by ChanServ</b><br/>
+<font size="2">(02:29:47 PM)</font><b> mode (+b *!*@AOrleans-652-1-87-185.w92-140.abo.wanadoo.fr$##not-a-honeypot) by jelly</b><br/>
+<font size="2">(02:29:48 PM)</font><b> mode (-o jelly) by ChanServ</b><br/>
+<font size="2">(02:32:03 PM)</font><b> mode (+l 1677) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(02:32:14 PM)</font> <b>Ssquidly:</b></font> hi ! i&apos;ve got a small issue : i&apos;m using an azerty french keyboard and since a few days ago the &quot;^&quot; character doesn&apos;t behave normally i can&apos;t type the french &quot;ê&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:32:28 PM)</font> <b>Ssquidly:</b></font> I&apos;ve got XKBMODEL=&quot;pc105&quot; and XKBLAYOUT=&quot;fr&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:32:40 PM)</font> <b>Ssquidly:</b></font> any ideas for me ?<br/>
+<font color="#A82F2F"><font size="2">(02:32:49 PM)</font> <b>Ssquidly:</b></font> ( it used to work )<br/>
+<font color="#A82F2F"><font size="2">(02:33:52 PM)</font> <b>wvvrw:</b></font>  i have some files designated to open with supervisord , but then i changed those files , killed supervisord and restarted it but it loads the older version of the files . if i start them manually with &amp; it works properly. any idea?<br/>
+<font size="2">(02:41:47 PM)</font><b> wvvrw left the room (&quot;Leaving&quot;).</b><br/>
+<font size="2">(02:46:35 PM)</font><b> elysium is now known as elysium^away</b><br/>
+<font color="#A82F2F"><font size="2">(02:52:42 PM)</font> <b>anddam:</b></font> https://wiki.debian.org/ListInstalledPackages under &quot;restore installed packages&quot; seems wrong, it&apos;s overwriting /backup/installed-software.log on the new system before using the same to set the selection<br/>
+<font color="#A82F2F"><font size="2">(02:52:58 PM)</font> <b>anddam:</b></font> doesn&apos;t that leave the selection at the exact same point it was before running the commands?<br/>
+<font color="#A82F2F"><font size="2">(02:55:36 PM)</font> <b>mrtnt:</b></font> What are the practical use cases for ifquer?<br/>
+<font color="#A82F2F"><font size="2">(02:56:00 PM)</font> <b>p3rror:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(02:56:04 PM)</font> <b>anddam:</b></font> mrtnt: what&apos;s that?<br/>
+<font color="#A82F2F"><font size="2">(02:56:50 PM)</font> <b>nkuttler:</b></font> mrtnt: validating syntax? parsing the config in scripts?<br/>
+<font color="#A82F2F"><font size="2">(02:56:59 PM)</font> <b>p3rror:</b></font> logrotate exit with this error http://paste.debian.net/163167/<br/>
+<font color="#A82F2F"><font size="2">(02:57:12 PM)</font> <b>p3rror:</b></font> What does it mean<br/>
+<font color="#A82F2F"><font size="2">(02:57:55 PM)</font> <b>petn-randall:</b></font> p3rror: Can you provide the full logs? The context probably is relevant here.<br/>
+<font color="#A82F2F"><font size="2">(02:59:05 PM)</font> <b>Iridos:</b></font> anddam, the  writing  (get-selections) is supposed to happen at a point where you want to save... the reading (--set-selections) then prepares to restore that state<br/>
+<font color="#A82F2F"><font size="2">(02:59:49 PM)</font> <b>Iridos:</b></font> anddam, someone, who wrote this, mangled it a bit... or at least skipped a lot of explanation in the middle.. but it&apos;s a wiki, you can fix it :)<br/>
+<font color="#A82F2F"><font size="2">(03:00:16 PM)</font> <b>ChrisH:</b></font> p3rror: man logrotae will show you -d flag to find the duplicate line<br/>
+<font color="#A82F2F"><font size="2">(03:00:28 PM)</font> <b>p3rror:</b></font> petn-randall: http://paste.debian.net/163169/<br/>
+<font color="#A82F2F"><font size="2">(03:00:29 PM)</font> <b>Iridos:</b></font> anddam, or respectively... dpkg --get-selections &gt; file is on the system you want to clone... you can see a short version of this if you /msg dpkg debian clone<br/>
+<font color="#A82F2F"><font size="2">(03:01:22 PM)</font> <b>petn-randall:</b></font> p3rror: I meant where do those two errors come from? That log file is more relevant here.<br/>
+<font color="#A82F2F"><font size="2">(03:01:27 PM)</font> <b>anddam:</b></font> Iridos: I figure how it should be done, in fact the get-selection is suggested earlier, before installing base<br/>
+<font color="#A82F2F"><font size="2">(03:01:57 PM)</font> <b>anddam:</b></font> Iridos: my guess too was that the author pasted the get-selection line rather than typing it, edited to set-selection and forgot to clear it<br/>
+<font size="2">(03:02:03 PM)</font><b> mode (+l 1686) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:03:03 PM)</font> <b>anddam:</b></font> ok, I think I&apos;m ready to move<br/>
+<font color="#A82F2F"><font size="2">(03:03:17 PM)</font> <b>p3rror:</b></font> ChrisH: duplicate line where ?<br/>
+<font color="#A82F2F"><font size="2">(03:03:38 PM)</font> <b>p3rror:</b></font> petn-randall: I did not understand<br/>
+<font size="2">(03:04:01 PM)</font><b> anddam left the room (&quot;WeeChat 1.1.1&quot;).</b><br/>
+<font size="2">(03:05:38 PM)</font><b> elysium^away is now known as elysium</b><br/>
+<font color="#A82F2F"><font size="2">(03:05:46 PM)</font> <b>ChrisH:</b></font> p3rror: error: omessages:1 duplicate log entry  &lt;-- from your paste... didn&apos;t you read your error messages?<br/>
+<font color="#A82F2F"><font size="2">(03:06:33 PM)</font> <b>Dixi____:</b></font> When I perform this: &quot;echo &quot;Subject: Test&quot; | tail -1 file.txt | sendmail -f sender@sender.com -t receiver@receiver.com&quot; I receive the mail with the last line, but the subject is not included in the mail? I cant shrink my head around this.?<br/>
+<font color="#A82F2F"><font size="2">(03:08:06 PM)</font> <b>Dixi____:</b></font> how ever if I just do a echo &quot;subject: test&quot; | cat - file.txt | I get an email with the entire content of file.txt, as well as the subject in my mail.<br/>
+<font color="#A82F2F"><font size="2">(03:08:53 PM)</font> <b>DrOwl:</b></font> Ok , i managed to get a little further... created and formated /boot and got grup2 installed on it, of course there is no config for it yet... it will boot i just get the grub command prompt though.<br/>
+<font color="#A82F2F"><font size="2">(03:09:38 PM)</font> <b>DrOwl:</b></font> Have been looking arround at places like &quot;https://wiki.debian.org/Grub&quot; but they all seem to asume that you are in the OS whilst doing the grub config<br/>
+<font color="#A82F2F"><font size="2">(03:10:21 PM)</font> <b>DrOwl:</b></font> how can i get grub to boot to my luks local install<br/>
+<font color="#A82F2F"><font size="2">(03:11:41 PM)</font> <b>ChrisH:</b></font> Dixi____: did you run echo &quot;Subject: Test&quot; | tail -1 file.txt  ?? Does it wortk as expected? I would assume to see only the last line of file.txt and nothing else<br/>
+<font size="2">(03:12:02 PM)</font><b> mode (+l 1680) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:12:18 PM)</font> <b>Dixi____:</b></font> Yes ChrisH . That works just fine. But the Subject is not included in the mail<br/>
+<font size="2">(03:12:46 PM)</font><b> bcd_ is now known as bcd</b><br/>
+<font size="2">(03:13:03 PM)</font><b> dolf is now known as Freeaqingme|</b><br/>
+<font color="#A82F2F"><font size="2">(03:14:07 PM)</font> <b>ChrisH:</b></font> Dixi____: Please show me that on paste.debian.net  I checked it and I only see the last line of file.txt<br/>
+<font color="#A82F2F"><font size="2">(03:14:20 PM)</font> <b>Dixi____:</b></font> I do too, but there is no email subject<br/>
+<font color="#A82F2F"><font size="2">(03:15:35 PM)</font> <b>mrtnt:</b></font> nkuttler: ok.. Maybe for parsing the config in scripts it is indeed somewhat useful. However, one could always use the /etc/network/interfaces file to parse.<br/>
+<font color="#A82F2F"><font size="2">(03:17:00 PM)</font> <b>Dixi____:</b></font> ChrisH: http://pastebin.com/JF5zNsTh<br/>
+<font color="#A82F2F"><font size="2">(03:20:48 PM)</font> <b>ChrisH:</b></font> Dixi____: Please read carefully what I asked for!  Idid not ask for  echo &quot;Subject: Test&quot; | tail -1 file.txt | sendmail -f sender@sender.com -t receiver@receiver.com   Nor did I ask for pastebin.com!  Please run echo &quot;Subject: Test&quot; | tail -1 file.txt  and use paste.debian.net<br/>
+<font color="#A82F2F"><font size="2">(03:21:32 PM)</font> <b>Dixi____:</b></font> I cant use paste.debian. Its requiring some 2 line breaks stuff<br/>
+<font color="#A82F2F"><font size="2">(03:21:39 PM)</font> <b>Dixi____:</b></font> ill do a run<br/>
+<font color="#A82F2F"><font size="2">(03:22:42 PM)</font> <b>Dixi____:</b></font> ChrisH: http://pastebin.com/TRJYhh4Z<br/>
+<font color="#A82F2F"><font size="2">(03:25:04 PM)</font> <b>Dixi____:</b></font> How ever ChrisH look here: http://pastebin.com/gH1CkQEG - if I do &quot;cat -&quot; the subject is included.<br/>
+<font color="#A82F2F"><font size="2">(03:25:07 PM)</font> <b>petn-randall:</b></font> p3rror: You got two error message, I want to see more of the log where that was in.<br/>
+<font color="#A82F2F"><font size="2">(03:25:08 PM)</font> <b>ChrisH:</b></font> Dixi____: Where can you see the Subject line?  I just quote your writing: &quot;15:12 &lt; Dixi____&gt; Yes ChrisH . That works just fine. &quot;<br/>
+<font color="#A82F2F"><font size="2">(03:25:52 PM)</font> <b>Dixi____:</b></font> ChrisH: do you understand what I am trying to explain?<br/>
+<font color="#A82F2F"><font size="2">(03:27:36 PM)</font> <b>ChrisH:</b></font> Dixi____: tail does not pickup the stuff from STDIN. so the easiest way might be. echo subject &gt; $TMPFILE ; tail -f file.txt &gt;&gt; $TMPFILE ; sendmail $OPTIONS &lt; $TMPFILE<br/>
+<font color="#A82F2F"><font size="2">(03:28:43 PM)</font> <b>p3rror:</b></font> petn-randall: I fix it<br/>
+<font color="#A82F2F"><font size="2">(03:28:54 PM)</font> <b>Dixi____:</b></font> Ill try ChrisH<br/>
+<font color="#A82F2F"><font size="2">(03:29:10 PM)</font> <b>p3rror:</b></font> as said ChrisH I run logrotate with -d option and I found a duplicate entry<br/>
+<font size="2">(03:49:26 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

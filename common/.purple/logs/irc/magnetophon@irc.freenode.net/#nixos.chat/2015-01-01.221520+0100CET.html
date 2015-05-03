@@ -1,0 +1,44 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Thu 01 Jan 2015 10:15:20 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Thu 01 Jan 2015 10:15:20 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:15:20 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(10:15:20 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#16569E"><font size="2">(10:17:19 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: cat strlog | head -n 10000 | nixpaste<br/>
+<font color="#16569E"><font size="2">(10:17:19 PM)</font> <b>magnetophon:</b></font> http://nixpaste.noip.me/qISvyBeq<br/>
+<font color="#A82F2F"><font size="2">(10:17:23 PM)</font> <b>roconnor:</b></font> boothead: roughly speaking yes.  My understanding is that builds on hydra are moved to nixpkgs-unstable after the package database passes some tests.<br/>
+<font color="#16569E"><font size="2">(10:17:36 PM)</font> <b>magnetophon:</b></font> the full thing was too big (25000 lines)<br/>
+<font color="#A82F2F"><font size="2">(10:17:43 PM)</font> <b>roconnor:</b></font> boothead: so there is a little bit of a delay.<br/>
+<font color="#A82F2F"><font size="2">(10:17:56 PM)</font> <b>MichaelRaskin:</b></font> magnetophon: is it before or after?<br/>
+<font color="#16569E"><font size="2">(10:18:18 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: before or after what?<br/>
+<font color="#A82F2F"><font size="2">(10:18:31 PM)</font> <b>MichaelRaskin:</b></font> Anyway, I already checked a lot of things on my system, it is just systemd deliberately breaking xinit<br/>
+<font color="#A82F2F"><font size="2">(10:18:41 PM)</font> <b>MichaelRaskin:</b></font> systemd update<br/>
+<font color="#A82F2F"><font size="2">(10:19:29 PM)</font> <b>MichaelRaskin:</b></font> xlaunch is more or less a reimplementation of xinit to take into account a few NixOS-specific options<br/>
+<font color="#16569E"><font size="2">(10:19:38 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: you mean the update of systemd broke xinit, right?<br/>
+<font color="#A82F2F"><font size="2">(10:19:56 PM)</font> <b>MichaelRaskin:</b></font> Yes<br/>
+<font color="#A82F2F"><font size="2">(10:20:15 PM)</font> <b>MichaelRaskin:</b></font> I have a fedora mailing list conversation that convinced me that it is by design<br/>
+<font color="#16569E"><font size="2">(10:20:57 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: So will using slim &quot;fix it&quot;?<br/>
+<font color="#A82F2F"><font size="2">(10:21:07 PM)</font> <b>Lethalman:</b></font> magnetophon, given that you use xlaunch from root, why not disable display-manager at startup and do systemctl start display-manager by hand?<br/>
+<font color="#A82F2F"><font size="2">(10:21:37 PM)</font> <b>MichaelRaskin:</b></font> Yes, via slim you can login to a single X session<br/>
+<font color="#A82F2F"><font size="2">(10:21:43 PM)</font> <b>kmicu:</b></font> ** startx<br/>
+<font color="#A82F2F"><font size="2">(10:21:45 PM)</font> <b>kmicu:</b></font> http://lists.freedesktop.org/archives/systemd-devel/2012-February/004614.html<br/>
+<font color="#16569E"><font size="2">(10:21:45 PM)</font> <b>magnetophon:</b></font> Lethalman: the from root was a suggestion by MichaelRaskin<br/>
+<font color="#A82F2F"><font size="2">(10:21:47 PM)</font> <b>kmicu:</b></font> “I recommend improving a display manager to make this work, and avoid startx.”<br/>
+<font color="#A82F2F"><font size="2">(10:21:51 PM)</font> <b>Lethalman:</b></font> magnetophon, ah ok<br/>
+<font color="#A82F2F"><font size="2">(10:22:36 PM)</font> <b>MichaelRaskin:</b></font> My use case is about multiple X sessions with different settings at once<br/>
+<font color="#A82F2F"><font size="2">(10:23:51 PM)</font> <b>kmicu:</b></font> magnetophon: save yourself time and use display manager and choose sth other than deprecated|un-maintained  SLiM.<br/>
+<font color="#16569E"><font size="2">(10:23:55 PM)</font> <b>magnetophon:</b></font> When I start using NixOS in production I (would like)/need to run an xserver on my silent laptop, to run i3 on my loud server, so I can do sound-recording... <br/>
+<font color="#16569E"><font size="2">(10:25:50 PM)</font> <b>magnetophon:</b></font> So I have my laptop in the studio, and my server elsewhere, and I controll it over ssh. Will that be possible again at some point?  (not that I had it working in 14.04 yet, but it works great on debian)<br/>
+<font color="#16569E"><font size="2">(10:26:31 PM)</font> <b>magnetophon:</b></font> kmicu: what (light) DM do you recommend?<br/>
+<font color="#A82F2F"><font size="2">(10:26:53 PM)</font> <b>kmicu:</b></font> Anything besides SLiM :)<br/>
+<font color="#16569E"><font size="2">(10:27:08 PM)</font> <b>magnetophon:</b></font> kmicu: what do you use? <br/>
+<font color="#A82F2F"><font size="2">(10:27:18 PM)</font> <b>kmicu:</b></font> I’m using LightDM now (previously only startx at my Arch).<br/>
+<font color="#16569E"><font size="2">(10:27:32 PM)</font> <b>magnetophon:</b></font> kmicu: thanks<br/>
+<font color="#A82F2F"><font size="2">(10:27:43 PM)</font> <b>MichaelRaskin:</b></font> There are multiple discussions going on, and if any of them ends with merging some init-abstraction into NixOS, it will become easy to get a non-systemd NixPkgs-based system<br/>
+<font color="#A82F2F"><font size="2">(10:28:08 PM)</font> <b>sepi:</b></font> how do I find out what&apos;s the standard kernel version being installed on a stable nixos channel?<br/>
+<font color="#A82F2F"><font size="2">(10:28:41 PM)</font> <b>copumpkin:</b></font> I really want some adaptive hybrid of --cores and -j<br/>
+<font color="#A82F2F"><font size="2">(10:28:47 PM)</font> <b>copumpkin:</b></font> that keeps my cores busy at all times<br/>
+<font color="#A82F2F"><font size="2">(10:30:08 PM)</font> <b>Lethalman:</b></font> sepi, by reading the nix file<br/>
+<font color="#A82F2F"><font size="2">(10:30:15 PM)</font> <b>Lethalman:</b></font> all-packages.nix<br/>
+<font color="#A82F2F"><font size="2">(10:30:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] madjar closed pull request #5341: Add Mezzanine, a Django CMS (master...add-mezzanine) http://git.io/z-rDwg<br/>
+<font color="#A82F2F"><font size="2">(10:30:39 PM)</font> <b>Lethalman:</b></font> sepi, or packages html on nixos.org<br/>
+<font color="#A82F2F"><font size="2">(10:32:14 PM)</font> <b>jgeerds:</b></font> happy new year everyone :)<br/>
+<font color="#A82F2F"><font size="2">(10:34:36 PM)</font> <b>sepi:</b></font> Lethalman: Ok, that makes sense ^^. Thanks a lot!<br/>
+<font color="#A82F2F"><font size="2">(10:36:15 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nckx opened pull request #5523: util-linux: fix rtcwake(8) to search $PATH for shutdown(8) (master...util-linux-path) http://git.io/1_dcHA<br/>

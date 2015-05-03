@@ -1,0 +1,37 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #i3 at Tue 24 Feb 2015 06:40:14 PM CET on magnetophon@irc.twice-irc.de (irc)</title></head><body><h3>Conversation with #i3 at Tue 24 Feb 2015 06:40:14 PM CET on magnetophon@irc.twice-irc.de (irc)</h3>
+<font size="2">(06:40:14 PM)</font><b> The topic for #i3 is: i3 v4.8 released | i3status 2.8 released | i3lock 2.6 released | <a href="http://code.i3wm.org/">http://code.i3wm.org/</a> | <a href="http://i3wm.org/">http://i3wm.org/</a> | <a href="http://faq.i3wm.org/">http://faq.i3wm.org/</a> | <a href="http://build.i3wm.org/download-count.txt">http://build.i3wm.org/download-count.txt</a> | paste at <a href="http://p.nnev.de/">http://p.nnev.de/</a> | file upload at <a href="https://transfer.sh/">https://transfer.sh/</a></b><br/>
+<font size="2">(06:40:14 PM)</font><b> Topic for #i3 set by sECuRE at 09:42:18 AM on 10/06/2014</b><br/>
+<font color="#A82F2F"><font size="2">(06:42:25 PM)</font> <b>numkem:</b></font> hello, I&apos;m trying to setup my i3 so that applications are started than workspaces are renamed and move to their right monitor<br/>
+<font color="#A82F2F"><font size="2">(06:43:07 PM)</font> <b>numkem:</b></font> and so far I can&apos;t seem to even make the workspace rename correct everytime, I end up having to rerun the script twice in order to get it working correctly... Is there another way than to use i3-msg?<br/>
+<font color="#A82F2F"><font size="2">(06:45:13 PM)</font> <b>f8l:</b></font> I don&apos;t quite understand what you&apos;re trying to achieve. What is the initial setup? Is the order important?<br/>
+<font color="#A82F2F"><font size="2">(06:47:16 PM)</font> <b>numkem:</b></font> what I&apos;m trying to do is setup my configuration to start some applications in some workspace (like mutt for workspace 4)<br/>
+<font color="#A82F2F"><font size="2">(06:47:26 PM)</font> <b>numkem:</b></font> than rename the workspace to what they actually used for<br/>
+<font color="#A82F2F"><font size="2">(06:47:36 PM)</font> <b>numkem:</b></font> than move those workspace to the monitor that I want<br/>
+<font color="#A82F2F"><font size="2">(06:49:42 PM)</font> <b>f8l:</b></font> Isn&apos;t it better to assign applications to named workspaces and workspaces to outputs? Different order, much less hassle.<br/>
+<font color="#A82F2F"><font size="2">(06:50:10 PM)</font> <b>numkem:</b></font> if it&apos;s the better way I&apos;m opened to it, I&apos;m just trying to reach that goal. First time I really try to tweak i3<br/>
+<font color="#A82F2F"><font size="2">(06:50:32 PM)</font> <b>f8l:</b></font> See user guide sections 4.12 and 4.14.<br/>
+<font color="#A82F2F"><font size="2">(06:51:19 PM)</font> <b>numkem:</b></font> 4.12 is to assign ALL application of that name to a workspace, thats not really what I want to do. That part already works anyway<br/>
+<font color="#A82F2F"><font size="2">(06:52:37 PM)</font> <b>f8l:</b></font> Layout saving is probably what you seek. I never used that, so I&apos;m not sure if I can help you with that.<br/>
+<font color="#16569E"><font size="2">(06:54:13 PM)</font> <b>magnetophon:</b></font> how do I get the current workspace from the shell?<br/>
+<font color="#A82F2F"><font size="2">(06:55:16 PM)</font> <b>f8l:</b></font> ‘i3-msg -t get_workspaces’ is a good starting point.<br/>
+<font color="#16569E"><font size="2">(06:57:34 PM)</font> <b>magnetophon:</b></font> f8l: OK, thanks. I saw the nice tools in other languages and was hoping for something more streamlined in the shell as well.   :/<br/>
+<font color="#A82F2F"><font size="2">(06:58:35 PM)</font> <b>f8l:</b></font> If you have Python with json module available, I have a three-liner for you.<br/>
+<font color="#16569E"><font size="2">(07:00:51 PM)</font> <b>magnetophon:</b></font> f8l: yeah, i glanced at a python solution, and it seemed easy, except I don't speak python. ;)<br/>
+<font color="#A82F2F"><font size="2">(07:02:49 PM)</font> <b>f8l:</b></font> magnetophon: http://f8l.netne.net/focused_workspace.py<br/>
+<font color="#16569E"><font size="2">(07:09:35 PM)</font> <b>magnetophon:</b></font> f8l: thanks! that looks like it should run from the cli and return a value to stdout, right? Unfortunately, when I run it, it 'hangs' the cli, and when I ctrl-c I get: http://nixpaste.noip.me/PsuufWsJ<br/>
+<font color="#A82F2F"><font size="2">(07:09:36 PM)</font> <b>frank:</b></font> [Link Info] Nix Pastebin<br/>
+<font color="#16569E"><font size="2">(07:10:09 PM)</font> <b>magnetophon:</b></font> or am I just using it wrong? :p<br/>
+<font color="#A82F2F"><font size="2">(07:11:24 PM)</font> <b>f8l:</b></font> Oh, sorry. I forgot to tell you how to use it.<br/>
+<font color="#16569E"><font size="2">(07:11:32 PM)</font> <b>magnetophon:</b></font> from the looks of the error, I at least seem to have json, right?  (never mind the weird path, that's because of my distro)<br/>
+<font color="#16569E"><font size="2">(07:11:38 PM)</font> <b>magnetophon:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(07:11:49 PM)</font> <b>f8l:</b></font> ‘i3-msg -t get_workspaces | python focused_workspace.py’<br/>
+<font color="#16569E"><font size="2">(07:11:59 PM)</font> <b>magnetophon:</b></font> aha<br/>
+<font color="#16569E"><font size="2">(07:12:54 PM)</font> <b>magnetophon:</b></font> \0/<br/>
+<font color="#16569E"><font size="2">(07:13:03 PM)</font> <b>magnetophon:</b></font> thanks<br/>
+<font color="#16569E"><font size="2">(07:20:17 PM)</font> <b>magnetophon:</b></font> f8l: got more where that came from? :p (for example one that gives me all ws with a window, or all possible ws)<br/>
+<font color="#A82F2F"><font size="2">(07:24:42 PM)</font> <b>f8l:</b></font> magnetophon: Just remove the if statement.<br/>
+<font color="#16569E"><font size="2">(07:27:54 PM)</font> <b>magnetophon:</b></font> f8l: didn't even read it... sorry.  I can't see how to get all possible ws from there though.<br/>
+<font color="#A82F2F"><font size="2">(07:28:56 PM)</font> <b>f8l:</b></font> magnetophon: Just remove the line which reads: ‘if l[&apos;focused&apos;] == True:’<br/>
+<font color="#16569E"><font size="2">(07:33:57 PM)</font> <b>magnetophon:</b></font> f8l: hmm, mis communication: I got that part, but I somehow thought the script would give me all ws's with an window on it then (like i3bar defaults to). I now see I'd need 'if l['visible'] == True:' for that.<br/>
+<font color="#16569E"><font size="2">(07:34:04 PM)</font> <b>magnetophon:</b></font> Thanks! :)<br/>
+<font color="#A82F2F"><font size="2">(08:27:54 PM)</font> <b>frank:</b></font> ::i3faq:: Empty workspace at start @ https://faq.i3wm.org/question/5530/empty-workspace-at-start/ (by peterparcoeur)<br/>

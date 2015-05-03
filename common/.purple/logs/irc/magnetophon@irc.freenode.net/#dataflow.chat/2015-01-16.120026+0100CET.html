@@ -1,0 +1,42 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #dataflow at Fri 16 Jan 2015 12:00:26 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #dataflow at Fri 16 Jan 2015 12:00:26 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(12:00:26 PM)</font><b> The topic for #dataflow is: ∿∿ The PureData Chatline ♫ ENGLISH FRANÇAIS DEUTSCH ♫ The Diagram is the Program™ ∿∿ Readymade Solutions Require Readymade Problems ; For Everything Else There Is PureData.™ ♫ <a href="http://puredata.info/">http://puredata.info/</a> ∿∿ <a href="http://gridflow.ca/">http://gridflow.ca/</a> ♫ ♩♬♫♩♪♩ <a href="http://wiki.dataflow.ws/DataFlow">http://wiki.dataflow.ws/DataFlow</a> ∿∿</b><br/>
+<font size="2">(12:00:26 PM)</font><b> Topic for #dataflow set by matju at 07:06:16 AM on 11/07/2011</b><br/>
+<font size="2">(05:30:55 PM)</font><b> lorenzosu is now known as lorenzosu_</b><br/>
+<font size="2">(10:03:57 PM)</font><b> sofija is now known as harakiri</b><br/>
+<font size="2">(10:50:21 PM)</font><b> harakiri is now known as sofija</b><br/>
+<font size="2">(06:57:08 AM)</font><b> christian is now known as strangewarp</b><br/>
+<font color="#A82F2F"><font size="2">(12:58:21 PM)</font> <b>SafariMonkey:</b></font> Newb here working through tuts, is it possible/easy (without significant hackery) to pass a string with spaces? Looking through fora and mailing lists it seems not...<br/>
+<font color="#A82F2F"><font size="2">(12:59:33 PM)</font> <b>ClaudiusMaximus:</b></font> it&apos;s not trivial to create one, and it&apos;s hard to do useful things with it later (like route, select, etc)<br/>
+<font color="#A82F2F"><font size="2">(01:00:28 PM)</font> <b>SafariMonkey:</b></font> yeah, I kinda figured<br/>
+<font color="#A82F2F"><font size="2">(01:00:28 PM)</font> <b>ClaudiusMaximus:</b></font> something like [32(--[makefilename FOO%cBAR] will make a symbol like &quot;FOO BAR&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:00:53 PM)</font> <b>SafariMonkey:</b></font> so... no string manipulation then I guess<br/>
+<font color="#A82F2F"><font size="2">(01:01:29 PM)</font> <b>SafariMonkey:</b></font> not that it was what I wanted it for, it was just one of the first things I tried as an &quot;easy, obvious&quot; thing<br/>
+<font color="#A82F2F"><font size="2">(01:02:03 PM)</font> <b>ClaudiusMaximus:</b></font> string manipulation is bad in pd for other reasons (each string is added to a permanent symbol table, so if you keep manipulating strings the symbol table keeps growing, using memory and slowing down new symbol generation..)<br/>
+<font color="#A82F2F"><font size="2">(01:02:30 PM)</font> <b>SafariMonkey:</b></font> ouch<br/>
+<font color="#A82F2F"><font size="2">(01:03:24 PM)</font> <b>ClaudiusMaximus:</b></font> if you want to do string manipulation, better to use a scripting external like pdlua or pyext, and keep all your strings inside the external until you absolutely need to send them through pd patch cords<br/>
+<font color="#A82F2F"><font size="2">(01:03:26 PM)</font> <b>SafariMonkey:</b></font> but yeah, recently found it through Jerobeam Fenderson&apos;s oscilloscope stuff<br/>
+<font color="#A82F2F"><font size="2">(01:04:01 PM)</font> <b>SafariMonkey:</b></font> it&apos;s not my use case at all, it just seemed from the first tuts to work well for it<br/>
+<font color="#A82F2F"><font size="2">(01:04:53 PM)</font> <b>ClaudiusMaximus:</b></font> another strategy is to use lists of unicode code points as floats, instead of strings as symbols - but that&apos;s horrible for a whole load of other reasons<br/>
+<font color="#A82F2F"><font size="2">(01:05:06 PM)</font> <b>SafariMonkey:</b></font> yeah, don&apos;t worry<br/>
+<font color="#A82F2F"><font size="2">(01:05:09 PM)</font> <b>ClaudiusMaximus:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(01:05:20 PM)</font> <b>SafariMonkey:</b></font> I didn&apos;t need it anyway :P<br/>
+<font color="#A82F2F"><font size="2">(01:05:24 PM)</font> <b>ClaudiusMaximus:</b></font> hehe<br/>
+<font color="#A82F2F"><font size="2">(01:05:54 PM)</font> <b>SafariMonkey:</b></font> I&apos;ve got a fair bit of experience in VSXu, another visual programming language (for OpenGL music visuals and demos)<br/>
+<font color="#A82F2F"><font size="2">(01:07:02 PM)</font> <b>SafariMonkey:</b></font> but I have to say, Pure Data seems to have an interesting... philosophy? It seems more like modular programming and less like stringing together fixed modules, kinda<br/>
+<font color="#A82F2F"><font size="2">(01:09:03 PM)</font> <b>ClaudiusMaximus:</b></font> i guess so, depends which libraries you are using though - something like pdp/pidip has a lot of &quot;fixed modules&quot; for various image processing effects, while gridflow has much more low level operations that you can combine to build your own image processing effects<br/>
+<font color="#A82F2F"><font size="2">(01:09:41 PM)</font> <b>SafariMonkey:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(01:09:43 PM)</font> <b>ClaudiusMaximus:</b></font> but those are CPU-based, for OpenGL there&apos;s Gem<br/>
+<font color="#A82F2F"><font size="2">(01:10:30 PM)</font> <b>ClaudiusMaximus:</b></font> (and Gem also has some CPU-based image processing stuff)<br/>
+<font color="#A82F2F"><font size="2">(01:11:15 PM)</font> <b>SafariMonkey:</b></font> I&apos;m actually interested in the audio based visual programming at the moment, because I&apos;m building a vector monitor and it seems like the perfect thing to make visuals on<br/>
+<font color="#A82F2F"><font size="2">(01:11:29 PM)</font> <b>ClaudiusMaximus:</b></font> oh cool<br/>
+<font color="#A82F2F"><font size="2">(01:12:41 PM)</font> <b>SafariMonkey:</b></font> I&apos;ll probably run on a RasPi, based on the situation with DACs<br/>
+<font color="#A82F2F"><font size="2">(01:12:53 PM)</font> <b>ClaudiusMaximus:</b></font> saw a nice performance last year with laser projected visuals<br/>
+<font color="#A82F2F"><font size="2">(01:12:59 PM)</font> <b>SafariMonkey:</b></font> oh cool<br/>
+<font color="#A82F2F"><font size="2">(01:13:12 PM)</font> <b>SafariMonkey:</b></font> I know a couple laser artists<br/>
+<font color="#A82F2F"><font size="2">(01:13:43 PM)</font> <b>SafariMonkey:</b></font> considered going into it but man are lasers expensive<br/>
+<font color="#A82F2F"><font size="2">(01:14:16 PM)</font> <b>ClaudiusMaximus:</b></font> it was this one i saw http://www.barbican.org.uk/music/event-detail.asp?ID=16283<br/>
+<font color="#A82F2F"><font size="2">(01:14:25 PM)</font> <b>SafariMonkey:</b></font> one had a &gt;$3500 projector last I heard<br/>
+<font color="#A82F2F"><font size="2">(01:14:40 PM)</font> <b>SafariMonkey:</b></font> the other runs a company and has who knows what<br/>
+<font color="#A82F2F"><font size="2">(01:20:51 PM)</font> <b>SafariMonkey:</b></font> and there&apos;s this guy https://www.youtube.com/watch?v=bHTzvaH5eVI https://www.youtube.com/watch?v=3ZTYwITy4DE<br/>
+<font size="2">(06:47:03 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,40 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Wed 25 Mar 2015 06:02:38 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Wed 25 Mar 2015 06:02:38 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(06:02:38 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(06:02:38 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(06:05:24 PM)</font> <b>Lethalman:</b></font> rui1, perhaps you manually changed something in the nix store<br/>
+<font color="#A82F2F"><font size="2">(06:08:23 PM)</font> <b>rui1:</b></font> Lethalman: I didn&apos;t. I think it was some disk corruption issue. But all the tools for repairing that I found didn&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(06:08:52 PM)</font> <b>rui1:</b></font> Fortunately, it&apos;s not such a huge loss to reinstall everything when you have your configuration.nix. But it&apos;s not nice iether<br/>
+<font color="#A82F2F"><font size="2">(06:09:27 PM)</font> <b>goibhniu1:</b></font> rui1: that&apos;s annoying ... which filesystem did you use?<br/>
+<font size="2">(06:09:31 PM)</font><b> goibhniu1 is now known as goibhniu</b><br/>
+<font color="#A82F2F"><font size="2">(06:09:53 PM)</font> <b>the-kenny:</b></font> Hm, I never had that happen on my machine(s).<br/>
+<font color="#A82F2F"><font size="2">(06:09:57 PM)</font> <b>rui1:</b></font> goibhniu: ext4 in a lvm<br/>
+<font color="#16569E"><font size="2">(06:10:07 PM)</font> <b>magnetophon:</b></font> I'm making a package that needs boost &amp; ladspa header files and uses scons to build. It cannot find its header files. I looked at many examples, and all of them seem to find their headers automatically; as in they don't have lines like this: https://gist.github.com/magnetophon/6230eea5426dbd3d971f#file-gistfile1-nix-L16-L18 <br/>
+<font color="#A82F2F"><font size="2">(06:10:36 PM)</font> <b>goibhniu:</b></font> rui1: very odd indeed<br/>
+<font color="#16569E"><font size="2">(06:11:25 PM)</font> <b>magnetophon:</b></font> Even with these lines, scons cannot find the headers that boost points at internally: &quot;include/boost/array.hpp:33:39: fatal error: boost/detail/workaround.hpp: No such file or directory&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:11:42 PM)</font> <b>goibhniu:</b></font> magnetophon: I don&apos;t remember how to do it exactly .. but I remember that scons has some nice verbose options for debugging<br/>
+<font color="#A82F2F"><font size="2">(06:11:54 PM)</font> <b>goibhniu:</b></font> you should be able to see what&apos;s going on in a nix-shell<br/>
+<font color="#A82F2F"><font size="2">(06:13:36 PM)</font> <b>rui1:</b></font> goibhniu: I&apos;ll worry if it happens again. My disks have a few years, so perhaps one of them is failing<br/>
+<font color="#A82F2F"><font size="2">(06:13:46 PM)</font> <b>rui1:</b></font> Next priority: get the sound working<br/>
+<font color="#A82F2F"><font size="2">(06:14:25 PM)</font> <b>ttuegel:</b></font> rui1: if you do update mathematica, please keep the old versions around. in the past, people have always deleted the old version, but some of us can&apos;t upgrade<br/>
+<font color="#A82F2F"><font size="2">(06:15:30 PM)</font> <b>rui1:</b></font> ttuegel: Sure<br/>
+<font color="#A82F2F"><font size="2">(06:16:00 PM)</font> <b>ttuegel:</b></font> and speaking of, who&apos;s the person to talk to about getting patchelf patches merged?<br/>
+<font color="#A82F2F"><font size="2">(06:20:56 PM)</font> <b>rui1:</b></font> When you add a big file to the store with nix-store --add-fixed (such as to install mathematica), does it get garbage collected afterwards or does it stay taking up space for ever?<br/>
+<font color="#A82F2F"><font size="2">(06:22:12 PM)</font> <b>ttuegel:</b></font> rui1: it&apos;s garbage collected unless you specifically tell nix to keep sources around<br/>
+<font color="#A82F2F"><font size="2">(06:22:48 PM)</font> <b>ttuegel:</b></font> rui1: you may want to look at https://nixos.org/wiki/How_to_add_files_to_the_nix-store#Large_files<br/>
+<font color="#A82F2F"><font size="2">(06:23:02 PM)</font> <b>ttuegel:</b></font> nix-store --add-fixed loads the *entire* file into RAM<br/>
+<font color="#A82F2F"><font size="2">(06:23:12 PM)</font> <b>pmade:</b></font> I just switched my main machine to NixOS and I can&apos;t seem to get libvirt networking to work.  It seems that the virbr0 interface isn&apos;t performing DHCP for the guests.  Any suggestions?<br/>
+<font color="#A82F2F"><font size="2">(06:23:17 PM)</font> <b>Lethalman:</b></font> ttuegel, woot<br/>
+<font color="#A82F2F"><font size="2">(06:23:28 PM)</font> <b>Lethalman:</b></font> ttuegel, do you know why?<br/>
+<font color="#A82F2F"><font size="2">(06:23:42 PM)</font> <b>ttuegel:</b></font> Lethalman: is it because hydra is building kde? and we might channel update?<br/>
+<font color="#A82F2F"><font size="2">(06:24:08 PM)</font> <b>Lethalman:</b></font> ttuegel, no sorry I asked about why nix-store loads the entire file i nram<br/>
+<font color="#A82F2F"><font size="2">(06:24:46 PM)</font> <b>ttuegel:</b></font> Lethalman: oh, that&apos;s just what all the nix-* commands do with large files.<br/>
+<font color="#A82F2F"><font size="2">(06:24:56 PM)</font> <b>Lethalman:</b></font> ttuegel, you know why is that?<br/>
+<font color="#A82F2F"><font size="2">(06:25:23 PM)</font> <b>ttuegel:</b></font> other than being poorly designed? no, i don&apos;t<br/>
+<font color="#A82F2F"><font size="2">(06:27:49 PM)</font> <b>Fuuzetsu:</b></font> I have http://lpaste.net/1866747895290527744 but it seems no matter what I put in the set, it doesn&apos;t apply, what am I doing wrong? I know it used to work.<br/>
+<font size="2">(06:32:53 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(06:33:38 PM)</font> <b>Fuuzetsu:</b></font> (and buildInputs doesn&apos;t work either, seems to me it doesn&apos;t even get to evaluating it)<br/>
+<font color="#A82F2F"><font size="2">(06:37:12 PM)</font> <b>Fuuzetsu:</b></font> http://lpaste.net/4454543717801394176 apparently this is not the same as my previous paste, huh<br/>
+<font color="#A82F2F"><font size="2">(06:40:22 PM)</font> <b>Fuuzetsu:</b></font> worse, it ignores my previous overrides in the set, confused…<br/>
+<font color="#A82F2F"><font size="2">(06:45:30 PM)</font> <b>devhell:</b></font> sooo, haskell-esqueleto&apos;s test suite seems to be failing?<br/>
+<font size="2">(07:12:26 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

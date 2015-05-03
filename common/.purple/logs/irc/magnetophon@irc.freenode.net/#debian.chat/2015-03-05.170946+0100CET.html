@@ -1,0 +1,33 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Thu 05 Mar 2015 05:09:46 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Thu 05 Mar 2015 05:09:46 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(05:09:46 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(05:09:46 PM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(05:09:47 PM)</font> <b>verne.freenode.net:</b></font> (notice) [freenode-info] if you&apos;re at a conference and other people are having trouble connecting, please mention it to staff: http://freenode.net/faq.shtml#gettinghelp<br/>
+<font color="#A82F2F"><font size="2">(05:15:15 PM)</font> <b>xurious:</b></font> Morning folks. Running debian. On a drive with a single partition, ext4 formatted, I accidentally filled the disk to 100% capacity. Noticing my error, I removed around 100GB worth of data. du and df both show the same usage. I&apos;ve rebooted, incase a program had a file locked. Anyone have any ideas? I know the files were removed, I was doing them with rm and they no longer exist with ls -al.<br/>
+<font color="#A82F2F"><font size="2">(05:15:29 PM)</font> <b>shay_shay:</b></font> its not impossible but you will have to do so much wheel reinventing youd be better off just starting over<br/>
+<font color="#A82F2F"><font size="2">(05:15:36 PM)</font> <b>uthus:</b></font> Or put another way: Do Iceweasel or Chromium use PortAudio?<br/>
+<font color="#A82F2F"><font size="2">(05:15:40 PM)</font> <b>shay_shay:</b></font> Mathisen: ^<br/>
+<font color="#A82F2F"><font size="2">(05:16:08 PM)</font> <b>xurious:</b></font> Edit: du/df both show the disk as completely full, despite removing files.<br/>
+<font color="#A82F2F"><font size="2">(05:16:13 PM)</font> <b>shay_shay:</b></font> and my definition of possible is very forgiving here<br/>
+<font color="#A82F2F"><font size="2">(05:17:06 PM)</font> <b>shay_shay:</b></font> if you had a 64 bit kernel and 32 bit userspace and mapped all the shared libraries just right..<br/>
+<font color="#A82F2F"><font size="2">(05:17:10 PM)</font> <b>Mathisen:</b></font> shay_shay: okej will try to convert it then... im just scared the machine will hang after first reboot... that would not be good at all<br/>
+<font color="#A82F2F"><font size="2">(05:17:42 PM)</font> <b>Mathisen:</b></font> shay_shay: how safe is it realy to do... it is not runing mutch no gui or X at all just a simple web server + some other simple services<br/>
+<font color="#A82F2F"><font size="2">(05:17:57 PM)</font> <b>dokoo:</b></font> xurious, maybe they were hard linked? so the hard link still remains in some other directory<br/>
+<font color="#A82F2F"><font size="2">(05:17:58 PM)</font> <b>shay_shay:</b></font> Mathisen: yeah well whenever you change your kernel you run that risk. unless its openvz then you cant do what you are proposing<br/>
+<font color="#A82F2F"><font size="2">(05:18:16 PM)</font> <b>xurious:</b></font> dokoo: how do i check that?<br/>
+<font color="#A82F2F"><font size="2">(05:19:06 PM)</font> <b>shay_shay:</b></font> Mathisen: https://wiki.debian.org/CrossGrading<br/>
+<font color="#A82F2F"><font size="2">(05:19:22 PM)</font> <b>dokoo:</b></font> xurious, you can check the hardlink count with ls. ... before you delete the file...<br/>
+<font color="#A82F2F"><font size="2">(05:19:25 PM)</font> <b>pythonsnake1:</b></font> abrotman: isn&apos;t that messy?<br/>
+<font color="#A82F2F"><font size="2">(05:19:35 PM)</font> <b>pythonsnake1:</b></font> lots of places do one sysadmin per multiple servers<br/>
+<font color="#A82F2F"><font size="2">(05:19:52 PM)</font> <b>JyZyXEL:</b></font> after executing &apos;sudo update-grub&apos;, the root= is wrong in the resulting grub.cfg<br/>
+<font color="#A82F2F"><font size="2">(05:20:01 PM)</font> <b>JyZyXEL:</b></font> what was in charge of setting that?<br/>
+<font color="#A82F2F"><font size="2">(05:20:06 PM)</font> <b>dokoo:</b></font> xurious, with du * and/or baobab, you can track down how space is distributed across directories, and try to delete more files...<br/>
+<font color="#A82F2F"><font size="2">(05:20:22 PM)</font> <b>shay_shay:</b></font> Mathisen: backup first. if you dont have any other choice then maybe ita time to YOLO it<br/>
+<font color="#A82F2F"><font size="2">(05:20:55 PM)</font> <b>dokoo:</b></font> JyZyXEL, update-grub basically runs grub-mkconfig -o /boot/grub/grub.cfg<br/>
+<font color="#A82F2F"><font size="2">(05:21:11 PM)</font> <b>Mathisen:</b></font> shay_shay: i feel like im gonna take a long drive tomorow just to get to the machine but i will give it a go<br/>
+<font color="#A82F2F"><font size="2">(05:21:14 PM)</font> <b>martinalex:</b></font> hi, i am trying to install debian testing with an encrypted drive using the guided mode. I always get the error &apos;the attempt to mount a file system with type ext4 in LVM ..., LV root at / failed.&apos;<br/>
+<font color="#A82F2F"><font size="2">(05:21:24 PM)</font> <b>JyZyXEL:</b></font> dokoo: i do get a few warnings like &quot;/usr/sbin/grub-probe: warning: Couldn&apos;t find physical volume `(null)&apos;. Some modules may be missing from core image..&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:21:29 PM)</font> <b>martinalex:</b></font> is this a known error? Or what might be the problem?<br/>
+<font color="#A82F2F"><font size="2">(05:21:43 PM)</font> <b>JyZyXEL:</b></font> kind of stupid because it doesn&apos;t show what command its trying to execute that gives that warning<br/>
+<font color="#A82F2F"><font size="2">(05:21:53 PM)</font> <b>Mathisen:</b></font> already got backup on everything<br/>
+<font color="#A82F2F"><font size="2">(05:21:56 PM)</font> <b>dokoo:</b></font> JyZyXEL, no idea, try in channel #grub<br/>
+<font size="2">(05:22:04 PM)</font><b> dokoo left the room (quit: Remote host closed the connection).</b><br/>

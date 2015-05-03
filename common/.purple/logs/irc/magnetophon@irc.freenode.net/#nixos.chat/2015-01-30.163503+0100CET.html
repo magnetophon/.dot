@@ -1,0 +1,65 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Fri 30 Jan 2015 04:35:03 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Fri 30 Jan 2015 04:35:03 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:35:05 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(04:35:05 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(04:39:15 PM)</font> <b>ktosiek:</b></font> instantepiphany: it can&apos;t find the linker, probably<br/>
+<font color="#A82F2F"><font size="2">(04:39:28 PM)</font> <b>ktosiek:</b></font> ldd ./Hammerwatch... gives the same error?<br/>
+<font color="#A82F2F"><font size="2">(04:39:39 PM)</font> <b>ktosiek:</b></font> BTW look into &quot;Steam on nixos&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:39:53 PM)</font> <b>ktosiek:</b></font> http://sandervanderburg.blogspot.com/2013/09/composing-fhs-compatible-chroot.html<br/>
+<font color="#A82F2F"><font size="2">(04:40:10 PM)</font> <b>ktosiek:</b></font> this creates a chroot for running games as they are<br/>
+<font color="#A82F2F"><font size="2">(04:40:39 PM)</font> <b>instantepiphany:</b></font> ldd ./Hammerwatch gives &quot;not dynamic executable&quot; (which it is as verified by file utility)<br/>
+<font color="#A82F2F"><font size="2">(04:41:47 PM)</font> <b>instantepiphany:</b></font> I set the interpreter using patchelf now It is complaining that it can&apos;t find libstdc++.so.2 - but I set the rpath to a folder containing libstdc++.so.2 why would it still not find it? thanks, chroot with fhs compat sounds great!<br/>
+<font color="#A82F2F"><font size="2">(04:44:02 PM)</font> <b>alpounet:</b></font> folks, any idea why i would get an error with this? http://nixpaste.noip.me/IaSgEWBa?nix &lt;- the error is included in the paste<br/>
+<font color="#A82F2F"><font size="2">(04:47:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to staging: http://git.io/FMHl<br/>
+<font color="#A82F2F"><font size="2">(04:47:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 5dab625 Mayeu: Patch kbd to add the dvorak programmer (dvp) keymap<br/>
+<font color="#A82F2F"><font size="2">(04:48:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti closed pull request #6068: Patch kbd to add the dvorak programmer (dvp) keymap (master...add_dvp_to_kbd) http://git.io/F11c<br/>
+<font color="#A82F2F"><font size="2">(04:50:38 PM)</font> <b>instantepiphany:</b></font> ktosiek: running a binary (different one to before) after doing &quot;patchelf --set-rpath /home/instantepiphany/games/atomzombiesmasher/game/lib64/:/nix/store/p9rmkj5s68cjhjnb8msj477wcm5157rx-gcc-4.8.4/lib64/ AtomZombieSmasher.bin.x86_64&quot; complains that it can&apos;t find libstdc++.so.6, but that library is in the nix/store path i patched in.<br/>
+<font color="#A82F2F"><font size="2">(04:52:11 PM)</font> <b>instantepiphany:</b></font> If i use patchelf and only give it ONE of those paths, it succesfully reads the libraries in that path that i have given it. E.g if i patch it with the path to its included libraries, it complains that it can&apos;t find libstdc++. If i patch it and give it the path to gcc/lib64 in my nix store, it complains that it can&apos;t find libmono (which is in the other path). So patching with 1 path works but 2 paths doesn&apos;t.<br/>
+<font color="#A82F2F"><font size="2">(04:52:11 PM)</font> <b>ktosiek:</b></font> instantepiphany: no clue<br/>
+<font color="#A82F2F"><font size="2">(04:52:12 PM)</font> <b>instantepiphany:</b></font> Have i got the syntax wrong?<br/>
+<font color="#A82F2F"><font size="2">(04:52:38 PM)</font> <b>instantepiphany:</b></font> ktosiek: hmmm thanks anyway :)<br/>
+<font color="#A82F2F"><font size="2">(04:53:19 PM)</font> <b>ktosiek:</b></font> http://nixos.org/patchelf.html suggest you used it right<br/>
+<font color="#A82F2F"><font size="2">(04:53:34 PM)</font> <b>ktosiek:</b></font> well, it doesn&apos;t use trailing /, but it uses : as separator<br/>
+<font size="2">(04:53:42 PM)</font><b> kragniz is now known as zingark</b><br/>
+<font color="#A82F2F"><font size="2">(04:56:40 PM)</font> <b>instantepiphany:</b></font> yeah, that is what i tried to use as a base. Removing trailing / doesn&apos;t help. libstdc++ definitely exists: lrwxrwxrwx 1 root root 19 Jan  1  1970 /nix/store/p9rmkj5s68cjhjnb8msj477wcm5157rx-gcc-4.8.4/lib64/libstdc++.so.6 -&gt; libstdc++.so.6.0.19 and that library it is symlinked to does exist also, and read bit is set for &quot;others&quot;.<br/>
+<font color="#A82F2F"><font size="2">(05:00:17 PM)</font> <b>ktosiek:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(05:00:32 PM)</font> <b>ktosiek:</b></font> can you try and ldd the patched binary? Is it showing missing libstdc++?<br/>
+<font color="#A82F2F"><font size="2">(05:01:13 PM)</font> <b>instantepiphany:</b></font> Yes it is, and now I have even copied libstdc++.so.6 into the folder the binary IS searching for libraries from, and it still says it can&apos;t find it.<br/>
+<font color="#A82F2F"><font size="2">(05:03:53 PM)</font> <b>instantepiphany:</b></font> ktosiek: https://gist.github.com/anonymous/c35af06d7853b399e33d<br/>
+<font color="#A82F2F"><font size="2">(05:07:23 PM)</font> <b>ktosiek:</b></font> maybe try running with LD_DEBUG=all?<br/>
+<font color="#A82F2F"><font size="2">(05:07:44 PM)</font> <b>ktosiek:</b></font> it should find the file, so maybe the linker doesn&apos;t like it for some reason<br/>
+<font color="#062585"><font size="2">(05:09:30 PM)</font> <b>***ktosiek</b></font> hopes some ld.so magician will come around here soon :-)<br/>
+<font color="#A82F2F"><font size="2">(05:11:18 PM)</font> <b>instantepiphany:</b></font> ktosiek: In LD_DEBUG=all output, libmono is searched for in game/lib64, but libstdc++ isn&apos;t searched for there?<br/>
+<font color="#A82F2F"><font size="2">(05:11:59 PM)</font> <b>ragge:</b></font> I&apos;m contemplating trying to implement something that would allow you to use maven packaged JARs with nix. Does anyone know if something like this has been done/tried?<br/>
+<font color="#A82F2F"><font size="2">(05:12:24 PM)</font> <b>ragge:</b></font> Ideally, I&apos;d like to express JAR deps using nix, and stick JAR + all deps into nix store<br/>
+<font color="#A82F2F"><font size="2">(05:15:28 PM)</font> <b>instantepiphany:</b></font> ktosiek: In the LD_DEBUG=all output of ldd, I can see that libstdc++ isn&apos;t a direct dependency of the AtomZombieSmasher binary, but of one of ITS needed libraries - in particular libmono. Do I need to patch libmono to look in the correct path? I thought you only patched binaries....<br/>
+<font color="#A82F2F"><font size="2">(05:16:12 PM)</font> <b>ktosiek:</b></font> maybe you do? I only know that I need to use patchelf when packaging binaries, I&apos;m not sure how ELF works<br/>
+<font color="#A82F2F"><font size="2">(05:16:38 PM)</font> <b>ktosiek:</b></font> wikipedia says libraries can have rpaths :-)<br/>
+<font color="#A82F2F"><font size="2">(05:17:46 PM)</font> <b>instantepiphany:</b></font> yeah. Now i get an unhandled exception saying it can&apos;t find libgdiplus.dll, and I know mono uses dlls on all platforms and just symlinks them to appropriate suffix like .so, so I probably just removed a needed rpath from libmono when trying to fix it. Thanks :)<br/>
+<font color="#A82F2F"><font size="2">(05:33:36 PM)</font> <b>fmapE:</b></font> Is haskellng actually in unstable as http://lists.science.uu.nl/pipermail/nix-dev/2015-January/015591.html suggests?<br/>
+<font size="2">(05:33:55 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(05:33:58 PM)</font> <b>fmapE:</b></font> Because I just ran$ nix-channel update<br/>
+<font color="#A82F2F"><font size="2">(05:34:18 PM)</font> <b>fmapE:</b></font> And then $ nix-env -qaP | grep haskellng<br/>
+<font color="#A82F2F"><font size="2">(05:34:24 PM)</font> <b>fmapE:</b></font> and got zero lines back<br/>
+<font color="#16569E"><font size="2">(05:37:20 PM)</font> <b>magnetophon:</b></font> I was preparing the demo-machine for fosdem, and I somehow managed to f*** up the passwd.  I'm in sh now, but of course it cannot find the passwd command on its own. Ideas??<br/>
+<font color="#A82F2F"><font size="2">(05:40:04 PM)</font> <b>viric:</b></font> magnetophon: /run/current-system/sw/bin/passwd<br/>
+<font color="#16569E"><font size="2">(05:42:02 PM)</font> <b>magnetophon:</b></font> viric: Thanks, but the only subdir of /run it knows is /run/udev   I guess current system is a dynamically created symlink...<br/>
+<font color="#A82F2F"><font size="2">(05:42:14 PM)</font> <b>viric:</b></font> yes, but it&apos;s not erased<br/>
+<font color="#A82F2F"><font size="2">(05:42:25 PM)</font> <b>viric:</b></font> /nix/var/nix/profiles/system/sw/bin/passwd<br/>
+<font color="#A82F2F"><font size="2">(05:42:41 PM)</font> <b>JannisLimperg:</b></font> fmapE: It&apos;s the same for me, but the haskellng stuff still works. Try `nix-env -iA nixpkgs.haskellngPackages.ghc --dry-run`.<br/>
+<font color="#A82F2F"><font size="2">(05:43:02 PM)</font> <b>JannisLimperg:</b></font> No idea why it isn&apos;t showing up with `nix-env -q`.<br/>
+<font color="#16569E"><font size="2">(05:43:37 PM)</font> <b>magnetophon:</b></font> viric: thanks, that worked!<br/>
+<font color="#A82F2F"><font size="2">(05:43:45 PM)</font> <b>viric:</b></font> you are welcome<br/>
+<font color="#A82F2F"><font size="2">(05:49:09 PM)</font> <b>xplat:</b></font> is there a way to use nix with a socks5 proxy for downloads, and/or put things in the nix store by hand that it will test if they are correct before trying to overwrite them?<br/>
+<font color="#A82F2F"><font size="2">(05:52:34 PM)</font> <b>fmapE:</b></font> JannisLimperg: that was successful. Now to figure out how I want to write my nixpkgs config, because the one given in Peter&apos;s email doesn&apos;t seem to work.<br/>
+<font color="#A82F2F"><font size="2">(05:52:43 PM)</font> <b>fmapE:</b></font> JannisLimperg: Thank you!<br/>
+<font color="#A82F2F"><font size="2">(05:56:10 PM)</font> <b>JannisLimperg:</b></font> fmapE: Welcome. :) I&apos;m currently wrestling with it too, so what exactly doesn&apos;t work for you?<br/>
+<font color="#A82F2F"><font size="2">(05:56:50 PM)</font> <b>fmapE:</b></font> Well I&apos;m still figuring that out<br/>
+<font color="#A82F2F"><font size="2">(05:57:03 PM)</font> <b>fmapE:</b></font> I&apos;m not sure I need the ghcWithPkgs thing for what I&apos;m doing though<br/>
+<font color="#A82F2F"><font size="2">(05:57:22 PM)</font> <b>fmapE:</b></font> JannisLimperg: How might I make it install 7.8.3 instead?<br/>
+<font color="#A82F2F"><font size="2">(05:59:01 PM)</font> <b>fmapE:</b></font> variants of haskellngPackages.ghc{-7.8.3,-783,783,7.8.3,.783} aren&apos;t working<br/>
+<font color="#A82F2F"><font size="2">(05:59:26 PM)</font> <b>JannisLimperg:</b></font> fmapE: From what I can tell, 7.8.3 doesn&apos;t seem to be available in nixpkgs atm. See https://github.com/NixOS/nixpkgs/tree/master/pkgs/development/compilers/ghc.<br/>
+<font color="#A82F2F"><font size="2">(06:00:56 PM)</font> <b>JannisLimperg:</b></font> I think the syntax is ghcXYZ, by the way; see https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/haskell-ng.nix.<br/>
+<font color="#16569E"><font size="2">(06:01:08 PM)</font> <b>magnetophon:</b></font> I just wanted to state that NixOS is REALLY COOL!!!!!   I installed it on another machine, did &quot;wget https://path/to/my/configuration.nix&quot; cp the conf, nixos-rebuild switch, and now I can just wait for my machine to come up configured as I want it!!!   SOOO COOOOOOL!  (and handy too!)<br/>
+<font size="2">(06:07:10 PM)</font><b> zingark is now known as krangiz</b><br/>
+<font size="2">(06:07:16 PM)</font><b> krangiz is now known as kragniz</b><br/>
+<font color="#A82F2F"><font size="2">(06:13:40 PM)</font> <b>fmapE:</b></font> JannisLimpberg: yeah I&apos;m just going with 7.8.4<br/>

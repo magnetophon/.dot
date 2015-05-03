@@ -1,0 +1,60 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Thu 19 Feb 2015 05:31:47 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Thu 19 Feb 2015 05:31:47 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(05:31:47 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(05:31:47 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(05:32:24 PM)</font> <b>las:</b></font> Xzu: describe the bug<br/>
+<font color="#A82F2F"><font size="2">(05:34:40 PM)</font> <b>Xzu:</b></font> create 6tracks, and record. create 6more track(supposed to recieve region from OTHER tracks) and select 2two regions and move them in other tracks aera=&gt; imprevisible reactions<br/>
+<font color="#A82F2F"><font size="2">(05:34:43 PM)</font> <b>Xzu:</b></font> LAbot`, <br/>
+<font color="#A82F2F"><font size="2">(05:34:46 PM)</font> <b>Xzu:</b></font> las, <br/>
+<font color="#A82F2F"><font size="2">(05:34:48 PM)</font> <b>Xzu:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(05:35:03 PM)</font> <b>las:</b></font> imprevisible reactions ?<br/>
+<font color="#A82F2F"><font size="2">(05:35:13 PM)</font> <b>Xzu:</b></font> but anywhere<br/>
+<font color="#A82F2F"><font size="2">(05:35:24 PM)</font> <b>Xzu:</b></font> *sorry moove anywhere<br/>
+<font color="#A82F2F"><font size="2">(05:35:56 PM)</font> <b>Xzu:</b></font> where can I put a video?<br/>
+<font color="#A82F2F"><font size="2">(05:36:08 PM)</font> <b>Xzu:</b></font> (capture)<br/>
+<font color="#A82F2F"><font size="2">(05:36:36 PM)</font> <b>las:</b></font> Xzu: no idea<br/>
+<font color="#A82F2F"><font size="2">(05:37:08 PM)</font> <b>Xzu:</b></font> me too!<br/>
+<font color="#A82F2F"><font size="2">(05:38:18 PM)</font> <b>Xzu:</b></font> las, can you reproduce the bug?<br/>
+<font color="#A82F2F"><font size="2">(05:39:12 PM)</font> <b>nick_m:</b></font> Xzu, imprevisible reactions .. do you mean you cannot undo?<br/>
+<font color="#A82F2F"><font size="2">(05:40:17 PM)</font> <b>Xzu:</b></font> nick_m, yes some times! :( (with stable version, don&apos;t know for last git)<br/>
+<font color="#A82F2F"><font size="2">(05:40:51 PM)</font> <b>las:</b></font> Xzu: last git is the only interesting version for bug checks<br/>
+<font color="#A82F2F"><font size="2">(05:40:58 PM)</font> <b>nick_m:</b></font> Xzu, ok. a lot of the imprevisible reaction buhs have been fixed :)<br/>
+<font color="#A82F2F"><font size="2">(05:42:02 PM)</font> <b>Xzu:</b></font> las: I&apos;ve got the bug with last git, but don&apos;t know if it can make trouble I cannot undo.<br/>
+<font color="#A82F2F"><font size="2">(05:42:09 PM)</font> <b>Xzu:</b></font> that what I mean.<br/>
+<font color="#A82F2F"><font size="2">(05:43:04 PM)</font> <b>Xzu:</b></font> las, maybe I&apos;ve forgot in the recipe: for the first6tracks, create a groupe and share selection for the 6 ones.<br/>
+<font color="#A82F2F"><font size="2">(05:48:19 PM)</font> <b>las:</b></font> Xzu: sorry, can&apos;t look into this at this point in time<br/>
+<font color="#A82F2F"><font size="2">(05:49:09 PM)</font> <b>Xzu:</b></font> las, ok I&apos;ll make a bug report<br/>
+<font color="#A82F2F"><font size="2">(05:49:32 PM)</font> <b>nick_m:</b></font> Xzu, how do you select 2 regions from the first 6 tracks if they share the selection?<br/>
+<font color="#A82F2F"><font size="2">(05:50:33 PM)</font> <b>nick_m:</b></font> Xzu, yes put it all down in a bug report<br/>
+<font color="#A82F2F"><font size="2">(05:51:19 PM)</font> <b>Xzu:</b></font> las:sorry, in fact the problem comes from bus. The region can&apos;t move &quot;through&quot; the bus (moving up and down) <br/>
+<font color="#A82F2F"><font size="2">(05:51:37 PM)</font> <b>Xzu:</b></font> nick_m, clik in the editor aera, and select<br/>
+<font color="#A82F2F"><font size="2">(06:00:41 PM)</font> <b>colinf:</b></font> Xzu, nick_m: I can sort-of reproduce... the problem appears when dragging regions selected on &gt;1 tracks from tracks above a bus to tracks below.<br/>
+<font color="#A82F2F"><font size="2">(06:01:08 PM)</font> <b>colinf:</b></font> Xzu, nick_m: but it doesn&apos;t always fail.<br/>
+<font color="#A82F2F"><font size="2">(06:02:18 PM)</font> <b>Xzu:</b></font> colinf, yes, I confirme<br/>
+<font color="#A82F2F"><font size="2">(06:02:35 PM)</font> <b>colinf:</b></font> Xzu, nick_m: sometimes they &apos;jump&apos; over the bus just fine, other times they&apos;re &apos;stuck&apos; on one side of the bus. I think it might depend on the order the regions were selected in and which one of the selected regions I drag, but I haven&apos;t worked out a patern to it yet.<br/>
+<font color="#A82F2F"><font size="2">(06:04:22 PM)</font> <b>Xzu:</b></font> this one part 100% reproducible of the bug<br/>
+<font color="#A82F2F"><font size="2">(06:05:02 PM)</font> <b>Xzu:</b></font> other part is: moving lot&apos;s of region: some of them do &quot;anything&quot; <br/>
+<font color="#A82F2F"><font size="2">(06:05:15 PM)</font> <b>Xzu:</b></font> but hard to reproduce<br/>
+<font color="#A82F2F"><font size="2">(06:09:02 PM)</font> <b>mOrteCide:</b></font> hi guys...can anyone help me. I am running a live session on Ubuntu Studio..fresh download. I&apos;m trying this coz I get alot of latency on Windows. On ardour I have no latency but the sound is horrible. Any ideas?<br/>
+<font color="#A82F2F"><font size="2">(06:09:30 PM)</font> <b>mOrteCide:</b></font> I&apos;m trying to record live with my elecctric guitar<br/>
+<font color="#A82F2F"><font size="2">(06:10:17 PM)</font> <b>kakohari:</b></font> mOrteCide: what does horrible mean? Distorted? Klicks because of misssing samples? Have you played around whith buffer sizes?<br/>
+<font color="#A82F2F"><font size="2">(06:10:39 PM)</font> <b>mOrteCide:</b></font> My record monitor is ardour...yes. very distored<br/>
+<font color="#A82F2F"><font size="2">(06:11:05 PM)</font> <b>mOrteCide:</b></font> I can chnege the buffers it doesn&apos;t make any diffrece<br/>
+<font color="#A82F2F"><font size="2">(06:11:58 PM)</font> <b>mOrteCide:</b></font> from my guitar to my Zoon effects pedal then to my mic input<br/>
+<font color="#A82F2F"><font size="2">(06:13:11 PM)</font> <b>kakohari:</b></font> mOrteCide: I don&apos;t think a mic input is suitable for instruments or effect-pedal outputs<br/>
+<font color="#A82F2F"><font size="2">(06:13:26 PM)</font> <b>kakohari:</b></font> Do you have other inputs available?<br/>
+<font color="#A82F2F"><font size="2">(06:14:45 PM)</font> <b>kakohari:</b></font> mOrteCide: is it a standard-pc-builtin-mic-input or some external gear?<br/>
+<font color="#A82F2F"><font size="2">(06:17:02 PM)</font> <b>las:</b></font> mOrteCide: i suggest you switch off monitoring in ardour and see what that does<br/>
+<font color="#A82F2F"><font size="2">(06:17:47 PM)</font> <b>las:</b></font> mOrteCide: i suspect you have the hardware mixer of your builtin audio device set up incorrectly, and you are listening to comb filtering caused by both the hardware and ardour doing monitoring<br/>
+<font color="#A82F2F"><font size="2">(06:18:28 PM)</font> <b>nick_m:</b></font> colinf, Xzu this sounds familiar .. do you see anything like &quot;Aborting Drag&quot; on the console when this happens?<br/>
+<font color="#A82F2F"><font size="2">(06:19:11 PM)</font> <b>las:</b></font> colinf, Xzu: i can imagine why this fails<br/>
+<font color="#A82F2F"><font size="2">(06:19:18 PM)</font> <b>las:</b></font> but i cannot give it any attention right now<br/>
+<font color="#A82F2F"><font size="2">(06:19:32 PM)</font> <b>las:</b></font> nick_m: and yes, it will depend on selection order and/or which region is used to start the drag<br/>
+<font color="#A82F2F"><font size="2">(06:21:42 PM)</font> <b>colinf:</b></font> nick_m: no, no &apos;aborting drag&apos; - the drag isn&apos;t actually aborted, either...<br/>
+<font color="#A82F2F"><font size="2">(06:22:21 PM)</font> <b>colinf:</b></font> nick_m: if dragging down across a bus and the regions get &apos;stuck&apos;, downawrds mouse movement does nothing, but upwards movements move the regions up.<br/>
+<font color="#A82F2F"><font size="2">(06:22:59 PM)</font> <b>colinf:</b></font> (and vice versa)<br/>
+<font color="#A82F2F"><font size="2">(06:23:58 PM)</font> <b>nick_m:</b></font> colinf, definitely worth a bug report.. i&apos;m off to bed, but will try to look into it tomorrow<br/>
+<font color="#A82F2F"><font size="2">(06:25:47 PM)</font> <b>colinf:</b></font> nick_m: will do (if Xsu doesn&apos;t beat me to it :) )<br/>
+<font color="#A82F2F"><font size="2">(06:25:54 PM)</font> <b>Xzu:</b></font> colinf,  nick_m, las: http://tracker.ardour.org/view.php?id=6172<br/>
+<font color="#A82F2F"><font size="2">(06:25:55 PM)</font> <b>LAbot`:</b></font> Title: 0006172: region can&apos;t jump over the bus - MantisBT (at tracker.ardour.org)<br/>
+<font size="2">(06:41:53 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

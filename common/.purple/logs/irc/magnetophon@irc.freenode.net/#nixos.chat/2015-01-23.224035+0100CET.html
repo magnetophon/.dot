@@ -1,0 +1,598 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Fri 23 Jan 2015 10:40:35 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Fri 23 Jan 2015 10:40:35 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:40:36 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(10:40:36 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(10:42:23 PM)</font> <b>petar:</b></font> *sigh*<br/>
+<font color="#A82F2F"><font size="2">(10:42:32 PM)</font> <b>petar:</b></font> nix-install-package --non-interactive --url http://hydra.nixos.org/build/18715870/nix/pkg/nix-1.8-x86-linux.nixpkg<br/>
+<font color="#A82F2F"><font size="2">(10:42:45 PM)</font> <b>petar:</b></font> $ nix-env -qc \*<br/>
+<font color="#A82F2F"><font size="2">(10:42:45 PM)</font> <b>petar:</b></font> -bash: /home/petar/.nix-profile/bin/nix-env: cannot execute binary file: Exec format error<br/>
+<font color="#16569E"><font size="2">(10:43:09 PM)</font> <b>magnetophon:</b></font> I've got a backtrace of a crash of a new package I made, but I don't know whether the problem is NixOS related or if it's upstream.  Can someone have a look? http://nixpaste.noip.me/PIxcw3T7<br/>
+<font color="#A82F2F"><font size="2">(10:46:27 PM)</font> <b>mgregson:</b></font> I&apos;m trying to install nixos.pkgs.haskell and I get an error during the configure step on ghc-7.8.3  - it can&apos;t find libgmp.so.3<br/>
+<font color="#A82F2F"><font size="2">(10:48:12 PM)</font> <b>shlevy:</b></font> viric: madjar: import-from-derivation doesn&apos;t work in readonly mode when the drv isn&apos;t already realized. You can do --read-write-mode to force non-readonly mode for nix-build --dry-run and nix-instantiate --eval<br/>
+<font color="#A82F2F"><font size="2">(10:48:32 PM)</font> <b>iMatejC:</b></font> petar: that is 32bit arhitecture not 64bit, do you have 32bit distribution installed?<br/>
+<font color="#A82F2F"><font size="2">(10:48:54 PM)</font> <b>petar:</b></font> iMatejC: yes, I&apos;m still on x86<br/>
+<font color="#A82F2F"><font size="2">(10:49:03 PM)</font> <b>iMatejC:</b></font> oh ok<br/>
+<font color="#A82F2F"><font size="2">(10:49:47 PM)</font> <b>viric:</b></font> shlevy: if that&apos;s the trouble, maybe the error message could be different in that case<br/>
+<font color="#A82F2F"><font size="2">(10:49:50 PM)</font> <b>viric:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(10:49:50 PM)</font> <b>iMatejC:</b></font> no wait<br/>
+<font color="#A82F2F"><font size="2">(10:49:53 PM)</font> <b>iMatejC:</b></font> $ curl http://hydra.nixos.org/build/18715870/nix/pkg/nix-1.8-x86-linux.nixpkg                                                                                                                                                            1 ↵<br/>
+<font color="#A82F2F"><font size="2">(10:49:55 PM)</font> <b>iMatejC:</b></font> NIXPKG1 http://hydra.nixos.org/build/18715870/nix/MANIFEST nix-1.8 x86_64-linux /nix/store/0a90id2w4f9za3zal8r32612w2k4mjvq-nix-1.8.drv /nix/store/169sqhprai8bd7apkpisd868sqvb6h1l-nix-1.8 http://hydra.nixos.org/<br/>
+<font color="#A82F2F"><font size="2">(10:50:11 PM)</font> <b>iMatejC:</b></font> this is for 64bit<br/>
+<font color="#A82F2F"><font size="2">(10:50:31 PM)</font> <b>iMatejC:</b></font> petar: ^<br/>
+<font color="#A82F2F"><font size="2">(10:50:40 PM)</font> <b>petar:</b></font> iMatejC: heh.. :) I just figured.. nix-env: ELF 64-bit LSB executable, x86-64<br/>
+<font color="#A82F2F"><font size="2">(10:50:45 PM)</font> <b>iMatejC:</b></font> mhm<br/>
+<font color="#A82F2F"><font size="2">(10:51:52 PM)</font> <b>petar:</b></font> iMatejC: so from here http://hydra.nixos.org/build/18715870, how do I get to the x86 version?<br/>
+<font color="#A82F2F"><font size="2">(10:52:12 PM)</font> <b>petar:</b></font> the wiki says &quot;Substitute the platform name if your platform is not x86_64&quot;<br/>
+<font color="#A82F2F"><font size="2">(10:52:20 PM)</font> <b>petar:</b></font> which i did but still got amd64 :)<br/>
+<font color="#A82F2F"><font size="2">(10:52:39 PM)</font> <b>shlevy:</b></font> viric: patches welcome https://github.com/NixOS/nix/blob/master/src/libexpr/primops.cc#L79-L80 :)<br/>
+<font color="#A82F2F"><font size="2">(10:53:00 PM)</font> <b>mgregson:</b></font> Anyone able to get nixos.pkgs.haskell installed? I get an error about libgmp.so.3 not being found. How do I fix this?<br/>
+<font color="#A82F2F"><font size="2">(10:53:18 PM)</font> <b>iMatejC:</b></font> petar: find /nix/store -name &quot;nix-install-package&quot;  # find command that is 32bit and do: /found/nix/that/is/32bit/nix-install-package --non-interactive --url http://url/to/32bit/nix-1.8-x86-linux.nixpkg<br/>
+<font color="#A82F2F"><font size="2">(10:53:39 PM)</font> <b>petar:</b></font> iMatejC: thanks!<br/>
+<font color="#A82F2F"><font size="2">(10:54:07 PM)</font> <b>petar:</b></font> of course, that&apos;s still available..<br/>
+<font color="#A82F2F"><font size="2">(10:56:41 PM)</font> <b>Fuuzetsu:</b></font> mgregson: what are you trying to do exactly?<br/>
+<font color="#A82F2F"><font size="2">(10:58:02 PM)</font> <b>iMatejC:</b></font> petar: the link for the 32bit Nix: http://hydra.nixos.org/build/18719261/nix/pkg/nix-1.8-i686-linux.nixpkg<br/>
+<font color="#A82F2F"><font size="2">(10:58:42 PM)</font> <b>mgregson:</b></font> Fuuzetsu: nix-env -iA nixos.pkgs.haskell --fallback<br/>
+<font color="#A82F2F"><font size="2">(10:59:01 PM)</font> <b>petar:</b></font> iMatejC: thanks for the link, i&apos;m still a bit lost when browsing through hydra<br/>
+<font color="#A82F2F"><font size="2">(10:59:37 PM)</font> <b>iMatejC:</b></font> petar: I have my own set up and I still get lost sometimes<br/>
+<font size="2">(10:59:43 PM)</font><b> Cyphus is now known as Symphus</b><br/>
+<font color="#A82F2F"><font size="2">(11:00:14 PM)</font> <b>Fuuzetsu:</b></font> mgregson: and what do you expect to happen when you -iA ‘haskell’ package?<br/>
+<font color="#A82F2F"><font size="2">(11:01:59 PM)</font> <b>mgregson:</b></font> Fuuzetsu: My understanding was that it should install GHC and some of the haskell tooling.<br/>
+<font color="#A82F2F"><font size="2">(11:03:34 PM)</font> <b>mgregson:</b></font> Fuuzetsu: Am I completely missing something?<br/>
+<font size="2">(11:04:28 PM)</font><b> Symphus is now known as cyphus</b><br/>
+<font color="#A82F2F"><font size="2">(11:05:24 PM)</font> <b>Fuuzetsu:</b></font> I&apos;m general against Haskell stuff in the profile because people randomly install stuff and expect it to work: nix will let you install it but GHC will see it as broken because multiple versions &amp;c<br/>
+<font color="#A82F2F"><font size="2">(11:06:25 PM)</font> <b>mgregson:</b></font> Fuuzetsu: What&apos;s the alternative I should be investigating?<br/>
+<font color="#A82F2F"><font size="2">(11:06:37 PM)</font> <b>viric:</b></font> shlevy: good shot<br/>
+<font color="#A82F2F"><font size="2">(11:06:43 PM)</font> <b>viric:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(11:07:37 PM)</font> <b>Fuuzetsu:</b></font> mgregson: Well, what kind of tooling are you after? Can&apos;t you just have it per project? We can try to figure out why your invocation fails if you want to but the ‘install stuff in profile and it may work’ option is going away in the future anyway.<br/>
+<font color="#A82F2F"><font size="2">(11:08:08 PM)</font> <b>devoid:</b></font> any ideas where I would find the xfs/xfs.h header file? it&apos;s not in linuxHeaders ?<br/>
+<font color="#A82F2F"><font size="2">(11:09:23 PM)</font> <b>devoid:</b></font> at least not linuxHeaders_3_7 which is the default<br/>
+<font color="#A82F2F"><font size="2">(11:09:25 PM)</font> <b>mgregson:</b></font> Fuuzetsu: What&apos;s this project notion you&apos;re talking about?<br/>
+<font color="#A82F2F"><font size="2">(11:10:05 PM)</font> <b>devoid:</b></font> nor is it in xfsprogs<br/>
+<font color="#A82F2F"><font size="2">(11:10:09 PM)</font> <b>Fuuzetsu:</b></font> mgregson: Well, when I want to use GHC there is usually something I want to use it on, like a Haskell project. I can simply ask nix to put me in a shell with all dependencies required for that project, including GHC.<br/>
+<font color="#A82F2F"><font size="2">(11:10:39 PM)</font> <b>iMatejC:</b></font> devoid: find /nix/store -iname &quot;xfs.h&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:10:42 PM)</font> <b>iMatejC:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(11:10:48 PM)</font> <b>mgregson:</b></font> Fuuzetsu: I see. Where should I find documentation on doing this?<br/>
+<font color="#A82F2F"><font size="2">(11:11:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cstrahan pushed 2 new commits to master: http://git.io/7KoKUQ<br/>
+<font color="#A82F2F"><font size="2">(11:11:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 4a3e689 Charles Strahan: nix-prefetch-zip: support single files and recuring directories...<br/>
+<font color="#A82F2F"><font size="2">(11:11:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master fc01353 Charles Strahan: fetchzip: various fixes...<br/>
+<font color="#A82F2F"><font size="2">(11:11:27 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cstrahan closed pull request #5910: Fix fetchzip (master...fix-fetch-zip) http://git.io/7S_VBA<br/>
+<font color="#A82F2F"><font size="2">(11:12:24 PM)</font> <b>mitchty:</b></font> hrm, so installed nixos 14.12 on a chromebook c720, all is well except... the trackpad and keyboard don&apos;t seem to be detected, anyone ever instlal nixos on a c720?<br/>
+<font color="#A82F2F"><font size="2">(11:15:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wmertens pushed 2 new commits to staging: http://git.io/fFX8wQ<br/>
+<font color="#A82F2F"><font size="2">(11:15:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 2533a11 Vladimír Čunát: stdenv substitute: avoid using a temporary file...<br/>
+<font color="#A82F2F"><font size="2">(11:15:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 4b82bd6 Wout Mertens: Merge pull request #5714 from vcunat/p/stdenv-subst...<br/>
+<font color="#A82F2F"><font size="2">(11:15:54 PM)</font> <b>devoid:</b></font> iMatejC it&apos;s not even there? do I need to add it to my modules?<br/>
+<font color="#A82F2F"><font size="2">(11:16:36 PM)</font> <b>Fuuzetsu:</b></font> mgregson: well, it&apos;s a pretty standard setup I would think… You need a default.nix and perhaps shell.nix for your projects at which point you can just nix-shell into them. For Haskell, cabal2nix can help ;)<br/>
+<font color="#A82F2F"><font size="2">(11:17:35 PM)</font> <b>devoid:</b></font> does boot.kernelModules do the equivalent of modprobe if you don&apos;t restart?<br/>
+<font color="#A82F2F"><font size="2">(11:17:53 PM)</font> <b>devoid:</b></font> and related question: is there a way in a package to declare that a kernelModule needs to be loaded?<br/>
+<font color="#A82F2F"><font size="2">(11:18:33 PM)</font> <b>mgregson:</b></font> Fuuzetsu: Alright, let&apos;s try this differently....  I&apos;d like to start a new project, in Haskell. How should I do this?<br/>
+<font color="#A82F2F"><font size="2">(11:19:21 PM)</font> <b>jlindsay:</b></font> mitchty: The trackpad needs at least linux 3.17 and the default build for nixos will not have the required chromeos_laptop module<br/>
+<font color="#A82F2F"><font size="2">(11:20:28 PM)</font> <b>iMatejC:</b></font> devoid: hm, I have it at /nix/store/h0qxrb47p930x2jy4xpjwbwqirij09q2-linux-3.14.29-dev/lib/modules/3.14.29/source/fs/xfs/xfs.h<br/>
+<font color="#A82F2F"><font size="2">(11:20:46 PM)</font> <b>Fuuzetsu:</b></font> mgregson: personally I nix-shell -p haskellPackages.cabalInstall haskellPackages.cabal2nix --pure followed by cabal init, &lt;usual Haskell stuff&gt;, cabal2nix `pwd` &gt; default.nix<br/>
+<font color="#A82F2F"><font size="2">(11:21:07 PM)</font> <b>Fuuzetsu:</b></font> then I write a small shell.nix which just calls the default.nix with default arguments<br/>
+<font color="#A82F2F"><font size="2">(11:21:47 PM)</font> <b>mitchty:</b></font> jlindsay don&apos;t care much about the trackpad but will look at the chromeos_laptop module<br/>
+<font color="#A82F2F"><font size="2">(11:21:54 PM)</font> <b>Fuuzetsu:</b></font> I would normally link my configs at this point but there has been some Haskell architecture changes recently so they are in a bit of a weird state right now<br/>
+<font color="#A82F2F"><font size="2">(11:22:08 PM)</font> <b>iMatejC:</b></font> devoid: boot.kernelModules can be changed in your configuration or if you write a nixos module<br/>
+<font color="#A82F2F"><font size="2">(11:22:50 PM)</font> <b>jlindsay:</b></font> mitchty: My c720 keyboard worked out of the box, but unfortunately they reused the c720 model number on newer generations of the system. So when you say &apos;c720&apos; it won&apos;t always mean the same thing.<br/>
+<font color="#A82F2F"><font size="2">(11:23:13 PM)</font> <b>mitchty:</b></font> jlindsay ah, well so i have the 4g i3 version with 32g flash<br/>
+<font color="#A82F2F"><font size="2">(11:23:49 PM)</font> <b>mitchty:</b></font> which i&apos;m guessing isn&apos;t hte same as the 2 core haswell of prior generations<br/>
+<font color="#A82F2F"><font size="2">(11:24:12 PM)</font> <b>jlindsay:</b></font> So obviously the changed something between yours and mine that makes the keyboard not work<br/>
+<font color="#A82F2F"><font size="2">(11:24:22 PM)</font> <b>mgregson:</b></font> Fuuzetsu: Okay, my shell has downloaded the internet, and I now have a shell that can run cabal, but ghc doesn&apos;t seem to be on my path<br/>
+<font color="#A82F2F"><font size="2">(11:25:24 PM)</font> <b>mgregson:</b></font> Fuuzetsu: If I understand correctly, $PWD is now my project and I should go off and write come code for a bit.<br/>
+<font color="#A82F2F"><font size="2">(11:25:44 PM)</font> <b>devoid:</b></font> iMatejC, I&apos;m running linux-3.12, but there&apos;s no source in 2fs3vwc784yxwclc6idmfwhqv6nf4019-linux-3.12.28/lib/modules/3.12.28/<br/>
+<font color="#A82F2F"><font size="2">(11:25:48 PM)</font> <b>mitchty:</b></font> going to try out putting 3.17 on and getting that module and some others going<br/>
+<font color="#A82F2F"><font size="2">(11:26:23 PM)</font> <b>mitchty:</b></font> this is my first nixos experience so... its an uphill climb<br/>
+<font color="#A82F2F"><font size="2">(11:26:26 PM)</font> <b>mgregson:</b></font> Fuuzetsu: Can you tell me more about shell.nix and default.nix (like what they are and how they fit into this picture)?<br/>
+<font color="#A82F2F"><font size="2">(11:26:58 PM)</font> <b>mitchty:</b></font> if i get it working i can put up my configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(11:26:59 PM)</font> <b>mgregson:</b></font> Fuuzetsu: Also, what is &quot;the profile&quot;?<br/>
+<font color="#A82F2F"><font size="2">(11:27:39 PM)</font> <b>mgregson:</b></font> Fuuzetsu: (Sorry for being so clueless, I&apos;ve never used nixos before and am trying to figure it out. It seems significantly different from my experience with other distros.)<br/>
+<font color="#A82F2F"><font size="2">(11:28:20 PM)</font> <b>benley:</b></font> nixos is Different(tm)<br/>
+<font color="#A82F2F"><font size="2">(11:28:38 PM)</font> <b>iMatejC:</b></font> mgregson: this two links should help http://blog.matejc.com/blogs/myblog/control-your-packages-with-nix-environments/ and https://nixos.org/wiki/Haskell<br/>
+<font color="#A82F2F"><font size="2">(11:29:02 PM)</font> <b>devoid:</b></font> is there something special to get linux source + kernel?<br/>
+<font color="#A82F2F"><font size="2">(11:29:23 PM)</font> <b>iMatejC:</b></font> devoid: could you try to upgrade to at least 3.14?<br/>
+<font color="#A82F2F"><font size="2">(11:30:13 PM)</font> <b>iMatejC:</b></font> with nixos its easy to switch between kernels :)<br/>
+<font color="#A82F2F"><font size="2">(11:30:14 PM)</font> <b>devoid:</b></font> iMatejC, sure, but since I&apos;m doing it for a package I&apos;m working on, is it possible to declare in the package that it needs that kernel version?<br/>
+<font color="#A82F2F"><font size="2">(11:30:34 PM)</font> <b>mgregson:</b></font> iMatejC: Thanks!  Lots of reading to do.<br/>
+<font color="#A82F2F"><font size="2">(11:30:43 PM)</font> <b>iMatejC:</b></font> devoid: yes, with asserts<br/>
+<font color="#A82F2F"><font size="2">(11:31:17 PM)</font> <b>iMatejC:</b></font> devoid: grep through nix files for &apos;assert&apos;<br/>
+<font color="#A82F2F"><font size="2">(11:31:26 PM)</font> <b>devoid:</b></font> and strangely, the only linux-headers in /nix/store are for 3.7.1 and 3.14.1 neither has includes/linux/xfs.h<br/>
+<font color="#A82F2F"><font size="2">(11:33:06 PM)</font> <b>iMatejC:</b></font> devoid: you might need this function https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L188<br/>
+<font color="#A82F2F"><font size="2">(11:33:11 PM)</font> <b>petar:</b></font> uh, nix-env is using $PAGER now for output of any length?<br/>
+<font color="#A82F2F"><font size="2">(11:34:12 PM)</font> <b>Intensity:</b></font> Hi. I&apos;m wondering if anyone has run a NixOS host with an OpenVZ (RHEL6-2.6.32) kernel.  Is this in principle possible?<br/>
+<font color="#A82F2F"><font size="2">(11:34:14 PM)</font> <b>niksnut:</b></font> iElectric: what did &quot;see above&quot; refer to?<br/>
+<font color="#A82F2F"><font size="2">(11:34:48 PM)</font> <b>iElectric:</b></font> logand | since commit f1151a3373c1df77255cb63a01daf29fd093d690 Tue Jan 6: src/libstore/build.cc:2254:58: error: ‘nix::Path’ has no member named ‘pop_back’<br/>
+<font color="#A82F2F"><font size="2">(11:34:53 PM)</font> <b>iElectric:</b></font> logand | compiling from nix sources<br/>
+<font color="#A82F2F"><font size="2">(11:34:58 PM)</font> <b>iElectric:</b></font> logand | i tried also checking out tag 1.8 but that also fails to compile due to some yacc problem<br/>
+<font color="#A82F2F"><font size="2">(11:35:01 PM)</font> <b>logand:</b></font> yes i am<br/>
+<font color="#A82F2F"><font size="2">(11:35:10 PM)</font> <b>logand:</b></font> yes exactly<br/>
+<font color="#A82F2F"><font size="2">(11:35:16 PM)</font> <b>iElectric:</b></font> logand: on linux?<br/>
+<font color="#A82F2F"><font size="2">(11:35:26 PM)</font> <b>logand:</b></font> iElectric: what should i check out which compiles?<br/>
+<font color="#A82F2F"><font size="2">(11:35:29 PM)</font> <b>logand:</b></font> yes linux<br/>
+<font color="#A82F2F"><font size="2">(11:35:47 PM)</font> <b>iElectric:</b></font> niksnut: just wanted to be sure you got that<br/>
+<font color="#A82F2F"><font size="2">(11:36:55 PM)</font> <b>niksnut:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(11:36:55 PM)</font> <b>niksnut:</b></font> logand: what C++ compiler are you using?<br/>
+<font color="#A82F2F"><font size="2">(11:36:55 PM)</font> <b>niksnut:</b></font> pop_back is a C++11 feature<br/>
+<font color="#A82F2F"><font size="2">(11:37:14 PM)</font> <b>logand:</b></font> g++ (Debian 4.6.3-14) 4.6.3<br/>
+<font color="#A82F2F"><font size="2">(11:39:10 PM)</font> <b>petar:</b></font> how can i prevent `nix-env -qc \*&apos; from using less?<br/>
+<font color="#A82F2F"><font size="2">(11:39:35 PM)</font> <b>niksnut:</b></font> petar: set PAGER=<br/>
+<font color="#A82F2F"><font size="2">(11:39:51 PM)</font> <b>petar:</b></font> PAGER is empty here<br/>
+<font color="#A82F2F"><font size="2">(11:40:09 PM)</font> <b>niksnut:</b></font> empty or unset?<br/>
+<font color="#A82F2F"><font size="2">(11:40:24 PM)</font> <b>petar:</b></font> unset<br/>
+<font color="#A82F2F"><font size="2">(11:40:31 PM)</font> <b>niksnut:</b></font> you can also set PAGER=cat<br/>
+<font color="#A82F2F"><font size="2">(11:40:56 PM)</font> <b>niksnut:</b></font> logand: hm, I guess 4.6 is too old<br/>
+<font color="#A82F2F"><font size="2">(11:41:02 PM)</font> <b>petar:</b></font> niksnut: thanks<br/>
+<font color="#A82F2F"><font size="2">(11:41:17 PM)</font> <b>devoid:</b></font> so, still no correct package iMatejC: http://nixpaste.noip.me/0FKHvpyt?nix<br/>
+<font color="#A82F2F"><font size="2">(11:42:03 PM)</font> <b>petar:</b></font> niksnut: is there any equivalent pager setting to the one in .gitconfig, named pager? (in my .gitconfig its `pager = less -FX&apos;)<br/>
+<font color="#A82F2F"><font size="2">(11:42:31 PM)</font> <b>niksnut:</b></font> you mean in nix.conf?<br/>
+<font color="#A82F2F"><font size="2">(11:42:32 PM)</font> <b>niksnut:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(11:42:40 PM)</font> <b>niksnut:</b></font> could be added though<br/>
+<font color="#A82F2F"><font size="2">(11:43:29 PM)</font> <b>petar:</b></font> its no big deal but I wouldn&apos;t set PAGER for nix mostly because I&apos;m not sure what else would run differently then..<br/>
+<font color="#A82F2F"><font size="2">(11:43:48 PM)</font> <b>petar:</b></font> but I&apos;ll do PAGER= nix-env in the meantime<br/>
+<font color="#A82F2F"><font size="2">(11:43:58 PM)</font> <b>pmade:</b></font> After upgrading to 14.12 (and also kernel 3.18) I no longer have sound.  I&apos;ve disabled pulseaudio to test raw alsa and it&apos;s not working either.<br/>
+<font color="#A82F2F"><font size="2">(11:46:48 PM)</font> <b>ambro718:</b></font> pmade: if this is via the audio jack try re-plugging it<br/>
+<font color="#A82F2F"><font size="2">(11:46:50 PM)</font> <b>pmade:</b></font> I guess my next debugging step is to switch to an earlier kernel.<br/>
+<font color="#A82F2F"><font size="2">(11:47:00 PM)</font> <b>pmade:</b></font> ambro718: It&apos;s my built-in audio.<br/>
+<font color="#A82F2F"><font size="2">(11:47:09 PM)</font> <b>devoid:</b></font> iMatejC, I actually don&apos;t have sources for the 3.14.17 kernel…is there a way to get those that I&apos;m missing?<br/>
+<font color="#A82F2F"><font size="2">(11:47:10 PM)</font> <b>ambro718:</b></font> ah ok, I have that problem with my desktop ;)<br/>
+<font color="#A82F2F"><font size="2">(11:47:36 PM)</font> <b>iMatejC:</b></font> devoid: am, which channel do you have and is it up to date?<br/>
+<font color="#A82F2F"><font size="2">(11:49:03 PM)</font> <b>mitchty:</b></font> ok how do i make a kernel compile do -j4 in configuration.nix, this is forever taking on one core :)<br/>
+<font color="#A82F2F"><font size="2">(11:49:08 PM)</font> <b>iMatejC:</b></font> devoid: you can set `services.xfs.enable = true;` in your configuration, I am guessing that is not in stable because http://nixos.org/nixos/manual/ch-options.html does not have it yet<br/>
+<font color="#A82F2F"><font size="2">(11:50:36 PM)</font> <b>iMatejC:</b></font> but it is in unstable channel...<br/>
+<font color="#A82F2F"><font size="2">(11:52:45 PM)</font> <b>iMatejC:</b></font> devoid: ups sorry xfs is in http://nixos.org/nixos/manual/ch-options.html .. I guess I do not know how to use firefox<br/>
+<font size="2">(11:53:33 PM)</font><b> ambro718 left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:53:51 PM)</font> <b>iMatejC:</b></font> &quot;Whether to enable the X Font Server&quot; .. ah I need to sleep<br/>
+<font color="#A82F2F"><font size="2">(11:54:29 PM)</font> <b>logand:</b></font> niksnut: thanks i tried g++-4.7 and it compiles (c++11); but still that bison/yacc error<br/>
+<font color="#A82F2F"><font size="2">(11:54:42 PM)</font> <b>logand:</b></font> src/libexpr/parser-tab.hh:122:15: error: redefinition of ‘union YYSTYPE’<br/>
+<font color="#A82F2F"><font size="2">(11:55:17 PM)</font> <b>pmade:</b></font> I&apos;m thinking of going back to kernel 3.14, but I&apos;ll need two custom kernel modules for it to work on my laptop (wifi and bt).  What&apos;s the proper way to install custom kernel modules in nixos?<br/>
+<font color="#A82F2F"><font size="2">(11:55:45 PM)</font> <b>devoid:</b></font> ya, iMatejC a different xfs than I&apos;m looking for<br/>
+<font color="#A82F2F"><font size="2">(11:56:05 PM)</font> <b>iMatejC:</b></font> devoid: yes I got that, sorry :D<br/>
+<font color="#A82F2F"><font size="2">(11:56:24 PM)</font> <b>devoid:</b></font> no worries!  thanks for your help!<br/>
+<font color="#A82F2F"><font size="2">(11:57:53 PM)</font> <b>devoid:</b></font> so your xfs.h was in the linux-kernel source tree, but when I switch kernels it looks to be downloading a binary version? do you know how to get nix to get the sources for you?<br/>
+<font color="#A82F2F"><font size="2">(11:59:13 PM)</font> <b>niksnut:</b></font> logand: you need bison 2.6 and flex 2.5.35<br/>
+<font color="#A82F2F"><font size="2">(12:02:37 AM)</font> <b>niksnut:</b></font> petar: in Nix 1.9 you can set NIX_PAGER<br/>
+<font color="#A82F2F"><font size="2">(12:05:10 AM)</font> <b>logand:</b></font> niksnut: thanks, that must be it, my flex is new but bison is 2.5<br/>
+<font color="#16569E"><font size="2">(12:10:14 AM)</font> <b>magnetophon:</b></font> If a package uses gtk without specifying 2 or 3, what is being used (in 14.12)?   I'd like to include this info in a bugreport I'm sending upstream.<br/>
+<font color="#A82F2F"><font size="2">(12:11:12 AM)</font> <b>iMatejC:</b></font> devoid: you could try to add xfs to kernelModules option in /etc/nixos/hardware-configuration.nix or wherever you have it<br/>
+<font color="#A82F2F"><font size="2">(12:11:14 AM)</font> <b>iMatejC:</b></font> devoid: boot.kernelModules<br/>
+<font color="#A82F2F"><font size="2">(12:11:17 AM)</font> <b>iMatejC:</b></font>     The set of kernel modules to be loaded in the second stage of the boot process. Note that modules that are needed to mount the root file system should be added to boot.initrd.availableKernelModules or boot.initrd.kernelModules.<br/>
+<font color="#A82F2F"><font size="2">(12:12:57 AM)</font> <b>pmade:</b></font> If I build a custom kernel module, how do I ensure it will be loaded at boot?<br/>
+<font color="#16569E"><font size="2">(12:13:18 AM)</font> <b>magnetophon:</b></font> iMatejC: Did you just implement a search function in nixui?  Cool!<br/>
+<font color="#A82F2F"><font size="2">(12:14:09 AM)</font> <b>iMatejC:</b></font> pmade: look for this in nixos manual: boot.initrd.kernelModules<br/>
+<font color="#A82F2F"><font size="2">(12:14:30 AM)</font> <b>pmade:</b></font> iMatejC: Thanks.  But doesn&apos;t that only work with modules in nixpkgs?<br/>
+<font color="#A82F2F"><font size="2">(12:14:50 AM)</font> <b>iMatejC:</b></font> magnetophon: am wasnt there always search for packages and config options? :P<br/>
+<font color="#16569E"><font size="2">(12:16:36 AM)</font> <b>magnetophon:</b></font> iMatejC: I'm talking about https://github.com/matejc/nixui/issues/9#event-224032914<br/>
+<font color="#16569E"><font size="2">(12:17:02 AM)</font> <b>magnetophon:</b></font> iMatejC: Not sure what you meant there...<br/>
+<font color="#A82F2F"><font size="2">(12:18:33 AM)</font> <b>iMatejC:</b></font> pmade: clone the nixpkgs git repo and then add your custom module to it and then nixos-rebuild -Inixpkgs=/path/to/your/nixpkgs and then when working, create a pull request to nixpkgs that everyone can enjoy your work and grab a beer :)<br/>
+<font color="#A82F2F"><font size="2">(12:19:46 AM)</font> <b>pmade:</b></font> iMatejC: I&apos;m happy to share, but I don&apos;t want to be on the bleeding edge.  I&apos;d rather stick with a release. :(<br/>
+<font color="#A82F2F"><font size="2">(12:22:05 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wizeman pushed 1 new commit to master: http://git.io/7xGPRQ<br/>
+<font color="#A82F2F"><font size="2">(12:22:05 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f315b7d Ricardo M. Correia: flashplayer: Update from 11.2.202.429 -&gt; 11.2.202.438<br/>
+<font color="#A82F2F"><font size="2">(12:23:16 AM)</font> <b>pmade:</b></font> iMatejC: I&apos;ll write up a package for my stable config, and then get it into nixpkgs.<br/>
+<font color="#A82F2F"><font size="2">(12:23:34 AM)</font> <b>quidnunc:</b></font> How do I find out which package a directory in /nix/store is associated with?<br/>
+<font color="#A82F2F"><font size="2">(12:24:22 AM)</font> <b>iMatejC:</b></font> pmade: look at the https://github.com/matejc/nixmy .. or something like that, this is a simple bash script to help developers use git repos and still be on there faivorite channel, I am using it all the time, and currently is working for unstable channel if you know a bit of bash you can change that to stable release<br/>
+<font color="#A82F2F"><font size="2">(12:25:24 AM)</font> <b>pmade:</b></font> iMatejC: Thanks.  Looks very interesting.<br/>
+<font color="#A82F2F"><font size="2">(12:25:42 AM)</font> <b>iMatejC:</b></font> pmade: I know I have to make a better README.... I will create an issue<br/>
+<font color="#A82F2F"><font size="2">(12:25:48 AM)</font> <b>iMatejC:</b></font> for myself<br/>
+<font color="#16569E"><font size="2">(12:25:51 AM)</font> <b>magnetophon:</b></font> Is this where the default gtk for 14.12 is defined?  https://github.com/NixOS/nixpkgs/blob/release-14.12/pkgs/top-level/all-packages.nix#L5461<br/>
+<font color="#A82F2F"><font size="2">(12:32:24 AM)</font> <b>iMatejC:</b></font> magnetophon: I guess we do not understand each other so.. clone nixui and do: make just-run-it<br/>
+<font color="#A82F2F"><font size="2">(12:32:27 AM)</font> <b>iMatejC:</b></font> :D<br/>
+<font color="#16569E"><font size="2">(12:33:45 AM)</font> <b>magnetophon:</b></font> iMatejC: yeah, I was just trying to run my current version to see if search was already there, but it didn't run, and I just got back to what I was actually doing.  Will try later...  :)<br/>
+<font color="#A82F2F"><font size="2">(12:34:17 AM)</font> <b>iMatejC:</b></font> magnetophon: ok<br/>
+<font color="#16569E"><font size="2">(12:35:12 AM)</font> <b>magnetophon:</b></font> iMatejC: BTW I second your request for a better readme on nixmy.  Sounds very usefull, but atm I have no idea how to use it...<br/>
+<font color="#A82F2F"><font size="2">(12:36:54 AM)</font> <b>iMatejC:</b></font> magnetophon: I already created an issue for myself, so within next few days..<br/>
+<font color="#062585"><font size="2">(12:38:12 AM)</font> <b>***magnetophon</b></font> follows nixmy...<br/>
+<font color="#A82F2F"><font size="2">(12:50:40 AM)</font> <b>Lutin`:</b></font> what&apos;s the point of nixmy?<br/>
+<font color="#A82F2F"><font size="2">(12:51:11 AM)</font> <b>Lutin`:</b></font> Oh I see now<br/>
+<font size="2">(01:02:21 AM)</font><b> goibhniu left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(01:04:11 AM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:11:58 AM)</font> <b>logand:</b></font> niksnut: thanks a lot, i managed to compile nix now:-)<br/>
+<font color="#A82F2F"><font size="2">(01:16:06 AM)</font> <b>iMatejC:</b></font> magnetophon: yes<br/>
+<font color="#A82F2F"><font size="2">(01:16:57 AM)</font> <b>iMatejC:</b></font> magnetophon: for gtk question<br/>
+<font color="#16569E"><font size="2">(01:17:32 AM)</font> <b>magnetophon:</b></font> iMatejC: ah.  I was already wondering what you meant by yes...  Thanks!<br/>
+<font color="#A82F2F"><font size="2">(01:17:57 AM)</font> <b>iMatejC:</b></font> :)<br/>
+<font color="#16569E"><font size="2">(01:18:14 AM)</font> <b>magnetophon:</b></font> Is that also the only/best way to find out what package is being used: look in all-packages.nix???<br/>
+<font color="#A82F2F"><font size="2">(01:18:26 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] abbradar opened pull request #5923: haskell: update &quot;distributed-process&quot; family of packages (master...distributed-process) http://git.io/UtLp8Q<br/>
+<font color="#A82F2F"><font size="2">(01:21:09 AM)</font> <b>benley:</b></font> anyone know how to quickly clear the build queue from a running hydra instance?<br/>
+<font color="#A82F2F"><font size="2">(01:22:19 AM)</font> <b>benley:</b></font> I&apos;ve managed to accidentally run a shitton of builds that involve qemu on a machine that really can&apos;t handle it and it&apos;s falling over :P<br/>
+<font color="#A82F2F"><font size="2">(01:22:41 AM)</font> <b>mitchty:</b></font> well got the keyboard working on the newer c720, off to the trackpad<br/>
+<font color="#A82F2F"><font size="2">(01:28:54 AM)</font> <b>iMatejC:</b></font> benley: Admin -&gt; Clear scheduled non-current builds from queue<br/>
+<font color="#A82F2F"><font size="2">(01:29:05 AM)</font> <b>benley:</b></font> oooooo<br/>
+<font color="#A82F2F"><font size="2">(01:29:27 AM)</font> <b>benley:</b></font> I don&apos;t know how I overlooked that, it&apos;s _right there_.  thanks :)<br/>
+<font color="#A82F2F"><font size="2">(01:29:55 AM)</font> <b>benley:</b></font> there&apos;s still 33 queued builds after that though, hrm<br/>
+<font color="#A82F2F"><font size="2">(01:29:56 AM)</font> <b>iMatejC:</b></font> benley: other jobs that are still running ... wait until they fail or go to console and kill -9 them<br/>
+<font color="#A82F2F"><font size="2">(01:30:13 AM)</font> <b>benley:</b></font> I&apos;m watching top and killing off the qemu processes when they show up :P<br/>
+<font color="#A82F2F"><font size="2">(01:31:00 AM)</font> <b>benley:</b></font> I suppose this shouldn&apos;t be a surprise but wow, hydra really needs a lot of ram<br/>
+<font color="#A82F2F"><font size="2">(01:31:32 AM)</font> <b>iMatejC:</b></font> I guess.. depends on what you are building<br/>
+<font color="#A82F2F"><font size="2">(01:32:23 AM)</font> <b>benley:</b></font> at the moment it&apos;s just building the stuff that results from following the getting started instructions in the hydra manual<br/>
+<font color="#A82F2F"><font size="2">(01:32:34 AM)</font> <b>benley:</b></font> which is builds of patchelf for a whole bunch of platforms<br/>
+<font color="#A82F2F"><font size="2">(01:33:19 AM)</font> <b>benley:</b></font> qemu obviously uses a bunch of ram, but hydra itself is up there in the multiple gigs<br/>
+<font color="#A82F2F"><font size="2">(01:33:30 AM)</font> <b>benley:</b></font> mostly in the hydra-server process<br/>
+<font color="#A82F2F"><font size="2">(01:37:47 AM)</font> <b>logand:</b></font> is /nix/store hardcoded or can i change it via an env var to somewhere under my home?<br/>
+<font color="#A82F2F"><font size="2">(01:38:05 AM)</font> <b>iMatejC:</b></font> magnetophon: khm..nixui<br/>
+<font color="#A82F2F"><font size="2">(01:39:02 AM)</font> <b>ktosiek:</b></font> logand: you can change it, but you&apos;ll have to rebuild the whole world<br/>
+<font color="#A82F2F"><font size="2">(01:39:11 AM)</font> <b>logand:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(01:39:12 AM)</font> <b>shlevy:</b></font> logand: You can change it via env var or compile time flag, but you don&apos;t get binaries<br/>
+<font color="#A82F2F"><font size="2">(01:39:13 AM)</font> <b>ktosiek:</b></font> (binary caches are linked to the store path)<br/>
+<font color="#A82F2F"><font size="2">(01:39:53 AM)</font> <b>logand:</b></font> is that compiled in inside executables and libraries?<br/>
+<font color="#16569E"><font size="2">(01:40:03 AM)</font> <b>magnetophon:</b></font> iMatejC: what do you mean?<br/>
+<font color="#A82F2F"><font size="2">(01:40:31 AM)</font> <b>shlevy:</b></font> logand: Pretty much all builds include absolute paths to store paths in binaries and libs<br/>
+<font color="#A82F2F"><font size="2">(01:40:33 AM)</font> <b>ktosiek:</b></font> logand: the store path? Yes, it&apos;s compiled into all sorts of things<br/>
+<font color="#A82F2F"><font size="2">(01:41:19 AM)</font> <b>logand:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(01:42:10 AM)</font> <b>benley:</b></font> but in theory it will work, as long as you don&apos;t mind waiting a really long time to build the universe<br/>
+<font color="#A82F2F"><font size="2">(01:42:57 AM)</font> <b>ktosiek:</b></font> well, should be &lt;24h on decent hardware :-)<br/>
+<font color="#A82F2F"><font size="2">(01:43:28 AM)</font> <b>ktosiek:</b></font> and making store paths relocatable would be pretty hard too (if at all possible) :-&lt;<br/>
+<font color="#A82F2F"><font size="2">(01:43:53 AM)</font> <b>iMatejC:</b></font> magnetophon: search for `gtk$` (yes, regex) inside nixui?<br/>
+<font color="#A82F2F"><font size="2">(01:44:24 AM)</font> <b>benley:</b></font> you might be able to do some tricks with proot in userland to fake having the store at /nix/store<br/>
+<font color="#A82F2F"><font size="2">(01:44:27 AM)</font> <b>benley:</b></font> without needing to be root<br/>
+<font color="#16569E"><font size="2">(01:44:37 AM)</font> <b>magnetophon:</b></font> iMatejC: ah, OK. thanks. And what does khm mean?<br/>
+<font color="#A82F2F"><font size="2">(01:44:40 AM)</font> <b>benley:</b></font> there would be a performance hit, but I don&apos;t know how much<br/>
+<font color="#A82F2F"><font size="2">(01:46:58 AM)</font> <b>iMatejC:</b></font> magnetophon: cough - expel air from the lungs with a sudden sharp sound - that sound is `khm`? :D<br/>
+<font color="#A82F2F"><font size="2">(01:47:19 AM)</font> <b>iMatejC:</b></font> or something in the lines of that<br/>
+<font color="#16569E"><font size="2">(01:47:51 AM)</font> <b>magnetophon:</b></font> :)<br/>
+<font color="#16569E"><font size="2">(01:50:12 AM)</font> <b>magnetophon:</b></font> iMatejC: error: attribute ‘cc’ missing, at &quot;/home/bart/source/nixui/node-webkit.nix&quot;:14:63<br/>
+<font color="#A82F2F"><font size="2">(01:50:19 AM)</font> <b>logand:</b></font> i have now compiled nix on arm, it seems to work, but it doesnt match any derivations;  are there some instructions about what needs to be done next?  i guess i need to adapt nixpkgs to compile for arm somehow; any pointers?<br/>
+<font color="#A82F2F"><font size="2">(01:50:40 AM)</font> <b>iMatejC:</b></font> magnetophon: did you cloned the latest?<br/>
+<font color="#16569E"><font size="2">(01:51:06 AM)</font> <b>magnetophon:</b></font> yeah, I did git pull<br/>
+<font color="#A82F2F"><font size="2">(01:52:32 AM)</font> <b>iMatejC:</b></font> magnetophon: you are on stable?<br/>
+<font color="#16569E"><font size="2">(01:52:39 AM)</font> <b>magnetophon:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(01:53:05 AM)</font> <b>iMatejC:</b></font> I guess that on stable there is no stdenv.cc yet<br/>
+<font color="#A82F2F"><font size="2">(01:53:28 AM)</font> <b>iMatejC:</b></font> will fix this, w8<br/>
+<font color="#A82F2F"><font size="2">(01:57:24 AM)</font> <b>atorres:</b></font> Hello, Nixers!<br/>
+<font color="#A82F2F"><font size="2">(01:58:25 AM)</font> <b>atorres:</b></font> A question: how can I activate completion inside nix-shell?<br/>
+<font color="#A82F2F"><font size="2">(02:03:10 AM)</font> <b>iMatejC:</b></font> magnetophon: git pull &amp;&amp; make just-run-it<br/>
+<font color="#A82F2F"><font size="2">(02:17:19 AM)</font> <b>knyon:</b></font> Is there any reason my fresh nixos instances don&apos;t respond to pings?<br/>
+<font color="#A82F2F"><font size="2">(02:18:03 AM)</font> <b>iMatejC:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(02:18:04 AM)</font> <b>iMatejC:</b></font> networking.firewall.allowPing<br/>
+<font color="#A82F2F"><font size="2">(02:18:06 AM)</font> <b>iMatejC:</b></font>     Whether to respond to incoming ICMPv4 echo requests (&quot;pings&quot;). ICMPv6 pings are always allowed because the larger address space of IPv6 makes network scanning much less effective.<br/>
+<font color="#A82F2F"><font size="2">(02:18:09 AM)</font> <b>iMatejC:</b></font>     Default: false<br/>
+<font color="#A82F2F"><font size="2">(02:18:12 AM)</font> <b>knyon:</b></font> no kidding<br/>
+<font color="#A82F2F"><font size="2">(02:18:15 AM)</font> <b>iMatejC:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(02:19:07 AM)</font> <b>knyon:</b></font> Man, I don&apos;t know how many times I&apos;ve reinstalled a cloud instance because I didn&apos;t get networking right... wasn&apos;t until I accidentally tried ssh<br/>
+<font color="#A82F2F"><font size="2">(02:20:00 AM)</font> <b>knyon:</b></font> iMatejC: how&apos;d you reference that so quickly? Just so happen to have the manual open, or is there some neat lookup tool?<br/>
+<font color="#A82F2F"><font size="2">(02:20:39 AM)</font> <b>iMatejC:</b></font> I have manual on quick dial in firefox<br/>
+<font color="#A82F2F"><font size="2">(02:21:19 AM)</font> <b>knyon:</b></font> cool, thanks<br/>
+<font color="#A82F2F"><font size="2">(02:21:35 AM)</font> <b>iMatejC:</b></font> and I have caffeine in my blood...<br/>
+<font color="#A82F2F"><font size="2">(02:21:42 AM)</font> <b>knyon:</b></font> heheh<br/>
+<font color="#A82F2F"><font size="2">(02:21:50 AM)</font> <b>quidnunc:</b></font> If I edit a .nix a then run nix-build -I mynixpkgs -A mychangedpackage should the package get rebuilt if it is already installed?<br/>
+<font color="#A82F2F"><font size="2">(02:22:29 AM)</font> <b>joelteon:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(02:23:33 AM)</font> <b>quidnunc:</b></font> joelteon: How do I ensure the modified version is being built?<br/>
+<font color="#A82F2F"><font size="2">(02:23:57 AM)</font> <b>joelteon:</b></font> dunno. check if the changes you made are happening?<br/>
+<font color="#A82F2F"><font size="2">(02:25:12 AM)</font> <b>quidnunc:</b></font> They are not. No compiling seems to be getting done. It appears to be using the (or an) pre-existing /nix/store/foo<br/>
+<font color="#A82F2F"><font size="2">(02:25:14 AM)</font> <b>iMatejC:</b></font> knyon: if you are looking for the tool: nixos-option networking.firewall.allowPing<br/>
+<font color="#A82F2F"><font size="2">(02:25:50 AM)</font> <b>knyon:</b></font> oh, shiny. Thanks!<br/>
+<font color="#A82F2F"><font size="2">(02:27:25 AM)</font> <b>jlindsay:</b></font> Also &apos;man configuration.nix&apos; if you have no idea what you&apos;re looking for<br/>
+<font color="#A82F2F"><font size="2">(02:28:13 AM)</font> <b>iMatejC:</b></font> good one! almost forgot about man<br/>
+<font color="#A82F2F"><font size="2">(02:28:27 AM)</font> <b>knyon:</b></font> man, I am really happy with nix documentation so far.<br/>
+<font color="#A82F2F"><font size="2">(02:28:34 AM)</font> <b>avn:</b></font> jlindsay: /etc/nixos can be git tracked? or it can be a symlink/contains symlinks?<br/>
+<font color="#A82F2F"><font size="2">(02:28:42 AM)</font> <b>knyon:</b></font> if it&apos;s not complete, at least it&apos;s good solid resources<br/>
+<font color="#A82F2F"><font size="2">(02:29:01 AM)</font> <b>iMatejC:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(02:30:50 AM)</font> <b>benley:</b></font> anyone know if there&apos;s a way to feed the current nixpkgs unstable channel into a hydra build as an input?<br/>
+<font color="#A82F2F"><font size="2">(02:31:23 AM)</font> <b>benley:</b></font> not the most recent nixpkgs master branch, that&apos;s usually way ahead of the unstable channel and means building a bunch of stuff<br/>
+<font color="#A82F2F"><font size="2">(02:32:25 AM)</font> <b>avn:</b></font> btw, would be nice if we will have tag or branch in main git, pointing to current state of unstable channel<br/>
+<font color="#A82F2F"><font size="2">(02:32:41 AM)</font> <b>benley:</b></font> a branch that matched the unstable channel would be awesome.<br/>
+<font color="#A82F2F"><font size="2">(02:35:24 AM)</font> <b>iMatejC:</b></font> https://github.com/NixOS/nixpkgs/issues/3609<br/>
+<font color="#A82F2F"><font size="2">(02:35:56 AM)</font> <b>iMatejC:</b></font> there is an issue long way back for that<br/>
+<font color="#A82F2F"><font size="2">(02:36:21 AM)</font> <b>logand:</b></font> &quot;nix-env -f ~/nixpkgs -qav bison&quot; is evaluating nixpkgs expression which is rather memory hungry; is that normal that it needs 600MB+?<br/>
+<font color="#A82F2F"><font size="2">(02:37:57 AM)</font> <b>avn:</b></font> when I try nixos in vbox, I set 2g of mem, I was hit out of memory with any nix-env op otherwise<br/>
+<font color="#A82F2F"><font size="2">(02:38:21 AM)</font> <b>logand:</b></font> i see<br/>
+<font color="#A82F2F"><font size="2">(02:38:33 AM)</font> <b>iMatejC:</b></font> logand: it needs to go through all the packages.. add the -A<br/>
+<font color="#A82F2F"><font size="2">(02:38:46 AM)</font> <b>iMatejC:</b></font> man nix-env<br/>
+<font color="#A82F2F"><font size="2">(02:39:03 AM)</font> <b>logand:</b></font> iMatejC: great, it did the trick!<br/>
+<font color="#A82F2F"><font size="2">(02:39:42 AM)</font> <b>avn:</b></font> nixos play well on btrfs? I want to sarcrifice 200g of space to try hard ;)<br/>
+<font color="#A82F2F"><font size="2">(02:41:26 AM)</font> <b>logand:</b></font> &quot;nix-env -f ~/nixpkgs -iA bison&quot; gives me &quot;error: attribute ‘busybox’ missing, at /home/tomas/nixpkgs/pkgs/stdenv/linux/default.nix:43:15&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:42:33 AM)</font> <b>logand:</b></font> ah i probably need to install busybox on the host system<br/>
+<font color="#A82F2F"><font size="2">(02:42:50 AM)</font> <b>iMatejC:</b></font> nix should take care of that<br/>
+<font color="#A82F2F"><font size="2">(02:43:26 AM)</font> <b>iMatejC:</b></font> logand: do post somewhere a full traceback<br/>
+<font color="#A82F2F"><font size="2">(02:43:47 AM)</font> <b>iMatejC:</b></font> --show-trace<br/>
+<font color="#A82F2F"><font size="2">(02:44:01 AM)</font> <b>quidnunc:</b></font> If I am trying to edit nix derivations from a nixpkgs directory other than my main, is there something special I need to do besides using -I ?<br/>
+<font color="#A82F2F"><font size="2">(02:44:44 AM)</font> <b>avn:</b></font> Also have a question, can I create 32bit or multiarch environment, when  my system-env pure 64bit?<br/>
+<font color="#A82F2F"><font size="2">(02:45:34 AM)</font> <b>iMatejC:</b></font> quidnunc: `nixos-rebuild -I /path/nixpkgs test` or `nix-env -f /path/nixpkgs/default.nix -iA pkgs.bash`<br/>
+<font color="#A82F2F"><font size="2">(02:46:29 AM)</font> <b>quidnunc:</b></font> iMatejC: I don&apos;t seem to have nixos-rebuild in my path<br/>
+<font color="#A82F2F"><font size="2">(02:46:53 AM)</font> <b>quidnunc:</b></font> iMatejC: Ah, sorry I didn&apos;t see the alternative<br/>
+<font color="#A82F2F"><font size="2">(02:46:53 AM)</font> <b>logand:</b></font> iMatejC: http://paste.lisp.org/display/145346<br/>
+<font color="#A82F2F"><font size="2">(02:47:03 AM)</font> <b>iMatejC:</b></font> quidnunc: do you have nixos installed?<br/>
+<font color="#A82F2F"><font size="2">(02:47:12 AM)</font> <b>iMatejC:</b></font> or just nix<br/>
+<font color="#A82F2F"><font size="2">(02:47:13 AM)</font> <b>quidnunc:</b></font> iMatejC: No, just nix<br/>
+<font color="#A82F2F"><font size="2">(02:47:46 AM)</font> <b>iMatejC:</b></font> then use the second option which installes the package, the first option rebuilds the system on NixOS<br/>
+<font color="#A82F2F"><font size="2">(02:48:10 AM)</font> <b>quidnunc:</b></font> iMatejC: Is there no way to just build (for developing packages)<br/>
+<font color="#A82F2F"><font size="2">(02:48:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] magnetophon opened pull request #5924: add sooperlooper (master...sooperlooper-1.7.3) http://git.io/e5n9Yg<br/>
+<font color="#A82F2F"><font size="2">(02:48:48 AM)</font> <b>iMatejC:</b></font> quidnunc: man nix-build<br/>
+<font color="#A82F2F"><font size="2">(02:49:21 AM)</font> <b>quidnunc:</b></font> iMatejC: Yeah, I&apos;ve skimmed through it, I don&apos;t see what I am missing<br/>
+<font color="#A82F2F"><font size="2">(02:49:29 AM)</font> <b>iMatejC:</b></font> nix-build /path/nixpkgs/default.nix -A firefox<br/>
+<font color="#A82F2F"><font size="2">(02:50:16 AM)</font> <b>quidnunc:</b></font> iMatejC: Thanks. I guess &lt;nixpkgs&gt; refers to a channel?<br/>
+<font color="#A82F2F"><font size="2">(02:50:31 AM)</font> <b>logand:</b></font> installing busybox on my host system didnt help, i suppose something in nixpkgs need to be changed to avoid the busybox error<br/>
+<font color="#A82F2F"><font size="2">(02:51:57 AM)</font> <b>iMatejC:</b></font> quidnunc: AFAIK, &lt;nixpkgs&gt; is from env variable NIX_PATH=&quot;nixpkgs=/path/nixpkgs&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:52:20 AM)</font> <b>quidnunc:</b></font> iMatejC: So what does -I do?<br/>
+<font color="#A82F2F"><font size="2">(02:52:47 AM)</font> <b>iMatejC:</b></font> logand: did you change anything inside nixpkgs? git diff<br/>
+<font color="#A82F2F"><font size="2">(02:53:19 AM)</font> <b>benley:</b></font> hrm. I&apos;m trying to figure out how to store nix profiles outside of the usual /nix/var/nix/profiles path.  Can I do that by registering something as an indirect gc root or something?<br/>
+<font color="#A82F2F"><font size="2">(02:53:22 AM)</font> <b>logand:</b></font> i didnt change anything, but i am in a nonstandard situation.<br/>
+<font color="#A82F2F"><font size="2">(02:54:18 AM)</font> <b>logand:</b></font> on arm (debian based), nix running ok but i think the nixpkgs expressions might not be up for this<br/>
+<font color="#A82F2F"><font size="2">(02:54:29 AM)</font> <b>iMatejC:</b></font> quidnunc: you can override NIX_PATH with it ... the value is the same<br/>
+<font color="#A82F2F"><font size="2">(02:55:13 AM)</font> <b>quidnunc:</b></font> iMatejC: I don&apos;t understand the difference between NIX_PATH and path/to/default.nix<br/>
+<font color="#A82F2F"><font size="2">(02:56:31 AM)</font> <b>iMatejC:</b></font> /path/nixpkgs/default.nix is the same as /path/nixpkgs in this situation because if you set a directory it automagicaly means default.nix in there<br/>
+<font color="#A82F2F"><font size="2">(02:57:06 AM)</font> <b>avn:</b></font> setupHook =  ./script.sh  -- it works at build time, or at runtime, to inject variables to profile env?<br/>
+<font color="#16569E"><font size="2">(02:57:07 AM)</font> <b>magnetophon:</b></font> iMatejC: collision between ‘/nix/store/srb35w7fs56aqk2wyw1az88avk0zxhab-nixui/bin/nixui’ and ‘/nix/store/k904wls8iyljpi9qkx1zi2m88pfxh2nj-node-nixui-0.0.1/bin/nixui’; use ‘nix-env --set-flag priority NUMBER PKGNAME’ to change the priority of one of the conflicting packages<br/>
+<font color="#A82F2F"><font size="2">(02:58:42 AM)</font> <b>iMatejC:</b></font> magnetophon: you are installing already? you are brave.. do `nix-env -q` and remove all other nixui&apos;s `nix-env -e nixui`<br/>
+<font color="#16569E"><font size="2">(02:59:42 AM)</font> <b>magnetophon:</b></font> iMatejC: I don't think I installed anything  (not willingly at least)<br/>
+<font color="#A82F2F"><font size="2">(02:59:55 AM)</font> <b>iMatejC:</b></font> make package ?<br/>
+<font color="#16569E"><font size="2">(03:00:05 AM)</font> <b>magnetophon:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(03:00:15 AM)</font> <b>iMatejC:</b></font> that installes nixui into your user profile<br/>
+<font color="#16569E"><font size="2">(03:00:21 AM)</font> <b>magnetophon:</b></font> ah, ok<br/>
+<font color="#A82F2F"><font size="2">(03:01:17 AM)</font> <b>iMatejC:</b></font> hm I have lag, sorry guys, you are many<br/>
+<font color="#A82F2F"><font size="2">(03:05:25 AM)</font> <b>benley:</b></font> is there a nix-something command I can run to print out the store path or derivation path corresponding to my current user environment?<br/>
+<font color="#A82F2F"><font size="2">(03:06:30 AM)</font> <b>logand:</b></font> where do i find scripts/unpack-bootstrap-tools-arm.sh?  it&apos;s not clear where from should the download happen in nixpkgs/pkgs/stdenv/linux/default.nix<br/>
+<font color="#A82F2F"><font size="2">(03:07:02 AM)</font> <b>benley:</b></font> logand: probably in nixpkgs/pkgs/build-support somewhere<br/>
+<font color="#A82F2F"><font size="2">(03:07:21 AM)</font> <b>benley:</b></font> errr nixpkgs/pkgs/stdenv/linux/scripts/<br/>
+<font color="#A82F2F"><font size="2">(03:08:06 AM)</font> <b>iMatejC:</b></font> benley: `corresponding to my current user environment` ? everything is inside /nix/store no matter where is the profile (or end point - links) located<br/>
+<font color="#A82F2F"><font size="2">(03:08:34 AM)</font> <b>logand:</b></font> i see, but where from are the bootstrap tools downloaded?<br/>
+<font color="#A82F2F"><font size="2">(03:08:46 AM)</font> <b>benley:</b></font> iMatejC: right, yeah. What I&apos;m trying to do is have profiles live in directories that get garbage collected by an entity other than nix-collect-garbage,<br/>
+<font color="#A82F2F"><font size="2">(03:09:06 AM)</font> <b>benley:</b></font> iMatejC: such that the store paths they use don&apos;t get GCed until the profile itself does<br/>
+<font color="#A82F2F"><font size="2">(03:09:10 AM)</font> <b>benley:</b></font> iMatejC: if that makes any sense at all<br/>
+<font color="#16569E"><font size="2">(03:09:15 AM)</font> <b>magnetophon:</b></font> iMatejC: /.nix-profile/bin/nixui: line 3: /nix/store/7c07ci8v09m1mdr3i65szma01iki63sn-node-webkit-0.11.2/bin/nw: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(03:10:06 AM)</font> <b>benley:</b></font> iMatejC: so I _think_ what I need to do is register things as indirect gc roots<br/>
+<font color="#A82F2F"><font size="2">(03:10:48 AM)</font> <b>benley:</b></font> if nix-env could do --add-root --indirect that would be perfect<br/>
+<font color="#A82F2F"><font size="2">(03:12:51 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] robmike opened pull request #5925: Install racer.el (master...patch-1) http://git.io/W-5Qcw<br/>
+<font color="#A82F2F"><font size="2">(03:13:24 AM)</font> <b>benley:</b></font> or maybe I need to add symlinks in /nix/var/nix/gcroots/per-user?<br/>
+<font color="#A82F2F"><font size="2">(03:13:45 AM)</font> <b>benley:</b></font> bleh I&apos;ll figure this out later, my brain is fried<br/>
+<font color="#A82F2F"><font size="2">(03:13:51 AM)</font> <b>iMatejC:</b></font> mine too<br/>
+<font color="#A82F2F"><font size="2">(03:14:14 AM)</font> <b>benley:</b></font> nix + mesos == incredibly flexible, but so complicated<br/>
+<font color="#A82F2F"><font size="2">(03:16:35 AM)</font> <b>cstrahan_:</b></font> benley: ooh, I&apos;m interested in running mesos+nix<br/>
+<font color="#A82F2F"><font size="2">(03:16:36 AM)</font> <b>iMatejC:</b></font> benley: normally ran `nix-collect-garbage` does not remove ./result links which are produced by nix-build command (just tested it)<br/>
+<font color="#A82F2F"><font size="2">(03:16:47 AM)</font> <b>benley:</b></font> iMatejC: right on<br/>
+<font color="#A82F2F"><font size="2">(03:16:52 AM)</font> <b>benley:</b></font> cstrahan_: I&apos;m doing it :)<br/>
+<font color="#A82F2F"><font size="2">(03:17:27 AM)</font> <b>benley:</b></font> cstrahan_: the OS is currently ubuntu but I&apos;m using nix to install everything that mesos tasks need at runtime<br/>
+<font color="#A82F2F"><font size="2">(03:17:32 AM)</font> <b>iMatejC:</b></font> benley: and it does not remove its content<br/>
+<font color="#A82F2F"><font size="2">(03:17:40 AM)</font> <b>cstrahan_:</b></font> benley: experimentation, or something real-world?<br/>
+<font color="#A82F2F"><font size="2">(03:17:46 AM)</font> <b>cstrahan_:</b></font> benley: oh, that&apos;s a cool approach.<br/>
+<font color="#A82F2F"><font size="2">(03:17:53 AM)</font> <b>benley:</b></font> cstrahan_: almost in production, not quite ready yet<br/>
+<font color="#A82F2F"><font size="2">(03:18:17 AM)</font> <b>cstrahan_:</b></font> when imperative and declarative meet, things often get weird.<br/>
+<font color="#A82F2F"><font size="2">(03:18:19 AM)</font> <b>logand:</b></font> i think that nobody tried it on arm at least since commit 119ce1ab03d0b3250e9e350f0686e095060014b0 Oct 29 2014 because that line &quot;builder = bootstrapTools.busybox;&quot; should be conditional depending on the value of &quot;system&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:18:31 AM)</font> <b>benley:</b></font> iMatejC: right, because it registered the result symlink as an indirect gc root<br/>
+<font color="#A82F2F"><font size="2">(03:19:24 AM)</font> <b>logand:</b></font> question is, what the correct value should be on arm;  i tried bootstrapTools.sh and bootstrapTools.bootstrapFiles but none works<br/>
+<font color="#A82F2F"><font size="2">(03:19:33 AM)</font> <b>benley:</b></font> I&apos;m reading over the nix garbage collector code to get a better understanding<br/>
+<font color="#A82F2F"><font size="2">(03:27:15 AM)</font> <b>cstrahan_:</b></font> benley: you pass --profile to nix-env, to operate on a specific path<br/>
+<font color="#A82F2F"><font size="2">(03:28:20 AM)</font> <b>logand:</b></font> is it possible to get more info about the object than &quot;attribute ‘sh’ missing, at /home/tomas/nixpkgs/pkgs/stdenv/linux/default.nix:43:15&quot;?<br/>
+<font color="#A82F2F"><font size="2">(03:28:47 AM)</font> <b>logand:</b></font> e.g. what attributes there are instead or something which could give me a hint<br/>
+<font color="#A82F2F"><font size="2">(03:29:21 AM)</font> <b>benley:</b></font> cstrahan_: it doesn&apos;t automatically register it as a gc root though, so the environment could still get garbage collected<br/>
+<font color="#A82F2F"><font size="2">(03:30:12 AM)</font> <b>cstrahan_:</b></font> benley: you should be able to drop a link anywhere under /nix/var/nix/gcroots<br/>
+<font color="#A82F2F"><font size="2">(03:30:14 AM)</font> <b>benley:</b></font> cstrahan_: I think if I just do something like `cd profiledir; ln -s $PWD /nix/var/nix/gcroot/per-user/$USER/$(pwd|md5sum|cut -d&apos; &apos; -f1)`<br/>
+<font color="#A82F2F"><font size="2">(03:31:21 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cstrahan pushed 1 new commit to master: http://git.io/3lSp5g<br/>
+<font color="#A82F2F"><font size="2">(03:31:21 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master ad026da Charles Strahan: ruby: don&apos;t reference baseruby<br/>
+<font color="#A82F2F"><font size="2">(03:34:20 AM)</font> <b>iMatejC:</b></font> benley: I do not know but if you do this it does not get garbagecollected: nix-env -p /nix/var/nix/profiles/per-user/&lt;youruser&gt;/yourprofile -iA pkgs.bash<br/>
+<font color="#A82F2F"><font size="2">(03:34:32 AM)</font> <b>iMatejC:</b></font> like cstrahan_ suggested<br/>
+<font color="#A82F2F"><font size="2">(03:35:02 AM)</font> <b>benley:</b></font> right, that&apos;s pretty much the same behavior you get if you use nix-env without adding -p<br/>
+<font color="#A82F2F"><font size="2">(03:35:42 AM)</font> <b>iMatejC:</b></font> but that you have your own seperated profile<br/>
+<font color="#A82F2F"><font size="2">(03:36:22 AM)</font> <b>benley:</b></font> yeah, I&apos;m creating profiles for each mesos job that uses nix.<br/>
+<font color="#A82F2F"><font size="2">(03:37:27 AM)</font> <b>cstrahan_:</b></font> is this something that you&apos;re working on solo, or as part of a company? i&apos;d love to know more :)<br/>
+<font color="#A82F2F"><font size="2">(03:37:33 AM)</font> <b>benley:</b></font> so the profiles need to stick around until the job terminates, and then it should stick around until mesos garbage-collects the sandbox, and after that the nix profile can be reaped<br/>
+<font color="#A82F2F"><font size="2">(03:37:43 AM)</font> <b>benley:</b></font> cstrahan_: part of a company, but we&apos;re just 4 people<br/>
+<font color="#A82F2F"><font size="2">(03:38:30 AM)</font> <b>cstrahan_:</b></font> cool<br/>
+<font color="#A82F2F"><font size="2">(03:38:45 AM)</font> <b>benley:</b></font> this is all epic yakshaving to run webapps on aws :-P<br/>
+<font color="#A82F2F"><font size="2">(03:39:18 AM)</font> <b>cstrahan_:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(03:40:01 AM)</font> <b>benley:</b></font> cstrahan_: I should really write some blog posts about this stuff as I get it working<br/>
+<font color="#A82F2F"><font size="2">(03:40:09 AM)</font> <b>iMatejC:</b></font> benley: nix-env -p /nix/var/nix/profiles/per-user/&lt;youruser&gt;/mesos-0001 -iA pkgs.bash &amp;&amp; do stuff &amp;&amp; rm /nix/var/nix/profiles/per-user/&lt;youruser&gt;/mesos-0001 &amp;&amp; nix-collect-garbage<br/>
+<font color="#A82F2F"><font size="2">(03:40:35 AM)</font> <b>iMatejC:</b></font> this might be rough solution?<br/>
+<font color="#A82F2F"><font size="2">(03:40:53 AM)</font> <b>benley:</b></font> iMatejC: that is perfect as long as the &amp;&amp; rm ... part actually runs at the end of a job :)<br/>
+<font color="#A82F2F"><font size="2">(03:41:44 AM)</font> <b>benley:</b></font> if it dies unexpectedly that won&apos;t happen. I think I have a solution now though, by dropping a link into /nix/var/nix/gcroots<br/>
+<font color="#A82F2F"><font size="2">(03:42:27 AM)</font> <b>iMatejC:</b></font> well I do not know your system in detail so I didnt know that part :P<br/>
+<font color="#A82F2F"><font size="2">(03:43:17 AM)</font> <b>iMatejC:</b></font> but if dropping the link inside /nix/var/nix/gcroots helps.. thats ok then :)<br/>
+<font color="#16569E"><font size="2">(03:44:09 AM)</font> <b>magnetophon:</b></font> Travis has a problem with my package, but I don't understand what the problem is: https://s3.amazonaws.com/archive.travis-ci.org/jobs/48132278/log.txt  <br/>
+<font color="#A82F2F"><font size="2">(03:44:32 AM)</font> <b>benley:</b></font> magnetophon: in my experience usually the problem is &quot;travis asplode for no reason lolololo&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:45:04 AM)</font> <b>benley:</b></font> attribute â€˜rubyPackages.terminal_notifierâ€™ missing, at &quot;/tmp/nix-build-nixpkgs-tarball-15.05pre1234.abcdef.drv-0/nixpkgs/pkgs/top-level/python-packages.nix&quot;:13199:64<br/>
+<font color="#A82F2F"><font size="2">(03:45:20 AM)</font> <b>benley:</b></font> python-packages.nix refers to rubyPackages.terminal_notifier? weird<br/>
+<font color="#A82F2F"><font size="2">(03:46:15 AM)</font> <b>joelteon:</b></font> pync does<br/>
+<font color="#A82F2F"><font size="2">(03:46:22 AM)</font> <b>benley:</b></font> ah<br/>
+<font color="#16569E"><font size="2">(03:47:36 AM)</font> <b>magnetophon:</b></font> benley: afaik my package has nothing to do with either python nor ruby.<br/>
+<font color="#A82F2F"><font size="2">(03:48:29 AM)</font> <b>benley:</b></font> might be someone else&apos;s change breaking things<br/>
+<font color="#16569E"><font size="2">(03:48:46 AM)</font> <b>magnetophon:</b></font> benley: so should i just assume there is no problem, and leave my PR as it is?<br/>
+<font color="#A82F2F"><font size="2">(03:49:45 AM)</font> <b>benley:</b></font> probably, but don&apos;t quote me on that :P<br/>
+<font color="#16569E"><font size="2">(03:50:09 AM)</font> <b>magnetophon:</b></font> OK, thanks.<br/>
+<font color="#A82F2F"><font size="2">(03:50:18 AM)</font> <b>benley:</b></font> crap, my profile still got GCed<br/>
+<font color="#062585"><font size="2">(03:51:31 AM)</font> <b>***benley</b></font> tinkers more<br/>
+<font color="#A82F2F"><font size="2">(03:52:47 AM)</font> <b>logand:</b></font> ok, 119ce1ab03d0b3250e9e350f0686e095060014b0 Oct 29 2014 broke arm bootstrap; with a little change i got further:-)<br/>
+<font color="#A82F2F"><font size="2">(03:53:02 AM)</font> <b>iMatejC:</b></font> magnetophon: fixing<br/>
+<font color="#A82F2F"><font size="2">(03:53:10 AM)</font> <b>iMatejC:</b></font> I found an error<br/>
+<font color="#A82F2F"><font size="2">(03:53:15 AM)</font> <b>iMatejC:</b></font> not yours<br/>
+<font color="#16569E"><font size="2">(03:53:40 AM)</font> <b>magnetophon:</b></font> iMatejC: ok. I will fall asleep soon though...<br/>
+<font color="#A82F2F"><font size="2">(03:54:13 AM)</font> <b>iMatejC:</b></font> not nixui, the pkgs.rubyPackages.terminal_notifier one https://github.com/NixOS/nixpkgs/blob/65d1c7f1a192c63f5e0e68e2663633ce840f3df8/pkgs/top-level/python-packages.nix#L13199<br/>
+<font color="#A82F2F"><font size="2">(03:55:16 AM)</font> <b>iMatejC:</b></font> magnetophon: for nixui, ping me tomorrow or something<br/>
+<font color="#A82F2F"><font size="2">(03:55:36 AM)</font> <b>iMatejC:</b></font> pkgs.rubyPackages.terminal_notifier -&gt; pkgs.rubyLibs.terminal_notifier<br/>
+<font color="#16569E"><font size="2">(03:56:47 AM)</font> <b>magnetophon:</b></font> iMatejC: ah, it's about my package.  So what do I need to do?<br/>
+<font color="#A82F2F"><font size="2">(03:56:58 AM)</font> <b>iMatejC:</b></font> nothing<br/>
+<font color="#16569E"><font size="2">(03:57:15 AM)</font> <b>magnetophon:</b></font> OK, I think I can handle that :D<br/>
+<font color="#16569E"><font size="2">(03:57:45 AM)</font> <b>magnetophon:</b></font> Shouldn't I make travis try again at some point though?<br/>
+<font color="#A82F2F"><font size="2">(03:58:06 AM)</font> <b>ewemoa:</b></font> logand: nice<br/>
+<font color="#A82F2F"><font size="2">(03:59:07 AM)</font> <b>iMatejC:</b></font> just git rebase to master when someone fixes it<br/>
+<font color="#A82F2F"><font size="2">(03:59:12 AM)</font> <b>iMatejC:</b></font> magnetophon: ^<br/>
+<font color="#16569E"><font size="2">(03:59:57 AM)</font> <b>magnetophon:</b></font> iMatejC: OK. so for now I'll revoke my PR then, right?<br/>
+<font color="#A82F2F"><font size="2">(04:00:05 AM)</font> <b>iMatejC:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(04:00:17 AM)</font> <b>iMatejC:</b></font> leave it<br/>
+<font color="#A82F2F"><font size="2">(04:00:46 AM)</font> <b>iMatejC:</b></font> go to sleep<br/>
+<font color="#A82F2F"><font size="2">(04:00:48 AM)</font> <b>iMatejC:</b></font> :D<br/>
+<font color="#16569E"><font size="2">(04:02:56 AM)</font> <b>magnetophon:</b></font> yeah, you're right. I should. and will.  g night!<br/>
+<font color="#A82F2F"><font size="2">(04:05:29 AM)</font> <b>iMatejC:</b></font> o/<br/>
+<font color="#A82F2F"><font size="2">(04:08:55 AM)</font> <b>joelteon:</b></font> anyone know how to enable profiling with Haskell NG<br/>
+<font color="#A82F2F"><font size="2">(04:19:49 AM)</font> <b>Atlanis:</b></font> is there a way to make myEnvFun use zsh instead of bash?<br/>
+<font color="#A82F2F"><font size="2">(04:22:28 AM)</font> <b>Atlanis:</b></font> nvm found it, just set shell=...<br/>
+<font color="#A82F2F"><font size="2">(04:46:31 AM)</font> <b>mitchty:</b></font> ok, this touchpad on the c720p is kicking my ass<br/>
+<font color="#A82F2F"><font size="2">(04:58:23 AM)</font> <b>ThorHop:</b></font> Geez.. after a NTFS file-system my XPS 15 is hotter than the sun...<br/>
+<font color="#A82F2F"><font size="2">(04:59:17 AM)</font> <b>ThorHop:</b></font> NTFS filesystem grounde search<br/>
+<font color="#A82F2F"><font size="2">(04:59:25 AM)</font> <b>ryantrinkle:</b></font> i&apos;m seeing a really weird issue with nix-instantiate<br/>
+<font color="#A82F2F"><font size="2">(04:59:26 AM)</font> <b>ryantrinkle:</b></font> http://lpaste.net/119122<br/>
+<font color="#A82F2F"><font size="2">(04:59:46 AM)</font> <b>ryantrinkle:</b></font> it hangs with 100% cpu usage on something that looks totally reasonable to me<br/>
+<font color="#A82F2F"><font size="2">(04:59:55 AM)</font> <b>ryantrinkle:</b></font> (and is almost identical to another thing that works completely)<br/>
+<font size="2">(05:00:27 AM)</font><b> Havvy_ is now known as Havvy</b><br/>
+<font color="#A82F2F"><font size="2">(05:00:29 AM)</font> <b>ryantrinkle:</b></font> it has to do with passing pkgs.gmp into a haskell-ng derivation<br/>
+<font color="#A82F2F"><font size="2">(05:00:40 AM)</font> <b>ryantrinkle:</b></font> has anyone else had a hang like that?<br/>
+<font color="#A82F2F"><font size="2">(05:02:17 AM)</font> <b>ThorHop:</b></font> There is no exression for fuse-3g...<br/>
+<font color="#A82F2F"><font size="2">(07:11:01 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 3 new commits to master: http://git.io/9SoZMQ<br/>
+<font color="#A82F2F"><font size="2">(07:11:01 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 0c9c74d Nikolay Amiantov: tlp: add package<br/>
+<font color="#A82F2F"><font size="2">(07:11:01 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b7b3a09 Nikolay Amiantov: nixos/tlp: add service<br/>
+<font color="#A82F2F"><font size="2">(07:11:01 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master fde45d2 Domen Kožar: Merge pull request #5531 from abbradar/tlp...<br/>
+<font color="#A82F2F"><font size="2">(07:11:31 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric closed pull request #5593: modprobe: wrap all of kmod (master...modprobe-fix) http://git.io/Zy-FvQ<br/>
+<font color="#A82F2F"><font size="2">(07:15:36 AM)</font> <b>mitchty:</b></font> yay, finally got the trackpad working<br/>
+<font color="#A82F2F"><font size="2">(08:12:57 AM)</font> <b>ewemoa:</b></font> logand: what was the change you made?<br/>
+<font color="#A82F2F"><font size="2">(08:49:39 AM)</font> <b>rost:</b></font> Hi, I want to have some kernel modules loaded at boot time. I&apos;ve set up the following: http://nixpaste.noip.me/raw/eEO_-XcX<br/>
+<font color="#A82F2F"><font size="2">(08:49:45 AM)</font> <b>rost:</b></font> All but pcspkr are loaded fine. If I do modprobe pcspkr manually, the module is loaded without problems<br/>
+<font color="#A82F2F"><font size="2">(08:50:05 AM)</font> <b>rost:</b></font> How to solve this ? Any ideas ?<br/>
+<font color="#A82F2F"><font size="2">(08:56:58 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] benmos opened pull request #5926: Postgis 2.1.4 support (master...postgis) http://git.io/lQn-Hg<br/>
+<font color="#A82F2F"><font size="2">(10:02:55 AM)</font> <b>ambro718:</b></font> I find that if there is a lack of RAM for the build, the build may mysteriously hang. Is there a way to change this and make it fail, from within the derivation?<br/>
+<font color="#A82F2F"><font size="2">(10:03:06 AM)</font> <b>ambro718:</b></font> (or otherwise)<br/>
+<font color="#A82F2F"><font size="2">(10:49:45 AM)</font> <b>rushmorem:</b></font> Hi guys. I have a challenge. May you please help me out...<br/>
+<font color="#A82F2F"><font size="2">(10:51:12 AM)</font> <b>rushmorem:</b></font> I know I can create a Nix expression to build a package and then run nix-build to build it outside of Nixpkgs. That is, as a standalone script.<br/>
+<font color="#A82F2F"><font size="2">(10:52:03 AM)</font> <b>rushmorem:</b></font> How can I do the same to create and run systemd services?<br/>
+<font color="#A82F2F"><font size="2">(11:02:42 AM)</font> <b>berdario:</b></font> rushmorem: uhm, this page might be useful, but I never had to create a service: https://nixos.org/wiki/NixOS:extend_NixOS<br/>
+<font color="#A82F2F"><font size="2">(11:03:15 AM)</font> <b>berdario:</b></font> (it talks about /etc/init.d, so I&apos;m not sure if it&apos;s simply out of date, or you&apos;d be looking for something different to actually use systemd)<br/>
+<font color="#A82F2F"><font size="2">(11:03:53 AM)</font> <b>rushmorem:</b></font> berdario: Awesome. Thanks. Let me check it out?<br/>
+<font size="2">(11:04:03 AM)</font><b> goibhniu1 [<em>~goibhniu@e181005190.adsl.alicedsl.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:21:45 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cillianderoiste pushed 2 new commits to master: http://git.io/6oB6EQ<br/>
+<font color="#A82F2F"><font size="2">(11:21:45 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1ec07fa Cillian de Róiste: samplv1: update from 0.5.1 to 0.6.0<br/>
+<font color="#A82F2F"><font size="2">(11:21:45 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 98203a1 Cillian de Róiste: synthv1: update from 0.5.1 to 0.6.0<br/>
+<font color="#A82F2F"><font size="2">(11:22:39 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cillianderoiste pushed 1 new commit to master: http://git.io/XBfdHw<br/>
+<font color="#A82F2F"><font size="2">(11:22:39 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 770b209 Cillian de Róiste: drumkv1: update from 0.5.1 to 0.6.0<br/>
+<font color="#A82F2F"><font size="2">(11:23:44 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cillianderoiste pushed 1 new commit to master: http://git.io/7YQyQg<br/>
+<font color="#A82F2F"><font size="2">(11:23:44 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c40a5a4 Cillian de Róiste: xf86_input_wacom: update from 0.27.0 to 0.28.0<br/>
+<font size="2">(11:30:09 AM)</font><b> Lethalman [<em>~lethal@89.119.188.238</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:43:58 AM)</font> <b>rushmorem:</b></font> berdario: That page is still talking about jobs which were deprecated instead of systemd.services. Other than that, it&apos;s still mostly relavant.<br/>
+<font color="#A82F2F"><font size="2">(11:45:27 AM)</font> <b>rushmorem:</b></font> I now know what I need to do in order to achieve what I&apos;m after.<br/>
+<font color="#A82F2F"><font size="2">(11:46:13 AM)</font> <b>berdario:</b></font> rushmorem: good, now I have to go... and I still haven&apos;t been able what I promised myself to do :/<br/>
+<font color="#A82F2F"><font size="2">(11:47:27 AM)</font> <b>rushmorem:</b></font> OK, no problem. I have to go as well. Thanks a lot for the heads up :)<br/>
+<font size="2">(11:48:07 AM)</font><b> iMatejC left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:49:21 AM)</font><b> iMatejC [<em>~MatejC@v22014062232018793.yourvserver.net</em>] entered the room.</b><br/>
+<font size="2">(11:50:54 AM)</font><b> rushmorem left the room (quit: Quit: Page closed).</b><br/>
+<font size="2">(11:51:04 AM)</font><b> berdario left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#16569E"><font size="2">(11:52:51 AM)</font> <b>magnetophon:</b></font> iMatejC: good morning!  Did you get anywhere with that python/ruby bug that caused travis to fail?<br/>
+<font color="#A82F2F"><font size="2">(11:55:41 AM)</font> <b>iMatejC:</b></font> that bug appears only on darwin platform, travis evaluates every platform I guess.. pkgs.rubyPackages.terminal_notifier does not exist anywher<br/>
+<font color="#A82F2F"><font size="2">(11:56:27 AM)</font> <b>iMatejC:</b></font> yesterday I tried pkgs.rubyLibs.terminal_notifier on master and did not work, so I went to sleep<br/>
+<font color="#A82F2F"><font size="2">(11:57:31 AM)</font> <b>iMatejC:</b></font> I also tried nix-env -qaP | grep terminal_notifier .... which resulted .. with no output<br/>
+<font color="#A82F2F"><font size="2">(11:59:14 AM)</font> <b>iMatejC:</b></font> AFAIK some big change happen for ruby packages, and this is just aftermath<br/>
+<font color="#A82F2F"><font size="2">(11:59:43 AM)</font> <b>iMatejC:</b></font> magnetophon: ^<br/>
+<font color="#16569E"><font size="2">(12:01:41 PM)</font> <b>magnetophon:</b></font> iMatejC: OK. So what should I do with my PR?<br/>
+<font color="#A82F2F"><font size="2">(12:02:35 PM)</font> <b>iMatejC:</b></font> magnetophon: someone will merge it?<br/>
+<font color="#16569E"><font size="2">(12:03:17 PM)</font> <b>magnetophon:</b></font> iMatejC: I assumed people would ignore PR's with travis errors..<br/>
+<font color="#A82F2F"><font size="2">(12:04:47 PM)</font> <b>iMatejC:</b></font> depends what kind of error, in my case ... it does not depend on travis fail because travis often fails even if pull request is ok<br/>
+<font color="#A82F2F"><font size="2">(12:13:16 PM)</font> <b>Lethalman:</b></font> magnetophon, I usually build PR locally when travis fails<br/>
+<font color="#16569E"><font size="2">(12:14:02 PM)</font> <b>magnetophon:</b></font> Lethalman: Cool, I'm hoping for a quick merge then. :)<br/>
+<font color="#A82F2F"><font size="2">(12:16:44 PM)</font> <b>Lethalman:</b></font> magnetophon, what&apos;s the PR?<br/>
+<font color="#16569E"><font size="2">(12:18:49 PM)</font> <b>magnetophon:</b></font> Lethalman: https://github.com/NixOS/nixpkgs/pull/5924<br/>
+<font color="#A82F2F"><font size="2">(12:22:44 PM)</font> <b>Lethalman:</b></font> magnetophon, doesn&apos;t seem you addressed the concerns of cillianderoiste<br/>
+<font color="#16569E"><font size="2">(12:23:51 PM)</font> <b>magnetophon:</b></font> Lethalman: oops, forgot to reload the page!  Thanks!<br/>
+<font color="#16569E"><font size="2">(12:57:09 PM)</font> <b>magnetophon:</b></font> Lethalman, goibhniu: OK, the concerns are addressed.  I tried  and failed to squash my commits &lt;again&gt; !   Sorry!<br/>
+<font color="#A82F2F"><font size="2">(01:01:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 2 new commits to master: http://git.io/cPMoaQ<br/>
+<font color="#A82F2F"><font size="2">(01:01:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 531578c Pascal Wittmann: calibre: update from 2.16.0 to 2.17.0<br/>
+<font color="#A82F2F"><font size="2">(01:01:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 6edde20 Pascal Wittmann: parallel: update from 20141122 to 20150122<br/>
+<font color="#A82F2F"><font size="2">(01:01:45 PM)</font> <b>phiphler:</b></font> I followed the wiki intstructions to install Nix as an unpriviliged user, but I get this error: This version of Nixpkgs requires Nix &gt;= 1.8, please upgrade!<br/>
+<font color="#A82F2F"><font size="2">(01:03:16 PM)</font> <b>Lethalman:</b></font> phiphler, https://nixos.org/wiki/How_to_update_when_nix_is_too_old_to_evaluate_nixpkgs<br/>
+<font color="#16569E"><font size="2">(01:04:29 PM)</font> <b>magnetophon:</b></font> Lethalman: You mentioned yesterday that I needed to patch https://github.com/nlogax/faust/blob/master/tools/faust2appls/faust2lv2#L72  and left before I could reply.  The thing is: I need to do a similar thing to all faust2something scripts, but not all of them have such a line, so instead I did https://github.com/magnetophon/nixpkgs/commit/6ebfb736813fea2dcc29709de3534af40dc04715#diff-614cd22a2ee59cc6f209a0c30d87f99cR125    The problem is that now faust doesn't find it's headers anymore...<br/>
+<font color="#A82F2F"><font size="2">(01:05:26 PM)</font> <b>phiphler:</b></font> Lethalman: my thanks<br/>
+<font size="2">(01:06:05 PM)</font><b> phiphler left the room (quit: Quit: KVIrc 4.3.1 Aria http://www.kvirc.net/).</b><br/>
+<font color="#A82F2F"><font size="2">(01:11:16 PM)</font> <b>goibhniu1:</b></font> hi magnetophon, do you want a hand squashing your commits?<br/>
+<font color="#062585"><font size="2">(01:11:45 PM)</font> <b>***goibhniu1</b></font> can test it here too<br/>
+<font color="#16569E"><font size="2">(01:12:23 PM)</font> <b>magnetophon:</b></font> goibhniu: yeah.  I did git pull &amp; git rebase -i master, as per a howto I found.  (I followed that same howto earlier, and it worked fine...)<br/>
+<font color="#A82F2F"><font size="2">(01:12:33 PM)</font> <b>logand`:</b></font> ewemoa: see http://paste.lisp.org/display/145346#1 any help would be appreciated<br/>
+<font color="#A82F2F"><font size="2">(01:13:01 PM)</font> <b>logand`:</b></font> i think now it breaks because of missing xz in the bootstrap tools<br/>
+<font color="#A82F2F"><font size="2">(01:13:32 PM)</font> <b>goibhniu1:</b></font> magnetophon: do you happen to use emacs?<br/>
+<font color="#16569E"><font size="2">(01:13:46 PM)</font> <b>magnetophon:</b></font> goibhniu1: no, vim<br/>
+<font color="#A82F2F"><font size="2">(01:13:58 PM)</font> <b>goibhniu1:</b></font> kk, just there&apos;s a nice tool in emacs<br/>
+<font color="#A82F2F"><font size="2">(01:14:31 PM)</font> <b>goibhniu1:</b></font> magnetophon: do a git rebase -i revision ... with the revision before the ones you want to squash<br/>
+<font color="#A82F2F"><font size="2">(01:14:36 PM)</font> <b>logand`:</b></font> hmm maybe it&apos;s because busybox had xz built in<br/>
+<font color="#16569E"><font size="2">(01:15:15 PM)</font> <b>magnetophon:</b></font> goibhniu1 so revision in this case is master?<br/>
+<font color="#A82F2F"><font size="2">(01:15:29 PM)</font> <b>goibhniu1:</b></font> I dunno<br/>
+<font color="#A82F2F"><font size="2">(01:15:49 PM)</font> <b>goibhniu1:</b></font> in what way does it not work?<br/>
+<font color="#16569E"><font size="2">(01:16:55 PM)</font> <b>magnetophon:</b></font> goibhniu1 me neither. master is what seems logical, as I want to end up with one commit going into master, and that's what worked earlier, but now I have this mess in my PR, so something went wrong... <br/>
+<font color="#A82F2F"><font size="2">(01:18:47 PM)</font> <b>goibhniu1:</b></font> did it work now?<br/>
+<font color="#A82F2F"><font size="2">(01:18:53 PM)</font> <b>goibhniu1:</b></font> (with the revision)<br/>
+<font color="#16569E"><font size="2">(01:20:09 PM)</font> <b>magnetophon:</b></font> We where still working out what revision is, in this case, weren't we?  I went ahead and tried master again, and was in the middle of that. <br/>
+<font color="#A82F2F"><font size="2">(01:22:35 PM)</font> <b>goibhniu1:</b></font> you can see the revision by look at the log<br/>
+<font color="#A82F2F"><font size="2">(01:22:46 PM)</font> <b>goibhniu1:</b></font> forget about master<br/>
+<font color="#A82F2F"><font size="2">(01:23:15 PM)</font> <b>logand`:</b></font> ewemoa: i think that the intention was to replace all those tools like sh curl etc with busybox, but there is no busybox url for download and fetchurl rule for the bootstrap; no idea how to get somebody to actually prepare and upload busybox to http://tarballs.nixos.org/stdenv-linux/armv5tel/r18744/ ; is it possible to write the nix expression in a way so that it&apos;s not trying to fetch busybox but use the busybox installed on my machine?<br/>
+<font color="#A82F2F"><font size="2">(01:23:51 PM)</font> <b>logand`:</b></font> e.g. there is http://tarballs.nixos.org/stdenv-linux/i686/8d66a51a872af1ab58edc68a2ebddcc79958b563/busybox but nothing like that for arm<br/>
+<font color="#16569E"><font size="2">(01:24:31 PM)</font> <b>magnetophon:</b></font> goibhniu1: sorry to be thick. So do I use the last revision I didn't do myself, or the first i &lt;did&gt;?<br/>
+<font color="#A82F2F"><font size="2">(01:25:24 PM)</font> <b>goibhniu1:</b></font> magnetophon: no worries ... the one before your changes<br/>
+<font color="#A82F2F"><font size="2">(01:30:12 PM)</font> <b>goibhniu1:</b></font> just so you know, it may take me a little while to test this, I need to upgrade nix .. so I&apos;m upgrading my system<br/>
+<font color="#16569E"><font size="2">(01:31:27 PM)</font> <b>magnetophon:</b></font> goibhniu1 I edited the rebase todo, and now I get: &quot;Could not apply 11797ffde8fe96f378c9c657f334992d020f7904... add sooperlooper&quot; which might have been a .orig file I accidentally added to git and deleted again.<br/>
+<font color="#A82F2F"><font size="2">(01:31:57 PM)</font> <b>goibhniu1:</b></font> ok, what branch are you on at the moment?<br/>
+<font color="#16569E"><font size="2">(01:32:36 PM)</font> <b>magnetophon:</b></font> sooperlooper-1.7.3<br/>
+<font color="#A82F2F"><font size="2">(01:33:08 PM)</font> <b>goibhniu1:</b></font> cool, so we can reset it to the same state that you have in the PR, OK?<br/>
+<font color="#16569E"><font size="2">(01:33:18 PM)</font> <b>magnetophon:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(01:33:32 PM)</font> <b>goibhniu1:</b></font> (assuming you haven&apos;t done any additional changes locally)<br/>
+<font color="#16569E"><font size="2">(01:33:36 PM)</font> <b>magnetophon:</b></font> nope<br/>
+<font color="#A82F2F"><font size="2">(01:34:12 PM)</font> <b>goibhniu1:</b></font> the last change in the PR is 8d4bae99e1<br/>
+<font color="#A82F2F"><font size="2">(01:34:22 PM)</font> <b>goibhniu1:</b></font> so, you can `git reset --hard 8d4bae99e1`<br/>
+<font color="#16569E"><font size="2">(01:35:50 PM)</font> <b>magnetophon:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(01:36:21 PM)</font> <b>goibhniu1:</b></font> check what `git status` says, but you should now be able to rebase<br/>
+<font color="#16569E"><font size="2">(01:37:37 PM)</font> <b>magnetophon:</b></font> clean. will try the rebase again<br/>
+<font color="#16569E"><font size="2">(01:39:01 PM)</font> <b>magnetophon:</b></font> goibhniu1 same error<br/>
+<font color="#A82F2F"><font size="2">(01:41:20 PM)</font> <b>ewemoa:</b></font> logand`: was trying to get make-bootstrap-tools*nix to work, first with crosspi then with intel ( https://github.com/NixOS/nixpkgs/issues/5203 ) -- but didn&apos;t manage -- failed to find anybody who seemed to know what to do -- my guess is viric and/or iMatejC might be good folks to consult<br/>
+<font color="#A82F2F"><font size="2">(01:42:03 PM)</font> <b>Lethalman:</b></font> ewemoa, about nix bootstrapping I think shlevy and niksnut know more, ask on the mailing list<br/>
+<font color="#A82F2F"><font size="2">(01:43:30 PM)</font> <b>goibhniu1:</b></font> magnetophon: post the error please<br/>
+<font color="#16569E"><font size="2">(01:43:41 PM)</font> <b>magnetophon:</b></font> goibhniu1: Could not apply 11797ffde8fe96f378c9c657f334992d020f7904... add sooperlooper<br/>
+<font color="#A82F2F"><font size="2">(01:44:01 PM)</font> <b>goibhniu1:</b></font> ok, I&apos;ll do the same here<br/>
+<font color="#16569E"><font size="2">(01:45:28 PM)</font> <b>magnetophon:</b></font> I tried git diff 11797ffde8fe96f378c9c657f334992d020f7904, and it looks to me as if git is trying to add the changes from the .orig file into default.nix  (so lines like +&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD)<br/>
+<font color="#A82F2F"><font size="2">(01:46:34 PM)</font> <b>goibhniu1:</b></font> magnetophon: ok, I get the same ... I&apos;ll fix the conflict, commit and then try to rebase again<br/>
+<font color="#16569E"><font size="2">(01:47:27 PM)</font> <b>magnetophon:</b></font> goibhniu1: cool. could you include me in the process, so I can learn?<br/>
+<font color="#16569E"><font size="2">(01:48:10 PM)</font> <b>magnetophon:</b></font> goibhniu1: maybe we should move this conversation elsewhere?<br/>
+<font color="#A82F2F"><font size="2">(01:49:25 PM)</font> <b>Heffalump:</b></font> can anyone give me an example of a ghcWithPackages expression using ghc 7.8.something? I&apos;m having trouble changing an expression that uses haskellPackages_ghc763.ghcWithPackages to use 7.8<br/>
+<font color="#A82F2F"><font size="2">(01:49:37 PM)</font> <b>goibhniu1:</b></font> magnetophon: actually, I edited the file to fix the conflict and then ran `git add pkgs/applications/audio/sooperlooper/default.nix` (not sure if that was necessary), and then `git rebase --continue` and all is well<br/>
+<font color="#16569E"><font size="2">(01:50:14 PM)</font> <b>magnetophon:</b></font> goibhniu1: edited the file to fix the conflict??<br/>
+<font color="#A82F2F"><font size="2">(01:50:58 PM)</font> <b>goibhniu1:</b></font> magnetophon: when you open sooperlooper/default.nix you see two lines with &lt;&lt;&lt;&lt; and &gt;&gt;&gt;&gt;<br/>
+<font color="#A82F2F"><font size="2">(01:51:07 PM)</font> <b>goibhniu1:</b></font> magnetophon: around the license<br/>
+<font color="#16569E"><font size="2">(01:51:16 PM)</font> <b>magnetophon:</b></font> goibhniu1: ah, right. I just did that too<br/>
+<font color="#A82F2F"><font size="2">(01:53:25 PM)</font> <b>logand`:</b></font> ewemoa: ok thanks<br/>
+<font color="#16569E"><font size="2">(01:54:07 PM)</font> <b>magnetophon:</b></font> goibhniu1: now my log says: &quot;# This is a combination of 2 commits&quot;  and some more lines like that. That's not right is it?<br/>
+<font color="#A82F2F"><font size="2">(01:55:01 PM)</font> <b>goibhniu1:</b></font> ah, you can rebase again to reword the commit message<br/>
+<font color="#062585"><font size="2">(01:55:05 PM)</font> <b>***goibhniu1</b></font> did that too :)<br/>
+<font color="#A82F2F"><font size="2">(01:56:02 PM)</font> <b>goibhniu1:</b></font> cool, it builds and runs (I have no idea how to do anything else with it .. but that&apos;s good enough IMO)<br/>
+<font size="2">(01:56:24 PM)</font><b> [BNC]nckx is now known as nckx</b><br/>
+<font color="#A82F2F"><font size="2">(01:56:34 PM)</font> <b>goibhniu1:</b></font> I noticed some more style issues and commented on the ticket<br/>
+<font color="#A82F2F"><font size="2">(01:56:47 PM)</font> <b>goibhniu1:</b></font> once you&apos;ve done that I&apos;ll merge<br/>
+<font color="#16569E"><font size="2">(01:57:07 PM)</font> <b>magnetophon:</b></font> goibhniu1: OK, thanks. will do.<br/>
+<font color="#A82F2F"><font size="2">(01:57:49 PM)</font> <b>goibhniu1:</b></font> oh sorry, one more thing<br/>
+<font color="#A82F2F"><font size="2">(01:58:30 PM)</font> <b>goibhniu1:</b></font> at the end of the longDescription, please put the &apos;&apos;; on the start of the next line ... on the same column that longDescription starts ... thanks!<br/>
+<font color="#A82F2F"><font size="2">(01:59:19 PM)</font> <b>goibhniu1:</b></font> some more interactive rebasing practise :D<br/>
+<font color="#062585"><font size="2">(02:01:37 PM)</font> <b>***goibhniu1</b></font> needs to fix the DISTRHO plugins<br/>
+<font color="#16569E"><font size="2">(02:04:56 PM)</font> <b>magnetophon:</b></font> goibhniu1: OK, will do that too.   Could you in the meantime have a look at https://github.com/magnetophon/nixpkgs/commit/6ebfb736813fea2dcc29709de3534af40dc04715#diff-614cd22a2ee59cc6f209a0c30d87f99cR125   ?   Faust cannot find it's headers anymore since I stopped hardpatching them<br/>
+<font color="#A82F2F"><font size="2">(02:06:09 PM)</font> <b>goibhniu1:</b></font> I&apos;ll check that a bit later, but TBH I don&apos;t know much about that stuff<br/>
+<font color="#062585"><font size="2">(02:06:13 PM)</font> <b>***goibhniu1</b></font> -&gt; lunch<br/>
+<font color="#16569E"><font size="2">(02:07:09 PM)</font> <b>magnetophon:</b></font> goibhniu1: enjoy<br/>
+<font color="#16569E"><font size="2">(02:10:12 PM)</font> <b>magnetophon:</b></font> goibhniu1: still there for a moment?<br/>
+<font color="#A82F2F"><font size="2">(02:13:24 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edwtjo closed pull request #5925: Install racer.el (master...patch-1) http://git.io/W-5Qcw<br/>
+<font color="#A82F2F"><font size="2">(02:17:27 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edwtjo closed pull request #5850: XBMC to Kodi migrations  (master...kodi-plugins) http://git.io/m4R0tw<br/>
+<font color="#A82F2F"><font size="2">(02:19:19 PM)</font> <b>iMatejC:</b></font> magnetophon: I just had lunch and finished readme of nixmy https://github.com/matejc/nixmy<br/>
+<font color="#A82F2F"><font size="2">(02:19:23 PM)</font> <b>iMatejC:</b></font> so ask<br/>
+<font size="2">(02:19:38 PM)</font><b> nckx is now known as nckx|away</b><br/>
+<font size="2">(02:19:43 PM)</font><b> nckx|away is now known as nckx</b><br/>
+<font color="#16569E"><font size="2">(02:21:58 PM)</font> <b>magnetophon:</b></font> goibhniu1: grrrr!  tried to push, got fast-forward error. did pull, got merge error, did mergetool + commit + rebase, got &quot; could not apply 37d11df&quot;. edited the file to fix the conflict, did add + rebase --continue, got another &quot;Could not apply 11797ffde8fe96f378c9c657f334992d020f7904&quot;.  Now I'm lost. (and a bit pissed...)<br/>
+<font color="#A82F2F"><font size="2">(02:22:31 PM)</font> <b>avn:</b></font> Hello all.<br/>
+<font color="#A82F2F"><font size="2">(02:22:49 PM)</font> <b>Haskellfant:</b></font> magnetophon: git push --force :P<br/>
+<font color="#A82F2F"><font size="2">(02:22:51 PM)</font> <b>avn:</b></font> Trying install nixos using chroot (by guide on wiki)<br/>
+<font color="#A82F2F"><font size="2">(02:23:21 PM)</font> <b>avn:</b></font> Got following error:  /nix/store/ndzya2b420gjkgjvylj8lj1cg00lv157-grub-2.02-git-1de3a4/sbin/grub-install: error: /nix/store/ndzya2b420gjkgjvylj8lj1cg00lv157-grub-2.02-git-1de3a4/lib/grub/x86_64-efi/modinfo.sh doesn&apos;t exist. Please specify --target or --directory.<br/>
+<font color="#16569E"><font size="2">(02:23:38 PM)</font> <b>magnetophon:</b></font> Haskellfant: that's a no-no, isn't it? <br/>
+<font color="#A82F2F"><font size="2">(02:23:51 PM)</font> <b>Haskellfant:</b></font> magnetophon: yep :)<br/>
+<font color="#A82F2F"><font size="2">(02:23:57 PM)</font> <b>Haskellfant:</b></font> well there are cases where it makes sense<br/>
+<font color="#A82F2F"><font size="2">(02:24:07 PM)</font> <b>Haskellfant:</b></font> but you should know what you&apos;re doing when you use it<br/>
+<font color="#A82F2F"><font size="2">(02:24:08 PM)</font> <b>avn:</b></font> (I try to install grub to filesystem, for chainloading by &quot;hosts&quot; grub<br/>
+<font color="#A82F2F"><font size="2">(02:24:27 PM)</font> <b>Haskellfant:</b></font> magnetophon: otherwise https://i.imgur.com/XFQLB.jpg<br/>
+<font color="#16569E"><font size="2">(02:25:08 PM)</font> <b>magnetophon:</b></font> Haskellfant: lol<br/>
+<font color="#A82F2F"><font size="2">(02:25:21 PM)</font> <b>avn:</b></font> Can anyone help me?<br/>
+<font color="#16569E"><font size="2">(02:27:12 PM)</font> <b>magnetophon:</b></font> iMatejC: thanks, will need to let this sink in for a while... :)<br/>
+<font color="#A82F2F"><font size="2">(02:32:20 PM)</font> <b>avn:</b></font> I looked to /nix/store/ndzya2b420gjkgjvylj8lj1cg00lv157-grub-2.02-git-1de3a4/sbin/grub-install: error: /nix/store/ndzya2b420gjkgjvylj8lj1cg00lv157-grub-2.02-git-1de3a4/lib/<br/>
+<font color="#A82F2F"><font size="2">(02:32:52 PM)</font> <b>avn:</b></font> grub/ and it have i386-pc instead of x86_64-efi, i feel something is broken ;(<br/>
+<font color="#16569E"><font size="2">(02:34:24 PM)</font> <b>magnetophon:</b></font> avn: not that helpfull, but I can tel you that I tried to install via chroot at first too, and had lots of problems. Installed via the .iso: smooth sailing... <br/>
+<font color="#A82F2F"><font size="2">(02:35:37 PM)</font> <b>avn:</b></font> I am agreed, that installing from external media is smoother, especially on clean disk ;)<br/>
+<font color="#A82F2F"><font size="2">(02:39:35 PM)</font> <b>dweller:</b></font> use gummiboot<br/>
+<font color="#A82F2F"><font size="2">(02:41:47 PM)</font> <b>avn:</b></font> dweller: it able to be install on partition (to be honest on lvm volume?)<br/>
+<font color="#A82F2F"><font size="2">(02:42:09 PM)</font> <b>dweller:</b></font> this is not how uefi booting works<br/>
+<font color="#A82F2F"><font size="2">(02:42:39 PM)</font> <b>dweller:</b></font> you boot stuff via esp, not installing into partition<br/>
+<font color="#A82F2F"><font size="2">(02:43:17 PM)</font> <b>dweller:</b></font> unless you&apos;re using plain old booting with mbr and csm<br/>
+<font color="#A82F2F"><font size="2">(02:43:27 PM)</font> <b>avn:</b></font> dweller: it overwrite /boot/efi/debian from host&apos;s system?<br/>
+<font color="#A82F2F"><font size="2">(02:44:10 PM)</font> <b>dweller:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(02:44:36 PM)</font> <b>dweller:</b></font> it overwrites \efi\boot\BOOTX64.EFI tho<br/>
+<font size="2">(02:45:09 PM)</font><b> nckx is now known as nckx|away</b><br/>
+<font color="#A82F2F"><font size="2">(02:45:14 PM)</font> <b>dweller:</b></font> but that shouldnt be a problem as you can then load grub from gummiboot<br/>
+<font color="#A82F2F"><font size="2">(02:45:32 PM)</font> <b>avn:</b></font> I have /boot/efi/EFI/debian/grubx64.efi from debian installation<br/>
+<font size="2">(02:46:14 PM)</font><b> nckx|away is now known as nckx</b><br/>
+<font color="#A82F2F"><font size="2">(02:46:23 PM)</font> <b>dweller:</b></font> well<br/>
+<font color="#A82F2F"><font size="2">(02:46:34 PM)</font> <b>dweller:</b></font> grub does magic with efi<br/>
+<font color="#A82F2F"><font size="2">(02:46:44 PM)</font> <b>dweller:</b></font> it wont overwrite<br/>
+<font color="#A82F2F"><font size="2">(02:47:40 PM)</font> <b>dweller:</b></font> however im not sure if it&apos;s supported on debian, as fat doesnt have symlinks<br/>
+<font color="#A82F2F"><font size="2">(02:48:02 PM)</font> <b>dweller:</b></font> i dont remeber if they use them somwhere on /boot<br/>
+<font size="2">(03:06:34 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

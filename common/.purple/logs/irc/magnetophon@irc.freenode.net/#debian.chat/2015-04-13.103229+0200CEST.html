@@ -1,0 +1,71 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Mon 13 Apr 2015 10:32:29 AM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Mon 13 Apr 2015 10:32:29 AM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:32:29 AM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(10:32:29 AM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(10:49:21 AM)</font> <b>cyphix:</b></font> Hi. I encounter troubles with gstreamer. i can&apos;t make it read video files properly. When I try to read a .avi file with the command gst-launch-1.0 playbin uri=file:path-to-file.avi, it just displays a green screen with the sound. Is there a missing dependency I&apos;m not aware of? I installed everything with the command apt-get install gstreamer1.0*, under debian jessie.<br/>
+<font size="2">(10:49:28 AM)</font><b> Phil-Work` is now known as Phil-Work</b><br/>
+<font size="2">(10:58:01 AM)</font><b> mode (+l 1623) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:01:04 AM)</font> <b>CoffeeJ:</b></font> @cyphix: i got gstreamer1.0-plugins-base-apps gstreamer1.0-tools libgstreamer1.0-0 as dependencies<br/>
+<font color="#A82F2F"><font size="2">(11:03:51 AM)</font> <b>cyphix:</b></font> CoffeeJ: I have this as well. So it might not be a dependency issue. What could it be then?<br/>
+<font color="#A82F2F"><font size="2">(11:05:37 AM)</font> <b>CoffeeJ:</b></font> looks like i just wanted to start your play command and it wants libgstreamer-plugins-base1.0-0 which doesn&apos;t install because of a dep error. (Seems i broke my box again ;-))<br/>
+<font color="#A82F2F"><font size="2">(11:10:29 AM)</font> <b>cyphix:</b></font> This dependency is installed as well for me. Doesn&apos;t fix the problem.<br/>
+<font color="#A82F2F"><font size="2">(11:11:17 AM)</font> <b>CoffeeJ:</b></font> have u verified your video setup with for example vlc ?<br/>
+<font color="#A82F2F"><font size="2">(11:13:00 AM)</font> <b>cyphix:</b></font> Yes, it perfectly works with vlc.<br/>
+<font color="#A82F2F"><font size="2">(11:13:45 AM)</font> <b>cyphix:</b></font> Just to specify the reason I work on this: I can&apos;t inclue videos inside a libreoffice Impress presentation. And it seems to be linked to gstreamer.<br/>
+<font color="#A82F2F"><font size="2">(11:15:41 AM)</font> <b>CoffeeJ:</b></font> i could imagine that the codec isnt supported in libeoffice ? perhaps try recode it with ffmpeg to mp4/mp3 avi ?<br/>
+<font color="#A82F2F"><font size="2">(11:22:43 AM)</font> <b>CoffeeJ:</b></font> &lt;ffmpeg -i path-to-src -vcodec mpeg4 -acodec libmp3lame path-to-dst&gt; should do it<br/>
+<font color="#A82F2F"><font size="2">(11:24:01 AM)</font> <b>baribal_:</b></font> Hi. I just fired up a Debian VM, wanted to figure out its IP and noted that there is no ifconfig installed by default. Is that a matter of &quot;It might not be needed&quot;, or is it being replaced by other tools?<br/>
+<font color="#A82F2F"><font size="2">(11:24:56 AM)</font> <b>tlkr:</b></font> baribal_, is it just not in your path? try /sbin/ifconfig<br/>
+<font color="#A82F2F"><font size="2">(11:25:26 AM)</font> <b>buu:</b></font> baribal_: sbin isn&apos;t in you user&apos;s path by default in debian<br/>
+<font color="#A82F2F"><font size="2">(11:25:44 AM)</font> <b>buu:</b></font> Thus confusing everyone who comes from ubuntu<br/>
+<font color="#A82F2F"><font size="2">(11:26:05 AM)</font> <b>baribal_:</b></font> Indeed you are right. Thanks, you two.<br/>
+<font size="2">(11:26:16 AM)</font><b> Tach[Away] is now known as Tachyon`</b><br/>
+<font color="#A82F2F"><font size="2">(11:26:53 AM)</font> <b>cyphix:</b></font> CoffeeJ: Unfortunately it still doesn&apos;t work. Same problem. The recoded video works under vlc, but not gstreamer.<br/>
+<font size="2">(11:28:00 AM)</font><b> mode (+l 1631) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:28:08 AM)</font> <b>CoffeeJ:</b></font> cyphix: im afraid im lost with you now :-(<br/>
+<font color="#A82F2F"><font size="2">(11:28:48 AM)</font> <b>CoffeeJ:</b></font> damn why i have to be such a newbaby<br/>
+<font color="#A82F2F"><font size="2">(11:30:16 AM)</font> <b>cyphix:</b></font> too bad :(<br/>
+<font color="#A82F2F"><font size="2">(11:31:57 AM)</font> <b>CoffeeJ:</b></font> well it&apos;s not quite a solution but u could try open office ?<br/>
+<font color="#A82F2F"><font size="2">(11:33:01 AM)</font> <b>cyphix:</b></font> Is is still available?<br/>
+<font color="#A82F2F"><font size="2">(11:33:17 AM)</font> <b>SynrGy:</b></font> libreoffice is openoffice<br/>
+<font color="#A82F2F"><font size="2">(11:33:25 AM)</font> <b>SynrGy:</b></font> under better management<br/>
+<font color="#A82F2F"><font size="2">(11:33:47 AM)</font> <b>SynrGy:</b></font> ah. just caught up the scrollback ...<br/>
+<font color="#A82F2F"><font size="2">(11:34:13 AM)</font> <b>SynrGy:</b></font> ,v libreoffice<br/>
+<font color="#A82F2F"><font size="2">(11:34:14 AM)</font> <b>judd:</b></font> Package: libreoffice on i386 -- squeeze-backports: 1:3.5.4+dfsg-3~bpo60+2; wheezy: 1:3.5.4+dfsg2-0+deb7u2; wheezy-security: 1:3.5.4+dfsg2-0+deb7u3; wheezy-backports: 1:4.3.3-2~bpo70+2; sid: 1:4.3.3-2; jessie: 1:4.3.3-2; experimental: 1:4.4.2~rc2-1<br/>
+<font color="#A82F2F"><font size="2">(11:34:20 AM)</font> <b>SynrGy:</b></font> which version of libreoffice?<br/>
+<font color="#A82F2F"><font size="2">(11:34:26 AM)</font> <b>SynrGy:</b></font> there is a newer one in backports.<br/>
+<font color="#A82F2F"><font size="2">(11:34:29 AM)</font> <b>cyphix:</b></font> Is it possible to have libreoffice AND openoffice?<br/>
+<font color="#A82F2F"><font size="2">(11:34:33 AM)</font> <b>CoffeeJ:</b></font> oh well thanks for the info<br/>
+<font color="#A82F2F"><font size="2">(11:34:50 AM)</font> <b>SynrGy:</b></font> many things are possible ...<br/>
+<font color="#A82F2F"><font size="2">(11:34:59 AM)</font> <b>SynrGy:</b></font> however, debian does not support openoffice.<br/>
+<font color="#A82F2F"><font size="2">(11:35:06 AM)</font> <b>cyphix:</b></font> ah...<br/>
+<font color="#A82F2F"><font size="2">(11:35:15 AM)</font> <b>SynrGy:</b></font> it seems like a dubious venture to try to make it work, too<br/>
+<font color="#A82F2F"><font size="2">(11:35:31 AM)</font> <b>SynrGy:</b></font> better to try to figure out what the issue is with libreoffice, and if there&apos;s a supported way around it<br/>
+<font color="#A82F2F"><font size="2">(11:35:55 AM)</font> <b>cyphix:</b></font> Yeah, I would prefer a &apos;safer&apos; solution<br/>
+<font color="#A82F2F"><font size="2">(11:36:05 AM)</font> <b>cyphix:</b></font> but I&apos;m totally lost...<br/>
+<font color="#A82F2F"><font size="2">(11:36:20 AM)</font> <b>SynrGy:</b></font> this is an oldish article:<br/>
+<font color="#A82F2F"><font size="2">(11:36:22 AM)</font> <b>cyphix:</b></font> The issue with libreoffice is actually an issue with gstreamer<br/>
+<font color="#A82F2F"><font size="2">(11:36:23 AM)</font> <b>SynrGy:</b></font> http://www.techrepublic.com/blog/smb-technologist/embed-video-into-a-libreoffice-impress-presentation/<br/>
+<font color="#A82F2F"><font size="2">(11:36:43 AM)</font> <b>cyphix:</b></font> If I fix the gstreamer issue, I should fix the libreoffice one.<br/>
+<font color="#A82F2F"><font size="2">(11:36:47 AM)</font> <b>SynrGy:</b></font> it claims (two years ago) that only Ogg Vorbis may be included<br/>
+<font color="#A82F2F"><font size="2">(11:36:55 AM)</font> <b>SynrGy:</b></font> so you just convert to that<br/>
+<font color="#A82F2F"><font size="2">(11:37:17 AM)</font> <b>SynrGy:</b></font> i would consult upstream&apos;s doc about that.<br/>
+<font color="#A82F2F"><font size="2">(11:37:41 AM)</font> <b>darxmurf:</b></font> hum, should I restart networking to force 1000 speed ?<br/>
+<font color="#A82F2F"><font size="2">(11:37:55 AM)</font> <b>darxmurf:</b></font> mii-tool gives me<br/>
+<font color="#A82F2F"><font size="2">(11:37:56 AM)</font> <b>cyphix:</b></font> I could. It actually work. But, I can&apos;t find a way to convert without a massive loss of quality, and a friend under debian can play .avi and other formats with Impress.<br/>
+<font color="#A82F2F"><font size="2">(11:37:58 AM)</font> <b>darxmurf:</b></font> eth0: negotiated 1000baseT-FD flow-control, link ok<br/>
+<font color="#A82F2F"><font size="2">(11:38:14 AM)</font> <b>darxmurf:</b></font> but ethtool : 	Speed: 100Mb/s<br/>
+<font color="#A82F2F"><font size="2">(11:38:18 AM)</font> <b>darxmurf:</b></font> Oo<br/>
+<font color="#A82F2F"><font size="2">(11:38:24 AM)</font> <b>darxmurf:</b></font> it was okay last week Oo<br/>
+<font color="#A82F2F"><font size="2">(11:38:45 AM)</font> <b>SynrGy:</b></font> cyphix: &quot;massive loss of quality&quot; sounds like misuse of the conversion tools<br/>
+<font color="#A82F2F"><font size="2">(11:39:41 AM)</font> <b>cyphix:</b></font> SynrGy: Probably. I&apos;m a total ignorant about these tools.<br/>
+<font color="#A82F2F"><font size="2">(11:40:03 AM)</font> <b>cyphix:</b></font> I tried some solutions, but all were not satisfying<br/>
+<font color="#A82F2F"><font size="2">(11:42:21 AM)</font> <b>SynrG:</b></font> ok.<br/>
+<font color="#A82F2F"><font size="2">(11:42:36 AM)</font> <b>SynrG:</b></font> cyphix: you may have already found this, which claims anything gstreamer supports is supported:<br/>
+<font color="#A82F2F"><font size="2">(11:42:45 AM)</font> <b>SynrG:</b></font> http://ask.libreoffice.org/en/question/854/what-video-formats-does-libreoffice-impress-support/?answer=1451#post-id-1451<br/>
+<font color="#A82F2F"><font size="2">(11:43:07 AM)</font> <b>MeteorCurse:</b></font> Hi. help. whats wrong with coutchdb and beam. somehow  beam with i have no idea what it is is consuming myvirtual memory like crazy<br/>
+<font color="#A82F2F"><font size="2">(11:43:09 AM)</font> <b>cyphix:</b></font> Could you suggest me a tool/command line that would convert avi to ogg without much loss?<br/>
+<font color="#A82F2F"><font size="2">(11:43:20 AM)</font> <b>SynrG:</b></font> cyphix: note: not all gstreamer plugins are installed by default<br/>
+<font color="#A82F2F"><font size="2">(11:43:39 AM)</font> <b>SynrG:</b></font> well, that seems to be rather old advice. maybe you can get this to work with some additional gstreamer plugin<br/>
+<font color="#A82F2F"><font size="2">(11:43:42 AM)</font> <b>MeteorCurse:</b></font> i tried to kill couchdb but its back<br/>
+<font size="2">(11:51:22 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

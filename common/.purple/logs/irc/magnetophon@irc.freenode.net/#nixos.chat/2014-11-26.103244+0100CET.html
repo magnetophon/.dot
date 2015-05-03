@@ -1,0 +1,246 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Wed 26 Nov 2014 10:32:44 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Wed 26 Nov 2014 10:32:44 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:32:45 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(10:32:45 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(10:33:55 AM)</font><b> sj_mackenzie left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#16569E"><font size="2">(10:34:00 AM)</font> <b>magnetophon:</b></font> hmmm.. disconnected... :-/    Hope this isn't a double-post: <br/>
+<font color="#16569E"><font size="2">(10:34:28 AM)</font> <b>magnetophon:</b></font> <span style='font-size: medium;'>goibhniu, henrytill, MichaelRaskin: https://github.com/magnetophon/nixpkgs/blob/faustFull/pkgs/applications/audio/faust-compiler/default.nix    Somehow the postInstallPhase doesn't do anything...</span><br/>
+<font color="#A82F2F"><font size="2">(10:35:20 AM)</font> <b>goibhniu:</b></font> hi magnetophon, it should be postInstall (without the Phase)<br/>
+<font color="#16569E"><font size="2">(10:35:40 AM)</font> <b>magnetophon:</b></font> <span style='font-size: medium;'>goibhniu: Ah, thanks</span><br/>
+<font size="2">(10:35:41 AM)</font><b> jgeerds [<em>~jascha@195.145.95.50</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:35:46 AM)</font> <b>goibhniu:</b></font> yw<br/>
+<font size="2">(10:36:22 AM)</font><b> ok2`` [<em>~user@31.6.20.73</em>] entered the room.</b><br/>
+<font size="2">(10:38:49 AM)</font><b> dannyg [<em>~dannyg@x174167.tudelft.net</em>] entered the room.</b><br/>
+<font size="2">(10:38:58 AM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#16569E"><font size="2">(10:39:04 AM)</font> <b>magnetophon:</b></font> <span style='font-size: medium;'>goibhniu: other than that, how does it look?  It grew quite a bit, and I'm not sure anymore why your's is so much shorter. It had a different separation between the two packages, didn't it?</span><br/>
+<font size="2">(10:39:07 AM)</font><b> blahdodo [<em>~blahdodo@69.172.154.103</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:39:41 AM)</font> <b>MichaelRaskin:</b></font> Why not use just postInstall?<br/>
+<font size="2">(10:39:52 AM)</font><b> ok2` left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:40:18 AM)</font> <b>MichaelRaskin:</b></font> Ah, I see<br/>
+<font color="#A82F2F"><font size="2">(10:40:28 AM)</font> <b>MichaelRaskin:</b></font> Why not add it to installPhase, it is custom anyway?<br/>
+<font size="2">(10:40:51 AM)</font><b> DamienCassou [<em>~cassou@193.51.236.213</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:40:55 AM)</font> <b>MichaelRaskin:</b></font> If you want to call it postInstallPhase, you need to list all the phases you need<br/>
+<font color="#A82F2F"><font size="2">(10:41:01 AM)</font> <b>MichaelRaskin:</b></font> phases = [];<br/>
+<font color="#A82F2F"><font size="2">(10:41:24 AM)</font> <b>goibhniu:</b></font> why is vim an input?<br/>
+<font color="#16569E"><font size="2">(10:41:51 AM)</font> <b>magnetophon:</b></font> MichaelRaskin: I added the postInstall because it didn't work in the install-phase. I can revert that probably. I'll try.<br/>
+<font color="#16569E"><font size="2">(10:42:02 AM)</font> <b>magnetophon:</b></font> goibhniu: vim has xxd<br/>
+<font color="#16569E"><font size="2">(10:42:26 AM)</font> <b>magnetophon:</b></font> goibhniu: that was needed somewhere, not sure where.<br/>
+<font color="#A82F2F"><font size="2">(10:43:01 AM)</font> <b>goibhniu:</b></font> ah cool, why don&apos;t you use the normal Makefile?<br/>
+<font color="#A82F2F"><font size="2">(10:43:15 AM)</font> <b>goibhniu:</b></font> (instead of the buildPhase)<br/>
+<font color="#A82F2F"><font size="2">(10:44:10 AM)</font> <b>goibhniu:</b></font> gosh, it looks like it was a lot of work!<br/>
+<font size="2">(10:45:22 AM)</font><b> dgirsh left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:45:37 AM)</font><b> DamienCassou left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(10:45:38 AM)</font><b> Lowl3v3l left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(10:46:31 AM)</font> <b>goibhniu:</b></font> magnetophon: you don&apos;t rm the bin/faust2* files?<br/>
+<font color="#16569E"><font size="2">(10:47:27 AM)</font> <b>magnetophon:</b></font> goibhniu: iirc the doing just make (so no buildPhase, build too much). That might have had something to do with the fact I originally didn't have line 26 in there, and the original Makefile doesn't allow to split those up. Again, I'll try the other way too, once everything works. thanks.<br/>
+<font color="#16569E"><font size="2">(10:47:45 AM)</font> <b>magnetophon:</b></font> goibhniu: I don't install them :)<br/>
+<font color="#A82F2F"><font size="2">(10:48:14 AM)</font> <b>goibhniu:</b></font> ah, I see :D<br/>
+<font size="2">(10:48:24 AM)</font><b> komarov [<em>~komarov@46.227.191.8</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:48:39 AM)</font> <b>magnetophon:</b></font> goibhniu: And yes, It was a lot of work!<br/>
+<font size="2">(10:49:23 AM)</font><b> blahdodo left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(10:49:42 AM)</font><b> sj_mackenzie [<em>~sj_macken@103.6.176.170</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:49:46 AM)</font> <b>ewemoa:</b></font> goibhniu: afaict, myEnvFun is working as before<br/>
+<font color="#16569E"><font size="2">(10:50:02 AM)</font> <b>magnetophon:</b></font> goibhniu: on the buildPhase line:   s/,/)/  s/)././<br/>
+<font size="2">(10:50:05 AM)</font><b> blahdodo [<em>~blahdodo@69.172.154.103</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:50:09 AM)</font> <b>goibhniu:</b></font> ewemoa: wonderful!<br/>
+<font color="#16569E"><font size="2">(10:50:21 AM)</font> <b>magnetophon:</b></font> goibhniu: in the chat I mean!<br/>
+<font color="#A82F2F"><font size="2">(10:50:44 AM)</font> <b>ewemoa:</b></font> goibhniu: we can thanks MP2E and aszlig :)<br/>
+<font color="#A82F2F"><font size="2">(10:50:56 AM)</font> <b>goibhniu:</b></font> :D<br/>
+<font color="#16569E"><font size="2">(10:53:53 AM)</font> <b>magnetophon:</b></font> goibhniu, MichaelRaskin: I renamed the postInstallPhase to postInstall, but I still have unpathed files...  I'll try doing the work in another phase, but that's more of a style thing, right? That won't make it work, iiuc.  Any ideas?<br/>
+<font size="2">(10:54:03 AM)</font><b> blahdodo left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(10:54:12 AM)</font> <b>MichaelRaskin:</b></font> You can rename it back  and add it to phases list<br/>
+<font color="#A82F2F"><font size="2">(10:54:18 AM)</font> <b>MichaelRaskin:</b></font> Which you need to create<br/>
+<font color="#A82F2F"><font size="2">(10:54:25 AM)</font> <b>MichaelRaskin:</b></font> Or just move it into installPhase<br/>
+<font color="#062585"><font size="2">(10:54:58 AM)</font> <b>***goibhniu</b></font> would move it to the installPhase<br/>
+<font size="2">(10:56:18 AM)</font><b> Takle_ [<em>~takle@188.228.85.218</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:56:24 AM)</font> <b>magnetophon:</b></font> MichaelRaskin: sure, I got that., and will do it. But will that make it work when it doesn't do anything now? I mean, the sed-lines SHOULD get run this way, shouldn't thay.<br/>
+<font color="#A82F2F"><font size="2">(10:56:59 AM)</font> <b>sj_mackenzie:</b></font> could someone kindly tell me how to add our own cert to /etc/ssl/certs/ca-bundle.crt<br/>
+<font size="2">(10:57:22 AM)</font><b> komarov left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:57:29 AM)</font> <b>Lethalman:</b></font> sj_mackenzie, how do you do it in general?<br/>
+<font size="2">(10:57:31 AM)</font><b> blahdodo [<em>~blahdodo@69.172.154.103</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:57:45 AM)</font> <b>sj_mackenzie:</b></font> I don&apos;t :)<br/>
+<font color="#A82F2F"><font size="2">(10:57:52 AM)</font> <b>Lethalman:</b></font> uhm<br/>
+<font size="2">(10:57:55 AM)</font><b> komarov [<em>~komarov@46.227.191.2</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:57:59 AM)</font> <b>sj_mackenzie:</b></font> hydra needs to checkout software on our gitlabs instance<br/>
+<font color="#16569E"><font size="2">(10:58:09 AM)</font> <b>magnetophon:</b></font> MichaelRaskin, goibhniu: I'm building again, wish we luck!   ;)<br/>
+<font color="#A82F2F"><font size="2">(10:58:26 AM)</font> <b>sj_mackenzie:</b></font> so the git checkout is being killed<br/>
+<font size="2">(10:58:27 AM)</font><b> Takle left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:58:27 AM)</font> <b>Lethalman:</b></font> sj_mackenzie, seems like just appending to the file is enough: http://www.warp1337.com/content/adding-additional-ssl-certificate-default-ca-bundle-ssl-certificate-chain-verification-ca<br/>
+<font color="#A82F2F"><font size="2">(10:58:42 AM)</font> <b>MichaelRaskin:</b></font> in insatllPhase they will get run<br/>
+<font color="#A82F2F"><font size="2">(10:58:49 AM)</font> <b>MichaelRaskin:</b></font> Now thwy are not run at all<br/>
+<font color="#A82F2F"><font size="2">(10:59:23 AM)</font> <b>sj_mackenzie:</b></font> Lethalman: appending would be perfect but it would seem the ca-bundle.crt is symlinked to a file in the store... thus immutable<br/>
+<font color="#A82F2F"><font size="2">(10:59:36 AM)</font> <b>Lethalman:</b></font> sj_mackenzie, just use some env variable to point to another bundle<br/>
+<font color="#A82F2F"><font size="2">(10:59:44 AM)</font> <b>Lethalman:</b></font> set it system wide and you are done<br/>
+<font color="#A82F2F"><font size="2">(11:00:05 AM)</font> <b>sj_mackenzie:</b></font> ah okay so in the configuration.nix is fine then. cool<br/>
+<font color="#A82F2F"><font size="2">(11:00:27 AM)</font> <b>Lethalman:</b></font> OPENSSL_X509_CERT_FILE and some other for curl<br/>
+<font color="#A82F2F"><font size="2">(11:00:34 AM)</font> <b>Lethalman:</b></font> sj_mackenzie, maybe you also need to set those variables to nix<br/>
+<font color="#A82F2F"><font size="2">(11:00:41 AM)</font> <b>Lethalman:</b></font> we need some global config about the ssl cert I think<br/>
+<font color="#A82F2F"><font size="2">(11:00:49 AM)</font> <b>Lethalman:</b></font> for such cases....<br/>
+<font color="#A82F2F"><font size="2">(11:01:06 AM)</font> <b>sj_mackenzie:</b></font> oh that would be perfect<br/>
+<font color="#16569E"><font size="2">(11:01:08 AM)</font> <b>magnetophon:</b></font> MichaelRaskin: Are you making fun of my typos?   :p<br/>
+<font color="#A82F2F"><font size="2">(11:02:08 AM)</font> <b>MichaelRaskin:</b></font> What do you mean? I make different typos, don&apos;t I?<br/>
+<font color="#16569E"><font size="2">(11:02:16 AM)</font> <b>magnetophon:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(11:02:52 AM)</font> <b>MichaelRaskin:</b></font> Not the only terminal open, and to be honest, I check for typos more carefully in a shell console...<br/>
+<font color="#A82F2F"><font size="2">(11:04:22 AM)</font> <b>sj_mackenzie:</b></font> Lethalman: error: The option `environment.variables.GIT_SSL_CAINFO&apos; is defined multiple times, in `/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs/nixos/modules/security/ca.nix&apos; and `/etc/nixos/configuration.nix&apos;.<br/>
+<font color="#A82F2F"><font size="2">(11:04:42 AM)</font> <b>sj_mackenzie:</b></font> is there an override?<br/>
+<font size="2">(11:05:16 AM)</font><b> __Sander__ [<em>~sander@cust-95-128-95-82.breedbanddelft.nl</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(11:07:35 AM)</font> <b>magnetophon:</b></font> goibhniu: While I'm building, let me ask you: Could you explain line 33 of your faust-scripts.nix  :   '' + stdenv.lib.optionalString (!gtkSupport) &quot;rm $out/bin/faust2alsa&quot;;<br/>
+<font color="#A82F2F"><font size="2">(11:07:52 AM)</font> <b>Lethalman:</b></font> sj_mackenzie, mkForce<br/>
+<font color="#A82F2F"><font size="2">(11:08:22 AM)</font> <b>ewemoa:</b></font> __Sander__: i was reading your blog post about android app building with nix, and got to thinking whether it&apos;d be practical to convert f-droid&apos;s package building instructions into nix expressions -- is this something you have considered?<br/>
+<font size="2">(11:08:41 AM)</font><b> Takle_ left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(11:09:40 AM)</font> <b>__Sander__:</b></font> ewemoa: would be nice to have a function for this as well<br/>
+<font color="#A82F2F"><font size="2">(11:09:45 AM)</font> <b>__Sander__:</b></font> but I haven&apos;t looked at it<br/>
+<font size="2">(11:09:50 AM)</font><b> komarov left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(11:09:53 AM)</font> <b>ewemoa:</b></font> thanks<br/>
+<font size="2">(11:10:22 AM)</font><b> Adaptee left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:10:44 AM)</font> <b>sj_mackenzie:</b></font> Lethalman: okay thanks!<br/>
+<font color="#A82F2F"><font size="2">(11:11:08 AM)</font> <b>goibhniu:</b></font> magnetophon: if gtkSupport is false, rm the bin/faust2alsa script<br/>
+<font size="2">(11:11:19 AM)</font><b> Shados left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:12:22 AM)</font><b> Shados [<em>~shados@shados.net</em>] entered the room.</b><br/>
+<font size="2">(11:12:25 AM)</font><b> suvash is now known as suvash_away</b><br/>
+<font size="2">(11:12:38 AM)</font><b> DamienCassou [<em>~cassou@193.51.236.213</em>] entered the room.</b><br/>
+<font size="2">(11:12:54 AM)</font><b> Takle [<em>~takle@2a00:fd00:fff1:5768:a445:5451:a09b:c2e1</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(11:13:25 AM)</font> <b>magnetophon:</b></font> goibhniu: Do the '' end the installPhase?  and what does the + mean? <br/>
+<font color="#A82F2F"><font size="2">(11:14:05 AM)</font> <b>goibhniu:</b></font> &apos;&apos; is for a multi-line string + is for concatenating strings<br/>
+<font color="#A82F2F"><font size="2">(11:14:40 AM)</font> <b>goibhniu:</b></font> magnetophon: http://nixos.org/nix/manual/#idm47361539098656<br/>
+<font color="#16569E"><font size="2">(11:16:34 AM)</font> <b>magnetophon:</b></font> goibhniu: well I knew '' ends or starts a string, but afaik this one ends the installPhase string. That confuses me as the + follows it.<br/>
+<font color="#A82F2F"><font size="2">(11:17:27 AM)</font> <b>goibhniu:</b></font> magnetophon: it&apos;s a string, and the + makes it longer ... installPhase ends where the string ends<br/>
+<font color="#16569E"><font size="2">(11:17:49 AM)</font> <b>magnetophon:</b></font> goibhniu: got it. thanks.<br/>
+<font color="#A82F2F"><font size="2">(11:18:00 AM)</font> <b>goibhniu:</b></font> great!<br/>
+<font color="#16569E"><font size="2">(11:19:09 AM)</font> <b>magnetophon:</b></font> goibhniu: and is there a reason why the gtk deps are defined in faust2alsaconsole, and called from faust2alsa? Not sure if that is even the case.<br/>
+<font color="#A82F2F"><font size="2">(11:19:58 AM)</font> <b>goibhniu:</b></font> magnetophon: nah, it was just thrown together ... I figured we&apos;d want to re-use the list of GTK deps in other scripts<br/>
+<font color="#16569E"><font size="2">(11:20:14 AM)</font> <b>magnetophon:</b></font> goibhniu: OK, cool.<br/>
+<font size="2">(11:21:03 AM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#A82F2F"><font size="2">(11:21:32 AM)</font> <b>sj_mackenzie:</b></font> so after making a number of changes to the hydra server I nixos-rebuild switch&apos;ed. This results in the switch stalling after &apos;stopping the following units: local-fs.target, network-interfaces.target, remote-fs.target&apos; - should I be concerned?<br/>
+<font color="#A82F2F"><font size="2">(11:22:41 AM)</font> <b>sj_mackenzie:</b></font> its been like this for more than 10 mins.<br/>
+<font size="2">(11:25:01 AM)</font><b> Takle_ [<em>~takle@188.228.85.218</em>] entered the room.</b><br/>
+<font size="2">(11:26:37 AM)</font><b> Takle left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(11:28:41 AM)</font><b> blahdodo left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(11:29:35 AM)</font><b> blahdodo [<em>~blahdodo@69.172.154.103</em>] entered the room.</b><br/>
+<font size="2">(11:30:17 AM)</font><b> Ivanych left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(11:33:38 AM)</font><b> silver [<em>~silver@178.124.111.138</em>] entered the room.</b><br/>
+<font size="2">(11:35:18 AM)</font><b> sj_mackenzie left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:35:35 AM)</font><b> sivteck left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font size="2">(11:39:47 AM)</font><b> tv [<em>~tv@unaffiliated/tv</em>] entered the room.</b><br/>
+<font size="2">(11:45:57 AM)</font><b> jb55 left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:53:38 AM)</font><b> Shados left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:54:31 AM)</font><b> MichaelRaskin left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font color="#062585"><font size="2">(11:55:45 AM)</font> <b>***Lethalman</b></font> would like a rosetta of ansible, saltstack, puppet, chef and nixops<br/>
+<font size="2">(11:56:32 AM)</font><b> solatis left the room (quit: Quit: WeeChat 1.0).</b><br/>
+<font color="#A82F2F"><font size="2">(11:56:46 AM)</font> <b>goibhniu:</b></font> what&apos;s a rosetta?<br/>
+<font color="#A82F2F"><font size="2">(11:57:33 AM)</font> <b>Lethalman:</b></font> goibhniu, http://rosettacode.org/wiki/Cut_a_rectangle<br/>
+<font color="#A82F2F"><font size="2">(11:58:49 AM)</font> <b>goibhniu:</b></font> ah, I see, thanks!<br/>
+<font size="2">(12:00:44 PM)</font><b> komarov [<em>~komarov@46.227.191.35</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:02:31 PM)</font> <b>hyper_ch:</b></font> so that&apos;s unrealted to Rosetta Stone?<br/>
+<font size="2">(12:04:06 PM)</font><b> Adaptee [<em>~whodare@101.29.212.9</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:05:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ip1981 opened pull request #5133: ImageMagick 6.8.9-9 is gone (master...patch-1) http://git.io/HHr1JQ<br/>
+<font size="2">(12:07:20 PM)</font><b> Takle_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(12:07:25 PM)</font><b> Takle [<em>~takle@188.228.85.218</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:09:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edwtjo pushed 2 new commits to master: http://git.io/8rThng<br/>
+<font color="#A82F2F"><font size="2">(12:09:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master fd73e99 Ryan Newton: racket: add libreadline to ffi libs - enables xrepl.<br/>
+<font color="#A82F2F"><font size="2">(12:09:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 456882b Edward Tjörnhammar: Merge pull request #5115 from iu-parfunc/racket...<br/>
+<font size="2">(12:10:14 PM)</font><b> MichaelRaskin [<em>~MichaelRa@195.178.216.113</em>] entered the room.</b><br/>
+<font size="2">(12:10:19 PM)</font><b> rawtaz left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(12:10:44 PM)</font><b> rawtaz [<em>~rawtaz@rho.hobbyhotellet.se</em>] entered the room.</b><br/>
+<font size="2">(12:13:51 PM)</font><b> komarov left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(12:14:37 PM)</font><b> komarov [<em>~komarov@46.227.191.106</em>] entered the room.</b><br/>
+<font size="2">(12:15:16 PM)</font><b> the_scourge [<em>~scourge@dhcp-159-70.cup.cam.ac.uk</em>] entered the room.</b><br/>
+<font size="2">(12:15:49 PM)</font><b> [1]zwoop [<em>~zwoop@192.176.1.91</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:17:25 PM)</font> <b>[1]zwoop:</b></font> hi, im currently using mac osx on a 13inch retina mac. I would like to install OsNix on my machine but since i never used linux before i dont want to run into troubles. Anyone know if osnix is 100% compatible with a 1year old mac retina?<br/>
+<font color="#A82F2F"><font size="2">(12:17:42 PM)</font> <b>goibhniu:</b></font> I guess the results of such a comparison would vary wildly depending on the services which were to be deployed ... at least for nixops ... e.g. &quot;deploy a cluster of diaspora pods&quot; would not fare well<br/>
+<font color="#A82F2F"><font size="2">(12:17:53 PM)</font> <b>goibhniu:</b></font> hi [1]zwoop, you mean NixOS, right?<br/>
+<font color="#A82F2F"><font size="2">(12:17:59 PM)</font> <b>[1]zwoop:</b></font> sorry yes<br/>
+<font color="#A82F2F"><font size="2">(12:18:27 PM)</font> <b>goibhniu:</b></font> I&apos;ll wait for someone who has such a machine to respond, but I think quite a few people run NixOS on similar hardware.<br/>
+<font color="#A82F2F"><font size="2">(12:18:59 PM)</font> <b>the_scourge:</b></font> [1]zwoop: i have that machine... is yours a late 2013?<br/>
+<font color="#A82F2F"><font size="2">(12:19:13 PM)</font> <b>[1]zwoop:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(12:19:35 PM)</font> <b>the_scourge:</b></font> A1502?<br/>
+<font color="#A82F2F"><font size="2">(12:19:45 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 2 new commits to master: http://git.io/4xEMFg<br/>
+<font color="#A82F2F"><font size="2">(12:19:45 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1a516da Jeremy Huffman: haskell-distributed-process-monad-control add from Hackage<br/>
+<font color="#A82F2F"><font size="2">(12:19:45 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5c85b55 Pascal Wittmann: Merge pull request #5119 from jeremyjh/dp-monad-control...<br/>
+<font color="#A82F2F"><font size="2">(12:20:35 PM)</font> <b>the_scourge:</b></font> [1]zwoop: ^ A1502? it will be printed on the bottom<br/>
+<font color="#A82F2F"><font size="2">(12:20:38 PM)</font> <b>goibhniu:</b></font> is thunderbolt supported at all?<br/>
+<font color="#A82F2F"><font size="2">(12:20:48 PM)</font> <b>[1]zwoop:</b></font> i did try to use linux on my older machine about 2 year ago, that was a PC with 2 graphics cards and at that time the kernel did not have any support for switching between graphics cards causing my machine fans to run loud, that scarde me away from linux but i really want to make the transition, so im hoping for a smother transfere this time.<br/>
+<font color="#A82F2F"><font size="2">(12:20:58 PM)</font> <b>[1]zwoop:</b></font> sorry im not at my computer now<br/>
+<font color="#A82F2F"><font size="2">(12:21:20 PM)</font> <b>the_scourge:</b></font> ok there are easy solutions for switching between graphics chips<br/>
+<font color="#A82F2F"><font size="2">(12:22:14 PM)</font> <b>the_scourge:</b></font> i.e. bumblebee (which i think nixos has as a package)<br/>
+<font color="#A82F2F"><font size="2">(12:22:20 PM)</font> <b>[1]zwoop:</b></font> the_scourge, so is that the model number you have? and is that working fine for you with thunderbolt etc?<br/>
+<font size="2">(12:22:26 PM)</font><b> moha_hunt [<em>~moha@194.94.23.245</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:22:38 PM)</font> <b>[1]zwoop:</b></font> i tried bumblebee but it made no differenc<br/>
+<font color="#A82F2F"><font size="2">(12:22:45 PM)</font> <b>[1]zwoop:</b></font> probably did something wrong<br/>
+<font color="#A82F2F"><font size="2">(12:23:03 PM)</font> <b>the_scourge:</b></font> [1]zwoop: that&apos;s the model i have. i&apos;m running ubuntu on it right now, with nixpkgs managing my software (under ubuntu). that might be a good way to go if you&apos;re a total linux newbie<br/>
+<font color="#A82F2F"><font size="2">(12:23:19 PM)</font> <b>the_scourge:</b></font> i also have nixos running in vagrant and a couple aws instances<br/>
+<font size="2">(12:23:46 PM)</font><b> eddyb_ [<em>~eddyb@unaffiliated/eddyb</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:24:14 PM)</font> <b>the_scourge:</b></font> i desperately want to make nixos my primary OS on the retina MBP, but i&apos;m in the middle of a contract right now and ihaven&apos;t been able to set aside a day when i don&apos;t need it to be working the entire day flawlessly<br/>
+<font color="#A82F2F"><font size="2">(12:24:18 PM)</font> <b>the_scourge:</b></font> :(<br/>
+<font color="#A82F2F"><font size="2">(12:24:49 PM)</font> <b>the_scourge:</b></font> i do know people run nixos on the retina MBP. there aren&apos;t any blog posts though. i might have to make one when i do get around to installing<br/>
+<font color="#A82F2F"><font size="2">(12:25:07 PM)</font> <b>[1]zwoop:</b></font> i would be the first one reading it<br/>
+<font color="#A82F2F"><font size="2">(12:25:23 PM)</font> <b>the_scourge:</b></font> [1]zwoop: if you have osx running on it right now, do you know you can run nixpkgs on osx??<br/>
+<font color="#A82F2F"><font size="2">(12:25:42 PM)</font> <b>[1]zwoop:</b></font> Linux is the only aternative left out there after osx has destroid after the last few updates<br/>
+<font color="#A82F2F"><font size="2">(12:25:47 PM)</font> <b>the_scourge:</b></font> they&apos;ve don&apos;t a LOT of really good work on that recently as well... aparently the implementation is much more &quot;pure&quot; now :D<br/>
+<font color="#A82F2F"><font size="2">(12:26:15 PM)</font> <b>the_scourge:</b></font> [1]zwoop: what updates? what did they change? i haven&apos;t used osx for a decade<br/>
+<font color="#A82F2F"><font size="2">(12:26:19 PM)</font> <b>[1]zwoop:</b></font> no i did not know that, as i said im new to the game<br/>
+<font color="#A82F2F"><font size="2">(12:28:52 PM)</font> <b>goibhniu:</b></font> IIRC someone mentioned the other day that thunderbolt doesn&apos;t work on linux at all<br/>
+<font color="#A82F2F"><font size="2">(12:28:52 PM)</font> <b>the_scourge:</b></font> goibhniu: that&apos;s not true i&apos;m using it right now over a gigabit connection, with IPv6 enabled<br/>
+<font color="#A82F2F"><font size="2">(12:28:52 PM)</font> <b>goibhniu:</b></font> ah, excellent!<br/>
+<font color="#A82F2F"><font size="2">(12:28:52 PM)</font> <b>the_scourge:</b></font> the videoport adapter works as well for me, both HDMI and VGA and ... the other one<br/>
+<font color="#A82F2F"><font size="2">(12:28:56 PM)</font> <b>goibhniu:</b></font> ah, you don&apos;t use thunderbolt for your monitor directly?<br/>
+<font color="#A82F2F"><font size="2">(12:29:49 PM)</font> <b>the_scourge:</b></font> ok maybe i don&apos;t know exactly what thunderbolt is. but i have an adapter with an ethernet port. works fine up to any speed. also an adapter for VGA and another one for HDMI<br/>
+<font color="#A82F2F"><font size="2">(12:30:07 PM)</font> <b>the_scourge:</b></font> they all work. i didn&apos;t know you could plug a monitor directly into the little port<br/>
+<font color="#A82F2F"><font size="2">(12:30:13 PM)</font> <b>the_scourge:</b></font> maybe if you have an apple monitor?<br/>
+<font color="#A82F2F"><font size="2">(12:31:11 PM)</font> <b>goibhniu:</b></font> a guy I work with has such a monitor and a harddrive too<br/>
+<font color="#A82F2F"><font size="2">(12:31:51 PM)</font> <b>goibhniu:</b></font> I guess there&apos;s no other way to connect to such a monitor .. because apple<br/>
+<font size="2">(12:32:00 PM)</font><b> certainty left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(12:33:30 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(12:34:12 PM)</font> <b>the_scourge:</b></font> yah i&apos;m not sure i usually only hook up an external monitor to this when i&apos;m on a client site and they only provide dell crap<br/>
+<font color="#16569E"><font size="2">(12:40:50 PM)</font> <b>magnetophon:</b></font> goibhniu: something's wrong:     find $out/include/ -name &quot;*.h&quot; -type f | xargs sed 's@#include &quot;faust/@#include &quot;$out/include/faust/@g' -i     <br/>
+<font color="#16569E"><font size="2">(12:40:50 PM)</font> <b>magnetophon:</b></font> in the installPhase, gives me a 'no such file':   #include &quot;$out/include/faust/gui/FUI.h&quot;   when I run the package.     I had the same problem earlier, so I tried to look up the solution that MichaelRaskin gave me in the irc logs, and afaik this is how I did it then.<br/>
+<font size="2">(12:40:50 PM)</font><b> eddyb_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(12:40:58 PM)</font><b> eddyb_ [<em>~eddyb@unaffiliated/eddyb</em>] entered the room.</b><br/>
+<font color="#062585"><font size="2">(12:42:03 PM)</font> <b>***magnetophon</b></font> regrets not putting this thing under git from the beginning, and scurries off to update his github...<br/>
+<font color="#A82F2F"><font size="2">(12:43:05 PM)</font> <b>goibhniu:</b></font> magnetophon: do you need &quot; in the sed expression rather than &apos;?<br/>
+<font color="#16569E"><font size="2">(12:44:51 PM)</font> <b>magnetophon:</b></font> goibhniu: ok, thanks. I had that at some point but thought I needed to change it. Will change back...<br/>
+<font color="#16569E"><font size="2">(12:46:37 PM)</font> <b>magnetophon:</b></font> goibhniu: (I thought it would)/(it did) interfere with the &quot; inside the expression to be replaced. Not sure which. Trying it now...<br/>
+<font color="#A82F2F"><font size="2">(12:46:55 PM)</font> <b>goibhniu:</b></font> yeah, you&apos;ll need to escape that<br/>
+<font color="#16569E"><font size="2">(12:49:50 PM)</font> <b>magnetophon:</b></font> goibhniu: just add a \  right?<br/>
+<font color="#A82F2F"><font size="2">(12:49:57 PM)</font> <b>goibhniu:</b></font> yup<br/>
+<font color="#16569E"><font size="2">(12:50:35 PM)</font> <b>magnetophon:</b></font> goibhniu: There is no way to test the installPhase without going trough the buildPhase again, is there?<br/>
+<font color="#A82F2F"><font size="2">(12:50:59 PM)</font> <b>goibhniu:</b></font> you can use nix-shell to step through it<br/>
+<font color="#A82F2F"><font size="2">(12:51:22 PM)</font> <b>goibhniu:</b></font> e.g. make a git repo and add everything as you go, that way you can step back to earlier phases too<br/>
+<font color="#16569E"><font size="2">(12:52:54 PM)</font> <b>magnetophon:</b></font> goibhniu: I thought nix-shell doesn't do installPhase?<br/>
+<font color="#16569E"><font size="2">(12:53:36 PM)</font> <b>magnetophon:</b></font> goibhniu: or do I run nix-shell from root?<br/>
+<font color="#A82F2F"><font size="2">(12:53:42 PM)</font> <b>goibhniu:</b></font> oh?<br/>
+<font color="#A82F2F"><font size="2">(12:53:45 PM)</font> <b>goibhniu:</b></font> I&apos;m not sure<br/>
+<font color="#A82F2F"><font size="2">(12:54:18 PM)</font> <b>goibhniu:</b></font> I think you can set $out to something else<br/>
+<font color="#A82F2F"><font size="2">(12:54:23 PM)</font> <b>goibhniu:</b></font> it should be in that wiki page<br/>
+<font color="#16569E"><font size="2">(12:54:53 PM)</font> <b>magnetophon:</b></font> goibhniu: not following you...<br/>
+<font size="2">(12:55:08 PM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#A82F2F"><font size="2">(12:55:23 PM)</font> <b>goibhniu:</b></font> magnetophon: https://nixos.org/wiki/Create_and_debug_nix_packages<br/>
+<font color="#A82F2F"><font size="2">(12:56:20 PM)</font> <b>[1]zwoop:</b></font> the thunderbolt port is a fully working mini dispay port<br/>
+<font color="#16569E"><font size="2">(12:56:31 PM)</font> <b>magnetophon:</b></font> goibhniu: ah, you mean set $out to something else so I can run shell  from non-root?<br/>
+<font color="#A82F2F"><font size="2">(12:56:37 PM)</font> <b>[1]zwoop:</b></font> so you can plug in any monitor that support minidispaly directly to thunderboalt<br/>
+<font color="#A82F2F"><font size="2">(12:56:52 PM)</font> <b>goibhniu:</b></font> magnetophon: yeah, maybe that works<br/>
+<font size="2">(12:58:53 PM)</font><b> Reventlov left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:03:29 PM)</font><b> reventlov [<em>~reventlov@unaffiliated/reventlov</em>] entered the room.</b><br/>
+<font size="2">(01:04:55 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font size="2">(01:09:31 PM)</font><b> Takle left the room (quit: Read error: No route to host).</b><br/>
+<font size="2">(01:09:45 PM)</font><b> Takle [<em>~takle@2a00:fd00:fff1:5768:19e9:c820:77f8:b0de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:11:29 PM)</font> <b>the_scourge:</b></font> [1]zwoop: oh ok thanks. don&apos;t know much about my own hardware :(<br/>
+<font color="#16569E"><font size="2">(01:11:46 PM)</font> <b>magnetophon:</b></font> goibhniu, henrytill, MichaelRaskin: Woohoooo!!! https://github.com/magnetophon/nixpkgs/tree/faustFull    :D<br/>
+<font color="#16569E"><font size="2">(01:13:49 PM)</font> <b>magnetophon:</b></font> I do get quite some errors when I run my alsa-gtk-compiled  faust program:   Fontconfig error: line 36: invalid attribute 'xml:space'  with different values for the line number.<br/>
+<font color="#A82F2F"><font size="2">(01:14:51 PM)</font> <b>goibhniu:</b></font> magnetophon: great!<br/>
+<font size="2">(01:15:07 PM)</font><b> eddyb_ left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(01:15:15 PM)</font><b> eddyb_ [<em>~eddyb@unaffiliated/eddyb</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(01:16:10 PM)</font> <b>magnetophon:</b></font> goibhniu: Do you have any ideas what could cause these errors, and if they are serious? Do you get them too?<br/>
+<font color="#A82F2F"><font size="2">(01:19:10 PM)</font> <b>goibhniu:</b></font> magnetophon: hmm, doesn&apos;t look familiar, and I don&apos;t have any ideas about it<br/>
+<font color="#16569E"><font size="2">(01:20:19 PM)</font> <b>magnetophon:</b></font> goibhniu: I'll do some more testing then.   But first it's time for lunch.<br/>
+<font size="2">(01:22:31 PM)</font><b> eddyb_ left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(01:22:40 PM)</font><b> eddyb_ [<em>~eddyb@unaffiliated/eddyb</em>] entered the room.</b><br/>
+<font size="2">(01:31:10 PM)</font><b> eddyb_ left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font size="2">(01:31:15 PM)</font><b> Takle_ [<em>~takle@188.228.85.218</em>] entered the room.</b><br/>
+<font size="2">(01:31:59 PM)</font><b> suvash_away is now known as suvash</b><br/>
+<font size="2">(01:34:33 PM)</font><b> Takle left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:35:41 PM)</font> <b>iElectric:</b></font> goibhniu: thanks for doing so great help desk support :)<br/>
+<font size="2">(01:36:41 PM)</font><b> sivteck [<em>~sivteck@unaffiliated/sivteck</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:39:57 PM)</font> <b>goibhniu:</b></font> iElectric :) it&apos;s just my evil plan to get more people packaging stuff for me to use ... muahahaha<br/>
+<font size="2">(01:40:10 PM)</font><b> JagaJaga [<em>~JagaJaga@178.62.202.50</em>] entered the room.</b><br/>
+<font size="2">(02:07:02 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

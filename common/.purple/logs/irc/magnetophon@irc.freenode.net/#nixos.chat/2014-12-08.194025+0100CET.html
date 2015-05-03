@@ -1,0 +1,180 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Mon 08 Dec 2014 07:40:25 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Mon 08 Dec 2014 07:40:25 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(07:40:26 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(07:40:26 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(07:40:34 PM)</font><b> ajhager [<em>~ajhager@204.14.152.131</em>] entered the room.</b><br/>
+<font size="2">(07:41:22 PM)</font><b> mizu_no_oto [<em>~textual@gw1.mcgraw-hill.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:49:00 PM)</font> <b>iElectric:</b></font> apparmor doesn&apos;t build in master<br/>
+<font color="#A82F2F"><font size="2">(07:49:20 PM)</font> <b>iElectric:</b></font> http://hydra.nixos.org/build/17742206<br/>
+<font size="2">(07:53:42 PM)</font><b> levicc00123 left the room (quit: Quit: levicc00123).</b><br/>
+<font size="2">(07:55:49 PM)</font><b> torpet [<em>~torpet@84-115-42-228.dynamic.surfer.at</em>] entered the room.</b><br/>
+<font size="2">(07:57:05 PM)</font><b> dysinger [<em>~dysinger@cpe-24-94-75-243.hawaii.res.rr.com</em>] entered the room.</b><br/>
+<font size="2">(07:57:06 PM)</font><b> Ankhers [<em>~user@gateway/tor-sasl/ankhers</em>] entered the room.</b><br/>
+<font size="2">(07:57:35 PM)</font><b> goibhniu left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:58:24 PM)</font> <b>dysinger:</b></font> how can I set a default ruby (ruby 2.1 instead of 1.9) ?  I’m generating nix expressions with `gem-nix` but I want to use them with ruby 2.1 (not 1.9)<br/>
+<font color="#A82F2F"><font size="2">(07:58:53 PM)</font> <b>joelteon:</b></font> you can put that in packageOverrides in your user-specific nix configuration<br/>
+<font color="#A82F2F"><font size="2">(08:01:25 PM)</font> <b>jack_c:</b></font> ... which is typically in ~/.nixpkgs/config.nix<br/>
+<font size="2">(08:01:35 PM)</font><b> ajhager left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:03:28 PM)</font> <b>thoughtpolice:</b></font> iElectric: ugh.<br/>
+<font color="#A82F2F"><font size="2">(08:03:49 PM)</font> <b>thoughtpolice:</b></font> iElectric: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=752335 &lt;- looks like we need to upgrade AppArmor or something with a re-generated SWIG interface<br/>
+<font color="#A82F2F"><font size="2">(08:04:26 PM)</font> <b>thoughtpolice:</b></font> Our apparmor is only 2.8.4, I upgraded it a while back<br/>
+<font color="#A82F2F"><font size="2">(08:04:36 PM)</font> <b>thoughtpolice:</b></font> but it seems 2.9.0 has been promoted as the stable release<br/>
+<font color="#A82F2F"><font size="2">(08:05:26 PM)</font> <b>thoughtpolice:</b></font> hmmm<br/>
+<font color="#A82F2F"><font size="2">(08:05:28 PM)</font> <b>thoughtpolice:</b></font> &quot;User tools rewritten in Python, Perl versions deprecated&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:05:55 PM)</font> <b>iElectric:</b></font> thoughtpolice: let&apos;s see if that fixes it?<br/>
+<font color="#A82F2F"><font size="2">(08:06:04 PM)</font> <b>iElectric:</b></font> (apparmor bump)<br/>
+<font color="#A82F2F"><font size="2">(08:06:07 PM)</font> <b>thoughtpolice:</b></font> as usual, I&apos;m sure a total rewrite of their tools will have absolutely no regressions, bugs, or user-facing consequences, as is with all software<br/>
+<font color="#A82F2F"><font size="2">(08:06:20 PM)</font> <b>thoughtpolice:</b></font> none whatsoever<br/>
+<font color="#A82F2F"><font size="2">(08:06:28 PM)</font> <b>thoughtpolice:</b></font> iElectric: yes, I&apos;ll see if I can get around to it later today<br/>
+<font color="#A82F2F"><font size="2">(08:07:44 PM)</font> <b>iElectric:</b></font> thoughtpolice: might be worth checking what other distirbutions consider as stable<br/>
+<font color="#A82F2F"><font size="2">(08:08:51 PM)</font> <b>iElectric:</b></font> I don&apos;t see anyone using 2.9.0<br/>
+<font color="#A82F2F"><font size="2">(08:08:53 PM)</font> <b>thoughtpolice:</b></font> iElectric: lol, ubuntu is at AppArmor &apos;2.8.95&apos;<br/>
+<font color="#A82F2F"><font size="2">(08:08:58 PM)</font> <b>thoughtpolice:</b></font> for 14.04LTS<br/>
+<font color="#A82F2F"><font size="2">(08:09:14 PM)</font> <b>iElectric:</b></font> perl, but not so python<br/>
+<font color="#A82F2F"><font size="2">(08:09:19 PM)</font> <b>iElectric:</b></font> verion<br/>
+<font color="#A82F2F"><font size="2">(08:09:23 PM)</font> <b>iElectric:</b></font> version*<br/>
+<font color="#A82F2F"><font size="2">(08:10:16 PM)</font> <b>thoughtpolice:</b></font> iElectric: ah, 2.9.0 was actually only released in mid-October<br/>
+<font color="#A82F2F"><font size="2">(08:10:19 PM)</font> <b>thoughtpolice:</b></font> which would explain that<br/>
+<font color="#A82F2F"><font size="2">(08:10:47 PM)</font> <b>thoughtpolice:</b></font> 2.8.4 was released just days before... so I doubt 2.9.0 would magically fix the issues; either way I guess we&apos;ll have to fix the nix expr to re-gen the SWIG interfaces or something I guess.<br/>
+<font color="#A82F2F"><font size="2">(08:11:22 PM)</font> <b>iElectric:</b></font> so how can ubuntu have 2.8.95?<br/>
+<font color="#A82F2F"><font size="2">(08:12:07 PM)</font> <b>thoughtpolice:</b></font> because Canonical does what they want? I dunno, I didn&apos;t look over the deb changelog... I&apos;d imagine the LTS version has features backported from HEAD or something, facilitating the versioning difference<br/>
+<font color="#A82F2F"><font size="2">(08:12:44 PM)</font> <b>thoughtpolice:</b></font> anyway, thanks for the heads up; I think me and phreedom maintain it, so I&apos;ll try to take a stab at fixing it later with this whole perl 5.20 upgrade thing<br/>
+<font color="#A82F2F"><font size="2">(08:12:47 PM)</font> <b>iElectric:</b></font> how is the version informative then? :/<br/>
+<font color="#A82F2F"><font size="2">(08:13:00 PM)</font> <b>iElectric:</b></font> thoughtpolice: thanks!<br/>
+<font size="2">(08:13:29 PM)</font><b> jb55 left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(08:13:33 PM)</font><b> jb55_ [<em>~jb55@208.98.200.98</em>] entered the room.</b><br/>
+<font size="2">(08:20:02 PM)</font><b> Hijiri [<em>~oneechan@128.54.7.251</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:20:27 PM)</font> <b>thoughtpolice:</b></font> niksnut: should any systemd changes go into staging?<br/>
+<font color="#A82F2F"><font size="2">(08:20:37 PM)</font> <b>dysinger:</b></font> joelteon: jack_c thanks. that works.<br/>
+<font color="#A82F2F"><font size="2">(08:20:53 PM)</font> <b>thoughtpolice:</b></font> I basically want to add libseccomp (which I maintain) as a dependency for systemd, to enable filtering support<br/>
+<font color="#A82F2F"><font size="2">(08:21:29 PM)</font> <b>thoughtpolice:</b></font> one of these days I plan on rummaging through a shitload of our service files and trying to replicate hardening options other distros may use. the Tor overhauls I pushed out the other day are an example<br/>
+<font size="2">(08:22:35 PM)</font><b> klltkr_ [<em>~klltkr@unaffiliated/klltkr</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:22:48 PM)</font> <b>thoughtpolice:</b></font> niksnut: oh, and relatedly, serviceConfig sucks for certain .service file options... for example, ReadWriteDirectory can contain multiple paths, so OK, that&apos;s great. but DeviceAllow does *not* support this - you have to specify it multiple times, once for each device and its permissions<br/>
+<font color="#A82F2F"><font size="2">(08:22:57 PM)</font> <b>thoughtpolice:</b></font> but obviously putting DeviceAllow in there twice makes things go boom<br/>
+<font size="2">(08:23:24 PM)</font><b> nslqqq1 left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:23:47 PM)</font> <b>thoughtpolice:</b></font> there are a handful of other options with this behavior; it would be nice to fixed. technically Tor can run with even lower permissions than it has now (only requiring /dev/null and /dev/urandom)<br/>
+<font color="#A82F2F"><font size="2">(08:24:44 PM)</font> <b>thoughtpolice:</b></font> really I don&apos;t know of a way to &apos;fix it&apos; though other than doing something totally shitty, unfortunately, like specifically mapping &apos;DeviceAllow({0,9}*)&apos; to multiple DeviceAllow entries. which I guess would be OK, but still sucks.<br/>
+<font color="#A82F2F"><font size="2">(08:25:11 PM)</font> <b>thoughtpolice:</b></font> er, ([0-9]*) :)<br/>
+<font color="#A82F2F"><font size="2">(08:25:27 PM)</font> <b>c74d:</b></font> How far along is the grsecurity integration from April?<br/>
+<font size="2">(08:25:56 PM)</font><b> begriffs [<em>~begriffs@50-0-172-29.dsl.dynamic.fusionbroadband.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:26:30 PM)</font> <b>thoughtpolice:</b></font> TL;DR is it works, but it could be better. the last overhaul I wrote worked pretty OK, but it could do with cleanup<br/>
+<font color="#A82F2F"><font size="2">(08:26:37 PM)</font> <b>wkennington:</b></font> Thoughtpolice, we&apos;ve always worked around this by creating the higher level options using lists, like requires<br/>
+<font color="#A82F2F"><font size="2">(08:26:55 PM)</font> <b>thoughtpolice:</b></font> you still need to build the kernel yourself, and IIRC, gradm may still be slightly busted<br/>
+<font color="#A82F2F"><font size="2">(08:27:24 PM)</font> <b>thoughtpolice:</b></font> (But I don&apos;t think anyone is using gradm right now; most users seem to be in it for the improved hardening to the kernel and applications being prevented from certain &apos;features&apos; like RWX pages)<br/>
+<font color="#A82F2F"><font size="2">(08:27:36 PM)</font> <b>thoughtpolice:</b></font> wkennington: yeah, but then that can&apos;t be in serviceConfig...<br/>
+<font color="#A82F2F"><font size="2">(08:27:45 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lethalman pushed 1 new commit to master: http://git.io/KP86NA<br/>
+<font color="#A82F2F"><font size="2">(08:27:45 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5a999ca Luca Bruno: tracker, gnome-music: drop LD_LIBRARY_PATH<br/>
+<font color="#A82F2F"><font size="2">(08:28:13 PM)</font> <b>c74d:</b></font> thoughtpolice: “TL;DR is it works, […]” is re grsecurity?<br/>
+<font color="#A82F2F"><font size="2">(08:28:17 PM)</font> <b>thoughtpolice:</b></font> c74d: yes<br/>
+<font color="#A82F2F"><font size="2">(08:28:19 PM)</font> <b>c74d:</b></font> Thanks.<br/>
+<font color="#A82F2F"><font size="2">(08:28:51 PM)</font> <b>thoughtpolice:</b></font> it&apos;s something that&apos;s been on my TODO list for a while, but unfortunately I have not had much time to do NixOS hacking in the 14.12-release timeframe<br/>
+<font color="#A82F2F"><font size="2">(08:29:01 PM)</font> <b>wkennington:</b></font> Thoughtpolice: yea, but none of those options are in serviceConfig either<br/>
+<font color="#A82F2F"><font size="2">(08:29:02 PM)</font> <b>thoughtpolice:</b></font> so perhaps this can be fixed for 15.04 or whatever we call it<br/>
+<font color="#A82F2F"><font size="2">(08:29:04 PM)</font> <b>c74d:</b></font> There was some mention of a “grsecurity module” that was under construction and would improve the grsec support… what was that?<br/>
+<font size="2">(08:29:11 PM)</font><b> chrisfarms [<em>~chatzilla@cpc68956-brig15-2-0-cust219.3-3.cable.virginm.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:29:29 PM)</font> <b>thoughtpolice:</b></font> c74d: that&apos;s already in trunk and has been for months. i wrote it, and yes, it works. but it&apos;s still incomplete and needs cleanup as I mentioned before<br/>
+<font color="#A82F2F"><font size="2">(08:29:37 PM)</font> <b>c74d:</b></font> Okay, thanks.<br/>
+<font color="#A82F2F"><font size="2">(08:30:16 PM)</font> <b>thoughtpolice:</b></font> wkennington: hm, which options? DevicePolicy is absolutely in serviceConfig, since it maps directly to the unit description.<br/>
+<font color="#A82F2F"><font size="2">(08:30:34 PM)</font> <b>thoughtpolice:</b></font> (sorry, I called it DeviceAllow earlier)<br/>
+<font color="#A82F2F"><font size="2">(08:30:49 PM)</font> <b>thoughtpolice:</b></font> https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/security/tor.nix#L316<br/>
+<font color="#A82F2F"><font size="2">(08:31:51 PM)</font> <b>thoughtpolice:</b></font> I guess my point is it seems somewhat crappy to &apos;lift&apos; DevicePolicy out of service config and into the systemd.services.&lt;foo&gt; namespace and special-case it, as opposed to the systemd.services.&lt;foo&gt;.serviceConfig namespace, because it seems quite inconsistent as to how you write/port unit files.<br/>
+<font color="#A82F2F"><font size="2">(08:32:13 PM)</font> <b>thoughtpolice:</b></font> but with stuff like needing multiple DevicePolicy entries, I don&apos;t think there&apos;s a way around it without SOME special casing<br/>
+<font color="#A82F2F"><font size="2">(08:32:19 PM)</font> <b>thoughtpolice:</b></font> so perhaps it doesn&apos;t matter and i&apos;m just being a grump<br/>
+<font size="2">(08:32:21 PM)</font><b> jgeerds left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(08:33:02 PM)</font> <b>thoughtpolice:</b></font> I guess it&apos;s a matter of what you consider the &apos;mapping&apos; from the nix expr to the unit description.<br/>
+<font size="2">(08:33:08 PM)</font><b> FrozenCow [<em>~FrozenCow@dhcp-089-099-057-228.chello.nl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:33:10 PM)</font> <b>thoughtpolice:</b></font> anyway, I&apos;ll probably just open a bug and let it get bikeshedded to death<br/>
+<font color="#A82F2F"><font size="2">(08:34:32 PM)</font> <b>ikwildrpepper:</b></font> p<br/>
+<font color="#A82F2F"><font size="2">(08:34:37 PM)</font> <b>ikwildrpepper:</b></font> oops, ignore that<br/>
+<font size="2">(08:37:28 PM)</font><b> seer [<em>~seer@CPE-120-147-227-150.lflg2.win.bigpond.net.au</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:37:57 PM)</font> <b>seer:</b></font> hi is anyone on that can help me with a  config file issue?<br/>
+<font size="2">(08:38:11 PM)</font><b> sepi` left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(08:38:22 PM)</font><b> sepi`` [<em>~user@2001:41d0:8:e341::1</em>] entered the room.</b><br/>
+<font size="2">(08:38:55 PM)</font><b> FrozenCow left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(08:39:12 PM)</font><b> FrozenCow [<em>~FrozenCow@dhcp-089-099-057-228.chello.nl</em>] entered the room.</b><br/>
+<font size="2">(08:39:13 PM)</font><b> samek [<em>~samo@flame.unix.si</em>] entered the room.</b><br/>
+<font size="2">(08:39:25 PM)</font><b> FrozenCow left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(08:39:30 PM)</font> <b>seer:</b></font> http://pastebin.com/FLPsWdHy is the config and the error.  can&apos;t workout what i did wrong<br/>
+<font size="2">(08:39:42 PM)</font><b> FrozenCow [<em>~FrozenCow@dhcp-089-099-057-228.chello.nl</em>] entered the room.</b><br/>
+<font size="2">(08:42:41 PM)</font><b> PeterMetz [<em>~petermetz@host-92-25-10-34.as13285.net</em>] entered the room.</b><br/>
+<font size="2">(08:44:03 PM)</font><b> ebzzry__ left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(08:44:14 PM)</font><b> ebzzry [<em>~ebzzry@112.204.28.97</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:46:19 PM)</font> <b>pmahoney:</b></font> seer: are those really curly close-quotes on line 3 ?<br/>
+<font color="#A82F2F"><font size="2">(08:46:25 PM)</font> <b>wkennington:</b></font> thoughtpolice: my point is that you should modify nixos/modules/system/boot/systemd-unit-options.nix to allow for a devicePolicy lisrt<br/>
+<font color="#A82F2F"><font size="2">(08:46:49 PM)</font> <b>wkennington:</b></font> thoughtpolice: this is basically what we have been doing for options like environment which can be specified multiple times<br/>
+<font color="#A82F2F"><font size="2">(08:47:04 PM)</font> <b>wkennington:</b></font> thoughtpolice: Environment is technically part of serviceConfig<br/>
+<font color="#A82F2F"><font size="2">(08:47:17 PM)</font> <b>seer:</b></font> maybe for some stupid reason my mac keeps adding them and i need to do copy and paste to get normal ones<br/>
+<font color="#A82F2F"><font size="2">(08:47:29 PM)</font> <b>seer:</b></font> drives me nuts<br/>
+<font size="2">(08:48:44 PM)</font><b> ajhager [<em>~ajhager@24-104-69-46-ip-static.hfc.comcastbusiness.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:48:58 PM)</font> <b>seer:</b></font> pmahoney: thanks for that so stupid i fixed the rest and missed that one but error message talked about a different line so i missed it<br/>
+<font color="#A82F2F"><font size="2">(08:49:49 PM)</font> <b>pmahoney:</b></font> glad to help. nix error messages can be ...fun<br/>
+<font color="#A82F2F"><font size="2">(08:50:09 PM)</font> <b>seer:</b></font> next error just got better lol<br/>
+<font color="#A82F2F"><font size="2">(08:50:21 PM)</font> <b>seer:</b></font> error: invalid character `?&apos; in name `smart?drive-0.1&apos;<br/>
+<font color="#A82F2F"><font size="2">(08:50:49 PM)</font> <b>seer:</b></font> guess it is that first char again<br/>
+<font color="#A82F2F"><font size="2">(08:51:20 PM)</font> <b>seer:</b></font> but they all look fine<br/>
+<font color="#A82F2F"><font size="2">(08:51:45 PM)</font> <b>seer:</b></font> anyone know a safe file editor to use on mac OS X to get correct chars?<br/>
+<font color="#A82F2F"><font size="2">(08:51:56 PM)</font> <b>pmahoney:</b></font> i&apos;d guess it&apos;s not an ascii - char, but some unicode em-dash or something<br/>
+<font size="2">(08:51:57 PM)</font><b> hexagoxel [<em>~hexagoxel@kiel-5f77bf0e.pool.mediaWays.net</em>] entered the room.</b><br/>
+<font size="2">(08:52:18 PM)</font><b> tv left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:52:24 PM)</font> <b>pmahoney:</b></font> seer: what editor are you using?<br/>
+<font color="#A82F2F"><font size="2">(08:52:35 PM)</font> <b>seer:</b></font> built in textedit<br/>
+<font color="#A82F2F"><font size="2">(08:53:01 PM)</font> <b>seer:</b></font> then just sftp to vm to run it<br/>
+<font color="#A82F2F"><font size="2">(08:53:23 PM)</font> <b>seer:</b></font> i can see some of the characters going wrong in textedit as i type them<br/>
+<font color="#A82F2F"><font size="2">(08:53:56 PM)</font> <b>kmicu:</b></font> It is a feature. Type - - two times in a row.<br/>
+<font color="#A82F2F"><font size="2">(08:54:19 PM)</font> <b>pmahoney:</b></font> seer: wonder what happens if you set &quot;saving files&quot; encoding to Western (ASCII) (just poking around Preferences)<br/>
+<font color="#A82F2F"><font size="2">(08:55:27 PM)</font> <b>pmahoney:</b></font> anyway, maybe a code editor would be a worthile investment :)<br/>
+<font color="#A82F2F"><font size="2">(08:55:31 PM)</font> <b>kmicu:</b></font> seer: character: — (displayed as —) (codepoint 8212, #o20024, #x2014) in your ‘smart—drive-0.1’<br/>
+<font size="2">(08:55:44 PM)</font><b> justbeingglad [<em>~justbeing@137.205.238.160</em>] entered the room.</b><br/>
+<font size="2">(08:55:46 PM)</font><b> justbeingglad left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:56:12 PM)</font> <b>kmicu:</b></font> It should be a visible difference between - and — with a quality font.<br/>
+<font color="#A82F2F"><font size="2">(08:57:05 PM)</font> <b>seer:</b></font> anyone know a good code editor for mac?  don&apos;t mind paying for one if needed.  i will get the - from a different line and copy it.  wonder if ultra edit comes for mac<br/>
+<font color="#062585"><font size="2">(08:58:03 PM)</font> <b>***kmicu</b></font> knows only one http://emacsformacosx.com/<br/>
+<font color="#A82F2F"><font size="2">(08:58:40 PM)</font> <b>pmahoney:</b></font> (sorry, also emacs user... quite a bit different from textedit and similar)<br/>
+<font color="#A82F2F"><font size="2">(08:58:59 PM)</font> <b>seer:</b></font> ok downloading now i will give it a go<br/>
+<font color="#A82F2F"><font size="2">(08:59:00 PM)</font> <b>joelteon:</b></font> vim<br/>
+<font color="#A82F2F"><font size="2">(08:59:48 PM)</font> <b>seer:</b></font> prefer guy over command line otherwise i would just do it on the server but when doing command line i normally go VI or nano<br/>
+<font color="#A82F2F"><font size="2">(08:59:53 PM)</font> <b>seer:</b></font> gui<br/>
+<font color="#A82F2F"><font size="2">(09:00:09 PM)</font> <b>kmicu:</b></font> seer: I’m not aware of any editor which will help you with your problem. You should just switch to a font witch clearly shows the difference between “ &quot; or - – — etc.<br/>
+<font size="2">(09:00:57 PM)</font><b> sheerun left the room (quit: Quit: http://sheerun.net).</b><br/>
+<font color="#A82F2F"><font size="2">(09:00:59 PM)</font> <b>kmicu:</b></font> s/witch/which of course :)<br/>
+<font color="#A82F2F"><font size="2">(09:01:24 PM)</font> <b>seer:</b></font> yea but the issue is those mistakes are the normal keys on the keyboard so every time i type they come up on the mac unless i copy and paste them<br/>
+<font color="#A82F2F"><font size="2">(09:02:49 PM)</font> <b>kmicu:</b></font> Just disable smart-typing|smart-quotes in your editor.<br/>
+<font size="2">(09:03:34 PM)</font><b> jb55_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:04:08 PM)</font><b> jb55 [<em>~jb55@208.98.200.98</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:07:26 PM)</font> <b>seer:</b></font> emacs seems to fix the issue<br/>
+<font color="#A82F2F"><font size="2">(09:08:37 PM)</font> <b>seer:</b></font> error: unknown flag `-d&apos; is the new error<br/>
+<font size="2">(09:08:40 PM)</font><b> jb55 left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:09:24 PM)</font> <b>pmahoney:</b></font> seer: --verbose, not -debug<br/>
+<font color="#A82F2F"><font size="2">(09:09:44 PM)</font> <b>seer:</b></font> oh thanks<br/>
+<font size="2">(09:10:06 PM)</font><b> civodul [<em>~user@gateway/tor-sasl/civodul</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:11:36 PM)</font> <b>seer:</b></font> getting further<br/>
+<font color="#A82F2F"><font size="2">(09:11:51 PM)</font> <b>seer:</b></font> unzip: command not found<br/>
+<font color="#A82F2F"><font size="2">(09:12:45 PM)</font> <b>seer:</b></font> unpacking source archive /nix/store/p10hb8gwpkqnaksfvlq7pclj20kc1x1q-Debug.zip<br/>
+<font color="#A82F2F"><font size="2">(09:13:18 PM)</font> <b>seer:</b></font> had wrong zip name in orginal config so changed that but no idea what i am missing for this error<br/>
+<font color="#A82F2F"><font size="2">(09:14:10 PM)</font> <b>pmahoney:</b></font> buildInputs = [ unzip ];    do you have a checkout of nixpkgs?  grepping through that can help you find good examples, though it&apos;s hard at first if you don&apos;t even know what you&apos;re looking for<br/>
+<font color="#A82F2F"><font size="2">(09:15:34 PM)</font> <b>seer:</b></font> yea i do and i have another script that is working for something else but based this one on an example and since not building did not realise build inputs was needed<br/>
+<font color="#A82F2F"><font size="2">(09:15:40 PM)</font> <b>seer:</b></font> stupid mistake :)<br/>
+<font color="#A82F2F"><font size="2">(09:16:07 PM)</font> <b>pmahoney:</b></font> nah<br/>
+<font color="#A82F2F"><font size="2">(09:17:05 PM)</font> <b>seer:</b></font> unpacking source archive /nix/store/p10hb8gwpkqnaksfvlq7pclj20kc1x1q-Debug.zip<br/>
+<font color="#A82F2F"><font size="2">(09:17:05 PM)</font> <b>seer:</b></font> unpacker produced multiple directories<br/>
+<font color="#A82F2F"><font size="2">(09:17:05 PM)</font> <b>seer:</b></font> builder for `/nix/store/dy2874f705cayg61vhhgl1gza08g96f1-smart-drive-0.1.drv&apos; failed with exit code 1<br/>
+<font size="2">(09:17:09 PM)</font><b> jb55 [<em>~jb55@208.98.200.98</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:17:23 PM)</font> <b>seer:</b></font> got to get to work.  i will have to look at it again tonight<br/>
+<font color="#A82F2F"><font size="2">(09:17:30 PM)</font> <b>aszlig:</b></font> iElectric: now i&apos;m around...<br/>
+<font color="#A82F2F"><font size="2">(09:17:31 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric created release-14.12 from master (+0 new commits): http://git.io/yKO68Q<br/>
+<font color="#A82F2F"><font size="2">(09:17:39 PM)</font> <b>seer:</b></font> should just be a Debug dir in it i think then sub folders<br/>
+<font color="#A82F2F"><font size="2">(09:17:44 PM)</font> <b>iElectric:</b></font> tara.<br/>
+<font size="2">(09:17:47 PM)</font><b> CandidC [<em>~Candid@1.178.150.104</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:17:59 PM)</font> <b>aszlig:</b></font> nooooooooo X-D<br/>
+<font color="#A82F2F"><font size="2">(09:18:01 PM)</font> <b>aszlig:</b></font> :-D<br/>
+<font size="2">(09:18:01 PM)</font><b> jb55 left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:18:20 PM)</font> <b>seer:</b></font> love nixes but man these configs take a heap of time to get right and get use to<br/>
+<font color="#A82F2F"><font size="2">(09:18:21 PM)</font> <b>aszlig:</b></font> iElectric: i thought you wanted to branch off on 2014-12-14?<br/>
+<font color="#A82F2F"><font size="2">(09:18:26 PM)</font> <b>pmahoney:</b></font> seer: not sure about that one...  it&apos;s possible to override unpackPhase completely, to maybe make a dir, cd into it, then unzip. but there may be builtin options to tell nix to do that, dunno<br/>
+<font size="2">(09:18:36 PM)</font><b> jb55 [<em>~jb55@208.98.200.98</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:18:45 PM)</font> <b>iElectric:</b></font> aszlig: no, that&apos;s going to be a release<br/>
+<font color="#A82F2F"><font size="2">(09:19:07 PM)</font> <b>aszlig:</b></font> sheesh...<br/>
+<font color="#A82F2F"><font size="2">(09:19:14 PM)</font> <b>seer:</b></font> thanks for the help all of you.  I will rebuild the zip tonight and make sure the directory is in it to make it happy<br/>
+<font color="#A82F2F"><font size="2">(09:19:27 PM)</font> <b>iElectric:</b></font> aszlig: sorry for not communicating that well<br/>
+<font color="#A82F2F"><font size="2">(09:19:33 PM)</font> <b>aszlig:</b></font> then i need to find some workaround on how to unbreak nixops<br/>
+<font color="#A82F2F"><font size="2">(09:19:46 PM)</font> <b>iElectric:</b></font> aszlig: feel free to open PR to the branch<br/>
+<font size="2">(09:19:51 PM)</font><b> seer left the room (quit: Quit: Leaving).</b><br/>

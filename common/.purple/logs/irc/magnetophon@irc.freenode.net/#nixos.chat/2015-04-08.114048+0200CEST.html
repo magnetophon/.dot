@@ -1,0 +1,49 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Wed 08 Apr 2015 11:40:48 AM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Wed 08 Apr 2015 11:40:48 AM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(11:40:48 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(11:40:48 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(11:42:57 AM)</font><b> goibhniu1 [<em>~goibhniu@p5DCBD26F.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(11:46:16 AM)</font><b> goibhniu left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:48:42 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] DamienCassou opened pull request #7260: Backintime 1.1.0 -&gt; 1.1.4 (master...update-backintime-1.1.4) http://git.io/veigb<br/>
+<font color="#A82F2F"><font size="2">(11:52:40 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] desiderius opened pull request #7262: python-packages: update colander-1.0b to 1.0 (master...colander-1.0) http://git.io/veiaV<br/>
+<font size="2">(11:55:59 AM)</font><b> goibhniu1 is now known as goibhniu</b><br/>
+<font color="#A82F2F"><font size="2">(11:56:34 AM)</font> <b>rzetterberg:</b></font> I want to setup a hydra jobset that uses the build servers local nixpkgs, is there a straightforward way to do this?<br/>
+<font color="#A82F2F"><font size="2">(11:57:10 AM)</font> <b>the-kenny:</b></font> rzetterberg: I don&apos;t think there&apos;s anything special you have to do. Just reference &lt;nixpkgs&gt; in the release.nix<br/>
+<font color="#A82F2F"><font size="2">(11:57:58 AM)</font> <b>the-kenny:</b></font> rzetterberg: if that doesn&apos;t work, try adding an input named &quot;nixpkgs&quot; and point it via local path to the nixpkgs of the machine<br/>
+<font color="#A82F2F"><font size="2">(11:58:29 AM)</font> <b>rzetterberg:</b></font> the-kenny: How can I find out the local path? $NIX_PATH?<br/>
+<font color="#A82F2F"><font size="2">(11:58:53 AM)</font> <b>the-kenny:</b></font> exactly. But please try the former first, if it works it is the correct way<br/>
+<font color="#A82F2F"><font size="2">(11:59:05 AM)</font> <b>rzetterberg:</b></font> the-kenny: Thanks! Will try that<br/>
+<font color="#A82F2F"><font size="2">(11:59:28 AM)</font> <b>the-kenny:</b></font> rzetterberg: it&apos;s usually /etc/nixos/nixpkgs on NixOS<br/>
+<font color="#A82F2F"><font size="2">(12:01:51 PM)</font> <b>rzetterberg:</b></font> the-kenny: Alright!<br/>
+<font color="#A82F2F"><font size="2">(12:02:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] DamienCassou pushed 2 new commits to master: http://git.io/veirN<br/>
+<font color="#A82F2F"><font size="2">(12:02:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master cef1728 Damien Cassou: Backintime 1.1.0 -&gt; 1.1.4<br/>
+<font color="#A82F2F"><font size="2">(12:02:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1603b0f Damien Cassou: Merge pull request #7260 from DamienCassou/update-backintime-1.1.4...<br/>
+<font color="#A82F2F"><font size="2">(12:15:29 PM)</font> <b>rzetterberg:</b></font> the-kenny: I added nixpkgs like so: &quot;pkgs = import &lt;nixpkgs&gt; {};&quot; but got &quot;file ‘nixpkgs’ was not found in the Nix search path&quot; in hydra.<br/>
+<font color="#A82F2F"><font size="2">(12:15:43 PM)</font> <b>rzetterberg:</b></font> I used the build recipe from http://hydra.nixos.org/build/21171438/download/2/manual.pdf<br/>
+<font color="#A82F2F"><font size="2">(12:15:51 PM)</font> <b>the-kenny:</b></font> rzetterberg: ah, then you might have to add it as an input in the jobset configuration<br/>
+<font color="#A82F2F"><font size="2">(12:15:56 PM)</font> <b>rzetterberg:</b></font> Alright :)<br/>
+<font color="#A82F2F"><font size="2">(12:17:28 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga pushed 2 new commits to master: http://git.io/veiX6<br/>
+<font color="#A82F2F"><font size="2">(12:17:28 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master eab5ff5 Spencer Whitt: tor: fix for Darwin<br/>
+<font color="#A82F2F"><font size="2">(12:17:28 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3e07961 Arseniy Seroka: Merge pull request #7258 from spwhitt/tor...<br/>
+<font color="#A82F2F"><font size="2">(12:20:13 PM)</font> <b>rzetterberg:</b></font> the-kenny: I just added the github repo as nixpkgs input and now it works! :) Thanks for the help!<br/>
+<font color="#A82F2F"><font size="2">(12:20:26 PM)</font> <b>the-kenny:</b></font> rzetterberg: but that won&apos;t use the system nixpgs!<br/>
+<font color="#A82F2F"><font size="2">(12:21:07 PM)</font> <b>rzetterberg:</b></font> I was going to say that I didn&apos;t have a /etc/nixos/nixpkgs dir on my machine. I&apos;m using nixos-unstable.<br/>
+<font color="#A82F2F"><font size="2">(12:21:58 PM)</font> <b>rzetterberg:</b></font> $NIX_PATH points to a item inte the store<br/>
+<font color="#A82F2F"><font size="2">(12:22:24 PM)</font> <b>rzetterberg:</b></font> No... I meant $NIX_PATH points to /nix/var/nix/profiles/per-user/root/channels/nixos<br/>
+<font color="#A82F2F"><font size="2">(12:22:40 PM)</font> <b>rzetterberg:</b></font> So I&apos;ll try to use that as a local path<br/>
+<font color="#A82F2F"><font size="2">(12:24:57 PM)</font> <b>rzetterberg:</b></font> Alright, now it works with the local path :D<br/>
+<font color="#A82F2F"><font size="2">(12:25:23 PM)</font> <b>rzetterberg:</b></font> the-kenny: Sorry for all the confusion, I need to drink some coffee. And thanks for the help/patience<br/>
+<font color="#A82F2F"><font size="2">(12:25:34 PM)</font> <b>the-kenny:</b></font> Oh it&apos;s totally fine. You&apos;re welcome<br/>
+<font color="#A82F2F"><font size="2">(12:40:36 PM)</font> <b>Lethalman:</b></font> iElectric, now trying to update NM to 1.0 for gnome 3.16<br/>
+<font color="#A82F2F"><font size="2">(12:40:40 PM)</font> <b>Lethalman:</b></font> never ending story<br/>
+<font color="#A82F2F"><font size="2">(12:44:43 PM)</font> <b>__Sander__:</b></font> hmm infinite recursion while trying to evaluate a NixOS configuration<br/>
+<font color="#A82F2F"><font size="2">(12:45:46 PM)</font> <b>Lethalman:</b></font> __Sander__, iirc somebody was complaining about that in an issue<br/>
+<font color="#A82F2F"><font size="2">(12:46:51 PM)</font> <b>__Sander__:</b></font> yeah I saw it<br/>
+<font color="#A82F2F"><font size="2">(12:47:11 PM)</font> <b>__Sander__:</b></font> it&apos;s probably because of the change in the module system I guess<br/>
+<font color="#A82F2F"><font size="2">(12:47:19 PM)</font> <b>__Sander__:</b></font> the stacktrace isn&apos;t very helpful though<br/>
+<font color="#A82F2F"><font size="2">(12:47:19 PM)</font> <b>Lethalman:</b></font> think so<br/>
+<font color="#A82F2F"><font size="2">(12:47:41 PM)</font> <b>__Sander__:</b></font> and it&apos;s a bit hard for me to diagnose the problem because of lack of time :(<br/>
+<font color="#A82F2F"><font size="2">(01:17:33 PM)</font> <b>__Sander__:</b></font> meh<br/>
+<font color="#A82F2F"><font size="2">(01:17:48 PM)</font> <b>__Sander__:</b></font> to what revision should I go back to make the evaluation work again??<br/>
+<font color="#062585"><font size="2">(01:20:22 PM)</font> <b>***Lethalman</b></font> removed empathy and sushi from the test to avoid compiling two webkits :S the downsides of nix... compiling more than one webkit<br/>
+<font size="2">(02:15:21 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

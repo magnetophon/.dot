@@ -1,0 +1,359 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with henrytill at Fri 09 Jan 2015 03:56:19 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with henrytill at Fri 09 Jan 2015 03:56:19 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font color="#A82F2F"><font size="2">(03:56:18 AM)</font> <b>henrytill:</b></font> you still awake?<br/>
+<font color="#16569E"><font size="2">(11:36:57 AM)</font> <b>magnetophon:</b></font> are you? :p<br/>
+<font color="#16569E"><font size="2">(01:00:24 PM)</font> <b>magnetophon:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(01:00:24 PM)</font> <b>henrytill &lt;AUTO-REPLY&gt;:</b></font> ...<br/>
+<font color="#16569E"><font size="2">(01:00:46 PM)</font> <b>magnetophon:</b></font> great work on the kernel! Thanks!!!<br/>
+<font color="#A82F2F"><font size="2">(01:00:46 PM)</font> <b>henrytill &lt;AUTO-REPLY&gt;:</b></font> ...<br/>
+<font color="#A82F2F"><font size="2">(01:03:02 PM)</font> <b>henrytill:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(01:03:10 PM)</font> <b>henrytill:</b></font> you&apos;re welcome<br/>
+<font color="#A82F2F"><font size="2">(01:03:28 PM)</font> <b>henrytill:</b></font> have you rebuilt yet?<br/>
+<font color="#16569E"><font size="2">(01:03:41 PM)</font> <b>magnetophon:</b></font> as we speak<br/>
+<font color="#16569E"><font size="2">(01:04:02 PM)</font> <b>magnetophon:</b></font> but it takes a few hours on my little netbook :(<br/>
+<font color="#A82F2F"><font size="2">(01:04:24 PM)</font> <b>henrytill:</b></font> but of course<br/>
+<font color="#16569E"><font size="2">(01:04:29 PM)</font> <b>magnetophon:</b></font> btw did you notice goibhniu joined us?<br/>
+<font color="#16569E"><font size="2">(01:05:04 PM)</font> <b>magnetophon:</b></font> He missed the invitation the first time around... :)<br/>
+<font color="#A82F2F"><font size="2">(01:05:42 PM)</font> <b>henrytill:</b></font> I did<br/>
+<font color="#A82F2F"><font size="2">(01:05:48 PM)</font> <b>henrytill:</b></font> That&apos;s great<br/>
+<font color="#16569E"><font size="2">(01:06:04 PM)</font> <b>magnetophon:</b></font> About the kernel, I was wondering: why did you split out kernelConfigOptimize and kernelConfigRealtime?<br/>
+<font color="#A82F2F"><font size="2">(01:07:03 PM)</font> <b>henrytill:</b></font> options<br/>
+<font color="#16569E"><font size="2">(01:07:39 PM)</font> <b>magnetophon:</b></font> It looks like the stdkernel with optimization doesn't get PREEMPT_RT_FULL, but does get PREEMPT_RT. A quick google lead me nowhere...<br/>
+<font color="#A82F2F"><font size="2">(01:07:53 PM)</font> <b>henrytill:</b></font> actually just using kernelConfigOptimize gives you the same kernel as before<br/>
+<font color="#16569E"><font size="2">(01:08:40 PM)</font> <b>magnetophon:</b></font> iiuc, no. See line 131<br/>
+<font color="#16569E"><font size="2">(01:09:36 PM)</font> <b>magnetophon:</b></font> you get PREEMPT_RT_FULL but not PREEMPT_RT. Though maybe that does lead to the same end result after all. Idk. Do you?<br/>
+<font color="#A82F2F"><font size="2">(01:09:52 PM)</font> <b>henrytill:</b></font> PREEMPT_RT_FULL only works with a RT kernel<br/>
+<font color="#A82F2F"><font size="2">(01:10:20 PM)</font> <b>henrytill:</b></font> if you noticed when compiling that kernel, it would give a message<br/>
+<font color="#16569E"><font size="2">(01:10:20 PM)</font> <b>magnetophon:</b></font> ah, right. Got a link where I can read up on that?<br/>
+<font color="#16569E"><font size="2">(01:10:33 PM)</font> <b>magnetophon:</b></font> ah. OK<br/>
+<font color="#16569E"><font size="2">(01:12:36 PM)</font> <b>magnetophon:</b></font> Another question I read this: &quot;+ optionalString cfg.kernel.optimize kernelConfigOptimize&quot; to mean: if cfg.kernel.optimize is true, append kernelConfigOptimize. Did I get that right?<br/>
+<font color="#A82F2F"><font size="2">(01:13:02 PM)</font> <b>henrytill:</b></font> yep<br/>
+<font color="#16569E"><font size="2">(01:13:21 PM)</font> <b>magnetophon:</b></font> what's the point of having the rt-patches applied but not the full config that goes with it?<br/>
+<font color="#16569E"><font size="2">(01:14:05 PM)</font> <b>magnetophon:</b></font> I know hardly anything about kernels, sorry...<br/>
+<font color="#A82F2F"><font size="2">(01:15:25 PM)</font> <b>henrytill:</b></font> afk, back in 15<br/>
+<font color="#16569E"><font size="2">(01:15:30 PM)</font> <b>magnetophon:</b></font> OK<br/>
+<font color="#A82F2F"><font size="2">(01:32:20 PM)</font> <b>henrytill:</b></font> so...<br/>
+<font color="#16569E"><font size="2">(01:32:49 PM)</font> <b>magnetophon:</b></font> yes... :)<br/>
+<font color="#A82F2F"><font size="2">(01:33:23 PM)</font> <b>henrytill:</b></font> so kernel.optimize gives you the deadline i/o scheduler<br/>
+<font color="#A82F2F"><font size="2">(01:33:31 PM)</font> <b>henrytill:</b></font> and the HPET timer<br/>
+<font color="#A82F2F"><font size="2">(01:33:42 PM)</font> <b>henrytill:</b></font> and it turns of CPU Frequency Scaling<br/>
+<font color="#A82F2F"><font size="2">(01:34:18 PM)</font> <b>henrytill:</b></font> and if you don&apos;t use the realtime option, you it also makes the kernel preemptible, but not realtime<br/>
+<font color="#A82F2F"><font size="2">(01:34:58 PM)</font> <b>henrytill:</b></font> kernel.realtime makes the kernel realtime preemptible<br/>
+<font color="#A82F2F"><font size="2">(01:35:40 PM)</font> <b>henrytill:</b></font> so you users can have some flexibility in choosing what options they want<br/>
+<font color="#A82F2F"><font size="2">(01:36:23 PM)</font> <b>henrytill:</b></font> s/turns of/turns off<br/>
+<font color="#A82F2F"><font size="2">(01:36:58 PM)</font> <b>henrytill:</b></font> (haven&apos;t finished my coffee yet)<br/>
+<font color="#16569E"><font size="2">(01:39:38 PM)</font> <b>magnetophon:</b></font> I don't really understand the options enough to see how they make sense on their own. I know the timer is needed for low midi jitter, and I know what the scaling does, but that's about it.  If I really want to know at some point I'll just google.  Thanks<br/>
+<font color="#A82F2F"><font size="2">(01:40:05 PM)</font> <b>henrytill:</b></font> fair enough<br/>
+<font color="#A82F2F"><font size="2">(01:41:11 PM)</font> <b>henrytill:</b></font> as was your experience, musnix.optimize = true; on it&apos;s own gave you pretty good performance<br/>
+<font color="#A82F2F"><font size="2">(01:41:16 PM)</font> <b>henrytill:</b></font> some users may just want that<br/>
+<font color="#A82F2F"><font size="2">(01:41:43 PM)</font> <b>henrytill:</b></font> err musnix.kernel.optimize = true;<br/>
+<font color="#A82F2F"><font size="2">(01:42:17 PM)</font> <b>henrytill:</b></font> so adding musnix.kernel.realtime = true; to that is the &quot;full canadian&quot; option<br/>
+<font color="#16569E"><font size="2">(01:42:23 PM)</font> <b>magnetophon:</b></font> On another note: Can you think of a way to make it more transparent that kernel.optimize &lt;does&gt; include PREEMPT y.  Or do we just say &quot;read the F code!&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:42:46 PM)</font> <b>henrytill:</b></font> have you read the README?<br/>
+<font color="#16569E"><font size="2">(01:43:33 PM)</font> <b>magnetophon:</b></font> ah, not yet<br/>
+<font color="#A82F2F"><font size="2">(01:43:38 PM)</font> <b>henrytill:</b></font> hah<br/>
+<font color="#A82F2F"><font size="2">(01:44:52 PM)</font> <b>henrytill:</b></font> as i mentioned last week, i am going to improve the documentation<br/>
+<font color="#16569E"><font size="2">(01:45:20 PM)</font> <b>magnetophon:</b></font> you already did quite a bit!<br/>
+<font color="#A82F2F"><font size="2">(01:45:20 PM)</font> <b>henrytill:</b></font> actually, that&apos;s what i would like to use the main page of the wiki for, in addition to the README<br/>
+<font color="#A82F2F"><font size="2">(01:46:13 PM)</font> <b>henrytill:</b></font> so maybe we can find another place to put your &quot;NixOS for Musicians&quot; stuff<br/>
+<font color="#16569E"><font size="2">(01:46:58 PM)</font> <b>magnetophon:</b></font> yeah, this main page was what goi and me came up with as a draft for a LAC lightning talk. We put it there to notify you that goi had joined us.  :)<br/>
+<font color="#16569E"><font size="2">(01:47:11 PM)</font> <b>magnetophon:</b></font> so iow: feel free to move it!<br/>
+<font color="#A82F2F"><font size="2">(01:48:21 PM)</font> <b>henrytill:</b></font> For now, I&apos;d be okay having it under the heading &quot;Rationale&quot; or &quot;Background&quot; or &quot;Motivations&quot;<br/>
+<font color="#16569E"><font size="2">(01:48:37 PM)</font> <b>magnetophon:</b></font> sure<br/>
+<font color="#A82F2F"><font size="2">(01:48:48 PM)</font> <b>henrytill:</b></font> or just &quot;NixOS for Musicians&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:48:52 PM)</font> <b>henrytill:</b></font> :)<br/>
+<font color="#16569E"><font size="2">(01:49:11 PM)</font> <b>magnetophon:</b></font> Speaking of lac: github says you're from the states, so I guess you won't be attending LAC, will you?<br/>
+<font color="#A82F2F"><font size="2">(01:49:43 PM)</font> <b>henrytill:</b></font> yes, Massachusetts<br/>
+<font color="#A82F2F"><font size="2">(01:49:57 PM)</font> <b>henrytill:</b></font> so no, I won&apos;t be there<br/>
+<font color="#16569E"><font size="2">(01:50:02 PM)</font> <b>magnetophon:</b></font> :/<br/>
+<font color="#A82F2F"><font size="2">(01:50:28 PM)</font> <b>henrytill:</b></font> or FOSDEM<br/>
+<font color="#A82F2F"><font size="2">(01:56:10 PM)</font> <b>henrytill:</b></font> so you guys are giving a lightning talk about NixOS?<br/>
+<font color="#16569E"><font size="2">(01:56:27 PM)</font> <b>magnetophon:</b></font> That's the plan, yeah<br/>
+<font color="#16569E"><font size="2">(01:57:28 PM)</font> <b>magnetophon:</b></font> About NixOS and maybe a bit about musnix<br/>
+<font color="#A82F2F"><font size="2">(01:58:17 PM)</font> <b>henrytill:</b></font> i wouldn&apos;t be surprised if people were curious about using a realtime kernel and whatnot<br/>
+<font color="#A82F2F"><font size="2">(01:58:21 PM)</font> <b>henrytill:</b></font> (in NixOS)<br/>
+<font color="#A82F2F"><font size="2">(01:58:46 PM)</font> <b>henrytill:</b></font> ah, April<br/>
+<font color="#16569E"><font size="2">(01:59:16 PM)</font> <b>magnetophon:</b></font> yeah, HarryHaaren wants to install NixOS, and he first asked about the kernel.<br/>
+<font color="#16569E"><font size="2">(01:59:34 PM)</font> <b>magnetophon:</b></font> And then about rtirq ;)<br/>
+<font color="#A82F2F"><font size="2">(02:02:26 PM)</font> <b>henrytill:</b></font> yeah likewise i&apos;ll probably have a go at putting rtirq in musnix before upstreaming it<br/>
+<font color="#A82F2F"><font size="2">(02:02:47 PM)</font> <b>henrytill:</b></font> seems like it will probably be a service<br/>
+<font color="#A82F2F"><font size="2">(02:03:00 PM)</font> <b>henrytill:</b></font> the tarball includes a systemd service file<br/>
+<font color="#16569E"><font size="2">(02:03:13 PM)</font> <b>magnetophon:</b></font> yeah, it's a service<br/>
+<font color="#A82F2F"><font size="2">(02:03:14 PM)</font> <b>henrytill:</b></font> which can be easily translated into a NixOS service<br/>
+<font color="#16569E"><font size="2">(02:03:37 PM)</font> <b>magnetophon:</b></font> you saw I did some work on that already, right?<br/>
+<font color="#A82F2F"><font size="2">(02:03:48 PM)</font> <b>henrytill:</b></font> i haven&apos;t looked at it yet<br/>
+<font color="#A82F2F"><font size="2">(02:03:53 PM)</font> <b>henrytill:</b></font> but i was aware<br/>
+<font color="#16569E"><font size="2">(02:04:49 PM)</font> <b>magnetophon:</b></font> BTW: is it possible to include a package in musnix without having a clone of nixpkgs?   I thought not, and that was the reason I gave you write acces to my repo... <br/>
+<font color="#A82F2F"><font size="2">(02:06:16 PM)</font> <b>henrytill:</b></font> anything is possible... :D<br/>
+<font color="#16569E"><font size="2">(02:06:52 PM)</font> <b>magnetophon:</b></font> so you don't need access anymore?<br/>
+<font color="#A82F2F"><font size="2">(02:07:17 PM)</font> <b>henrytill:</b></font> no, not really<br/>
+<font color="#16569E"><font size="2">(02:07:22 PM)</font> <b>magnetophon:</b></font> OK<br/>
+<font color="#A82F2F"><font size="2">(02:08:35 PM)</font> <b>henrytill:</b></font> yeah, i suppose it&apos;s up for consideration as to whether or not to upstream it<br/>
+<font color="#A82F2F"><font size="2">(02:08:43 PM)</font> <b>henrytill:</b></font> (first)<br/>
+<font color="#16569E"><font size="2">(02:09:14 PM)</font> <b>magnetophon:</b></font> yeah, I'm also not sure about the kernel.  many eyes and all that...<br/>
+<font color="#16569E"><font size="2">(02:09:41 PM)</font> <b>magnetophon:</b></font> what are your reasons/considerations?<br/>
+<font color="#A82F2F"><font size="2">(02:10:37 PM)</font> <b>henrytill:</b></font> well it&apos;s worth considering that getting a PR accepted is only one part of the &quot;job&quot;<br/>
+<font color="#16569E"><font size="2">(02:11:02 PM)</font> <b>magnetophon:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(02:11:37 PM)</font> <b>henrytill:</b></font> maintaing the package and being responsible for dealing with breakage and version bumps is a really important part of that<br/>
+<font color="#A82F2F"><font size="2">(02:11:58 PM)</font> <b>henrytill:</b></font> certainly NixOS seems to encourage casual participation<br/>
+<font color="#16569E"><font size="2">(02:12:05 PM)</font> <b>magnetophon:</b></font> I'd gladly do that<br/>
+<font color="#A82F2F"><font size="2">(02:12:22 PM)</font> <b>henrytill:</b></font> but it takes a certain level of ongoing commitment to make sure your shit keeps working<br/>
+<font color="#A82F2F"><font size="2">(02:12:48 PM)</font> <b>henrytill:</b></font> and judging by my experiences with maintaining a few packages, that&apos;s not always a trivial thing<br/>
+<font color="#16569E"><font size="2">(02:12:49 PM)</font> <b>magnetophon:</b></font> I've noticed that with faust. It broke in 14.12<br/>
+<font color="#A82F2F"><font size="2">(02:13:50 PM)</font> <b>henrytill:</b></font> i think that&apos;s part of the reason that many maintainers stay on unstable, myself included<br/>
+<font color="#16569E"><font size="2">(02:13:58 PM)</font> <b>magnetophon:</b></font> OTOH, if I lack the time or stop using NixOS altogether, I can allways orphan packages, right? <br/>
+<font color="#A82F2F"><font size="2">(02:14:06 PM)</font> <b>henrytill:</b></font> helps keep you on top of the changes, rather than behind them<br/>
+<font color="#A82F2F"><font size="2">(02:14:34 PM)</font> <b>henrytill:</b></font> yeah, but you don&apos;t necessarily want to go orphaning a realtime kernel<br/>
+<font color="#16569E"><font size="2">(02:15:08 PM)</font> <b>magnetophon:</b></font> Yeah, maybe I should put my laptop on unstable once I have installed NixOS on my studio-pc<br/>
+<font color="#16569E"><font size="2">(02:15:41 PM)</font> <b>magnetophon:</b></font> what's the difference between orphaning a package, and never submitting it it the first place?<br/>
+<font color="#16569E"><font size="2">(02:16:23 PM)</font> <b>magnetophon:</b></font> Especially with a kernel, there will always be alternatives for people to switch to, right?<br/>
+<font color="#A82F2F"><font size="2">(02:16:51 PM)</font> <b>henrytill:</b></font> we&apos;ve talked about the uncertain future of the realtime kernel, no?<br/>
+<font color="#16569E"><font size="2">(02:17:03 PM)</font> <b>magnetophon:</b></font> ah, right<br/>
+<font color="#16569E"><font size="2">(02:17:30 PM)</font> <b>magnetophon:</b></font> not sure about the implications for this discussion though...<br/>
+<font color="#A82F2F"><font size="2">(02:17:48 PM)</font> <b>henrytill:</b></font> but that doesn&apos;t need to be a barrier to upstreaming it...<br/>
+<font color="#16569E"><font size="2">(02:18:12 PM)</font> <b>magnetophon:</b></font> So again: what's the difference between orphaning a package, and never submitting it it the first place?<br/>
+<font color="#A82F2F"><font size="2">(02:18:14 PM)</font> <b>henrytill:</b></font> i think one thing worth considering is that musnix demonstrates that it is easy to set that up locally<br/>
+<font color="#A82F2F"><font size="2">(02:18:45 PM)</font> <b>henrytill:</b></font> that custom kernel configs aren&apos;t dependent on available packages<br/>
+<font color="#16569E"><font size="2">(02:19:12 PM)</font> <b>magnetophon:</b></font> Sure, but you gotta admit that having hydra is the bees' knees! <br/>
+<font color="#A82F2F"><font size="2">(02:20:04 PM)</font> <b>henrytill:</b></font> yeah, it&apos;s nice...<br/>
+<font color="#16569E"><font size="2">(02:20:12 PM)</font> <b>magnetophon:</b></font> Also, I think we'd get more people testing and working on stuff that's in the main repo, right?<br/>
+<font color="#A82F2F"><font size="2">(02:20:37 PM)</font> <b>henrytill:</b></font> more likely you&apos;d get people using it and complaining about why it didn&apos;t do x,y, and z<br/>
+<font color="#A82F2F"><font size="2">(02:20:50 PM)</font> <b>henrytill:</b></font> and then expecting someone to fix it or change it for them<br/>
+<font color="#A82F2F"><font size="2">(02:21:21 PM)</font> <b>henrytill:</b></font> mind you, i&apos;m not against upstreaming the kernel<br/>
+<font color="#16569E"><font size="2">(02:21:24 PM)</font> <b>magnetophon:</b></font> That's their problem, isn't it? They can expect all they want.<br/>
+<font color="#16569E"><font size="2">(02:21:55 PM)</font> <b>magnetophon:</b></font> And maybe x,y and z are usefull things we didn't think of yet.<br/>
+<font color="#A82F2F"><font size="2">(02:22:47 PM)</font> <b>henrytill:</b></font> i&apos;m not saying that<br/>
+<font color="#16569E"><font size="2">(02:23:09 PM)</font> <b>magnetophon:</b></font> I'm undecided atm too. Just thinking aloud here. I'm trying to understand your reasoning.<br/>
+<font color="#A82F2F"><font size="2">(02:23:47 PM)</font> <b>henrytill:</b></font> again i&apos;m not saying that we shouldn&apos;t upstream it<br/>
+<font color="#16569E"><font size="2">(02:24:22 PM)</font> <b>magnetophon:</b></font> I still don't understand why you said: &quot;yeah, but you don't necessarily want to go orphaning a realtime kernel&quot; It sounds grave...<br/>
+<font color="#A82F2F"><font size="2">(02:24:38 PM)</font> <b>henrytill:</b></font> i&apos;m just saying that doing so requires a certain level of commitment to maintenance, and personally, from my experience dealing with breakage so far, i don&apos;t see that as a a casual thing<br/>
+<font color="#16569E"><font size="2">(02:25:46 PM)</font> <b>magnetophon:</b></font> How about if goi, you and me all sign up as maintainers, and split the load?  (assuming goi wants to)<br/>
+<font color="#A82F2F"><font size="2">(02:27:07 PM)</font> <b>henrytill:</b></font> let&apos;s just go one step at a time<br/>
+<font color="#16569E"><font size="2">(02:27:18 PM)</font> <b>magnetophon:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(02:27:34 PM)</font> <b>henrytill:</b></font> has your kernel even finished compiling yet?<br/>
+<font color="#A82F2F"><font size="2">(02:27:36 PM)</font> <b>henrytill:</b></font> :)<br/>
+<font color="#16569E"><font size="2">(02:27:43 PM)</font> <b>magnetophon:</b></font> lol<br/>
+<font color="#16569E"><font size="2">(02:27:46 PM)</font> <b>magnetophon:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(02:27:49 PM)</font> <b>henrytill:</b></font> right<br/>
+<font color="#16569E"><font size="2">(02:28:54 PM)</font> <b>magnetophon:</b></font> Speaking of which: have you run jack yet?  I'm curious about the performance...<br/>
+<font color="#A82F2F"><font size="2">(02:29:06 PM)</font> <b>henrytill:</b></font> i&apos;m happy to talk about upstreaming this stuff once it&apos;s working for us<br/>
+<font color="#16569E"><font size="2">(02:29:18 PM)</font> <b>magnetophon:</b></font> agreed<br/>
+<font color="#A82F2F"><font size="2">(02:29:22 PM)</font> <b>henrytill:</b></font> and that&apos;s really my vision here<br/>
+<font color="#A82F2F"><font size="2">(02:29:34 PM)</font> <b>henrytill:</b></font> use this as a testbed<br/>
+<font color="#A82F2F"><font size="2">(02:29:44 PM)</font> <b>henrytill:</b></font> because we have more flexibility<br/>
+<font color="#16569E"><font size="2">(02:30:22 PM)</font> <b>magnetophon:</b></font> agreed again<br/>
+<font color="#A82F2F"><font size="2">(02:30:36 PM)</font> <b>henrytill:</b></font> and figure out exactly what and how should be upstreamed once it&apos;s stable and working well for us<br/>
+<font color="#16569E"><font size="2">(02:30:53 PM)</font> <b>magnetophon:</b></font> yes<br/>
+<font color="#16569E"><font size="2">(02:31:15 PM)</font> <b>magnetophon:</b></font> I was a bit ahead of myself... <br/>
+<font color="#A82F2F"><font size="2">(02:31:54 PM)</font> <b>henrytill:</b></font> i think it&apos;s easy to see that a lot of people manage to get PRs accepted for stuff that may build or partially works<br/>
+<font color="#062585"><font size="2">(02:32:10 PM)</font> <b>***magnetophon</b></font> hasen&apos;t even read the readme ;)<br/>
+<font color="#A82F2F"><font size="2">(02:32:22 PM)</font> <b>henrytill:</b></font> yeah man...READ IT!<br/>
+<font color="#16569E"><font size="2">(02:33:16 PM)</font> <b>magnetophon:</b></font> yeah, that's one of the big downsides of NixOS to me.  I came from debian stable, and liked it (mostly)<br/>
+<font color="#062585"><font size="2">(02:33:30 PM)</font> <b>***magnetophon</b></font> goes reading...<br/>
+<font color="#A82F2F"><font size="2">(02:34:12 PM)</font> <b>henrytill:</b></font> on a conceptual level, i understand the benefits of the &quot;bazaar model&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:35:18 PM)</font> <b>henrytill:</b></font> debian seems almost &quot;cathedral&quot; compared to NixOS<br/>
+<font color="#16569E"><font size="2">(02:35:19 PM)</font> <b>magnetophon:</b></font> sure, but it's not like debian uses the cathedral model, wouldn't you say?<br/>
+<font color="#16569E"><font size="2">(02:35:25 PM)</font> <b>magnetophon:</b></font> heh<br/>
+<font color="#16569E"><font size="2">(02:35:41 PM)</font> <b>magnetophon:</b></font> in comparison, yes<br/>
+<font color="#A82F2F"><font size="2">(02:35:52 PM)</font> <b>henrytill:</b></font> right not that it is, but they&apos;ve ironed out a lot of the procedural issues in development and maintainership<br/>
+<font color="#16569E"><font size="2">(02:36:17 PM)</font> <b>magnetophon:</b></font> not sure what you mean<br/>
+<font color="#A82F2F"><font size="2">(02:36:54 PM)</font> <b>henrytill:</b></font> there are established protocols for development<br/>
+<font color="#A82F2F"><font size="2">(02:37:07 PM)</font> <b>henrytill:</b></font> unstable --&gt; testing --&gt; stable (--&gt; and now, LTS)<br/>
+<font color="#A82F2F"><font size="2">(02:37:27 PM)</font> <b>henrytill:</b></font> for addressing larger philosophical and political issues<br/>
+<font color="#A82F2F"><font size="2">(02:37:34 PM)</font> <b>henrytill:</b></font> granted, there have been some problems recently<br/>
+<font color="#A82F2F"><font size="2">(02:37:44 PM)</font> <b>henrytill:</b></font> but by and large debian is a huge success story in my mind<br/>
+<font color="#A82F2F"><font size="2">(02:38:30 PM)</font> <b>henrytill:</b></font> and i think a lot of that comes from having established the contract and building the support scaffold in terms of administration and whatnot<br/>
+<font color="#16569E"><font size="2">(02:38:31 PM)</font> <b>magnetophon:</b></font> and that's why I was on stable. tried and tested, went trough all the procedural hoops, just works(tm)  :)<br/>
+<font color="#16569E"><font size="2">(02:39:25 PM)</font> <b>magnetophon:</b></font> what did/do you use?<br/>
+<font color="#A82F2F"><font size="2">(02:39:25 PM)</font> <b>henrytill:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(02:39:39 PM)</font> <b>henrytill:</b></font> debian, just like you<br/>
+<font color="#A82F2F"><font size="2">(02:39:51 PM)</font> <b>henrytill:</b></font> a lil ubuntu here are there<br/>
+<font color="#A82F2F"><font size="2">(02:39:56 PM)</font> <b>henrytill:</b></font> and* there<br/>
+<font color="#A82F2F"><font size="2">(02:40:16 PM)</font> <b>henrytill:</b></font> i have a couple servers that run debian<br/>
+<font color="#16569E"><font size="2">(02:40:28 PM)</font> <b>magnetophon:</b></font> and OSX, right?<br/>
+<font color="#A82F2F"><font size="2">(02:40:30 PM)</font> <b>henrytill:</b></font> a couple old PPC machines around here as well<br/>
+<font color="#A82F2F"><font size="2">(02:40:35 PM)</font> <b>henrytill:</b></font> that run debian<br/>
+<font color="#A82F2F"><font size="2">(02:40:40 PM)</font> <b>henrytill:</b></font> and yes....OSX<br/>
+<font color="#16569E"><font size="2">(02:41:13 PM)</font> <b>magnetophon:</b></font> what are you missing in floss that keeps you there?<br/>
+<font color="#A82F2F"><font size="2">(02:41:15 PM)</font> <b>henrytill:</b></font> but i&apos;ve got no love for OSX anymore<br/>
+<font color="#A82F2F"><font size="2">(02:41:47 PM)</font> <b>henrytill:</b></font> i grew up with apple<br/>
+<font color="#16569E"><font size="2">(02:41:53 PM)</font> <b>magnetophon:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(02:42:00 PM)</font> <b>henrytill:</b></font> first computer was a mac se<br/>
+<font color="#A82F2F"><font size="2">(02:42:14 PM)</font> <b>henrytill:</b></font> used apple IIs in elementary school<br/>
+<font color="#16569E"><font size="2">(02:42:33 PM)</font> <b>magnetophon:</b></font> I think that's the model someone gave me recently (se)<br/>
+<font color="#A82F2F"><font size="2">(02:43:00 PM)</font> <b>henrytill:</b></font> got into computer music when apple still ruled the roost<br/>
+<font color="#16569E"><font size="2">(02:43:17 PM)</font> <b>magnetophon:</b></font> it still does, no?<br/>
+<font color="#16569E"><font size="2">(02:43:22 PM)</font> <b>magnetophon:</b></font> tbh<br/>
+<font color="#A82F2F"><font size="2">(02:43:27 PM)</font> <b>henrytill:</b></font> sure, yeah<br/>
+<font color="#A82F2F"><font size="2">(02:44:30 PM)</font> <b>henrytill:</b></font> but windows is a lot better for audio than it used to be<br/>
+<font color="#A82F2F"><font size="2">(02:44:46 PM)</font> <b>henrytill:</b></font> and certainly linux is as well<br/>
+<font color="#16569E"><font size="2">(02:45:07 PM)</font> <b>magnetophon:</b></font> idk, my last win was win98 :)<br/>
+<font color="#16569E"><font size="2">(02:45:41 PM)</font> <b>magnetophon:</b></font> linux sure has come a long way since demudi!<br/>
+<font color="#A82F2F"><font size="2">(02:45:51 PM)</font> <b>henrytill:</b></font> but audio wasn&apos;t what really shifted my focus away from OSX<br/>
+<font color="#A82F2F"><font size="2">(02:46:00 PM)</font> <b>henrytill:</b></font> it was more for development<br/>
+<font color="#A82F2F"><font size="2">(02:47:16 PM)</font> <b>henrytill:</b></font> but the ever-evolving linux audio world is a huge plus as well<br/>
+<font color="#A82F2F"><font size="2">(02:48:04 PM)</font> <b>henrytill:</b></font> i had a couple jobs programming max/msp which kept also kept me tied to OSX<br/>
+<font color="#16569E"><font size="2">(02:48:44 PM)</font> <b>magnetophon:</b></font> oh wouw! care to elaborate?<br/>
+<font color="#A82F2F"><font size="2">(02:48:50 PM)</font> <b>henrytill:</b></font> but i&apos;ve since been learning supercollider<br/>
+<font color="#062585"><font size="2">(02:49:20 PM)</font> <b>***magnetophon</b></font> was a big fan of pd untill he got into faust<br/>
+<font color="#16569E"><font size="2">(02:49:40 PM)</font> <b>magnetophon:</b></font> what have you done with max?<br/>
+<font color="#A82F2F"><font size="2">(02:49:55 PM)</font> <b>henrytill:</b></font> nothing terribly public, unfortunately...<br/>
+<font color="#A82F2F"><font size="2">(02:50:13 PM)</font> <b>henrytill:</b></font> first i tutored people in it<br/>
+<font color="#A82F2F"><font size="2">(02:50:22 PM)</font> <b>henrytill:</b></font> and used it for my own music<br/>
+<font color="#062585"><font size="2">(02:50:37 PM)</font> <b>***magnetophon</b></font> is imagining you working on beanyman&apos;s setup ... :D<br/>
+<font color="#A82F2F"><font size="2">(02:50:48 PM)</font> <b>henrytill:</b></font> also worked at an artist&apos;s space in NYC that taught max classes<br/>
+<font color="#A82F2F"><font size="2">(02:52:06 PM)</font> <b>henrytill:</b></font> then i moved on to using it to build AV tools for a now-defunct sound art gallery<br/>
+<font color="#A82F2F"><font size="2">(02:52:48 PM)</font> <b>henrytill:</b></font> built some proprietary stuff for a hip hop label<br/>
+<font color="#16569E"><font size="2">(02:53:36 PM)</font> <b>magnetophon:</b></font> wait, you made ninjajamm?<br/>
+<font color="#16569E"><font size="2">(02:53:50 PM)</font> <b>magnetophon:</b></font> oh, no, that's in pd<br/>
+<font color="#A82F2F"><font size="2">(02:53:51 PM)</font> <b>henrytill:</b></font> hah<br/>
+<font color="#A82F2F"><font size="2">(02:54:14 PM)</font> <b>henrytill:</b></font> no, no mobile crap from me<br/>
+<font color="#A82F2F"><font size="2">(02:54:28 PM)</font> <b>henrytill:</b></font> it was def jux<br/>
+<font color="#A82F2F"><font size="2">(02:54:37 PM)</font> <b>henrytill:</b></font> which i believe is also defunct now<br/>
+<font color="#A82F2F"><font size="2">(02:55:35 PM)</font> <b>henrytill:</b></font> i built them a batch processing tool to put individualized voiceovers on their promo cds to prevent industry people from leaking them<br/>
+<font color="#A82F2F"><font size="2">(02:55:43 PM)</font> <b>henrytill:</b></font> back when people were trying to stop that<br/>
+<font color="#A82F2F"><font size="2">(02:56:47 PM)</font> <b>henrytill:</b></font> definitely one of the weirder things i programmed in max<br/>
+<font color="#16569E"><font size="2">(02:56:49 PM)</font> <b>magnetophon:</b></font> So you'd play a CD and it would have the music with in the background: &quot;this CD was issued to magnetophon...&quot;)?<br/>
+<font color="#A82F2F"><font size="2">(02:56:56 PM)</font> <b>henrytill:</b></font> exactly<br/>
+<font color="#16569E"><font size="2">(02:57:12 PM)</font> <b>magnetophon:</b></font> yeah, weird<br/>
+<font color="#A82F2F"><font size="2">(02:57:44 PM)</font> <b>henrytill:</b></font> seemed futile and oddly aggressive to serious music-listeners<br/>
+<font color="#A82F2F"><font size="2">(02:58:02 PM)</font> <b>henrytill:</b></font> but the landscape was changing and they were struggling to figure it out<br/>
+<font color="#A82F2F"><font size="2">(02:58:28 PM)</font> <b>henrytill:</b></font> i think they threw in the towel a couple years later<br/>
+<font color="#16569E"><font size="2">(02:58:41 PM)</font> <b>magnetophon:</b></font> Got any of your music online?<br/>
+<font color="#A82F2F"><font size="2">(02:58:57 PM)</font> <b>henrytill:</b></font> probably not anymore<br/>
+<font color="#A82F2F"><font size="2">(02:59:08 PM)</font> <b>henrytill:</b></font> i was in a noise duo called squaw<br/>
+<font color="#16569E"><font size="2">(02:59:11 PM)</font> <b>magnetophon:</b></font> put it back!<br/>
+<font color="#A82F2F"><font size="2">(02:59:33 PM)</font> <b>henrytill:</b></font> we put out a couple EPs and a compilation appearance<br/>
+<font color="#A82F2F"><font size="2">(02:59:46 PM)</font> <b>henrytill:</b></font> that evolved into a band called fogeaters<br/>
+<font color="#A82F2F"><font size="2">(03:00:37 PM)</font> <b>henrytill:</b></font> which was a kind of heavy psych / weirdo metal vibe<br/>
+<font color="#16569E"><font size="2">(03:00:47 PM)</font> <b>magnetophon:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(03:01:21 PM)</font> <b>henrytill:</b></font> and that completely imploded<br/>
+<font color="#062585"><font size="2">(03:01:56 PM)</font> <b>***magnetophon</b></font> always imagines other floss people as &apos;grown ups&apos; listening to serious music and all.  (he&apos;s 35 himself, so...)<br/>
+<font color="#062585"><font size="2">(03:02:29 PM)</font> <b>***magnetophon</b></font> still thinks of himself as a 21 year old...<br/>
+<font color="#A82F2F"><font size="2">(03:02:56 PM)</font> <b>henrytill:</b></font> i probably listen to a lot of what people would call &quot;serious&quot; music<br/>
+<font color="#A82F2F"><font size="2">(03:03:10 PM)</font> <b>henrytill:</b></font> but i listen to a lot of non-&quot;serious&quot; stuff too<br/>
+<font color="#A82F2F"><font size="2">(03:03:35 PM)</font> <b>henrytill:</b></font> just turned 34, but also don&apos;t feel my age<br/>
+<font color="#16569E"><font size="2">(03:03:37 PM)</font> <b>magnetophon:</b></font> me too, but I still am a bit suprized when floss people mention metal and stuff<br/>
+<font color="#16569E"><font size="2">(03:03:54 PM)</font> <b>magnetophon:</b></font> ^^re serious music<br/>
+<font color="#A82F2F"><font size="2">(03:04:02 PM)</font> <b>henrytill:</b></font> well it&apos;s definitely a regional influence<br/>
+<font color="#16569E"><font size="2">(03:04:15 PM)</font> <b>magnetophon:</b></font> ??<br/>
+<font color="#A82F2F"><font size="2">(03:04:16 PM)</font> <b>henrytill:</b></font> hardcore &amp; metalcore were big in these parts in the 90s<br/>
+<font color="#A82F2F"><font size="2">(03:04:29 PM)</font> <b>henrytill:</b></font> i grew up in the boston-area<br/>
+<font color="#16569E"><font size="2">(03:04:29 PM)</font> <b>magnetophon:</b></font> here too<br/>
+<font color="#A82F2F"><font size="2">(03:04:46 PM)</font> <b>henrytill:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(03:05:07 PM)</font> <b>henrytill:</b></font> yeah i mean i&apos;ve only recounted my &quot;adult&quot; career above<br/>
+<font color="#A82F2F"><font size="2">(03:05:15 PM)</font> <b>henrytill:</b></font> before that i was in teenage hardcore bands<br/>
+<font color="#16569E"><font size="2">(03:05:36 PM)</font> <b>magnetophon:</b></font> I started out in metal bands too<br/>
+<font color="#16569E"><font size="2">(03:05:50 PM)</font> <b>magnetophon:</b></font> hardly ever listen to it anymore though<br/>
+<font color="#A82F2F"><font size="2">(03:06:29 PM)</font> <b>henrytill:</b></font> i still love it, but i would say that my tastes for metal and whatnot have evolved quite a bit<br/>
+<font color="#16569E"><font size="2">(03:07:00 PM)</font> <b>magnetophon:</b></font> And it looks like you're right: I can't find your music online... :(<br/>
+<font color="#A82F2F"><font size="2">(03:07:19 PM)</font> <b>henrytill:</b></font> i&apos;ll get around to posting some at some point<br/>
+<font color="#16569E"><font size="2">(03:07:24 PM)</font> <b>magnetophon:</b></font> cool<br/>
+<font color="#A82F2F"><font size="2">(03:07:27 PM)</font> <b>henrytill:</b></font> in due time...in due time...<br/>
+<font color="#16569E"><font size="2">(03:07:38 PM)</font> <b>magnetophon:</b></font> sure, no pressure<br/>
+<font color="#A82F2F"><font size="2">(03:07:54 PM)</font> <b>henrytill:</b></font> since the band imploded and i left NYC, i&apos;ve worked on my own stuff<br/>
+<font color="#A82F2F"><font size="2">(03:08:31 PM)</font> <b>henrytill:</b></font> but i&apos;ve become way more tech-absorbed than recording/performing-oriented<br/>
+<font color="#16569E"><font size="2">(03:08:35 PM)</font> <b>magnetophon:</b></font> tbh i'd be at least as interested in a rtirq update as in your music :)<br/>
+<font color="#A82F2F"><font size="2">(03:08:43 PM)</font> <b>henrytill:</b></font> haha<br/>
+<font color="#16569E"><font size="2">(03:09:21 PM)</font> <b>magnetophon:</b></font> yeah, I feel you on the tech-absorbed thingie<br/>
+<font color="#A82F2F"><font size="2">(03:10:18 PM)</font> <b>henrytill:</b></font> perhaps a symptom of the prevailing winds of change...<br/>
+<font color="#A82F2F"><font size="2">(03:10:38 PM)</font> <b>henrytill:</b></font> but also: so...many...bands...and...musicians...<br/>
+<font color="#A82F2F"><font size="2">(03:11:03 PM)</font> <b>henrytill:</b></font> i mean there&apos;s just so much music out there<br/>
+<font color="#16569E"><font size="2">(03:11:24 PM)</font> <b>magnetophon:</b></font> Though I've made a pd patch that made me quite a bit more productive musically. It turns my voice into a synth :D<br/>
+<font color="#16569E"><font size="2">(03:11:40 PM)</font> <b>magnetophon:</b></font> Turned it into faust now...<br/>
+<font color="#A82F2F"><font size="2">(03:11:42 PM)</font> <b>henrytill:</b></font> that&apos;s cool<br/>
+<font color="#A82F2F"><font size="2">(03:12:07 PM)</font> <b>henrytill:</b></font> needless to say, i&apos;m a recovering synth-head<br/>
+<font color="#16569E"><font size="2">(03:12:30 PM)</font> <b>magnetophon:</b></font> why recover?<br/>
+<font color="#16569E"><font size="2">(03:12:34 PM)</font> <b>magnetophon:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(03:12:55 PM)</font> <b>henrytill:</b></font> haha<br/>
+<font color="#A82F2F"><font size="2">(03:13:14 PM)</font> <b>henrytill:</b></font> well certainly i own many fewer of them than i once did<br/>
+<font color="#16569E"><font size="2">(03:13:46 PM)</font> <b>magnetophon:</b></font> that's because you're not counting SW. not fair!<br/>
+<font color="#A82F2F"><font size="2">(03:14:03 PM)</font> <b>henrytill:</b></font> yeah, i&apos;m just more software-oriented now<br/>
+<font color="#A82F2F"><font size="2">(03:15:33 PM)</font> <b>henrytill:</b></font> hey, so you were a micro-modular guy!<br/>
+<font color="#A82F2F"><font size="2">(03:15:44 PM)</font> <b>henrytill:</b></font> god i loved my micro-modular<br/>
+<font color="#16569E"><font size="2">(03:16:07 PM)</font> <b>magnetophon:</b></font> heh, you read my lac profile?<br/>
+<font color="#A82F2F"><font size="2">(03:16:13 PM)</font> <b>henrytill:</b></font> yep<br/>
+<font color="#16569E"><font size="2">(03:16:37 PM)</font> <b>magnetophon:</b></font> yup, it's an awesome machine!<br/>
+<font color="#A82F2F"><font size="2">(03:16:42 PM)</font> <b>henrytill:</b></font> i got a micro-mod around the same time i got into max<br/>
+<font color="#A82F2F"><font size="2">(03:16:58 PM)</font> <b>henrytill:</b></font> i loved it but the OS9 -&gt; OSX transition was rough<br/>
+<font color="#16569E"><font size="2">(03:17:15 PM)</font> <b>magnetophon:</b></font> no editor for osx?<br/>
+<font color="#A82F2F"><font size="2">(03:17:36 PM)</font> <b>henrytill:</b></font> there was a beta version<br/>
+<font color="#A82F2F"><font size="2">(03:17:38 PM)</font> <b>henrytill:</b></font> buggy<br/>
+<font color="#A82F2F"><font size="2">(03:17:54 PM)</font> <b>henrytill:</b></font> and it struggled with USB MIDI stuff as I recall<br/>
+<font color="#A82F2F"><font size="2">(03:18:28 PM)</font> <b>henrytill:</b></font> wish i had kept it <br/>
+<font color="#16569E"><font size="2">(03:18:36 PM)</font> <b>magnetophon:</b></font> I had my micro gathering dust for years, and then played with it for a few weeks, and that was what got me into pd, actually. No more limitations!!!!  (for a while, at least...)<br/>
+<font color="#16569E"><font size="2">(03:19:05 PM)</font> <b>magnetophon:</b></font> I still have mine<br/>
+<font color="#A82F2F"><font size="2">(03:19:18 PM)</font> <b>henrytill:</b></font> isn&apos;t there an open-source editor now?<br/>
+<font color="#16569E"><font size="2">(03:19:20 PM)</font> <b>magnetophon:</b></font> gathering dust again...<br/>
+<font color="#16569E"><font size="2">(03:19:31 PM)</font> <b>magnetophon:</b></font> yeah, but very buggy<br/>
+<font color="#A82F2F"><font size="2">(03:19:51 PM)</font> <b>henrytill:</b></font> i have legacy macs i could use now<br/>
+<font color="#A82F2F"><font size="2">(03:20:03 PM)</font> <b>henrytill:</b></font> but back then i was on the bleeding edge<br/>
+<font color="#A82F2F"><font size="2">(03:20:24 PM)</font> <b>henrytill:</b></font> so it got sold<br/>
+<font color="#A82F2F"><font size="2">(03:20:49 PM)</font> <b>henrytill:</b></font> well bleeding edge of software + DIY synths<br/>
+<font color="#16569E"><font size="2">(03:20:52 PM)</font> <b>magnetophon:</b></font> I actually used the other partition of a laptop someone gave me to play with it. Felt dirty to be on win. Must have been part of the reason I switched to pd<br/>
+<font color="#A82F2F"><font size="2">(03:21:20 PM)</font> <b>henrytill:</b></font> yeah when i was using max professionally i wasn&apos;t really using it for my own stuff<br/>
+<font color="#A82F2F"><font size="2">(03:21:45 PM)</font> <b>henrytill:</b></font> i built a couple of synths<br/>
+<font color="#A82F2F"><font size="2">(03:22:07 PM)</font> <b>henrytill:</b></font> which satisfied some of same hunger as the micro-modular<br/>
+<font color="#16569E"><font size="2">(03:23:24 PM)</font> <b>magnetophon:</b></font> If you do any singing (or at least can keep tune somewhat), I'd love to hear your opinion on <a href="https://github.com/magnetophon/VoiceOfFaust">https://github.com/magnetophon/VoiceOfFaust</a> and/or <a href="https://github.com/magnetophon/VocSynth">https://github.com/magnetophon/VocSynth</a><br/>
+<font color="#A82F2F"><font size="2">(03:23:56 PM)</font> <b>henrytill:</b></font> cool i will check it out<br/>
+<font color="#16569E"><font size="2">(03:24:24 PM)</font> <b>magnetophon:</b></font> Though the latter need quite a lot of pd externals, so maybe start with the faust one<br/>
+<font color="#A82F2F"><font size="2">(03:24:52 PM)</font> <b>henrytill:</b></font> what&apos;s pd support on nixos like?<br/>
+<font color="#16569E"><font size="2">(03:25:30 PM)</font> <b>magnetophon:</b></font> I saw that pd is ported, but not pd-extended, so I'm guessing it's minimal... :(<br/>
+<font color="#16569E"><font size="2">(03:25:59 PM)</font> <b>magnetophon:</b></font> Not sure if I care.  Faust is addictive!<br/>
+<font color="#A82F2F"><font size="2">(03:26:03 PM)</font> <b>henrytill:</b></font> and externals probably need to be ported or at least nix-shelled<br/>
+<font color="#A82F2F"><font size="2">(03:26:13 PM)</font> <b>henrytill:</b></font> s/ported/packaged<br/>
+<font color="#16569E"><font size="2">(03:26:15 PM)</font> <b>magnetophon:</b></font> idk<br/>
+<font color="#A82F2F"><font size="2">(03:27:02 PM)</font> <b>henrytill:</b></font> yeah i mean max and pd are great for quick prototyping and experimenting<br/>
+<font color="#16569E"><font size="2">(03:27:11 PM)</font> <b>magnetophon:</b></font> I don't even know how externals are integrated into pd.  I've always been spoiled by debian<br/>
+<font color="#A82F2F"><font size="2">(03:27:42 PM)</font> <b>henrytill:</b></font> but trying to express higher-level ideas in a graphical paradigm is a real chore sometimes<br/>
+<font color="#A82F2F"><font size="2">(03:28:00 PM)</font> <b>henrytill:</b></font> which is what has pushed me away from max<br/>
+<font color="#A82F2F"><font size="2">(03:28:13 PM)</font> <b>henrytill:</b></font> that and programming pursuits outside of music<br/>
+<font color="#16569E"><font size="2">(03:28:37 PM)</font> <b>magnetophon:</b></font> what do you use to &quot;replace&quot; max?<br/>
+<font color="#16569E"><font size="2">(03:28:41 PM)</font> <b>magnetophon:</b></font> cpp?<br/>
+<font color="#A82F2F"><font size="2">(03:28:55 PM)</font> <b>henrytill:</b></font> supercollider<br/>
+<font color="#16569E"><font size="2">(03:29:05 PM)</font> <b>magnetophon:</b></font> ah, you said that already<br/>
+<font color="#A82F2F"><font size="2">(03:29:17 PM)</font> <b>henrytill:</b></font> at least in the musical domain<br/>
+<font color="#A82F2F"><font size="2">(03:29:58 PM)</font> <b>henrytill:</b></font> i&apos;m curious about overtone, which is a DSL in clojure that uses the SuperCollider server to produce sound <br/>
+<font color="#16569E"><font size="2">(03:30:04 PM)</font> <b>magnetophon:</b></font> yeah, I want to learn CS too. Started a bit, because I found a great parameter-morphing thingy in it...<br/>
+<font color="#062585"><font size="2">(03:30:29 PM)</font> <b>***magnetophon</b></font> googles clojure<br/>
+<font color="#A82F2F"><font size="2">(03:30:48 PM)</font> <b>henrytill:</b></font> Clojure is a dialect of lisp that targets the JVM<br/>
+<font color="#A82F2F"><font size="2">(03:32:05 PM)</font> <b>henrytill:</b></font> peripherally, i&apos;ve been getting into lisp this past year, so i&apos;m definitely interested in things that bring those world together<br/>
+<font color="#16569E"><font size="2">(03:32:26 PM)</font> <b>magnetophon:</b></font> hmm, so you like functional dsl's to do sound, huh?  (hint, hint)<br/>
+<font color="#A82F2F"><font size="2">(03:32:38 PM)</font> <b>henrytill:</b></font> sure<br/>
+<font color="#A82F2F"><font size="2">(03:32:46 PM)</font> <b>henrytill:</b></font> lisp is isn&apos;t purely functional<br/>
+<font color="#A82F2F"><font size="2">(03:32:58 PM)</font> <b>henrytill:</b></font> though clojure aims to be primarily functional<br/>
+<font color="#A82F2F"><font size="2">(03:33:55 PM)</font> <b>henrytill:</b></font> i should be more articulate: lisps aren&apos;t usually purely functional<br/>
+<font color="#A82F2F"><font size="2">(03:34:14 PM)</font> <b>henrytill:</b></font> scheme is often written in a more functional style<br/>
+<font color="#062585"><font size="2">(03:34:42 PM)</font> <b>***magnetophon</b></font> wonders whether henrytill got the hint...<br/>
+<font color="#A82F2F"><font size="2">(03:34:53 PM)</font> <b>henrytill:</b></font> oh i got the hint<br/>
+<font color="#A82F2F"><font size="2">(03:35:04 PM)</font> <b>henrytill:</b></font> faust looks cool<br/>
+<font color="#A82F2F"><font size="2">(03:35:16 PM)</font> <b>henrytill:</b></font> i&apos;ve got more than enough language-wise on my plate right now<br/>
+<font color="#A82F2F"><font size="2">(03:35:24 PM)</font> <b>henrytill:</b></font> but it&apos;s on the list<br/>
+<font color="#16569E"><font size="2">(03:35:46 PM)</font> <b>magnetophon:</b></font> OK, sorry to sound like a broken record. Just a big fan...<br/>
+<font color="#A82F2F"><font size="2">(03:35:56 PM)</font> <b>henrytill:</b></font> no need to apologize<br/>
+<font color="#A82F2F"><font size="2">(03:36:09 PM)</font> <b>henrytill:</b></font> i think faust probably needs more boosters<br/>
+<font color="#A82F2F"><font size="2">(03:36:35 PM)</font> <b>henrytill:</b></font> i know that it&apos;s been getting attention from the max world in the past year, because there is an awesome max external for it<br/>
+<font color="#16569E"><font size="2">(03:36:36 PM)</font> <b>magnetophon:</b></font> and when you mentioned wanting to learn a new functional dsl for sound, I couldn't resist...<br/>
+<font color="#A82F2F"><font size="2">(03:38:37 PM)</font> <b>henrytill:</b></font> clojure pays bills though<br/>
+<font color="#16569E"><font size="2">(03:38:49 PM)</font> <b>magnetophon:</b></font> how?<br/>
+<font color="#A82F2F"><font size="2">(03:39:31 PM)</font> <b>henrytill:</b></font> clojure itself is a general-purpose language<br/>
+<font color="#A82F2F"><font size="2">(03:39:46 PM)</font> <b>henrytill:</b></font> used in business and whatnot<br/>
+<font color="#16569E"><font size="2">(03:39:56 PM)</font> <b>magnetophon:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(03:40:41 PM)</font> <b>henrytill:</b></font> i&apos;m not interested in hustling max jobs anymore<br/>
+<font color="#A82F2F"><font size="2">(03:40:56 PM)</font> <b>henrytill:</b></font> it was nice while it lasted<br/>
+<font color="#A82F2F"><font size="2">(03:48:56 PM)</font> <b>henrytill:</b></font> btw, you don&apos;t use pulseaudio, right?<br/>
+<font color="#16569E"><font size="2">(03:49:13 PM)</font> <b>magnetophon:</b></font> eew!<br/>
+<font color="#16569E"><font size="2">(03:49:19 PM)</font> <b>magnetophon:</b></font> why?<br/>
+<font color="#A82F2F"><font size="2">(03:50:01 PM)</font> <b>henrytill:</b></font> i&apos;m just curious about what will happen when somebody tries to use it with musnix<br/>
+<font color="#A82F2F"><font size="2">(03:50:29 PM)</font> <b>henrytill:</b></font> i&apos;ve never used it<br/>
+<font color="#16569E"><font size="2">(03:50:51 PM)</font> <b>magnetophon:</b></font> me neither. heard too many horror stories<br/>
+<font color="#A82F2F"><font size="2">(03:50:57 PM)</font> <b>henrytill:</b></font> i know there&apos;s some fancy alsa sink stuff now<br/>
+<font color="#A82F2F"><font size="2">(03:51:21 PM)</font> <b>henrytill:</b></font> and that people have been capable of achieving reasonably stable setups with it<br/>
+<font color="#A82F2F"><font size="2">(03:51:42 PM)</font> <b>henrytill:</b></font> but i&apos;m certainly doing my best to avoid it<br/>
+<font color="#16569E"><font size="2">(03:51:53 PM)</font> <b>magnetophon:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(03:52:36 PM)</font> <b>henrytill:</b></font> i think lennart&apos;s goals of bringing a coreaudio-like system to linux were noble<br/>
+<font color="#A82F2F"><font size="2">(03:53:15 PM)</font> <b>henrytill:</b></font> but it didn&apos;t really play well with the existing ecosystem<br/>
+<font color="#A82F2F"><font size="2">(03:53:52 PM)</font> <b>henrytill:</b></font> and seems much more aimed at average users than audio people<br/>
+<font color="#16569E"><font size="2">(03:54:07 PM)</font> <b>magnetophon:</b></font> yeah.<br/>
+<font color="#16569E"><font size="2">(05:42:00 PM)</font> <b>magnetophon:</b></font> hmm, still building. I have the feeling that the preemt kernel built faster, but I'm probably imagining that. right?<br/>
+<font color="#16569E"><font size="2">(08:38:46 PM)</font> <b>magnetophon:</b></font> Wohoo! build finished! going down for a reboot, wish me luck...<br/>
+<font color="#A82F2F"><font size="2">(08:38:46 PM)</font> <b>henrytill &lt;AUTO-REPLY&gt;:</b></font> ...<br/>

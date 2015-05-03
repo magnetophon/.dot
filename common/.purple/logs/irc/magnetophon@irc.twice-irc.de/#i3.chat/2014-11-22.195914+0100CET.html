@@ -1,0 +1,146 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #i3 at Sat 22 Nov 2014 07:59:14 PM CET on magnetophon@irc.twice-irc.de (irc)</title></head><body><h3>Conversation with #i3 at Sat 22 Nov 2014 07:59:14 PM CET on magnetophon@irc.twice-irc.de (irc)</h3>
+<font size="2">(07:59:14 PM)</font><b> The topic for #i3 is: i3 v4.8 released | i3status 2.8 released | i3lock 2.6 released | <a href="http://code.i3wm.org/">http://code.i3wm.org/</a> | <a href="http://i3wm.org/">http://i3wm.org/</a> | <a href="http://faq.i3wm.org/">http://faq.i3wm.org/</a> | <a href="http://build.i3wm.org/download-count.txt">http://build.i3wm.org/download-count.txt</a> | paste at <a href="http://p.nnev.de/">http://p.nnev.de/</a> | file upload at <a href="https://transfer.sh/">https://transfer.sh/</a></b><br/>
+<font size="2">(07:59:14 PM)</font><b> Topic for #i3 set by sECuRE at 09:42:18 AM on 10/06/2014</b><br/>
+<font size="2">(08:00:25 PM)</font><b> lfs-user2 left the room (quit: HELP! i see everything TWiCE /  http://www.kiwiirc.com/ - A hand crafted IRC client).</b><br/>
+<font size="2">(08:06:42 PM)</font><b> opa left the room (quit: Ping timeout: 524 seconds).</b><br/>
+<font size="2">(08:14:56 PM)</font><b> lfs-user2 [<em>~lfs-user2@twice-68EB07A.clients.kiwiirc.com</em>] entered the room.</b><br/>
+<font size="2">(08:15:39 PM)</font><b> opa [<em>~weechat@twice-C736863A.adsl.alicedsl.de</em>] entered the room.</b><br/>
+<font size="2">(08:23:50 PM)</font><b> zamaterian left the room (quit: Ping timeout: 527 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:24:09 PM)</font> <b>TonyC:</b></font> lukas: how would you configure that?<br/>
+<font size="2">(08:30:50 PM)</font><b> TonyC left the room (quit: Client exited).</b><br/>
+<font size="2">(08:31:06 PM)</font><b> TonyC [<em>~Thunderbi@twice-C4246EA1.dhcp.stbr.ga.charter.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:31:10 PM)</font> <b>lukas:</b></font> i&apos;m thinking of a command that sets a new colortriple for a given window<br/>
+<font color="#A82F2F"><font size="2">(08:31:48 PM)</font> <b>lukas:</b></font> this command may be executed based on a for_window directive (e.g. to make all terminal windows green)<br/>
+<font color="#A82F2F"><font size="2">(08:33:11 PM)</font> <b>TonyC:</b></font> sounds like that could be complicated<br/>
+<font color="#A82F2F"><font size="2">(08:33:59 PM)</font> <b>lukas:</b></font> can you explain why?<br/>
+<font color="#A82F2F"><font size="2">(08:34:25 PM)</font> <b>lukas:</b></font> my plan is to add a custom_color member to the Window struct<br/>
+<font color="#A82F2F"><font size="2">(08:35:46 PM)</font> <b>TonyC:</b></font> that should probably be on the Con struct<br/>
+<font color="#A82F2F"><font size="2">(08:35:51 PM)</font> <b>lukas:</b></font> in the place, where it figures out the color for the decoration, it checks whether the window has set a custom color and applies it<br/>
+<font color="#A82F2F"><font size="2">(08:37:09 PM)</font> <b>TonyC:</b></font> are you talking about the container itself or the workspace button?<br/>
+<font color="#A82F2F"><font size="2">(08:37:39 PM)</font> <b>lukas:</b></font> workspace button == the buttons in i3bar?<br/>
+<font color="#A82F2F"><font size="2">(08:38:35 PM)</font> <b>TonyC:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(08:39:23 PM)</font> <b>lukas:</b></font> the container itself<br/>
+<font color="#A82F2F"><font size="2">(08:39:23 PM)</font> <b>TonyC:</b></font> I think a problem with that could be the choice of the background color<br/>
+<font color="#A82F2F"><font size="2">(08:39:23 PM)</font> <b>lukas:</b></font> that&apos;s up to the user<br/>
+<font color="#A82F2F"><font size="2">(08:39:23 PM)</font> <b>TonyC:</b></font> why not the text color or the border color or the other options?<br/>
+<font color="#A82F2F"><font size="2">(08:39:37 PM)</font> <b>lukas:</b></font> i thought that that would be easier to implement, but i figured out that it&apos;s easier to change all of them<br/>
+<font color="#A82F2F"><font size="2">(08:40:54 PM)</font> <b>TonyC:</b></font> so you could configure any of the colors with the command?<br/>
+<font color="#A82F2F"><font size="2">(08:44:20 PM)</font> <b>lukas:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(08:47:02 PM)</font> <b>TonyC:</b></font> what would the command look like?<br/>
+<font size="2">(08:49:23 PM)</font><b> jclw [<em>~jclw@twice-3DB5C8.ethz.ch</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:50:36 PM)</font> <b>lukas:</b></font> setcolor border background text indicator<br/>
+<font color="#A82F2F"><font size="2">(08:51:50 PM)</font> <b>TonyC:</b></font> you should do a feature request at bugs.i3wm.org<br/>
+<font color="#A82F2F"><font size="2">(08:52:01 PM)</font> <b>TonyC:</b></font> make sure to include all that info as well as a compelling use case<br/>
+<font color="#A82F2F"><font size="2">(08:53:05 PM)</font> <b>Kevin:</b></font> I don&apos;t think he&apos;s planning to request the feature; it sounds like he&apos;s planning to implement it himself ;)<br/>
+<font size="2">(08:53:41 PM)</font><b> spm left the room (quit: Ping timeout: 520 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:53:43 PM)</font> <b>TonyC:</b></font> you still have to get features approved if you want them included in the main project<br/>
+<font size="2">(08:54:24 PM)</font><b> Joschasa left the room (quit: Ping timeout: 525 seconds).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> opa left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> FreezingCold left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> endiruna left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> gishuel left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> jonasj left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> benoliver999 left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> _Ultrabug left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> mseed left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> nslqqq left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> Twonky left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> helgikrs left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> frakturfreak left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> geier_ left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> torwag left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> Deiz_ left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> Scall left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> aibo left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> quazimodo left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> Score_Under left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> dardevelin left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> mrbanie1 left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> causasui left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> v0n left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> R0b0t1 left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> jerr left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> bitraten left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> hax404 left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> mic_e left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> Sanchal left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> mantiz left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> sLite left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> schischi left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> Gonbe left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> patrickod__ left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> brachyonic left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> f8l left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> afx237 left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> xetver left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> corbe left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> strohi left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> bitmasher left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> pllz left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> rs left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> slowpoke left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> esr left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> b4x left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> ThemValtures left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> bernalex left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> okraits left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> njsg left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> moju left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> captnfab left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> xpt left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> smlb left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> mohlerm left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> pbos left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> amospalla left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> kemurphy left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> n3b_ left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> nag_ left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> CandyAngel left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> dRbiG left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> mapc_ left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> btwe left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:13 PM)</font><b> Walther_ left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> Goofy left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> simu` left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> sur5r left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> cradle left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> pfalleno1 left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> werkschau_ left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> tohveli_ left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> choopm left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> jpleau_ left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> th0rne left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> slix left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> zeltak left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> Ultrabug left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> rafi left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> Han left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> lasers left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> flugsio left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> gardar left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> ZekeSulastin left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> heroux left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> Thubo left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> tureba left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> HappyLoaf left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> sECuRE left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> joker left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> alex left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> mist left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> moemoe left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> i3 left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font size="2">(08:56:14 PM)</font><b> Eyo left the room (quit: libri.twice-irc.de ircd.twice-irc.de).</b><br/>
+<font color="#A82F2F"><font size="2">(08:57:35 PM)</font> <b>cornerman:</b></font> TonyC: you commented on a patch of mine regarding adding the deco_rect property to the tree representation and wanted me to add some further testcases. what did you have in mind?<br/>
+<font color="#A82F2F"><font size="2">(09:00:05 PM)</font> <b>TonyC:</b></font> cornerman: it would be nice to test some basic configurations and make sure the deco_rect being given by the ipc is the same as how it appears on the screen<br/>
+<font color="#A82F2F"><font size="2">(09:00:29 PM)</font> <b>cornerman:</b></font> such that it is contained in the rect and the above the window_rect?<br/>
+<font color="#A82F2F"><font size="2">(09:00:58 PM)</font> <b>TonyC:</b></font> yeah just basic stuff like that<br/>
+<font color="#A82F2F"><font size="2">(09:01:01 PM)</font> <b>cornerman:</b></font> probably would make sense to create a new testcase for this<br/>
+<font color="#A82F2F"><font size="2">(09:01:27 PM)</font> <b>cornerman:</b></font> or should it be implemented in the 116 (nested_cons)?<br/>
+<font color="#A82F2F"><font size="2">(09:01:44 PM)</font> <b>TonyC:</b></font> it should be in a separate case<br/>
+<font color="#A82F2F"><font size="2">(09:02:26 PM)</font> <b>TonyC:</b></font> most of the other ipc things have tests like that<br/>
+<font color="#A82F2F"><font size="2">(09:02:39 PM)</font> <b>cornerman:</b></font> would one window suffice, or should it be tested on a rather complex layout?<br/>
+<font color="#A82F2F"><font size="2">(09:03:48 PM)</font> <b>TonyC:</b></font> maybe a little more complicated than just one window<br/>
+<font color="#A82F2F"><font size="2">(09:04:09 PM)</font> <b>cornerman:</b></font> ok<br/>
+<font size="2">(09:20:02 PM)</font><b> fayek left the room (quit: HELP! i see everything TWiCE /  WeeChat 1.0.1).</b><br/>
+<font size="2">(09:35:46 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

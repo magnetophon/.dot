@@ -1,0 +1,56 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Sun 08 Feb 2015 08:58:31 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Sun 08 Feb 2015 08:58:31 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:58:32 PM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font size="2">(08:58:32 PM)</font><b> Topic for #lad set by tapas!~tapas@static.231.2.63.178.clients.your-server.de at 10:37:26 AM on 05/13/2013</b><br/>
+<font size="2">(11:36:38 PM)</font><b> rncbc|AFK is now known as rncbc</b><br/>
+<font color="#A82F2F"><font size="2">(11:41:15 PM)</font> <b>wrl:</b></font> so, here&apos;s a question<br/>
+<font color="#A82F2F"><font size="2">(11:41:29 PM)</font> <b>wrl:</b></font> i have this playhead class. playheads can loop.<br/>
+<font color="#A82F2F"><font size="2">(11:41:38 PM)</font> <b>wrl:</b></font> the three relevant values are loop_active, loop_start, and loop_length<br/>
+<font color="#A82F2F"><font size="2">(11:42:02 PM)</font> <b>wrl:</b></font> i&apos;m currently building the public API for this<br/>
+<font color="#A82F2F"><font size="2">(11:42:05 PM)</font> <b>wrl:</b></font> first thoughts are<br/>
+<font color="#A82F2F"><font size="2">(11:42:18 PM)</font> <b>wrl:</b></font> playhead.loop = false #turn off looping<br/>
+<font color="#A82F2F"><font size="2">(11:42:34 PM)</font> <b>wrl:</b></font> playhead.loop = [&lt;start&gt;, &lt;end&gt;] #set loop points and turn on looping<br/>
+<font color="#A82F2F"><font size="2">(11:42:52 PM)</font> <b>wrl:</b></font> playhead.loop = true #turn on looping and use existing loop points<br/>
+<font color="#A82F2F"><font size="2">(11:42:58 PM)</font> <b>wrl:</b></font> so, what i&apos;m mulling over<br/>
+<font color="#A82F2F"><font size="2">(11:43:08 PM)</font> <b>wrl:</b></font> is whether loop_active should be a separate property<br/>
+<font color="#A82F2F"><font size="2">(11:46:28 PM)</font> <b>wrl:</b></font> and, related: loop_active or looping?<br/>
+<font size="2">(11:53:39 AM)</font><b> doodums is now known as thadood</b><br/>
+<font color="#A82F2F"><font size="2">(11:59:08 AM)</font> <b>AfterDarkness:</b></font> hello i got a problem installing ingen. the log says &apos;Checking for &apos;lv2&apos; &gt;= 1.11.0&apos; ... &apos;not found&apos;<br/>
+<font color="#A82F2F"><font size="2">(11:59:28 AM)</font> <b>AfterDarkness:</b></font> but when i manually use pkg it says I got 1.8.0<br/>
+<font color="#A82F2F"><font size="2">(12:07:14 PM)</font> <b>falktx_:</b></font> 1,11 &gt; 1.8<br/>
+<font color="#A82F2F"><font size="2">(12:07:28 PM)</font> <b>falktx_:</b></font> you need a newer lv2<br/>
+<font color="#A82F2F"><font size="2">(12:08:17 PM)</font> <b>AfterDarkness:</b></font> 11 &gt; 8 omg i am such an idiot :&apos;)<br/>
+<font color="#A82F2F"><font size="2">(12:21:17 PM)</font> <b>teknico:</b></font> rebased, fixed conflicts, added missing dependencies (including oops), please (re)review: https://github.com/monetas/notary/pull/108<br/>
+<font color="#A82F2F"><font size="2">(12:21:42 PM)</font> <b>teknico:</b></font> oops indeed, wrong channel, sorry :-(<br/>
+<font color="#A82F2F"><font size="2">(12:22:08 PM)</font> <b>AfterDarkness:</b></font> there is no 1.11 on the lv2 git :-S<br/>
+<font color="#A82F2F"><font size="2">(12:26:58 PM)</font> <b>falktx_:</b></font> it probably means latest lv2 git<br/>
+<font color="#A82F2F"><font size="2">(12:27:03 PM)</font> <b>falktx_:</b></font> the unreleased 1.12 coming soon<br/>
+<font color="#A82F2F"><font size="2">(12:30:00 PM)</font> <b>AfterDarkness:</b></font> I see<br/>
+<font color="#A82F2F"><font size="2">(12:30:16 PM)</font> <b>AfterDarkness:</b></font> god damnit I hate waiting<br/>
+<font color="#A82F2F"><font size="2">(12:34:08 PM)</font> <b>falktx_:</b></font> you can get the latest lv2 git<br/>
+<font color="#A82F2F"><font size="2">(12:34:10 PM)</font> <b>falktx_:</b></font> it should work<br/>
+<font color="#A82F2F"><font size="2">(12:37:03 PM)</font> <b>AfterDarkness:</b></font> I&apos;ll try<br/>
+<font color="#A82F2F"><font size="2">(12:38:49 PM)</font> <b>AfterDarkness:</b></font> nope it really wants 1.11 1.10 doesn&apos;t want to work<br/>
+<font color="#A82F2F"><font size="2">(12:48:42 PM)</font> <b>falktx_:</b></font> not 1.10<br/>
+<font color="#A82F2F"><font size="2">(12:48:48 PM)</font> <b>falktx_:</b></font> 1.10 is the stable release<br/>
+<font color="#A82F2F"><font size="2">(12:48:55 PM)</font> <b>falktx_:</b></font> you want the dev, latest git version<br/>
+<font color="#A82F2F"><font size="2">(12:48:59 PM)</font> <b>falktx_:</b></font> from a git clone<br/>
+<font size="2">(12:55:40 PM)</font><b> falktx_ left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font size="2">(01:00:56 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:39:13 PM)</font> <b>AfterDarkness:</b></font> falktx_, there was a patch for 1.10 to 1.11. It wasn&apos;t clear at first, but hopefuly it will work out now<br/>
+<font color="#A82F2F"><font size="2">(01:39:37 PM)</font> <b>AfterDarkness:</b></font> in the git :P<br/>
+<font color="#A82F2F"><font size="2">(01:39:46 PM)</font> <b>falktx_:</b></font> no, that won&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(01:39:52 PM)</font> <b>falktx_:</b></font> you just renamed the version number<br/>
+<font color="#A82F2F"><font size="2">(01:40:05 PM)</font> <b>AfterDarkness:</b></font> but it is reporting that I have 1.11<br/>
+<font color="#A82F2F"><font size="2">(01:40:05 PM)</font> <b>AfterDarkness:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(01:40:46 PM)</font> <b>AfterDarkness:</b></font> ingen is compiled now, waiting for the rest of lad now<br/>
+<font color="#A82F2F"><font size="2">(01:41:12 PM)</font> <b>AfterDarkness:</b></font> it was giving me something like LV2_PATCH__COPY<br/>
+<font color="#A82F2F"><font size="2">(01:41:30 PM)</font> <b>AfterDarkness:</b></font> after using the patch it is gone. yup just finished compiling<br/>
+<font color="#A82F2F"><font size="2">(01:41:54 PM)</font> <b>AfterDarkness:</b></font> LV_PATCH__COPY error*<br/>
+<font color="#A82F2F"><font size="2">(01:57:12 PM)</font> <b>AfterDarkness:</b></font> any ideas why I am having this error: &quot; ingen: Error: Unable to create interface to &apos;unix:///tmp/ingen.sock&apos; &quot; ?<br/>
+<font color="#A82F2F"><font size="2">(02:00:38 PM)</font> <b>Gyro:</b></font> AfterDarkness: can you get the error code?<br/>
+<font color="#A82F2F"><font size="2">(02:00:48 PM)</font> <b>Gyro:</b></font> It is not something as simple as EPERM by chance?<br/>
+<font color="#A82F2F"><font size="2">(02:03:46 PM)</font> <b>AfterDarkness:</b></font> I dont see an error code. I am new to JACK<br/>
+<font color="#A82F2F"><font size="2">(02:04:04 PM)</font> <b>AfterDarkness:</b></font> any*<br/>
+<font color="#A82F2F"><font size="2">(02:04:50 PM)</font> <b>Gyro:</b></font> Error code is neither Jack- nor otherwise project-specific. It&apos;s a fundamental property of Linux / Unices (or its libcs, rather).<br/>
+<font color="#A82F2F"><font size="2">(02:05:21 PM)</font> <b>AfterDarkness:</b></font> I see but the terminal doesn&apos;t show any. I assume the program exists normally<br/>
+<font size="2">(02:36:15 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>

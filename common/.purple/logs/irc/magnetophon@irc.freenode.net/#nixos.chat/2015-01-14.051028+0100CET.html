@@ -1,0 +1,394 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Wed 14 Jan 2015 05:10:28 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Wed 14 Jan 2015 05:10:28 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(05:10:28 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(05:10:28 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(05:13:57 AM)</font> <b>johnw:</b></font> do you have automake?<br/>
+<font color="#A82F2F"><font size="2">(05:14:03 AM)</font> <b>johnw:</b></font> i&apos;m not sure exactly which package defines that macro<br/>
+<font color="#A82F2F"><font size="2">(05:23:29 AM)</font> <b>semigroup:</b></font> I have automake, autoconf, and libtool as buildInputs, so I&apos;d expect that to be everythi<br/>
+<font color="#A82F2F"><font size="2">(05:23:33 AM)</font> <b>semigroup:</b></font> *everything<br/>
+<font color="#A82F2F"><font size="2">(05:24:54 AM)</font> <b>aszlig:</b></font> semigroup: try with --install<br/>
+<font color="#A82F2F"><font size="2">(05:25:37 AM)</font> <b>aszlig:</b></font> if you don&apos;t want to run aclocal, autoconf, automake, ... you can run autoreconf as well<br/>
+<font color="#A82F2F"><font size="2">(05:29:42 AM)</font> <b>semigroup:</b></font> aszlig: thanks, that seems to have gotten things farther along<br/>
+<font size="2">(05:42:41 AM)</font><b> MichaelRaskin left the room (quit: Quit: MichaelRaskin).</b><br/>
+<font color="#A82F2F"><font size="2">(06:14:43 AM)</font> <b>benley:</b></font> https://dl.dropboxusercontent.com/u/144807/wtf_gdal.txt  &lt;--- way down at the bottom of that where the error is, does that look like a line that ought to be calling ld? Or do those look like gcc flags?<br/>
+<font size="2">(06:32:51 AM)</font><b> contrapumpkin is now known as copumpkin</b><br/>
+<font color="#A82F2F"><font size="2">(06:36:49 AM)</font> <b>Ralith:</b></font> o.O<br/>
+<font color="#A82F2F"><font size="2">(06:36:53 AM)</font> <b>Ralith:</b></font> looks like gcc to me too<br/>
+<font color="#A82F2F"><font size="2">(06:36:58 AM)</font> <b>Ralith:</b></font> weiiird<br/>
+<font color="#A82F2F"><font size="2">(06:37:07 AM)</font> <b>Ralith:</b></font> unset variable somewhere maybe<br/>
+<font color="#A82F2F"><font size="2">(06:37:58 AM)</font> <b>Ralith:</b></font> with bash or make helpfully silently interpreting unset as empty<br/>
+<font color="#A82F2F"><font size="2">(06:43:04 AM)</font> <b>benley:</b></font> yeah - confusingly, it looks like that might be happening inside of &quot;python setup.py build&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:43:11 AM)</font> <b>benley:</b></font> though the output might be interleaved or something<br/>
+<font color="#A82F2F"><font size="2">(06:47:32 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nckx opened pull request #5758: Python: click: upgrade 2.1 -&gt; 3.3 (!) (master...click) http://git.io/cwHz-Q<br/>
+<font color="#A82F2F"><font size="2">(07:11:50 AM)</font> <b>Ralith:</b></font> cstrahan_: would it be rude of me to ask you to have a look at https://github.com/NixOS/nixpkgs/pull/5635 ?<br/>
+<font color="#A82F2F"><font size="2">(07:12:18 AM)</font> <b>cstrahan_:</b></font> Ralith: no, not at all.<br/>
+<font color="#A82F2F"><font size="2">(07:12:23 AM)</font> <b>cstrahan_:</b></font> i&apos;ll take a look.<br/>
+<font color="#A82F2F"><font size="2">(07:13:48 AM)</font> <b>Ralith:</b></font> thanks!<br/>
+<font color="#A82F2F"><font size="2">(07:15:51 AM)</font> <b>cstrahan_:</b></font> Ralith: looks good - I&apos;ll merge<br/>
+<font color="#A82F2F"><font size="2">(07:16:01 AM)</font> <b>cstrahan_:</b></font> thanks!<br/>
+<font color="#A82F2F"><font size="2">(07:16:14 AM)</font> <b>Ralith:</b></font> \o/<br/>
+<font color="#A82F2F"><font size="2">(07:16:28 AM)</font> <b>Ralith:</b></font> is it convention to ping the maintainer when submitting a package PR?<br/>
+<font color="#A82F2F"><font size="2">(07:16:30 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cstrahan closed pull request #5635: Update libuv repository and add latest stable version (master...libuv) http://git.io/hKN6Ow<br/>
+<font color="#A82F2F"><font size="2">(07:17:07 AM)</font> <b>cstrahan_:</b></font> if you don&apos;t hear back from the maintainer or someone else who can merge, yeah.<br/>
+<font color="#A82F2F"><font size="2">(07:17:14 AM)</font> <b>Ralith:</b></font> cool<br/>
+<font color="#A82F2F"><font size="2">(07:17:34 AM)</font> <b>cstrahan_:</b></font> i actually saw your PR and had it on my list to double check / merge, but just haven&apos;t had the time yet.<br/>
+<font color="#A82F2F"><font size="2">(07:17:46 AM)</font> <b>Ralith:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(07:17:58 AM)</font> <b>Ralith:</b></font> I also am curious about why there are so many versions; are there that many packages with very specific dependencies on libuv?<br/>
+<font color="#A82F2F"><font size="2">(07:18:06 AM)</font> <b>cstrahan_:</b></font> but a bit of a friendly nudge can always bump it up priority wise :)<br/>
+<font color="#A82F2F"><font size="2">(07:18:10 AM)</font> <b>Ralith:</b></font> ^^<br/>
+<font color="#A82F2F"><font size="2">(07:18:49 AM)</font> <b>nckx:</b></font> I have a PR question as well. :-) https://github.com/NixOS/nixpkgs/pull/5758<br/>
+<font color="#A82F2F"><font size="2">(07:18:59 AM)</font> <b>nckx:</b></font> I updated the Python click package a whole major version, so chances are that something will break.<br/>
+<font color="#A82F2F"><font size="2">(07:19:03 AM)</font> <b>cstrahan_:</b></font> i figured the unstable versions might have more software targeting specific versions thereof, but I don&apos;t think we&apos;re really taking advantage of that at the moment.<br/>
+<font color="#A82F2F"><font size="2">(07:19:22 AM)</font> <b>nckx:</b></font> Is there are way to find out without spending 5 hours compiling Python on my netbook?<br/>
+<font color="#A82F2F"><font size="2">(07:19:53 AM)</font> <b>nckx:</b></font> I&apos;m hoping for some Travis/Hydra magic I don&apos;t know about.<br/>
+<font color="#A82F2F"><font size="2">(07:20:14 AM)</font> <b>cstrahan_:</b></font> the library builds fast enough that i don&apos;t think it hurts anything. i&apos;m also open to pruning the versions we support down the road, though.<br/>
+<font color="#A82F2F"><font size="2">(07:20:39 AM)</font> <b>Ralith:</b></font> I have no idea what&apos;s Right at present, just trying to get a sense of nixpkgs conventions<br/>
+<font color="#A82F2F"><font size="2">(07:21:04 AM)</font> <b>cstrahan_:</b></font> we normally try to stick to one version.<br/>
+<font color="#A82F2F"><font size="2">(07:21:17 AM)</font> <b>cstrahan_:</b></font> so the libuv things is a bit of a special case.<br/>
+<font color="#A82F2F"><font size="2">(07:21:23 AM)</font> <b>Ralith:</b></font> makes sense<br/>
+<font color="#A82F2F"><font size="2">(07:22:38 AM)</font> <b>cstrahan_:</b></font> some of our packages have hard dependencies on old packages, which is where we make the exception. and things like compilers are odd balls too - we try to support the latest couple major versions.<br/>
+<font color="#062585"><font size="2">(07:22:56 AM)</font> <b>***Ralith</b></font> nod<br/>
+<font color="#A82F2F"><font size="2">(07:24:00 AM)</font> <b>Ralith:</b></font> thanks for clarifying!<br/>
+<font color="#A82F2F"><font size="2">(07:25:46 AM)</font> <b>cstrahan_:</b></font> nckx: i think our travis setup should automatically try to build dependent packages. however, with something dynamic like python, i&apos;m not entirely sure if the build status of said packages is sufficient. i don&apos;t know if we run python tests as part of the builds.<br/>
+<font color="#A82F2F"><font size="2">(07:26:04 AM)</font> <b>benley:</b></font> many (most?) python packages run tests during builds<br/>
+<font color="#A82F2F"><font size="2">(07:26:09 AM)</font> <b>benley:</b></font> I&apos;m not sure about python itself<br/>
+<font color="#A82F2F"><font size="2">(07:26:52 AM)</font> <b>cstrahan_:</b></font> perhaps - python isn&apos;t really my domain, so I&apos;m probably not the best person to ask.<br/>
+<font color="#A82F2F"><font size="2">(07:27:29 AM)</font> <b>benley:</b></font> I&apos;ve been doing a lot of python package hackery recently<br/>
+<font color="#A82F2F"><font size="2">(07:27:54 AM)</font> <b>benley:</b></font> but only on python modules, not the interpreters themselves<br/>
+<font color="#A82F2F"><font size="2">(07:27:55 AM)</font> <b>benley:</b></font> so far<br/>
+<font color="#A82F2F"><font size="2">(07:28:21 AM)</font> <b>nckx:</b></font> I&apos;ve noticed something: weird (to me) in the meantime. While /NixOS&apos;s Travis times out, my identical /nckx fork returns success in a few minutes. I&apos;ll check that log for Pythoniness.<br/>
+<font color="#A82F2F"><font size="2">(07:31:26 AM)</font> <b>nckx:</b></font> Hm, I don&apos;t think anything is actually built. Just evaluated.<br/>
+<font color="#A82F2F"><font size="2">(07:35:08 AM)</font> <b>nckx:</b></font> Oh, I&apos;m not hacking on core Python either, click is just a module. Maybe it shouldn&apos;t be rebuilding this much and I&apos;m barking up the wrong tree?<br/>
+<font size="2">(07:35:14 AM)</font><b> manveru_ is now known as manveru</b><br/>
+<font color="#062585"><font size="2">(07:35:17 AM)</font> <b>***nckx</b></font> trots off to investimagate<br/>
+<font color="#A82F2F"><font size="2">(07:35:46 AM)</font> <b>benley:</b></font> nckx: if it&apos;s rebuilding the whole universe, you might want to rebase your branch against the current unstable channel rather than the tip of master<br/>
+<font color="#A82F2F"><font size="2">(07:36:10 AM)</font> <b>benley:</b></font> nckx: that way pretty much all your dependencies will be available from binary caches<br/>
+<font color="#A82F2F"><font size="2">(07:36:43 AM)</font> <b>nckx:</b></font> Thanks :-) Thing is, I thought I did.<br/>
+<font color="#A82F2F"><font size="2">(07:36:53 AM)</font> <b>benley:</b></font> ah, hrm<br/>
+<font color="#A82F2F"><font size="2">(07:38:21 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cstrahan pushed 1 new commit to master: http://git.io/e_UtWw<br/>
+<font color="#A82F2F"><font size="2">(07:38:21 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 0351b7a Benjamin Saunders: Add tup...<br/>
+<font color="#A82F2F"><font size="2">(07:39:14 AM)</font> <b>cstrahan_:</b></font> Ralith: just pushed your other PR.<br/>
+<font color="#A82F2F"><font size="2">(07:45:28 AM)</font> <b>Ralith:</b></font> whee!<br/>
+<font color="#A82F2F"><font size="2">(07:52:11 AM)</font> <b>nckx:</b></font> (Non-)mystery solved: dodgy wi-fi and a failed nar... *sigh*<br/>
+<font color="#A82F2F"><font size="2">(08:15:33 AM)</font> <b>Heffalump:</b></font> does anyone have an example of a ghcWithPackages expression that explicitly uses ghc 7.8? I&apos;ve got one that uses 7.6 but it doesn&apos;t work (claiming that the attribute is missing) when I change it to 7.8<br/>
+<font color="#A82F2F"><font size="2">(08:28:35 AM)</font> <b>mbuf:</b></font> is there a way to find which package provides an executable? I need to know the package to be installed for pandoc<br/>
+<font color="#A82F2F"><font size="2">(08:28:54 AM)</font> <b>benley:</b></font> it&apos;s probably called pandoc :P<br/>
+<font color="#A82F2F"><font size="2">(08:29:15 AM)</font> <b>benley:</b></font> nix-env -qaP pandoc<br/>
+<font color="#A82F2F"><font size="2">(08:29:35 AM)</font> <b>mbuf:</b></font> benley: I see lot of entries for haskell-pandoc- in http://nixos.org/nixos/packages.html<br/>
+<font color="#A82F2F"><font size="2">(08:30:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nckx opened pull request #5759: Python: jedi: update 0.8.0-final0 -&gt; 0.8.1 (master...jedi) http://git.io/4lBM3g<br/>
+<font color="#A82F2F"><font size="2">(08:30:49 AM)</font> <b>benley:</b></font> interesting, when I search with nix-env I get:<br/>
+<font color="#A82F2F"><font size="2">(08:30:53 AM)</font> <b>benley:</b></font> nixpkgs.pandoc  pandoc-1.13.1<br/>
+<font color="#A82F2F"><font size="2">(08:31:03 AM)</font> <b>mbuf:</b></font> benley: I get error: selector &apos;pandoc&apos; matches no derivations<br/>
+<font color="#A82F2F"><font size="2">(08:31:08 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nckx opened pull request #5760: Python: pygments: update 1.6 -&gt; 2.0.1; add licence; maintain (master...pygments) http://git.io/ipoRTA<br/>
+<font color="#A82F2F"><font size="2">(08:32:20 AM)</font> <b>benley:</b></font> mbuf: what channel are you using?<br/>
+<font color="#A82F2F"><font size="2">(08:32:52 AM)</font> <b>benley:</b></font> I tried with  nixpkgs unstable and it just worked<br/>
+<font color="#A82F2F"><font size="2">(08:33:02 AM)</font> <b>mbuf:</b></font> benley: how do I find out the channel info?<br/>
+<font color="#A82F2F"><font size="2">(08:33:05 AM)</font> <b>mbuf:</b></font> benley: sorry, new to nixos<br/>
+<font color="#A82F2F"><font size="2">(08:33:08 AM)</font> <b>benley:</b></font> nix-channel --list<br/>
+<font color="#A82F2F"><font size="2">(08:33:14 AM)</font> <b>benley:</b></font> no worries<br/>
+<font color="#A82F2F"><font size="2">(08:33:26 AM)</font> <b>benley:</b></font> I&apos;m not even running nixos :P<br/>
+<font color="#A82F2F"><font size="2">(08:33:56 AM)</font> <b>mbuf:</b></font> benley: found out from nix-&lt;TAB&gt; and its --help option; it says nixos http://nixos.org/channels/nixos-14.12<br/>
+<font color="#A82F2F"><font size="2">(08:34:21 AM)</font> <b>benley:</b></font> it&apos;s possible that this pandoc package was added after the 14.12 release<br/>
+<font color="#062585"><font size="2">(08:34:27 AM)</font> <b>***benley</b></font> looks in git<br/>
+<font color="#A82F2F"><font size="2">(08:34:31 AM)</font> <b>mbuf:</b></font> benley: I see<br/>
+<font color="#A82F2F"><font size="2">(08:34:39 AM)</font> <b>Ralith:</b></font> or that it was only then made visible to the search index<br/>
+<font color="#A82F2F"><font size="2">(08:34:52 AM)</font> <b>benley:</b></font> yeah, that too.  https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/all-packages.nix#L2078 is where it lives<br/>
+<font color="#A82F2F"><font size="2">(08:35:06 AM)</font> <b>Ralith:</b></font> might be worth trying &apos;nix-env -iA nixpkgs.pandoc&apos; (or whatever)<br/>
+<font color="#A82F2F"><font size="2">(08:35:23 AM)</font> <b>Ralith:</b></font> or just read the source<br/>
+<font color="#A82F2F"><font size="2">(08:35:36 AM)</font> <b>benley:</b></font> bleh I wish github had better search options<br/>
+<font color="#A82F2F"><font size="2">(08:35:51 AM)</font> <b>benley:</b></font> like come on just let me search over commit messages. Surely should be possible.<br/>
+<font color="#A82F2F"><font size="2">(08:35:53 AM)</font> <b>mbuf:</b></font> if I add a channel, and do a nixos-rebuild switch, then any existing package that has a newer version will get updated?<br/>
+<font color="#A82F2F"><font size="2">(08:35:55 AM)</font> <b>Ralith:</b></font> &apos;git checkout&apos; is your friend :p<br/>
+<font color="#A82F2F"><font size="2">(08:36:23 AM)</font> <b>Ralith:</b></font> mbuf: I think you need to explicitly request an update for that to happen<br/>
+<font color="#A82F2F"><font size="2">(08:36:42 AM)</font> <b>mbuf:</b></font> Ralith: I see<br/>
+<font color="#A82F2F"><font size="2">(08:36:48 AM)</font> <b>Ralith:</b></font> see http://nixos.org/nixos/manual/sec-upgrading.html<br/>
+<font color="#A82F2F"><font size="2">(08:36:48 AM)</font> <b>benley:</b></font> mbuf: you can also just the unstable channel as a regular user, without rebuilding the system environment<br/>
+<font color="#A82F2F"><font size="2">(08:36:59 AM)</font> <b>benley:</b></font> s/just/just add/<br/>
+<font color="#A82F2F"><font size="2">(08:37:20 AM)</font> <b>benley:</b></font> oh sweet! figured out how to fix the gdal build<br/>
+<font color="#A82F2F"><font size="2">(08:37:22 AM)</font> <b>Ralith:</b></font> of course that won&apos;t be sufficient if you want pandoc installed system-wide, but you probably don&apos;t *need* that<br/>
+<font color="#A82F2F"><font size="2">(08:37:25 AM)</font> <b>Ralith:</b></font> benley: oh?<br/>
+<font color="#A82F2F"><font size="2">(08:37:31 AM)</font> <b>mbuf:</b></font> benley: but, will that also get added to *.nix? I want to be able to use this setup for any replication that I make<br/>
+<font color="#A82F2F"><font size="2">(08:37:50 AM)</font> <b>benley:</b></font> Ralith: if I add &quot;unset CC CXX&quot; to the preConfigure line, it magically works<br/>
+<font color="#A82F2F"><font size="2">(08:37:51 AM)</font> <b>mbuf:</b></font> benley: setup as in this configuration<br/>
+<font color="#A82F2F"><font size="2">(08:38:02 AM)</font> <b>benley:</b></font> Ralith: and I think it remains pure - those vars were confusing libtool<br/>
+<font color="#A82F2F"><font size="2">(08:38:37 AM)</font> <b>benley:</b></font> mbuf: ah if you&apos;re doing system configs I guess it&apos;s less useful to add channels outside of the system ones<br/>
+<font color="#A82F2F"><font size="2">(08:39:03 AM)</font> <b>Ralith:</b></font> huuuh.<br/>
+<font color="#A82F2F"><font size="2">(08:39:13 AM)</font> <b>mbuf:</b></font> benley: sorry, I didn&apos;t understand the relation between system configs and channels<br/>
+<font color="#A82F2F"><font size="2">(08:39:47 AM)</font> <b>mbuf:</b></font> benley: if I re-use this configuration.nix (currently running on a VM), I should be able to replicate this on other systems and VMs<br/>
+<font color="#A82F2F"><font size="2">(08:39:49 AM)</font> <b>benley:</b></font> when you use nix-channel as root, it controls what channels are used for nixos-rebuild<br/>
+<font color="#A82F2F"><font size="2">(08:39:59 AM)</font> <b>benley:</b></font> that&apos;s all I meant<br/>
+<font color="#A82F2F"><font size="2">(08:40:00 AM)</font> <b>mbuf:</b></font> benley: so pandoc should be available for all users using the system<br/>
+<font color="#A82F2F"><font size="2">(08:40:06 AM)</font> <b>mbuf:</b></font> benley: okay<br/>
+<font color="#A82F2F"><font size="2">(08:40:07 AM)</font> <b>benley:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(08:40:35 AM)</font> <b>mbuf:</b></font> benley: one cannot have multiple channels subscribed to? I can switch to the unstable channel and see<br/>
+<font color="#A82F2F"><font size="2">(08:40:51 AM)</font> <b>mbuf:</b></font> benley: and lock down the versions of my current package versions in the configuration.nix?<br/>
+<font color="#A82F2F"><font size="2">(08:41:21 AM)</font> <b>benley:</b></font> I&apos;m not 100% clear on what happens when you subscribe to more channels<br/>
+<font color="#A82F2F"><font size="2">(08:41:37 AM)</font> <b>benley:</b></font> just started figuring that stuff out :P<br/>
+<font color="#A82F2F"><font size="2">(08:41:42 AM)</font> <b>mbuf:</b></font> benley: okay; will give it a spin; thanks for your help<br/>
+<font color="#A82F2F"><font size="2">(08:41:46 AM)</font> <b>mbuf:</b></font> benley: appreciate it<br/>
+<font color="#A82F2F"><font size="2">(08:41:47 AM)</font> <b>benley:</b></font> np :)<br/>
+<font color="#A82F2F"><font size="2">(08:41:48 AM)</font> <b>mbuf:</b></font> BRB<br/>
+<font color="#A82F2F"><font size="2">(09:05:02 AM)</font> <b>benley:</b></font> is there a way for me to test a build on a Yosemite box via hydra or something?<br/>
+<font color="#A82F2F"><font size="2">(09:05:10 AM)</font> <b>benley:</b></font> I don&apos;t have a mac with nix on it :P<br/>
+<font color="#A82F2F"><font size="2">(09:11:14 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] benley opened pull request #5761: gdal: fix the build (master...fix-gdal) http://git.io/X0nnsg<br/>
+<font size="2">(09:14:56 AM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#A82F2F"><font size="2">(09:24:39 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] boothead closed pull request #5520: Latest version of mvc (master...master) http://git.io/cuDjQA<br/>
+<font color="#A82F2F"><font size="2">(09:29:17 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] boothead opened pull request #5762: Haskell: Bump &apos;mvc&apos; to 1.0.3 (master...master) http://git.io/R6EbLw<br/>
+<font color="#A82F2F"><font size="2">(09:30:48 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti closed pull request #5761: gdal: fix the build (master...fix-gdal) http://git.io/X0nnsg<br/>
+<font size="2">(09:34:54 AM)</font><b> MichaelRaskin [<em>~MichaelRa@80.250.226.156</em>] entered the room.</b><br/>
+<font size="2">(09:58:00 AM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:03:03 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nckx opened pull request #5763: Add stress-ng 0.03.09: stress test a computer system (master...stress-ng) http://git.io/YQFkOw<br/>
+<font color="#A82F2F"><font size="2">(10:03:08 AM)</font> <b>mbuf:</b></font> after switching to the unstable channel, nix-env -qa \* -P | fgrep -i pandoc, doesn&apos;t result anything<br/>
+<font color="#A82F2F"><font size="2">(10:03:25 AM)</font> <b>mbuf:</b></font> I already did sudo nixos-rebuild switch; does some cache need to be cleared?<br/>
+<font color="#A82F2F"><font size="2">(10:03:48 AM)</font> <b>Lethalman:</b></font> mbuf, no there&apos;s no cache with nix-env<br/>
+<font color="#A82F2F"><font size="2">(10:04:11 AM)</font> <b>mbuf:</b></font> Lethalman: trying to reboot now<br/>
+<font color="#A82F2F"><font size="2">(10:04:19 AM)</font> <b>nckx:</b></font> nixos.pkgs.haskellPackages.pandoc, says mine.<br/>
+<font size="2">(10:04:39 AM)</font><b> ocharles is now known as Guest45037</b><br/>
+<font color="#A82F2F"><font size="2">(10:05:33 AM)</font> <b>Lethalman:</b></font> mbuf, there&apos;s no need for reboot<br/>
+<font color="#A82F2F"><font size="2">(10:05:40 AM)</font> <b>Sonarpulse:</b></font> so from nix-shell, one cannot write to $out<br/>
+<font color="#A82F2F"><font size="2">(10:05:55 AM)</font> <b>Sonarpulse:</b></font> what&apos;s the best work-around for testing?<br/>
+<font color="#A82F2F"><font size="2">(10:05:59 AM)</font> <b>Sonarpulse:</b></font> install phase, etc<br/>
+<font color="#A82F2F"><font size="2">(10:06:00 AM)</font> <b>nckx:</b></font> mbuf: as well as nixos.pkgs.pandoc, obvs.<br/>
+<font color="#A82F2F"><font size="2">(10:06:39 AM)</font> <b>mbuf:</b></font> Lethalman: I am not able to see pandoc in the stable 14.12; benley said pandoc is available in unstable, so I switched to this channel<br/>
+<font color="#A82F2F"><font size="2">(10:07:05 AM)</font> <b>Lethalman:</b></font> mbuf, pandoc is available in 14.12<br/>
+<font color="#A82F2F"><font size="2">(10:07:21 AM)</font> <b>Lethalman:</b></font> mbuf, http://hydra.nixos.org/search?query=pandoc<br/>
+<font color="#A82F2F"><font size="2">(10:08:46 AM)</font> <b>mbuf:</b></font> Lethalman: I saw lot of haskell-pandoc-* packages; how do I know which one provides the pandoc executable?<br/>
+<font color="#A82F2F"><font size="2">(10:09:10 AM)</font> <b>mbuf:</b></font> Lethalman: I was using http://nixos.org/nixos/packages.html<br/>
+<font color="#A82F2F"><font size="2">(10:11:41 AM)</font> <b>mbuf:</b></font> Lethalman: nix-env --install pandoc, returns error: selector &apos;pandoc&apos; matches no derivations<br/>
+<font color="#A82F2F"><font size="2">(10:12:48 AM)</font> <b>Lethalman:</b></font> mbuf, try nix-env -f &apos;&lt;nixpkgs&gt;&apos; -iA haskellPackages.pandoc<br/>
+<font color="#A82F2F"><font size="2">(10:15:13 AM)</font> <b>mbuf:</b></font> Lethalman: it is downloading. will this also update configuration.nix?<br/>
+<font color="#A82F2F"><font size="2">(10:15:28 AM)</font> <b>Lethalman:</b></font> mbuf, no nix-env only changes your ~/.nix-profile<br/>
+<font color="#A82F2F"><font size="2">(10:15:57 AM)</font> <b>mbuf:</b></font> Lethalman: and that will persist on reboot, I guess<br/>
+<font color="#A82F2F"><font size="2">(10:16:05 AM)</font> <b>Lethalman:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(10:16:40 AM)</font> <b>mbuf:</b></font> Lethalman: so what should be the name in configuration.nix that I need to add for pandoc in environment.systemPackages?<br/>
+<font color="#A82F2F"><font size="2">(10:16:48 AM)</font> <b>Lethalman:</b></font> pkgs.haskellPackages.pandoc<br/>
+<font color="#A82F2F"><font size="2">(10:16:59 AM)</font> <b>mbuf:</b></font> Lethalman: haskellPackages.pandoc? okay<br/>
+<font color="#A82F2F"><font size="2">(10:21:41 AM)</font> <b>daaku:</b></font> i see there&apos;s a go 1.4 derivation (https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/go/1.4.nix), but i&apos;m not sure how to use that instead of the default<br/>
+<font color="#A82F2F"><font size="2">(10:22:15 AM)</font> <b>daaku:</b></font> what do i put in my configuration.nix to trigger using this? (or what should i ask `nix-env -i` to install?)<br/>
+<font color="#A82F2F"><font size="2">(10:23:59 AM)</font> <b>Lethalman:</b></font> daaku, https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/all-packages.nix#L3447<br/>
+<font color="#A82F2F"><font size="2">(10:25:38 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vbgl pushed 1 new commit to master: http://git.io/4DRYPw<br/>
+<font color="#A82F2F"><font size="2">(10:25:38 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 0a0b46a Vincent Laporte: ocp-indent: fix installation<br/>
+<font color="#A82F2F"><font size="2">(10:28:27 AM)</font> <b>daaku:</b></font> Lethalman: those names don&apos;t seem to exist for me (i&apos;m on NixOS 14.12.315.d9de59a (Caterpillar) per os-release)<br/>
+<font color="#A82F2F"><font size="2">(10:28:40 AM)</font> <b>mbuf:</b></font> Lethalman: so if I understand correctly, we use nix-env --install to try the package, if it works, we add it to configuration.nix?<br/>
+<font color="#A82F2F"><font size="2">(10:29:05 AM)</font> <b>Lethalman:</b></font> mbuf, mh no with --install you install it in your profile<br/>
+<font color="#A82F2F"><font size="2">(10:29:08 AM)</font> <b>Lethalman:</b></font> :S<br/>
+<font color="#A82F2F"><font size="2">(10:29:30 AM)</font> <b>Lethalman:</b></font> daaku, how are you searching sorry?<br/>
+<font color="#A82F2F"><font size="2">(10:29:32 AM)</font> <b>daaku:</b></font> is there a local copy of all-packages on my machine that&apos;s for the version i have?<br/>
+<font color="#A82F2F"><font size="2">(10:29:56 AM)</font> <b>Lethalman:</b></font> daaku, nix-instantiate --find-file nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(10:30:00 AM)</font> <b>daaku:</b></font> `nix-env -i go_1_4`: error: selector ‘go_1_4’ matches no derivations<br/>
+<font color="#A82F2F"><font size="2">(10:30:08 AM)</font> <b>Lethalman:</b></font> daaku, nix-env -f &apos;&lt;nixpkgs&gt;&apos; -iA go_1_4<br/>
+<font color="#A82F2F"><font size="2">(10:30:08 AM)</font> <b>mbuf:</b></font> Lethalman: okay; so after adding it to configuration.nix, I can nix-env remove and do a nixos-rebuild switch to make it available system wide?<br/>
+<font color="#A82F2F"><font size="2">(10:30:17 AM)</font> <b>Lethalman:</b></font> jesus I have to write about such stuff in my blog<br/>
+<font color="#A82F2F"><font size="2">(10:30:42 AM)</font> <b>Lethalman:</b></font> mbuf, yes<br/>
+<font color="#A82F2F"><font size="2">(10:30:48 AM)</font> <b>daaku:</b></font> Lethalman: sweet, thanks that helps<br/>
+<font color="#A82F2F"><font size="2">(10:32:29 AM)</font> <b>mbuf:</b></font> Lethalman: great! thanks!<br/>
+<font color="#A82F2F"><font size="2">(10:35:51 AM)</font> <b>mbuf:</b></font> which package provides pdflatex in nixos?<br/>
+<font color="#A82F2F"><font size="2">(10:36:12 AM)</font> <b>ikwildrpepper:</b></font> tetex or texLive I guess<br/>
+<font size="2">(10:36:18 AM)</font><b> daaku left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:37:14 AM)</font><b> dontdieych_ is now known as dontdieych</b><br/>
+<font color="#A82F2F"><font size="2">(10:44:29 AM)</font> <b>mbuf:</b></font> nix-env --uninstall haskellPackages.pandoc doesn&apos;t do anything (no output), am I missing something?<br/>
+<font color="#A82F2F"><font size="2">(10:48:56 AM)</font> <b>Lethalman:</b></font> mbuf, nix-env -u pandoc<br/>
+<font color="#A82F2F"><font size="2">(10:51:58 AM)</font> <b>mbuf:</b></font> Lethalman: that gives me &apos;error: selector &apos;pandoc&apos; matches no derivations<br/>
+<font color="#A82F2F"><font size="2">(10:52:10 AM)</font> <b>Lethalman:</b></font> mbuf, nix-env -q<br/>
+<font color="#A82F2F"><font size="2">(10:52:15 AM)</font> <b>Lethalman:</b></font> then nix-env -u the name of pandonc in there<br/>
+<font color="#A82F2F"><font size="2">(10:52:41 AM)</font> <b>mbuf:</b></font> Lethalman: it gives haskell-pandoc-ghc7.8.3-1.13.1-shared<br/>
+<font color="#A82F2F"><font size="2">(10:53:54 AM)</font> <b>mbuf:</b></font> Lethalman: nix-env -u haskell-pandoc-ghc7.8.3-1.13.1-shared doesn&apos;t return anything<br/>
+<font size="2">(11:03:59 AM)</font><b> roconnor left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:05:42 AM)</font> <b>Lethalman:</b></font> mbuf, sorry, it&apos;s -e for uninstalling :)<br/>
+<font color="#A82F2F"><font size="2">(11:07:06 AM)</font> <b>mbuf:</b></font> Lethalman: neat! thanks<br/>
+<font color="#A82F2F"><font size="2">(11:24:41 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/i-xeSQ<br/>
+<font color="#A82F2F"><font size="2">(11:24:41 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 30904c7 Peter Simons: hackage-packages.nix: re-generate from Hackage 2015-01-14T09:34:03+0100<br/>
+<font color="#A82F2F"><font size="2">(11:25:07 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/wfKI8g<br/>
+<font color="#A82F2F"><font size="2">(11:25:07 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1b50c50 Peter Simons: r-modules: enable packages that were broken by the missing gdal dependency<br/>
+<font color="#A82F2F"><font size="2">(11:25:52 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 2 new commits to master: http://git.io/8XWtwg<br/>
+<font color="#A82F2F"><font size="2">(11:25:52 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a92afcd Eric Seidel: ghc-7.8.4: fix build on Darwin...<br/>
+<font color="#A82F2F"><font size="2">(11:25:52 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a8076c7 Peter Simons: ghc: propagate &apos;gmp&apos; and &apos;ncurses&apos; to ensure users can link the &apos;haskeline&apos; library, etc....<br/>
+<font size="2">(11:26:12 AM)</font><b> Guest45037 is now known as ocharles_</b><br/>
+<font color="#A82F2F"><font size="2">(11:26:31 AM)</font> <b>ocharles_:</b></font> Has anyone had any luck using the haskellngPackages `env` stuff?<br/>
+<font color="#A82F2F"><font size="2">(11:26:45 AM)</font> <b>ocharles_:</b></font> `cabal2nix --shell &gt; shell.nix` then `nix-shell --pure` does put me in a shell, but no GHC or cabal is there<br/>
+<font color="#A82F2F"><font size="2">(11:27:18 AM)</font> <b>mbuf:</b></font> is there a way to find which software provides an executable or library (equivalent to yum whatprovides &quot;*bin/cabal&quot;, for example)?<br/>
+<font color="#A82F2F"><font size="2">(11:27:38 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti closed pull request #5746: fix haskell-ng on darwin (master...darwin-haskell-ng) http://git.io/8wPYoQ<br/>
+<font color="#A82F2F"><font size="2">(11:27:41 AM)</font> <b>goibhniu:</b></font> mbuf: `command-not-found cabal` should do it<br/>
+<font color="#A82F2F"><font size="2">(11:27:48 AM)</font> <b>ocharles_:</b></font> Oh, there is a GHC and all haskell libraries it seems<br/>
+<font color="#A82F2F"><font size="2">(11:27:51 AM)</font> <b>ocharles_:</b></font> just no cabal-install<br/>
+<font color="#A82F2F"><font size="2">(11:28:08 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vbgl closed pull request #5743: Atom: updated to 0.170.0 (master...atom_0.170.0) http://git.io/0mXZaw<br/>
+<font color="#A82F2F"><font size="2">(11:28:29 AM)</font> <b>MP2E:</b></font> same for me ocharles_, all haskell libraries are there and GHC, but no cabal-install.<br/>
+<font color="#A82F2F"><font size="2">(11:28:50 AM)</font> <b>ocharles_:</b></font> Ok, looks like peti is active on Github<br/>
+<font color="#A82F2F"><font size="2">(11:28:52 AM)</font> <b>ocharles_:</b></font> I&apos;ll open an issue<br/>
+<font size="2">(11:30:05 AM)</font><b> Havvy[Hex] is now known as Havvy</b><br/>
+<font color="#A82F2F"><font size="2">(11:32:12 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti closed pull request #5455: Fixed hspec2 (master...hspec2) http://git.io/CvvRLA<br/>
+<font color="#A82F2F"><font size="2">(11:32:37 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 2 new commits to master: http://git.io/Qwaq8A<br/>
+<font color="#A82F2F"><font size="2">(11:32:37 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 99c1916 Frederic LeBel: Atom: updated to 0.171.0<br/>
+<font color="#A82F2F"><font size="2">(11:32:37 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b9cb0ce Domen Kožar: Merge pull request #5756 from fredlebel/atom_0.171.0...<br/>
+<font color="#A82F2F"><font size="2">(11:40:54 AM)</font> <b>ocharles_:</b></font> MP2E: https://github.com/NixOS/nixpkgs/issues/5764 -- good discussion there<br/>
+<font color="#A82F2F"><font size="2">(11:41:29 AM)</font> <b>MP2E:</b></font> ooh great, thanks for posting :)<br/>
+<font color="#A82F2F"><font size="2">(11:41:33 AM)</font> <b>MP2E:</b></font> that makes sense.<br/>
+<font color="#A82F2F"><font size="2">(11:46:26 AM)</font> <b>ocharles_:</b></font> http://wiki.ocharles.org.uk/Nix#how-do-i-use-cabal2nix-for-local-projects updated<br/>
+<font color="#A82F2F"><font size="2">(11:46:34 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cillianderoiste pushed 2 new commits to master: http://git.io/OHNUTA<br/>
+<font color="#A82F2F"><font size="2">(11:46:34 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8257ed8 Tobias Geerinckx-Rice: Add lz4: very fast lossless compression<br/>
+<font color="#A82F2F"><font size="2">(11:46:34 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 6e66d3d cillianderoiste: Merge pull request #5752 from nckx/lz4...<br/>
+<font color="#A82F2F"><font size="2">(11:47:27 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/HFa2Qw<br/>
+<font color="#A82F2F"><font size="2">(11:47:27 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master d246fb6 Peter Simons: all-packages.nix: remove the haskellPackages_ghcHEAD package set from the top-level...<br/>
+<font color="#A82F2F"><font size="2">(11:59:32 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti closed pull request #4476: Generalize GHC to haskellCompiler in the Haskell infrastrucutre of Nix. (master...haskell_defaults_upstream) http://git.io/Ki5J1Q<br/>
+<font color="#A82F2F"><font size="2">(11:59:42 AM)</font> <b>nckx:</b></font> Thanks peti<br/>
+<font color="#A82F2F"><font size="2">(12:02:02 PM)</font> <b>nkar:</b></font> Heffalump: does the attribute show up when you search for it, say, with nox?<br/>
+<font color="#A82F2F"><font size="2">(12:05:40 PM)</font> <b>nckx:</b></font> Whoops: cillianderoiste.<br/>
+<font size="2">(12:05:44 PM)</font><b> nckx left the room (quit: Quit: nckx).</b><br/>
+<font size="2">(12:27:19 PM)</font><b> ok2``````` is now known as ok2</b><br/>
+<font color="#A82F2F"><font size="2">(12:34:00 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] abbradar closed pull request #5134: [WIP] Add an option to build externally Haskell libraries bundled with GHC (master...haskell-buildcore) http://git.io/I0ZG9A<br/>
+<font size="2">(12:58:45 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(01:02:35 PM)</font> <b>ewemoa:</b></font> __Sander__: i added &apos;yo&apos; to node-packages.json ran npm2nix and got the following error -- any ideas as to a possible resolution? https://pastee.org/6kk96 (seems to want npm 2.x but what comes with nodejs is 1.4.x i guess)<br/>
+<font color="#A82F2F"><font size="2">(01:02:40 PM)</font> <b>ewemoa:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(01:03:19 PM)</font> <b>goibhniu:</b></font> outch .. you&apos;re still battling with that :/<br/>
+<font color="#A82F2F"><font size="2">(01:05:33 PM)</font> <b>Lethalman:</b></font> this node stuff is annoying<br/>
+<font color="#A82F2F"><font size="2">(01:05:40 PM)</font> <b>Lethalman:</b></font> I got a regression with recent changes in nix<br/>
+<font color="#A82F2F"><font size="2">(01:05:52 PM)</font> <b>Lethalman:</b></font> https://github.com/NixOS/nixpkgs/issues/5751<br/>
+<font color="#A82F2F"><font size="2">(01:13:41 PM)</font> <b>ocharles_:</b></font> Can anyone figure out how to install https://github.com/NixOS/cabal2nix/blob/master/release.nix ?<br/>
+<font color="#A82F2F"><font size="2">(01:13:53 PM)</font> <b>ocharles_:</b></font> nix-env -f release.nix -iA \* # seems to do absolutely nothing<br/>
+<font color="#A82F2F"><font size="2">(01:13:58 PM)</font> <b>ocharles_:</b></font> (just terminates with 0)<br/>
+<font color="#A82F2F"><font size="2">(01:14:07 PM)</font> <b>ocharles_:</b></font> same with -iA cabal2nix<br/>
+<font color="#A82F2F"><font size="2">(01:14:16 PM)</font> <b>ikwildrpepper:</b></font> ocharles_: do you have nix-repl installed?<br/>
+<font color="#A82F2F"><font size="2">(01:14:23 PM)</font> <b>ocharles_:</b></font> ah, no<br/>
+<font color="#A82F2F"><font size="2">(01:14:28 PM)</font> <b>ocharles_:</b></font> but that could be handy :)<br/>
+<font color="#A82F2F"><font size="2">(01:14:30 PM)</font> <b>ikwildrpepper:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(01:14:35 PM)</font> <b>ikwildrpepper:</b></font> then you can run<br/>
+<font color="#A82F2F"><font size="2">(01:14:45 PM)</font> <b>madjar:</b></font> Hello there<br/>
+<font color="#A82F2F"><font size="2">(01:15:02 PM)</font> <b>madjar:</b></font> Looks like unstable tests fails because the gusb project moved<br/>
+<font color="#A82F2F"><font size="2">(01:15:09 PM)</font> <b>ikwildrpepper:</b></font> something like: att = import ./release.nix {}<br/>
+<font color="#A82F2F"><font size="2">(01:15:24 PM)</font> <b>ikwildrpepper:</b></font> and then use tab completion to look at the attributes of att<br/>
+<font color="#A82F2F"><font size="2">(01:15:31 PM)</font> <b>ocharles_:</b></font> yea<br/>
+<font color="#A82F2F"><font size="2">(01:16:11 PM)</font> <b>ikwildrpepper:</b></font> cabal2nix.ghc784.x86_64-linux<br/>
+<font color="#A82F2F"><font size="2">(01:16:23 PM)</font> <b>ikwildrpepper:</b></font> ocharles_: even easier: nix-repl release.nix<br/>
+<font color="#A82F2F"><font size="2">(01:17:01 PM)</font> <b>ikwildrpepper:</b></font> then :p cabal2nix<br/>
+<font color="#A82F2F"><font size="2">(01:17:02 PM)</font> <b>ocharles_:</b></font> yep - thanks!<br/>
+<font color="#A82F2F"><font size="2">(01:17:13 PM)</font> <b>ocharles_:</b></font> though it fails to evaluate, but I can figure the rest out<br/>
+<font color="#A82F2F"><font size="2">(01:17:24 PM)</font> <b>ikwildrpepper:</b></font> nix-repl ftw<br/>
+<font color="#A82F2F"><font size="2">(01:18:53 PM)</font> <b>ocharles_:</b></font> repls ftw<br/>
+<font color="#A82F2F"><font size="2">(01:19:16 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] KoviRobi opened pull request #5766: Added vips image processing system and GUI (master...vips) http://git.io/32qe8A<br/>
+<font color="#A82F2F"><font size="2">(01:19:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] rbvermaa closed pull request #5515: GCE updates to ntp server and to fetch all ssh keys (master...master) http://git.io/0ITU9w<br/>
+<font color="#A82F2F"><font size="2">(01:19:57 PM)</font> <b>ocharles_:</b></font> yay, installed<br/>
+<font color="#A82F2F"><font size="2">(01:20:18 PM)</font> <b>Digit:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(01:21:04 PM)</font> <b>madjar:</b></font> well, it looks like the gusb project vanished from the surface of earth<br/>
+<font color="#A82F2F"><font size="2">(01:24:32 PM)</font> <b>dweller:</b></font> madjar: i think its called libgusb now<br/>
+<font color="#A82F2F"><font size="2">(01:24:45 PM)</font> <b>dweller:</b></font> http://people.freedesktop.org/~hughsient/releases/<br/>
+<font size="2">(01:29:58 PM)</font><b> Matrixiumn is now known as Xack</b><br/>
+<font color="#A82F2F"><font size="2">(01:30:23 PM)</font> <b>madjar:</b></font> dweller: silly me, I was on that page earlier<br/>
+<font color="#A82F2F"><font size="2">(01:30:39 PM)</font> <b>madjar:</b></font> dweller: thanks a lot, I&apos;ll fix it immediatly<br/>
+<font color="#A82F2F"><font size="2">(01:32:23 PM)</font> <b>the-kenny:</b></font> MichaelRaskin: _1126 is scared to say out loud that you broke the module system of StumpWM with the update :(<br/>
+<font color="#A82F2F"><font size="2">(01:33:01 PM)</font> <b>MichaelRaskin:</b></font> Pity...<br/>
+<font color="#A82F2F"><font size="2">(01:33:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ocharles pushed 1 new commit to master: http://git.io/B5CrmQ<br/>
+<font color="#A82F2F"><font size="2">(01:33:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 06cfa23 Oliver Charles: hackage-packages.nix: re-generate from Hackage 2015-01-14T12:32:30+00:00<br/>
+<font color="#A82F2F"><font size="2">(01:33:17 PM)</font> <b>the-kenny:</b></font> heh :) Well, I can try to fix it if you don&apos;t have the time to do it<br/>
+<font color="#A82F2F"><font size="2">(01:33:25 PM)</font> <b>the-kenny:</b></font> Just wanted to let you know<br/>
+<font color="#A82F2F"><font size="2">(01:33:26 PM)</font> <b>MichaelRaskin:</b></font> Hm, is it enough to pass sbcl_1_2_5 override in one more place?<br/>
+<font color="#A82F2F"><font size="2">(01:35:13 PM)</font> <b>MichaelRaskin:</b></font> I think I am using a git-head build and it seems to load at least my window tagging modules; but I may miss some finer details of stumpwContrib split in NixPkgs<br/>
+<font color="#A82F2F"><font size="2">(01:40:11 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] madjar pushed 1 new commit to master: http://git.io/xWK9xg<br/>
+<font color="#A82F2F"><font size="2">(01:40:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 0ca664e Georges Dubus: gusb: fixed build, updated to 0.2.4<br/>
+<font color="#A82F2F"><font size="2">(01:40:26 PM)</font> <b>madjar:</b></font> yay! I fixed the tests! (maybe)<br/>
+<font color="#A82F2F"><font size="2">(01:43:50 PM)</font> <b>MichaelRaskin:</b></font> Not right now...<br/>
+<font color="#A82F2F"><font size="2">(01:49:43 PM)</font> <b>alpounet:</b></font> ocharles_: does hackage-packages.nix get us all of hackage (latest version of each pkg) or is there some kind of filter in place?<br/>
+<font size="2">(02:02:22 PM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#A82F2F"><font size="2">(02:12:03 PM)</font> <b>ocharles_:</b></font> alpounet: all, I believe<br/>
+<font color="#A82F2F"><font size="2">(02:12:16 PM)</font> <b>ocharles_:</b></font> sans base and a few other builtins<br/>
+<font color="#A82F2F"><font size="2">(02:12:26 PM)</font> <b>alpounet:</b></font> nice<br/>
+<font color="#A82F2F"><font size="2">(02:12:35 PM)</font> <b>alpounet:</b></font> no more &quot;dummy&quot; cabal2nix PRs<br/>
+<font color="#A82F2F"><font size="2">(02:13:16 PM)</font> <b>iElectric:</b></font> pypy also needs fixing<br/>
+<font color="#A82F2F"><font size="2">(02:16:19 PM)</font> <b>madjar:</b></font> iElectric: why is pypy failing ?<br/>
+<font color="#A82F2F"><font size="2">(02:16:40 PM)</font> <b>iElectric:</b></font> gcc bump, I think<br/>
+<font color="#A82F2F"><font size="2">(02:17:19 PM)</font> <b>idioterna:</b></font> have you seen the git vuln?<br/>
+<font color="#A82F2F"><font size="2">(02:17:23 PM)</font> <b>iElectric:</b></font> http://hydra.nixos.org/build/18714019/nixlog/1/tail-reload<br/>
+<font color="#A82F2F"><font size="2">(02:17:32 PM)</font> <b>madjar:</b></font> mouarf<br/>
+<font color="#A82F2F"><font size="2">(02:17:45 PM)</font> <b>madjar:</b></font> is there a pypy version bump that would solve this ?<br/>
+<font color="#A82F2F"><font size="2">(02:18:06 PM)</font> <b>iElectric:</b></font> nah, a patch<br/>
+<font color="#A82F2F"><font size="2">(02:18:20 PM)</font> <b>iElectric:</b></font> see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=771137<br/>
+<font color="#A82F2F"><font size="2">(02:18:28 PM)</font> <b>madjar:</b></font> apparently not<br/>
+<font color="#A82F2F"><font size="2">(02:19:05 PM)</font> <b>madjar:</b></font> iElectric: so, patch or or pin gcc?<br/>
+<font color="#A82F2F"><font size="2">(02:19:50 PM)</font> <b>iElectric:</b></font> I&apos;d prefer a patch, it&apos;s a few lines<br/>
+<font color="#A82F2F"><font size="2">(02:20:06 PM)</font> <b>ikwildrpepper:</b></font> old gcc is only 1 line  :)<br/>
+<font color="#A82F2F"><font size="2">(02:20:20 PM)</font> <b>ikwildrpepper:</b></font> but I don&apos;t really have a preference<br/>
+<font color="#A82F2F"><font size="2">(02:20:31 PM)</font> <b>ikwildrpepper:</b></font> as long as I don&apos;t have to look at the pypy fractals again<br/>
+<font color="#A82F2F"><font size="2">(02:20:37 PM)</font> <b>madjar:</b></font> I&apos;ll try the patch<br/>
+<font color="#A82F2F"><font size="2">(02:20:57 PM)</font> <b>madjar:</b></font> I&apos;m on a big desktop computer, so I can test locally<br/>
+<font color="#A82F2F"><font size="2">(02:21:11 PM)</font> <b>madjar:</b></font> hopefully, it should only take half the afternoon :)<br/>
+<font color="#A82F2F"><font size="2">(02:24:10 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 4 new commits to master: http://git.io/Bx4qXA<br/>
+<font color="#A82F2F"><font size="2">(02:24:10 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8fb18cf Pascal Wittmann: llpp: update to stable version 21<br/>
+<font color="#A82F2F"><font size="2">(02:24:10 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 82e07fb Pascal Wittmann: geeqie: update from 1.1 to 1.2...<br/>
+<font color="#A82F2F"><font size="2">(02:24:10 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8d322e0 Pascal Wittmann: checkstyle: update from 6.1.1 to 6.2<br/>
+<font color="#A82F2F"><font size="2">(02:28:20 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub closed pull request #5742: add kpcli: KeePass Command Line Interface (master...kpcli) http://git.io/VluKxw<br/>
+<font color="#A82F2F"><font size="2">(02:30:03 PM)</font> <b>iElectric:</b></font> madjar: :D<br/>
+<font color="#A82F2F"><font size="2">(02:30:04 PM)</font> <b>iElectric:</b></font> tnx<br/>
+<font color="#A82F2F"><font size="2">(02:35:36 PM)</font> <b>ragge_:</b></font> nix newbie question: how can I control which JDK gets used by a package that depends on jdk?<br/>
+<font color="#A82F2F"><font size="2">(02:35:52 PM)</font> <b>ragge_:</b></font> I&apos;m specifically looking at https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/tools/build-managers/leiningen/default.nix<br/>
+<font color="#A82F2F"><font size="2">(02:36:25 PM)</font> <b>zmbmartin:</b></font> ttuegel: or anyone else. If I want to use a rendering for fonts I have this in my configuration.nix `font.fontconfig.ultimate.rendering = pkgs.fontconfig-ultimate.rendering.ubuntu;` but what if I want to use ubuntu but change a setting or two?<br/>
+<font color="#A82F2F"><font size="2">(02:36:48 PM)</font> <b>nkar:</b></font> how do I use sudo inside a pure nix-shell properly (I specified it in the buildInputs)?  I get: sudo must be owned by uid 0 and have the setuid bit set<br/>
+<font color="#A82F2F"><font size="2">(02:37:10 PM)</font> <b>Lethalman:</b></font> nkar, are you on nixos?<br/>
+<font color="#A82F2F"><font size="2">(02:37:36 PM)</font> <b>zmbmartin:</b></font> nevermind I think I know.<br/>
+<font color="#A82F2F"><font size="2">(02:37:37 PM)</font> <b>ragge_:</b></font> if I just install leiningen, I get openjdk 1.7.0, but let&apos;s say I want to run it using oraclejdk 1.8<br/>
+<font color="#A82F2F"><font size="2">(02:37:56 PM)</font> <b>Lethalman:</b></font> ragge_, pass another jdk<br/>
+<font color="#A82F2F"><font size="2">(02:38:15 PM)</font> <b>Lethalman:</b></font> you have a number of ways<br/>
+<font color="#A82F2F"><font size="2">(02:38:34 PM)</font> <b>ragge_:</b></font> Lethalman: thanks, do you have any examples you can point me at?<br/>
+<font color="#A82F2F"><font size="2">(02:38:37 PM)</font> <b>Lethalman:</b></font> nkar, on nixos you could for example export PATH=/var/setuid-wrappers/:$PATH in your nix-shell, I think it should work<br/>
+<font color="#A82F2F"><font size="2">(02:38:47 PM)</font> <b>Lethalman:</b></font> ragge_, did you install it with nix-env?<br/>
+<font color="#A82F2F"><font size="2">(02:39:07 PM)</font> <b>ragge_:</b></font> Lethalman: yes<br/>
+<font color="#A82F2F"><font size="2">(02:39:56 PM)</font> <b>Lethalman:</b></font> ragge_, well isn&apos;t the default already jdk 8?<br/>
+<font color="#A82F2F"><font size="2">(02:40:08 PM)</font> <b>Lethalman:</b></font> oh it&apos;s 7<br/>
+<font color="#A82F2F"><font size="2">(02:40:13 PM)</font> <b>nkar:</b></font> Lethalman: I need to do it in nixos and only nix<br/>
+<font color="#A82F2F"><font size="2">(02:40:23 PM)</font> <b>ragge_:</b></font> Lethalman: in the end, I&apos;d like to construct an environment for a particular project though, as described in https://nixos.org/wiki/Howto_develop_software_on_nixos<br/>
+<font color="#A82F2F"><font size="2">(02:40:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ocharles pushed 1 new commit to master: http://git.io/5x2Yug<br/>
+<font color="#A82F2F"><font size="2">(02:40:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9c71a83 Oliver Charles: haskellng.th-desugar: Don&apos;t run the tests...<br/>
+<font color="#A82F2F"><font size="2">(02:40:34 PM)</font> <b>ragge_:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(02:40:46 PM)</font> <b>Lethalman:</b></font> ragge_, I only see openjdk7 on nix<br/>
+<font color="#A82F2F"><font size="2">(02:40:54 PM)</font> <b>Lethalman:</b></font> but you could use oraclejdk8 I think<br/>
+<font color="#A82F2F"><font size="2">(02:40:55 PM)</font> <b>ragge_:</b></font> needs allowUnfree = true<br/>
+<font color="#A82F2F"><font size="2">(02:41:03 PM)</font> <b>ragge_:</b></font> unfortunately<br/>
+<font color="#A82F2F"><font size="2">(02:41:15 PM)</font> <b>ragge_:</b></font> i&apos;ve installed oraclejdk8 separately<br/>
+<font color="#A82F2F"><font size="2">(02:41:30 PM)</font> <b>ragge_:</b></font> so running `java -version` gives my oracle 1.8<br/>
+<font color="#A82F2F"><font size="2">(02:41:31 PM)</font> <b>Lethalman:</b></font> ragge_, well, then allow unfree, no?<br/>
+<font color="#A82F2F"><font size="2">(02:41:44 PM)</font> <b>ragge_:</b></font> but `lein version` uses 1.7<br/>
+<font color="#A82F2F"><font size="2">(02:41:53 PM)</font> <b>Lethalman:</b></font> well pass that oraclejdk8 to lein<br/>
+<font color="#A82F2F"><font size="2">(02:41:54 PM)</font> <b>ragge_:</b></font> I&apos;ve done that<br/>
+<font color="#A82F2F"><font size="2">(02:42:07 PM)</font> <b>ragge_:</b></font> how do I do that? :)<br/>
+<font color="#A82F2F"><font size="2">(02:42:08 PM)</font> <b>Lethalman:</b></font> ragge_, ah you have installed oraclejdk8 with nix already?<br/>
+<font color="#A82F2F"><font size="2">(02:42:11 PM)</font> <b>ragge_:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(02:42:14 PM)</font> <b>Lethalman:</b></font> ah ok fine<br/>
+<font color="#A82F2F"><font size="2">(02:42:17 PM)</font> <b>Lethalman:</b></font> then you could try something<br/>
+<font color="#A82F2F"><font size="2">(02:42:43 PM)</font> <b>ragge_:</b></font> i&apos;d just like to control which java version is used by leiningen, if that makes sense<br/>
+<font size="2">(02:42:50 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(02:43:12 PM)</font> <b>Lethalman:</b></font> ragge_, sure<br/>
+<font color="#A82F2F"><font size="2">(02:43:53 PM)</font> <b>ragge_:</b></font> struggling a bit with syntax<br/>
+<font color="#A82F2F"><font size="2">(02:44:13 PM)</font> <b>Lethalman:</b></font> ragge_, np normal at the beginning<br/>
+<font color="#A82F2F"><font size="2">(02:44:15 PM)</font> <b>Lethalman:</b></font> hold on<br/>
+<font color="#A82F2F"><font size="2">(02:44:17 PM)</font> <b>henrytill:</b></font> ragge_: try in environment.systemPackages (pkgs.leiningen.override { jdk = oraclejdk8; })<br/>
+<font color="#A82F2F"><font size="2">(02:44:28 PM)</font> <b>Lethalman:</b></font> henrytill, that&apos;s with configuration.nix though<br/>
+<font color="#A82F2F"><font size="2">(02:45:18 PM)</font> <b>ragge_:</b></font> thanks henrytill, that&apos;s the kind of example I was looking for<br/>
+<font color="#A82F2F"><font size="2">(02:45:49 PM)</font> <b>Lethalman:</b></font> ragge_, nix-build -E &apos;with import &lt;nixpkgs&gt; {}; leiningen.override { jdk = oraclejdk8; }&apos;<br/>
+<font color="#A82F2F"><font size="2">(02:45:55 PM)</font> <b>Lethalman:</b></font> this will create a result symlink<br/>
+<font color="#A82F2F"><font size="2">(02:46:03 PM)</font> <b>ragge_:</b></font> great, thanks<br/>
+<font color="#A82F2F"><font size="2">(02:46:10 PM)</font> <b>ragge_:</b></font> now I just want to try and turn it into a separate dev environment a la that wiki page<br/>
+<font color="#A82F2F"><font size="2">(02:46:20 PM)</font> <b>ragge_:</b></font> but that was very helpful, thanks<br/>
+<font size="2">(02:46:35 PM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#A82F2F"><font size="2">(02:46:44 PM)</font> <b>Lethalman:</b></font> then you can nix-env -i ./result if you wish<br/>
+<font color="#062585"><font size="2">(02:46:57 PM)</font> <b>***Lethalman</b></font> couldn&apos;t find a way to nix-env -E directly, nix-env seems to expect something different<br/>
+<font color="#A82F2F"><font size="2">(02:46:58 PM)</font> <b>henrytill:</b></font> ragge_: or put it in a buildEnv or myEnvFun<br/>
+<font color="#A82F2F"><font size="2">(02:47:31 PM)</font> <b>ragge_:</b></font> henrytill: any pointers to that (other than the wiki page I already mentioned)?<br/>
+<font color="#A82F2F"><font size="2">(02:47:50 PM)</font> <b>henrytill:</b></font> ragge_: yep, one sec...<br/>
+<font color="#A82F2F"><font size="2">(02:48:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ocharles pushed 1 new commit to master: http://git.io/qyS0mw<br/>
+<font color="#A82F2F"><font size="2">(02:48:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3dbb43e Oliver Charles: haskell-ng.snaplet-redis: Jailbreak...<br/>
+<font color="#A82F2F"><font size="2">(02:50:41 PM)</font> <b>henrytill:</b></font> ragge_: the example here is a little wonky and for a slightly different use case, but it shows you how to make a buildEnv<br/>
+<font color="#A82F2F"><font size="2">(02:50:44 PM)</font> <b>henrytill:</b></font> https://nixos.org/wiki/Howto_keep_multiple_packages_up_to_date_at_once<br/>
+<font color="#A82F2F"><font size="2">(02:50:56 PM)</font> <b>henrytill:</b></font> ragge_: under &quot;the collection way&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:51:43 PM)</font> <b>henrytill:</b></font> ragge_: imho, there&apos;s no need for the underscore in &quot;pkgs_&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:52:28 PM)</font> <b>henrytill:</b></font> ragge_: and you can use any name you&apos;d like instead of &quot;all&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:52:46 PM)</font> <b>henrytill:</b></font> ragge_: and then you just do nix-env -i &lt;name&gt;<br/>
+<font color="#A82F2F"><font size="2">(02:54:14 PM)</font> <b>henrytill:</b></font> ragge_: myEnvFun is explained in the link you provided above<br/>
+<font color="#A82F2F"><font size="2">(02:54:50 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ocharles pushed 2 new commits to master: http://git.io/hx54tw<br/>
+<font color="#A82F2F"><font size="2">(02:54:50 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master dd0bde0 Oliver Charles: haskell-ng.stripe: Jailbreak...<br/>
+<font color="#A82F2F"><font size="2">(02:54:50 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 0059182 Oliver Charles: snaplet-stripe: Jailbreak...<br/>
+<font color="#A82F2F"><font size="2">(02:54:50 PM)</font> <b>henrytill:</b></font> ragge_: note that if you use something like cider w/emacs, you&apos;ll need to launch emacs from within myEnvFun, so that has the proper env<br/>
+<font color="#A82F2F"><font size="2">(02:55:01 PM)</font> <b>nkar:</b></font> Lethalman: so, any idea on how to do it with Nix running on top of a non-NixOS distro?<br/>
+<font color="#A82F2F"><font size="2">(02:55:31 PM)</font> <b>Lethalman:</b></font> nkar, prepend /usr/bin:/usr/sbin<br/>
+<font color="#A82F2F"><font size="2">(02:55:52 PM)</font> <b>henrytill:</b></font> ragge_: whereas buildEnv just installs within your normal user profile, so launching a repl from within your editor will work as expected<br/>
+<font color="#A82F2F"><font size="2">(02:57:14 PM)</font> <b>ragge_:</b></font> henrytill: thanks for all that info, really appreciated<br/>
+<font color="#A82F2F"><font size="2">(02:57:21 PM)</font> <b>henrytill:</b></font> ragge_: np, good luck<br/>
+<font color="#A82F2F"><font size="2">(02:57:51 PM)</font> <b>ragge_:</b></font> i could probably live with starting the repl in the shell<br/>
+<font size="2">(03:17:23 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,107 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #non at Wed 28 Aug 2013 02:33:51 AM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #non at Wed 28 Aug 2013 02:33:51 AM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font color="#16569E"><font size="2">(02:34:06 AM)</font> <b>magnetophon:</b></font> I got disconnected. I'll repeat:<br/>
+<font color="#16569E"><font size="2">(02:34:09 AM)</font> <b>magnetophon:</b></font> (02:27:11 AM) male: magnetophon: When you have sends and stuff it's useless.<br/>
+<font color="#16569E"><font size="2">(02:34:09 AM)</font> <b>magnetophon:</b></font> (02:27:21 AM) magnetophon: exactly<br/>
+<font color="#16569E"><font size="2">(02:34:09 AM)</font> <b>magnetophon:</b></font> (02:28:34 AM) magnetophon: and the reason I sugest measuring instead of trusting reports is that you can then use external equipment, or weird puredata or supercollider  thingies, and it still works. and there are of course plugs incorrectly reporting.<br/>
+<font color="#16569E"><font size="2">(02:34:09 AM)</font> <b>magnetophon:</b></font> (02:32:52 AM) magnetophon: so in my vision, you'd have to measure from each source to each mixing point (any place where 2 or more sources get combined) to see if that source gets there, and when. <br/>
+<font color="#16569E"><font size="2">(02:34:09 AM)</font> <b>magnetophon:</b></font> (02:33:06 AM) The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.<br/>
+<font color="#A82F2F"><font size="2">(02:34:52 AM)</font> <b>male:</b></font> 17:35 &lt;male&gt; magnetophon: You may have to measure a lot<br/>
+<font color="#A82F2F"><font size="2">(02:34:53 AM)</font> <b>male:</b></font>              though. Latency can change based on settings.<br/>
+<font color="#A82F2F"><font size="2">(02:34:53 AM)</font> <b>male:</b></font> 17:35 &lt;male&gt; magnetophon: It&apos;s quite an endeavor.<br/>
+<font color="#A82F2F"><font size="2">(02:34:53 AM)</font> <b>male:</b></font> 17:36 &lt;male&gt; magnetophon: Any usually it doesn&apos;t matter at all.<br/>
+<font color="#A82F2F"><font size="2">(02:34:53 AM)</font> <b>male:</b></font> 17:36 &lt;male&gt; magnetophon: In the cases where it does matter, you<br/>
+<font color="#A82F2F"><font size="2">(02:34:53 AM)</font> <b>male:</b></font>              can always use jack_iodelay to measure the latency and<br/>
+<font color="#A82F2F"><font size="2">(02:34:53 AM)</font> <b>male:</b></font>              compensate manually with a delay plugin on the thing<br/>
+<font color="#A82F2F"><font size="2">(02:34:54 AM)</font> <b>male:</b></font>              that it needs to sync with.<br/>
+<font color="#A82F2F"><font size="2">(02:34:54 AM)</font> <b>male:</b></font> 17:37 &lt;male&gt; magnetophon: Too bad there are no delay plugins that<br/>
+<font color="#A82F2F"><font size="2">(02:34:55 AM)</font> <b>male:</b></font>              take values in frames.<br/>
+<font color="#A82F2F"><font size="2">(02:34:55 AM)</font> <b>male:</b></font> 17:38 &lt;male&gt; magnetophon: But yeah, the reported values aren&apos;t that<br/>
+<font color="#A82F2F"><font size="2">(02:34:56 AM)</font> <b>male:</b></font>              good. Plugins usually report zero latency or something<br/>
+<font color="#A82F2F"><font size="2">(02:34:56 AM)</font> <b>male:</b></font>              just within 50 frames or so of the actual value.<br/>
+<font color="#16569E"><font size="2">(02:37:33 AM)</font> <b>magnetophon:</b></font> well often it will not matter at all, as you say. But still, I often have a lookahead limiter on a bus, and I never want to engage my other brain half while mixing<br/>
+<font color="#A82F2F"><font size="2">(02:38:25 AM)</font> <b>male:</b></font> magnetophon: I think I&apos;ll be able to do something about that. It won&apos;t be perfect, but one can always file bug reports about plugins that lie about their latency.<br/>
+<font color="#16569E"><font size="2">(02:38:48 AM)</font> <b>magnetophon:</b></font> about what?<br/>
+<font color="#A82F2F"><font size="2">(02:38:58 AM)</font> <b>male:</b></font> magnetophon: The case you described.<br/>
+<font color="#A82F2F"><font size="2">(02:39:24 AM)</font> <b>male:</b></font> magnetophon: Something like a lookahead limiter will have a fixed latency value that&apos;s probably accurate.<br/>
+<font color="#A82F2F"><font size="2">(02:39:35 AM)</font> <b>male:</b></font> magnetophon: Because it&apos;s always 128 frame or whatnot.<br/>
+<font color="#16569E"><font size="2">(02:40:24 AM)</font> <b>magnetophon:</b></font> so you want to algorithmically figure out the delay you need to insert at each point, based on the reported latencys?<br/>
+<font color="#A82F2F"><font size="2">(02:40:43 AM)</font> <b>male:</b></font> magnetophon: That&apos;s the plan yes.<br/>
+<font color="#16569E"><font size="2">(02:41:55 AM)</font> <b>magnetophon:</b></font> I asked a freind of mine (with his name in the kernell) how he would aproach this problem, and he came up with the measuring idea. I have no idea how else this algorithm should work.<br/>
+<font color="#16569E"><font size="2">(02:42:31 AM)</font> <b>magnetophon:</b></font> obviously you know way more about algorithms than i do...<br/>
+<font color="#16569E"><font size="2">(02:43:36 AM)</font> <b>magnetophon:</b></font> and mentioning he has his name in the kernell is of course an argument from authority, which is invalid... <br/>
+<font color="#16569E"><font size="2">(02:44:44 AM)</font> <b>magnetophon:</b></font> what I'm trying to say is: have you thought of a way to calculate where in the signal path which delay-value is supposed to be?<br/>
+<font color="#A82F2F"><font size="2">(02:45:35 AM)</font> <b>male:</b></font> magnetophon: With plugins it&apos;s not crazy to think about automatically verifying the reported latency, but for a JACK graph it&apos;s harder. It&apos;s harder to run a JACK client in an offline mode like you can with a plugin.<br/>
+<font color="#A82F2F"><font size="2">(02:46:03 AM)</font> <b>male:</b></font> magnetophon: I haven&apos;t gotten to that part yet.<br/>
+<font color="#A82F2F"><font size="2">(02:46:52 AM)</font> <b>male:</b></font> magnetophon: The measuring is fine. For ladspa plugins one could assume that if *no latency* is reported, then the plugin&apos;s latency is intentional.<br/>
+<font color="#16569E"><font size="2">(02:47:21 AM)</font> <b>magnetophon:</b></font> but even forgetting any missing or invalid reports: I think it is quite hard to come up with an algorithm to calculate the delays, because of the anything to anything routing.<br/>
+<font color="#A82F2F"><font size="2">(02:47:21 AM)</font> <b>male:</b></font> magnetophon: And if latency is reported, then it&apos;s wrong.<br/>
+<font color="#16569E"><font size="2">(02:50:53 AM)</font> <b>magnetophon:</b></font> long ago I worked 2 years as a junior programmer, and for the last 5 years I occasionally try to think of an algorithm to determine delay locations and values. It gives me a headache every time I try. <br/>
+<font color="#A82F2F"><font size="2">(02:53:01 AM)</font> <b>male:</b></font> magnetophon: Yes it&apos;s hard. But even though you can route anything to anything, creating feedback loops is not particularly useful or normally done.<br/>
+<font color="#A82F2F"><font size="2">(02:53:01 AM)</font> <b>male:</b></font> magnetophon: In fact, I believe that JACK should  disallow feedback connections.<br/>
+<font color="#A82F2F"><font size="2">(02:53:01 AM)</font> <b>male:</b></font> magnetophon: It handles them poorly anyway.<br/>
+<font color="#A82F2F"><font size="2">(02:53:01 AM)</font> <b>male:</b></font> magnetophon: If you want feedback, use a plugin with z-1 rather than z-nframes.<br/>
+<font color="#A82F2F"><font size="2">(02:53:01 AM)</font> <b>male:</b></font> magnetophon: But of course Ardour couldn&apos;t connect to external JACK clients without feedback connections.<br/>
+<font color="#A82F2F"><font size="2">(02:53:01 AM)</font> <b>male:</b></font> magnetophon: Which is why JACK supports them.<br/>
+<font color="#A82F2F"><font size="2">(02:53:01 AM)</font> <b>male:</b></font> magnetophon: When you take such connections out of the picture, figuring out the delays is more doable.<br/>
+<font color="#A82F2F"><font size="2">(02:53:02 AM)</font> <b>male:</b></font> magnetophon: Anyway, I&apos;ll definitely have to put more thought into the issue before I can do anything about it.<br/>
+<font color="#16569E"><font size="2">(02:55:59 AM)</font> <b>magnetophon:</b></font> I think feedback loops make latency compensation impossible for that part of the graph, but even without that, have you got an idea how to calculate the delays in a big mix with lots of busses, sends and inserts?<br/>
+<font color="#A82F2F"><font size="2">(02:56:45 AM)</font> <b>male:</b></font> magnetophon: I&apos;ve got an idea yes.<br/>
+<font color="#16569E"><font size="2">(02:57:06 AM)</font> <b>magnetophon:</b></font> cool! I'm curious now!<br/>
+<font color="#16569E"><font size="2">(02:57:23 AM)</font> <b>magnetophon:</b></font> I guess it's not easy to explain, right?<br/>
+<font color="#A82F2F"><font size="2">(02:57:50 AM)</font> <b>male:</b></font> magnetophon: If I could explain it, then I&apos;d have an implemenation rather than an idea ;-)<br/>
+<font color="#16569E"><font size="2">(02:59:13 AM)</font> <b>magnetophon:</b></font> as a side point: feedback loops are great for creating interesting delays. stuff like in tempo delays with a tape sim in the feedback loop. I use it a lot!<br/>
+<font color="#16569E"><font size="2">(02:59:32 AM)</font> <b>magnetophon:</b></font> don't tell paul to forbid it ;)<br/>
+<font color="#A82F2F"><font size="2">(03:00:34 AM)</font> <b>male:</b></font> magnetophon: A big part of the problem is that the ideal place to insert the delays would be *inside* the signal path, not at the nodes. But JACK would have to do it then.<br/>
+<font color="#A82F2F"><font size="2">(03:01:15 AM)</font> <b>male:</b></font> magnetophon: Without JACK doing it, there will indeed be some signal paths that break the compensation.<br/>
+<font color="#16569E"><font size="2">(03:01:17 AM)</font> <b>magnetophon:</b></font> what do you mean by inside, and what by node?<br/>
+<font color="#A82F2F"><font size="2">(03:01:27 AM)</font> <b>male:</b></font> magnetophon: Node is a point of connection.<br/>
+<font color="#A82F2F"><font size="2">(03:01:48 AM)</font> <b>male:</b></font> magnetophon: Say you have a client with one output which is connected to two other clients&apos; inputs.<br/>
+<font color="#A82F2F"><font size="2">(03:02:07 AM)</font> <b>male:</b></font> magnetophon: There is one node at the output port, but there are two signal vectors.<br/>
+<font color="#A82F2F"><font size="2">(03:02:31 AM)</font> <b>male:</b></font> magnetophon: So, you can&apos;t delay at the output, you have to put the compensation at the other clients&apos; inputs.<br/>
+<font color="#A82F2F"><font size="2">(03:02:41 AM)</font> <b>male:</b></font> magnetophon: But, say those inputs also have OTHER ports connected to them.<br/>
+<font color="#A82F2F"><font size="2">(03:03:05 AM)</font> <b>male:</b></font> magnetophon: Well, fuck, you can&apos;t delay it there either.<br/>
+<font color="#A82F2F"><font size="2">(03:03:14 AM)</font> <b>male:</b></font> fundamental: If the delays are in the signals and note the endpoints, it&apos;s doable.<br/>
+<font color="#A82F2F"><font size="2">(03:03:21 AM)</font> <b>male:</b></font> s/note/not/<br/>
+<font color="#A82F2F"><font size="2">(03:03:50 AM)</font> <b>male:</b></font> magnetophon: ^^<br/>
+<font color="#A82F2F"><font size="2">(03:04:12 AM)</font> <b>male:</b></font> magnetophon: See, when two outputs connect to one input, JACK does the mixing, and the client can&apos;t undo that.<br/>
+<font color="#A82F2F"><font size="2">(03:04:52 AM)</font> <b>male:</b></font> magnetophon: So that means that JACK is the only place where the delay can happen in order to support such graphs.<br/>
+<font color="#A82F2F"><font size="2">(03:05:04 AM)</font> <b>fundamental:</b></font> male: doesn&apos;t the jack server have a mostly unused plugin feature?<br/>
+<font color="#16569E"><font size="2">(03:05:12 AM)</font> <b>magnetophon:</b></font> right.<br/>
+<font color="#A82F2F"><font size="2">(03:05:13 AM)</font> <b>male:</b></font> magnetophon: (unless JACK had some feature to disable mixing and give the recieving client access to all the ports connected to its inputs)<br/>
+<font color="#A82F2F"><font size="2">(03:05:31 AM)</font> <b>male:</b></font> fundamental: You mean internal clients?<br/>
+<font color="#16569E"><font size="2">(03:06:03 AM)</font> <b>magnetophon:</b></font> fundamental: hi, didn't realize there where three of us listening :)<br/>
+<font color="#A82F2F"><font size="2">(03:06:13 AM)</font> <b>fundamental:</b></font> male: I&apos;m not sure, I heard in passing about it<br/>
+<font color="#A82F2F"><font size="2">(03:06:31 AM)</font> <b>fundamental:</b></font> magnetophon: I do like to lurk<br/>
+<font color="#A82F2F"><font size="2">(03:06:44 AM)</font> <b>male:</b></font> fundamental: There are device backends and internal clients. Internal clients are just like external clients but they run in the JACK process.<br/>
+<font color="#A82F2F"><font size="2">(03:06:57 AM)</font> <b>male:</b></font> fundamental: They can do no more and no less than ordinary clients.<br/>
+<font color="#A82F2F"><font size="2">(03:07:09 AM)</font> <b>fundamental:</b></font> male: ah ok, no fun to be had there then<br/>
+<font color="#16569E"><font size="2">(03:10:27 AM)</font> <b>magnetophon:</b></font> I followed it up untill where male explained you need to delay at each individual input, but you guys lost me after that. anyway, no need for me to understand that. I just hope you guys can make it work! I'm really happy you at least see the need for this. Paul didn't.... :(<br/>
+<font color="#A82F2F"><font size="2">(03:14:48 AM)</font> <b>fundamental:</b></font> given the current pace of jack it would seem like the only timely way of implementing this if you accept the existence of arbitrary external (to non*) clients would be watching the jack graph and mucking around with inserting delay clients as needed<br/>
+<font color="#A82F2F"><font size="2">(03:16:16 AM)</font> <b>male:</b></font> fundamental: Yeah, but what happens when the user connects two ports to the input of your delay robot client?<br/>
+<font color="#A82F2F"><font size="2">(03:16:22 AM)</font> <b>male:</b></font> fundamental: Back to square one.<br/>
+<font color="#A82F2F"><font size="2">(03:16:53 AM)</font> <b>fundamental:</b></font> male: you disconnect one of them and connect it to a spawned robot<br/>
+<font color="#16569E"><font size="2">(03:17:01 AM)</font> <b>magnetophon:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(03:17:36 AM)</font> <b>fundamental:</b></font> I&apos;d say it is a reasonable expectation that you can swap things faster than the user can click on things :p<br/>
+<font color="#A82F2F"><font size="2">(03:17:44 AM)</font> <b>male:</b></font> fundamental: And anyway, pace of JACK development is picking up now that falktx has a fork.<br/>
+<font color="#A82F2F"><font size="2">(03:17:57 AM)</font> <b>male:</b></font> fundamental: He&apos;ll implement damn near anything you suggest ;-)<br/>
+<font color="#A82F2F"><font size="2">(03:20:07 AM)</font> <b>male:</b></font> The question is... is it even a problem?<br/>
+<font color="#16569E"><font size="2">(03:20:38 AM)</font> <b>magnetophon:</b></font> male: wait I thought I had just convinced you of that?<br/>
+<font color="#A82F2F"><font size="2">(03:20:46 AM)</font> <b>male:</b></font> Many to one isn&apos;t the problem, and one to many isn&apos;t the problem, it&apos;s the combination of the two that makes it impossible to do without more clients/connections or built into JACK.<br/>
+<font color="#A82F2F"><font size="2">(03:21:21 AM)</font> <b>fundamental:</b></font> not a clue, though discussing non-existent problem tends to be about as fun as discussing existent problems ;-)<br/>
+<font color="#A82F2F"><font size="2">(03:21:31 AM)</font> <b>male:</b></font> If that never comes up in a mix, then there&apos;s no problem...<br/>
+<font color="#A82F2F"><font size="2">(03:22:16 AM)</font> <b>male:</b></font> My mixes are generally of the many to one form.<br/>
+<font color="#16569E"><font size="2">(03:22:27 AM)</font> <b>magnetophon:</b></font> male: I can give you some real world ardour sessions to prove anything happens in a mix.<br/>
+<font color="#16569E"><font size="2">(03:22:38 AM)</font> <b>magnetophon:</b></font> parallel processing is fun!<br/>
+<font color="#A82F2F"><font size="2">(03:22:38 AM)</font> <b>male:</b></font> So in that case delays can go on the output ports.<br/>
+<font color="#A82F2F"><font size="2">(03:22:52 AM)</font> <b>male:</b></font> magnetophon: Heh.<br/>
+<font color="#062585"><font size="2">(03:25:10 AM)</font> <b>***fundamental</b></font> returns to the shadows of hacking valgrind internals<br/>
+<font size="2">(04:10:50 AM)</font><b> HarryHaaren left the room (quit: Quit: Quittin&apos;).</b><br/>
+<font size="2">(04:36:25 AM)</font><b> HisaoNakai left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:56:28 AM)</font> <b>male:</b></font> magnetophon: Thanks for the comments. It turns out I had the gain too high on my rear spearkers which was skewing my sense of reverb. Also, was able to reduce that buzz significantly with a lowpass.<br/>
+<font color="#A82F2F"><font size="2">(06:07:22 AM)</font> <b>male:</b></font> magnetophon: new mix at http://nevermindhim.com/come-home.ogg<br/>
+<font size="2">(06:25:43 AM)</font><b> wargreen left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(07:03:19 AM)</font><b> frinknet [<em>~Frink@71-215-85-34.hlrn.qwest.net</em>] entered the room.</b><br/>
+<font size="2">(08:20:41 AM)</font><b> frinknet left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(09:18:00 AM)</font><b> violetina [<em>~quassel@unaffiliated/violetina</em>] entered the room.</b><br/>
+<font size="2">(10:42:57 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

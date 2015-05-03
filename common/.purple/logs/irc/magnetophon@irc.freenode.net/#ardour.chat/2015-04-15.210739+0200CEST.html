@@ -1,0 +1,90 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Wed 15 Apr 2015 09:07:39 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Wed 15 Apr 2015 09:07:39 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(09:07:39 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(09:07:39 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(09:08:21 PM)</font> <b>rgareus:</b></font> Drumfix: there are some. but only used under certain conditions (e.g. adding/removing plugins)<br/>
+<font color="#A82F2F"><font size="2">(09:09:11 PM)</font> <b>rgareus:</b></font> Drumfix: the&apos;re try-locks in the RT thread so no x-run (but a click, worst-case)<br/>
+<font color="#A82F2F"><font size="2">(09:09:24 PM)</font> <b>Drumfix:</b></font> i don&apos;t see any PTHREAD_PRIO_INHERT  mutexes in the ardour source, could this be the problem? <br/>
+<font color="#A82F2F"><font size="2">(09:12:16 PM)</font> <b>prokoudine__:</b></font> rgareus, all of musicradar.com in the past few days<br/>
+<font color="#A82F2F"><font size="2">(09:13:42 PM)</font> <b>rgareus:</b></font> Drumfix: ardour&apos;s process function is in jack context.<br/>
+<font color="#A82F2F"><font size="2">(09:13:54 PM)</font> <b>rgareus:</b></font> Drumfix: PTHREAD_PRIO_INHERT is the wrong approach to begin with.<br/>
+<font color="#A82F2F"><font size="2">(09:14:30 PM)</font> <b>prokoudine__:</b></font> rgareus, http://www.musicradar.com/news/tech/musikmesse-2015-roland-announces-development-of-system-500-analogue-synth-619442<br/>
+<font color="#A82F2F"><font size="2">(09:14:31 PM)</font> <b>LAbot:</b></font> Title: Musikmesse 2015: Roland announces development of System-500 analogue synth | Roland System-700 | Tech News | MusicRadar (at www.musicradar.com)<br/>
+<font color="#A82F2F"><font size="2">(09:14:48 PM)</font> <b>prokoudine__:</b></font> rgareus, http://www.musicradar.com/news/guitars/musikmesse-2015-orange-rockerverb-amps-enter-third-generation-619580<br/>
+<font color="#A82F2F"><font size="2">(09:14:49 PM)</font> <b>LAbot:</b></font> Title: Musikmesse 2015: Orange Rockerverb amps enter third generation | Orange Amps Rockerverb MKIII 100W head | Guitar News | MusicRadar (at www.musicradar.com)<br/>
+<font color="#A82F2F"><font size="2">(09:14:50 PM)</font> <b>rgareus:</b></font> Drumfix: ardour itself is all normal priority. all audio-processing threads are created by the engine (usualy jack)<br/>
+<font color="#A82F2F"><font size="2">(09:14:56 PM)</font> <b>prokoudine__:</b></font> rgareus, ...and the list goes on<br/>
+<font color="#A82F2F"><font size="2">(09:15:01 PM)</font> <b>rgareus:</b></font> prokoudine__: nice<br/>
+<font color="#A82F2F"><font size="2">(09:15:03 PM)</font> <b>rgareus:</b></font> prokoudine__: thanks<br/>
+<font color="#A82F2F"><font size="2">(09:16:15 PM)</font> <b>rgareus:</b></font> prokoudine__: using linux inside pro-audio hardware (not exposed to the user) has been going on since a decade or more.<br/>
+<font color="#A82F2F"><font size="2">(09:16:40 PM)</font> <b>las:</b></font> rgareus: did drumfix&apos;s crash get resolved? the crash seems to be ardour&apos;s fault<br/>
+<font size="2">(09:16:42 PM)</font><b> clark|w|afk is now known as clark|w</b><br/>
+<font color="#A82F2F"><font size="2">(09:16:44 PM)</font> <b>las:</b></font> --------<br/>
+<font color="#A82F2F"><font size="2">(09:16:46 PM)</font> <b>las:</b></font> #5  0x00007ffff738a51f in ARDOUR::VSTPlugin::connect_and_run (this=0x34a1000, bufs=..., in_map=..., out_map=...,<br/>
+<font color="#A82F2F"><font size="2">(09:16:46 PM)</font> <b>las:</b></font>     nframes=256, offset=77342784) at ../libs/ardour/vst_plugin.cc:573<br/>
+<font color="#A82F2F"><font size="2">(09:16:46 PM)</font> <b>las:</b></font> #6  0x00007ffff71ae64a in ARDOUR::PluginInsert::connect_and_run (this=0x1c16200, bufs=..., nframes=256, offset=0, <br/>
+<font color="#A82F2F"><font size="2">(09:16:48 PM)</font> <b>las:</b></font> ----------<br/>
+<font color="#A82F2F"><font size="2">(09:16:57 PM)</font> <b>rgareus:</b></font> las: that&apos;s a follow up issue<br/>
+<font color="#A82F2F"><font size="2">(09:17:35 PM)</font> <b>rgareus:</b></font> las: ..now that it loads and runs.  I only fixed LV2 to support audio+midi in and audio+midi out<br/>
+<font color="#A82F2F"><font size="2">(09:18:33 PM)</font> <b>JL__:</b></font> prokoudine__: thanks ! back to analogue ;))<br/>
+<font color="#A82F2F"><font size="2">(09:18:34 PM)</font> <b>las:</b></font> rgareus: rather mysterious since offset is zero in the caller but non-zero in the VSTPlugin version<br/>
+<font color="#A82F2F"><font size="2">(09:18:34 PM)</font> <b>rgareus:</b></font> las: I checked the discoDSP demo version  midi in -&gt; stereo out. (works here)  Drumfix has the &apos;pro version&apos;  midi-in + stereo-in, 10 chanels out<br/>
+<font color="#A82F2F"><font size="2">(09:19:51 PM)</font> <b>Drumfix:</b></font> there is a demo for the pro version as well, if you want to try yourself<br/>
+<font color="#A82F2F"><font size="2">(09:20:02 PM)</font> <b>rgareus:</b></font> las: the offset is inded mysterious<br/>
+<font size="2">(09:24:06 PM)</font><b> JL__ left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(09:25:36 PM)</font> <b>rgareus:</b></font> one thing I do like about discoDSP: one can get the demo versions without elaborate sign-up. email confirmation etc etc.<br/>
+<font color="#A82F2F"><font size="2">(09:28:02 PM)</font> <b>las:</b></font> rgareus: i can&apos;t recall if we&apos;re using -fvisibility-hidden by default. but wait, we can&apos;t do that for libardour anyway, certainly not for public functions<br/>
+<font color="#A82F2F"><font size="2">(09:28:11 PM)</font> <b>las:</b></font> back in a bit<br/>
+<font color="#A82F2F"><font size="2">(09:28:35 PM)</font> <b>prokoudine__:</b></font> rgareus, more than a decade :)<br/>
+<font color="#A82F2F"><font size="2">(09:28:36 PM)</font> <b>rgareus:</b></font> las: there&apos;s --exports-hidden configure option<br/>
+<font color="#A82F2F"><font size="2">(09:30:19 PM)</font> <b>rgareus:</b></font> prokoudine__: indeed some italian company had a keyboard out in the end 90&apos;s<br/>
+<font color="#A82F2F"><font size="2">(09:30:23 PM)</font> <b>rgareus:</b></font> mmh lionstrack IIRC<br/>
+<font color="#A82F2F"><font size="2">(09:30:58 PM)</font> <b>prokoudine__:</b></font> lionstracs<br/>
+<font color="#062585"><font size="2">(09:31:13 PM)</font> <b>***prokoudine__</b></font> reviving a write-up on that, in fact<br/>
+<font color="#A82F2F"><font size="2">(09:31:33 PM)</font> <b>rgareus:</b></font> still wide-spread Linux adoption in encapsulated hardware is one thing.. providing end-user Linux-software (e.g. plugins) is another.<br/>
+<font color="#A82F2F"><font size="2">(09:31:49 PM)</font> <b>prokoudine__:</b></font> rgareus, i&apos;m curious, though, what got you to briing up the topic of linux-based audio hardware<br/>
+<font color="#A82F2F"><font size="2">(09:32:56 PM)</font> <b>rgareus:</b></font> prokoudine__: your comment earlier<br/>
+<font color="#A82F2F"><font size="2">(09:33:11 PM)</font> <b>rgareus:</b></font> &quot; vendors indeed intend to shut up and take our money, all of them :)&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:33:29 PM)</font> <b>rgareus:</b></font> prokoudine__: I thought that with &quot;us&quot; you meant Linux/Ardour users.<br/>
+<font color="#A82F2F"><font size="2">(09:33:39 PM)</font> <b>prokoudine__:</b></font> rgareus, ah...<br/>
+<font color="#A82F2F"><font size="2">(09:33:51 PM)</font> <b>prokoudine__:</b></font> rgareus, not exactly what i had in mind, but... why not? :)<br/>
+<font color="#A82F2F"><font size="2">(09:34:31 PM)</font> <b>prokoudine__:</b></font> you know of http://www.segmentsynth.com/, btw, right?<br/>
+<font color="#A82F2F"><font size="2">(09:34:39 PM)</font> <b>rgareus:</b></font> I&apos;m sure a couple of Linux/Ardour users won&apos;t mind paying various vendors for whatever they provide.<br/>
+<font color="#A82F2F"><font size="2">(09:36:47 PM)</font> <b>prokoudine__:</b></font> http://www.segmentsynth.com/wp-content/uploads/2014/07/segment-simple-analyze-600x202.png looks like taken from Calf Analyzer, too :)<br/>
+<font color="#A82F2F"><font size="2">(09:38:15 PM)</font> <b>rgareus:</b></font> the segmentsynth.com guys were at LAC, a lot of the time in the Hack&apos;n&apos;Roll space<br/>
+<font color="#A82F2F"><font size="2">(09:40:22 PM)</font> <b>prokoudine_:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(09:40:50 PM)</font> <b>rgareus:</b></font> prokoudine__: they also had a paper presentation (on stage)<br/>
+<font size="2">(09:41:21 PM)</font><b> prokoudine__ left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:41:35 PM)</font> <b>prokoudine_:</b></font> rgareus, so there will be a video, i guess :)<br/>
+<font color="#A82F2F"><font size="2">(09:41:36 PM)</font> <b>rgareus:</b></font> and one could play with a prototype (while hacking and rollling)<br/>
+<font color="#A82F2F"><font size="2">(09:41:47 PM)</font> <b>prokoudine_:</b></font> rgareus, what&apos;s your personal impression? are they the real deal?<br/>
+<font color="#A82F2F"><font size="2">(09:41:58 PM)</font> <b>rgareus:</b></font> prokoudine_: yes. probably 1-2 weeks.  the machines with the raw video footage are not online yet.<br/>
+<font color="#A82F2F"><font size="2">(09:42:35 PM)</font> <b>falktx:</b></font> there&apos;s this already https://www.youtube.com/channel/UCUww60OvdM_LGngVHrwwx-Q<br/>
+<font color="#A82F2F"><font size="2">(09:42:36 PM)</font> <b>LAbot:</b></font> Title: Segment Synth - YouTube (at www.youtube.com)<br/>
+<font color="#A82F2F"><font size="2">(09:42:37 PM)</font> <b>rgareus:</b></font> prokoudine_: personally I&apos;m not too fuzzed about synths in general<br/>
+<font color="#A82F2F"><font size="2">(09:42:57 PM)</font> <b>prokoudine_:</b></font> falktx, what about you then? :)<br/>
+<font color="#A82F2F"><font size="2">(09:43:08 PM)</font> <b>falktx:</b></font> me?<br/>
+<font color="#A82F2F"><font size="2">(09:43:25 PM)</font> <b>falktx:</b></font> I did a lightning-talk and workshop, both about carla<br/>
+<font color="#A82F2F"><font size="2">(09:43:26 PM)</font> <b>rgareus:</b></font> prokoudine_: it&apos;s a rather functional interface. not too learnable instrument wise, but otherwise well done.<br/>
+<font color="#A82F2F"><font size="2">(09:43:57 PM)</font> <b>prokoudine_:</b></font> falktx, i mean your impression on segment synth guys and the unit<br/>
+<font color="#A82F2F"><font size="2">(09:44:10 PM)</font> <b>falktx:</b></font> I already saw the plugin version, it&apos;s nice<br/>
+<font color="#A82F2F"><font size="2">(09:44:29 PM)</font> <b>rgareus:</b></font> Drumfix: I can reproduce the assert()<br/>
+<font color="#A82F2F"><font size="2">(09:44:32 PM)</font> <b>falktx:</b></font> it has potential if you know what you&apos;re doing<br/>
+<font color="#A82F2F"><font size="2">(09:44:41 PM)</font> <b>falktx:</b></font> prokoudine_: the best example is this video https://www.youtube.com/watch?v=2dWhEc84ndg<br/>
+<font color="#A82F2F"><font size="2">(09:44:43 PM)</font> <b>LAbot:</b></font> Title: Jam Gem 2 - YouTube (at www.youtube.com)<br/>
+<font color="#A82F2F"><font size="2">(09:44:44 PM)</font> <b>rgareus:</b></font> so has csound or Supercollider.<br/>
+<font color="#A82F2F"><font size="2">(09:45:05 PM)</font> <b>prokoudine_:</b></font> falktx, is plugin code downloadable?<br/>
+<font color="#A82F2F"><font size="2">(09:45:08 PM)</font> <b>falktx:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(10:00:15 PM)</font> <b>las:</b></font> rgareus: --exports-hidden does hide the stuff that needs to be hidden<br/>
+<font color="#A82F2F"><font size="2">(10:00:16 PM)</font> <b>las:</b></font> rgareus: but OSC::OSC etc. may not be among them (and even if *it* is, it doesn&apos;t help the general case)<br/>
+<font color="#A82F2F"><font size="2">(10:00:25 PM)</font> <b>las:</b></font> rgareus: i guess the linux+windows build takes longer by day than by night :)<br/>
+<font color="#A82F2F"><font size="2">(10:01:38 PM)</font> <b>prokoudine_:</b></font> las, btw, should i submit translation updates to mantis rather than send by email?<br/>
+<font color="#A82F2F"><font size="2">(10:02:39 PM)</font> <b>las:</b></font> prokoudine_: email is fine<br/>
+<font color="#A82F2F"><font size="2">(10:02:48 PM)</font> <b>las:</b></font> prokoudine_: i will commit yours and the last .de one once my current builds are done<br/>
+<font color="#A82F2F"><font size="2">(10:03:00 PM)</font> <b>las:</b></font> prokoudine_: if things go well, the build that happens tonight will turn into 4.0<br/>
+<font color="#A82F2F"><font size="2">(10:03:04 PM)</font> <b>rgareus:</b></font> las: the builds take longer because of modified ControlList.hpp<br/>
+<font color="#A82F2F"><font size="2">(10:03:12 PM)</font> <b>rgareus:</b></font> las: no ccache<br/>
+<font color="#A82F2F"><font size="2">(10:03:18 PM)</font> <b>las:</b></font> prokoudine_: we think that rgareus/nick have solved the outstanding blocking issue<br/>
+<font color="#A82F2F"><font size="2">(10:03:45 PM)</font> <b>las:</b></font> rgareus: ah, right. i forgot that the build time can vary. not sure i&apos;m wild about that ... i sort of think we should do a full build every time<br/>
+<font color="#A82F2F"><font size="2">(10:04:21 PM)</font> <b>las:</b></font> rgareus: in theory that takes about 7mins on my machine; add another 3 for the packaging, that&apos;s 10 mins per version, so about 120mins =&gt; 2hrs total<br/>
+<font size="2">(10:10:08 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

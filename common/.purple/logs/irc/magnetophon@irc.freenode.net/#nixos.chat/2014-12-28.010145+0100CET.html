@@ -1,0 +1,71 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sun 28 Dec 2014 01:01:45 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sun 28 Dec 2014 01:01:45 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(01:01:46 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(01:01:46 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(01:01:46 AM)</font> <b>kornbluth.freenode.net:</b></font> (notice) [freenode-info] if you&apos;re at a conference and other people are having trouble connecting, please mention it to staff: http://freenode.net/faq.shtml#gettinghelp<br/>
+<font size="2">(02:04:36 AM)</font><b> kyl__ is now known as kyl___</b><br/>
+<font color="#A82F2F"><font size="2">(02:21:09 AM)</font> <b>c74d:</b></font> How much storage space does NixOS take?<br/>
+<font color="#A82F2F"><font size="2">(02:22:02 AM)</font> <b>c74d:</b></font> For a basic non-GUI environment, and for that plus a Haskell development environment?<br/>
+<font color="#A82F2F"><font size="2">(02:34:46 AM)</font> <b>qknight:</b></font> when using cmake for a nix expression<br/>
+<font color="#A82F2F"><font size="2">(02:34:53 AM)</font> <b>qknight:</b></font> what code is executed in the configure and build phase?<br/>
+<font color="#A82F2F"><font size="2">(02:35:16 AM)</font> <b>qknight:</b></font> i mean: mkdir build; cd build; cmake .. or something is probably what the default implementation does<br/>
+<font color="#A82F2F"><font size="2">(02:35:23 AM)</font> <b>qknight:</b></font> but i need to see the details<br/>
+<font color="#A82F2F"><font size="2">(03:12:50 AM)</font> <b>iMatejC:</b></font> c74d: depends, on how much times you run the rebuild (and/or update the packages as user) without running garbage collector<br/>
+<font color="#A82F2F"><font size="2">(04:22:09 AM)</font> <b>cstrahan_:</b></font> good news (for haskellers): the work towards getting GHCJS in Nixpkgs is coming along quite well<br/>
+<font color="#A82F2F"><font size="2">(04:22:25 AM)</font> <b>cstrahan_:</b></font> https://github.com/NixOS/nixpkgs/pull/5463<br/>
+<font color="#A82F2F"><font size="2">(04:40:12 AM)</font> <b>copumpkin:</b></font> cstrahan_: yay<br/>
+<font color="#A82F2F"><font size="2">(04:40:15 AM)</font> <b>copumpkin:</b></font> !m cstrahan_<br/>
+<font color="#A82F2F"><font size="2">(04:40:15 AM)</font> <b>[0__0]:</b></font> You&apos;re doing good work, cstrahan_!<br/>
+<font color="#A82F2F"><font size="2">(04:40:21 AM)</font> <b>copumpkin:</b></font> such a useful bot<br/>
+<font color="#A82F2F"><font size="2">(04:40:44 AM)</font> <b>cstrahan_:</b></font> copumpkin: :)<br/>
+<font size="2">(05:04:41 AM)</font><b> henrytill left the room (quit: Quit: leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(06:23:17 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] matejc opened pull request #5485: efl: fix build (master...eflfix) http://git.io/JdlE6A<br/>
+<font color="#A82F2F"><font size="2">(07:20:56 AM)</font> <b>mistofvongola:</b></font> Hi. I&apos;m trying to install nixos for the first time, and I&apos;ve run into an issue when running nixos-install: &quot;error: the group `nixbld&apos; specified in `build-users-group&apos; does not exist&quot;.<br/>
+<font color="#A82F2F"><font size="2">(07:21:51 AM)</font> <b>mistofvongola:</b></font> It seems like it might be an issue with gummiboot-builder.py or nixos-install.sh. I&apos;m trying to install nixos version 14.12.219.<br/>
+<font color="#A82F2F"><font size="2">(07:22:30 AM)</font> <b>Sonarpulse:</b></font> i probably don&apos;t know<br/>
+<font color="#A82F2F"><font size="2">(07:22:42 AM)</font> <b>Sonarpulse:</b></font> but what does your user config look like regarding mutable users and all that?<br/>
+<font color="#A82F2F"><font size="2">(07:23:05 AM)</font> <b>Sonarpulse:</b></font> in other words, try making your user config as stock as possible (you can fix it later)<br/>
+<font color="#A82F2F"><font size="2">(07:27:43 AM)</font> <b>mistofvongola:</b></font> the only things ive changed from stock are: nixpkgs.config.allowUnfree, boot.initrd.luks.devices, and boot.extraModulePackages (because the default was broken when using double quotes).<br/>
+<font color="#A82F2F"><font size="2">(07:28:13 AM)</font> <b>mistofvongola:</b></font> it&apos;s basically stock configurations.<br/>
+<font color="#A82F2F"><font size="2">(07:31:36 AM)</font> <b>Sonarpulse:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(07:31:44 AM)</font> <b>Sonarpulse:</b></font> that don&apos;t know then sorry<br/>
+<font color="#A82F2F"><font size="2">(07:31:52 AM)</font> <b>Sonarpulse:</b></font> I first installed nixos a year a go<br/>
+<font color="#A82F2F"><font size="2">(07:32:10 AM)</font> <b>Sonarpulse:</b></font> it was painful, though party because i didn&apos;t do things quite stock<br/>
+<font color="#A82F2F"><font size="2">(07:33:19 AM)</font> <b>mistofvongola:</b></font> Hm. Well, the general procedure is straightforward and what I&apos;d expect except for these little bugs.<br/>
+<font color="#A82F2F"><font size="2">(07:33:55 AM)</font> <b>Sonarpulse:</b></font> yeah i agree,  but the little bugs added up in my case<br/>
+<font color="#A82F2F"><font size="2">(07:34:00 AM)</font> <b>mistofvongola:</b></font> Oh, I may have found a reference to my bug except my nixos-install.sh doesn&apos;t resemble this (probably a different version): https://github.com/edolstra/nixos/commit/560262dae0df4a87b5d0182a9b487826a7ff978b<br/>
+<font color="#A82F2F"><font size="2">(07:34:27 AM)</font> <b>mistofvongola:</b></font> Well, thanks anyway.<br/>
+<font color="#A82F2F"><font size="2">(07:35:50 AM)</font> <b>Sonarpulse:</b></font> that is an old version<br/>
+<font color="#A82F2F"><font size="2">(07:35:53 AM)</font> <b>Sonarpulse:</b></font> that does give me some idea<br/>
+<font color="#A82F2F"><font size="2">(07:36:07 AM)</font> <b>Sonarpulse:</b></font> it could be a new change means that block of code needs to be moved again<br/>
+<font color="#A82F2F"><font size="2">(07:37:34 AM)</font> <b>mistofvongola:</b></font> i wonder if i can just get a newer version than 14.12.219. I went with that because it was the latest &quot;stable&quot; version.<br/>
+<font color="#A82F2F"><font size="2">(07:37:57 AM)</font> <b>Sonarpulse:</b></font> i think most people use unstabl<br/>
+<font color="#A82F2F"><font size="2">(07:38:07 AM)</font> <b>Sonarpulse:</b></font> i do at least<br/>
+<font color="#A82F2F"><font size="2">(07:38:56 AM)</font> <b>mistofvongola:</b></font> How unstable is it? ;)<br/>
+<font color="#A82F2F"><font size="2">(07:39:22 AM)</font> <b>Sonarpulse:</b></font> i haven&apos;t had problems<br/>
+<font color="#A82F2F"><font size="2">(07:40:11 AM)</font> <b>Sonarpulse:</b></font> though i haven&apos;t used my laptop as much as school desktop in the half-year i&apos;ve had nix<br/>
+<font color="#A82F2F"><font size="2">(07:40:23 AM)</font> <b>Sonarpulse:</b></font> once you get things up and running, it gets easier<br/>
+<font color="#A82F2F"><font size="2">(07:56:30 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] matejc opened pull request #5486: systemd-journal-gatewayd: add systemd-journal group with facl (master...fixgatewayd) http://git.io/Mo8X1w<br/>
+<font size="2">(08:46:14 AM)</font><b> vcunat [<em>~admin@nat-34.starnet.cz</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:05:06 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 2 new commits to master: http://git.io/bwVEQQ<br/>
+<font color="#A82F2F"><font size="2">(09:05:06 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c17fda7 William A. Kennington III: ipset: Add derivation<br/>
+<font color="#A82F2F"><font size="2">(09:05:06 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 2627198 William A. Kennington III: nixos/firewall: Add ipset utility<br/>
+<font color="#A82F2F"><font size="2">(09:29:28 AM)</font> <b>nkar:</b></font> could anyone show me the hashsum of the minimal installation iso for 64bit?<br/>
+<font color="#A82F2F"><font size="2">(09:29:36 AM)</font> <b>nkar:</b></font> from here nixos.org/nixos/download.html<br/>
+<font color="#A82F2F"><font size="2">(09:30:08 AM)</font> <b>nkar:</b></font> mine doesn&apos;t match<br/>
+<font color="#A82F2F"><font size="2">(09:31:35 AM)</font> <b>nkar:</b></font> oh, wait, it matches<br/>
+<font color="#A82F2F"><font size="2">(09:31:52 AM)</font> <b>nkar:</b></font> perhaps I used the wrong link<br/>
+<font color="#A82F2F"><font size="2">(09:41:42 AM)</font> <b>nkar:</b></font> https://nixos.org/wiki/Installing_NixOS_from_a_USB_stick says &quot;merge in the entry&quot;  what does it mean?<br/>
+<font color="#A82F2F"><font size="2">(10:04:18 AM)</font> <b>vcunat:</b></font> nkar: I think it means to put those lines at a correct place<br/>
+<font color="#A82F2F"><font size="2">(10:04:53 AM)</font> <b>vcunat:</b></font> it should be obvious once you see the contents of the file<br/>
+<font color="#A82F2F"><font size="2">(10:05:21 AM)</font> <b>nkar:</b></font> also, I got a grub-probe err while running grub-install, is it important?<br/>
+<font color="#A82F2F"><font size="2">(10:05:25 AM)</font> <b>nkar:</b></font> error*<br/>
+<font color="#A82F2F"><font size="2">(10:05:44 AM)</font> <b>vcunat:</b></font> I don&apos;t know<br/>
+<font color="#A82F2F"><font size="2">(10:05:52 AM)</font> <b>nkar:</b></font> the error is &quot;cannot find a GRUB drive for /dev/sdc1. Check your device.map<br/>
+<font color="#A82F2F"><font size="2">(10:06:10 AM)</font> <b>nkar:</b></font> auto-detection of a filesystem of /dev/sdc1 failed<br/>
+<font color="#A82F2F"><font size="2">(10:10:14 AM)</font> <b>vcunat:</b></font> nkar: is your /boot on /dev/sdc1?<br/>
+<font color="#A82F2F"><font size="2">(10:10:40 AM)</font> <b>nkar:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(10:10:45 AM)</font> <b>vcunat:</b></font> (If it is, this message might mean there will be problems, it seems to me.)<br/>
+<font color="#A82F2F"><font size="2">(10:11:12 AM)</font> <b>nkar:</b></font> well, I&apos;ll just try and report back<br/>
+<font color="#A82F2F"><font size="2">(10:22:07 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 2 new commits to master: http://git.io/jIPVMw<br/>
+<font color="#A82F2F"><font size="2">(10:22:07 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 812e273 Matej Cotman: efl: fix build<br/>
+<font color="#A82F2F"><font size="2">(10:22:07 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 4fdf1fc Domen Kožar: Merge pull request #5485 from matejc/eflfix...<br/>

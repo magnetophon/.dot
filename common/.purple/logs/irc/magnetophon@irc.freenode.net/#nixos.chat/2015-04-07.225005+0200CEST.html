@@ -1,0 +1,68 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Tue 07 Apr 2015 10:50:05 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Tue 07 Apr 2015 10:50:05 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:50:05 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(10:50:05 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(10:54:42 PM)</font> <b>teoma:</b></font> Is it necessary to create a signing key when doing distributed builds with NixOS on all machines?<br/>
+<font color="#A82F2F"><font size="2">(10:57:27 PM)</font> <b>teoma:</b></font> And if so, is that documented?<br/>
+<font color="#A82F2F"><font size="2">(10:57:46 PM)</font> <b>schoppenhauer:</b></font> hi. how can I add into a default.nix which I want to use with nix-shell a package from an unstable branch? (I specifically need qt 5.4, but its a general question.) what do I have to override to add my checkout of the nixos repo?<br/>
+<font color="#A82F2F"><font size="2">(10:57:56 PM)</font> <b>teoma:</b></font> I&apos;m getting errors saying that imported archives lack signatures.<br/>
+<font color="#A82F2F"><font size="2">(11:00:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/veolZ<br/>
+<font color="#A82F2F"><font size="2">(11:00:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 493f526 William A. Kennington III: nixUnstable: Bump<br/>
+<font size="2">(11:01:17 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font size="2">(11:03:26 PM)</font><b> goibhniu left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(11:09:08 PM)</font> <b>wkennington:</b></font> I really dont understand why only i686 need xslt<br/>
+<font color="#A82F2F"><font size="2">(11:09:13 PM)</font> <b>wkennington:</b></font> In the installer tests<br/>
+<font color="#A82F2F"><font size="2">(11:09:58 PM)</font> <b>niksnut:</b></font> teoma: not if you connect to root@&lt;build machine&gt;<br/>
+<font color="#A82F2F"><font size="2">(11:10:10 PM)</font> <b>niksnut:</b></font> and probably also not if you connect to a trusted user<br/>
+<font color="#A82F2F"><font size="2">(11:10:44 PM)</font> <b>thoughtpolice:</b></font> ttuegel: I replied on #7220, thx<br/>
+<font color="#A82F2F"><font size="2">(11:11:01 PM)</font> <b>schoppenhauer:</b></font> hm. ok, there does not seem to be a package for qt 5.4 yet<br/>
+<font color="#A82F2F"><font size="2">(11:11:53 PM)</font> <b>Twey:</b></font> I&apos;m trying to update my channel with ‘nix-channel --update’, but I&apos;m getting: /run/current-system/sw/bin/nix-channel: unable to check ‘https://nixos.org/channels/nixos-unstable’<br/>
+<font color="#A82F2F"><font size="2">(11:17:15 PM)</font> <b>ttuegel:</b></font> schoppenhauer: yes there is...<br/>
+<font color="#A82F2F"><font size="2">(11:17:16 PM)</font> <b>schoppenhauer:</b></font> ttuegel: there is an entry in all-packages.nix, but qt54 is not shown in nix-env -qaP<br/>
+<font color="#A82F2F"><font size="2">(11:17:16 PM)</font> <b>ttuegel:</b></font> schoppenhauer: ah, sorry. well, it&apos;s still there! :)<br/>
+<font color="#A82F2F"><font size="2">(11:17:16 PM)</font> <b>schoppenhauer:</b></font> ttuegel: yes, but not installable<br/>
+<font color="#A82F2F"><font size="2">(11:17:16 PM)</font> <b>ttuegel:</b></font> schoppenhauer: nix-env -iA qt54.{component}<br/>
+<font color="#A82F2F"><font size="2">(11:17:16 PM)</font> <b>ttuegel:</b></font> schoppenhauer: (but it will not work in the way you want outside of a nix-shell)<br/>
+<font color="#A82F2F"><font size="2">(11:17:16 PM)</font> <b>ttuegel:</b></font> there is no qt54Full yet, if that&apos;s what you&apos;re after<br/>
+<font color="#A82F2F"><font size="2">(11:17:48 PM)</font> <b>schoppenhauer:</b></font> ttuegel: if I install this with -f ~/nixpkgs/ inside a nix-shell, it will not affect anything outside that nix-shell, will it?<br/>
+<font color="#A82F2F"><font size="2">(11:18:19 PM)</font> <b>ttuegel:</b></font> schoppenhauer: correct, it will not affect anything outside the shell<br/>
+<font color="#A82F2F"><font size="2">(11:19:54 PM)</font> <b>ttuegel:</b></font> thoughtpolice: it&apos;s pretty common for numerical libraries to recommend static linking, because of that extra register, even on x86_64. we don&apos;t even build shared libs for ATLAS or BLAS by default in nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(11:20:54 PM)</font> <b>Twey:</b></font> Ah, never mind — guess I was experiencing some network failure and my browser had it cached.<br/>
+<font color="#A82F2F"><font size="2">(11:20:54 PM)</font> <b>ttuegel:</b></font> but as long as there&apos;s a way to disable it per-package, i&apos;m perfectly happy. i know the perf tradeoff is worth the security on almost everything else<br/>
+<font color="#A82F2F"><font size="2">(11:21:59 PM)</font> <b>schoppenhauer:</b></font> ttuegel: qmake.nix does not exist, it argues<br/>
+<font color="#A82F2F"><font size="2">(11:22:04 PM)</font> <b>teoma:</b></font> niksnut: The user is nix@&lt;build-host&gt;, so I tried `nixos-rebuild switch --option trusted-users nix&apos;, which gave the same errors.<br/>
+<font color="#A82F2F"><font size="2">(11:22:14 PM)</font> <b>jchee:</b></font> I&apos;m getting curl: option --negotiate: the installed libcurl version doesn&apos;t support this<br/>
+<font color="#A82F2F"><font size="2">(11:22:26 PM)</font> <b>teoma:</b></font> Is it recommended to run remote builds as root?<br/>
+<font color="#A82F2F"><font size="2">(11:22:34 PM)</font> <b>ttuegel:</b></font> schoppenhauer: what command did you type and what git revision is your nixpkgs?<br/>
+<font color="#A82F2F"><font size="2">(11:22:56 PM)</font> <b>jchee:</b></font> when I try to use curl to access a URL secured with kerberos, is there something I need to do to enable kerberos support for libcurl?<br/>
+<font color="#A82F2F"><font size="2">(11:24:01 PM)</font> <b>schoppenhauer:</b></font> ttuegel: 493f526eefa5deddaf591a30f0c471a38b788a8d, from Tue Apr 7 13:59:34 2015 -0700, i tried nix-env -f ~/nixpkgs/ -iA qt54.qmake but apparently qtconnectivity can be installed.<br/>
+<font color="#A82F2F"><font size="2">(11:25:14 PM)</font> <b>ttuegel:</b></font> schoppenhauer: ah, you cannot install it that way, you must use nix-shell: `nix-shell ~/nixpkgs/ -p qt54.base`<br/>
+<font color="#A82F2F"><font size="2">(11:26:19 PM)</font> <b>schoppenhauer:</b></font> ttuegel: can I somehow add this to my default.nix which I used to build that shell environment?<br/>
+<font color="#A82F2F"><font size="2">(11:26:23 PM)</font> <b>thoughtpolice:</b></font> jchee: Looks like the curl expression just isn&apos;t built with those options.<br/>
+<font color="#A82F2F"><font size="2">(11:26:29 PM)</font> <b>thoughtpolice:</b></font> So, it can probably be added pretty easily<br/>
+<font color="#A82F2F"><font size="2">(11:26:34 PM)</font> <b>thoughtpolice:</b></font> I think.<br/>
+<font color="#A82F2F"><font size="2">(11:26:45 PM)</font> <b>ttuegel:</b></font> schoppenhauer: yes, just put it in &quot;buildInputs&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:27:00 PM)</font> <b>schoppenhauer:</b></font> ttuegel: but then it will not load the packages from ~/nixpkgs/<br/>
+<font color="#A82F2F"><font size="2">(11:29:30 PM)</font> <b>thoughtpolice:</b></font> jchee: looks like our curl is missing LDAP and RTMP support on top of Kerberos.<br/>
+<font color="#A82F2F"><font size="2">(11:29:30 PM)</font> <b>ttuegel:</b></font> schoppenhauer: you should load the packages from ~/nixpkgs with `NIX_PATH=nixpkgs=$HOME/nixpkgs:$NIX_PATH nix-shell`<br/>
+<font color="#A82F2F"><font size="2">(11:29:31 PM)</font> <b>thoughtpolice:</b></font> It should also probably use libidn, too...<br/>
+<font color="#A82F2F"><font size="2">(11:29:31 PM)</font> <b>jchee:</b></font> thoughtpolice: should I file a bug against nixpkgs?<br/>
+<font color="#A82F2F"><font size="2">(11:29:31 PM)</font> <b>schoppenhauer:</b></font> ttuegel: ok. I was hoping that it is possible to put that in a default.nix<br/>
+<font color="#A82F2F"><font size="2">(11:29:31 PM)</font> <b>thoughtpolice:</b></font> But the problem is I&apos;m not sure if this implies a mass rebuild, which is a PITA<br/>
+<font color="#A82F2F"><font size="2">(11:29:31 PM)</font> <b>thoughtpolice:</b></font> jchee: yes, please do<br/>
+<font color="#A82F2F"><font size="2">(11:29:31 PM)</font> <b>ttuegel:</b></font> schoppenhauer: how are you getting the packages into your default.nix now?<br/>
+<font color="#A82F2F"><font size="2">(11:29:32 PM)</font> <b>jchee:</b></font> thoughtpolice: ok, thakns<br/>
+<font color="#A82F2F"><font size="2">(11:29:56 PM)</font> <b>schoppenhauer:</b></font> ttuegel: buildInputs, but so far, they are stable<br/>
+<font color="#A82F2F"><font size="2">(11:30:11 PM)</font> <b>wkennington:</b></font> Any guesses why the i686 iso needs to rebuild the manual but the x86-64 iso does not?<br/>
+<font color="#A82F2F"><font size="2">(11:30:13 PM)</font> <b>ttuegel:</b></font> schoppenhauer: paste your default.nix please?<br/>
+<font color="#A82F2F"><font size="2">(11:30:24 PM)</font> <b>wkennington:</b></font> Some build impurities?<br/>
+<font color="#A82F2F"><font size="2">(11:31:22 PM)</font> <b>schoppenhauer:</b></font> ttuegel: http://pastebin.com/h9ngbQB0<br/>
+<font color="#A82F2F"><font size="2">(11:31:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ttuegel pushed 1 new commit to master: http://git.io/veoaS<br/>
+<font color="#A82F2F"><font size="2">(11:31:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 74b2253 Thomas Tuegel: qt54: remove obsolete qmake expression<br/>
+<font color="#A82F2F"><font size="2">(11:33:08 PM)</font> <b>ttuegel:</b></font> schoppenhauer: change `with import &lt;nixpkgs&gt; { };` to `with import (builtins.toPath (builtins.getEnv &quot;HOME&quot; + &quot;/nixpkgs&quot;)) {};`<br/>
+<font color="#A82F2F"><font size="2">(11:33:32 PM)</font> <b>ttuegel:</b></font> schoppenhauer: that will get the packages for this default.nix from $HOME/nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(11:34:04 PM)</font> <b>schoppenhauer:</b></font> ttuegel: thank you!<br/>
+<font color="#A82F2F"><font size="2">(11:35:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga pushed 3 new commits to master: http://git.io/veowc<br/>
+<font color="#A82F2F"><font size="2">(11:35:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 15fd97b Spencer Whitt: gamin: Patch bug which clang detects as error<br/>
+<font color="#A82F2F"><font size="2">(11:35:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3885fc5 Spencer Whitt: fail2ban: include systemd on Linux only<br/>
+<font color="#A82F2F"><font size="2">(11:35:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1035b7b Arseniy Seroka: Merge pull request #7244 from spwhitt/fail2ban...<br/>
+<font color="#A82F2F"><font size="2">(11:39:22 PM)</font> <b>niksnut:</b></font> teoma: try nix.extraOptions = &quot;trusted-users = nix&quot; in configuration.nix<br/>

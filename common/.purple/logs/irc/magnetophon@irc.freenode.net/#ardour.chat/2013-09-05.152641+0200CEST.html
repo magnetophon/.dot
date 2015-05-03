@@ -1,0 +1,764 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Thu 05 Sep 2013 03:26:41 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Thu 05 Sep 2013 03:26:41 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(03:26:41 PM)</font><b> The topic for #ardour is: ardour 3.4 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font color="#A82F2F"><font size="2">(03:27:42 PM)</font> <b>las:</b></font> MountainX: still around?<br/>
+<font size="2">(03:28:18 PM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font size="2">(03:32:52 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(03:33:19 PM)</font><b> AndreeeCZ [<em>~AndreeeCZ@dsl-hkibrasgw2-50de22-43.dhcp.inet.fi</em>] entered the room.</b><br/>
+<font size="2">(03:34:09 PM)</font><b> oofus_lt [<em>~chris@oofus-adsl.demon.co.uk</em>] entered the room.</b><br/>
+<font size="2">(04:02:10 PM)</font><b> oofus left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(04:04:17 PM)</font><b> oofus [<em>~chris@oofus-adsl.demon.co.uk</em>] entered the room.</b><br/>
+<font size="2">(04:14:03 PM)</font><b> err-or left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(04:14:07 PM)</font><b> zequence-work left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(04:15:20 PM)</font><b> nostar [<em>~nostar@c-68-43-185-189.hsd1.mi.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(04:18:20 PM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font size="2">(04:35:11 PM)</font><b> aalex_ [<em>~aalex@modemcable038.17-202-24.mc.videotron.ca</em>] entered the room.</b><br/>
+<font size="2">(04:40:13 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:42:51 PM)</font> <b>rgareus:</b></font> oofus: thanks for the heads up. replied on the forum just now<br/>
+<font color="#A82F2F"><font size="2">(04:44:28 PM)</font> <b>rgareus:</b></font> MountainX: if by plug&amp;play you mean jack automaticall switching soundcards: it can be plug and play but is thankfully not so by default.<br/>
+<font color="#A82F2F"><font size="2">(04:45:49 PM)</font> <b>rgareus:</b></font> MountainX: output1/2 on one soundcard may go to my headphones but output1/2 on another soundcard to monitor-speakers. I&apos;d not want jack to switch automatically and blast my speakers.<br/>
+<font color="#A82F2F"><font size="2">(04:46:24 PM)</font> <b>rgareus:</b></font> MountainX: that being said, jack2 can switch backends on the fly and if you use dbus, this can be triggered automatically<br/>
+<font size="2">(04:47:29 PM)</font><b> Stuzz left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:55:33 PM)</font> <b>oofus:</b></font> rgareus: no problem<br/>
+<font size="2">(04:57:45 PM)</font><b> aalex_ left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(04:57:49 PM)</font><b> donatien_alphons [<em>~poorman@h48.6.189.173.dynamic.ip.windstream.net</em>] entered the room.</b><br/>
+<font size="2">(05:00:59 PM)</font><b> Gethiox left the room (quit: Quit: WeeChat 0.4.1).</b><br/>
+<font size="2">(05:01:26 PM)</font><b> Gethiox [<em>~gethiox@host-2-121.24.net.pl</em>] entered the room.</b><br/>
+<font size="2">(05:02:58 PM)</font><b> NikP [<em>~nik@fedora/NikP</em>] entered the room.</b><br/>
+<font size="2">(05:03:08 PM)</font><b> NikP left the room.</b><br/>
+<font size="2">(05:07:18 PM)</font><b> err-or left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(05:09:36 PM)</font><b> Leatuspenguin left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(05:11:38 PM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font size="2">(05:11:39 PM)</font><b> NikP [<em>~nik@fedora/NikP</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:12:21 PM)</font> <b>NikP:</b></font> I want to use Jack to record my podcast to ardour. But if I first-start jack after system-boot, jack can&apos;t start the server. I can do that so oft I want, it doesn&apos;t changes anything. Then I open and close ardour and then start jack, and the server - runs! Then I start ardour and all works perfect. Why?<br/>
+<font color="#A82F2F"><font size="2">(05:12:50 PM)</font> <b>las:</b></font> NikP: (1) jack *is* the server<br/>
+<font color="#A82F2F"><font size="2">(05:13:10 PM)</font> <b>las:</b></font> NikP: are you trying to use ardour to start/control JACK, or do you use qjackctl (known in some places as &quot;JACK Control&quot;) ?<br/>
+<font color="#A82F2F"><font size="2">(05:13:24 PM)</font> <b>NikP:</b></font> I use qjackctl<br/>
+<font color="#A82F2F"><font size="2">(05:14:13 PM)</font> <b>las:</b></font> NikP: you should get the error messages from the message dialog of qjackctl and paste them via pastebin.com or a similar site<br/>
+<font color="#A82F2F"><font size="2">(05:15:19 PM)</font> <b>NikP:</b></font> OK, I&apos;ll do that. I&apos;ll come in a few minutes.<br/>
+<font size="2">(05:15:27 PM)</font><b> NikP left the room (quit: Quit: WeeChat 0.4.0).</b><br/>
+<font size="2">(05:19:39 PM)</font><b> NikP [<em>~nik@fedora/NikP</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:20:08 PM)</font> <b>NikP:</b></font> So, here it is: http://paste.ubuntu.com/6066879/<br/>
+<font size="2">(05:20:38 PM)</font><b> [TR0N] [<em>~tr0n@201.248.74.150</em>] entered the room.</b><br/>
+<font size="2">(05:23:58 PM)</font><b> ahellquist_lt left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:24:22 PM)</font> <b>oofus:</b></font> NikP: in qjakctls setup window, change periods/buffer from 3 to 2. Could be worth a try<br/>
+<font color="#A82F2F"><font size="2">(05:25:17 PM)</font> <b>oofus:</b></font> NikP: What hardware are you trying to use ? It could also be that it only works at 48KHz and you are trying to start it at 44.1 KHz<br/>
+<font color="#A82F2F"><font size="2">(05:26:08 PM)</font> <b>oofus:</b></font> NikP: but try changing the buffer setting first<br/>
+<font color="#A82F2F"><font size="2">(05:27:52 PM)</font> <b>NikP:</b></font> oofus: I&apos;ve tried the buffer setting and restarted qjackctl, but it has nothing changed. It still doesn&apos;t works. 48KHz same result. Another plan?<br/>
+<font size="2">(05:28:46 PM)</font><b> aalex_ [<em>~aalex@modemcable154.55-37-24.static.videotron.ca</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:29:29 PM)</font> <b>oofus:</b></font> You didn&apos;t say what hardware you are trying to use<br/>
+<font color="#A82F2F"><font size="2">(05:30:11 PM)</font> <b>NikP:</b></font> I&apos;m using a VIA VT1708S<br/>
+<font color="#A82F2F"><font size="2">(05:30:26 PM)</font> <b>oofus:</b></font> built in HD thing in a laptop ?<br/>
+<font color="#A82F2F"><font size="2">(05:30:29 PM)</font> <b>NikP:</b></font> (so alsa says...)<br/>
+<font color="#A82F2F"><font size="2">(05:30:57 PM)</font> <b>NikP:</b></font> Yes, but not in a laptop.<br/>
+<font color="#A82F2F"><font size="2">(05:31:22 PM)</font> <b>oofus:</b></font> NikP: ok, built into t a motherboard<br/>
+<font color="#A82F2F"><font size="2">(05:32:13 PM)</font> <b>NikP:</b></font> oofus: Yes, but why does it works when I open and close ardour and restart the jack-server?<br/>
+<font color="#A82F2F"><font size="2">(05:33:47 PM)</font> <b>oofus:</b></font> probably because it is using slightly different settings to start Jack. So you could start Ardour from a terminal and see what parameters it is using and then translate that into setting for QjackCtl<br/>
+<font color="#A82F2F"><font size="2">(05:34:05 PM)</font> <b>oofus:</b></font> NikP: they are both starting the same Jack !<br/>
+<font color="#A82F2F"><font size="2">(05:34:12 PM)</font> <b>edogawa:</b></font> NikP: if 2 0r 3 periods don&apos;t make a difference, why use 3 then (higher latency)? also one of the errors seems to say it wants 2 for playback<br/>
+<font color="#A82F2F"><font size="2">(05:34:14 PM)</font> <b>NikP:</b></font> OK, wait....<br/>
+<font color="#A82F2F"><font size="2">(05:34:23 PM)</font> <b>oofus:</b></font> NikP: it&apos;s just two different ways of acheiving the same thing<br/>
+<font color="#A82F2F"><font size="2">(05:35:10 PM)</font> <b>NikP:</b></font> oofus: When jack runs or not? It comes out in the same result.<br/>
+<font color="#A82F2F"><font size="2">(05:35:26 PM)</font> <b>oofus:</b></font> NikP: I don&apos;t understand<br/>
+<font size="2">(05:35:28 PM)</font><b> clark|w [<em>clark_will@nat/redhat/x-dygxtkdybkurpsfk</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:36:17 PM)</font> <b>NikP:</b></font> oofus: When jack doesn&apos;t runs, and I then start an ardour project and close it, jack works.<br/>
+<font color="#A82F2F"><font size="2">(05:36:23 PM)</font> <b>edogawa:</b></font> NikP: ardour oresents you a jack startup dialog when jack isn&apos;t already run<br/>
+<font color="#A82F2F"><font size="2">(05:36:29 PM)</font> <b>edogawa:</b></font> presents<br/>
+<font color="#A82F2F"><font size="2">(05:38:51 PM)</font> <b>NikP:</b></font> There isn&apos;t any popup, but here&apos;s the output of ardour: http://paste.ubuntu.com/6066951/<br/>
+<font color="#A82F2F"><font size="2">(05:41:01 PM)</font> <b>edogawa:</b></font> NikP: now you could copy the jackd commandline from ardour&apos;s output and run it from a shell, or tweak qjackctl settings until they result in the same command<br/>
+<font size="2">(05:41:01 PM)</font><b> clark|w is now known as clark|w|afk</b><br/>
+<font color="#A82F2F"><font size="2">(05:44:28 PM)</font> <b>edogawa:</b></font> NikP: i&apos;m using jack1, so i don&apos;t know much about jackdmp/jackdbus aka jack2, but it seeems ardour calls jackd, while qjackctl uses jackdbus (really i don&apos;t know anything about that dbus stuff)<br/>
+<font color="#A82F2F"><font size="2">(05:51:57 PM)</font> <b>NikP:</b></font> Yeah, it works! I&apos;ll set this settings in qjackctl, thank you!<br/>
+<font size="2">(05:54:33 PM)</font><b> NikP left the room (&quot;WeeChat 0.4.0&quot;).</b><br/>
+<font size="2">(06:00:48 PM)</font><b> boom1992 [<em>~quassel@BA1222.ballee.wh.tu-darmstadt.de</em>] entered the room.</b><br/>
+<font size="2">(06:03:02 PM)</font><b> DrCode left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(06:10:05 PM)</font><b> ahellquist_lt [<em>~aht@h192n4-aahm-a11.ias.bredband.telia.com</em>] entered the room.</b><br/>
+<font size="2">(06:15:09 PM)</font><b> DrCode [<em>~DrCode@gateway/tor-sasl/drcode</em>] entered the room.</b><br/>
+<font size="2">(06:17:20 PM)</font><b> naptastic [<em>~david@99-20-201-27.lightspeed.hstntx.sbcglobal.net</em>] entered the room.</b><br/>
+<font color="#062585"><font size="2">(06:20:33 PM)</font> <b>***las</b></font> returns from skype<br/>
+<font size="2">(06:27:28 PM)</font><b> oofus_lt left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(06:33:10 PM)</font> <b>naptastic:</b></font> rgareus, what was the command to generate LTC audio files again?<br/>
+<font color="#A82F2F"><font size="2">(06:33:28 PM)</font> <b>rgareus:</b></font> ltcgen from https://github.com/x42/ltc-tools<br/>
+<font color="#A82F2F"><font size="2">(06:33:33 PM)</font> <b>naptastic:</b></font> Thank you :-)<br/>
+<font size="2">(06:36:22 PM)</font><b> imeim left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(06:38:29 PM)</font><b> andrebia1984 [<em>~andrea@host161-3-dynamic.49-82-r.retail.telecomitalia.it</em>] entered the room.</b><br/>
+<font size="2">(06:43:52 PM)</font><b> Valvalion [<em>~valvalion@91.179.17.243</em>] entered the room.</b><br/>
+<font size="2">(06:52:18 PM)</font><b> boom1992 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(06:53:32 PM)</font><b> polosson [<em>~quassel@lns-bzn-36-82-251-28-180.adsl.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(06:55:21 PM)</font><b> clark|w|afk is now known as clark|w</b><br/>
+<font size="2">(07:10:23 PM)</font><b> karimb left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(07:25:34 PM)</font><b> ANero [<em>~nero@unaffiliated/anero</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:31:12 PM)</font> <b>c_borss:</b></font> Re<br/>
+<font color="#A82F2F"><font size="2">(07:31:38 PM)</font> <b>c_borss:</b></font> las: Hi!<br/>
+<font color="#A82F2F"><font size="2">(07:32:33 PM)</font> <b>las:</b></font> c_borss: you had some questions<br/>
+<font color="#A82F2F"><font size="2">(07:33:08 PM)</font> <b>c_borss:</b></font> yes, I registered on the frum as well as on the mailinglist, but haven&apos;t got any confirmation<br/>
+<font size="2">(07:33:22 PM)</font><b> kermyt left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:33:24 PM)</font> <b>las:</b></font> c_borss: probably dropped in the spam box by your email handling setup<br/>
+<font color="#A82F2F"><font size="2">(07:33:44 PM)</font> <b>las:</b></font> c_borss: it originates from an AWS (amazon EC2) system, which sometimes get classified as junk or not even accepted<br/>
+<font color="#A82F2F"><font size="2">(07:34:00 PM)</font> <b>c_borss:</b></font> hmm, OK. I&apos;ll have a look.<br/>
+<font color="#A82F2F"><font size="2">(07:34:01 PM)</font> <b>las:</b></font> c_borss: that&apos;s for the forum, at least; the mailing list is a different story<br/>
+<font color="#A82F2F"><font size="2">(07:34:12 PM)</font> <b>las:</b></font> c_borss: i am not aware of any problems with the mailing list<br/>
+<font color="#A82F2F"><font size="2">(07:34:15 PM)</font> <b>c_borss:</b></font> Did you get my email with the patch?<br/>
+<font color="#A82F2F"><font size="2">(07:34:23 PM)</font> <b>las:</b></font> c_borss: not that i am aware of. where did you send it?<br/>
+<font color="#A82F2F"><font size="2">(07:34:36 PM)</font> <b>c_borss:</b></font> ardour-dev<br/>
+<font color="#A82F2F"><font size="2">(07:35:01 PM)</font> <b>las:</b></font> c_borss: never saw it, and i&apos;m the moderator, and have not been notified of anything requiring moderation (e.g. mail from a non-member)<br/>
+<font color="#A82F2F"><font size="2">(07:35:23 PM)</font> <b>c_borss:</b></font> strange<br/>
+<font size="2">(07:35:26 PM)</font><b> kermyt [<em>~kermyt@unaffiliated/kermyt</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:35:51 PM)</font> <b>las:</b></font> c_borss: try sending directly to me paul@linuxaudiosystems.com and we can see if that works<br/>
+<font color="#A82F2F"><font size="2">(07:35:59 PM)</font> <b>c_borss:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(07:37:36 PM)</font> <b>c_borss:</b></font> done<br/>
+<font size="2">(07:37:44 PM)</font><b> slidesinger left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(07:39:12 PM)</font><b> DrCode left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:39:45 PM)</font><b> thorwil [<em>~thorwil@p4FFB7707.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:39:47 PM)</font> <b>las:</b></font> c_borss: wow this looks like quite the patch<br/>
+<font color="#A82F2F"><font size="2">(07:40:04 PM)</font> <b>c_borss:</b></font> found your messages in my spam folder<br/>
+<font color="#A82F2F"><font size="2">(07:40:05 PM)</font> <b>las:</b></font> c_borss: i gave up on the vbap panner because when i returned to it even I (who wrote it) could not make sense of it at all<br/>
+<font color="#A82F2F"><font size="2">(07:40:19 PM)</font> <b>c_borss:</b></font> lol :-D<br/>
+<font color="#A82F2F"><font size="2">(07:40:41 PM)</font> <b>c_borss:</b></font> you made my day! ;)<br/>
+<font color="#A82F2F"><font size="2">(07:40:49 PM)</font> <b>c_borss:</b></font> it&apos;s working now<br/>
+<font color="#A82F2F"><font size="2">(07:41:01 PM)</font> <b>las:</b></font> c_borss: what speaker set up did you test with ? 5.1 ?<br/>
+<font color="#A82F2F"><font size="2">(07:41:46 PM)</font> <b>c_borss:</b></font> 5.1+4<br/>
+<font color="#A82F2F"><font size="2">(07:42:24 PM)</font> <b>c_borss:</b></font> (with 4 height speakers)<br/>
+<font size="2">(07:42:46 PM)</font><b> DrCode [<em>~DrCode@gateway/tor-sasl/drcode</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:42:54 PM)</font> <b>las:</b></font> c_borss: and it actually worked! :)<br/>
+<font color="#A82F2F"><font size="2">(07:43:11 PM)</font> <b>c_borss:</b></font> yes, out of the box<br/>
+<font color="#A82F2F"><font size="2">(07:43:24 PM)</font> <b>c_borss:</b></font> want to know why it didn&apos;t work?<br/>
+<font color="#A82F2F"><font size="2">(07:43:29 PM)</font> <b>las:</b></font> c_borss: sure<br/>
+<font color="#A82F2F"><font size="2">(07:43:56 PM)</font> <b>c_borss:</b></font> ... telephone ...<br/>
+<font size="2">(07:44:01 PM)</font><b> slidesinger [<em>~slidesing@c-69-141-78-33.hsd1.nj.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:45:29 PM)</font> <b>oofus:</b></font> las: odd reason for it not working !<br/>
+<font color="#A82F2F"><font size="2">(07:48:55 PM)</font> <b>las:</b></font> oofus: its always the way - i take a call, forgot what i was doing, consider it finished ... :)<br/>
+<font color="#A82F2F"><font size="2">(07:49:20 PM)</font> <b>oofus:</b></font> ls: lol<br/>
+<font color="#A82F2F"><font size="2">(07:51:31 PM)</font> <b>c_borss:</b></font> sorry<br/>
+<font color="#A82F2F"><font size="2">(07:52:02 PM)</font> <b>c_borss:</b></font> you used a linked list fot the triangle definitions<br/>
+<font color="#A82F2F"><font size="2">(07:52:18 PM)</font> <b>c_borss:</b></font> and iterated through it to count the triangles<br/>
+<font color="#A82F2F"><font size="2">(07:52:36 PM)</font> <b>c_borss:</b></font> but forgot to set the pointer back to the beginning<br/>
+<font color="#A82F2F"><font size="2">(07:52:48 PM)</font> <b>c_borss:</b></font> so the list pointer was NULL<br/>
+<font color="#A82F2F"><font size="2">(07:53:05 PM)</font> <b>c_borss:</b></font> no triangles, no panning ;)<br/>
+<font color="#A82F2F"><font size="2">(07:56:46 PM)</font> <b>las:</b></font> c_borss: it did work *sometimes* :) really! <br/>
+<font color="#A82F2F"><font size="2">(07:59:13 PM)</font> <b>c_borss:</b></font> hope you get the loudspeaker setup dialog working, too<br/>
+<font color="#A82F2F"><font size="2">(07:59:48 PM)</font> <b>las:</b></font> c_borss: not high on my list. the whole idea sort of fell of favor in my mind<br/>
+<font color="#A82F2F"><font size="2">(08:00:09 PM)</font> <b>c_borss:</b></font> but it&apos;s a pretty cool and unique feature<br/>
+<font color="#A82F2F"><font size="2">(08:00:59 PM)</font> <b>c_borss:</b></font> but I understand that MIDI support was much more important<br/>
+<font color="#A82F2F"><font size="2">(08:01:45 PM)</font> <b>las:</b></font> c_borss: well, the biggest factor was really that i don&apos;t typically have more than stereo in my office/studio, so development was tricky<br/>
+<font color="#A82F2F"><font size="2">(08:02:00 PM)</font> <b>las:</b></font> c_borss: i have the channels, but not the amplication/monitors<br/>
+<font color="#A82F2F"><font size="2">(08:02:14 PM)</font> <b>c_borss:</b></font> sure. luckily, I have some more speakers at work.<br/>
+<font size="2">(08:04:32 PM)</font><b> naptastic left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(08:06:29 PM)</font> <b>c_borss:</b></font> have a nice evening everybody! bye.<br/>
+<font size="2">(08:06:42 PM)</font><b> c_borss left the room (quit: Quit: Verlassend).</b><br/>
+<font size="2">(08:09:54 PM)</font><b> MountainX left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(08:15:32 PM)</font> <b>rgareus:</b></font> las: so c_borss PM&apos;ed you a patch/fix for the VBAP panner?<br/>
+<font size="2">(08:20:54 PM)</font><b> nox- [<em>noident@freebsd/developer/nox</em>] entered the room.</b><br/>
+<font size="2">(08:22:47 PM)</font><b> ANero left the room (quit: Quit: Ex-Chat).</b><br/>
+<font size="2">(08:28:21 PM)</font><b> edogawa left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(08:30:04 PM)</font><b> edogawa [<em>~quassel@91-113-38-175.adsl.highway.telekom.at</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:34:49 PM)</font> <b>las:</b></font> rgareus: yes<br/>
+<font color="#A82F2F"><font size="2">(08:35:05 PM)</font> <b>las:</b></font> rgareus: i&apos;ll read over it and probably apply it soon<br/>
+<font color="#A82F2F"><font size="2">(08:35:32 PM)</font> <b>rgareus:</b></font> las: cool.<br/>
+<font color="#062585"><font size="2">(08:36:08 PM)</font> <b>***rgareus</b></font> loves FLOSS for this random contibutions out of nowhere.<br/>
+<font color="#A82F2F"><font size="2">(08:37:18 PM)</font> <b>las:</b></font> rgareus: indeed<br/>
+<font color="#A82F2F"><font size="2">(08:38:38 PM)</font> <b>las:</b></font> rgareus: hmm, there is one problem with the patch. i wish he had stayed around<br/>
+<font color="#A82F2F"><font size="2">(08:39:33 PM)</font> <b>rgareus:</b></font> las: maybe he knew. and therefore vanished quickly :)<br/>
+<font color="#A82F2F"><font size="2">(08:39:47 PM)</font> <b>rgareus:</b></font> las: but you have his mail.<br/>
+<font color="#A82F2F"><font size="2">(08:40:07 PM)</font> <b>rgareus:</b></font> las: big problem?<br/>
+<font color="#A82F2F"><font size="2">(08:40:21 PM)</font> <b>las:</b></font> rgareus: not really big<br/>
+<font color="#A82F2F"><font size="2">(08:40:30 PM)</font> <b>las:</b></font> rgareus: its ok for testing, and i&apos;ve emailed him about the issue<br/>
+<font size="2">(08:47:32 PM)</font><b> camerin left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(08:49:51 PM)</font> <b>las:</b></font> rgareus: actually, it doesn&apos;t seem to work as i would (naively) expect<br/>
+<font color="#A82F2F"><font size="2">(08:50:05 PM)</font> <b>las:</b></font> rgareus: and it still has a fundamental issue with non-mono-source tracks<br/>
+<font color="#A82F2F"><font size="2">(08:50:11 PM)</font> <b>the_CLA:</b></font> rgareus: Now with the latest git version of the r128 I get even stranger drawing issues with the GTK verison. Maybe it&apos;s really related to the somewhat outdated version of Cairo in Wheezy. http://imagebin.org/269972<br/>
+<font color="#A82F2F"><font size="2">(08:50:29 PM)</font> <b>the_CLA:</b></font> rgareus: Seems to be cause by the shadow of the radar line.<br/>
+<font color="#A82F2F"><font size="2">(08:51:10 PM)</font> <b>the_CLA:</b></font> rgareus: And these artifacts disappear when switching between desktops.<br/>
+<font color="#A82F2F"><font size="2">(08:51:48 PM)</font> <b>rgareus:</b></font> the_CLA: cause by partial updates.. changing LU/LUFS or any of the radio-button will also queue a full-redraw<br/>
+<font color="#A82F2F"><font size="2">(08:52:35 PM)</font> <b>the_CLA:</b></font> rgareus: Yes, correct.<br/>
+<font color="#A82F2F"><font size="2">(08:53:37 PM)</font> <b>rgareus:</b></font> the_CLA: I now wonder if the redraw issues that you see have been glib, gdk issue all along.<br/>
+<font color="#A82F2F"><font size="2">(08:53:42 PM)</font> <b>las:</b></font> rgareus: i&apos;m also finding that the master bus is locked to a stereo meter even when it has &gt; 2 channels<br/>
+<font color="#A82F2F"><font size="2">(08:54:01 PM)</font> <b>rgareus:</b></font> the_CLA: how do you compile ardour on that machine? wheezy&apos;s glib/gdk is too old for it, isn&apos;t it?<br/>
+<font color="#A82F2F"><font size="2">(08:54:25 PM)</font> <b>rgareus:</b></font> las: really? I&apos;ve tested that.<br/>
+<font size="2">(08:54:30 PM)</font><b> camerin [<em>hoax@elite.bshellz.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:55:02 PM)</font> <b>las:</b></font> rgareus: i just added 3 ports to the master. the panner switched to vbap, the meter is still stereo both in the mixer strip and track header<br/>
+<font color="#A82F2F"><font size="2">(08:55:04 PM)</font> <b>the_CLA:</b></font> rgareus: No, works fine with the standard in Wheezy.<br/>
+<font color="#A82F2F"><font size="2">(08:55:04 PM)</font> <b>rgareus:</b></font> las: the master-meter in the mixer?<br/>
+<font color="#A82F2F"><font size="2">(08:55:30 PM)</font> <b>rgareus:</b></font> las: do you meter post-panner?<br/>
+<font color="#A82F2F"><font size="2">(08:55:46 PM)</font> <b>rgareus:</b></font> ie the &apos;output&apos;?<br/>
+<font size="2">(08:55:48 PM)</font><b> err-or left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#062585"><font size="2">(08:56:10 PM)</font> <b>***rgareus</b></font> starts ardour<br/>
+<font color="#A82F2F"><font size="2">(08:56:12 PM)</font> <b>las:</b></font> rgareus: yes, &quot;post&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:56:33 PM)</font> <b>rgareus:</b></font> las: &quot;post&quot; is post-fader, pre-panner<br/>
+<font color="#A82F2F"><font size="2">(08:56:42 PM)</font> <b>las:</b></font> rgareus: ooh, now it worked<br/>
+<font color="#A82F2F"><font size="2">(08:56:55 PM)</font> <b>rgareus:</b></font> las: switching to &apos;out&apos; adds the output port<br/>
+<font color="#A82F2F"><font size="2">(08:56:59 PM)</font> <b>las:</b></font> rgareus: when i used the patchbay/matrix rather than a right click menu on the mixer strip outputbutton<br/>
+<font color="#A82F2F"><font size="2">(08:57:34 PM)</font> <b>rgareus:</b></font> las: I used the mixer-strips output-button<br/>
+<font color="#A82F2F"><font size="2">(08:58:18 PM)</font> <b>the_CLA:</b></font> rgareus: Also a crash on closing the GUI of the OpenGL version: http://pastebin.com/AfD4qnan <br/>
+<font color="#A82F2F"><font size="2">(08:58:26 PM)</font> <b>the_CLA:</b></font> rgareus: Not sure if we had that already.<br/>
+<font color="#A82F2F"><font size="2">(08:59:26 PM)</font> <b>las:</b></font> rgareus: maybe i am just blind :)<br/>
+<font color="#A82F2F"><font size="2">(08:59:35 PM)</font> <b>las:</b></font> rgareus: anyway, judging from meters, the panning does not work<br/>
+<font color="#A82F2F"><font size="2">(08:59:45 PM)</font> <b>las:</b></font> rgareus: i&apos;ll take it up with him<br/>
+<font color="#A82F2F"><font size="2">(09:00:05 PM)</font> <b>rgareus:</b></font> the_CLA: don&apos;t use the openGL versions with  libcairo &lt; 1.12.10, libpango &lt; 1.32.6 or libpixman &lt; 0.30.2 (they are not threads-safe)<br/>
+<font color="#A82F2F"><font size="2">(09:00:30 PM)</font> <b>the_CLA:</b></font> rgareus: Ok.<br/>
+<font color="#A82F2F"><font size="2">(09:00:34 PM)</font> <b>rgareus:</b></font> the_CLA: as with threading issues in general: it may or may not work with older versions<br/>
+<font color="#A82F2F"><font size="2">(09:01:12 PM)</font> <b>rgareus:</b></font> the_CLA: but all those releases are at least 9 month old. not cutting edge<br/>
+<font color="#A82F2F"><font size="2">(09:02:09 PM)</font> <b>rgareus:</b></font> the_CLA: but still too yound for debian/stable<br/>
+<font color="#A82F2F"><font size="2">(09:02:22 PM)</font> <b>rgareus:</b></font> s/yound/young/<br/>
+<font size="2">(09:03:04 PM)</font><b> imeim [<em>~quassel@221.Red-88-18-9.staticIP.rima-tde.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:03:33 PM)</font> <b>rgareus:</b></font> the_CLA: though segfault in fglrx_dri.so may also something is b0rked in your gfx-card driver.<br/>
+<font color="#A82F2F"><font size="2">(09:04:08 PM)</font> <b>the_CLA:</b></font> rgareus: And with the bundled version of Ardour I again get new_state_from_model errors: http://pastebin.com/rsWhdPLW<br/>
+<font color="#A82F2F"><font size="2">(09:05:21 PM)</font> <b>rgareus:</b></font> the_CLA: did you save this session with a self-compiled version of ardour?<br/>
+<font color="#A82F2F"><font size="2">(09:05:44 PM)</font> <b>rgareus:</b></font> the_CLA: and your self-compiled version uses wheezy&apos;s [ancient] LV2?<br/>
+<font color="#A82F2F"><font size="2">(09:07:29 PM)</font> <b>the_CLA:</b></font> rgareus: Yes.<br/>
+<font size="2">(09:08:01 PM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:08:43 PM)</font> <b>rgareus:</b></font> the_CLA: aah well. I&apos;ll hold back a proper release until most distros have appropriate versions. and until the bundled ardour comes with recent libcairo,pango,pixman.<br/>
+<font color="#A82F2F"><font size="2">(09:09:38 PM)</font> <b>rgareus:</b></font> the_CLA: do you have the same redraw-issues in ebur-128/gtk  with the ardour-bundle?<br/>
+<font color="#A82F2F"><font size="2">(09:10:10 PM)</font> <b>the_CLA:</b></font> rgareus: At a quick look it seemed that way.<br/>
+<font size="2">(09:10:30 PM)</font><b> imeim left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:11:06 PM)</font> <b>the_CLA:</b></font> rgareus: Yes, seems the same.<br/>
+<font color="#A82F2F"><font size="2">(09:13:05 PM)</font> <b>dbolton:</b></font> A couple questions about meters. What is the simplest way to turn up the fader to the maximum without clipping?<br/>
+<font color="#A82F2F"><font size="2">(09:14:09 PM)</font> <b>dbolton:</b></font> Also how do I clear the red in background from the meter (that indicates that clipping/distortion occurred in an earlier play through)<br/>
+<font color="#A82F2F"><font size="2">(09:14:36 PM)</font> <b>rgareus:</b></font> dbolton: click on the numeric display to reset the peak indicator<br/>
+<font color="#A82F2F"><font size="2">(09:14:47 PM)</font> <b>rgareus:</b></font> dbolton: (same as before)<br/>
+<font color="#A82F2F"><font size="2">(09:15:07 PM)</font> <b>rgareus:</b></font> dbolton: ardour does not do any auto-gain. only on export it can normalize to 0dbFS<br/>
+<font color="#A82F2F"><font size="2">(09:15:26 PM)</font> <b>rgareus:</b></font> dbolton: so you&apos;ll have to operate the fader manually<br/>
+<font color="#A82F2F"><font size="2">(09:15:30 PM)</font> <b>the_CLA:</b></font> dbolton: Ctrl+Shift+click to reset all at once.<br/>
+<font color="#A82F2F"><font size="2">(09:16:59 PM)</font> <b>oofus:</b></font> dbolton: what does &quot;turn up the fader to the maximum without clipping&quot; really mean ?<br/>
+<font color="#A82F2F"><font size="2">(09:17:01 PM)</font> <b>dbolton:</b></font> Got it! Thanks<br/>
+<font color="#A82F2F"><font size="2">(09:17:07 PM)</font> <b>oofus:</b></font> dbolton: What are you trying to acheive<br/>
+<font color="#A82F2F"><font size="2">(09:17:41 PM)</font> <b>dbolton:</b></font> oofus, I wanted to increase the volume of the vocals, but not to the point that it started clipping<br/>
+<font color="#A82F2F"><font size="2">(09:18:21 PM)</font> <b>oofus:</b></font> dbolton: ok<br/>
+<font color="#A82F2F"><font size="2">(09:18:29 PM)</font> <b>dbolton:</b></font> oofus: now that vocals are set to max, I&apos;ll pull back piano if needed.<br/>
+<font color="#A82F2F"><font size="2">(09:18:39 PM)</font> <b>rgareus:</b></font> dbolton: one option is to just turn everything else down.<br/>
+<font color="#A82F2F"><font size="2">(09:18:56 PM)</font> <b>oofus:</b></font> dbolton: that implies that the vocal was recorded to quietly !<br/>
+<font color="#A82F2F"><font size="2">(09:19:12 PM)</font> <b>rgareus:</b></font> dbolton: but you can also listen through the whole piece and see what the &apos;peak value&apos; on the track is after that<br/>
+<font color="#A82F2F"><font size="2">(09:19:13 PM)</font> <b>dbolton:</b></font> oofus: sure. <br/>
+<font color="#A82F2F"><font size="2">(09:19:14 PM)</font> <b>oofus:</b></font> dbolton: or everything else is too loud :)<br/>
+<font color="#A82F2F"><font size="2">(09:19:30 PM)</font> <b>dbolton:</b></font> yep.<br/>
+<font color="#A82F2F"><font size="2">(09:20:04 PM)</font> <b>rgareus:</b></font> dbolton: but the general idea is mix low and at the end increase the master gain.<br/>
+<font color="#A82F2F"><font size="2">(09:20:38 PM)</font> <b>dbolton:</b></font> rgareus: Is there any loss of bit quality doing that?<br/>
+<font color="#A82F2F"><font size="2">(09:20:49 PM)</font> <b>rgareus:</b></font> dbolton: nope. it&apos;s all floating point values<br/>
+<font color="#A82F2F"><font size="2">(09:21:01 PM)</font> <b>rgareus:</b></font> dbolton: you can even clip at earlier stages and lower the master gain<br/>
+<font color="#A82F2F"><font size="2">(09:23:49 PM)</font> <b>rgareus:</b></font> dbolton: if you &quot;clip&quot; (float value &gt;= 1.0) inside jack, there&apos;s no difference as long as the signal stays inside jack.<br/>
+<font color="#A82F2F"><font size="2">(09:24:23 PM)</font> <b>rgareus:</b></font> dbolton: (but some effect-plugins may behave odd if they get float values &gt;= 1.0)<br/>
+<font color="#A82F2F"><font size="2">(09:24:55 PM)</font> <b>dbolton:</b></font> rgareus: great info. Thank you. <br/>
+<font size="2">(09:25:24 PM)</font><b> naptastic [<em>~david@2620:0:28a0:2007:ca2a:14ff:fe55:aa5b</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:25:47 PM)</font> <b>rgareus:</b></font> dbolton: it&apos;s one of the big advantages of using floating-point.<br/>
+<font color="#A82F2F"><font size="2">(09:26:27 PM)</font> <b>rgareus:</b></font> the_CLA: did you try to &apos;full screen&apos; some needle-meters?<br/>
+<font color="#A82F2F"><font size="2">(09:26:51 PM)</font> <b>the_CLA:</b></font> rgareus: No, didn&apos;t try that, yet.<br/>
+<font size="2">(09:27:11 PM)</font><b> err-or left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:27:34 PM)</font> <b>rgareus:</b></font> the_CLA: I can reproduce the gtk redraw issue on wheezy<br/>
+<font size="2">(09:27:53 PM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:28:20 PM)</font> <b>las:</b></font> oofus: i basically regard audioengine as ready to merge at this point<br/>
+<font color="#A82F2F"><font size="2">(09:28:25 PM)</font> <b>rgareus:</b></font> the_CLA: oofus occasionally sees a slow-down of other meters when one meter is &apos;maximized&apos; but only if he uses the window-maximuize button. Odd.<br/>
+<font color="#A82F2F"><font size="2">(09:28:29 PM)</font> <b>las:</b></font> so i will wait for feedback from anyone at all<br/>
+<font color="#A82F2F"><font size="2">(09:28:34 PM)</font> <b>las:</b></font> (hint hint to everyone else)<br/>
+<font color="#A82F2F"><font size="2">(09:28:42 PM)</font> <b>rgareus:</b></font> las: compiling<br/>
+<font color="#A82F2F"><font size="2">(09:28:48 PM)</font> <b>las:</b></font> not to say that it is &quot;finished&quot;, but ready to merge<br/>
+<font color="#A82F2F"><font size="2">(09:29:10 PM)</font> <b>oofus:</b></font> las: ok, I&apos;ll give it a bit of a bash<br/>
+<font color="#A82F2F"><font size="2">(09:29:53 PM)</font> <b>the_CLA:</b></font> rgareus: Huh? O.o<br/>
+<font color="#A82F2F"><font size="2">(09:29:56 PM)</font> <b>oofus:</b></font> las: you moved midiportmanager to session, is the same true of audioportmanager, if that even exists<br/>
+<font color="#A82F2F"><font size="2">(09:30:00 PM)</font> <b>the_CLA:</b></font> rgareus: Ah.<br/>
+<font color="#A82F2F"><font size="2">(09:30:15 PM)</font> <b>rgareus:</b></font> the_CLA: LOL<br/>
+<font color="#062585"><font size="2">(09:30:51 PM)</font> <b>***the_CLA</b></font> is a bit distracted by playing around with Jessie in a VM. ;)<br/>
+<font size="2">(09:31:53 PM)</font><b> aalex_ left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(09:32:24 PM)</font> <b>las:</b></font> oofus: it doesn&apos;t exist (at this time) because there are no persistent audio ports that are independent of other objects<br/>
+<font color="#A82F2F"><font size="2">(09:32:26 PM)</font> <b>oofus:</b></font> las: don&apos;t seem to be able to connect a midi in port to it&apos;s reciprocal midi out port<br/>
+<font color="#A82F2F"><font size="2">(09:32:46 PM)</font> <b>las:</b></font> oofus: what do you mean by reciprocal ?<br/>
+<font color="#A82F2F"><font size="2">(09:33:12 PM)</font> <b>oofus:</b></font> las: LTC reader ?<br/>
+<font color="#A82F2F"><font size="2">(09:33:13 PM)</font> <b>oofus:</b></font> las: I have hardware midi ports, 1 in, 1 out<br/>
+<font color="#A82F2F"><font size="2">(09:33:18 PM)</font> <b>oofus:</b></font> I should be able to connect in to out on that hardware<br/>
+<font color="#A82F2F"><font size="2">(09:33:28 PM)</font> <b>las:</b></font> oofus: in the matrix ?<br/>
+<font color="#A82F2F"><font size="2">(09:33:37 PM)</font> <b>oofus:</b></font> las: not sure why I would want to, but just noticed by accident I couldn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(09:33:43 PM)</font> <b>oofus:</b></font> las: yes, it the midi matrix<br/>
+<font color="#A82F2F"><font size="2">(09:34:08 PM)</font> <b>oofus:</b></font> las: get a terminal message<br/>
+<font color="#A82F2F"><font size="2">(09:34:12 PM)</font> <b>las:</b></font> oofus: indeed<br/>
+<font color="#A82F2F"><font size="2">(09:34:24 PM)</font> <b>oofus:</b></font> [ERROR]: AudioEngine: cannot connect a2j:M Audio Delta 1010 [20] (capture): M Audio Delta 1010 MIDI (a2j:M Audio Delta 1010 [20] (capture): M Audio Delta 1010 MIDI) to a2j:M Audio Delta 1010 [20] (playback): M Audio Delta 1010 MIDI (a2j:M Audio Delta 1010 [20] (playback): M Audio Delta 1010 MIDI)<br/>
+<font color="#A82F2F"><font size="2">(09:35:58 PM)</font> <b>oofus:</b></font> las: can confirm midi ports reconnect correctly on session close and reopen<br/>
+<font size="2">(09:38:49 PM)</font><b> polosson left the room (quit: Quit: Bye!).</b><br/>
+<font color="#A82F2F"><font size="2">(09:41:24 PM)</font> <b>oofus:</b></font> rgareus: still need a way to reset to 100% size<br/>
+<font size="2">(09:44:34 PM)</font><b> orl left the room (quit: Quit: Lost terminal).</b><br/>
+<font size="2">(09:45:24 PM)</font><b> MountainX [<em>~computeru@64.22.71.195</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:46:25 PM)</font> <b>MountainX:</b></font> rgareus: hi. do you routinely switch from a USB AI to the internal sound card? If so, does Jack handle that situation? It is not working for me.<br/>
+<font color="#A82F2F"><font size="2">(09:48:01 PM)</font> <b>las:</b></font> MountainX: you should know that &quot;live&quot; device switching is rarely used by the majority of JACK users<br/>
+<font color="#A82F2F"><font size="2">(09:48:02 PM)</font> <b>rgareus:</b></font> MountainX: jack does never do anything by itself. you need to make dbus to tell jackd to switch backends.<br/>
+<font color="#A82F2F"><font size="2">(09:49:41 PM)</font> <b>MountainX:</b></font> las, rgareus: OK, it helps to know that. What is the procedure when I need to unplug the USB AI and go back to the internal card? The things I have tried have not worked and they have failed in ways that leave me completely confused. (I can explain if needed.)<br/>
+<font color="#A82F2F"><font size="2">(09:50:40 PM)</font> <b>MountainX:</b></font> In fact, even going back to the USB AI doesn&apos;t always work. Sometimes after I plug it in and configure Jack to use it, apps still use the internal sound card.<br/>
+<font color="#A82F2F"><font size="2">(09:50:59 PM)</font> <b>las:</b></font> MountainX: the most common approach is to stop JACK and restart it with a different configuration<br/>
+<font color="#A82F2F"><font size="2">(09:51:09 PM)</font> <b>las:</b></font> MountainX: something that qjackctl makes rather easy<br/>
+<font color="#A82F2F"><font size="2">(09:51:46 PM)</font> <b>MountainX:</b></font> las: I am using Cadence to do that. I wonder if it is buggy. Maybe I will stop using Cadence and try qjackctl instead...<br/>
+<font color="#A82F2F"><font size="2">(09:51:51 PM)</font> <b>las:</b></font> MountainX: but you should also know about this: http://jackaudio.org/device_naming<br/>
+<font color="#A82F2F"><font size="2">(09:52:41 PM)</font> <b>MountainX:</b></font> las: thanks. I read that already and I don&apos;t think that is the issue tripping me up now.<br/>
+<font size="2">(09:54:14 PM)</font><b> zth left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(09:54:27 PM)</font> <b>las:</b></font> MountainX: it sounds exactly like your &quot;it still uses the internal sound card&quot; issue<br/>
+<font color="#A82F2F"><font size="2">(09:54:52 PM)</font> <b>las:</b></font> MountainX: if on boot, the USB card ends up as hw:0 sometimes and hw:1 at other times, then this would totally explain that sort of thing<br/>
+<font color="#A82F2F"><font size="2">(09:55:18 PM)</font> <b>MountainX:</b></font> las: OK, I will examine it again.<br/>
+<font color="#A82F2F"><font size="2">(09:55:36 PM)</font> <b>las:</b></font> MountainX: just make sure you are using card names and not numbers and you can rule that out<br/>
+<font color="#A82F2F"><font size="2">(09:55:37 PM)</font> <b>rgareus:</b></font> MountainX: Cadence can actually do that.<br/>
+<font color="#A82F2F"><font size="2">(09:56:25 PM)</font> <b>MountainX:</b></font> yes, with Cadence I can see the card names so I don&apos;t think this is my issue. But I will double check.<br/>
+<font color="#A82F2F"><font size="2">(09:56:44 PM)</font> <b>rgareus:</b></font> MountainX: I documented some broken-out scripts a few years ago at  http://gareus.org/blog/jack2dbus<br/>
+<font color="#A82F2F"><font size="2">(09:57:30 PM)</font> <b>rgareus:</b></font> MountainX: all of the patches on the blog have meanwhile been merged into jack2<br/>
+<font color="#A82F2F"><font size="2">(09:58:01 PM)</font> <b>rgareus:</b></font> MountainX: and instead of shell scripts, the mechanism has been built into some dedicted tools e.g. Cadence or Carla or one of them C* anyway<br/>
+<font color="#A82F2F"><font size="2">(09:59:25 PM)</font> <b>MountainX:</b></font> rgareus: ok, reading your blog now...<br/>
+<font color="#A82F2F"><font size="2">(10:01:03 PM)</font> <b>rgareus:</b></font> MountainX: you also don&apos;t need dbus-triggerd. these days dbus itself also has some specific rules when soundcards are added/removed (thanks to pulseaudio)<br/>
+<font color="#A82F2F"><font size="2">(10:02:09 PM)</font> <b>naptastic:</b></font> I *LOVE* the new metering features in A3. Just played with them last night for the first time.<br/>
+<font color="#A82F2F"><font size="2">(10:02:32 PM)</font> <b>naptastic:</b></font> I also enjoy how they gracefully use less CPU when the system load explodes. (I was stress-testing.)<br/>
+<font color="#A82F2F"><font size="2">(10:02:47 PM)</font> <b>MountainX:</b></font> rgareus: I do not have pulseaudio installed now<br/>
+<font color="#A82F2F"><font size="2">(10:04:02 PM)</font> <b>rgareus:</b></font> MountainX: that blog entry is ~2 1/2 years old. Lots has changed but the concept is still the same.<br/>
+<font color="#A82F2F"><font size="2">(10:04:02 PM)</font> <b>MountainX:</b></font> rgareus: I installed KX Studio on one of my computers in order to get to know all these tools (including Ardour).<br/>
+<font color="#A82F2F"><font size="2">(10:04:02 PM)</font> <b>rgareus:</b></font> MountainX: you don&apos;t need pulseaudio.<br/>
+<font color="#A82F2F"><font size="2">(10:04:02 PM)</font> <b>rgareus:</b></font> MountainX: it&apos;s just that the dbus developers were motivated by pulseaudio (rather than jack) to add dedicated support.<br/>
+<font size="2">(10:04:02 PM)</font><b> prokoudine [<em>~prokoudin@ppp85-141-129-124.pppoe.mtu-net.ru</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:04:09 PM)</font> <b>MountainX:</b></font> rgareus: OK, I see<br/>
+<font color="#A82F2F"><font size="2">(10:04:20 PM)</font> <b>prokoudine:</b></font> lo<br/>
+<font color="#A82F2F"><font size="2">(10:04:29 PM)</font> <b>prokoudine:</b></font> read about Patchfield already?<br/>
+<font color="#A82F2F"><font size="2">(10:05:46 PM)</font> <b>MountainX:</b></font> prokoudine: just googled it. interesting<br/>
+<font size="2">(10:05:53 PM)</font><b> oofus_lt [<em>~chris@oofus-adsl.demon.co.uk</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:05:55 PM)</font> <b>rgareus:</b></font> naptastic: in that case you may want to give https://github.com/x42/meters.lv2 a go :)<br/>
+<font color="#A82F2F"><font size="2">(10:06:10 PM)</font> <b>naptastic:</b></font> rgareus, orly? What&apos;s different?<br/>
+<font color="#A82F2F"><font size="2">(10:06:37 PM)</font> <b>rgareus:</b></font> naptastic: they&apos;re just needle-style versions of what&apos;s in ardour<br/>
+<font color="#A82F2F"><font size="2">(10:07:09 PM)</font> <b>naptastic:</b></font> rgareus, at 44.1 KHz, I had 128 frames running rock-solid while compiling a kernel, Ardour, catting 120 GB of files to /dev/null, and playing music through the Calf equalizer.<br/>
+<font color="#A82F2F"><font size="2">(10:07:23 PM)</font> <b>naptastic:</b></font> rgareus, I will add that to my collection then. Thanks!<br/>
+<font color="#A82F2F"><font size="2">(10:07:46 PM)</font> <b>rgareus:</b></font> naptastic: it&apos;s still hot from the oven.<br/>
+<font color="#A82F2F"><font size="2">(10:08:57 PM)</font> <b>rgareus:</b></font> naptastic: oh and it features an ebu-r128 meter a phase-scope and phase-meter (which cannot easily be added to ardour itself).<br/>
+<font color="#A82F2F"><font size="2">(10:09:13 PM)</font> <b>las:</b></font> prokoudine: i discussed my feelings on it on #jack last night ....<br/>
+<font color="#A82F2F"><font size="2">(10:09:45 PM)</font> <b>prokoudine:</b></font> doh, i missed that :)<br/>
+<font color="#A82F2F"><font size="2">(10:10:06 PM)</font> <b>prokoudine:</b></font> las, in a nutshell, worth the effort?<br/>
+<font color="#A82F2F"><font size="2">(10:10:56 PM)</font> <b>las:</b></font> prokoudine: you already know that i don&apos;t really think that much of JACK anymore<br/>
+<font color="#A82F2F"><font size="2">(10:11:08 PM)</font> <b>las:</b></font> prokoudine: i find it sad to see it being replicated on android<br/>
+<font color="#A82F2F"><font size="2">(10:11:16 PM)</font> <b>prokoudine:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(10:11:44 PM)</font> <b>las:</b></font> prokoudine: i also don&apos;t really understand why it was necessary to replicate JACK anyway. it wasn&apos;t necessary on iOS ...<br/>
+<font color="#A82F2F"><font size="2">(10:11:47 PM)</font> <b>prokoudine:</b></font> las, btw, is latency still an issue on Android?<br/>
+<font color="#A82F2F"><font size="2">(10:13:57 PM)</font> <b>las:</b></font> prokoudine: yes<br/>
+<font color="#A82F2F"><font size="2">(10:14:03 PM)</font> <b>las:</b></font> prokoudine: as is java :)<br/>
+<font color="#A82F2F"><font size="2">(10:14:07 PM)</font> <b>prokoudine:</b></font> :)<br/>
+<font size="2">(10:14:51 PM)</font><b> thorwil left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(10:18:44 PM)</font> <b>prokoudine:</b></font> las, uh, oh, i didn&apos;t even know jack was available on ios<br/>
+<font size="2">(10:20:59 PM)</font><b> err-or left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:22:06 PM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:23:26 PM)</font> <b>las:</b></font> prokoudine: for several months<br/>
+<font color="#A82F2F"><font size="2">(10:23:33 PM)</font> <b>las:</b></font> prokoudine: same API as on other platforms<br/>
+<font size="2">(10:27:03 PM)</font><b> leatuspenguin [<em>4f610ac0@gateway/web/freenode/ip.79.97.10.192</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:29:00 PM)</font> <b>leatuspenguin:</b></font> Hi all. Just wondering if anyone can explain to me the difference between &quot;copy files to session&quot; in the import window and &quot;always copy imported files&quot; in the misc tab of the preferences window?<br/>
+<font size="2">(10:30:59 PM)</font><b> [TR0N] left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:32:04 PM)</font> <b>las:</b></font> leatuspenguin: http://www.manual.ardour.org/adding-pre-existing-material/importing-versus-embedding/<br/>
+<font color="#A82F2F"><font size="2">(10:33:45 PM)</font> <b>rgareus:</b></font> embedded-files cause problems when they&apos;re time-streched in ardour<br/>
+<font color="#A82F2F"><font size="2">(10:34:04 PM)</font> <b>las:</b></font> rgareus: they do ?<br/>
+<font color="#A82F2F"><font size="2">(10:36:28 PM)</font> <b>rgareus:</b></font> las: yes. there&apos;s a bug in mantis (time-strech does not work) and the guy showed up a few days ago on IRC and we could narrow down the issue.<br/>
+<font color="#A82F2F"><font size="2">(10:36:50 PM)</font> <b>rgareus:</b></font> las: it only breaks if the files were embedded<br/>
+<font color="#A82F2F"><font size="2">(10:37:26 PM)</font> <b>rgareus:</b></font> las: http://tracker.ardour.org/view.php?id=5624<br/>
+<font color="#A82F2F"><font size="2">(10:38:24 PM)</font> <b>leatuspenguin:</b></font> las: i&apos;m still not sure about the difference between those two options though. When &quot;always copy imported files&quot; is ticked, &quot;copy files to session&quot; in the import window is greyed out. both save the imported files into the ardour session folder. are they not the same thing?<br/>
+<font color="#A82F2F"><font size="2">(10:39:25 PM)</font> <b>las:</b></font> leatuspenguin: no. ardour plays a unix-y trick in the &quot;not copied&quot; case<br/>
+<font color="#A82F2F"><font size="2">(10:39:54 PM)</font> <b>las:</b></font> leatuspenguin: it uses a &quot;hard link&quot;. it will appear to most users as if the file was copied, but it was not<br/>
+<font color="#A82F2F"><font size="2">(10:40:26 PM)</font> <b>las:</b></font> leatuspenguin: there is still only copy of the data on the disk<br/>
+<font color="#A82F2F"><font size="2">(10:41:03 PM)</font> <b>leatuspenguin:</b></font> las: so which one actually copies the file? always copy imported files?<br/>
+<font color="#A82F2F"><font size="2">(10:41:43 PM)</font> <b>las:</b></font> leatuspenguin: &quot;always copy&quot; means that the option to copy is always enabled<br/>
+<font color="#A82F2F"><font size="2">(10:41:54 PM)</font> <b>las:</b></font> leatuspenguin: if the option to copy is enabled, then a copy is made<br/>
+<font size="2">(10:43:12 PM)</font><b> RytmenPinne [<em>~alex@35-51.bob.fi</em>] entered the room.</b><br/>
+<font size="2">(10:43:13 PM)</font><b> [TR0N] [<em>~tr0n@201.248.74.150</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:43:57 PM)</font> <b>leatuspenguin:</b></font> las: so copy files to session just creates a link?<br/>
+<font color="#A82F2F"><font size="2">(10:44:32 PM)</font> <b>las:</b></font> leatuspenguin: no, you clearly are confused :)<br/>
+<font color="#A82F2F"><font size="2">(10:44:41 PM)</font> <b>las:</b></font> leatuspenguin: copy files to session COPIES the file<br/>
+<font color="#A82F2F"><font size="2">(10:45:25 PM)</font> <b>las:</b></font> leatuspenguin: if that option is NOT enabled, then ardour will (a) attempt to use a hard link rather than a copy (this may fail) (b) will reference the hard link if it was created, or the original file if it was not<br/>
+<font color="#A82F2F"><font size="2">(10:45:50 PM)</font> <b>las:</b></font> leatuspenguin: if the hard link is successfully created, then to most users, the situation will be indistinguishable from a copy<br/>
+<font color="#A82F2F"><font size="2">(10:46:13 PM)</font> <b>las:</b></font> leatuspenguin: you would need to run ls -l and or check the disk space very carefully to see the difference<br/>
+<font color="#A82F2F"><font size="2">(10:46:36 PM)</font> <b>rgareus:</b></font> naptastic: any luck with the LTC-CD?<br/>
+<font color="#A82F2F"><font size="2">(10:47:15 PM)</font> <b>naptastic:</b></font> rgareus, I had to leave for work, so I haven&apos;t made it yet. I don&apos;t have access to a CD burner here.<br/>
+<font color="#A82F2F"><font size="2">(10:47:20 PM)</font> <b>naptastic:</b></font> I should&apos;ve brought my laptop with me. :-(<br/>
+<font color="#A82F2F"><font size="2">(10:48:23 PM)</font> <b>leatuspenguin:</b></font> las: i think i understand. the use of copy in both options is confusing though<br/>
+<font color="#A82F2F"><font size="2">(10:48:47 PM)</font> <b>las:</b></font> leatuspenguin: there is only 1 option<br/>
+<font color="#A82F2F"><font size="2">(10:48:59 PM)</font> <b>las:</b></font> leatuspenguin: the other option controls whether you even have a choice ...<br/>
+<font color="#A82F2F"><font size="2">(10:50:55 PM)</font> <b>leatuspenguin:</b></font> las: ok, that clears it up for me :) <br/>
+<font color="#A82F2F"><font size="2">(10:51:41 PM)</font> <b>leatuspenguin:</b></font> las: is it needed to have the two locations for what amounts to one choice though? could it not be done in one?<br/>
+<font color="#A82F2F"><font size="2">(10:53:24 PM)</font> <b>las:</b></font> leatuspenguin: it is *not* two locations<br/>
+<font color="#A82F2F"><font size="2">(10:53:56 PM)</font> <b>las:</b></font> leatuspenguin: its not one choice, rather<br/>
+<font color="#A82F2F"><font size="2">(10:54:12 PM)</font> <b>las:</b></font> leatuspenguin: the &quot;always ..&quot; option exists to effectively remove the &quot;embed&quot; option<br/>
+<font color="#A82F2F"><font size="2">(10:54:44 PM)</font> <b>las:</b></font> leatuspenguin: in some ways, it was never intended to even be publically visible - more the sort of thing that mixbus might use to force copy behaviour, for example<br/>
+<font color="#A82F2F"><font size="2">(10:56:50 PM)</font> <b>leatuspenguin:</b></font> las: would it make sense to differenciate between the two? the use of &quot;copy&quot; in both makes it hard to understand <br/>
+<font color="#A82F2F"><font size="2">(10:57:19 PM)</font> <b>las:</b></font> leatuspenguin: i would prefer to just hide the &quot;always&quot; one from public view, to be honest<br/>
+<font color="#A82F2F"><font size="2">(10:57:26 PM)</font> <b>las:</b></font> leatuspenguin: its existence is complicated<br/>
+<font size="2">(10:59:28 PM)</font><b> HisaoNakai left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:59:28 PM)</font> <b>leatuspenguin:</b></font> las: i understand it now but it is complicated unless it&apos;s explained. is there any reason against getting rid of the &quot;always&quot; one?<br/>
+<font color="#A82F2F"><font size="2">(10:59:58 PM)</font> <b>las:</b></font> leatuspenguin: i wouldn&apos;t get rid of it. i just wouldn&apos;t make it visible in the GUI.<br/>
+<font size="2">(11:00:57 PM)</font><b> [TR0N] left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:01:19 PM)</font> <b>leatuspenguin:</b></font> las: i meant hide :) is there any downside to hiding it? what reasons would you require to have to use it?<br/>
+<font color="#A82F2F"><font size="2">(11:02:03 PM)</font> <b>las:</b></font> leatuspenguin: &quot;i don&apos;t want to have to think about the copy/embed choice, i always copy&quot;<br/>
+<font size="2">(11:02:30 PM)</font><b> HisaoNakai [<em>~HisaoNaka@14.98.5.148</em>] entered the room.</b><br/>
+<font size="2">(11:02:31 PM)</font><b> HisaoNakai left the room (quit: Changing host).</b><br/>
+<font size="2">(11:02:31 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:06:12 PM)</font> <b>leatuspenguin:</b></font> las: ok, it&apos;s all clicking together now. i do think it probably does make it more complicated though :) <br/>
+<font color="#A82F2F"><font size="2">(11:10:03 PM)</font> <b>tom^_:</b></font> leatuspenguin: why? it&apos;s comparable to the &apos;always copy midi regions&apos;<br/>
+<font color="#A82F2F"><font size="2">(11:14:21 PM)</font> <b>leatuspenguin:</b></font> tom^_: where is the &quot;always copy midi regions&quot; option?<br/>
+<font size="2">(11:14:50 PM)</font><b> [TR0N] [<em>~tr0n@201.248.74.150</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:14:51 PM)</font> <b>las:</b></font> tom^_: not really<br/>
+<font color="#A82F2F"><font size="2">(11:14:55 PM)</font> <b>las:</b></font> tom^_: not really at all<br/>
+<font color="#A82F2F"><font size="2">(11:15:06 PM)</font> <b>las:</b></font> oofus: been working on the MIDI port patching issue<br/>
+<font color="#A82F2F"><font size="2">(11:15:10 PM)</font> <b>tom^_:</b></font> leatuspenguin: in session-&gt;preferences-&gt;midi options-&gt;&quot;midi region copies are independent&apos;<br/>
+<font color="#A82F2F"><font size="2">(11:15:34 PM)</font> <b>las:</b></font> oofus: it is a bit odd, seems like part of it is a problem in JACK. i&apos;ve fixed the ability to create connections, but the results do not display correctly.<br/>
+<font size="2">(11:15:35 PM)</font><b> AndreeeCZ left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(11:16:10 PM)</font> <b>tom^_:</b></font> las: maybe not fully, just the &apos;independent&apos; aspect<br/>
+<font color="#A82F2F"><font size="2">(11:16:11 PM)</font> <b>las:</b></font> oofus: i notice that qjackctl has a similar with displaying the state<br/>
+<font color="#A82F2F"><font size="2">(11:16:25 PM)</font> <b>las:</b></font> tom^_: there is no option *at copy time* to choose<br/>
+<font color="#A82F2F"><font size="2">(11:18:55 PM)</font> <b>tom^_:</b></font> las: aha. as a new feature in the import dialogue? to dynamically choose if it should be embedded or copied, i see<br/>
+<font size="2">(11:20:18 PM)</font><b> RytmenPinne_ [<em>~alex@35-51.bob.fi</em>] entered the room.</b><br/>
+<font size="2">(11:21:45 PM)</font><b> donatien_alphons left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font size="2">(11:21:51 PM)</font><b> [TR0N] left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:21:56 PM)</font> <b>leatuspenguin:</b></font> tom^_: nothing to do with a new feature. i was just trying to understand the relationship between &quot;copy files to session&quot; in the import window and &quot;always copy imported files&quot; in the preferences window<br/>
+<font color="#A82F2F"><font size="2">(11:23:25 PM)</font> <b>rgareus:</b></font> leatuspenguin: FWIW, if you use drag/drop to import files (rather than the dialog). you can choose copy/embed by pressing Ctrl<br/>
+<font color="#A82F2F"><font size="2">(11:23:37 PM)</font> <b>tom^_:</b></font> leatuspenguin: oh, now i see :)<br/>
+<font color="#A82F2F"><font size="2">(11:24:25 PM)</font> <b>rgareus:</b></font> leatuspenguin: if you use gnome or kde as dektop. compare that to what happens when you drag/drop file(icons) on the desktop or file-manager<br/>
+<font color="#A82F2F"><font size="2">(11:24:55 PM)</font> <b>rgareus:</b></font> leatuspenguin: and press ctrl/shift/alt while dragging files  (copy/move/link IIRC)<br/>
+<font color="#A82F2F"><font size="2">(11:26:13 PM)</font> <b>rgareus:</b></font> leatuspenguin: heck, IIRC even the M$ windows-exporer understands drag/drop  ctrl/alt keyboard shortcuts for copy/link<br/>
+<font color="#A82F2F"><font size="2">(11:26:36 PM)</font> <b>leatuspenguin:</b></font> rgareus: just tried that out. thanks for the tip :) <br/>
+<font color="#A82F2F"><font size="2">(11:29:11 PM)</font> <b>tom^_:</b></font> leatuspenguin: did you know? you can even drag &amp; drop files from the ardour import dialogue to a track<br/>
+<font color="#A82F2F"><font size="2">(11:29:19 PM)</font> <b>oofus:</b></font> las: hmm, really<br/>
+<font color="#A82F2F"><font size="2">(11:29:35 PM)</font> <b>las:</b></font> oofus: found the problem<br/>
+<font color="#A82F2F"><font size="2">(11:29:48 PM)</font> <b>oofus:</b></font> las: ok<br/>
+<font color="#A82F2F"><font size="2">(11:30:00 PM)</font> <b>oofus:</b></font> las: making the connection in Qjackctl works here<br/>
+<font color="#A82F2F"><font size="2">(11:30:10 PM)</font> <b>oofus:</b></font> las: so where have you found the problem ?<br/>
+<font color="#A82F2F"><font size="2">(11:30:38 PM)</font> <b>las:</b></font> oofus: jack_port_get_connections() vs. jack_port_get_all_connections ()<br/>
+<font color="#A82F2F"><font size="2">(11:31:23 PM)</font> <b>leatuspenguin:</b></font> tom^_: i didn&apos;t actually know that. you learn something new every day :)<br/>
+<font color="#A82F2F"><font size="2">(11:32:25 PM)</font> <b>las:</b></font> oofus: fixing will be subtle, there is potential for deadlock<br/>
+<font color="#A82F2F"><font size="2">(11:32:32 PM)</font> <b>las:</b></font> oofus: think i&apos;ll do something else first<br/>
+<font color="#A82F2F"><font size="2">(11:32:38 PM)</font> <b>oofus:</b></font> las: :)<br/>
+<font color="#062585"><font size="2">(11:34:03 PM)</font> <b>***rgareus</b></font> just got the following when starting up the audioengine branch:<br/>
+<font color="#A82F2F"><font size="2">(11:34:05 PM)</font> <b>rgareus:</b></font> Announcement is: GLib (gthread-posix.c): Unexpected error from C library during &apos;pthread_mutex_lock&apos;: Invalid argument.  Aborting.<br/>
+<font color="#A82F2F"><font size="2">(11:34:26 PM)</font> <b>leatuspenguin:</b></font> i&apos;m off. thanks for the help everyone :) <br/>
+<font size="2">(11:34:45 PM)</font><b> idragosani left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(11:34:55 PM)</font><b> leatuspenguin left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(11:38:35 PM)</font> <b>las:</b></font> rgareus: it happens in other branches too<br/>
+<font color="#A82F2F"><font size="2">(11:38:55 PM)</font> <b>rgareus:</b></font> las: I don&apos;t start jack from ardour... and so far I can&apos;t notice a difference to using the audioengine branch instead<br/>
+<font color="#A82F2F"><font size="2">(11:39:07 PM)</font> <b>rgareus:</b></font> of master.<br/>
+<font color="#A82F2F"><font size="2">(11:39:20 PM)</font> <b>rgareus:</b></font> las: yeah it<br/>
+<font color="#A82F2F"><font size="2">(11:39:36 PM)</font> <b>rgareus:</b></font> &apos;s just that it was all on one line with the Annoucement.<br/>
+<font color="#A82F2F"><font size="2">(11:42:40 PM)</font> <b>oofus:</b></font> las: I guess you see it&apos;s audio as well, not just midi. I can&apos;t connect any of my hardware ins to outs, in a any order ?<br/>
+<font color="#A82F2F"><font size="2">(11:42:57 PM)</font> <b>las:</b></font> oofus: same reason<br/>
+<font color="#A82F2F"><font size="2">(11:43:08 PM)</font> <b>oofus:</b></font> las: ok, just making sure<br/>
+<font color="#A82F2F"><font size="2">(11:44:50 PM)</font> <b>rgareus:</b></font> mmh except ardour does not exit but hang at exit<br/>
+<font color="#A82F2F"><font size="2">(11:45:07 PM)</font> <b>rgareus:</b></font> http://pastebin.com/5YGREsZG  (seems to be loomer aspect related, again)<br/>
+<font size="2">(11:46:08 PM)</font><b> avlinux [<em>~pcuser@204.237.47.20</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:46:15 PM)</font> <b>rgareus:</b></font> or maybe actually Thread 1, ARDOUR::AsyncMIDIPort::drain<br/>
+<font color="#A82F2F"><font size="2">(11:46:52 PM)</font> <b>rgareus:</b></font> las: did you try audioengine with Mackie surface enabled?<br/>
+<font size="2">(11:47:02 PM)</font><b> [TR0N] [<em>~tr0n@201.248.74.150</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:48:16 PM)</font> <b>rgareus:</b></font> oofus: do you test any MIDI control surfaces in the audioengine branch, yet?<br/>
+<font color="#A82F2F"><font size="2">(11:48:33 PM)</font> <b>oofus:</b></font> rgareus: no, I don&apos;t have one to test with at the moment<br/>
+<font color="#A82F2F"><font size="2">(11:50:48 PM)</font> <b>dbolton:</b></font> rgareus: is there any loss of bit quality at the normalization stage, or is that floating point too? In other words will you get the same result when you export audio regardless of what level the master fader is at? <br/>
+<font color="#A82F2F"><font size="2">(11:51:34 PM)</font> <b>rgareus:</b></font> dbolton: I don&apos;t know.<br/>
+<font color="#A82F2F"><font size="2">(11:51:40 PM)</font> <b>rgareus:</b></font> SaBer: ^^^<br/>
+<font color="#A82F2F"><font size="2">(11:52:05 PM)</font> <b>rgareus:</b></font> SaBer: is the normalization done in the target bit-depth?<br/>
+<font size="2">(11:55:58 PM)</font><b> polosson [<em>~quassel@lns-bzn-36-82-251-28-180.adsl.proxad.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:56:28 PM)</font> <b>las:</b></font> rgareus: i have not done so yet.<br/>
+<font color="#A82F2F"><font size="2">(11:56:45 PM)</font> <b>las:</b></font> rgareus: ::drain() is likely to be an issue<br/>
+<font color="#A82F2F"><font size="2">(11:57:03 PM)</font> <b>las:</b></font> will dig in later<br/>
+<font color="#A82F2F"><font size="2">(11:57:15 PM)</font> <b>rgareus:</b></font> las: seems to be blocking in the destructor<br/>
+<font color="#A82F2F"><font size="2">(12:00:59 AM)</font> <b>las:</b></font> dbolton, rgareus: i&apos;m about 95% sure that normalization is done before conversion to the target bit depth<br/>
+<font size="2">(12:03:09 AM)</font><b> clark|w left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(12:04:22 AM)</font><b> DrCode left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(12:05:46 AM)</font><b> Stuzz [<em>~Stuzz@202-173-169-43.dyn.iinet.net.au</em>] entered the room.</b><br/>
+<font size="2">(12:08:22 AM)</font><b> DrCode [<em>~DrCode@gateway/tor-sasl/drcode</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:16:05 AM)</font> <b>tom^_:</b></font> are boost/cut region gain changing the wave file?<br/>
+<font color="#A82F2F"><font size="2">(12:17:24 AM)</font> <b>seablade_:</b></font> tom^_, No<br/>
+<font color="#A82F2F"><font size="2">(12:18:00 AM)</font> <b>seablade_:</b></font> tom^_, Very little in Ardour is destructive, so the answer to that question for 95+% of actions (And probably 99+%) in Ardour is no<br/>
+<font color="#A82F2F"><font size="2">(12:18:07 AM)</font> <b>tom^_:</b></font> seablade_: thanks - so it&apos;s only a visual and playback property of the region like when using the gain draw tool?<br/>
+<font color="#A82F2F"><font size="2">(12:18:45 AM)</font> <b>tom^_:</b></font> seablade_: ok<br/>
+<font color="#A82F2F"><font size="2">(12:19:16 AM)</font> <b>seablade_:</b></font> tom^_, Short answer, yes<br/>
+<font color="#A82F2F"><font size="2">(12:19:17 AM)</font> <b>seablade_:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(12:19:58 AM)</font> <b>tom^_:</b></font> good :)<br/>
+<font size="2">(12:23:23 AM)</font><b> avlinux left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(12:38:32 AM)</font><b> polosson_ [<em>~quassel@lns-bzn-38-82-253-126-38.adsl.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(12:41:06 AM)</font><b> polosson left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font size="2">(12:45:05 AM)</font><b> err-or left the room (quit: Quit: No Ping reply in 180 seconds.).</b><br/>
+<font size="2">(12:46:44 AM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:50:37 AM)</font> <b>naptastic:</b></font> rgareus, libltc is provided by Ardour now, right?<br/>
+<font color="#A82F2F"><font size="2">(12:51:17 AM)</font> <b>rgareus:</b></font> naptastic: ardour&apos;s source includes it but ardour does not provide it to other apps<br/>
+<font color="#A82F2F"><font size="2">(12:51:32 AM)</font> <b>rgareus:</b></font> naptastic: I think it&apos;s in debian though.<br/>
+<font color="#A82F2F"><font size="2">(12:51:36 AM)</font> <b>naptastic:</b></font> rgareus, that&apos;s... okay. Well, that makes things simultaneously less and more difficult though.<br/>
+<font color="#062585"><font size="2">(12:51:40 AM)</font> <b>***naptastic</b></font> tries apt-get installing it.<br/>
+<font color="#A82F2F"><font size="2">(12:51:56 AM)</font> <b>naptastic:</b></font> nope<br/>
+<font color="#A82F2F"><font size="2">(12:52:01 AM)</font> <b>rgareus:</b></font> naptastic: yup: http://packages.debian.org/search?keywords=libltc<br/>
+<font color="#A82F2F"><font size="2">(12:52:11 AM)</font> <b>rgareus:</b></font> naptastic: jessie &amp; sid<br/>
+<font color="#A82F2F"><font size="2">(12:52:28 AM)</font> <b>naptastic:</b></font> yeah, I&apos;m on Wheezy and can&apos;t really upgrade right now. I&apos;ll get it from github.<br/>
+<font size="2">(12:52:34 AM)</font><b> err-or left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(12:57:16 AM)</font> <b>naptastic:</b></font> damn, I wish I&apos;d done this at home. I&apos;m having to install a medium-sized raft of dependencies.<br/>
+<font color="#A82F2F"><font size="2">(12:58:53 AM)</font> <b>rgareus:</b></font> naptastic: for what? <br/>
+<font color="#A82F2F"><font size="2">(12:58:59 AM)</font> <b>rgareus:</b></font> naptastic: libltc &amp; ltc-tools?<br/>
+<font color="#A82F2F"><font size="2">(12:59:30 AM)</font> <b>naptastic:</b></font> rgareus, yeah. This workstation isn&apos;t one where I do audio stuff--in fact, I haven&apos;t compiled anything here before.<br/>
+<font color="#A82F2F"><font size="2">(12:59:32 AM)</font> <b>rgareus:</b></font> naptastic: maybe http://robin.linuxaudio.org/tmp/jltcgen-static<br/>
+<font color="#A82F2F"><font size="2">(12:59:38 AM)</font> <b>naptastic:</b></font> :-D<br/>
+<font color="#A82F2F"><font size="2">(12:59:44 AM)</font> <b>naptastic:</b></font> well it&apos;s too late now, I&apos;m mostly done ;-)<br/>
+<font color="#A82F2F"><font size="2">(12:59:50 AM)</font> <b>rgareus:</b></font> naptastic: statically linked 32 bit executable<br/>
+<font color="#A82F2F"><font size="2">(12:59:57 AM)</font> <b>naptastic:</b></font> ooh!<br/>
+<font color="#A82F2F"><font size="2">(01:00:04 AM)</font> <b>rgareus:</b></font> naptastic: oh wait it&apos;s the jack variant. <br/>
+<font color="#A82F2F"><font size="2">(01:00:10 AM)</font> <b>naptastic:</b></font> bah, can&apos;t use :-(<br/>
+<font color="#062585"><font size="2">(01:00:19 AM)</font> <b>***naptastic</b></font> needs to learn how to statically link things<br/>
+<font color="#A82F2F"><font size="2">(01:00:32 AM)</font> <b>rgareus:</b></font> naptastic: but I could compile a static version in a minute or two<br/>
+<font color="#A82F2F"><font size="2">(01:00:40 AM)</font> <b>naptastic:</b></font> nah, I should have this one running before then.<br/>
+<font color="#A82F2F"><font size="2">(01:00:59 AM)</font> <b>tom^_:</b></font> crop region to range over multiple tracks seems a bit borked, when regions aren&apos;t fully covered by range<br/>
+<font color="#A82F2F"><font size="2">(01:03:23 AM)</font> <b>tom^_:</b></font> on a single track range selection, having range not fully covering region, crop only works when range doesn&apos;t start before region start<br/>
+<font size="2">(01:04:35 AM)</font><b> boom1992 [<em>~quassel@BA1222.ballee.wh.tu-darmstadt.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:09:09 AM)</font> <b>tom^_:</b></font> can anyone confirm?<br/>
+<font size="2">(01:10:31 AM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font size="2">(01:10:34 AM)</font><b> phyzix5761 [<em>~phyzix576@c-50-140-54-206.hsd1.fl.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:14:41 AM)</font> <b>naptastic:</b></font> rgareus, how do I tell debbuild (for libltc) not to care that your signature wasn&apos;t available?<br/>
+<font color="#A82F2F"><font size="2">(01:15:00 AM)</font> <b>naptastic:</b></font> rgareus, gpg: /tmp/debsign.5JU0xaks/libltc_1.1.1-1.dsc: clearsign failed: secret key not available<br/>
+<font color="#A82F2F"><font size="2">(01:15:01 AM)</font> <b>rgareus:</b></font> naptastic: debuild -nc -ns<br/>
+<font color="#A82F2F"><font size="2">(01:15:03 AM)</font> <b>naptastic:</b></font> gbp:error: Couldn&apos;t run &apos;debuild -i -I -rfakeroot&apos;: debuild -i -I returned 29<br/>
+<font color="#A82F2F"><font size="2">(01:15:05 AM)</font> <b>naptastic:</b></font> Thanks ;_0<br/>
+<font color="#A82F2F"><font size="2">(01:15:08 AM)</font> <b>naptastic:</b></font> :-)<br/>
+<font color="#A82F2F"><font size="2">(01:15:45 AM)</font> <b>rgareus:</b></font> naptastic: or  -uc -us<br/>
+<font color="#A82F2F"><font size="2">(01:15:51 AM)</font> <b>rgareus:</b></font> naptastic: man debuild # will know<br/>
+<font color="#062585"><font size="2">(01:16:18 AM)</font> <b>***naptastic</b></font> has never used this build system before. It is a thing.<br/>
+<font color="#A82F2F"><font size="2">(01:16:51 AM)</font> <b>rgareus:</b></font> DrCode: you can also use dpkg-buildpackage .. or git-buildpackage<br/>
+<font color="#A82F2F"><font size="2">(01:16:56 AM)</font> <b>rgareus:</b></font> naptastic: ^^^ was ment for you<br/>
+<font color="#A82F2F"><font size="2">(01:17:27 AM)</font> <b>naptastic:</b></font> fatal: Not a valid object name upstream/1.1.1<br/>
+<font color="#A82F2F"><font size="2">(01:17:37 AM)</font> <b>naptastic:</b></font> rgareus, :-?<br/>
+<font color="#A82F2F"><font size="2">(01:18:33 AM)</font> <b>rgareus:</b></font> naptastic: git-buildpackage?<br/>
+<font color="#A82F2F"><font size="2">(01:18:38 AM)</font> <b>naptastic:</b></font> rgareus, yep<br/>
+<font color="#A82F2F"><font size="2">(01:19:04 AM)</font> <b>rgareus:</b></font> naptastic: that&apos;s the most complicated one :) -- requires you to set up branches or tags for each release.<br/>
+<font color="#A82F2F"><font size="2">(01:19:10 AM)</font> <b>naptastic:</b></font> oh geez, ok<br/>
+<font color="#A82F2F"><font size="2">(01:19:20 AM)</font> <b>naptastic:</b></font> rgareus, what about the build-deb.sh script in the directory?<br/>
+<font size="2">(01:19:20 AM)</font><b> Valvalion left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(01:19:25 AM)</font> <b>naptastic:</b></font> It gives me (hang on)<br/>
+<font color="#A82F2F"><font size="2">(01:19:37 AM)</font> <b>rgareus:</b></font> naptastic: that script i mostly for my personal use.<br/>
+<font color="#A82F2F"><font size="2">(01:19:50 AM)</font> <b>naptastic:</b></font> hmm, looks like it might actually work<br/>
+<font color="#A82F2F"><font size="2">(01:20:06 AM)</font> <b>naptastic:</b></font> gpg: skipped &quot;Robin Gareus &lt;robin@gareus.org&gt;&quot;: secret key not available<br/>
+<font color="#A82F2F"><font size="2">(01:20:11 AM)</font> <b>naptastic:</b></font> indeed<br/>
+<font color="#A82F2F"><font size="2">(01:21:19 AM)</font> <b>naptastic:</b></font> rgareus, how can I just make and install it for this machine?<br/>
+<font color="#A82F2F"><font size="2">(01:21:45 AM)</font> <b>rgareus:</b></font> naptastic: just make and sudo make install<br/>
+<font color="#A82F2F"><font size="2">(01:22:04 AM)</font> <b>rgareus:</b></font> naptastic: well the usual.   ./configure ; make ; sudo make install<br/>
+<font color="#A82F2F"><font size="2">(01:22:08 AM)</font> <b>naptastic:</b></font> make: *** No targets specified and no makefile found.  Stop.<br/>
+<font color="#A82F2F"><font size="2">(01:22:12 AM)</font> <b>naptastic:</b></font> and there&apos;s no ./configure<br/>
+<font color="#A82F2F"><font size="2">(01:22:49 AM)</font> <b>rgareus:</b></font> naptastic: the usual.    ./autogen.sh; ./configure ; make ; sudo make install<br/>
+<font color="#A82F2F"><font size="2">(01:23:03 AM)</font> <b>naptastic:</b></font> :-D<br/>
+<font size="2">(01:25:31 AM)</font><b> HisaoNakai_ [<em>~HisaoNaka@14.96.149.205</em>] entered the room.</b><br/>
+<font size="2">(01:25:31 AM)</font><b> HisaoNakai_ left the room (quit: Changing host).</b><br/>
+<font size="2">(01:25:31 AM)</font><b> HisaoNakai_ [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(01:26:54 AM)</font><b> HisaoNakai left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(01:34:04 AM)</font><b> hybrid left the room (quit: Ping timeout: 268 seconds).</b><br/>
+<font size="2">(01:36:43 AM)</font><b> donatien_alphons [<em>~poorman@h48.6.189.173.dynamic.ip.windstream.net</em>] entered the room.</b><br/>
+<font size="2">(01:37:15 AM)</font><b> Valvalion [<em>~valvalion@91.179.36.9</em>] entered the room.</b><br/>
+<font size="2">(01:43:04 AM)</font><b> HisaoNakai_ left the room (quit: Quit: &quot;We will not go quietly into the night!&quot; https://www.prism-break.org).</b><br/>
+<font size="2">(01:47:34 AM)</font><b> hybrid [<em>~R3n4t0@187.23.82.135</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:54:44 AM)</font> <b>naptastic:</b></font> rgareus, okay, I&apos;m still stumped, lol. Can you statically link an ltc-tools binary for me? 64-bit would be better, but 32-bit will work.<br/>
+<font color="#A82F2F"><font size="2">(01:55:27 AM)</font> <b>rgareus:</b></font> naptastic: I&apos;m on a 32bit machine right now<br/>
+<font color="#A82F2F"><font size="2">(01:55:36 AM)</font> <b>naptastic:</b></font> rgareus, ah, ok<br/>
+<font color="#A82F2F"><font size="2">(02:06:56 AM)</font> <b>rgareus:</b></font> naptastic: http://robin.linuxaudio.org/tmp/ltcgen-0.6.3.static.i386<br/>
+<font size="2">(02:07:30 AM)</font><b> boom1992 left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:08:21 AM)</font><b> prokoudine_ [<em>~prokoudin@ppp85-141-140-131.pppoe.mtu-net.ru</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:09:00 AM)</font> <b>naptastic:</b></font> rgareus, thank you :-)<br/>
+<font color="#A82F2F"><font size="2">(02:10:28 AM)</font> <b>naptastic:</b></font> what the crap<br/>
+<font color="#A82F2F"><font size="2">(02:10:36 AM)</font> <b>naptastic:</b></font> bash: ./ltcgen-0.6.3.static.i386: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(02:10:39 AM)</font> <b>naptastic:</b></font> aurgh<br/>
+<font color="#A82F2F"><font size="2">(02:10:47 AM)</font> <b>naptastic:</b></font> perhaps this just isn&apos;t meant to be :-(<br/>
+<font color="#A82F2F"><font size="2">(02:10:54 AM)</font> <b>[lsd]:</b></font> chmod +x ?<br/>
+<font color="#A82F2F"><font size="2">(02:11:37 AM)</font> <b>rgareus:</b></font> naptastic: what does            file ltcgen-0.6.3.static.i386   say?<br/>
+<font color="#A82F2F"><font size="2">(02:11:54 AM)</font> <b>naptastic:</b></font> ltcgen-0.6.3.static.i386: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=0x915a0e1f64b561834e9bae20def80e9e33d821a8, not stripped<br/>
+<font size="2">(02:12:15 AM)</font><b> prokoudine left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(02:17:11 AM)</font><b> [TR0N] left the room (quit: Quit: Saliendo).</b><br/>
+<font size="2">(02:22:59 AM)</font><b> HarryHaaren left the room (quit: Quit: Quittin&apos;).</b><br/>
+<font color="#A82F2F"><font size="2">(02:29:18 AM)</font> <b>tom^_:</b></font> naptastic: you could test what you want with two ardour instances<br/>
+<font color="#A82F2F"><font size="2">(02:29:39 AM)</font> <b>tom^_:</b></font> naptastic: you could also use the ardour ltc generator and record as much as you need<br/>
+<font color="#A82F2F"><font size="2">(02:30:32 AM)</font> <b>naptastic:</b></font> yeah, I&apos;m not in a position to install Ardour on this workstation.<br/>
+<font size="2">(02:30:49 AM)</font><b> DrCode left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(02:31:04 AM)</font> <b>naptastic:</b></font> actually, what I really should do is just ask rgareus to make me a 74-minute Vorbis file I can download ;-)<br/>
+<font color="#A82F2F"><font size="2">(02:31:19 AM)</font> <b>tom^_:</b></font> naptastic: http://lowres.ch/a3/ltc_01012000_24h_44100.wav<br/>
+<font color="#A82F2F"><font size="2">(02:31:30 AM)</font> <b>naptastic:</b></font> you&apos;re kidding, right? :-D<br/>
+<font color="#062585"><font size="2">(02:31:34 AM)</font> <b>***naptastic</b></font> clicks<br/>
+<font color="#A82F2F"><font size="2">(02:31:58 AM)</font> <b>naptastic:</b></font> Is that really 24h long?<br/>
+<font color="#A82F2F"><font size="2">(02:31:59 AM)</font> <b>tom^_:</b></font> that was generated like ./ltcgen-0.6.3.static.i386 -d 01012000 -f 30 -g 9 -l &quot;23:59:59&quot; -s 44100 -t &quot;00:00:00:00&quot; ltc_01012000_24h_44100.wav<br/>
+<font color="#A82F2F"><font size="2">(02:32:05 AM)</font> <b>naptastic:</b></font> Ah, ok<br/>
+<font color="#A82F2F"><font size="2">(02:32:11 AM)</font> <b>naptastic:</b></font> I can split that into the lengths I need<br/>
+<font color="#A82F2F"><font size="2">(02:32:37 AM)</font> <b>tom^_:</b></font> naptastic: what you like, or cut &amp; scramble, or index, or ..<br/>
+<font color="#A82F2F"><font size="2">(02:33:40 AM)</font> <b>tom^_:</b></font> rgareus: would that still work when it was encoded as ogg?<br/>
+<font color="#A82F2F"><font size="2">(02:33:43 AM)</font> <b>naptastic:</b></font> I was planning on just making CDs with 7 * 630-second tracks<br/>
+<font color="#A82F2F"><font size="2">(02:33:55 AM)</font> <b>naptastic:</b></font> (brb, potty break)<br/>
+<font size="2">(02:34:03 AM)</font><b> idragosani [<em>~idragosan@pool-108-48-80-84.washdc.fios.verizon.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:35:40 AM)</font> <b>rgareus:</b></font> tom^_: probably. but FLAC should do really well on these files<br/>
+<font size="2">(02:35:53 AM)</font><b> idragosani left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(02:36:02 AM)</font> <b>tom^_:</b></font> rgareus: yep<br/>
+<font color="#A82F2F"><font size="2">(02:36:17 AM)</font> <b>tom^_:</b></font> rgareus: it&apos;s only 122mb, which i don&apos;t understand even if it&apos;s mono<br/>
+<font size="2">(02:36:19 AM)</font><b> DrCode [<em>~DrCode@gateway/tor-sasl/drcode</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:36:47 AM)</font> <b>rgareus:</b></font> tom^_: a 24hour wav mmh. does that work?<br/>
+<font color="#A82F2F"><font size="2">(02:37:08 AM)</font> <b>tom^_:</b></font> rgareus: aha .. <br/>
+<font color="#A82F2F"><font size="2">(02:38:54 AM)</font> <b>rgareus:</b></font> mmh. I hardcoded SF_FORMAT_WAV into it :(<br/>
+<font color="#A82F2F"><font size="2">(02:39:03 AM)</font> <b>tom^_:</b></font> duration 1440966.7 ms<br/>
+<font size="2">(02:39:14 AM)</font><b> idragosani [<em>~idragosan@pool-108-48-80-84.washdc.fios.verizon.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:39:18 AM)</font> <b>tom^_:</b></font> naptastic: don&apos;t trust the 24h :)<br/>
+<font size="2">(02:39:23 AM)</font><b> RytmenPinne_ left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(02:39:23 AM)</font><b> RytmenPinne left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:48:20 AM)</font> <b>naptastic:</b></font> oh cool :-) 1 hour is just about perfect.<br/>
+<font color="#A82F2F"><font size="2">(02:50:01 AM)</font> <b>tom^_:</b></font> naptastic: forget that file<br/>
+<font color="#A82F2F"><font size="2">(02:51:00 AM)</font> <b>tom^_:</b></font> naptastic: it was 23 minutes 59 sec<br/>
+<font color="#A82F2F"><font size="2">(02:51:07 AM)</font> <b>naptastic:</b></font> hahahahaha<br/>
+<font color="#A82F2F"><font size="2">(02:51:29 AM)</font> <b>naptastic:</b></font> tom^_, can you make me a 74m00s file?<br/>
+<font color="#A82F2F"><font size="2">(02:53:32 AM)</font> <b>tom^_:</b></font> naptastic: i&apos;m just uploading a 1h one ..<br/>
+<font color="#A82F2F"><font size="2">(02:53:52 AM)</font> <b>tom^_:</b></font> naptastic: + 320kbit mp3 just to test if that would do<br/>
+<font color="#A82F2F"><font size="2">(02:54:21 AM)</font> <b>naptastic:</b></font> tom^_, that sounds perfect. I can use that.<br/>
+<font color="#A82F2F"><font size="2">(02:55:34 AM)</font> <b>tom^_:</b></font> naptastic: ok, i do 74 (start over again, it was &apos;a little&apos; too hot<br/>
+<font color="#A82F2F"><font size="2">(02:55:47 AM)</font> <b>naptastic:</b></font> tom^_, how much is a little? ;-)<br/>
+<font color="#A82F2F"><font size="2">(02:57:48 AM)</font> <b>tom^_:</b></font> naptastic: -g &lt;volume&gt; was too high<br/>
+<font color="#A82F2F"><font size="2">(03:00:31 AM)</font> <b>rgareus:</b></font> naptastic: strange that it does not work on your box.  did you try to chmod + x ./ltcgen-0.6.3.static.i386; and i386 ./ltcgen-0.6.3.static.i386 ...<br/>
+<font color="#A82F2F"><font size="2">(03:00:56 AM)</font> <b>naptastic:</b></font> rgareus, I chmod +x&apos;d it, yes<br/>
+<font color="#A82F2F"><font size="2">(03:01:07 AM)</font> <b>naptastic:</b></font> &apos;i386 ./ltcgen-0.6.3.static.i386&apos; ?<br/>
+<font color="#A82F2F"><font size="2">(03:01:23 AM)</font> <b>naptastic:</b></font> i386: ./ltcgen-0.6.3.static.i386: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(03:01:48 AM)</font> <b>rgareus:</b></font> naptastic: are you on a 64bit system<br/>
+<font color="#A82F2F"><font size="2">(03:01:53 AM)</font> <b>naptastic:</b></font> rgareus, yes I am<br/>
+<font color="#A82F2F"><font size="2">(03:01:56 AM)</font> <b>rgareus:</b></font> naptastic: and it has multi-arch support?<br/>
+<font color="#A82F2F"><font size="2">(03:05:49 AM)</font> <b>tom^_:</b></font> rgareus: i don&apos;t have to use i386 on my 64bit, it just works<br/>
+<font color="#A82F2F"><font size="2">(03:06:48 AM)</font> <b>rgareus:</b></font> naptastic: http://robin.linuxaudio.org/tmp/ltcgen-0.6.3.static.x86_64 maybe<br/>
+<font color="#062585"><font size="2">(03:07:06 AM)</font> <b>***naptastic</b></font> tries that<br/>
+<font color="#A82F2F"><font size="2">(03:07:40 AM)</font> <b>naptastic:</b></font> ./ltcgen-0.6.3.static.x86_64: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.14&apos; not found (required by ./ltcgen-0.6.3.static.x86_64)<br/>
+<font color="#A82F2F"><font size="2">(03:07:50 AM)</font> <b>naptastic:</b></font> This is Wheezy, so my libc is too old. :-( 2.13, IIRC<br/>
+<font color="#A82F2F"><font size="2">(03:07:59 AM)</font> <b>naptastic:</b></font> sigh, why do they have to use such outdated stuff...<br/>
+<font color="#A82F2F"><font size="2">(03:08:33 AM)</font> <b>rgareus:</b></font> naptastic: mmh. what was the actual problem when you installed libltc?<br/>
+<font size="2">(03:09:06 AM)</font><b> oofus_lt left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(03:09:07 AM)</font> <b>naptastic:</b></font> I got libltc to install, but when I tried to compile ltc-tools, it said it couldn&apos;t find libltc.<br/>
+<font color="#A82F2F"><font size="2">(03:09:16 AM)</font> <b>rgareus:</b></font> naptastic: did you install it to /usr/local/* and that&apos;s not yet listed in   /etc/ld.so.conf ?<br/>
+<font color="#A82F2F"><font size="2">(03:09:20 AM)</font> <b>naptastic:</b></font> rgareus, the next step would be to strace it, and figure out where it&apos;s looking for things.<br/>
+<font color="#A82F2F"><font size="2">(03:09:30 AM)</font> <b>naptastic:</b></font> rgareus, but I do also have to get some work-related work done ;-)<br/>
+<font color="#A82F2F"><font size="2">(03:09:34 AM)</font> <b>rgareus:</b></font> naptastic: it uses pkg-config <br/>
+<font color="#A82F2F"><font size="2">(03:09:39 AM)</font> <b>naptastic:</b></font> rgareus, AH!!!<br/>
+<font color="#A82F2F"><font size="2">(03:09:46 AM)</font> <b>naptastic:</b></font> I know the problem then. It puts things in...<br/>
+<font color="#A82F2F"><font size="2">(03:10:00 AM)</font> <b>rgareus:</b></font> naptastic:  pkg-config --cflags --libs ltc     should return &apos;-lltc -lm&apos; <br/>
+<font color="#A82F2F"><font size="2">(03:10:21 AM)</font> <b>naptastic:</b></font> I just need to make symlinks in the correct pkgconfig directory. I ran into this with Fluidsynth and Calf the other day.<br/>
+<font color="#A82F2F"><font size="2">(03:10:21 AM)</font> <b>rgareus:</b></font> naptastic: two ways around it, either add /usr/local/lib to the ld search path in /etc/ld**<br/>
+<font color="#A82F2F"><font size="2">(03:10:39 AM)</font> <b>naptastic:</b></font> rgareus, yep. I&apos;ll get to that in a bit. Gotta fix an Apache symlinks issue right now tho.<br/>
+<font color="#A82F2F"><font size="2">(03:10:43 AM)</font> <b>rgareus:</b></font> naptastic: or    sudo make uninstall;    ./configure --prefix=/usr; make; sudo make install<br/>
+<font color="#A82F2F"><font size="2">(03:11:33 AM)</font> <b>rgareus:</b></font> naptastic: you may also need to run &apos;sudo ldconfig&apos;<br/>
+<font color="#A82F2F"><font size="2">(03:11:50 AM)</font> <b>rgareus:</b></font> naptastic: (make install should have told you so)<br/>
+<font color="#A82F2F"><font size="2">(03:12:13 AM)</font> <b>naptastic:</b></font> rgareus, prefix=/usr won&apos;t help; the problem is the pkgconfig directory, which is hard-coded to be something else. Symlinks have to be made... I don&apos;t remember which ones though.<br/>
+<font color="#A82F2F"><font size="2">(03:13:40 AM)</font> <b>rgareus:</b></font> naptastic: it ends up in     /usr[/local]/lib/[x86_64-linux-gnu]/pkgconfig/<br/>
+<font color="#A82F2F"><font size="2">(03:13:50 AM)</font> <b>rgareus:</b></font> naptastic: dependng on --libdir<br/>
+<font color="#A82F2F"><font size="2">(03:14:00 AM)</font> <b>naptastic:</b></font> root@davidnielson:/usr/lib/x86_64-linux-gnu/pkgconfig# ls -al /usr/lib/x86_64-linux-gnu/pkgconfig/ltc.pc <br/>
+<font color="#A82F2F"><font size="2">(03:14:01 AM)</font> <b>naptastic:</b></font> lrwxrwxrwx 1 root root 31 Sep  5 20:20 /usr/lib/x86_64-linux-gnu/pkgconfig/ltc.pc -&gt; /usr/local/lib/pkgconfig/ltc.pc<br/>
+<font color="#A82F2F"><font size="2">(03:14:07 AM)</font> <b>naptastic:</b></font> yep<br/>
+<font color="#A82F2F"><font size="2">(03:14:09 AM)</font> <b>rgareus:</b></font> naptastic: and --libdir falls back to &lt;PREFIX&gt;/lib/<br/>
+<font color="#A82F2F"><font size="2">(03:14:23 AM)</font> <b>naptastic:</b></font> libltc put itself into /usr/local/lib/pkgconfig instead<br/>
+<font color="#A82F2F"><font size="2">(03:14:43 AM)</font> <b>rgareus:</b></font> naptastic: perfect. that&apos;s where it should go unles told otherwise :)<br/>
+<font color="#A82F2F"><font size="2">(03:14:56 AM)</font> <b>naptastic:</b></font> :-)<br/>
+<font size="2">(03:15:28 AM)</font><b> idragosani1 [<em>~bmccoy@pool-108-48-80-84.washdc.fios.verizon.net</em>] entered the room.</b><br/>
+<font size="2">(03:15:28 AM)</font><b> idragosani1 left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(03:21:22 AM)</font> <b>tom^_:</b></font> naptastic: just in case, http://lowres.ch/a3/ltc_01012000_74min_44100.wav<br/>
+<font color="#A82F2F"><font size="2">(03:22:21 AM)</font> <b>tom^_:</b></font> naptastic: just in case, http://lowres.ch/a3/ltc_01012000_74min_44100.wav.mp3<br/>
+<font size="2">(03:22:40 AM)</font><b> polosson_ left the room (quit: Quit: Bye!).</b><br/>
+<font color="#A82F2F"><font size="2">(03:23:03 AM)</font> <b>rgareus:</b></font> tom^_: did you try to &apos;mplayer&apos; that into ardour&apos;s LTC port?<br/>
+<font size="2">(03:23:21 AM)</font><b> phyzix5761 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(03:23:22 AM)</font> <b>tom^_:</b></font> rgareus: no<br/>
+<font color="#A82F2F"><font size="2">(03:23:28 AM)</font> <b>rgareus:</b></font> tom^_: mplayer can vari-speed easily<br/>
+<font color="#A82F2F"><font size="2">(03:23:32 AM)</font> <b>tom^_:</b></font> rgareus: good idea, mplayer has well speed control<br/>
+<font color="#A82F2F"><font size="2">(03:23:35 AM)</font> <b>tom^_:</b></font> rgareus: yep<br/>
+<font color="#A82F2F"><font size="2">(03:23:47 AM)</font> <b>tom^_:</b></font> rgareus: (even for network files!)<br/>
+<font color="#A82F2F"><font size="2">(03:23:57 AM)</font> <b>tom^_:</b></font> rgareus: as long as the server supports range requests<br/>
+<font color="#A82F2F"><font size="2">(03:24:13 AM)</font> <b>tom^_:</b></font> rgareus: so.. you can stream that mp3 link above and try yourself :)<br/>
+<font color="#A82F2F"><font size="2">(03:24:33 AM)</font> <b>rgareus:</b></font> tom^_: Once I&apos;m done re-compiling ardour, yes<br/>
+<font color="#A82F2F"><font size="2">(03:25:46 AM)</font> <b>tom^_:</b></font> rgareus: it&apos;s encoded in the standard volume -18db<br/>
+<font color="#A82F2F"><font size="2">(03:26:02 AM)</font> <b>rgareus:</b></font> tom^_: that&apos;s fine<br/>
+<font color="#A82F2F"><font size="2">(03:27:29 AM)</font> <b>rgareus:</b></font> tom^_: mplayer http://lowres.ch/a3/ltc_01012000_74min_44100.wav.mp3 fails with Cannot find codec for audio format 0x55 :(<br/>
+<font color="#A82F2F"><font size="2">(03:27:52 AM)</font> <b>rgareus:</b></font> tom^_: did you encode the 8bit wav to mp3 without making it 16bit stereo?<br/>
+<font color="#A82F2F"><font size="2">(03:28:58 AM)</font> <b>tom^_:</b></font> rgareus: yes, no special conversion<br/>
+<font color="#A82F2F"><font size="2">(03:29:06 AM)</font> <b>rgareus:</b></font> tom^_: A3 chases   &apos;mplayer http://lowres.ch/a3/ltc_01012000_74min_44100.wav&apos; just fine<br/>
+<font color="#A82F2F"><font size="2">(03:29:12 AM)</font> <b>tom^_:</b></font> rgareus: it plays fine with mpg123 (form that link) and drives my ardour :)<br/>
+<font color="#A82F2F"><font size="2">(03:29:35 AM)</font> <b>las:</b></font> oofus: have managed to fix this connection problem, i believe. now off to see the world&apos;s end (at least after i commit)<br/>
+<font color="#A82F2F"><font size="2">(03:29:37 AM)</font> <b>tom^_:</b></font> rgareus: strange, mplayer is very supportive for formats<br/>
+<font color="#A82F2F"><font size="2">(03:30:05 AM)</font> <b>rgareus:</b></font> tom^_: I don&apos;t think 8bit payload in an mp3 is actually &apos;legal&apos;. mplayer is a smart-ass<br/>
+<font color="#A82F2F"><font size="2">(03:30:10 AM)</font> <b>tom^_:</b></font> rgareus: wait, mpg123 has varispeed too :)<br/>
+<font color="#A82F2F"><font size="2">(03:30:36 AM)</font> <b>rgareus:</b></font> tom^_: but ffprobe says  &quot;mp3, 44100 Hz, mono, s16, 320 kb/s&quot; so all is fine<br/>
+<font color="#A82F2F"><font size="2">(03:30:56 AM)</font> <b>rgareus:</b></font> tom^_: your mp3-encoder was smart-enough to make a 16-bit version.<br/>
+<font color="#A82F2F"><font size="2">(03:30:58 AM)</font> <b>tom^_:</b></font> rgareus: ok<br/>
+<font color="#A82F2F"><font size="2">(03:31:07 AM)</font> <b>tom^_:</b></font> rgareus: just lame<br/>
+<font color="#A82F2F"><font size="2">(03:31:33 AM)</font> <b>rgareus:</b></font> tom^_: strange that mplayer here does not play he mp3. does yours?<br/>
+<font color="#062585"><font size="2">(03:31:36 AM)</font> <b>***tom^_</b></font> wonders how lame handles licensing<br/>
+<font color="#A82F2F"><font size="2">(03:31:49 AM)</font> <b>rgareus:</b></font> tom^_: the don&apos;t care.<br/>
+<font color="#A82F2F"><font size="2">(03:31:56 AM)</font> <b>tom^_:</b></font> rgareus: don&apos;t have it on that pc, let me see<br/>
+<font color="#A82F2F"><font size="2">(03:32:09 AM)</font> <b>rgareus:</b></font> tom^_: they say it&apos;s a tool for educational purposes only.<br/>
+<font color="#A82F2F"><font size="2">(03:32:34 AM)</font> <b>tom^_:</b></font> Opening audio decoder: [mp3lib] MPEG layer-2, layer-3<br/>
+<font color="#A82F2F"><font size="2">(03:32:34 AM)</font> <b>tom^_:</b></font> AUDIO: 44100 Hz, 2 ch, s16le, 320.0 kbit/22.68% (ratio: 40000-&gt;176400)<br/>
+<font color="#A82F2F"><font size="2">(03:32:34 AM)</font> <b>tom^_:</b></font> Selected audio codec: [mp3] afm: mp3lib (mp3lib MPEG layer-2, layer-3)<br/>
+<font color="#A82F2F"><font size="2">(03:32:34 AM)</font> <b>tom^_:</b></font> ==========================================================================<br/>
+<font color="#A82F2F"><font size="2">(03:32:34 AM)</font> <b>tom^_:</b></font> AO: [pulse] 44100Hz 2ch s16le (2 bytes per sample)<br/>
+<font color="#A82F2F"><font size="2">(03:32:36 AM)</font> <b>tom^_:</b></font> Video: no video<br/>
+<font color="#A82F2F"><font size="2">(03:32:39 AM)</font> <b>tom^_:</b></font> Starting playback...<br/>
+<font color="#A82F2F"><font size="2">(03:32:41 AM)</font> <b>tom^_:</b></font> A:   0.0 (00.0) of 4440.0 ( 1:14:00.0) ??,?% 1% <br/>
+<font color="#A82F2F"><font size="2">(03:32:47 AM)</font> <b>tom^_:</b></font> rgareus: then it stops there, strange<br/>
+<font color="#A82F2F"><font size="2">(03:34:01 AM)</font> <b>[lsd]:</b></font> tom^_: they don&apos;t ship a working MP3 encoder, only the source code to one, so they&apos;re not subject to licensing (at least by their reasoning)<br/>
+<font color="#A82F2F"><font size="2">(03:34:45 AM)</font> <b>tom^_:</b></font> [lsd]: i see :)<br/>
+<font color="#A82F2F"><font size="2">(03:35:47 AM)</font> <b>rgareus:</b></font> tom^_: the user(s) of lame (which includes other software that use the library) needs to worry about patents<br/>
+<font color="#A82F2F"><font size="2">(03:36:15 AM)</font> <b>las:</b></font> enjoy the night everyone, i&apos;m off for some (british) humor<br/>
+<font size="2">(03:36:34 AM)</font><b> alip left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(03:36:35 AM)</font> <b>tom^_:</b></font> rgareus: really i don&apos;t know why mplayer has an issue.. it doesn NOT play locally as well<br/>
+<font color="#A82F2F"><font size="2">(03:37:09 AM)</font> <b>rgareus:</b></font> las: oh new audioengie commit! will try<br/>
+<font color="#A82F2F"><font size="2">(03:38:06 AM)</font> <b>tom^_:</b></font> good night las<br/>
+<font color="#A82F2F"><font size="2">(03:38:28 AM)</font> <b>rgareus:</b></font> tom^_: mplayer probably does not work because you did not pay the mp3 license fees :D<br/>
+<font size="2">(03:39:32 AM)</font><b> hansfbaier [<em>~jack@180.245.134.19</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:39:45 AM)</font> <b>las:</b></font> rgareus: small change really, just to fix use of the patchbay with non-ardour ports<br/>
+<font color="#A82F2F"><font size="2">(03:39:46 AM)</font> <b>las:</b></font> ciao<br/>
+<font size="2">(03:40:55 AM)</font><b> phyzix5761 [<em>~phyzix576@c-50-140-54-206.hsd1.fl.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(03:41:26 AM)</font><b> alip [<em>~alip@exherbo/developer/alip</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:41:56 AM)</font> <b>rgareus:</b></font> naptastic: ardour vari-speeds nicely along to the .wav<br/>
+<font color="#A82F2F"><font size="2">(03:42:32 AM)</font> <b>naptastic:</b></font> rgareus, I am looking forward to playing with it, with great anticipation :-)<br/>
+<font size="2">(03:45:08 AM)</font><b> nox- left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(03:49:45 AM)</font> <b>tom^_:</b></font> naptastic: for a quick field ltc generator, just play the wave on your smartphone :)<br/>
+<font color="#A82F2F"><font size="2">(03:50:04 AM)</font> <b>tom^_:</b></font> rgareus: actually that would be a cool app, using the ios jack<br/>
+<font color="#A82F2F"><font size="2">(03:50:18 AM)</font> <b>tom^_:</b></font> rgareus: like really generating it (with correct date etc)<br/>
+<font color="#A82F2F"><font size="2">(03:51:04 AM)</font> <b>naptastic:</b></font> tom^_, that would be brilliant :-D I use Android though. %$#@ iOS.<br/>
+<font color="#A82F2F"><font size="2">(03:51:48 AM)</font> <b>tom^_:</b></font> naptastic: maybe you can install &amp; run ltcgen directly on android?<br/>
+<font color="#A82F2F"><font size="2">(03:52:12 AM)</font> <b>naptastic:</b></font> maybe someone can; that someone is not me. ;-)<br/>
+<font color="#A82F2F"><font size="2">(03:52:23 AM)</font> <b>rgareus:</b></font> I think someone wrote an iPhone app using libltc, not sure about android.<br/>
+<font color="#A82F2F"><font size="2">(03:52:26 AM)</font> <b>tom^_:</b></font> i think it exists, somebody came up with that already for sure<br/>
+<font color="#A82F2F"><font size="2">(03:52:34 AM)</font> <b>tom^_:</b></font> yes, i believe<br/>
+<font color="#A82F2F"><font size="2">(03:55:06 AM)</font> <b>tom^_:</b></font> rgareus: connect smarty audio output to interface input and vari-speed control ardour (without any use of midi, osc)<br/>
+<font color="#A82F2F"><font size="2">(03:55:21 AM)</font> <b>rgareus:</b></font> also made with libltc: http://nanibox.com/kurobox/<br/>
+<font color="#A82F2F"><font size="2">(03:55:32 AM)</font> <b>tom^_:</b></font> rgareus: though it ca be cheaper with just the keyboard :)<br/>
+<font color="#A82F2F"><font size="2">(03:56:50 AM)</font> <b>rgareus:</b></font> naptastic: did you do some android app before? <br/>
+<font color="#A82F2F"><font size="2">(03:59:10 AM)</font> <b>naptastic:</b></font> rgareus, no; I have used Cubase SX to generate MTC and MMC before. That&apos;s been years ago though.<br/>
+<font color="#A82F2F"><font size="2">(04:01:47 AM)</font> <b>rgareus:</b></font> OT: does anyone know about android app-store and iphone store? I was asked to develop 2 simple apps but I don&apos;t have a mobile phone to begin with..<br/>
+<font color="#A82F2F"><font size="2">(04:01:58 AM)</font> <b>rgareus:</b></font> A prof here at the univ. wants a simple app: it does nothing but say &quot;thank you&quot; and then deletes itself.<br/>
+<font color="#A82F2F"><font size="2">(04:02:21 AM)</font> <b>rgareus:</b></font> The use-case is dontations. You buy the app for 4.99 ; all proceedings to to aid Syrian exchange students.<br/>
+<font color="#A82F2F"><font size="2">(04:02:52 AM)</font> <b>rgareus:</b></font> it needs to delete itself so that you can buy the app multiple times... but that should be easy right?<br/>
+<font color="#A82F2F"><font size="2">(04:03:42 AM)</font> <b>tom^_:</b></font> rgareus: as far as i know you need to take part of some kind of developer program for the iphone apps ..<br/>
+<font color="#A82F2F"><font size="2">(04:03:51 AM)</font> <b>tom^_:</b></font> rgareus: for android, maybe easier<br/>
+<font color="#A82F2F"><font size="2">(04:04:16 AM)</font> <b>tom^_:</b></font> rgareus: i still have a nokia semi-smart phone<br/>
+<font color="#A82F2F"><font size="2">(04:04:26 AM)</font> <b>tom^_:</b></font> rgareus: (now m$ grrrr..)<br/>
+<font color="#A82F2F"><font size="2">(04:06:36 AM)</font> <b>rgareus:</b></font> tom^_: I warned him that apple will take its cut for iphone and some andrioid-app-store may, too. but the expected behaviour is that the net sum will be larger than just making a &apos;donate here by &lt;bank&gt; for free&apos;. Nobody does that. but he expects that more people will just click &quot;buy app&quot;.<br/>
+<font color="#A82F2F"><font size="2">(04:07:33 AM)</font> <b>tom^_:</b></font> rgareus: duno .. using the stores&apos; accounting and payment system is certainly a way<br/>
+<font color="#A82F2F"><font size="2">(04:07:44 AM)</font> <b>tom^_:</b></font> rgareus: apple takes around 30% iirc<br/>
+<font size="2">(04:08:02 AM)</font><b> hybrid left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:08:49 AM)</font> <b>rgareus:</b></font> tom^_: sad as it is, I think he&apos;s right. user is already signed up with apple, let&apos;s get another app to donate. click done..<br/>
+<font color="#A82F2F"><font size="2">(04:08:57 AM)</font> <b>tom^_:</b></font> rgareus: an online site is maybe easier (ans also reachable via smartphone or qrcode even)<br/>
+<font color="#A82F2F"><font size="2">(04:09:16 AM)</font> <b>rgareus:</b></font> tom^_:  ...but requires much more user-interaction.<br/>
+<font color="#A82F2F"><font size="2">(04:09:58 AM)</font> <b>rgareus:</b></font> tom^_: 95% of the &quot;users&quot; won&apos;t go there.<br/>
+<font color="#A82F2F"><font size="2">(04:10:23 AM)</font> <b>rgareus:</b></font> tom^_: which makes apples&apos; 30% cut a bargain.   mad world.<br/>
+<font color="#A82F2F"><font size="2">(04:10:34 AM)</font> <b>tom^_:</b></font> rgareus: yes. i don&apos;t think there will be spontaneous finds of that app so it&apos;s a question of how to point ppl to the facility that cashes in anyway<br/>
+<font color="#A82F2F"><font size="2">(04:12:11 AM)</font> <b>tom^_:</b></font> rgareus: why don&apos;t you put a donation button up on rgareus.org? just to get a feeling for it :)<br/>
+<font color="#A82F2F"><font size="2">(04:12:37 AM)</font> <b>rgareus:</b></font> tom^_: this is not for me.<br/>
+<font color="#A82F2F"><font size="2">(04:13:12 AM)</font> <b>rgareus:</b></font> tom^_: and there are already donation buttons that nobody uses.<br/>
+<font color="#A82F2F"><font size="2">(04:13:51 AM)</font> <b>tom^_:</b></font> rgareus: is that one new?<br/>
+<font color="#A82F2F"><font size="2">(04:14:00 AM)</font> <b>tom^_:</b></font> rgareus: i see there is one<br/>
+<font size="2">(04:15:18 AM)</font><b> err-or_ [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:16:25 AM)</font> <b>tom^_:</b></font> rgareus: so for the other project make a website with just that button, then create a qrcode that points to it and distribute to potential &apos;users&apos;<br/>
+<font color="#A82F2F"><font size="2">(04:17:10 AM)</font> <b>rgareus:</b></font> tom^_: btdt; the site got 30-40K unique visitors and 20 donations.<br/>
+<font size="2">(04:17:36 AM)</font><b> ssj72 [<em>~ssj71@c-24-10-139-208.hsd1.ut.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:17:45 AM)</font> <b>rgareus:</b></font> tom^_: at least that&apos;s what Khaldoun reported when he asked about the apps.<br/>
+<font size="2">(04:18:42 AM)</font><b> err-or left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:19:49 AM)</font> <b>rgareus:</b></font> tom^_: http://zreik.fr/ is the site prof in question, he&apos;s from Syria, teaches at the institute here and is very  solidary, trying to get students out of Syraia with student-exchanges. I can&apos;t find the link to the student-aid pages just now.<br/>
+<font size="2">(04:20:29 AM)</font><b> err-or_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(04:20:49 AM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:21:06 AM)</font> <b>tom^_:</b></font> rgareus: some million refugees in Syria right now ..<br/>
+<font color="#A82F2F"><font size="2">(04:22:53 AM)</font> <b>rgareus:</b></font> tom^_: well, you can&apos;t help all of them..  but I&apos;m already happy with one at a time :)<br/>
+<font color="#A82F2F"><font size="2">(04:24:18 AM)</font> <b>rgareus:</b></font> tom^_: I have a new collegue - well he&apos;s a master-student doing an internship - who worked closley with Bassel. http://freebassel.org/  at  CreativeCommonsSyira.<br/>
+<font color="#A82F2F"><font size="2">(04:25:03 AM)</font> <b>rgareus:</b></font> s/Syira/Syria/ anyway<br/>
+<font color="#A82F2F"><font size="2">(04:25:04 AM)</font> <b>tom^_:</b></font> rgareus: i&apos;ve read my country will host 500 syrians in the next time. a small fraction only<br/>
+<font color="#A82F2F"><font size="2">(04:25:55 AM)</font> <b>tom^_:</b></font> rgareus: difficult to have an oversight in the middle east<br/>
+<font color="#A82F2F"><font size="2">(04:27:15 AM)</font> <b>tom^_:</b></font> or even closer east<br/>
+<font color="#A82F2F"><font size="2">(04:28:50 AM)</font> <b>tom^_:</b></font> &apos;near east&apos;<br/>
+<font size="2">(04:35:50 AM)</font><b> the_CLA_2 [<em>~the_CLA@p57B9B2F4.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(04:39:15 AM)</font><b> the_CLA left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(04:44:38 AM)</font><b> phyzix5761 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(04:58:22 AM)</font> <b>seablade_:</b></font> rgareus, I don&apos;t believe you can purchase an app multiple times on Google&apos;s Play, and I suspect the same on Apple&apos;s App Store<br/>
+<font color="#A82F2F"><font size="2">(04:58:36 AM)</font> <b>seablade_:</b></font> rgareus, The point is that once you purchase it once, it is tied to your account so you don&apos;t have to<br/>
+<font color="#A82F2F"><font size="2">(04:58:50 AM)</font> <b>rgareus:</b></font> seablade_: aah thanks for the info.<br/>
+<font color="#A82F2F"><font size="2">(04:59:09 AM)</font> <b>seablade_:</b></font> rgareus, Now you may be able to use in-app purchases to do something similar, but I doubt the app purchase itself would be a good solution<br/>
+<font color="#A82F2F"><font size="2">(04:59:41 AM)</font> <b>seablade_:</b></font> rgareus, Nice and inventive thinking of a way of assisting Syria though for the record, hope it makes a difference<br/>
+<font size="2">(05:02:29 AM)</font><b> kmunkki_ [<em>~mikko@87-95-75-138.bb.dnainternet.fi</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:03:12 AM)</font> <b>rgareus:</b></font> seablade_: for three students it already made a huge difference..<br/>
+<font color="#A82F2F"><font size="2">(05:03:26 AM)</font> <b>seablade_:</b></font> rgareus, Good, glad to hear it<br/>
+<font size="2">(05:06:59 AM)</font><b> kmunkki left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(05:22:29 AM)</font><b> spillajk [<em>~spillajk@c-71-206-237-72.hsd1.pa.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(05:26:59 AM)</font><b> spillajk left the room (quit: Client Quit).</b><br/>
+<font size="2">(05:42:43 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

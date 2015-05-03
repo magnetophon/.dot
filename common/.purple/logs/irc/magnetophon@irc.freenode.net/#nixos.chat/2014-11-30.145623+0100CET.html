@@ -1,0 +1,21 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sun 30 Nov 2014 02:56:23 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sun 30 Nov 2014 02:56:23 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:56:24 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(02:56:24 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(02:56:39 PM)</font><b> komarov left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#16569E"><font size="2">(02:57:03 PM)</font> <b>magnetophon:</b></font> I hope I didn't already post this before I disconnected: How can it be that when I run &quot;groups&quot;, I only get &quot;users&quot;?  https://github.com/magnetophon/nixosConfig/blob/master/configuration.nix#L201<br/>
+<font size="2">(02:57:20 PM)</font><b> mizu_no_oto [<em>~textual@c-76-24-18-193.hsd1.ma.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:58:34 PM)</font> <b>goibhniu:</b></font> magnetophon: you have to set users.mutableUsers = false;<br/>
+<font size="2">(02:58:36 PM)</font><b> puls3 left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(02:58:57 PM)</font> <b>goibhniu:</b></font> but I don&apos;t know what happens to users which have been manually created before you make that change<br/>
+<font color="#A82F2F"><font size="2">(02:59:13 PM)</font> <b>goibhniu:</b></font> maybe something bad :D<br/>
+<font color="#16569E"><font size="2">(03:00:01 PM)</font> <b>magnetophon:</b></font> goibhniu: thanks. I'll go look it up.<br/>
+<font color="#A82F2F"><font size="2">(03:00:25 PM)</font> <b>kmicu:</b></font> Or     isNormalUser = true;<br/>
+<font color="#A82F2F"><font size="2">(03:00:48 PM)</font> <b>Lethalman:</b></font> goibhniu, yes, they probably lose the password<br/>
+<font color="#A82F2F"><font size="2">(03:00:59 PM)</font> <b>kmicu:</b></font> But maybe you want system user.<br/>
+<font color="#A82F2F"><font size="2">(03:01:05 PM)</font> <b>Lethalman:</b></font> magnetophon, cautious with mutableUsers = false<br/>
+<font size="2">(03:01:08 PM)</font><b> hugoduncan is now known as hugod</b><br/>
+<font color="#A82F2F"><font size="2">(03:01:13 PM)</font> <b>Lethalman:</b></font> you may lose your password<br/>
+<font color="#16569E"><font size="2">(03:02:23 PM)</font> <b>magnetophon:</b></font> Lethalman: what do you mean lose? Couldn't I just set a new one trough root?<br/>
+<font color="#16569E"><font size="2">(03:03:57 PM)</font> <b>magnetophon:</b></font> kmicu: I can't find isNormalUser in the online options search.<br/>
+<font color="#A82F2F"><font size="2">(03:04:45 PM)</font> <b>kmicu:</b></font> magnetophon: maybe it was introduced lately http://nixos.org/releases/nixos/unstable/nixos-14.11pre52793.4d59ac9/manual/ch-options.html<br/>
+<font color="#A82F2F"><font size="2">(03:05:59 PM)</font> <b>kmicu:</b></font> I see every new group with ‘groups’ and isNormalUser is only diff that I can see in comparison to your config.<br/>

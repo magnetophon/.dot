@@ -1,0 +1,166 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Mon 02 Sep 2013 03:46:55 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Mon 02 Sep 2013 03:46:55 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(03:46:55 PM)</font><b> The topic for #ardour is: ardour 3.3 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font color="#A82F2F"><font size="2">(03:47:30 PM)</font> <b>rgareus:</b></font> oofus: I agree. which is why this should eventually be done properly.<br/>
+<font color="#A82F2F"><font size="2">(03:47:50 PM)</font> <b>tom^_:</b></font> oofus: to make it short, you want _exact_ db level, and it can&apos;t be done with current knob precision, right?<br/>
+<font color="#A82F2F"><font size="2">(03:48:38 PM)</font> <b>oofus:</b></font> rgareus: right<br/>
+<font color="#A82F2F"><font size="2">(03:48:47 PM)</font> <b>oofus:</b></font> tom^_: correct<br/>
+<font color="#A82F2F"><font size="2">(03:49:51 PM)</font> <b>tom^_:</b></font> what about a knob with snap? for instance to 1/2 db<br/>
+<font color="#A82F2F"><font size="2">(03:50:17 PM)</font> <b>oofus:</b></font> rgareus: las:  I think it would be good to put the correct structure in place so that any gain control anywhere (knobs faders etc) do the right thing, it&apos;s not purely about the monitor knob, that&apos;s jut where it is currently most noticeable.<br/>
+<font color="#A82F2F"><font size="2">(03:50:39 PM)</font> <b>oofus:</b></font> tom^_: that&apos;s the point, the current implementation doesn&apos;t allow for that<br/>
+<font color="#A82F2F"><font size="2">(03:51:10 PM)</font> <b>oofus:</b></font> tom^_: the detail of whether it&apos;s 0.5, 1, 5 dB steps comes after.<br/>
+<font color="#A82F2F"><font size="2">(03:51:46 PM)</font> <b>tom^_:</b></font> oofus: from a controllers perspective, the 0-2 range is quite good<br/>
+<font color="#A82F2F"><font size="2">(03:52:01 PM)</font> <b>oofus:</b></font> tom^_: why ?<br/>
+<font color="#A82F2F"><font size="2">(03:52:20 PM)</font> <b>oofus:</b></font> tom^_: not agreeing or disagreeing, just like to know why you think that<br/>
+<font color="#A82F2F"><font size="2">(03:52:52 PM)</font> <b>tom^_:</b></font> oofus: it&apos;s more to the point (0 = 0, 1 = unity, 2 = +6 iirc) and sufficient for 98% of applications<br/>
+<font color="#062585"><font size="2">(03:53:28 PM)</font> <b>***oofus</b></font> is out to wash his car<br/>
+<font color="#A82F2F"><font size="2">(03:55:50 PM)</font> <b>tom^_:</b></font> however, it could be imagined that the backend has a method to set exact db value not mapped via range value (maybe)<br/>
+<font color="#A82F2F"><font size="2">(03:56:56 PM)</font> <b>rgareus:</b></font> las: I&apos;m just cleaning up the LV2 extUI stuff.<br/>
+<font color="#A82F2F"><font size="2">(03:57:49 PM)</font> <b>las:</b></font> oofus: actually, i think the X dB steps is the key thing<br/>
+<font color="#A82F2F"><font size="2">(03:58:08 PM)</font> <b>las:</b></font> tom^_: 2 = +6dB is not a programming choice<br/>
+<font color="#A82F2F"><font size="2">(03:58:28 PM)</font> <b>las:</b></font> tom^_: multiplying sample values by 2 increases the volume by +6dB<br/>
+<font color="#A82F2F"><font size="2">(03:58:56 PM)</font> <b>las:</b></font> tom^_: it actually *is* a problem that most of ardour is locked to +6dB as the upper limit of its gain control<br/>
+<font color="#A82F2F"><font size="2">(03:59:32 PM)</font> <b>tom^_:</b></font> las: can it be higher?<br/>
+<font color="#A82F2F"><font size="2">(03:59:48 PM)</font> <b>rgareus:</b></font> tom^_: +6dB is *1.9952623   ;; or *2 =~ 6.020599dB <br/>
+<font color="#A82F2F"><font size="2">(04:00:29 PM)</font> <b>rgareus:</b></font> tom^_: gain_coefficient = 20.0 * log10(dB_value)<br/>
+<font color="#A82F2F"><font size="2">(04:01:40 PM)</font> <b>tom^_:</b></font> rgareus: i see.. so that&apos;s the reason 2 is not optimal (&quot;over the top&quot;)<br/>
+<font color="#A82F2F"><font size="2">(04:01:40 PM)</font> <b>rgareus:</b></font> a related problem.  when going at steps of .001  from 1.0 to 2.0  there are 1000 possible values.<br/>
+<font color="#A82F2F"><font size="2">(04:01:51 PM)</font> <b>rgareus:</b></font> but when going in .01 dB steps from 0 to +6dB   there are only 600 possible values<br/>
+<font color="#A82F2F"><font size="2">(04:02:18 PM)</font> <b>rgareus:</b></font> 1000/600 is 1.666  the knob does very weird rounding.<br/>
+<font color="#A82F2F"><font size="2">(04:04:49 PM)</font> <b>rgareus:</b></font> using a range from 0..2 on the knob itself will never work properly<br/>
+<font color="#A82F2F"><font size="2">(04:04:49 PM)</font> <b>rgareus:</b></font> well, theoretically yes If one had precise control over the step value.  but just using an integer range for the knob makes things much simpler<br/>
+<font size="2">(04:04:49 PM)</font><b> RytmenPinne [<em>~alex@35-51.bob.fi</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:04:49 PM)</font> <b>tom^_:</b></font> rgareus: if the mapping part is omitted and one enters a value, would that be enought to have i.e. -1.0000000000000 ?<br/>
+<font color="#A82F2F"><font size="2">(04:05:07 PM)</font> <b>tom^_:</b></font> rgareus: so that a volume controlling item would have normal mode and text/entry mode<br/>
+<font color="#A82F2F"><font size="2">(04:05:54 PM)</font> <b>tom^_:</b></font> rgareus: if in text/entry mode, the control could not be moved<br/>
+<font color="#A82F2F"><font size="2">(04:06:01 PM)</font> <b>rgareus:</b></font> tom^_: they do already have text-entry mode, you enter dB.<br/>
+<font color="#A82F2F"><font size="2">(04:06:31 PM)</font> <b>rgareus:</b></font> tom^_: and the dB is currently converted to the coefficient on the fly... and that values is currently used as the knob&apos;s internal value<br/>
+<font color="#A82F2F"><font size="2">(04:07:11 PM)</font> <b>rgareus:</b></font> except that the knob rounds that value to the nearest available step it can do.<br/>
+<font color="#A82F2F"><font size="2">(04:07:26 PM)</font> <b>tom^_:</b></font> rgareus: omit the coefficient / mapping would be ok? the problem i see is that exact values and the knob representation with coefficient are incompatible<br/>
+<font color="#A82F2F"><font size="2">(04:09:56 PM)</font> <b>tom^_:</b></font> rgareus: btw, how can i enter db with text-entry (for instance on a fader) today? i didn&apos;t know it can be done<br/>
+<font color="#A82F2F"><font size="2">(04:10:11 PM)</font> <b>tom^_:</b></font> rgareus: oh.. i found<br/>
+<font color="#A82F2F"><font size="2">(04:10:15 PM)</font> <b>rgareus:</b></font> use the numeric display above the fader<br/>
+<font color="#A82F2F"><font size="2">(04:12:04 PM)</font> <b>las:</b></font> rgareus: so essentially the plan is quantize then convert, yes?<br/>
+<font color="#A82F2F"><font size="2">(04:12:11 PM)</font> <b>tom^_:</b></font> rgareus: could that entered value be used to set db directly (bypassing any mapping / coefficient)? <br/>
+<font color="#A82F2F"><font size="2">(04:12:24 PM)</font> <b>las:</b></font> rgareus: quantize to the nearest dB step, then convert to 0..2 ?<br/>
+<font color="#A82F2F"><font size="2">(04:12:46 PM)</font> <b>las:</b></font> btw, over the weekend, i tried approaching two long standing ardour feature issues<br/>
+<font color="#A82F2F"><font size="2">(04:13:00 PM)</font> <b>las:</b></font> as usual, and disappointingly, they both turned out to be quite a bit harder than i expected<br/>
+<font size="2">(04:13:51 PM)</font><b> Gethiox left the room (quit: Quit: WeeChat 0.4.1).</b><br/>
+<font color="#A82F2F"><font size="2">(04:15:34 PM)</font> <b>tom^_:</b></font> las: i&apos;m curious, what were these features?<br/>
+<font color="#A82F2F"><font size="2">(04:16:03 PM)</font> <b>las:</b></font> tom^_: accelerando/ritardando tempo and having a grid that matched the snap settings<br/>
+<font color="#A82F2F"><font size="2">(04:16:03 PM)</font> <b>rgareus:</b></font> the_CLA_2: are you around? could you please check if A3 from git (3.3-187-gc05ad01) still crashes Harrion plugins when the UI is closed?<br/>
+<font color="#A82F2F"><font size="2">(04:17:13 PM)</font> <b>tom^_:</b></font> las: for the latter, that would be welcome. you are talking of the visible measures, dont&apos; you?<br/>
+<font color="#A82F2F"><font size="2">(04:17:14 PM)</font> <b>the_CLA_2:</b></font> edogawa: I think the issue with resizing the heigt is that grouped resizing is not dependent on grouping at all but on track selection. Because the track selection only gets active on releasing the mouse button, the grouped resizing is not active on first operation, because the tracks in the group are not yet selected.<br/>
+<font color="#A82F2F"><font size="2">(04:17:42 PM)</font> <b>tom^_:</b></font> las: in that context, having a freely definable grid value would be another feature<br/>
+<font color="#A82F2F"><font size="2">(04:18:18 PM)</font> <b>the_CLA_2:</b></font> rgareus: Remember that after your last commit there wasn&apos;t a crash anymore, but the problem then was, that you could open the GUIs only once. I&apos;ll try, anyway... ;)<br/>
+<font color="#A82F2F"><font size="2">(04:18:22 PM)</font> <b>tom^_:</b></font> las: &quot;set grid from region&quot; &quot;set grid from selection&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:18:55 PM)</font> <b>las:</b></font> tom^_: those things would probably follow on the two i was trying<br/>
+<font color="#A82F2F"><font size="2">(04:19:06 PM)</font> <b>tom^_:</b></font> las: good :)<br/>
+<font color="#A82F2F"><font size="2">(04:19:10 PM)</font> <b>las:</b></font> tom^_: it didn&apos;t help that i only had access to an unbearably slow computer<br/>
+<font color="#A82F2F"><font size="2">(04:19:16 PM)</font> <b>rgareus:</b></font> las: quantizing is not enough. it needs to be isomorphic.<br/>
+<font color="#A82F2F"><font size="2">(04:19:32 PM)</font> <b>tom^_:</b></font> las: the accelerando/rr... is a bit a speciality<br/>
+<font color="#A82F2F"><font size="2">(04:19:38 PM)</font> <b>rgareus:</b></font> las:  A value on the dB  has a corresponding coefficient.  And that coefficient when converted back to dB value must be the same<br/>
+<font color="#A82F2F"><font size="2">(04:19:55 PM)</font> <b>rgareus:</b></font> las: just rounding does not have that property.<br/>
+<font color="#A82F2F"><font size="2">(04:20:58 PM)</font> <b>the_CLA_2:</b></font> rgareus: Still the same in current git. XT plugin GUIs only open once!<br/>
+<font color="#A82F2F"><font size="2">(04:21:17 PM)</font> <b>rgareus:</b></font> the_CLA_2: and when you close them? no way to re-open?<br/>
+<font color="#A82F2F"><font size="2">(04:21:29 PM)</font> <b>rgareus:</b></font> s/close them/ close the GUI/<br/>
+<font color="#A82F2F"><font size="2">(04:21:36 PM)</font> <b>las:</b></font> tom^_: acc/rr is NOT a specialty. there are almost no other MIDI sequencers that do NOT allow tempo ramps<br/>
+<font color="#A82F2F"><font size="2">(04:22:00 PM)</font> <b>tom^_:</b></font> las: it can be done manually with tempo markers if needed<br/>
+<font color="#A82F2F"><font size="2">(04:22:03 PM)</font> <b>the_CLA_2:</b></font> rgareus: I found out I can reopen them once again after I opend them with generic controls.<br/>
+<font color="#A82F2F"><font size="2">(04:22:06 PM)</font> <b>las:</b></font> tom^_: that is not acceptable<br/>
+<font color="#A82F2F"><font size="2">(04:22:16 PM)</font> <b>tom^_:</b></font> las: for me, yes :) but i see the point<br/>
+<font color="#A82F2F"><font size="2">(04:22:51 PM)</font> <b>las:</b></font> rgareus: quantizing ... i meant &quot;based on user input events, the apparent value within the range 0..540 is 123.8, so the effective value is now 124&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:22:57 PM)</font> <b>las:</b></font> rgareus: is that what you meant ?<br/>
+<font color="#A82F2F"><font size="2">(04:22:58 PM)</font> <b>tom^_:</b></font> las: i don&apos;t think it&apos;s a commonly used or important feature but i&apos;m biased<br/>
+<font color="#A82F2F"><font size="2">(04:23:36 PM)</font> <b>las:</b></font> tom^_: given that the overwhelming majority of music is in a single time signature at a single tempo, no, its not exactly common<br/>
+<font color="#A82F2F"><font size="2">(04:23:46 PM)</font> <b>the_CLA_2:</b></font> rgareus: I think BenLoftis should send you licenses for mixbus and the plugins so that you can test for yourself! ;)<br/>
+<font color="#A82F2F"><font size="2">(04:24:03 PM)</font> <b>las:</b></font> tom^_: but then again, since the overwhelming majority of music is utterly mediocre, i&apos;m not sure i want that as the benchmark or metric<br/>
+<font color="#A82F2F"><font size="2">(04:24:21 PM)</font> <b>tom^_:</b></font> las: the other point i was thinking is why do exotic midi features while there is still work to do on the midi base?<br/>
+<font color="#A82F2F"><font size="2">(04:24:40 PM)</font> <b>tom^_:</b></font> las: like working quantize. that&apos;s far more commonly used<br/>
+<font color="#A82F2F"><font size="2">(04:24:42 PM)</font> <b>rgareus:</b></font> las: the user is not allowed to enter a dB value that cannot be represented in the underlying range. <br/>
+<font color="#A82F2F"><font size="2">(04:24:56 PM)</font> <b>las:</b></font> tom^_: because i was offline on a really slow computer<br/>
+<font color="#A82F2F"><font size="2">(04:24:58 PM)</font> <b>rgareus:</b></font> the_CLA_2: I don&apos;t want a license for Mixbus. I want the source.<br/>
+<font color="#A82F2F"><font size="2">(04:25:07 PM)</font> <b>rgareus:</b></font> the_CLA_2: or nothing<br/>
+<font color="#A82F2F"><font size="2">(04:25:07 PM)</font> <b>las:</b></font> rgareus: &quot;enter&quot; ... mouse motion? does that count as &quot;enter&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(04:25:31 PM)</font> <b>rgareus:</b></font> las: mouse goes in 1px steps.<br/>
+<font color="#A82F2F"><font size="2">(04:26:02 PM)</font> <b>rgareus:</b></font> las: so yes, if want you use diagonal sqrt distance or something. round it.<br/>
+<font color="#A82F2F"><font size="2">(04:26:36 PM)</font> <b>tom^_:</b></font> what about that: a gain controller has two internal values. 1) range 2) db  and one can choose if db is derived from range or range derived from db<br/>
+<font color="#A82F2F"><font size="2">(04:26:47 PM)</font> <b>tom^_:</b></font> or is that completely out of context?<br/>
+<font color="#A82F2F"><font size="2">(04:27:22 PM)</font> <b>the_CLA_2:</b></font> rgareus: Well, I really can imagine why they can&apos;t reveal the code for their DSP without harming their business... ;)<br/>
+<font color="#A82F2F"><font size="2">(04:27:23 PM)</font> <b>rgareus:</b></font> the_CLA_2: I&apos;m rather doing him (or you) a favor. Those plugins are not according to spec..  and only work in ardour because ardour is not behaving according to spec.<br/>
+<font color="#A82F2F"><font size="2">(04:27:44 PM)</font> <b>rgareus:</b></font> the_CLA_2: did you try them in qtractor?<br/>
+<font color="#A82F2F"><font size="2">(04:28:09 PM)</font> <b>rgareus:</b></font> the_CLA_2: or some other LV2host that supports externalUI?<br/>
+<font color="#A82F2F"><font size="2">(04:28:16 PM)</font> <b>the_CLA_2:</b></font> rgareus: Hm, ok. But if they are really not according to spec then I think Harrison should change that.<br/>
+<font color="#A82F2F"><font size="2">(04:28:36 PM)</font> <b>las:</b></font> rgareus: ok, so that is what i meant by quantize :)<br/>
+<font color="#A82F2F"><font size="2">(04:28:38 PM)</font> <b>rgareus:</b></font> the_CLA_2: BenLoftis said he&apos;ll look into that<br/>
+<font color="#A82F2F"><font size="2">(04:28:39 PM)</font> <b>the_CLA_2:</b></font> rgareus: No, didn&apos;t test them in another host that Mixbus and A3, yet.<br/>
+<font color="#A82F2F"><font size="2">(04:28:52 PM)</font> <b>rgareus:</b></font> the_CLA_2: but he&apos;s busy<br/>
+<font color="#A82F2F"><font size="2">(04:28:56 PM)</font> <b>las:</b></font> tom^_: out of context. the range in effect is internal to ardour, not the controller<br/>
+<font color="#A82F2F"><font size="2">(04:29:13 PM)</font> <b>tom^_:</b></font> las: ok<br/>
+<font color="#A82F2F"><font size="2">(04:29:38 PM)</font> <b>rgareus:</b></font> the_CLA_2: let me have another look.<br/>
+<font color="#A82F2F"><font size="2">(04:29:44 PM)</font> <b>edogawa:</b></font> the_CLA_2: i see... didn&apos;t investigate too closely but what you say makes sense<br/>
+<font color="#A82F2F"><font size="2">(04:30:02 PM)</font> <b>the_CLA_2:</b></font> rgareus: Yes, I guess there will be no updates befor the next Mixbus release, anyway. But I think I could live with not being able to use them in A3 for that period of time.<br/>
+<font color="#A82F2F"><font size="2">(04:30:20 PM)</font> <b>las:</b></font> rgareus: i find it hard to imagine that we could eliminate situations where the &quot;user-entered&quot; value is non-quantized<br/>
+<font color="#A82F2F"><font size="2">(04:30:24 PM)</font> <b>las:</b></font> rgareus: e.g. MIDI control<br/>
+<font color="#A82F2F"><font size="2">(04:30:34 PM)</font> <b>las:</b></font> rgareus: so the challenge is to quantize first<br/>
+<font size="2">(04:31:30 PM)</font><b> b333z [<em>~b333z@CPE-121-214-40-48.lnse4.win.bigpond.net.au</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:32:14 PM)</font> <b>rgareus:</b></font> las: we can use an internal value that is a multiple of 128.<br/>
+<font color="#A82F2F"><font size="2">(04:32:30 PM)</font> <b>the_CLA_2:</b></font> rgareus: Another plugin I can&apos;t use properly in A3 (and I guess it also affects other plugins) is the Simple Expander from the CMT package - the Threshold slider doesn&apos;t work properly in A3 (A2 and Mixbus are fine).<br/>
+<font color="#A82F2F"><font size="2">(04:32:35 PM)</font> <b>rgareus:</b></font> las: it needs a bit of thought. and also a proper mapping function<br/>
+<font color="#A82F2F"><font size="2">(04:32:39 PM)</font> <b>las:</b></font> rgareus: and OSC ? and other control protocols? <br/>
+<font color="#A82F2F"><font size="2">(04:32:55 PM)</font> <b>las:</b></font> rgareus: i think we don&apos;t want to try to guess the precision or quantization of incoming user events<br/>
+<font color="#A82F2F"><font size="2">(04:33:04 PM)</font> <b>rgareus:</b></font> las: OSC can send dB values<br/>
+<font color="#A82F2F"><font size="2">(04:33:05 PM)</font> <b>las:</b></font> rgareus: we just to define the target quantization<br/>
+<font color="#A82F2F"><font size="2">(04:33:16 PM)</font> <b>las:</b></font> rgareus: *can* send dB values, but may not<br/>
+<font color="#A82F2F"><font size="2">(04:33:27 PM)</font> <b>las:</b></font> rgareus: s/just to/just need to/<br/>
+<font color="#A82F2F"><font size="2">(04:34:01 PM)</font> <b>rgareus:</b></font> las: agreed and taget quantization can 1 step -inf.. -80dB  then 1dB steps until -20dB then .5 dB steps till -9 and then .1 dB steps...<br/>
+<font color="#A82F2F"><font size="2">(04:34:16 PM)</font> <b>rgareus:</b></font> and over 0dB  0.01 dB steps<br/>
+<font color="#A82F2F"><font size="2">(04:34:28 PM)</font> <b>rgareus:</b></font> or something like that<br/>
+<font color="#A82F2F"><font size="2">(04:34:56 PM)</font> <b>las:</b></font> rgareus: that seems like what you were trying to do in the existing commit, yes?<br/>
+<font color="#A82F2F"><font size="2">(04:35:19 PM)</font> <b>rgareus:</b></font> las: *trying* is the right word, yes.<br/>
+<font color="#A82F2F"><font size="2">(04:35:41 PM)</font> <b>rgareus:</b></font> las: I kept the underlying range of the knob so far.<br/>
+<font color="#A82F2F"><font size="2">(04:37:04 PM)</font> <b>rgareus:</b></font> las: I have not yet looked at the audio-backend  (which currently uses that value as-is).<br/>
+<font color="#A82F2F"><font size="2">(04:38:21 PM)</font> <b>rgareus:</b></font> the_CLA_2: I was sloppy. I found the problem (looking at diff).<br/>
+<font color="#A82F2F"><font size="2">(04:39:25 PM)</font> <b>las:</b></font> rgareus: the backend is just a coefficient, 0..2<br/>
+<font color="#A82F2F"><font size="2">(04:39:43 PM)</font> <b>las:</b></font> rgareus: changing *that* is nasty and hard (i tried once and got halfway there)<br/>
+<font color="#A82F2F"><font size="2">(04:39:52 PM)</font> <b>rgareus:</b></font> las: does the knob set the value, or does the backend as the knob for the value?<br/>
+<font color="#A82F2F"><font size="2">(04:40:09 PM)</font> <b>rgareus:</b></font> ask<br/>
+<font color="#A82F2F"><font size="2">(04:41:16 PM)</font> <b>rgareus:</b></font> las: the knob should set a target-value in the backend, and the backend approach that target-value using a low-pass filter.<br/>
+<font color="#A82F2F"><font size="2">(04:43:04 PM)</font> <b>rgareus:</b></font> the usual   gain +=  _w * (target - gain) + 1e-20;<br/>
+<font color="#A82F2F"><font size="2">(04:44:44 PM)</font> <b>las:</b></font> rgareus: the libardour API accepts gain coefficients almost everwhere<br/>
+<font color="#A82F2F"><font size="2">(04:45:05 PM)</font> <b>las:</b></font> rgareus: we already move to the target gain in a linear ramp<br/>
+<font color="#A82F2F"><font size="2">(04:45:27 PM)</font> <b>las:</b></font> rgareus: not via an LPF<br/>
+<font color="#A82F2F"><font size="2">(04:45:32 PM)</font> <b>rgareus:</b></font> las: that fine.  the knob can convert its value to a coefficient before it sends it to libardour.<br/>
+<font color="#A82F2F"><font size="2">(04:45:45 PM)</font> <b>las:</b></font> rgareus: the knob already does :)<br/>
+<font color="#A82F2F"><font size="2">(04:46:11 PM)</font> <b>rgareus:</b></font> las: currently it uses the coefficient also internally as range (no conversion needed)<br/>
+<font size="2">(04:46:16 PM)</font><b> kermyt left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:49:33 PM)</font> <b>las:</b></font> rgareus: so, can i do a release now ? :)<br/>
+<font color="#A82F2F"><font size="2">(04:50:37 PM)</font> <b>rgareus:</b></font> las: give me 5 more minutes<br/>
+<font size="2">(04:50:47 PM)</font><b> kermyt [<em>~kermyt@unaffiliated/kermyt</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:50:59 PM)</font> <b>rgareus:</b></font> las: I&apos;m just testing a newer LV2ui revision<br/>
+<font color="#A82F2F"><font size="2">(04:51:23 PM)</font> <b>rgareus:</b></font> seems to work.<br/>
+<font color="#A82F2F"><font size="2">(04:51:40 PM)</font> <b>rgareus:</b></font> the_CLA_2: can we play that game once more?<br/>
+<font color="#A82F2F"><font size="2">(04:53:10 PM)</font> <b>tom^_:</b></font> that&apos;s an inverted world.. i remember it was users that were pushing for new releases in the past :)<br/>
+<font color="#A82F2F"><font size="2">(04:53:41 PM)</font> <b>rgareus:</b></font> now there&apos;s support for kstudio:externalUI (which is handled according to spec) and support for lv2plugin:external-ui which should be as it was in 3.3. and accomodate the XT plugins.<br/>
+<font color="#A82F2F"><font size="2">(04:55:53 PM)</font> <b>tom^_:</b></font> las: could you consider adding the add-mono-track add-stereo-track actions to 3.4? it is a very convenient thing to have<br/>
+<font color="#A82F2F"><font size="2">(04:57:18 PM)</font> <b>rgareus:</b></font> soon we&apos;ll need an official &apos;release window&apos;<br/>
+<font color="#A82F2F"><font size="2">(04:58:08 PM)</font> <b>las:</b></font> tom^_: show me a nice clean patch ...<br/>
+<font color="#A82F2F"><font size="2">(04:58:31 PM)</font> <b>las:</b></font> rgareus: i&apos;d rather quit working on ardour than have release windows. probably. maybe.<br/>
+<font color="#A82F2F"><font size="2">(04:58:57 PM)</font> <b>rgareus:</b></font> las: :)<br/>
+<font color="#A82F2F"><font size="2">(04:59:27 PM)</font> <b>rgareus:</b></font> las: well it&apos;s just say 3 days, no commit to &apos;master&apos; except for translation and major bug fixes.<br/>
+<font color="#A82F2F"><font size="2">(04:59:55 PM)</font> <b>rgareus:</b></font> las: nothing too unusual.<br/>
+<font color="#A82F2F"><font size="2">(04:59:57 PM)</font> <b>las:</b></font> rgareus: consider that starting now, then :)<br/>
+<font color="#A82F2F"><font size="2">(05:00:12 PM)</font> <b>rgareus:</b></font> las: ok.<br/>
+<font color="#A82F2F"><font size="2">(05:01:15 PM)</font> <b>rgareus:</b></font> I was not not thinking of a regular periodic thing like every 2nd month at full moon... <br/>
+<font color="#A82F2F"><font size="2">(05:01:55 PM)</font> <b>the_CLA_2:</b></font> rgareus: Seems fine now. :)<br/>
+<font color="#A82F2F"><font size="2">(05:02:54 PM)</font> <b>rgareus:</b></font> the_CLA_2: thanks. that&apos;s good. the XT plugins will continue to eat away at your RAM instead<br/>
+<font color="#A82F2F"><font size="2">(05:09:05 PM)</font> <b>the_CLA_2:</b></font> rgareus: Ok. BBL... :)<br/>
+<font size="2">(05:13:58 PM)</font><b> HisaoNakai_ [<em>~HisaoNaka@14.98.110.183</em>] entered the room.</b><br/>
+<font size="2">(05:13:58 PM)</font><b> HisaoNakai_ left the room (quit: Changing host).</b><br/>
+<font size="2">(05:13:58 PM)</font><b> HisaoNakai_ [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(05:14:39 PM)</font><b> HisaoNakai left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:15:17 PM)</font> <b>tom^_:</b></font> las: chery picking ba2d0e440f32667c078f78b68304b793bbe395d1 and b73f8ebaf9c6e11910b8b68e74aeddd5e89c8f6c would do (without keyboard bindings)<br/>
+<font color="#A82F2F"><font size="2">(05:16:01 PM)</font> <b>las:</b></font> tom^_: from what branch ?<br/>
+<font color="#A82F2F"><font size="2">(05:16:32 PM)</font> <b>tom^_:</b></font> las: basically that one does it: https://github.com/7890/ardour/commit/ba2d0e440f32667c078f78b68304b793bbe395d1   the latter is just a missing brace that can be added manually<br/>
+<font size="2">(05:16:32 PM)</font><b> kermyt left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(05:36:29 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,253 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Tue 10 Feb 2015 02:26:46 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Tue 10 Feb 2015 02:26:46 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:26:46 AM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(02:26:46 AM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(02:26:51 AM)</font> <b>tom-:</b></font> drobilla: ye, no prob<br/>
+<font color="#A82F2F"><font size="2">(02:27:08 AM)</font> <b>tom-:</b></font> drobilla: sounds like &quot;lazy racket&quot; dude :)<br/>
+<font color="#A82F2F"><font size="2">(02:27:42 AM)</font> <b>drobilla:</b></font> Lazy is one of the best qualities a programmer can have.  If it weren&apos;t for laziness we&apos;d still be doing math by hand.<br/>
+<font color="#A82F2F"><font size="2">(02:27:59 AM)</font> <b>lfzawacki:</b></font> Hello, I&apos;m using midi learn with my controller but I&apos;m having some problems.<br/>
+<font color="#062585"><font size="2">(02:28:05 AM)</font> <b>***tom-</b></font> agrees<br/>
+<font color="#A82F2F"><font size="2">(02:28:11 AM)</font> <b>drobilla:</b></font> Laziness with respect to things you wouldn&apos;t actually do at all otherwise (like testing), especially so<br/>
+<font color="#A82F2F"><font size="2">(02:28:37 AM)</font> <b>lfzawacki:</b></font> First off I guess it sends keyup and keydown events so the button it&apos;s mapped is immediatlly deactivated, for example when trying to active the record on a track.<br/>
+<font color="#A82F2F"><font size="2">(02:28:57 AM)</font> <b>lfzawacki:</b></font> Also it seems to not work with the transports buttons? Thanks for any help :)<br/>
+<font color="#A82F2F"><font size="2">(02:34:14 AM)</font> <b>drobilla:</b></font> lfzawacki: Some controller buttons are momentary, some are toggled.  Sounds like yours are momentary<br/>
+<font color="#A82F2F"><font size="2">(02:35:43 AM)</font> <b>drobilla:</b></font> Ardour has support for momentary, but I don&apos;t know how to learn them in the GUI that way...<br/>
+<font color="#A82F2F"><font size="2">(02:36:19 AM)</font> <b>lfzawacki:</b></font> ok makes sense, I&apos;ll try reading the manual. device is edirol pcr-300 btw<br/>
+<font color="#A82F2F"><font size="2">(02:37:56 AM)</font> <b>drobilla:</b></font> lfzawacki: You can tack that on manually as in https://community.ardour.org/ardour_midi_binding_maps at least<br/>
+<font color="#A82F2F"><font size="2">(02:41:28 AM)</font> <b>lfzawacki:</b></font> drobilla: oh Ok thanks<br/>
+<font size="2">(02:42:16 AM)</font><b> HarryHaaren left the room (quit: Quit: g&apos;night all!).</b><br/>
+<font size="2">(02:46:01 AM)</font><b> lfzawacki left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(03:36:50 AM)</font> <b>lfzawacki:</b></font> On to the other problem, ardour maps midi control to the transport play/record/stop but when I press then again it doesnt work. This seems to only happen on the transport buttons<br/>
+<font color="#A82F2F"><font size="2">(03:37:33 AM)</font> <b>las:</b></font> lfzawacki: &quot;maps midi control&quot; ... this is not a sufficiently defined description of anything<br/>
+<font color="#A82F2F"><font size="2">(03:39:08 AM)</font> <b>lfzawacki:</b></font> las: ok, I click with ctrl+middle click, it prompts me to press the button, and I press the button on my device<br/>
+<font color="#A82F2F"><font size="2">(03:39:26 AM)</font> <b>las:</b></font> lfzawacki: as noted by drobilla earlier, probably issues with momentary control<br/>
+<font color="#A82F2F"><font size="2">(03:39:32 AM)</font> <b>lfzawacki:</b></font> this works on almost every other part of ardour, but not for these buttons<br/>
+<font color="#A82F2F"><font size="2">(03:39:40 AM)</font> <b>las:</b></font> lfzawacki: what version of ardour?<br/>
+<font color="#A82F2F"><font size="2">(03:40:51 AM)</font> <b>lfzawacki:</b></font> it&apos;s git from some days ago, should I try older or newer one? <br/>
+<font color="#A82F2F"><font size="2">(03:41:31 AM)</font> <b>las:</b></font> lfzawacki: no, that&apos;s fine<br/>
+<font color="#A82F2F"><font size="2">(03:41:50 AM)</font> <b>las:</b></font> lfzawacki: you need to use either Ardour&apos;s own MIDI trace window or a separate MIDI monitor app to find out what your device is sending<br/>
+<font color="#A82F2F"><font size="2">(03:43:49 AM)</font> <b>lfzawacki:</b></font> las: ok, but see this particular button on the device works this way with, for example a track&apos;s MUTE or a track&apos;s record. Is there something particular about the transport play/record/stop buttons?<br/>
+<font color="#A82F2F"><font size="2">(03:44:52 AM)</font> <b>las:</b></font> lfzawacki: yes and no<br/>
+<font color="#A82F2F"><font size="2">(03:44:59 AM)</font> <b>las:</b></font> lfzawacki: i&apos;d need to know what is being sent<br/>
+<font color="#A82F2F"><font size="2">(03:45:00 AM)</font> <b>lfzawacki:</b></font> seems pretty normal &apos;Controller chn 15 52 7f&apos;<br/>
+<font color="#A82F2F"><font size="2">(03:45:09 AM)</font> <b>las:</b></font> lfzawacki: and when you press it again?<br/>
+<font color="#A82F2F"><font size="2">(03:45:13 AM)</font> <b>lfzawacki:</b></font> and then &apos;chn 15 52 00&apos;<br/>
+<font color="#A82F2F"><font size="2">(03:45:28 AM)</font> <b>las:</b></font> lfzawacki: no reason to my knowledge why that wouldn&apos;t work, so likely a bug<br/>
+<font color="#A82F2F"><font size="2">(03:45:32 AM)</font> <b>lfzawacki:</b></font> sorry, it&apos;s 7f then 00 on release<br/>
+<font color="#A82F2F"><font size="2">(03:45:51 AM)</font> <b>las:</b></font> lfzawacki: we encourage the use of MIDI maps these days, really<br/>
+<font color="#A82F2F"><font size="2">(03:46:08 AM)</font> <b>las:</b></font> lfzawacki: the dynamic binding stuff is cool but ultimately not as useful for most people as per-device maps<br/>
+<font color="#A82F2F"><font size="2">(03:46:40 AM)</font> <b>lfzawacki:</b></font> Ok, I&apos;ll go by the page that was sent earlier then<br/>
+<font color="#A82F2F"><font size="2">(03:47:25 AM)</font> <b>solarbird:</b></font> lfzawacki: just for sanity&apos;s sake is that being reported by ardour itself?<br/>
+<font color="#A82F2F"><font size="2">(03:47:49 AM)</font> <b>solarbird:</b></font> (As opposed to a separate monitoring app I mean)<br/>
+<font color="#A82F2F"><font size="2">(03:51:08 AM)</font> <b>lfzawacki:</b></font> solarbird:  it&apos;s ardour miditracer<br/>
+<font color="#A82F2F"><font size="2">(03:52:17 AM)</font> <b>solarbird:</b></font> okay, good. or, too bad, since it means my longshot idea of something else intercepting it is definitely not right.<br/>
+<font size="2">(04:04:35 AM)</font><b> son0p is now known as son0p_afk</b><br/>
+<font color="#A82F2F"><font size="2">(07:36:22 AM)</font> <b>joe_sizlack:</b></font> evening folks<br/>
+<font color="#A82F2F"><font size="2">(07:36:47 AM)</font> <b>joe_sizlack:</b></font> been too long<br/>
+<font color="#A82F2F"><font size="2">(08:34:16 AM)</font> <b>john_cephalopoda:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(08:35:17 AM)</font> <b>damo22:</b></font> hi john bone-foot?<br/>
+<font color="#A82F2F"><font size="2">(08:37:44 AM)</font> <b>john_cephalopoda:</b></font> head-foot.<br/>
+<font color="#A82F2F"><font size="2">(08:38:05 AM)</font> <b>john_cephalopoda:</b></font> http://en.wikipedia.org/wiki/Cephalopod<br/>
+<font color="#A82F2F"><font size="2">(08:38:06 AM)</font> <b>LAbot`:</b></font> Title: Cephalopod - Wikipedia, the free encyclopedia (at en.wikipedia.org)<br/>
+<font color="#A82F2F"><font size="2">(08:38:35 AM)</font> <b>john_cephalopoda:</b></font> In german, they are actually called &quot;Kopffüßler&quot; (head-footlers)<br/>
+<font color="#A82F2F"><font size="2">(08:38:45 AM)</font> <b>damo22:</b></font> hehe<br/>
+<font color="#A82F2F"><font size="2">(08:40:12 AM)</font> <b>john_cephalopoda:</b></font> Amazing stuff: https://www.youtube.com/watch?v=cgdVVU8tBTQ<br/>
+<font color="#A82F2F"><font size="2">(08:40:13 AM)</font> <b>LAbot`:</b></font> Title: Kings of Camouflage - YouTube (at www.youtube.com)<br/>
+<font size="2">(08:48:17 AM)</font><b> _raven_ is now known as __raven_</b><br/>
+<font color="#A82F2F"><font size="2">(09:29:36 AM)</font> <b>john_cephalopoda:</b></font> Hmm, somehow the plugin sorting stuff could be improved. It is pretty difficult to find a plugin from a specific pack distribution, when the plugins are by different authors.<br/>
+<font color="#A82F2F"><font size="2">(11:38:03 AM)</font> <b>damo22:</b></font> is anyone familiar with Maudio delta 1010?<br/>
+<font color="#A82F2F"><font size="2">(11:38:44 AM)</font> <b>damo22:</b></font> i am trying to help someone set up a clone of this card but the recording levels are at about -35dB, is that normal for line level?<br/>
+<font color="#A82F2F"><font size="2">(11:45:56 AM)</font> <b>edogawa:</b></font> damo22: i only know the 1010LT (i have it)<br/>
+<font color="#A82F2F"><font size="2">(11:46:16 AM)</font> <b>damo22:</b></font> edogawa: that is the same as the 1010 in the driver<br/>
+<font color="#A82F2F"><font size="2">(11:46:18 AM)</font> <b>edogawa:</b></font> damo22: did you look at the ADC levels in envy24control?<br/>
+<font color="#A82F2F"><font size="2">(11:46:26 AM)</font> <b>damo22:</b></font> nope<br/>
+<font color="#A82F2F"><font size="2">(11:46:51 AM)</font> <b>damo22:</b></font> edogawa: he has a ESI ESP1010 which is a clone of the delta1010<br/>
+<font color="#A82F2F"><font size="2">(11:46:59 AM)</font> <b>edogawa:</b></font> ah ok<br/>
+<font color="#A82F2F"><font size="2">(11:47:22 AM)</font> <b>damo22:</b></font> i forced the module to detect the delta1010 model and boom, 10 inputs<br/>
+<font color="#A82F2F"><font size="2">(11:47:46 AM)</font> <b>damo22:</b></font> so envy24control is a userspace mixer tool?<br/>
+<font color="#A82F2F"><font size="2">(11:48:28 AM)</font> <b>edogawa:</b></font> damo22: yes, it&apos;s in package alsa-tools-gui or something like that<br/>
+<font color="#A82F2F"><font size="2">(11:48:43 AM)</font> <b>edogawa:</b></font> damo22: there&apos;s a fork called mudita24<br/>
+<font color="#A82F2F"><font size="2">(11:49:20 AM)</font> <b>edogawa:</b></font> damo22: and it&apos;s preferable to generic alsamixer variants<br/>
+<font color="#A82F2F"><font size="2">(11:49:29 AM)</font> <b>damo22:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(11:49:32 AM)</font> <b>damo22:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(11:49:36 AM)</font> <b>edogawa:</b></font> np<br/>
+<font color="#A82F2F"><font size="2">(11:50:32 AM)</font> <b>edogawa:</b></font> look at the Analog Volume tab there, the first 8 faders show the ADC inputs and should be all the way up for unity gain<br/>
+<font color="#A82F2F"><font size="2">(11:51:34 AM)</font> <b>edogawa:</b></font> the output faders have headroom though, so set them for 127 to be at unity, i think max is 140 or more<br/>
+<font color="#A82F2F"><font size="2">(11:51:56 AM)</font> <b>damo22:</b></font> doglechien: ^^<br/>
+<font color="#A82F2F"><font size="2">(11:52:04 AM)</font> <b>edogawa:</b></font> mudita shows dB levels, not numbers so i cannot check<br/>
+<font color="#A82F2F"><font size="2">(11:55:24 AM)</font> <b>edogawa:</b></font> https://community.ardour.org/node/3129 has useful infos too<br/>
+<font color="#A82F2F"><font size="2">(11:56:36 AM)</font> <b>edogawa:</b></font> oh, it says there are no in/output level settings for a 1010<br/>
+<font color="#A82F2F"><font size="2">(11:58:38 AM)</font> <b>damo22:</b></font> interesting<br/>
+<font color="#A82F2F"><font size="2">(12:08:59 PM)</font> <b>damo22:</b></font> i think he just needs to drive the input harder<br/>
+<font color="#A82F2F"><font size="2">(12:33:15 PM)</font> <b>danboid:</b></font> rgareus: Hi<br/>
+<font color="#A82F2F"><font size="2">(12:34:40 PM)</font> <b>danboid:</b></font> falktx: Hi<br/>
+<font color="#A82F2F"><font size="2">(12:34:51 PM)</font> <b>danboid:</b></font> rgareus: You here?<br/>
+<font color="#A82F2F"><font size="2">(12:35:46 PM)</font> <b>falktx:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(12:39:17 PM)</font> <b>danboid:</b></font> No Robin then :/<br/>
+<font color="#A82F2F"><font size="2">(12:39:36 PM)</font> <b>danboid:</b></font> I mailed him a few days ago and no response<br/>
+<font color="#A82F2F"><font size="2">(12:39:55 PM)</font> <b>danboid:</b></font> is he OK? On holiday / travelling maybe?<br/>
+<font color="#A82F2F"><font size="2">(12:40:12 PM)</font> <b>prokoudine:</b></font> he was here last night<br/>
+<font color="#A82F2F"><font size="2">(12:40:20 PM)</font> <b>prokoudine:</b></font> !seen rgareus<br/>
+<font color="#A82F2F"><font size="2">(12:41:11 PM)</font> <b>danboid:</b></font> prokoudine: OK thanks. I&apos;ll come back and try to catch him later<br/>
+<font color="#A82F2F"><font size="2">(12:42:06 PM)</font> <b>falktx:</b></font> rgareus likes to idle on irc<br/>
+<font color="#A82F2F"><font size="2">(12:47:28 PM)</font> <b>falktx:</b></font> danboid: do you still use tracktion?<br/>
+<font color="#A82F2F"><font size="2">(12:47:49 PM)</font> <b>danboid:</b></font> falktx: Yep. Why?<br/>
+<font color="#A82F2F"><font size="2">(12:48:04 PM)</font> <b>falktx:</b></font> trying to fix carla-vst on it<br/>
+<font color="#A82F2F"><font size="2">(12:48:07 PM)</font> <b>falktx:</b></font> kinda tricky...<br/>
+<font color="#A82F2F"><font size="2">(12:49:34 PM)</font> <b>danboid:</b></font> falktx: T6 should be out any day now. Hopefully with improved VST support and scanning!<br/>
+<font color="#A82F2F"><font size="2">(12:50:08 PM)</font> <b>danboid:</b></font> I don&apos;t think they&apos;ve promsed that but I know thats what a lot of its users want, including us<br/>
+<font color="#A82F2F"><font size="2">(12:50:28 PM)</font> <b>falktx:</b></font> hmm, I don&apos;t think there will be any vst fixes<br/>
+<font color="#A82F2F"><font size="2">(12:50:41 PM)</font> <b>falktx:</b></font> tracktion uses juce, and the juce-vst stuff remains the same<br/>
+<font color="#A82F2F"><font size="2">(12:53:28 PM)</font> <b>danboid:</b></font> Be nice if they surprised us with JUCE updates but I fear you&apos;re right again F<br/>
+<font color="#A82F2F"><font size="2">(01:00:22 PM)</font> <b>falktx:</b></font> at least the first time works now<br/>
+<font color="#A82F2F"><font size="2">(01:00:50 PM)</font> <b>falktx:</b></font> danboid: https://i.imgur.com/VjxgC83.png<br/>
+<font color="#A82F2F"><font size="2">(01:06:41 PM)</font> <b>danboid:</b></font> falktx: Cool. I like your zyn skin but I still believe it needs a whole new, totally redesigned UI<br/>
+<font color="#A82F2F"><font size="2">(01:07:28 PM)</font> <b>falktx:</b></font> for zyn? it&apos;s the official one<br/>
+<font color="#A82F2F"><font size="2">(01:07:49 PM)</font> <b>falktx:</b></font> and an official redesign is already in the works too<br/>
+<font color="#A82F2F"><font size="2">(01:08:21 PM)</font> <b>danboid:</b></font> falktx: Within zyn, yoshimi or both? Will it still use FLTK?<br/>
+<font color="#A82F2F"><font size="2">(01:10:01 PM)</font> <b>falktx:</b></font> zynaddsubfx can use FLTK or NTK<br/>
+<font color="#A82F2F"><font size="2">(01:10:07 PM)</font> <b>falktx:</b></font> the NTK ui looks like that<br/>
+<font color="#A82F2F"><font size="2">(01:10:21 PM)</font> <b>falktx:</b></font> just run &quot;zynaddsubfx&quot; and you&apos;ll see it<br/>
+<font color="#A82F2F"><font size="2">(01:13:59 PM)</font> <b>danboid:</b></font> I&apos;ll check it out again after the UI has been redesigned. I lost interest in zyn after noizemaker got a Linux port and I&apos;m even less interested now we have the Uhe synths too<br/>
+<font color="#A82F2F"><font size="2">(01:16:34 PM)</font> <b>danboid:</b></font> Back on topic, isn&apos;t A3 due a new release?<br/>
+<font color="#A82F2F"><font size="2">(01:16:39 PM)</font> <b>rgareus:</b></font> danboid: howdy.<br/>
+<font color="#A82F2F"><font size="2">(01:16:48 PM)</font> <b>danboid:</b></font> rgareus: Hi Robin!<br/>
+<font color="#A82F2F"><font size="2">(01:17:04 PM)</font> <b>danboid:</b></font> Good to hear from you ! Did you get my mail?<br/>
+<font color="#062585"><font size="2">(01:17:15 PM)</font> <b>***rgareus</b></font> looks into his email inbox. &gt; 2000 unread emails...<br/>
+<font color="#062585"><font size="2">(01:17:18 PM)</font> <b>***rgareus</b></font> hates holidays<br/>
+<font color="#A82F2F"><font size="2">(01:17:22 PM)</font> <b>danboid:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(01:17:28 PM)</font> <b>danboid:</b></font> 2000! :O<br/>
+<font color="#A82F2F"><font size="2">(01:17:43 PM)</font> <b>danboid:</b></font> Hopefully thats mostly mailing list nonsense<br/>
+<font color="#A82F2F"><font size="2">(01:18:01 PM)</font> <b>rgareus:</b></font> danboid: nope. mailling lists are separate<br/>
+<font color="#A82F2F"><font size="2">(01:18:20 PM)</font> <b>rgareus:</b></font> danboid: scarlet 18i20?<br/>
+<font color="#A82F2F"><font size="2">(01:18:24 PM)</font> <b>danboid:</b></font> Thats scary Robin!<br/>
+<font color="#A82F2F"><font size="2">(01:18:26 PM)</font> <b>danboid:</b></font> Yep<br/>
+<font color="#A82F2F"><font size="2">(01:18:32 PM)</font> <b>danboid:</b></font> mixer compat?<br/>
+<font color="#A82F2F"><font size="2">(01:18:39 PM)</font> <b>rgareus:</b></font> danboid: https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/sound/usb/mixer_scarlett.c#n798 <br/>
+<font color="#A82F2F"><font size="2">(01:18:41 PM)</font> <b>LAbot`:</b></font> Title: kernel/git/torvalds/linux.git - Linux kernel source tree (at git.kernel.org)<br/>
+<font color="#A82F2F"><font size="2">(01:19:29 PM)</font> <b>rgareus:</b></font> danboid: yes, upstram since Linux-3.18<br/>
+<font color="#A82F2F"><font size="2">(01:19:51 PM)</font> <b>damo22:</b></font> rgareus: nice one<br/>
+<font color="#A82F2F"><font size="2">(01:19:53 PM)</font> <b>danboid:</b></font> Glad to hear it as I just ordered it 10 minutes ago! :)<br/>
+<font color="#A82F2F"><font size="2">(01:20:32 PM)</font> <b>damo22:</b></font> rgareus: http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=d497a82fb18ed4b73c08f8b5a0935f937e2ea1fb<br/>
+<font color="#A82F2F"><font size="2">(01:20:34 PM)</font> <b>LAbot`:</b></font> Title: kernel/git/torvalds/linux.git - Linux kernel source tree (at git.kernel.org)<br/>
+<font color="#A82F2F"><font size="2">(01:21:15 PM)</font> <b>danboid:</b></font> I figured it would get supported soon if it wasn&apos;t already <br/>
+<font color="#A82F2F"><font size="2">(01:21:18 PM)</font> <b>speak:</b></font> Soooo nice to see linux kernel is getting more device support! :))<br/>
+<font color="#A82F2F"><font size="2">(01:22:31 PM)</font> <b>rgareus:</b></font> danboid: I hope you don&apos;t regret buting Focusrite in the long run<br/>
+<font color="#A82F2F"><font size="2">(01:22:54 PM)</font> <b>danboid:</b></font> rgareus: Why?<br/>
+<font color="#A82F2F"><font size="2">(01:23:25 PM)</font> <b>speak:</b></font> I was going to get Focusrite as well<br/>
+<font color="#A82F2F"><font size="2">(01:23:30 PM)</font> <b>danboid:</b></font> There didn&apos;t seem to be many alternatives for USB2 w/ 8+ inputs<br/>
+<font color="#A82F2F"><font size="2">(01:23:48 PM)</font> <b>danboid:</b></font> apart from the Presonus 1818<br/>
+<font color="#A82F2F"><font size="2">(01:23:50 PM)</font> <b>rgareus:</b></font> danboid: I don&apos;t know which award those preamps won, but it&apos;s definitilt not a technical one.<br/>
+<font color="#A82F2F"><font size="2">(01:24:23 PM)</font> <b>rgareus:</b></font> rubber-dome volume knobs.. <br/>
+<font color="#A82F2F"><font size="2">(01:24:27 PM)</font> <b>danboid:</b></font> I&apos;ve read nothing but good stuff about it personally<br/>
+<font color="#A82F2F"><font size="2">(01:24:57 PM)</font> <b>danboid:</b></font> It seemed to be the best buy for my budget anyway<br/>
+<font color="#A82F2F"><font size="2">(01:24:59 PM)</font> <b>speak:</b></font> Yeah I&apos;ve heard a lot of good stuff about them as well<br/>
+<font color="#A82F2F"><font size="2">(01:25:12 PM)</font> <b>speak:</b></font> rgareus any other USB interface recommendations that plays well with Linux?<br/>
+<font color="#A82F2F"><font size="2">(01:25:29 PM)</font> <b>speak:</b></font> The Focusrites around the $150 range seemed best for me<br/>
+<font size="2">(01:25:38 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:26:05 PM)</font> <b>damo22:</b></font> im not a big fan of usb for audio, but my mbox 1 for $15 second hand wasnt a bad deal<br/>
+<font color="#A82F2F"><font size="2">(01:26:07 PM)</font> <b>danboid:</b></font> Hi Harry!<br/>
+<font color="#A82F2F"><font size="2">(01:26:35 PM)</font> <b>rgareus:</b></font> speak: personally I&apos;m most happy with the Presonus 1818VSL.<br/>
+<font color="#A82F2F"><font size="2">(01:26:39 PM)</font> <b>danboid:</b></font> damo22: Whats a laptop-based musician to do? Firewire is dead<br/>
+<font color="#A82F2F"><font size="2">(01:27:47 PM)</font> <b>speak:</b></font> Alright rgareus <br/>
+<font color="#A82F2F"><font size="2">(01:29:57 PM)</font> <b>danboid:</b></font> rgareus: I&apos;d read the i1820 has better pre-amps than the 1818 but not having been able to compare them myself I&apos;m just going off online reports<br/>
+<font color="#A82F2F"><font size="2">(01:30:07 PM)</font> <b>damo22:</b></font> danboid: id recommend a pci/pcie card in a desktop for recording and a 2x channel old usb device for mucking around with <br/>
+<font color="#A82F2F"><font size="2">(01:30:50 PM)</font> <b>danboid:</b></font> damo22: Of course, but my keyword was laptop<br/>
+<font color="#A82F2F"><font size="2">(01:31:01 PM)</font> <b>speak:</b></font> rgareus: presonus 22vsl seems quite equivalent to the Scarlett ones, thanks for the tip!<br/>
+<font color="#A82F2F"><font size="2">(01:31:27 PM)</font> <b>speak:</b></font> Good to have options in that price range<br/>
+<font color="#A82F2F"><font size="2">(01:32:16 PM)</font> <b>speak:</b></font> And damo22 any specific reason why not use a USB interface on desktop?<br/>
+<font color="#A82F2F"><font size="2">(01:32:39 PM)</font> <b>damo22:</b></font> speak: why? the latency sucks compared to pci<br/>
+<font color="#A82F2F"><font size="2">(01:32:44 PM)</font> <b>rgareus:</b></font> danboid: I measured 18i6 and VSL1818 for a client. the  focusrite looses by over 10dB on the noise-floor (-72dBFS) vs -82 or so for the 1818VSL.  Also the non-latching rubber knobs of the 18i6 make the gain wander by +-1dB.  and last but not least the Focusrite does not survive suspend/resume cycles (thought that may be fixed)<br/>
+<font color="#A82F2F"><font size="2">(01:33:06 PM)</font> <b>speak:</b></font> damo22 oh really? :o What sort of latencies are we talking about?<br/>
+<font color="#A82F2F"><font size="2">(01:33:10 PM)</font> <b>rgareus:</b></font> speak: I don&apos;t know if the 22VSL is supported by Linux.<br/>
+<font color="#A82F2F"><font size="2">(01:33:58 PM)</font> <b>speak:</b></font> Ah okay rgareus.<br/>
+<font color="#A82F2F"><font size="2">(01:34:03 PM)</font> <b>damo22:</b></font> speak: i can get down to about ~2ms on a pci adat card, there is no way i can do that with any usb device<br/>
+<font color="#A82F2F"><font size="2">(01:34:06 PM)</font> <b>HarryHaaren:</b></font> hey danboid, hows things<br/>
+<font color="#A82F2F"><font size="2">(01:34:18 PM)</font> <b>danboid:</b></font> rgareus: So all that applies to the 18i20 too does it? Its the same chipset with more inputs is it?<br/>
+<font color="#A82F2F"><font size="2">(01:34:26 PM)</font> <b>speak:</b></font> damo22 4-5ms would be fine for me, USB should be fine with that<br/>
+<font color="#A82F2F"><font size="2">(01:34:41 PM)</font> <b>danboid:</b></font> HarryHaaren: Hi! I&apos;m fine thanks! You?<br/>
+<font color="#A82F2F"><font size="2">(01:34:41 PM)</font> <b>damo22:</b></font> speak: good luck getting that<br/>
+<font color="#A82F2F"><font size="2">(01:35:07 PM)</font> <b>rgareus:</b></font> danboid: yes. chipset is the same. preamps probably too. but I don&apos;t know. I have not measured it.<br/>
+<font color="#A82F2F"><font size="2">(01:35:11 PM)</font> <b>rgareus:</b></font> danboid: anyway it<br/>
+<font color="#A82F2F"><font size="2">(01:35:17 PM)</font> <b>rgareus:</b></font> &apos;s good enough for a lot of things<br/>
+<font color="#A82F2F"><font size="2">(01:35:19 PM)</font> <b>HarryHaaren:</b></font> dan: just coding away - lunch in a few minutes.<br/>
+<font color="#A82F2F"><font size="2">(01:35:42 PM)</font> <b>rgareus:</b></font> danboid: just don&apos;t go out and record an orchestra or film-score with it :)<br/>
+<font color="#A82F2F"><font size="2">(01:36:00 PM)</font> <b>danboid:</b></font> rgareus: Def. not happening here! :)<br/>
+<font color="#A82F2F"><font size="2">(01:36:10 PM)</font> <b>rgareus:</b></font> home-recording or pop-rock music.  nobody cares what&apos;s below -10dBFS :)<br/>
+<font color="#A82F2F"><font size="2">(01:36:23 PM)</font> <b>danboid:</b></font> If it does a decent job of recording drums I&apos;ll be happy<br/>
+<font color="#A82F2F"><font size="2">(01:36:56 PM)</font> <b>danboid:</b></font> What do you mean &apos; does not survive suspend/resume cycles&apos; though?<br/>
+<font color="#A82F2F"><font size="2">(01:37:19 PM)</font> <b>danboid:</b></font> JACK doesn&apos;t survive?<br/>
+<font color="#A82F2F"><font size="2">(01:37:21 PM)</font> <b>rgareus:</b></font> danboid: connect USB device to laptop.  start jack. put laptop to sleep. wake up laptop ....<br/>
+<font color="#A82F2F"><font size="2">(01:37:41 PM)</font> <b>rgareus:</b></font> ... and continue work<br/>
+<font color="#A82F2F"><font size="2">(01:37:41 PM)</font> <b>damo22:</b></font> rgareus: takashi was working on fixing that<br/>
+<font color="#A82F2F"><font size="2">(01:37:53 PM)</font> <b>danboid:</b></font> Thats not a prob<br/>
+<font color="#A82F2F"><font size="2">(01:38:22 PM)</font> <b>rgareus:</b></font> damo22: it always worked here since 2.6.29 or so for for a UA-25 and the 1818VSL<br/>
+<font color="#A82F2F"><font size="2">(01:38:35 PM)</font> <b>rgareus:</b></font> the Focusrite sometimes comes back with audio but never MIDI.<br/>
+<font color="#A82F2F"><font size="2">(01:38:42 PM)</font> <b>damo22:</b></font> interesting<br/>
+<font color="#A82F2F"><font size="2">(01:39:08 PM)</font> <b>danboid:</b></font> rgareus: Its been a while since the last A3 release<br/>
+<font color="#A82F2F"><font size="2">(01:39:24 PM)</font> <b>speak:</b></font> damo22 right yeah, it&apos;s hard to find hard numbers on what sort of latencies people get with USB interfaces<br/>
+<font color="#A82F2F"><font size="2">(01:39:25 PM)</font> <b>rgareus:</b></font> danboid: there&apos;s a new release around the corner.<br/>
+<font color="#A82F2F"><font size="2">(01:39:42 PM)</font> <b>rgareus:</b></font> danboid: and it will be A4.0<br/>
+<font color="#A82F2F"><font size="2">(01:39:50 PM)</font> <b>danboid:</b></font> Oooh! :)<br/>
+<font color="#A82F2F"><font size="2">(01:39:53 PM)</font> <b>danboid:</b></font> cool<br/>
+<font color="#A82F2F"><font size="2">(01:39:59 PM)</font> <b>speak:</b></font> danboid although of course for recording I&apos;ll be using direct monitoring<br/>
+<font color="#A82F2F"><font size="2">(01:40:14 PM)</font> <b>danboid:</b></font> Big new features in v4?<br/>
+<font color="#A82F2F"><font size="2">(01:40:18 PM)</font> <b>speak:</b></font> ... yes it means recording without hearing the effects sadly, but I can live with that<br/>
+<font color="#A82F2F"><font size="2">(01:40:25 PM)</font> <b>rgareus:</b></font> danboid: but las is punting. may only be released after he&apos;s back from traveling.  meanwhile: http://nightly.ardour.org/<br/>
+<font color="#A82F2F"><font size="2">(01:40:27 PM)</font> <b>LAbot`:</b></font> Title: Ardour - Nightly Builds (at nightly.ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(01:40:45 PM)</font> <b>speak:</b></font> damo22: Of course if one has a lot of money then it&apos;s not a problem, but I can only afford to get one interface<br/>
+<font color="#A82F2F"><font size="2">(01:41:10 PM)</font> <b>rgareus:</b></font> danboid: I don&apos;t know where to start.  biggest new features are probably the few thousand bug-fixes :)<br/>
+<font color="#A82F2F"><font size="2">(01:41:16 PM)</font> <b>danboid:</b></font> Wasn&apos;t v4 supposed to fix the many MIDI issues?<br/>
+<font color="#A82F2F"><font size="2">(01:41:21 PM)</font> <b>damo22:</b></font> speak: a second hand mbox 1 is peanuts, has 2 channels, then you can spend the rest on your desktop<br/>
+<font color="#A82F2F"><font size="2">(01:41:38 PM)</font> <b>rgareus:</b></font> danboid: yep. lots of MIDI issues are resolved.<br/>
+<font color="#A82F2F"><font size="2">(01:42:00 PM)</font> <b>danboid:</b></font> noice<br/>
+<font color="#A82F2F"><font size="2">(01:42:02 PM)</font> <b>rgareus:</b></font> and there&apos;s a new canvas (faster scolling/zooming for large sessions)<br/>
+<font color="#A82F2F"><font size="2">(01:42:05 PM)</font> <b>HarryHaaren:</b></font> speak, what do you want to know about USB latencies?<br/>
+<font color="#A82F2F"><font size="2">(01:42:38 PM)</font> <b>rgareus:</b></font> speak: http://robin.linuxaudio.org/tmp/vsl1818latency.png<br/>
+<font color="#A82F2F"><font size="2">(01:42:41 PM)</font> <b>danboid:</b></font> I don&apos;t suppose anyone has tended to the OSX port yet have they?<br/>
+<font color="#A82F2F"><font size="2">(01:43:01 PM)</font> <b>speak:</b></font> damo22 well, I&apos;ll be using my USB one more as I&apos;m rarely home so... ;(<br/>
+<font color="#A82F2F"><font size="2">(01:43:31 PM)</font> <b>rgareus:</b></font> danboid: Ardour/OSX is coming along nicely.<br/>
+<font color="#A82F2F"><font size="2">(01:44:00 PM)</font> <b>speak:</b></font> HarryHaaren mostly just what sort of a latency can expect generally<br/>
+<font color="#062585"><font size="2">(01:44:04 PM)</font> <b>***HarryHaaren</b></font> away for lunch, back in 20 or so. Have some USB latency stats with an Art USB dual pre<br/>
+<font color="#A82F2F"><font size="2">(01:44:05 PM)</font> <b>danboid:</b></font> What so v4 mightbe able to drop its OSX disclaimers re plugins etc?<br/>
+<font color="#A82F2F"><font size="2">(01:44:29 PM)</font> <b>rgareus:</b></font> speak: it&apos;s easy to measure.  jack_iodelay (or jack_delay )<br/>
+<font color="#A82F2F"><font size="2">(01:44:34 PM)</font> <b>HarryHaaren:</b></font> speak, 8.7ms round-trip latency - that&apos;s the best that specific device will do<br/>
+<font color="#062585"><font size="2">(01:44:39 PM)</font> <b>***HarryHaaren</b></font> away for lunch, 20 mins<br/>
+<font color="#A82F2F"><font size="2">(01:45:02 PM)</font> <b>speak:</b></font> Thanks rgareus and HarryHaaren, alright<br/>
+<font color="#A82F2F"><font size="2">(01:45:25 PM)</font> <b>speak:</b></font> Well, direct monitoring it is, then :P<br/>
+<font color="#A82F2F"><font size="2">(01:45:29 PM)</font> <b>danboid:</b></font> falktx: What kernel is KX using now?<br/>
+<font color="#A82F2F"><font size="2">(01:45:44 PM)</font> <b>speak:</b></font> Does a realtime kernel affect that latency?<br/>
+<font color="#A82F2F"><font size="2">(01:46:25 PM)</font> <b>rgareus:</b></font> speak: no.<br/>
+<font color="#A82F2F"><font size="2">(01:46:26 PM)</font> <b>falktx:</b></font> danboid: the ISO uses the ubuntu lowlatency one<br/>
+<font color="#A82F2F"><font size="2">(01:46:52 PM)</font> <b>rgareus:</b></font> speak: but a preemt rt kernel makes it a lot more likley that you can run reliably at small period sizes<br/>
+<font color="#A82F2F"><font size="2">(01:47:01 PM)</font> <b>danboid:</b></font> falktx: 3.13.x?<br/>
+<font color="#A82F2F"><font size="2">(01:47:16 PM)</font> <b>speak:</b></font> Ah alright rgareus, I get that<br/>
+<font color="#A82F2F"><font size="2">(01:47:23 PM)</font> <b>speak:</b></font> Thanks for the help, everyone :)<br/>
+<font color="#A82F2F"><font size="2">(01:47:31 PM)</font> <b>rgareus:</b></font> speak: for USB devices &lt; 64fpp you most deftinitly need a RT kernel (otherwise you&apos;ll get x-runs every once in a while)<br/>
+<font color="#A82F2F"><font size="2">(01:47:42 PM)</font> <b>falktx:</b></font> $ uname -a<br/>
+<font color="#A82F2F"><font size="2">(01:47:44 PM)</font> <b>falktx:</b></font> Linux falkTX-Laptop 3.13.0-45-lowlatency #74-Ubuntu SMP PREEMPT Tue Jan 13 19:53:35 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux<br/>
+<font color="#A82F2F"><font size="2">(01:48:07 PM)</font> <b>speak:</b></font> At the moment I&apos;m using my internal motherboard audio interface, so I reckon any sort of other interface will be a big improvement, however :D<br/>
+<font color="#A82F2F"><font size="2">(01:48:25 PM)</font> <b>danboid:</b></font> falktx: Ah OK. Looks like I&apos;ll have build my own then if I want to use KX with my 18i20<br/>
+<font size="2">(02:15:11 PM)</font><b> the193rd is now known as the193afkrd</b><br/>
+<font color="#A82F2F"><font size="2">(02:18:12 PM)</font> <b>HarryHaaren:</b></font> speak, just back from lunch - are you planning to do live-erpformance or what is your use case?<br/>
+<font color="#A82F2F"><font size="2">(02:18:40 PM)</font> <b>HarryHaaren:</b></font> for multi-track recording, latency isn&apos;t really an issue - it can be compensated for<br/>
+<font color="#A82F2F"><font size="2">(02:18:55 PM)</font> <b>speak:</b></font> HarryHaaren mostly recording, when I do live performance I plan not to have a computer in use at all<br/>
+<font color="#A82F2F"><font size="2">(02:19:23 PM)</font> <b>speak:</b></font> So yeah indeed, I&apos;m not super worried about the latency, direct monitoring should be enough for me<br/>
+<font color="#A82F2F"><font size="2">(02:19:50 PM)</font> <b>HarryHaaren:</b></font> sure - unless you plan to use software FX in your recording, and want to hear them as you play<br/>
+<font color="#A82F2F"><font size="2">(02:19:58 PM)</font> <b>speak:</b></font> Yes exactly, that&apos;s indeed the problem<br/>
+<font color="#A82F2F"><font size="2">(02:20:11 PM)</font> <b>HarryHaaren:</b></font> (common enough use case - singers sing better if they hear a compressed version of thier voice coming back to headphones)<br/>
+<font color="#A82F2F"><font size="2">(02:20:19 PM)</font> <b>speak:</b></font> But I am hoping to get more hardware FX anyway, so that should not be a problem then! :D<br/>
+<font color="#A82F2F"><font size="2">(02:20:20 PM)</font> <b>HarryHaaren:</b></font> ok - then you need good latency too :)<br/>
+<font color="#A82F2F"><font size="2">(02:20:35 PM)</font> <b>speak:</b></font> Hah I didn&apos;t know that about monitoring &amp; singing<br/>
+<font color="#A82F2F"><font size="2">(02:20:51 PM)</font> <b>HarryHaaren:</b></font> any specific questions about latency feel free to ping me<br/>
+<font color="#A82F2F"><font size="2">(02:21:10 PM)</font> <b>speak:</b></font> Thanks a lot<br/>
+<font color="#A82F2F"><font size="2">(02:21:14 PM)</font> <b>speak:</b></font> I think I&apos;m quite sorted for now :)<br/>
+<font color="#A82F2F"><font size="2">(02:21:56 PM)</font> <b>HarryHaaren:</b></font> cool<br/>
+<font color="#062585"><font size="2">(02:21:56 PM)</font> <b>***HarryHaaren</b></font> slacks off, and goes fixing some code.<br/>
+<font size="2">(02:33:22 PM)</font><b> HarryHaaren left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(02:36:40 PM)</font><b> HarryHaaren_ is now known as HarryHaaren</b><br/>
+<font size="2">(02:39:25 PM)</font><b> the193afkrd is now known as the193rd</b><br/>
+<font size="2">(03:23:55 PM)</font><b> p is now known as Guest26186</b><br/>
+<font color="#A82F2F"><font size="2">(03:42:45 PM)</font> <b>john_cephalopoda:</b></font> Wow, automation is awesome.<br/>
+<font size="2">(04:58:40 PM)</font><b> HarryHaaren left the room (quit: Quit: HarryHaaren).</b><br/>
+<font size="2">(05:18:00 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,115 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Sun 15 Mar 2015 04:13:12 PM CET on magnetophon@irc.oftc.net (irc)</title></head><body><h3>Conversation with #debian at Sun 15 Mar 2015 04:13:12 PM CET on magnetophon@irc.oftc.net (irc)</h3>
+<font size="2">(04:13:12 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next | chanlogs: /msg dpkg irclog | Broken suspend with 7.8? <a href="http://deb.li/5tYG">http://deb.li/5tYG</a></b><br/>
+<font size="2">(04:13:12 PM)</font><b> Topic for #debian set by Maulkin!~maulkin@maulkin.noc.oftc.net at 04:53:46 PM on 01/12/2015</b><br/>
+<font size="2">(04:18:00 PM)</font><b> mode (+l 695) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:27:49 PM)</font> <b>jhutchins:</b></font> !pulseaudio<br/>
+<font color="#A82F2F"><font size="2">(05:27:50 PM)</font> <b>dpkg:</b></font> PulseAudio (formerly Polypaudio) is a cross-platform network sound server, intended as a drop-in replacement for &lt;ESD&gt;.  Packaged for Debian since 4.0 &quot;Etch&quot;, read /usr/share/doc/pulseaudio/README.Debian after installation for configuration recommendations; Debian specific how-to is at http://forums.debian.net/viewtopic.php?t=12497 .  http://pulseaudio.org/wiki/FAQ  http://pulseaudio.org/  #pulseaudio on irc.freenode.net.<br/>
+<font color="#A82F2F"><font size="2">(05:27:54 PM)</font> <b>ary:</b></font> Hi. I am on Debian Jessie, and neet to install fglrx-legacy-driver to my video card work, but it is only avaible to sid and wheezy. How do i install this driver on my distro without dawngrado to wheezy or ugrade to sid?<br/>
+<font color="#A82F2F"><font size="2">(05:29:22 PM)</font> <b>jhutchins:</b></font> !ssb<br/>
+<font color="#A82F2F"><font size="2">(05:29:22 PM)</font> <b>dpkg:</b></font> First, check for a backport on &lt;debian-backports&gt;.  If unavailable: 1) Add a deb-src line for sid (not a deb line!); ask me about &lt;deb-src sid&gt; 2) enable debian-backports (see &lt;bdo&gt;) 3) aptitude update; aptitude install build-essential; aptitude build-dep packagename; apt-get -b source packagename; 4) install the resultant debs.  To change compilation options, see &lt;package recompile&gt;; for versions newer than sid see &lt;uupdate&gt;.<br/>
+<font color="#A82F2F"><font size="2">(05:32:48 PM)</font> <b>ary:</b></font> &lt;deb-src sid&gt;<br/>
+<font color="#A82F2F"><font size="2">(05:38:29 PM)</font> <b>pijovy60:</b></font> load .xchat2/budus.so<br/>
+<font color="#A82F2F"><font size="2">(05:40:39 PM)</font> <b>pijovy60:</b></font> load budus.so<br/>
+<font size="2">(05:41:43 PM)</font><b> pijovy60 left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(05:57:44 PM)</font> <b>ary:</b></font> I try to do like dpkg instructs, but have a problem. Is asking for xorg-video-abi-12 or less to install. Here is the paste: http://paste.debian.net/161396/<br/>
+<font color="#A82F2F"><font size="2">(06:32:49 PM)</font> <b>bluenemo:</b></font> hi guys. I experienced some strange ATA errors in dmesg. I checked via smartctl -A, but everything seemed ok. I then let the hdd make a long selftest over night and am worried about the results now: http://paste.debian.net/161404/ am I interpreting line 12 correctly as a problem? <br/>
+<font size="2">(06:38:01 PM)</font><b> mode (+l 702) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(06:41:12 PM)</font> <b>n3utralup1:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(06:45:12 PM)</font> <b>valdyn:</b></font> bluenemo: theres no problem<br/>
+<font color="#A82F2F"><font size="2">(06:45:41 PM)</font> <b>bluenemo:</b></font> valdyn, what does the message from smartctl mean?<br/>
+<font color="#A82F2F"><font size="2">(06:45:48 PM)</font> <b>bluenemo:</b></font> why does it abort the test after 10% with a read error?<br/>
+<font color="#A82F2F"><font size="2">(06:46:34 PM)</font> <b>valdyn:</b></font> bluenemo: you need to write the whole disk to see that its ok or not<br/>
+<font color="#A82F2F"><font size="2">(06:46:45 PM)</font> <b>valdyn:</b></font> bluenemo: one read error happened, thats not unusual<br/>
+<font color="#A82F2F"><font size="2">(06:46:50 PM)</font> <b>bluenemo:</b></font> ah ok<br/>
+<font color="#A82F2F"><font size="2">(06:47:07 PM)</font> <b>valdyn:</b></font> bluenemo: its why you cant store important data on single disks though<br/>
+<font color="#A82F2F"><font size="2">(06:47:40 PM)</font> <b>bluenemo:</b></font> its a raid 1 so i&apos;m not that worried. just one of them showing this<br/>
+<font color="#A82F2F"><font size="2">(06:47:41 PM)</font> <b>valdyn:</b></font> bluenemo: to fix that single error you need to write to that block and see what happens<br/>
+<font color="#A82F2F"><font size="2">(06:47:42 PM)</font> <b>bluenemo:</b></font> tested both<br/>
+<font color="#A82F2F"><font size="2">(06:48:11 PM)</font> <b>valdyn:</b></font> bluenemo: maybe that block will be replaced by a spare, maybe more is broken, of course<br/>
+<font color="#A82F2F"><font size="2">(06:48:24 PM)</font> <b>bluenemo:</b></font> do you know what those errors in dmesg could mean? http://paste.debian.net/161406/<br/>
+<font color="#A82F2F"><font size="2">(06:48:30 PM)</font> <b>bluenemo:</b></font> I did the selftest because of thsoe<br/>
+<font color="#A82F2F"><font size="2">(06:48:32 PM)</font> <b>bluenemo:</b></font> those<br/>
+<font color="#A82F2F"><font size="2">(06:49:17 PM)</font> <b>valdyn:</b></font> bluenemo: it means that a) the driver/firmware is broken or b) one block yould not be read.<br/>
+<font color="#A82F2F"><font size="2">(06:49:50 PM)</font> <b>valdyn:</b></font> bluenemo: again, you need to write that block to see if it will be replaced properly or if more is broken<br/>
+<font color="#A82F2F"><font size="2">(06:50:16 PM)</font> <b>bluenemo:</b></font> hm write that block means write to the whole hdd via dd right?<br/>
+<font color="#A82F2F"><font size="2">(06:50:21 PM)</font> <b>bluenemo:</b></font> as in check the whole hdd doing that?<br/>
+<font color="#A82F2F"><font size="2">(06:50:55 PM)</font> <b>valdyn:</b></font> bluenemo: no, just the broken block, thats just 512 or 4096 bytes, depending on the physical disk<br/>
+<font color="#A82F2F"><font size="2">(06:51:57 PM)</font> <b>valdyn:</b></font> bluenemo: writing the whole disk would find all currently broken blocks, in case theres more than 1<br/>
+<font color="#A82F2F"><font size="2">(06:54:28 PM)</font> <b>valdyn:</b></font> bluenemo: that sector is the &quot;pending&quot; one, that counter needs to be back at 0 and reallocated sector count +1<br/>
+<font color="#A82F2F"><font size="2">(06:54:29 PM)</font> <b>bluenemo:</b></font> valdyn, ok, so basically i need to convert the lba 2058156 to bytes to put into dd, and then just write one block of 512b there. (lsblk says its 512)<br/>
+<font color="#A82F2F"><font size="2">(06:54:49 PM)</font> <b>bluenemo:</b></font> wasnt there some fancy smart feature that does all that for me?<br/>
+<font color="#A82F2F"><font size="2">(06:54:55 PM)</font> <b>valdyn:</b></font> bluenemo: no<br/>
+<font color="#A82F2F"><font size="2">(06:55:02 PM)</font> <b>valdyn:</b></font> bluenemo: that would destroy you raid<br/>
+<font color="#A82F2F"><font size="2">(06:55:13 PM)</font> <b>valdyn:</b></font> bluenemo: unless you use btrfs raid<br/>
+<font color="#A82F2F"><font size="2">(06:55:16 PM)</font> <b>bluenemo:</b></font> hm thats true..<br/>
+<font color="#A82F2F"><font size="2">(06:55:24 PM)</font> <b>bluenemo:</b></font> no its mdadm<br/>
+<font color="#A82F2F"><font size="2">(06:55:33 PM)</font> <b>valdyn:</b></font> bluenemo: take the block that is ok and write it to the broken one on the other disk<br/>
+<font color="#A82F2F"><font size="2">(06:56:03 PM)</font> <b>valdyn:</b></font> bluenemo: im not sure if a raid resync would fix this automagically, probably not<br/>
+<font color="#A82F2F"><font size="2">(06:56:30 PM)</font> <b>valdyn:</b></font> bluenemo: so, take the raid offline, copy the data from ok disk to broken disk<br/>
+<font color="#A82F2F"><font size="2">(06:56:55 PM)</font> <b>bluenemo:</b></font> so if i have the error at lba 2058156 with 512b blocks, its a dd if=/dev/sdb bs=512 count=1 seek=2058156 of=/dev/sda skip=2058156  ?<br/>
+<font color="#A82F2F"><font size="2">(06:57:25 PM)</font> <b>valdyn:</b></font> bluenemo: skip + seek? why?<br/>
+<font color="#A82F2F"><font size="2">(06:57:28 PM)</font> <b>valdyn:</b></font> bluenemo: err<br/>
+<font color="#A82F2F"><font size="2">(06:57:31 PM)</font> <b>valdyn:</b></font> bluenemo: nm<br/>
+<font color="#A82F2F"><font size="2">(06:57:44 PM)</font> <b>valdyn:</b></font> bluenemo: its probably ok, but i cant read the dd manpage for you.<br/>
+<font color="#A82F2F"><font size="2">(06:58:19 PM)</font> <b>bluenemo:</b></font> i&apos;m quite sure its ok. works without error or delay<br/>
+<font color="#A82F2F"><font size="2">(06:58:25 PM)</font> <b>bluenemo:</b></font> no dmesg news<br/>
+<font color="#A82F2F"><font size="2">(06:58:40 PM)</font> <b>bluenemo:</b></font> would you continue using this hdd on a production system?<br/>
+<font color="#A82F2F"><font size="2">(07:00:53 PM)</font> <b>valdyn:</b></font> bluenemo: I do<br/>
+<font color="#A82F2F"><font size="2">(07:01:08 PM)</font> <b>valdyn:</b></font> bluenemo: i would probably not go as far as to recommend it to you<br/>
+<font color="#A82F2F"><font size="2">(07:01:28 PM)</font> <b>valdyn:</b></font> bluenemo: the disk has no huge increased probability of failure though<br/>
+<font color="#A82F2F"><font size="2">(07:01:29 PM)</font> <b>Chipzz:</b></font> does anyone know what the state of debian on the O2 Joggler is?<br/>
+<font color="#A82F2F"><font size="2">(07:01:53 PM)</font> <b>Chipzz:</b></font> I see someone has done some work on it in the past (http://wuffcode.wolfpuppy.org.uk/search/label/joggler ), but he stopped blogging about it 2 years ago<br/>
+<font color="#A82F2F"><font size="2">(07:02:13 PM)</font> <b>bluenemo:</b></font> valdyn, ok thank you for your help :)<br/>
+<font color="#A82F2F"><font size="2">(07:02:46 PM)</font> <b>valdyn:</b></font> bluenemo: you can look up googles statistics and see which errors have which significance for future performance<br/>
+<font color="#A82F2F"><font size="2">(07:03:37 PM)</font> <b>bluenemo:</b></font> google &quot;hdd error message statistics&quot; ??<br/>
+<font color="#A82F2F"><font size="2">(07:04:24 PM)</font> <b>valdyn:</b></font> research.google.com/archive/disk_failures.pdf<br/>
+<font color="#A82F2F"><font size="2">(07:04:39 PM)</font> <b>valdyn:</b></font> bluenemo: google did that research <br/>
+<font color="#A82F2F"><font size="2">(07:05:38 PM)</font> <b>bluenemo:</b></font> valdyn, fascinating, thank you! <br/>
+<font color="#A82F2F"><font size="2">(07:41:59 PM)</font> <b>paolo:</b></font> hi all<br/>
+<font color="#A82F2F"><font size="2">(07:42:22 PM)</font> <b>paolo:</b></font> can anybody halp me with empathy?<br/>
+<font color="#A82F2F"><font size="2">(07:42:50 PM)</font> <b>n3utralup1:</b></font> i&apos;m using xchat, sorry<br/>
+<font color="#A82F2F"><font size="2">(07:43:20 PM)</font> <b>paolo:</b></font> i have facbook connection problem on empathy<br/>
+<font size="2">(07:45:28 PM)</font><b> paolo left the room.</b><br/>
+<font size="2">(07:48:00 PM)</font><b> mode (+l 695) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:04:22 PM)</font> <b>HerrHorst:</b></font> hi, i hope I&apos;m at the right channel. I&apos;ve got two problems with gscan2pdf and tesseract ocr. the first is that it doesn&apos;t show any ocr output. The second one is that i can&apos;t change the scan language. i&apos;ve tried google but it looks like im using the wrong search queries :\<br/>
+<font color="#A82F2F"><font size="2">(08:13:24 PM)</font> <b>tacos:</b></font> hi, not sure if this would be the right channel. i just installed debian testing on an ssd. i made two ext4 partitions; /boot (/dev/sda1), and / (/dev/sda5).. my logged are getting spammed with &quot;ext4-fs (sda2): unable to read superblock&quot;.. im not using sda2 anywhere. the only place i can find a reference to it is in fdisk: http://pastie.org/private/f3v3pwbmsdt8c4mexzdg  ... any ideas whats <br/>
+<font color="#A82F2F"><font size="2">(08:13:24 PM)</font> <b>tacos:</b></font> going on here?<br/>
+<font size="2">(08:49:21 PM)</font><b> nmschulte_ is now known as nmschulte</b><br/>
+<font size="2">(09:00:36 PM)</font><b> knoppix_ is now known as Guest418</b><br/>
+<font color="#A82F2F"><font size="2">(09:22:02 PM)</font> <b>valdyn:</b></font> tacos: why does that message bother you?<br/>
+<font color="#A82F2F"><font size="2">(09:22:45 PM)</font> <b>valdyn:</b></font> tacos: grub scans all partitions when run run update-grub - it may be that.<br/>
+<font color="#A82F2F"><font size="2">(09:23:06 PM)</font> <b>tacos:</b></font> i dont know whats causing it and i dont know how serious it is<br/>
+<font color="#A82F2F"><font size="2">(09:23:28 PM)</font> <b>tacos:</b></font> arent warnings/errors _supposed_ to cause alarm with the user? :)<br/>
+<font color="#A82F2F"><font size="2">(09:23:34 PM)</font> <b>valdyn:</b></font> tacos: run &quot;update-grub&quot;, see if that is causing another message like that. If it is, then theres nothing to worry about.<br/>
+<font color="#A82F2F"><font size="2">(09:24:58 PM)</font> <b>tacos:</b></font> it seems related for sure.. when i run update-grub, it spams it.. along with a bunch of &quot;/proc/devices: No entry for device-mapper found&quot; to my console. <br/>
+<font color="#A82F2F"><font size="2">(09:25:09 PM)</font> <b>valdyn:</b></font> tacos: ok, everything fine then<br/>
+<font color="#A82F2F"><font size="2">(09:25:23 PM)</font> <b>valdyn:</b></font> tacos: because sda2 is not even supposed to have a superblock<br/>
+<font color="#A82F2F"><font size="2">(09:25:28 PM)</font> <b>tacos:</b></font> what about that console spam?<br/>
+<font color="#A82F2F"><font size="2">(09:26:06 PM)</font> <b>valdyn:</b></font> tacos: youre not using the device mapper either, so thats also not a problem<br/>
+<font color="#A82F2F"><font size="2">(09:26:28 PM)</font> <b>valdyn:</b></font> tacos: that spam is an artifact of grub searching all partitions for operating sysystems to add to the boot menu<br/>
+<font color="#A82F2F"><font size="2">(09:27:13 PM)</font> <b>tacos:</b></font> should grub even be looking for a superblock on an &quot;Extended&quot; partition in the first place?.. seems like a bug <br/>
+<font color="#A82F2F"><font size="2">(09:27:14 PM)</font> <b>valdyn:</b></font> tacos: read lines 16-18 in /etc/sysctl.conf<br/>
+<font color="#A82F2F"><font size="2">(09:27:37 PM)</font> <b>valdyn:</b></font> tacos: well, not really a bug<br/>
+<font color="#A82F2F"><font size="2">(09:27:57 PM)</font> <b>valdyn:</b></font> tacos: you *could* put an operating system on that extended partition<br/>
+<font color="#A82F2F"><font size="2">(09:28:21 PM)</font> <b>valdyn:</b></font> tacos: (but you could not use partitions 5+ then)<br/>
+<font color="#A82F2F"><font size="2">(09:28:39 PM)</font> <b>tacos:</b></font> lines 16-18 talk about ipv4.. not sure im seeing a connection here<br/>
+<font color="#A82F2F"><font size="2">(09:28:54 PM)</font> <b>valdyn:</b></font> tacos: oops<br/>
+<font color="#A82F2F"><font size="2">(09:29:03 PM)</font> <b>valdyn:</b></font> tacos: line 9<br/>
+<font color="#A82F2F"><font size="2">(09:29:46 PM)</font> <b>tacos:</b></font> that makes a little more sense :)<br/>
+<font color="#A82F2F"><font size="2">(09:29:49 PM)</font> <b>tacos:</b></font> ill look into that<br/>
+<font color="#A82F2F"><font size="2">(09:31:00 PM)</font> <b>tacos:</b></font> do you know offhand, if i re-partition the hd using gpt, would that Extended partition still be created? iirc i read that gpt deprecates the need/use for Extended..?<br/>
+<font color="#A82F2F"><font size="2">(09:33:32 PM)</font> <b>valdyn:</b></font> tacos: you could just use primary partitions 1-4<br/>
+<font color="#A82F2F"><font size="2">(09:33:46 PM)</font> <b>valdyn:</b></font> tacos: i dont know anything about gpt<br/>
+<font color="#A82F2F"><font size="2">(09:34:44 PM)</font> <b>valdyn:</b></font> tacos: my disks have exactly one dos partition and thats just so grub has room to install itself<br/>
+<font size="2">(09:38:14 PM)</font><b> komal_ is now known as komal</b><br/>
+<font color="#A82F2F"><font size="2">(09:51:51 PM)</font> <b>tacos:</b></font> valdyn - i didnt get an option in the manual partitioner to select primary partitions/partition types<br/>
+<font size="2">(10:04:42 PM)</font><b> cornerman is now known as Guest422</b><br/>
+<font color="#A82F2F"><font size="2">(10:28:08 PM)</font> <b>matrix:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(10:28:25 PM)</font> <b>matrix:</b></font> negga<br/>
+<font size="2">(10:28:59 PM)</font><b> matrix left the room (quit: ).</b><br/>
+<font size="2">(10:48:14 PM)</font><b> treaki__ is now known as treaki</b><br/>
+<font size="2">(11:08:00 PM)</font><b> mode (+l 688) by debhelper</b><br/>
+<font size="2">(11:13:30 PM)</font><b> poopie is now known as TylerDurden</b><br/>
+<font size="2">(11:13:47 PM)</font><b> TylerDurden is now known as Tyler_Durden</b><br/>
+<font size="2">(11:26:35 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

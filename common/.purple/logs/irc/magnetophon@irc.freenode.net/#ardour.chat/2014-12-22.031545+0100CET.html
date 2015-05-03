@@ -1,0 +1,46 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Mon 22 Dec 2014 03:15:45 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Mon 22 Dec 2014 03:15:45 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(03:15:46 AM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(03:15:46 AM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(04:10:42 AM)</font> <b>las:</b></font> rgareus: something has broken on your system<br/>
+<font color="#A82F2F"><font size="2">(04:11:14 AM)</font> <b>las:</b></font> rgareus: changing a color ends up calling UIConfigure::reset_gtk_theme()<br/>
+<font color="#A82F2F"><font size="2">(04:12:12 AM)</font> <b>las:</b></font> rgareus: which resets gtk_color_scheme and then reloads the clearlooks.rc file to force a reparse/reset of GTK widget styles<br/>
+<font color="#A82F2F"><font size="2">(04:12:54 AM)</font> <b>las:</b></font> rgareus: the entire color scheme is built inside UIConfiguration::reset_gtk_theme() by taking all the &quot;gtk_XXXX&quot; colors from the colors map and turning it into a string<br/>
+<font color="#A82F2F"><font size="2">(04:14:03 AM)</font> <b>las:</b></font> rgareus: have you switched back to a french locale? i am noticing a possible lack of localeguards .. i thought the_CLA_2 had helped me clear that up<br/>
+<font color="#A82F2F"><font size="2">(04:14:41 AM)</font> <b>las:</b></font> rgareus: there&apos;s one missing in UIConfiguration::load_colors(), perhaps ... i think<br/>
+<font color="#A82F2F"><font size="2">(04:15:19 AM)</font> <b>rgareus:</b></font> las: C locale here.<br/>
+<font color="#A82F2F"><font size="2">(04:15:38 AM)</font> <b>las:</b></font> rgareus: i suggest you print out the string in ::reset_gtk_theme()<br/>
+<font color="#A82F2F"><font size="2">(04:15:39 AM)</font> <b>rgareus:</b></font> las: the odd thing is that windows builds have the same issue.<br/>
+<font color="#A82F2F"><font size="2">(04:16:05 AM)</font> <b>las:</b></font> rgareus: oh wait, colors are all integers, so no LocaleGuard needed<br/>
+<font color="#A82F2F"><font size="2">(04:17:57 AM)</font> <b>rgareus:</b></font> las: I&apos;ll print ss.str() there.<br/>
+<font color="#A82F2F"><font size="2">(04:18:10 AM)</font> <b>las:</b></font> dans la maison mit mein frau<br/>
+<font color="#A82F2F"><font size="2">(04:18:18 AM)</font> <b>las:</b></font> s/mein/meine/<br/>
+<font color="#A82F2F"><font size="2">(04:18:25 AM)</font> <b>rgareus:</b></font> meiner <br/>
+<font color="#A82F2F"><font size="2">(04:18:54 AM)</font> <b>rgareus:</b></font> (Dativ)<br/>
+<font color="#A82F2F"><font size="2">(04:19:10 AM)</font> <b>las:</b></font> s/frau/Frau<br/>
+<font color="#A82F2F"><font size="2">(04:20:17 AM)</font> <b>rgareus:</b></font> &quot;dans la&quot; ... avec ma femme.<br/>
+<font color="#A82F2F"><font size="2">(04:20:51 AM)</font> <b>las:</b></font> rgareus: nur uno lingua ?<br/>
+<font color="#A82F2F"><font size="2">(04:21:22 AM)</font> <b>rgareus:</b></font> so it prints http://pastebin.com/60bCY4NR now<br/>
+<font color="#A82F2F"><font size="2">(04:21:40 AM)</font> <b>rgareus:</b></font> foreground:#7fffff  <br/>
+<font color="#A82F2F"><font size="2">(04:21:54 AM)</font> <b>las:</b></font> rgareus: texts:#7fffff<br/>
+<font color="#A82F2F"><font size="2">(04:22:03 AM)</font> <b>las:</b></font> rgareus: seems basically fine<br/>
+<font color="#A82F2F"><font size="2">(04:22:07 AM)</font> <b>rgareus:</b></font> yep<br/>
+<font color="#A82F2F"><font size="2">(04:22:17 AM)</font> <b>rgareus:</b></font> the question is why  is it #7fffff<br/>
+<font color="#A82F2F"><font size="2">(04:22:22 AM)</font> <b>las:</b></font> rgareus: close to white<br/>
+<font color="#A82F2F"><font size="2">(04:22:31 AM)</font> <b>las:</b></font> rgareus: not quite there<br/>
+<font color="#A82F2F"><font size="2">(04:22:33 AM)</font> <b>rgareus:</b></font> nope 7F<br/>
+<font color="#A82F2F"><font size="2">(04:22:36 AM)</font> <b>rgareus:</b></font> not F7<br/>
+<font color="#A82F2F"><font size="2">(04:22:42 AM)</font> <b>las:</b></font> rgareus: ahb<br/>
+<font color="#A82F2F"><font size="2">(04:22:50 AM)</font> <b>rgareus:</b></font> #7fffff is the cyan I&apos;m seeing<br/>
+<font color="#A82F2F"><font size="2">(04:23:11 AM)</font> <b>las:</b></font> rgareus: i suggest the mattress has the answer<br/>
+<font color="#A82F2F"><font size="2">(04:23:24 AM)</font> <b>las:</b></font> rgareus: even the west coast is thinking about evening now <br/>
+<font color="#062585"><font size="2">(04:23:59 AM)</font> <b>***rgareus</b></font> is on Hawaiian time<br/>
+<font color="#A82F2F"><font size="2">(04:24:24 AM)</font> <b>las:</b></font> rgareus: so not far from Japanese either :)<br/>
+<font color="#A82F2F"><font size="2">(04:24:29 AM)</font> <b>rgareus:</b></font> Aloha Ahiahi - time for 2nd breakfast<br/>
+<font color="#062585"><font size="2">(04:24:50 AM)</font> <b>***las</b></font> out<br/>
+<font color="#A82F2F"><font size="2">(04:25:28 AM)</font> <b>rgareus:</b></font> so those colors come from color aliases<br/>
+<font color="#A82F2F"><font size="2">(04:32:03 AM)</font> <b>rgareus:</b></font> aha. http://robin.linuxaudio.org/tmp/a3theme.png  lots of cyan in there...<br/>
+<font color="#A82F2F"><font size="2">(04:32:20 AM)</font> <b>rgareus:</b></font> This is a 32bit build and Ben&apos;s windows version (same problem) is 32bit, too..  which may be a clue<br/>
+<font color="#A82F2F"><font size="2">(04:34:29 AM)</font> <b>rgareus:</b></font> looks like the hex is parsed as signed..   ten 0x7fxxxxxx is the largest integer on 32bit.<br/>
+<font color="#A82F2F"><font size="2">(04:45:24 AM)</font> <b>rgareus:</b></font> las: after changing strtol to strtoll, everything&apos;s fine<br/>
+<font color="#A82F2F"><font size="2">(04:45:58 AM)</font> <b>rgareus:</b></font> except MSVC does not have strtoll  and it&apos;s overkill for parsing a 32bit unsigned anyway.<br/>
+<font color="#A82F2F"><font size="2">(04:51:43 AM)</font> <b>rgareus:</b></font> strtoul it is then (C89 and all)<br/>

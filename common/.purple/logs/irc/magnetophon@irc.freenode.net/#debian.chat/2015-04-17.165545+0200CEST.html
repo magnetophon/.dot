@@ -1,0 +1,253 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Fri 17 Apr 2015 04:55:45 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Fri 17 Apr 2015 04:55:45 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:55:45 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(04:55:45 PM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font size="2">(04:56:03 PM)</font><b> cyborg_ is now known as cyborg</b><br/>
+<font color="#A82F2F"><font size="2">(05:00:52 PM)</font> <b>Danillo10:</b></font> i installed the printer on the network but its does not print correctly by putty<br/>
+<font size="2">(05:05:31 PM)</font><b> fran` is now known as fran</b><br/>
+<font size="2">(05:18:01 PM)</font><b> mode (+l 1654) by debhelper</b><br/>
+<font size="2">(05:28:00 PM)</font><b> mode (+l 1660) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:33:52 PM)</font> <b>psihnofrost:</b></font> hi all. as I can see what distributive of debian I use<br/>
+<font color="#A82F2F"><font size="2">(05:34:22 PM)</font> <b>AvocetVIS:</b></font> cat /etc/debian_version<br/>
+<font color="#A82F2F"><font size="2">(05:34:38 PM)</font> <b>mtn:</b></font> psihnofrost: also: lsb_release -a<br/>
+<font color="#A82F2F"><font size="2">(05:37:30 PM)</font> <b>psihnofrost:</b></font> very thank you<br/>
+<font color="#A82F2F"><font size="2">(05:41:53 PM)</font> <b>Guest30807:</b></font> I&apos;m having trouble understanding why I my_hostname.local resolves via e.g. ping, but doesn&apos;t come back via e.g. dig/nslookup.<br/>
+<font size="2">(05:42:38 PM)</font><b> Guest30807 is now known as nmschulte</b><br/>
+<font color="#A82F2F"><font size="2">(05:43:18 PM)</font> <b>nmschulte:</b></font> I am Guest30807.<br/>
+<font color="#A82F2F"><font size="2">(05:43:27 PM)</font> <b>valdyn:</b></font> nmschulte: .local is probably not and should not be used in dns<br/>
+<font color="#A82F2F"><font size="2">(05:43:42 PM)</font> <b>jelly:</b></font> nmschulte: .local resolving is done via avahi/zeroconf/mdns<br/>
+<font color="#A82F2F"><font size="2">(05:43:43 PM)</font> <b>nmschulte:</b></font> It&apos;s multicast DNS; how does ping resolve names then?<br/>
+<font color="#A82F2F"><font size="2">(05:43:49 PM)</font> <b>valdyn:</b></font> nmschulte: the name resolution works because mdns is listed in /etc/nsswitch.conf<br/>
+<font color="#A82F2F"><font size="2">(05:43:51 PM)</font> <b>nmschulte:</b></font> avahi/bonjour yarr?<br/>
+<font color="#A82F2F"><font size="2">(05:43:57 PM)</font> <b>jelly:</b></font> matey<br/>
+<font color="#A82F2F"><font size="2">(05:44:16 PM)</font> <b>nmschulte:</b></font> files myhostname mdns4_minimal [NOTFOUND=return] dns mdns4<br/>
+<font color="#A82F2F"><font size="2">(05:44:18 PM)</font> <b>jelly:</b></font> and _ is not a valid character for real dns<br/>
+<font color="#A82F2F"><font size="2">(05:44:28 PM)</font> <b>nmschulte:</b></font> my_hostname is not accurate<br/>
+<font color="#A82F2F"><font size="2">(05:44:37 PM)</font> <b>nmschulte:</b></font> apologies<br/>
+<font color="#A82F2F"><font size="2">(05:44:42 PM)</font> <b>jelly:</b></font> np<br/>
+<font color="#A82F2F"><font size="2">(05:44:45 PM)</font> <b>nmschulte:</b></font> how can I query avahi?<br/>
+<font color="#A82F2F"><font size="2">(05:44:49 PM)</font> <b>valdyn:</b></font> nmschulte: dig uses *not* the internal resolver, but only dns<br/>
+<font color="#A82F2F"><font size="2">(05:45:00 PM)</font> <b>valdyn:</b></font> nmschulte: s/internal/system/<br/>
+<font color="#A82F2F"><font size="2">(05:45:22 PM)</font> <b>jelly:</b></font> nmschulte: directly?  Dunno.  you can query the resolver with &quot;getent hosts some.host.name&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:45:23 PM)</font> <b>nmschulte:</b></font> Whats the name of that system?<br/>
+<font color="#A82F2F"><font size="2">(05:45:28 PM)</font> <b>valdyn:</b></font> nmschulte: avahi-browse?<br/>
+<font color="#A82F2F"><font size="2">(05:45:52 PM)</font> <b>nmschulte:</b></font> getent hosts -- that&apos;s helpful, thanks<br/>
+<font color="#A82F2F"><font size="2">(05:45:58 PM)</font> <b>valdyn:</b></font> nmschulte: its mdns aka bonjour ( I believe).<br/>
+<font color="#A82F2F"><font size="2">(05:46:05 PM)</font> <b>nmschulte:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(05:46:09 PM)</font> <b>nmschulte:</b></font> getent was the magic I wanted<br/>
+<font color="#A82F2F"><font size="2">(05:46:15 PM)</font> <b>nmschulte:</b></font> NSS is the system<br/>
+<font color="#A82F2F"><font size="2">(05:46:30 PM)</font> <b>nmschulte:</b></font> that sits above (&quot;below&quot;) DNS.<br/>
+<font color="#A82F2F"><font size="2">(05:46:45 PM)</font> <b>valdyn:</b></font> nmschulte: system resolver<br/>
+<font color="#A82F2F"><font size="2">(05:46:47 PM)</font> <b>nmschulte:</b></font> s/above (&quot;below&quot;)/below (&quot;above&quot;)/<br/>
+<font color="#A82F2F"><font size="2">(05:46:55 PM)</font> <b>nmschulte:</b></font> system resolver == NSS?<br/>
+<font color="#A82F2F"><font size="2">(05:47:01 PM)</font> <b>nmschulte:</b></font> there are alternatives?<br/>
+<font color="#A82F2F"><font size="2">(05:47:46 PM)</font> <b>valdyn:</b></font> nmschulte: it belongs to the C standard libarary, you cannot easily change that<br/>
+<font color="#A82F2F"><font size="2">(05:48:13 PM)</font> <b>jelly:</b></font> well, you can: avoid using glibc :-)<br/>
+<font color="#A82F2F"><font size="2">(05:48:22 PM)</font> <b>valdyn:</b></font> of course<br/>
+<font color="#A82F2F"><font size="2">(05:48:28 PM)</font> <b>valdyn:</b></font> but thats not debian then<br/>
+<font color="#A82F2F"><font size="2">(05:49:19 PM)</font> <b>valdyn:</b></font> nmschulte: ping uses gethostbyname(), dig uses its own mechanism<br/>
+<font color="#A82F2F"><font size="2">(05:49:59 PM)</font> <b>jelly:</b></font> host is the silliest: reads resolv.conf manually<br/>
+<font color="#A82F2F"><font size="2">(05:49:59 PM)</font> <b>blackflow:</b></font> How about that! Debian switched back to glibc... I had no idea.<br/>
+<font color="#A82F2F"><font size="2">(05:50:08 PM)</font> <b>jelly:</b></font> switched back?<br/>
+<font color="#A82F2F"><font size="2">(05:50:13 PM)</font> <b>blackflow:</b></font> from elibcx<br/>
+<font color="#A82F2F"><font size="2">(05:50:15 PM)</font> <b>blackflow:</b></font> *elibc<br/>
+<font color="#A82F2F"><font size="2">(05:50:22 PM)</font> <b>tremon:</b></font> eglibc<br/>
+<font color="#A82F2F"><font size="2">(05:50:23 PM)</font> <b>valdyn:</b></font> eglibc?<br/>
+<font color="#A82F2F"><font size="2">(05:50:32 PM)</font> <b>jelly:</b></font> eglibc was basically a distro of glibc<br/>
+<font color="#A82F2F"><font size="2">(05:50:38 PM)</font> <b>blackflow:</b></font> yeah, embedded, follwing that outfall with Drepper<br/>
+<font color="#A82F2F"><font size="2">(05:50:38 PM)</font> <b>valdyn:</b></font> not like that makes any difference except for the packager<br/>
+<font color="#A82F2F"><font size="2">(05:50:43 PM)</font> <b>blackflow:</b></font> *fallout<br/>
+<font color="#A82F2F"><font size="2">(05:51:24 PM)</font> <b>blackflow:</b></font> it doesn&apos;t, I just didn&apos;t know Deb switched back, and now that you mentioned glibc, I had to check since I thought it was eglibc<br/>
+<font size="2">(05:53:31 PM)</font><b> Ott_rocks is now known as hassoon</b><br/>
+<font size="2">(05:57:32 PM)</font><b> fraff is now known as fraff_</b><br/>
+<font color="#A82F2F"><font size="2">(05:57:37 PM)</font> <b>nmschulte:</b></font> NSS is part of cstd lib?  valdyn<br/>
+<font color="#A82F2F"><font size="2">(05:58:12 PM)</font> <b>nmschulte:</b></font> I thought it was eglibc too yet<br/>
+<font color="#A82F2F"><font size="2">(05:58:53 PM)</font> <b>GunnerWolf-Phone:</b></font> So at this point in time, how stable is Jessie?<br/>
+<font color="#A82F2F"><font size="2">(05:59:34 PM)</font> <b>jelly:</b></font> nmschulte: http://en.wikipedia.org/wiki/Name_Service_Switch<br/>
+<font color="#A82F2F"><font size="2">(05:59:59 PM)</font> <b>mtn:</b></font> GunnerWolf-Phone: it better be pretty stable, since it may come out in a few weeks ;)<br/>
+<font color="#A82F2F"><font size="2">(06:00:26 PM)</font> <b>GunnerWolf-Phone:</b></font> Is there a set date?<br/>
+<font color="#A82F2F"><font size="2">(06:00:29 PM)</font> <b>jelly:</b></font> !wwjr<br/>
+<font color="#A82F2F"><font size="2">(06:00:30 PM)</font> <b>dpkg:</b></font> Debian 8 &quot;Jessie&quot; will release on 2015-04-25; ask me about &lt;wheezy-&gt;jessie&gt;. There&apos;s plenty of bugs still to squash so ask me about &lt;how-can-i-help&gt;, &lt;jessie freeze&gt;, &lt;jessie pool 1&gt;. See &lt;https://lists.debian.org/debian-devel-announce/2015/03/msg00016.html&gt;<br/>
+<font color="#A82F2F"><font size="2">(06:00:38 PM)</font> <b>mtn:</b></font> GunnerWolf-Phone: and I thought it was fine several weeks ago, but you never know for sure.<br/>
+<font size="2">(06:01:18 PM)</font><b> mode (+o jelly) by ChanServ</b><br/>
+<font size="2">(06:01:19 PM)</font><b> mode (-o jelly) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(06:04:50 PM)</font> <b>GunnerWolf-Phone:</b></font> So as somebody who&apos;s never updated debian, I assume it&apos;s possible to update from wheezy to Jessie without losing all my data?<br/>
+<font color="#A82F2F"><font size="2">(06:05:12 PM)</font> <b>jelly:</b></font> GunnerWolf-Phone: doing a release upgrade in place is one of Debian&apos;s strong points.<br/>
+<font color="#A82F2F"><font size="2">(06:05:24 PM)</font> <b>mtn:</b></font> GunnerWolf-Phone: upgrades like that are supported, but you should always have backups anyway<br/>
+<font color="#A82F2F"><font size="2">(06:05:29 PM)</font> <b>SynrGy:</b></font> GunnerWolf-Phone: as with all releases, however, read the release notes first<br/>
+<font color="#A82F2F"><font size="2">(06:06:56 PM)</font> <b>jelly:</b></font> I got bit by postfix config incompatibilities; apache 2.4 has completely different access control syntax; that kind of stuff gets a mention in the release notes<br/>
+<font color="#A82F2F"><font size="2">(06:07:01 PM)</font> <b>GunnerWolf-Phone:</b></font> Nice, I&apos;m fairly new to debian only started using it because I used to use my RPi for work, and got used to raspbian at work. So when I upgraded to an actual computer, debian seemed the logical option<br/>
+<font color="#A82F2F"><font size="2">(06:08:30 PM)</font> <b>GunnerWolf-Phone:</b></font> Is there a changelog for Jessie yet?<br/>
+<font color="#A82F2F"><font size="2">(06:10:03 PM)</font> <b>jelly:</b></font> GunnerWolf-Phone: major changes are noted in the release notes.<br/>
+<font color="#A82F2F"><font size="2">(06:10:13 PM)</font> <b>jelly:</b></font> GunnerWolf-Phone: go read: https://www.debian.org/releases/jessie/amd64/release-notes/<br/>
+<font color="#A82F2F"><font size="2">(06:10:32 PM)</font> <b>GunnerWolf-Phone:</b></font> Ah thanks<br/>
+<font color="#A82F2F"><font size="2">(06:24:55 PM)</font> <b>magyar:</b></font> hi, is &quot;update-flashplugin-nonfree&quot; broken in jessie, I&apos;m not able to update to 11.2.202.457<br/>
+<font size="2">(06:25:16 PM)</font><b> Artpicre_ is now known as Artpicre</b><br/>
+<font color="#A82F2F"><font size="2">(06:25:19 PM)</font> <b>SynrG:</b></font> what are you typing and what happens?<br/>
+<font color="#A82F2F"><font size="2">(06:25:28 PM)</font> <b>SynrG:</b></font> what does update-flashplugin-nonfree --status say?<br/>
+<font color="#A82F2F"><font size="2">(06:26:16 PM)</font> <b>SynrG:</b></font> mine says i have .451 and .457 is available ...<br/>
+<font color="#A82F2F"><font size="2">(06:26:31 PM)</font> <b>awal:</b></font> magyar: yes there s a new version of flash but it wont update right. It happens frekently. just wait a few days and you will be able to update it. same issue here<br/>
+<font color="#A82F2F"><font size="2">(06:26:59 PM)</font> <b>magyar:</b></font> thanks awal<br/>
+<font color="#A82F2F"><font size="2">(06:27:43 PM)</font> <b>SynrG:</b></font> magyar, awal: yup. and --verbose gives some info about it: http://paste.debian.net/167364/<br/>
+<font color="#A82F2F"><font size="2">(06:29:08 PM)</font> <b>SynrG:</b></font> looks like in spite of the fact it claims .457 is available, it downloads .451 instead<br/>
+<font color="#A82F2F"><font size="2">(06:31:06 PM)</font> <b>SynrG:</b></font> interestingly if i pull out of that log the path and change .451 to .457 and then wget ...<br/>
+<font color="#A82F2F"><font size="2">(06:31:22 PM)</font> <b>magyar:</b></font> SynrG: yeap, I get the exact same thing<br/>
+<font size="2">(06:32:48 PM)</font><b> martins-afk is now known as martinst</b><br/>
+<font color="#A82F2F"><font size="2">(06:50:05 PM)</font> <b>duelle_:</b></font> Hi there, I want to set up an encrypted dedicated server with remote unlock using dropbear/busybox/ssh. Unfortunately the network setup seems to fail (eth0 such device). Are there other ways to unlock a LUKS encrypted server via ssh?<br/>
+<font color="#A82F2F"><font size="2">(06:50:20 PM)</font> <b>duelle_:</b></font> *eth0 no such device<br/>
+<font color="#A82F2F"><font size="2">(06:54:47 PM)</font> <b>nmschulte:</b></font> jelly: very nice, thanks.<br/>
+<font color="#A82F2F"><font size="2">(06:59:02 PM)</font> <b>frostschutz:</b></font> duelle_, well, you have to load the network module for your card, probably<br/>
+<font color="#A82F2F"><font size="2">(07:03:13 PM)</font> <b>anddam:</b></font> just noticed that when I suspend my system then it goes silent, typing a key on the usb keyboard wakes it up but then the USB devices go dead, the optical mouse isn&apos;t lit anymore and the keyboard doesn&apos;t work (even if it just woke up the system)<br/>
+<font color="#A82F2F"><font size="2">(07:03:26 PM)</font> <b>anddam:</b></font> is this a matter of ACPI/power management and what should I be looking for?<br/>
+<font color="#A82F2F"><font size="2">(07:03:47 PM)</font> <b>anddam:</b></font> I have a recent chipset and installed 3.16.0 from testing for that<br/>
+<font color="#A82F2F"><font size="2">(07:03:51 PM)</font> <b>anddam:</b></font> (actually moved to testing)<br/>
+<font color="#A82F2F"><font size="2">(07:06:02 PM)</font> <b>duelle_:</b></font> frostschutz, so I have to just add the corresponding module (in my case it seems to be e1000) to /etc/modules? Or do I have to do something elso to be able it in the initramfs?<br/>
+<font size="2">(07:08:18 PM)</font><b> martinst is now known as martins-afk</b><br/>
+<font color="#A82F2F"><font size="2">(07:09:32 PM)</font> <b>linuxd:</b></font> how to fix this? http://paste.debian.net/167369/<br/>
+<font color="#A82F2F"><font size="2">(07:15:40 PM)</font> <b>centrx:</b></font> linuxd, probably install nvidia-vdpau-driver<br/>
+<font size="2">(07:18:10 PM)</font><b> linuxd left the room (quit: Read error: No route to host).</b><br/>
+<font color="#A82F2F"><font size="2">(07:18:26 PM)</font> <b>marvilleke:</b></font> Im running debian testing but i cant get the new login before gdm get an update for new installed kernels<br/>
+<font size="2">(07:18:56 PM)</font><b> darkdevil is now known as whodafak</b><br/>
+<font size="2">(07:19:13 PM)</font><b> whodafak is now known as darkdevil</b><br/>
+<font color="#A82F2F"><font size="2">(07:19:26 PM)</font> <b>stakewinner00:</b></font> how to fix /init 401: touch not found (on boot) I will wait to fix it automagically I think?<br/>
+<font color="#A82F2F"><font size="2">(07:22:15 PM)</font> <b>bierdieb:</b></font> ahoi<br/>
+<font color="#A82F2F"><font size="2">(07:22:54 PM)</font> <b>bsdator:</b></font> centrx: bit u don&apos;t use nvidia<br/>
+<font color="#A82F2F"><font size="2">(07:23:10 PM)</font> <b>bsdator:</b></font> centrx: bit i don&apos;t use nvidia<br/>
+<font color="#A82F2F"><font size="2">(07:23:32 PM)</font> <b>centrx:</b></font> ok for some reason it&apos;s trying to open libvdpau_nvidia.so<br/>
+<font color="#A82F2F"><font size="2">(07:24:46 PM)</font> <b>marvilleke:</b></font> where is the best plce to ask question about release candidate jessie?<br/>
+<font color="#A82F2F"><font size="2">(07:27:42 PM)</font> <b>centrx:</b></font> marvilleke, #debian-next on irc.oftc.net<br/>
+<font size="2">(07:28:00 PM)</font><b> mode (+l 1667) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(07:29:56 PM)</font> <b>marvilleke:</b></font> thnxs centrx<br/>
+<font size="2">(07:30:20 PM)</font><b> marvilleke left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(07:31:17 PM)</font><b> marvilleke [<em>~xbox@s53751a9d.adsl.online.nl</em>] entered the room.</b><br/>
+<font size="2">(07:31:40 PM)</font><b> marvilleke left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(07:33:40 PM)</font> <b>jelly:</b></font> bsdator: can you just start xine, then configure it to force use a different output and decoder driver instead of trying vdpau?<br/>
+<font size="2">(07:38:01 PM)</font><b> mode (+l 1673) by debhelper</b><br/>
+<font size="2">(07:40:22 PM)</font><b> martins-afk is now known as martinst</b><br/>
+<font size="2">(07:43:13 PM)</font><b> atehwa_ is now known as atehwa</b><br/>
+<font color="#A82F2F"><font size="2">(07:47:24 PM)</font> <b>bsdator:</b></font> bsdator: no,sorry<br/>
+<font size="2">(07:48:01 PM)</font><b> mode (+l 1667) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(07:55:19 PM)</font> <b>Spida:</b></font> hi<br/>
+<font size="2">(08:00:56 PM)</font><b> zz_AlphaTech is now known as AlphaTech</b><br/>
+<font color="#A82F2F"><font size="2">(08:06:32 PM)</font> <b>Spida:</b></font> how are bluetooth hid (mouse, keyboard) devices intended to be used currently (jessie)? package bluez-compat containing hidd is not available in neither jessie nor sid...<br/>
+<font color="#A82F2F"><font size="2">(08:12:38 PM)</font> <b>tremon:</b></font> package bluez replaces: bluez-input, so I guess it&apos;s in the main package<br/>
+<font color="#A82F2F"><font size="2">(08:18:46 PM)</font> <b>AvocetVIS:</b></font> seems to be no &quot;easy&quot; way to install adb and fastboot<br/>
+<font color="#A82F2F"><font size="2">(08:21:21 PM)</font> <b>tremon:</b></font> AvocetVIS: they&apos;re available in jessie<br/>
+<font color="#A82F2F"><font size="2">(08:21:53 PM)</font> <b>AvocetVIS:</b></font> thx tremon<br/>
+<font color="#A82F2F"><font size="2">(08:22:31 PM)</font> <b>tremon:</b></font> that still requires a dist-upgrade if you&apos;re on wheezy right now, but given that jessie is one week from release it may be your easiest option<br/>
+<font color="#A82F2F"><font size="2">(08:23:15 PM)</font> <b>Spida:</b></font> AvocetVIS: afaik they were available in wheezy, too<br/>
+<font color="#A82F2F"><font size="2">(08:23:31 PM)</font> <b>tremon:</b></font> ,v android-tools-adb<br/>
+<font color="#A82F2F"><font size="2">(08:23:33 PM)</font> <b>judd:</b></font> Package: android-tools-adb on i386 -- wheezy-backports: 4.2.2+git20130529-3~bpo70+1; sid: 4.2.2+git20130529-5.1; jessie: 4.2.2+git20130529-5.1<br/>
+<font color="#A82F2F"><font size="2">(08:23:45 PM)</font> <b>tremon:</b></font> yes, they&apos;re in wheezy-backports<br/>
+<font color="#A82F2F"><font size="2">(08:24:26 PM)</font> <b>AvocetVIS:</b></font> wheezy-backports for adb seems<br/>
+<font color="#A82F2F"><font size="2">(08:24:31 PM)</font> <b>AvocetVIS:</b></font> yeah, thx guys<br/>
+<font color="#A82F2F"><font size="2">(08:24:57 PM)</font> <b>tremon:</b></font> android-tools-fastboot is in backports as well<br/>
+<font color="#A82F2F"><font size="2">(08:25:34 PM)</font> <b>CutMeOwnThroat:</b></font> *sigh* picture from pidgin opened in internet explorer using wine<br/>
+<font color="#A82F2F"><font size="2">(08:28:56 PM)</font> <b>Akuw:</b></font> i have Grub Error 15<br/>
+<font color="#A82F2F"><font size="2">(08:29:17 PM)</font> <b>Akuw:</b></font> i can fix using super grub disk but site is down<br/>
+<font color="#A82F2F"><font size="2">(08:29:29 PM)</font> <b>Akuw:</b></font> any secure place to download?<br/>
+<font color="#A82F2F"><font size="2">(08:31:22 PM)</font> <b>tremon:</b></font> Akuw: since you&apos;re asking in #debian, I&apos;ll gladly point you to the http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/ netinst.iso which also has a rescue mode<br/>
+<font color="#A82F2F"><font size="2">(08:31:54 PM)</font> <b>julius_-:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(08:32:11 PM)</font> <b>Krakakanok:</b></font> hello julius_-<br/>
+<font color="#A82F2F"><font size="2">(08:32:26 PM)</font> <b>julius_-:</b></font> can i install debian testing with gnome from debian...testing....dvd1.iso   or do i need dvd2 and 3 also?<br/>
+<font color="#A82F2F"><font size="2">(08:33:18 PM)</font> <b>waks:</b></font> julius_: Yes, even with CD1 only, no need for the DVD flavour<br/>
+<font color="#A82F2F"><font size="2">(08:33:46 PM)</font> <b>Krakakanok:</b></font> i prefer install gnome of other later<br/>
+<font color="#A82F2F"><font size="2">(08:33:52 PM)</font> <b>teraflop:</b></font> CutMeOwnThroat: i asked the same several times, http://wiki.winehq.org/FAQ#head-c847a3ded88bac0e61aae0037fa7dbd4c7ae042a<br/>
+<font size="2">(08:36:23 PM)</font><b> martinst is now known as martins-afk</b><br/>
+<font color="#A82F2F"><font size="2">(08:36:37 PM)</font> <b>tremon:</b></font> teraflop: thanks!<br/>
+<font color="#A82F2F"><font size="2">(08:37:30 PM)</font> <b>teraflop:</b></font> CutMeOwnThroat: or just delete the .desktop files wine creates<br/>
+<font size="2">(08:38:31 PM)</font><b> tcpman is now known as Guest14604</b><br/>
+<font color="#A82F2F"><font size="2">(08:39:14 PM)</font> <b>teraflop:</b></font> to be fair i just asked because i was curious at this behaviour too<br/>
+<font color="#A82F2F"><font size="2">(08:41:37 PM)</font> <b>converge:</b></font> Does Debian project have a goal list, or a management team, or something that drives the project ?<br/>
+<font color="#A82F2F"><font size="2">(08:42:27 PM)</font> <b>Mousey:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(08:42:35 PM)</font> <b>Mousey:</b></font> it&apos;s all just chaos and whimsy<br/>
+<font color="#A82F2F"><font size="2">(08:42:45 PM)</font> <b>Mousey:</b></font> also I&apos;m lying<br/>
+<font color="#A82F2F"><font size="2">(08:44:03 PM)</font> <b>Krakakanok:</b></font> xD<br/>
+<font color="#A82F2F"><font size="2">(09:15:38 PM)</font> <b>CutMeOwnThroat:</b></font> teraflop, hmm, interesting, but as the point where you already installed it is the one where you notice... and I don&apos;t think I have a .desktop wine file (nor do I think it would/should make a difference?)<br/>
+<font color="#A82F2F"><font size="2">(09:16:36 PM)</font> <b>somiaj:</b></font> if you use wine to install software, the &apos;create a short cut&apos; turns into creating a .desktop file and putting it somewhere in $HOME<br/>
+<font color="#A82F2F"><font size="2">(09:17:08 PM)</font> <b>CutMeOwnThroat:</b></font> yes... but that doesn&apos;t change file associations, I think<br/>
+<font size="2">(09:17:12 PM)</font><b> AlphaTech is now known as zz_AlphaTech</b><br/>
+<font size="2">(09:17:25 PM)</font><b> zz_AlphaTech is now known as AlphaTech</b><br/>
+<font color="#A82F2F"><font size="2">(09:20:57 PM)</font> <b>CutMeOwnThroat:</b></font> teraflop, hmm... anway this ways &quot;Users who do not want the installer for a Windows app to change filetype associations&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:20:57 PM)</font> <b>CutMeOwnThroat:</b></font> oh, I see... the app being IE<br/>
+<font color="#A82F2F"><font size="2">(09:20:57 PM)</font> <b>somiaj:</b></font> CutMeOwnThroat: I didn&apos;t see your actual issue. But wine can call any of the free desktop tools, and if xdg-open or xdg-mime can then deal with desktop assoications.<br/>
+<font color="#A82F2F"><font size="2">(09:20:57 PM)</font> <b>somiaj:</b></font> and most desktops, file managers and stuff use these tools so file assoications can change.<br/>
+<font color="#A82F2F"><font size="2">(09:20:57 PM)</font> <b>CutMeOwnThroat:</b></font> somiaj, the thing that clicking on picture links (this time in pidgin) opens the picture in internet explorer<br/>
+<font color="#A82F2F"><font size="2">(09:20:57 PM)</font> <b>somiaj:</b></font> CutMeOwnThroat: check out xdg-open and xdg-mime I bet ya it is a combination of those tools that were used to change assoications.<br/>
+<font color="#A82F2F"><font size="2">(09:20:57 PM)</font> <b>somiaj:</b></font> i.e. you can use xdg-mime and look for the default action to do with picture links.<br/>
+<font color="#A82F2F"><font size="2">(09:23:15 PM)</font> <b>CutMeOwnThroat:</b></font> somiaj, well, xdg-open opens in IE<br/>
+<font color="#A82F2F"><font size="2">(09:23:45 PM)</font> <b>somiaj:</b></font> CutMeOwnThroat: and xdg-open uses the info from xdg-mime which can be configured. I recall it is always a pain to rember the syntax to use xdg-mime, but you can change the &apos;defaults&apos;<br/>
+<font color="#A82F2F"><font size="2">(09:23:58 PM)</font> <b>CutMeOwnThroat:</b></font> but xdg-mime query default image/png (or image/jpg) prints nothing<br/>
+<font color="#A82F2F"><font size="2">(09:24:29 PM)</font> <b>somiaj:</b></font> CutMeOwnThroat: could it be a link? I always struggle with this myself, finding the correct mime type to mess with.<br/>
+<font color="#A82F2F"><font size="2">(09:24:38 PM)</font> <b>somiaj:</b></font> there may be a way to list them all<br/>
+<font color="#A82F2F"><font size="2">(09:25:11 PM)</font> <b>CutMeOwnThroat:</b></font> somiaj, so do I... I &quot;fixed&quot; similar (the same) things once or twice... seeems to keep popping up<br/>
+<font color="#A82F2F"><font size="2">(09:26:28 PM)</font> <b>CutMeOwnThroat:</b></font> hm, setting XDG_UTILS_DEBUG_LEVEL prints a couple of files that it&apos;s checking<br/>
+<font color="#A82F2F"><font size="2">(09:26:59 PM)</font> <b>pfred1:</b></font> anyone here run Wheezy?<br/>
+<font color="#A82F2F"><font size="2">(09:27:31 PM)</font> <b>somiaj:</b></font> !anyone<br/>
+<font color="#A82F2F"><font size="2">(09:27:32 PM)</font> <b>dpkg:</b></font> Please do not ask if anyone can help you, knows &apos;something&apos; or uses &apos;some_program&apos;.  Instead, ask your real question.  (If the real question _was_ &quot;does anyone use &apos;some_program&apos;?&quot; ask me about &lt;popcon&gt; instead.)  See &lt;ask&gt; &lt;ask to ask&gt; &lt;polls&gt; &lt;search&gt; &lt;sicco&gt; &lt;smart questions&gt;.<br/>
+<font color="#A82F2F"><font size="2">(09:27:35 PM)</font> <b>CutMeOwnThroat:</b></font> pfred1, are you kidding? anyone running the current stable distribution of debian in #debian?!<br/>
+<font color="#A82F2F"><font size="2">(09:27:43 PM)</font> <b>CutMeOwnThroat:</b></font> the very thought of it!<br/>
+<font color="#062585"><font size="2">(09:27:48 PM)</font> <b>***Mousey</b></font> shakes head<br/>
+<font color="#A82F2F"><font size="2">(09:27:52 PM)</font> <b>pfred1:</b></font> well fuck it then<br/>
+<font color="#A82F2F"><font size="2">(09:27:54 PM)</font> <b>Mousey:</b></font> chaos and whimsy!<br/>
+<font size="2">(09:27:58 PM)</font><b> pfred1 left the room.</b><br/>
+<font color="#062585"><font size="2">(09:28:03 PM)</font> <b>***blackflow</b></font> gasps<br/>
+<font color="#A82F2F"><font size="2">(09:28:14 PM)</font> <b>Mousey:</b></font> wait, what just happened<br/>
+<font color="#A82F2F"><font size="2">(09:28:17 PM)</font> <b>CutMeOwnThroat:</b></font> (note sarcasm)<br/>
+<font color="#A82F2F"><font size="2">(09:28:38 PM)</font> <b>Mousey:</b></font> it should be illegal to use IRC without a functioning sense of humor<br/>
+<font color="#A82F2F"><font size="2">(09:28:40 PM)</font> <b>CutMeOwnThroat:</b></font> that was weird... I thought even without the tag it might have been quite obvious<br/>
+<font color="#A82F2F"><font size="2">(09:28:53 PM)</font> <b>somiaj:</b></font> people are to easily offended on irc, because text does a terrible job at protraying emotion and people put wrong emotions on it.<br/>
+<font color="#A82F2F"><font size="2">(09:29:01 PM)</font> <b>CutMeOwnThroat:</b></font> :(<br/>
+<font color="#A82F2F"><font size="2">(09:29:15 PM)</font> <b>Mousey:</b></font> it&apos;s 2015 (by some calandars) though! you&apos;d think people would be clued in<br/>
+<font color="#A82F2F"><font size="2">(09:29:31 PM)</font> <b>CutMeOwnThroat:</b></font> or perhaps he didn&apos;t like the !anyone<br/>
+<font color="#A82F2F"><font size="2">(09:29:31 PM)</font> <b>acz32:</b></font> and people have different ideas about what is humorous and what isn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(09:29:36 PM)</font> <b>somiaj:</b></font> CutMeOwnThroat: anyways, good luck with your xdg-mime issue. I always find I have to stumble around until I finally get it to work, and it is rarely easy (just my experience, I could never find any decent documentation)<br/>
+<font color="#A82F2F"><font size="2">(09:29:51 PM)</font> <b>CutMeOwnThroat:</b></font> somiaj, maybe I can write up a factoid<br/>
+<font color="#A82F2F"><font size="2">(09:30:18 PM)</font> <b>somiaj:</b></font> yea maybe I just have always sucked at finding good document...oh my, i&apos;m late, *poof*<br/>
+<font color="#A82F2F"><font size="2">(09:30:42 PM)</font> <b>CutMeOwnThroat:</b></font> well, the only file that xdg-mime seems to check and that I have is /home/k/.local/share//applications/mimeapps.list<br/>
+<font color="#A82F2F"><font size="2">(09:30:55 PM)</font> <b>CutMeOwnThroat:</b></font> and the only entry that could be related is application/x-wine-extension-cfg=tea.desktop<br/>
+<font color="#A82F2F"><font size="2">(09:31:25 PM)</font> <b>CutMeOwnThroat:</b></font> unfortunately commenting that out changes nothing<br/>
+<font color="#A82F2F"><font size="2">(09:33:07 PM)</font> <b>teraflop:</b></font> CutMeOwnThroat: are you in a DE?<br/>
+<font color="#A82F2F"><font size="2">(09:33:52 PM)</font> <b>CutMeOwnThroat:</b></font> teraflop, mh, not so easy to answer... I started out with gnome and kicked it using openbox --replace when it ate my cpu<br/>
+<font color="#A82F2F"><font size="2">(09:34:20 PM)</font> <b>CutMeOwnThroat:</b></font> debugging output of xdg-open still prints Selected DE gnome3<br/>
+<font color="#A82F2F"><font size="2">(09:34:35 PM)</font> <b>Krakakanok:</b></font> dwm rulz!!<br/>
+<font color="#A82F2F"><font size="2">(09:34:44 PM)</font> <b>teraflop:</b></font> CutMeOwnThroat: gnome and KDE bypasses xdg mime stuff and use their own<br/>
+<font color="#A82F2F"><font size="2">(09:36:13 PM)</font> <b>CutMeOwnThroat:</b></font> oh ... seems you were right about the .desktop... found it with strace<br/>
+<font color="#A82F2F"><font size="2">(09:36:15 PM)</font> <b>CutMeOwnThroat:</b></font> $HOME/.local/share/applications/wine-extension-jpg.desktop<br/>
+<font color="#A82F2F"><font size="2">(09:36:25 PM)</font> <b>Fahrradkette:</b></font> Hey guys. Is the version of a .deb packet the same as the version of the underlying binary? I.e. does &quot;mono-runtime 3.2.8+dfsg-10&quot; correspond to the mono version or is it just some arbitrary number?<br/>
+<font color="#A82F2F"><font size="2">(09:36:31 PM)</font> <b>teraflop:</b></font> CutMeOwnThroat: also use xdg-mimr query/set for changing the stuff<br/>
+<font color="#A82F2F"><font size="2">(09:37:00 PM)</font> <b>CutMeOwnThroat:</b></font> wow, .local/share/applications is full of them<br/>
+<font color="#A82F2F"><font size="2">(09:37:11 PM)</font> <b>teraflop:</b></font> CutMeOwnThroat:  just delete the ones wine created<br/>
+<font color="#A82F2F"><font size="2">(09:37:26 PM)</font> <b>CutMeOwnThroat:</b></font> that&apos;s only a 120 :)<br/>
+<font color="#A82F2F"><font size="2">(09:37:29 PM)</font> <b>teraflop:</b></font> there&apos;s no need of editing stuff<br/>
+<font color="#A82F2F"><font size="2">(09:37:34 PM)</font> <b>teraflop:</b></font> xd<br/>
+<font color="#A82F2F"><font size="2">(09:37:35 PM)</font> <b>tremon:</b></font> Fahrradkette: there&apos;s no technical solution enforcing that convention, but yes, 3.2.8 should be the upstream version<br/>
+<font size="2">(09:38:00 PM)</font><b> mode (+l 1658) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:38:01 PM)</font> <b>acz32:</b></font> is there any way to install a DE without its file manager and bundled software? --no-install-recommends doesn&apos;t cut out enough of the bloat<br/>
+<font color="#A82F2F"><font size="2">(09:38:12 PM)</font> <b>Fahrradkette:</b></font> tremon: thanks :)<br/>
+<font color="#A82F2F"><font size="2">(09:38:27 PM)</font> <b>CutMeOwnThroat:</b></font> haha... now xdg-open uses imagej to open pictures<br/>
+<font color="#A82F2F"><font size="2">(09:38:47 PM)</font> <b>teraflop:</b></font> CutMeOwnThroat: then xg-mime query / default what you want to change<br/>
+<font color="#A82F2F"><font size="2">(09:38:57 PM)</font> <b>CutMeOwnThroat:</b></font> it&apos;s an improvement, though<br/>
+<font color="#A82F2F"><font size="2">(09:39:05 PM)</font> <b>teraflop:</b></font> sorry the typos I&apos;m on the phone<br/>
+<font color="#A82F2F"><font size="2">(09:39:50 PM)</font> <b>CutMeOwnThroat:</b></font> xdg-mime query default image/png seems somewhat broken... I think it should have shown me the file<br/>
+<font color="#A82F2F"><font size="2">(09:40:22 PM)</font> <b>teraflop:</b></font> CutMeOwnThroat: look at this stuff it is distro agnostic https://wiki.archlinux.org/index.php/Xdg-open<br/>
+<font color="#A82F2F"><font size="2">(09:40:40 PM)</font> <b>CutMeOwnThroat:</b></font> teraflop / somiaj thanks... I&apos;ll look a bit further but put ~/.local/share/applications into a factoid (can see when the next guy has it if it&apos;s generally there)<br/>
+<font color="#A82F2F"><font size="2">(09:41:31 PM)</font> <b>teraflop:</b></font> CutMeOwnThroat: ;)<br/>
+<font color="#A82F2F"><font size="2">(09:54:47 PM)</font> <b>blackflow:</b></font> quick question: 4x1TB HDD server... should I use 4 swap partitions, or 1 x RAID 0 swap partition? I don&apos;t expect to use swap, but if it gets used, I want it fast of course.<br/>
+<font color="#A82F2F"><font size="2">(09:55:18 PM)</font> <b>tremon:</b></font> blackflow: can you tolerate application or kernel crashes when a disk is removed?<br/>
+<font color="#A82F2F"><font size="2">(09:55:42 PM)</font> <b>blackflow:</b></font> tremon: well I prefer no crash, hence the data and root will be raid 10<br/>
+<font color="#A82F2F"><font size="2">(09:56:07 PM)</font> <b>tremon:</b></font> you need some redundancy for swap as well<br/>
+<font color="#A82F2F"><font size="2">(09:56:26 PM)</font> <b>CutMeOwnThroat:</b></font> teraflop, \o/ got it to use eog, which is the sanest I could think of at the moment, thanks<br/>
+<font color="#A82F2F"><font size="2">(09:56:31 PM)</font> <b>blackflow:</b></font> good point I never thought about that... I&apos;ll just stick the swap into a raid 10 partition then<br/>
+<font color="#A82F2F"><font size="2">(09:56:33 PM)</font> <b>tremon:</b></font> if a piece of memory is discardable, it will never get written to swap anyway.<br/>
+<font color="#A82F2F"><font size="2">(09:56:43 PM)</font> <b>CutMeOwnThroat:</b></font> maybe feh would be better, not sure<br/>
+<font color="#A82F2F"><font size="2">(09:56:44 PM)</font> <b>blackflow:</b></font> true.<br/>
+<font color="#A82F2F"><font size="2">(09:57:13 PM)</font> <b>teraflop:</b></font> CutMeOwnThroat: np, just remember that gnome and kde use their own stuff<br/>
+<font color="#A82F2F"><font size="2">(09:58:32 PM)</font> <b>acz32:</b></font> why can i not purge a file manager without also removing its associated desktop environment<br/>
+<font color="#A82F2F"><font size="2">(09:58:36 PM)</font> <b>blackflow:</b></font> tremon: would you perhaps know if grub2 in Jessie is capable of loading the kernel from a raid 10 partition? Or should I stick with raid 1 for /boot<br/>
+<font color="#A82F2F"><font size="2">(09:58:58 PM)</font> <b>CutMeOwnThroat:</b></font> teraflop, let&apos;s see what happens when I switch to gnome<br/>
+<font color="#A82F2F"><font size="2">(09:59:12 PM)</font> <b>CutMeOwnThroat:</b></font> teraflop, nope, same behavior<br/>
+<font color="#A82F2F"><font size="2">(09:59:51 PM)</font> <b>CutMeOwnThroat:</b></font> at least the gnome3 in wheezy seems to use the same mechanisms<br/>
+<font color="#A82F2F"><font size="2">(10:00:08 PM)</font> <b>tremon:</b></font> blackflow: I believe it should be able to read raid10, but I have never tried that myself<br/>
+<font size="2">(10:00:32 PM)</font><b> CyberSix_ is now known as CyberSix</b><br/>
+<font size="2">(10:12:15 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

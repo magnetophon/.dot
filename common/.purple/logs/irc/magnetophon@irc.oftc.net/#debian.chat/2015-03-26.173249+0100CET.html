@@ -1,0 +1,73 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Thu 26 Mar 2015 05:32:49 PM CET on magnetophon@irc.oftc.net (irc)</title></head><body><h3>Conversation with #debian at Thu 26 Mar 2015 05:32:49 PM CET on magnetophon@irc.oftc.net (irc)</h3>
+<font size="2">(05:32:49 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next | chanlogs: /msg dpkg irclog | Broken suspend with 7.8? <a href="http://deb.li/5tYG">http://deb.li/5tYG</a></b><br/>
+<font size="2">(05:32:49 PM)</font><b> Topic for #debian set by Maulkin!~maulkin@maulkin.noc.oftc.net at 04:53:46 PM on 01/12/2015</b><br/>
+<font size="2">(05:38:51 PM)</font><b> mt is now known as Guest125</b><br/>
+<font color="#A82F2F"><font size="2">(05:40:26 PM)</font> <b>Glanzmann:</b></font> Hello; I have lenovo x1 carbon gen 3 running Jessie amd64. Everytime I close my lid it does a suspend to ram or disk, how can I disable this behaviour on jessie?<br/>
+<font color="#A82F2F"><font size="2">(05:41:06 PM)</font> <b>mtn:</b></font> Glanzmann: are you using a desktop environment? if so, which one?<br/>
+<font color="#A82F2F"><font size="2">(05:41:35 PM)</font> <b>Guest125:</b></font> Hi again. As far as the LG G2 connection to Debian is concerned, I solved the problem by installing gMTP. It works :-) !!! Thank you wasppr for your hint!<br/>
+<font color="#A82F2F"><font size="2">(05:41:42 PM)</font> <b>Glanzmann:</b></font> mtn: No, I run startx + fvwm2.<br/>
+<font color="#A82F2F"><font size="2">(05:41:58 PM)</font> <b>mtn:</b></font> Glanzmann: ok, not sure in that case<br/>
+<font size="2">(05:43:11 PM)</font><b> knoppix_ is now known as Guest126</b><br/>
+<font color="#A82F2F"><font size="2">(05:47:55 PM)</font> <b>awal:</b></font> Glanzmann: if you are using systemd probably you can change the defaults. check /etc/systemd/logind.conf    specifically the line HandleLidSwitch<br/>
+<font size="2">(05:48:00 PM)</font><b> mode (+l 743) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:48:19 PM)</font> <b>finetundra:</b></font> hello everyone, I&apos;m getting an error on login that reads &quot;GDBus.Error:org.freedesktop.PoliyKit1.Error.Failed: An authentication agent already exists for the given subject&quot; can anyone give me a hand?<br/>
+<font color="#A82F2F"><font size="2">(05:48:45 PM)</font> <b>musca:</b></font> Glanzmann:  logind.conf has its own man page<br/>
+<font color="#A82F2F"><font size="2">(05:49:34 PM)</font> <b>Glanzmann:</b></font> awal: I disabled systemd as good as I could: https://pbot.rmdir.de/hyhlpDtvl0J8rLiI8PvgsA<br/>
+<font color="#A82F2F"><font size="2">(05:49:37 PM)</font> <b>Glanzmann:</b></font> Is there a better way?<br/>
+<font color="#A82F2F"><font size="2">(05:50:14 PM)</font> <b>Glanzmann:</b></font> But yes, I have the logind running.<br/>
+<font color="#A82F2F"><font size="2">(05:51:46 PM)</font> <b>Glanzmann:</b></font> I send logind a &apos;-1&apos;<br/>
+<font color="#A82F2F"><font size="2">(05:52:03 PM)</font> <b>Glanzmann:</b></font> Now it is gone.<br/>
+<font color="#A82F2F"><font size="2">(05:54:51 PM)</font> <b>awal:</b></font> Glanzmann: I have a basic knowledge about systemd. but if logind is is use there , in the line HandleLidSwitch=suspend  change suspend by whatever you want: ignore, lock...uncomenting the line probably<br/>
+<font color="#A82F2F"><font size="2">(05:55:12 PM)</font> <b>Glanzmann:</b></font> awal: Yes, I set it to no.<br/>
+<font color="#A82F2F"><font size="2">(05:56:10 PM)</font> <b>Glanzmann:</b></font> Okay ignore seems to be the right setting. I&apos;ll try to reboot and see if that fixes it.<br/>
+<font color="#A82F2F"><font size="2">(05:56:18 PM)</font> <b>Guest125:</b></font> join #bumblebee<br/>
+<font color="#A82F2F"><font size="2">(05:57:25 PM)</font> <b>awal:</b></font> Glanzmann: https://wiki.archlinux.org/index.php/Power_management  a nice tuto about power management <br/>
+<font size="2">(05:58:01 PM)</font><b> Guest125 left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(05:58:36 PM)</font> <b>Glanzmann:</b></font> awal / musca: Thank you for resolving my problem.<br/>
+<font color="#A82F2F"><font size="2">(05:58:43 PM)</font> <b>Glanzmann:</b></font> Oh and mtm, too,<br/>
+<font color="#A82F2F"><font size="2">(05:59:17 PM)</font> <b>awal:</b></font> Glanzmann: you changed the line to &apos;ignore&apos; ?<br/>
+<font color="#A82F2F"><font size="2">(05:59:44 PM)</font> <b>awal:</b></font> what happen when you close your lid now?<br/>
+<font color="#A82F2F"><font size="2">(06:02:31 PM)</font> <b>Glanzmann:</b></font> awal: Yes, I did.<br/>
+<font color="#A82F2F"><font size="2">(06:02:48 PM)</font> <b>Glanzmann:</b></font> awal: I can&apos;t tell because I first set it to &apos;no&apos; than I sent a kill -1 to it and it died.<br/>
+<font color="#A82F2F"><font size="2">(06:03:26 PM)</font> <b>Glanzmann:</b></font> Now when I close my lid nothing happens. After you comment I checked the manpage again and set it to &apos;ignore&apos;. I&apos;m currently compiling a new kernel because the current jessie kernel seems to screw my WLAN.<br/>
+<font color="#A82F2F"><font size="2">(06:04:08 PM)</font> <b>awal:</b></font> ok (Y)<br/>
+<font color="#A82F2F"><font size="2">(06:04:55 PM)</font> <b>Glanzmann:</b></font> I&apos;m travelling a lot and with the current jessie kernel (I don&apos;t know if it is the kernels fault) I can not associate with many WLANs for example on vienna airport: https://pbot.rmdir.de/1ASeQ2IO_Axs60iOaFHqKw so I end up doing tethering over my phone.<br/>
+<font color="#A82F2F"><font size="2">(06:05:11 PM)</font> <b>Glanzmann:</b></font> So I&apos;ll reboot in a second and tell you. But I&apos;m pretty sure that it solved my problem.<br/>
+<font color="#A82F2F"><font size="2">(06:07:37 PM)</font> <b>awal:</b></font> Glanzmann: no reboot needed, just restart the systemd-logind daemon<br/>
+<font color="#A82F2F"><font size="2">(06:07:58 PM)</font> <b>awal:</b></font> systemctl restart systemd-logind.service<br/>
+<font size="2">(06:09:42 PM)</font><b> prahal__ is now known as prahal___</b><br/>
+<font color="#A82F2F"><font size="2">(06:09:53 PM)</font> <b>Glanzmann:</b></font> awal: Okay, I see. I rebooted now and it fixed my problem indeed.<br/>
+<font color="#A82F2F"><font size="2">(06:09:55 PM)</font> <b>Glanzmann:</b></font> Thank you a lot.<br/>
+<font color="#A82F2F"><font size="2">(06:10:04 PM)</font> <b>awal:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(06:10:39 PM)</font> <b>Glanzmann:</b></font> But I screwed up my new kernel. No wlan and usb network compiled in. I&apos;ll fix that and see if that fixes my WLAN for the Vienna Airport.<br/>
+<font color="#A82F2F"><font size="2">(06:21:45 PM)</font> <b>finetundra:</b></font> hello, I&apos;m having an issue where my desktop settings aren&apos;t saved. how do I resolve this?<br/>
+<font size="2">(06:24:31 PM)</font><b> finetundra left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(06:30:24 PM)</font> <b>gnox:</b></font> Hey guys im experiencing some fancy problems with my xfce4-mixer applet. When i turn the volume down to zero (mute) and want to turn the volume back up, the system stays muted...<br/>
+<font color="#A82F2F"><font size="2">(06:30:58 PM)</font> <b>gnox:</b></font> Tried different things as described here: https://forum.xfce.org/viewtopic.php?pid=36928#p36928<br/>
+<font color="#A82F2F"><font size="2">(06:31:46 PM)</font> <b>gnox:</b></font> I have to open the terminal and then unmute the sound with alsamixer<br/>
+<font color="#A82F2F"><font size="2">(06:32:13 PM)</font> <b>gnox:</b></font> everytime I muted the audio<br/>
+<font color="#A82F2F"><font size="2">(06:33:14 PM)</font> <b>gnox:</b></font> any ideas how to resolve that?<br/>
+<font color="#A82F2F"><font size="2">(06:36:29 PM)</font> <b>blast007:</b></font> gnox: does this bug report match up with your issue?  https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=711460<br/>
+<font color="#A82F2F"><font size="2">(06:40:58 PM)</font> <b>awal:</b></font> gnox: if you are using pulseaudio , I have same issue here. it affects all the DE and WM&apos;s I use. bug 711460 isn&apos;&apos;t xfce only related. seems to be a pulseaudio related. install pavucontrol for manage pulse<br/>
+<font color="#A82F2F"><font size="2">(06:42:01 PM)</font> <b>awal:</b></font> finetundra: which DE you run?<br/>
+<font color="#A82F2F"><font size="2">(06:49:12 PM)</font> <b>gnox:</b></font> blast007: the report sounds exaclty like what i am experiencing<br/>
+<font color="#A82F2F"><font size="2">(06:50:26 PM)</font> <b>gnox:</b></font> awal: I already have pavucontrol installed. But it&apos;s still ugly to switch everytime the sound gets muted. Or is there an applet for pulseaudio?<br/>
+<font color="#A82F2F"><font size="2">(06:51:01 PM)</font> <b>gnox:</b></font> One could also remove pulseaudio (dunno if this is a good idea...)?<br/>
+<font color="#A82F2F"><font size="2">(06:52:58 PM)</font> <b>Brigo:</b></font> gnox, there i an applet for pulseaudio, yes.<br/>
+<font color="#A82F2F"><font size="2">(06:53:37 PM)</font> <b>gnox:</b></font> Brigo: could you tell me whitch one?<br/>
+<font color="#A82F2F"><font size="2">(06:54:04 PM)</font> <b>awal:</b></font> gnox: sorry, but I have no idea about how to solve that issue, I&apos;m living with since 1 year now. that issue only affects my jessie/sid machines, not wheezy. probably systemd is involved too, not only pulseaudio<br/>
+<font color="#A82F2F"><font size="2">(06:55:59 PM)</font> <b>Brigo:</b></font> gnox, not sure may be paman or papred or pasystray. <br/>
+<font color="#A82F2F"><font size="2">(06:56:10 PM)</font> <b>dr4gnet:</b></font> hey<br/>
+<font color="#A82F2F"><font size="2">(06:56:25 PM)</font> <b>gnox:</b></font> Brigo, thanks - i&apos;ll take a look at those<br/>
+<font color="#A82F2F"><font size="2">(06:56:47 PM)</font> <b>Brigo:</b></font> gnox, good luck.<br/>
+<font size="2">(06:58:23 PM)</font><b> dr4gnet left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(06:58:29 PM)</font> <b>awal:</b></font> Brigo: I don&apos;t know about any pulseaudio volume icon applet for control sound volume. paman, pavumeter...have different purposes related with pulse server...<br/>
+<font color="#A82F2F"><font size="2">(06:59:58 PM)</font> <b>Brigo:</b></font> Yes , i am talking about a pulseaudio device chooser. I can use it for sound config and mix and volume and etc.<br/>
+<font color="#A82F2F"><font size="2">(07:02:33 PM)</font> <b>awal:</b></font> Brigo: right, padevchooser have all that features<br/>
+<font color="#A82F2F"><font size="2">(07:03:08 PM)</font> <b>Brigo:</b></font> but it is not what gnox was asking for? :)<br/>
+<font color="#A82F2F"><font size="2">(07:05:12 PM)</font> <b>awal:</b></font> I think he is looking for a systray icon for pulseaudio<br/>
+<font color="#A82F2F"><font size="2">(07:05:17 PM)</font> <b>gnox:</b></font> i was asking for an applet for the xfce panel to mange the volume-level, since the standard xfce4-mixer and xfce4-volumed ones are quite buggy<br/>
+<font color="#A82F2F"><font size="2">(07:05:33 PM)</font> <b>gnox:</b></font> exactly, awal ;)<br/>
+<font color="#A82F2F"><font size="2">(07:07:09 PM)</font> <b>Brigo:</b></font> may be pasystray?<br/>
+<font size="2">(07:09:18 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

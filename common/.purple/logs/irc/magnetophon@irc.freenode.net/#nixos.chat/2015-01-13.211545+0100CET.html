@@ -1,0 +1,246 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Tue 13 Jan 2015 09:15:45 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Tue 13 Jan 2015 09:15:45 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(09:15:46 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(09:15:46 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(09:25:31 PM)</font> <b>carter_cloud:</b></font> ttuegel:  ok got some output\<br/>
+<font color="#A82F2F"><font size="2">(09:26:02 PM)</font> <b>ttuegel:</b></font> carter_cloud: successful build, i hope?<br/>
+<font color="#A82F2F"><font size="2">(09:27:59 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 2 new commits to master: http://git.io/57ayOA<br/>
+<font color="#A82F2F"><font size="2">(09:27:59 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b97c293 Peter Simons: haskell-ng: register the 7.8.3 binary snapshot of GHC<br/>
+<font color="#A82F2F"><font size="2">(09:27:59 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master ddf0804 Peter Simons: ghc-7.8.3-binary: remove broken platforms...<br/>
+<font color="#A82F2F"><font size="2">(09:28:25 PM)</font> <b>carter_cloud:</b></font> ttuegel:  https://gist.github.com/anonymous/5b0ee12f9b8b74ef5911<br/>
+<font color="#A82F2F"><font size="2">(09:29:07 PM)</font> <b>carter:</b></font> idk if that means it failre or not<br/>
+<font color="#A82F2F"><font size="2">(09:29:49 PM)</font> <b>ttuegel:</b></font> carter: that&apos;s failure. it looks like the bootstrap&apos;d nix isn&apos;t passing its tests<br/>
+<font color="#A82F2F"><font size="2">(09:30:14 PM)</font> <b>Digit:</b></font> how long does it take to get used to these file system tree quirks of nixos?  seems daunting still (after a couple days) trying to find my way around.<br/>
+<font color="#A82F2F"><font size="2">(09:30:34 PM)</font> <b>ttuegel:</b></font> carter: is there a reason nix might not be able to figure out what user it&apos;s running as in the proot?<br/>
+<font color="#A82F2F"><font size="2">(09:31:29 PM)</font> <b>carter:</b></font> ttuegel: i fuckd up the $HOME piece :)<br/>
+<font color="#A82F2F"><font size="2">(09:31:54 PM)</font> <b>ttuegel:</b></font> that might do it, what went wrong?<br/>
+<font color="#A82F2F"><font size="2">(09:32:42 PM)</font> <b>carter:</b></font> i left it at $HOME<br/>
+<font color="#A82F2F"><font size="2">(09:34:00 PM)</font> <b>vcunat:</b></font> Digit: I don&apos;t think I was ever much using absolute paths to packages (like /usr/*)<br/>
+<font color="#A82F2F"><font size="2">(09:34:21 PM)</font> <b>vcunat:</b></font> but it&apos;s possible that my view is distorted after many years with Nix(OS)<br/>
+<font color="#A82F2F"><font size="2">(09:35:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lethalman pushed 1 new commit to master: http://git.io/G6eDgw<br/>
+<font color="#A82F2F"><font size="2">(09:35:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5f12045 Luca Bruno: blender: fix build after update to 2.73<br/>
+<font color="#A82F2F"><font size="2">(09:35:53 PM)</font> <b>Lethalman:</b></font> niksnut, you didn&apos;t check whether blender built, right? :P ^^<br/>
+<font color="#A82F2F"><font size="2">(09:36:44 PM)</font> <b>vcunat:</b></font> apparently not :-)<br/>
+<font color="#A82F2F"><font size="2">(09:42:36 PM)</font> <b>McEnroe:</b></font> How do I specify a build time only dependency?<br/>
+<font color="#A82F2F"><font size="2">(09:43:16 PM)</font> <b>ttuegel:</b></font> McEnroe: you don&apos;t need to, nix detects which dependencies are run-time on its own<br/>
+<font color="#A82F2F"><font size="2">(09:43:19 PM)</font> <b>McEnroe:</b></font> I.e. some tool is needed once during the build process to convert images and that&apos;s it.<br/>
+<font color="#A82F2F"><font size="2">(09:43:23 PM)</font> <b>McEnroe:</b></font> ttuegel: I see.<br/>
+<font color="#A82F2F"><font size="2">(10:02:13 PM)</font> <b>groff:</b></font> I have a potentially stupid question: I administer a few CentOS servers and would like to augment the system with the nix package manager. HOWEVER, what I&apos;d like is that only root can install software in the /nix store (I realise that&apos;s undermining one of the great advantages). Is something like that possible?<br/>
+<font color="#A82F2F"><font size="2">(10:02:48 PM)</font> <b>vcunat:</b></font> groff: yes<br/>
+<font color="#A82F2F"><font size="2">(10:03:18 PM)</font> <b>vcunat:</b></font> groff: see http://nixos.org/nix/manual/#sec-single-user<br/>
+<font color="#A82F2F"><font size="2">(10:06:31 PM)</font> <b>groff:</b></font> Thanks for the reply. Can any other user in single user mode still use anything in /nix? Essentially, I want to have it so everyone can use whatever is in the store, without giving them the privilege of installing additional software not currently in the store.<br/>
+<font color="#A82F2F"><font size="2">(10:07:13 PM)</font> <b>vcunat:</b></font> groff: yes, /nix/store is world-readable (and executable where meaningful)<br/>
+<font color="#A82F2F"><font size="2">(10:08:12 PM)</font> <b>groff:</b></font> That&apos;s all I needed to know, and sounds perfect for my purposes.<br/>
+<font color="#A82F2F"><font size="2">(10:08:16 PM)</font> <b>groff:</b></font> Thank you.<br/>
+<font color="#A82F2F"><font size="2">(10:08:32 PM)</font> <b>vcunat:</b></font> :-)<br/>
+<font color="#A82F2F"><font size="2">(10:08:34 PM)</font> <b>vcunat:</b></font> You&apos;re welcome!<br/>
+<font color="#A82F2F"><font size="2">(10:11:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/7LbprQ<br/>
+<font color="#A82F2F"><font size="2">(10:11:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 07966be Vladimír Čunát: thunderbird: update, and refactor the expression...<br/>
+<font color="#A82F2F"><font size="2">(10:11:35 PM)</font> <b>carter:</b></font> ttuegel: booooo<br/>
+<font color="#A82F2F"><font size="2">(10:12:19 PM)</font> <b>carter_cloud:</b></font> ttuegel:  no dice<br/>
+<font color="#A82F2F"><font size="2">(10:14:02 PM)</font> <b>devoid:</b></font> is there a function like builtins.setAttr s set val? e.g. if I wanted to dynamically set values in a set?<br/>
+<font color="#A82F2F"><font size="2">(10:14:37 PM)</font> <b>vcunat:</b></font> devoid: mySet // { attr = val; }<br/>
+<font color="#A82F2F"><font size="2">(10:15:52 PM)</font> <b>devoid:</b></font> vcunat: thanks!<br/>
+<font color="#A82F2F"><font size="2">(10:16:01 PM)</font> <b>vcunat:</b></font> :-)<br/>
+<font color="#A82F2F"><font size="2">(10:16:47 PM)</font> <b>vcunat:</b></font> BTW, the language is fully dynamic (i.e. there&apos;s no static typing yet)<br/>
+<font color="#A82F2F"><font size="2">(10:16:52 PM)</font> <b>carter:</b></font> ttuegel: i think i need the new nix to be a different version than 1.8<br/>
+<font color="#A82F2F"><font size="2">(10:16:57 PM)</font> <b>carter:</b></font> so that theres no clobber<br/>
+<font color="#A82F2F"><font size="2">(10:17:01 PM)</font> <b>carter:</b></font> or maybe i&apos;m setting the paths wrong<br/>
+<font color="#A82F2F"><font size="2">(10:18:07 PM)</font> <b>ttuegel:</b></font> carter:  what do you mean, no clobber?<br/>
+<font color="#A82F2F"><font size="2">(10:18:14 PM)</font> <b>ttuegel:</b></font> carter: there can&apos;t be any clobber :)<br/>
+<font color="#A82F2F"><font size="2">(10:18:15 PM)</font> <b>carter:</b></font> i&apos;m just sad and confused<br/>
+<font color="#A82F2F"><font size="2">(10:18:25 PM)</font> <b>bshelden:</b></font> hmm, getting an error &quot;error: opening lock file ‘/nix/var/nix/profiles/default.lock’: Permission denied&quot; when in daemon mode.  What did I mess up in installation?<br/>
+<font color="#A82F2F"><font size="2">(10:18:44 PM)</font> <b>devoid:</b></font> hmm, looks like it doesn&apos;t like what I&apos;m trying to do:<br/>
+<font color="#A82F2F"><font size="2">(10:18:48 PM)</font> <b>ttuegel:</b></font> carter: can you paste an error message?<br/>
+<font color="#A82F2F"><font size="2">(10:19:22 PM)</font> <b>devoid:</b></font> systemd.services = systemd.services // { foo = { … } };<br/>
+<font color="#A82F2F"><font size="2">(10:19:29 PM)</font> <b>bshelden:</b></font> more context: Arch linux.  Installed nix.  Made the build group and users.  Started the daemon.  /nix is created.<br/>
+<font color="#A82F2F"><font size="2">(10:19:31 PM)</font> <b>carter_cloud:</b></font> $  ln -s $HOME/nix/var/nix/profiles/default $HOME/.nix-profile<br/>
+<font color="#A82F2F"><font size="2">(10:19:31 PM)</font> <b>carter_cloud:</b></font> ln: creating symbolic link `/home/v645736/.nix-profile/default&apos;: Permission denied<br/>
+<font color="#A82F2F"><font size="2">(10:19:43 PM)</font> <b>benley:</b></font> vcunat: you can strictly control who can put things in /nix/store even while using nix-daemon, fwiw<br/>
+<font color="#A82F2F"><font size="2">(10:20:09 PM)</font> <b>benley:</b></font> vcunat: by setting build-users-group in /etc/nix/nix.conf<br/>
+<font color="#A82F2F"><font size="2">(10:20:22 PM)</font> <b>benley:</b></font> wait I&apos;m responding to the wrong person, sorry<br/>
+<font color="#A82F2F"><font size="2">(10:20:34 PM)</font> <b>benley:</b></font> groff: ^^^^ that was meant for you :P<br/>
+<font color="#A82F2F"><font size="2">(10:21:06 PM)</font> <b>vcunat:</b></font> benley: build-users-group is something else<br/>
+<font color="#A82F2F"><font size="2">(10:21:11 PM)</font> <b>benley:</b></font> also uh that - yeah that<br/>
+<font color="#A82F2F"><font size="2">(10:21:24 PM)</font> <b>benley:</b></font> I meant allowed-users<br/>
+<font color="#A82F2F"><font size="2">(10:21:31 PM)</font> <b>vcunat:</b></font> it&apos;s the group that contains users under which builds are run<br/>
+<font color="#A82F2F"><font size="2">(10:21:40 PM)</font> <b>benley:</b></font> &quot;list of users that are allowed to connect to the nix daemon&quot; &lt;-- allowed-users<br/>
+<font color="#A82F2F"><font size="2">(10:21:47 PM)</font> <b>benley:</b></font> anyway.  Probably best to ignore me at this point.<br/>
+<font color="#A82F2F"><font size="2">(10:22:08 PM)</font> <b>vcunat:</b></font> I see<br/>
+<font color="#A82F2F"><font size="2">(10:22:30 PM)</font> <b>ttuegel:</b></font> carter_cloud: hold on, we&apos;re not ready for that step yet :)<br/>
+<font color="#A82F2F"><font size="2">(10:22:30 PM)</font> <b>vcunat:</b></font> I didn&apos;t remember we alraedy have allowed-users and trusted-users<br/>
+<font color="#A82F2F"><font size="2">(10:22:38 PM)</font> <b>devoid:</b></font> how might I dynamically insert services under config.systemd.services, e.g. if I need to configure multiple instances of the same daemon?<br/>
+<font color="#A82F2F"><font size="2">(10:22:55 PM)</font> <b>MichaelRaskin:</b></font> a0<br/>
+<font color="#A82F2F"><font size="2">(10:22:57 PM)</font> <b>ttuegel:</b></font> carter_cloud: you got &apos;nix-env -iA nixpkgs.nix&apos; to complete successfully, right?<br/>
+<font color="#A82F2F"><font size="2">(10:23:53 PM)</font> <b>vcunat:</b></font> devoid: I don&apos;t think it&apos;s generally supported to configure multiple instances of the same service<br/>
+<font color="#A82F2F"><font size="2">(10:24:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] rycee opened pull request #5748: Update &apos;unifont&apos; from 5.1-20080907 to 7.0.06. (master...update/unifont) http://git.io/PCvqpQ<br/>
+<font color="#A82F2F"><font size="2">(10:25:33 PM)</font> <b>benley:</b></font> devoid: that&apos;s a great application of containers<br/>
+<font color="#A82F2F"><font size="2">(10:25:42 PM)</font> <b>benley:</b></font> docker or otherwise<br/>
+<font color="#A82F2F"><font size="2">(10:25:46 PM)</font> <b>devoid:</b></font> vcunat: right, I&apos;m writing a service definition, and I want to create separate systemd services to spawn and monitor separate instances of same binary… it&apos;s a dumb case, but multiple http://znc.in binaries.<br/>
+<font color="#A82F2F"><font size="2">(10:27:37 PM)</font> <b>devoid:</b></font> benley, hmm I&apos;ll have to try that…<br/>
+<font color="#A82F2F"><font size="2">(10:28:55 PM)</font> <b>benley:</b></font> devoid: the nixos manual has a pretty solid chapter about containers<br/>
+<font color="#A82F2F"><font size="2">(10:29:23 PM)</font> <b>vcunat:</b></font> I don&apos;t know (directly) how to write such multi-services<br/>
+<font size="2">(10:32:07 PM)</font><b> iMatejC left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:32:10 PM)</font><b> niksnut left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:32:17 PM)</font><b> the-kenny left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:33:50 PM)</font><b> wkennington left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:33:51 PM)</font><b> henrytill left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:33:52 PM)</font><b> devoid left the room (quit: *.net *.split).</b><br/>
+<font color="#A82F2F"><font size="2">(10:34:00 PM)</font> <b>benley:</b></font> I wish I understood why it took like six hours to build ATLAS<br/>
+<font size="2">(10:34:40 PM)</font><b> the-kenny [<em>~moritz@tarn-vedra.de</em>] entered the room.</b><br/>
+<font size="2">(10:34:40 PM)</font><b> niksnut [<em>~eelco@ec2-54-228-213-75.eu-west-1.compute.amazonaws.com</em>] entered the room.</b><br/>
+<font size="2">(10:34:40 PM)</font><b> iMatejC [<em>~MatejC@v22014062232018793.yourvserver.net</em>] entered the room.</b><br/>
+<font size="2">(10:34:41 PM)</font><b> devoid [<em>~Adium@24-136-27-88.c3-0.lem-ubr2.chi-lem.il.cable.rcn.com</em>] entered the room.</b><br/>
+<font size="2">(10:34:41 PM)</font><b> wkennington [<em>~william@76.77.180.204</em>] entered the room.</b><br/>
+<font size="2">(10:34:41 PM)</font><b> henrytill [<em>~henrytill@unaffiliated/henrytill</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:35:03 PM)</font> <b>vcunat:</b></font> because it tries to tweak the output code to the particular machine<br/>
+<font color="#A82F2F"><font size="2">(10:35:04 PM)</font> <b>vcunat:</b></font> (it does lots of tests to find the best setting)<br/>
+<font color="#A82F2F"><font size="2">(10:35:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] civodul pushed 1 new commit to master: http://git.io/xTSz_A<br/>
+<font color="#A82F2F"><font size="2">(10:35:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 41b5357 Ludovic Courtès: unmaintain a bunch of packages<br/>
+<font color="#A82F2F"><font size="2">(10:35:40 PM)</font> <b>vcunat:</b></font> (we want to replace it by some deterministic solution, but someone would have to do it)<br/>
+<font color="#A82F2F"><font size="2">(10:35:50 PM)</font> <b>benley:</b></font> vcunat: and apparently there&apos;s no way to tell it &quot;heyyyyyy I&apos;m building a generic version for a distribution, don&apos;t do all that&quot;?<br/>
+<font color="#A82F2F"><font size="2">(10:36:25 PM)</font> <b>benley:</b></font> also it looks like parallel building is disabled for atlas<br/>
+<font color="#A82F2F"><font size="2">(10:36:31 PM)</font> <b>benley:</b></font> presumably for a reason<br/>
+<font size="2">(10:36:36 PM)</font><b> MichaelRaskin left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:36:40 PM)</font><b> goibhniu left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:36:47 PM)</font><b> benley left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:36:59 PM)</font><b> iMatejC left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:37:01 PM)</font><b> niksnut left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:37:08 PM)</font><b> the-kenny left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:37:10 PM)</font><b> wkennington left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:37:10 PM)</font><b> henrytill left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:37:11 PM)</font><b> devoid left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:37:19 PM)</font><b> ikwildrpepper left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:37:22 PM)</font><b> vcunat left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:37:25 PM)</font><b> ruediger left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:37:25 PM)</font><b> rubaka left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:37:25 PM)</font><b> stvc left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:37:25 PM)</font><b> ReinH left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:37:26 PM)</font><b> dustinswan left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:37:27 PM)</font><b> emallson left the room (quit: *.net *.split).</b><br/>
+<font color="#16569E"><font size="2">(10:37:46 PM)</font> <b>magnetophon:</b></font> wtf?<br/>
+<font size="2">(10:37:52 PM)</font><b> JamesJRH [<em>~james@ps87731.dreamhost.com</em>] entered the room.</b><br/>
+<font size="2">(10:37:52 PM)</font><b> Reventlov [<em>~Reventlov@unaffiliated/reventlov</em>] entered the room.</b><br/>
+<font size="2">(10:37:52 PM)</font><b> phreedom [<em>~quassel@gateway/tor-sasl/phreedom</em>] entered the room.</b><br/>
+<font size="2">(10:37:52 PM)</font><b> doublec [<em>~doublec@gateway/tor-sasl/doublec</em>] entered the room.</b><br/>
+<font size="2">(10:37:52 PM)</font><b> Ankhers [<em>~user@gateway/tor-sasl/ankhers</em>] entered the room.</b><br/>
+<font size="2">(10:37:52 PM)</font><b> emery [<em>~emery@gateway/tor-sasl/nickemery</em>] entered the room.</b><br/>
+<font size="2">(10:37:52 PM)</font><b> civodul [<em>~user@gateway/tor-sasl/civodul</em>] entered the room.</b><br/>
+<font size="2">(10:37:52 PM)</font><b> henrytill [<em>~henrytill@unaffiliated/henrytill</em>] entered the room.</b><br/>
+<font size="2">(10:37:52 PM)</font><b> wkennington [<em>~william@76.77.180.204</em>] entered the room.</b><br/>
+<font size="2">(10:37:52 PM)</font><b> iMatejC [<em>~MatejC@v22014062232018793.yourvserver.net</em>] entered the room.</b><br/>
+<font size="2">(10:37:53 PM)</font><b> niksnut [<em>~eelco@ec2-54-228-213-75.eu-west-1.compute.amazonaws.com</em>] entered the room.</b><br/>
+<font size="2">(10:37:53 PM)</font><b> the-kenny [<em>~moritz@tarn-vedra.de</em>] entered the room.</b><br/>
+<font size="2">(10:37:53 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font size="2">(10:37:53 PM)</font><b> MichaelRaskin [<em>~MichaelRa@195.91.224.161</em>] entered the room.</b><br/>
+<font size="2">(10:37:53 PM)</font><b> vcunat [<em>~admin@vetr-0455.koleje.cuni.cz</em>] entered the room.</b><br/>
+<font size="2">(10:37:53 PM)</font><b> benley [<em>~benley@osric.zoiks.net</em>] entered the room.</b><br/>
+<font size="2">(10:37:55 PM)</font><b> ikwildrpepper [<em>~rbvermaa@li198-191.members.linode.com</em>] entered the room.</b><br/>
+<font size="2">(10:38:35 PM)</font><b> MichaelRaskin left the room (quit: *.net *.split).</b><br/>
+<font color="#16569E"><font size="2">(10:38:40 PM)</font> <b>magnetophon:</b></font> Was that just on my end or did 210 people just leave the room for 10 seconds?<br/>
+<font color="#A82F2F"><font size="2">(10:38:59 PM)</font> <b>ttuegel:</b></font> magnetophon: both :) netsplit<br/>
+<font size="2">(10:40:35 PM)</font><b> MichaelRaskin [<em>~MichaelRa@195.91.224.161</em>] entered the room.</b><br/>
+<font size="2">(10:40:51 PM)</font><b> wkennington left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#16569E"><font size="2">(10:41:56 PM)</font> <b>magnetophon:</b></font> ttuegel: had to goole that. thanks :)<br/>
+<font size="2">(10:43:09 PM)</font><b> goibhniu left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:43:27 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:43:30 PM)</font> <b>niksnut:</b></font> Lethalman: I built it and I&apos;m running it<br/>
+<font size="2">(10:44:12 PM)</font><b> benley left the room (quit: *.net *.split).</b><br/>
+<font color="#A82F2F"><font size="2">(10:44:17 PM)</font> <b>niksnut:</b></font> but admittedly I built it on 14.12 and then committed it on master<br/>
+<font color="#A82F2F"><font size="2">(10:45:07 PM)</font> <b>Lethalman:</b></font> niksnut, it&apos;s weird because the patch didn&apos;t apply<br/>
+<font color="#A82F2F"><font size="2">(10:45:17 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti closed pull request #4548: new package: clash (master...clash) http://git.io/zN63RA<br/>
+<font color="#A82F2F"><font size="2">(10:45:21 PM)</font> <b>vcunat:</b></font> ah, probably the patch wasn&apos;t on 14.12<br/>
+<font color="#A82F2F"><font size="2">(10:46:17 PM)</font> <b>vcunat:</b></font> yeah, it&apos;s not there<br/>
+<font size="2">(10:48:10 PM)</font><b> Lethalman left the room (quit: *.net *.split).</b><br/>
+<font color="#A82F2F"><font size="2">(10:51:10 PM)</font> <b>ttuegel:</b></font> benley: i thought i fixed atlas to give generic builds on hydra...<br/>
+<font color="#A82F2F"><font size="2">(10:52:13 PM)</font> <b>ttuegel:</b></font> benley: i even set it up so you can disable the cacheedge tests and get much faster optimized builds if you know the cache size of your cpu<br/>
+<font color="#A82F2F"><font size="2">(10:52:21 PM)</font> <b>benley:</b></font> ttuegel: dunno - it might still be doing that, but it&apos;s taking a very very long time to do so.  Maybe just all the testing?<br/>
+<font color="#A82F2F"><font size="2">(10:52:36 PM)</font> <b>ttuegel:</b></font> benley: is this hydra, or a local build?<br/>
+<font color="#A82F2F"><font size="2">(10:52:59 PM)</font> <b>benley:</b></font> local build - still waiting on a git bisect that I started last night, trying to track down what broke GDAL<br/>
+<font color="#A82F2F"><font size="2">(10:53:28 PM)</font> <b>vcunat:</b></font> it&apos;s likely my memory about atlas was outdated<br/>
+<font color="#A82F2F"><font size="2">(10:53:34 PM)</font> <b>benley:</b></font> so I don&apos;t actually care that much about atlas, it&apos;s just a thing that I&apos;m waiting on :-P<br/>
+<font size="2">(10:54:09 PM)</font><b> ttuegel left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:54:10 PM)</font><b> ikwildrpepper left the room (quit: *.net *.split).</b><br/>
+<font size="2">(10:54:36 PM)</font><b> ttuegel [<em>~ttuegel@2601:d:cbc0:10b:216:d3ff:fe17:9cc0</em>] entered the room.</b><br/>
+<font size="2">(10:54:36 PM)</font><b> ikwildrpepper [<em>~rbvermaa@li198-191.members.linode.com</em>] entered the room.</b><br/>
+<font size="2">(10:54:52 PM)</font><b> vcunat left the room (quit: *.net *.split).</b><br/>
+<font color="#A82F2F"><font size="2">(10:56:23 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/sJrZlg<br/>
+<font color="#A82F2F"><font size="2">(10:56:23 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master ca1116d Vladimír Čunát: gst-plugins-good-0.10: add libsoup support (close #5749)<br/>
+<font size="2">(10:57:42 PM)</font><b> wkennington [<em>~william@76.77.180.204</em>] entered the room.</b><br/>
+<font size="2">(10:59:14 PM)</font><b> vcunat [<em>~admin@vetr-0455.koleje.cuni.cz</em>] entered the room.</b><br/>
+<font size="2">(11:00:18 PM)</font><b> vcunat left the room (quit: Client Quit).</b><br/>
+<font size="2">(11:02:21 PM)</font><b> benley left the room (quit: *.net *.split).</b><br/>
+<font color="#A82F2F"><font size="2">(11:03:35 PM)</font> <b>carter_cloud:</b></font> ttuegel:  no dice<br/>
+<font color="#A82F2F"><font size="2">(11:06:38 PM)</font> <b>niksnut:</b></font> Lethalman: ah, sorry about that<br/>
+<font color="#A82F2F"><font size="2">(11:07:13 PM)</font> <b>niksnut:</b></font> Lethalman: you added a duplicate -DWITH_FFTW3=ON btw<br/>
+<font color="#A82F2F"><font size="2">(11:07:57 PM)</font> <b>Lethalman:</b></font> niksnut, huh<br/>
+<font color="#A82F2F"><font size="2">(11:08:15 PM)</font> <b>Lethalman:</b></font> weird didn&apos;t compile without that<br/>
+<font color="#A82F2F"><font size="2">(11:08:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] rycee opened pull request #5750: Wrap &apos;tig&apos; command to add with git to PATH. (master...issue/5741) http://git.io/W7leJw<br/>
+<font color="#A82F2F"><font size="2">(11:08:43 PM)</font> <b>Lethalman:</b></font> oh you added it perhaps on master and the merge fooled me<br/>
+<font color="#A82F2F"><font size="2">(11:14:16 PM)</font> <b>bshelden:</b></font> playing with nixops.  Following the manual for the virtualbox target.  waiting for SSH never seems to complete.<br/>
+<font color="#A82F2F"><font size="2">(11:15:03 PM)</font> <b>benley:</b></font> is it that weird ControlMaster thing again?<br/>
+<font color="#A82F2F"><font size="2">(11:15:12 PM)</font> <b>bshelden:</b></font> I noticed that the services section in the example didn&apos;t have one, so I added services.sshd.enabled = &quot;true&quot;; but no change.<br/>
+<font color="#A82F2F"><font size="2">(11:15:25 PM)</font> <b>the-kenny:</b></font> I *still* seem to have problems with networking in imperative containers. I set up NAT according to the manual but my container can&apos;t reach out :/<br/>
+<font color="#A82F2F"><font size="2">(11:18:59 PM)</font> <b>the-kenny:</b></font> I suppose the NAT doesn&apos;t work but I really got no clue how to debug it. Do I need to do anything in addition to nixos-rebuild switch after enabling or something like this/<br/>
+<font color="#A82F2F"><font size="2">(11:19:33 PM)</font> <b>Lethalman:</b></font> the-kenny, make sure you have set the externalInterface of the container<br/>
+<font color="#A82F2F"><font size="2">(11:19:40 PM)</font> <b>the-kenny:</b></font> huh<br/>
+<font color="#A82F2F"><font size="2">(11:19:41 PM)</font> <b>Lethalman:</b></font> make sure it correctly matches the interface of your container<br/>
+<font color="#A82F2F"><font size="2">(11:20:07 PM)</font> <b>the-kenny:</b></font> I thought externalInterface should be the *outgoing* interface (e.g. the hosts &quot;internet&quot; connection)<br/>
+<font color="#A82F2F"><font size="2">(11:20:25 PM)</font> <b>Lethalman:</b></font> the-kenny, sorry, the internalInterfaces to match the one of your container<br/>
+<font color="#A82F2F"><font size="2">(11:20:28 PM)</font> <b>the-kenny:</b></font> (anyway, I tried &apos;eth0&apos; too - no luck)<br/>
+<font color="#A82F2F"><font size="2">(11:20:29 PM)</font> <b>Lethalman:</b></font> make sure the name is correct<br/>
+<font color="#A82F2F"><font size="2">(11:20:39 PM)</font> <b>the-kenny:</b></font> yeah, they do. It&apos;s ve-+, verified that<br/>
+<font color="#A82F2F"><font size="2">(11:21:06 PM)</font> <b>the-kenny:</b></font> (container&apos;s interface on the host is named ve-&lt;container&gt;)<br/>
+<font color="#A82F2F"><font size="2">(11:22:15 PM)</font> <b>Lethalman:</b></font> no idea, but I&apos;m still on 14.04 on my srver<br/>
+<font color="#A82F2F"><font size="2">(11:22:18 PM)</font> <b>Lethalman:</b></font> so can&apos;t say<br/>
+<font color="#A82F2F"><font size="2">(11:22:25 PM)</font> <b>Lethalman:</b></font> the-kenny, check iptables etc., don&apos;t know<br/>
+<font color="#A82F2F"><font size="2">(11:22:37 PM)</font> <b>the-kenny:</b></font> I had that for ages - I always used declarative containers in such situations<br/>
+<font color="#A82F2F"><font size="2">(11:23:16 PM)</font> <b>the-kenny:</b></font> also interesting: If I specify a non-existing *external* interface ping fails with &apos;unknown host&apos;. If I specify the correct one it just never resolves the host<br/>
+<font color="#A82F2F"><font size="2">(11:23:32 PM)</font> <b>the-kenny:</b></font> (but pinging an external ip doesn&apos;t work either)<br/>
+<font color="#A82F2F"><font size="2">(11:23:51 PM)</font> <b>bshelden:</b></font> Is there a way to get nix to spit out where an import is coming from?<br/>
+<font size="2">(11:26:46 PM)</font><b> goibhniu left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:38:35 PM)</font> <b>gridaphobe:</b></font> what&apos;s the right way to write a shebang for a script that will be used by a derivation?<br/>
+<font color="#A82F2F"><font size="2">(11:39:18 PM)</font> <b>gridaphobe:</b></font>  /bin/sh is clearly not right, but the script is not an output, so the patchShebangs phase doesn&apos;t catch it<br/>
+<font color="#A82F2F"><font size="2">(11:39:57 PM)</font> <b>benley:</b></font> /usr/bin/env sh maybe<br/>
+<font color="#A82F2F"><font size="2">(11:41:17 PM)</font> <b>gridaphobe:</b></font> that&apos;s still impure :/<br/>
+<font color="#A82F2F"><font size="2">(11:41:34 PM)</font> <b>Lethalman:</b></font> gridaphobe, use patchShebangs in your nix<br/>
+<font color="#A82F2F"><font size="2">(11:41:44 PM)</font> <b>Lethalman:</b></font> it&apos;s done automatically after the install phase<br/>
+<font color="#A82F2F"><font size="2">(11:41:56 PM)</font> <b>Lethalman:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(11:41:58 PM)</font> <b>the-kenny:</b></font> Lethalman: it&apos;s not an output<br/>
+<font color="#A82F2F"><font size="2">(11:42:05 PM)</font> <b>gridaphobe:</b></font> excctly<br/>
+<font color="#A82F2F"><font size="2">(11:42:05 PM)</font> <b>the-kenny:</b></font> a script just used while installation<br/>
+<font color="#A82F2F"><font size="2">(11:42:11 PM)</font> <b>the-kenny:</b></font> well, still throw patchShebangs at it :)<br/>
+<font color="#A82F2F"><font size="2">(11:42:17 PM)</font> <b>Lethalman:</b></font> then patchShebangs in preBuild<br/>
+<font color="#A82F2F"><font size="2">(11:42:40 PM)</font> <b>gridaphobe:</b></font> can i do something like `patchShebangs ${./myscript.sh}` ?<br/>
+<font color="#A82F2F"><font size="2">(11:42:48 PM)</font> <b>Lethalman:</b></font> patchShebangs accepts a directory iirc<br/>
+<font color="#A82F2F"><font size="2">(11:42:57 PM)</font> <b>the-kenny:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(11:44:06 PM)</font> <b>Lethalman:</b></font> gridaphobe, cp ${./myscript.sh} somedir/; patchShebangs somedir<br/>
+<font color="#A82F2F"><font size="2">(11:44:41 PM)</font> <b>Lethalman:</b></font> gridaphobe, however why /bin/sh is not right? you need bash?<br/>
+<font color="#A82F2F"><font size="2">(11:44:42 PM)</font> <b>the-kenny:</b></font> or just patchShebangs everything. I suppose it won&apos;t break<br/>
+<font color="#A82F2F"><font size="2">(11:44:50 PM)</font> <b>gridaphobe:</b></font> hrm, this still seems ugly, maybe i&apos;ll just make it its own mini-derivation<br/>
+<font color="#A82F2F"><font size="2">(11:45:11 PM)</font> <b>Lethalman:</b></font> gridaphobe, doesn&apos;t really matter whether it&apos;s ugly honestly :) make it work<br/>
+<font color="#A82F2F"><font size="2">(11:45:17 PM)</font> <b>gridaphobe:</b></font> nah i don&apos;t need bash, it&apos;s super simple<br/>
+<font color="#A82F2F"><font size="2">(11:45:26 PM)</font> <b>Lethalman:</b></font> gridaphobe, then /bin/sh is ok in nix, at least for now<br/>
+<font color="#A82F2F"><font size="2">(11:45:36 PM)</font> <b>Lethalman:</b></font> there&apos;s a work to also remove /bin/sh<br/>
+<font color="#A82F2F"><font size="2">(11:46:04 PM)</font> <b>gridaphobe:</b></font> oh ok, that&apos;s teh easiest then :)<br/>
+<font color="#A82F2F"><font size="2">(11:46:06 PM)</font> <b>gridaphobe:</b></font> thanks!<br/>
+<font size="2">(11:46:30 PM)</font><b> Lethalman left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(11:46:50 PM)</font> <b>the-kenny:</b></font> I&apos;m so confused. Not the container has internet access<br/>
+<font color="#A82F2F"><font size="2">(11:46:51 PM)</font> <b>the-kenny:</b></font> what the hell<br/>
+<font color="#A82F2F"><font size="2">(12:03:10 AM)</font> <b>wkennington:</b></font> fucking linux kernel :/<br/>
+<font color="#A82F2F"><font size="2">(12:04:04 AM)</font> <b>wkennington:</b></font> https://github.com/torvalds/linux/blob/35a9ad8af0bb0fa3525e6d0d20e32551d226f38e/net/bridge/br_stp_if.c#L125<br/>
+<font color="#A82F2F"><font size="2">(12:04:21 AM)</font> <b>wkennington:</b></font> can&apos;t enable userspace stp without directly calling /sbin/bridge-stp :/<br/>
+<font color="#A82F2F"><font size="2">(12:05:32 AM)</font> <b>wkennington:</b></font> guess im going to be deleting some code :p<br/>
+<font color="#A82F2F"><font size="2">(12:06:50 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nckx opened pull request #5752: Add lz4: very fast lossless compression (master...lz4) http://git.io/zlpxXg<br/>
+<font color="#A82F2F"><font size="2">(12:14:13 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] brendanlong opened pull request #5753: syncthing: Update to 0.10.20. (master...syncthing-0.10.20) http://git.io/sM216Q<br/>
+<font color="#A82F2F"><font size="2">(12:22:46 AM)</font> <b>wkennington:</b></font> is there a preferred way to add a patch for every kernel?<br/>
+<font color="#A82F2F"><font size="2">(12:24:28 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/taAFkQ<br/>
+<font color="#A82F2F"><font size="2">(12:24:28 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f64c3ce William A. Kennington III: kernel: Add a patch to remove checks for bridge stp helpers<br/>
+<font color="#A82F2F"><font size="2">(12:29:42 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cstrahan opened pull request #5754: [WIP ]network-manager: update to 1.0.0 (master...nmtui) http://git.io/cFsfvQ<br/>
+<font color="#A82F2F"><font size="2">(12:34:48 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/c_EyUA<br/>
+<font color="#A82F2F"><font size="2">(12:34:48 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3d4b315 William A. Kennington III: Revert &quot;kernel: Add a patch to remove checks for bridge stp helpers&quot;...<br/>
+<font color="#A82F2F"><font size="2">(12:36:00 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 2 new commits to master: http://git.io/cCed6g<br/>
+<font color="#A82F2F"><font size="2">(12:36:00 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b46b15d Brendan Long: syncthing: Update to 0.10.20.<br/>
+<font color="#A82F2F"><font size="2">(12:36:00 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master dfc0488 Domen Kožar: Merge pull request #5753 from brendanlong/syncthing-0.10.20...<br/>
+<font size="2">(12:46:02 AM)</font><b> sigmundv_ is now known as sigmundv</b><br/>
+<font size="2">(01:11:24 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,155 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sat 24 Jan 2015 08:14:59 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sat 24 Jan 2015 08:14:59 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:15:00 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(08:15:01 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(08:15:05 PM)</font> <b>ambro718:</b></font> does nixops always deploy by ssh-ing to the target or can it create some kind of first-time image?<br/>
+<font color="#A82F2F"><font size="2">(08:15:19 PM)</font> <b>iElectric:</b></font> MoreTea: fileSystems.&quot;/mnt/nas/&quot;.options = &quot;nofail&quot;;<br/>
+<font color="#A82F2F"><font size="2">(08:15:35 PM)</font> <b>iElectric:</b></font> ambro718: it bootstraps from a nixos live cd<br/>
+<font color="#A82F2F"><font size="2">(08:16:18 PM)</font> <b>ambro718:</b></font> what options do I have for creating an image for an ARM board (BBB)?<br/>
+<font color="#A82F2F"><font size="2">(08:16:35 PM)</font> <b>ambro718:</b></font> I&apos;d like to automate the building of a sdcard image.<br/>
+<font color="#A82F2F"><font size="2">(08:16:56 PM)</font> <b>ambro718:</b></font> I mean purely in terms of building the image, not compiling for ARM in general.<br/>
+<font color="#A82F2F"><font size="2">(08:17:22 PM)</font> <b>iElectric:</b></font> see nixops source?<br/>
+<font color="#A82F2F"><font size="2">(08:19:15 PM)</font> <b>MoreTea:</b></font> iElectric, it&apos;s my /boot partition, so I&apos;ll try to fix it ;)<br/>
+<font color="#A82F2F"><font size="2">(08:19:24 PM)</font> <b>ambro718:</b></font> I see it can build a virtualbox image using code in nixokgs (virtialbox-image.nix).<br/>
+<font color="#A82F2F"><font size="2">(08:19:40 PM)</font> <b>ambro718:</b></font> apparently it uses some kind of VM where it can do things like mount?<br/>
+<font color="#A82F2F"><font size="2">(08:20:39 PM)</font> <b>ambro718:</b></font> yes I think that&apos;s a great starting point for me :)<br/>
+<font color="#A82F2F"><font size="2">(08:23:02 PM)</font> <b>MoreTea:</b></font> it appears that updating  fileSystems.&quot;/boot&quot;.device from /dev/disk/by-uuid to /dev/disk/by-id fixed this<br/>
+<font color="#A82F2F"><font size="2">(08:23:20 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] malyn opened pull request #5935: Add ccze (master...ccze) http://git.io/CPq5pg<br/>
+<font color="#A82F2F"><font size="2">(08:26:18 PM)</font> <b>shlevy:</b></font> niksnut: ikwildrpepper: ENOSPC on hydra causing eval error http://hydra.nixos.org/jobset/nixpkgs/pr-5676#tabs-errors<br/>
+<font color="#A82F2F"><font size="2">(08:33:43 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edwtjo closed pull request #5934: traceroute: 2.0.20 -&gt; 2.0.21 (master...traceroute) http://git.io/2eU6xA<br/>
+<font color="#A82F2F"><font size="2">(08:35:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edwtjo pushed 2 new commits to master: http://git.io/WQkwDQ<br/>
+<font color="#A82F2F"><font size="2">(08:35:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 51119a6 koral: restview: 2.1.1 -&gt; 2.2.1<br/>
+<font color="#A82F2F"><font size="2">(08:35:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 4ccc188 Edward Tjörnhammar: Merge pull request #5933 from k0ral/restview...<br/>
+<font color="#A82F2F"><font size="2">(08:36:23 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edwtjo pushed 2 new commits to master: http://git.io/hKRnKQ<br/>
+<font color="#A82F2F"><font size="2">(08:36:24 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a4cbb47 koral: pyqtgraph: 0.9.8 -&gt; 0.9.10<br/>
+<font color="#A82F2F"><font size="2">(08:36:24 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 631096c Edward Tjörnhammar: Merge pull request #5932 from k0ral/pyqtgraph...<br/>
+<font size="2">(08:37:03 PM)</font><b> arianvp___ is now known as arianvp____</b><br/>
+<font color="#A82F2F"><font size="2">(08:42:31 PM)</font> <b>copumpkin:</b></font> it would be kinda cute if there were a primop for user prompts<br/>
+<font color="#A82F2F"><font size="2">(08:42:43 PM)</font> <b>copumpkin:</b></font> that always happened ASAP<br/>
+<font color="#A82F2F"><font size="2">(08:43:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] j-keck opened pull request #5936: nixos-container: add missing &apos;nixos-container update&apos; in usage (master...nixos-container-usage) http://git.io/057gog<br/>
+<font color="#A82F2F"><font size="2">(08:44:57 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ttuegel opened pull request #5937: zotero: build standalone from cross-platform XPI with latest firefox (master...zotero) http://git.io/Snl8aA<br/>
+<font color="#A82F2F"><font size="2">(08:45:07 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ttuegel pushed 2 new commits to master: http://git.io/M0ZJSQ<br/>
+<font color="#A82F2F"><font size="2">(08:45:07 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3d919a0 Thomas Tuegel: zotero: build standalone from cross-platform XPI with latest firefox<br/>
+<font color="#A82F2F"><font size="2">(08:45:07 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 13d14e3 Thomas Tuegel: Merge pull request #5937 from ttuegel/zotero...<br/>
+<font color="#062585"><font size="2">(08:45:14 PM)</font> <b>***ttuegel</b></font> is bad<br/>
+<font color="#A82F2F"><font size="2">(08:53:26 PM)</font> <b>cstrahan_:</b></font> iElectric: yo<br/>
+<font color="#A82F2F"><font size="2">(08:54:15 PM)</font> <b>MoreTea:</b></font> any quick tips for finding where some configuration option is defined?<br/>
+<font color="#A82F2F"><font size="2">(08:54:28 PM)</font> <b>MoreTea:</b></font> (I&apos;m trying to look up users.extraUsers)<br/>
+<font color="#A82F2F"><font size="2">(08:57:39 PM)</font> <b>ttuegel:</b></font> MoreTea: http://nixos.org/nixos/options.html &lt;- search for the option you want, and click the name<br/>
+<font color="#A82F2F"><font size="2">(09:02:14 PM)</font> <b>ambro718:</b></font> trying to build Nix from source, I get this right when I do make:  Makefile:28: Makefile.config: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(09:05:43 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edwtjo pushed 2 new commits to master: http://git.io/tW3t1g<br/>
+<font color="#A82F2F"><font size="2">(09:05:43 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 267ea49 taku0: oraclejdk: bump to 8u31, 7u75, and 7u76<br/>
+<font color="#A82F2F"><font size="2">(09:05:43 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c457bbb Edward Tjörnhammar: Merge pull request #5912 from taku0/oraclejdk-8u31_7u75_7u76...<br/>
+<font color="#A82F2F"><font size="2">(09:07:01 PM)</font> <b>ambro718:</b></font> nvm, how do I disable building manual while building Nix?<br/>
+<font color="#A82F2F"><font size="2">(09:18:41 PM)</font> <b>iElectric:</b></font> cstrahan_: yo<br/>
+<font color="#A82F2F"><font size="2">(09:18:56 PM)</font> <b>iElectric:</b></font> cstrahan_: nixpkgs eval is failing due to some ruby packages not existing anymore<br/>
+<font color="#A82F2F"><font size="2">(09:20:10 PM)</font> <b>cstrahan_:</b></font> d&apos;oh!<br/>
+<font color="#A82F2F"><font size="2">(09:20:25 PM)</font> <b>cstrahan_:</b></font> ok, well at my laptop, so I can fixup whatever I need to.<br/>
+<font color="#A82F2F"><font size="2">(09:20:35 PM)</font> <b>cstrahan_:</b></font> *well I&apos;m<br/>
+<font color="#A82F2F"><font size="2">(09:20:53 PM)</font> <b>cstrahan_:</b></font> iElectric: where can I see the broken packages?<br/>
+<font color="#A82F2F"><font size="2">(09:21:22 PM)</font> <b>iElectric:</b></font> https://travis-ci.org/NixOS/nixpkgs/#L462<br/>
+<font color="#A82F2F"><font size="2">(09:22:05 PM)</font> <b>cstrahan_:</b></font> ah, crap. alright, I&apos;ll grep for any missing `rubyPackages`.<br/>
+<font color="#A82F2F"><font size="2">(09:22:11 PM)</font> <b>cstrahan_:</b></font> should be fixed up in ~5 minutes.<br/>
+<font color="#A82F2F"><font size="2">(09:24:13 PM)</font> <b>iElectric:</b></font> cstrahan_: also https://github.com/NixOS/nixpkgs/commit/001befaa6fb54b780254e7a7a6a5fc38051ccda0<br/>
+<font color="#A82F2F"><font size="2">(09:40:37 PM)</font> <b>logand:</b></font> hi what is the command to get hash of a url?  nix-hash &lt;url&gt;? or simply sha256sum for sha256 attribute?<br/>
+<font color="#A82F2F"><font size="2">(09:41:08 PM)</font> <b>Lethalman:</b></font> nix-prefecth-url?<br/>
+<font color="#A82F2F"><font size="2">(09:41:22 PM)</font> <b>logand:</b></font> thanks i&apos;ll try that<br/>
+<font color="#A82F2F"><font size="2">(09:48:57 PM)</font> <b>MoreTea:</b></font> ttuegel, thanks!<br/>
+<font color="#A82F2F"><font size="2">(09:52:27 PM)</font> <b>cstrahan_:</b></font> sigh... the GNUPG mirros are down...<br/>
+<font color="#A82F2F"><font size="2">(09:52:48 PM)</font> <b>cstrahan_:</b></font> was hopping to knock out those Ruby fixes real quick, and instead I&apos;m dealing with this.<br/>
+<font color="#A82F2F"><font size="2">(10:02:36 PM)</font> <b>cstrahan_:</b></font> can anyone else fetch http://hydra.nixos.org/jobset/nixpkgs/trunk/channel/latest/MANIFEST?<br/>
+<font color="#A82F2F"><font size="2">(10:02:47 PM)</font> <b>cstrahan_:</b></font> I&apos;m curious if it&apos;s just my internet connection, or Hydra not wanting to play nice.<br/>
+<font color="#A82F2F"><font size="2">(10:03:21 PM)</font> <b>iElectric:</b></font> cstrahan_: doesn&apos;t work for me<br/>
+<font color="#A82F2F"><font size="2">(10:03:28 PM)</font> <b>cstrahan_:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(10:03:48 PM)</font> <b>cstrahan_:</b></font> trying to test stuff out, but i&apos;m rebuilding a whole lotta stuff.<br/>
+<font color="#A82F2F"><font size="2">(10:06:58 PM)</font> <b>logand:</b></font> i&apos;m trying to bootstram nix on arm, but the busybox attribute is broken (missing) in ~/nixpkgs/pkgs/stdenv/linux/bootstrap/armv5tel.nix I thought i could use an executable i got from my host system, using url = file:///home/user/busybox with hash from nix-prefetch-url file:///home/user/busybox but but nix doesnt like the hash<br/>
+<font color="#A82F2F"><font size="2">(10:07:31 PM)</font> <b>logand:</b></font> is there a way to force nix to use an executable or how is this problem solved at bootstrap?<br/>
+<font color="#A82F2F"><font size="2">(10:08:05 PM)</font> <b>logand:</b></font> e.g. how was nix convinced to use the busybox executable for x86_64 build?<br/>
+<font color="#A82F2F"><font size="2">(10:12:00 PM)</font> <b>logand:</b></font> hmm maybe it actually worked and the error comes from my busybox<br/>
+<font color="#A82F2F"><font size="2">(10:22:59 PM)</font> <b>cstrahan_:</b></font> was there a change to stdenv recently (or something else causing mass rebuilds)?<br/>
+<font color="#A82F2F"><font size="2">(10:36:11 PM)</font> <b>MagBo:</b></font> By the way, how do you people manage MIME type configurations on systems running X? Say, you want to make a user-local tweak to xdg rules for pdfs to be opened with zathura, what would you do?<br/>
+<font color="#A82F2F"><font size="2">(10:36:46 PM)</font> <b>MagBo:</b></font> If, on the contrary, you want to make the change global for all the users of the system, what would you do?<br/>
+<font color="#A82F2F"><font size="2">(10:37:13 PM)</font> <b>MagBo:</b></font> I really want to put that kind of stuff to nix expressions, but I&apos;m not sure we have options for that.<br/>
+<font color="#A82F2F"><font size="2">(10:39:37 PM)</font> <b>musicmatze:</b></font> Is there proper documentation how to setup an owncloud instance for/in nixos?<br/>
+<font color="#A82F2F"><font size="2">(10:39:44 PM)</font> <b>musicmatze:</b></font> I can&apos;t find any...<br/>
+<font color="#A82F2F"><font size="2">(10:41:05 PM)</font> <b>MagBo:</b></font> musicmatze: most of the times the answer to &quot;is there a how to for X in NixOS&quot; is “No.”<br/>
+<font color="#A82F2F"><font size="2">(10:41:28 PM)</font> <b>MagBo:</b></font> For what it&apos;s worth, such a howto would get outdated in months, given the pace of the project these days.<br/>
+<font color="#A82F2F"><font size="2">(10:42:19 PM)</font> <b>MagBo:</b></font> Hence, the best way to approach this is to reach out to people on the mailing list, asking if someone runs the setup you need and if you are to face negative response, become a pioneer.<br/>
+<font color="#A82F2F"><font size="2">(10:42:38 PM)</font> <b>musicmatze:</b></font> There should be an option to include the documentation how to use a package _right in the package_, so we can be sure that the documentation always gets updated with the package...<br/>
+<font color="#A82F2F"><font size="2">(10:43:16 PM)</font> <b>MagBo:</b></font> musicmatze: but it&apos;s impossible.<br/>
+<font color="#A82F2F"><font size="2">(10:43:32 PM)</font> <b>musicmatze:</b></font> It&apos;s not impossible<br/>
+<font color="#A82F2F"><font size="2">(10:43:44 PM)</font> <b>musicmatze:</b></font> It&apos;s not done yet, but that does not mean that it is impossible!<br/>
+<font color="#A82F2F"><font size="2">(10:43:50 PM)</font> <b>MagBo:</b></font> We can check if instruction about *building* a package matches its current version (because that&apos;s merely an evaluation of nix expression)<br/>
+<font color="#A82F2F"><font size="2">(10:44:16 PM)</font> <b>MagBo:</b></font> We can&apos;t check if a collection of English sentences correctly describe usage of one. :(<br/>
+<font color="#A82F2F"><font size="2">(10:44:29 PM)</font> <b>musicmatze:</b></font> ah, yeah, of course...<br/>
+<font color="#A82F2F"><font size="2">(10:45:00 PM)</font> <b>musicmatze:</b></font> but we can add documentation right in the packages and force the maintainers to accept patches _only_ if the documentation gets updated as well<br/>
+<font color="#A82F2F"><font size="2">(10:46:23 PM)</font> <b>MagBo:</b></font> AFAIK we don&apos;t have strict Arch-like infrastructure here.<br/>
+<font color="#A82F2F"><font size="2">(10:46:52 PM)</font> <b>logand:</b></font> hi is there a way to turn of download from binary cache?<br/>
+<font color="#A82F2F"><font size="2">(10:46:54 PM)</font> <b>MagBo:</b></font> Nonetheless, there are a lot of problems with describing how to use something.<br/>
+<font color="#A82F2F"><font size="2">(10:46:59 PM)</font> <b>musicmatze:</b></font> it&apos;s a challenge, sure. But as NixOS and the community around it grows, we will need such an infrastructure soon..<br/>
+<font color="#A82F2F"><font size="2">(10:48:37 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker opened pull request #5938: xca: fix ssl (master...pkgs/xca/fix_ssl) http://git.io/y7jRUw<br/>
+<font color="#A82F2F"><font size="2">(10:48:40 PM)</font> <b>MagBo:</b></font> logand: for just one derivation or for the whole package subtree?<br/>
+<font color="#A82F2F"><font size="2">(10:48:44 PM)</font> <b>logand:</b></font> or at change timeout from 5 sec to 0 or 1 sec<br/>
+<font color="#A82F2F"><font size="2">(10:48:51 PM)</font> <b>logand:</b></font> for everything<br/>
+<font color="#A82F2F"><font size="2">(10:49:14 PM)</font> <b>logand:</b></font> i dont want any downloads, they dont exist<br/>
+<font color="#A82F2F"><font size="2">(10:49:16 PM)</font> <b>logand:</b></font> yet<br/>
+<font color="#A82F2F"><font size="2">(10:50:25 PM)</font> <b>MagBo:</b></font> logand: it&apos;s funny because nix-env shouldn&apos;t choke on cache checks<br/>
+<font color="#A82F2F"><font size="2">(10:50:44 PM)</font> <b>MagBo:</b></font> cache miss should cost you the latency between you and cache.nixos.org<br/>
+<font color="#A82F2F"><font size="2">(10:51:42 PM)</font> <b>logand:</b></font> download-from-binary-cache.pl: still waiting for .... after 5 seconds...<br/>
+<font color="#A82F2F"><font size="2">(10:51:53 PM)</font> <b>MagBo:</b></font> logand: anyway, the droid you&apos;re looking for is<br/>
+<font color="#A82F2F"><font size="2">(10:52:06 PM)</font> <b>MagBo:</b></font> use-binary-caches<br/>
+<font color="#A82F2F"><font size="2">(10:52:13 PM)</font> <b>MagBo:</b></font> http://nixos.org/nix/manual/#sec-conf-file<br/>
+<font color="#A82F2F"><font size="2">(10:52:19 PM)</font> <b>logand:</b></font> so i have to keep waiting in order to test things<br/>
+<font color="#A82F2F"><font size="2">(10:52:37 PM)</font> <b>MagBo:</b></font> it&apos;s global though and you need root.<br/>
+<font color="#A82F2F"><font size="2">(10:52:46 PM)</font> <b>MagBo:</b></font> I think it fits your case though.<br/>
+<font color="#A82F2F"><font size="2">(10:52:49 PM)</font> <b>logand:</b></font> great, thank you!<br/>
+<font color="#A82F2F"><font size="2">(10:53:04 PM)</font> <b>MagBo:</b></font> np :)<br/>
+<font color="#A82F2F"><font size="2">(10:53:11 PM)</font> <b>MagBo:</b></font> I&apos;d investigate that behaviour though.<br/>
+<font color="#A82F2F"><font size="2">(10:53:39 PM)</font> <b>MagBo:</b></font> But maybe that&apos;s yet another cache.nixos.org outage...<br/>
+<font color="#A82F2F"><font size="2">(10:54:06 PM)</font> <b>cstrahan_:</b></font> logand: nix-build &lt;......&gt; --option build-use-substitutes false<br/>
+<font color="#A82F2F"><font size="2">(10:55:17 PM)</font> <b>MagBo:</b></font> cstrahan_: does that work with nix-env -i* ?<br/>
+<font color="#A82F2F"><font size="2">(10:55:34 PM)</font> <b>MagBo:</b></font> yup, I think so<br/>
+<font color="#A82F2F"><font size="2">(10:55:36 PM)</font> <b>cstrahan_:</b></font> i believe it should.<br/>
+<font color="#A82F2F"><font size="2">(10:56:03 PM)</font> <b>MagBo:</b></font> logand: ^ might be better for one-off tests.<br/>
+<font color="#A82F2F"><font size="2">(10:57:45 PM)</font> <b>logand:</b></font> cstrahan_: thanks!<br/>
+<font color="#A82F2F"><font size="2">(10:59:19 PM)</font> <b>logand:</b></font> how do i specify an empty builder?<br/>
+<font color="#A82F2F"><font size="2">(10:59:54 PM)</font> <b>logand:</b></font> hmm i could try true<br/>
+<font color="#A82F2F"><font size="2">(11:00:43 PM)</font> <b>logand:</b></font> that didnt work<br/>
+<font color="#A82F2F"><font size="2">(11:01:09 PM)</font> <b>logand:</b></font> i need nix to unpack tar.gz but dont run any builder<br/>
+<font color="#A82F2F"><font size="2">(11:03:50 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker closed pull request #5938: xca: fix ssl (master...pkgs/xca/fix_ssl) http://git.io/y7jRUw<br/>
+<font color="#A82F2F"><font size="2">(11:06:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker opened pull request #5939: nixos/containers: make containers in containers possible (master...nixos/containers/containers_in_containers) http://git.io/8GMC6A<br/>
+<font color="#A82F2F"><font size="2">(11:12:57 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] badi opened pull request #5940: new package: Mendeley (master...mendeley) http://git.io/_iFCTA<br/>
+<font color="#A82F2F"><font size="2">(11:14:10 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker opened pull request #5941: phpPackages: add redis and composer (master...pkgs/phpPackages/add_redis_composer) http://git.io/Lngyow<br/>
+<font color="#A82F2F"><font size="2">(11:16:51 PM)</font> <b>logand:</b></font> that was a dead end<br/>
+<font color="#A82F2F"><font size="2">(11:17:11 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker opened pull request #5942: Nixos/mediawiki/mysql (master...nixos/mediawiki/mysql) http://git.io/gIo2vA<br/>
+<font size="2">(11:19:28 PM)</font><b> Lethalman left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(11:21:20 PM)</font> <b>ktosiek:</b></font> logand: if you package something that&apos;s provided as a binery, you probably want to override buildPhase<br/>
+<font color="#A82F2F"><font size="2">(11:22:07 PM)</font> <b>logand:</b></font> jpsg8ad4wkl02ndzwhzi8cvy0s2zbk9j-busybox: applet not found<br/>
+<font color="#A82F2F"><font size="2">(11:23:04 PM)</font> <b>logand:</b></font> i provided executable with the right sha256, but now it&apos;s being called wrongly, i wonder why<br/>
+<font color="#A82F2F"><font size="2">(11:23:43 PM)</font> <b>logand:</b></font> maybe busybox was compiled differently for nixos bootstraping purposes, but i tried two variants already without success<br/>
+<font color="#A82F2F"><font size="2">(11:23:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker opened pull request #5943: pythonPackages: add polylint, polymer linting tool (master...pkgs/pythonPackages/polylint) http://git.io/Yj23LQ<br/>
+<font color="#A82F2F"><font size="2">(11:24:59 PM)</font> <b>ktosiek:</b></font> logand: for early stage bootstraping you want to use native tools anyway<br/>
+<font color="#A82F2F"><font size="2">(11:25:00 PM)</font> <b>ktosiek:</b></font> ohhh<br/>
+<font color="#A82F2F"><font size="2">(11:25:13 PM)</font> <b>ktosiek:</b></font> busybox chooses which util to run based on argv[0]<br/>
+<font color="#A82F2F"><font size="2">(11:25:25 PM)</font> <b>logand:</b></font> ktosiek: what do you mean?<br/>
+<font color="#A82F2F"><font size="2">(11:25:43 PM)</font> <b>logand:</b></font> bootstraping downloads busybox from some url<br/>
+<font color="#A82F2F"><font size="2">(11:25:51 PM)</font> <b>logand:</b></font> but that is broken for arm<br/>
+<font color="#A82F2F"><font size="2">(11:26:08 PM)</font> <b>logand:</b></font> so i need to recreate the content of the url<br/>
+<font color="#A82F2F"><font size="2">(11:26:15 PM)</font> <b>logand:</b></font> but i have no idea how<br/>
+<font color="#A82F2F"><font size="2">(11:27:24 PM)</font> <b>logand:</b></font> for busybox, i suppose it expects symlinks, but i did &quot;everything&quot; similar to i686 (no symlinks, only executable) and it complains about applets;<br/>
+<font color="#A82F2F"><font size="2">(11:27:30 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cstrahan pushed 2 new commits to master: http://git.io/FFy0tg<br/>
+<font color="#A82F2F"><font size="2">(11:27:30 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e4bf6c3 Charles Strahan: gpgme: use different mirror<br/>
+<font color="#A82F2F"><font size="2">(11:27:30 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 70a4fd8 Charles Strahan: mesa: add mirror<br/>
+<font color="#A82F2F"><font size="2">(11:27:39 PM)</font> <b>logand:</b></font> maybe i should try to revert the commit that broke it<br/>
+<font color="#A82F2F"><font size="2">(11:27:56 PM)</font> <b>ktosiek:</b></font> if you can do that, that&apos;d be good<br/>
+<font color="#A82F2F"><font size="2">(11:28:36 PM)</font> <b>ktosiek:</b></font> I don&apos;t know the bootstraping too well, I just assumed it&apos;s a typical nix or busybox problem &gt;_&gt;<br/>
+<font color="#A82F2F"><font size="2">(11:29:20 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker pushed 2 new commits to master: http://git.io/l97xgA<br/>
+<font color="#A82F2F"><font size="2">(11:29:20 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a00131b Jaka Hudoklin: nodePackages/buildNodePackage: put patch phase into configure phase, ignore shrinkwrap<br/>
+<font color="#A82F2F"><font size="2">(11:29:20 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 628c84c Jaka Hudoklin: nodePackages: refactor, add support for overrides<br/>
+<font color="#A82F2F"><font size="2">(11:30:00 PM)</font> <b>ambro718:</b></font> I&apos;m trying to use Nix on ARM, but I get an error here: https://github.com/NixOS/nixpkgs/blob/master/pkgs/stdenv/linux/default.nix#L43<br/>
+<font color="#A82F2F"><font size="2">(11:30:07 PM)</font> <b>ambro718:</b></font> no attribute busybox<br/>
+<font color="#A82F2F"><font size="2">(11:30:26 PM)</font> <b>ambro718:</b></font> seems like there&apos;s no busybox in the bootstrap binaries for ARM<br/>
+<font color="#A82F2F"><font size="2">(11:31:40 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edwtjo pushed 2 new commits to master: http://git.io/eh2F3Q<br/>
+<font color="#A82F2F"><font size="2">(11:31:40 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 6565714 Tobias Geerinckx-Rice: eid-viewer: associate with XML &amp; plain text .eid files...<br/>
+<font color="#A82F2F"><font size="2">(11:31:40 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a83cfbf Edward Tjörnhammar: Merge pull request #5541 from nckx/eid-viewer-association...<br/>
+<font color="#A82F2F"><font size="2">(11:38:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cstrahan pushed 1 new commit to master: http://git.io/PTViMA<br/>
+<font color="#A82F2F"><font size="2">(11:38:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c181407 Charles Strahan: bundlerEnv: use full path to ruby in wrappers<br/>

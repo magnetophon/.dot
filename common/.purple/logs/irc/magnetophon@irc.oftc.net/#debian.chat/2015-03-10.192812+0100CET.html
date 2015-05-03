@@ -1,0 +1,135 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Tue 10 Mar 2015 07:28:12 PM CET on magnetophon@irc.oftc.net (irc)</title></head><body><h3>Conversation with #debian at Tue 10 Mar 2015 07:28:12 PM CET on magnetophon@irc.oftc.net (irc)</h3>
+<font size="2">(07:28:12 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next | chanlogs: /msg dpkg irclog | Broken suspend with 7.8? <a href="http://deb.li/5tYG">http://deb.li/5tYG</a></b><br/>
+<font size="2">(07:28:12 PM)</font><b> Topic for #debian set by Maulkin!~maulkin@maulkin.noc.oftc.net at 04:53:46 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(07:30:11 PM)</font> <b>pangolinrollin:</b></font> fuck zorin.. ^ are you serious?<br/>
+<font color="#A82F2F"><font size="2">(07:44:24 PM)</font> <b>klandri:</b></font> sup guys I just tried to install Debian 7.8 Wheezy full installation using the big DVD iso(s) and I can&apos;t launch Gnome<br/>
+<font color="#A82F2F"><font size="2">(07:44:41 PM)</font> <b>klandri:</b></font> it is installed <br/>
+<font color="#A82F2F"><font size="2">(07:45:01 PM)</font> <b>klandri:</b></font> according to apt-get but won&apos;t start<br/>
+<font color="#A82F2F"><font size="2">(07:45:31 PM)</font> <b>klandri:</b></font> I&apos;m stuck in the terminal<br/>
+<font color="#A82F2F"><font size="2">(07:45:36 PM)</font> <b>musca:</b></font> hello klandri<br/>
+<font color="#A82F2F"><font size="2">(07:46:00 PM)</font> <b>klandri:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(07:46:06 PM)</font> <b>musca:</b></font> which graphics card do you use?<br/>
+<font color="#A82F2F"><font size="2">(07:46:13 PM)</font> <b>klandri:</b></font> let me check<br/>
+<font color="#A82F2F"><font size="2">(07:46:25 PM)</font> <b>musca:</b></font> lspci -nn | grep -i vga<br/>
+<font color="#A82F2F"><font size="2">(07:47:04 PM)</font> <b>klandri:</b></font> some intel integrated graphics driver<br/>
+<font color="#A82F2F"><font size="2">(07:47:09 PM)</font> <b>klandri:</b></font> Valleyview Gen7<br/>
+<font color="#A82F2F"><font size="2">(07:47:12 PM)</font> <b>klandri:</b></font> cheap laptop<br/>
+<font color="#A82F2F"><font size="2">(07:47:45 PM)</font> <b>klandri:</b></font> also I should note I don&apos;t have an internet connection as of yet<br/>
+<font color="#A82F2F"><font size="2">(07:47:51 PM)</font> <b>klandri:</b></font> which is why I used the big isos<br/>
+<font color="#A82F2F"><font size="2">(07:49:51 PM)</font> <b>musca:</b></font> ok.  most intel graphics will work ootb, but for some the situation is bad: PowerVR-based intel GMA500 (often found in cheap laptops)<br/>
+<font color="#A82F2F"><font size="2">(07:50:12 PM)</font> <b>mtn:</b></font> klandri: what happens when you try to start gnome? errors? warnings?<br/>
+<font color="#A82F2F"><font size="2">(07:50:41 PM)</font> <b>klandri:</b></font> when I run startx I get <br/>
+<font color="#A82F2F"><font size="2">(07:50:46 PM)</font> <b>klandri:</b></font> Fatal server error:<br/>
+<font color="#A82F2F"><font size="2">(07:50:50 PM)</font> <b>klandri:</b></font> no screens found<br/>
+<font color="#A82F2F"><font size="2">(07:51:03 PM)</font> <b>klandri:</b></font> googled that but found nothing useful<br/>
+<font color="#A82F2F"><font size="2">(07:51:54 PM)</font> <b>mtn:</b></font> klandri: is gdm installed?<br/>
+<font color="#A82F2F"><font size="2">(07:52:00 PM)</font> <b>klandri:</b></font> gdm3<br/>
+<font color="#A82F2F"><font size="2">(07:52:02 PM)</font> <b>klandri:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(07:52:24 PM)</font> <b>mtn:</b></font> klandri: what happens when you boot? where does it stop?<br/>
+<font color="#A82F2F"><font size="2">(07:53:20 PM)</font> <b>klandri:</b></font> first I get some uefi message asking if I want to enter Debian or Debian recovery mode then I&apos;m directly booted into a terminal<br/>
+<font color="#A82F2F"><font size="2">(07:53:32 PM)</font> <b>klandri:</b></font> that asks for encryption key<br/>
+<font color="#A82F2F"><font size="2">(07:53:41 PM)</font> <b>klandri:</b></font> then alt-f1 to log in<br/>
+<font color="#A82F2F"><font size="2">(07:53:52 PM)</font> <b>klandri:</b></font> and I&apos;m in the bash terminal<br/>
+<font size="2">(07:54:00 PM)</font><b> Corey84 is now known as Guest543</b><br/>
+<font color="#A82F2F"><font size="2">(07:55:12 PM)</font> <b>mtn:</b></font> klandri: that sounds like another problem besides graphics to me, but not sure what <br/>
+<font color="#A82F2F"><font size="2">(07:57:08 PM)</font> <b>klandri:</b></font> when I try &apos;service gdm3 start&apos; I get &apos;[FAIL] Starting GNOME Display Manager: gdm3 failed!&apos;<br/>
+<font size="2">(08:07:05 PM)</font><b> drgav is now known as dargav</b><br/>
+<font color="#A82F2F"><font size="2">(08:07:09 PM)</font> <b>dargav:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(08:07:44 PM)</font> <b>dargav:</b></font> wondering if anyone can help with exim config issue or direct me to debian exim channel<br/>
+<font size="2">(08:08:00 PM)</font><b> mode (+l 703) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:08:04 PM)</font> <b>valdyn:</b></font> !tell dargav -about ask<br/>
+<font color="#A82F2F"><font size="2">(08:09:29 PM)</font> <b>dargav:</b></font> I am tryign to figure out where to place acl_mail_from: in the config? <br/>
+<font color="#A82F2F"><font size="2">(08:09:32 PM)</font> <b>dargav:</b></font> is it conf.d/acl/30_exim4-config_check_rcpt ?<br/>
+<font color="#A82F2F"><font size="2">(08:09:45 PM)</font> <b>dargav:</b></font> trying to implement http://www.exim.org/exim-html-current/doc/html/spec_html/ch-access_control_lists.html<br/>
+<font color="#A82F2F"><font size="2">(08:10:09 PM)</font> <b>valdyn:</b></font> dargav: how about exim4.conf.localmacros ?<br/>
+<font color="#A82F2F"><font size="2">(08:10:10 PM)</font> <b>dargav:</b></font> i am on 6.0.10<br/>
+<font color="#A82F2F"><font size="2">(08:10:17 PM)</font> <b>dargav:</b></font> ok. i can check<br/>
+<font color="#A82F2F"><font size="2">(08:11:31 PM)</font> <b>dargav:</b></font> i will try that. thanks<br/>
+<font color="#A82F2F"><font size="2">(08:13:33 PM)</font> <b>Male:</b></font> Hola<br/>
+<font color="#A82F2F"><font size="2">(08:17:14 PM)</font> <b>Male:</b></font> hola<br/>
+<font size="2">(08:18:00 PM)</font><b> mode (+l 710) by debhelper</b><br/>
+<font size="2">(08:19:35 PM)</font><b> Male left the room (Saliendo).</b><br/>
+<font color="#A82F2F"><font size="2">(08:29:32 PM)</font> <b>Wulf:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(08:30:58 PM)</font> <b>Wulf:</b></font> how can I find out what happened to the libphash0 package? Why is not no longer available in sid?<br/>
+<font color="#A82F2F"><font size="2">(08:33:04 PM)</font> <b>centrx:</b></font> Wulf, packages.qa.debian.org/libphash0 will eventually get you to: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=751916<br/>
+<font color="#A82F2F"><font size="2">(08:33:43 PM)</font> <b>Wulf:</b></font> centrx: thanks!<br/>
+<font color="#A82F2F"><font size="2">(08:33:59 PM)</font> <b>Wulf:</b></font> so if I still need it, I have to package it myself?<br/>
+<font color="#A82F2F"><font size="2">(08:34:32 PM)</font> <b>centrx:</b></font> Wulf, You can try the old version from http://snapshot.debian.org/<br/>
+<font color="#A82F2F"><font size="2">(08:34:51 PM)</font> <b>Wulf:</b></font> I also would like to use the most current upstream version<br/>
+<font color="#A82F2F"><font size="2">(08:35:14 PM)</font> <b>centrx:</b></font> ok yeah, you&apos;ll have to build that yourself<br/>
+<font color="#A82F2F"><font size="2">(08:35:20 PM)</font> <b>centrx:</b></font> If they have a good Debian repository set up you can use that<br/>
+<font color="#A82F2F"><font size="2">(08:35:31 PM)</font> <b>Wulf:</b></font> centrx: it&apos;s a dead project<br/>
+<font color="#A82F2F"><font size="2">(08:35:45 PM)</font> <b>Wulf:</b></font> but one of my users wants to use that lib<br/>
+<font color="#A82F2F"><font size="2">(08:36:38 PM)</font> <b>Lightkey:</b></font> &quot;Unable to resolve dependencies for the upgrade: no solution found.&quot; that&apos;s a first<br/>
+<font color="#A82F2F"><font size="2">(08:37:00 PM)</font> <b>centrx:</b></font> Wulf, Download the source and build it into /usr/local or a .deb package<br/>
+<font color="#A82F2F"><font size="2">(08:41:56 PM)</font> <b>Lightkey:</b></font> oh, it was libjpeg-progs.. purge<br/>
+<font color="#A82F2F"><font size="2">(08:54:08 PM)</font> <b>Lightkey:</b></font> abrotman, valdyn: someone else asked already, that&apos;s the answer: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=772890#27<br/>
+<font color="#062585"><font size="2">(08:54:32 PM)</font> <b>***abrotman</b></font> blinks ...<br/>
+<font size="2">(09:52:48 PM)</font><b> ph0b0s is now known as Guest558</b><br/>
+<font size="2">(09:52:48 PM)</font><b> ph0b0s1 is now known as ph0b0s</b><br/>
+<font color="#A82F2F"><font size="2">(09:56:19 PM)</font> <b>archie:</b></font> hey<br/>
+<font color="#A82F2F"><font size="2">(09:56:25 PM)</font> <b>retrospectacus:</b></font> hi archie <br/>
+<font color="#A82F2F"><font size="2">(09:56:55 PM)</font> <b>archie:</b></font> sorry i dont realy know where i am?<br/>
+<font color="#A82F2F"><font size="2">(09:57:15 PM)</font> <b>retrospectacus:</b></font> archie: you&apos;re in the debian support channel<br/>
+<font color="#A82F2F"><font size="2">(09:57:38 PM)</font> <b>retrospectacus:</b></font> if you have a Debian support channel, just ask!<br/>
+<font color="#A82F2F"><font size="2">(09:57:38 PM)</font> <b>Lightkey:</b></font> somewhere in the solar system<br/>
+<font size="2">(09:58:00 PM)</font><b> mode (+l 703) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:58:33 PM)</font> <b>archie:</b></font> it &apos; s a kind of forum? subject : jessie freeze?<br/>
+<font color="#A82F2F"><font size="2">(09:58:58 PM)</font> <b>retrospectacus:</b></font> a chat room<br/>
+<font color="#A82F2F"><font size="2">(09:59:13 PM)</font> <b>centrx:</b></font> Topic is a variety of different information<br/>
+<font color="#A82F2F"><font size="2">(09:59:22 PM)</font> <b>archie:</b></font> you are the moderator?<br/>
+<font color="#A82F2F"><font size="2">(09:59:23 PM)</font> <b>centrx:</b></font> This is the real Internet you are on right now<br/>
+<font color="#A82F2F"><font size="2">(09:59:43 PM)</font> <b>centrx:</b></font> I am a robot from the future<br/>
+<font color="#A82F2F"><font size="2">(09:59:44 PM)</font> <b>retrospectacus:</b></font> archie: there are moderators,but I am not<br/>
+<font color="#A82F2F"><font size="2">(10:00:55 PM)</font> <b>archie:</b></font> you&apos; re talking about technical things or everything? sorry i m new!!!<br/>
+<font color="#A82F2F"><font size="2">(10:01:18 PM)</font> <b>centrx:</b></font> Mainly questions about using Debian<br/>
+<font color="#A82F2F"><font size="2">(10:01:40 PM)</font> <b>archie:</b></font> sorry for my english, i&apos; m french<br/>
+<font color="#A82F2F"><font size="2">(10:01:45 PM)</font> <b>centrx:</b></font> There are many channels and many networks<br/>
+<font color="#A82F2F"><font size="2">(10:01:46 PM)</font> <b>retrospectacus:</b></font> this channel (room) is Debian support. There are other channels for general chat, e.g. #moocows or #debian-offtopic<br/>
+<font color="#A82F2F"><font size="2">(10:02:43 PM)</font> <b>archie:</b></font> If i got problems with my config, i can ask here for that?<br/>
+<font color="#A82F2F"><font size="2">(10:03:32 PM)</font> <b>centrx:</b></font> !ask<br/>
+<font color="#A82F2F"><font size="2">(10:03:32 PM)</font> <b>dpkg:</b></font> If you have a question, just ask! For example: &quot;I have a problem with ___; I&apos;m running Debian version ___. When I try to do ___ I get the following output ___. I expected it to do ___.&quot; Don&apos;t ask if you can ask, if anyone uses it, or pick one person to ask. We&apos;re all volunteers; make it easy for us to help you. If you don&apos;t get an answer try a few hours later or on debian-user@lists.debian.org. See &lt;smart questions&gt;&lt;errors&gt;.<br/>
+<font size="2">(10:05:25 PM)</font><b> centrx left the room (quit: Quit: Shutting down, Please wait...).</b><br/>
+<font color="#A82F2F"><font size="2">(10:05:50 PM)</font> <b>archie:</b></font> it s perfect! i and many questions<br/>
+<font color="#A82F2F"><font size="2">(10:06:07 PM)</font> <b>retrospectacus:</b></font> please do.<br/>
+<font color="#A82F2F"><font size="2">(10:17:17 PM)</font> <b>adamaze:</b></font> im using rsnapshot in debian, and some googling led me to try rsnapshot-diff with the &quot;-s&quot; option, but it doesnt look like that is included in my version<br/>
+<font color="#A82F2F"><font size="2">(10:17:52 PM)</font> <b>adamaze:</b></font> i see it in this changelog: http://cpansearch.perl.org/src/DCANTRELL/App-Rsnapshot-1.999_00002/ChangeLog<br/>
+<font size="2">(10:18:00 PM)</font><b> mode (+l 696) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:18:09 PM)</font> <b>adamaze:</b></font> but im not sure if that is official or what...<br/>
+<font color="#A82F2F"><font size="2">(10:18:24 PM)</font> <b>retrospectacus:</b></font> judd: file bin/rsnapshot-diff<br/>
+<font color="#A82F2F"><font size="2">(10:18:28 PM)</font> <b>judd:</b></font> Search for bin/rsnapshot-diff in wheezy/i386: <span style='font-weight: bold;'>rsnapshot</span>: usr/bin/rsnapshot-diff<br/>
+<font color="#A82F2F"><font size="2">(10:18:48 PM)</font> <b>retrospectacus:</b></font> adamaze: if you&apos;re on wheezy, it should be there<br/>
+<font color="#A82F2F"><font size="2">(10:19:25 PM)</font> <b>retrospectacus:</b></font> ,v rsnapshot<br/>
+<font color="#A82F2F"><font size="2">(10:19:27 PM)</font> <b>judd:</b></font> Package: rsnapshot on i386 -- <span style='font-weight: bold;'>squeeze</span>: 1.3.1-1; <span style='font-weight: bold;'>wheezy</span>: 1.3.1-3; <span style='font-weight: bold;'>jessie</span>: 1.3.1-4; <span style='font-weight: bold;'>sid</span>: 1.3.1-6<br/>
+<font color="#A82F2F"><font size="2">(10:19:40 PM)</font> <b>adamaze:</b></font> i am indeed on wheezy<br/>
+<font color="#A82F2F"><font size="2">(10:19:55 PM)</font> <b>retrospectacus:</b></font> I see, you want the -s option but it is not in 1.3.1<br/>
+<font color="#A82F2F"><font size="2">(10:20:34 PM)</font> <b>adamaze:</b></font> retrospectacus: so in that changelog i linked to, the &quot;x&quot; in 1.3.x says that it is unreleased?<br/>
+<font color="#A82F2F"><font size="2">(10:21:43 PM)</font> <b>retrospectacus:</b></font> I guess so<br/>
+<font color="#A82F2F"><font size="2">(10:24:19 PM)</font> <b>retrospectacus:</b></font> adamaze: if you really need it you can apply the patch linked to the rsnapshot-diff binary<br/>
+<font color="#A82F2F"><font size="2">(10:25:27 PM)</font> <b>adamaze:</b></font> the rsnapshot.org site is a bit barren, could you point me in the right direction to get official rsnapshot stuff?<br/>
+<font color="#A82F2F"><font size="2">(10:27:13 PM)</font> <b>retrospectacus:</b></font> what are you looking for?<br/>
+<font color="#A82F2F"><font size="2">(10:27:45 PM)</font> <b>adamaze:</b></font> i guess im not really sure... i have never had to try and dive this deep :-P<br/>
+<font color="#A82F2F"><font size="2">(10:28:08 PM)</font> <b>retrospectacus:</b></font> adamaze: on the link you posted, there is a reference to a mailing list. Go there<br/>
+<font color="#A82F2F"><font size="2">(10:28:25 PM)</font> <b>retrospectacus:</b></font> adamaze: the first reply includes a patch to enable -s function<br/>
+<font color="#A82F2F"><font size="2">(10:29:08 PM)</font> <b>retrospectacus:</b></font> adamaze: open that file; it is a &quot;diff&quot; describing the patch. You may apply it to /usr/bin/rsnapshot-diff which is a perl script<br/>
+<font color="#A82F2F"><font size="2">(10:30:09 PM)</font> <b>retrospectacus:</b></font> you can apply the diff using then &quot;patch&quot; command or do it manually with your favourite editor<br/>
+<font color="#A82F2F"><font size="2">(10:30:42 PM)</font> <b>adamaze:</b></font> awesome<br/>
+<font color="#A82F2F"><font size="2">(10:31:30 PM)</font> <b>adamaze:</b></font> follow up question: what might be a reason that after 6ish years, this hasn&apos;t made it into rsnapshot officially?<br/>
+<font color="#A82F2F"><font size="2">(10:32:10 PM)</font> <b>jhutchins:</b></font> adamaze: Because developers.<br/>
+<font color="#A82F2F"><font size="2">(10:33:52 PM)</font> <b>adamaze:</b></font> from what i can tell here, the issue is in the rsnapshot developers court, as the debian maintainers have been doing a good job?<br/>
+<font color="#A82F2F"><font size="2">(10:34:07 PM)</font> <b>retrospectacus:</b></font> looks like it. <br/>
+<font color="#A82F2F"><font size="2">(10:36:45 PM)</font> <b>adamaze:</b></font> retrospectacus: thanks for the help!<br/>
+<font color="#A82F2F"><font size="2">(10:37:21 PM)</font> <b>retrospectacus:</b></font> anytime<br/>
+<font size="2">(10:38:00 PM)</font><b> mode (+l 690) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:55:19 PM)</font> <b>adamaze:</b></font> retrospectacus: just finished patching and testing rsnapshot-diff from that mailing list. it was much easier than i thought. thanks again!<br/>
+<font color="#A82F2F"><font size="2">(10:55:48 PM)</font> <b>retrospectacus:</b></font> nice work :)<br/>
+<font size="2">(10:58:29 PM)</font><b> zer0 is now known as Guest564</b><br/>
+<font color="#A82F2F"><font size="2">(11:04:27 PM)</font> <b>knoppix_:</b></font> Anyone running Knoppix?<br/>
+<font size="2">(11:04:39 PM)</font><b> knoppix_ is now known as Guest566</b><br/>
+<font color="#A82F2F"><font size="2">(11:05:00 PM)</font> <b>Guest566:</b></font> Anyone running Knoppix<br/>
+<font color="#A82F2F"><font size="2">(11:05:17 PM)</font> <b>peter1138:</b></font> Possibly not in #debian<br/>
+<font color="#A82F2F"><font size="2">(11:05:59 PM)</font> <b>Guest566:</b></font> Are people running debian from a bootable persistant USB?<br/>
+<font color="#A82F2F"><font size="2">(11:06:05 PM)</font> <b>Guest566:</b></font> That is how I have knoppix<br/>
+<font size="2">(11:07:55 PM)</font><b> Guest566 left the room (quit: ).</b><br/>
+<font size="2">(11:48:11 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

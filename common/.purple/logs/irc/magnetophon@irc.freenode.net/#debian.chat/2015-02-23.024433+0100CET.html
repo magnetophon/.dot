@@ -1,0 +1,374 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Mon 23 Feb 2015 02:44:33 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Mon 23 Feb 2015 02:44:33 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:44:33 AM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(02:44:33 AM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(02:58:30 AM)</font> <b>ripdisk:</b></font> hey guys i&apos;m trying to get a fresh install of debian booted up...on a desktop....i used the netinstall from a usb drive, and w hen i went to boot for the first time it&apos;s saying it can&apos;t find the /boot/grub/i386-pc/normal.mod ...and it kind of sucks cos this guy has so many hdds and partitions<br/>
+<font color="#A82F2F"><font size="2">(03:00:05 AM)</font> <b>ripdisk:</b></font> wait, i think i found it!<br/>
+<font color="#A82F2F"><font size="2">(03:03:59 AM)</font> <b>ripdisk:</b></font> ohhhh<br/>
+<font color="#A82F2F"><font size="2">(03:04:06 AM)</font> <b>ripdisk:</b></font> ok how do i give it a new dir for the normal.mod<br/>
+<font color="#A82F2F"><font size="2">(03:04:15 AM)</font> <b>ripdisk:</b></font> it&apos;s just in /grub/ not /grub/i386<br/>
+<font color="#A82F2F"><font size="2">(03:09:32 AM)</font> <b>ripdisk:</b></font> eugh<br/>
+<font color="#A82F2F"><font size="2">(03:14:30 AM)</font> <b>GeekDude:</b></font> I&apos;ve recently put debian jessie for ppc onto my iMac G3 via netbooting the mini iso. I didn&apos;t pick a DE on install, but rather ran `apt-get install xorg fluxbox x11vnc` after installation. I can get the desktop to show up, and x11vnc runs, but I can&apos;t actually connect to it over VNC<br/>
+<font color="#A82F2F"><font size="2">(03:14:49 AM)</font> <b>GeekDude:</b></font> All the VNC clients I&apos;ve tried just get stuck connecting<br/>
+<font color="#A82F2F"><font size="2">(03:15:54 AM)</font> <b>aspect:</b></font> can anyone tell me how to re-enable ctrl+alt+backspace on Xorg?<br/>
+<font color="#A82F2F"><font size="2">(03:17:10 AM)</font> <b>frustration:</b></font> GeekDude, you want to check what commands are being ran when the vnc guests connect. You can find this file in .vnc/&lt;something&gt;rc<br/>
+<font color="#A82F2F"><font size="2">(03:17:22 AM)</font> <b>frustration:</b></font> But it may vary from package to package.<br/>
+<font color="#A82F2F"><font size="2">(03:17:52 AM)</font> <b>GeekDude:</b></font> First gimme a minute to get the output log from x11vnc<br/>
+<font color="#A82F2F"><font size="2">(03:18:13 AM)</font> <b>GeekDude:</b></font> x11vnc output https://gist.github.com/d37c539790514ec3e247<br/>
+<font color="#A82F2F"><font size="2">(03:18:15 AM)</font> <b>abrotman:</b></font> dpkg: tell aspect about dontzap<br/>
+<font color="#A82F2F"><font size="2">(03:18:37 AM)</font> <b>supersoju:</b></font> [17~/join #wrestling<br/>
+<font color="#A82F2F"><font size="2">(03:19:22 AM)</font> <b>GeekDude:</b></font> frustration: the only thing in /home/user/.vnc is the passwd file<br/>
+<font color="#A82F2F"><font size="2">(03:19:47 AM)</font> <b>GeekDude:</b></font> A user on this forum thread http://ubuntuforums.org/archive/index.php/t-1682956.html seems to have solved a similar issue by compiling x11vnc himself instead of using the one in the repository<br/>
+<font color="#A82F2F"><font size="2">(03:19:58 AM)</font> <b>aspect:</b></font> abrotman: thank you.  No idea how much that has immediately reduced my cortisol levels :-)<br/>
+<font color="#A82F2F"><font size="2">(03:20:52 AM)</font> <b>aspect:</b></font> .. now I guess I should consider using keyboard-configuration&apos;s compose key, if I can figure out how that interacts with my environment<br/>
+<font color="#A82F2F"><font size="2">(03:22:47 AM)</font> <b>frustration:</b></font> Ah, from the documentation x11vnc seems to be agnostic to Desktop Environments, since I have used a mix of VNC servers packages in the past, I got it confused.<br/>
+<font color="#A82F2F"><font size="2">(03:24:39 AM)</font> <b>frustration:</b></font> However, Debian is not Ubuntu and you can always check the bug tracker, depending which version of Debian you are running.<br/>
+<font color="#A82F2F"><font size="2">(03:42:36 AM)</font> <b>Pastaf:</b></font> How do you fix, &quot;Depends: libX (&gt;= *:*.*.*) but (*.*-*) is to be installed&quot;?<br/>
+<font color="#A82F2F"><font size="2">(03:43:24 AM)</font> <b>Pastaf:</b></font> in my situation, I&apos;m trying to install SimpleScreenRecorder, which is built for Ubuntu Vivid, on Debian Jessie<br/>
+<font color="#A82F2F"><font size="2">(03:43:53 AM)</font> <b>Pastaf:</b></font> &quot;Depends: libpulse0 (&gt;= 1:0.99.1) but 5.0-13 is to be installed&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:44:29 AM)</font> <b>themill:</b></font> &quot;don&apos;t do that then&quot;<br/>
+<font size="2">(03:45:23 AM)</font><b> fran` is now known as fran</b><br/>
+<font color="#A82F2F"><font size="2">(03:46:09 AM)</font> <b>Pastaf:</b></font> themill: okay then, well what do YOU suggest?<br/>
+<font color="#A82F2F"><font size="2">(03:46:21 AM)</font> <b>frustration:</b></font> Pastaf, what he means is that you should not install Ubuntu packages on Debian.<br/>
+<font color="#A82F2F"><font size="2">(03:46:22 AM)</font> <b>themill:</b></font> build it on the target platform<br/>
+<font color="#A82F2F"><font size="2">(03:46:37 AM)</font> <b>frustration:</b></font> They are not made to be compatible and will break things most of the time.<br/>
+<font color="#A82F2F"><font size="2">(03:47:20 AM)</font> <b>Pastaf:</b></font> there isn&apos;t a native debian package however. Do you think it would work if I built it myself?<br/>
+<font color="#A82F2F"><font size="2">(03:48:39 AM)</font> <b>themill:</b></font> it should, unless it&apos;s a poor quality or very weird package<br/>
+<font color="#A82F2F"><font size="2">(03:48:52 AM)</font> <b>themill:</b></font> !package recompile<br/>
+<font color="#A82F2F"><font size="2">(03:48:53 AM)</font> <b>dpkg:</b></font> 1) Add a &lt;deb-src&gt; line for your current release to your sources.list 2) aptitude update; aptitude install build-essential devscripts fakeroot; aptitude -R build-dep packagename 3) as any user, apt-get source packagename 4) cd packagename-version/; ask me about &lt;debian/rules&gt;; 5) dpkg-buildpackage -uc -us 6) as root, dpkg -i ../packagename-version.deb.  Ask me about &lt;debian/rules&gt;, &lt;nocheck&gt;, &lt;nostrip&gt;, &lt;apt-get source&gt;.<br/>
+<font color="#A82F2F"><font size="2">(03:49:23 AM)</font> <b>themill:</b></font> You obviously need to change the first couple of steps since you&apos;ll be getting the source package from elsewhere.<br/>
+<font color="#A82F2F"><font size="2">(04:01:25 AM)</font> <b>GeekDude:</b></font> frustration: wow, I compiled it myself and it does actually work<br/>
+<font size="2">(04:01:48 AM)</font><b> L4MEB0A is now known as DrDang</b><br/>
+<font size="2">(04:02:02 AM)</font><b> mode (+l 1499) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(04:02:07 AM)</font> <b>GeekDude:</b></font> I&apos;ll have to poke around in the bug tracker and make an entry if there isn&apos;t one<br/>
+<font color="#A82F2F"><font size="2">(04:08:58 AM)</font> <b>frustration:</b></font> Well, you don&apos;t want to go for that straight away... It is probably a good idea to know what changes are there between the original code to the Debian distribution. I finished installing a DE myself and installing x11vnc from the repository and running it as root on unstable(Sid) allowed me to connect.<br/>
+<font color="#A82F2F"><font size="2">(04:11:49 AM)</font> <b>GeekDude:</b></font> frustration: I already tried running the version from the repo as root and it didn&apos;t help any<br/>
+<font color="#A82F2F"><font size="2">(04:13:00 AM)</font> <b>GeekDude:</b></font> I can&apos;t say I have any idea to go about troubleshooting this issue, and frankly I&apos;m not sure I want to. What I&apos;ve got now works<br/>
+<font color="#A82F2F"><font size="2">(04:13:24 AM)</font> <b>Pastaf:</b></font> compiling it worked, thanks<br/>
+<font color="#A82F2F"><font size="2">(04:41:12 AM)</font> <b>ripdisk:</b></font> is ther a way for me to reinstall grub without reinstalling the entire os<br/>
+<font color="#A82F2F"><font size="2">(04:41:51 AM)</font> <b>somiaj:</b></font> ripdisk: what do you mean by reinstall grub? Reinstall it into the mbr or efi partition?<br/>
+<font color="#A82F2F"><font size="2">(04:43:20 AM)</font> <b>dondelelcaro:</b></font> ripdisk: just grub-install /dev/foodevice<br/>
+<font color="#A82F2F"><font size="2">(04:43:32 AM)</font> <b>ripdisk:</b></font> well i think the problem is it installed to the wrong mbr<br/>
+<font color="#A82F2F"><font size="2">(04:43:43 AM)</font> <b>ripdisk:</b></font> there are multiple hdds/partitions on this system<br/>
+<font color="#A82F2F"><font size="2">(04:43:57 AM)</font> <b>ripdisk:</b></font> and the partition i installed debian to...it used to have ubuntu on it<br/>
+<font color="#A82F2F"><font size="2">(04:44:08 AM)</font> <b>dondelelcaro:</b></font> ripdisk: that&apos;s ok, just install it to the right one with grub-install<br/>
+<font color="#A82F2F"><font size="2">(04:44:11 AM)</font> <b>ripdisk:</b></font> so now i can&apos;t boot into debian<br/>
+<font color="#A82F2F"><font size="2">(04:44:18 AM)</font> <b>ripdisk:</b></font> how do i use grub-install<br/>
+<font color="#A82F2F"><font size="2">(04:44:23 AM)</font> <b>ripdisk:</b></font> without being able to boot into an os<br/>
+<font color="#A82F2F"><font size="2">(04:44:33 AM)</font> <b>dondelelcaro:</b></font> ripdisk: boot off of the install media in rescue mode, chroot into the debian root, and run grub-install.<br/>
+<font color="#A82F2F"><font size="2">(04:45:26 AM)</font> <b>ripdisk:</b></font> oops<br/>
+<font color="#A82F2F"><font size="2">(04:45:32 AM)</font> <b>ripdisk:</b></font> i put the usb in and it booted into the debian install now<br/>
+<font color="#A82F2F"><font size="2">(04:45:33 AM)</font> <b>ripdisk:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(04:46:08 AM)</font> <b>somiaj:</b></font> ripdisk: there are enough tools in the debian install (hit alt-f2 open up a terminal) to mount your debian install and chroot into it.<br/>
+<font color="#A82F2F"><font size="2">(04:46:16 AM)</font> <b>dvs:</b></font> ripdisk: so run grub-install now so you won&apos;t need it<br/>
+<font color="#A82F2F"><font size="2">(04:46:33 AM)</font> <b>ripdisk:</b></font> no i mean, it booted into the installed os<br/>
+<font color="#A82F2F"><font size="2">(04:46:35 AM)</font> <b>ripdisk:</b></font> on the hdd<br/>
+<font color="#A82F2F"><font size="2">(04:47:29 AM)</font> <b>dvs:</b></font> ripdisk: so run grub-install now so you won&apos;t need it<br/>
+<font color="#A82F2F"><font size="2">(04:47:48 AM)</font> <b>ripdisk:</b></font> command not found<br/>
+<font color="#A82F2F"><font size="2">(04:50:47 AM)</font> <b>g0dfrey:</b></font> hello, I found a unkown system ssl certificate in kcm_ssl, how could I find out the path of the file?<br/>
+<font color="#A82F2F"><font size="2">(04:51:47 AM)</font> <b>g0dfrey:</b></font> The certificate has the same name as my hostname.<br/>
+<font color="#A82F2F"><font size="2">(04:52:11 AM)</font> <b>ripdisk:</b></font> ok i have grub install working but idk how to use it lol<br/>
+<font color="#A82F2F"><font size="2">(04:53:40 AM)</font> <b>polyphagia:</b></font> hi hikilaka<br/>
+<font color="#A82F2F"><font size="2">(04:53:43 AM)</font> <b>hikilaka:</b></font> hi polyphagia<br/>
+<font color="#A82F2F"><font size="2">(04:55:41 AM)</font> <b>dvs:</b></font> ripdisk: You have to know what your boot device is and run &quot;grub-install /dev/XXX&quot; where XXX is the boot device.<br/>
+<font size="2">(04:58:26 AM)</font><b> bazhang_ is now known as bazhang</b><br/>
+<font color="#A82F2F"><font size="2">(05:02:00 AM)</font> <b>overjoyedpulp:</b></font> sid users: do you refrain from updating for a little bit after testing is declared stable?<br/>
+<font color="#A82F2F"><font size="2">(05:03:18 AM)</font> <b>themill:</b></font> overjoyedpulp: why? (just after stable is released would be the time to avoid updates)<br/>
+<font color="#A82F2F"><font size="2">(05:05:20 AM)</font> <b>ripdisk:</b></font> there<br/>
+<font color="#A82F2F"><font size="2">(05:05:24 AM)</font> <b>ripdisk:</b></font> i got it working anyway<br/>
+<font color="#A82F2F"><font size="2">(05:05:31 AM)</font> <b>ripdisk:</b></font> it was supposed to go to /dev/sdc<br/>
+<font color="#A82F2F"><font size="2">(05:05:40 AM)</font> <b>ripdisk:</b></font> it was going to the usb from the netinstall lol<br/>
+<font color="#A82F2F"><font size="2">(05:07:01 AM)</font> <b>overjoyedpulp:</b></font> themill: just curious -- i know people who run testing tend to refrain from updating shortly after a release<br/>
+<font color="#A82F2F"><font size="2">(05:07:54 AM)</font> <b>albert:</b></font> What are the best linux irc channels? for things like servers, infrastructure, puppett, devops, web ops?<br/>
+<font color="#A82F2F"><font size="2">(05:09:21 AM)</font> <b>kellnola:</b></font> freenode<br/>
+<font color="#A82F2F"><font size="2">(05:10:41 AM)</font> <b>bazhang:</b></font>  /msg alis list puppet  &lt;---- albert<br/>
+<font color="#A82F2F"><font size="2">(05:10:53 AM)</font> <b>bazhang:</b></font> use alis to search albert<br/>
+<font color="#A82F2F"><font size="2">(05:12:08 AM)</font> <b>g0dfrey:</b></font> I found the crt file generated by $(make-ssl-cert generate-default-snakeoil), anyone know the purpose of this crt?<br/>
+<font color="#A82F2F"><font size="2">(05:16:53 AM)</font> <b>kellnola:</b></font> it&apos;s just a default one that&apos;s clearly fake, prob to keep people from using ssl improperly<br/>
+<font color="#A82F2F"><font size="2">(05:17:01 AM)</font> <b>kellnola:</b></font> or help, anyway<br/>
+<font color="#A82F2F"><font size="2">(05:17:30 AM)</font> <b>kellnola:</b></font> *some* people let it sit like that for years ...<br/>
+<font color="#A82F2F"><font size="2">(05:18:51 AM)</font> <b>g0dfrey:</b></font> How can I find out which package generated it?<br/>
+<font color="#A82F2F"><font size="2">(05:19:16 AM)</font> <b>tErik:</b></font> albert, you may try these: this/irc.FREENODE.net , irc.OFTC.net, irc.MOZILLA.org<br/>
+<font color="#A82F2F"><font size="2">(05:20:26 AM)</font> <b>themill:</b></font> overjoyedpulp: after release ≠ during freeze<br/>
+<font color="#A82F2F"><font size="2">(05:20:47 AM)</font> <b>themill:</b></font> overjoyedpulp: oh sorry, I misread what you had written.<br/>
+<font color="#A82F2F"><font size="2">(05:21:44 AM)</font> <b>themill:</b></font> overjoyedpulp: Yes, all sorts of stuff gets uploaded immediately after release and it&apos;s obviously not been tested together and won&apos;t have matured in the same way as packages normally do<br/>
+<font color="#A82F2F"><font size="2">(05:22:39 AM)</font> <b>themill:</b></font> overjoyedpulp: for example, about 2000 packages were updated in the week following wheezy&apos;s release http://ircbots.debian.net/stats/<br/>
+<font color="#A82F2F"><font size="2">(05:30:20 AM)</font> <b>overjoyedpulp:</b></font> themill: so wait do sid users also tend to wait?<br/>
+<font color="#A82F2F"><font size="2">(05:31:02 AM)</font> <b>themill:</b></font> well, people who are using sid are normally doing so to test things out because their need for new shiny is greater than their aversion to bugs. If you&apos;re averse to bugs, then don&apos;t run sid...<br/>
+<font color="#A82F2F"><font size="2">(05:31:45 AM)</font> <b>themill:</b></font> It all depends on how risk-averse you are and how much time/skills you have to deal with the problems that will hit you<br/>
+<font color="#A82F2F"><font size="2">(05:32:03 AM)</font> <b>jpleau:</b></font> my precious.... shiny<br/>
+<font color="#A82F2F"><font size="2">(05:34:14 AM)</font> <b>kellnola:</b></font> g0dfrey, you can grep for it in /var/lib/dpkg/<br/>
+<font color="#A82F2F"><font size="2">(05:36:50 AM)</font> <b>g0dfrey:</b></font> OK. thank you kellnola, found all scripts in info subdir<br/>
+<font size="2">(05:51:37 AM)</font><b> swordsmanz is now known as hugbot</b><br/>
+<font color="#A82F2F"><font size="2">(05:53:06 AM)</font> <b>tomivs:</b></font> Hi, I want to download torrent trough CLI, what do you recommend?<br/>
+<font color="#A82F2F"><font size="2">(05:55:57 AM)</font> <b>bazhang:</b></font> rtorrent tomivs<br/>
+<font color="#A82F2F"><font size="2">(05:56:10 AM)</font> <b>bazhang:</b></font> ,v rtorrent<br/>
+<font color="#A82F2F"><font size="2">(05:56:11 AM)</font> <b>judd:</b></font> Package: rtorrent on i386 -- squeeze: 0.8.6-1; squeeze-backports: 0.8.9-2~bpo60+1; jessie: 0.9.2-1; wheezy: 0.9.2-1; sid: 0.9.2-1<br/>
+<font color="#A82F2F"><font size="2">(05:56:43 AM)</font> <b>bazhang:</b></font> kmandla has some super tutorials on using rtorrent tomivs<br/>
+<font color="#A82F2F"><font size="2">(06:01:44 AM)</font> <b>tomivs:</b></font> bazhang: :O thx I will learn how to use rtorrent :D<br/>
+<font size="2">(06:06:48 AM)</font><b> Yukitteru is now known as Yukkii</b><br/>
+<font size="2">(06:22:03 AM)</font><b> mode (+l 1492) by debhelper</b><br/>
+<font size="2">(06:23:19 AM)</font><b> L4MEB0A is now known as TCPIPDHCPHTTP</b><br/>
+<font color="#A82F2F"><font size="2">(06:47:02 AM)</font> <b>_1_l:</b></font> s<br/>
+<font size="2">(06:47:12 AM)</font><b> _1_l left the room.</b><br/>
+<font size="2">(06:51:13 AM)</font><b> Guest50304 is now known as ageis</b><br/>
+<font size="2">(07:22:02 AM)</font><b> mode (+l 1483) by debhelper</b><br/>
+<font size="2">(07:34:45 AM)</font><b> pvoigt_ is now known as pvoigt</b><br/>
+<font color="#A82F2F"><font size="2">(07:40:01 AM)</font> <b>mms_:</b></font> I have 16GB USB and I want to install debian on it so then I can use it with different PC ...just boot into USB and be on debian.  do I need to just copy iso image to USB and I am done ?<br/>
+<font color="#A82F2F"><font size="2">(07:40:57 AM)</font> <b>mms_:</b></font> I read https://www.debian.org/releases/stable/i386/ch04s03.html.en and section 4.3 4.3.1 seems to be enough ?<br/>
+<font color="#A82F2F"><font size="2">(07:41:26 AM)</font> <b>mms_:</b></font> not clear which exact iso file I should download...netinstall.iso will also do ?<br/>
+<font color="#A82F2F"><font size="2">(07:44:30 AM)</font> <b>mms_:</b></font> also to be more general we should use i386 images instead of amd64 even though we have many machines with 64bit cpu<br/>
+<font color="#A82F2F"><font size="2">(07:50:05 AM)</font> <b>mms_:</b></font> I have downloaded now stable debian-7.8.0-i386-netinst.iso 277MB<br/>
+<font color="#A82F2F"><font size="2">(07:50:35 AM)</font> <b>mms_:</b></font> I will just copy sync to usb and boot using it hoping it will let me do install like I do to hdd<br/>
+<font color="#A82F2F"><font size="2">(07:56:08 AM)</font> <b>mms_:</b></font> ??<br/>
+<font color="#A82F2F"><font size="2">(07:58:20 AM)</font> <b>SirLagz:</b></font> mms_: what you need to do is install Debian onto the USB stick as if the USB stick was a hard drive<br/>
+<font color="#A82F2F"><font size="2">(07:58:47 AM)</font> <b>mms_:</b></font> ok...so I downloaded the ISO and should I copy it to USB using cp command ?<br/>
+<font color="#A82F2F"><font size="2">(07:58:51 AM)</font> <b>mms_:</b></font> then just boot from USB ?<br/>
+<font color="#A82F2F"><font size="2">(07:58:55 AM)</font> <b>SirLagz:</b></font> mms_: not quite<br/>
+<font color="#A82F2F"><font size="2">(07:58:59 AM)</font> <b>mms_:</b></font> then ?<br/>
+<font color="#A82F2F"><font size="2">(07:59:03 AM)</font> <b>darxmurf:</b></font> hi all<br/>
+<font color="#A82F2F"><font size="2">(07:59:06 AM)</font> <b>SirLagz:</b></font> you&apos;re going to need a separate install media to the USB stick you want to boot Debian off<br/>
+<font color="#A82F2F"><font size="2">(07:59:17 AM)</font> <b>SirLagz:</b></font> so CD or another USB stick<br/>
+<font color="#A82F2F"><font size="2">(07:59:42 AM)</font> <b>Neytiri:</b></font> i am having a big issue with updating and i have no idea how to fix it,  console output after apt-get upgrade http://pastebin.com/8gcGgKth<br/>
+<font color="#A82F2F"><font size="2">(07:59:49 AM)</font> <b>mms_:</b></font> well I have only one USB so from linux netbook how do I set it up ?<br/>
+<font color="#A82F2F"><font size="2">(08:00:53 AM)</font> <b>SirLagz:</b></font> mms_: why do you want to boot Debian off the USB stick ? Is this just going to be a portable debian install ?<br/>
+<font color="#A82F2F"><font size="2">(08:01:33 AM)</font> <b>mms_:</b></font> SirLagz: yes ...I have to move to different locations and instead of netbook I rather carry USB<br/>
+<font color="#A82F2F"><font size="2">(08:01:53 AM)</font> <b>themill:</b></font> !live<br/>
+<font color="#A82F2F"><font size="2">(08:01:53 AM)</font> <b>SirLagz:</b></font> mms_: I see.<br/>
+<font color="#A82F2F"><font size="2">(08:01:53 AM)</font> <b>dpkg:</b></font> The Debian Live project provides pre-built Debian live system images and allows creation of your own.  These can be used to install a Debian system.  Live images are available from http://www.debian.org/CD/live/ .  http://live.debian.net/  #debian-live on irc.debian.org.<br/>
+<font color="#A82F2F"><font size="2">(08:02:20 AM)</font> <b>mms_:</b></font> ok so I can dump that to usb and then install using USB ?<br/>
+<font color="#A82F2F"><font size="2">(08:02:45 AM)</font> <b>themill:</b></font> Neytiri: what happened to &quot;insserv&quot;? Is that package installed? Is there an /sbin/insserv?<br/>
+<font color="#A82F2F"><font size="2">(08:02:49 AM)</font> <b>mms_:</b></font> I already having my netbook runing debian<br/>
+<font color="#A82F2F"><font size="2">(08:03:15 AM)</font> <b>mms_:</b></font> so I will download live image and dump to USB and then reboot using USB and it should do it ?<br/>
+<font color="#A82F2F"><font size="2">(08:03:17 AM)</font> <b>SirLagz:</b></font> mms_: personally, I&apos;d keep the netbook...But if you install a live distro onto the USB stick, then you can boot the USB stick and it&apos;ll be usable<br/>
+<font color="#A82F2F"><font size="2">(08:03:25 AM)</font> <b>SirLagz:</b></font> mms_: yes<br/>
+<font color="#A82F2F"><font size="2">(08:03:33 AM)</font> <b>Neytiri:</b></font> themill,  no its not<br/>
+<font color="#A82F2F"><font size="2">(08:04:16 AM)</font> <b>mms_:</b></font> SirLagz: I am confused...I download live image and copy to USB.  then when I boot into USB do I then install debian full on to usb instead of live ?<br/>
+<font color="#A82F2F"><font size="2">(08:04:34 AM)</font> <b>mms_:</b></font> SirLagz: then my usb will become just full debian and not just live ?<br/>
+<font color="#A82F2F"><font size="2">(08:04:53 AM)</font> <b>themill:</b></font> Neytiri: that&apos;s an impressive effort... how did you manage that? (insserv is part of a pseudo-essential set in wheezy)<br/>
+<font color="#A82F2F"><font size="2">(08:05:40 AM)</font> <b>Neytiri:</b></font> dont ask me cause i have no idea<br/>
+<font color="#A82F2F"><font size="2">(08:05:42 AM)</font> <b>SirLagz:</b></font> mms_: no. when you burn the ISO onto the USB stick, it will become a live install, so you can boot and use it<br/>
+<font color="#A82F2F"><font size="2">(08:05:54 AM)</font> <b>SirLagz:</b></font> mms_: do you know how a live distro works ?<br/>
+<font color="#A82F2F"><font size="2">(08:06:06 AM)</font> <b>mms_:</b></font> SirLagz: yes thats why I asked...<br/>
+<font color="#A82F2F"><font size="2">(08:06:15 AM)</font> <b>mms_:</b></font> SirLagz: its not persistent<br/>
+<font color="#A82F2F"><font size="2">(08:06:31 AM)</font> <b>mms_:</b></font> SirLagz: I want persistent full linux like on HDD<br/>
+<font color="#A82F2F"><font size="2">(08:06:54 AM)</font> <b>mms_:</b></font> I thought section 4.3 and 4.3.1 I referred above would do that<br/>
+<font color="#A82F2F"><font size="2">(08:07:02 AM)</font> <b>SirLagz:</b></font> mms_: you&apos;ll likely be able to setup a persistence partition using the live distro<br/>
+<font color="#A82F2F"><font size="2">(08:07:29 AM)</font> <b>themill:</b></font> Neytiri: is there another admin for this system who you can ask? A machine admin&apos;s log?<br/>
+<font color="#A82F2F"><font size="2">(08:07:39 AM)</font> <b>mms_:</b></font> so instead of live I had downloaded the netinst.iso<br/>
+<font color="#A82F2F"><font size="2">(08:07:45 AM)</font> <b>mms_:</b></font> why cannot I use that to install to USB ?<br/>
+<font color="#A82F2F"><font size="2">(08:07:55 AM)</font> <b>Neytiri:</b></font> nope its jsut me<br/>
+<font color="#A82F2F"><font size="2">(08:08:44 AM)</font> <b>mms_:</b></font> SirLagz: I hope I clarified well<br/>
+<font color="#A82F2F"><font size="2">(08:08:54 AM)</font> <b>themill:</b></font> Neytiri: so you&apos;d have had to work hard to remove insserv.<br/>
+<font color="#A82F2F"><font size="2">(08:09:14 AM)</font> <b>SirLagz:</b></font> mms_: yes...you could run a VM on your netbook to run the install to install it to the USB stick...<br/>
+<font color="#A82F2F"><font size="2">(08:09:41 AM)</font> <b>SirLagz:</b></font> mms_: or with debian live - http://live.debian.net/manual/1.x/html/persistence.html<br/>
+<font color="#A82F2F"><font size="2">(08:09:56 AM)</font> <b>themill:</b></font> Neytiri: can you pastebin the output of &quot;apt-cache policy sysvinit sysv-rc file-rc insserv upstart systemd; apt-cache policy&quot; for me?<br/>
+<font color="#A82F2F"><font size="2">(08:11:20 AM)</font> <b>Neytiri:</b></font> http://pastebin.com/LRpych0P<br/>
+<font color="#A82F2F"><font size="2">(08:11:59 AM)</font> <b>themill:</b></font> Neytiri: installing packages from ubuntu? where could that go wrong...<br/>
+<font size="2">(08:12:02 AM)</font><b> mode (+l 1489) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:12:16 AM)</font> <b>SirLagz:</b></font> themill: another frankendebian instance heh<br/>
+<font color="#A82F2F"><font size="2">(08:12:35 AM)</font> <b>themill:</b></font> Neytiri: what&apos;s the output of: aptitude search &apos;?narrow(?not(?archive(&quot;^[^n][^o].*$&quot;)),?version(CURRENT))&apos;<br/>
+<font color="#A82F2F"><font size="2">(08:13:36 AM)</font> <b>Neytiri:</b></font> http://pastebin.com/aPjiLWtN<br/>
+<font color="#A82F2F"><font size="2">(08:14:33 AM)</font> <b>mms_:</b></font> ok live cd also looks good<br/>
+<font color="#A82F2F"><font size="2">(08:14:50 AM)</font> <b>themill:</b></font> Neytiri: is it a long time since you&apos;ve upgraded things? What does &quot;apt-cache policy libc6 less dash&quot; say?<br/>
+<font color="#A82F2F"><font size="2">(08:15:35 AM)</font> <b>Neytiri:</b></font> its been broken a while<br/>
+<font color="#A82F2F"><font size="2">(08:15:39 AM)</font> <b>themill:</b></font> and where did libc6-x32 come from?<br/>
+<font color="#A82F2F"><font size="2">(08:15:43 AM)</font> <b>Neytiri:</b></font> i havnt had time to fix it<br/>
+<font color="#A82F2F"><font size="2">(08:16:29 AM)</font> <b>Neytiri:</b></font> http://pastebin.com/1yTzs4L7<br/>
+<font color="#A82F2F"><font size="2">(08:17:03 AM)</font> <b>themill:</b></font> Neytiri: the way of fixing this is really quite simple: decide whether you&apos;re going to run debian or ubuntu and then reinstall that distribution.<br/>
+<font color="#A82F2F"><font size="2">(08:17:20 AM)</font> <b>Neytiri:</b></font> ya i was hoping to avoid reinstalling<br/>
+<font color="#A82F2F"><font size="2">(08:17:21 AM)</font> <b>mrwbp:</b></font> Does anybody know how can I install ffmpeg on debian.<br/>
+<font color="#A82F2F"><font size="2">(08:17:27 AM)</font> <b>Neytiri:</b></font> its a production mail/webserver<br/>
+<font color="#A82F2F"><font size="2">(08:17:34 AM)</font> <b>mrwbp:</b></font> I need the last version of ffmpeg 2.5<br/>
+<font color="#A82F2F"><font size="2">(08:17:45 AM)</font> <b>themill:</b></font> Neytiri: yeah well you don&apos;t do those things to a production machine either<br/>
+<font color="#A82F2F"><font size="2">(08:17:46 AM)</font> <b>polyphagia:</b></font> mrwbp: it&apos;s not really recommended but deb-multimedia provides it<br/>
+<font color="#A82F2F"><font size="2">(08:18:04 AM)</font> <b>polyphagia:</b></font> since it&apos;s a third party repo do so at your own risk<br/>
+<font color="#A82F2F"><font size="2">(08:18:11 AM)</font> <b>themill:</b></font> mrwbp: libav-tools is in debian.<br/>
+<font color="#A82F2F"><font size="2">(08:18:12 AM)</font> <b>Neytiri:</b></font> i still dont know how it happined<br/>
+<font color="#A82F2F"><font size="2">(08:18:27 AM)</font> <b>themill:</b></font> Neytiri: well you&apos;ve added ubuntu things to your sources.list, upgraded and then removed them<br/>
+<font color="#A82F2F"><font size="2">(08:18:57 AM)</font> <b>mrwbp:</b></font> I included de debian-multimedia and backports but still giving me the old version<br/>
+<font color="#A82F2F"><font size="2">(08:18:59 AM)</font> <b>Neytiri:</b></font> i havnt edited it since i installed it<br/>
+<font color="#A82F2F"><font size="2">(08:19:00 AM)</font> <b>Neytiri:</b></font> http://pastebin.com/aBuu9jsT<br/>
+<font color="#A82F2F"><font size="2">(08:19:06 AM)</font> <b>polyphagia:</b></font> did you apt-get update mrwbp<br/>
+<font color="#A82F2F"><font size="2">(08:19:14 AM)</font> <b>mrwbp:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(08:19:31 AM)</font> <b>mrwbp:</b></font> I did it apt-get update<br/>
+<font color="#A82F2F"><font size="2">(08:19:40 AM)</font> <b>themill:</b></font> I wouldn&apos;t recommend going anywhere near the crap from deb-multimedia.<br/>
+<font color="#A82F2F"><font size="2">(08:20:07 AM)</font> <b>themill:</b></font> Neytiri: well virtualmin sure wasn&apos;t in your sources.list when it was installed.<br/>
+<font color="#A82F2F"><font size="2">(08:20:20 AM)</font> <b>mrwbp:</b></font> ok so what do you recommend me in order to install ffmpeg 2.5?<br/>
+<font color="#A82F2F"><font size="2">(08:20:38 AM)</font> <b>Neytiri:</b></font> no it wasnt, but that was the only entry i added<br/>
+<font color="#A82F2F"><font size="2">(08:20:51 AM)</font> <b>themill:</b></font> Neytiri: the packages you have installed suggest otherwise<br/>
+<font color="#A82F2F"><font size="2">(08:21:51 AM)</font> <b>Neytiri:</b></font> i think i just fixed it<br/>
+<font color="#A82F2F"><font size="2">(08:22:45 AM)</font> <b>themill:</b></font> Neytiri: you can reinstall debian&apos;s insserv package and that will let you finish that upgrade. It does not actually fix the machine.<br/>
+<font color="#A82F2F"><font size="2">(08:23:23 AM)</font> <b>themill:</b></font> Neytiri: I wouldn&apos;t mind betting that you&apos;re vulnerable to a pile of different things right now because you&apos;ve got packages that won&apos;t receive security upgrades<br/>
+<font color="#A82F2F"><font size="2">(08:23:43 AM)</font> <b>mrwbp:</b></font> I have ffmpeg 2.4 running in my freebsd, When I try to send a rtmp signal from debian (ffmpeg 0.8), the ffmepg in freebsd cannot process that signal, it says somethind related to the headers<br/>
+<font color="#A82F2F"><font size="2">(08:24:20 AM)</font> <b>mrwbp:</b></font> but it is working in freebsd because When I send the signal from Open broadcaster, it works perfect<br/>
+<font color="#A82F2F"><font size="2">(08:24:38 AM)</font> <b>Neytiri:</b></font> is there a way of iscolating those packages and installign the devian version<br/>
+<font color="#A82F2F"><font size="2">(08:24:43 AM)</font> <b>mrwbp:</b></font> so I think, it is the version of the ffmpeg in debian is too old<br/>
+<font color="#A82F2F"><font size="2">(08:24:50 AM)</font> <b>mms_:</b></font> SirLagz: live usb seems bit complex...I think full install would be better option<br/>
+<font color="#A82F2F"><font size="2">(08:26:31 AM)</font> <b>mms_:</b></font> SirLagz: cannot I just parition my USB to hold netinst.iso and to another usb partition install full system ?<br/>
+<font color="#A82F2F"><font size="2">(08:26:42 AM)</font> <b>themill:</b></font> Neytiri: everything in that big long list from the aptitude command you ran earlier. I don&apos;t know that I&apos;d ever trust that box though... the packages are never designed for downgrades and certainly not across distributions<br/>
+<font color="#A82F2F"><font size="2">(08:28:10 AM)</font> <b>themill:</b></font> Neytiri: add -F%p --disable-columns to that command to just get a list of packages.<br/>
+<font color="#A82F2F"><font size="2">(08:28:47 AM)</font> <b>Neytiri:</b></font> to this command? apt-cache policy sysvinit sysv-rc file-rc insserv upstart systemd; apt-cache policy    or the other one<br/>
+<font color="#A82F2F"><font size="2">(08:29:37 AM)</font> <b>themill:</b></font> aptitude<br/>
+<font size="2">(08:32:03 AM)</font><b> mode (+l 1500) by debhelper</b><br/>
+<font size="2">(08:38:21 AM)</font><b> Neytiri left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(08:39:15 AM)</font> <b>mms_:</b></font> SirLagz: ??<br/>
+<font size="2">(09:12:03 AM)</font><b> mode (+l 1509) by debhelper</b><br/>
+<font size="2">(09:15:52 AM)</font><b> Phil-Work` is now known as Phil-Work</b><br/>
+<font size="2">(09:22:02 AM)</font><b> mode (+l 1517) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:23:30 AM)</font> <b>SirLagz:</b></font> mms_: you can give that a shot...I don&apos;t know how the installer would handle that<br/>
+<font color="#A82F2F"><font size="2">(09:31:09 AM)</font> <b>mado:</b></font> hi guys, can someone build me a package from backports? i unfortunately dont have access to a large enough debian machine right now.<br/>
+<font color="#A82F2F"><font size="2">(09:36:50 AM)</font> <b>aborrero:</b></font> mado which package?<br/>
+<font color="#A82F2F"><font size="2">(09:43:08 AM)</font> <b>mado:</b></font> aborrero: firehol<br/>
+<font color="#A82F2F"><font size="2">(09:43:12 AM)</font> <b>mado:</b></font> for wheezy<br/>
+<font color="#A82F2F"><font size="2">(09:43:30 AM)</font> <b>mado:</b></font> in sid theres v2.something available, in wheezy only 1.2<br/>
+<font color="#A82F2F"><font size="2">(09:44:59 AM)</font> <b>aborrero:</b></font> only the version in testing can be backported<br/>
+<font color="#A82F2F"><font size="2">(09:46:44 AM)</font> <b>mado:</b></font> aborrero: huh? why that? i built it yesterday on my homecomputer<br/>
+<font color="#A82F2F"><font size="2">(09:47:48 AM)</font> <b>aborrero:</b></font> mado: please read http://backports.debian.org/<br/>
+<font color="#A82F2F"><font size="2">(09:48:29 AM)</font> <b>mado:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(09:48:36 AM)</font> <b>mado:</b></font> testing = jessie i assume?<br/>
+<font color="#A82F2F"><font size="2">(09:48:50 AM)</font> <b>aborrero:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(09:50:27 AM)</font> <b>mado:</b></font> uhm<br/>
+<font color="#A82F2F"><font size="2">(09:50:54 AM)</font> <b>mado:</b></font> that would explain why it failed so horribly with ipv6 :p (ipv6 is supported from firehol 2 and upwards)<br/>
+<font size="2">(09:52:02 AM)</font><b> mode (+l 1525) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:52:04 AM)</font> <b>mado:</b></font> so it would be better to install firehol by hand?<br/>
+<font color="#A82F2F"><font size="2">(09:53:06 AM)</font> <b>Iridos:</b></font> huh? why should you only be able to backport testing?<br/>
+<font size="2">(09:55:26 AM)</font><b> TCPIPDHCPHTTP is now known as TCPIPDNSHTTP</b><br/>
+<font color="#A82F2F"><font size="2">(09:56:38 AM)</font> <b>jelly:</b></font> mado: firehol and fireqos seem to be Architecture: all package, in that case there&apos;s probably not much to backport<br/>
+<font color="#A82F2F"><font size="2">(09:57:30 AM)</font> <b>jelly:</b></font> mado: you just _might_ be able to download .deb for sid from packages.debian.org and install using dpkg<br/>
+<font color="#A82F2F"><font size="2">(10:01:31 AM)</font> <b>jelly:</b></font> mado: you&apos;ll still need wheezy-backports for iproute2<br/>
+<font color="#A82F2F"><font size="2">(10:04:34 AM)</font> <b>mado:</b></font> jelly: thanks, ill give it a try :)<br/>
+<font color="#A82F2F"><font size="2">(10:05:01 AM)</font> <b>jelly:</b></font> mado: so basically wget -nd http://http.debian.net/debian/pool/main/f/firehol/fire{hol,qos}_2.0.1+ds-1_all.deb &amp;&amp; dpkg -i fire*_2.0.1+ds-1_all.deb; apt-get -t wheezy-backports -f install<br/>
+<font color="#A82F2F"><font size="2">(10:05:22 AM)</font> <b>mado:</b></font> yup :) thanks!<br/>
+<font color="#A82F2F"><font size="2">(10:05:47 AM)</font> <b>mado:</b></font> first ill make a backup of my machine - already killed it off yesterday because of trying firehol -.-<br/>
+<font size="2">(10:22:03 AM)</font><b> mode (+l 1532) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:23:14 AM)</font> <b>TCPIPDNSHTTP:</b></font> \/quit<br/>
+<font color="#A82F2F"><font size="2">(10:24:41 AM)</font> <b>TCPIPDNSHTTP:</b></font> rox<br/>
+<font color="#A82F2F"><font size="2">(10:24:54 AM)</font> <b>NemeSis_:</b></font> how can redirect all HTTPS request to a domain,,, whtout getting HsTS error ?<br/>
+<font size="2">(10:32:02 AM)</font><b> mode (+l 1541) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:44:05 AM)</font> <b>mms_:</b></font> SirLagz: how do I now use vbox to install to usb ?<br/>
+<font color="#A82F2F"><font size="2">(10:44:27 AM)</font> <b>mms_:</b></font> I am at screen where for Hard drive in new wizard flow<br/>
+<font color="#A82F2F"><font size="2">(10:45:21 AM)</font> <b>elfranne:</b></font> I am trying to create a lvm snapshot in a bash script (called from a crontab entry) but lvcreate fails (command not found) but using the same command in the terminal works fine<br/>
+<font color="#A82F2F"><font size="2">(10:47:00 AM)</font> <b>mms_:</b></font> SirLagz: ???<br/>
+<font color="#A82F2F"><font size="2">(10:47:28 AM)</font> <b>daimon:</b></font> hi everyone!<br/>
+<font color="#A82F2F"><font size="2">(10:47:56 AM)</font> <b>polyphagia:</b></font> hi daimon<br/>
+<font color="#A82F2F"><font size="2">(10:48:00 AM)</font> <b>daimon:</b></font> I&apos;m trying to configure my server,can anyone hook me up?<br/>
+<font color="#A82F2F"><font size="2">(10:48:14 AM)</font> <b>daimon:</b></font> hi poly<br/>
+<font color="#A82F2F"><font size="2">(10:48:55 AM)</font> <b>suggestor:</b></font> daimon:  server for what?<br/>
+<font color="#A82F2F"><font size="2">(10:49:05 AM)</font> <b>suggestor:</b></font> homeserver?<br/>
+<font color="#A82F2F"><font size="2">(10:49:13 AM)</font> <b>daimon:</b></font> the matter is that /sbin/chkconfig seems missing and I cannot configure the services<br/>
+<font color="#A82F2F"><font size="2">(10:49:45 AM)</font> <b>daimon:</b></font> @suggestor webserver<br/>
+<font color="#A82F2F"><font size="2">(10:51:02 AM)</font> <b>daimon:</b></font> guys?<br/>
+<font color="#A82F2F"><font size="2">(10:52:59 AM)</font> <b>suggestor:</b></font> daimon: when u ask a question be more precise like: what webserver, what have u tried and what isn&apos;t working...<br/>
+<font size="2">(10:53:24 AM)</font><b> mookins_ is now known as mookins</b><br/>
+<font color="#A82F2F"><font size="2">(10:53:25 AM)</font> <b>fraff:</b></font> elfranne: check your PATH, cron use a minimal environment<br/>
+<font color="#A82F2F"><font size="2">(10:53:43 AM)</font> <b>daimon:</b></font> I tried fraff, nothing over there<br/>
+<font color="#A82F2F"><font size="2">(10:53:45 AM)</font> <b>jelly:</b></font> daimon: chkconfig is optional and comes in its own eponymous package<br/>
+<font color="#A82F2F"><font size="2">(10:54:20 AM)</font> <b>daimon:</b></font> uhm...so how can I manange network services?<br/>
+<font color="#A82F2F"><font size="2">(10:54:21 AM)</font> <b>jelly:</b></font> daimon: verify that the chkconfig package is installed<br/>
+<font color="#A82F2F"><font size="2">(10:54:33 AM)</font> <b>mms_:</b></font> SirLagz: did you mean to install vbox to usb ?<br/>
+<font color="#A82F2F"><font size="2">(10:54:46 AM)</font> <b>daimon:</b></font> @jelly how?<br/>
+<font color="#A82F2F"><font size="2">(10:54:49 AM)</font> <b>daimon:</b></font> grep?<br/>
+<font color="#A82F2F"><font size="2">(10:54:58 AM)</font> <b>mms_:</b></font> SirLagz: I thought I would install debian to usb and not install vbox to it<br/>
+<font color="#A82F2F"><font size="2">(10:55:21 AM)</font> <b>jelly:</b></font> daimon: &quot;dpkg -l chkconfig&quot; is one simple way<br/>
+<font color="#A82F2F"><font size="2">(10:55:30 AM)</font> <b>daimon:</b></font> ty jelly<br/>
+<font color="#A82F2F"><font size="2">(10:56:12 AM)</font> <b>jelly:</b></font> daimon: if the second character in that last line of the output isn&apos;t &quot;i&quot;, the package is not installed (properly)<br/>
+<font color="#A82F2F"><font size="2">(10:56:57 AM)</font> <b>daimon:</b></font> I&apos;m reading un<br/>
+<font color="#A82F2F"><font size="2">(10:57:15 AM)</font> <b>daimon:</b></font> &quot;un&quot;<br/>
+<font color="#A82F2F"><font size="2">(10:57:53 AM)</font> <b>daimon:</b></font> how can I install it?<br/>
+<font color="#A82F2F"><font size="2">(10:58:26 AM)</font> <b>jelly:</b></font> daimon: is this your first time using Debian?<br/>
+<font color="#A82F2F"><font size="2">(10:58:41 AM)</font> <b>daimon:</b></font> you caught me<br/>
+<font color="#A82F2F"><font size="2">(10:59:35 AM)</font> <b>jelly:</b></font> daimon: perhaps you&apos;d want to read chapters 5 and 6 of the debian-handbook.  http://debian-handbook.info/browse/stable/apt.html<br/>
+<font color="#A82F2F"><font size="2">(11:00:04 AM)</font> <b>jelly:</b></font> daimon: as root, you can run &quot;aptitude install packagename&quot; or &quot;apt-get install packagename&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:00:37 AM)</font> <b>daimon:</b></font> what is better between aptitude and apt-get? Which is the best repo?<br/>
+<font size="2">(11:02:02 AM)</font><b> mode (+l 1547) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:02:09 AM)</font> <b>mado:</b></font> jelly: thanks, worked :D<br/>
+<font color="#A82F2F"><font size="2">(11:02:16 AM)</font> <b>mado:</b></font> (the firehol stuff)<br/>
+<font color="#A82F2F"><font size="2">(11:03:02 AM)</font> <b>daimon:</b></font> did it :) tnx jelly!!<br/>
+<font color="#A82F2F"><font size="2">(11:03:38 AM)</font> <b>jelly:</b></font> daimon: not much difference in this case, they use slightly different algorithms for dependency resolution with &quot;install&quot; command.  Just be aware both exist.<br/>
+<font color="#A82F2F"><font size="2">(11:04:22 AM)</font> <b>daimon:</b></font> I&apos;ll do<br/>
+<font color="#A82F2F"><font size="2">(11:05:12 AM)</font> <b>jelly:</b></font> daimon: instead of chkconfig port, debian has &quot;update-rc.d&quot; by default.  Also many users pick &quot;rcconf&quot; to manage services startup.<br/>
+<font color="#A82F2F"><font size="2">(11:05:57 AM)</font> <b>jelly:</b></font> !rcconf<br/>
+<font color="#A82F2F"><font size="2">(11:05:57 AM)</font> <b>dpkg:</b></font> rcconf is a simple curses-based text user interface (TUI) frontend to &lt;update-rc.d&gt;, used to adjust the default &lt;runlevel&gt; configuration.  See also &lt;sysv-rc-conf&gt;, &lt;sysv-rc&gt;.<br/>
+<font color="#A82F2F"><font size="2">(11:06:21 AM)</font> <b>daimon:</b></font> the fact is that I&apos;m following a tutorial maybe a little bit old<br/>
+<font color="#A82F2F"><font size="2">(11:06:52 AM)</font> <b>daimon:</b></font> is about firewalling linux servers etc.<br/>
+<font color="#A82F2F"><font size="2">(11:06:52 AM)</font> <b>jelly:</b></font> and maybe a bit redhat-centric (that&apos;s where chkconfig comes from)<br/>
+<font color="#A82F2F"><font size="2">(11:07:04 AM)</font> <b>jelly:</b></font> !tutorials<br/>
+<font color="#A82F2F"><font size="2">(11:07:04 AM)</font> <b>dpkg:</b></font> A very common problem is that some people prefer to follow a step-by-step tutorial that shows them how to setup their system without reading the documentation or understanding what they are doing.  If something goes wrong, they have no clue whatsoever about where to look for hints, and they sometimes decide to start from scratch using a different tutorial.  This is not The Proper Way.<br/>
+<font color="#A82F2F"><font size="2">(11:08:27 AM)</font> <b>daimon:</b></font> dpkg,maybe, maybe some people are simply confident with other users that want to synthetize their experience in step-by-step guides<br/>
+<font color="#A82F2F"><font size="2">(11:08:28 AM)</font> <b>dpkg:</b></font> daimon: I think you lost me on that one<br/>
+<font color="#A82F2F"><font size="2">(11:08:45 AM)</font> <b>babilen:</b></font> (dpkg is a bot)<br/>
+<font color="#A82F2F"><font size="2">(11:08:55 AM)</font> <b>daimon:</b></font> wow<br/>
+<font color="#A82F2F"><font size="2">(11:09:10 AM)</font> <b>daimon:</b></font> very well done<br/>
+<font color="#A82F2F"><font size="2">(11:09:19 AM)</font> <b>babilen:</b></font> dpkg: tell daimon -about dpkgbot<br/>
+<font color="#A82F2F"><font size="2">(11:10:38 AM)</font> <b>daimon:</b></font> I&apos;m really impressed and feeling dumb -.-<br/>
+<font size="2">(11:10:40 AM)</font><b> kill_-9_1 is now known as MY123</b><br/>
+<font color="#A82F2F"><font size="2">(11:12:42 AM)</font> <b>daimon:</b></font> anyway, how I start rcconf?<br/>
+<font color="#A82F2F"><font size="2">(11:13:09 AM)</font> <b>jelly:</b></font> install it, run it (as root)<br/>
+<font color="#A82F2F"><font size="2">(11:14:52 AM)</font> <b>daimon:</b></font> Isn&apos;t the package sys-rc-conf?<br/>
+<font color="#A82F2F"><font size="2">(11:15:37 AM)</font> <b>jelly:</b></font> ,v rcconf<br/>
+<font color="#A82F2F"><font size="2">(11:15:38 AM)</font> <b>judd:</b></font> Package: rcconf on i386 -- squeeze: 2.5; wheezy: 2.5; jessie: 3.1; sid: 3.1<br/>
+<font color="#A82F2F"><font size="2">(11:15:44 AM)</font> <b>jelly:</b></font> doesn&apos;t seem to be<br/>
+<font color="#A82F2F"><font size="2">(11:17:33 AM)</font> <b>daimon:</b></font> it seems doing the same thing with less dependencies<br/>
+<font size="2">(11:22:02 AM)</font><b> mode (+l 1554) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:22:06 AM)</font> <b>elfranne:</b></font> fraff, thx that was the issue<br/>
+<font color="#A82F2F"><font size="2">(11:22:25 AM)</font> <b>mms_:</b></font> SirLagz:<br/>
+<font color="#A82F2F"><font size="2">(11:22:27 AM)</font> <b>mms_:</b></font> ??<br/>
+<font color="#A82F2F"><font size="2">(11:22:48 AM)</font> <b>mms_:</b></font> i have loaded and started vbox with netinst but my usb is not shown in list though I have added usb filter<br/>
+<font color="#A82F2F"><font size="2">(11:22:54 AM)</font> <b>fraff:</b></font> elfranne: you&apos;re wellcome<br/>
+<font color="#A82F2F"><font size="2">(11:22:58 AM)</font> <b>Shadur:</b></font> Doing a dist-upgrade from fresh install wheezy -&gt; jessie. For some reason, the process is hanging during the configure phase; according to ps axuf it&apos;s invoking systemd-ask-password-agent. Relevant excerpt from ps axuf: http://pastebin.com/7cWKdtVN<br/>
+<font color="#A82F2F"><font size="2">(11:23:00 AM)</font> <b>mms_:</b></font> I see only sda in list<br/>
+<font color="#A82F2F"><font size="2">(11:23:04 AM)</font> <b>mms_:</b></font> while my usb is sdc<br/>
+<font color="#A82F2F"><font size="2">(11:23:15 AM)</font> <b>Shadur:</b></font> mms_: What does dmesg say?<br/>
+<font color="#A82F2F"><font size="2">(11:23:32 AM)</font> <b>mms_:</b></font> let me check<br/>
+<font color="#A82F2F"><font size="2">(11:23:42 AM)</font> <b>daimon:</b></font> I solved, tnx to you all guys<br/>
+<font color="#A82F2F"><font size="2">(11:23:53 AM)</font> <b>daimon:</b></font> have a nice day<br/>
+<font size="2">(11:24:11 AM)</font><b> daimon left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:24:22 AM)</font> <b>mms_:</b></font> Shadur: it says sdb<br/>
+<font color="#A82F2F"><font size="2">(11:24:25 AM)</font> <b>mms_:</b></font> sdb1<br/>
+<font color="#A82F2F"><font size="2">(11:24:32 AM)</font> <b>mms_:</b></font> but the vbox does not show it<br/>
+<font color="#A82F2F"><font size="2">(11:24:45 AM)</font> <b>Gentoochild:</b></font> good morning, gurus. Is it possible to pack several projects into a single deb with checkinstall?<br/>
+<font color="#A82F2F"><font size="2">(11:24:55 AM)</font> <b>mms_:</b></font> I mean not just vbox but also the debian installer shows only scsi sda<br/>
+<font color="#A82F2F"><font size="2">(11:24:58 AM)</font> <b>Gentoochild:</b></font> I want to package a program together with its dependencies<br/>
+<font color="#A82F2F"><font size="2">(11:27:05 AM)</font> <b>mms_:</b></font> Shadur: got it ?<br/>
+<font color="#A82F2F"><font size="2">(11:27:25 AM)</font> <b>mms_:</b></font> Shadur: it shows sdb1 but in installer its not listed in select disk to parition<br/>
+<font color="#A82F2F"><font size="2">(11:27:29 AM)</font> <b>NemeSis_:</b></font> how can redirect all HTTPS request to a domain,,, whtout getting HsTS error ?<br/>
+<font color="#A82F2F"><font size="2">(11:30:03 AM)</font> <b>Shadur:</b></font> NemeSis_: Ask lenovo. They seem to think it was a good idea. (Hint: It isn&apos;t)<br/>
+<font size="2">(11:42:03 AM)</font><b> TCPIPDNSHTTP is now known as L4M3H4X0R</b><br/>
+<font size="2">(11:48:44 AM)</font><b> hgl- is now known as hgl</b><br/>
+<font color="#A82F2F"><font size="2">(11:51:01 AM)</font> <b>imdea:</b></font> Hi, one question I have a Debian Wheezy server and would want to put some directory structure in the $HOME of each new user created. Normally for this I put the directories under /etc/skel however I need that certain directories to _not_ be owned by the user itself but a different user. How could I achieve this?<br/>
+<font color="#A82F2F"><font size="2">(11:51:51 AM)</font> <b>Shadur:</b></font> You may need to customize an adduser script.<br/>
+<font size="2">(11:52:03 AM)</font><b> mode (+l 1548) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:52:19 AM)</font> <b>imdea:</b></font> Shadur: do you mean a custom adduser?<br/>
+<font color="#A82F2F"><font size="2">(11:52:23 AM)</font> <b>imdea:</b></font> :-/<br/>
+<font color="#A82F2F"><font size="2">(11:53:45 AM)</font> <b>jelly:</b></font> imdea: no.  Read about adduser.local in adduser manual.<br/>
+<font color="#A82F2F"><font size="2">(11:54:29 AM)</font> <b>imdea:</b></font> ok thanks<br/>
+<font color="#A82F2F"><font size="2">(12:00:59 PM)</font> <b>imdea:</b></font> jelly: does the file need to be a perl script?<br/>
+<font size="2">(12:02:03 PM)</font><b> mode (+l 1556) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:02:16 PM)</font> <b>jelly:</b></font> imdea: no<br/>
+<font color="#A82F2F"><font size="2">(12:03:32 PM)</font> <b>jelly:</b></font> imdea: is there a mention anywhere in the manual for your distro that says something like that?  Which debian release are you using?<br/>
+<font color="#A82F2F"><font size="2">(12:03:45 PM)</font> <b>imdea:</b></font> jelly: Wheezy<br/>
+<font color="#A82F2F"><font size="2">(12:04:42 PM)</font> <b>jelly:</b></font> no mention of perl in adduser(8) in wheezy<br/>
+<font color="#A82F2F"><font size="2">(12:21:34 PM)</font> <b>CtrlC:</b></font> Hi guys, does debootstrap install a kernel too?<br/>
+<font color="#A82F2F"><font size="2">(12:26:02 PM)</font> <b>fraff:</b></font> CtrlC: I don&apos;t think so, but you can chroot and install one<br/>
+<font color="#A82F2F"><font size="2">(12:26:17 PM)</font> <b>CtrlC:</b></font> fraff: Thanks.<br/>
+<font color="#A82F2F"><font size="2">(12:26:38 PM)</font> <b>fraff:</b></font> CtrlC: you can even use --include pkgName<br/>
+<font color="#A82F2F"><font size="2">(12:30:30 PM)</font> <b>eg0x:</b></font> hey folks. i`m running a debian 7.8 box with php 5.4.36-0+deb7u3 - current version in 5.4 branch is 5.4.38 - running a apt-get update &amp;&amp; apt-get upgrade doesn`t install the current version. 5.4.38 was released on 18.2.15 - will i have to wait a few more days until i get that package or is something wrong with my systems config?<br/>
+<font color="#A82F2F"><font size="2">(12:30:37 PM)</font> <b>eg0x:</b></font> thanks for your help in advance!<br/>
+<font size="2">(12:32:03 PM)</font><b> mode (+l 1564) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:36:51 PM)</font> <b>fraff:</b></font> eg0x: wheezy is frozen, you will only get security update<br/>
+<font color="#A82F2F"><font size="2">(12:37:57 PM)</font> <b>fraff:</b></font> eg0x: oops, wheezy is _stable_ not frozen<br/>
+<font color="#A82F2F"><font size="2">(12:38:06 PM)</font> <b>CtrlC:</b></font> No it&apos;s not.<br/>
+<font color="#A82F2F"><font size="2">(12:38:34 PM)</font> <b>CtrlC:</b></font> Oh! He corrected it.:)<br/>
+<font size="2">(12:39:00 PM)</font><b> CtrlC left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:40:55 PM)</font> <b>eg0x:</b></font> so theres nothing wrong and i should be patient until i can get php 5.4.38 via apt-get? theres a security issue in versions below 5.4.38 which i want to get fixed.<br/>
+<font size="2">(12:42:36 PM)</font><b> hicham_ is now known as D-Boy[Office]</b><br/>
+<font color="#A82F2F"><font size="2">(12:42:50 PM)</font> <b>fraff:</b></font> dpkg: tell eg0x about stable<br/>
+<font color="#A82F2F"><font size="2">(12:43:10 PM)</font> <b>foobark:</b></font> does security DSA3169 eglibc affect running binary packages?<br/>
+<font color="#A82F2F"><font size="2">(12:46:12 PM)</font> <b>eg0x:</b></font> fraff: thanks :)<br/>
+<font size="2">(12:55:31 PM)</font><b> hugbot is now known as swordsmanz</b><br/>
+<font size="2">(01:02:02 PM)</font><b> mode (+l 1571) by debhelper</b><br/>
+<font size="2">(01:17:40 PM)</font><b> mode (+o eir) by ChanServ</b><br/>
+<font size="2">(01:17:55 PM)</font><b> mode (-bo *!*@85.107.164.80 eir) by eir</b><br/>
+<font color="#A82F2F"><font size="2">(01:26:19 PM)</font> <b>davidcsi:</b></font> hello, just installed build-essentinals in debian, but i noticed the includes for c++ are in /usr/include/c++/4.7... why is that? everything fails now... i.e. main.c:2:20: fatal error  iostream: No such file or directory  ... and even if i include it with -I, headers are called from headers and it won&apos;t find anything...  ...anyone knows how to fix<br/>
+<font color="#A82F2F"><font size="2">(01:26:19 PM)</font> <b>davidcsi:</b></font> this?<br/>
+<font color="#A82F2F"><font size="2">(01:26:25 PM)</font> <b>davidcsi:</b></font> debian 7<br/>

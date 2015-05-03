@@ -1,0 +1,198 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Sat 14 Feb 2015 08:06:50 PM CET on magnetophon@irc.oftc.net (irc)</title></head><body><h3>Conversation with #debian at Sat 14 Feb 2015 08:06:50 PM CET on magnetophon@irc.oftc.net (irc)</h3>
+<font size="2">(08:06:50 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next | chanlogs: /msg dpkg irclog | Broken suspend with 7.8? <a href="http://deb.li/5tYG">http://deb.li/5tYG</a></b><br/>
+<font size="2">(08:06:50 PM)</font><b> Topic for #debian set by Maulkin!~maulkin@maulkin.noc.oftc.net at 04:53:46 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(08:14:29 PM)</font> <b>uniqdom:</b></font> I have compiled a kernel recently, but now I want to clean. I have done &apos;make clean&apos; and &apos;make distclean&apos;. The thing is that I still can see the kernel and its modules in the source code folder of the linux kernel. Is this ok?<br/>
+<font color="#A82F2F"><font size="2">(08:14:55 PM)</font> <b>uniqdom:</b></font> I want to make some changes, and then compile it again. <br/>
+<font color="#A82F2F"><font size="2">(08:15:36 PM)</font> <b>centrx:</b></font> tjat<br/>
+<font color="#A82F2F"><font size="2">(08:15:45 PM)</font> <b>centrx:</b></font> that&apos;s weird, you did run &apos;make distclean&apos;?<br/>
+<font color="#A82F2F"><font size="2">(08:16:02 PM)</font> <b>centrx:</b></font> are you in a subdirectory of the source code repo?<br/>
+<font color="#A82F2F"><font size="2">(08:16:25 PM)</font> <b>centrx:</b></font> I&apos;ve seen weird things like that if a directory you&apos;re in gets deleted<br/>
+<font size="2">(08:18:00 PM)</font><b> mode (+l 688) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:18:22 PM)</font> <b>uniqdom:</b></font> centrx: no, i&apos;m in the root directory of the source code repo<br/>
+<font color="#A82F2F"><font size="2">(08:18:53 PM)</font> <b>uniqdom:</b></font> And yes, I did run  &apos;make distclean&apos;<br/>
+<font color="#A82F2F"><font size="2">(08:19:40 PM)</font> <b>qsuscs:</b></font> there’s also make mrproper, no idea what it does tho<br/>
+<font color="#A82F2F"><font size="2">(08:19:43 PM)</font> <b>rajulocal:</b></font> What command do I use to check if a newer version of package is available? I can manually run &quot;sudo apt-get install PACKAGE&quot; but I can&apos;t use this method in a script.<br/>
+<font color="#A82F2F"><font size="2">(08:19:47 PM)</font> <b>centrx:</b></font> uniqdom, Where did you get this source tree? Is it vanilla Linux or the Debian source?<br/>
+<font color="#A82F2F"><font size="2">(08:20:34 PM)</font> <b>centrx:</b></font> uniqdom, ^^ qsuscs make mrproper might be it<br/>
+<font color="#A82F2F"><font size="2">(08:20:42 PM)</font> <b>centrx:</b></font> distclean seems like &quot;clean for distribution&quot; but apparently not<br/>
+<font color="#A82F2F"><font size="2">(08:21:02 PM)</font> <b>uniqdom:</b></font> well... the source comes from linux-sunxi.<br/>
+<font color="#A82F2F"><font size="2">(08:21:19 PM)</font> <b>uniqdom:</b></font> i will try with mrproper<br/>
+<font color="#A82F2F"><font size="2">(08:22:22 PM)</font> <b>uniqdom:</b></font> or... how to clean using git?<br/>
+<font color="#A82F2F"><font size="2">(08:22:40 PM)</font> <b>qsuscs:</b></font> uniqdom: git clean -dxf<br/>
+<font color="#A82F2F"><font size="2">(08:24:06 PM)</font> <b>qsuscs:</b></font> and to undo modifications, git checkout -- $(git rev-parse --show-toplevel)<br/>
+<font color="#A82F2F"><font size="2">(08:25:17 PM)</font> <b>uniqdom:</b></font> qsuscs: thanks :)<br/>
+<font color="#A82F2F"><font size="2">(08:25:30 PM)</font> <b>uniqdom:</b></font> centrx also thanks to you<br/>
+<font size="2">(08:26:41 PM)</font><b> pbn_ is now known as pbn</b><br/>
+<font size="2">(08:39:30 PM)</font><b> sigur_ is now known as sigur</b><br/>
+<font size="2">(09:28:00 PM)</font><b> mode (+l 695) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:39:55 PM)</font> <b>KingOfDos:</b></font> iwlwifi experts here?<br/>
+<font color="#A82F2F"><font size="2">(09:40:37 PM)</font> <b>musca:</b></font> apt-get install firmware-iwlwifi<br/>
+<font color="#A82F2F"><font size="2">(09:40:50 PM)</font> <b>KingOfDos:</b></font> i&apos;m unable to connect<br/>
+<font color="#A82F2F"><font size="2">(09:41:07 PM)</font> <b>KingOfDos:</b></font> firmware-iwlwifi is installed. everything like it should<br/>
+<font color="#A82F2F"><font size="2">(09:41:12 PM)</font> <b>KingOfDos:</b></font> i can scan for wifi networks, see them<br/>
+<font color="#A82F2F"><font size="2">(09:41:14 PM)</font> <b>KingOfDos:</b></font> can&apos;t connect<br/>
+<font color="#A82F2F"><font size="2">(09:41:17 PM)</font> <b>KingOfDos:</b></font> always says bad password<br/>
+<font color="#A82F2F"><font size="2">(09:41:28 PM)</font> <b>ixi:</b></font> so... bad password then?<br/>
+<font color="#A82F2F"><font size="2">(09:41:32 PM)</font> <b>KingOfDos:</b></font> nope<br/>
+<font color="#A82F2F"><font size="2">(09:41:36 PM)</font> <b>KingOfDos:</b></font> it&apos;s correct<br/>
+<font color="#A82F2F"><font size="2">(09:41:39 PM)</font> <b>devil:</b></font> capitals?<br/>
+<font color="#A82F2F"><font size="2">(09:41:39 PM)</font> <b>KingOfDos:</b></font> abcd :)<br/>
+<font color="#A82F2F"><font size="2">(09:41:52 PM)</font> <b>ixi:</b></font> possibly interpreted as hex ?<br/>
+<font color="#A82F2F"><font size="2">(09:41:56 PM)</font> <b>KingOfDos:</b></font> nooope<br/>
+<font color="#A82F2F"><font size="2">(09:42:10 PM)</font> <b>ixi:</b></font> how are you connecting to wifi<br/>
+<font color="#A82F2F"><font size="2">(09:43:04 PM)</font> <b>KingOfDos:</b></font> i&apos;m using debian wheezy with backported 3.16 kernel. on a Asus Zenbook UX305<br/>
+<font color="#A82F2F"><font size="2">(09:43:21 PM)</font> <b>KingOfDos:</b></font> guess some kernel issue, laptop is only 3 days old/available for sale<br/>
+<font color="#A82F2F"><font size="2">(09:43:25 PM)</font> <b>ixi:</b></font> which software are you using<br/>
+<font color="#A82F2F"><font size="2">(09:43:28 PM)</font> <b>KingOfDos:</b></font> wicd<br/>
+<font color="#A82F2F"><font size="2">(09:43:41 PM)</font> <b>KingOfDos:</b></font> same version works on my other debian 7.8 laptop. asus eee 900.<br/>
+<font color="#A82F2F"><font size="2">(09:43:47 PM)</font> <b>ixi:</b></font> tried directly through /etc/network/interfaces yet ?<br/>
+<font color="#A82F2F"><font size="2">(09:43:49 PM)</font> <b>KingOfDos:</b></font> i&apos;ve got around 9 wifi clients, all work<br/>
+<font color="#A82F2F"><font size="2">(09:46:30 PM)</font> <b>KingOfDos:</b></font> wicd isn&apos;t the issue<br/>
+<font color="#A82F2F"><font size="2">(09:46:34 PM)</font> <b>KingOfDos:</b></font> i know how to debug that :)<br/>
+<font size="2">(09:48:00 PM)</font><b> mode (+l 689) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:53:27 PM)</font> <b>KingOfDos:</b></font> http://kingofdos.com/zooi/zenbook/wifi.html and http://kingofdos.com/zooi/zenbook/hardware.html<br/>
+<font size="2">(10:38:00 PM)</font><b> mode (+l 683) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:41:55 PM)</font> <b>eder:</b></font> Alguem do Brasil?<br/>
+<font size="2">(10:43:05 PM)</font><b> eder left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(10:51:59 PM)</font> <b>devil:</b></font> !br<br/>
+<font color="#A82F2F"><font size="2">(10:52:00 PM)</font> <b>dpkg:</b></font> Este canal é apenas em inglês.  Por favor, use #debian-br (/j #debian-br) para ajuda em portugues.<br/>
+<font size="2">(10:58:14 PM)</font><b> a is now known as Guest5417</b><br/>
+<font color="#A82F2F"><font size="2">(11:19:19 PM)</font> <b>yns:</b></font> hi, guys<br/>
+<font color="#A82F2F"><font size="2">(11:20:08 PM)</font> <b>yns:</b></font> i have a problem, help me<br/>
+<font color="#A82F2F"><font size="2">(11:20:17 PM)</font> <b>chrchstr:</b></font> Please explain your problem.<br/>
+<font color="#A82F2F"><font size="2">(11:20:46 PM)</font> <b>yns:</b></font> i installed debian<br/>
+<font color="#A82F2F"><font size="2">(11:21:14 PM)</font> <b>yns:</b></font> does not accept my root password<br/>
+<font color="#A82F2F"><font size="2">(11:21:43 PM)</font> <b>mtn:</b></font> yns: typo or caps lock? <br/>
+<font color="#A82F2F"><font size="2">(11:22:47 PM)</font> <b>yns:</b></font> There is nothing wrong in the password<br/>
+<font color="#A82F2F"><font size="2">(11:22:48 PM)</font> <b>dondelelcaro:</b></font> !i forgot root&apos;s password<br/>
+<font color="#A82F2F"><font size="2">(11:22:49 PM)</font> <b>dpkg:</b></font> For GRUB: 1) press &apos;e&apos; to edit the kernel setting in the grub command line (add &apos;init=/bin/sh&apos; to the end of it) 2) &apos;fsck&apos; your root file system, 3) &apos;mount -o remount,rw /&apos;, 4) &apos;passwd root&apos; 5) &apos;mount -o remount,ro /&apos; 6) &apos;reboot -d -f&apos; (exec /sbin/init should work); For LILO: 1) &apos;Linux init=/bin/sh&apos; at the LILO boot prompt (hold Shift while booting), steps 2-6 are the same; For yaboot: 1) &apos;Linux init=/bin/sh&apos; at yaboot prompt.<br/>
+<font color="#A82F2F"><font size="2">(11:23:40 PM)</font> <b>dondelelcaro:</b></font> also, are you logging in as root locally? or using sudo? or what?<br/>
+<font color="#A82F2F"><font size="2">(11:24:45 PM)</font> <b>yns:</b></font> standart user<br/>
+<font color="#A82F2F"><font size="2">(11:25:11 PM)</font> <b>yns:</b></font> not root user<br/>
+<font color="#A82F2F"><font size="2">(11:25:51 PM)</font> <b>dondelelcaro:</b></font> yns: so you&apos;re unable to log in as your user? or are you logged in as your user and using sudo? Or logged in as your user and su&apos;ing to root?<br/>
+<font color="#A82F2F"><font size="2">(11:27:20 PM)</font> <b>yns:</b></font> I&apos;m sorry I&apos;m google translating one minute<br/>
+<font color="#A82F2F"><font size="2">(11:27:22 PM)</font> <b>ikus060:</b></font> Is it common to install a server on a USB stick to avoid using an extra SATA. I plan to build a server with 24disk (high density server) but I cannot spare an extra SATA port and I want to install the OS on two USB stick (probably a btrfs raid1)<br/>
+<font color="#A82F2F"><font size="2">(11:28:41 PM)</font> <b>yns:</b></font> i&apos;m logged my user<br/>
+<font color="#A82F2F"><font size="2">(11:30:28 PM)</font> <b>yns:</b></font> I download a debian ISO file on debian<br/>
+<font color="#A82F2F"><font size="2">(11:30:53 PM)</font> <b>yns:</b></font> How do I make it bootable<br/>
+<font color="#A82F2F"><font size="2">(11:31:13 PM)</font> <b>yns:</b></font> for re-install<br/>
+<font color="#A82F2F"><font size="2">(11:32:36 PM)</font> <b>yns:</b></font> USB Sticks<br/>
+<font color="#A82F2F"><font size="2">(11:35:35 PM)</font> <b>yns:</b></font> how do i make bootable usb for debian amd64 netinst.iso  file<br/>
+<font color="#A82F2F"><font size="2">(11:36:12 PM)</font> <b>qsuscs:</b></font> yns: it looks like you are from turkey, do you speak !tr ?<br/>
+<font color="#A82F2F"><font size="2">(11:36:20 PM)</font> <b>qsuscs:</b></font> !tr<br/>
+<font color="#A82F2F"><font size="2">(11:36:20 PM)</font> <b>dpkg:</b></font> i guess tr is t�rk�e yardIm i�in #debian.tr (irc.freenode.net): -- if you need help in turkish, please join #debian.tr on irc.freenode.net.<br/>
+<font size="2">(11:36:41 PM)</font><b> yns left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(11:37:06 PM)</font> <b>qsuscs:</b></font> *shrug*<br/>
+<font size="2">(11:37:33 PM)</font><b> yns [<em>~oftc-webi@212.252.161.158</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:37:40 PM)</font> <b>yns:</b></font> excuse me<br/>
+<font color="#A82F2F"><font size="2">(11:37:58 PM)</font> <b>yns:</b></font> was accidentally<br/>
+<font color="#A82F2F"><font size="2">(11:38:28 PM)</font> <b>yns:</b></font> What did you say last<br/>
+<font color="#A82F2F"><font size="2">(11:38:36 PM)</font> <b>yns:</b></font> i am from turkey<br/>
+<font color="#A82F2F"><font size="2">(11:39:01 PM)</font> <b>qsuscs:</b></font> yns: t�rk�e yardIm i�in #debian.tr (irc.freenode.net): -- if you need help in turkish, please join #debian.tr on irc.freenode.net.<br/>
+<font color="#A82F2F"><font size="2">(11:39:34 PM)</font> <b>yns:</b></font> ok thank you very much<br/>
+<font color="#A82F2F"><font size="2">(11:52:45 PM)</font> <b>Jobbe:</b></font> Err ? [17:06:03] [oftc]            --- | DCC CHAT from mario__ [192.168.0.15 port 35176] requested in channel #debian<br/>
+<font color="#A82F2F"><font size="2">(11:52:56 PM)</font> <b>Jobbe:</b></font> what do you want<br/>
+<font color="#A82F2F"><font size="2">(11:59:43 PM)</font> <b>prashant:</b></font> hi any python expert here /?<br/>
+<font color="#A82F2F"><font size="2">(12:03:55 AM)</font> <b>ompaul:</b></font> prashant: there is a #python on irc.freenode.net (there might be one on this network) also the best way to get a response is to ask your question because one persons expert is another&apos;s beginner<br/>
+<font color="#A82F2F"><font size="2">(12:04:33 AM)</font> <b>prashant:</b></font> thanks ompaul <br/>
+<font color="#A82F2F"><font size="2">(12:04:35 AM)</font> <b>ompaul:</b></font> prashant: and this is not typical a development channel it is typically a system admin debian specific channel so we&apos;ll help you install parts or all of debian<br/>
+<font color="#A82F2F"><font size="2">(12:04:46 AM)</font> <b>prashant:</b></font> sorry did not know<br/>
+<font color="#A82F2F"><font size="2">(12:04:53 AM)</font> <b>ompaul:</b></font> well some parts don&apos;t like others but that is ... well that&apos;s that<br/>
+<font color="#A82F2F"><font size="2">(12:04:55 AM)</font> <b>prashant:</b></font> just started using rirc. <br/>
+<font color="#A82F2F"><font size="2">(12:05:02 AM)</font> <b>ompaul:</b></font> !ask<br/>
+<font color="#A82F2F"><font size="2">(12:05:03 AM)</font> <b>dpkg:</b></font> If you have a question, just ask! For example: &quot;I have a problem with ___; I&apos;m running Debian version ___. When I try to do ___ I get the following output ___. I expected it to do ___.&quot; Don&apos;t ask if you can ask, if anyone uses it, or pick one person to ask. We&apos;re all volunteers; make it easy for us to help you. If you don&apos;t get an answer try a few hours later or on debian-user@lists.debian.org. See &lt;smart questions&gt;&lt;errors&gt;.<br/>
+<font color="#A82F2F"><font size="2">(12:05:19 AM)</font> <b>prashant:</b></font> cool.. will keep in mind <br/>
+<font color="#A82F2F"><font size="2">(12:05:40 AM)</font> <b>ompaul:</b></font> you can /msg dpkg smart questions      or errors as needed also <br/>
+<font color="#A82F2F"><font size="2">(12:05:51 AM)</font> <b>ompaul:</b></font> it helps you to understand this channel and others like it<br/>
+<font color="#A82F2F"><font size="2">(12:05:53 AM)</font> <b>ompaul:</b></font> !irc<br/>
+<font color="#A82F2F"><font size="2">(12:05:53 AM)</font> <b>dpkg:</b></font> IRC is Internet Relay Chat, the means to provide #debian to its patrons.  Debian IRC channels are listed at http://wiki.debian.org/IRC .  Please read http://wiki.debian.org/GettingHelpOnIrc .  Ask me about &lt;irc tutorial&gt; and &lt;faq&gt;.  See also &lt;debstats&gt; and &lt;irclog&gt;.<br/>
+<font size="2">(12:08:13 AM)</font><b> ompaul left the room (quit: Quit: and zebedee said its time for other stuff).</b><br/>
+<font size="2">(12:48:01 AM)</font><b> mode (+l 669) by debhelper</b><br/>
+<font size="2">(01:01:15 AM)</font><b> Corey84 is now known as Guest5425</b><br/>
+<font size="2">(01:28:00 AM)</font><b> mode (+l 663) by debhelper</b><br/>
+<font size="2">(02:08:00 AM)</font><b> mode (+l 655) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(02:14:56 AM)</font> <b>Des:</b></font> hi to all<br/>
+<font color="#A82F2F"><font size="2">(02:16:00 AM)</font> <b>Des:</b></font> I&apos;m trying to install debian on a disk already partitioned<br/>
+<font color="#A82F2F"><font size="2">(02:16:27 AM)</font> <b>Des:</b></font> I need to set command swapon before installing?<br/>
+<font color="#A82F2F"><font size="2">(02:18:16 AM)</font> <b>awal:</b></font> Des:depends on how you partitioned your disc and which mode you are using for installation so<br/>
+<font color="#A82F2F"><font size="2">(02:18:57 AM)</font> <b>Des:</b></font> I have already two partition, swap and ext4<br/>
+<font color="#A82F2F"><font size="2">(02:19:21 AM)</font> <b>awal:</b></font> install method?<br/>
+<font color="#A82F2F"><font size="2">(02:19:30 AM)</font> <b>awal:</b></font> mode<br/>
+<font color="#A82F2F"><font size="2">(02:19:39 AM)</font> <b>Des:</b></font> first i mkdir /target then mount ext4 on it<br/>
+<font size="2">(02:20:35 AM)</font><b> fsteinel is now known as Guest5429</b><br/>
+<font color="#A82F2F"><font size="2">(02:20:42 AM)</font> <b>Des:</b></font> I want to prevent that disk being formatted<br/>
+<font color="#A82F2F"><font size="2">(02:21:01 AM)</font> <b>awal:</b></font> Des: so you are not using expert mode install or something like that instead of graphical or standard text mode?<br/>
+<font color="#A82F2F"><font size="2">(02:21:34 AM)</font> <b>awal:</b></font> external disck or internal machine hard dixk?<br/>
+<font color="#A82F2F"><font size="2">(02:22:11 AM)</font> <b>Des:</b></font> I have choose default install with netinst<br/>
+<font color="#A82F2F"><font size="2">(02:22:44 AM)</font> <b>sney:</b></font> the partitioner lets you choose what to use partitions as and also whether to format them <br/>
+<font color="#A82F2F"><font size="2">(02:22:57 AM)</font> <b>awal:</b></font> error, you are using expert mode or standard I mean ^<br/>
+<font color="#A82F2F"><font size="2">(02:23:17 AM)</font> <b>awal:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(02:24:32 AM)</font> <b>Des:</b></font> yes, text mode install<br/>
+<font color="#A82F2F"><font size="2">(02:25:24 AM)</font> <b>awal:</b></font> Des: hard to guide you in distance, but as sney said you, you have options there for choose format or not the choosen partitions<br/>
+<font color="#A82F2F"><font size="2">(02:25:59 AM)</font> <b>Des:</b></font> I don&apos;t want that installation format again my disk because there are also windows on it and for same reason it display me no volume on it want to format entire disk<br/>
+<font color="#A82F2F"><font size="2">(02:27:50 AM)</font> <b>awal:</b></font> windows is it&apos;s own partition and you will install debian in other partitions. editing them you can format or them or not.<br/>
+<font color="#A82F2F"><font size="2">(02:28:10 AM)</font> <b>awal:</b></font> windows have it&apos;s ^<br/>
+<font color="#A82F2F"><font size="2">(02:28:25 AM)</font> <b>Des:</b></font> so now my only question is, if i choose manually the partition and set swapon also there are some installation problem or are the correct way?<br/>
+<font color="#A82F2F"><font size="2">(02:32:40 AM)</font> <b>awal:</b></font> if you are in standard text mode , no expert one, simply you choose the created swap partition one and give it for debian swap. editing it you will have options there for format it or not before use it for debians swap<br/>
+<font color="#A82F2F"><font size="2">(02:33:51 AM)</font> <b>awal:</b></font> probably you are using expert mode; I no get you<br/>
+<font color="#A82F2F"><font size="2">(02:36:10 AM)</font> <b>awal:</b></font> in standard text mode instalation, no the graphical one, and choosing manual partitioning you just need use keyboard for select partition already created or create them if not created yet...<br/>
+<font color="#A82F2F"><font size="2">(02:36:34 AM)</font> <b>Des:</b></font> uhm, awal I don&apos;t know why but after disk detection process it wants to format entire disk  doesn&apos; show me w7 partition maybe because the partitions table i MBR?<br/>
+<font color="#A82F2F"><font size="2">(02:36:43 AM)</font> <b>awal:</b></font> no manual commands needed<br/>
+<font color="#A82F2F"><font size="2">(02:37:25 AM)</font> <b>Des:</b></font> is*<br/>
+<font color="#A82F2F"><font size="2">(02:38:34 AM)</font> <b>awal:</b></font> Des: I really cant follow you. I dont know how is your disk there, how partitioned, how many windows partitions you have , if its an internal disk, external...<br/>
+<font color="#A82F2F"><font size="2">(02:39:36 AM)</font> <b>Des:</b></font> ok, what&apos;s time there awal?<br/>
+<font color="#A82F2F"><font size="2">(02:39:58 AM)</font> <b>Des:</b></font> here 2.39 am<br/>
+<font color="#A82F2F"><font size="2">(02:41:47 AM)</font> <b>awal:</b></font> Des: have you installed debian or another gnulinux OS yet before?<br/>
+<font color="#A82F2F"><font size="2">(02:42:54 AM)</font> <b>swag:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(02:43:20 AM)</font> <b>swag:</b></font> ....<br/>
+<font size="2">(02:43:45 AM)</font><b> swag left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(02:43:58 AM)</font> <b>Des:</b></font> I have tried a lot of distributions but I prefer always debian. usually I install it on entire disk so there is not.problem but this time on my disk is present also w7<br/>
+<font color="#A82F2F"><font size="2">(02:47:41 AM)</font> <b>Des:</b></font> and the installer for some reason want to format entire disk, there is no way to display the w7 partitions on it<br/>
+<font color="#A82F2F"><font size="2">(02:48:17 AM)</font> <b>awal:</b></font> Des: how many windows partitions you have yet?<br/>
+<font color="#A82F2F"><font size="2">(02:49:26 AM)</font> <b>awal:</b></font> primary&apos;s I mean<br/>
+<font color="#A82F2F"><font size="2">(02:49:34 AM)</font> <b>Des:</b></font> 2, one is w7 boot another is c: then there was 400gb raw space<br/>
+<font color="#A82F2F"><font size="2">(02:51:00 AM)</font> <b>Des:</b></font> that I have reserved for linux<br/>
+<font color="#A82F2F"><font size="2">(02:55:05 AM)</font> <b>Des:</b></font> thanks awal but I need to sleep, will continue tomorrow<br/>
+<font color="#A82F2F"><font size="2">(02:56:02 AM)</font> <b>Des:</b></font> goodbye man<br/>
+<font color="#A82F2F"><font size="2">(02:56:02 AM)</font> <b>awal:</b></font> Des: ok. good night.<br/>
+<font color="#A82F2F"><font size="2">(02:56:02 AM)</font> <b>Des:</b></font> (y)<br/>
+<font size="2">(02:56:13 AM)</font><b> Des left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(02:57:16 AM)</font> <b>pi_:</b></font> HI<br/>
+<font color="#A82F2F"><font size="2">(02:57:27 AM)</font> <b>pi_:</b></font> ANYONE?<br/>
+<font color="#A82F2F"><font size="2">(02:57:38 AM)</font> <b>pi_:</b></font> oops capslock<br/>
+<font size="2">(02:57:49 AM)</font><b> pi_ is now known as pi__</b><br/>
+<font color="#A82F2F"><font size="2">(02:59:12 AM)</font> <b>awal:</b></font> Talking about partition, is the first time I see this fdisk output &quot;Partition 3 does not start on physical sector boundary.&quot; Means?<br/>
+<font color="#A82F2F"><font size="2">(03:02:50 AM)</font> <b>awal:</b></font> There is a lot of comments about that on the web but it&apos;s too technical...<br/>
+<font color="#A82F2F"><font size="2">(03:03:05 AM)</font> <b>awal:</b></font> Any simple clarification?<br/>
+<font color="#A82F2F"><font size="2">(03:08:36 AM)</font> <b>awal:</b></font> In the xfce menu section called &quot;others&quot; xfce still have entries pointing to remove/purged packs. How to prevent that instead of having to reset the xfce menu all the time?<br/>
+<font color="#A82F2F"><font size="2">(03:10:09 AM)</font> <b>awal:</b></font> That &quot;issue&quot; affect my sid machine not the wheezy one  but I thought that maybe some one knows the answer :)<br/>
+<font color="#A82F2F"><font size="2">(03:57:52 AM)</font> <b>Devastator:</b></font> good evening, how can I use archignore to backport dpkg-dev? I&apos;m trying to backport apache2, to then backport php5 and php5-pgsql<br/>
+<font size="2">(05:28:56 AM)</font><b> jra is now known as Guest5460</b><br/>
+<font size="2">(05:31:50 AM)</font><b> squircle is now known as Guest5463</b><br/>
+<font size="2">(05:38:00 AM)</font><b> mode (+l 637) by debhelper</b><br/>
+<font size="2">(05:48:00 AM)</font><b> mode (+l 651) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(06:11:20 AM)</font> <b>gordon24:</b></font> Does anyone know how to fix fsck died with exit status 6<br/>
+<font size="2">(06:19:05 AM)</font><b> keithp` is now known as keithp</b><br/>
+<font color="#A82F2F"><font size="2">(06:19:42 AM)</font> <b>gordon24:</b></font> Does anyone know how to fix fsck died with exit status 6<br/>
+<font size="2">(06:23:41 AM)</font><b> gordon24 is now known as num24Rulz</b><br/>
+<font size="2">(06:33:44 AM)</font><b> clonak_ is now known as clonak</b><br/>
+<font size="2">(06:38:00 AM)</font><b> mode (+l 645) by debhelper</b><br/>
+<font size="2">(06:45:19 AM)</font><b> mode (+l 651 ) by graviton.oftc.net</b><br/>
+<font size="2">(06:48:00 AM)</font><b> mode (+l 644) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(07:21:29 AM)</font> <b>num24Rulz:</b></font> Does anyone know how to fix fsck died with exit status 6<br/>
+<font color="#A82F2F"><font size="2">(07:41:25 AM)</font> <b>dondelelcaro:</b></font> 6 is 2+4, so rerun fsck and correct the errors.<br/>
+<font color="#A82F2F"><font size="2">(07:54:31 AM)</font> <b>shirish:</b></font> is there a way while using reportbug to say something like this $reportbug gcompris --wishlist . <br/>
+<font color="#A82F2F"><font size="2">(07:54:50 AM)</font> <b>shirish:</b></font> wishlist being the severity. Is there a way to do that ?<br/>
+<font color="#A82F2F"><font size="2">(07:55:36 AM)</font> <b>SamB_laptop:</b></font> shirish: did you try reading the manpage or --help output for reportbug?<br/>
+<font color="#A82F2F"><font size="2">(07:55:44 AM)</font> <b>shirish:</b></font> i read the manpage but because there are/were not many examples didn&apos;t really get it.<br/>
+<font color="#A82F2F"><font size="2">(07:55:55 AM)</font> <b>shirish:</b></font> SamB_laptop: ^<br/>
+<font color="#A82F2F"><font size="2">(07:56:21 AM)</font> <b>SamB_laptop:</b></font> shirish: --severity looks promising<br/>
+<font color="#A82F2F"><font size="2">(07:56:41 AM)</font> <b>shirish:</b></font> SamB_laptop: thanx, yes I think that should do the trick. <br/>
+<font color="#A82F2F"><font size="2">(07:57:01 AM)</font> <b>SamB_laptop:</b></font> pro tip: you can use the / key to start a search<br/>
+<font color="#A82F2F"><font size="2">(07:57:41 AM)</font> <b>SamB_laptop:</b></font> (in less, which is the pager that man invokes to show the page)<br/>
+<font size="2">(08:58:01 AM)</font><b> mode (+l 652) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:59:28 AM)</font> <b>quietone:</b></font> hi, my son&apos;s laptop has started mounting usb&apos;s as root. I&apos;ve been reading for a solution on and off for a few weeks and have come up with nothing. <br/>
+<font color="#A82F2F"><font size="2">(09:04:53 AM)</font> <b>ABDOOL:</b></font> ciao a tutti<br/>
+<font color="#A82F2F"><font size="2">(09:07:44 AM)</font> <b>slept:</b></font> I think I have found a bug in the (testing) debian installer, but I need some help to further track it down. While configuring the network I am asked for iwlwifi-135-5.ucode on an additional usb key or cd. The problem is, that I can only supply -6.ucode from the repository (firmware-iwlwifi_0.43_all.deb) which does not get detected. Looking at the changelog of the package this version has to be around since Mon, 16 Jun 2014 <br/>
+<font color="#A82F2F"><font size="2">(09:07:44 AM)</font> <b>slept:</b></font> 00:49:44. Any suggestions to track down the problem? <br/>
+<font color="#A82F2F"><font size="2">(09:08:44 AM)</font> <b>mongrol:</b></font> join #debian-next for a start<br/>

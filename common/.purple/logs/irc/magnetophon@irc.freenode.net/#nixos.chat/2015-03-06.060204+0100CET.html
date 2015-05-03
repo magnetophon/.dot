@@ -1,0 +1,177 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Fri 06 Mar 2015 06:02:04 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Fri 06 Mar 2015 06:02:04 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(06:02:04 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(06:02:04 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(07:37:10 AM)</font> <b>Haskellfant:</b></font> c74d: you need haskellngPackages.cabal2nix if that fails, please report an issue<br/>
+<font color="#A82F2F"><font size="2">(07:37:15 AM)</font> <b>Haskellfant:</b></font> ofc you can also write a shell.nix yourself<br/>
+<font color="#A82F2F"><font size="2">(07:37:32 AM)</font> <b>Haskellfant:</b></font> or use nix-shell -p package1 -p package2 to get the packages<br/>
+<font color="#A82F2F"><font size="2">(08:07:26 AM)</font> <b>c74d:</b></font> Haskellfant: &quot;nix-env -iA nixpkgs.haskellngPackages.cabal2nix&quot; was the command I ran to try to install cabal2nix.<br/>
+<font color="#A82F2F"><font size="2">(08:07:43 AM)</font> <b>Haskellfant:</b></font> c74d: that should work, let me try<br/>
+<font color="#A82F2F"><font size="2">(08:15:44 AM)</font> <b>Haskellfant:</b></font> it could take a while, recompiling about every single haskell packages I have installed<br/>
+<font color="#A82F2F"><font size="2">(08:18:24 AM)</font> <b>Haskellfant:</b></font> somehow the idea of using nix to avoid recompilation of cabal sandboxes doesn&apos;t work. I&apos;m compiling way more often<br/>
+<font color="#A82F2F"><font size="2">(08:21:03 AM)</font> <b>c74d:</b></font> Haskellfant: the issue seems to be that something errors out because it thinks that `/bin/sh` doesn&apos;t exist -- it does exist, but it&apos;s a symbolic link to Bash.<br/>
+<font color="#A82F2F"><font size="2">(08:21:20 AM)</font> <b>Haskellfant:</b></font> c74d: are you on nixos?<br/>
+<font color="#A82F2F"><font size="2">(08:21:29 AM)</font> <b>c74d:</b></font> No, I&apos;m on Fedora 21.<br/>
+<font color="#A82F2F"><font size="2">(08:21:33 AM)</font> <b>Haskellfant:</b></font> hm k<br/>
+<font color="#A82F2F"><font size="2">(08:21:35 AM)</font> <b>Haskellfant:</b></font> I&apos;m on arch<br/>
+<font color="#A82F2F"><font size="2">(08:21:50 AM)</font> <b>c74d:</b></font> (Well, this Nix installation is. My personal computer runs Gentoo Linux.)<br/>
+<font color="#A82F2F"><font size="2">(08:22:13 AM)</font> <b>c74d:</b></font> (I also have a Nix installation on my personal computer, but I haven&apos;t used it yet.)<br/>
+<font color="#A82F2F"><font size="2">(08:36:09 AM)</font> <b>Haskellfant:</b></font> c74d: nope, not working for me either but the error is a different one: it complains that doctest is broken due to missing package base, deepseq, directory, ghc &amp; process<br/>
+<font color="#A82F2F"><font size="2">(08:39:15 AM)</font> <b>Haskellfant:</b></font> ah I might have an idea what could be causing that<br/>
+<font color="#062585"><font size="2">(08:39:23 AM)</font> <b>***Haskellfant</b></font> recompiles everything again<br/>
+<font color="#A82F2F"><font size="2">(08:40:01 AM)</font> <b>Haskellfant:</b></font> c74d: yep my problem was simply that the libraries in my system were installed from the git repo while right now I just used the nixos unstable channel. seems to compile just fine now<br/>
+<font color="#A82F2F"><font size="2">(08:40:20 AM)</font> <b>Haskellfant:</b></font> yep worked<br/>
+<font color="#A82F2F"><font size="2">(08:53:17 AM)</font> <b>c74d:</b></font> Haskellfant: Thanks for trying to help. I&apos;ve filed my issue report: &lt;https://github.com/NixOS/nixpkgs/issues/6687&gt;. Perhaps I&apos;ll look into nix-shell more tomorrow.<br/>
+<font color="#A82F2F"><font size="2">(09:27:48 AM)</font> <b>viric:</b></font> how complicated: https://nixos.org/wiki/Luks-based_FDE_with_Yubikey_PBA_and_btrfs_on_UEFI_NixOS<br/>
+<font color="#A82F2F"><font size="2">(09:28:04 AM)</font> <b>viric:</b></font> anyone using a yubikey with gpg2 as smartcard in nixos?<br/>
+<font color="#A82F2F"><font size="2">(09:32:32 AM)</font> <b>philandstuff:</b></font> what should I use for a builder when I&apos;m just untarring something? it&apos;s a php app, and the distribution tarball is just a bunch of php files<br/>
+<font color="#A82F2F"><font size="2">(09:32:50 AM)</font> <b>philandstuff:</b></font> so there&apos;s no need for ./configure make &quot;standard&quot; build steps<br/>
+<font size="2">(09:46:19 AM)</font><b> suvash_away is now known as suvash</b><br/>
+<font size="2">(09:47:15 AM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:56:00 AM)</font> <b>ikwildrpepper:</b></font> garbas: nice place where you had the Berlin nixos meetup, was it at RhodeCode?<br/>
+<font color="#A82F2F"><font size="2">(09:56:30 AM)</font> <b>garbas:</b></font> ikwildrpepper: yes, hopefully not the last time :)<br/>
+<font color="#A82F2F"><font size="2">(09:56:53 AM)</font> <b>ikwildrpepper:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(09:56:54 AM)</font> <b>garbas:</b></font> looks like there is some &quot;nix momentum&quot; in berlin<br/>
+<font color="#A82F2F"><font size="2">(09:56:58 AM)</font> <b>ikwildrpepper:</b></font> thanks for organizing it :)<br/>
+<font color="#A82F2F"><font size="2">(09:57:23 AM)</font> <b>garbas:</b></font> and probably next time its going to be more hacking afternoon then just slides+beers :P<br/>
+<font color="#A82F2F"><font size="2">(09:57:50 AM)</font> <b>ikwildrpepper:</b></font> is that a good thing? :)<br/>
+<font color="#A82F2F"><font size="2">(09:58:04 AM)</font> <b>ikwildrpepper:</b></font> I like nix, but I like beers better<br/>
+<font color="#A82F2F"><font size="2">(09:58:11 AM)</font> <b>garbas:</b></font> nix+beers  then :)<br/>
+<font color="#A82F2F"><font size="2">(09:59:07 AM)</font> <b>garbas:</b></font> iElectric was asking me if we could do next &quot;summer sprint&quot; here at RhodeCode (just so we change the location a bit)<br/>
+<font color="#A82F2F"><font size="2">(09:59:15 AM)</font> <b>ikwildrpepper:</b></font> ah nice<br/>
+<font color="#A82F2F"><font size="2">(09:59:42 AM)</font> <b>garbas:</b></font> havent mentioned it to the guys here, but i think nobody would object, there is enough space<br/>
+<font color="#A82F2F"><font size="2">(10:00:09 AM)</font> <b>garbas:</b></font> but i&apos;m more interested what would other prefer<br/>
+<font color="#A82F2F"><font size="2">(10:00:13 AM)</font> <b>garbas:</b></font> others*<br/>
+<font color="#A82F2F"><font size="2">(10:00:53 AM)</font> <b>garbas:</b></font> and also is august really best time to do it? should we make it into &quot;mini conference&quot;? ...<br/>
+<font color="#A82F2F"><font size="2">(10:02:06 AM)</font> <b>garbas:</b></font> ikwildrpepper: can i expect niksnut and you to come to berlin? :)<br/>
+<font color="#A82F2F"><font size="2">(10:02:23 AM)</font> <b>ikwildrpepper:</b></font> sure, /me definitely<br/>
+<font color="#A82F2F"><font size="2">(10:02:50 AM)</font> <b>ikwildrpepper:</b></font> although you probably don&apos;t have a swimmingpool, so that&apos;s disappointing....<br/>
+<font color="#A82F2F"><font size="2">(10:03:11 AM)</font> <b>ikwildrpepper:</b></font> I think peter simons is also in Berlin right? did he attend the meetup?<br/>
+<font color="#A82F2F"><font size="2">(10:09:13 AM)</font> <b>ambro718:</b></font> Is there any way to get nix to download the virtualbox expansion pack itself?<br/>
+<font size="2">(10:10:02 AM)</font><b> Lethalman [<em>~luca@89.118.249.114</em>] entered the room.</b><br/>
+<font size="2">(10:10:04 AM)</font><b> boegel|zzz is now known as boegel</b><br/>
+<font color="#A82F2F"><font size="2">(10:13:44 AM)</font> <b>viric:</b></font> ambro718: I&apos;m trying to build spidermonkey on master now<br/>
+<font color="#A82F2F"><font size="2">(10:13:48 AM)</font> <b>viric:</b></font> with your patches<br/>
+<font color="#A82F2F"><font size="2">(10:13:54 AM)</font> <b>viric:</b></font> ambro718: btw, there is &quot;stdenv.shell&quot;<br/>
+<font color="#A82F2F"><font size="2">(10:13:59 AM)</font> <b>viric:</b></font> (you passed &apos;bash&apos;)<br/>
+<font color="#A82F2F"><font size="2">(10:16:06 AM)</font> <b>ambro718:</b></font> ah, okay.<br/>
+<font color="#A82F2F"><font size="2">(10:16:45 AM)</font> <b>viric:</b></font> maybe we&apos;d have to disable the test only on arm too<br/>
+<font color="#A82F2F"><font size="2">(10:17:21 AM)</font> <b>ambro718:</b></font> I wouldn&apos;t bother, it is supposedly broken<br/>
+<font color="#A82F2F"><font size="2">(10:17:36 AM)</font> <b>viric:</b></font> if it were not only supposedly<br/>
+<font color="#A82F2F"><font size="2">(10:17:41 AM)</font> <b>viric:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(10:17:48 AM)</font> <b>garbas:</b></font> ikwildrpepper: oh didnt knew peti is from berlin, he didn&apos;t show up. but i&apos;ll make sure to poke him next time<br/>
+<font color="#A82F2F"><font size="2">(10:17:56 AM)</font> <b>garbas:</b></font> know*<br/>
+<font color="#A82F2F"><font size="2">(10:18:07 AM)</font> <b>viric:</b></font> ambro718: my kernel things are on master<br/>
+<font color="#A82F2F"><font size="2">(10:18:22 AM)</font> <b>viric:</b></font> ambro718: plus your beaglebone compatible gcc flags<br/>
+<font color="#A82F2F"><font size="2">(10:32:22 AM)</font> <b>qknight:</b></font> aszlig: hi<br/>
+<font color="#A82F2F"><font size="2">(10:32:43 AM)</font> <b>qknight:</b></font> aszlig: do you have https://github.com/mazhe/minmay/archive/1.0.0.tar.gz still around?<br/>
+<font color="#A82F2F"><font size="2">(10:38:42 AM)</font> <b>qknight:</b></font> aszlig: oh, by disabling jabber support i get zabbix working ;-)<br/>
+<font color="#A82F2F"><font size="2">(10:41:57 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] svanderburg pushed 1 new commit to master: http://git.io/xp72<br/>
+<font color="#A82F2F"><font size="2">(10:41:57 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master de8e1bc Sander van der Burg: DisnixWebService: bump to latest development version<br/>
+<font color="#A82F2F"><font size="2">(10:50:00 AM)</font> <b>goibhniu:</b></font> garbas, NixCon 2015 in Berlin! ... sounds great!<br/>
+<font color="#A82F2F"><font size="2">(10:50:40 AM)</font> <b>garbas:</b></font> goibhniu: :)<br/>
+<font color="#A82F2F"><font size="2">(10:51:21 AM)</font> <b>qknight:</b></font> garbas: what is NixCon?<br/>
+<font color="#A82F2F"><font size="2">(10:54:22 AM)</font> <b>garbas:</b></font> qknight: nothing yet, but might be the name of first Nix conference<br/>
+<font color="#A82F2F"><font size="2">(10:55:54 AM)</font> <b>qknight:</b></font> garbas: great name!<br/>
+<font color="#A82F2F"><font size="2">(10:57:36 AM)</font> <b>Lethalman:</b></font> !!!<br/>
+<font color="#A82F2F"><font size="2">(10:57:43 AM)</font> <b>Lethalman:</b></font> what about ConNix :P<br/>
+<font color="#A82F2F"><font size="2">(10:57:49 AM)</font> <b>Lethalman:</b></font> more speakable<br/>
+<font color="#A82F2F"><font size="2">(11:00:22 AM)</font> <b>garbas:</b></font> Lethalman: more functional :)<br/>
+<font color="#A82F2F"><font size="2">(11:00:37 AM)</font> <b>goibhniu:</b></font> con.nix<br/>
+<font color="#A82F2F"><font size="2">(11:00:56 AM)</font> <b>garbas:</b></font> conf.nix<br/>
+<font color="#A82F2F"><font size="2">(11:01:04 AM)</font> <b>goibhniu:</b></font> we&apos;ll have to buy the .nix TLD :)<br/>
+<font color="#A82F2F"><font size="2">(11:01:12 AM)</font> <b>garbas:</b></font> +1<br/>
+<font color="#A82F2F"><font size="2">(11:01:22 AM)</font> <b>garbas:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(11:04:05 AM)</font> <b>Lethalman:</b></font> con.nix +1<br/>
+<font color="#A82F2F"><font size="2">(11:04:38 AM)</font> <b>Lethalman:</b></font> con.nixos.org<br/>
+<font color="#A82F2F"><font size="2">(11:15:47 AM)</font> <b>giogadi:</b></font> hey everyone! I have a question: I&apos;m trying to make a derivation for a library that hard-codes stuff into /etc. Is there a way to purely create an environment in nix in which I can safely use this program?<br/>
+<font color="#A82F2F"><font size="2">(11:16:01 AM)</font> <b>giogadi:</b></font> Is this what chroot is for? I&apos;m kind of new to this<br/>
+<font color="#A82F2F"><font size="2">(11:21:20 AM)</font> <b>Lethalman:</b></font> giogadi, what does it put in /etc? what kind of software is it?<br/>
+<font color="#A82F2F"><font size="2">(11:22:38 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/xpjG<br/>
+<font color="#A82F2F"><font size="2">(11:22:38 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master eaf728c Peter Simons: r-modules: fix git2r, TAQMNGR, and WhopGenome<br/>
+<font color="#A82F2F"><font size="2">(11:22:42 AM)</font> <b>giogadi:</b></font> Lethalman: I&apos;m trying to to make a derivation for ROS (ros.org). It has its own package management and puts packages in /etc<br/>
+<font color="#A82F2F"><font size="2">(11:23:32 AM)</font> <b>giogadi:</b></font> Doing this mostly as an exercise to learn Nix, but maybe I&apos;ve taken on too hard a project :)<br/>
+<font color="#A82F2F"><font size="2">(11:23:50 AM)</font> <b>Lethalman:</b></font> giogadi, yes it may be an hard project :) anyway<br/>
+<font color="#A82F2F"><font size="2">(11:24:00 AM)</font> <b>Lethalman:</b></font> giogadi, would it be safe to put it elsewhere than /etc?<br/>
+<font color="#A82F2F"><font size="2">(11:24:04 AM)</font> <b>Lethalman:</b></font> I mean safe security-wise<br/>
+<font color="#A82F2F"><font size="2">(11:24:15 AM)</font> <b>Lethalman:</b></font> or it&apos;s a critical software for security to be in /etc so that only root controls it ecc.<br/>
+<font color="#A82F2F"><font size="2">(11:24:22 AM)</font> <b>Lethalman:</b></font> or can it be safely run as user e.g.?<br/>
+<font color="#A82F2F"><font size="2">(11:26:11 AM)</font> <b>giogadi:</b></font> Lethalman: I think the real problem is that /etc has been hardcoded all over the place in the library, and even the library&apos;s developers don&apos;t know the best way to let the library use a different directory :(<br/>
+<font color="#A82F2F"><font size="2">(11:26:24 AM)</font> <b>Lethalman:</b></font> giogadi, using an env variable<br/>
+<font color="#A82F2F"><font size="2">(11:26:34 AM)</font> <b>Lethalman:</b></font> patch the software to use an env variable<br/>
+<font color="#A82F2F"><font size="2">(11:26:59 AM)</font> <b>Lethalman:</b></font> giogadi, if there&apos;s a #define CONF_DIR &quot;/etc&quot;, replace with #define CONF_DIR (getenv(&quot;ROS_CONFDIR&quot;))<br/>
+<font color="#A82F2F"><font size="2">(11:28:13 AM)</font> <b>giogadi:</b></font> Lethalman: unfortunately it&apos;s not that simple, not without lots and lots of work. The library maintainers have been trying for months to allow users to use a different directory than /etc but they&apos;re having lots of trouble<br/>
+<font color="#A82F2F"><font size="2">(11:28:36 AM)</font> <b>giogadi:</b></font> I was hoping I could use nix and some kind of sandboxing to make things easier<br/>
+<font color="#A82F2F"><font size="2">(11:29:44 AM)</font> <b>Lethalman:</b></font> you could create chroots with nix, but then you would have run privilege to enter and run the software<br/>
+<font color="#A82F2F"><font size="2">(11:29:53 AM)</font> <b>Lethalman:</b></font> *root<br/>
+<font color="#A82F2F"><font size="2">(11:30:20 AM)</font> <b>Lethalman:</b></font> giogadi, do they try with an env variable for example?<br/>
+<font color="#A82F2F"><font size="2">(11:30:54 AM)</font> <b>Lethalman:</b></font> giogadi, there&apos;s also another alternative though<br/>
+<font color="#A82F2F"><font size="2">(11:31:10 AM)</font> <b>Lethalman:</b></font> ugly but might work, in the real corner ugly case<br/>
+<font color="#A82F2F"><font size="2">(11:31:29 AM)</font> <b>giogadi:</b></font> what is it?<br/>
+<font color="#A82F2F"><font size="2">(11:31:46 AM)</font> <b>Lethalman:</b></font> giogadi, where is this /etc defined in the code? could you point me online?<br/>
+<font color="#A82F2F"><font size="2">(11:31:51 AM)</font> <b>ktosiek:</b></font> there&apos;s also mount namespaces, so you can mount some other /etc over the real one in a wrapper<br/>
+<font color="#A82F2F"><font size="2">(11:32:10 AM)</font> <b>ktosiek:</b></font> (that&apos;s how steam works now)<br/>
+<font color="#A82F2F"><font size="2">(11:32:13 AM)</font> <b>Lethalman:</b></font> ktosiek, except mounting to /etc requires root? :)<br/>
+<font color="#A82F2F"><font size="2">(11:32:22 AM)</font> <b>Lethalman:</b></font> btw yes that&apos;s a solution<br/>
+<font color="#A82F2F"><font size="2">(11:32:25 AM)</font> <b>ktosiek:</b></font> Lethalman: only in the root namespace<br/>
+<font color="#A82F2F"><font size="2">(11:32:40 AM)</font> <b>ktosiek:</b></font> you can unshare and then do bind mounts as user<br/>
+<font color="#A82F2F"><font size="2">(11:32:48 AM)</font> <b>Lethalman:</b></font> ktosiek, unshare -m requires root, doesn&apos;t it?<br/>
+<font color="#A82F2F"><font size="2">(11:32:51 AM)</font> <b>ktosiek:</b></font> (but they&apos;ll only be visible to subprocesses)<br/>
+<font color="#A82F2F"><font size="2">(11:33:01 AM)</font> <b>ktosiek:</b></font> I don&apos;t think so?<br/>
+<font color="#A82F2F"><font size="2">(11:33:06 AM)</font> <b>Lethalman:</b></font> I think so<br/>
+<font color="#A82F2F"><font size="2">(11:33:19 AM)</font> <b>Lethalman:</b></font> requires some capsys<br/>
+<font color="#A82F2F"><font size="2">(11:33:23 AM)</font> <b>Lethalman:</b></font> at least here<br/>
+<font color="#A82F2F"><font size="2">(11:33:31 AM)</font> <b>giogadi:</b></font> oh but bind mounts aren&apos;t available in OSX are they?<br/>
+<font color="#A82F2F"><font size="2">(11:33:45 AM)</font> <b>Lethalman:</b></font> giogadi, anyway<br/>
+<font color="#A82F2F"><font size="2">(11:33:53 AM)</font> <b>ktosiek:</b></font> hmm, I wonder how it works for steam, then<br/>
+<font color="#A82F2F"><font size="2">(11:33:53 AM)</font> <b>Lethalman:</b></font> giogadi, replace /etc with e.g. a 4096 XXXXXXXXXXXXXXXXXXXXX...<br/>
+<font color="#A82F2F"><font size="2">(11:34:07 AM)</font> <b>Lethalman:</b></font> ktosiek, nix creates chroots, then you have to enter it<br/>
+<font color="#A82F2F"><font size="2">(11:34:23 AM)</font> <b>ktosiek:</b></font> Lethalman: that&apos;s the old solution, there&apos;s a new one now<br/>
+<font color="#A82F2F"><font size="2">(11:34:29 AM)</font> <b>Lethalman:</b></font> ktosiek, ah<br/>
+<font color="#A82F2F"><font size="2">(11:34:49 AM)</font> <b>Lethalman:</b></font> giogadi, then whenever you need the conf dir to be &lt;somedir&gt;, replace that XXXXXXXX of the nix derivation with &lt;somedir&gt;<br/>
+<font color="#A82F2F"><font size="2">(11:34:53 AM)</font> <b>Lethalman:</b></font> that would create a different derivation<br/>
+<font color="#A82F2F"><font size="2">(11:34:59 AM)</font> <b>Lethalman:</b></font> it takes very little time, a couple of seconds<br/>
+<font color="#A82F2F"><font size="2">(11:35:56 AM)</font> <b>Lethalman:</b></font> something like nix-store --dump ${ros} | sed &apos;s/XXXXXXXXXXX...../${mydir}/&apos; | nix-store --restore $out<br/>
+<font color="#A82F2F"><font size="2">(11:36:18 AM)</font> <b>giogadi:</b></font> Lethalman: I can give that a try<br/>
+<font color="#A82F2F"><font size="2">(11:36:18 AM)</font> <b>Lethalman:</b></font> ugly but certainly works<br/>
+<font color="#A82F2F"><font size="2">(11:36:29 AM)</font> <b>Lethalman:</b></font> giogadi, but honestly, I&apos;d try the env var first<br/>
+<font color="#A82F2F"><font size="2">(11:36:38 AM)</font> <b>Lethalman:</b></font> I&apos;m sure it could work<br/>
+<font color="#A82F2F"><font size="2">(11:36:50 AM)</font> <b>giogadi:</b></font> thank you for all your help!<br/>
+<font color="#A82F2F"><font size="2">(12:01:19 PM)</font> <b>qknight:</b></font> what is this link: /nix/var/nix/profiles/system-78-link-1-link -&gt; /nix/store/vgv375l225bnbx2s4avc64hdglj3ij81-user-environment<br/>
+<font color="#A82F2F"><font size="2">(12:01:51 PM)</font> <b>qknight:</b></font> it keeps reappearing and it makes &apos;nixos-rebuild&apos; switch fail with:<br/>
+<font color="#A82F2F"><font size="2">(12:01:51 PM)</font> <b>qknight:</b></font> se of uninitialized value $_[0] in substitution (s///) at /nix/store/xyg65rw72vpc1mjpznys6fcrmx4zf3k8-perl-5.20.1/lib/perl5/5.20.1/File/Basename.pm line 341.<br/>
+<font color="#A82F2F"><font size="2">(12:01:54 PM)</font> <b>qknight:</b></font> fileparse(): need a valid pathname at /nix/store/vdwbcrg1yx8zhwl8ym9b00p4m1q1la7q-install-grub.pl line 376.<br/>
+<font color="#A82F2F"><font size="2">(12:01:58 PM)</font> <b>qknight:</b></font> warning: error(s) occured while switching to the new configuration<br/>
+<font color="#A82F2F"><font size="2">(12:05:41 PM)</font> <b>qknight:</b></font> probably caused because i&apos;m running: https://gist.github.com/qknight/2789e75a9e37ea71f0b0 from /root (as root)<br/>
+<font color="#A82F2F"><font size="2">(12:09:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 1 new commit to master: http://git.io/xhmY<br/>
+<font color="#A82F2F"><font size="2">(12:09:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master ad896e1 Eelco Dolstra: Typo<br/>
+<font color="#A82F2F"><font size="2">(12:13:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 2 new commits to release-14.12: http://git.io/xhmx<br/>
+<font color="#A82F2F"><font size="2">(12:13:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 4f557ea Ricardo M. Correia: firefox: Fix hash...<br/>
+<font color="#A82F2F"><font size="2">(12:13:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 aba9ff9 Ricardo M. Correia: firefox: Update from 36.0 -&gt; 36.0.1...<br/>
+<font color="#A82F2F"><font size="2">(12:51:03 PM)</font> <b>jimstutt:</b></font> echo $NIX_PATH<br/>
+<font color="#A82F2F"><font size="2">(12:51:15 PM)</font> <b>jimstutt:</b></font> errm.<br/>
+<font color="#A82F2F"><font size="2">(12:53:08 PM)</font> <b>jimstutt:</b></font> I can&apos;t get ocharles&apos;s recipe as per blog with his default.nix with my project in emacs with projectile.<br/>
+<font color="#A82F2F"><font size="2">(12:55:31 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/xh8b<br/>
+<font color="#A82F2F"><font size="2">(12:55:31 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master cdd00f4 Vladimír Čunát: libav*.tools: remove overlapping paths, fixes #6682<br/>
+<font color="#A82F2F"><font size="2">(12:57:15 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to release-14.12: http://git.io/xh4R<br/>
+<font color="#A82F2F"><font size="2">(12:57:15 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 2635bde Vladimír Čunát: libav*.tools: remove overlapping paths, fixes #6682...<br/>
+<font color="#A82F2F"><font size="2">(01:12:21 PM)</font> <b>joelmo:</b></font> everythink will be rebuilt if I add a userHook in nixpkgs config, is that how it should work, or can I prevent rebuilding everything?<br/>
+<font color="#A82F2F"><font size="2">(01:18:48 PM)</font> <b>ktosiek:</b></font> joelmo: when you change stdenv it&apos;s normal that everything rebuilds<br/>
+<font color="#A82F2F"><font size="2">(01:29:30 PM)</font> <b>joelmo:</b></font> is there somewhere I can modify $PATH without causing a rebuild<br/>
+<font color="#A82F2F"><font size="2">(01:35:26 PM)</font> <b>ktosiek:</b></font> what do you want to modify it for?<br/>
+<font color="#A82F2F"><font size="2">(01:36:11 PM)</font> <b>ktosiek:</b></font> you can set it in ~/.profile if it&apos;s only for one user<br/>
+<font color="#A82F2F"><font size="2">(01:38:07 PM)</font> <b>joelmo:</b></font> I want to enable ccache whenever I need to build locally<br/>
+<font color="#A82F2F"><font size="2">(01:39:50 PM)</font> <b>joelmo:</b></font> maybe easiest if I just override packages that I want to enable ccache for, but it would be convenient if it was just enabled for those packages I needed to build<br/>
+<font color="#A82F2F"><font size="2">(01:40:11 PM)</font> <b>ktosiek:</b></font> I think there was some work on having optional ccache in stdenv, have you looked for it?<br/>
+<font color="#A82F2F"><font size="2">(01:40:42 PM)</font> <b>ktosiek:</b></font> but if that&apos;s not in master, you&apos;ll be better off just adding ccache to packages you need it for<br/>
+<font color="#A82F2F"><font size="2">(01:42:36 PM)</font> <b>joelmo:</b></font> I have looked at it, but there are some issues when some package needs glib, I made an issue for this yesterday<br/>
+<font color="#A82F2F"><font size="2">(01:43:35 PM)</font> <b>joelmo:</b></font> I tried to look at relevant parts, in stdenv, and all-packages, too see if I could fix that but I don&apos;t understand it that well<br/>
+<font color="#A82F2F"><font size="2">(01:56:06 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cillianderoiste pushed 1 new commit to master: http://git.io/xhin<br/>
+<font color="#A82F2F"><font size="2">(01:56:07 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master d8a5712 Cillian de Róiste: chromedriver: 2.10 -&gt; 2.14<br/>
+<font color="#A82F2F"><font size="2">(02:04:19 PM)</font> <b>aszlig:</b></font> qknight: unfortunately not, i checked some while ago, but i gc&apos;ed it already :-(<br/>
+<font color="#A82F2F"><font size="2">(02:05:55 PM)</font> <b>aszlig:</b></font> qknight: and i already wrote the author about that a while ago, but didn&apos;t get a reploy<br/>
+<font color="#A82F2F"><font size="2">(02:06:14 PM)</font> <b>qknight:</b></font> aszlig: *sigh*<br/>
+<font color="#A82F2F"><font size="2">(02:06:15 PM)</font> <b>aszlig:</b></font> s/..$/y/<br/>
+<font color="#A82F2F"><font size="2">(02:06:29 PM)</font> <b>qknight:</b></font> aszlig: i&apos;ve got zabbix now running, will add some docu to the wiki soon<br/>
+<font color="#A82F2F"><font size="2">(02:06:39 PM)</font> <b>qknight:</b></font> aszlig: thanks for your example configuration<br/>
+<font size="2">(02:25:25 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

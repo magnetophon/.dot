@@ -1,0 +1,515 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Wed 25 Mar 2015 09:10:14 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Wed 25 Mar 2015 09:10:14 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(09:10:14 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(09:10:14 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(09:43:22 PM)</font><b> MichaelRaskin [<em>~MichaelRa@195.91.224.161</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:47:39 PM)</font> <b>JoshStrobl:</b></font> Hey guys, currently trying out nixos (via Boxes) and I have most of what I need configured, however I&apos;m having this issue where icons for about half the software (pulled in with gnome-shell), like gnome-photos, gnome-music, etc. simply aren&apos;t &quot;showing up&quot; (it shows the symbolic icon for executables).<br/>
+<font color="#A82F2F"><font size="2">(09:53:27 PM)</font> <b>joelteon:</b></font> can nixos do setuid-root on darwin?<br/>
+<font size="2">(09:59:35 PM)</font><b> boegel|afk is now known as boegel</b><br/>
+<font color="#A82F2F"><font size="2">(10:15:34 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 3 new commits to master: http://git.io/jqyk<br/>
+<font color="#A82F2F"><font size="2">(10:15:34 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8baaff9 William A. Kennington III: intel-ucode: Generate an early loadable microcode image<br/>
+<font color="#A82F2F"><font size="2">(10:15:34 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f2655e4 William A. Kennington III: makeInitrd: Support prepending other initrds<br/>
+<font color="#A82F2F"><font size="2">(10:15:34 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b4fedf5 William A. Kennington III: nixos/intel-microcode: Support early initrd ucode loading<br/>
+<font color="#A82F2F"><font size="2">(10:16:19 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] layus opened pull request #6981: nixos/systemd: Also escape &apos;:&apos; characters (master...systemd-escape-colon) http://git.io/jqyg<br/>
+<font color="#A82F2F"><font size="2">(10:16:41 PM)</font> <b>tnks:</b></font> we have a &quot;callPackage&quot; pattern usage in our nix expression, but it doesn&apos;t seem to play nice with names with hyphens?<br/>
+<font color="#A82F2F"><font size="2">(10:16:53 PM)</font> <b>tnks:</b></font> is there a way to quote these names to get around this?<br/>
+<font color="#A82F2F"><font size="2">(10:17:19 PM)</font> <b>tnks:</b></font> or is this a justification for camelcase names?<br/>
+<font color="#A82F2F"><font size="2">(10:17:34 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/jqyj<br/>
+<font color="#A82F2F"><font size="2">(10:17:34 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1e1683f William A. Kennington III: Add missing file<br/>
+<font color="#A82F2F"><font size="2">(10:18:09 PM)</font> <b>benley:</b></font> tnks: filenames? or attribute names/values?<br/>
+<font color="#A82F2F"><font size="2">(10:18:41 PM)</font> <b>kmicu:</b></font> ’silver-searcher = callPackage ../tools/text/silver-searcher { };’<br/>
+<font color="#A82F2F"><font size="2">(10:19:03 PM)</font> <b>tnks:</b></font> benley: for the parameter name of the function I&apos;m using callPackage on.<br/>
+<font color="#A82F2F"><font size="2">(10:19:20 PM)</font> <b>tnks:</b></font> like { param-name ... }: ...<br/>
+<font color="#A82F2F"><font size="2">(10:19:29 PM)</font> <b>tnks:</b></font> that kind of thing doesn&apos;t seem to be working.<br/>
+<font color="#A82F2F"><font size="2">(10:20:08 PM)</font> <b>tnks:</b></font> maybe it&apos;s something else. . . debugging<br/>
+<font color="#A82F2F"><font size="2">(10:20:33 PM)</font> <b>benley:</b></font> I thought hyphenated names should work like that<br/>
+<font color="#A82F2F"><font size="2">(10:20:40 PM)</font> <b>kmicu:</b></font> Since 1.2 ‘Dashes are now valid as part of identifiers and attribute names.’<br/>
+<font color="#A82F2F"><font size="2">(10:20:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] obadz opened pull request #6982: Monodevelop + Mono upgrade (master...monodevelop) http://git.io/jq9c<br/>
+<font color="#A82F2F"><font size="2">(10:21:21 PM)</font> <b>tnks:</b></font> sorry, it was a missing commas.<br/>
+<font color="#A82F2F"><font size="2">(10:21:26 PM)</font> <b>tnks:</b></font> false alarm.<br/>
+<font color="#A82F2F"><font size="2">(10:21:43 PM)</font> <b>tnks:</b></font> hyphenated names work.<br/>
+<font color="#A82F2F"><font size="2">(10:28:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 2 new commits to master: http://git.io/jq78<br/>
+<font color="#A82F2F"><font size="2">(10:28:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c14919f William A. Kennington III: Remove old microcode2ucode<br/>
+<font color="#A82F2F"><font size="2">(10:28:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8ad832f William A. Kennington III: microcode/intel: Correct license<br/>
+<font size="2">(10:30:24 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:41:28 PM)</font> <b>goibhniu:</b></font> hi magnetophon, can you post your expression again?<br/>
+<font color="#16569E"><font size="2">(10:42:21 PM)</font> <b>magnetophon:</b></font> goibhniu: https://gist.github.com/magnetophon/6230eea5426dbd3d971f#file-gistfile1-nix<br/>
+<font color="#A82F2F"><font size="2">(10:42:42 PM)</font> <b>dav:</b></font> is there a way to see which roots are keeping a package in the store?<br/>
+<font color="#16569E"><font size="2">(10:44:49 PM)</font> <b>magnetophon:</b></font> goibhniu: I think line 16-18 should not be needed, but even with those, scons complains it can't find the boost headers that these headers include.<br/>
+<font color="#A82F2F"><font size="2">(10:44:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 3 new commits to master: http://git.io/jqAl<br/>
+<font color="#A82F2F"><font size="2">(10:44:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 79827eb William A. Kennington III: firmware-linux-nonfree: Support version passthru<br/>
+<font color="#A82F2F"><font size="2">(10:44:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 27f355c William A. Kennington III: microcode-amd: Update to early loading<br/>
+<font color="#A82F2F"><font size="2">(10:44:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8666689 William A. Kennington III: nixos/microcode-amd: Update to early initrd loader<br/>
+<font color="#A82F2F"><font size="2">(10:45:03 PM)</font> <b>goibhniu:</b></font> magnetophon: ok, cool<br/>
+<font color="#A82F2F"><font size="2">(10:47:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/jqpJ<br/>
+<font color="#A82F2F"><font size="2">(10:47:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master ace8dfa William A. Kennington III: linuxFirmwareNonfree: 3015-03-09 -&gt; 2015-03-20<br/>
+<font color="#A82F2F"><font size="2">(10:51:19 PM)</font> <b>JagaJaga:</b></font> How to prevent screen from turning off?<br/>
+<font color="#A82F2F"><font size="2">(10:53:22 PM)</font> <b>dav:</b></font> do indirect roots get listed in nix-env --print-roots<br/>
+<font color="#A82F2F"><font size="2">(10:53:24 PM)</font> <b>dav:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(10:59:20 PM)</font> <b>goibhniu:</b></font> dav I don&apos;t know offhand, but check out nix-store<br/>
+<font color="#A82F2F"><font size="2">(10:59:28 PM)</font> <b>dav:</b></font> what&apos;s the difference between default &amp; system profiles?<br/>
+<font color="#A82F2F"><font size="2">(11:00:36 PM)</font> <b>benley:</b></font> system profile is the root filesystem on NixOS, more or less.<br/>
+<font color="#A82F2F"><font size="2">(11:00:55 PM)</font> <b>benley:</b></font> &quot;default&quot; profile is basically just root&apos;s user profile, I think.<br/>
+<font color="#A82F2F"><font size="2">(11:01:59 PM)</font> <b>wkennington:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(11:03:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] spwhitt opened pull request #6983: Libtheora (master...libtheora) http://git.io/jmJS<br/>
+<font size="2">(11:06:05 PM)</font><b> dav left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:09:01 PM)</font> <b>roconnor:</b></font> notably the system profile is updated whenever nixos-rebuild is done; while the default profile is only updated ... whenver root updates their installed programs.<br/>
+<font color="#A82F2F"><font size="2">(11:11:39 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/jmk0<br/>
+<font color="#A82F2F"><font size="2">(11:11:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 985e150 William A. Kennington III: btrfs-progs: 3.19 -&gt; 3.19.1<br/>
+<font color="#A82F2F"><font size="2">(11:11:55 PM)</font> <b>goibhniu:</b></font> magnetophon: hmm .. it&apos;s a tricky one :)<br/>
+<font color="#16569E"><font size="2">(11:12:53 PM)</font> <b>magnetophon:</b></font> goibhniu: does that mean you have no idea either? :p<br/>
+<font color="#A82F2F"><font size="2">(11:13:21 PM)</font> <b>goibhniu:</b></font> yep, not yet anyway<br/>
+<font color="#A82F2F"><font size="2">(11:14:14 PM)</font> <b>goibhniu:</b></font> I can&apos;t even figure out how to get scons to give nice debug output :)<br/>
+<font color="#16569E"><font size="2">(11:16:13 PM)</font> <b>magnetophon:</b></font> goibhniu: there's &quot;scons --debug=stacktrace&quot;, but that doesn't help much, afai can tell...<br/>
+<font color="#A82F2F"><font size="2">(11:16:31 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] spwhitt opened pull request #6984: X264 updates (master...x264) http://git.io/jmLv<br/>
+<font size="2">(11:16:45 PM)</font><b> pmahoney left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:17:59 PM)</font> <b>goibhniu:</b></font> I thought there was a way to get it to be very verbose ... with color and all :) .. maybe I&apos;m thinking of waf<br/>
+<font color="#A82F2F"><font size="2">(11:20:21 PM)</font> <b>qknight:</b></font> viric: https://nixos.org/wiki/Raspberry_Pi#Notes &lt;- if i evaluate this, it will install the rpi kernel into /boot and it assumes that i&apos;m already on nixos which is not the case for me. how to adapt that to install the kernel into /mnt/boot and the rest into /mnt/root?<br/>
+<font color="#A82F2F"><font size="2">(11:20:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/jmt2<br/>
+<font color="#A82F2F"><font size="2">(11:20:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 21cd86f William A. Kennington III: makeInitrd: Make prepend optional<br/>
+<font color="#16569E"><font size="2">(11:21:13 PM)</font> <b>magnetophon:</b></font> goibhniu: there's also &quot;--debug=includes&quot;, but that doesn't alter the error. The man also says: &quot;Print the include tree after each top-level target is built.&quot; so I guess it shouldn't. Though I don't understand why you'd want to know the includes &lt;after&gt; the build...<br/>
+<font color="#A82F2F"><font size="2">(11:23:01 PM)</font> <b>goibhniu:</b></font> magnetophon: I see a lot of talk about CPPPATH in the scons docs, but no examples in nixpkgs<br/>
+<font color="#16569E"><font size="2">(11:24:35 PM)</font> <b>magnetophon:</b></font> goibhniu: hmm, haven't seen those yet.  I did find: &quot;-I directory, --include-dir=directory&quot;. That might work, but feels like the wrong way to go about it, doesn't it?<br/>
+<font color="#A82F2F"><font size="2">(11:26:50 PM)</font> <b>viric:</b></font> qknight: use the source<br/>
+<font color="#A82F2F"><font size="2">(11:27:26 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ttuegel opened pull request #6985: youtube-dl: wrap with ffmpeg (master...youtube-dl) http://git.io/jmmu<br/>
+<font color="#A82F2F"><font size="2">(11:28:04 PM)</font> <b>qknight:</b></font> viric: ah, so you are saying, that i should hack nixpkgs and change the directories there, right?<br/>
+<font color="#A82F2F"><font size="2">(11:28:50 PM)</font> <b>viric:</b></font> nixos, yes<br/>
+<font color="#A82F2F"><font size="2">(11:29:56 PM)</font> <b>goibhniu:</b></font> magnetophon: setting CPPPATH=${boost.dev}/include also doesn&apos;t help :/<br/>
+<font color="#16569E"><font size="2">(11:30:17 PM)</font> <b>magnetophon:</b></font> goibhniu:  :/<br/>
+<font color="#A82F2F"><font size="2">(11:30:50 PM)</font> <b>goibhniu:</b></font> magnetophon: yeah, I&apos;ve no clue, sorry<br/>
+<font color="#16569E"><font size="2">(11:31:10 PM)</font> <b>magnetophon:</b></font> goibhniu: OK, thanks for trying.<br/>
+<font color="#A82F2F"><font size="2">(11:31:23 PM)</font> <b>goibhniu:</b></font> np<br/>
+<font color="#A82F2F"><font size="2">(11:33:37 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 2 new commits to master: http://git.io/jmOs<br/>
+<font color="#A82F2F"><font size="2">(11:33:37 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 6ca7fb8 Guillaume Maudoux: nixos/systemd: Also escape &apos;:&apos; characters<br/>
+<font color="#A82F2F"><font size="2">(11:33:37 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8b3c7af William A. Kennington III: Merge pull request #6981 from layus/systemd-escape-colon...<br/>
+<font color="#A82F2F"><font size="2">(11:34:35 PM)</font> <b>intothemountains:</b></font> How could I write the equivalent to [&quot;%s something&quot; % s for s in n] in nix?<br/>
+<font color="#A82F2F"><font size="2">(11:34:54 PM)</font> <b>joelteon:</b></font> map<br/>
+<font color="#A82F2F"><font size="2">(11:35:15 PM)</font> <b>joelteon:</b></font> map (s: &quot;${s} something&quot;) n<br/>
+<font color="#A82F2F"><font size="2">(11:35:16 PM)</font> <b>benley:</b></font> lib.concatMapStrings<br/>
+<font color="#A82F2F"><font size="2">(11:35:24 PM)</font> <b>joelteon:</b></font> intothemountains never said concat<br/>
+<font color="#A82F2F"><font size="2">(11:35:25 PM)</font> <b>benley:</b></font> or that, heh<br/>
+<font color="#A82F2F"><font size="2">(11:35:32 PM)</font> <b>benley:</b></font> oh, right<br/>
+<font color="#A82F2F"><font size="2">(11:35:43 PM)</font> <b>intothemountains:</b></font> joelteon: no, but now that they mention it, i need it :-p<br/>
+<font color="#A82F2F"><font size="2">(11:35:53 PM)</font> <b>joelteon:</b></font> intothemountains: lib.concatMapStrings<br/>
+<font color="#A82F2F"><font size="2">(11:35:55 PM)</font> <b>joelteon:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(11:36:00 PM)</font> <b>benley:</b></font> :-P<br/>
+<font color="#A82F2F"><font size="2">(11:36:06 PM)</font> <b>intothemountains:</b></font> Cheers!<br/>
+<font color="#A82F2F"><font size="2">(11:36:16 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 4 new commits to master: http://git.io/jm3Z<br/>
+<font color="#A82F2F"><font size="2">(11:36:16 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 98bf3f9 Spencer Whitt: x264: snapshot-20130424-2245-stable -&gt; snapshot-20141218-2245-stable...<br/>
+<font color="#A82F2F"><font size="2">(11:36:16 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3630a37 Spencer Whitt: x264: Add option to encode videos as bit depth 10...<br/>
+<font color="#A82F2F"><font size="2">(11:36:16 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 84a15d6 Spencer Whitt: x264: Update metadata<br/>
+<font color="#A82F2F"><font size="2">(11:36:18 PM)</font> <b>benley:</b></font> intothemountains: take a look in nixpkgs/lib/strings.nix, there are numerous variants and helpers<br/>
+<font color="#A82F2F"><font size="2">(11:37:11 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 3 new commits to master: http://git.io/jm3o<br/>
+<font color="#A82F2F"><font size="2">(11:37:11 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 04f7248 Spencer Whitt: libtheora: Fix build on Darwin<br/>
+<font color="#A82F2F"><font size="2">(11:37:11 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7adbb34 Spencer Whitt: libtheora: Add metadata<br/>
+<font color="#A82F2F"><font size="2">(11:37:11 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 838acbe William A. Kennington III: Merge pull request #6983 from spwhitt/libtheora...<br/>
+<font color="#16569E"><font size="2">(11:38:05 PM)</font> <b>magnetophon:</b></font> goibhniu: just to double-check: do you also get &quot; boost/detail/workaround.hpp: No such file or directory&quot;?<br/>
+<font color="#A82F2F"><font size="2">(11:38:33 PM)</font> <b>qknight:</b></font> viric: oh, just realized that i can&apos;t run nixos-install and that is probably a problem since the build system assumes that files like /etc/nixos and such are already there<br/>
+<font color="#A82F2F"><font size="2">(11:38:51 PM)</font> <b>viric:</b></font> qknight: nix-build -A system<br/>
+<font color="#A82F2F"><font size="2">(11:39:54 PM)</font> <b>goibhniu:</b></font> magnetophon: yeah, but I think you&apos;re right about leaving out the patches to set the path to boost<br/>
+<font color="#A82F2F"><font size="2">(11:40:06 PM)</font> <b>goibhniu:</b></font> magnetophon: it should be able to find them<br/>
+<font color="#A82F2F"><font size="2">(11:40:14 PM)</font> <b>ttuegel:</b></font> seriously? somebody pushed another mass-rebuild direct to master?<br/>
+<font color="#16569E"><font size="2">(11:41:46 PM)</font> <b>magnetophon:</b></font> goibhniu: OK, thanks. And the path to ladspa shouldn't be needed either, right?<br/>
+<font color="#A82F2F"><font size="2">(11:42:38 PM)</font> <b>goibhniu:</b></font> magnetophon: I&apos;m not sure about that one, since it&apos;s not inside &lt;&gt;s<br/>
+<font color="#16569E"><font size="2">(11:43:38 PM)</font> <b>magnetophon:</b></font> goibhniu: I've never realy understood the &lt;&gt;s<br/>
+<font color="#16569E"><font size="2">(11:44:15 PM)</font> <b>magnetophon:</b></font> scons -I /path/ doesn't help either...<br/>
+<font color="#A82F2F"><font size="2">(11:44:21 PM)</font> <b>benley:</b></font> &lt;nixpkgs&gt; means &quot;go find nixpkgs in $NIX_PATH&quot; iirc<br/>
+<font color="#A82F2F"><font size="2">(11:44:39 PM)</font> <b>benley:</b></font> if you&apos;re talking about nix.  If that&apos;s scons or c++ ignore me, I&apos;m lost.<br/>
+<font color="#16569E"><font size="2">(11:47:17 PM)</font> <b>magnetophon:</b></font> benley: thanks. It's c++ we're discussing though<br/>
+<font color="#A82F2F"><font size="2">(11:47:27 PM)</font> <b>benley:</b></font> then I&apos;ll butt out :)<br/>
+<font color="#16569E"><font size="2">(11:49:07 PM)</font> <b>magnetophon:</b></font> benley: I think it means something similar in c++, but I don't really know<br/>
+<font color="#A82F2F"><font size="2">(11:50:34 PM)</font> <b>benley:</b></font> I think so too but I&apos;m fuzzy on the details.  It goes in preprocessor directives, so I guess that would be affected by things like -I and -L compiler flags?<br/>
+<font color="#A82F2F"><font size="2">(11:50:40 PM)</font> <b>intothemountains:</b></font> How can I import lib into nix-repl?<br/>
+<font color="#A82F2F"><font size="2">(11:50:56 PM)</font> <b>benley:</b></font> intothemountains: nix-repl &apos;&lt;nixpkgs&gt;&apos;<br/>
+<font color="#A82F2F"><font size="2">(11:51:03 PM)</font> <b>benley:</b></font> or in nix-repl, :l &lt;nixpkgs&gt;<br/>
+<font color="#A82F2F"><font size="2">(11:51:11 PM)</font> <b>benley:</b></font> then you&apos;ll have lib in your namespace<br/>
+<font color="#A82F2F"><font size="2">(11:51:21 PM)</font> <b>intothemountains:</b></font> thanks again!<br/>
+<font color="#A82F2F"><font size="2">(11:52:00 PM)</font> <b>intothemountains:</b></font> &quot;Added 4534 variables.&quot; wow, that&apos;s poluting a namespace<br/>
+<font color="#A82F2F"><font size="2">(11:52:19 PM)</font> <b>intothemountains:</b></font> polluting*<br/>
+<font color="#A82F2F"><font size="2">(11:52:26 PM)</font> <b>benley:</b></font> you&apos;re getting all the packages in all-packages.nix that way, yeah<br/>
+<font color="#A82F2F"><font size="2">(11:54:45 PM)</font> <b>wkennington:</b></font> ttuegel: ?<br/>
+<font color="#16569E"><font size="2">(11:55:29 PM)</font> <b>magnetophon:</b></font> goibhniu: when I run patchPhase from the source dir in nix-shell, the sources are unchanged afterwards. Am I doing it wrong?<br/>
+<font color="#A82F2F"><font size="2">(11:55:47 PM)</font> <b>ttuegel:</b></font> nixos:trunk-combined just got knocked back about 5k packages. noticed it when i pulled from master and had to rebuild Qt 4 for the second time today<br/>
+<font color="#A82F2F"><font size="2">(11:56:30 PM)</font> <b>goibhniu:</b></font> magnetophon: yeah, I also got that, I don&apos;t know why<br/>
+<font color="#16569E"><font size="2">(11:57:12 PM)</font> <b>magnetophon:</b></font> goibhniu: hmmm, that's odd.<br/>
+<font color="#16569E"><font size="2">(11:59:09 PM)</font> <b>magnetophon:</b></font> Does anyone see anything wrong with this patchPhase: https://gist.github.com/magnetophon/6230eea5426dbd3d971f#file-gistfile1-nix-L12-L19 ?<br/>
+<font color="#16569E"><font size="2">(11:59:51 PM)</font> <b>magnetophon:</b></font> How could it not do anything when run from nix-shell, yet seem to work in nix-env -i?<br/>
+<font color="#A82F2F"><font size="2">(11:59:51 PM)</font> <b>wkennington:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(12:02:58 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/jm8W<br/>
+<font color="#A82F2F"><font size="2">(12:02:58 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 151c42a William A. Kennington III: libvorbis: 1.3.4 -&gt; 1.3.5<br/>
+<font color="#A82F2F"><font size="2">(12:03:38 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] joachifm opened pull request #6986: Nano 2.4 (master...nano-2_4) http://git.io/jm8z<br/>
+<font size="2">(12:06:47 AM)</font><b> roconnor left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(12:07:35 AM)</font> <b>intothemountains:</b></font> Sorry again... what if I want to get the keys in a set?<br/>
+<font color="#A82F2F"><font size="2">(12:07:49 AM)</font> <b>intothemountains:</b></font> as a list I mean<br/>
+<font color="#A82F2F"><font size="2">(12:08:03 AM)</font> <b>intothemountains:</b></font> well, no, sorry, the values as a list<br/>
+<font color="#16569E"><font size="2">(12:08:59 AM)</font> <b>magnetophon:</b></font> goibhniu: how do I even find ladspa.h so I can manually patch SConstruct during testing?<br/>
+<font color="#A82F2F"><font size="2">(12:09:20 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/jmBv<br/>
+<font color="#A82F2F"><font size="2">(12:09:20 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 4fc94e6 William A. Kennington III: pinentry: Update build<br/>
+<font color="#A82F2F"><font size="2">(12:10:05 AM)</font> <b>intothemountains:</b></font> builtins.attrValues of course<br/>
+<font color="#A82F2F"><font size="2">(12:10:15 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/jmBC<br/>
+<font color="#A82F2F"><font size="2">(12:10:15 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 79cfdb2 William A. Kennington III: pinentry: Slight refactoring<br/>
+<font color="#A82F2F"><font size="2">(12:10:32 AM)</font> <b>goibhniu:</b></font> magnetophon: don&apos;t you have it already? I think that part works<br/>
+<font color="#A82F2F"><font size="2">(12:15:20 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/jmRi<br/>
+<font color="#A82F2F"><font size="2">(12:15:20 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master ba4330a William A. Kennington III: pinentry: Doesn&apos;t use qt4 by default so don&apos;t enable it<br/>
+<font color="#16569E"><font size="2">(12:16:28 AM)</font> <b>magnetophon:</b></font> goibhniu: yeah it works with nix-env, but not within nix-shell<br/>
+<font size="2">(12:16:28 AM)</font><b> goibhniu left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:19:21 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/jm0p<br/>
+<font color="#A82F2F"><font size="2">(12:19:21 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 70a8bfb William A. Kennington III: pinentry: Fix for darwin<br/>
+<font color="#A82F2F"><font size="2">(12:27:55 AM)</font> <b>codehero:</b></font> how do i set up a haskell sandbox with haskellng?<br/>
+<font color="#A82F2F"><font size="2">(12:31:12 AM)</font> <b>henrytill:</b></font> codehero: here&apos;s one example --&gt; http://article.gmane.org/gmane.linux.distributions.nixos/15517<br/>
+<font color="#A82F2F"><font size="2">(12:31:19 AM)</font> <b>levi:</b></font> codehero: Usually you would use nix&apos;s built-in isolation; you just need cabal2nix from haskell-ng and a cabal file for your project. I usually use nix-shell to make an environment with the dependencies available which are defined by the nix expression returned by cabal2nix.<br/>
+<font color="#A82F2F"><font size="2">(12:31:25 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nckx pushed 2 new commits to master: http://git.io/jmzP<br/>
+<font color="#A82F2F"><font size="2">(12:31:25 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9060ae8 Tobias Geerinckx-Rice: include-what-you-use: pin clang to version 3.5...<br/>
+<font color="#A82F2F"><font size="2">(12:31:25 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master eff3fa7 Tobias Geerinckx-Rice: encfs 1.8 -&gt; 1.8.1<br/>
+<font color="#A82F2F"><font size="2">(12:31:55 AM)</font> <b>kmicu:</b></font> I’m not sure what is ‘haskell sanbox’, but you can e.g. http://wiki.ocharles.org.uk/Nix#how-do-i-use-cabal2nix-for-local-projectsl<br/>
+<font color="#A82F2F"><font size="2">(12:32:11 AM)</font> <b>codehero:</b></font> levi: oh. i can just use cabal2nix?<br/>
+<font color="#A82F2F"><font size="2">(12:32:40 AM)</font> <b>henrytill:</b></font> codehero: see kmicu&apos;s ^^^ link<br/>
+<font color="#A82F2F"><font size="2">(12:32:46 AM)</font> <b>codehero:</b></font> okay<br/>
+<font color="#A82F2F"><font size="2">(12:33:44 AM)</font> <b>levi:</b></font> It&apos;s part of the process, the links explain in more detail though.<br/>
+<font color="#A82F2F"><font size="2">(12:34:21 AM)</font> <b>levi:</b></font> Note that it&apos;s no longer necessary to use nixpkgs from github; the unstable channel is sufficient.<br/>
+<font color="#A82F2F"><font size="2">(12:34:47 AM)</font> <b>codehero:</b></font> nice :)<br/>
+<font color="#A82F2F"><font size="2">(12:35:12 AM)</font> <b>henrytill:</b></font> the gmane link i gave above is just a basic manual nix-shell recipe<br/>
+<font color="#A82F2F"><font size="2">(12:36:49 AM)</font> <b>levi:</b></font> I have been using a &apos;default.nix&apos; in my project directory based on the one in the gmane link, but the ocharles_  method will scale better to more complex setups.<br/>
+<font color="#A82F2F"><font size="2">(12:37:16 AM)</font> <b>henrytill:</b></font> agreed<br/>
+<font color="#A82F2F"><font size="2">(12:44:31 AM)</font> <b>kmicu:</b></font> Time to annoy some people :)<br/>
+<font color="#A82F2F"><font size="2">(12:44:46 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] kmicu opened pull request #6987: Bump pavucontrol 2.0 → 3.0 (master...pavucontrol) http://git.io/jmVJ<br/>
+<font color="#A82F2F"><font size="2">(12:48:35 AM)</font> <b>codehero:</b></font> hmmm<br/>
+<font color="#A82F2F"><font size="2">(12:48:37 AM)</font> <b>codehero:</b></font> cabal: At least the following dependencies are missing:<br/>
+<font color="#A82F2F"><font size="2">(12:48:39 AM)</font> <b>codehero:</b></font> lens ==4.4.*, text ==1.1.*<br/>
+<font color="#A82F2F"><font size="2">(12:48:46 AM)</font> <b>codehero:</b></font> shouldn&apos;t it install the dependencies?<br/>
+<font color="#A82F2F"><font size="2">(12:49:04 AM)</font> <b>ttuegel:</b></font> codehero: depends, what command did you type?<br/>
+<font color="#A82F2F"><font size="2">(12:49:15 AM)</font> <b>codehero:</b></font> nix-shell -I ~ --command &apos;cabal configure&apos;<br/>
+<font color="#A82F2F"><font size="2">(12:49:30 AM)</font> <b>ttuegel:</b></font> codehero: nope, only &apos;cabal instal ...&apos; will install things<br/>
+<font color="#A82F2F"><font size="2">(12:49:37 AM)</font> <b>codehero:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(12:49:47 AM)</font> <b>codehero:</b></font> soo<br/>
+<font color="#A82F2F"><font size="2">(12:49:54 AM)</font> <b>ttuegel:</b></font> codehero: but, what you probably want to do is change the version bounds to the versions of text and lens that are in nixpkgs!<br/>
+<font color="#A82F2F"><font size="2">(12:50:04 AM)</font> <b>ttuegel:</b></font> (because those are rather old versions)<br/>
+<font color="#A82F2F"><font size="2">(12:50:08 AM)</font> <b>codehero:</b></font> probably yeah<br/>
+<font color="#A82F2F"><font size="2">(12:57:04 AM)</font> <b>codehero:</b></font> how would i know which versions are in nixpkgs?<br/>
+<font color="#A82F2F"><font size="2">(12:57:13 AM)</font> <b>rui1:</b></font> What to do with a &quot;dependencies couldn&apos;t be built&quot; error?<br/>
+<font color="#A82F2F"><font size="2">(12:57:13 AM)</font> <b>qknight:</b></font> how to make nix-build use a configuration.nix which is not in /etc/nixos/configuration.nix?<br/>
+<font color="#A82F2F"><font size="2">(12:57:23 AM)</font> <b>rui1:</b></font> Question stormm<br/>
+<font color="#A82F2F"><font size="2">(01:18:56 AM)</font> <b>goodwill:</b></font> garbas: ping<br/>
+<font color="#A82F2F"><font size="2">(01:20:09 AM)</font> <b>garbas:</b></font> goodwill: pong<br/>
+<font color="#A82F2F"><font size="2">(01:20:16 AM)</font> <b>goodwill:</b></font> garbas: see PM<br/>
+<font size="2">(01:29:03 AM)</font><b> shlevy_ is now known as shlevy</b><br/>
+<font size="2">(01:33:49 AM)</font><b> wkennington left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:37:50 AM)</font><b> hexagoxel_ is now known as hexagoxel</b><br/>
+<font size="2">(01:37:50 AM)</font><b> wkennington [<em>~william@76.77.180.204</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:13:42 AM)</font> <b>auntie:</b></font> mmmmm... I want a nixos livecd that automatically installs when it finds my hdd&apos;s uuid:|<br/>
+<font color="#A82F2F"><font size="2">(02:13:50 AM)</font> <b>auntie:</b></font> SURELY someone has done this<br/>
+<font color="#A82F2F"><font size="2">(02:16:25 AM)</font> <b>shlevy:</b></font> auntie: why surely?<br/>
+<font color="#A82F2F"><font size="2">(02:16:34 AM)</font> <b>shlevy:</b></font> auntie: I&apos;m nearly certain no one has<br/>
+<font color="#A82F2F"><font size="2">(02:17:21 AM)</font> <b>auntie:</b></font> I&apos;m just being facetious... and thinking out loud<br/>
+<font color="#A82F2F"><font size="2">(02:17:36 AM)</font> <b>auntie:</b></font> part of me thinks this would be a good feature for NixOps<br/>
+<font color="#A82F2F"><font size="2">(02:17:49 AM)</font> <b>auntie:</b></font> &quot;deploy to this ISO&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:18:24 AM)</font> <b>auntie:</b></font> right now I run a bash script to set up nixos-install<br/>
+<font color="#A82F2F"><font size="2">(02:19:55 AM)</font> <b>auntie:</b></font> actually, dd usb boot support would be even more convenient :s<br/>
+<font color="#062585"><font size="2">(02:21:11 AM)</font> <b>***auntie</b></font> going to dinner...<br/>
+<font color="#A82F2F"><font size="2">(02:55:50 AM)</font> <b>rui1:</b></font> Is there a way to install Unity? I&apos;d like to share the PC with a user used to Ubuntu<br/>
+<font color="#A82F2F"><font size="2">(03:22:15 AM)</font> <b>Fuuzetsu:</b></font> &lt;usual bitching about QT build times&gt;<br/>
+<font color="#A82F2F"><font size="2">(03:22:51 AM)</font> <b>auntie:</b></font> rui1: The unity IDE is currently only for Windows/OS X. it is possible to run it in Wine though<br/>
+<font color="#A82F2F"><font size="2">(03:23:33 AM)</font> <b>auntie:</b></font> I have thought about packaging windows applications in Wine with Nix before...<br/>
+<font color="#A82F2F"><font size="2">(03:23:50 AM)</font> <b>Fuuzetsu:</b></font> as have I :)<br/>
+<font color="#A82F2F"><font size="2">(03:23:52 AM)</font> <b>auntie:</b></font> I doubt those packages would be accepted into nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(03:23:56 AM)</font> <b>Fuuzetsu:</b></font> no time as usual though<br/>
+<font color="#A82F2F"><font size="2">(03:24:05 AM)</font> <b>rui1:</b></font> auntie: Oh, then I don&apos;t want something that exotic. I just thought Ubuntu used Unity by default just like gnome 3 shell was for Fedora<br/>
+<font color="#A82F2F"><font size="2">(03:24:48 AM)</font> <b>auntie:</b></font> I&apos;ve thought HARD about deploying ReactOS/Windows 10 onto a VM, and then deploying windows applications with rootless remote desktop... all inside of Nix expressions<br/>
+<font color="#A82F2F"><font size="2">(03:24:53 AM)</font> <b>Fuuzetsu:</b></font> I think you two are talking about different unity<br/>
+<font color="#A82F2F"><font size="2">(03:25:17 AM)</font> <b>auntie:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(03:25:18 AM)</font> <b>Fuuzetsu:</b></font> auntie: there&apos;s already a nix expr that installs Windows into VM and lets you run stuff inside<br/>
+<font color="#A82F2F"><font size="2">(03:25:24 AM)</font> <b>rui1:</b></font> Fuuzetsu: Ahh, they are talking about the game engine?<br/>
+<font color="#A82F2F"><font size="2">(03:25:26 AM)</font> <b>auntie:</b></font> Fuuzetsu: *that* unity<br/>
+<font color="#A82F2F"><font size="2">(03:25:41 AM)</font> <b>Fuuzetsu:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(03:25:43 AM)</font> <b>rui1:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(03:25:55 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] spwhitt opened pull request #6988: Fix schroedinger on Darwin (master...schroedinger) http://git.io/jYkX<br/>
+<font color="#A82F2F"><font size="2">(03:26:26 AM)</font> <b>avn:</b></font> auntie: may be deploying into wine sandbox (bottle) will be more reliable taslk?<br/>
+<font color="#A82F2F"><font size="2">(03:26:37 AM)</font> <b>auntie:</b></font> rui1: the Mir puzzle pieces haven&apos;t been put into place yet... I&apos;m working on that, but Mir is further down my list past getting Wayland and the new GDM working :P<br/>
+<font color="#A82F2F"><font size="2">(03:26:58 AM)</font> <b>auntie:</b></font> avn: wine sandboxes would certainly be more reliable<br/>
+<font color="#A82F2F"><font size="2">(03:27:15 AM)</font> <b>auntie:</b></font> avn: but a VM can do many *evil* things that Wine can&apos;t do yet<br/>
+<font color="#A82F2F"><font size="2">(03:27:20 AM)</font> <b>Irenes:</b></font> we&apos;re actually vaguely trying to make a &quot;wine sandbox for this particular app&quot; wrapper<br/>
+<font color="#A82F2F"><font size="2">(03:27:34 AM)</font> <b>Irenes:</b></font> but it&apos;s lower priority than our &quot;deal with self-updating behavior in this app&quot; thing, so.<br/>
+<font color="#A82F2F"><font size="2">(03:27:44 AM)</font> <b>auntie:</b></font> I&apos;m actually surprised that nix doesn&apos;t have a wine wrapper yet<br/>
+<font color="#A82F2F"><font size="2">(03:27:59 AM)</font> <b>Irenes:</b></font> it has Wine.  just not a wrapper :)<br/>
+<font color="#A82F2F"><font size="2">(03:28:39 AM)</font> <b>rui1:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(03:28:53 AM)</font> <b>Irenes:</b></font> for what it&apos;s worth, we&apos;ve been trying to run the battle.net installer (a game launcher/downloader) in Wine on NixOS, and it keeps getting a &quot;disk is full&quot; error that Google suggests does not occur when it&apos;s run under Wine on other distros.<br/>
+<font color="#A82F2F"><font size="2">(03:28:55 AM)</font> <b>Irenes:</b></font> mew :/<br/>
+<font color="#A82F2F"><font size="2">(03:30:11 AM)</font> <b>auntie:</b></font> I want a nix expression to build an Arch/Gentoo/Debian/Ubuntu/CentOS chroot<br/>
+<font color="#A82F2F"><font size="2">(03:30:22 AM)</font> <b>Irenes:</b></font> huh :) sounds neat<br/>
+<font color="#A82F2F"><font size="2">(03:30:28 AM)</font> <b>auntie:</b></font> I&apos;m a lazy guy... and if something is difficult to run in Nix, sometimes I&apos;d rather have a chroot<br/>
+<font color="#A82F2F"><font size="2">(03:30:40 AM)</font> <b>Irenes:</b></font> specifically those distros, not just the general FHS pattern?<br/>
+<font color="#A82F2F"><font size="2">(03:30:43 AM)</font> <b>auntie:</b></font> I wonder if the new cgroups stuff can handle chroots from other distros *without* root<br/>
+<font color="#A82F2F"><font size="2">(03:30:49 AM)</font> <b>auntie:</b></font> Irenes: correct<br/>
+<font color="#062585"><font size="2">(03:30:52 AM)</font> <b>***Irenes</b></font> nod<br/>
+<font color="#A82F2F"><font size="2">(03:30:57 AM)</font> <b>auntie:</b></font> because those distros have lots of packages<br/>
+<font color="#A82F2F"><font size="2">(03:31:05 AM)</font> <b>auntie:</b></font> and... dual booting is a real bummer<br/>
+<font color="#A82F2F"><font size="2">(03:31:06 AM)</font> <b>Irenes:</b></font> indeed<br/>
+<font color="#A82F2F"><font size="2">(03:32:29 AM)</font> <b>auntie:</b></font> NixOS is so flexible... this crap would never fly on other distro&apos;s xD<br/>
+<font color="#A82F2F"><font size="2">(03:33:10 AM)</font> <b>Irenes:</b></font> yes :)<br/>
+<font size="2">(03:33:40 AM)</font><b> viric_ is now known as viric</b><br/>
+<font color="#062585"><font size="2">(03:36:20 AM)</font> <b>***auntie</b></font> starts reading the gentoo handbook and contemplates converting it to a nix expression<br/>
+<font color="#A82F2F"><font size="2">(03:38:53 AM)</font> <b>Irenes:</b></font> hehhhhh<br/>
+<font color="#A82F2F"><font size="2">(03:39:35 AM)</font> <b>rui1:</b></font> By the way, if I get a &quot;dependencies couldn&apos;t be built&quot; error. is there anything automatic that makes sense to try next?<br/>
+<font color="#A82F2F"><font size="2">(03:39:44 AM)</font> <b>rui1:</b></font> Does it make sense to try again later?<br/>
+<font color="#A82F2F"><font size="2">(03:40:11 AM)</font> <b>auntie:</b></font> rui1: well, in theory, nix is deterministic. so trying again wouldn&apos;t help<br/>
+<font color="#A82F2F"><font size="2">(03:40:16 AM)</font> <b>Irenes:</b></font> it&apos;s not inherently nonsensical to try again; you really need to scroll up and see WHICH dependencies couldn&apos;t be built<br/>
+<font color="#A82F2F"><font size="2">(03:40:20 AM)</font> <b>auntie:</b></font> there&apos;s probably some error before there<br/>
+<font color="#A82F2F"><font size="2">(03:40:24 AM)</font> <b>Irenes:</b></font> we&apos;ve definitely encountered that because there was no network access<br/>
+<font color="#A82F2F"><font size="2">(03:40:29 AM)</font> <b>Irenes:</b></font> although since you&apos;re on IRC, that isn&apos;t your problem<br/>
+<font color="#A82F2F"><font size="2">(03:40:31 AM)</font> <b>Irenes:</b></font> mew<br/>
+<font color="#A82F2F"><font size="2">(03:40:55 AM)</font> <b>Irenes:</b></font> it would be a nice improvement if it listed the failures at the bottom or something :)<br/>
+<font color="#062585"><font size="2">(03:41:02 AM)</font> <b>***auntie</b></font> imagines  Irenes  as a little kitty cat<br/>
+<font color="#A82F2F"><font size="2">(03:41:06 AM)</font> <b>Irenes:</b></font> lol :D<br/>
+<font color="#A82F2F"><font size="2">(03:41:13 AM)</font> <b>Irenes:</b></font> we sorta are, not really :D<br/>
+<font color="#A82F2F"><font size="2">(03:41:29 AM)</font> <b>Irenes:</b></font> we do like the image of a cat who spends all day debugging<br/>
+<font color="#A82F2F"><font size="2">(03:41:35 AM)</font> <b>rui1:</b></font> Irenes: I&apos;ve gotten plenty of problems because of network access, even without network problems. But those say &quot;this is usually due to network problems&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:41:43 AM)</font> <b>Irenes:</b></font> heh :)<br/>
+<font color="#A82F2F"><font size="2">(03:42:06 AM)</font> <b>Irenes:</b></font> our issue was that nothing was reachable at all because the wifi hadn&apos;t connected properly.  this was during install.<br/>
+<font color="#A82F2F"><font size="2">(03:42:16 AM)</font> <b>Irenes:</b></font> we&apos;re pleased to hear that other failure modes are more self-explanatory<br/>
+<font color="#A82F2F"><font size="2">(03:42:28 AM)</font> <b>Irenes:</b></font> although, obviously, we knew what the problem was in our case anyway<br/>
+<font color="#A82F2F"><font size="2">(03:43:57 AM)</font> <b>rui1:</b></font> Irenes: Yesterday night I had to reinstall everything because my crappy disks corrupted the database. So I just reformatted, and made it use the configuration.nix.<br/>
+<font color="#A82F2F"><font size="2">(03:44:08 AM)</font> <b>Irenes:</b></font> nice to be able to do that!<br/>
+<font color="#A82F2F"><font size="2">(03:44:09 AM)</font> <b>rui1:</b></font> It took some hours, and 4 or 5 &quot;network errors&quot;<br/>
+<font color="#062585"><font size="2">(03:44:13 AM)</font> <b>***Irenes</b></font> nod<br/>
+<font color="#A82F2F"><font size="2">(03:44:23 AM)</font> <b>rui1:</b></font> where I just rerun nixos-install<br/>
+<font color="#A82F2F"><font size="2">(03:44:28 AM)</font> <b>rui1:</b></font> and all went wonderfully<br/>
+<font color="#A82F2F"><font size="2">(03:44:41 AM)</font> <b>Irenes:</b></font> out of curiosity, did you wind up noticing any lost state after the reinstall compared to before?<br/>
+<font color="#A82F2F"><font size="2">(03:45:04 AM)</font> <b>Irenes:</b></font> we&apos;ve been pretty diligent about installing packages permanently rather than with nix-env, because that sort of reproducibility appeals to us (mew)<br/>
+<font color="#A82F2F"><font size="2">(03:45:39 AM)</font> <b>rui1:</b></font> Irenes: Not really. On the contrary. My home folder hadn&apos;t been damaged so almost all was recovered with the configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(03:45:41 AM)</font> <b>auntie:</b></font> speaking of lost state.... this crap is exciting: http://www.phoronix.com/scan.php?page=news_item&amp;px=Systemd-Stateless-Root<br/>
+<font color="#A82F2F"><font size="2">(03:45:45 AM)</font> <b>Irenes:</b></font> very cool :)<br/>
+<font color="#A82F2F"><font size="2">(03:45:51 AM)</font> <b>rui1:</b></font> Even better. For some reason I didn&apos;t have audio and now I have :)<br/>
+<font color="#A82F2F"><font size="2">(03:45:55 AM)</font> <b>Irenes:</b></font> lol :D<br/>
+<font color="#A82F2F"><font size="2">(03:45:59 AM)</font> <b>Irenes:</b></font> love when that happens :D<br/>
+<font color="#A82F2F"><font size="2">(03:46:25 AM)</font> <b>rui1:</b></font> Irenes: I had made a symlink in /usr/bin/bash for my scripts to work. I lost that.<br/>
+<font color="#A82F2F"><font size="2">(03:46:31 AM)</font> <b>Irenes:</b></font> ah, *nod*<br/>
+<font color="#A82F2F"><font size="2">(03:46:50 AM)</font> <b>rui1:</b></font> Took less time to fix that than to write this sentence.<br/>
+<font color="#A82F2F"><font size="2">(03:47:01 AM)</font> <b>Irenes:</b></font> auntie: that is indeed exciting :)<br/>
+<font color="#062585"><font size="2">(03:47:41 AM)</font> <b>***Irenes</b></font> nod<br/>
+<font color="#A82F2F"><font size="2">(03:48:05 AM)</font> <b>auntie:</b></font> Irenes: I&apos;m not 100% sure how exciting... I think we need to wait for systemd support in initrd. I was going to ask on the mailing list though<br/>
+<font color="#A82F2F"><font size="2">(03:48:16 AM)</font> <b>Irenes:</b></font> hmmm<br/>
+<font color="#A82F2F"><font size="2">(03:48:18 AM)</font> <b>Irenes:</b></font> fair.<br/>
+<font color="#A82F2F"><font size="2">(03:48:35 AM)</font> <b>Irenes:</b></font> you should definitely ask<br/>
+<font color="#A82F2F"><font size="2">(03:56:58 AM)</font> <b>Fuuzetsu:</b></font> wow, Qt is *actually* done<br/>
+<font color="#A82F2F"><font size="2">(03:56:59 AM)</font> <b>Fuuzetsu:</b></font> 124 minutes<br/>
+<font color="#A82F2F"><font size="2">(03:57:08 AM)</font> <b>Fuuzetsu:</b></font> of course when I was one leg in bed…<br/>
+<font color="#A82F2F"><font size="2">(03:57:22 AM)</font> <b>Fuuzetsu:</b></font> oh neveremind it&apos;s still going, good night<br/>
+<font color="#A82F2F"><font size="2">(03:58:29 AM)</font> <b>Irenes:</b></font> hah :) lol<br/>
+<font color="#A82F2F"><font size="2">(03:58:31 AM)</font> <b>Irenes:</b></font> been there<br/>
+<font color="#A82F2F"><font size="2">(04:00:19 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] spwhitt opened pull request #6989: libmatroska: Fix Darwin build (master...libmatroska) http://git.io/jYYf<br/>
+<font color="#A82F2F"><font size="2">(04:01:34 AM)</font> <b>auntie:</b></font> I&apos;m trying to do a python package, but I&apos;m getting[C ImportError: No module named mako.template&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:01:44 AM)</font> <b>auntie:</b></font> https://github.com/auntieNeo/nixrc/blob/wayland/pkgs/piglit/default.nix<br/>
+<font color="#A82F2F"><font size="2">(04:02:18 AM)</font> <b>Irenes:</b></font> hm<br/>
+<font color="#A82F2F"><font size="2">(04:02:29 AM)</font> <b>auntie:</b></font> I&apos;ve tried both pythonPath and propogatedBuildInputs...<br/>
+<font color="#A82F2F"><font size="2">(04:02:57 AM)</font> <b>auntie:</b></font> someone was asking this yesterday and I didn&apos;t know what to tell them :P<br/>
+<font color="#A82F2F"><font size="2">(04:03:44 AM)</font> <b>benley:</b></font> yeah usually pythonPath or propagatedBuildInputs should take care of it<br/>
+<font color="#A82F2F"><font size="2">(04:03:57 AM)</font> <b>benley:</b></font> (assuming you spelled &quot;propagatedBuildInputs&quot; the right way)<br/>
+<font color="#A82F2F"><font size="2">(04:04:55 AM)</font> <b>auntie:</b></font> maybe that module isn&apos;t in the Mako package like I assumed<br/>
+<font color="#A82F2F"><font size="2">(04:05:49 AM)</font> <b>Irenes:</b></font> mew<br/>
+<font color="#A82F2F"><font size="2">(04:06:19 AM)</font> <b>benley:</b></font> ferf<br/>
+<font color="#A82F2F"><font size="2">(04:06:25 AM)</font> <b>Irenes:</b></font> heh?<br/>
+<font color="#A82F2F"><font size="2">(04:07:05 AM)</font> <b>auntie:</b></font> no, it has to be in the Mako package<br/>
+<font color="#A82F2F"><font size="2">(04:07:39 AM)</font> <b>auntie:</b></font> maybe... it&apos;s grabing the runtime python<br/>
+<font color="#A82F2F"><font size="2">(04:07:47 AM)</font> <b>auntie:</b></font> which is bad.<br/>
+<font color="#A82F2F"><font size="2">(04:07:48 AM)</font> <b>Irenes:</b></font> definitely check how you spelled propagatedBuildInputs.  only worth mentioning because you typed it wrong above, but typos are of course a thing with any long symbol :/<br/>
+<font color="#A82F2F"><font size="2">(04:08:26 AM)</font> <b>auntie:</b></font> I&apos;m pretty sure I copied it, but I&apos;ll put it in again. it will just grab it from the nix store if it wasn&apos;t a typo ;P<br/>
+<font color="#A82F2F"><font size="2">(04:09:06 AM)</font> <b>Irenes:</b></font> mew.  perfectly fair.<br/>
+<font color="#A82F2F"><font size="2">(04:09:34 AM)</font> <b>auntie:</b></font> yeah, it&apos;s not a typo<br/>
+<font color="#A82F2F"><font size="2">(04:09:41 AM)</font> <b>Irenes:</b></font> okie<br/>
+<font color="#A82F2F"><font size="2">(04:10:15 AM)</font> <b>Irenes:</b></font> sorry.  we know that question can be insulting, but we&apos;ve seen people of all experience levels have it, heh<br/>
+<font color="#A82F2F"><font size="2">(04:10:19 AM)</font> <b>auntie:</b></font> how to build python with a specific module in the path?<br/>
+<font color="#A82F2F"><font size="2">(04:10:30 AM)</font> <b>Irenes:</b></font> no idea.  we don&apos;t even use python :)  sorry<br/>
+<font color="#A82F2F"><font size="2">(04:10:46 AM)</font> <b>benley:</b></font> auntie: what you&apos;re doing looks like the right way<br/>
+<font color="#A82F2F"><font size="2">(04:11:28 AM)</font> <b>benley:</b></font> oh wait<br/>
+<font color="#A82F2F"><font size="2">(04:11:44 AM)</font> <b>benley:</b></font> piglit isn&apos;t a python package, is it?<br/>
+<font color="#A82F2F"><font size="2">(04:11:52 AM)</font> <b>auntie:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(04:12:26 AM)</font> <b>auntie:</b></font> I was going to say... I only see propagated build inputs in the python packages<br/>
+<font color="#A82F2F"><font size="2">(04:12:31 AM)</font> <b>benley:</b></font> crap, ok.  In that case uh ... on esec<br/>
+<font color="#A82F2F"><font size="2">(04:12:42 AM)</font> <b>auntie:</b></font> it uses a nix expression to build those in a special way huh :P<br/>
+<font color="#A82F2F"><font size="2">(04:13:14 AM)</font> <b>benley:</b></font> yeah - you might need to look at what buildPythonPackage does and copy part of it<br/>
+<font color="#A82F2F"><font size="2">(04:14:53 AM)</font> <b>benley:</b></font> you don&apos;t actually want to use myEnvFun, but what you&apos;re doing is similar to https://nixos.org/wiki/Python#Creating_environments_with_packages<br/>
+<font color="#A82F2F"><font size="2">(04:15:28 AM)</font> <b>auntie:</b></font> mmmm... theanki package usees pythonPath just fine without any special tricks<br/>
+<font color="#A82F2F"><font size="2">(04:15:32 AM)</font> <b>auntie:</b></font> *the anki<br/>
+<font color="#A82F2F"><font size="2">(04:16:30 AM)</font> <b>auntie:</b></font> ah, it has a wrapPython script<br/>
+<font color="#A82F2F"><font size="2">(04:17:49 AM)</font> <b>auntie:</b></font> trying that. it will take about an hour to re-compile on my netbook though :P<br/>
+<font color="#A82F2F"><font size="2">(04:17:53 AM)</font> <b>benley:</b></font> ouch<br/>
+<font color="#A82F2F"><font size="2">(04:18:27 AM)</font> <b>auntie:</b></font> desktop is fubar until I get a new graphics card<br/>
+<font color="#A82F2F"><font size="2">(04:20:21 AM)</font> <b>Irenes:</b></font> sorry to hear<br/>
+<font color="#A82F2F"><font size="2">(04:20:27 AM)</font> <b>rui1:</b></font> Ok, this &quot;dependency cannot be built&quot; problem seems to be because some sha256 hash failed<br/>
+<font color="#062585"><font size="2">(04:21:41 AM)</font> <b>***Irenes</b></font> nod<br/>
+<font color="#A82F2F"><font size="2">(04:21:53 AM)</font> <b>Irenes:</b></font> that would imply a download was updated at the other end, with the same filename, or something<br/>
+<font color="#A82F2F"><font size="2">(04:22:12 AM)</font> <b>Irenes:</b></font> either that or you&apos;re being man-in-the-middled.  or someone broke the .nix, we suppose :)<br/>
+<font color="#A82F2F"><font size="2">(04:22:18 AM)</font> <b>benley:</b></font> or some unfortunate non-determinism happened, which does happen occasionally<br/>
+<font color="#A82F2F"><font size="2">(04:22:22 AM)</font> <b>Irenes:</b></font> definitely not in order of likelihood<br/>
+<font color="#A82F2F"><font size="2">(04:22:24 AM)</font> <b>Irenes:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(04:27:58 AM)</font> <b>auntie:</b></font> rui1: download the thing that failed with nix-prefetch-url. that will give you the sha256 hash at the bottom. then you can replace it in the nix expression<br/>
+<font color="#A82F2F"><font size="2">(04:28:33 AM)</font> <b>auntie:</b></font> ymmv because something screwy might be going on with the package or your internet<br/>
+<font color="#A82F2F"><font size="2">(04:28:58 AM)</font> <b>rui1:</b></font> auntie: You mean in the nix expression somewhere inside my ~/.nix-defexpr folder?<br/>
+<font color="#A82F2F"><font size="2">(04:29:28 AM)</font> <b>rui1:</b></font> I should change that manually? Any change would disappear after a nix-channel --update ? I am a little lost yet with some things<br/>
+<font color="#A82F2F"><font size="2">(04:30:12 AM)</font> <b>auntie:</b></font> rui1: I *think* you can change it with overrideDerivation from there<br/>
+<font color="#A82F2F"><font size="2">(04:30:50 AM)</font> <b>auntie:</b></font> my internet is very slow; I&apos;m looking it up :P<br/>
+<font color="#A82F2F"><font size="2">(04:31:11 AM)</font> <b>rui1:</b></font> auntie: Slow internet on a netbook?<br/>
+<font color="#A82F2F"><font size="2">(04:31:23 AM)</font> <b>auntie:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(04:31:23 AM)</font> <b>rui1:</b></font> You don&apos;t deserve it<br/>
+<font color="#A82F2F"><font size="2">(04:31:46 AM)</font> <b>auntie:</b></font> Internet isn&apos;t very fast in America; we have too many monopolies<br/>
+<font color="#A82F2F"><font size="2">(04:32:09 AM)</font> <b>auntie:</b></font> rui1: I&apos;ve done it here: https://github.com/auntieNeo/nixrc/blob/wayland/profiles/desktop.nix#L39-L45<br/>
+<font color="#A82F2F"><font size="2">(04:32:44 AM)</font> <b>auntie:</b></font> you can do something similar in either your configuration.nix or wherever you can define packages to install<br/>
+<font color="#A82F2F"><font size="2">(04:33:03 AM)</font> <b>auntie:</b></font> *but* beware, something might be broken with your internet :P<br/>
+<font color="#A82F2F"><font size="2">(04:33:05 AM)</font> <b>rui1:</b></font> auntie: Great, thanks a lot! I got it<br/>
+<font size="2">(04:34:09 AM)</font><b> viric_ is now known as viric</b><br/>
+<font color="#A82F2F"><font size="2">(04:36:14 AM)</font> <b>auntie:</b></font> rui1: if it&apos;s a *dependency* that is broken though, you would need to use nixpkgs.config.packageOverrides<br/>
+<font color="#A82F2F"><font size="2">(04:36:23 AM)</font> <b>auntie:</b></font> I have an example of that at the bottom of the same file<br/>
+<font color="#A82F2F"><font size="2">(04:36:41 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] spwhitt opened pull request #6990: libmpeg2: Fix Darwin build (master...libmpeg2) http://git.io/jYZb<br/>
+<font color="#A82F2F"><font size="2">(04:37:08 AM)</font> <b>rui1:</b></font> auntie: :)<br/>
+<font color="#A82F2F"><font size="2">(04:38:33 AM)</font> <b>auntie:</b></font> *disclaimer* I am not to be held responsible for any damages that may occur from hacking so hard at something ;P<br/>
+<font color="#A82F2F"><font size="2">(04:39:56 AM)</font> <b>rui1:</b></font> auntie: Don&apos;t worry. We are always on our own. That&apos;s life<br/>
+<font color="#A82F2F"><font size="2">(04:48:03 AM)</font> <b>Irenes:</b></font> hah :D it was a Wine issue after all, not a NixOS issue.<br/>
+<font color="#A82F2F"><font size="2">(04:51:41 AM)</font> <b>auntie:</b></font> nice<br/>
+<font color="#A82F2F"><font size="2">(04:53:58 AM)</font> <b>Irenes:</b></font> yeah :)<br/>
+<font color="#A82F2F"><font size="2">(05:32:15 AM)</font> <b>copumpkin:</b></font> viric: you around?<br/>
+<font color="#A82F2F"><font size="2">(05:43:35 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 2 new commits to master: http://git.io/jYRd<br/>
+<font color="#A82F2F"><font size="2">(05:43:35 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 54bf845 Spencer Whitt: libmpeg2: Fix Darwin build<br/>
+<font color="#A82F2F"><font size="2">(05:43:35 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 938403b William A. Kennington III: Merge pull request #6990 from spwhitt/libmpeg2...<br/>
+<font color="#A82F2F"><font size="2">(05:44:10 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 3 new commits to master: http://git.io/jYRp<br/>
+<font color="#A82F2F"><font size="2">(05:44:10 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 0b853b7 Spencer Whitt: libebml: 1.3.0 -&gt; 1.3.1<br/>
+<font color="#A82F2F"><font size="2">(05:44:10 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master af2d875 Spencer Whitt: libmatroska: Fix Darwin build<br/>
+<font color="#A82F2F"><font size="2">(05:44:10 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e73b4f4 William A. Kennington III: Merge pull request #6989 from spwhitt/libmatroska...<br/>
+<font color="#A82F2F"><font size="2">(05:45:46 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 3 new commits to master: http://git.io/jY0Y<br/>
+<font color="#A82F2F"><font size="2">(05:45:46 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5284c56 Spencer Whitt: orc: Enable building on Darwin<br/>
+<font color="#A82F2F"><font size="2">(05:45:46 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c7a0e68 Spencer Whitt: schroedinger: 1.0.0 -&gt; 1.0.11<br/>
+<font color="#A82F2F"><font size="2">(05:45:46 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master bb70b19 William A. Kennington III: Merge pull request #6988 from spwhitt/schroedinger...<br/>
+<font color="#A82F2F"><font size="2">(05:48:00 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 4 new commits to master: http://git.io/jY0P<br/>
+<font color="#A82F2F"><font size="2">(05:48:00 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1533a9a Joachim Fasting: nano: bump to 2.4.0...<br/>
+<font color="#A82F2F"><font size="2">(05:48:00 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e1f6d34 Joachim Fasting: nano: make NLS optional<br/>
+<font color="#A82F2F"><font size="2">(05:48:00 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master cf74e83 Joachim Fasting: nano: add option to do tiny build...<br/>
+<font color="#A82F2F"><font size="2">(06:04:41 AM)</font> <b>auntie:</b></font> I am actually writing a gentoo nix derivation<br/>
+<font color="#A82F2F"><font size="2">(06:10:04 AM)</font> <b>20WAAXM2E:</b></font> (notice) [nixpkgs] wkennington pushed 2 new commits to master: http://git.io/jYg2<br/>
+<font color="#A82F2F"><font size="2">(06:10:04 AM)</font> <b>20WAAXM2E:</b></font> (notice) nixpkgs/master ff759a9 kmicu: Bump pavucontrol 2.0 → 3.0...<br/>
+<font color="#A82F2F"><font size="2">(06:10:04 AM)</font> <b>20WAAXM2E:</b></font> (notice) nixpkgs/master cb1072b William A. Kennington III: Merge pull request #6987 from kmicu/pavucontrol...<br/>
+<font color="#A82F2F"><font size="2">(06:10:04 AM)</font> <b>6JTAAQ4WZ:</b></font> (notice) [nixpkgs] wkennington closed pull request #6987: Bump pavucontrol 2.0 → 3.0 (master...pavucontrol) http://git.io/jmVJ<br/>
+<font color="#A82F2F"><font size="2">(06:10:34 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 2 new commits to master: http://git.io/jYgK<br/>
+<font color="#A82F2F"><font size="2">(06:10:34 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 6e5f253 Henry Till: add mplus-outline-fonts<br/>
+<font color="#A82F2F"><font size="2">(06:10:34 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9ec9e01 William A. Kennington III: Merge pull request #6978 from henrytill/mplus-outline-fonts...<br/>
+<font color="#A82F2F"><font size="2">(06:11:53 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 2 new commits to master: http://git.io/jYgS<br/>
+<font color="#A82F2F"><font size="2">(06:11:53 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5fab3e2 William A. Kennington III: nano: Default to having nls support<br/>
+<font color="#A82F2F"><font size="2">(06:11:53 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 18e1407 William A. Kennington III: pulseaudio: 5.0 -&gt; 6.0<br/>
+<font color="#A82F2F"><font size="2">(06:13:28 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 4 new commits to master: http://git.io/jY2k<br/>
+<font color="#A82F2F"><font size="2">(06:13:28 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master be7ef55 Joachim Fasting: libev: port to mkDerivation<br/>
+<font color="#A82F2F"><font size="2">(06:13:28 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 2284a1a Joachim Fasting: libev: set license and description...<br/>
+<font color="#A82F2F"><font size="2">(06:13:28 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b71865b Joachim Fasting: libev: bump to 4.19<br/>
+<font color="#A82F2F"><font size="2">(06:13:53 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 2 new commits to master: http://git.io/jY23<br/>
+<font color="#A82F2F"><font size="2">(06:13:53 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f4cd5a6 Siarhei Zirukin: pcalc: 20120812 -&gt; 20141224<br/>
+<font color="#A82F2F"><font size="2">(06:13:53 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 18867a6 William A. Kennington III: Merge pull request #6967 from ftrvxmtrx/pcalc-20141224...<br/>
+<font color="#A82F2F"><font size="2">(06:14:25 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 2 new commits to master: http://git.io/jY2C<br/>
+<font color="#A82F2F"><font size="2">(06:14:25 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 172167c Ben Darwin: new package: abella 2.0.2<br/>
+<font color="#A82F2F"><font size="2">(06:14:25 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 2e815a7 William A. Kennington III: Merge pull request #6961 from bcdarwin/abella...<br/>
+<font color="#A82F2F"><font size="2">(06:15:28 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington closed pull request #6945: mtr: 0.85 -&gt; 0.86 (master...mtr) http://git.io/hdJ9<br/>
+<font color="#A82F2F"><font size="2">(06:16:40 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington closed pull request #6919: cjdns: update pkg and fix nixos test (master...cjdns) http://git.io/h1vS<br/>
+<font color="#A82F2F"><font size="2">(06:19:22 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 3 new commits to master: http://git.io/jYal<br/>
+<font color="#A82F2F"><font size="2">(06:19:22 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e9c6f6b Kevin Marsh: Add gspread python package<br/>
+<font color="#A82F2F"><font size="2">(06:19:22 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b04f31f Kevin Marsh: gspread: remove accidental sha256 value<br/>
+<font color="#A82F2F"><font size="2">(06:19:22 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 4afecb8 William A. Kennington III: Merge pull request #6948 from kevinmarsh/master...<br/>
+<font color="#A82F2F"><font size="2">(06:19:40 AM)</font> <b>hyper_ch:</b></font> there&apos;s a lot of notices<br/>
+<font color="#A82F2F"><font size="2">(06:23:39 AM)</font> <b>copumpkin:</b></font> wkennington is too awesome<br/>
+<font color="#A82F2F"><font size="2">(06:23:47 AM)</font> <b>copumpkin:</b></font> for mortal IRC clients<br/>
+<font color="#A82F2F"><font size="2">(06:47:15 AM)</font> <b>auntie:</b></font> indeed<br/>
+<font color="#A82F2F"><font size="2">(07:30:43 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] rbvermaa pushed 1 new commit to master: http://git.io/jYDG<br/>
+<font color="#A82F2F"><font size="2">(07:30:43 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7721ff4 Rob Vermaas: bazel: add patch suggested by upstream<br/>
+<font color="#A82F2F"><font size="2">(07:42:17 AM)</font> <b>ttt_fff:</b></font> suppose you&apos;re installing nixos<br/>
+<font color="#A82F2F"><font size="2">(07:42:30 AM)</font> <b>ttt_fff:</b></font> and you&apos;re a retrad, and when it asks you to set the root password, you type in two different passwords and reboot<br/>
+<font color="#A82F2F"><font size="2">(07:42:39 AM)</font> <b>ttt_fff:</b></font> then, when you reboot into your new nixos machine ... waht is the default passwor?<br/>
+<font color="#A82F2F"><font size="2">(07:43:04 AM)</font> <b>ttt_fff:</b></font> this is all hypothetical, of course<br/>
+<font color="#A82F2F"><font size="2">(07:43:06 AM)</font> <b>MichaelRaskin:</b></font> I am not sure it is enterable<br/>
+<font color="#A82F2F"><font size="2">(07:43:33 AM)</font> <b>ttt_fff:</b></font> how would you advise my &quot;friend&quot; to resolve this ?<br/>
+<font color="#A82F2F"><font size="2">(07:43:33 AM)</font> <b>MichaelRaskin:</b></font> I am most sure resetting root password in this situation should take 5 to 10 minutes<br/>
+<font color="#A82F2F"><font size="2">(07:43:43 AM)</font> <b>MichaelRaskin:</b></font> Reboot into installation medium<br/>
+<font color="#A82F2F"><font size="2">(07:43:51 AM)</font> <b>MichaelRaskin:</b></font> Mount your installed system<br/>
+<font color="#A82F2F"><font size="2">(07:44:01 AM)</font> <b>MichaelRaskin:</b></font> Bind-mount your /dev there<br/>
+<font color="#A82F2F"><font size="2">(07:44:17 AM)</font> <b>MichaelRaskin:</b></font> mount /proc /sys inside your installed system<br/>
+<font color="#A82F2F"><font size="2">(07:44:31 AM)</font> <b>MichaelRaskin:</b></font> chroot into the installed system<br/>
+<font color="#A82F2F"><font size="2">(07:44:52 AM)</font> <b>MichaelRaskin:</b></font> export PATH=/nix/var/nix/profiles/system/sw/bin:/nix/var/nix/profiles/system/sw/sbin<br/>
+<font color="#A82F2F"><font size="2">(07:44:56 AM)</font> <b>MichaelRaskin:</b></font> passwd root<br/>
+<font color="#A82F2F"><font size="2">(07:44:57 AM)</font> <b>ttt_fff:</b></font> my friend has mounted /dev/sda1<br/>
+<font color="#A82F2F"><font size="2">(07:45:02 AM)</font> <b>ttt_fff:</b></font> and can now edit /etc/passwd and /etc/shadow<br/>
+<font color="#A82F2F"><font size="2">(07:45:07 AM)</font> <b>ttt_fff:</b></font> how would you advise him to fix it?<br/>
+<font color="#A82F2F"><font size="2">(07:45:11 AM)</font> <b>MichaelRaskin:</b></font> Ah, you are right!<br/>
+<font color="#A82F2F"><font size="2">(07:45:21 AM)</font> <b>ttt_fff:</b></font> damn, is there no way to edit /etc/passwd directly<br/>
+<font color="#A82F2F"><font size="2">(07:45:34 AM)</font> <b>MichaelRaskin:</b></font> copying passwd and shadow lines from some known-good system is OK<br/>
+<font color="#A82F2F"><font size="2">(07:46:00 AM)</font> <b>ttt_fff:</b></font> err, I was hoping to run &apos;passwd&apos; and be like &quot;dude, use ./passwd&apos; instead of /etc/passwd<br/>
+<font color="#A82F2F"><font size="2">(07:46:09 AM)</font> <b>MichaelRaskin:</b></font> It is possible<br/>
+<font color="#A82F2F"><font size="2">(07:46:18 AM)</font> <b>ttt_fff:</b></font> I&apos;m not seeing it in &apos;man passwd&apos;/<br/>
+<font color="#A82F2F"><font size="2">(07:46:22 AM)</font> <b>benley:</b></font> you could boot the installer again<br/>
+<font color="#A82F2F"><font size="2">(07:46:29 AM)</font> <b>ttt_fff:</b></font> i ahve booted into the installer<br/>
+<font color="#A82F2F"><font size="2">(07:46:31 AM)</font> <b>benley:</b></font> wait nevermind I&apos;m responding to scrollback<br/>
+<font color="#A82F2F"><font size="2">(07:46:32 AM)</font> <b>benley:</b></font> sorry<br/>
+<font color="#A82F2F"><font size="2">(07:46:41 AM)</font> <b>ttt_fff:</b></font> I have mounted /dev/sda1 on /old-fs<br/>
+<font color="#062585"><font size="2">(07:46:42 AM)</font> <b>***benley</b></font> bad at irc :P<br/>
+<font color="#A82F2F"><font size="2">(07:46:43 AM)</font> <b>MichaelRaskin:</b></font> I am not sure it is easier to get right than copying a single line from /etc/passwd to ./etc/passwd (and the same with shadow)<br/>
+<font color="#A82F2F"><font size="2">(07:46:48 AM)</font> <b>ttt_fff:</b></font> I now want to edit /old-fs/etc/passwd<br/>
+<font color="#A82F2F"><font size="2">(07:46:55 AM)</font> <b>benley:</b></font> ttt_fff: can you chroot?<br/>
+<font color="#A82F2F"><font size="2">(07:47:06 AM)</font> <b>ttt_fff:</b></font> I&apos;m not familiar with chrooting<br/>
+<font color="#A82F2F"><font size="2">(07:47:32 AM)</font> <b>benley:</b></font> &quot;chroot /old-fs&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:47:32 AM)</font> <b>MichaelRaskin:</b></font> chroot&apos;ing is useful for generic recovery — when you nuke your bootloader by installing a dual-boot Ubuntu wrong<br/>
+<font color="#A82F2F"><font size="2">(07:47:45 AM)</font> <b>benley:</b></font> it opens a shell where it looks like /old-fs is actually /<br/>
+<font color="#A82F2F"><font size="2">(07:48:40 AM)</font> <b>MichaelRaskin:</b></font> passwd --help says about -R<br/>
+<font color="#A82F2F"><font size="2">(07:48:55 AM)</font> <b>MichaelRaskin:</b></font> No idea if it is a better idea than learning to chroot<br/>
+<font color="#A82F2F"><font size="2">(07:49:10 AM)</font> <b>ttt_fff:</b></font> okay, copied one file over<br/>
+<font color="#A82F2F"><font size="2">(07:49:26 AM)</font> <b>MichaelRaskin:</b></font> Copying the entire shadow is usually an overkill<br/>
+<font color="#A82F2F"><font size="2">(07:49:27 AM)</font> <b>ttt_fff:</b></font> llogged into new system<br/>
+<font color="#A82F2F"><font size="2">(07:49:35 AM)</font> <b>ttt_fff:</b></font> copied one line of /etc/shadow to blah/etc/shadow<br/>
+<font color="#A82F2F"><font size="2">(07:49:41 AM)</font> <b>MichaelRaskin:</b></font> Ah<br/>
+<font color="#A82F2F"><font size="2">(07:49:52 AM)</font> <b>ttt_fff:</b></font> gentlemen, I need your help with 2 more questions<br/>
+<font color="#A82F2F"><font size="2">(07:50:05 AM)</font> <b>ttt_fff:</b></font> what is equiv of &quot;apt-search ghcjs&quot; and &quot;apt-get install ghcjs&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(07:50:17 AM)</font> <b>ttt_fff:</b></font> i read on reddit ghcjs that latest is in nixos, so I have installed nixos<br/>
+<font color="#A82F2F"><font size="2">(07:50:44 AM)</font> <b>MichaelRaskin:</b></font> Wow<br/>
+<font color="#A82F2F"><font size="2">(07:50:51 AM)</font> <b>ttt_fff:</b></font> ???<br/>
+<font color="#A82F2F"><font size="2">(07:50:57 AM)</font> <b>MichaelRaskin:</b></font> Some people limit themselves to installing just Nix on whatever<br/>
+<font color="#A82F2F"><font size="2">(07:51:05 AM)</font> <b>ttt_fff:</b></font> yes, I installed a new os just to install an experimental ahskell -&gt; javascript compiler<br/>
+<font color="#A82F2F"><font size="2">(07:51:12 AM)</font> <b>MichaelRaskin:</b></font> (when all the motivation is _one_ package)<br/>
+<font color="#A82F2F"><font size="2">(07:51:33 AM)</font> <b>ttt_fff:</b></font> yeah, I just installed nixos in virtualbox because building ghcjs results in &quot;cabal hell&quot; otherwise<br/>
+<font color="#A82F2F"><font size="2">(07:52:05 AM)</font> <b>MichaelRaskin:</b></font> I mean, you knpw you can install Nix on Ubuntu without touching the rest of the system and install arbitrary things via Nix?<br/>
+<font color="#A82F2F"><font size="2">(07:52:16 AM)</font> <b>MichaelRaskin:</b></font> Well, OK<br/>
+<font color="#A82F2F"><font size="2">(07:52:21 AM)</font> <b>ttt_fff:</b></font> oh, host = osx<br/>
+<font color="#A82F2F"><font size="2">(07:52:29 AM)</font> <b>MichaelRaskin:</b></font> You don&apos;t have a NixPkgs checkout, right?<br/>
+<font color="#A82F2F"><font size="2">(07:52:59 AM)</font> <b>MichaelRaskin:</b></font> Ah, well, Nix on Darwin does work, but package reliability is a bit random<br/>
+<font color="#A82F2F"><font size="2">(07:53:42 AM)</font> <b>ttt_fff:</b></font> https://nixos.org/nixos/manual/ &lt;-- which part of the manul tells me how to apt-get and apt-search ?<br/>
+<font color="#A82F2F"><font size="2">(07:53:47 AM)</font> <b>MichaelRaskin:</b></font> nix-env -iA ghcjs<br/>
+<font color="#A82F2F"><font size="2">(07:53:50 AM)</font> <b>ttt_fff:</b></font> I have nixos in a virtualbox right now<br/>
+<font color="#A82F2F"><font size="2">(07:54:13 AM)</font> <b>MichaelRaskin:</b></font> (if you guess the attribute name, as in Nix language variable name, it would be the quickest way)<br/>
+<font color="#A82F2F"><font size="2">(07:56:04 AM)</font> <b>benley:</b></font> apt-cache search foo ~= nix-env -qaP foo<br/>
+<font color="#A82F2F"><font size="2">(07:56:27 AM)</font> <b>MichaelRaskin:</b></font> This consumes RAM<br/>
+<font color="#A82F2F"><font size="2">(07:56:33 AM)</font> <b>benley:</b></font> many rams.<br/>
+<font color="#A82F2F"><font size="2">(07:56:37 AM)</font> <b>benley:</b></font> at least 512mb.<br/>
+<font color="#A82F2F"><font size="2">(07:56:48 AM)</font> <b>ttt_fff:</b></font> virtualbox has 8GB of RAM<br/>
+<font color="#A82F2F"><font size="2">(07:56:54 AM)</font> <b>MichaelRaskin:</b></font> Some argue that noncautious use can easily eat 2GiB<br/>
+<font color="#A82F2F"><font size="2">(07:57:01 AM)</font> <b>MichaelRaskin:</b></font> Ah, then you are fine<br/>
+<font color="#A82F2F"><font size="2">(07:57:11 AM)</font> <b>benley:</b></font> actually I haven&apos;t measured how much ram it takes to run nix-env -qaP<br/>
+<font color="#A82F2F"><font size="2">(07:57:13 AM)</font> <b>benley:</b></font> but 8gb is plenty.<br/>
+<font color="#A82F2F"><font size="2">(07:57:14 AM)</font> <b>ttt_fff:</b></font> not sur if enough to build ghcjs<br/>
+<font color="#A82F2F"><font size="2">(07:57:34 AM)</font> <b>MichaelRaskin:</b></font> Should be<br/>
+<font color="#A82F2F"><font size="2">(07:58:33 AM)</font> <b>benley:</b></font> why is it that even when using nix-daemon, the client invocation of nix-* commands still uses a ton of ram at startup?<br/>
+<font color="#A82F2F"><font size="2">(07:59:37 AM)</font> <b>benley:</b></font> I guess the expression evaluation must happen there before passing things to the daemon to actually build<br/>
+<font size="2">(07:59:54 AM)</font><b> ttt_fff left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(08:05:57 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] 7c6f434c pushed 1 new commit to master: http://git.io/jY7g<br/>
+<font color="#A82F2F"><font size="2">(08:05:57 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 61e573f Michael Raskin: Update fossil; use repository-generated tarball because release tarballs disappear<br/>
+<font color="#A82F2F"><font size="2">(09:01:12 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 16 new commits to staging: http://git.io/jYhb<br/>
+<font color="#A82F2F"><font size="2">(09:01:12 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 8eb5393 William A. Kennington III: gnutar: 1.27.1 -&gt; 1.28<br/>
+<font color="#A82F2F"><font size="2">(09:01:12 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 4ec8ce4 William A. Kennington III: xz: 5.2.0 -&gt; 5.2.1<br/>
+<font color="#A82F2F"><font size="2">(09:01:12 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 2e3a229 William A. Kennington III: which: 2.20 -&gt; 2.21<br/>
+<font color="#A82F2F"><font size="2">(09:03:55 AM)</font> <b>viric:</b></font> copumpkin: now<br/>
+<font color="#A82F2F"><font size="2">(09:04:13 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to staging: http://git.io/jYjE<br/>
+<font color="#A82F2F"><font size="2">(09:04:13 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 9c78bbd William A. Kennington III: kmod: 18 -&gt; 20<br/>
+<font color="#A82F2F"><font size="2">(09:06:57 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to staging: http://git.io/jYjd<br/>
+<font color="#A82F2F"><font size="2">(09:06:57 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 2d69539 William A. Kennington III: libpipeline: 1.2.6 -&gt; 1.4.0<br/>
+<font size="2">(09:23:09 AM)</font><b> MichaelRaskin left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(09:36:43 AM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font size="2">(09:41:29 AM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#A82F2F"><font size="2">(10:07:25 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] domenkozar pushed 1 new commit to master: http://git.io/jOYq<br/>
+<font color="#A82F2F"><font size="2">(10:07:25 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8feda47 Domen Kožar: pinentry: fix build /cc wkennington<br/>
+<font color="#A82F2F"><font size="2">(10:09:59 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] rbvermaa pushed 1 new commit to master: http://git.io/jOYx<br/>
+<font color="#A82F2F"><font size="2">(10:09:59 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 80202fb Rob Vermaas: GCE image: Add some recommended sysctl settings. Disable OS level firewall by default for GCE images (GCE provides external firewall). Disable passwordAuthentication. Related to issue #6991.<br/>
+<font color="#A82F2F"><font size="2">(10:15:28 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] rbvermaa pushed 1 new commit to master: http://git.io/jO3C<br/>
+<font color="#A82F2F"><font size="2">(10:15:28 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master cbb1429 Rob Vermaas: GCE image: Remove some unnecessary lib prefixes.<br/>
+<font color="#A82F2F"><font size="2">(10:26:26 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] domenkozar pushed 1 new commit to master: http://git.io/jOGN<br/>
+<font color="#A82F2F"><font size="2">(10:26:26 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e42547d Domen Kožar: pythonPackages.subunit: rewrite to use buildPythonPackage<br/>
+<font size="2">(10:53:00 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

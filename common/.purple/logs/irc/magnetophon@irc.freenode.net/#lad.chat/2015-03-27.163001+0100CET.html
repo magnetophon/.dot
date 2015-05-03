@@ -1,0 +1,146 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Fri 27 Mar 2015 04:30:01 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Fri 27 Mar 2015 04:30:01 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:30:01 PM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font size="2">(04:30:01 PM)</font><b> Topic for #lad set by tapas!~tapas@static.231.2.63.178.clients.your-server.de at 10:37:26 AM on 05/13/2013</b><br/>
+<font color="#A82F2F"><font size="2">(04:44:03 PM)</font> <b>damo22:</b></font> anyone want to help me write some filters for voice changing?<br/>
+<font color="#A82F2F"><font size="2">(05:20:47 PM)</font> <b>teknico:</b></font> rust? we need to improve on C++ baroqueness, not make it worse<br/>
+<font color="#A82F2F"><font size="2">(05:20:49 PM)</font> <b>teknico:</b></font> http://dave.cheney.net/2015/03/08/simplicity-and-collaboration<br/>
+<font color="#A82F2F"><font size="2">(05:20:51 PM)</font> <b>LAbot:</b></font> Title: Simplicity and collaboration | Dave Cheney (at dave.cheney.net)<br/>
+<font color="#A82F2F"><font size="2">(05:22:13 PM)</font> <b>falktx:</b></font> screw c++, let&apos;s make our own language<br/>
+<font color="#A82F2F"><font size="2">(05:25:19 PM)</font> <b>teknico:</b></font> they made a(nother) very good one, I&apos;ll use that instead :-)<br/>
+<font color="#A82F2F"><font size="2">(05:27:14 PM)</font> <b>falktx:</b></font> c[&amp;] ?<br/>
+<font color="#A82F2F"><font size="2">(05:27:42 PM)</font> <b>wrl:</b></font> teknico: i don&apos;t follow your argument wrt rust and c++<br/>
+<font color="#A82F2F"><font size="2">(05:30:07 PM)</font> <b>teknico:</b></font> wrl, C++ took C and added a boatload of stuff on top of it<br/>
+<font color="#A82F2F"><font size="2">(05:30:21 PM)</font> <b>wrl:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(05:30:23 PM)</font> <b>teknico:</b></font> Rust is aiming for complex and powerful right out of the gate :-)<br/>
+<font color="#A82F2F"><font size="2">(05:30:35 PM)</font> <b>wrl:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(05:30:56 PM)</font> <b>teknico:</b></font> the link I posted outlines why that approach is dangerous<br/>
+<font color="#A82F2F"><font size="2">(05:31:05 PM)</font> <b>teknico:</b></font> (in addition to being a Go advocacy piece :-) )<br/>
+<font color="#062585"><font size="2">(05:31:29 PM)</font> <b>***wrl</b></font> shrugs slowly<br/>
+<font color="#A82F2F"><font size="2">(05:31:37 PM)</font> <b>wrl:</b></font> i have been wanting to use rust for a while<br/>
+<font color="#A82F2F"><font size="2">(05:31:44 PM)</font> <b>wrl:</b></font> in part because there are things that rust can do that go cannot<br/>
+<font color="#A82F2F"><font size="2">(05:31:48 PM)</font> <b>wrl:</b></font> namely: realtime DSP<br/>
+<font color="#A82F2F"><font size="2">(05:33:05 PM)</font> <b>teknico:</b></font> &quot;cannot&quot; might be a tad strong :-)<br/>
+<font color="#A82F2F"><font size="2">(05:34:22 PM)</font> <b>wrl:</b></font> ok how about writing shared libs in go<br/>
+<font color="#A82F2F"><font size="2">(05:34:24 PM)</font> <b>wrl:</b></font> can i do that<br/>
+<font color="#A82F2F"><font size="2">(05:37:18 PM)</font> <b>teknico:</b></font> oh,, I thought you referred to the runtime constraints<br/>
+<font color="#A82F2F"><font size="2">(05:37:34 PM)</font> <b>teknico:</b></font> no, you cannot yet write shared libs in Go<br/>
+<font color="#A82F2F"><font size="2">(05:38:31 PM)</font> <b>teknico:</b></font> there is a plan, not yet operational, to get there: https://groups.google.com/d/topic/golang-dev/0_N7DLmrUFA/discussion<br/>
+<font color="#A82F2F"><font size="2">(05:38:33 PM)</font> <b>LAbot:</b></font> Title: Google Groups (at groups.google.com)<br/>
+<font color="#A82F2F"><font size="2">(05:41:34 PM)</font> <b>wrl:</b></font> well, the runtime constraints are important too<br/>
+<font color="#A82F2F"><font size="2">(05:41:45 PM)</font> <b>wrl:</b></font> in particular i&apos;m not comfortable writing realtime code in a GC language<br/>
+<font color="#A82F2F"><font size="2">(05:42:48 PM)</font> <b>teknico:</b></font> that&apos;s a relative constraint, not an absolute one<br/>
+<font color="#A82F2F"><font size="2">(05:43:04 PM)</font> <b>teknico:</b></font> v.1.5 will have guarantees in place for GC execution times<br/>
+<font color="#A82F2F"><font size="2">(05:44:08 PM)</font> <b>teknico:</b></font> https://docs.google.com/document/d/1wmjrocXIWTr1JxU-3EQBI6BK6KgtiFArkG47XK73xIQ<br/>
+<font color="#A82F2F"><font size="2">(05:44:09 PM)</font> <b>LAbot:</b></font> Title: Go 1.5 concurrent garbage collector pacing - Google Docs (at docs.google.com)<br/>
+<font color="#A82F2F"><font size="2">(05:44:38 PM)</font> <b>wrl:</b></font> i mean look<br/>
+<font color="#A82F2F"><font size="2">(05:44:40 PM)</font> <b>wrl:</b></font> i think go is cool<br/>
+<font color="#A82F2F"><font size="2">(05:44:48 PM)</font> <b>wrl:</b></font> but i would use go instead of python, not instead of c<br/>
+<font color="#A82F2F"><font size="2">(05:48:30 PM)</font> <b>teknico:</b></font> yeah, well, I&apos;m using Go instead of Python, actually<br/>
+<font color="#A82F2F"><font size="2">(05:48:34 PM)</font> <b>teknico:</b></font> also instead of Java and C++ :-)<br/>
+<font color="#A82F2F"><font size="2">(05:48:37 PM)</font> <b>wrl:</b></font> heh :)<br/>
+<font color="#A82F2F"><font size="2">(05:48:46 PM)</font> <b>wrl:</b></font> well, i&apos;m using python for some stuff, ruby for some stuff, C for a lot<br/>
+<font color="#A82F2F"><font size="2">(05:48:46 PM)</font> <b>teknico:</b></font> I wouldn&apos;t write kernel modules with it, though<br/>
+<font color="#A82F2F"><font size="2">(05:49:00 PM)</font> <b>wrl:</b></font> i&apos;m interested in using rust instead of C<br/>
+<font color="#A82F2F"><font size="2">(05:49:01 PM)</font> <b>teknico:</b></font> someone is trying anyway :-)<br/>
+<font color="#A82F2F"><font size="2">(05:49:23 PM)</font> <b>teknico:</b></font> I&apos;m not interested in using anything without simplicity as a main focus<br/>
+<font color="#A82F2F"><font size="2">(05:49:28 PM)</font> <b>teknico:</b></font> so good luck :-)<br/>
+<font color="#A82F2F"><font size="2">(05:49:52 PM)</font> <b>wrl:</b></font> suit yourself<br/>
+<font size="2">(06:14:38 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:15:27 PM)</font> <b>rncbc:</b></font> AutoStatic: hi<br/>
+<font color="#A82F2F"><font size="2">(06:17:51 PM)</font> <b>rncbc:</b></font> AutoStatic: cf. http://planet.linuxaudio.org/ -&gt; how many times is your lac2014 submission being accepted ? :))<br/>
+<font color="#A82F2F"><font size="2">(06:17:53 PM)</font> <b>LAbot:</b></font> Title: planet.linuxaudio.org (at planet.linuxaudio.org)<br/>
+<font color="#A82F2F"><font size="2">(06:23:56 PM)</font> <b>falktx:</b></font> I was confused by the date for a bit<br/>
+<font color="#16569E"><font size="2">(06:30:35 PM)</font> <b>magnetophon:</b></font> I'm still trying to package a crucial program for my studio:  http://klingt.org/~tim/nova-filters/ . I get: &quot;not declared in this scope&quot; compile errors, and according to the gcc docs, those can be worked around with the flag -fpermissive. I'm using that flag, but still get those errors. I don't know what to do anymore! <br/>
+<font color="#A82F2F"><font size="2">(06:30:37 PM)</font> <b>LAbot:</b></font> Title: Index of /~tim/nova-filters (at klingt.org)<br/>
+<font color="#A82F2F"><font size="2">(06:31:51 PM)</font> <b>HarryHaaren:</b></font> magnetophon, pastebin actual build errors please<br/>
+<font color="#A82F2F"><font size="2">(06:32:24 PM)</font> <b>HarryHaaren:</b></font> also I think falktx packaged some of those before.. or am i mistaken?<br/>
+<font color="#A82F2F"><font size="2">(06:32:43 PM)</font> <b>falktx:</b></font> I did not<br/>
+<font color="#A82F2F"><font size="2">(06:32:50 PM)</font> <b>HarryHaaren:</b></font> ah ok, nevermind<br/>
+<font color="#A82F2F"><font size="2">(06:32:59 PM)</font> <b>HarryHaaren:</b></font> i tried to build them, indeed there were some errors somewhere<br/>
+<font color="#A82F2F"><font size="2">(06:33:05 PM)</font> <b>HarryHaaren:</b></font> (a few months ago)<br/>
+<font color="#A82F2F"><font size="2">(06:33:14 PM)</font> <b>falktx:</b></font> use a different compiler<br/>
+<font color="#062585"><font size="2">(06:33:24 PM)</font> <b>***HarryHaaren</b></font> downloads..<br/>
+<font color="#A82F2F"><font size="2">(06:33:34 PM)</font> <b>HarryHaaren:</b></font> gcc? or g++?<br/>
+<font color="#A82F2F"><font size="2">(06:33:47 PM)</font> <b>falktx:</b></font> I mean 4.6 instead of 4.8 for example<br/>
+<font color="#A82F2F"><font size="2">(06:34:12 PM)</font> <b>HarryHaaren:</b></font> sigh.. scons for building :/<br/>
+<font color="#16569E"><font size="2">(06:35:22 PM)</font> <b>magnetophon:</b></font> HarryHaaren: http://nixpaste.noip.me/sRKiAzT9<br/>
+<font color="#A82F2F"><font size="2">(06:35:23 PM)</font> <b>LAbot:</b></font> Title: Nix Pastebin (at nixpaste.noip.me)<br/>
+<font color="#16569E"><font size="2">(06:35:43 PM)</font> <b>magnetophon:</b></font> It got cut off at some point, but you get the idea<br/>
+<font color="#A82F2F"><font size="2">(06:36:22 PM)</font> <b>HarryHaaren:</b></font> magnetophon, what build command line are you providing?<br/>
+<font color="#A82F2F"><font size="2">(06:36:28 PM)</font> <b>HarryHaaren:</b></font> just &quot;scons&quot; or parameters?<br/>
+<font color="#16569E"><font size="2">(06:37:04 PM)</font> <b>magnetophon:</b></font> HarryHaaren: just scons with a prefix<br/>
+<font color="#A82F2F"><font size="2">(06:37:24 PM)</font> <b>HarryHaaren:</b></font> magnetophon, right. 32bit build?<br/>
+<font color="#16569E"><font size="2">(06:37:29 PM)</font> <b>magnetophon:</b></font> yes<br/>
+<font color="#16569E"><font size="2">(06:39:10 PM)</font> <b>magnetophon:</b></font> oh, and I had an error about line 4 in the SConstruct, so I romeved that line.<br/>
+<font color="#16569E"><font size="2">(06:39:24 PM)</font> <b>magnetophon:</b></font> HarryHaaren: Sorry that I forgot to mention that.<br/>
+<font color="#A82F2F"><font size="2">(06:41:40 PM)</font> <b>HarryHaaren:</b></font> magnetophon, builds with warnings instead of errors when I add -fpermissive to env.Append(CCFLAGS=Split on line 26..<br/>
+<font color="#16569E"><font size="2">(06:41:47 PM)</font> <b>magnetophon:</b></font> falktx: A different compiler would probably solve it, but I want this to be a package in a (semi source based) distro, so it better not depend on an old compiler.<br/>
+<font color="#A82F2F"><font size="2">(06:42:13 PM)</font> <b>falktx:</b></font> sure. but you&apos;re depending on old unmaintained plugins<br/>
+<font color="#A82F2F"><font size="2">(06:42:25 PM)</font> <b>falktx:</b></font> I trust the compiler more than old plugins<br/>
+<font color="#A82F2F"><font size="2">(06:42:29 PM)</font> <b>HarryHaaren:</b></font> that&apos;s g++ v4.9.2 btw - fairly current on arch<br/>
+<font color="#A82F2F"><font size="2">(06:42:51 PM)</font> <b>HarryHaaren:</b></font> falktx, the plugins are by Tim Blechmann, and there&apos;s an extensive test suite... I&apos;ll trust both in this case ;)<br/>
+<font color="#A82F2F"><font size="2">(06:43:23 PM)</font> <b>falktx:</b></font> then report the issue and let him fix it<br/>
+<font color="#A82F2F"><font size="2">(06:43:40 PM)</font> <b>HarryHaaren:</b></font> magnetophon, i&apos;m interested why this is a &quot;crucial&quot; part of your studio - what plugin is it that you need?<br/>
+<font color="#A82F2F"><font size="2">(06:43:57 PM)</font> <b>HarryHaaren:</b></font> they&apos;re no longer maintained IIRC, 2008 is the latest release<br/>
+<font color="#16569E"><font size="2">(06:43:58 PM)</font> <b>magnetophon:</b></font> HarryHaaren: thanks. I think I've tried putting -fpermissive in the SConstruct, but I'll check again.<br/>
+<font color="#16569E"><font size="2">(06:45:36 PM)</font> <b>magnetophon:</b></font> HarryHaaren: Maybe crucial is a big word, but  I really like the one-band per plugin approach, the wide range of parameter-values, the dezippering, the stages parameter (you can make extreme cuts wit it) <br/>
+<font color="#A82F2F"><font size="2">(06:46:30 PM)</font> <b>HarryHaaren:</b></font> ok - wrt filters is there anything FAUST isn&apos;t capable of? Its wavetables / multi-FX where FAUST falls for me -but for filters i rely on it..<br/>
+<font color="#16569E"><font size="2">(06:49:36 PM)</font> <b>magnetophon:</b></font> I've thought of just copying it in faust, but then I noticed some optimisations in the code, that youprobably wouldn't get in faust. A mix might have hundreds of these going, so I decided to play it &quot;safe&quot;.   <br/>
+<font color="#16569E"><font size="2">(06:50:22 PM)</font> <b>magnetophon:</b></font> Hmm, still the same error here :/<br/>
+<font color="#16569E"><font size="2">(06:50:32 PM)</font> <b>magnetophon:</b></font> gcc 4.8<br/>
+<font color="#A82F2F"><font size="2">(06:51:04 PM)</font> <b>falktx:</b></font> they probably need a this-&gt;() thing<br/>
+<font color="#16569E"><font size="2">(06:51:14 PM)</font> <b>magnetophon:</b></font> falktx: ???<br/>
+<font color="#062585"><font size="2">(06:51:28 PM)</font> <b>***falktx</b></font> calls upon sed powers....<br/>
+<font color="#A82F2F"><font size="2">(06:52:11 PM)</font> <b>falktx:</b></font> sed -i &quot;s/= check/= this-&gt;check/&quot; source/dsp/filter.hpp<br/>
+<font color="#A82F2F"><font size="2">(06:52:24 PM)</font> <b>falktx:</b></font> magnetophon: try that<br/>
+<font color="#16569E"><font size="2">(06:52:34 PM)</font> <b>magnetophon:</b></font> falktx: thanks!<br/>
+<font color="#16569E"><font size="2">(06:57:13 PM)</font> <b>magnetophon:</b></font> falktx: nova/source/dsp/filter.hpp:738:13: error: 'this' is unavailable for static member functions<br/>
+<font color="#16569E"><font size="2">(06:57:18 PM)</font> <b>magnetophon:</b></font> :\<br/>
+<font color="#A82F2F"><font size="2">(06:58:07 PM)</font> <b>falktx:</b></font> oh so it&apos;s static<br/>
+<font color="#A82F2F"><font size="2">(06:58:47 PM)</font> <b>falktx:</b></font> meh I&apos;ll just get the code<br/>
+<font color="#16569E"><font size="2">(06:59:08 PM)</font> <b>magnetophon:</b></font> falktx: you're an angel!   :)<br/>
+<font color="#16569E"><font size="2">(06:59:36 PM)</font> <b>magnetophon:</b></font> falktx: are you gonna be at LAC?  I owe you some beers!<br/>
+<font color="#A82F2F"><font size="2">(06:59:36 PM)</font> <b>falktx:</b></font>  /usr/bin/ld: i386 architecture of input file `filters.os&apos; is incompatible with i386:x86-64 output<br/>
+<font color="#A82F2F"><font size="2">(06:59:58 PM)</font> <b>falktx:</b></font> scons: *** Do not know how to make File target `clean&apos;<br/>
+<font color="#A82F2F"><font size="2">(07:00:09 PM)</font> <b>falktx:</b></font> this thing is attrocious<br/>
+<font color="#16569E"><font size="2">(07:04:36 PM)</font> <b>magnetophon:</b></font> falktx: hmmm. That's odd, this guy has contributed a lot to SuperCollider, and he writes low level frameworks and such. (fe: cross-platform implementations of thread synchronization functions).  I guess what you're seeing is youth sins?<br/>
+<font color="#16569E"><font size="2">(07:05:01 PM)</font> <b>magnetophon:</b></font> Then again, I don't know what I'm talking about! :p<br/>
+<font color="#A82F2F"><font size="2">(07:05:03 PM)</font> <b>falktx:</b></font> he just didn&apos;t care about the build system<br/>
+<font color="#A82F2F"><font size="2">(07:05:14 PM)</font> <b>falktx:</b></font> I mean, you can&apos;t get much worse than scons<br/>
+<font color="#16569E"><font size="2">(07:05:15 PM)</font> <b>magnetophon:</b></font> or that<br/>
+<font color="#16569E"><font size="2">(07:06:23 PM)</font> <b>magnetophon:</b></font> I've also considered rewriting the builder for it, but that's probably a lot easier if you know what you're doing.<br/>
+<font color="#16569E"><font size="2">(07:07:04 PM)</font> <b>magnetophon:</b></font> I've only used c and c++ a bit, and that was 10 years ago...<br/>
+<font color="#16569E"><font size="2">(07:09:58 PM)</font> <b>magnetophon:</b></font> HarryHaaren: maybe you're right after all, and I should make faust equivalents.<br/>
+<font color="#A82F2F"><font size="2">(07:10:34 PM)</font> <b>falktx:</b></font> magnetophon: you&apos;ve been saved!<br/>
+<font color="#16569E"><font size="2">(07:10:43 PM)</font> <b>magnetophon:</b></font> falktx: ??<br/>
+<font color="#A82F2F"><font size="2">(07:10:46 PM)</font> <b>falktx:</b></font> delete the current sources, re-extract<br/>
+<font color="#A82F2F"><font size="2">(07:10:48 PM)</font> <b>falktx:</b></font> run<br/>
+<font color="#A82F2F"><font size="2">(07:10:49 PM)</font> <b>falktx:</b></font> sed -i &quot;s/= check/= detail::filter_base&lt;internal_type, checked&gt;::check/&quot; nova/source/dsp/filter.hpp<br/>
+<font color="#A82F2F"><font size="2">(07:10:53 PM)</font> <b>falktx:</b></font> and it builds<br/>
+<font color="#16569E"><font size="2">(07:11:04 PM)</font> <b>magnetophon:</b></font> thanks! will try<br/>
+<font color="#A82F2F"><font size="2">(07:11:10 PM)</font> <b>falktx:</b></font> g++ -o filters.os -c -O3 -fomit-frame-pointer -ffast-math -mfpmath=sse -fvisibility=hidden -fPIC -DNDEBUG -Inova/source filters.cpp<br/>
+<font color="#A82F2F"><font size="2">(07:11:11 PM)</font> <b>falktx:</b></font> g++ -o nova_filters.so -Wl,--strip-all -shared filters.os<br/>
+<font color="#A82F2F"><font size="2">(07:11:13 PM)</font> <b>falktx:</b></font> scons: done building targets.<br/>
+<font color="#062585"><font size="2">(07:11:29 PM)</font> <b>***falktx</b></font> saves the day one again<br/>
+<font color="#A82F2F"><font size="2">(07:11:54 PM)</font> <b>falktx:</b></font> templates can be hell...<br/>
+<font color="#16569E"><font size="2">(07:14:52 PM)</font> <b>magnetophon:</b></font> falktx: Woohoooooo!   I finished building here too!  All hail the auto-didactic wizzard of #lad! <br/>
+<font color="#A82F2F"><font size="2">(07:18:02 PM)</font> <b>falktx:</b></font> well, later<br/>
+<font size="2">(07:18:06 PM)</font><b> falktx left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(07:22:29 PM)</font> <b>HarryHaaren:</b></font> falk - you&apos;re gone, but still: correction - templates *are* hell.<br/>
+<font color="#16569E"><font size="2">(07:27:08 PM)</font> <b>magnetophon:</b></font> lol<br/>
+<font color="#16569E"><font size="2">(07:27:50 PM)</font> <b>magnetophon:</b></font> HarryHaaren: have you had the chance to test VoiceOfFaust?<br/>
+<font color="#A82F2F"><font size="2">(07:28:00 PM)</font> <b>HarryHaaren:</b></font> magnetophon, nope<br/>
+<font color="#A82F2F"><font size="2">(07:28:28 PM)</font> <b>HarryHaaren:</b></font> earlier on today I finished work until the LAC - so I&apos;m coding some AVTK stuff now, and hopefully will get some stuff released before 2 weeks time<br/>
+<font color="#A82F2F"><font size="2">(07:28:53 PM)</font> <b>HarryHaaren:</b></font> but i&apos;m prioritizing a lot of stuff away unfortunatly - but its nice to release pre-LAC, so pushing those projects<br/>
+<font color="#16569E"><font size="2">(07:29:16 PM)</font> <b>magnetophon:</b></font> I understand<br/>
+<font color="#16569E"><font size="2">(07:29:36 PM)</font> <b>magnetophon:</b></font> AVTK= your toolkit?<br/>
+<font color="#A82F2F"><font size="2">(07:29:43 PM)</font> <b>HarryHaaren:</b></font> yerp<br/>
+<font color="#16569E"><font size="2">(07:30:11 PM)</font> <b>magnetophon:</b></font> any news on the looper?<br/>
+<font color="#A82F2F"><font size="2">(07:30:59 PM)</font> <b>HarryHaaren:</b></font> i was demo-ing it to some folks last friday - apart from that, i intend to work on it this week. that&apos;s about it<br/>
+<font color="#A82F2F"><font size="2">(07:46:26 PM)</font> <b>grejppi:</b></font> HarryHaaren: is ninja going to use the new avtk too?<br/>
+<font color="#A82F2F"><font size="2">(07:46:55 PM)</font> <b>HarryHaaren:</b></font> grejppi, currently its built in NTK, but yes (when|if) it is release, AVTK<br/>
+<font color="#A82F2F"><font size="2">(08:31:28 PM)</font> <b>nilsge:</b></font> i3 users here?<br/>
+<font color="#A82F2F"><font size="2">(08:31:52 PM)</font> <b>nilsge:</b></font> wrong channel<br/>
+<font size="2">(09:14:15 PM)</font><b> edne is now known as edne-afk</b><br/>
+<font size="2">(10:24:12 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

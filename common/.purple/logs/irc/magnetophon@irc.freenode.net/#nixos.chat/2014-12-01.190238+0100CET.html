@@ -1,0 +1,133 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Mon 01 Dec 2014 07:02:38 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Mon 01 Dec 2014 07:02:38 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(07:02:38 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(07:02:39 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(07:04:23 PM)</font><b> jgeerds left the room (quit: ).</b><br/>
+<font size="2">(07:06:18 PM)</font><b> PeterMetz left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:09:44 PM)</font><b> jabesed [<em>~ident@bl19-234-175.dsl.telepac.pt</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(07:19:44 PM)</font> <b>magnetophon:</b></font> I'm trying to build this package: https://github.com/magnetophon/nixpkgs/compare/rtirq?expand=1 with this config: https://github.com/magnetophon/nixosConfig/blob/master/configuration.nix . I can build other packages, and others can build rtirq, but when I build it, I get: &quot;error: failed to set up the build environment for ...&quot;  How can I find where the problem is?<br/>
+<font color="#A82F2F"><font size="2">(07:21:14 PM)</font> <b>T_S_:</b></font> Hi all. I have a haskell project tracked by a large git repo. I would like to build it (many times) without copying the .git dir into the store over and over. Is there an option to make nix ignore this subdirecgory?<br/>
+<font color="#A82F2F"><font size="2">(07:21:35 PM)</font> <b>T_S_:</b></font> subdirectory<br/>
+<font color="#A82F2F"><font size="2">(07:21:39 PM)</font> <b>Fuuzetsu:</b></font> fetchgit by default doesn&apos;t copy/leave .git around<br/>
+<font size="2">(07:21:51 PM)</font><b> joneshf-laptop left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:21:53 PM)</font> <b>Fuuzetsu:</b></font> I think it copies and deletes though<br/>
+<font size="2">(07:22:20 PM)</font><b> sogatori left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(07:22:32 PM)</font> <b>Fuuzetsu:</b></font> I think there is a way to filter what&apos;s copied, sec<br/>
+<font color="#A82F2F"><font size="2">(07:22:34 PM)</font> <b>T_S_:</b></font> still there when I trace through the drv to the src directory.<br/>
+<font color="#A82F2F"><font size="2">(07:23:19 PM)</font> <b>Fuuzetsu:</b></font> builtins.filterSource might be what you want<br/>
+<font color="#A82F2F"><font size="2">(07:25:00 PM)</font> <b>T_S_:</b></font> noobish here. is this the sort of option cabal.mkDerivation handles?<br/>
+<font size="2">(07:25:06 PM)</font><b> jb55 [<em>~jb55@208.98.200.98</em>] entered the room.</b><br/>
+<font size="2">(07:26:19 PM)</font><b> jb55 left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:26:31 PM)</font><b> sogatori [<em>~quassel@dslb-188-105-083-039.188.105.pools.vodafone-ip.de</em>] entered the room.</b><br/>
+<font size="2">(07:26:52 PM)</font><b> jb55 [<em>~jb55@208.98.200.98</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:28:47 PM)</font> <b>T_S_:</b></font> Fuuzetsu: thanks i think i see what to do, edit the “src = ./.” line to a filtered version.<br/>
+<font size="2">(07:28:59 PM)</font><b> psnively left the room (quit: Quit: psnively).</b><br/>
+<font size="2">(07:31:14 PM)</font><b> joneshf left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:31:43 PM)</font><b> psnively [<em>~psnively@pool-98-119-9-129.lsanca.fios.verizon.net</em>] entered the room.</b><br/>
+<font size="2">(07:33:34 PM)</font><b> pSub left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(07:37:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vbgl pushed 2 new commits to master: http://git.io/hov5Lw<br/>
+<font color="#A82F2F"><font size="2">(07:37:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5fd15e3 muflax: ccl: fix paths to coreutils<br/>
+<font color="#A82F2F"><font size="2">(07:37:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5a410c4 vbgl: Merge pull request #5174 from muflax/clozure...<br/>
+<font size="2">(07:37:32 PM)</font><b> pSub [<em>~quassel@fsf/member/pSub</em>] entered the room.</b><br/>
+<font size="2">(07:40:44 PM)</font><b> MichaelRaskin [<em>~MichaelRa@195.91.224.161</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:40:58 PM)</font> <b>T_S_:</b></font> yep. something like this can filter out anything I need to remove. http://www.reddit.com/r/haskell/comments/2j0ehj/ann_for_nix_users_cabal2nix4dev/cl85yei<br/>
+<font size="2">(07:42:49 PM)</font><b> psnively left the room (quit: Quit: psnively).</b><br/>
+<font size="2">(07:44:14 PM)</font><b> dysinger [<em>~dysinger@cpe-24-94-75-243.hawaii.res.rr.com</em>] entered the room.</b><br/>
+<font size="2">(07:51:15 PM)</font><b> meditans` [<em>~user@adsl-ull-142-139.51-151.net24.it</em>] entered the room.</b><br/>
+<font size="2">(07:51:20 PM)</font><b> bennofs left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font size="2">(07:52:04 PM)</font><b> goibhniu left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(07:53:27 PM)</font><b> bennofs [<em>~benno@ip92342b4f.dynamic.kabel-deutschland.de</em>] entered the room.</b><br/>
+<font size="2">(07:53:56 PM)</font><b> psnively [<em>~psnively@pool-98-119-9-129.lsanca.fios.verizon.net</em>] entered the room.</b><br/>
+<font size="2">(07:54:03 PM)</font><b> meditans left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:58:25 PM)</font> <b>psnively:</b></font> Trying latest nixops deploying triival to VirtualBox, but get this baffling error: http://paste.ofcode.org/3bpb3HXEpBZCqArsc7W6Vjp<br/>
+<font color="#A82F2F"><font size="2">(08:01:28 PM)</font> <b>MichaelRaskin:</b></font> I wonder how many Lispers are there in #NixOS. Especially Moscow lispers...<br/>
+<font color="#A82F2F"><font size="2">(08:02:04 PM)</font> <b>MichaelRaskin:</b></font> (actually, we&apos;d consider hiring even wannabe lispers with clear thinking and readiness to learn)<br/>
+<font color="#A82F2F"><font size="2">(08:02:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wizeman pushed 1 new commit to master: http://git.io/bfgQOA<br/>
+<font color="#A82F2F"><font size="2">(08:02:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 744dc4a Ricardo M. Correia: rustcMaster: Install docs (into $out/share/doc)<br/>
+<font size="2">(08:02:48 PM)</font><b> jb55_ [<em>~jb55@208.98.200.98</em>] entered the room.</b><br/>
+<font size="2">(08:03:25 PM)</font><b> jb55_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(08:04:02 PM)</font><b> jb55_ [<em>~jb55@208.98.200.98</em>] entered the room.</b><br/>
+<font size="2">(08:04:59 PM)</font><b> nslqqq1 left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font size="2">(08:05:39 PM)</font><b> dannyg left the room (quit: Quit: dannyg).</b><br/>
+<font size="2">(08:05:56 PM)</font><b> jb55 left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:09:57 PM)</font> <b>iElectric:</b></font> psnively: sounds like a bug, what channel version are you using<br/>
+<font color="#A82F2F"><font size="2">(08:10:25 PM)</font> <b>psnively:</b></font> iElectric: sorry, channel version?<br/>
+<font color="#A82F2F"><font size="2">(08:10:54 PM)</font> <b>iElectric:</b></font> nix-channel --list<br/>
+<font color="#A82F2F"><font size="2">(08:11:31 PM)</font> <b>psnively:</b></font> nixpkgs http://nixos.org/channels/nixpkgs-unstable<br/>
+<font color="#A82F2F"><font size="2">(08:11:36 PM)</font> <b>psnively:</b></font> But that’s a lie, because...<br/>
+<font color="#A82F2F"><font size="2">(08:11:56 PM)</font> <b>psnively:</b></font> psnively@Ragnarok ~/projects/nixops/examples[master*]$ echo $NIX_PATH<br/>
+<font color="#A82F2F"><font size="2">(08:11:57 PM)</font> <b>psnively:</b></font> nixos=/Users/psnively/projects/yosemite-nixpkgs/nixos:nixpkgs=/Users/psnively/projects/yosemite-nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(08:12:20 PM)</font> <b>psnively:</b></font> That is, I’m using joelteon’s Yosemite-compatible nixpkgs.<br/>
+<font size="2">(08:13:40 PM)</font><b> meditans` left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(08:17:52 PM)</font><b> hexagoxel left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:19:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ocharles pushed 1 new commit to master: http://git.io/zQOAXw<br/>
+<font color="#A82F2F"><font size="2">(08:19:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 465a163 Oliver Charles: haskellPackages.opaleye: New expression<br/>
+<font size="2">(08:24:15 PM)</font><b> thawes left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:24:17 PM)</font><b> PeterMetz [<em>~petermetz@host-78-147-59-54.as13285.net</em>] entered the room.</b><br/>
+<font size="2">(08:25:25 PM)</font><b> thawes [<em>~quassel@168.215.121.226</em>] entered the room.</b><br/>
+<font size="2">(08:31:15 PM)</font><b> justbeingglad [<em>~justbeing@cpc10-warw15-2-0-cust75.3-2.cable.virginm.net</em>] entered the room.</b><br/>
+<font size="2">(08:31:20 PM)</font><b> justbeingglad left the room.</b><br/>
+<font size="2">(08:42:36 PM)</font><b> heath [<em>~ybit@unaffiliated/ybit</em>] entered the room.</b><br/>
+<font size="2">(08:48:35 PM)</font><b> psnively left the room (quit: Quit: psnively).</b><br/>
+<font size="2">(08:49:47 PM)</font><b> Reventlov left the room (quit: Excess Flood).</b><br/>
+<font size="2">(08:50:00 PM)</font><b> Reventlov [<em>~Reventlov@unaffiliated/reventlov</em>] entered the room.</b><br/>
+<font size="2">(08:54:16 PM)</font><b> psnively [<em>~psnively@pool-98-119-9-129.lsanca.fios.verizon.net</em>] entered the room.</b><br/>
+<font size="2">(08:55:55 PM)</font><b> marcvreuls [<em>~marcvreul@2001:981:80ca:1:f9f8:923:e496:97f7</em>] entered the room.</b><br/>
+<font size="2">(08:57:54 PM)</font><b> sigmundv [<em>~sigmundv@178.167.254.233.threembb.ie</em>] entered the room.</b><br/>
+<font size="2">(08:59:50 PM)</font><b> jb55_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:00:21 PM)</font><b> jb55 [<em>~jb55@208.98.200.98</em>] entered the room.</b><br/>
+<font size="2">(09:03:16 PM)</font><b> goodwill [<em>~goodwill@pdpc/supporter/active/goodwill</em>] entered the room.</b><br/>
+<font size="2">(09:07:33 PM)</font><b> mizu_no_oto [<em>~textual@gw1.mcgraw-hill.com</em>] entered the room.</b><br/>
+<font size="2">(09:10:03 PM)</font><b> Hijiri [<em>~oneechan@2607:f720:f00:4834:9e4e:36ff:fe14:c0d8</em>] entered the room.</b><br/>
+<font size="2">(09:14:54 PM)</font><b> JagaJaga [<em>~JagaJaga@178.62.202.50</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:17:44 PM)</font> <b>pmahoney:</b></font> i&apos;m using nix-push ... to push a derivation to a binary cache. it complains &quot;warning: you did not specify `--add-root&apos;; the result might be removed by the garbage collector&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:17:52 PM)</font> <b>pmahoney:</b></font> but nix-push takes no --add-root flag<br/>
+<font size="2">(09:18:02 PM)</font><b> rejuvyesh left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font color="#A82F2F"><font size="2">(09:18:05 PM)</font> <b>pmahoney:</b></font> i assume this is an underlying call to nix-store complaining?<br/>
+<font size="2">(09:19:51 PM)</font><b> hexagoxel [<em>~hexagoxel@kiel-4d066dc9.pool.mediaways.net</em>] entered the room.</b><br/>
+<font size="2">(09:22:02 PM)</font><b> marcvreuls left the room (quit: ).</b><br/>
+<font size="2">(09:26:08 PM)</font><b> iMatejC left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:27:48 PM)</font><b> iMatejC [<em>~MatejC@v22014062232018793.yourvserver.net</em>] entered the room.</b><br/>
+<font size="2">(09:29:42 PM)</font><b> bb010g [<em>uid21050@gateway/web/irccloud.com/x-rpuqqzydnwihxnyx</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:32:01 PM)</font> <b>iElectric:</b></font> pmahoney: found the issue<br/>
+<font color="#A82F2F"><font size="2">(09:32:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/NeNS3w<br/>
+<font color="#A82F2F"><font size="2">(09:32:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 4426d73 Vladimír Čunát: gcc-4.9: maintenance update<br/>
+<font color="#A82F2F"><font size="2">(09:33:11 PM)</font> <b>iElectric:</b></font> why is vcunat not hanging out here anymore?<br/>
+<font color="#A82F2F"><font size="2">(09:34:13 PM)</font> <b>iElectric:</b></font> pmahoney: https://github.com/NixOS/nixpkgs/commit/61d7fb934b0e356cd108afcd293c09837efcc6bf<br/>
+<font size="2">(09:34:55 PM)</font><b> civodul [<em>~user@gateway/tor-sasl/civodul</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:35:52 PM)</font> <b>pmahoney:</b></font> iElectric: did you mean someone else?<br/>
+<font color="#A82F2F"><font size="2">(09:37:06 PM)</font> <b>iElectric:</b></font> eh, psnively<br/>
+<font size="2">(09:42:51 PM)</font><b> psnively left the room (quit: Quit: psnively).</b><br/>
+<font size="2">(09:43:40 PM)</font><b> ki0 [<em>~ki0@92.58.126.35</em>] entered the room.</b><br/>
+<font size="2">(09:46:03 PM)</font><b> ki0 left the room (quit: Client Quit).</b><br/>
+<font size="2">(09:48:13 PM)</font><b> med\ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:48:29 PM)</font><b> ttuegel left the room (quit: Quit: ZNC - http://znc.in).</b><br/>
+<font size="2">(09:49:05 PM)</font><b> ttuegel [<em>~ttuegel@2601:d:cbc0:10b:216:d3ff:fe17:9cc0</em>] entered the room.</b><br/>
+<font size="2">(09:52:12 PM)</font><b> psnively [<em>~psnively@pool-98-119-9-129.lsanca.fios.verizon.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:53:48 PM)</font> <b>the-kenny:</b></font> Can someone recommend a decent printer/scanner which isn&apos;t a pain under NixOS? Right now I&apos;ve got a great Brother Inkjet which is perfect in every sense - but the linux driver is a big shell script full of binary parts, raw C, and other weird stuff<br/>
+<font color="#A82F2F"><font size="2">(09:53:57 PM)</font> <b>psnively:</b></font> iElectric: why would Darwin care about the query parameter delimiter?<br/>
+<font color="#A82F2F"><font size="2">(09:54:19 PM)</font> <b>the-kenny:</b></font> Printer should be able to batch-scan, print via network, scan (to email)<br/>
+<font color="#A82F2F"><font size="2">(09:55:55 PM)</font> <b>iElectric:</b></font> psnively: linux is failing you due to query parameter being in the patch<br/>
+<font color="#A82F2F"><font size="2">(09:55:58 PM)</font> <b>iElectric:</b></font> path*<br/>
+<font color="#A82F2F"><font size="2">(09:56:14 PM)</font> <b>iElectric:</b></font> tested job is not evaluating: https://github.com/NixOS/nixpkgs/issues/5198<br/>
+<font color="#A82F2F"><font size="2">(09:56:24 PM)</font> <b>iElectric:</b></font> (irrelevant, but important to fix)<br/>
+<font color="#A82F2F"><font size="2">(09:56:33 PM)</font> <b>psnively:</b></font> iElectric: Oh, interesting.<br/>
+<font size="2">(09:56:54 PM)</font><b> khumba [<em>~khumba@S010600259ce46bb1.ok.shawcable.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:57:24 PM)</font> <b>iElectric:</b></font> psnively: I think we should just fix it properly<br/>
+<font color="#A82F2F"><font size="2">(09:57:35 PM)</font> <b>psnively:</b></font> iElectric: I’m in favor.<br/>
+<font color="#A82F2F"><font size="2">(10:02:59 PM)</font> <b>iElectric:</b></font> psnively: that should fix it<br/>
+<font color="#A82F2F"><font size="2">(10:03:08 PM)</font> <b>iElectric:</b></font> (pushed)<br/>
+<font color="#A82F2F"><font size="2">(10:03:18 PM)</font> <b>psnively:</b></font> To nixpkgs?<br/>
+<font color="#A82F2F"><font size="2">(10:05:12 PM)</font> <b>iElectric:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(10:06:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 3 new commits to master: http://git.io/na-hMg<br/>
+<font color="#A82F2F"><font size="2">(10:06:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1ac0917 Eduard Bachmakov: Add gramps package....<br/>
+<font color="#A82F2F"><font size="2">(10:06:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master fd259de Eduard Bachmakov: gramps: add license<br/>
+<font color="#A82F2F"><font size="2">(10:06:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 50515b2 Domen Kožar: Merge pull request #5090 from eduarrrd/gramps...<br/>
+<font size="2">(10:08:48 PM)</font><b> Takle_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(10:09:00 PM)</font><b> Takle [<em>~takle@188.228.85.218</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:09:54 PM)</font> <b>psnively:</b></font> iElectric: Thanks! Now I guess I need to convince joelteon to pull it.<br/>
+<font size="2">(10:10:05 PM)</font><b> med\ [<em>~med@105.104.7.78</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:10:25 PM)</font> <b>johnw:</b></font> psnively: that will take a little bit of work yet<br/>
+<font color="#A82F2F"><font size="2">(10:10:47 PM)</font> <b>psnively:</b></font> johnw: No doubt.<br/>
+<font size="2">(10:13:44 PM)</font><b> _Vi [<em>~vi@2001:470:7bd6:c000::2</em>] entered the room.</b><br/>
+<font size="2">(10:27:21 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

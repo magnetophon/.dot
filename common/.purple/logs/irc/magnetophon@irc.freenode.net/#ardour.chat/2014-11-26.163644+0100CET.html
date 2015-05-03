@@ -1,0 +1,141 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Wed 26 Nov 2014 04:36:44 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Wed 26 Nov 2014 04:36:44 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:36:45 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(04:36:45 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(04:39:42 PM)</font> <b>las:</b></font> abique: no fixed overhead<br/>
+<font color="#A82F2F"><font size="2">(04:39:49 PM)</font> <b>las:</b></font> abique: 2 * context switch<br/>
+<font color="#A82F2F"><font size="2">(04:39:59 PM)</font> <b>las:</b></font> abique: context switch costs is split in two<br/>
+<font color="#A82F2F"><font size="2">(04:40:08 PM)</font> <b>las:</b></font> abique: wait, i explained this before, right?<br/>
+<font color="#A82F2F"><font size="2">(04:40:56 PM)</font> <b>abique:</b></font> las, I don&apos;t remember us speaking about it<br/>
+<font color="#A82F2F"><font size="2">(04:40:57 PM)</font> <b>abique:</b></font> yet it is possible<br/>
+<font size="2">(04:41:07 PM)</font><b> smev9 left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:41:55 PM)</font> <b>abique:</b></font> and how do you evaluate the cost of a context switch against a complex plugin like diva or bazille?<br/>
+<font color="#A82F2F"><font size="2">(04:41:56 PM)</font> <b>abique:</b></font> it is less than 1%?<br/>
+<font color="#A82F2F"><font size="2">(04:41:56 PM)</font> <b>abique:</b></font> you&apos;ll say that it depends on the buffer size<br/>
+<font color="#A82F2F"><font size="2">(04:41:56 PM)</font> <b>abique:</b></font> if we take a buffer size of 16 samples<br/>
+<font color="#A82F2F"><font size="2">(04:43:39 PM)</font> <b>abique:</b></font> I should write a program which does a ping pong between two processes and count how many ping pong per seconds I can have<br/>
+<font color="#A82F2F"><font size="2">(04:45:35 PM)</font> <b>tom-_:</b></font> las: you explained to me ~<br/>
+<font size="2">(04:45:47 PM)</font><b> FlorianBd left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(04:45:54 PM)</font><b> FlorianBd [<em>~FlorianBd@florianbador.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:46:22 PM)</font> <b>tom-_:</b></font> i was trying to find out the performance cost to have plugins separated from the host for better host robustness<br/>
+<font size="2">(04:46:33 PM)</font><b> ahellquist left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:46:57 PM)</font> <b>abique:</b></font> in fact the overhead is equivalent to the overhead of a jack setup with all the plugins being jack client<br/>
+<font color="#A82F2F"><font size="2">(04:48:26 PM)</font> <b>the_CLA:</b></font> abique: Doesn&apos;t Bitwig has the option to run plugins in the host process vs. as child? Maybe one could use that for doing some testing, too.<br/>
+<font color="#A82F2F"><font size="2">(04:48:46 PM)</font> <b>las:</b></font> abique: the cost of a context switch is split in two<br/>
+<font color="#A82F2F"><font size="2">(04:48:58 PM)</font> <b>las:</b></font> abique: first part is fixed cost: register save/restore<br/>
+<font color="#A82F2F"><font size="2">(04:49:03 PM)</font> <b>tom-_:</b></font> abique: i thought of having not single jack clients but one client that incorporates &quot;clusters&quot; all plugins of one (ardour) strip -&gt; 2 context switches only<br/>
+<font color="#A82F2F"><font size="2">(04:49:21 PM)</font> <b>las:</b></font> abique: second part is caused by the TLB (translation lookaside buffer) flush related to virtual memory management<br/>
+<font color="#A82F2F"><font size="2">(04:49:46 PM)</font> <b>las:</b></font> abique: after a TLB flush, all memory references will initial fail in the TLB, causing a reload<br/>
+<font size="2">(04:49:49 PM)</font><b> JL___ [<em>52e3be7c@gateway/web/freenode/ip.82.227.190.124</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:49:52 PM)</font> <b>las:</b></font> abique: this has cost<br/>
+<font color="#A82F2F"><font size="2">(04:50:09 PM)</font> <b>las:</b></font> abique: the cost is related to how much memory is touched by the process before the next context switch<br/>
+<font color="#A82F2F"><font size="2">(04:50:40 PM)</font> <b>las:</b></font> abique: so if you switch to a plugin that just adds two numbers, the cost is pretty close to the register save/restore time<br/>
+<font color="#A82F2F"><font size="2">(04:51:02 PM)</font> <b>las:</b></font> abique: but if you switch to, say, a sampler that touches a lot of memory during process() then the cost can be a lot larger<br/>
+<font color="#A82F2F"><font size="2">(04:51:13 PM)</font> <b>las:</b></font> abique: then on top of all that, you have OS kernel scheduling costs<br/>
+<font color="#A82F2F"><font size="2">(04:51:44 PM)</font> <b>las:</b></font> abique: there&apos;s nothing you can do to guarantee correctly ordered execution unless you get involved in pinning processes exclusively to a core<br/>
+<font color="#A82F2F"><font size="2">(04:52:19 PM)</font> <b>las:</b></font> abique: every time you switch processes there is some (small) probability that the OS kernel will run the wrong task next, instead of yours<br/>
+<font color="#A82F2F"><font size="2">(04:52:29 PM)</font> <b>las:</b></font> abique: this can be minimized, but not to zero<br/>
+<font color="#A82F2F"><font size="2">(04:53:02 PM)</font> <b>abique:</b></font> I see<br/>
+<font size="2">(04:53:02 PM)</font><b> idragosani [<em>~idragosan@pool-71-191-200-126.washdc.fios.verizon.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:53:07 PM)</font> <b>las:</b></font> abique: as far as i know, current register save/restore cost is on the order of 3-10 microseconds<br/>
+<font color="#A82F2F"><font size="2">(04:53:09 PM)</font> <b>abique:</b></font> thanks for the explanation!<br/>
+<font color="#A82F2F"><font size="2">(04:53:24 PM)</font> <b>las:</b></font> abique: TLB flush impact can add 10-500 microseconds<br/>
+<font color="#A82F2F"><font size="2">(04:55:08 PM)</font> <b>las:</b></font> abique: so, do this for a 64 track session with 3 plugins per track and you have 384 context switches, which is 7 milliseconds ignoring scheduling problems<br/>
+<font color="#A82F2F"><font size="2">(04:55:18 PM)</font> <b>las:</b></font> abique: hence my claim that this does not scale<br/>
+<font color="#A82F2F"><font size="2">(04:55:34 PM)</font> <b>abique:</b></font> las, true<br/>
+<font color="#A82F2F"><font size="2">(04:56:17 PM)</font> <b>abique:</b></font> las, about using gtk or qt for plugins I had an idea<br/>
+<font color="#A82F2F"><font size="2">(04:56:20 PM)</font> <b>las:</b></font> abique: you can try to be clever, and notice that each track has 3 plugins directly connected to each other<br/>
+<font color="#A82F2F"><font size="2">(04:57:13 PM)</font> <b>abique:</b></font> what do you think if we could dlopen(&quot;lib.so&quot;, RTLD_PRIVATE); which would mean that the global variables of the library are private to the instance?<br/>
+<font color="#A82F2F"><font size="2">(04:57:46 PM)</font> <b>abique:</b></font> we could extend that to the elf header saying that libx.so has a private dependancy on libgtk.so<br/>
+<font color="#A82F2F"><font size="2">(04:59:18 PM)</font> <b>tom-_:</b></font> abique: what would that do?<br/>
+<font color="#A82F2F"><font size="2">(04:59:42 PM)</font> <b>las:</b></font> abique: are you the guy in the gtk list?<br/>
+<font color="#A82F2F"><font size="2">(04:59:48 PM)</font> <b>abique:</b></font> a spoke about it with David, a member of the freebsd core team and he told me that windows and mac can already do that, and why add this feature to freebsd. I spoke with the glibc devs and I got &quot;don&apos;t mess with glibc&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:59:48 PM)</font> <b>abique:</b></font> las, yes!<br/>
+<font color="#A82F2F"><font size="2">(04:59:49 PM)</font> <b>las:</b></font> abique: hah<br/>
+<font color="#A82F2F"><font size="2">(05:00:53 PM)</font> <b>abique:</b></font> tom-_, the idea is that libraries depending on global variables like gtk or qt would have their own instance of the global variable and theorically you could do one gtk_main_loop per private library load<br/>
+<font color="#A82F2F"><font size="2">(05:01:21 PM)</font> <b>abique:</b></font> I think it is interesting<br/>
+<font color="#A82F2F"><font size="2">(05:01:51 PM)</font> <b>las:</b></font> abique: it isn&apos;t interesting<br/>
+<font color="#A82F2F"><font size="2">(05:01:59 PM)</font> <b>abique:</b></font> las, why?<br/>
+<font color="#A82F2F"><font size="2">(05:02:00 PM)</font> <b>las:</b></font> abique: these are terrible choices for plugin GUIs<br/>
+<font color="#A82F2F"><font size="2">(05:02:20 PM)</font> <b>tom-_:</b></font> abique: sounds good, but i can&apos;t follow 100% :) what is the benefit?<br/>
+<font color="#A82F2F"><font size="2">(05:02:37 PM)</font> <b>las:</b></font> abique: the problem with gtk and qt goes way beyond global variables<br/>
+<font color="#A82F2F"><font size="2">(05:02:45 PM)</font> <b>tom-_:</b></font> abique: more independence for plugins?<br/>
+<font color="#A82F2F"><font size="2">(05:02:47 PM)</font> <b>abique:</b></font> tom-_, to be able to easily use gtk or qt in the plugin<br/>
+<font color="#A82F2F"><font size="2">(05:02:55 PM)</font> <b>tom-_:</b></font> abique: ah. i see<br/>
+<font color="#A82F2F"><font size="2">(05:03:01 PM)</font> <b>las:</b></font> abique: trying to run multiple independent event loops receiving events from the native windowing system is a recipe for disaster<br/>
+<font size="2">(05:03:34 PM)</font><b> habys left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font color="#A82F2F"><font size="2">(05:03:38 PM)</font> <b>abique:</b></font> las, can you explain me why?<br/>
+<font size="2">(05:04:27 PM)</font><b> habys [<em>~luke@2604:8800:144:1377::a4</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:04:33 PM)</font> <b>abique:</b></font> and why is it so easy for plugins developpers to write UI in the same process as the dsp on win and mac, and so complicated on Linux?<br/>
+<font color="#A82F2F"><font size="2">(05:04:38 PM)</font> <b>abique:</b></font> where the issue comes from?<br/>
+<font color="#A82F2F"><font size="2">(05:05:58 PM)</font> <b>las:</b></font> abique: because they write them using a GUI toolkit that is either the native toolkit (and there is really only 1 at the bottom) or a layer that is very thin and doesn&apos;t try to be a complete toolkit OR they use Qt and know that the host does not :)<br/>
+<font color="#A82F2F"><font size="2">(05:06:39 PM)</font> <b>las:</b></font> abique: the canonical example would be VSTGUI which isn&apos;t actually used by many developers, but is just a thin layer over the native windowing system, has no event loops or anything like that<br/>
+<font color="#A82F2F"><font size="2">(05:07:14 PM)</font> <b>las:</b></font> abique: the equivalent to the native toolkit on linux would be X11, but even that is going away, and almost nobody writes stuff for X11 API anymore (fons adriensen may be one of the few who does)<br/>
+<font color="#A82F2F"><font size="2">(05:07:19 PM)</font> <b>abique:</b></font> las, by the way I considered porting VSTGUI using fox-toolkit<br/>
+<font size="2">(05:07:31 PM)</font><b> melhiors [<em>~melhiors@89.201.83.27</em>] entered the room.</b><br/>
+<font size="2">(05:07:50 PM)</font><b> seanz left the room (quit: Quit: ZNC - http://znc.in).</b><br/>
+<font color="#A82F2F"><font size="2">(05:07:50 PM)</font> <b>las:</b></font> abique: that wouldn&apos;t solve much :)<br/>
+<font color="#A82F2F"><font size="2">(05:08:02 PM)</font> <b>las:</b></font> abique: the correct way to port VSTGUI for linux is on top of X11<br/>
+<font color="#A82F2F"><font size="2">(05:08:08 PM)</font> <b>las:</b></font> abique: so that it works for every toolkit<br/>
+<font size="2">(05:08:20 PM)</font><b> edogawa [<em>~quassel@188-23-187-244.adsl.highway.telekom.at</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:08:22 PM)</font> <b>las:</b></font> abique: basically its the same story as so many things on linux<br/>
+<font color="#A82F2F"><font size="2">(05:08:47 PM)</font> <b>abique:</b></font> las, rewriting all the UI is boring and too much work<br/>
+<font color="#A82F2F"><font size="2">(05:08:51 PM)</font> <b>las:</b></font> abique: lower layers are powerful but ugly to use (x11) ... people develop nice new layers for doing stuff .. again .. and again ... and again<br/>
+<font color="#A82F2F"><font size="2">(05:09:06 PM)</font> <b>las:</b></font> abique: result is 4+ different APIs for GUI toolkits<br/>
+<font color="#A82F2F"><font size="2">(05:09:17 PM)</font> <b>las:</b></font> abique: each one with its own benefits and drawbacks<br/>
+<font color="#A82F2F"><font size="2">(05:09:36 PM)</font> <b>las:</b></font> abique: contrast with OSX : Cocoa is at the bottom, and pretty nice to use, and everyone does<br/>
+<font color="#A82F2F"><font size="2">(05:09:56 PM)</font> <b>las:</b></font> abique: and windows: GDI is at the bottom, many people don&apos;t use it but the layers they do use are close to it<br/>
+<font size="2">(05:10:15 PM)</font><b> seanz [<em>~seanz@2605:a601:812:6601:59ea:64f7:b3cc:69aa</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:10:22 PM)</font> <b>abique:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(05:10:47 PM)</font> <b>abique:</b></font> for wayland, currently we have no idea when it is going to be used<br/>
+<font color="#A82F2F"><font size="2">(05:11:08 PM)</font> <b>las:</b></font> abique: it has an X11 layer i believe<br/>
+<font color="#A82F2F"><font size="2">(05:11:12 PM)</font> <b>abique:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(05:12:24 PM)</font> <b>abique:</b></font> it is sad to not be able to use qt or gtk for plugin ui without having to do IPC<br/>
+<font color="#A82F2F"><font size="2">(05:12:52 PM)</font> <b>abique:</b></font> I think plugin&apos;s UI on Linux currently is a big issue<br/>
+<font color="#A82F2F"><font size="2">(05:14:58 PM)</font> <b>tom-_:</b></font> abique: what do you think of using something like OSC for backend&lt;-&gt;gui IPC?<br/>
+<font color="#A82F2F"><font size="2">(05:15:22 PM)</font> <b>las:</b></font> abique: it is sad, but the developers of those toolkits are not targetting this use<br/>
+<font size="2">(05:16:14 PM)</font><b> slyrus left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:16:28 PM)</font> <b>las:</b></font> abique: just consider the problem with a plugin/host using Qt4/Qt5 or Gtk2/Gtk3<br/>
+<font color="#A82F2F"><font size="2">(05:16:39 PM)</font> <b>las:</b></font> abique: granted this is caused in part by global variables<br/>
+<font color="#A82F2F"><font size="2">(05:17:46 PM)</font> <b>abique:</b></font> tom-_, I think it is not good because plugin developpers are physicians before being software engineer and we have to make things simple<br/>
+<font color="#A82F2F"><font size="2">(05:17:53 PM)</font> <b>abique:</b></font> tom-_, doing IPC between the UI and the dsp will terrify them<br/>
+<font size="2">(05:18:52 PM)</font><b> habys left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font color="#A82F2F"><font size="2">(05:18:58 PM)</font> <b>tom-_:</b></font> abique: ok<br/>
+<font size="2">(05:19:29 PM)</font><b> habys [<em>~luke@2604:8800:144:1377::a</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:20:29 PM)</font> <b>abique:</b></font> las, I conclude that we need a toolkit tailored for plugin UI?<br/>
+<font color="#A82F2F"><font size="2">(05:20:29 PM)</font> <b>reen1:</b></font> while recording i got some exclamation signs showing that sound levels are higher than normal and those places had clicks when playing the recorded thing. how to normalize those levels? do i need to put some kind of limiter before the jack_capture?<br/>
+<font size="2">(05:20:32 PM)</font><b> Knight80 [<em>028971ce@gateway/web/freenode/ip.2.137.113.206</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:20:48 PM)</font> <b>Knight80:</b></font> Hello everyone<br/>
+<font color="#A82F2F"><font size="2">(05:20:55 PM)</font> <b>reen1:</b></font> greets<br/>
+<font color="#A82F2F"><font size="2">(05:21:14 PM)</font> <b>tom-_:</b></font> abique: maybe a toolkit that helps to facilitate the backend&lt;-&gt;gui IPC with OSC would help the physicians?<br/>
+<font color="#A82F2F"><font size="2">(05:21:14 PM)</font> <b>abique:</b></font> Hi Knight80<br/>
+<font color="#A82F2F"><font size="2">(05:21:27 PM)</font> <b>tom-_:</b></font> abique: a set of OSC enabled controls, some standardish protocol<br/>
+<font color="#A82F2F"><font size="2">(05:22:11 PM)</font> <b>Knight80:</b></font> I&apos;m having a problem with ardour: The thing is whenever I click on the button &quot;Go to the beginning&quot; the cursor doesn&apos;t move, in Jack master mode<br/>
+<font color="#A82F2F"><font size="2">(05:22:11 PM)</font> <b>tom-_:</b></font> abique: &quot;ok, i put a toggle button here, a meter display here and a wave display here&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:22:11 PM)</font> <b>abique:</b></font> tom-_, I don&apos;t know so much OSC<br/>
+<font color="#A82F2F"><font size="2">(05:22:25 PM)</font> <b>las:</b></font> abique: you need to talk to the LV2 guys<br/>
+<font color="#A82F2F"><font size="2">(05:22:43 PM)</font> <b>las:</b></font> abique: the real problem is not so much accomodating the toolkits if plugin authors insist on using them<br/>
+<font color="#A82F2F"><font size="2">(05:23:14 PM)</font> <b>las:</b></font> Knight80: what do you mean by Jack master mode?<br/>
+<font color="#A82F2F"><font size="2">(05:23:30 PM)</font> <b>las:</b></font> abique: but rather the assumptions of plugin authors<br/>
+<font color="#A82F2F"><font size="2">(05:23:39 PM)</font> <b>Knight80:</b></font> las I mean the transport is in Jack mode<br/>
+<font color="#A82F2F"><font size="2">(05:23:43 PM)</font> <b>las:</b></font> abique: although the Qt4/Qt5 and Gtk2/Gtk3 issue is substantial<br/>
+<font color="#A82F2F"><font size="2">(05:23:53 PM)</font> <b>las:</b></font> Knight80: what version of Ardour?<br/>
+<font color="#A82F2F"><font size="2">(05:24:07 PM)</font> <b>abique:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(05:24:12 PM)</font> <b>Knight80:</b></font> las 2.something<br/>
+<font color="#A82F2F"><font size="2">(05:25:47 PM)</font> <b>las:</b></font> Knight80: we don&apos;t really support 2.x anymore<br/>
+<font color="#A82F2F"><font size="2">(05:26:06 PM)</font> <b>las:</b></font> Knight80: Ardour3 has been out for a long time and is better in just about every way<br/>
+<font size="2">(05:26:48 PM)</font><b> corresponder [<em>~walther@p3EE39CD4.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:27:43 PM)</font> <b>FlorianBd:</b></font> las: Did you think of the order for Mackie Control Master and Extenders?  I didn&apos;t test that but if I have e.g. 6 extenders and that the Master is always on the left w/ 6 extenders on its right, then I can&apos;t reach the transport easily... We should be able to put something like MasterPosition=3<br/>
+<font color="#A82F2F"><font size="2">(05:27:44 PM)</font> <b>Knight80:</b></font> This doesn&apos;t happen on Ardour3, I have noticed that. However, when I record from Hydrogen, it doesn&apos;t record the whole audio, there&apos;s always a gap at the end of every recording<br/>
+<font color="#A82F2F"><font size="2">(05:28:17 PM)</font> <b>Knight80:</b></font> I hope I&apos;m explaining this properly, sorry about my english.<br/>
+<font color="#A82F2F"><font size="2">(05:28:39 PM)</font> <b>habys:</b></font> the more I learn about ardour the more awesome it becomes. Thanks for track templates!<br/>
+<font color="#A82F2F"><font size="2">(05:30:35 PM)</font> <b>JL___:</b></font> reen1: what is your audio source routed to ardour track ?<br/>
+<font color="#A82F2F"><font size="2">(05:30:55 PM)</font> <b>Knight80:</b></font> Do you know what I mean?<br/>
+<font color="#A82F2F"><font size="2">(05:30:56 PM)</font> <b>the_CLA:</b></font> abique: Also rgareus has created a toolkit with LV2 plugins in mind: https://github.com/x42/robtk<br/>
+<font color="#A82F2F"><font size="2">(05:30:57 PM)</font> <b>tom-_:</b></font> abique: there&apos;s not much to know about. the concept of &quot;sound control&quot; would fit the gui&lt;-&gt;anything scenario very well<br/>
+<font color="#A82F2F"><font size="2">(05:31:35 PM)</font> <b>abique:</b></font> the_CLA, I&apos;ll have a look<br/>
+<font color="#062585"><font size="2">(05:32:52 PM)</font> <b>***tom-_</b></font> thinks a plugin ui controlling dsp process via osc is an exemplary use case of osc<br/>
+<font color="#A82F2F"><font size="2">(05:33:41 PM)</font> <b>Knight80:</b></font> Also...Why does Ardour3 keep on giving me this message?------&gt; [ERROR]: JACK: Cannot use real-time scheduling (RR/5)(1: Operación no permitida) [ERROR]: JACK: JackClient::AcquireSelfRealTime error<br/>
+<font size="2">(05:34:25 PM)</font><b> lerni left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(05:35:33 PM)</font><b> oofus_lt left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(05:59:15 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

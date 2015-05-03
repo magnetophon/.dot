@@ -1,0 +1,1204 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Sun 27 Oct 2013 10:30:21 AM CET on magnetophon@irc.oftc.net (irc)</title></head><body><h3>Conversation with #debian at Sun 27 Oct 2013 10:30:21 AM CET on magnetophon@irc.oftc.net (irc)</h3>
+<font size="2">(10:30:21 AM)</font><b> The topic for #debian is: wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.2 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next</b><br/>
+<font size="2">(10:32:48 AM)</font><b> harobed left the room (quit: ).</b><br/>
+<font size="2">(10:34:15 AM)</font><b> variable_ [<em>~variable@data-67-127.cgates.lt</em>] entered the room.</b><br/>
+<font size="2">(10:36:58 AM)</font><b> genomedz left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(10:38:40 AM)</font><b> neon__ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:41:16 AM)</font> <b>MichaelPaoli:</b></font> Walex babilen So, with sources.list line of: deb [ arch=amd64 ] file:/media/cdrom9 wheezy main   With # aptitude update  I get: Ign file: wheezy Release.gpg Get: 1 file: wheezy Release [17.3 kB] Err file: wheezy/main amd64 Packages (with that last error appearing thrice).<br/>
+<font size="2">(10:42:53 AM)</font><b> ao2 [<em>~u@2001:1418:117::1</em>] entered the room.</b><br/>
+<font size="2">(10:44:17 AM)</font><b> Top-top-top [<em>~freedomri@95.128.43.164</em>] entered the room.</b><br/>
+<font size="2">(10:44:20 AM)</font><b> aidalgol left the room (quit: Quit: zZzZzZz).</b><br/>
+<font color="#16569E"><font size="2">(10:46:31 AM)</font> <b>magnetophon:</b></font> sometimes my touchpad pointer gets stuck in one place, and any movement i make is interpreted as scrolling. stopping and starting x resolves it. what's going on?<br/>
+<font color="#A82F2F"><font size="2">(10:48:29 AM)</font> <b>Walex:</b></font> MichaelPaoli: well, here &quot;deb [arch=amd64] file:/media/cdrom9 wheezy main&quot; works all right<br/>
+<font color="#A82F2F"><font size="2">(10:49:03 AM)</font> <b>Walex:</b></font> magnetophon: I saw something similar and it is a bug in some part of X.<br/>
+<font color="#16569E"><font size="2">(10:50:24 AM)</font> <b>magnetophon:</b></font> Walex: should i file a bugreport to debian or to x, or neither?<br/>
+<font size="2">(10:51:07 AM)</font><b> arand [<em>~arand@nl116-226-21.student.uu.se</em>] entered the room.</b><br/>
+<font size="2">(10:52:44 AM)</font><b> harobed [<em>~stephane@office.bearstech.com</em>] entered the room.</b><br/>
+<font size="2">(10:55:08 AM)</font><b> blindsight left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(10:55:14 AM)</font><b> egwk [<em>~evil@ppp-94-65-117-10.home.otenet.gr</em>] entered the room.</b><br/>
+<font size="2">(10:55:18 AM)</font><b> deanL left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(10:55:35 AM)</font><b> egwk left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:57:24 AM)</font> <b>Walex:</b></font> MichaelPaoli: I looked into the errors you are seeing and they happen when &apos;apt-get&apos; tries to open &apos;Packages&apos; uncompressed or with &apos;lzma&apos; or ;xz&apos; compression.<br/>
+<font color="#A82F2F"><font size="2">(10:58:02 AM)</font> <b>Walex:</b></font> MichaelPaoli: I looked into the errors you are seeing and they happen when &apos;apt-get&apos; tries to open &apos;Packages&apos; compressed with &apos;.bz2&apos; or with &apos;lzma&apos; or ;xz&apos; compression.<br/>
+<font color="#A82F2F"><font size="2">(10:58:07 AM)</font> <b>MichaelPaoli:</b></font> Walex Yep, ... I was looking over strace output ... seems that&apos;s what it does before kicking out those errors.<br/>
+<font color="#A82F2F"><font size="2">(10:59:08 AM)</font> <b>MichaelPaoli:</b></font> Walex So, the errors might be &quot;harmless&quot;, but ... annoying, ... and, ... shouldn&apos;t get in the habit of ignoring error diagnostics/messages  :-/<br/>
+<font size="2">(10:59:32 AM)</font><b> [_aeris_] is now known as _aeris_</b><br/>
+<font size="2">(10:59:48 AM)</font><b> harobed_ [<em>~stephane@office.bearstech.com</em>] entered the room.</b><br/>
+<font size="2">(11:00:11 AM)</font><b> Katy [<em>~kt@p5DE84D45.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:00:20 AM)</font> <b>MichaelPaoli:</b></font> Walex  I think once upon a time, on a different Debian Installation, I did have it working with cdrom entry in sources.list and non-default mount point and had it not mounting/unmounting, as it was &quot;permanently&quot; mounted ... but I&apos;m not able to find that older configuration at this time - at least not easily, anyway, ... and that was, I think, several years or more ago.<br/>
+<font size="2">(11:00:38 AM)</font><b> Rufu5 left the room (quit: Quit: - nbs-irc 2.39 - www.nbs-irc.net -).</b><br/>
+<font size="2">(11:00:51 AM)</font><b> harobed left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:01:15 AM)</font> <b>Walex:</b></font> MichaelPaoli: &apos;cdrom:&apos; lines have a CDROm label and &apos;apt-get&apos; etc. will prompt to mount them. &apos;file:&apos; is for already mounted directories, whether on CDROM or otherwise.<br/>
+<font color="#A82F2F"><font size="2">(11:01:18 AM)</font> <b>MichaelPaoli:</b></font> Walex I think it involved some custom apt configuration bits to tell apt where the &quot;media&quot; (ISO) was, and to not mount/umount it.<br/>
+<font size="2">(11:01:21 AM)</font><b> Goonhost [<em>~Goonhost@ec2-184-72-57-180.us-west-1.compute.amazonaws.com</em>] entered the room.</b><br/>
+<font size="2">(11:03:15 AM)</font><b> jkf [<em>~Icedove@37.203.27.134</em>] entered the room.</b><br/>
+<font size="2">(11:03:30 AM)</font><b> kmshanah left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(11:03:37 AM)</font><b> Rufu5 [<em>~FLAPFLAP@ks3354855.kimsufi.com</em>] entered the room.</b><br/>
+<font size="2">(11:06:55 AM)</font><b> fr33k left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:07:23 AM)</font> <b>MichaelPaoli:</b></font> Walex There&apos;s an apt CDROM NoMount setting ... ah, and a mountpoint configuration ... let me see if I can get that to work file://localhost/usr/share/doc/apt/examples/configure-index.gz<br/>
+<font size="2">(11:07:27 AM)</font><b> Auroch left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(11:07:46 AM)</font><b> Walex left the room (quit: ).</b><br/>
+<font size="2">(11:08:40 AM)</font><b> AW3i_ [<em>~if@p508ED5E1.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(11:09:16 AM)</font><b> Goonhost left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(11:10:21 AM)</font><b> DeepDiver left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(11:10:26 AM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(11:10:39 AM)</font><b> Rufu5 left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(11:10:41 AM)</font><b> Rufu5 [<em>~FLAPFLAP@ks3354855.kimsufi.com</em>] entered the room.</b><br/>
+<font size="2">(11:10:43 AM)</font><b> DeepDiver [<em>~quassel@ci.tmit.eu</em>] entered the room.</b><br/>
+<font size="2">(11:10:52 AM)</font><b> sci4me [<em>~sci4me@host-166-150-111-24.midco.net</em>] entered the room.</b><br/>
+<font size="2">(11:11:46 AM)</font><b> sci4me left the room (quit: ).</b><br/>
+<font size="2">(11:12:02 AM)</font><b> ne0sis left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:12:06 AM)</font><b> ne0sis [<em>~quassel@41-135-83-150.dsl.mweb.co.za</em>] entered the room.</b><br/>
+<font size="2">(11:12:11 AM)</font><b> pkv left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:13:56 AM)</font><b> kssmani [<em>~kssmani@101.220.26.8</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:14:58 AM)</font> <b>kssmani:</b></font> hello can any one help me install vlc player and libreoffice in ubuntu studio 12.04<br/>
+<font size="2">(11:15:05 AM)</font><b> crunchbang [<em>~crunchban@188.4.219.124.dsl.dyn.forthnet.gr</em>] entered the room.</b><br/>
+<font size="2">(11:15:13 AM)</font><b> crunchbang left the room (quit: ).</b><br/>
+<font size="2">(11:15:50 AM)</font><b> Greylocks [<em>~Greylocks@66-87-31-64.pools.spcsdns.net</em>] entered the room.</b><br/>
+<font size="2">(11:17:48 AM)</font><b> emaxxim [<em>~emaxxim@87.18.170.165</em>] entered the room.</b><br/>
+<font size="2">(11:17:59 AM)</font><b> veindrain [<em>~veindrain@ppp079167075012.access.hol.gr</em>] entered the room.</b><br/>
+<font size="2">(11:21:33 AM)</font><b> pkv [<em>~pkv_@dau94-2-82-66-64-67.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(11:21:35 AM)</font><b> Rufu5 left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(11:22:51 AM)</font><b> newbie|2 [<em>~kvirc@5.172.211.133</em>] entered the room.</b><br/>
+<font size="2">(11:25:06 AM)</font><b> Rufu5 [<em>~FLAPFLAP@ks3354855.kimsufi.com</em>] entered the room.</b><br/>
+<font size="2">(11:28:50 AM)</font><b> glebihan__ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(11:32:33 AM)</font><b> glebihan [<em>~glebihan@brc29-h01-89-85-169-30.dsl.sta.abo.bbox.fr</em>] entered the room.</b><br/>
+<font size="2">(11:33:02 AM)</font><b> whirli [<em>~whirli@95.211.137.134</em>] entered the room.</b><br/>
+<font size="2">(11:34:52 AM)</font><b> idk [<em>~idk@h-210-229.a197.priv.bahnhof.se</em>] entered the room.</b><br/>
+<font size="2">(11:36:57 AM)</font><b> __iron [<em>~tobias@HSI-KBW-46-237-250-136.hsi.kabel-badenwuerttemberg.de</em>] entered the room.</b><br/>
+<font size="2">(11:38:06 AM)</font><b> pamaury [<em>~quassel@vit94-1-82-67-248-70.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(11:38:51 AM)</font><b> kssmani left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(11:41:48 AM)</font><b> Newa [<em>~Neva@a88-112-11-233.elisa-laajakaista.fi</em>] entered the room.</b><br/>
+<font size="2">(11:42:49 AM)</font><b> mode (+l 599) by debhelper</b><br/>
+<font size="2">(11:47:00 AM)</font><b> Calinou [<em>~Calinou@220.3.71.86.rev.sfr.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:48:20 AM)</font> <b>babilen:</b></font> MichaelPaoli: [arch=amd64] is an Ubuntuism and not needed on Debian as our mirrors provide all architectures. I had hoped that you could paste your output to http://paste.debian.net and provide us with the URL, but meh. I&apos;ll be back later and might take another look. The general idea is to loop mount the iso and add that with apt-cdrom.<br/>
+<font size="2">(11:48:58 AM)</font><b> IvanCosta [<em>~oftc-webi@179-236-23-16.user.veloxzone.com.br</em>] entered the room.</b><br/>
+<font size="2">(11:49:03 AM)</font><b> emaxxim left the room (quit: Quit: Sto andando via).</b><br/>
+<font color="#A82F2F"><font size="2">(11:49:14 AM)</font> <b>IvanCosta:</b></font> Hi, folks!<br/>
+<font color="#A82F2F"><font size="2">(11:49:45 AM)</font> <b>MichaelPaoli:</b></font> babilen I did paste to http://paste.debian.org ... and with multi-arch, without [arch=amd64] using file: method, it tries to get both amd64 and i386 ... from the amd64 cdrom ISO image.<br/>
+<font color="#A82F2F"><font size="2">(11:50:06 AM)</font> <b>IvanCosta:</b></font> Does anyone use Debian Live?<br/>
+<font color="#A82F2F"><font size="2">(11:50:25 AM)</font> <b>babilen:</b></font> MichaelPaoli: I&apos;ve never seen the URL and it is hard to find pastes without it as scripts paste to it too.<br/>
+<font color="#A82F2F"><font size="2">(11:50:35 AM)</font> <b>MichaelPaoli:</b></font> IvanCosta I use it on occasion - typically fire it up on a VM.<br/>
+<font color="#A82F2F"><font size="2">(11:50:46 AM)</font> <b>babilen:</b></font> IvanCosta: yes<br/>
+<font color="#A82F2F"><font size="2">(11:50:53 AM)</font> <b>babilen:</b></font> !next<br/>
+<font color="#A82F2F"><font size="2">(11:50:53 AM)</font> <b>dpkg:</b></font> A satisfied customer?  We should have him stuffed!<br/>
+<font size="2">(11:51:08 AM)</font><b> walken_ [<em>~walkenx@74-210-244-124.ri.cgocable.ca</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:51:27 AM)</font> <b>babilen:</b></font> IvanCosta: It is typically a better idea to simply ask your real question (unless that was your real question). Please note that there is also #debian-live.<br/>
+<font color="#A82F2F"><font size="2">(11:51:46 AM)</font> <b>MichaelPaoli:</b></font> babilen Ah, buggers ... paste didn&apos;t take - let me do that again.<br/>
+<font color="#A82F2F"><font size="2">(11:52:05 AM)</font> <b>babilen:</b></font> MichaelPaoli: I might take a look later :)<br/>
+<font color="#A82F2F"><font size="2">(11:52:14 AM)</font> <b>MichaelPaoli:</b></font> babilen Thanks.<br/>
+<font size="2">(11:52:32 AM)</font><b> johannes_ [<em>~johannes@p4FE3A997.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:52:39 AM)</font> <b>babilen:</b></font> MichaelPaoli: And I forgot that the iso is, naturall, arch specific :)<br/>
+<font size="2">(11:52:44 AM)</font><b> tdjb [<em>~tdjb@2ds.eu</em>] entered the room.</b><br/>
+<font size="2">(11:53:12 AM)</font><b> cybersphinx [<em>~cyber@HSI-KBW-37-209-102-196.hsi15.kabel-badenwuerttemberg.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:53:41 AM)</font> <b>IvanCosta:</b></font> I used Debain about a 2 years and always used live os just to fixed some file. Now, I want install from my live pen and the debian-installer-launcher doesn&apos;t  work.<br/>
+<font size="2">(11:54:03 AM)</font><b> jkf left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(11:54:22 AM)</font> <b>IvanCosta:</b></font> Is the third .iso that I downloaded and the same problem...<br/>
+<font color="#A82F2F"><font size="2">(11:55:05 AM)</font> <b>IvanCosta:</b></font> Anyone knows something about it?<br/>
+<font size="2">(11:55:56 AM)</font><b> jkf [<em>~Icedove@37.203.27.134</em>] entered the room.</b><br/>
+<font size="2">(11:56:25 AM)</font><b> ATS63 [<em>ATS63@b.clients.kiwiirc.com</em>] entered the room.</b><br/>
+<font size="2">(11:57:50 AM)</font><b> dpkg left the room (quit: Quit: buh bye!).</b><br/>
+<font size="2">(11:58:10 AM)</font><b> dpkg [<em>~dpkg@dpkg.bot.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(11:58:27 AM)</font><b> _aeris_ is now known as [_aeris_]</b><br/>
+<font size="2">(12:01:04 PM)</font><b> fakonbutty [<em>~joe@178.239.248.120</em>] entered the room.</b><br/>
+<font size="2">(12:01:10 PM)</font><b> fakonbutty left the room (quit: ).</b><br/>
+<font size="2">(12:02:49 PM)</font><b> mode (+l 605) by debhelper</b><br/>
+<font size="2">(12:03:56 PM)</font><b> claw_ left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(12:04:06 PM)</font><b> claw__ [<em>~claw@189-158-165-046.ip-addr.inexio.net</em>] entered the room.</b><br/>
+<font size="2">(12:06:22 PM)</font><b> devil_ [<em>~devil@00012f05.user.oftc.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:08:19 PM)</font> <b>babilen:</b></font> IvanCosta: I always use the &quot;real&quot; installer images for installations. Also:<br/>
+<font color="#A82F2F"><font size="2">(12:08:22 PM)</font> <b>babilen:</b></font> dpkg: doesn&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(12:08:23 PM)</font> <b>dpkg:</b></font> &quot;Doesn&apos;t work&quot; is a vague statement.  Does it sit on the couch all day long?  Does it procrastinate doing the dishes?  Does it beg on the street for change?  Please be specific!  Define &apos;it&apos; and what it isn&apos;t doing.  Give us more details so we can help you without needing to ask basic questions like &quot;what&apos;s the error message?&quot;.  Ask me about &lt;smart questions&gt;, &lt;sicco&gt; and &lt;errors&gt;.<br/>
+<font size="2">(12:09:26 PM)</font><b> Greylocks left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(12:10:33 PM)</font><b> devil left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(12:10:46 PM)</font><b> whirli left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:12:21 PM)</font> <b>SynrG:</b></font> ATS63: you had asked on #debian-eeepc:<br/>
+<font color="#A82F2F"><font size="2">(12:13:02 PM)</font> <b>SynrG:</b></font> &lt;ATS63&gt; Having trouble with a 701SD running 7.2 and connecting to my WiFi network... keeps saying the password is wrong yet it works on my android fine? Could anybody help?<br/>
+<font color="#A82F2F"><font size="2">(12:13:20 PM)</font> <b>SynrG:</b></font> as i said there, i&apos;m inclined to say you should try a kernel backport<br/>
+<font color="#A82F2F"><font size="2">(12:13:27 PM)</font> <b>ATS63:</b></font> Yep just trying that now<br/>
+<font color="#A82F2F"><font size="2">(12:14:05 PM)</font> <b>SynrG:</b></font> and just to confirm:<br/>
+<font color="#A82F2F"><font size="2">(12:14:10 PM)</font> <b>SynrG:</b></font> lspci -nn | grep -i network<br/>
+<font size="2">(12:14:14 PM)</font><b> sascha [<em>~sascha@dslb-188-101-229-191.pools.arcor-ip.net</em>] entered the room.</b><br/>
+<font size="2">(12:14:19 PM)</font><b> zlatan [<em>~zlatan@adsl-165-226-198.teol.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:14:43 PM)</font> <b>SynrG:</b></font> my understanding is that you have RTL8187SE, but I&apos;ve known ASUS to substitute other chipsets in some models, depending on where/when the device was made.<br/>
+<font color="#A82F2F"><font size="2">(12:14:59 PM)</font> <b>SynrG:</b></font> (without any change in model#)<br/>
+<font size="2">(12:16:58 PM)</font><b> Se-bash^2 [<em>~seba@host60.190-31-186.telecom.net.ar</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:17:10 PM)</font> <b>ATS63:</b></font> Yep 8187SE<br/>
+<font color="#A82F2F"><font size="2">(12:17:27 PM)</font> <b>ATS63:</b></font> Can&apos;t seem to get the copy and paste working in this web irc client :/<br/>
+<font size="2">(12:18:38 PM)</font><b> whirli [<em>~whirli@91.227.221.114</em>] entered the room.</b><br/>
+<font size="2">(12:19:47 PM)</font><b> Se-bash left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(12:19:47 PM)</font><b> Se-bash^2 is now known as Se-bash</b><br/>
+<font size="2">(12:20:24 PM)</font><b> zlatan left the room (Leaving).</b><br/>
+<font size="2">(12:20:26 PM)</font><b> whirling left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:20:39 PM)</font> <b>SynrG:</b></font> ATS63: ah well, no matter. the [####:####] from the end of that line is what i was after.<br/>
+<font color="#A82F2F"><font size="2">(12:21:00 PM)</font> <b>ATS63:</b></font> 01:00.0<br/>
+<font color="#A82F2F"><font size="2">(12:21:04 PM)</font> <b>SynrG:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(12:21:21 PM)</font> <b>ATS63:</b></font> ooh<br/>
+<font color="#A82F2F"><font size="2">(12:21:27 PM)</font> <b>ATS63:</b></font> 10ec:8199<br/>
+<font color="#A82F2F"><font size="2">(12:21:47 PM)</font> <b>SynrG:</b></font> ,pciid [10ec:8199]<br/>
+<font color="#A82F2F"><font size="2">(12:21:48 PM)</font> <b>judd:</b></font> [10ec:8199] is &apos;RTL8187SE Wireless LAN Controller&apos; from &apos;Realtek Semiconductor Co., Ltd.&apos; with kernel module &apos;<span style='font-weight: bold;'>r8187se</span>&apos; in <span style='font-weight: bold;'>wheezy</span>. See also http://kmuto.jp/debian/hcl/index.rhtmlx?check=1&amp;lspci=10ec:8199 http://wiki.debian.org/rtl818x<br/>
+<font size="2">(12:21:50 PM)</font><b> edhelas [<em>~edhelas@118.85.20.109.rev.sfr.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:22:28 PM)</font> <b>SynrG:</b></font> ATS63: and what kernel do you have? uname -r<br/>
+<font color="#A82F2F"><font size="2">(12:22:59 PM)</font> <b>SynrG:</b></font> ,kernels<br/>
+<font color="#A82F2F"><font size="2">(12:23:00 PM)</font> <b>judd:</b></font> Available kernel versions are: <span style='font-weight: bold;'>experimental</span>: 3.11-trunk-686-pae (3.11-1~exp1); <span style='font-weight: bold;'>sid</span>: 3.11-1-686-pae (3.11.5-1); <span style='font-weight: bold;'>jessie</span>: 3.10-3-686-pae (3.10.11-1); <span style='font-weight: bold;'>wheezy-backports</span>: 3.10-0.bpo.3-686-pae (3.10.11-1~bpo70+1); <span style='font-weight: bold;'>wheezy</span>: 3.2.0-4-686-pae (3.2.51-1); <span style='font-weight: bold;'>squeeze-backports</span>: 3.2.0-0.bpo.4-686-pae (3.2.46-1+deb7u1~bpo60+1); <span style='font-weight: bold;'>squeeze</span>: 2.6.32-5-686 (2.6.32-48squeeze4)<br/>
+<font color="#A82F2F"><font size="2">(12:23:03 PM)</font> <b>ATS63:</b></font> 3.2.0-4-686-pae<br/>
+<font color="#A82F2F"><font size="2">(12:23:34 PM)</font> <b>ATS63:</b></font> Now rebooting for 3.10-0.bpo.3-686-pae<br/>
+<font color="#A82F2F"><font size="2">(12:23:35 PM)</font> <b>SynrG:</b></font> good. so contrary to my recollection it wasn&apos;t supported until wheezy.<br/>
+<font color="#A82F2F"><font size="2">(12:24:02 PM)</font> <b>SynrG:</b></font> (the kmuto page says 2.6.34)<br/>
+<font color="#A82F2F"><font size="2">(12:24:27 PM)</font> <b>MichaelPaoli:</b></font> Walex babilen Okay, got it pasted: http://paste.debian.net/62193/<br/>
+<font color="#A82F2F"><font size="2">(12:24:57 PM)</font> <b>ATS63:</b></font> Really? The ubuntu I had was fairly old and it worked. And then I upgraded and it broke, heh<br/>
+<font color="#A82F2F"><font size="2">(12:25:10 PM)</font> <b>SynrG:</b></font> it might have been backported to a point-release of squeeze<br/>
+<font color="#A82F2F"><font size="2">(12:25:27 PM)</font> <b>SynrG:</b></font> and the ubuntu and debian kernels in old releases weren&apos;t necessarily in sync<br/>
+<font color="#A82F2F"><font size="2">(12:25:35 PM)</font> <b>gsimmons:</b></font> SynrG: No, rtl8187se was introduced in Linux 2.6.29.<br/>
+<font size="2">(12:25:42 PM)</font><b> houuser1 [<em>~user1@krlh-5f71db9e.pool.mediaWays.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:26:07 PM)</font> <b>SynrG:</b></font> gsimmons: introduced in is not the same as &quot;works perfectly&quot; :)<br/>
+<font color="#A82F2F"><font size="2">(12:26:18 PM)</font> <b>gsimmons:</b></font> True.<br/>
+<font color="#A82F2F"><font size="2">(12:26:46 PM)</font> <b>babilen:</b></font> MichaelPaoli: I never used that method of mounting. Please revert all that and manually *loop* mount the iso and check if that works.<br/>
+<font color="#A82F2F"><font size="2">(12:26:50 PM)</font> <b>SynrG:</b></font> it seems likely that some fixes went into squeeze in point releases, though, given it was introduced that long ago<br/>
+<font color="#A82F2F"><font size="2">(12:27:06 PM)</font> <b>SynrG:</b></font> there may be some regression here specific to 3.2 :p<br/>
+<font color="#A82F2F"><font size="2">(12:27:26 PM)</font> <b>gsimmons:</b></font> I think the driver is /still/ part of staging, if that&apos;s any indication of quality.<br/>
+<font color="#A82F2F"><font size="2">(12:27:32 PM)</font> <b>SynrG:</b></font> yeah<br/>
+<font size="2">(12:28:01 PM)</font><b> broucarie [<em>~bastien@mla78-1-82-240-16-166.fbx.proxad.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:28:02 PM)</font> <b>SynrG:</b></font> it&apos;s a really strange chipset used in few systems<br/>
+<font color="#A82F2F"><font size="2">(12:28:03 PM)</font> <b>MichaelPaoli:</b></font> babilen Manually loop mount the ISO where?  If I stick it on /cdrom it works.<br/>
+<font color="#A82F2F"><font size="2">(12:28:05 PM)</font> <b>ATS63:</b></font> No joy with the backport<br/>
+<font color="#A82F2F"><font size="2">(12:28:33 PM)</font> <b>MichaelPaoli:</b></font> babilen ... or /media/cdrom - I forget - whatever the apt default is (or they may be symlinked).<br/>
+<font color="#A82F2F"><font size="2">(12:28:48 PM)</font> <b>babilen:</b></font> MichaelPaoli: Whereever you want to mount it, it really doesn&apos;t matter. Add that to /etc/fstab and add it with apt-cdrom. <br/>
+<font color="#A82F2F"><font size="2">(12:29:05 PM)</font> <b>babilen:</b></font> (the /etc/fstab is not necessary)<br/>
+<font size="2">(12:29:05 PM)</font><b> OdyX left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(12:29:16 PM)</font> <b>babilen:</b></font> either way, have to run now. Good luck!<br/>
+<font color="#A82F2F"><font size="2">(12:29:58 PM)</font> <b>MichaelPaoli:</b></font> babilen But that&apos;s all there and been done - it&apos;s in /etc/fstab, mounted, mounts fine, validates fine, etc.<br/>
+<font size="2">(12:29:58 PM)</font><b> OdyX [<em>~OdyX@cl-229.gva-01.ch.sixxs.net</em>] entered the room.</b><br/>
+<font size="2">(12:30:32 PM)</font><b> houuser1 left the room (quit: ).</b><br/>
+<font size="2">(12:30:35 PM)</font><b> houuser1 [<em>~user1@krlh-5f71db9e.pool.mediaWays.net</em>] entered the room.</b><br/>
+<font size="2">(12:31:16 PM)</font><b> Brigo [<em>~Brigo@233.58.27.77.dynamic.mundo-r.com</em>] entered the room.</b><br/>
+<font size="2">(12:31:24 PM)</font><b> ATS63 left the room (quit: Quit: http://www.kiwiirc.com/ - A hand crafted IRC client).</b><br/>
+<font size="2">(12:31:36 PM)</font><b> houuser1 left the room (quit: ).</b><br/>
+<font size="2">(12:32:05 PM)</font><b> eman_ [<em>~eman@41.236.138.3</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:32:21 PM)</font> <b>babilen:</b></font> MichaelPaoli: So, why do you have all that mounting stuff configured?<br/>
+<font size="2">(12:32:31 PM)</font><b> ATS63 [<em>ATS63@b.clients.kiwiirc.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:32:47 PM)</font> <b>babilen:</b></font> (line 17-83) <br/>
+<font color="#A82F2F"><font size="2">(12:32:50 PM)</font> <b>babilen:</b></font> bbl<br/>
+<font size="2">(12:33:18 PM)</font><b> KiloSerria [<em>~KiloSerri@c-50-133-217-93.hsd1.vt.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:33:45 PM)</font> <b>MichaelPaoli:</b></font> babilen In apt?  Because if I don&apos;t, apt wants to mount it and umount it and wants to use the default location - which if course gets in the way of the default location of the actual optical drive.  Not to mention I also want to leave the ISO mounted, as it&apos;s often used by other VMs, etc.<br/>
+<font size="2">(12:34:06 PM)</font><b> eman_ left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(12:34:15 PM)</font> <b>ATS63:</b></font> hmm thats weird... apparently I forgot the password for my adsl modem and wifi access points... hah<br/>
+<font size="2">(12:35:36 PM)</font><b> zaihan [<em>~trakotoar@vil35-2-82-227-205-241.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(12:40:02 PM)</font><b> Greylocks [<em>~Greylocks@66-87-31-64.pools.spcsdns.net</em>] entered the room.</b><br/>
+<font size="2">(12:40:47 PM)</font><b> sascha left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(12:40:52 PM)</font><b> zaihan left the room (quit: Read error: No route to host).</b><br/>
+<font size="2">(12:40:53 PM)</font><b> zaihan_ [<em>~trakotoar@vil35-2-82-227-205-241.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(12:41:10 PM)</font><b> q66 [<em>~q66@213.191.105.214</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:41:13 PM)</font> <b>ATS63:</b></font> Ahh remembered the password<br/>
+<font size="2">(12:41:21 PM)</font><b> jez9999 [<em>~jez9999@82-69-83-224.dsl.in-addr.zen.co.uk</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:41:21 PM)</font> <b>jeffree:</b></font> what is it?<br/>
+<font color="#A82F2F"><font size="2">(12:41:30 PM)</font> <b>ATS63:</b></font> SynrG: it works if I downgrade the encryption to WEP. Neither WPA or WPA2 work<br/>
+<font color="#A82F2F"><font size="2">(12:42:04 PM)</font> <b>ATS63:</b></font> jeffree: NSApleasedontlook<br/>
+<font color="#A82F2F"><font size="2">(12:42:13 PM)</font> <b>jez9999:</b></font> Help.  I installed a Realtek driver package from here: http://www.realtek.com.tw/downloads/downloadsView.aspx?Langid=1&amp;PNid=13&amp;PFid=5&amp;Level=5&amp;Conn=4&amp;DownTypeID=3&amp;GetDown=false<br/>
+<font color="#A82F2F"><font size="2">(12:42:23 PM)</font> <b>jez9999:</b></font> called &quot;LINUX driver for kernel 3.x and 2.6.x and 2.4.x&quot;<br/>
+<font size="2">(12:42:39 PM)</font><b> Calinou left the room (quit: Quit: bye :)).</b><br/>
+<font color="#A82F2F"><font size="2">(12:42:41 PM)</font> <b>jeffree:</b></font> seems strong enough<br/>
+<font color="#A82F2F"><font size="2">(12:42:42 PM)</font> <b>jez9999:</b></font> it didn&apos;t do anything to make my sound work, but more importantly, it has made my eth1 interface disappear. :-(<br/>
+<font color="#A82F2F"><font size="2">(12:42:46 PM)</font> <b>jeffree:</b></font> but wait, wep?<br/>
+<font color="#A82F2F"><font size="2">(12:42:54 PM)</font> <b>jez9999:</b></font> even ifconfig -a doesn&apos;t show it now.  :-(<br/>
+<font color="#A82F2F"><font size="2">(12:43:06 PM)</font> <b>ATS63:</b></font> Yeah exactly, wep seems strong enough<br/>
+<font color="#A82F2F"><font size="2">(12:43:14 PM)</font> <b>ATS63:</b></font> The NSA won&apos;t look etc.<br/>
+<font color="#A82F2F"><font size="2">(12:43:23 PM)</font> <b>ATS63:</b></font> Google either<br/>
+<font color="#A82F2F"><font size="2">(12:43:34 PM)</font> <b>jeffree:</b></font> you know wep is weak, right?<br/>
+<font color="#A82F2F"><font size="2">(12:43:50 PM)</font> <b>ATS63:</b></font> You know there is a thing called sarcasm, right?<br/>
+<font color="#A82F2F"><font size="2">(12:43:57 PM)</font> <b>jeffree:</b></font> yes, just checking<br/>
+<font color="#A82F2F"><font size="2">(12:44:02 PM)</font> <b>jeffree:</b></font> I don&apos;t always get it<br/>
+<font size="2">(12:45:06 PM)</font><b> daniel_ [<em>~daniel@bl21-79-245.dsl.telepac.pt</em>] entered the room.</b><br/>
+<font size="2">(12:45:51 PM)</font><b> hele_ [<em>~hele@212-149-223-230.bb.dnainternet.fi</em>] entered the room.</b><br/>
+<font size="2">(12:46:42 PM)</font><b> newbie|2 left the room (quit: Quit: KVIrc 4.2.0 Equilibrium http://www.kvirc.net/).</b><br/>
+<font size="2">(12:47:06 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(12:47:08 PM)</font><b> lostatwork [<em>~lostatwor@cpe-107-10-68-37.new.res.rr.com</em>] entered the room.</b><br/>
+<font size="2">(12:47:20 PM)</font><b> harobed_ left the room (quit: Quit: My MacBook Pro has gone to sleep. ZZZzzz…).</b><br/>
+<font color="#A82F2F"><font size="2">(12:47:45 PM)</font> <b>ATS63:</b></font> Get what?<br/>
+<font size="2">(12:47:49 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:47:58 PM)</font> <b>jeffree:</b></font> the sarcasm<br/>
+<font color="#A82F2F"><font size="2">(12:48:07 PM)</font> <b>ATS63:</b></font> Sarcasm?<br/>
+<font color="#A82F2F"><font size="2">(12:48:08 PM)</font> <b>jeffree:</b></font> sometimes I am stupid<br/>
+<font color="#A82F2F"><font size="2">(12:48:10 PM)</font> <b>jeffree:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(12:48:17 PM)</font> <b>ATS63:</b></font> How?<br/>
+<font color="#A82F2F"><font size="2">(12:48:24 PM)</font> <b>jeffree:</b></font> how what? lol<br/>
+<font color="#A82F2F"><font size="2">(12:48:46 PM)</font> <b>jeffree:</b></font> there is no process to explain<br/>
+<font color="#A82F2F"><font size="2">(12:49:01 PM)</font> <b>KiloSerria:</b></font> Crunchbang?<br/>
+<font size="2">(12:49:07 PM)</font><b> daniel_ left the room (quit: ).</b><br/>
+<font size="2">(12:49:14 PM)</font><b> jez9999 left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(12:49:42 PM)</font><b> jez9999 [<em>~jez9999@82-69-83-224.dsl.in-addr.zen.co.uk</em>] entered the room.</b><br/>
+<font size="2">(12:51:00 PM)</font><b> jez9999 left the room (quit: ).</b><br/>
+<font size="2">(12:51:38 PM)</font><b> ogny left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(12:52:10 PM)</font><b> max_ [<em>~max@151.60.10.242</em>] entered the room.</b><br/>
+<font size="2">(12:53:33 PM)</font><b> ogny [<em>~orkun@78.186.152.96</em>] entered the room.</b><br/>
+<font size="2">(12:54:47 PM)</font><b> txomon|home [<em>~txomon@163.85-85-53.dynamic.clientes.euskaltel.es</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:54:57 PM)</font> <b>IvanCosta:</b></font> I&apos;m sorry, I was out.<br/>
+<font size="2">(12:55:47 PM)</font><b> max_ left the room (quit: ).</b><br/>
+<font size="2">(12:56:48 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(12:57:07 PM)</font> <b>KiloSerria:</b></font> crunchbang?<br/>
+<font size="2">(12:57:10 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:57:51 PM)</font> <b>IvanCosta:</b></font> The debian-installer-launcher doesn&apos;t nothing. So I went to terminal and execute it: &quot;./debian-installer-laucher 80: can&apos;t open plugins/*&quot;<br/>
+<font size="2">(12:58:01 PM)</font><b> jkf left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(12:58:13 PM)</font> <b>free-electron:</b></font> After now and then, syslog complains IRQ16 has been disabled, X feels sluggish. The only way to resolve the issue is to reboot. I&apos;m running Debian 7.2.<br/>
+<font color="#A82F2F"><font size="2">(12:58:29 PM)</font> <b>free-electron:</b></font> Here&apos;s my /proc/interrupts<br/>
+<font color="#A82F2F"><font size="2">(12:58:33 PM)</font> <b>free-electron:</b></font> https://gist.github.com/anonymous/7173721<br/>
+<font color="#A82F2F"><font size="2">(12:58:50 PM)</font> <b>IvanCosta:</b></font> Fews moments ago I downloaded the Debian 7 XFCE live and I had the same problem...<br/>
+<font size="2">(12:59:11 PM)</font><b> klatin__ [<em>~klatin@2001:4dd0:ff00:8510:beae:c5ff:fe28:9028</em>] entered the room.</b><br/>
+<font size="2">(01:02:05 PM)</font><b> ixi [<em>~ixi@0001ae3c.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(01:02:49 PM)</font><b> mode (+l 611) by debhelper</b><br/>
+<font size="2">(01:03:50 PM)</font><b> KiloSerria left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(01:04:11 PM)</font><b> zaihan_ left the room (quit: Quit: zaihan_).</b><br/>
+<font size="2">(01:04:17 PM)</font><b> Hauptfee [<em>~anna@2a01:388:201:3062:ea40:f2ff:fe3d:8a80</em>] entered the room.</b><br/>
+<font size="2">(01:05:03 PM)</font><b> Greylocks left the room (quit: Quit: WeeChat 0.4.2).</b><br/>
+<font size="2">(01:05:11 PM)</font><b> WildTux [<em>~WildTux@69.79.165.83.dynamic.mundo-r.com</em>] entered the room.</b><br/>
+<font size="2">(01:06:10 PM)</font><b> kriger left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(01:06:35 PM)</font><b> klatin_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(01:06:40 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:06:55 PM)</font><b> carnil_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:07:11 PM)</font><b> carnil_ [<em>~carnil@217-162-222-27.dynamic.hispeed.ch</em>] entered the room.</b><br/>
+<font size="2">(01:07:30 PM)</font><b> bst_ [<em>~bst@net43-0-245-109.mbb.telenor.rs</em>] entered the room.</b><br/>
+<font size="2">(01:07:53 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(01:07:56 PM)</font><b> hele_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:08:10 PM)</font><b> hele_ [<em>~hele@212-149-223-230.bb.dnainternet.fi</em>] entered the room.</b><br/>
+<font size="2">(01:10:10 PM)</font><b> Ad_m [<em>~Ad_m@82-160-246-71.tktelekom.pl</em>] entered the room.</b><br/>
+<font size="2">(01:10:53 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:11:13 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(01:14:00 PM)</font><b> WildTux left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(01:16:39 PM)</font><b> cads [<em>~m@adsl-108-128-2-141.asm.bellsouth.net</em>] entered the room.</b><br/>
+<font size="2">(01:18:05 PM)</font><b> IvanCosta left the room (quit: Quit: Page closed).</b><br/>
+<font size="2">(01:18:22 PM)</font><b> terriyu [<em>~terri@c-71-192-29-147.hsd1.ma.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(01:19:00 PM)</font><b> freedomrun left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(01:21:18 PM)</font><b> linuxtech left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:21:42 PM)</font><b> jalalsfs left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:22:42 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:22:58 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(01:23:13 PM)</font><b> knoppix_ [<em>~knoppix@92.240.208.100</em>] entered the room.</b><br/>
+<font size="2">(01:23:46 PM)</font><b> knoppix_ is now known as Guest3558</b><br/>
+<font size="2">(01:24:05 PM)</font><b> zlatan [<em>~zlatan@adsl-165-226-198.teol.net</em>] entered the room.</b><br/>
+<font size="2">(01:24:20 PM)</font><b> zlatan left the room.</b><br/>
+<font size="2">(01:24:39 PM)</font><b> arand left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(01:25:43 PM)</font><b> Ad_m left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(01:25:46 PM)</font><b> Guest3558 left the room (quit: ).</b><br/>
+<font size="2">(01:26:04 PM)</font><b> f10 [<em>~f10@188-192-180-37-dynip.superkabel.de</em>] entered the room.</b><br/>
+<font size="2">(01:26:06 PM)</font><b> francisco [<em>~smuxi@77.229.98.47</em>] entered the room.</b><br/>
+<font size="2">(01:26:36 PM)</font><b> francisco is now known as Guest3559</b><br/>
+<font size="2">(01:26:36 PM)</font><b> eepica left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(01:27:21 PM)</font><b> gem_ [<em>~nandaja@117.207.162.122</em>] entered the room.</b><br/>
+<font size="2">(01:28:54 PM)</font><b> eepica [<em>~eepica@181.48.97.81</em>] entered the room.</b><br/>
+<font size="2">(01:29:01 PM)</font><b> freedomrun [<em>~freedomru@0001b846.user.oftc.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:32:12 PM)</font> <b>MichaelPaoli:</b></font> babilen  http://paste.debian.net/62212/<br/>
+<font size="2">(01:32:12 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:32:47 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(01:33:18 PM)</font><b> WildTux [<em>~WildTux@69.79.165.83.dynamic.mundo-r.com</em>] entered the room.</b><br/>
+<font size="2">(01:34:47 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:35:06 PM)</font><b> WildTux left the room (quit: ).</b><br/>
+<font size="2">(01:35:15 PM)</font><b> jcfp [<em>~jcfp@lab3.dcia.co.kr</em>] entered the room.</b><br/>
+<font size="2">(01:35:15 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(01:35:37 PM)</font><b> hele_ left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(01:36:14 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:36:34 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(01:37:04 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:37:19 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(01:37:50 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:38:10 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(01:38:39 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:39:24 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(01:39:52 PM)</font><b> gem_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:40:53 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:41:07 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(01:41:46 PM)</font><b> nardev left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(01:42:37 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:43:01 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(01:43:24 PM)</font><b> Soul-Sing [<em>~soulzing@0001bd7f.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(01:45:30 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:46:02 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(01:47:28 PM)</font><b> Sammy8806 [<em>~steven@dyndsl-095-033-041-173.ewe-ip-backbone.de</em>] entered the room.</b><br/>
+<font size="2">(01:48:21 PM)</font><b> patwotrik left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:50:07 PM)</font><b> pkv left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:51:26 PM)</font> <b>SynrG:</b></font> ATS63: that&apos;s unfortunate. as gsimmons observed earlier, the driver is still in &apos;staging&apos; which bodes poorly for it ... if you ever hope to do better, you might replace the card.<br/>
+<font size="2">(01:53:02 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(01:53:35 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(01:54:12 PM)</font><b> derrick [<em>~oftc-webi@58.33.50.247</em>] entered the room.</b><br/>
+<font size="2">(01:54:35 PM)</font><b> derrick left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:55:57 PM)</font><b> gem_ [<em>~nandaja@117.216.94.84</em>] entered the room.</b><br/>
+<font size="2">(01:58:00 PM)</font><b> Ad_m [<em>~Ad_m@82-160-246-71.tktelekom.pl</em>] entered the room.</b><br/>
+<font size="2">(02:00:57 PM)</font><b> pkv [<em>~pkv_@dau94-2-82-66-64-67.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(02:01:26 PM)</font><b> tzafrir left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(02:01:32 PM)</font><b> buffoon left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(02:01:33 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(02:01:45 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(02:02:55 PM)</font><b> Soul-Sing left the room (quit: Quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(02:03:44 PM)</font><b> kraiskil [<em>~kraiskil@a91-152-242-225.elisa-laajakaista.fi</em>] entered the room.</b><br/>
+<font size="2">(02:03:44 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(02:04:02 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font size="2">(02:04:45 PM)</font><b> dotix [<em>~dotix@188.24.4.25</em>] entered the room.</b><br/>
+<font size="2">(02:08:28 PM)</font><b> derrick [<em>~oftc-webi@58.33.50.247</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:08:45 PM)</font> <b>derrick:</b></font> I need help installing my graphics driver<br/>
+<font color="#A82F2F"><font size="2">(02:08:54 PM)</font> <b>derrick:</b></font> gnome is in fallback mode<br/>
+<font size="2">(02:09:30 PM)</font><b> derrick left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#062585"><font size="2">(02:11:54 PM)</font> <b>***mshuler</b></font> shakes head<br/>
+<font size="2">(02:12:58 PM)</font><b> derrick [<em>~oftc-webi@58.33.50.247</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:13:06 PM)</font> <b>mshuler:</b></font> ..and he&apos;s back<br/>
+<font color="#A82F2F"><font size="2">(02:13:18 PM)</font> <b>mshuler:</b></font> what chipset, derrick?<br/>
+<font color="#A82F2F"><font size="2">(02:13:18 PM)</font> <b>derrick:</b></font> not sure what happened<br/>
+<font size="2">(02:13:24 PM)</font><b> maria [<em>~maria___@blk-237-107-38.eastlink.ca</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:13:44 PM)</font> <b>derrick:</b></font> not sure, would that be in the lspci result?<br/>
+<font color="#A82F2F"><font size="2">(02:13:59 PM)</font> <b>mshuler:</b></font> yes, that should help figure it out<br/>
+<font size="2">(02:13:59 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(02:14:33 PM)</font><b> KittenGNU [<em>~Stop@158.193.202.84.customer.cdi.no</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:14:45 PM)</font> <b>mshuler:</b></font> derrick: look for the VGA line<br/>
+<font color="#A82F2F"><font size="2">(02:14:50 PM)</font> <b>derrick:</b></font> 00:00.0 Host bridge: Intel Corporation Core Processor DRAM Controller (rev 02) 00:01.0 PCI bridge: Intel Corporation Core Processor PCI Express x16 Root Port (rev 02) 00:16.0 Communication controller: Intel Corporation 5 Series/3400 Series Chipset HECI Controller (rev 06)<br/>
+<font size="2">(02:14:52 PM)</font><b> davide_ [<em>~davide@151.95.21.83</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:15:04 PM)</font> <b>derrick:</b></font> that is the first 3 lines<br/>
+<font size="2">(02:15:17 PM)</font><b> davide_ left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:16:06 PM)</font> <b>mshuler:</b></font> none of which is your VGA line ;)<br/>
+<font color="#A82F2F"><font size="2">(02:16:35 PM)</font> <b>derrick:</b></font> 01:00.0 VGA compatible controller: Advanced Micro Devices [AMD] nee ATI Manhattan [Mobility Radeon HD 5430 Series]<br/>
+<font size="2">(02:16:46 PM)</font><b> gjerich [<em>~quassel@BSN-143-119-82.dial-up.dsl.siol.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:16:55 PM)</font> <b>derrick:</b></font> does that help?<br/>
+<font color="#A82F2F"><font size="2">(02:17:06 PM)</font> <b>mshuler:</b></font> !radeon<br/>
+<font color="#A82F2F"><font size="2">(02:17:06 PM)</font> <b>dpkg:</b></font> Radeon is a brand of graphic processing units by AMD/ATI (http://en.wikipedia.org/wiki/Radeon).  The radeon open source display driver is packaged for Debian as xserver-xorg-video-radeon, optionally install libgl1-mesa-dri for 3D acceleration.  Also ask me about &lt;radeon firmware&gt;, &lt;radeon audio&gt;.  http://wiki.debian.org/AtiHowTo  http://x.org/wiki/radeon  #radeon on irc.freenode.net.  For the proprietary driver, see &lt;fglrx&gt;.<br/>
+<font size="2">(02:17:20 PM)</font><b> tzafrir [<em>~tzafrir@local.xorcom.com</em>] entered the room.</b><br/>
+<font size="2">(02:17:49 PM)</font><b> visionsmile [<em>~visionsmi@125.47.124.212</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:17:52 PM)</font> <b>mshuler:</b></font> derrick: I think installing libgl1-mesa-dri should get you 3D with the radeon driver - try that<br/>
+<font color="#A82F2F"><font size="2">(02:17:59 PM)</font> <b>derrick:</b></font> not sure what all that means<br/>
+<font color="#A82F2F"><font size="2">(02:18:10 PM)</font> <b>derrick:</b></font> ok thanks<br/>
+<font color="#A82F2F"><font size="2">(02:18:39 PM)</font> <b>mshuler:</b></font> derrick: the dpkg bot has all kinds of help - /msg dpkg &lt;terms&gt; in your irc client to get help<br/>
+<font size="2">(02:19:07 PM)</font><b> JanC left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:19:08 PM)</font> <b>mshuler:</b></font> for instance, if you want more info on the above referenced non-free drivers<br/>
+<font size="2">(02:19:11 PM)</font><b> saberros1776 [<em>~saberros1@72.135.100.116</em>] entered the room.</b><br/>
+<font size="2">(02:19:22 PM)</font><b> saberros1776 left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(02:20:04 PM)</font> <b>derrick:</b></font> synaptic says that is already installed<br/>
+<font color="#A82F2F"><font size="2">(02:20:58 PM)</font> <b>mshuler:</b></font> hmm..<br/>
+<font color="#A82F2F"><font size="2">(02:21:06 PM)</font> <b>derrick:</b></font> xserver-xorg-video-radeon<br/>
+<font color="#A82F2F"><font size="2">(02:21:12 PM)</font> <b>derrick:</b></font> is installed as well<br/>
+<font size="2">(02:21:35 PM)</font><b> thunderrd left the room (quit: Quit: If it wasn&apos;t written down, it didn&apos;t happen...).</b><br/>
+<font color="#A82F2F"><font size="2">(02:21:38 PM)</font> <b>mshuler:</b></font> derrick: what does &apos;glxinfo |grep -i render&apos; give you - do you get a Yes for direct rendering?<br/>
+<font color="#A82F2F"><font size="2">(02:21:52 PM)</font> <b>derrick:</b></font> I tried to follow some direction on the debian site to install the proprietary driver but that resulted in no gnome just tty<br/>
+<font size="2">(02:22:00 PM)</font><b> Blacker47 [<em>~Blacker47@p57A918D6.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:22:22 PM)</font> <b>mshuler:</b></font> oh, so you might be running fglrx?<br/>
+<font size="2">(02:22:25 PM)</font><b> gmarselis [<em>~kot@109.171.130.210</em>] entered the room.</b><br/>
+<font size="2">(02:22:25 PM)</font><b> KittenGNU left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(02:22:37 PM)</font> <b>derrick:</b></font> direct rendering: Yes OpenGL renderer string: Gallium 0.4 on llvmpipe (LLVM 0x209)     GL_NV_conditional_render, GL_AMD_draw_buffers_blend, <br/>
+<font size="2">(02:22:55 PM)</font><b> harobed [<em>~stephane@office.bearstech.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:23:00 PM)</font> <b>derrick:</b></font> I am running fglrx<br/>
+<font color="#A82F2F"><font size="2">(02:23:08 PM)</font> <b>derrick:</b></font> it is installed<br/>
+<font size="2">(02:23:19 PM)</font><b> bnw [<em>~bnw@183.17.182.128</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:23:21 PM)</font> <b>derrick:</b></font> but not working<br/>
+<font size="2">(02:23:26 PM)</font><b> visionsmile left the room (quit: Quit: 离开).</b><br/>
+<font size="2">(02:23:27 PM)</font><b> gjerich_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:23:28 PM)</font> <b>mshuler:</b></font> ok, that looks fine to me - as for gnome not behaving...<br/>
+<font color="#A82F2F"><font size="2">(02:23:30 PM)</font> <b>mshuler:</b></font>  ¯\_(ツ)_/¯<br/>
+<font color="#A82F2F"><font size="2">(02:23:39 PM)</font> <b>mshuler:</b></font> I don&apos;t use gnome<br/>
+<font color="#A82F2F"><font size="2">(02:23:45 PM)</font> <b>derrick:</b></font> gnome fallback isn&apos;t so great<br/>
+<font size="2">(02:24:16 PM)</font><b> magellanino left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:24:20 PM)</font> <b>derrick:</b></font> I like it fine, I have debian testing installed on an eeepc, I am fine with it<br/>
+<font color="#A82F2F"><font size="2">(02:24:30 PM)</font> <b>mshuler:</b></font> hang out - someone else here might be able to help (or there are alternative DEs like KDE)<br/>
+<font color="#A82F2F"><font size="2">(02:24:42 PM)</font> <b>derrick:</b></font> thanks,<br/>
+<font size="2">(02:24:44 PM)</font><b> thunderrd [<em>~thunderrd@119.42.78.69</em>] entered the room.</b><br/>
+<font size="2">(02:24:53 PM)</font><b> Che-Anarch [<em>~aphoriser@D97AC432.cm-3-3d.dynamic.ziggo.nl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:25:25 PM)</font> <b>mshuler:</b></font> derrick: are you using stable/wheezy, by the way?<br/>
+<font color="#A82F2F"><font size="2">(02:25:38 PM)</font> <b>derrick:</b></font> stable<br/>
+<font color="#A82F2F"><font size="2">(02:25:41 PM)</font> <b>derrick:</b></font> fresh install<br/>
+<font size="2">(02:25:49 PM)</font><b> magellanino [<em>~magellani@magellanino.user.oftc.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:26:30 PM)</font> <b>derrick:</b></font> the amd website says I should use their 13.4 driver but not sure what to do once Ii get it downloaded<br/>
+<font color="#A82F2F"><font size="2">(02:26:35 PM)</font> <b>mshuler:</b></font> you might paste your xorg log on http://paste.debian.net/ and post the link<br/>
+<font color="#A82F2F"><font size="2">(02:26:48 PM)</font> <b>derrick:</b></font> how to I get that?<br/>
+<font size="2">(02:27:06 PM)</font><b> Che-Anarc left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(02:27:45 PM)</font><b> JanC [<em>~janc@ip-83-134-158-118.dsl.scarlet.be</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:27:51 PM)</font> <b>mshuler:</b></font> oh, that would be /var/log/Xorg.0.log<br/>
+<font size="2">(02:29:33 PM)</font><b> Ad_m left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(02:29:47 PM)</font><b> Ad_m [<em>~Ad_m@82-160-246-71.tktelekom.pl</em>] entered the room.</b><br/>
+<font size="2">(02:30:34 PM)</font><b> swo [<em>~swo@ip-84-118-179-170.unity-media.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:31:12 PM)</font> <b>derrick:</b></font> here it is paste.debian.net/62225<br/>
+<font size="2">(02:31:18 PM)</font><b> f10 left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:32:19 PM)</font> <b>derrick:</b></font> anyone have experience with amd/ati graphic drivers? <br/>
+<font size="2">(02:32:36 PM)</font><b> swo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:33:14 PM)</font><b> gmarselis left the room (quit: Quit: Leaving...).</b><br/>
+<font size="2">(02:33:14 PM)</font><b> swo [<em>~swo@ip-84-118-179-170.unity-media.net</em>] entered the room.</b><br/>
+<font size="2">(02:33:17 PM)</font><b> swo left the room (quit: ).</b><br/>
+<font size="2">(02:34:37 PM)</font><b> swo [<em>~swo@ip-84-118-179-170.unity-media.net</em>] entered the room.</b><br/>
+<font size="2">(02:35:03 PM)</font><b> gmarselis [<em>~kot@109.171.130.210</em>] entered the room.</b><br/>
+<font size="2">(02:35:05 PM)</font><b> gmarselis left the room (quit: ).</b><br/>
+<font size="2">(02:35:41 PM)</font><b> TomasCZ [<em>~TomasCZ@yes.tenlab.net</em>] entered the room.</b><br/>
+<font size="2">(02:37:02 PM)</font><b> gmarselis [<em>~kot@109.171.130.210</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:37:35 PM)</font> <b>rudi_s:</b></font> !amd<br/>
+<font color="#A82F2F"><font size="2">(02:37:35 PM)</font> <b>dpkg:</b></font> Advanced Micro Devices is a semiconductor manufacturer.  For support of ATI/AMD graphics hardware, ask me about &lt;ati&gt;.  See also &lt;amd64&gt;, &lt;coolnquiet&gt;, &lt;k7&gt;.<br/>
+<font color="#A82F2F"><font size="2">(02:37:39 PM)</font> <b>rudi_s:</b></font> !nvidia<br/>
+<font color="#A82F2F"><font size="2">(02:37:39 PM)</font> <b>dpkg:</b></font> Where possible, Nvidia graphic processing units are supported using the open source &lt;nouveau&gt; driver on Debian systems by default.  To install the proprietary &quot;nvidia&quot; driver, see http://wiki.debian.org/NvidiaGraphicsDrivers or ask me about &lt;nvidia dkms&gt;, &lt;nvidia legacy&gt;; installing this directly from nvidia.com (i.e. with &lt;nvidia-installer&gt;) is _not_ supported in #debian, please go to #nvidia on irc.freenode.net.<br/>
+<font color="#A82F2F"><font size="2">(02:37:47 PM)</font> <b>rudi_s:</b></font> derrick: ^<br/>
+<font size="2">(02:38:46 PM)</font><b> project2501a [<em>~kot@109.171.130.210</em>] entered the room.</b><br/>
+<font size="2">(02:38:48 PM)</font><b> gmarselis left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(02:38:51 PM)</font><b> lukey left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(02:39:59 PM)</font><b> gmarselis [<em>~kot@109.171.130.224</em>] entered the room.</b><br/>
+<font size="2">(02:40:02 PM)</font><b> lukey [<em>~lukey@cpc18-nrwh9-2-0-cust491.4-4.cable.virginm.net</em>] entered the room.</b><br/>
+<font size="2">(02:40:53 PM)</font><b> rsalveti left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(02:40:53 PM)</font><b> ijurisic [<em>~ijurisic@46.165.208.207</em>] entered the room.</b><br/>
+<font size="2">(02:41:11 PM)</font><b> ijurisic left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(02:42:17 PM)</font> <b>derrick:</b></font> gnome is in fallback mode, I am thinking it must be the driver problem<br/>
+<font size="2">(02:42:34 PM)</font><b> rsalveti [<em>~rsalveti@186.214.60.168</em>] entered the room.</b><br/>
+<font size="2">(02:42:57 PM)</font><b> mode (+l 617) by debhelper</b><br/>
+<font size="2">(02:45:38 PM)</font><b> project2501a left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(02:45:58 PM)</font><b> lukey left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:46:09 PM)</font><b> veindrain left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(02:46:12 PM)</font><b> OWNSyouAll_DESKTOP left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(02:46:37 PM)</font><b> OWNSyouAll_DESKTOP [<em>~OWNSyouAl@96.36.14.3</em>] entered the room.</b><br/>
+<font size="2">(02:46:38 PM)</font><b> lukey [<em>~lukey@cpc18-nrwh9-2-0-cust491.4-4.cable.virginm.net</em>] entered the room.</b><br/>
+<font size="2">(02:46:49 PM)</font><b> lukey left the room (quit: ).</b><br/>
+<font size="2">(02:48:36 PM)</font><b> TomasCZ left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(02:49:03 PM)</font><b> derrick left the room (quit: Quit: Page closed).</b><br/>
+<font size="2">(02:49:55 PM)</font><b> Greylocks [<em>~Greylocks@66-87-31-64.pools.spcsdns.net</em>] entered the room.</b><br/>
+<font size="2">(02:50:48 PM)</font><b> bnw left the room (quit: Quit: 离开).</b><br/>
+<font size="2">(02:51:01 PM)</font><b> nardev [<em>~nardev@46.36.177.29</em>] entered the room.</b><br/>
+<font size="2">(02:51:03 PM)</font><b> bnw [<em>~bnw@183.17.182.128</em>] entered the room.</b><br/>
+<font size="2">(02:51:14 PM)</font><b> bnw left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(02:51:29 PM)</font><b> bnw [<em>~bnw@183.17.182.128</em>] entered the room.</b><br/>
+<font size="2">(02:52:41 PM)</font><b> lukey [<em>~lukey@cpc18-nrwh9-2-0-cust491.4-4.cable.virginm.net</em>] entered the room.</b><br/>
+<font size="2">(02:52:47 PM)</font><b> Ad_m left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(02:54:06 PM)</font><b> swo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:55:00 PM)</font><b> nadir [<em>~dude@pD9EF1AD4.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(02:55:26 PM)</font><b> whirling [<em>~whirli@a88-113-159-160.elisa-laajakaista.fi</em>] entered the room.</b><br/>
+<font size="2">(02:56:01 PM)</font><b> garras [<em>~garras@adsl-ull-88-34.42-151.net24.it</em>] entered the room.</b><br/>
+<font size="2">(02:56:18 PM)</font><b> sevenic_yiuan_dicdeeor left the room (quit: Quit: Konversation on ).</b><br/>
+<font size="2">(02:56:46 PM)</font><b> garras left the room (quit: ).</b><br/>
+<font size="2">(02:57:16 PM)</font><b> whirli left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(02:57:50 PM)</font><b> shanttu [<em>~shanttu@dsl-hkibrasgw3-58c0fc-218.dhcp.inet.fi</em>] entered the room.</b><br/>
+<font size="2">(02:57:50 PM)</font><b> lukey left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:58:12 PM)</font><b> Ad_m [<em>~Ad_m@82-160-246-71.tktelekom.pl</em>] entered the room.</b><br/>
+<font size="2">(02:59:33 PM)</font><b> aranax [<em>~aranax@190.148.56.34</em>] entered the room.</b><br/>
+<font size="2">(02:59:38 PM)</font><b> ddf [<em>~fdd@00015d15.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(03:00:09 PM)</font><b> nardev left the room (quit: Quit: Ex-Chat).</b><br/>
+<font size="2">(03:00:17 PM)</font><b> daniel-s_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(03:00:39 PM)</font><b> daniel-s_ [<em>~daniel-s@2001:388:608c:4c40:e144:1b73:a27e:9df4</em>] entered the room.</b><br/>
+<font size="2">(03:00:48 PM)</font><b> lukey [<em>~lukey@cpc18-nrwh9-2-0-cust491.4-4.cable.virginm.net</em>] entered the room.</b><br/>
+<font size="2">(03:01:21 PM)</font><b> broucarie left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(03:04:31 PM)</font><b> lduros [<em>~user@pool-72-78-80-230.phlapa.fios.verizon.net</em>] entered the room.</b><br/>
+<font size="2">(03:04:46 PM)</font><b> derrick [<em>~oftc-webi@58.33.50.247</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:05:29 PM)</font> <b>derrick:</b></font> gnome is running in fallback mode, I think itis the graphics driver, anyone have experience?<br/>
+<font size="2">(03:07:38 PM)</font><b> swo [<em>~swo@ip-84-118-179-170.unity-media.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:08:16 PM)</font> <b>derrick:</b></font> if I download the driver.zip file then how do I install?<br/>
+<font size="2">(03:08:20 PM)</font><b> themill left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(03:11:15 PM)</font><b> debianer_ [<em>~smuxi@p5B042CA2.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(03:11:55 PM)</font><b> nebular [<em>~quassel@105-237-45-184.access.mtnbusiness.co.za</em>] entered the room.</b><br/>
+<font size="2">(03:13:16 PM)</font><b> nebular left the room (quit: ).</b><br/>
+<font size="2">(03:13:32 PM)</font><b> calisto [<em>~calisto@r186-49-1-197.dialup.adsl.anteldata.net.uy</em>] entered the room.</b><br/>
+<font size="2">(03:14:08 PM)</font><b> debalance [<em>~debalance@xdsl-89-0-19-122.netcologne.de</em>] entered the room.</b><br/>
+<font size="2">(03:14:55 PM)</font><b> kilian_ left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(03:14:58 PM)</font> <b>debianer_:</b></font> Hi there. I have a digital camera, which will not mounted if I plug the camera in. Any ideas?<br/>
+<font size="2">(03:15:38 PM)</font><b> debalance left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(03:16:50 PM)</font><b> bnw left the room (quit: Quit: 离开).</b><br/>
+<font color="#A82F2F"><font size="2">(03:19:22 PM)</font> <b>nadir:</b></font> I have set the date with &quot;date -s 2013:10:27&quot; How do i set the time with the command date?<br/>
+<font size="2">(03:20:44 PM)</font><b> derrick left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(03:20:50 PM)</font><b> project2501a [<em>~kot@109.171.130.210</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:21:42 PM)</font> <b>ixi:</b></font> date --set=&quot;2004-02-29 16:21:42&quot;<br/>
+<font size="2">(03:21:50 PM)</font><b> mtn [<em>~mtn@174.32.161.70</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:22:08 PM)</font> <b>ixi:</b></font> or so<br/>
+<font color="#A82F2F"><font size="2">(03:22:25 PM)</font> <b>ixi:</b></font> debianer_ explain &quot;will not mounted&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:22:52 PM)</font> <b>nadir:</b></font> ixi: yup, thanks. (I missed the quotes ... duh)<br/>
+<font color="#A82F2F"><font size="2">(03:24:54 PM)</font> <b>debianer_:</b></font> ixi: It is detected by the system (&quot;lsusb&quot; shows the camera), but there is no mass media device.<br/>
+<font size="2">(03:25:03 PM)</font><b> dotix left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(03:25:38 PM)</font> <b>ixi:</b></font> debianer_ explain &quot;mass media device&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:26:19 PM)</font> <b>debianer_:</b></font> ixi: It´s like a usb device. You can plug it in and can copy files from them with the filemanger.<br/>
+<font color="#A82F2F"><font size="2">(03:26:46 PM)</font> <b>debianer_:</b></font> ixi: Do you know, what I mean?<br/>
+<font color="#A82F2F"><font size="2">(03:26:47 PM)</font> <b>ixi:</b></font> what does a camera have to do with copying files though<br/>
+<font color="#A82F2F"><font size="2">(03:26:57 PM)</font> <b>ixi:</b></font> no, I don&apos;t know what you mean<br/>
+<font color="#A82F2F"><font size="2">(03:27:01 PM)</font> <b>ixi:</b></font> what is your expected result?<br/>
+<font size="2">(03:27:04 PM)</font><b> victorrium [<em>~smuxi@log77-2-82-242-11-75.fbx.proxad.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:27:17 PM)</font> <b>mtn:</b></font> he means mass storage device I bet<br/>
+<font color="#A82F2F"><font size="2">(03:27:17 PM)</font> <b>debianer_:</b></font> ixi: I want to copy files from the camera with a filemanager.<br/>
+<font color="#A82F2F"><font size="2">(03:27:25 PM)</font> <b>ixi:</b></font> O_o<br/>
+<font color="#A82F2F"><font size="2">(03:27:31 PM)</font> <b>nadir:</b></font> Short ago someone reported problems with usb-devices in #debian-next. If you are running a new(er) kernel you might keep that in mind, as a possiple culprit.<br/>
+<font color="#A82F2F"><font size="2">(03:27:34 PM)</font> <b>ixi:</b></font> debianer_ what camera hardware is that<br/>
+<font color="#A82F2F"><font size="2">(03:27:56 PM)</font> <b>debianer_:</b></font> ID 040a:058b Kodak Co. Digital Camera<br/>
+<font color="#A82F2F"><font size="2">(03:28:23 PM)</font> <b>ixi:</b></font> does it support mounting it as block device ?<br/>
+<font size="2">(03:28:23 PM)</font><b> gmarselis left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(03:28:55 PM)</font><b> pkv left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(03:29:13 PM)</font><b> Raziel [<em>Raziel@2a01:388:201:4190:84b4:afbc:b1c6:936b</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:29:18 PM)</font> <b>Raziel:</b></font> Where&apos;d monkeys-audio go?<br/>
+<font color="#A82F2F"><font size="2">(03:29:20 PM)</font> <b>debianer_:</b></font> ixi: I don´t really know. On an old Ubuntu 10.10 installation it works. But now I switched my system to debian wheezy. <br/>
+<font color="#A82F2F"><font size="2">(03:30:22 PM)</font> <b>gsimmons:</b></font> dpkg: tell Raziel -about ape<br/>
+<font color="#A82F2F"><font size="2">(03:30:59 PM)</font> <b>ixi:</b></font> I don&apos;t know how much hand holding goes on in ubuntu as far as cameras are concerned<br/>
+<font color="#A82F2F"><font size="2">(03:31:16 PM)</font> <b>Raziel:</b></font> I tried to add deb-multimedia to sources but it gets ignored :/<br/>
+<font color="#A82F2F"><font size="2">(03:31:32 PM)</font> <b>ixi:</b></font> in any case, investigate whether your camera model supports ptp and see if you can use that (via libgphoto2)<br/>
+<font color="#A82F2F"><font size="2">(03:31:37 PM)</font> <b>ixi:</b></font> also, pastebin dmesg<br/>
+<font color="#A82F2F"><font size="2">(03:31:42 PM)</font> <b>Raziel:</b></font> Also, is deb-multimedia trusted?<br/>
+<font size="2">(03:32:01 PM)</font><b> sc [<em>~sc@host-95-199-3-139.mobileonline.telia.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:32:07 PM)</font> <b>ixi:</b></font> depends on how you define trusted.<br/>
+<font size="2">(03:32:48 PM)</font><b> SeySayux_ [<em>SeySayux@91.176.233.170</em>] entered the room.</b><br/>
+<font size="2">(03:33:15 PM)</font><b> sc left the room.</b><br/>
+<font size="2">(03:33:23 PM)</font><b> SeySayux left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(03:33:23 PM)</font><b> SeySayux_ is now known as SeySayux</b><br/>
+<font size="2">(03:33:45 PM)</font><b> ModernPragmatist left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(03:34:44 PM)</font> <b>debianer_:</b></font> ixi: http://pastebin.com/ZCKvVTPF &lt;- my log<br/>
+<font color="#A82F2F"><font size="2">(03:35:57 PM)</font> <b>ixi:</b></font> well<br/>
+<font size="2">(03:35:58 PM)</font><b> william [<em>~smuxi@c-69-143-255-223.hsd1.md.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:36:04 PM)</font> <b>ixi:</b></font> seems like it does support ptp ?<br/>
+<font color="#A82F2F"><font size="2">(03:36:33 PM)</font> <b>gsimmons:</b></font> Raziel: You likely need to install the deb-multimedia-keyring package from that repository (/msg dpkg dmmw) or use apt-key manually (/msg dpkg apt-key 1F41B907).  If you only need decoding support for Monkey&apos;s Audio, FFmpeg/LibAV is already capable.<br/>
+<font color="#A82F2F"><font size="2">(03:37:08 PM)</font> <b>debianer_:</b></font> ixi: jep. what i have to do?<br/>
+<font color="#A82F2F"><font size="2">(03:38:36 PM)</font> <b>ixi:</b></font> debianer_ look at package gphotofs<br/>
+<font color="#A82F2F"><font size="2">(03:38:43 PM)</font> <b>ixi:</b></font> read it&apos;s manual<br/>
+<font color="#A82F2F"><font size="2">(03:38:50 PM)</font> <b>ixi:</b></font> see if it will allow you to &apos;mount&apos; your camera<br/>
+<font size="2">(03:38:56 PM)</font><b> johannes_ left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(03:44:09 PM)</font><b> victorrium left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(03:44:56 PM)</font><b> variable_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(03:45:29 PM)</font><b> vrkalak [<em>~vrkalak@173.5.127.159</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:45:49 PM)</font> <b>debianer_:</b></font> ixi: mounting works (I get no errors on the terminal) but there are no files inside the mountpoint<br/>
+<font color="#A82F2F"><font size="2">(03:46:44 PM)</font> <b>ixi:</b></font> any errors in dmesg?<br/>
+<font color="#A82F2F"><font size="2">(03:47:34 PM)</font> <b>ixi:</b></font> also, since it&apos;s a FUSE thingy, you need to be in a fuse group or be root<br/>
+<font size="2">(03:47:59 PM)</font><b> elementary [<em>~elementar@modemcable079.63-22-96.mc.videotron.ca</em>] entered the room.</b><br/>
+<font size="2">(03:49:54 PM)</font><b> jalalsfs [<em>~jalal@183.83.138.58</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:51:14 PM)</font> <b>debianer_:</b></font> ixi: in dmesg is nothing special; and I´am root <br/>
+<font size="2">(03:54:29 PM)</font><b> pkv [<em>~pkv_@dau94-2-82-66-64-67.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(04:00:28 PM)</font><b> sakal left the room (quit: Quit: Ex-Chat: Sic itur ad astra).</b><br/>
+<font size="2">(04:01:25 PM)</font><b> Skald_9_ [<em>~bert@d51535828.access.telenet.be</em>] entered the room.</b><br/>
+<font size="2">(04:02:57 PM)</font><b> bluewater left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(04:04:28 PM)</font><b> mythos left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(04:05:36 PM)</font><b> a_muva [<em>~a_muva@184.101.198.211</em>] entered the room.</b><br/>
+<font size="2">(04:09:24 PM)</font><b> fae [<em>~fabrice@lec67-3-82-242-207-169.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(04:10:11 PM)</font><b> gyx [<em>~culugyx@2607:f470:24:3:c2c:bad2:e895:c7dc</em>] entered the room.</b><br/>
+<font size="2">(04:10:18 PM)</font><b> pep [<em>~Pep@78.212.78.39</em>] entered the room.</b><br/>
+<font size="2">(04:10:21 PM)</font><b> ivanoov left the room (Goto дома).</b><br/>
+<font color="#A82F2F"><font size="2">(04:10:35 PM)</font> <b>debianer_:</b></font> thanks ixi: I found a useful script: http://sourceforge.net/projects/ptpudevscript/<br/>
+<font size="2">(04:11:28 PM)</font><b> debianer_ left the room.</b><br/>
+<font size="2">(04:11:56 PM)</font><b> darkbasic_ [<em>~quassel@niko.linuxsystems.it</em>] entered the room.</b><br/>
+<font size="2">(04:12:34 PM)</font><b> darkbasic left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(04:12:43 PM)</font><b> postblue [<em>~postblue_@0001b248.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(04:15:19 PM)</font><b> [_aeris_] is now known as _aeris_</b><br/>
+<font size="2">(04:16:13 PM)</font><b> Ad_m left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(04:17:37 PM)</font><b> roughnecks [<em>~irc@000181db.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(04:19:11 PM)</font><b> swo left the room (quit: Quit: Kein bock mehr.).</b><br/>
+<font size="2">(04:19:21 PM)</font><b> mythos [<em>~mythos@chello080109227218.1.uni-klu.teleweb.at</em>] entered the room.</b><br/>
+<font size="2">(04:19:56 PM)</font><b> catsup left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(04:20:06 PM)</font> <b>elementary:</b></font> Hello.<br/>
+<font size="2">(04:20:21 PM)</font><b> catsup [<em>~d@64.111.123.163</em>] entered the room.</b><br/>
+<font size="2">(04:20:32 PM)</font><b> gem_ left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(04:22:03 PM)</font><b> cads left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(04:25:32 PM)</font><b> Nik05 left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(04:26:46 PM)</font><b> Nik05 [<em>~Nik05@0001a8cd.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(04:28:49 PM)</font><b> Ad_m [<em>~Ad_m@82-160-246-71.tktelekom.pl</em>] entered the room.</b><br/>
+<font size="2">(04:31:08 PM)</font><b> elementary left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(04:31:26 PM)</font><b> elementary [<em>~elementar@modemcable079.63-22-96.mc.videotron.ca</em>] entered the room.</b><br/>
+<font size="2">(04:31:42 PM)</font><b> hjsb8q4rggrt [<em>~gsjvc8YTF@41.153.246.242</em>] entered the room.</b><br/>
+<font size="2">(04:31:44 PM)</font><b> elementary left the room (quit: ).</b><br/>
+<font size="2">(04:31:52 PM)</font><b> C0y0T3 [<em>~C0y0T3@p579AF753.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(04:32:13 PM)</font><b> gem_ [<em>~nandaja@117.202.169.146</em>] entered the room.</b><br/>
+<font size="2">(04:32:33 PM)</font><b> aranax left the room (quit: Read error: No route to host).</b><br/>
+<font size="2">(04:32:39 PM)</font><b> hjsb8q4rggrt left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(04:32:41 PM)</font><b> C0y0T3 left the room.</b><br/>
+<font size="2">(04:32:46 PM)</font><b> hjsb8q4rggrt [<em>~gsjvc8YTF@41.153.246.242</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:32:50 PM)</font> <b>hjsb8q4rggrt:</b></font> Do usa&amp;Israel use chat &amp;facebook 2 spy?!?!?!?<br/>
+<font color="#A82F2F"><font size="2">(04:32:50 PM)</font> <b>hjsb8q4rggrt:</b></font> Do they record &amp;analyse everything we type?!?!?!?<br/>
+<font color="#A82F2F"><font size="2">(04:32:50 PM)</font> <b>hjsb8q4rggrt:</b></font> Do usa&amp;israel use chat&amp;social communicationprog(facebook&amp;twitter) to collect informations,,,,can we call that spying!!!!<br/>
+<font color="#A82F2F"><font size="2">(04:32:50 PM)</font> <b>hjsb8q4rggrt:</b></font> هل تستخدم امريكاواسرئيل الشات والفيس بوك للتجسس!؟!؟!؟!؟!؟!؟!<br/>
+<font color="#A82F2F"><font size="2">(04:32:50 PM)</font> <b>hjsb8q4rggrt:</b></font> (*                                                        <br/>
+<font size="2">(04:32:52 PM)</font><b> hjsb8q4rggrt left the room (Kicked by debhelper (flood)).</b><br/>
+<font size="2">(04:33:11 PM)</font><b> C0y0T3 [<em>~C0y0T3@59.172.208.186</em>] entered the room.</b><br/>
+<font size="2">(04:33:14 PM)</font><b> C0y0T3 left the room (quit: autokilled: This host may be infected. Mail support@oftc.net with questions. BOPM (2013-10-27 15:40:25)).</b><br/>
+<font size="2">(04:35:35 PM)</font><b> jue142 [<em>~jue142@dslb-088-065-227-007.pools.arcor-ip.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:35:42 PM)</font> <b>MichaelPaoli:</b></font> Walex FYI, think I mostly got it now: http://paste.debian.net/62212/<br/>
+<font size="2">(04:37:01 PM)</font><b> jose [<em>~jose@75.Red-81-38-143.dynamicIP.rima-tde.net</em>] entered the room.</b><br/>
+<font size="2">(04:37:03 PM)</font><b> C0y0T3 [<em>~C0y0T3@p579AF753.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(04:37:06 PM)</font><b> MichaelPaoli left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(04:37:08 PM)</font><b> jue142 left the room (quit: ).</b><br/>
+<font size="2">(04:37:20 PM)</font><b> C0y0T3 left the room (quit: ).</b><br/>
+<font size="2">(04:37:27 PM)</font><b> C0y0T3 [<em>~C0y0T3@p579AF753.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:37:41 PM)</font> <b>jose:</b></font> HI<br/>
+<font size="2">(04:38:00 PM)</font><b> C0y0T3 left the room (quit: ).</b><br/>
+<font size="2">(04:38:50 PM)</font><b> vanessa [<em>~vanessa@179.222.144.106</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:39:04 PM)</font> <b>vanessa:</b></font> What<br/>
+<font color="#A82F2F"><font size="2">(04:39:13 PM)</font> <b>vanessa:</b></font> End for mim ?<br/>
+<font color="#A82F2F"><font size="2">(04:39:23 PM)</font> <b>vanessa:</b></font> Hi <br/>
+<font color="#A82F2F"><font size="2">(04:39:40 PM)</font> <b>vanessa:</b></font> Hi ?<br/>
+<font color="#A82F2F"><font size="2">(04:39:45 PM)</font> <b>vanessa:</b></font> Hi ?<br/>
+<font size="2">(04:39:46 PM)</font><b> jose left the room (quit: ).</b><br/>
+<font size="2">(04:39:50 PM)</font><b> birch [<em>~reca@dhcp-187-44.gjk.dk</em>] entered the room.</b><br/>
+<font size="2">(04:40:07 PM)</font><b> vanessa left the room (quit: ).</b><br/>
+<font size="2">(04:41:10 PM)</font><b> pkv left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(04:41:16 PM)</font><b> antonio_ [<em>~antonio@59.Red-81-43-230.staticIP.rima-tde.net</em>] entered the room.</b><br/>
+<font size="2">(04:41:16 PM)</font><b> ne0sis left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(04:41:19 PM)</font><b> ne0sis [<em>~quassel@41-135-83-150.dsl.mweb.co.za</em>] entered the room.</b><br/>
+<font size="2">(04:41:37 PM)</font><b> antonio_ left the room (quit: ).</b><br/>
+<font size="2">(04:42:32 PM)</font><b> fae left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(04:43:06 PM)</font><b> gem_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(04:45:51 PM)</font><b> nebular [<em>~nebular@nebucloud.nebular.co.za</em>] entered the room.</b><br/>
+<font size="2">(04:47:31 PM)</font><b> nebular left the room (quit: ).</b><br/>
+<font size="2">(04:47:38 PM)</font><b> nebular [<em>~nebular@nebucloud.nebular.co.za</em>] entered the room.</b><br/>
+<font size="2">(04:48:41 PM)</font><b> ivanoov [<em>~ivanoov@ivanov69.com</em>] entered the room.</b><br/>
+<font size="2">(04:49:25 PM)</font><b> nebular left the room (quit: ).</b><br/>
+<font size="2">(04:49:38 PM)</font><b> nebular [<em>~nebular@nebucloud.nebular.co.za</em>] entered the room.</b><br/>
+<font size="2">(04:51:31 PM)</font><b> daniel156161 [<em>~daniel@089144206045.atnat0015.highway.bob.at</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:51:38 PM)</font> <b>daniel156161:</b></font> hi<br/>
+<font size="2">(04:51:43 PM)</font><b> vrkalak left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(04:51:48 PM)</font><b> nebular left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(04:51:52 PM)</font><b> nebular [<em>~nebular@nebucloud.nebular.co.za</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:52:12 PM)</font> <b>daniel156161:</b></font> Hi<br/>
+<font color="#A82F2F"><font size="2">(04:52:22 PM)</font> <b>sney:</b></font> hi.<br/>
+<font size="2">(04:52:41 PM)</font><b> Emmanuel_Chanel left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:52:45 PM)</font> <b>daniel156161:</b></font> Hast du einen Raspberry Pi<br/>
+<font size="2">(04:52:55 PM)</font><b> gem_ [<em>~nandaja@117.216.92.11</em>] entered the room.</b><br/>
+<font size="2">(04:53:24 PM)</font><b> nebular left the room (quit: ).</b><br/>
+<font size="2">(04:53:31 PM)</font><b> thingy [<em>~thingy@cpc13-finc12-2-0-cust12.4-2.cable.virginm.net</em>] entered the room.</b><br/>
+<font size="2">(04:53:41 PM)</font><b> blindsight [<em>~blindsigh@c-98-203-68-122.hsd1.fl.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:53:45 PM)</font> <b>sney:</b></font> yes, but this channel is english only and raspbian isn&apos;t supported here anyway<br/>
+<font size="2">(04:55:02 PM)</font><b> Calinou [<em>~Calinou@220.3.71.86.rev.sfr.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:55:29 PM)</font> <b>daniel156161:</b></font> Ich verwende meinen Raspberry als Seafile server und du?<br/>
+<font color="#A82F2F"><font size="2">(04:55:32 PM)</font> <b>murb:</b></font> sney: hmm however debian armel runs  on that hardware.<br/>
+<font size="2">(04:55:52 PM)</font><b> Rosco2 [<em>~RossGammo@188-178-212-240-dynamic.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font size="2">(04:56:10 PM)</font><b> lOOza [<em>~lOOza@202.165-243-81.adsl-dyn.isp.belgacom.be</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:59:03 PM)</font> <b>daniel156161:</b></font> EEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRRRRRRRRRRRRRRRRRRRR<br/>
+<font size="2">(04:59:06 PM)</font><b> calisto left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(04:59:11 PM)</font><b> thingy left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(04:59:14 PM)</font> <b>daniel156161:</b></font> System overloud<br/>
+<font size="2">(05:00:28 PM)</font><b> ogny left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(05:01:25 PM)</font><b> nebular [<em>~nebular@nebucloud.nebular.co.za</em>] entered the room.</b><br/>
+<font size="2">(05:02:13 PM)</font><b> nebular left the room (quit: ).</b><br/>
+<font size="2">(05:02:28 PM)</font><b> allen [<em>~quassel@adsl-71-146-142-91.dsl.pltn13.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(05:03:03 PM)</font><b> ogny [<em>~orkun@78.186.152.96</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:03:18 PM)</font> <b>daniel156161:</b></font> BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBB<br/>
+<font color="#A82F2F"><font size="2">(05:03:19 PM)</font> <b>daniel156161:</b></font> BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE<br/>
+<font color="#A82F2F"><font size="2">(05:03:19 PM)</font> <b>daniel156161:</b></font> EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE<br/>
+<font color="#A82F2F"><font size="2">(05:03:23 PM)</font> <b>daniel156161:</b></font> EEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEE<br/>
+<font color="#A82F2F"><font size="2">(05:03:30 PM)</font> <b>daniel156161:</b></font> EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB<br/>
+<font color="#A82F2F"><font size="2">(05:03:34 PM)</font> <b>daniel156161:</b></font> BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBB<br/>
+<font color="#A82F2F"><font size="2">(05:03:39 PM)</font> <b>daniel156161:</b></font> BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE<br/>
+<font color="#A82F2F"><font size="2">(05:03:44 PM)</font> <b>daniel156161:</b></font> EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE<br/>
+<font color="#A82F2F"><font size="2">(05:03:48 PM)</font> <b>daniel156161:</b></font> EEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEE<br/>
+<font color="#A82F2F"><font size="2">(05:03:54 PM)</font> <b>daniel156161:</b></font> EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB<br/>
+<font color="#A82F2F"><font size="2">(05:03:58 PM)</font> <b>daniel156161:</b></font> BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBB<br/>
+<font color="#A82F2F"><font size="2">(05:04:05 PM)</font> <b>daniel156161:</b></font> BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE<br/>
+<font color="#A82F2F"><font size="2">(05:04:11 PM)</font> <b>daniel156161:</b></font> EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE<br/>
+<font color="#A82F2F"><font size="2">(05:04:19 PM)</font> <b>daniel156161:</b></font> EEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEE<br/>
+<font color="#A82F2F"><font size="2">(05:04:25 PM)</font> <b>daniel156161:</b></font> EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB<br/>
+<font color="#A82F2F"><font size="2">(05:04:28 PM)</font> <b>daniel156161:</b></font> 0987654321234567890?9876521234567890?09876543212345678987654321345676543234535425873542657835467354667543BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEE<br/>
+<font color="#A82F2F"><font size="2">(05:04:35 PM)</font> <b>daniel156161:</b></font> EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB<br/>
+<font color="#A82F2F"><font size="2">(05:04:41 PM)</font> <b>daniel156161:</b></font> BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB<br/>
+<font color="#A82F2F"><font size="2">(05:04:45 PM)</font> <b>daniel156161:</b></font> BBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBB<br/>
+<font color="#A82F2F"><font size="2">(05:04:49 PM)</font> <b>daniel156161:</b></font> BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE<br/>
+<font size="2">(05:05:04 PM)</font><b> mind0 [<em>~quassel@197.87.176.13</em>] entered the room.</b><br/>
+<font size="2">(05:05:27 PM)</font><b> Mighty [<em>~phb@ppp-217.net-188-130-78.static.magiconline.fr</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:06:20 PM)</font> <b>daniel156161:</b></font> scccccccccccadjshluvfcajdlgvhldaijshgajdhbfkuadghfjk,jedhgviztadsjghcfkiahsjvbhydg<br/>
+<font color="#A82F2F"><font size="2">(05:06:21 PM)</font> <b>daniel156161:</b></font> xhfm<br/>
+<font color="#A82F2F"><font size="2">(05:06:21 PM)</font> <b>daniel156161:</b></font> tshety<br/>
+<font color="#A82F2F"><font size="2">(05:06:21 PM)</font> <b>daniel156161:</b></font> hg+<br/>
+<font color="#A82F2F"><font size="2">(05:06:21 PM)</font> <b>daniel156161:</b></font> fxdij<br/>
+<font size="2">(05:06:21 PM)</font><b> daniel156161 left the room (Kicked by debhelper (flood)).</b><br/>
+<font size="2">(05:07:24 PM)</font><b> daniel_ [<em>~daniel@089144206045.atnat0015.highway.bob.at</em>] entered the room.</b><br/>
+<font size="2">(05:08:57 PM)</font><b> Mighty left the room (quit: ).</b><br/>
+<font size="2">(05:09:42 PM)</font><b> sidmo left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(05:10:51 PM)</font><b> ne0sis left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(05:12:31 PM)</font><b> Emmanuel_Chanel [<em>~emmanuel@O090160.ppp.dion.ne.jp</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:12:33 PM)</font> <b>OWNSyouAll_DESKTOP:</b></font> lot of spammers today<br/>
+<font size="2">(05:12:53 PM)</font><b> rostam left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(05:12:55 PM)</font><b> csotelo [<em>~carlos@2001:1388:49c0:110d:21b:9eff:feeb:128b</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:12:59 PM)</font> <b>daemonkeeper:</b></font> Just one.<br/>
+<font size="2">(05:13:07 PM)</font><b> daniel_ left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(05:13:13 PM)</font><b> AW3i_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(05:13:39 PM)</font><b> tmarble left the room.</b><br/>
+<font size="2">(05:15:09 PM)</font><b> rostam [<em>~zartoosh@proxy-rtp-1.cisco.com</em>] entered the room.</b><br/>
+<font size="2">(05:15:28 PM)</font><b> harobed left the room (quit: Quit: My MacBook Pro has gone to sleep. ZZZzzz…).</b><br/>
+<font size="2">(05:15:49 PM)</font><b> endived_ [<em>~endived@42-2-0-038.static.netvigator.com</em>] entered the room.</b><br/>
+<font size="2">(05:16:15 PM)</font><b> wqeweq [<em>~zcxxcz@225.Red-83-43-180.dynamicIP.rima-tde.net</em>] entered the room.</b><br/>
+<font size="2">(05:16:18 PM)</font><b> wqeweq left the room.</b><br/>
+<font size="2">(05:17:31 PM)</font><b> Freejack left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(05:18:14 PM)</font><b> sinned [<em>~me@184-158-24-132.dyn.centurytel.net</em>] entered the room.</b><br/>
+<font size="2">(05:18:40 PM)</font><b> endived left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(05:22:28 PM)</font><b> r3c4ll left the room (quit: Quit: Saliendo).</b><br/>
+<font size="2">(05:25:42 PM)</font><b> bullgard4 [<em>~chatzilla@dslb-088-075-140-052.pools.arcor-ip.net</em>] entered the room.</b><br/>
+<font size="2">(05:26:35 PM)</font><b> jkf [<em>~Icedove@37.203.27.134</em>] entered the room.</b><br/>
+<font size="2">(05:26:36 PM)</font><b> darkbasic_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(05:26:51 PM)</font><b> darkbasic [<em>~quassel@niko.linuxsystems.it</em>] entered the room.</b><br/>
+<font size="2">(05:26:51 PM)</font><b> f10 [<em>~f10@188-192-180-37-dynip.superkabel.de</em>] entered the room.</b><br/>
+<font size="2">(05:37:14 PM)</font><b> led_belly left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(05:38:14 PM)</font><b> studioworks [<em>~studiowor@181.113.21.42</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:38:56 PM)</font> <b>XReaper:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(05:39:23 PM)</font> <b>XReaper:</b></font> what was with that beep beep person<br/>
+<font size="2">(05:39:51 PM)</font><b> studioworks left the room (quit: ).</b><br/>
+<font size="2">(05:40:00 PM)</font><b> kilian_ [<em>~kilian@neu67-3-82-239-81-116.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(05:40:46 PM)</font><b> variable_ [<em>~variable@88-222-150-87.meganet.lt</em>] entered the room.</b><br/>
+<font size="2">(05:41:53 PM)</font><b> JanC left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(05:42:20 PM)</font><b> sinned left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(05:44:17 PM)</font><b> Abd_Allatif [<em>~abd@46.53.90.113</em>] entered the room.</b><br/>
+<font size="2">(05:44:19 PM)</font><b> postblue left the room (quit: Quit: postblue).</b><br/>
+<font size="2">(05:44:31 PM)</font><b> redshadowhero left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(05:44:37 PM)</font><b> Abd_Allatif left the room (quit: ).</b><br/>
+<font size="2">(05:46:00 PM)</font><b> redshadowhero [<em>~king@c-76-29-245-230.hsd1.al.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(05:46:45 PM)</font><b> pkv [<em>~pkv_@dau94-2-82-66-64-67.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(05:46:48 PM)</font><b> walken_ left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(05:47:31 PM)</font><b> GinoMan [<em>~Gino@pool-173-59-58-36.phlapa.fios.verizon.net</em>] entered the room.</b><br/>
+<font size="2">(05:48:58 PM)</font><b> jkf left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(05:49:17 PM)</font><b> gjerich left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(05:49:26 PM)</font><b> dharc [<em>~dharc@179.234.191.67</em>] entered the room.</b><br/>
+<font size="2">(05:49:33 PM)</font><b> newbie|2 [<em>~kvirc@5.172.211.133</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:49:38 PM)</font> <b>dharc:</b></font> what do you think about LMDE?<br/>
+<font size="2">(05:49:43 PM)</font><b> hele_ [<em>~hele@212-149-223-230.bb.dnainternet.fi</em>] entered the room.</b><br/>
+<font size="2">(05:50:28 PM)</font><b> JanC [<em>~janc@ip-83-134-232-110.dsl.scarlet.be</em>] entered the room.</b><br/>
+<font size="2">(05:51:22 PM)</font><b> tmcclelland47 [<em>~travis@adsl-76-226-15-32.dsl.sfldmi.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(05:51:56 PM)</font><b> tmcclelland47 left the room (quit: ).</b><br/>
+<font size="2">(05:52:13 PM)</font><b> jkf [<em>~Icedove@37.203.27.134</em>] entered the room.</b><br/>
+<font size="2">(05:52:19 PM)</font><b> chomwitt left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(05:52:56 PM)</font><b> Greylocks left the room (quit: Quit: WeeChat 0.4.2).</b><br/>
+<font size="2">(05:53:13 PM)</font><b> Ad_m left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(05:53:14 PM)</font><b> fr33k [<em>~fvb@546B3A3F.cm-12-4a.dynamic.ziggo.nl</em>] entered the room.</b><br/>
+<font size="2">(05:53:17 PM)</font><b> ompaul [<em>~ompaul@000135c2.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(05:53:37 PM)</font><b> lOOza left the room (quit: Quit: Ex-Chat).</b><br/>
+<font size="2">(05:54:26 PM)</font><b> sakal [<em>~sakal@95.73.146.51</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:54:33 PM)</font> <b>babilen:</b></font> dharc: It&apos;s a distribution. Try it if you are interested, but this is #debian and we only support that. Try Debian too. :)<br/>
+<font size="2">(05:55:42 PM)</font><b> whirli [<em>~whirli@95.211.137.134</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:56:35 PM)</font> <b>dharc:</b></font> I use Debian and recommended it for my friend. But a guy told him that Debian is difficult and Mint is better-_-, now he wants Mint =/<br/>
+<font color="#A82F2F"><font size="2">(05:57:15 PM)</font> <b>babilen:</b></font> *shrug*<br/>
+<font size="2">(05:57:31 PM)</font><b> whirling left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:58:06 PM)</font> <b>OdyX:</b></font> mint smells good at first sight but when you&apos;ve chewed it too much, it leaves a bad taste and lots of green leftovers in the mouth.<br/>
+<font color="#A82F2F"><font size="2">(05:58:51 PM)</font> <b>babilen:</b></font> dharc: That is normal behaviour, there are always distributions around like that. I don&apos;t quite see what we can do about that. I believe that Debian is a fine choice and I have not regretted it. I would therefore wholeheartedly recommend it. If you friend is happy with Mint then he should use that, I don&apos;t mind :D<br/>
+<font size="2">(05:58:55 PM)</font><b> f10 left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:59:22 PM)</font> <b>birch:</b></font> I want to install the Sid version of a package in Wheezy. Is this through backports or should I just add the Sid repo to sources.list and set the target to Sid?<br/>
+<font size="2">(05:59:38 PM)</font><b> gem_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(05:59:43 PM)</font><b> patwotrik [<em>~patwotrik@nl118-171-98.student.uu.se</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:00:42 PM)</font> <b>babilen:</b></font> birch: Don&apos;t mix stable with anything but backports! If a package is not already in there you can backport it yourself by following &quot;/msg dpkg ssb&quot;. Which package is this about?<br/>
+<font size="2">(06:00:44 PM)</font><b> t0ke [<em>~t0ke@cpc3-nott17-2-0-cust278.12-2.cable.virginm.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:01:25 PM)</font> <b>babilen:</b></font> birch: You will b0rk your machine if you mix testing and/or unstable packages into wheezy.<br/>
+<font color="#A82F2F"><font size="2">(06:01:46 PM)</font> <b>birch:</b></font> babilen, my transmission 2.52 is crazy unusable in wheezy due to frequent segfaults. The latest transmission stable is 2.82 and is in Sid.<br/>
+<font color="#A82F2F"><font size="2">(06:02:18 PM)</font> <b>babilen:</b></font> birch: I have not experienced that back when I was using wheezy and it might be a problem specific to your machine/configuration.<br/>
+<font size="2">(06:02:26 PM)</font><b> leno [<em>~leno@pD9F75D69.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:02:45 PM)</font> <b>babilen:</b></font> birch: gui or cli?<br/>
+<font color="#A82F2F"><font size="2">(06:02:57 PM)</font> <b>birch:</b></font> babilen, the machine is over a year old and has had no problem with transmission until wheezy. gui, gtk, gnome 3<br/>
+<font size="2">(06:03:33 PM)</font><b> leno left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(06:03:40 PM)</font> <b>birch:</b></font> actually, i had a wheezy RC on here and that was fine too. It started acting poorly when I went to the full wheezy release, and got worse when I did a fresh install of 7.2<br/>
+<font color="#A82F2F"><font size="2">(06:03:53 PM)</font> <b>babilen:</b></font> birch: You&apos;ll have a hard time backporting that unfortunately as the QT5 build-dependencies cannot be satisfied in either wheezy or wheezy-backports.<br/>
+<font color="#A82F2F"><font size="2">(06:04:04 PM)</font> <b>dharc:</b></font> babilen:That can&apos;t be a normal behavior and persistent behavior about Debian. my girlfriend uses Debian with no problems. say that Debian is hard to use seems dishonesty<br/>
+<font color="#A82F2F"><font size="2">(06:04:28 PM)</font> <b>babilen:</b></font> birch: That shouldn&apos;t e the case.<br/>
+<font size="2">(06:04:31 PM)</font><b> t0ke left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(06:05:18 PM)</font> <b>dharc:</b></font> I think there is a bias to Debian yet<br/>
+<font color="#A82F2F"><font size="2">(06:05:34 PM)</font> <b>babilen:</b></font> dharc: Yeah, I totally agree. Debian is not hard to use, but then people have problems with all sorts of things. If they like another distribution more I couldn&apos;t care less and would be happy that they use Linux in the first place. I think Debian is a great choice, but don&apos;t mind if people don&apos;t agree with me.<br/>
+<font size="2">(06:05:47 PM)</font><b> user [<em>~user@wimax9-249.telbeskid.com.pl</em>] entered the room.</b><br/>
+<font size="2">(06:06:15 PM)</font><b> ABM [<em>~AbM@101.216.156.151</em>] entered the room.</b><br/>
+<font size="2">(06:06:26 PM)</font><b> user is now known as Guest3568</b><br/>
+<font size="2">(06:06:46 PM)</font><b> Guest3568 left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:06:47 PM)</font> <b>babilen:</b></font> birch: It might make sense to investigate that more closely, but I won&apos;t be able to walk you through that now as I have been summoned into the kitchen to fix something nommy for the hungry hordes.<br/>
+<font size="2">(06:06:52 PM)</font><b> GinoMan left the room (quit: Read error: Operation timed out).</b><br/>
+<font color="#A82F2F"><font size="2">(06:07:38 PM)</font> <b>birch:</b></font> babilen, ok thanks. i may have to just try another fresh install at 7.3 and see if that helps. enjoy dinner :)<br/>
+<font color="#A82F2F"><font size="2">(06:07:55 PM)</font> <b>babilen:</b></font> birch: I would recommend to take a look at the bug tracker ( http://bugs.debian.org ) and to google for error messages or strace the program. It shouldn&apos;t segfault like that. Please also make sure that you haven&apos;t wrecked your system by mixing random third-party or testing/unstable package into the mix.<br/>
+<font color="#A82F2F"><font size="2">(06:08:25 PM)</font> <b>babilen:</b></font> birch: There is no 7.3 (yet) and you will have to wait a little for the next point release.<br/>
+<font color="#A82F2F"><font size="2">(06:08:54 PM)</font> <b>birch:</b></font> babilen, it&apos;s not the last option, this was my first attempt at that. i&apos;ll wait until the next point release.<br/>
+<font size="2">(06:09:11 PM)</font><b> davi [<em>davi@wilbur.25thandclement.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:09:19 PM)</font> <b>birch:</b></font> it eats up my entire weekend to do an install because of the time debian takes to re-encrypt the drive.<br/>
+<font size="2">(06:09:22 PM)</font><b> gem_ [<em>~nandaja@117.207.167.105</em>] entered the room.</b><br/>
+<font size="2">(06:09:40 PM)</font><b> kilian_ left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(06:10:04 PM)</font><b> kilian_ [<em>~kilian@neu67-3-82-239-81-116.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(06:10:42 PM)</font><b> f10 [<em>~f10@188-192-180-37-dynip.superkabel.de</em>] entered the room.</b><br/>
+<font size="2">(06:12:28 PM)</font><b> freedomrun left the room (quit: Quit: So long and thanks for all the fish).</b><br/>
+<font size="2">(06:12:44 PM)</font><b> dharc left the room.</b><br/>
+<font size="2">(06:13:15 PM)</font><b> stevecotton [<em>~stevecott@host86-149-197-127.range86-149.btcentralplus.com</em>] entered the room.</b><br/>
+<font size="2">(06:13:26 PM)</font><b> smw left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(06:13:51 PM)</font> <b>ABM:</b></font> hey is there any way to speed up INTERNET connections <br/>
+<font size="2">(06:14:03 PM)</font><b> GinoMan [<em>~Gino@pool-173-59-58-36.phlapa.fios.verizon.net</em>] entered the room.</b><br/>
+<font size="2">(06:14:28 PM)</font><b> calisto [<em>~calisto@r186-49-1-197.dialup.adsl.anteldata.net.uy</em>] entered the room.</b><br/>
+<font size="2">(06:14:36 PM)</font><b> mentor left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(06:14:50 PM)</font><b> shirish [<em>~quassel@117.222.5.68</em>] entered the room.</b><br/>
+<font size="2">(06:14:59 PM)</font><b> TN_Jonesboro [<em>~jonesboro@205.185.232.230</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:15:14 PM)</font> <b>mtn:</b></font> ABM: sure, get a better isp<br/>
+<font color="#A82F2F"><font size="2">(06:15:18 PM)</font> <b>OWNSyouAll_DESKTOP:</b></font> ABM, You could use a proxy server to cache like squid<br/>
+<font color="#A82F2F"><font size="2">(06:15:35 PM)</font> <b>petemc:</b></font> a local dns server can sometimes help too<br/>
+<font color="#A82F2F"><font size="2">(06:16:14 PM)</font> <b>ABM:</b></font> mtn its about speeding up tweaks with the existing ISP<br/>
+<font color="#A82F2F"><font size="2">(06:16:32 PM)</font> <b>mtn:</b></font> ABM: I know, but my answer is usually the best one ;)<br/>
+<font color="#A82F2F"><font size="2">(06:16:42 PM)</font> <b>ABM:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(06:19:09 PM)</font> <b>ABM:</b></font> Hey I have tried to do some changes with my Proxy settings but it rather refused connections to me, then I had to reset it to no Proxy to work normally<br/>
+<font color="#A82F2F"><font size="2">(06:19:23 PM)</font> <b>babilen:</b></font> birch: You can just interrupt the overwriting of the disk. You don&apos;t have to do that over and over again and the installation will simply continue.<br/>
+<font color="#A82F2F"><font size="2">(06:21:13 PM)</font> <b>babilen:</b></font> birch: It takes so much time because the disk is overwritten with random data (and then subsequent writes will appear random). Once you reach that state you don&apos;t have to re-write random data as that won&apos;t change anything. The installer will behave gracefully if you simply choose &quot;cancel&quot; or whatnot in that step.<br/>
+<font size="2">(06:23:15 PM)</font><b> arivarton [<em>~arivarton@88-73-15.connect.netcom.no</em>] entered the room.</b><br/>
+<font size="2">(06:23:16 PM)</font><b> csotelo left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(06:25:47 PM)</font><b> smw [<em>~smw@0001b5a3.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(06:25:56 PM)</font><b> ZIPY_ [<em>~ZIPY@dslb-188-109-017-182.pools.arcor-ip.net</em>] entered the room.</b><br/>
+<font size="2">(06:26:19 PM)</font><b> Jo2006 [<em>~jo@p5DC0CF1E.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(06:26:28 PM)</font><b> sirdancealot [<em>~xubuntu@98.82.broadband5.iol.cz</em>] entered the room.</b><br/>
+<font size="2">(06:27:43 PM)</font><b> ZIPY left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(06:27:53 PM)</font><b> ABM left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(06:28:14 PM)</font><b> mlouis [<em>~mlouis@APuteaux-553-1-70-124.w92-151.abo.wanadoo.fr</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:29:08 PM)</font> <b>birch:</b></font> babilen, but if i have my data on there, and i reinstall and re-encrypt the drive, does it need to be randomized again or my previous data will be easier to access?<br/>
+<font size="2">(06:30:40 PM)</font><b> Jo2006 left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(06:30:46 PM)</font><b> Jo2006 [<em>~jo@p5DC0CF1E.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(06:30:54 PM)</font><b> fenzil [<em>~camden@74-131-86-174.dhcp.insightbb.com</em>] entered the room.</b><br/>
+<font size="2">(06:31:50 PM)</font><b> Ad_m [<em>~Ad_m@82-160-246-71.tktelekom.pl</em>] entered the room.</b><br/>
+<font size="2">(06:32:01 PM)</font><b> Freejack [<em>~Freejack@24-178-85-81.dhcp.leds.al.charter.com</em>] entered the room.</b><br/>
+<font size="2">(06:32:49 PM)</font><b> mode (+l 628) by debhelper</b><br/>
+<font size="2">(06:32:53 PM)</font><b> lonewlf [<em>~lone@ip98-165-73-154.ph.ph.cox.net</em>] entered the room.</b><br/>
+<font size="2">(06:32:58 PM)</font><b> gyx left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(06:34:37 PM)</font><b> dcx [<em>~dcx@0001bd75.user.oftc.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:34:42 PM)</font> <b>babilen:</b></font> birch: No, it doesn&apos;t.<br/>
+<font color="#A82F2F"><font size="2">(06:35:06 PM)</font> <b>birch:</b></font> babilen, oh neat, ok well that saves me a lot of hassle then. thanks :)<br/>
+<font size="2">(06:35:32 PM)</font><b> djendreizak [<em>~djendreiz@ip-109-85-54-104.web.vodafone.de</em>] entered the room.</b><br/>
+<font size="2">(06:35:49 PM)</font><b> djendreizak left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:35:53 PM)</font> <b>babilen:</b></font> birch: yeah, lot&apos;s of people are not aware of it (or don&apos;t really care about the initial encryption anyway). Just some days back we had someone in here who waited *weeks* for a multi-TB disk to be filled with random data.<br/>
+<font color="#A82F2F"><font size="2">(06:36:08 PM)</font> <b>babilen:</b></font> *lots<br/>
+<font color="#A82F2F"><font size="2">(06:36:33 PM)</font> <b>birch:</b></font> ouch yeah that would be annoying.<br/>
+<font size="2">(06:37:24 PM)</font><b> mtn left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(06:37:43 PM)</font><b> E431-noob [<em>~E431-noob@99-196-53-7.cust.wildblue.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:38:00 PM)</font> <b>murb:</b></font> babilen: yeah slow installs!<br/>
+<font color="#A82F2F"><font size="2">(06:39:11 PM)</font> <b>E431-noob:</b></font> does anyone know where i can read up on how to setup a tmpfs somewhere?<br/>
+<font size="2">(06:39:12 PM)</font><b> csotelo [<em>~carlos@2001:1388:49c0:2d89:21b:9eff:feeb:128b</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:39:55 PM)</font> <b>murb:</b></font> E431-noob: man tmpfs<br/>
+<font color="#A82F2F"><font size="2">(06:40:08 PM)</font> <b>E431-noob:</b></font> it&apos;s a command?!<br/>
+<font color="#A82F2F"><font size="2">(06:40:11 PM)</font> <b>E431-noob:</b></font> thanks<br/>
+<font size="2">(06:40:59 PM)</font><b> dcx left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(06:41:23 PM)</font> <b>babilen:</b></font> E431-noob: &quot;mount -t tmpfs -o size=WHATEVER /path/to/your/tmpfs&quot; -- https://www.kernel.org/doc/Documentation/filesystems/tmpfs.txt<br/>
+<font color="#A82F2F"><font size="2">(06:43:39 PM)</font> <b>E431-noob:</b></font> thanks<br/>
+<font size="2">(06:44:42 PM)</font><b> garulf [<em>~garulf@93-46-105-138.ip107.fastwebnet.it</em>] entered the room.</b><br/>
+<font size="2">(06:46:36 PM)</font><b> calisto left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(06:47:30 PM)</font><b> jkf left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(06:49:08 PM)</font><b> jkf [<em>~Icedove@37.203.27.134</em>] entered the room.</b><br/>
+<font size="2">(06:49:56 PM)</font><b> jkf left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(06:50:33 PM)</font><b> jcfp left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(06:50:37 PM)</font><b> jkf [<em>~Icedove@37.203.27.134</em>] entered the room.</b><br/>
+<font size="2">(06:51:50 PM)</font><b> dcx [<em>~dcx@0001bd75.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(06:52:56 PM)</font><b> w1res [<em>~Thunderbi@c-24-62-87-64.hsd1.ct.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(06:53:23 PM)</font><b> smb left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(06:53:27 PM)</font><b> kraiskil left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(06:53:41 PM)</font><b> jkf left the room (quit: ).</b><br/>
+<font size="2">(06:54:07 PM)</font><b> smb [<em>~smb@vserver104.orion.retrosnub.co.uk</em>] entered the room.</b><br/>
+<font size="2">(06:54:29 PM)</font><b> smb left the room (quit: ).</b><br/>
+<font size="2">(06:58:41 PM)</font><b> gem_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(06:59:05 PM)</font><b> Q-Master left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:02:03 PM)</font><b> pedro [<em>~pedro@190.122.30.100</em>] entered the room.</b><br/>
+<font size="2">(07:02:11 PM)</font><b> Q-Master [<em>~qmaster@93-81-105-157.broadband.corbina.ru</em>] entered the room.</b><br/>
+<font size="2">(07:02:13 PM)</font><b> pedro left the room (quit: ).</b><br/>
+<font size="2">(07:03:14 PM)</font><b> jkf [<em>~Icedove@37.203.27.134</em>] entered the room.</b><br/>
+<font size="2">(07:03:39 PM)</font><b> jkf left the room (quit: ).</b><br/>
+<font size="2">(07:06:46 PM)</font><b> davejr [<em>~quassel@ip-92-73.wireless.oberlin.edu</em>] entered the room.</b><br/>
+<font size="2">(07:07:43 PM)</font><b> davejr left the room (quit: ).</b><br/>
+<font size="2">(07:08:04 PM)</font><b> dotix [<em>~dotix@188.24.4.25</em>] entered the room.</b><br/>
+<font size="2">(07:08:21 PM)</font><b> gem_ [<em>~nandaja@117.204.118.84</em>] entered the room.</b><br/>
+<font size="2">(07:08:25 PM)</font><b> daniel-s_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:08:47 PM)</font><b> daniel-s_ [<em>~daniel-s@2001:388:608c:4c40:e144:1b73:a27e:9df4</em>] entered the room.</b><br/>
+<font size="2">(07:10:20 PM)</font><b> Nesus [<em>~Nesus@ppp-67-160.15-151.iol.it</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:10:28 PM)</font> <b>Nesus:</b></font> hello<br/>
+<font size="2">(07:10:46 PM)</font><b> vrkalak [<em>~vrkalak@108.103.54.62</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:11:25 PM)</font> <b>ompaul:</b></font> !ask<br/>
+<font color="#A82F2F"><font size="2">(07:11:25 PM)</font> <b>dpkg:</b></font> If you have a question, just ask! For example: &quot;I have a problem with ___; I&apos;m running Debian version ___. When I try to do ___ I get the following output ___. I expected it to do ___.&quot; Don&apos;t ask if you can ask, if anyone uses it, or pick one person to ask. We&apos;re all volunteers; make it easy for us to help you. If you don&apos;t get an answer try a few hours later or on debian-user@lists.debian.org. See &lt;smart questions&gt;&lt;errors&gt;.<br/>
+<font color="#A82F2F"><font size="2">(07:13:26 PM)</font> <b>Nesus:</b></font> I&apos;m using Wheezy on my raspberry i need to install csh package downloaded from http://packages.debian.org/wheezy/csh , can someone say me where to put te unzipped folder? <br/>
+<font size="2">(07:14:14 PM)</font><b> ptk [<em>~ptk@host162-76-dynamic.50-79-r.retail.telecomitalia.it</em>] entered the room.</b><br/>
+<font size="2">(07:14:22 PM)</font><b> ptk left the room.</b><br/>
+<font size="2">(07:14:22 PM)</font><b> s0d0 [<em>~john@79-64-233-132.dynamic.dsl.as9105.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:16:06 PM)</font> <b>babilen:</b></font> Nesus: Just install it with &quot;dpkg -i the-package.deb&quot; -- but then I am surprised to hear that you managed to get a vanilla wheezy running on your pi. Are you sure that you are not using raspbian?<br/>
+<font color="#A82F2F"><font size="2">(07:16:31 PM)</font> <b>babilen:</b></font> Nesus: It also shouldn&apos;t be a zip but an ar archive ;)<br/>
+<font size="2">(07:16:46 PM)</font><b> otherflow left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(07:17:04 PM)</font><b> kilian_ left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(07:17:30 PM)</font><b> kilian_ [<em>~kilian@neu67-3-82-239-81-116.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(07:19:53 PM)</font><b> culugyx [<em>~culugyx@fkb-finance080.wlan.wireless-pennnet.upenn.edu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:20:06 PM)</font> <b>Nesus:</b></font> ehm yes raspbian wheezy:P<br/>
+<font color="#A82F2F"><font size="2">(07:20:08 PM)</font> <b>blarson:</b></font> babilen: debian armel works fine on raspberry-pi.  Not as fast as raspian.<br/>
+<font size="2">(07:20:16 PM)</font><b> fenzil left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(07:20:54 PM)</font> <b>blarson:</b></font> Nesus: In general, debian packages won&apos;t work on raspian without recompiling.<br/>
+<font size="2">(07:21:26 PM)</font><b> lord_rob [<em>robert@87.66.194.191</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:21:45 PM)</font> <b>Nesus:</b></font> ah ok<br/>
+<font size="2">(07:21:50 PM)</font><b> GinoMan left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:22:14 PM)</font><b> Italo [<em>~pablo@host7-77-dynamic.180-80-r.retail.telecomitalia.it</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:22:55 PM)</font> <b>Italo:</b></font> hello all<br/>
+<font size="2">(07:23:13 PM)</font><b> gem_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(07:23:38 PM)</font><b> kraiskil [<em>~kraiskil@a91-152-242-225.elisa-laajakaista.fi</em>] entered the room.</b><br/>
+<font size="2">(07:24:11 PM)</font><b> GinoMan [<em>~Gino@pool-173-59-58-36.phlapa.fios.verizon.net</em>] entered the room.</b><br/>
+<font size="2">(07:26:27 PM)</font><b> whirling [<em>~whirli@a88-113-159-160.elisa-laajakaista.fi</em>] entered the room.</b><br/>
+<font size="2">(07:26:34 PM)</font><b> roughnecks left the room (quit: Quit: I want to believe).</b><br/>
+<font color="#A82F2F"><font size="2">(07:27:00 PM)</font> <b>Italo:</b></font> how may I read images from nokia 6630 in debian 6.06 amd64?<br/>
+<font color="#A82F2F"><font size="2">(07:27:16 PM)</font> <b>babilen:</b></font> dpkg: tell blarson -about raspbian<br/>
+<font color="#A82F2F"><font size="2">(07:27:40 PM)</font> <b>babilen:</b></font> blarson: Good to know, thanks for the clarification!<br/>
+<font color="#A82F2F"><font size="2">(07:28:04 PM)</font> <b>Nesus:</b></font> :D<br/>
+<font size="2">(07:28:13 PM)</font><b> whirli left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(07:29:00 PM)</font><b> sakax [<em>~sakax@0001bb5b.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(07:30:15 PM)</font><b> dcx left the room (quit: ).</b><br/>
+<font size="2">(07:31:55 PM)</font><b> Greylocks [<em>~Greylocks@66-87-30-237.pools.spcsdns.net</em>] entered the room.</b><br/>
+<font size="2">(07:32:50 PM)</font><b> gem_ [<em>~nandaja@117.204.121.111</em>] entered the room.</b><br/>
+<font size="2">(07:32:57 PM)</font><b> mentor [<em>~mentor@46.226.188.140</em>] entered the room.</b><br/>
+<font size="2">(07:33:32 PM)</font><b> shirish left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:36:10 PM)</font><b> harobed [<em>~stephane@37.160.219.247</em>] entered the room.</b><br/>
+<font size="2">(07:36:35 PM)</font><b> otherflow [<em>~otherflow@0001b16c.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(07:38:05 PM)</font><b> emaxxim [<em>~emaxxim@87.18.170.165</em>] entered the room.</b><br/>
+<font size="2">(07:40:07 PM)</font><b> nadir left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(07:41:18 PM)</font><b> Greylocks_ [<em>~Greylocks@66-87-85-51.pools.spcsdns.net</em>] entered the room.</b><br/>
+<font size="2">(07:41:19 PM)</font><b> Greylocks left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(07:41:30 PM)</font><b> kraiskil left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(07:42:49 PM)</font><b> mode (+l 634) by debhelper</b><br/>
+<font size="2">(07:43:15 PM)</font><b> harobed left the room (quit: Quit: My MacBook Pro has gone to sleep. ZZZzzz…).</b><br/>
+<font size="2">(07:43:16 PM)</font><b> Greylocks_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(07:43:41 PM)</font><b> Greylocks_ [<em>~Greylocks@66-87-9-109.pools.spcsdns.net</em>] entered the room.</b><br/>
+<font size="2">(07:44:09 PM)</font><b> veindrain [<em>~veindrain@ppp079167075012.access.hol.gr</em>] entered the room.</b><br/>
+<font size="2">(07:45:15 PM)</font><b> culugyx left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(07:45:20 PM)</font><b> angel [<em>~angel@42.192.218.87.dynamic.jazztel.es</em>] entered the room.</b><br/>
+<font size="2">(07:46:30 PM)</font><b> angel left the room (quit: ).</b><br/>
+<font size="2">(07:47:35 PM)</font><b> GiBis left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(07:47:36 PM)</font><b> Greylocks_ is now known as Greylocks</b><br/>
+<font size="2">(07:48:39 PM)</font><b> Noskcaj [<em>~Noskcaj@CPE-124-187-142-173.lns16.ken.bigpond.net.au</em>] entered the room.</b><br/>
+<font size="2">(07:49:52 PM)</font><b> phdeswer left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(07:49:56 PM)</font><b> adb [<em>~IonMoldom@2a02:1205:501c:9df0:baac:6fff:fe67:305f</em>] entered the room.</b><br/>
+<font size="2">(07:52:09 PM)</font><b> nadir [<em>~dude@pD9EF1AD4.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(07:52:48 PM)</font><b> hellspy [<em>~chatzilla@187.120.46.24</em>] entered the room.</b><br/>
+<font size="2">(07:53:51 PM)</font><b> freex left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(07:55:45 PM)</font><b> dutchfish [<em>~wil@000128c9.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(07:57:04 PM)</font><b> Greylocks_ [<em>~Greylocks@66-87-87-111.pools.spcsdns.net</em>] entered the room.</b><br/>
+<font size="2">(07:58:05 PM)</font><b> Moritz [<em>~Moritz@c-4f66ad2c-74736162.cust.telenor.se</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:59:10 PM)</font> <b>Moritz:</b></font> Hi, I got a problem which is driving me crazy. When I move the cursor in nano, the text gets changed. It adds random, dots, letter ands just generally mixes up the text.<br/>
+<font size="2">(07:59:10 PM)</font><b> sistem [<em>~sistem@78.191.161.157</em>] entered the room.</b><br/>
+<font size="2">(07:59:26 PM)</font><b> dcx [<em>~dcx@0001bd75.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(07:59:43 PM)</font><b> GinoMan left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:00:52 PM)</font> <b>sistem:</b></font> i have a problem before starting debian there is a lot of [[[[B^ characters for &quot;.&quot;<br/>
+<font size="2">(08:01:34 PM)</font><b> GiBis [<em>~GiBis@188.162.37.108</em>] entered the room.</b><br/>
+<font size="2">(08:02:23 PM)</font><b> gem_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:02:56 PM)</font> <b>Italo:</b></font> How may I know where a packet-link is installed in x-window manager?<br/>
+<font size="2">(08:03:43 PM)</font><b> Greylocks left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:04:00 PM)</font><b> sistem left the room (quit: ).</b><br/>
+<font size="2">(08:04:35 PM)</font><b> Calinou left the room (quit: Quit: bye :)).</b><br/>
+<font size="2">(08:05:22 PM)</font><b> Pitxyoki [<em>~PT-SC-257@a95-92-229-166.cpe.netcabo.pt</em>] entered the room.</b><br/>
+<font size="2">(08:05:30 PM)</font><b> dvs [<em>~colin@00012127.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(08:05:36 PM)</font><b> trifolio6 left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(08:06:19 PM)</font> <b>chealer:</b></font> Italo: what do you mean by &quot;packet-link&quot;?<br/>
+<font size="2">(08:06:34 PM)</font><b> lduros left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#062585"><font size="2">(08:07:07 PM)</font> <b>***Italo</b></font> chealer the link from windows-manager to the program binary<br/>
+<font color="#A82F2F"><font size="2">(08:07:52 PM)</font> <b>Italo:</b></font> and the reverse : if I install a packet from synaptic,  in what manu is installed the link to the binary?<br/>
+<font color="#A82F2F"><font size="2">(08:08:03 PM)</font> <b>dualbus:</b></font> Italo: so you want to know where a program shortcut takes you to? what desktop environment are you using? GNOME? KDE?<br/>
+<font size="2">(08:08:04 PM)</font><b> moondog [<em>~moondog@c-67-189-39-76.hsd1.wa.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:08:31 PM)</font> <b>Italo:</b></font> gnome<br/>
+<font color="#A82F2F"><font size="2">(08:09:02 PM)</font> <b>Italo:</b></font> gnome is the default desktop environment in debian<br/>
+<font size="2">(08:09:20 PM)</font><b> mind0 left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:09:30 PM)</font><b> manio left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:09:59 PM)</font><b> daniel-s_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(08:10:11 PM)</font><b> E431-noob left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:10:25 PM)</font><b> daniel-s_ [<em>~daniel-s@2001:388:608c:4c40:e144:1b73:a27e:9df4</em>] entered the room.</b><br/>
+<font size="2">(08:11:45 PM)</font><b> gem_ [<em>~nandaja@117.204.112.4</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:13:45 PM)</font> <b>dualbus:</b></font> IIRC GNOME uses the *.desktop files to map from menu entries to commands<br/>
+<font size="2">(08:14:52 PM)</font><b> Guest3559 left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(08:14:55 PM)</font> <b>dualbus:</b></font> Italo: https://developer.gnome.org/integration-guide/stable/desktop-files.html.en<br/>
+<font color="#A82F2F"><font size="2">(08:15:23 PM)</font> <b>dualbus:</b></font> so find which desktop files you have installed, and to which applications they map.<br/>
+<font size="2">(08:15:28 PM)</font><b> endived_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:16:16 PM)</font><b> project2501a left the room (quit: Quit: Leaving...).</b><br/>
+<font size="2">(08:16:28 PM)</font><b> greylocks [<em>~Greylocks@66-87-85-51.pools.spcsdns.net</em>] entered the room.</b><br/>
+<font size="2">(08:17:01 PM)</font><b> manio [<em>~manio@skyboo.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:19:37 PM)</font> <b>dualbus:</b></font> find ~/.local/share/applications /usr/share/applications -name &apos;*.desktop&apos; -exec awk -F= &apos;$1==&quot;Name&quot;{n=$2}; $1==&quot;Exec&quot;{c=$2} END{printf(&quot;%s -&gt; %s\n&quot;, n,c)}&apos; {} \;<br/>
+<font color="#A82F2F"><font size="2">(08:20:05 PM)</font> <b>dualbus:</b></font> that should give you an overview of the apps in your menu and to which entries they map<br/>
+<font size="2">(08:20:45 PM)</font><b> Soul-Sing [<em>~soulzing@0001bd7f.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(08:23:06 PM)</font><b> Greylocks_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:23:28 PM)</font><b> Soul-Sing left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(08:26:35 PM)</font> <b>Italo:</b></font> if I use debian 6.08 with Linux debian 2.6.32-5-amd64 kernel, is it convenible I upgrade the intere SO or only kernel ?<br/>
+<font size="2">(08:27:19 PM)</font><b> Tony [<em>~tony@cpc3-newt25-0-0-cust173.19-3.cable.virginm.net</em>] entered the room.</b><br/>
+<font size="2">(08:27:56 PM)</font><b> davi left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:28:52 PM)</font><b> hele_ left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(08:29:30 PM)</font><b> hele_ [<em>~hele@212-149-223-230.bb.dnainternet.fi</em>] entered the room.</b><br/>
+<font color="#062585"><font size="2">(08:29:34 PM)</font> <b>***Italo</b></font> dualbus thanks, a command to real hacker :)<br/>
+<font color="#A82F2F"><font size="2">(08:29:35 PM)</font> <b>dualbus:</b></font> Italo: hey, did that thing worked for you? or are you just going to skip to the next question like if this were some kind of automated support channel with bots replying to your queries<br/>
+<font color="#A82F2F"><font size="2">(08:29:53 PM)</font> <b>dualbus:</b></font> ah, cool, sure, just wanted to know you at least read it :)<br/>
+<font size="2">(08:29:54 PM)</font><b> hele_ left the room (quit: ).</b><br/>
+<font size="2">(08:30:32 PM)</font><b> hele_ [<em>~hele@212-149-223-230.bb.dnainternet.fi</em>] entered the room.</b><br/>
+<font size="2">(08:31:02 PM)</font><b> E431-noob [<em>~E431-noob@99-196-53-7.cust.wildblue.net</em>] entered the room.</b><br/>
+<font size="2">(08:31:23 PM)</font><b> Top-top-top left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(08:31:36 PM)</font><b> harobed [<em>~stephane@37.160.105.44</em>] entered the room.</b><br/>
+<font color="#062585"><font size="2">(08:32:13 PM)</font> <b>***Italo</b></font> dualbus  a mix to bash command , awk scripting cool very hack !<br/>
+<font size="2">(08:32:26 PM)</font><b> skifu [<em>~skifu@84-231-202-41.elisa-mobile.fi</em>] entered the room.</b><br/>
+<font size="2">(08:32:51 PM)</font><b> Tony left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(08:32:54 PM)</font> <b>Italo:</b></font> I&apos;ll save this command to analise well it, thanks<br/>
+<font size="2">(08:35:19 PM)</font><b> kmshanah [<em>~kmshanah@ppp59-167-139-100.static.internode.on.net</em>] entered the room.</b><br/>
+<font size="2">(08:35:23 PM)</font><b> culugyx [<em>~culugyx@vagvlan536.1335.wlan.wireless-pennnet.upenn.edu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:36:05 PM)</font> <b>chealer:</b></font> Italo: What is your native language? Mixing different suites is not supported but some mixes can work.<br/>
+<font size="2">(08:36:14 PM)</font><b> linuxtech [<em>~linuxtech@cp.linuxtech.org</em>] entered the room.</b><br/>
+<font size="2">(08:37:37 PM)</font><b> Nesus left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:37:49 PM)</font><b> plot [<em>~plot@gw.vpn.autistici.org</em>] entered the room.</b><br/>
+<font size="2">(08:39:32 PM)</font><b> claw__ left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(08:39:45 PM)</font><b> harobed left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:45:02 PM)</font><b> hellspy left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:45:18 PM)</font><b> lostatwork left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:47:12 PM)</font><b> emaxxim left the room (quit: Quit: Sto andando via).</b><br/>
+<font size="2">(08:47:35 PM)</font><b> garry left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:47:47 PM)</font><b> steven_ [<em>~steven@dyndsl-095-033-078-037.ewe-ip-backbone.de</em>] entered the room.</b><br/>
+<font color="#062585"><font size="2">(08:49:33 PM)</font> <b>***Italo</b></font> chealer my native language is italian<br/>
+<font size="2">(08:50:13 PM)</font><b> vrkalak left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(08:50:37 PM)</font><b> przemoc86 [<em>~przemoc@89-74-38-183.dynamic.chello.pl</em>] entered the room.</b><br/>
+<font size="2">(08:50:58 PM)</font><b> przemoc left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(08:51:15 PM)</font><b> lostatwork [<em>~lostatwor@cpe-107-10-68-37.new.res.rr.com</em>] entered the room.</b><br/>
+<font size="2">(08:51:21 PM)</font><b> Rufu5 left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(08:51:41 PM)</font><b> E431-noob left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:52:29 PM)</font><b> linuxtech left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:52:49 PM)</font><b> mode (+l 628) by debhelper</b><br/>
+<font size="2">(08:53:41 PM)</font><b> stevecotton left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:53:44 PM)</font><b> Haaninjo [<em>~anders@85.8.55.65</em>] entered the room.</b><br/>
+<font size="2">(08:54:28 PM)</font><b> Sammy8806 left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:54:28 PM)</font><b> pedro [<em>~prokter@a89-155-101-4.cpe.netcabo.pt</em>] entered the room.</b><br/>
+<font size="2">(08:55:02 PM)</font><b> mlundblad [<em>~marcus@217.142.147.24</em>] entered the room.</b><br/>
+<font size="2">(08:55:26 PM)</font><b> hele__ [<em>~hele@212-149-223-230.bb.dnainternet.fi</em>] entered the room.</b><br/>
+<font size="2">(08:55:28 PM)</font><b> hele__ left the room (quit: ).</b><br/>
+<font size="2">(08:55:35 PM)</font><b> hele_ left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(08:55:37 PM)</font> <b>chealer:</b></font> !it<br/>
+<font color="#A82F2F"><font size="2">(08:55:37 PM)</font> <b>dpkg:</b></font> Ciao, vai su #debian-it per ricevere aiuto in italiano.  Italian Speakers: Please use #debian-it, there you will get much more help.<br/>
+<font size="2">(08:56:05 PM)</font><b> hele_ [<em>~hele@212-149-223-230.bb.dnainternet.fi</em>] entered the room.</b><br/>
+<font size="2">(08:56:26 PM)</font><b> calisto [<em>~calisto@r186-49-1-197.dialup.adsl.anteldata.net.uy</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:56:35 PM)</font> <b>chealer:</b></font> Italo: You may get better help on our Italian channel. By the way, you do not need to type /me to start each message.<br/>
+<font size="2">(08:57:07 PM)</font><b> broucarie [<em>~bastien@mla78-1-82-240-16-166.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(08:58:36 PM)</font><b> evoke [<em>~martin@2.25.12.78</em>] entered the room.</b><br/>
+<font size="2">(08:59:39 PM)</font><b> nadir left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(08:59:48 PM)</font><b> GiBis left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:00:05 PM)</font> <b>moondog:</b></font> debian is not seeing my wireless all in one scanner<br/>
+<font color="#A82F2F"><font size="2">(09:00:15 PM)</font> <b>moondog:</b></font> I&apos;ve had this working under other linuxes<br/>
+<font color="#A82F2F"><font size="2">(09:00:28 PM)</font> <b>moondog:</b></font> but can&apos;t find how to make it work in debian<br/>
+<font color="#A82F2F"><font size="2">(09:00:51 PM)</font> <b>moondog:</b></font> I have sane installed... all it sees is my webcam<br/>
+<font size="2">(09:01:23 PM)</font><b> patwotrik left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(09:02:01 PM)</font><b> culugyx left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:03:37 PM)</font><b> gmarselis [<em>~kot@109.171.130.235</em>] entered the room.</b><br/>
+<font size="2">(09:03:48 PM)</font><b> WildTux_ [<em>~WildTux@69.79.165.83.dynamic.mundo-r.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:04:00 PM)</font> <b>evoke:</b></font> hi , i have installed debian jessie<br/>
+<font size="2">(09:04:01 PM)</font><b> aidalgol [<em>~user@0001a1b7.user.oftc.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:04:09 PM)</font> <b>evoke:</b></font> is there any thing i can do to help with testing?<br/>
+<font color="#A82F2F"><font size="2">(09:04:23 PM)</font> <b>evoke:</b></font> beside using it for my every day work<br/>
+<font size="2">(09:04:58 PM)</font><b> WildTux_ left the room (quit: ).</b><br/>
+<font size="2">(09:05:19 PM)</font><b> william left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:05:40 PM)</font><b> gmarselis left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:06:16 PM)</font> <b>Nemoder:</b></font> evoke: http://www.debian.org/intro/help<br/>
+<font size="2">(09:06:32 PM)</font><b> gmarselis [<em>~kot@109.171.130.235</em>] entered the room.</b><br/>
+<font size="2">(09:07:03 PM)</font><b> gmarselis left the room (quit: ).</b><br/>
+<font size="2">(09:07:42 PM)</font><b> sai [<em>~sai@14.139.82.6</em>] entered the room.</b><br/>
+<font size="2">(09:08:16 PM)</font><b> sai left the room (quit: ).</b><br/>
+<font size="2">(09:08:32 PM)</font><b> sai [<em>~sai@14.139.82.6</em>] entered the room.</b><br/>
+<font size="2">(09:08:35 PM)</font><b> william [<em>~smuxi@c-69-143-255-223.hsd1.md.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(09:09:07 PM)</font><b> _4dnan_ [<em>~adnan@93.126.159.239</em>] entered the room.</b><br/>
+<font size="2">(09:10:21 PM)</font><b> zlatan [<em>~zlatan@46.239.7.236</em>] entered the room.</b><br/>
+<font size="2">(09:10:26 PM)</font><b> gem_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(09:10:35 PM)</font><b> zlatan left the room.</b><br/>
+<font size="2">(09:10:41 PM)</font><b> calisto left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(09:11:21 PM)</font><b> bst__ [<em>~bst@net245-0-245-109.mbb.telenor.rs</em>] entered the room.</b><br/>
+<font size="2">(09:11:27 PM)</font><b> sai left the room (quit: ).</b><br/>
+<font size="2">(09:11:41 PM)</font><b> sai [<em>~sai@14.139.82.6</em>] entered the room.</b><br/>
+<font size="2">(09:11:44 PM)</font><b> daniel-s_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(09:11:59 PM)</font> <b>chealer:</b></font> evoke: if you dare getting involved with the issue tracker, you could check the non-confirmed issues reported against your favorite package and try confirming or &quot;infirming&quot; them.<br/>
+<font size="2">(09:12:06 PM)</font><b> daniel-s_ [<em>~daniel-s@2001:388:608c:4c40:e144:1b73:a27e:9df4</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:12:36 PM)</font> <b>sai:</b></font> hi, can anyone tell me how to join osgeo channel<br/>
+<font size="2">(09:13:46 PM)</font><b> debsan_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(09:13:58 PM)</font><b> xubuntu [<em>~xubuntu@dslb-084-058-036-177.pools.arcor-ip.net</em>] entered the room.</b><br/>
+<font size="2">(09:14:24 PM)</font><b> sai left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(09:14:45 PM)</font> <b>evoke:</b></font> thanks guys<br/>
+<font color="#A82F2F"><font size="2">(09:14:52 PM)</font> <b>evoke:</b></font> quiet straight forward<br/>
+<font size="2">(09:14:55 PM)</font><b> garulf left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(09:15:03 PM)</font> <b>evoke:</b></font> will check the issue tracker<br/>
+<font size="2">(09:15:57 PM)</font><b> bst_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:16:22 PM)</font> <b>xubuntu:</b></font> Ill never use debian sid again<br/>
+<font color="#A82F2F"><font size="2">(09:16:31 PM)</font> <b>_4dnan_:</b></font> Why dear ?<br/>
+<font size="2">(09:16:32 PM)</font><b> glanzi [<em>~glanzi@201.75.202.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:16:58 PM)</font> <b>xubuntu:</b></font> update broke X, now on a xubuntu live disk annd see what i can repair<br/>
+<font size="2">(09:17:16 PM)</font><b> meise__ left the room (quit: Quit: leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(09:17:58 PM)</font> <b>_4dnan_:</b></font> I&apos;m sorry to hear that. Hopefully the people here will help you solve any problem.<br/>
+<font color="#A82F2F"><font size="2">(09:19:24 PM)</font> <b>xubuntu:</b></font> maybe is should stay with stable next time when using a stability-critical computer<br/>
+<font size="2">(09:19:35 PM)</font><b> gem_ [<em>~nandaja@117.204.112.47</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:20:09 PM)</font> <b>_4dnan_:</b></font> I have tried Stable and Testing. And I should say they are as stable as each other. But of course, if you want maximum stability, go for Stable.<br/>
+<font size="2">(09:20:10 PM)</font><b> noahfx [<em>~noahfx@186.151.44.180</em>] entered the room.</b><br/>
+<font size="2">(09:20:28 PM)</font><b> ShawnWhite left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:20:41 PM)</font><b> debsan [<em>~debsan@244-79-245-190.fibertel.com.ar</em>] entered the room.</b><br/>
+<font size="2">(09:20:43 PM)</font><b> birch left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:20:48 PM)</font> <b>valdyn:</b></font> testing changes all the time, hence it cant be stable<br/>
+<font color="#A82F2F"><font size="2">(09:21:36 PM)</font> <b>_4dnan_:</b></font> We could say it&apos;s more solid than sid though, right ?<br/>
+<font color="#A82F2F"><font size="2">(09:21:58 PM)</font> <b>valdyn:</b></font> yes, certainly<br/>
+<font color="#062585"><font size="2">(09:22:21 PM)</font> <b>***xubuntu</b></font> is trying to fix it the whole night<br/>
+<font size="2">(09:22:25 PM)</font><b> patwotrik [<em>~patwotrik@nl118-171-98.student.uu.se</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:22:39 PM)</font> <b>valdyn:</b></font> now why dont you restore a backup<br/>
+<font color="#A82F2F"><font size="2">(09:22:53 PM)</font> <b>xubuntu:</b></font> no backup available<br/>
+<font color="#A82F2F"><font size="2">(09:23:05 PM)</font> <b>valdyn:</b></font> cant be no stability-critical system then<br/>
+<font color="#A82F2F"><font size="2">(09:23:30 PM)</font> <b>valdyn:</b></font> xubuntu: a reinstall does not take a whole night<br/>
+<font color="#A82F2F"><font size="2">(09:23:33 PM)</font> <b>xubuntu:</b></font> well, i backed up mz data on a usb drive alredz<br/>
+<font size="2">(09:23:36 PM)</font><b> birch [<em>~reca@dhcp-187-44.gjk.dk</em>] entered the room.</b><br/>
+<font size="2">(09:23:46 PM)</font><b> Noskcaj10 [<em>~Noskcaj@CPE-58-167-84-194.lnse5.ken.bigpond.net.au</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:23:58 PM)</font> <b>xubuntu:</b></font> need to set that kezmap right<br/>
+<font size="2">(09:24:46 PM)</font><b> noahfx_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:25:40 PM)</font> <b>xubuntu:</b></font> any idea how I can wipe LILO completely off my disk?<br/>
+<font size="2">(09:25:42 PM)</font><b> ivymike [<em>~ivymike@188.44.82.171</em>] entered the room.</b><br/>
+<font size="2">(09:27:06 PM)</font><b> Nesus [<em>~Nesus@ppp-67-160.15-151.iol.it</em>] entered the room.</b><br/>
+<font size="2">(09:28:26 PM)</font><b> _4dnan_ left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(09:29:00 PM)</font><b> Noskcaj left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:29:59 PM)</font> <b>valdyn:</b></font> xubuntu: wiping lilo is the wrong idea<br/>
+<font size="2">(09:30:18 PM)</font><b> meise [<em>~meise@oglarun.3st.be</em>] entered the room.</b><br/>
+<font size="2">(09:30:21 PM)</font><b> thief_and_a_liar [<em>~thief@213-121.dynamic.hesbynett.net</em>] entered the room.</b><br/>
+<font size="2">(09:31:24 PM)</font><b> claw__ [<em>~claw@95-89-80-132-dynip.superkabel.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:32:10 PM)</font> <b>xubuntu:</b></font> valdyn, I just want to wipe everyting and do a reinstall.<br/>
+<font color="#A82F2F"><font size="2">(09:32:23 PM)</font> <b>valdyn:</b></font> xubuntu: you dont need to wipe anything to do a reinstall<br/>
+<font color="#A82F2F"><font size="2">(09:32:26 PM)</font> <b>xubuntu:</b></font> and lilo stayed in the mbr<br/>
+<font color="#A82F2F"><font size="2">(09:32:59 PM)</font> <b>valdyn:</b></font> xubuntu: when you install debian then you get the option to install a boot manager to the mbr<br/>
+<font size="2">(09:33:06 PM)</font><b> xubuntu left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(09:33:21 PM)</font> <b>valdyn:</b></font> xubuntu: the current contents or lilo do not have any impact<br/>
+<font size="2">(09:33:37 PM)</font><b> cshield [<em>~bc@p579137DA.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(09:34:43 PM)</font><b> evoke left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(09:34:57 PM)</font> <b>cshield:</b></font> hey folks: I am using dwm, but sometimes, I need to change to wmaker. Is there a command to do it on the fly? dwm hasn&apos;t a replace switch or something like that... Has anyone an idea about that?<br/>
+<font size="2">(09:35:08 PM)</font><b> tester [<em>~tester@c-24-4-201-24.hsd1.ca.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(09:35:22 PM)</font><b> tester left the room (quit: ).</b><br/>
+<font size="2">(09:35:46 PM)</font><b> mlouis left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:35:59 PM)</font> <b>valdyn:</b></font> iirc wmaker has a menu entry to select a different wm, i dont know about dwm<br/>
+<font size="2">(09:36:12 PM)</font><b> Out`Of`Control [<em>~Viper@000192c2.user.oftc.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:36:21 PM)</font> <b>valdyn:</b></font> why would i ever switch the wm as part of normalk workflow?<br/>
+<font color="#A82F2F"><font size="2">(09:36:28 PM)</font> <b>cshield:</b></font> yes, from wmaker to dwm is easy, but dwm to wmaker is something I haven&apos;t figured out yet. <br/>
+<font color="#A82F2F"><font size="2">(09:36:39 PM)</font> <b>cshield:</b></font> I need it for some applications ie java applications.<br/>
+<font color="#A82F2F"><font size="2">(09:37:34 PM)</font> <b>valdyn:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(09:38:11 PM)</font> <b>valdyn:</b></font> i see dwm has a tiling and a float mode, so i still wonder - but thats obviously up to you<br/>
+<font size="2">(09:38:41 PM)</font><b> Italo left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:40:06 PM)</font> <b>valdyn:</b></font> cshield: you can make your xsession such that terminating the wm does not terminate the X Session<br/>
+<font color="#A82F2F"><font size="2">(09:40:17 PM)</font> <b>valdyn:</b></font> cshield: then you can start and stop any wm as you please<br/>
+<font color="#A82F2F"><font size="2">(09:41:19 PM)</font> <b>cshield:</b></font> this probably a good enough solution, thanks. Better than my idea...<br/>
+<font size="2">(09:42:18 PM)</font><b> skifu left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:42:19 PM)</font> <b>cshield:</b></font> for archiving that, it is enough to put &quot;xterm&quot; in my .xsession file?<br/>
+<font size="2">(09:42:32 PM)</font><b> Zenon left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:42:52 PM)</font> <b>valdyn:</b></font> cshield: for some reason that i dont remember i always have &quot;exec someprogram&quot; as last line<br/>
+<font size="2">(09:43:00 PM)</font><b> jkf [<em>~Icedove@37.203.27.134</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:43:24 PM)</font> <b>valdyn:</b></font> cshield: xterm is as good as anything yes<br/>
+<font color="#A82F2F"><font size="2">(09:44:02 PM)</font> <b>cshield:</b></font> ok, thanks. <br/>
+<font size="2">(09:44:03 PM)</font><b> tzafrir left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(09:44:15 PM)</font><b> |AbsyntH| [<em>~never@adsl-ull-214-127.51-151.net24.it</em>] entered the room.</b><br/>
+<font size="2">(09:44:53 PM)</font><b> pedro left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(09:45:03 PM)</font><b> jabowery left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(09:46:01 PM)</font><b> stevecotton [<em>~stevecott@host86-129-12-68.range86-129.btcentralplus.com</em>] entered the room.</b><br/>
+<font size="2">(09:46:20 PM)</font><b> NIN left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(09:46:25 PM)</font><b> joaouser [<em>~joaouser@220-111.198-178.cust.bluewin.ch</em>] entered the room.</b><br/>
+<font size="2">(09:47:21 PM)</font><b> joaouser is now known as luni</b><br/>
+<font color="#A82F2F"><font size="2">(09:47:38 PM)</font> <b>luni:</b></font> dev<br/>
+<font color="#A82F2F"><font size="2">(09:47:50 PM)</font> <b>luni:</b></font> helo<br/>
+<font size="2">(09:48:26 PM)</font><b> otherflow left the room (quit: Quit: Quitte).</b><br/>
+<font size="2">(09:48:28 PM)</font><b> luni left the room (quit: ).</b><br/>
+<font size="2">(09:49:42 PM)</font><b> alephnull [<em>~alok@122.167.38.115</em>] entered the room.</b><br/>
+<font size="2">(09:49:45 PM)</font><b> Italo [<em>~pablo@host232-171-dynamic.10-79-r.retail.telecomitalia.it</em>] entered the room.</b><br/>
+<font size="2">(09:49:47 PM)</font><b> KindTwo [<em>KindOne@h135.169.17.98.dynamic.ip.windstream.net</em>] entered the room.</b><br/>
+<font size="2">(09:50:22 PM)</font><b> culugyx [<em>~culugyx@vagvlan536.1335.wlan.wireless-pennnet.upenn.edu</em>] entered the room.</b><br/>
+<font size="2">(09:51:17 PM)</font><b> jabowery [<em>~quassel@67-3-129-144.omah.qwest.net</em>] entered the room.</b><br/>
+<font size="2">(09:51:26 PM)</font><b> nebuchadnezzar_ [<em>~nebuchadn@5.174.86.180</em>] entered the room.</b><br/>
+<font size="2">(09:51:28 PM)</font><b> KindOne left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(09:51:28 PM)</font><b> KindTwo is now known as KindOne</b><br/>
+<font size="2">(09:51:56 PM)</font><b> osthm [<em>~osthm@181.128.9.151</em>] entered the room.</b><br/>
+<font size="2">(09:52:03 PM)</font><b> _aeris_ is now known as [_aeris_]</b><br/>
+<font size="2">(09:52:38 PM)</font><b> magellanino left the room (quit: Quit: ZNC - http://znc.sourceforge.net).</b><br/>
+<font size="2">(09:52:50 PM)</font><b> fisted left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:53:05 PM)</font><b> osthm left the room (quit: ).</b><br/>
+<font size="2">(09:53:09 PM)</font><b> dotix left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(09:53:10 PM)</font><b> magellanino [<em>~magellani@magellanino.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(09:53:15 PM)</font><b> fisted [<em>~fisted@xdsl-81-173-191-66.netcologne.de</em>] entered the room.</b><br/>
+<font size="2">(09:53:33 PM)</font><b> broucarie left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(09:53:34 PM)</font><b> lostatwork left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(09:53:34 PM)</font><b> cshore [<em>~daniel@135-23-246-26.cpe.pppoe.ca</em>] entered the room.</b><br/>
+<font size="2">(09:54:42 PM)</font><b> swo [<em>~swo@ip-84-118-179-170.unity-media.net</em>] entered the room.</b><br/>
+<font size="2">(09:55:26 PM)</font><b> Jo2006 left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:55:34 PM)</font><b> elsystem [<em>~el@213.108.13.41</em>] entered the room.</b><br/>
+<font size="2">(09:55:59 PM)</font><b> rik_ [<em>~rik@2a02:578:f2e:0:157e:e2e8:98b2:89ff</em>] entered the room.</b><br/>
+<font size="2">(09:57:48 PM)</font><b> elsystem left the room (quit: ).</b><br/>
+<font size="2">(09:58:04 PM)</font><b> THX1337b [<em>~THX1337b@ec2-54-219-16-114.us-west-1.compute.amazonaws.com</em>] entered the room.</b><br/>
+<font size="2">(09:59:10 PM)</font><b> shirish [<em>~quassel@117.222.5.68</em>] entered the room.</b><br/>
+<font size="2">(09:59:24 PM)</font><b> THX1337b left the room (quit: ).</b><br/>
+<font size="2">(10:00:08 PM)</font><b> hele_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(10:00:10 PM)</font><b> ribe left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(10:00:23 PM)</font><b> [_aeris_] is now known as _aeris_</b><br/>
+<font size="2">(10:01:38 PM)</font><b> alephnull left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(10:02:04 PM)</font><b> whirling left the room (quit: Quit: Lost terminal).</b><br/>
+<font size="2">(10:04:41 PM)</font><b> Italo left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(10:04:54 PM)</font><b> cshield left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(10:05:20 PM)</font><b> umbe [<em>~umbe@109.118.43.79</em>] entered the room.</b><br/>
+<font size="2">(10:05:39 PM)</font><b> rik_ left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(10:05:59 PM)</font><b> pep left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:06:07 PM)</font><b> mtn [<em>~mtn@174.32.161.74</em>] entered the room.</b><br/>
+<font size="2">(10:06:25 PM)</font><b> cewood [<em>~cewood@ppp244-218.static.internode.on.net</em>] entered the room.</b><br/>
+<font size="2">(10:06:50 PM)</font><b> pedro [<em>~prokter@a89-155-101-4.cpe.netcabo.pt</em>] entered the room.</b><br/>
+<font size="2">(10:07:07 PM)</font><b> umbe left the room (quit: ).</b><br/>
+<font size="2">(10:07:49 PM)</font><b> chris [<em>~chris@p57A23F75.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(10:07:57 PM)</font><b> chris left the room (quit: ).</b><br/>
+<font size="2">(10:09:18 PM)</font><b> umbe [<em>~umbe@109.118.43.79</em>] entered the room.</b><br/>
+<font size="2">(10:09:45 PM)</font><b> calisto [<em>~calisto@r186-49-1-197.dialup.adsl.anteldata.net.uy</em>] entered the room.</b><br/>
+<font size="2">(10:10:30 PM)</font><b> james41382 [<em>~james@0001b9ea.user.oftc.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:10:46 PM)</font> <b>umbe:</b></font> ciao<br/>
+<font size="2">(10:12:01 PM)</font><b> jalalsfs left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(10:12:06 PM)</font><b> umbe left the room (quit: ).</b><br/>
+<font size="2">(10:12:23 PM)</font><b> jalalsfs [<em>~jalal@183.83.138.58</em>] entered the room.</b><br/>
+<font size="2">(10:49:03 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,1080 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sun 23 Nov 2014 02:59:38 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sun 23 Nov 2014 02:59:38 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:59:38 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(02:59:38 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(03:00:23 PM)</font><b> eddyb left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(03:00:28 PM)</font><b> eddyb_ [<em>~eddyb@unaffiliated/eddyb</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(03:00:36 PM)</font> <b>magnetophon:</b></font> goibhniu: ping<br/>
+<font color="#16569E"><font size="2">(03:01:05 PM)</font> <b>magnetophon:</b></font> goibhniu: As I'm sure you've figured out by now, we need alsaLib, not alsa<br/>
+<font color="#16569E"><font size="2">(03:04:15 PM)</font> <b>magnetophon:</b></font> goibhniu: looks like $ircclient hasn't figured out I'm back online yet...<br/>
+<font color="#A82F2F"><font size="2">(03:05:02 PM)</font> <b>goibhniu:</b></font> magnetophon: that builds fine here<br/>
+<font color="#A82F2F"><font size="2">(03:05:10 PM)</font> <b>goibhniu:</b></font> magnetophon: ah yes<br/>
+<font color="#16569E"><font size="2">(03:05:43 PM)</font> <b>magnetophon:</b></font> goibhniu: so it works for you with alsa instead of alsaLib?<br/>
+<font color="#16569E"><font size="2">(03:06:03 PM)</font> <b>magnetophon:</b></font> goibhniu: what do you mean by ah yes?<br/>
+<font size="2">(03:07:48 PM)</font><b> ajhager left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(03:07:58 PM)</font> <b>goibhniu:</b></font> magnetophon: I can build http://nixpaste.noip.me/00SwGwkA .. and yes, we need alsaLib<br/>
+<font color="#16569E"><font size="2">(03:08:58 PM)</font> <b>magnetophon:</b></font> goibhniu: I get something like: &quot;anonymous function called without alsa&quot;  <br/>
+<font color="#A82F2F"><font size="2">(03:09:26 PM)</font> <b>goibhniu:</b></font> but you don&apos;t have alsa in that expression, can you post the one you&apos;re using at the moment?<br/>
+<font color="#16569E"><font size="2">(03:09:53 PM)</font> <b>magnetophon:</b></font> goibhniu: right. oops<br/>
+<font color="#16569E"><font size="2">(03:11:06 PM)</font> <b>magnetophon:</b></font> goibhniu: http://nixpaste.noip.me/dd8XQ0pk<br/>
+<font color="#A82F2F"><font size="2">(03:11:48 PM)</font> <b>goibhniu:</b></font> I asked about faust on #opensourcemusicians and got some tips off the suse packager ... also HarryHaaren uses faust for Sorcerer, so I guess we will need it as a buildInput for other packages<br/>
+<font color="#A82F2F"><font size="2">(03:13:40 PM)</font> <b>goibhniu:</b></font> &quot; https://build.opensuse.org/package/show/home:edogawa/faust, look at the .spec, the tools package requires another language (pure and pure-xml)&quot;<br/>
+<font color="#16569E"><font size="2">(03:13:45 PM)</font> <b>magnetophon:</b></font> goibhniu: Cool. Actually HarryHaaren (also?)published the c++ code that faust outputs, <br/>
+<font color="#A82F2F"><font size="2">(03:13:56 PM)</font> <b>goibhniu:</b></font> &quot;https://build.opensuse.org/package/show/home:edogawa/faustworks again in the .spec under %build you&apos;ll find some trickery i had to do to make it find the qt4 tools (distro seem to like to change their binary names)&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:14:01 PM)</font> <b>goibhniu:</b></font> ... might be handy<br/>
+<font color="#A82F2F"><font size="2">(03:14:09 PM)</font> <b>goibhniu:</b></font> oh! cool<br/>
+<font size="2">(03:14:28 PM)</font><b> mm_freak left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:14:34 PM)</font> <b>goibhniu:</b></font> magnetophon: that expression (with alsaLib) also builds fine here<br/>
+<font color="#16569E"><font size="2">(03:15:24 PM)</font> <b>magnetophon:</b></font> goibhniu: FaustWorks is a gui around faust, and is kind of superseded by faustLive. Anyway, those are not REALLY needed, more of a luxury<br/>
+<font color="#A82F2F"><font size="2">(03:15:42 PM)</font> <b>goibhniu:</b></font> ah, good to know<br/>
+<font color="#16569E"><font size="2">(03:16:07 PM)</font> <b>magnetophon:</b></font> goibhniu: pure is just another possible architecture (which is faust-speak for output format), so also optional<br/>
+<font color="#16569E"><font size="2">(03:16:33 PM)</font> <b>magnetophon:</b></font> goibhniu: but good resources nonetheless!<br/>
+<font size="2">(03:17:19 PM)</font><b> the_scourge [<em>~scourge@host-78-150-48-158.as13285.net</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(03:17:43 PM)</font> <b>magnetophon:</b></font> goibhniu: about my expression: It builds here too, but I'm pretty sure I had faust2alsa find the faust libs yesterday, and it doesn't now. can you run faust2alsa?<br/>
+<font size="2">(03:17:43 PM)</font><b> peti [<em>~simons@f053002173.adsl.alicedsl.de</em>] entered the room.</b><br/>
+<font color="#062585"><font size="2">(03:17:59 PM)</font> <b>***magnetophon</b></font> needs to install which<br/>
+<font color="#A82F2F"><font size="2">(03:18:51 PM)</font> <b>peti:</b></font> niksnut: I have trouble with Hydra: I try to edit the job &lt;http://hydra.nixos.org/jobset/nixpkgs/pr-4085/edit&gt;, but the server won&apos;t respond to the &quot;Apply changes&quot; button. Nothing happens. Is that a known issue?<br/>
+<font color="#A82F2F"><font size="2">(03:22:40 PM)</font> <b>queiw:</b></font> can I get the startx command in nixos? system-wide X isn&apos;t starting correctly so I want to fiddle with it<br/>
+<font color="#A82F2F"><font size="2">(03:22:58 PM)</font> <b>Fuuzetsu:</b></font> peti: Oh, good to see you: do you have any ‘broken’ Haskell packages (bad ID) lying around?<br/>
+<font color="#A82F2F"><font size="2">(03:23:00 PM)</font> <b>goibhniu:</b></font> magnetophon: I see that  faust2alsa expects to find faust and pkg-config on the PATH, which it shouldn&apos;t, so we should patch that<br/>
+<font color="#062585"><font size="2">(03:23:10 PM)</font> <b>***magnetophon</b></font> has just found out which doesn&apos;t help you much in nixos :)<br/>
+<font color="#A82F2F"><font size="2">(03:23:50 PM)</font> <b>goibhniu:</b></font> magnetophon: I presume we don&apos;t want to set faustpath and faustoptflags ... users would want to do that themselves IIUC<br/>
+<font color="#16569E"><font size="2">(03:24:17 PM)</font> <b>magnetophon:</b></font> goibhniu: well, I did:<br/>
+<font color="#16569E"><font size="2">(03:24:55 PM)</font> <b>magnetophon:</b></font> oops lost a yank.. one sec<br/>
+<font color="#16569E"><font size="2">(03:25:13 PM)</font> <b>magnetophon:</b></font> goibhniu:     sed -i 's|$FAUST_INSTALL /usr/local /usr /opt /opt/local|$out|g' tools/faust2appls/faustpath<br/>
+<font color="#16569E"><font size="2">(03:26:57 PM)</font> <b>magnetophon:</b></font> That worked to fix faustpath yesterday, but doesn't work for me now... will investigate. I haven't seen  faustoptflags yet. where is it?<br/>
+<font color="#A82F2F"><font size="2">(03:27:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker closed pull request #5092: updated Atom Editor to v0.150.0 and fixed apm LD_LIBRARY_PATH (master...atom.io) http://git.io/1Hgcyg<br/>
+<font color="#A82F2F"><font size="2">(03:29:28 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker pushed 2 new commits to master: http://git.io/miJsKg<br/>
+<font color="#A82F2F"><font size="2">(03:29:28 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 4fdb98f Joachim Fasting: macchanger: new expression...<br/>
+<font color="#A82F2F"><font size="2">(03:29:28 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 4159d37 Jaka Hudoklin: Merge pull request #5081 from joachifm/macchanger...<br/>
+<font color="#A82F2F"><font size="2">(03:29:29 PM)</font> <b>peti:</b></font> Fuuzetsu: &quot;grep -Rl broken pkgs/development/*/haskell&quot; should give you a fairly complete list. All packages that fail to compile are marked so.<br/>
+<font color="#A82F2F"><font size="2">(03:29:58 PM)</font> <b>peti:</b></font> Fuuzetsu: Oh, wait. You mean packages that have a different package ID than the one generated on Hydra?<br/>
+<font color="#A82F2F"><font size="2">(03:30:01 PM)</font> <b>Fuuzetsu:</b></font> peti: But they fail to compile because of dependencies &amp;c, I&apos;m looking for packages broken due to bad ABI hash<br/>
+<font color="#A82F2F"><font size="2">(03:30:02 PM)</font> <b>Fuuzetsu:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(03:30:32 PM)</font> <b>peti:</b></font> Fuuzetsu: I don&apos;t have any of those, I&apos;m afraid. I haven&apos;t seent that error ever since we disable -j&lt;n&gt; builds.<br/>
+<font color="#A82F2F"><font size="2">(03:30:32 PM)</font> <b>Fuuzetsu:</b></font> I&apos;m tasked with fixing GHC determinism but getting it to happen is turning out to be very difficult<br/>
+<font color="#A82F2F"><font size="2">(03:30:40 PM)</font> <b>Fuuzetsu:</b></font> OK, thanks<br/>
+<font color="#16569E"><font size="2">(03:30:52 PM)</font> <b>magnetophon:</b></font> What's the nixos equivalent of &quot;which&quot;? IOW how do I find out what binary is actually being ran?<br/>
+<font color="#A82F2F"><font size="2">(03:30:59 PM)</font> <b>goibhniu:</b></font> magnetophon: I&apos;m looking in bin/faust2alsa<br/>
+<font color="#A82F2F"><font size="2">(03:31:07 PM)</font> <b>peti:</b></font> Fuuzetsu: We can always re-enable that feature. That would give you some samples fairly quickly. :-)<br/>
+<font color="#A82F2F"><font size="2">(03:31:15 PM)</font> <b>Fuuzetsu:</b></font> I&apos;m sure ;P<br/>
+<font color="#A82F2F"><font size="2">(03:31:30 PM)</font> <b>goibhniu:</b></font> magnetophon: which is aliased to `type -P`<br/>
+<font color="#A82F2F"><font size="2">(03:31:31 PM)</font> <b>Fuuzetsu:</b></font> I&apos;m more interested with non-parallel case first anyway<br/>
+<font color="#A82F2F"><font size="2">(03:31:53 PM)</font> <b>goibhniu:</b></font> magnetophon: you might be looking for: readlink -f `which smth`<br/>
+<font color="#16569E"><font size="2">(03:32:09 PM)</font> <b>magnetophon:</b></font> goibhniu: exactly!<br/>
+<font color="#A82F2F"><font size="2">(03:32:57 PM)</font> <b>peti:</b></font> Fuuzetsu: It&apos;s hard to generate a broken package intentionally. I guess, one could write a script that compiles in a loop until the generated ID varies ... but that&apos;s all I can think of right now.<br/>
+<font color="#A82F2F"><font size="2">(03:34:36 PM)</font> <b>Fuuzetsu:</b></font> that&apos;s what I did last night, even with --cores 2 I got nothing after 12h+<br/>
+<font color="#16569E"><font size="2">(03:35:13 PM)</font> <b>magnetophon:</b></font> goibhniu: odd: line 22 of /path/to/faust/bin/faustpath has &quot;FPATH=&quot;$out&quot;; # &lt;- where to search&quot;, as it should, yet I get 'faust not found'-errors...<br/>
+<font size="2">(03:37:38 PM)</font><b> akuhlens [<em>~akuhlens@c-98-223-189-95.hsd1.in.comcast.net</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(03:38:39 PM)</font> <b>magnetophon:</b></font> goibhniu: ah, wait: $out is only available in the nix-shell/builder, right? So not at run-time...<br/>
+<font color="#A82F2F"><font size="2">(03:41:45 PM)</font> <b>goibhniu:</b></font> magnetophon: we should be able to substitute the correct value in the build, I&apos;m not sure how though<br/>
+<font color="#16569E"><font size="2">(03:45:05 PM)</font> <b>magnetophon:</b></font> goibhniu: we need to replace $out with the build-time value of $out, right?  I thought that would be easy for a nixos veteran like you. What am I missing?<br/>
+<font color="#A82F2F"><font size="2">(03:47:44 PM)</font> <b>pharpend:</b></font> morning<br/>
+<font color="#16569E"><font size="2">(03:48:10 PM)</font> <b>magnetophon:</b></font> pharpend: morning :)<br/>
+<font color="#062585"><font size="2">(03:48:54 PM)</font> <b>***magnetophon</b></font> likes not being the only persistent newbe in the room ;)<br/>
+<font color="#A82F2F"><font size="2">(03:49:21 PM)</font> <b>pharpend:</b></font> magnetophon: how long have you been using nix?<br/>
+<font color="#16569E"><font size="2">(03:49:38 PM)</font> <b>magnetophon:</b></font> pharpend: 3 days. You?<br/>
+<font color="#A82F2F"><font size="2">(03:49:56 PM)</font> <b>pharpend:</b></font> about the same<br/>
+<font color="#A82F2F"><font size="2">(03:50:31 PM)</font> <b>pharpend:</b></font> magnetophon: what&apos;d you use beforehand?<br/>
+<font color="#16569E"><font size="2">(03:50:56 PM)</font> <b>magnetophon:</b></font> pharpend: debian stable<br/>
+<font color="#16569E"><font size="2">(03:51:06 PM)</font> <b>magnetophon:</b></font> you?<br/>
+<font color="#A82F2F"><font size="2">(03:51:10 PM)</font> <b>pharpend:</b></font> Gentoo<br/>
+<font color="#16569E"><font size="2">(03:51:38 PM)</font> <b>magnetophon:</b></font> pharpend: that must have prepared you a bit better for this :)<br/>
+<font size="2">(03:52:26 PM)</font><b> akuhlens left the room (quit: Quit: This computer has gone to sleep).</b><br/>
+<font color="#A82F2F"><font size="2">(03:52:34 PM)</font> <b>pharpend:</b></font> maybe. The installation for gentoo is a cakewalk. Nixos has the most unpleasant install process of any distro I&apos;ve used, except maybe slackware<br/>
+<font color="#A82F2F"><font size="2">(03:52:47 PM)</font> <b>pharpend:</b></font> magnetophon: how long have you been using linux?<br/>
+<font color="#16569E"><font size="2">(03:53:51 PM)</font> <b>magnetophon:</b></font> pharpend: almost 10 years, you?<br/>
+<font color="#A82F2F"><font size="2">(03:53:52 PM)</font> <b>pharpend:</b></font> Before Gentoo, I used Arch, which is a little bit more like nix. tbh, Gentoo is much more like BSD than Linux<br/>
+<font color="#A82F2F"><font size="2">(03:54:09 PM)</font> <b>pharpend:</b></font> magnetophon: on &amp; off for about 9<br/>
+<font color="#A82F2F"><font size="2">(03:54:39 PM)</font> <b>MichaelRaskin:</b></font> After LFS I like NixOS installation better than Ubuntu Server one.<br/>
+<font color="#A82F2F"><font size="2">(03:54:56 PM)</font> <b>pharpend:</b></font> true<br/>
+<font color="#A82F2F"><font size="2">(03:55:09 PM)</font> <b>pharpend:</b></font> I have never installed LFS, I always thought it was a joke<br/>
+<font color="#A82F2F"><font size="2">(03:55:43 PM)</font> <b>MichaelRaskin:</b></font> Fedora is somewhat better - there are enough tools to do the more custom half of the installation by hand<br/>
+<font color="#A82F2F"><font size="2">(03:56:04 PM)</font> <b>MichaelRaskin:</b></font> I used ABLFS for a couple of years<br/>
+<font color="#A82F2F"><font size="2">(03:56:08 PM)</font> <b>pharpend:</b></font> My only real problem with Nix is the lack of packages<br/>
+<font color="#A82F2F"><font size="2">(03:56:27 PM)</font> <b>pharpend:</b></font> I&apos;m sure that will get better over time. Additionally, that&apos;s something that I can fix myself.<br/>
+<font color="#A82F2F"><font size="2">(03:56:59 PM)</font> <b>MichaelRaskin:</b></font> Well, it has become much better compared to the time I have joined...<br/>
+<font color="#A82F2F"><font size="2">(03:57:02 PM)</font> <b>pharpend:</b></font> or, at least try. I can&apos;t imagine that it&apos;s very hard to write a nix build and submit a pull request<br/>
+<font color="#A82F2F"><font size="2">(03:57:11 PM)</font> <b>MichaelRaskin:</b></font> What do you lack?<br/>
+<font color="#A82F2F"><font size="2">(03:57:39 PM)</font> <b>pharpend:</b></font> numix<br/>
+<font color="#A82F2F"><font size="2">(03:57:46 PM)</font> <b>MichaelRaskin:</b></font> I must admit OpenOffice was already packaged by the time I found Nix<br/>
+<font color="#A82F2F"><font size="2">(03:58:01 PM)</font> <b>pharpend:</b></font> it&apos;s the only gtk theme with a decent implementation of the solarized color scheme<br/>
+<font color="#A82F2F"><font size="2">(03:58:13 PM)</font> <b>pharpend:</b></font> also, the powerline fonts<br/>
+<font color="#A82F2F"><font size="2">(03:58:20 PM)</font> <b>pharpend:</b></font> mostly stupid style packages<br/>
+<font color="#A82F2F"><font size="2">(03:58:23 PM)</font> <b>MichaelRaskin:</b></font> Fonts are easy to package<br/>
+<font color="#A82F2F"><font size="2">(03:58:25 PM)</font> <b>pharpend:</b></font> oh, the pine mail client<br/>
+<font color="#A82F2F"><font size="2">(03:59:17 PM)</font> <b>MichaelRaskin:</b></font> Hm, we actually do miss alpine<br/>
+<font size="2">(04:00:28 PM)</font><b> lucidd left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:00:31 PM)</font> <b>MichaelRaskin:</b></font> Not sure about GTK themes, they must be more challenging<br/>
+<font color="#A82F2F"><font size="2">(04:01:10 PM)</font> <b>pharpend:</b></font> there were the gnome themes, but they were of coure packaged wrong<br/>
+<font color="#A82F2F"><font size="2">(04:01:13 PM)</font> <b>pharpend:</b></font> also icon themes<br/>
+<font color="#A82F2F"><font size="2">(04:05:08 PM)</font> <b>pharpend:</b></font> The machine I&apos;m using at the moment is Gentoo, so I can&apos;t give you any specific details<br/>
+<font size="2">(04:05:39 PM)</font><b> psnively [<em>~psnively@pool-98-119-9-129.lsanca.fios.verizon.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:05:54 PM)</font> <b>henrytill:</b></font> pharpend: are you talking about http://bitterologist.deviantart.com/art/Numix-Solarized-417575928?<br/>
+<font color="#A82F2F"><font size="2">(04:05:56 PM)</font> <b>pharpend:</b></font> magnetophon: MichaelRaskin what WMs do you guys use?<br/>
+<font color="#A82F2F"><font size="2">(04:06:09 PM)</font> <b>psnively:</b></font> Morning!<br/>
+<font color="#A82F2F"><font size="2">(04:06:13 PM)</font> <b>pharpend:</b></font> henrytill: yes, I did get it installed, though. Hi psnively<br/>
+<font color="#A82F2F"><font size="2">(04:06:20 PM)</font> <b>psnively:</b></font> :-)<br/>
+<font color="#A82F2F"><font size="2">(04:06:29 PM)</font> <b>pharpend:</b></font> henrytill: I just had to do it manually. I haven&apos;t figured out how to write nix builds yet<br/>
+<font color="#A82F2F"><font size="2">(04:06:37 PM)</font> <b>henrytill:</b></font> pharpend: right<br/>
+<font size="2">(04:07:15 PM)</font><b> _Vi left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:07:17 PM)</font> <b>henrytill:</b></font> pharpend: admittedly, the gnome themes stuff doesn&apos;t work great outside of the full desktop env<br/>
+<font color="#A82F2F"><font size="2">(04:07:35 PM)</font> <b>MichaelRaskin:</b></font> I mostly use StumpWM<br/>
+<font color="#16569E"><font size="2">(04:07:38 PM)</font> <b>magnetophon:</b></font> goibhniu: Looks like the fixup phase does something similar to what we want: fix a path in scripts to actual paths. I'll investigate...<br/>
+<font color="#A82F2F"><font size="2">(04:07:42 PM)</font> <b>pharpend:</b></font> I will say, despite all of the issues I&apos;m having with Nixos, the rest of it is so good that I&apos;m definitely migrating the computer I&apos;m using away from Gentoo<br/>
+<font color="#A82F2F"><font size="2">(04:07:43 PM)</font> <b>MichaelRaskin:</b></font> Right now I am sitting in console<br/>
+<font color="#A82F2F"><font size="2">(04:07:54 PM)</font> <b>MichaelRaskin:</b></font> Debugging image processing code.<br/>
+<font color="#A82F2F"><font size="2">(04:07:57 PM)</font> <b>pharpend:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(04:08:00 PM)</font> <b>MichaelRaskin:</b></font> (framebuffer)<br/>
+<font color="#A82F2F"><font size="2">(04:08:13 PM)</font> <b>pharpend:</b></font> The computer I&apos;m chatting with is a server running Ubuntu<br/>
+<font color="#A82F2F"><font size="2">(04:08:18 PM)</font> <b>henrytill:</b></font> pharpend: you can kludge it with something like...<br/>
+<font color="#A82F2F"><font size="2">(04:08:29 PM)</font> <b>MichaelRaskin:</b></font> Well, SystemD update made my X too fragile<br/>
+<font color="#A82F2F"><font size="2">(04:08:29 PM)</font> <b>pharpend:</b></font> Ubuntu is surprisingly decent on a server, considering how horrible it is on the desktop<br/>
+<font color="#A82F2F"><font size="2">(04:08:59 PM)</font> <b>henrytill:</b></font> environment.variables.GTK_DATA_PREFIX=&quot;${pkgs.gnome3.gnome_themes_standard}&quot;;<br/>
+<font color="#A82F2F"><font size="2">(04:09:08 PM)</font> <b>MichaelRaskin:</b></font> well, I have painted myself into corner both with apt-get and yum<br/>
+<font color="#A82F2F"><font size="2">(04:09:27 PM)</font> <b>MichaelRaskin:</b></font> apt-get is arguably somewhat less predictable<br/>
+<font color="#A82F2F"><font size="2">(04:09:54 PM)</font> <b>pharpend:</b></font> yeah, and a bit harder to use<br/>
+<font color="#A82F2F"><font size="2">(04:09:59 PM)</font> <b>henrytill:</b></font> henrytill: otherwise gtk3 themes get kinda screwy if you have gtk2 stuff in current-system<br/>
+<font color="#16569E"><font size="2">(04:10:09 PM)</font> <b>magnetophon:</b></font> pharpend: I'm using i3, (with a solarized terminal and gvim  :) ).  You?<br/>
+<font color="#A82F2F"><font size="2">(04:10:13 PM)</font> <b>pharpend:</b></font> henrytill: one second<br/>
+<font color="#A82F2F"><font size="2">(04:10:25 PM)</font> <b>pharpend:</b></font> magnetophon: i3<br/>
+<font color="#A82F2F"><font size="2">(04:11:04 PM)</font> <b>pharpend:</b></font> magnetophon: my machine isn&apos;t exactly impressive, http://i.imgur.com/lH1uC2H.png<br/>
+<font color="#A82F2F"><font size="2">(04:11:17 PM)</font> <b>MichaelRaskin:</b></font> Now I feel glad that a long time ago I decided to make a fallback plan and packaged an almost full fbcon workflow<br/>
+<font color="#16569E"><font size="2">(04:12:40 PM)</font> <b>magnetophon:</b></font> pharpend: I like. Do you have that i3status config online?<br/>
+<font color="#A82F2F"><font size="2">(04:12:55 PM)</font> <b>pharpend:</b></font> magnetophon: it&apos;s a shitty ruby script I wrote, but sure<br/>
+<font size="2">(04:13:05 PM)</font><b> lucidd [<em>~lucid@HSI-KBW-078-042-152-111.hsi3.kabel-badenwuerttemberg.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:13:26 PM)</font> <b>pharpend:</b></font> magnetophon: https://github.com/pharpend/dotfiles/blob/master/bin/barinfo<br/>
+<font color="#A82F2F"><font size="2">(04:14:22 PM)</font> <b>pharpend:</b></font> magnetophon: it keeps breaking, so rewriting it in Haskell is one of the topmost items on my to-do list<br/>
+<font color="#A82F2F"><font size="2">(04:14:41 PM)</font> <b>pharpend:</b></font> magnetophon: https://github.com/pharpend/dotfiles/blob/master/.barinfo &lt;-- the specific configuration<br/>
+<font color="#16569E"><font size="2">(04:14:53 PM)</font> <b>magnetophon:</b></font> pharpend: OK, I'll just keep using m,ine for now then<br/>
+<font color="#A82F2F"><font size="2">(04:15:19 PM)</font> <b>pharpend:</b></font> haha okay<br/>
+<font color="#16569E"><font size="2">(04:16:49 PM)</font> <b>magnetophon:</b></font> pharpend: you have a recently updated .vim AND .emacs???? Is there a point in using both?<br/>
+<font size="2">(04:17:28 PM)</font><b> JagaJaga [<em>~JagaJaga@178.62.202.50</em>] entered the room.</b><br/>
+<font size="2">(04:22:21 PM)</font><b> sujeet left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#16569E"><font size="2">(04:26:07 PM)</font> <b>magnetophon:</b></font> goibhniu: I can't figure out where the fourth bulletpoint in http://nixos.org/nixpkgs/manual/#idm140737318821712 is being implemented. Should be in https://github.com/NixOS/nixpkgs/blob/master/pkgs/stdenv/generic/setup.sh starting from line 699, right?<br/>
+<font color="#16569E"><font size="2">(04:27:24 PM)</font> <b>magnetophon:</b></font> goibhniu: Am I even barking up the right tree?<br/>
+<font size="2">(04:28:46 PM)</font><b> sujeet [<em>sujeet@unaffiliated/freeboson</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(04:28:47 PM)</font> <b>magnetophon:</b></font> Any guru's in here can tell me how to fix a hardcoded path (make it point at $out) in a script that the user needs to be able to run?<br/>
+<font color="#A82F2F"><font size="2">(04:29:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] 7c6f434c pushed 1 new commit to master: http://git.io/gSE7YQ<br/>
+<font color="#A82F2F"><font size="2">(04:29:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master ff2a1a3 Michael Raskin: Adding Alpine mail reader<br/>
+<font color="#16569E"><font size="2">(04:29:46 PM)</font> <b>magnetophon:</b></font> IOW how do I get the value of $out during building?<br/>
+<font size="2">(04:29:48 PM)</font><b> akuhlens [<em>~akuhlens@c-98-223-189-95.hsd1.in.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:30:00 PM)</font> <b>MichaelRaskin:</b></font> pharpend: would you check alpine<br/>
+<font color="#A82F2F"><font size="2">(04:30:18 PM)</font> <b>MichaelRaskin:</b></font> You can define preBuild or postInstall or something<br/>
+<font color="#A82F2F"><font size="2">(04:30:38 PM)</font> <b>MichaelRaskin:</b></font> buildPhases have access to $out via an environment variable<br/>
+<font color="#A82F2F"><font size="2">(04:32:01 PM)</font> <b>MichaelRaskin:</b></font> magnetophon:^^<br/>
+<font color="#16569E"><font size="2">(04:33:06 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: my attempts have lead to a literal $out in the script, instead of the value of $out, and I have no idea how to google for something involving such common keywords...<br/>
+<font color="#A82F2F"><font size="2">(04:33:32 PM)</font> <b>MichaelRaskin:</b></font> What script? The one that gets installed?<br/>
+<font color="#A82F2F"><font size="2">(04:33:55 PM)</font> <b>pharpend:</b></font> MichaelRaskin: how do I tell nix to resync the repos?<br/>
+<font color="#A82F2F"><font size="2">(04:33:58 PM)</font> <b>MichaelRaskin:</b></font> Try preConfigure = &apos;&apos;echo $out&apos;&apos;;<br/>
+<font color="#A82F2F"><font size="2">(04:34:12 PM)</font> <b>MichaelRaskin:</b></font> pharpend: don&apos;t you have a git checkout yet?<br/>
+<font color="#A82F2F"><font size="2">(04:34:16 PM)</font> <b>pharpend:</b></font> the nixos equivalent of apt-get update or pacman -Sy?<br/>
+<font color="#16569E"><font size="2">(04:34:18 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: exactly. the user of the package needs to run it.<br/>
+<font color="#A82F2F"><font size="2">(04:34:20 PM)</font> <b>pharpend:</b></font> oh oh<br/>
+<font color="#A82F2F"><font size="2">(04:34:22 PM)</font> <b>pharpend:</b></font> okay<br/>
+<font color="#A82F2F"><font size="2">(04:34:27 PM)</font> <b>MichaelRaskin:</b></font> magnetophon:<br/>
+<font color="#A82F2F"><font size="2">(04:34:44 PM)</font> <b>MichaelRaskin:</b></font> try the preConfigure phase I &apos;&apos;echo $out&apos;&apos;<br/>
+<font color="#A82F2F"><font size="2">(04:34:49 PM)</font> <b>MichaelRaskin:</b></font> Then change echo to sed<br/>
+<font color="#A82F2F"><font size="2">(04:34:50 PM)</font> <b>pharpend:</b></font> one sec, github doesn&apos;t know about my ssh key<br/>
+<font color="#A82F2F"><font size="2">(04:35:08 PM)</font> <b>MichaelRaskin:</b></font> I still use https:// checkout<br/>
+<font color="#16569E"><font size="2">(04:35:12 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: thanks, will try<br/>
+<font color="#A82F2F"><font size="2">(04:35:13 PM)</font> <b>MichaelRaskin:</b></font> And a password<br/>
+<font color="#A82F2F"><font size="2">(04:36:06 PM)</font> <b>pharpend:</b></font> ssh is easier and mildly more secure<br/>
+<font color="#A82F2F"><font size="2">(04:36:16 PM)</font> <b>pharpend:</b></font> also, I use ssh for a lot of other stuff<br/>
+<font color="#A82F2F"><font size="2">(04:36:27 PM)</font> <b>pharpend:</b></font> like my private git server, which is ssh-only<br/>
+<font color="#A82F2F"><font size="2">(04:36:42 PM)</font> <b>pharpend:</b></font> i don&apos;t have a webserver on there<br/>
+<font color="#A82F2F"><font size="2">(04:37:03 PM)</font> <b>MichaelRaskin:</b></font> Well, I don&apos;t use Git for non-public repos<br/>
+<font color="#A82F2F"><font size="2">(04:37:32 PM)</font> <b>pharpend:</b></font> My first VCS was Git, never used SVN or CVS, so I guess their design just seems fundamentally wrong to me<br/>
+<font color="#A82F2F"><font size="2">(04:37:56 PM)</font> <b>MichaelRaskin:</b></font> When I started to use DVCSes I started with trying out _many_ options<br/>
+<font color="#A82F2F"><font size="2">(04:38:12 PM)</font> <b>queiw:</b></font> is het possible to use a custom Xorg.conf in nixos, instead of the one generated from configuration.nix?<br/>
+<font color="#A82F2F"><font size="2">(04:38:30 PM)</font> <b>MichaelRaskin:</b></font> Git worse than SVN worse than Bazaar worse than Mercurial personally less preferred than Monotone<br/>
+<font color="#A82F2F"><font size="2">(04:38:46 PM)</font> <b>pharpend:</b></font> queiw: yes, I<br/>
+<font color="#A82F2F"><font size="2">(04:38:52 PM)</font> <b>pharpend:</b></font> queiw: I&apos;ll post mine, show you how<br/>
+<font color="#A82F2F"><font size="2">(04:39:00 PM)</font> <b>pharpend:</b></font> queiw: it&apos;s at the moment very hackish<br/>
+<font color="#A82F2F"><font size="2">(04:39:04 PM)</font> <b>MichaelRaskin:</b></font> queiw: you probably only want to add a few sections anyway?<br/>
+<font color="#A82F2F"><font size="2">(04:39:07 PM)</font> <b>queiw:</b></font> there is an option services.xserver.conf, but that is included inline<br/>
+<font color="#A82F2F"><font size="2">(04:39:20 PM)</font> <b>queiw:</b></font> MichaelRaskin: no, I have to fiddle with the Device section<br/>
+<font color="#A82F2F"><font size="2">(04:39:20 PM)</font> <b>pharpend:</b></font> queiw: yep, lemme show you<br/>
+<font color="#A82F2F"><font size="2">(04:39:39 PM)</font> <b>MichaelRaskin:</b></font> I think you can append to device section<br/>
+<font color="#A82F2F"><font size="2">(04:39:45 PM)</font> <b>MichaelRaskin:</b></font> Otherwise you need mkOverride<br/>
+<font color="#A82F2F"><font size="2">(04:39:47 PM)</font> <b>pharpend:</b></font> queiw: http://ix.io/fji<br/>
+<font color="#A82F2F"><font size="2">(04:40:15 PM)</font> <b>pharpend:</b></font> check out environment.etc.&quot;X11/xorg.conf.d/10-trackpoint.conf&quot; = {...};<br/>
+<font color="#A82F2F"><font size="2">(04:41:08 PM)</font> <b>queiw:</b></font> ah, you use xorg.conf.d<br/>
+<font color="#A82F2F"><font size="2">(04:41:14 PM)</font> <b>pharpend:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(04:42:14 PM)</font> <b>queiw:</b></font> I&apos;ll also need a way to suppress the generated stuff<br/>
+<font color="#A82F2F"><font size="2">(04:42:54 PM)</font> <b>queiw:</b></font> I guess I&apos;ll need to make a custom module/package for that?<br/>
+<font color="#A82F2F"><font size="2">(04:43:29 PM)</font> <b>pharpend:</b></font> MichaelRaskin: I&apos;m really new, so maybe I don&apos;t get it. I ran this<br/>
+<font color="#A82F2F"><font size="2">(04:43:33 PM)</font> <b>pharpend:</b></font> MichaelRaskin: sudo nixos-rebuild switch -I /home/pete/src/nix<br/>
+<font color="#A82F2F"><font size="2">(04:43:39 PM)</font> <b>pharpend:</b></font> dammit<br/>
+<font color="#A82F2F"><font size="2">(04:43:51 PM)</font> <b>pharpend:</b></font> MichaelRaskin: sudo nixos-rebuild switch -I /home/pete/src/nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(04:44:03 PM)</font> <b>pharpend:</b></font> pine still isn&apos;t in there<br/>
+<font color="#A82F2F"><font size="2">(04:44:31 PM)</font> <b>pharpend:</b></font> when I do nix-env -qaP | grep -i pine<br/>
+<font color="#A82F2F"><font size="2">(04:44:55 PM)</font> <b>MichaelRaskin:</b></font> NIX_PATH=$HOME/src:$NIX_PATH nix-env  -qaP | grep -i pine<br/>
+<font size="2">(04:45:58 PM)</font><b> ajhager [<em>~ajhager@99-8-18-142.lightspeed.iplsin.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(04:46:03 PM)</font><b> peti left the room (quit: Quit: ERC Version 5.3 (IRC client for Emacs)).</b><br/>
+<font color="#A82F2F"><font size="2">(04:46:06 PM)</font> <b>MichaelRaskin:</b></font> pharpend: nixos-rebuild doesn&apos;t remember NIX_PATH<br/>
+<font color="#A82F2F"><font size="2">(04:46:47 PM)</font> <b>MichaelRaskin:</b></font> And also NIX_PATH needs either nixpkgs=$HOME/src/nixpkgs or just $HOME/src<br/>
+<font color="#A82F2F"><font size="2">(04:46:48 PM)</font> <b>henrytill:</b></font> pharpend: you also might want to avoid nixos-rebuild&apos;ing off the git repo unless you&apos;re aware of the consequences<br/>
+<font color="#A82F2F"><font size="2">(04:47:03 PM)</font> <b>pharpend:</b></font> i&apos;m probably not<br/>
+<font color="#A82F2F"><font size="2">(04:47:14 PM)</font> <b>pharpend:</b></font> henrytill: i&apos;m probably not<br/>
+<font color="#A82F2F"><font size="2">(04:47:21 PM)</font> <b>MichaelRaskin:</b></font> also, you may want just nix-env -f $HOME/src/nixpkgs -iA alpine<br/>
+<font color="#16569E"><font size="2">(04:47:28 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: OK, first test looks good. Now to include it in the sed <br/>
+<font color="#16569E"><font size="2">(04:47:35 PM)</font> <b>magnetophon:</b></font> henrytill: Hi<br/>
+<font color="#A82F2F"><font size="2">(04:47:39 PM)</font> <b>henrytill:</b></font> pharpend: ^ exactly what MichaelRaskin said<br/>
+<font color="#A82F2F"><font size="2">(04:47:54 PM)</font> <b>henrytill:</b></font> magnetophon: hello<br/>
+<font color="#A82F2F"><font size="2">(04:48:03 PM)</font> <b>henrytill:</b></font> magnetophon: got yr email<br/>
+<font color="#A82F2F"><font size="2">(04:48:05 PM)</font> <b>pharpend:</b></font> awesome, MichaelRaskin, seems to be working.<br/>
+<font color="#A82F2F"><font size="2">(04:48:07 PM)</font> <b>MichaelRaskin:</b></font> This place.. I&apos;ll learn nix-env usage here just by answering questions!<br/>
+<font color="#A82F2F"><font size="2">(04:48:08 PM)</font> <b>henrytill:</b></font> magnetophon: any updates since then<br/>
+<font color="#A82F2F"><font size="2">(04:48:14 PM)</font> <b>henrytill:</b></font> magnetophon: ??<br/>
+<font color="#A82F2F"><font size="2">(04:48:23 PM)</font> <b>henrytill:</b></font> MichaelRaskin: heh<br/>
+<font color="#A82F2F"><font size="2">(04:48:31 PM)</font> <b>MichaelRaskin:</b></font> I don&apos;t use nix-env myself, just nix-build<br/>
+<font color="#A82F2F"><font size="2">(04:48:43 PM)</font> <b>pharpend:</b></font> MichaelRaskin: did you build it with passfile enabled?<br/>
+<font color="#A82F2F"><font size="2">(04:48:56 PM)</font> <b>MichaelRaskin:</b></font> No idea<br/>
+<font size="2">(04:48:59 PM)</font><b> akuhlens left the room (quit: Quit: This computer has gone to sleep).</b><br/>
+<font color="#16569E"><font size="2">(04:49:05 PM)</font> <b>magnetophon:</b></font> henrytill: YES :) I've been getting more help from goibhniu and MichaelRaskin.  I'll paste. one sec<br/>
+<font color="#A82F2F"><font size="2">(04:49:06 PM)</font> <b>MichaelRaskin:</b></font> Didn&apos;t enable it explicitly<br/>
+<font color="#A82F2F"><font size="2">(04:49:30 PM)</font> <b>MichaelRaskin:</b></font> Tried to geed it enough dependencies to make it happy<br/>
+<font color="#A82F2F"><font size="2">(04:49:35 PM)</font> <b>MichaelRaskin:</b></font> feed<br/>
+<font color="#A82F2F"><font size="2">(04:49:37 PM)</font> <b>pharpend:</b></font> MichaelRaskin: hmm. You probably didn&apos;t then. We&apos;ll see. Oh cool it&apos;s actually compiling. Feels like Gentoo but with much more verbose output<br/>
+<font color="#A82F2F"><font size="2">(04:49:48 PM)</font> <b>MichaelRaskin:</b></font> Well, there is -Q<br/>
+<font color="#A82F2F"><font size="2">(04:49:53 PM)</font> <b>MichaelRaskin:</b></font> For less output<br/>
+<font color="#A82F2F"><font size="2">(04:49:57 PM)</font> <b>pharpend:</b></font> sure<br/>
+<font color="#A82F2F"><font size="2">(04:50:10 PM)</font> <b>MichaelRaskin:</b></font> nix-store -l allows to read output that you have skipped<br/>
+<font color="#A82F2F"><font size="2">(04:50:21 PM)</font> <b>MichaelRaskin:</b></font> (ou need to specify the derivation path for that)<br/>
+<font color="#A82F2F"><font size="2">(04:50:41 PM)</font> <b>pharpend:</b></font> ohp it failed<br/>
+<font color="#16569E"><font size="2">(04:50:49 PM)</font> <b>magnetophon:</b></font> henrytill: http://nixpaste.noip.me/SDaGWBDY doesn't patch the path right now, as I'm working on that<br/>
+<font color="#A82F2F"><font size="2">(04:50:58 PM)</font> <b>pharpend:</b></font> MichaelRaskin: libgcc_s.so.1 must be installed for pthread_cancel to working text]<br/>
+<font color="#A82F2F"><font size="2">(04:51:37 PM)</font> <b>MichaelRaskin:</b></font> I don&apos;t understand - I did build it<br/>
+<font color="#A82F2F"><font size="2">(04:51:43 PM)</font> <b>MichaelRaskin:</b></font> x86_64<br/>
+<font color="#A82F2F"><font size="2">(04:51:52 PM)</font> <b>MichaelRaskin:</b></font> Let me try i686 build<br/>
+<font color="#A82F2F"><font size="2">(04:52:01 PM)</font> <b>pharpend:</b></font> alright<br/>
+<font color="#A82F2F"><font size="2">(04:52:15 PM)</font> <b>MichaelRaskin:</b></font> Hm<br/>
+<font color="#A82F2F"><font size="2">(04:52:20 PM)</font> <b>MichaelRaskin:</b></font> Does it fail at runtime?<br/>
+<font color="#A82F2F"><font size="2">(04:52:34 PM)</font> <b>MichaelRaskin:</b></font> I can add -lgcc_s<br/>
+<font color="#A82F2F"><font size="2">(04:52:37 PM)</font> <b>MichaelRaskin:</b></font> Sometimes helpes<br/>
+<font color="#A82F2F"><font size="2">(04:52:38 PM)</font> <b>henrytill:</b></font> magnetophon: so was substituteInPlace failing in nix-shell?<br/>
+<font color="#A82F2F"><font size="2">(04:52:55 PM)</font> <b>pharpend:</b></font> MichaelRaskin: On Gentoo, we had this wonderful bug - https://bugs.gentoo.org/show_bug.cgi?id=524166<br/>
+<font color="#A82F2F"><font size="2">(04:53:00 PM)</font> <b>MichaelRaskin:</b></font> pharpend: how to enable passfile?<br/>
+<font color="#16569E"><font size="2">(04:53:46 PM)</font> <b>magnetophon:</b></font> henrytill: I don't remember what went wrong, sorry. Easy to check though.<br/>
+<font color="#A82F2F"><font size="2">(04:54:04 PM)</font> <b>pharpend:</b></font> MichaelRaskin: I have never compiled it by hand. On Gentoo, I just set USE=passfile, but that didn&apos;t work. Okay, it&apos;s enabled by default, you&apos;re good<br/>
+<font color="#A82F2F"><font size="2">(04:54:36 PM)</font> <b>henrytill:</b></font> magnetophon: i see you&apos;ve started down the road of dealing with other dependencies<br/>
+<font color="#A82F2F"><font size="2">(04:54:44 PM)</font> <b>henrytill:</b></font> magnetophon: as i thought would need to be the case<br/>
+<font color="#A82F2F"><font size="2">(04:54:47 PM)</font> <b>pharpend:</b></font> you would have to compile it with --without-passfile for the passfile to be disabled<br/>
+<font color="#16569E"><font size="2">(04:55:01 PM)</font> <b>magnetophon:</b></font> MichaelRaskin, henrytill, goibhniu: This just puts a literal &quot;echo $out&quot; in the script:     sed -i 's|$FAUST_INSTALL /usr/local /usr /opt /opt/local|echo $out|g' tools/faust2appls/faustpath<br/>
+<font color="#A82F2F"><font size="2">(04:56:58 PM)</font> <b>MichaelRaskin:</b></font> magnetophon: it is shell rules<br/>
+<font color="#16569E"><font size="2">(04:56:59 PM)</font> <b>magnetophon:</b></font> henrytill: well, yes and no. You can run faust example.dsp and get out c++ code that you can then use, but to run fe faust2alsa you need alsa and gtk<br/>
+<font color="#A82F2F"><font size="2">(04:57:07 PM)</font> <b>MichaelRaskin:</b></font> echo &apos;$out&apos; &quot;$out&quot;<br/>
+<font size="2">(04:57:37 PM)</font><b> mizu_no_oto [<em>~textual@50.153.151.45</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:57:41 PM)</font> <b>MichaelRaskin:</b></font> pharpend: and what fails?<br/>
+<font color="#A82F2F"><font size="2">(04:57:56 PM)</font> <b>henrytill:</b></font> magnetophon: so certain faust2* tools will need wrappers<br/>
+<font color="#A82F2F"><font size="2">(04:57:59 PM)</font> <b>pharpend:</b></font> MichaelRaskin: what are you talking about?<br/>
+<font color="#A82F2F"><font size="2">(04:58:06 PM)</font> <b>MichaelRaskin:</b></font> You said something failed<br/>
+<font size="2">(04:58:16 PM)</font><b> psnively left the room.</b><br/>
+<font color="#16569E"><font size="2">(04:58:29 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: thanks. I'd love to know how to search online for stuff like that...<br/>
+<font color="#A82F2F"><font size="2">(04:59:10 PM)</font> <b>pharpend:</b></font> MichaelRaskin: Ah okay. here -&gt; https://i.imgur.com/4S838nt.png . The error appeared after I pressed Enter.<br/>
+<font color="#A82F2F"><font size="2">(04:59:16 PM)</font> <b>MichaelRaskin:</b></font> You should first read POSIX shell specification<br/>
+<font color="#A82F2F"><font size="2">(04:59:18 PM)</font> <b>MichaelRaskin:</b></font> Or man bash<br/>
+<font color="#A82F2F"><font size="2">(04:59:33 PM)</font> <b>MichaelRaskin:</b></font> Or Advanced Bash Scripting guide<br/>
+<font color="#A82F2F"><font size="2">(05:00:51 PM)</font> <b>hyper_ch:</b></font> [17:00] &lt;greybot&gt; The infamous &quot;Advanced&quot; Bash Scripting Guide should be avoided unless you know how to filter out the junk. It will teach you to write bugs, not scripts. In that light, the BashGuide was written: http://mywiki.wooledge.org/BashGuide<br/>
+<font color="#A82F2F"><font size="2">(05:01:36 PM)</font> <b>MichaelRaskin:</b></font> Well, the correct place to start is Single Unix Specification Shell chapter<br/>
+<font color="#A82F2F"><font size="2">(05:01:53 PM)</font> <b>hyper_ch:</b></font> MichaelRaskin: that&apos;s from #bash ;)<br/>
+<font color="#A82F2F"><font size="2">(05:01:54 PM)</font> <b>MichaelRaskin:</b></font> (coincides with POSIX Shell chapter)<br/>
+<font color="#A82F2F"><font size="2">(05:02:17 PM)</font> <b>MichaelRaskin:</b></font> But some people get afraid when looking at POSIX/SUS/...<br/>
+<font color="#16569E"><font size="2">(05:02:35 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: sure, generic docs enough, but it's just a bit frustrationg to find stuff when you don't know what that shell construct you gave me is called<br/>
+<font color="#16569E"><font size="2">(05:02:53 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: but thanks! :)<br/>
+<font color="#A82F2F"><font size="2">(05:03:09 PM)</font> <b>MichaelRaskin:</b></font> Well, POSIX shell description is not that long<br/>
+<font color="#A82F2F"><font size="2">(05:03:33 PM)</font> <b>MichaelRaskin:</b></font> And the point is: before writing shell code you are going to distribute, it is a good idea to at least skim the standard<br/>
+<font color="#16569E"><font size="2">(05:05:10 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: no argument there!<br/>
+<font color="#A82F2F"><font size="2">(05:07:00 PM)</font> <b>pharpend:</b></font> MichaelRaskin: thoughts?<br/>
+<font color="#A82F2F"><font size="2">(05:07:18 PM)</font> <b>queiw:</b></font> oh wow, there is an option services.xserver.deviceSection<br/>
+<font size="2">(05:07:33 PM)</font><b> mizu_no_oto left the room (quit: Quit: Computer has gone to sleep.).</b><br/>
+<font color="#A82F2F"><font size="2">(05:10:05 PM)</font> <b>MichaelRaskin:</b></font> pharpend: let me check the fix builds<br/>
+<font color="#16569E"><font size="2">(05:10:11 PM)</font> <b>magnetophon:</b></font> well, it's not     sed -i 's|$FAUST_INSTALL /usr/local /usr /opt /opt/local|&quot;echo $out&quot;|g' tools/faust2appls/faustpath<br/>
+<font color="#16569E"><font size="2">(05:10:11 PM)</font> <b>magnetophon:</b></font> that I want... I'll go read that link now...<br/>
+<font color="#A82F2F"><font size="2">(05:10:43 PM)</font> <b>iElectric:</b></font> niksnut: around?<br/>
+<font size="2">(05:11:09 PM)</font><b> akuhlens [<em>~akuhlens@2601:d:a780:11d:8161:1947:332c:5c3f</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:11:21 PM)</font> <b>iElectric:</b></font> niksnut: are you fine deprecating md5 in fetchurl and faimily of functions inside nixpkgs?<br/>
+<font color="#A82F2F"><font size="2">(05:11:40 PM)</font> <b>iElectric:</b></font> sha-1 is already considered weak while we use md5 in about 500 packages<br/>
+<font size="2">(05:12:02 PM)</font><b> marvin-hh left the room.</b><br/>
+<font size="2">(05:12:05 PM)</font><b> marvin-hh [<em>~marvin-hh@unaffiliated/marvin-hh</em>] entered the room.</b><br/>
+<font size="2">(05:13:32 PM)</font><b> jaster left the room (&quot;ERC Version 5.3 (IRC client for Emacs)&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(05:16:28 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] 7c6f434c pushed 1 new commit to master: http://git.io/xGt2Cw<br/>
+<font color="#A82F2F"><font size="2">(05:16:28 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 09288d4 Michael Raskin: Fix the libgcc_s problem in alpine<br/>
+<font color="#A82F2F"><font size="2">(05:16:55 PM)</font> <b>pharpend:</b></font> MichaelRaskin: shall I pull &amp; try again?<br/>
+<font color="#A82F2F"><font size="2">(05:17:32 PM)</font> <b>pharpend:</b></font> magnetophon: oh, to answer your question, I use both, so, yeah<br/>
+<font color="#16569E"><font size="2">(05:18:34 PM)</font> <b>magnetophon:</b></font> pharpend: but why? if I may ask...<br/>
+<font color="#A82F2F"><font size="2">(05:18:54 PM)</font> <b>MichaelRaskin:</b></font> pharpend: hopefully it is fixed<br/>
+<font color="#A82F2F"><font size="2">(05:19:18 PM)</font> <b>iElectric:</b></font> MichaelRaskin: we have to build cups-filders<br/>
+<font color="#A82F2F"><font size="2">(05:19:23 PM)</font> <b>iElectric:</b></font> cups-filters*<br/>
+<font color="#A82F2F"><font size="2">(05:19:33 PM)</font> <b>iElectric:</b></font> instead of deprecated cups-pdf-filter<br/>
+<font color="#A82F2F"><font size="2">(05:19:38 PM)</font> <b>iElectric:</b></font> working on it.<br/>
+<font color="#A82F2F"><font size="2">(05:19:56 PM)</font> <b>pharpend:</b></font> magnetophon: I use vim for little things (quick edits to configuration files, etc), mostly because it&apos;s a lot faster. Emacs takes a good 5 seconds to start up, which is fine if I&apos;m going to be programming for two hours, but annoying for little things.<br/>
+<font color="#A82F2F"><font size="2">(05:20:25 PM)</font> <b>pharpend:</b></font> magnetophon: vim for git commits. Although, I usually use Magit for git stuff.<br/>
+<font color="#062585"><font size="2">(05:21:12 PM)</font> <b>***pharpend</b></font> patiently waits for alpine to recompile<br/>
+<font color="#A82F2F"><font size="2">(05:22:04 PM)</font> <b>pharpend:</b></font> MichaelRaskin: I should mention that it&apos;s no longer alpine, it&apos;s re-alpine. Alpine was discontinued a while ago - http://sourceforge.net/projects/re-alpine/<br/>
+<font color="#16569E"><font size="2">(05:22:09 PM)</font> <b>magnetophon:</b></font> pharpend: I think my musclememory would get very confused. That's why I'm working towards a desktop with as much as possible vim-like shortcuts... To ech their own I guess...<br/>
+<font color="#A82F2F"><font size="2">(05:22:24 PM)</font> <b>MichaelRaskin:</b></font> pharpend: ...<br/>
+<font color="#A82F2F"><font size="2">(05:22:28 PM)</font> <b>pharpend:</b></font> magnetophon: I use evil in emacs, so, yeah, muscle memory is intact.<br/>
+<font color="#A82F2F"><font size="2">(05:22:36 PM)</font> <b>pharpend:</b></font> MichaelRaskin: sorry, I just realized that.<br/>
+<font color="#A82F2F"><font size="2">(05:22:43 PM)</font> <b>MichaelRaskin:</b></font> Given that Alpine is rewrite of Pine...<br/>
+<font color="#16569E"><font size="2">(05:22:43 PM)</font> <b>magnetophon:</b></font> pharpend: right.<br/>
+<font color="#A82F2F"><font size="2">(05:22:56 PM)</font> <b>MichaelRaskin:</b></font> I wonder how long will this chain get<br/>
+<font color="#A82F2F"><font size="2">(05:22:59 PM)</font> <b>henrytill:</b></font> s&apos;all about emacs --daemon, then emacsclient starts nice and quick<br/>
+<font color="#A82F2F"><font size="2">(05:23:00 PM)</font> <b>pharpend:</b></font> MichaelRaskin: If I knew how to fix the problem myself, I would.<br/>
+<font color="#A82F2F"><font size="2">(05:23:10 PM)</font> <b>pharpend:</b></font> MichaelRaskin: the only logical thing to do is to fork re-alpine<br/>
+<font color="#A82F2F"><font size="2">(05:23:11 PM)</font> <b>MichaelRaskin:</b></font> Kill All Humans!<br/>
+<font color="#A82F2F"><font size="2">(05:23:19 PM)</font> <b>pharpend:</b></font> that&apos;s also acceptable<br/>
+<font color="#A82F2F"><font size="2">(05:23:27 PM)</font> <b>MichaelRaskin:</b></font> fork re-alpine and call this pin<br/>
+<font color="#A82F2F"><font size="2">(05:23:41 PM)</font> <b>pharpend:</b></font> call it spruce<br/>
+<font color="#A82F2F"><font size="2">(05:25:35 PM)</font> <b>pharpend:</b></font> MichaelRaskin: hey, alpine works! Thanks, man<br/>
+<font color="#A82F2F"><font size="2">(05:25:48 PM)</font> <b>pharpend:</b></font> Why is lambdabot not in this channel<br/>
+<font color="#A82F2F"><font size="2">(05:26:49 PM)</font> <b>pharpend:</b></font> MichaelRaskin: what the hell is with your github username man<br/>
+<font color="#A82F2F"><font size="2">(05:27:42 PM)</font> <b>pharpend:</b></font> MichaelRaskin: I&apos;m trying to figure out a way to upvote you somehow. @karma++ won&apos;t work because lambdabot. Following you on GitHub sounds creepy and annoying. Man<br/>
+<font color="#A82F2F"><font size="2">(05:27:46 PM)</font> <b>MichaelRaskin:</b></font> I try not to make connecting my different identities too easy<br/>
+<font color="#A82F2F"><font size="2">(05:28:07 PM)</font> <b>MichaelRaskin:</b></font> And I try not to squat identities someone could want<br/>
+<font color="#A82F2F"><font size="2">(05:28:31 PM)</font> <b>goibhniu:</b></font> hi magnetophon, how&apos;s it going?<br/>
+<font color="#A82F2F"><font size="2">(05:28:54 PM)</font> <b>MichaelRaskin:</b></font> pharpend: well, you could try QueryFS...<br/>
+<font color="#A82F2F"><font size="2">(05:30:05 PM)</font> <b>pharpend:</b></font> MichaelRaskin: I&apos;ll take a look at it<br/>
+<font color="#A82F2F"><font size="2">(05:30:33 PM)</font> <b>MichaelRaskin:</b></font> I am trying to find out what additions to it would make it useful for other people<br/>
+<font color="#A82F2F"><font size="2">(05:30:55 PM)</font> <b>MichaelRaskin:</b></font> I use it as my mailer for the last few years, among other things<br/>
+<font color="#A82F2F"><font size="2">(05:31:17 PM)</font> <b>MichaelRaskin:</b></font> (password store, for example)<br/>
+<font color="#A82F2F"><font size="2">(05:31:31 PM)</font> <b>pharpend:</b></font> MichaelRaskin: I&apos;ll definitely take a look<br/>
+<font color="#A82F2F"><font size="2">(05:32:40 PM)</font> <b>MichaelRaskin:</b></font> Ping me when you have time for that - unless you are a lisp user, you would need assistance with installation<br/>
+<font size="2">(05:34:42 PM)</font><b> akuhlens left the room (quit: Quit: This computer has gone to sleep).</b><br/>
+<font size="2">(05:38:45 PM)</font><b> sogatori [<em>~quassel@dslb-088-067-118-020.088.067.pools.vodafone-ip.de</em>] entered the room.</b><br/>
+<font size="2">(05:38:47 PM)</font><b> akuhlens [<em>~akuhlens@2601:d:a780:11d:4558:4724:5b7c:d419</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:39:46 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] 7c6f434c pushed 1 new commit to master: http://git.io/OY9uIg<br/>
+<font color="#A82F2F"><font size="2">(05:39:46 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e9c9437 Michael Raskin: Add realpine alpine continuation<br/>
+<font color="#A82F2F"><font size="2">(05:39:48 PM)</font> <b>MichaelRaskin:</b></font> pharpend: you can try realpine now.<br/>
+<font color="#16569E"><font size="2">(05:43:06 PM)</font> <b>magnetophon:</b></font> goibhniu: I'm still stuck trying to get the value of $out into sed/substituteInline instead of a literal &quot;$out&quot;<br/>
+<font size="2">(05:43:07 PM)</font><b> bennofs [<em>~benno@ip92342b4f.dynamic.kabel-deutschland.de</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(05:43:55 PM)</font> <b>magnetophon:</b></font> goibhniu: basically I need to study the shell more...<br/>
+<font color="#A82F2F"><font size="2">(05:44:39 PM)</font> <b>MichaelRaskin:</b></font> sed -e &quot;s@TARGET@$out@g&quot; -i script<br/>
+<font color="#A82F2F"><font size="2">(05:44:47 PM)</font> <b>MichaelRaskin:</b></font> magnetophone: ^^<br/>
+<font color="#16569E"><font size="2">(05:45:14 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: thanks, I'll try that.<br/>
+<font size="2">(05:45:29 PM)</font><b> zz_flazz is now known as flazz</b><br/>
+<font size="2">(05:45:47 PM)</font><b> elifrey [<em>~elifrey@c-50-159-28-215.hsd1.wa.comcast.net</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(05:47:40 PM)</font> <b>magnetophon:</b></font> I have:     sed -e &quot;s@$FAUST_INSTALL /usr/local /usr /opt /opt/local@$out@g&quot; -i tools/faust2appls/faustpath<br/>
+<font color="#16569E"><font size="2">(05:48:05 PM)</font> <b>magnetophon:</b></font> and I get:  syntax error, unexpected '@', expecting ';'<br/>
+<font color="#16569E"><font size="2">(05:48:23 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: ^<br/>
+<font color="#A82F2F"><font size="2">(05:48:39 PM)</font> <b>MichaelRaskin:</b></font> is it inside &apos;&apos;-string or &quot;=string ?<br/>
+<font color="#A82F2F"><font size="2">(05:48:46 PM)</font> <b>MichaelRaskin:</b></font> From Nix point of view<br/>
+<font color="#16569E"><font size="2">(05:48:59 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: sorry you lost me<br/>
+<font color="#A82F2F"><font size="2">(05:49:20 PM)</font> <b>MichaelRaskin:</b></font> preConfigure = &quot; &quot;; or preConfigure = &apos;&apos; &apos;&apos;;?<br/>
+<font size="2">(05:50:17 PM)</font><b> akuhlens left the room (quit: Quit: This computer has gone to sleep).</b><br/>
+<font size="2">(05:50:30 PM)</font><b> komarov left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font color="#16569E"><font size="2">(05:50:43 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: the first. I need the other?<br/>
+<font size="2">(05:50:47 PM)</font><b> komarov [<em>~komarov@pppoe.95-55-144-59.dynamic.avangarddsl.ru</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(05:51:23 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: actually it's in preBuild, since there is no configure in this build<br/>
+<font color="#A82F2F"><font size="2">(05:51:34 PM)</font> <b>MichaelRaskin:</b></font> Doesn&apos;t matter<br/>
+<font color="#16569E"><font size="2">(05:51:38 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: http://nixpaste.noip.me/nwUEZDP_<br/>
+<font color="#A82F2F"><font size="2">(05:51:40 PM)</font> <b>MichaelRaskin:</b></font> &quot; inside &quot;..&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:51:46 PM)</font> <b>MichaelRaskin:</b></font> it obviously ends that Nix-string<br/>
+<font color="#A82F2F"><font size="2">(05:51:52 PM)</font> <b>MichaelRaskin:</b></font> So you are better off using &apos;&apos;<br/>
+<font color="#A82F2F"><font size="2">(05:52:09 PM)</font> <b>MichaelRaskin:</b></font> &quot; inside &apos;&apos;..&apos;&apos; doesn&apos;t break<br/>
+<font color="#A82F2F"><font size="2">(05:52:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 2 new commits to master: http://git.io/JYo2Kg<br/>
+<font color="#A82F2F"><font size="2">(05:52:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 909b62f Domen Kožar: fetchurl: friendly message if hash is not given<br/>
+<font color="#A82F2F"><font size="2">(05:52:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 23567ac Domen Kožar: cups-pdf-filter -&gt; cups-filters, enable by default for cups<br/>
+<font color="#A82F2F"><font size="2">(05:52:27 PM)</font> <b>pharpend:</b></font> What&apos;s the standard way to deal with fontconfig on Nix?<br/>
+<font color="#A82F2F"><font size="2">(05:54:21 PM)</font> <b>henrytill:</b></font> pharpend: you can use a $HOME/.config/fontconfig/fonts.conf<br/>
+<font color="#A82F2F"><font size="2">(05:54:43 PM)</font> <b>pharpend:</b></font> okay, but there isn&apos;t some standard way to do it with config.nix or something?<br/>
+<font color="#A82F2F"><font size="2">(05:55:49 PM)</font> <b>henrytill:</b></font> pharpend: what are you trying to do?<br/>
+<font color="#A82F2F"><font size="2">(05:55:58 PM)</font> <b>pharpend:</b></font> change font hinting<br/>
+<font color="#A82F2F"><font size="2">(05:56:41 PM)</font> <b>henrytill:</b></font> pharpend: there aren&apos;t any options for doing that with fonts.* in configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(05:56:51 PM)</font> <b>pharpend:</b></font> alright<br/>
+<font color="#A82F2F"><font size="2">(05:56:56 PM)</font> <b>pharpend:</b></font> I&apos;ll put in a bug report<br/>
+<font color="#A82F2F"><font size="2">(05:57:15 PM)</font> <b>henrytill:</b></font> pharpend: /etc/fonts/font.conf is auto-generated<br/>
+<font color="#A82F2F"><font size="2">(05:57:26 PM)</font> <b>henrytill:</b></font> pharpend: so you don&apos;t want to futz with that<br/>
+<font color="#A82F2F"><font size="2">(05:57:58 PM)</font> <b>henrytill:</b></font> pharpend: though i guess there is /etc/fonts/local.conf<br/>
+<font color="#A82F2F"><font size="2">(05:58:05 PM)</font> <b>pharpend:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(05:58:26 PM)</font> <b>henrytill:</b></font> pharpend: i generally find it easier to keep my own fonts.conf with my dotfiles in $HOME<br/>
+<font color="#A82F2F"><font size="2">(05:58:37 PM)</font> <b>pharpend:</b></font> same here<br/>
+<font color="#16569E"><font size="2">(05:59:03 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: well that sort of works, but it leaves the $FAUST_INSTALL, which needs to go as well, I think.<br/>
+<font color="#A82F2F"><font size="2">(05:59:14 PM)</font> <b>henrytill:</b></font> pharpend: so what is the bug report then?<br/>
+<font color="#A82F2F"><font size="2">(05:59:26 PM)</font> <b>henrytill:</b></font> magnetophon: yeah you can just omit that<br/>
+<font color="#A82F2F"><font size="2">(05:59:33 PM)</font> <b>henrytill:</b></font> magnetophon: no harm in leaving it in<br/>
+<font color="#A82F2F"><font size="2">(05:59:41 PM)</font> <b>henrytill:</b></font> magnetophon: it won&apos;t get defined<br/>
+<font color="#A82F2F"><font size="2">(05:59:42 PM)</font> <b>pharpend:</b></font> henrytill: to add fontconfig options to configuration.nix. It seems like something that should be declaratively defined<br/>
+<font color="#16569E"><font size="2">(05:59:49 PM)</font> <b>magnetophon:</b></font> henrytill: OK, thanks.<br/>
+<font color="#A82F2F"><font size="2">(05:59:51 PM)</font> <b>MichaelRaskin:</b></font> You can escape $ with \<br/>
+<font color="#A82F2F"><font size="2">(06:00:10 PM)</font> <b>henrytill:</b></font> pharpend: fair enough<br/>
+<font color="#A82F2F"><font size="2">(06:00:38 PM)</font> <b>pharpend:</b></font> I don&apos;t think my bug report was descriptive enought, but i&apos;m tired https://github.com/NixOS/nixpkgs/issues/5094<br/>
+<font color="#A82F2F"><font size="2">(06:00:41 PM)</font> <b>henrytill:</b></font> pharpend: there are moves underway for declaratively dealing with $HOME<br/>
+<font color="#A82F2F"><font size="2">(06:00:54 PM)</font> <b>pharpend:</b></font> yeah, that&apos;s something that I would like<br/>
+<font color="#A82F2F"><font size="2">(06:00:57 PM)</font> <b>henrytill:</b></font> pharpend: offlinehacker has something going i believe<br/>
+<font color="#A82F2F"><font size="2">(06:01:25 PM)</font> <b>henrytill:</b></font> pharpend: so maybe spend some ime leaving through the open issues and PRs before filing another<br/>
+<font color="#A82F2F"><font size="2">(06:01:38 PM)</font> <b>henrytill:</b></font> s/leaving/leafing<br/>
+<font color="#A82F2F"><font size="2">(06:01:49 PM)</font> <b>henrytill:</b></font> s/ime/time<br/>
+<font color="#A82F2F"><font size="2">(06:02:33 PM)</font> <b>pharpend:</b></font> I&apos;m aware<br/>
+<font color="#A82F2F"><font size="2">(06:02:55 PM)</font> <b>pharpend:</b></font> I searched for fontconfig, and the issue I&apos;m describing didn&apos;t show up<br/>
+<font color="#16569E"><font size="2">(06:02:59 PM)</font> <b>magnetophon:</b></font> henrytill: I'm also very interested in having my dotfiles defined declaratively. Any links?<br/>
+<font color="#A82F2F"><font size="2">(06:03:34 PM)</font> <b>henrytill:</b></font> pharpend: https://github.com/NixOS/nixpkgs/issues/1827<br/>
+<font color="#16569E"><font size="2">(06:04:22 PM)</font> <b>magnetophon:</b></font> MichaelRaskin, henrytill: looks like we have a winner! The sed command worked in nix-shell, and now it's building. fingers crossed! Thanks!<br/>
+<font color="#A82F2F"><font size="2">(06:05:01 PM)</font> <b>pharpend:</b></font> henrytill: similar, but not quite the issue I&apos;m looking at<br/>
+<font color="#A82F2F"><font size="2">(06:06:07 PM)</font> <b>henrytill:</b></font> pharpend: vcunat&apos;s final message points to how it can be addressed with the fixes from staging<br/>
+<font color="#A82F2F"><font size="2">(06:06:25 PM)</font> <b>henrytill:</b></font> pharpend: i.e.e environment.etc.fonts.&lt;blah&gt;<br/>
+<font color="#A82F2F"><font size="2">(06:06:41 PM)</font> <b>henrytill:</b></font> s/i.e.e/i.e.<br/>
+<font color="#A82F2F"><font size="2">(06:07:36 PM)</font> <b>pharpend:</b></font> maybe, I&apos;ll see what they have to say<br/>
+<font color="#A82F2F"><font size="2">(06:07:44 PM)</font> <b>henrytill:</b></font> pharpend: the same you can arbitrarily add files to etc with that type of declaration<br/>
+<font size="2">(06:07:56 PM)</font><b> Xack is now known as CaveJohnson</b><br/>
+<font color="#A82F2F"><font size="2">(06:07:57 PM)</font> <b>pharpend:</b></font> yeah<br/>
+<font size="2">(06:08:47 PM)</font><b> Takle [<em>~takle@188.228.85.218</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:08:47 PM)</font> <b>henrytill:</b></font> pharpend:<br/>
+<font color="#A82F2F"><font size="2">(06:08:47 PM)</font> <b>henrytill:</b></font> in fact you can already do this<br/>
+<font color="#A82F2F"><font size="2">(06:09:12 PM)</font> <b>henrytill:</b></font> environment.etc.&quot;fonts/local.conf&quot;.text =<br/>
+<font color="#A82F2F"><font size="2">(06:09:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] dmalikov opened pull request #5095: haskellPackages.hspecContrib: add 0.2.0 (master...master) http://git.io/X2Th8A<br/>
+<font color="#A82F2F"><font size="2">(06:09:32 PM)</font> <b>henrytill:</b></font> and then put the contents of your fontconfig in there<br/>
+<font size="2">(06:11:17 PM)</font><b> CaveJohnson left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(06:11:17 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti closed pull request #5095: haskellPackages.hspecContrib: add 0.2.0 (master...master) http://git.io/X2Th8A<br/>
+<font color="#A82F2F"><font size="2">(06:11:17 PM)</font> <b>henrytill:</b></font> or fonts.conf, i should say<br/>
+<font size="2">(06:14:03 PM)</font><b> Matrixiumn [<em>Matrixiumn@unaffiliated/matrixiumn</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:15:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti closed pull request #5083: add sqliteman package (master...sqliteman) http://git.io/9uaEww<br/>
+<font color="#16569E"><font size="2">(06:16:34 PM)</font> <b>magnetophon:</b></font> hmmm:  faust2alsaconsole tst.dsp <br/>
+<font color="#16569E"><font size="2">(06:16:34 PM)</font> <b>magnetophon:</b></font> Package alsa was not found in the pkg-config search path.<br/>
+<font size="2">(06:17:09 PM)</font><b> vcunat left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(06:17:29 PM)</font> <b>henrytill:</b></font> magnetophon: yes, it&apos;s probably going to need a wrapper for the runtime dependencies<br/>
+<font color="#16569E"><font size="2">(06:18:07 PM)</font> <b>magnetophon:</b></font> henrytill: yes, that's what goibhniu said too. got a link?<br/>
+<font color="#A82F2F"><font size="2">(06:19:07 PM)</font> <b>henrytill:</b></font> https://nixos.org/wiki/Nix_Runtime_Environment_Wrapper<br/>
+<font color="#16569E"><font size="2">(06:20:22 PM)</font> <b>magnetophon:</b></font> henrytill: thanks<br/>
+<font size="2">(06:20:26 PM)</font><b> sujeet left the room (quit: Excess Flood).</b><br/>
+<font color="#A82F2F"><font size="2">(06:20:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] aszlig pushed 1 new commit to master: http://git.io/F8PiJg<br/>
+<font color="#A82F2F"><font size="2">(06:20:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 764f428 aszlig: libgnomecups: Add CUPS &gt;= 1.6 compatibility patch....<br/>
+<font size="2">(06:20:59 PM)</font><b> sujeet [<em>sujeet@unaffiliated/freeboson</em>] entered the room.</b><br/>
+<font size="2">(06:20:59 PM)</font><b> sujeet left the room (quit: Excess Flood).</b><br/>
+<font size="2">(06:21:18 PM)</font><b> sujeet [<em>sujeet@unaffiliated/freeboson</em>] entered the room.</b><br/>
+<font size="2">(06:21:19 PM)</font><b> sujeet left the room (quit: Excess Flood).</b><br/>
+<font size="2">(06:21:47 PM)</font><b> sujeet [<em>sujeet@unaffiliated/freeboson</em>] entered the room.</b><br/>
+<font size="2">(06:21:49 PM)</font><b> sujeet left the room (quit: Excess Flood).</b><br/>
+<font size="2">(06:22:17 PM)</font><b> sujeet [<em>sujeet@unaffiliated/freeboson</em>] entered the room.</b><br/>
+<font size="2">(06:22:18 PM)</font><b> ajhager left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(06:25:36 PM)</font><b> Rastus_Vernon [<em>uid15187@wikimedia/Rastus-Vernon</em>] entered the room.</b><br/>
+<font size="2">(06:28:37 PM)</font><b> RyanRN [<em>~Adium@c-98-220-223-160.hsd1.in.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:34:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vbgl pushed 1 new commit to master: http://git.io/e4wqAA<br/>
+<font color="#A82F2F"><font size="2">(06:34:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 54d206e Vincent Laporte: cppo: update from 1.0.1 to 1.1.2<br/>
+<font color="#A82F2F"><font size="2">(06:34:39 PM)</font> <b>goibhniu:</b></font> magnetophon: ah cool, I see you&apos;re making progress<br/>
+<font color="#16569E"><font size="2">(06:35:40 PM)</font> <b>magnetophon:</b></font> goibhniu: slowly but surely.  Though tbh usually you guys spoon feed me the info before I can find it myself :)<br/>
+<font color="#A82F2F"><font size="2">(06:36:06 PM)</font> <b>goibhniu:</b></font> ah .. heh<br/>
+<font color="#A82F2F"><font size="2">(06:36:12 PM)</font> <b>goibhniu:</b></font> anything I can help out with at the moment?<br/>
+<font color="#16569E"><font size="2">(06:36:46 PM)</font> <b>magnetophon:</b></font> goibhniu: I'm reading up on wrappers, so that faust2alsa can find alsa at runtime<br/>
+<font color="#A82F2F"><font size="2">(06:37:34 PM)</font> <b>goibhniu:</b></font> ah ok, and it uses pkg-config to find them<br/>
+<font color="#A82F2F"><font size="2">(06:37:50 PM)</font> <b>goibhniu:</b></font> ^them^it<br/>
+<font color="#16569E"><font size="2">(06:37:51 PM)</font> <b>magnetophon:</b></font> goibhniu: I was just typing that... :)<br/>
+<font color="#16569E"><font size="2">(06:39:00 PM)</font> <b>magnetophon:</b></font> goibhniu: I know nothing about pkg-config nor wrappers, so I've got some reading to do.<br/>
+<font color="#A82F2F"><font size="2">(06:39:11 PM)</font> <b>goibhniu:</b></font> ok, I can help you there if you like<br/>
+<font color="#A82F2F"><font size="2">(06:39:27 PM)</font> <b>goibhniu:</b></font> if you give me the latest expression you have<br/>
+<font color="#16569E"><font size="2">(06:39:34 PM)</font> <b>magnetophon:</b></font> goibhniu: I'm not gonna say no ;)<br/>
+<font color="#16569E"><font size="2">(06:40:18 PM)</font> <b>magnetophon:</b></font> goibhniu: http://nixpaste.noip.me/My89cs0b<br/>
+<font size="2">(06:42:16 PM)</font><b> philed [<em>~user@sammon.inf.ed.ac.uk</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:42:23 PM)</font> <b>goibhniu:</b></font> cool, so you&apos;re missing makeWrapper in the function args at the top, but I guess that was just a copy-paste fail<br/>
+<font color="#A82F2F"><font size="2">(06:43:17 PM)</font> <b>goibhniu:</b></font> magnetophon: do you have an easy way for me to test it out?<br/>
+<font color="#A82F2F"><font size="2">(06:43:42 PM)</font> <b>goibhniu:</b></font> result/bin/faust2alsa ... something<br/>
+<font color="#16569E"><font size="2">(06:44:17 PM)</font> <b>magnetophon:</b></font> goibhniu: put process=+; inside example.dsp, run faust2alsaconsole example.dsp<br/>
+<font color="#16569E"><font size="2">(06:44:48 PM)</font> <b>magnetophon:</b></font> goibhniu: what's result/bin ?<br/>
+<font size="2">(06:45:25 PM)</font><b> petar [<em>~petar@77-57-42-79.dclient.hispeed.ch</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(06:45:27 PM)</font> <b>magnetophon:</b></font> ps: faust2alsa makes a gtk gui, so is probably our next step. for now we need faust2alsaconsole<br/>
+<font color="#A82F2F"><font size="2">(06:45:35 PM)</font> <b>goibhniu:</b></font> I build it like this: nix-build -E &apos;with import &lt;nixpkgs&gt; { }; callPackage ./faust.nix {}&apos;<br/>
+<font color="#A82F2F"><font size="2">(06:45:47 PM)</font> <b>goibhniu:</b></font> which creates &quot;result&quot; in the current directory<br/>
+<font color="#16569E"><font size="2">(06:46:10 PM)</font> <b>magnetophon:</b></font> goibhniu: and you run that from nix-shell, right?<br/>
+<font size="2">(06:46:21 PM)</font><b> komarov left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(06:46:22 PM)</font> <b>goibhniu:</b></font> ah no, just from a normal shell<br/>
+<font color="#A82F2F"><font size="2">(06:46:32 PM)</font> <b>goibhniu:</b></font> you could use nix-shell instead of nix-build though<br/>
+<font color="#A82F2F"><font size="2">(06:47:53 PM)</font> <b>goibhniu:</b></font> excellent<br/>
+<font color="#A82F2F"><font size="2">(06:48:03 PM)</font> <b>goibhniu:</b></font> so first I&apos;d replace pkg-config with the full path<br/>
+<font color="#16569E"><font size="2">(06:48:04 PM)</font> <b>magnetophon:</b></font> goibhniu: OK, so then the instructions I gave is what you need, I think. It'l create an executable called example in the current directory and if you run that you can add 2 audio channels<br/>
+<font size="2">(06:48:22 PM)</font><b> philed left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(06:48:52 PM)</font> <b>goibhniu:</b></font> cool<br/>
+<font size="2">(06:49:37 PM)</font><b> Corvidal [<em>~user@sammon.inf.ed.ac.uk</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(06:50:09 PM)</font> <b>magnetophon:</b></font> goibhniu: replace pkg-config with the full path??<br/>
+<font color="#A82F2F"><font size="2">(06:50:30 PM)</font> <b>goibhniu:</b></font> I&apos;ll show you in a sec<br/>
+<font color="#A82F2F"><font size="2">(06:51:02 PM)</font> <b>goibhniu:</b></font> we don&apos;t want to have anything on the user&apos;s path<br/>
+<font color="#A82F2F"><font size="2">(06:51:34 PM)</font> <b>goibhniu:</b></font> we could also use a wrapper for this<br/>
+<font color="#062585"><font size="2">(06:52:39 PM)</font> <b>***goibhniu</b></font> is trying: ` sed -e &quot;s@pkg-config@${pkgconfig}/bin/pkg-config@g&quot; -i $out/bin/faust2alsa` in postInstall<br/>
+<font color="#A82F2F"><font size="2">(06:53:31 PM)</font> <b>goibhniu:</b></font> yup, that helps<br/>
+<font size="2">(06:53:48 PM)</font><b> laurie left the room (&quot;ERC Version 5.3 (IRC client for Emacs)&quot;).</b><br/>
+<font color="#062585"><font size="2">(06:55:20 PM)</font> <b>***magnetophon</b></font> is trying it too<br/>
+<font size="2">(06:55:28 PM)</font><b> ambro718 [<em>~ambro@gentoo/contributor/ambro718</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(06:56:15 PM)</font> <b>magnetophon:</b></font> goibhniu: BTW I thought you prefered substituteInplace over sed? Or was that henrytill?<br/>
+<font color="#A82F2F"><font size="2">(06:56:16 PM)</font> <b>goibhniu:</b></font> I&apos;ll try the same for g++<br/>
+<font color="#A82F2F"><font size="2">(06:56:47 PM)</font> <b>goibhniu:</b></font> oh, personally, I don&apos;t ... and I&apos;m not aware of any official preference<br/>
+<font color="#A82F2F"><font size="2">(06:57:07 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] shlevy pushed 1 new commit to master: http://git.io/9bNx1A<br/>
+<font color="#A82F2F"><font size="2">(06:57:07 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3cc397b Shea Levy: dar: bump...<br/>
+<font color="#16569E"><font size="2">(06:57:35 PM)</font> <b>magnetophon:</b></font> goibhniu: are you saying pkg-config can find alsa now? that'd be great!<br/>
+<font color="#A82F2F"><font size="2">(06:57:40 PM)</font> <b>goibhniu:</b></font> sed -e &quot;s@CXX=g++@CXX=${gcc}/bin/g++@g&quot; -i $out/bin/faust2alsa<br/>
+<font color="#A82F2F"><font size="2">(06:57:41 PM)</font> <b>goibhniu:</b></font> nearly<br/>
+<font color="#A82F2F"><font size="2">(06:57:59 PM)</font> <b>goibhniu:</b></font> we also need to feed it gtk<br/>
+<font size="2">(06:58:20 PM)</font><b> komarov [<em>~komarov@178.62.189.37</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(06:58:44 PM)</font> <b>magnetophon:</b></font> goibhniu: or first test with faust2alsaconsole<br/>
+<font color="#A82F2F"><font size="2">(06:59:04 PM)</font> <b>goibhniu:</b></font> ah ok<br/>
+<font size="2">(06:59:07 PM)</font><b> akuhlens [<em>~akuhlens@c-98-223-237-255.hsd1.in.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:59:21 PM)</font> <b>goibhniu:</b></font> since a user may want to add extra paths to PKGCONFIG, I reckon we should use a wrapper for that<br/>
+<font color="#16569E"><font size="2">(07:00:30 PM)</font> <b>magnetophon:</b></font> goibhniu: add extra paths to PKGCONFIG?<br/>
+<font color="#16569E"><font size="2">(07:01:37 PM)</font> <b>magnetophon:</b></font> sorry, this is all new to me. All I know is that pkgconfig helps programs find libs (at compile time , I think). Am I right?<br/>
+<font color="#16569E"><font size="2">(07:02:39 PM)</font> <b>magnetophon:</b></font> goibhniu: if so, why would a user add pkgs to pkgconfig in nix? Isn't that the job of the package manager?<br/>
+<font color="#A82F2F"><font size="2">(07:03:12 PM)</font> <b>goibhniu:</b></font> sorry, PKG_CONFIG_PATH<br/>
+<font color="#A82F2F"><font size="2">(07:04:29 PM)</font> <b>goibhniu:</b></font> I think it will be clear when I show you .. nearly there<br/>
+<font color="#A82F2F"><font size="2">(07:05:02 PM)</font> <b>goibhniu:</b></font> it&apos;s a fairly odd situation since we&apos;re packaging a compiler<br/>
+<font color="#A82F2F"><font size="2">(07:05:36 PM)</font> <b>ttuegel:</b></font> magnetophon: regarding sed vs. substituteInPlace, a common thing to do is set some environment variable &quot;foo&quot; in the .nix file, and have the builder substitute that value for &quot;@foo@&quot; in some files. substituteInPlace is designed to make that very easy<br/>
+<font color="#A82F2F"><font size="2">(07:05:58 PM)</font> <b>goibhniu:</b></font> magnetophon: wrapProgram $out/bin/faust2alsa --prefix PKG_CONFIG_PATH : ${gtk}/lib/pkgconfig:${alsaLib}/lib/pkgconfig<br/>
+<font color="#16569E"><font size="2">(07:06:04 PM)</font> <b>magnetophon:</b></font> ttuegel: thanks<br/>
+<font color="#16569E"><font size="2">(07:06:24 PM)</font> <b>magnetophon:</b></font> goibhniu: same phase?<br/>
+<font color="#A82F2F"><font size="2">(07:06:26 PM)</font> <b>goibhniu:</b></font> ttuegel: BTW, I&apos;ve been running plasma5 all day ... thanks for all the hard work!<br/>
+<font color="#A82F2F"><font size="2">(07:06:33 PM)</font> <b>goibhniu:</b></font> magnetophon: yep<br/>
+<font color="#A82F2F"><font size="2">(07:06:50 PM)</font> <b>goibhniu:</b></font> magnetophon: it still needs pango<br/>
+<font color="#A82F2F"><font size="2">(07:07:15 PM)</font> <b>ttuegel:</b></font> goibhniu: fantastic! i hadn&apos;t gotten any bug reports, so i assumed nobody had tried it yet<br/>
+<font color="#16569E"><font size="2">(07:08:04 PM)</font> <b>magnetophon:</b></font> goibhniu: for faust2alsa or also for faust2alsaconsole?<br/>
+<font color="#A82F2F"><font size="2">(07:08:34 PM)</font> <b>goibhniu:</b></font> ttuegel: I don&apos;t think there&apos;s a way to change the display settings yet, right? ...  I just used xrandr anyway<br/>
+<font color="#16569E"><font size="2">(07:08:35 PM)</font> <b>magnetophon:</b></font> goibhniu: does my recipy for an audio-adder work for you?<br/>
+<font color="#A82F2F"><font size="2">(07:09:12 PM)</font> <b>goibhniu:</b></font> ttuegel: I also don&apos;t know how to restart the desktop (I lost the decorations after playing with the rendering engine a few times, so it would have been handy)<br/>
+<font color="#A82F2F"><font size="2">(07:09:27 PM)</font> <b>goibhniu:</b></font> apart from that, I think I&apos;ll run it daily (at home)<br/>
+<font size="2">(07:09:51 PM)</font><b> Shados left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:09:55 PM)</font> <b>goibhniu:</b></font> magnetophon: now it needs glib<br/>
+<font color="#A82F2F"><font size="2">(07:10:04 PM)</font> <b>goibhniu:</b></font> magnetophon: faust2alsa<br/>
+<font color="#16569E"><font size="2">(07:10:13 PM)</font> <b>magnetophon:</b></font> goibhniu:  undefined variable `gcc' when I run nix-rebuild test<br/>
+<font color="#A82F2F"><font size="2">(07:10:22 PM)</font> <b>goibhniu:</b></font> magnetophon: what&apos;s audio-adder?<br/>
+<font color="#A82F2F"><font size="2">(07:10:32 PM)</font> <b>goibhniu:</b></font> sed -e &quot;s@CXX=g++@CXX=${gcc}/bin/g++@g&quot; -i $out/bin/faust2alsa<br/>
+<font size="2">(07:10:37 PM)</font><b> McEnroe left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:10:47 PM)</font> <b>ttuegel:</b></font> goibhniu: xrandr is still done by krandrtray, which is classified as an &quot;application&quot;. for all the applications, you have to use the kde4 variants. kde-applications-14.12 is coming, but it will still be kdelibs-4 based :/<br/>
+<font color="#16569E"><font size="2">(07:11:06 PM)</font> <b>magnetophon:</b></font> goibhniu: try faust2alsaconsole example.dsp with that file containing process=+; <br/>
+<font color="#16569E"><font size="2">(07:11:32 PM)</font> <b>magnetophon:</b></font> goibhniu: after patching faust2alsaconsole of course<br/>
+<font color="#A82F2F"><font size="2">(07:12:12 PM)</font> <b>ttuegel:</b></font> goibhniu: and if by &quot;decorations&quot; you mean panel, desktop, etc. that&apos;s &quot;plasmashell&quot;. window deco is &quot;kwin_x11&quot; (not just kwin anymore)<br/>
+<font color="#A82F2F"><font size="2">(07:12:16 PM)</font> <b>goibhniu:</b></font> ttuegel: ah, cool! ... is there a way to run kde4 widgets? I&apos;m only missing kdeconnect :D<br/>
+<font color="#A82F2F"><font size="2">(07:12:40 PM)</font> <b>goibhniu:</b></font> ttuegel: I mean window borders, title bar etc.<br/>
+<font size="2">(07:12:46 PM)</font><b> Corvidal left the room (&quot;ERC Version 5.3 (IRC client for Emacs)&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(07:12:54 PM)</font> <b>ttuegel:</b></font> yeah, that&apos;s kwin_x11<br/>
+<font color="#A82F2F"><font size="2">(07:12:59 PM)</font> <b>goibhniu:</b></font> ttuegel: actually, when it died I couldn&apos;t switch between windows either ... ah ok<br/>
+<font color="#A82F2F"><font size="2">(07:13:12 PM)</font> <b>goibhniu:</b></font> any idea how to restart that without logging out?<br/>
+<font color="#A82F2F"><font size="2">(07:13:12 PM)</font> <b>ttuegel:</b></font> i don&apos;t think you can run kde4 plasma widgets in the new plasma<br/>
+<font color="#A82F2F"><font size="2">(07:13:38 PM)</font> <b>ttuegel:</b></font> if you can open krunner (Alt-F2), you can just type it in<br/>
+<font color="#A82F2F"><font size="2">(07:13:44 PM)</font> <b>ttuegel:</b></font> otherwise, i don&apos;t know a way<br/>
+<font color="#A82F2F"><font size="2">(07:14:08 PM)</font> <b>ttuegel:</b></font> did it actually crash, or just disappear?<br/>
+<font color="#A82F2F"><font size="2">(07:14:23 PM)</font> <b>ttuegel:</b></font> the latter happens sometimes if you try to turn on the new breeze window decorations<br/>
+<font color="#16569E"><font size="2">(07:14:28 PM)</font> <b>magnetophon:</b></font> goibhniu: I'm still missing something basic. Should gcc be in buildinputs? I'd guess stdenv contains it?<br/>
+<font color="#A82F2F"><font size="2">(07:14:56 PM)</font> <b>goibhniu:</b></font> ttuegel: ah, excellent, I&apos;m not sure what happened but I&apos;ll try that the next time, thanks!<br/>
+<font color="#A82F2F"><font size="2">(07:15:03 PM)</font> <b>goibhniu:</b></font> magnetophon: ah sorry, yes!<br/>
+<font color="#A82F2F"><font size="2">(07:15:38 PM)</font> <b>goibhniu:</b></font> magnetophon: we don&apos;t want it to depend on the whole of stdenv, so we pass in gcc on its own<br/>
+<font color="#16569E"><font size="2">(07:16:24 PM)</font> <b>magnetophon:</b></font> goibhniu: cool, thanks<br/>
+<font size="2">(07:18:19 PM)</font><b> jedai42 [<em>~jedai@ADijon-652-1-233-231.w83-196.abo.wanadoo.fr</em>] entered the room.</b><br/>
+<font size="2">(07:19:04 PM)</font><b> komarov left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(07:19:40 PM)</font><b> McEnroe [<em>~McEnroe@2601:7:8080:92d:c685:8ff:fe1a:7dae</em>] entered the room.</b><br/>
+<font size="2">(07:19:48 PM)</font><b> russruss [<em>~russruss@c-67-186-132-247.hsd1.ma.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(07:19:49 PM)</font><b> MichaelRaskin left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(07:19:57 PM)</font><b> bergey` [<em>~user@pool-71-175-178-253.phlapa.east.verizon.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:20:43 PM)</font> <b>copumpkin:</b></font> how can I replace my &quot;nix installation&quot; with nixUnstable from a nixpkgs clone on my computer<br/>
+<font color="#A82F2F"><font size="2">(07:20:51 PM)</font> <b>copumpkin:</b></font> all the nix-* commands and such<br/>
+<font size="2">(07:20:57 PM)</font><b> bergey left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(07:21:43 PM)</font> <b>copumpkin:</b></font> is there anything I need to watch out for?<br/>
+<font size="2">(07:22:08 PM)</font><b> jedai left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:22:15 PM)</font> <b>goibhniu:</b></font> magnetophon: ok, faust2alsaconsole seems happy now<br/>
+<font color="#16569E"><font size="2">(07:22:48 PM)</font> <b>magnetophon:</b></font> goibhniu: Cool! so can you run ./example?<br/>
+<font color="#A82F2F"><font size="2">(07:22:49 PM)</font> <b>goibhniu:</b></font> copumpkin: doesn&apos;t it work if you install nix from your clone?<br/>
+<font color="#A82F2F"><font size="2">(07:22:59 PM)</font> <b>copumpkin:</b></font> meaning nix-env -i nix?<br/>
+<font color="#A82F2F"><font size="2">(07:23:03 PM)</font> <b>goibhniu:</b></font> magnetophon: yep<br/>
+<font color="#A82F2F"><font size="2">(07:23:10 PM)</font> <b>russruss:</b></font> Hey all, I’m a developer who’s interested in using the nix package manager to keep track of my development environments for various projects.  I just installed nix on my mac computer using the script provided on the website, and tried to install GHC (the haskell compiler).  I got a compile error as part of gnutar - http://hastebin.com/lacalivomu.coffee.  I’d love to know how to diagnose the issue (is it my fault?) and if it’s<br/>
+<font color="#A82F2F"><font size="2">(07:23:11 PM)</font> <b>russruss:</b></font> my fault, how to report it, and also how to workaround it locally.<br/>
+<font color="#A82F2F"><font size="2">(07:23:11 PM)</font> <b>goibhniu:</b></font> copumpkin: plus the path to your clone<br/>
+<font color="#16569E"><font size="2">(07:23:16 PM)</font> <b>magnetophon:</b></font> goibhniu: excelent!<br/>
+<font color="#A82F2F"><font size="2">(07:23:23 PM)</font> <b>goibhniu:</b></font> copumpkin: -f /some/path/nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(07:23:24 PM)</font> <b>russruss:</b></font> I know nothing about nix at all, but I’m willing to learn :-)<br/>
+<font color="#A82F2F"><font size="2">(07:23:33 PM)</font> <b>copumpkin:</b></font> goibhniu: just wasn&apos;t sure whether I needed to do anything special for nix itself (and I want nixUnstable)<br/>
+<font color="#A82F2F"><font size="2">(07:24:24 PM)</font> <b>goibhniu:</b></font> magnetophon: http://sprunge.us/KSfL<br/>
+<font size="2">(07:25:12 PM)</font><b> Shados [<em>~shados@shados.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:25:36 PM)</font> <b>goibhniu:</b></font> copumpkin: I don&apos;t think so, but I&apos;ve never tried that myself ... I&apos;d say there is danger that the db will be corrupted, so perhaps you can back up the old one if you want to switch between versions etc.<br/>
+<font color="#A82F2F"><font size="2">(07:26:55 PM)</font> <b>qknight:</b></font> how can i use fetchurl with an url which contains an &amp;?<br/>
+<font color="#A82F2F"><font size="2">(07:27:07 PM)</font> <b>qknight:</b></font> http://www.inkscapeforum.com/download/file.php?id=1740&amp;sid=f5211ddb23ace6d34ef62efeea2ba80e<br/>
+<font color="#A82F2F"><font size="2">(07:27:13 PM)</font> <b>henrytill:</b></font> copumpkin: is this on darwin?<br/>
+<font color="#A82F2F"><font size="2">(07:28:15 PM)</font> <b>emery:</b></font> are there opinions on the ordering of argument patterns for functions?<br/>
+<font color="#A82F2F"><font size="2">(07:28:42 PM)</font> <b>emery:</b></font> like, general: specific: { }, or specfic: general: { }<br/>
+<font color="#A82F2F"><font size="2">(07:29:14 PM)</font> <b>aszlig:</b></font> iElectric: https://headcounter.org/hydra/build/582983/nixlog/9/raw<br/>
+<font color="#A82F2F"><font size="2">(07:30:22 PM)</font> <b>emery:</b></font> thats not a very good way of putting it...<br/>
+<font color="#A82F2F"><font size="2">(07:30:25 PM)</font> <b>goibhniu:</b></font> magnetophon: does that make sense?<br/>
+<font color="#A82F2F"><font size="2">(07:31:07 PM)</font> <b>aszlig:</b></font> iElectric: never mind, was my fault<br/>
+<font color="#16569E"><font size="2">(07:31:16 PM)</font> <b>magnetophon:</b></font> goibhniu: haven't really studied it. Was having a bit of a fight with my vim autoformating the paste...<br/>
+<font size="2">(07:32:27 PM)</font><b> nslqqq left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font size="2">(07:33:14 PM)</font><b> royadav [<em>~royadav@74.194.227.194</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(07:35:24 PM)</font> <b>magnetophon:</b></font> goibhniu: yeah, I think I understand: wrapProgram creates a wrapper around the program that first creates a working environment before it runs the program itself, and inside that env, you have a shell variable called PKG_CONFIG_PATH that points pkgconfig to the various libs, which, in turn pkg-config gives to the program. Does that sound about right?<br/>
+<font size="2">(07:35:39 PM)</font><b> rost_ left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(07:36:10 PM)</font> <b>goibhniu:</b></font> magnetophon: exactly<br/>
+<font color="#16569E"><font size="2">(07:36:52 PM)</font> <b>magnetophon:</b></font> goibhniu: and you have a whole list of gtk related stuff in there now. does that mean you have faust2alsa working?<br/>
+<font color="#A82F2F"><font size="2">(07:37:31 PM)</font> <b>russruss:</b></font> even a way to get the maintainer name from the name of a package would help me :-)<br/>
+<font color="#A82F2F"><font size="2">(07:38:07 PM)</font> <b>goibhniu:</b></font> magnetophon: http://sprunge.us/WYFY ... faust2alsa works with that<br/>
+<font color="#16569E"><font size="2">(07:38:25 PM)</font> <b>magnetophon:</b></font> goibhniu: cool!<br/>
+<font color="#A82F2F"><font size="2">(07:38:40 PM)</font> <b>goibhniu:</b></font> magnetophon: it&apos;s a horrible mess, but it works<br/>
+<font color="#A82F2F"><font size="2">(07:39:57 PM)</font> <b>goibhniu:</b></font> magnetophon: to speed things up a bit, I found the extra libs in /nix/store e.g. `ls /nix/store/*pixbuf*` and added them to the environment before running the script:<br/>
+<font color="#16569E"><font size="2">(07:39:58 PM)</font> <b>magnetophon:</b></font> russruss: you can look up the package on github and find the maintainer in the .nix file. I'm sure there are easier ways, as I'm totally new to nixos too.<br/>
+<font color="#A82F2F"><font size="2">(07:40:04 PM)</font> <b>aszlig:</b></font> iElectric: https://headcounter.org/hydra/build/582987/nixlog/1/raw this one however, doesn&apos;t seem so<br/>
+<font color="#A82F2F"><font size="2">(07:40:20 PM)</font> <b>goibhniu:</b></font> magnetophon: PKG_CONFIG_PATH=/nix/store/00r91k96qij7ycrd6n1lr3a0fbrf5p7x-gdk-pixbuf-2.28.2/lib/pkgconfig:/nix/store/08y4ic0i2ipnd2jmkgnwmjljqk0la667-atk-2.6.0/lib/pkgconfig:/nix/store/8vcyyl6gd3gv2xp6wc37x8gyaqkv9qcx-freetype-2.5.3/lib/pkgconfig:/nix/store/bws0qq0c871x6i1wy993b1wn68cz0v6p-fontconfig-2.10.2/lib/pkgconfig result/bin/faust2alsa example.dsp<br/>
+<font color="#A82F2F"><font size="2">(07:40:31 PM)</font> <b>goibhniu:</b></font> magnetophon: that was a quick way to track down the deps<br/>
+<font color="#A82F2F"><font size="2">(07:40:48 PM)</font> <b>iElectric:</b></font> restart?<br/>
+<font color="#A82F2F"><font size="2">(07:40:49 PM)</font> <b>aszlig:</b></font> iElectric: do you think ignoreCollisions would hurt here?<br/>
+<font color="#A82F2F"><font size="2">(07:41:12 PM)</font> <b>iElectric:</b></font> prob not<br/>
+<font color="#A82F2F"><font size="2">(07:42:18 PM)</font> <b>goibhniu:</b></font> hi russruss, I know there&apos;s a team of people working on mac stuff at the moment, so it should get better soonish<br/>
+<font color="#A82F2F"><font size="2">(07:43:05 PM)</font> <b>russruss:</b></font> awesome.  any tips for working around stuff like this locally?<br/>
+<font size="2">(07:43:17 PM)</font><b> ajhager [<em>~ajhager@99-8-18-142.lightspeed.iplsin.sbcglobal.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:43:19 PM)</font> <b>henrytill:</b></font> russruss: 10.9 or 10.10?<br/>
+<font color="#A82F2F"><font size="2">(07:43:21 PM)</font> <b>russruss:</b></font> 10.10<br/>
+<font color="#A82F2F"><font size="2">(07:43:31 PM)</font> <b>henrytill:</b></font> russruss: xcode vers?<br/>
+<font color="#A82F2F"><font size="2">(07:44:15 PM)</font> <b>russruss:</b></font> 6.1 release<br/>
+<font color="#A82F2F"><font size="2">(07:44:23 PM)</font> <b>russruss:</b></font> I can get the build number if that would help<br/>
+<font size="2">(07:44:28 PM)</font><b> rost_ [<em>~rost@gateway/tor-sasl/rost</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:44:36 PM)</font> <b>henrytill:</b></font> russruss: no that&apos;s fine<br/>
+<font color="#A82F2F"><font size="2">(07:44:43 PM)</font> <b>henrytill:</b></font> russruss: lemme look at your paste<br/>
+<font color="#A82F2F"><font size="2">(07:45:00 PM)</font> <b>aszlig:</b></font> iElectric: hmhm... maybe a better approach would be if buildEnv can detect whether the conflicting files/dirs differ<br/>
+<font size="2">(07:45:17 PM)</font><b> siel left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:45:23 PM)</font> <b>aszlig:</b></font> and only if there is a difference, a collision error is raised<br/>
+<font color="#16569E"><font size="2">(07:45:28 PM)</font> <b>magnetophon:</b></font> goibhniu: I have a working jack2alsaconsole!!! thanks a milion! The latest one, with jack2alsa,  is building.<br/>
+<font color="#A82F2F"><font size="2">(07:46:11 PM)</font> <b>iElectric:</b></font> or we can just delete the filea<br/>
+<font color="#A82F2F"><font size="2">(07:46:16 PM)</font> <b>iElectric:</b></font> filea<br/>
+<font color="#A82F2F"><font size="2">(07:46:21 PM)</font> <b>iElectric:</b></font> files*<br/>
+<font color="#A82F2F"><font size="2">(07:46:31 PM)</font> <b>aszlig:</b></font> yah, but i mean generally<br/>
+<font color="#A82F2F"><font size="2">(07:46:34 PM)</font> <b>iElectric:</b></font> sorry, typing on the phone.<br/>
+<font size="2">(07:46:56 PM)</font><b> siel [<em>~siel@unaffiliated/motley</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:46:57 PM)</font> <b>aszlig:</b></font> if there is a collision between two files/dirs with _different_ contents it&apos;s a real problem<br/>
+<font color="#A82F2F"><font size="2">(07:47:07 PM)</font> <b>aszlig:</b></font> otherwise i don&apos;t see a problem, right?<br/>
+<font color="#16569E"><font size="2">(07:47:09 PM)</font> <b>magnetophon:</b></font> goibhniu: I think I have my work cut out for me now. Now it should be a simple matter of running the various scripts and doing some copy-pasting. Great!<br/>
+<font color="#16569E"><font size="2">(07:47:29 PM)</font> <b>magnetophon:</b></font> goibhniu: to get the others working I mean.<br/>
+<font size="2">(07:47:47 PM)</font><b> ajhager left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font color="#16569E"><font size="2">(07:48:57 PM)</font> <b>magnetophon:</b></font> goibhniu: You would be of great help if you could provide me with a template/method/design-idea for making the optional deps actually optional.<br/>
+<font color="#A82F2F"><font size="2">(07:49:58 PM)</font> <b>iElectric:</b></font> yup<br/>
+<font color="#A82F2F"><font size="2">(07:50:08 PM)</font> <b>iElectric:</b></font> or file permissions<br/>
+<font color="#16569E"><font size="2">(07:50:20 PM)</font> <b>magnetophon:</b></font> Is there a way to test the postInstallPhase without having to rebuild the whole package?<br/>
+<font color="#16569E"><font size="2">(07:53:06 PM)</font> <b>magnetophon:</b></font> goibhniu: I was talking to henrytill earlier today about those optionals, but I don't think we reached a conclusion on how to do it. (or I missed it)<br/>
+<font color="#A82F2F"><font size="2">(07:54:04 PM)</font> <b>henrytill:</b></font> russruss: nix on yosemite is pretty unstable these days<br/>
+<font color="#A82F2F"><font size="2">(07:54:09 PM)</font> <b>aszlig:</b></font> iElectric: ?<br/>
+<font color="#A82F2F"><font size="2">(07:54:33 PM)</font> <b>russruss:</b></font> henrytill: well, that’s too bad!  thanks for your help<br/>
+<font color="#A82F2F"><font size="2">(07:54:35 PM)</font> <b>henrytill:</b></font> russruss: as goibhniu mentioned, there are developments underway to address the prbolems<br/>
+<font color="#A82F2F"><font size="2">(07:54:56 PM)</font> <b>russruss:</b></font> as I said, if you can point me to any resources to help me hack around things locally that would be appreciated<br/>
+<font color="#A82F2F"><font size="2">(07:54:59 PM)</font> <b>henrytill:</b></font> russruss: ##nix-darwin is the place for the latest or join the fight<br/>
+<font color="#A82F2F"><font size="2">(07:55:09 PM)</font> <b>goibhniu:</b></font> magnetophon: yeah, I&apos;m wondering about it too .. I mean, having gtk, alsa, jack and lv2 as deps of an audio &quot;application&quot; doesn&apos;t seem excessive to me<br/>
+<font color="#A82F2F"><font size="2">(07:55:12 PM)</font> <b>russruss:</b></font> otherwise I can wait until that happens<br/>
+<font color="#A82F2F"><font size="2">(07:55:13 PM)</font> <b>butyoudonot:</b></font> Whats happening to hydra? nix-shell cannot fetch ghc-7.8.3 http://lpaste.net/4388595740511830016<br/>
+<font size="2">(07:55:21 PM)</font><b> begriffs left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(07:55:21 PM)</font> <b>henrytill:</b></font> russruss: and you might try using joelteon&apos;s master, as mentioned in this post: https://github.com/NixOS/nixpkgs/issues/4934<br/>
+<font color="#A82F2F"><font size="2">(07:55:54 PM)</font> <b>goibhniu:</b></font> magnetophon: if it&apos;s used much as a library, we could have two variants, one with everything, one just with faust itself<br/>
+<font color="#16569E"><font size="2">(07:56:00 PM)</font> <b>magnetophon:</b></font> goibhniu: well, that's just for faust2alsa and faust2alsaconsole. There's about 30 more of those<br/>
+<font color="#A82F2F"><font size="2">(07:56:03 PM)</font> <b>henrytill:</b></font> russruss: and yes ##nix-darwin<br/>
+<font color="#A82F2F"><font size="2">(07:56:06 PM)</font> <b>russruss:</b></font> henrytill: awesome, thanks!<br/>
+<font color="#A82F2F"><font size="2">(07:56:40 PM)</font> <b>henrytill:</b></font> russruss: no problem, good luck<br/>
+<font color="#A82F2F"><font size="2">(07:57:09 PM)</font> <b>goibhniu:</b></font> magnetophon: hmm, puredata, supercollider .. and firefox :D<br/>
+<font color="#A82F2F"><font size="2">(07:57:53 PM)</font> <b>goibhniu:</b></font> magnetophon: hmm .. I&apos;m not sure<br/>
+<font color="#A82F2F"><font size="2">(07:57:57 PM)</font> <b>goibhniu:</b></font> gotta go ..<br/>
+<font color="#16569E"><font size="2">(07:58:02 PM)</font> <b>magnetophon:</b></font> goibhniu: yup, all there. faust is awesome!!!<br/>
+<font color="#16569E"><font size="2">(07:58:20 PM)</font> <b>magnetophon:</b></font> goibhniu: thanks again. I'll keep you posted.<br/>
+<font color="#A82F2F"><font size="2">(07:58:30 PM)</font> <b>henrytill:</b></font> magnetophon: nope no conclusion there<br/>
+<font color="#A82F2F"><font size="2">(08:00:00 PM)</font> <b>henrytill:</b></font> magnetophon: i think it&apos;ll probably require going through each of the faust2* tools and seeing what the minimal dependencies are<br/>
+<font size="2">(08:00:07 PM)</font><b> Takle left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(08:00:42 PM)</font> <b>henrytill:</b></font> magnetophon: for example does faust2sc actual require supercollider to run or does it just output a quark, extension, .scd, etc<br/>
+<font color="#A82F2F"><font size="2">(08:01:19 PM)</font> <b>henrytill:</b></font> magnetophon: does the pd one output a pd file or an external?<br/>
+<font color="#A82F2F"><font size="2">(08:02:07 PM)</font> <b>henrytill:</b></font> magnetophon: or does it actually interface with the pd runtime?<br/>
+<font color="#16569E"><font size="2">(08:02:18 PM)</font> <b>magnetophon:</b></font> henrytill: there's a script that outputs an external, and one that creates a pd-file which uses that external and adds knobs etcetera<br/>
+<font color="#16569E"><font size="2">(08:02:53 PM)</font> <b>magnetophon:</b></font> henrytill: not sure what they are called, or where they are, but both exist.<br/>
+<font size="2">(08:03:01 PM)</font><b> MichaelRaskin [<em>~MichaelRa@195.91.224.161</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:03:21 PM)</font> <b>henrytill:</b></font> magnetophon: right so unless it links to a pd library, it may actually work without pd as a runtime dependency<br/>
+<font color="#16569E"><font size="2">(08:04:32 PM)</font> <b>magnetophon:</b></font> henrytill: going trough the scripts is the &quot;easy part/grunt work&quot; But It would be nice if there was a way to choose what dependancies you need in the nixos config file, instead of having to choose all or nothing, or even worse, have to install a separate package for each faust version..<br/>
+<font color="#16569E"><font size="2">(08:05:17 PM)</font> <b>magnetophon:</b></font> henrytill, goibhniu: gotta go eat. I'll be back in +/- 30 min.<br/>
+<font color="#A82F2F"><font size="2">(08:05:33 PM)</font> <b>henrytill:</b></font> magnetophon: so often with other development tools, like python or haskell, users set up custom nix-shells with the environment they need for a particular project<br/>
+<font color="#A82F2F"><font size="2">(08:05:49 PM)</font> <b>henrytill:</b></font> magnetophon: a similar thing might be done with faust<br/>
+<font color="#A82F2F"><font size="2">(08:05:58 PM)</font> <b>henrytill:</b></font> magnetophon: but yes, go eat! enjoy :)<br/>
+<font color="#16569E"><font size="2">(08:06:22 PM)</font> <b>magnetophon:</b></font> henrytill: thanks! ttyl<br/>
+<font size="2">(08:09:15 PM)</font><b> codyopel left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(08:09:39 PM)</font><b> Matrixiumn is now known as Xack</b><br/>
+<font size="2">(08:11:55 PM)</font><b> Takle [<em>~takle@2a00:fd00:fff1:5768:41a0:ed8:d19:d385</em>] entered the room.</b><br/>
+<font size="2">(08:12:33 PM)</font><b> user17 [<em>~sasha@41.78.197.237</em>] entered the room.</b><br/>
+<font size="2">(08:13:06 PM)</font><b> RyanRN left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(08:16:24 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/AOjQvQ<br/>
+<font color="#A82F2F"><font size="2">(08:16:24 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 34e714c taku0: add udunits: a C library for units of physical quantities<br/>
+<font size="2">(08:17:18 PM)</font><b> akuhlens left the room (quit: Quit: This computer has gone to sleep).</b><br/>
+<font size="2">(08:18:36 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:20:51 PM)</font> <b>user17:</b></font> i am trying to make a package for swm but i get an error while building, code + commands + build errors are in this pastebin: http://pastebin.com/aAwBUWP8 and for swm: https://github.com/dcat/swm/<br/>
+<font color="#A82F2F"><font size="2">(08:21:23 PM)</font> <b>user17:</b></font> does someone has an idea ?<br/>
+<font size="2">(08:24:23 PM)</font><b> codyopel left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font size="2">(08:24:24 PM)</font><b> codyopel_ [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:24:29 PM)</font> <b>MichaelRaskin:</b></font> Add unzip to package arguments and buildInputs<br/>
+<font size="2">(08:26:34 PM)</font><b> akuhlens [<em>~akuhlens@c-98-223-237-255.hsd1.in.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(08:27:45 PM)</font><b> codyopel_ left the room (quit: Excess Flood).</b><br/>
+<font size="2">(08:27:52 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:28:49 PM)</font> <b>user17:</b></font> MichaelRaskin: What could i add in buildInputs ?<br/>
+<font color="#A82F2F"><font size="2">(08:29:05 PM)</font> <b>user17:</b></font> MichaelRaskin: Oh sorry, i got it<br/>
+<font size="2">(08:29:48 PM)</font><b> devhell [<em>~dev@174.185.208.46.dyn.plus.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:31:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ttuegel pushed 2 new commits to kde5: http://git.io/DW0YRA<br/>
+<font color="#A82F2F"><font size="2">(08:31:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/kde5 097a001 Thomas Tuegel: plasma5: include qt4 in system environment...<br/>
+<font color="#A82F2F"><font size="2">(08:31:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/kde5 3e5e96a Thomas Tuegel: plasma5: add dolphin to system environment<br/>
+<font color="#A82F2F"><font size="2">(08:31:58 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ttuegel pushed 1 new commit to master: http://git.io/y-Qp8Q<br/>
+<font color="#A82F2F"><font size="2">(08:31:58 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 0bffb63 Thomas Tuegel: dropbox: update to 2.10.52<br/>
+<font size="2">(08:32:25 PM)</font><b> codyopel left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(08:32:31 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:33:20 PM)</font> <b>user17:</b></font> MichaelRaskin: now i got swm.c:35:24: fatal error: X11/keysym.h: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(08:33:22 PM)</font> <b>user17:</b></font>  #include &lt;X11/keysym.h&gt;<br/>
+<font size="2">(08:33:38 PM)</font><b> aristid [<em>~quassel@sauerstoff.aristid.net</em>] entered the room.</b><br/>
+<font size="2">(08:33:38 PM)</font><b> aristid left the room (quit: Changing host).</b><br/>
+<font size="2">(08:33:38 PM)</font><b> aristid [<em>~quassel@unaffiliated/aristid</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:35:02 PM)</font> <b>user17:</b></font> even if i did put xcbutilkeysym, and there is no other package with keysym in it, it is supposed to be part of x, do i add x11 as dependency or is it overkill<br/>
+<font size="2">(08:36:21 PM)</font><b> codyopel_ [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font size="2">(08:37:26 PM)</font><b> codyopel left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:39:13 PM)</font> <b>user17:</b></font> *though noy if<br/>
+<font color="#A82F2F"><font size="2">(08:39:33 PM)</font> <b>user17:</b></font> *not :)<br/>
+<font size="2">(08:39:37 PM)</font><b> jb55 [<em>~jb55@S0106f46d049a0b83.vc.shawcable.net</em>] entered the room.</b><br/>
+<font size="2">(08:40:44 PM)</font><b> codyopel_ left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(08:42:11 PM)</font><b> ro6 left the room (quit: Quit: Connection closed for inactivity).</b><br/>
+<font size="2">(08:43:07 PM)</font><b> Takle_ [<em>~takle@188.228.85.218</em>] entered the room.</b><br/>
+<font size="2">(08:43:17 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:44:09 PM)</font> <b>MichaelRaskin:</b></font> libX11 xproto<br/>
+<font color="#A82F2F"><font size="2">(08:44:21 PM)</font> <b>MichaelRaskin:</b></font> We have a lot of small packages for X<br/>
+<font size="2">(08:44:31 PM)</font><b> Takle left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:44:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] 7c6f434c pushed 1 new commit to master: http://git.io/QF1oHQ<br/>
+<font color="#A82F2F"><font size="2">(08:44:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 73f4466 Michael Raskin: Add ncurses-2048 game<br/>
+<font size="2">(08:45:48 PM)</font><b> codyopel left the room (quit: Excess Flood).</b><br/>
+<font size="2">(08:46:10 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:48:17 PM)</font> <b>user17:</b></font> MichaelRaskin: Why can&apos;t the build process create *hash*-swm/bin/swm, http://pastebin.com/Aise5M92<br/>
+<font size="2">(08:48:28 PM)</font><b> codyopel left the room (quit: Excess Flood).</b><br/>
+<font color="#A82F2F"><font size="2">(08:48:55 PM)</font> <b>MichaelRaskin:</b></font> Maybe you should create hash-swm/bin yourself<br/>
+<font color="#A82F2F"><font size="2">(08:49:28 PM)</font> <b>aszlig:</b></font> niksnut, iElectric: https://github.com/aszlig/nixpkgs/commit/032a96b881da17c0429cf8e766fff4626728fbf3<br/>
+<font color="#A82F2F"><font size="2">(08:50:22 PM)</font> <b>user17:</b></font> MichaelRaskin: is it something common for nix-build to not create directory&apos;s in nixstore? If yes how could i do it, it&apos;s read only<br/>
+<font size="2">(08:50:28 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:50:41 PM)</font> <b>MichaelRaskin:</b></font> Your _package_ should create $out/bin in preInstall<br/>
+<font color="#A82F2F"><font size="2">(08:50:58 PM)</font> <b>MichaelRaskin:</b></font> most upstream build systems do this automatically, some fail<br/>
+<font color="#A82F2F"><font size="2">(08:51:00 PM)</font> <b>aszlig:</b></font> ... and everyone else of course as well, just as a quick review in case the idea is totally wrong.<br/>
+<font size="2">(08:51:40 PM)</font><b> codyopel left the room (quit: Excess Flood).</b><br/>
+<font color="#A82F2F"><font size="2">(08:52:53 PM)</font> <b>MichaelRaskin:</b></font> Looks nice<br/>
+<font color="#A82F2F"><font size="2">(08:53:06 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] aszlig opened pull request #5096: buildEnv: Check the content of colliding paths. (master...buildenv-check-collision-contents) http://git.io/d0YO-Q<br/>
+<font size="2">(08:53:16 PM)</font><b> LysergicDreams left the room (quit: Quit: leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(08:54:00 PM)</font> <b>aszlig:</b></font> actually, as a PR: https://github.com/NixOS/nixpkgs/pull/5096<br/>
+<font size="2">(08:54:21 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:54:33 PM)</font> <b>aszlig:</b></font> argh...<br/>
+<font color="#A82F2F"><font size="2">(08:55:43 PM)</font> <b>aszlig:</b></font> amended ;-)<br/>
+<font size="2">(08:56:28 PM)</font><b> codyopel left the room (quit: Excess Flood).</b><br/>
+<font size="2">(08:56:35 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font size="2">(08:59:19 PM)</font><b> codyopel left the room (quit: Excess Flood).</b><br/>
+<font size="2">(08:59:25 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:00:23 PM)</font> <b>user17:</b></font> MichaelRaskin, so how would i go to fix this error ? how do i manually create a dir in a read only fs ?<br/>
+<font size="2">(09:00:41 PM)</font><b> ambro718 left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font size="2">(09:00:52 PM)</font><b> civodul [<em>~user@gateway/tor-sasl/civodul</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:01:42 PM)</font> <b>MichaelRaskin:</b></font> During the build, the FS is not read-only for your builder<br/>
+<font size="2">(09:02:13 PM)</font><b> gciolli [<em>~user@88.128.80.51</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:02:26 PM)</font> <b>user17:</b></font> so, i can just add mkdir $out-swm/bin ?<br/>
+<font size="2">(09:03:02 PM)</font><b> flazz is now known as zz_flazz</b><br/>
+<font color="#A82F2F"><font size="2">(09:03:30 PM)</font> <b>MichaelRaskin:</b></font> Just $out/bin<br/>
+<font color="#A82F2F"><font size="2">(09:03:35 PM)</font> <b>MichaelRaskin:</b></font> But yes<br/>
+<font size="2">(09:04:51 PM)</font><b> hnoob left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(09:05:21 PM)</font><b> eddyb_ left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:06:31 PM)</font> <b>user17:</b></font> MichaelRaskin: now, i have: [q/nix/store/q4kb35wfj35893z8qddlil98yc1akkgc-stdenv/setup: line 929: /nix/store/wxnx1kw1spvgp4zkxj6kbb9zm6cngxd4-swm/bin: No such file or directory<br/>
+<font size="2">(09:06:48 PM)</font><b> FrozenCow [<em>~FrozenCow@dhcp-089-099-057-228.chello.nl</em>] entered the room.</b><br/>
+<font size="2">(09:07:04 PM)</font><b> sivteck left the room (quit: Quit: bloo).</b><br/>
+<font color="#A82F2F"><font size="2">(09:08:37 PM)</font> <b>MichaelRaskin:</b></font> mkdir -p then<br/>
+<font size="2">(09:11:38 PM)</font><b> wz1000 left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font color="#A82F2F"><font size="2">(09:12:01 PM)</font> <b>user17:</b></font> MichaelRaskin: it looks like it worked, but I don&apos;t have the swm command in my terminal...<br/>
+<font size="2">(09:12:02 PM)</font><b> eddyb_ [<em>~eddyb@unaffiliated/eddyb</em>] entered the room.</b><br/>
+<font size="2">(09:12:07 PM)</font><b> elifrey left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:12:19 PM)</font> <b>MichaelRaskin:</b></font> What did you run?<br/>
+<font color="#A82F2F"><font size="2">(09:12:26 PM)</font> <b>MichaelRaskin:</b></font> nix-build ?<br/>
+<font color="#A82F2F"><font size="2">(09:13:02 PM)</font> <b>user17:</b></font> i ran: nix-build -E &apos;with import &lt;nixpkgs&gt; {}; callPackage ./.nixpkgs/swm.nix { }&apos;<br/>
+<font color="#A82F2F"><font size="2">(09:14:51 PM)</font> <b>MichaelRaskin:</b></font> nix-build doesn&apos;t change the environment<br/>
+<font color="#A82F2F"><font size="2">(09:14:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ttuegel pushed 1 new commit to kde5: http://git.io/0UAChg<br/>
+<font color="#A82F2F"><font size="2">(09:14:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/kde5 8b9937c Thomas Tuegel: quassel: add KDE-independent Qt 5 build<br/>
+<font color="#A82F2F"><font size="2">(09:15:08 PM)</font> <b>MichaelRaskin:</b></font> ./result/bin/swm could work, though<br/>
+<font size="2">(09:15:35 PM)</font><b> bennofs left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(09:16:11 PM)</font><b> codyopel left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:16:17 PM)</font> <b>user17:</b></font> MichaelRaskin, it does work in deed, thanks :)<br/>
+<font size="2">(09:19:15 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font size="2">(09:21:41 PM)</font><b> veke [<em>~tinkadmin@78-23-11-163.access.telenet.be</em>] entered the room.</b><br/>
+<font size="2">(09:26:16 PM)</font><b> gciolli left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(09:26:25 PM)</font><b> russruss left the room (quit: Quit: russruss).</b><br/>
+<font size="2">(09:27:18 PM)</font><b> russruss [<em>~russruss@c-67-186-132-247.hsd1.ma.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(09:27:56 PM)</font><b> fread2282 [<em>3fe9dd85@gateway/web/freenode/ip.63.233.221.133</em>] entered the room.</b><br/>
+<font size="2">(09:27:59 PM)</font><b> akuhlens left the room (quit: Quit: This computer has gone to sleep).</b><br/>
+<font size="2">(09:29:56 PM)</font><b> mode (+o goodwill) by ChanServ</b><br/>
+<font size="2">(09:30:04 PM)</font><b> mode (-q *!*@unaffiliated/marvin-hh) by goodwill</b><br/>
+<font color="#A82F2F"><font size="2">(09:30:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] the-kenny pushed 2 new commits to master: http://git.io/JmvOOw<br/>
+<font color="#A82F2F"><font size="2">(09:30:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master bc03398 Moritz Ulrich: dwarf-fortress: Clean up expression &amp; config file handling.<br/>
+<font color="#A82F2F"><font size="2">(09:30:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a175776 Moritz Ulrich: dwarf-fortress: Update to 0.40.18.<br/>
+<font size="2">(09:31:25 PM)</font><b> elifrey [<em>~elifrey@2601:8:9f00:3b:c122:3cda:a0f4:cc82</em>] entered the room.</b><br/>
+<font size="2">(09:31:55 PM)</font><b> mode (-o goibhniu) by goodwill</b><br/>
+<font size="2">(09:32:06 PM)</font><b> mode (-o goodwill) by goodwill</b><br/>
+<font size="2">(09:34:36 PM)</font><b> elifrey left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:35:34 PM)</font><b> chexxor_ [<em>~alex@97-116-117-182.mpls.qwest.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:35:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bjornfor pushed 1 new commit to master: http://git.io/Cl5GVw<br/>
+<font color="#A82F2F"><font size="2">(09:35:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9834475 Bjørn Forsman: rdiff-backup: set meta.platforms<br/>
+<font color="#A82F2F"><font size="2">(09:40:08 PM)</font> <b>russruss:</b></font> hey all, I’m playing around with nix on darwin.  It looks like some users have forked the nixpkgs repo and I’d like to switch to using one of those forks as my default nixpkgs repo.  Can someone walk me through the steps to do that?  Currently I’m using -f ~/path/to/fork at the end of every nix-env command<br/>
+<font size="2">(09:40:18 PM)</font><b> dysinger [<em>~dysinger@cpe-24-94-75-243.hawaii.res.rr.com</em>] entered the room.</b><br/>
+<font size="2">(09:40:44 PM)</font><b> codyopel left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font size="2">(09:41:17 PM)</font><b> komarov [<em>~komarov@95-55-14-247.dynamic.avangarddsl.ru</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:41:27 PM)</font> <b>chexxor_:</b></font> russruss, have you looked at NIX_PATH?<br/>
+<font color="#A82F2F"><font size="2">(09:42:03 PM)</font> <b>chexxor_:</b></font> russruss, You may be able to use that checkout by default by modifying that env variable<br/>
+<font color="#A82F2F"><font size="2">(09:42:07 PM)</font> <b>chexxor_:</b></font> See: https://nixos.org/wiki/Nix_Modifying_Packages#Using_Your_Fork_of_NixPkgs<br/>
+<font color="#A82F2F"><font size="2">(09:42:36 PM)</font> <b>russruss:</b></font> oh, awesome<br/>
+<font color="#A82F2F"><font size="2">(09:42:38 PM)</font> <b>russruss:</b></font> thanks!<br/>
+<font size="2">(09:42:42 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:43:30 PM)</font> <b>russruss:</b></font> hrm, I’m getting “warning: name collision in input Nix expressions”<br/>
+<font size="2">(09:43:48 PM)</font><b> codyopel left the room (quit: Excess Flood).</b><br/>
+<font color="#A82F2F"><font size="2">(09:43:56 PM)</font> <b>russruss:</b></font> with nix-env -qa<br/>
+<font color="#A82F2F"><font size="2">(09:44:07 PM)</font> <b>chexxor_:</b></font> russruss, is &apos;nixpkgs&apos; defined twice in that env var now?<br/>
+<font size="2">(09:44:19 PM)</font><b> bennofs [<em>~benno@ip92342b4f.dynamic.kabel-deutschland.de</em>] entered the room.</b><br/>
+<font size="2">(09:44:46 PM)</font><b> rost_ left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:45:02 PM)</font> <b>russruss:</b></font> doesn’t seem to be…<br/>
+<font color="#A82F2F"><font size="2">(09:45:03 PM)</font> <b>russruss:</b></font> http://lpaste.net/114879<br/>
+<font color="#16569E"><font size="2">(09:46:15 PM)</font> <b>magnetophon:</b></font> henrytill: dinner took a bit longer than expected...<br/>
+<font color="#A82F2F"><font size="2">(09:46:28 PM)</font> <b>the-kenny:</b></font> russruss: Out of curiosity: What does the fork offer what nixos/nixpkgs itself doesn&apos;t? There&apos;s really much going on there and I don&apos;t think someone could keep up with that<br/>
+<font color="#A82F2F"><font size="2">(09:47:02 PM)</font> <b>russruss:</b></font> I think it’s a closely tracked development branch trying to hash out some darwin issues?<br/>
+<font color="#A82F2F"><font size="2">(09:47:21 PM)</font> <b>russruss:</b></font> https://github.com/joelteon/nixpkgs<br/>
+<font color="#16569E"><font size="2">(09:47:36 PM)</font> <b>magnetophon:</b></font> henrytill: so about these custom nix-shells: in what way would a user aquire these? I wouldn't like a 'solution' where the user would have to manualy hunt down a file on the wiki...<br/>
+<font color="#A82F2F"><font size="2">(09:48:08 PM)</font> <b>the-kenny:</b></font> russruss: ah, that looks pretty active indeed.<br/>
+<font size="2">(09:48:11 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:48:28 PM)</font> <b>the-kenny:</b></font> Lets just hope the &quot;100 commits ahead &amp; 800 behind&quot; won&apos;t cause too many merge conflicts :D<br/>
+<font color="#A82F2F"><font size="2">(09:48:32 PM)</font> <b>niksnut:</b></font> iElectric: yeah, deprecating md5 is a good idea<br/>
+<font color="#A82F2F"><font size="2">(09:48:37 PM)</font> <b>russruss:</b></font> yeah haha<br/>
+<font size="2">(09:48:44 PM)</font><b> hnoob [<em>~hnoob@c-71-196-136-219.hsd1.co.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:48:47 PM)</font> <b>russruss:</b></font> well, it seems like the main repo is fairly unstable on darwin<br/>
+<font color="#16569E"><font size="2">(09:48:54 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: Do you have a suggestion how to package the dozens of optional deps of faust?<br/>
+<font color="#A82F2F"><font size="2">(09:48:56 PM)</font> <b>russruss:</b></font> I couldn’t get anything at all to compile, for example<br/>
+<font size="2">(09:50:11 PM)</font><b> user17 left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font size="2">(09:50:23 PM)</font><b> aristid__ [<em>~quassel@unaffiliated/aristid</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:50:24 PM)</font> <b>russruss:</b></font> so by setting the NIX_PATH I can get the fork to show up by name when I do “nix-env -qa -f ‘&lt;nixpkgs’&gt;”<br/>
+<font color="#A82F2F"><font size="2">(09:50:34 PM)</font> <b>russruss:</b></font> but if I remove that last argument it uses my real NIX_PATH<br/>
+<font color="#A82F2F"><font size="2">(09:50:41 PM)</font> <b>russruss:</b></font> or sorry, my real copy of the nixpkgs repo<br/>
+<font color="#A82F2F"><font size="2">(09:50:50 PM)</font> <b>the-kenny:</b></font> how do you set nix_path?<br/>
+<font size="2">(09:51:38 PM)</font><b> copumpkin left the room (quit: Quit: My MacBook Pro has gone to sleep. ZZZzzz…).</b><br/>
+<font color="#16569E"><font size="2">(09:51:45 PM)</font> <b>magnetophon:</b></font> I mean faust without the runtime deps is not too usefull, but all of the deps would be ovekill for most people.  Though maybe I should just check out how many there actually are.<br/>
+<font color="#A82F2F"><font size="2">(09:52:21 PM)</font> <b>russruss:</b></font> the-kenny: I’m using the fish shell so it’s ‘set -xg NIX_PATH nixpkgs=/Users/russruss/proj/nixpkgs’<br/>
+<font color="#A82F2F"><font size="2">(09:52:31 PM)</font> <b>russruss:</b></font> but if you look at my paste I echo it to make sure it’s right<br/>
+<font size="2">(09:53:18 PM)</font><b> codyopel left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font size="2">(09:54:00 PM)</font><b> aristid left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(09:54:58 PM)</font><b> zz_flazz is now known as flazz</b><br/>
+<font size="2">(09:56:08 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font size="2">(09:58:29 PM)</font><b> elifrey [<em>~elifrey@2601:8:9f00:3b:847e:1388:81cc:1ab0</em>] entered the room.</b><br/>
+<font size="2">(09:59:52 PM)</font><b> codyopel left the room (quit: Excess Flood).</b><br/>
+<font size="2">(10:00:00 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font size="2">(10:01:14 PM)</font><b> bennofs left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(10:02:04 PM)</font><b> elifrey left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(10:02:11 PM)</font> <b>MichaelRaskin:</b></font> magnetophone: just list the optional dependencies as redundant explicit arguments to callPackage with a comment<br/>
+<font color="#A82F2F"><font size="2">(10:02:47 PM)</font> <b>MichaelRaskin:</b></font> So if someone wishes to override them to null, it is obvious whether there is a chance to get working faust afterwards<br/>
+<font color="#A82F2F"><font size="2">(10:02:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bjornfor pushed 1 new commit to master: http://git.io/JT_63Q<br/>
+<font color="#A82F2F"><font size="2">(10:02:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master bad831d Bjørn Forsman: rdiff-backup: unbreak &apos;rdiff-backup-statistics&apos;...<br/>
+<font color="#A82F2F"><font size="2">(10:03:28 PM)</font> <b>MichaelRaskin:</b></font> I think it is reasonable and readable enough and doesn&apos;t strain your Nix skills with chosing the best way to structure this<br/>
+<font size="2">(10:03:33 PM)</font><b> codyopel left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(10:03:40 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font size="2">(10:04:13 PM)</font><b> flazz is now known as zz_flazz</b><br/>
+<font size="2">(10:05:09 PM)</font><b> civodul left the room (quit: Quit: ERC Version 5.3 (IRC client for Emacs)).</b><br/>
+<font size="2">(10:06:04 PM)</font><b> elifrey [<em>~elifrey@2601:8:9f00:3b:18db:804f:72ed:578f</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:06:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bjornfor pushed 1 new commit to master: http://git.io/izMlIw<br/>
+<font color="#A82F2F"><font size="2">(10:06:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f5e31f4 Bjørn Forsman: rdiff-backup: align attrname with pkgname<br/>
+<font size="2">(10:07:13 PM)</font><b> silver_hook left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(10:08:33 PM)</font><b> codyopel left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(10:09:03 PM)</font><b> silver_hook [<em>~hook@unaffiliated/silver-hook/x-2625033</em>] entered the room.</b><br/>
+<font size="2">(10:09:30 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font size="2">(10:11:18 PM)</font><b> dysinger left the room (quit: Quit: dysinger).</b><br/>
+<font size="2">(10:11:50 PM)</font><b> codyopel left the room (quit: Excess Flood).</b><br/>
+<font size="2">(10:11:58 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:12:06 PM)</font> <b>chexxor_:</b></font> anybody available to help me fix bower?<br/>
+<font color="#A82F2F"><font size="2">(10:13:31 PM)</font> <b>chexxor_:</b></font> idk if the problem is in the package definition or the buildNodePackage function<br/>
+<font color="#16569E"><font size="2">(10:15:13 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: I missed your comment about redundant explicit arguments, due to a misspelled nick. (don't you use tab-completion for nicks???) Unfortunately my google-foo is failing me. Got a link?<br/>
+<font size="2">(10:17:08 PM)</font><b> sivteck [<em>~sivteck@unaffiliated/sivteck</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:17:44 PM)</font> <b>goibhniu:</b></font> magnetophon: regarding nix-shell, one thing you can do is: `nix-shell -p pkgconfig -p alsaLib -p gtk -p faust` that would probably drop you in a shell with enough to run faust2alsa<br/>
+<font color="#A82F2F"><font size="2">(10:17:59 PM)</font> <b>MichaelRaskin:</b></font> When you call a package, you can say package.override {somedep=null;}<br/>
+<font color="#A82F2F"><font size="2">(10:17:59 PM)</font> <b>the-kenny:</b></font> magnetophon: basically add them as buildInputs, then set them to null in all-packages.nix<br/>
+<font size="2">(10:18:02 PM)</font><b> thawes [<em>~quassel@cpe-024-163-096-164.nc.res.rr.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:18:42 PM)</font> <b>MichaelRaskin:</b></font> I think just documenting the list of safely nullable optional dependencies in the expression and in the all-packages.nix entry should be enough<br/>
+<font size="2">(10:19:17 PM)</font><b> elifrey left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:20:26 PM)</font><b> angerman left the room (quit: Quit: Gone).</b><br/>
+<font size="2">(10:21:23 PM)</font><b> codyopel_ [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:21:53 PM)</font> <b>magnetophon:</b></font> goibhniu, the-kenny: As a user, that kind of defeats one of the reasons that pulled me towards nixos: easy, centralized, reproducable config. I just think it wouldn't be a very user-freindly solution, but maybe I am missing something. MichaelRaskin's solution sounds better. But again: I'm a nixos newbe. <br/>
+<font size="2">(10:22:08 PM)</font><b> codyopel left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:22:09 PM)</font> <b>the-kenny:</b></font> MichaelRaskin: we&apos;re talking about the same solution ;)<br/>
+<font color="#A82F2F"><font size="2">(10:22:12 PM)</font> <b>the-kenny:</b></font> Eh, magnetophon<br/>
+<font color="#A82F2F"><font size="2">(10:22:18 PM)</font> <b>the-kenny:</b></font> magnetophon: see emacs24 as an example<br/>
+<font color="#A82F2F"><font size="2">(10:22:22 PM)</font> <b>the-kenny:</b></font> (the<br/>
+<font color="#A82F2F"><font size="2">(10:22:32 PM)</font> <b>the-kenny:</b></font> (the imageMagick = null stuff)<br/>
+<font color="#16569E"><font size="2">(10:22:40 PM)</font> <b>magnetophon:</b></font> ok, I misunderstood.<br/>
+<font color="#16569E"><font size="2">(10:22:49 PM)</font> <b>magnetophon:</b></font> I'll go check that out<br/>
+<font color="#16569E"><font size="2">(10:23:02 PM)</font> <b>magnetophon:</b></font> the-kenny: ^<br/>
+<font size="2">(10:23:47 PM)</font><b> SparkDog left the room (quit: Quit: 16:23 -!- Irssi: Uptime: 516d 23h 6m 52s).</b><br/>
+<font size="2">(10:25:31 PM)</font><b> abbradar [<em>~user@95-25-92-136.broadband.corbina.ru</em>] entered the room.</b><br/>
+<font size="2">(10:25:39 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font size="2">(10:26:08 PM)</font><b> codyopel_ left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:27:53 PM)</font> <b>goibhniu:</b></font> magnetophon: here&apos;s an example of a .nix file you could use for a standard alsa gtk faust env: http://sprunge.us/hLAF<br/>
+<font size="2">(10:29:18 PM)</font><b> hnoob left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(10:29:48 PM)</font><b> codyopel_ [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:30:09 PM)</font> <b>magnetophon:</b></font> Ah, I think I see where my confusion originated: goibhniu IS talking about a different solution as the-kenny and MichaelRaskin, right?<br/>
+<font size="2">(10:30:42 PM)</font><b> codyopel left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(10:31:05 PM)</font><b> hnoob [<em>~hnoob@c-71-196-136-219.hsd1.co.comcast.net</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:31:57 PM)</font> <b>magnetophon:</b></font> ah, no, this is just what you'd source in the configuration.nix, right?<br/>
+<font color="#A82F2F"><font size="2">(10:32:05 PM)</font> <b>goibhniu:</b></font> magnetophon: yes, totally .. I&apos;m just trying to explain how you might want to use nix-shell<br/>
+<font color="#16569E"><font size="2">(10:32:27 PM)</font> <b>magnetophon:</b></font> OK, it's getting late...<br/>
+<font color="#A82F2F"><font size="2">(10:32:52 PM)</font> <b>goibhniu:</b></font> since you&apos;re gonna be using faust to compile stuff, you may want to have an environment with arbitrary dependencies<br/>
+<font color="#A82F2F"><font size="2">(10:34:24 PM)</font> <b>goibhniu:</b></font> sorry, if I&apos;m confusing things<br/>
+<font color="#A82F2F"><font size="2">(10:35:05 PM)</font> <b>abbradar:</b></font> Hello all! I want to use recent &quot;transformers&quot; haskell library. I need to change nixpkgs to update transformers version AFAIK (we ship version bundled with GHC, and I expect clashes if I would just use newer version in my project and also some library which was built against an old version). Is there a better way maybe?<br/>
+<font color="#16569E"><font size="2">(10:35:46 PM)</font> <b>magnetophon:</b></font> goibhniu: That would be usefull if you want to do something custom with the c++ files that faust itself outputs. I think most people just want to use the faust2 scripts, which have neatly defined deps. Am I understanding you correctly?<br/>
+<font color="#A82F2F"><font size="2">(10:36:02 PM)</font> <b>goibhniu:</b></font> aha, yes that&apos;s the thing<br/>
+<font size="2">(10:37:19 PM)</font><b> sogatori left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(10:39:08 PM)</font><b> elifrey [<em>~elifrey@2601:8:9f00:3b:5d:f7e4:d5a:edfb</em>] entered the room.</b><br/>
+<font size="2">(10:40:09 PM)</font><b> akuhlens [<em>~akuhlens@c-98-223-237-255.hsd1.in.comcast.net</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:41:31 PM)</font> <b>magnetophon:</b></font> the-kenny: the relevant part of emacs24 are the buildInputs and the configureFlags, right? Where is this mechanism documented?<br/>
+<font color="#A82F2F"><font size="2">(10:41:49 PM)</font> <b>the-kenny:</b></font> the configureFlags are not the important part here<br/>
+<font color="#A82F2F"><font size="2">(10:42:08 PM)</font> <b>the-kenny:</b></font> the buildInputs (and the { foo, bar } stuff at the top) + the callPackage call in all-packages.nix are important<br/>
+<font size="2">(10:43:53 PM)</font><b> codyopel_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(10:43:58 PM)</font><b> codyopel [<em>~quassel@198.23.249.201</em>] entered the room.</b><br/>
+<font size="2">(10:44:13 PM)</font><b> sivteck left the room (quit: Quit: You are).</b><br/>
+<font color="#16569E"><font size="2">(10:44:14 PM)</font> <b>magnetophon:</b></font> the-kenny: thanks. more reading to do :)<br/>
+<font color="#A82F2F"><font size="2">(10:47:05 PM)</font> <b>pharpend:</b></font> I&apos;m having some trouble configuring laptop power management<br/>
+<font color="#A82F2F"><font size="2">(10:47:39 PM)</font> <b>ttuegel:</b></font> pharpend: what&apos;s the trouble?<br/>
+<font color="#A82F2F"><font size="2">(10:47:50 PM)</font> <b>pharpend:</b></font> oh sorry, forgot<br/>
+<font color="#A82F2F"><font size="2">(10:47:52 PM)</font> <b>pharpend:</b></font> um<br/>
+<font color="#A82F2F"><font size="2">(10:48:19 PM)</font> <b>pharpend:</b></font> I have powerManagement.enable = true<br/>
+<font size="2">(10:48:22 PM)</font><b> codyopel left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:48:25 PM)</font> <b>pharpend:</b></font> My laptop is still not suspending on close<br/>
+<font color="#A82F2F"><font size="2">(10:48:31 PM)</font> <b>pharpend:</b></font> And I don&apos;t see any way to configure that<br/>
+<font color="#A82F2F"><font size="2">(10:48:43 PM)</font> <b>pharpend:</b></font> I&apos;ve tried messing with acpid, but I can&apos;t figure that out either<br/>
+<font color="#A82F2F"><font size="2">(10:48:57 PM)</font> <b>ttuegel:</b></font> pharpend: are you using a desktop environment?<br/>
+<font color="#A82F2F"><font size="2">(10:49:00 PM)</font> <b>pharpend:</b></font> ttuegel: no<br/>
+<font color="#A82F2F"><font size="2">(10:49:07 PM)</font> <b>pharpend:</b></font> ttuegel: just a window manager<br/>
+<font color="#A82F2F"><font size="2">(10:49:40 PM)</font> <b>ttuegel:</b></font> pharpend: ok, so the way you would normally configure that is through logind, but i don&apos;t think nixos-unstable is using that yet. let me check...<br/>
+<font color="#A82F2F"><font size="2">(10:50:49 PM)</font> <b>goibhniu:</b></font> magnetophon: I think http://lethalman.blogspot.de/2014/08/nix-pill-12-inputs-design-pattern.html is relevant<br/>
+<font color="#16569E"><font size="2">(10:51:36 PM)</font> <b>magnetophon:</b></font> goibhniu: thanks<br/>
+<font color="#A82F2F"><font size="2">(10:51:50 PM)</font> <b>kmicu:</b></font> pharpend: suspending on close?<br/>
+<font color="#A82F2F"><font size="2">(10:52:04 PM)</font> <b>pharpend:</b></font> kmicu: yes<br/>
+<font color="#A82F2F"><font size="2">(10:52:10 PM)</font> <b>kmicu:</b></font> Close of what?<br/>
+<font color="#A82F2F"><font size="2">(10:52:15 PM)</font> <b>pharpend:</b></font> the laptop lid<br/>
+<font color="#A82F2F"><font size="2">(10:52:22 PM)</font> <b>ttuegel:</b></font> pharpend: i take that back, we have logind<br/>
+<font color="#A82F2F"><font size="2">(10:52:31 PM)</font> <b>abbradar:</b></font> I highly suspect that this is logind&apos;s work<br/>
+<font color="#A82F2F"><font size="2">(10:52:46 PM)</font> <b>ttuegel:</b></font> indeed<br/>
+<font color="#A82F2F"><font size="2">(10:52:46 PM)</font> <b>pharpend:</b></font> ttuegel: okay. I haven&apos;t used a systemd distro in a long time, so would you fill me in?<br/>
+<font color="#A82F2F"><font size="2">(10:53:03 PM)</font> <b>ttuegel:</b></font> pharpend: hold on, i have to look it up. haven&apos;t done this since i used xmonad<br/>
+<font color="#A82F2F"><font size="2">(10:53:06 PM)</font> <b>abbradar:</b></font> pharpend: Yes it is, I&apos;ve remembered that I&apos;ve fixed it for my laptop. I have the magic line somewhere....<br/>
+<font color="#A82F2F"><font size="2">(10:53:06 PM)</font> <b>pharpend:</b></font> I think systemd is evil<br/>
+<font color="#A82F2F"><font size="2">(10:53:34 PM)</font> <b>kmicu:</b></font> Are you suggesting that systemd has soul?<br/>
+<font color="#A82F2F"><font size="2">(10:53:39 PM)</font> <b>pharpend:</b></font> haha<br/>
+<font color="#A82F2F"><font size="2">(10:53:46 PM)</font> <b>o11c:</b></font> pharpend: if you think fast &amp; well-defined-structure are evil, sure<br/>
+<font color="#A82F2F"><font size="2">(10:54:02 PM)</font> <b>the-kenny:</b></font> oh god please don&apos;t start the flamewar again<br/>
+<font color="#A82F2F"><font size="2">(10:54:07 PM)</font> <b>pharpend:</b></font> haha<br/>
+<font color="#A82F2F"><font size="2">(10:54:16 PM)</font> <b>abbradar:</b></font>   services.logind.extraConfig = &apos;&apos;<br/>
+<font color="#A82F2F"><font size="2">(10:54:16 PM)</font> <b>abbradar:</b></font>     HandleLidSwitch=ignore<br/>
+<font color="#A82F2F"><font size="2">(10:54:16 PM)</font> <b>abbradar:</b></font>   &apos;&apos;;<br/>
+<font color="#A82F2F"><font size="2">(10:54:16 PM)</font> <b>abbradar:</b></font>  <br/>
+<font color="#A82F2F"><font size="2">(10:54:33 PM)</font> <b>ttuegel:</b></font> that will do the opposite of what pharpend wants :)<br/>
+<font color="#A82F2F"><font size="2">(10:54:45 PM)</font> <b>ttuegel:</b></font> but you can &quot;man 5 logind.conf&quot; to see the syntax of what goes in that file<br/>
+<font color="#A82F2F"><font size="2">(10:54:59 PM)</font> <b>MichaelRaskin:</b></font> Direct reproducible opposite is usually very close to the solution anyway<br/>
+<font color="#A82F2F"><font size="2">(10:55:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 5 new commits to master: http://git.io/l5900w<br/>
+<font color="#A82F2F"><font size="2">(10:55:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a96eda1 Peter Simons: haskell-hspec-core: update to version 2.0.2<br/>
+<font color="#A82F2F"><font size="2">(10:55:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 4fd4b2c Peter Simons: haskell-vimus: re-generate with cabal2nix<br/>
+<font color="#A82F2F"><font size="2">(10:55:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 893d25a Peter Simons: haskell-hspec-discover: update to version 2.0.2<br/>
+<font color="#A82F2F"><font size="2">(10:55:58 PM)</font> <b>pharpend:</b></font> http://ix.io/fjs not a very helpful man page<br/>
+<font color="#A82F2F"><font size="2">(10:56:13 PM)</font> <b>abbradar:</b></font> pardon my inattention. hm, AFAIR ot _did_ sleep on lid close by default<br/>
+<font color="#A82F2F"><font size="2">(10:56:25 PM)</font> <b>abbradar:</b></font> I&apos;ve disabled that because it was annoying for me<br/>
+<font color="#A82F2F"><font size="2">(10:56:29 PM)</font> <b>abbradar:</b></font> *it<br/>
+<font color="#A82F2F"><font size="2">(10:56:35 PM)</font> <b>kmicu:</b></font> ”HandleLidSwitch=default to suspend.”<br/>
+<font color="#A82F2F"><font size="2">(10:56:53 PM)</font> <b>abbradar:</b></font> maybe it just can&apos;t see the lid sensor or something<br/>
+<font color="#A82F2F"><font size="2">(10:56:54 PM)</font> <b>ttuegel:</b></font> pharpend: what happened to your man?<br/>
+<font color="#A82F2F"><font size="2">(10:58:13 PM)</font> <b>pharpend:</b></font> ttuegel: oh no those are just formatting characters<br/>
+<font color="#A82F2F"><font size="2">(10:58:40 PM)</font> <b>pharpend:</b></font> ttuegel: they bold the text. Ignoring those, it still doesn&apos;t contain much information<br/>
+<font color="#A82F2F"><font size="2">(10:59:04 PM)</font> <b>ttuegel:</b></font> ? &quot;Can be one of &quot;ignore&quot;, &quot;poweroff&quot;, &quot;reboot&quot;, &quot;halt&quot;,<br/>
+<font color="#A82F2F"><font size="2">(10:59:04 PM)</font> <b>ttuegel:</b></font>            &quot;kexec&quot;, &quot;suspend&quot;, &quot;hibernate&quot;, &quot;hybrid-sleep&quot; and &quot;lock&quot;. If<br/>
+<font color="#A82F2F"><font size="2">(10:59:04 PM)</font> <b>ttuegel:</b></font>            &quot;ignore&quot;, logind will never handle these keys.&quot;<br/>
+<font color="#A82F2F"><font size="2">(10:59:29 PM)</font> <b>pharpend:</b></font> god dammit I couldn&apos;t find that<br/>
+<font color="#A82F2F"><font size="2">(10:59:30 PM)</font> <b>abbradar:</b></font> pharpend: for the sake of checking: can you please do &quot;cat /proc/acpi/button/lid/LID0/state&quot; to check if the sensor works?<br/>
+<font color="#A82F2F"><font size="2">(10:59:42 PM)</font> <b>abbradar:</b></font> i think doing &quot;sleep 5; ....&quot; and closing the lid would be a good check<br/>
+<font color="#A82F2F"><font size="2">(11:00:10 PM)</font> <b>pharpend:</b></font> abbradar: tate:      open<br/>
+<font size="2">(11:00:15 PM)</font><b> suffering [<em>~suffering@cpe-72-227-184-166.nyc.res.rr.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:00:16 PM)</font> <b>pharpend:</b></font> state:      open<br/>
+<font color="#A82F2F"><font size="2">(11:00:22 PM)</font> <b>abbradar:</b></font> even with closed lid?<br/>
+<font size="2">(11:00:48 PM)</font><b> russruss left the room (quit: Quit: russruss).</b><br/>
+<font color="#A82F2F"><font size="2">(11:01:03 PM)</font> <b>pharpend:</b></font> tried your sleep thing, it says closed when the lid is closed<br/>
+<font color="#A82F2F"><font size="2">(11:01:33 PM)</font> <b>abbradar:</b></font> hm, strange. I definitely remember logind doing sleep-on-close by default<br/>
+<font color="#A82F2F"><font size="2">(11:02:01 PM)</font> <b>kmicu:</b></font> pharpend: And to be prim and proper — you are not using *just* window manager, but you have custom desktop environment created by hand. ;)<br/>
+<font color="#A82F2F"><font size="2">(11:02:34 PM)</font> <b>kmicu:</b></font>  »journalctl -f -u systemd-logind« can be halpful here.<br/>
+<font color="#A82F2F"><font size="2">(11:04:04 PM)</font> <b>abbradar:</b></font> there&apos;s also a thing called something like logind-inhibit (can&apos;t remember the exact command -- it stops power management by logind while your WM or other app is running)<br/>
+<font color="#A82F2F"><font size="2">(11:04:09 PM)</font> <b>abbradar:</b></font> I doubt you use it, though<br/>
+<font size="2">(11:07:28 PM)</font><b> akuhlens left the room (quit: Quit: This computer has gone to sleep).</b><br/>
+<font color="#A82F2F"><font size="2">(11:07:38 PM)</font> <b>kmicu:</b></font> Is systemd-logind restarted after changes to services.logind.extraConfig and *without* logging out from X session?<br/>
+<font color="#A82F2F"><font size="2">(11:09:49 PM)</font> <b>kmicu:</b></font> ”The HandleLidSwitch option does not trigger an action if an external monitor is connected when the lid is closed.„  Arch wiki to the rescue.<br/>
+<font color="#A82F2F"><font size="2">(11:10:02 PM)</font> <b>kmicu:</b></font> ”With systemd versions 211 and 212 HandleLidSwitch option was broken on systems with NVIDIA binary drivers installed.”<br/>
+<font color="#A82F2F"><font size="2">(11:10:10 PM)</font> <b>kmicu:</b></font> I see that 212 is default in unstable.<br/>
+<font color="#A82F2F"><font size="2">(11:10:47 PM)</font> <b>kmicu:</b></font> pharpend: ^<br/>
+<font color="#A82F2F"><font size="2">(11:11:09 PM)</font> <b>pharpend:</b></font> kmicu: jesus christ<br/>
+<font color="#A82F2F"><font size="2">(11:11:17 PM)</font> <b>pharpend:</b></font> I&apos;m going to think about this<br/>
+<font color="#A82F2F"><font size="2">(11:11:19 PM)</font> <b>ttuegel:</b></font> yikes<br/>
+<font color="#A82F2F"><font size="2">(11:11:44 PM)</font> <b>pharpend:</b></font> This distribution looks cool, but it has a looong way to go before it&apos;s usable. One such thing is switching out systemd for a non-shitty init system.<br/>
+<font color="#A82F2F"><font size="2">(11:12:26 PM)</font> <b>MichaelRaskin:</b></font> pharpend: NixPkgs-on-Gentoo?<br/>
+<font color="#A82F2F"><font size="2">(11:12:49 PM)</font> <b>ttuegel:</b></font> pharpend: without taking a side on the systemd debate/debacle, i can tell you that isn&apos;t going to happen<br/>
+<font color="#A82F2F"><font size="2">(11:13:02 PM)</font> <b>goibhniu:</b></font> guix?<br/>
+<font color="#A82F2F"><font size="2">(11:13:18 PM)</font> <b>pharpend:</b></font> ttuegel: what about uselessd? or openrc? There are plenty of non-shitty init systems out there.<br/>
+<font color="#062585"><font size="2">(11:13:21 PM)</font> <b>***kmicu</b></font> is quite happy with systemd :)<br/>
+<font color="#062585"><font size="2">(11:13:34 PM)</font> <b>***goibhniu</b></font> too<br/>
+<font color="#A82F2F"><font size="2">(11:13:41 PM)</font> <b>MichaelRaskin:</b></font> kmicu: are you skilled in searching SystemD workarounds?<br/>
+<font color="#A82F2F"><font size="2">(11:13:49 PM)</font> <b>ttuegel:</b></font> guys, going the debian route is not helpful<br/>
+<font color="#A82F2F"><font size="2">(11:13:57 PM)</font> <b>MichaelRaskin:</b></font> I have two specific problems I&apos;d like to work around...<br/>
+<font color="#A82F2F"><font size="2">(11:14:16 PM)</font> <b>pharpend:</b></font> Openrc is terrible, and I recognize systemd is the best option at the moment. I just wish it wasn&apos;t so terrible<br/>
+<font color="#A82F2F"><font size="2">(11:14:17 PM)</font> <b>kmicu:</b></font> Cuz ”non-shitty” is engineering standard for objective measurement unit…<br/>
+<font color="#A82F2F"><font size="2">(11:14:17 PM)</font> <b>ttuegel:</b></font> pharpend: without casting judgement on systemd, so much work has gone into integrating it into nixos, i don&apos;t see it being abandoned<br/>
+<font color="#A82F2F"><font size="2">(11:14:22 PM)</font> <b>pharpend:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(11:14:26 PM)</font> <b>MichaelRaskin:</b></font> ttuegel: well, unlike Debian, the maintenance effort in NixPkgs is less tied to NixOS<br/>
+<font color="#A82F2F"><font size="2">(11:14:40 PM)</font> <b>pharpend:</b></font> openrc isn&apos;t fault-tolerant, which is a pretty big dealbreaker to me<br/>
+<font color="#A82F2F"><font size="2">(11:19:44 PM)</font> <b>ttuegel:</b></font> MichaelRaskin: i meant culturally. debian is going to fracture (has already really) because people would rather debate this endlessly than get shit done<br/>
+<font color="#A82F2F"><font size="2">(11:19:44 PM)</font> <b>MichaelRaskin:</b></font> Well, Debian will not survive a three-way-split<br/>
+<font color="#A82F2F"><font size="2">(11:19:44 PM)</font> <b>ttuegel:</b></font> and chiming in with &quot;i do (not) like systemd&quot; is what caused that<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>ttuegel:</b></font> three way?<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>MichaelRaskin:</b></font> NixOS will actually do, as the NixPkgs maintenance will still be a common effort<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>MichaelRaskin:</b></font> Well, once the fun starts, it is hard to stop<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>ttuegel:</b></font> heh, true<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>MichaelRaskin:</b></font> I think NixOS-but-on-s6 and NixOs-but-on-UselessD wouldn&apos;t be more different from NixOS than Nix-on-Darwin<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>kmicu:</b></font> When I finish solving ~40 nix TODOs I will be able to test systemd 217 and fix systemd --user, which I really need.<br/>
+<font color="#062585"><font size="2">(11:19:45 PM)</font> <b>***kmicu</b></font> plays „Rambo Soundtrack - It’s a long Road”<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>MichaelRaskin:</b></font> Somehow I have 217<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>MichaelRaskin:</b></font> And hate it<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>ttuegel:</b></font> it was in the last staging merge<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>MichaelRaskin:</b></font> Because it added a bigger problem to my set of unfixable problems with SystemD<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>ttuegel:</b></font> but i don&apos;t think it&apos;s made it to unstable yet<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>MichaelRaskin:</b></font> Ah<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>MichaelRaskin:</b></font> I think it has<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>ttuegel:</b></font> oh, maybe<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>MichaelRaskin:</b></font> Counting the amount of LibreOffice rebuilds<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>MichaelRaskin:</b></font> But I live off repo-trunk<br/>
+<font color="#A82F2F"><font size="2">(11:19:45 PM)</font> <b>ttuegel:</b></font> idk, i&apos;ve been running staging for about a week because of the kde5 stuff<br/>
+<font color="#A82F2F"><font size="2">(11:20:16 PM)</font> <b>ttuegel:</b></font> what&apos;s the new systemd problem?<br/>
+<font color="#A82F2F"><font size="2">(11:20:20 PM)</font> <b>MichaelRaskin:</b></font> KDE5? So I guess you are not the person to ask how to work around X not being launchable without a DM now<br/>
+<font color="#A82F2F"><font size="2">(11:20:48 PM)</font> <b>MichaelRaskin:</b></font> The Old Problem is: vsftpd dies on misconfiguration. error messages go somewhere fun<br/>
+<font color="#A82F2F"><font size="2">(11:21:02 PM)</font> <b>ttuegel:</b></font> ah, i was aware of that one<br/>
+<font color="#A82F2F"><font size="2">(11:21:09 PM)</font> <b>goibhniu:</b></font> magnetophon: shall we quickly add an option?<br/>
+<font color="#A82F2F"><font size="2">(11:21:14 PM)</font> <b>MichaelRaskin:</b></font> The New Problem is: I launch X from console without display-manager, it worked before, now even as root I get a permission-denied<br/>
+<font size="2">(11:21:30 PM)</font><b> petar left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:21:31 PM)</font> <b>kmicu:</b></font> MichaelRaskin: I don’t understand “hate” to inanimate things, but I would be happy to read some issue log with examples.<br/>
+<font color="#16569E"><font size="2">(11:21:53 PM)</font> <b>magnetophon:</b></font> goibhniu: you mean you've done yet more work for me?  ;)<br/>
+<font color="#A82F2F"><font size="2">(11:22:05 PM)</font> <b>ttuegel:</b></font> that is shitty. and yeah, i have no idea how to work around that, but i totally support your right to not have to put up with kdm (which i&apos;m not particularly fond of, tbh)<br/>
+<font color="#A82F2F"><font size="2">(11:22:18 PM)</font> <b>goibhniu:</b></font> magnetophon: not yet, but we can do that quickly ... and I have some time right now<br/>
+<font color="#062585"><font size="2">(11:22:32 PM)</font> <b>***ttuegel</b></font> remembers he has a new dm to package<br/>
+<font color="#16569E"><font size="2">(11:22:40 PM)</font> <b>magnetophon:</b></font> goibhniu: so what's the plan?<br/>
+<font color="#A82F2F"><font size="2">(11:22:47 PM)</font> <b>MichaelRaskin:</b></font> ttuegel: I sometimes like to quickly launch a second/third X session<br/>
+<font color="#A82F2F"><font size="2">(11:23:01 PM)</font> <b>MichaelRaskin:</b></font> I think you can guess that it can be very strangely configured<br/>
+<font color="#A82F2F"><font size="2">(11:23:25 PM)</font> <b>o11c:</b></font> on Debian I use X from console exclusively<br/>
+<font color="#A82F2F"><font size="2">(11:23:32 PM)</font> <b>goibhniu:</b></font> magnetophon: we could make gtk optional, if it&apos;s enabled we wrap all the things and include the buildinputs, ok?<br/>
+<font color="#A82F2F"><font size="2">(11:23:34 PM)</font> <b>o11c:</b></font> there is one bug in startx though<br/>
+<font color="#A82F2F"><font size="2">(11:23:42 PM)</font> <b>MichaelRaskin:</b></font> o11c: that will stop with fresh enough SystemD<br/>
+<font color="#A82F2F"><font size="2">(11:23:48 PM)</font> <b>ttuegel:</b></font> i can see that, but you don&apos;t have to justify it to me: &quot;because it&apos;s my computer and i wanted to fscking startx&quot; is a legitimate reason<br/>
+<font color="#A82F2F"><font size="2">(11:23:53 PM)</font> <b>MichaelRaskin:</b></font> SystemD considers working startx a bug<br/>
+<font color="#A82F2F"><font size="2">(11:24:22 PM)</font> <b>kmicu:</b></font> systemd’s X handling is still in progress.<br/>
+<font color="#16569E"><font size="2">(11:24:29 PM)</font> <b>magnetophon:</b></font> goibhniu: you mean if the user already has it, it'll be automatically included in the runtime? Sounds great!<br/>
+<font color="#A82F2F"><font size="2">(11:24:49 PM)</font> <b>goibhniu:</b></font> magnetophon: ah no, it needs to explicitly be enabled<br/>
+<font color="#A82F2F"><font size="2">(11:24:58 PM)</font> <b>o11c:</b></font> when I asked the systemd maintainers, the response was &quot;not a bug, you shouldn&apos;t expect it to work&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:25:16 PM)</font> <b>o11c:</b></font> systemd maintainers do have an attitude problem, but their code is *usually* good<br/>
+<font color="#A82F2F"><font size="2">(11:25:19 PM)</font> <b>goibhniu:</b></font> magnetophon: e.g. there could be a variant in all-packages.nix with everything enabled e.g. faustFull<br/>
+<font color="#A82F2F"><font size="2">(11:25:26 PM)</font> <b>MichaelRaskin:</b></font> Also, for some reason my Intel X driver sometimes has strange problems; now there is a change in what processes can change video mode<br/>
+<font color="#A82F2F"><font size="2">(11:25:35 PM)</font> <b>MichaelRaskin:</b></font> So a minor glitch has a chance to become unfixable lockup<br/>
+<font color="#A82F2F"><font size="2">(11:26:18 PM)</font> <b>goibhniu:</b></font> magnetophon: or &quot;faust&quot; could have everything, and &quot;faustCore&quot; would just be the bare faust, ... end users could disable what they don&apos;t want from the full package ... for example<br/>
+<font color="#A82F2F"><font size="2">(11:26:38 PM)</font> <b>MichaelRaskin:</b></font> o11c: JournalD has an unfixable bug, and no it is not fixed by also running rsyslog<br/>
+<font color="#A82F2F"><font size="2">(11:26:48 PM)</font> <b>goibhniu:</b></font> magnetophon: faustFull could just be the wrappers, with faust as an input<br/>
+<font color="#A82F2F"><font size="2">(11:27:24 PM)</font> <b>MichaelRaskin:</b></font> And if they lacked an attitude problem (which lead to lack of stable API at systemd-journald edge), that wouldn&apos;t be an issue<br/>
+<font color="#A82F2F"><font size="2">(11:27:46 PM)</font> <b>o11c:</b></font> I don&apos;t believe in unfixable problems<br/>
+<font color="#A82F2F"><font size="2">(11:27:57 PM)</font> <b>o11c:</b></font> journald&apos;s binary-only log format looks well-planned to me<br/>
+<font color="#A82F2F"><font size="2">(11:28:09 PM)</font> <b>o11c:</b></font> it&apos;s no more prone to corruption than text files, despite what people think<br/>
+<font color="#A82F2F"><font size="2">(11:28:20 PM)</font> <b>o11c:</b></font> and the fix-on-read-instead-of-repair is smart<br/>
+<font color="#A82F2F"><font size="2">(11:28:21 PM)</font> <b>MichaelRaskin:</b></font> journald can&apos;t _read_ its log format right<br/>
+<font color="#16569E"><font size="2">(11:28:33 PM)</font> <b>magnetophon:</b></font> goibhniu: That sounds good. And then in faustfull, we'd eventually make the options more granular trough the other maethod, right? <br/>
+<font color="#A82F2F"><font size="2">(11:28:57 PM)</font> <b>MichaelRaskin:</b></font> Sorry, but tail -n 20 shouldn&apos;t take 100MiBs of disk reads ever<br/>
+<font color="#A82F2F"><font size="2">(11:29:05 PM)</font> <b>goibhniu:</b></font> magnetophon: sure, we could enable or disable everything by default ... either way, it&apos;s a hook for users to configure as they wish<br/>
+<font size="2">(11:29:18 PM)</font><b> veke left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:29:18 PM)</font> <b>MichaelRaskin:</b></font> And with the current toolset, the corruption of text logs is more local<br/>
+<font color="#16569E"><font size="2">(11:29:32 PM)</font> <b>magnetophon:</b></font> goibhniu: cool! what can I do?<br/>
+<font color="#A82F2F"><font size="2">(11:29:34 PM)</font> <b>MichaelRaskin:</b></font> You lose one block (4KiB), no one file (MiBs)<br/>
+<font color="#16569E"><font size="2">(11:32:53 PM)</font> <b>magnetophon:</b></font> the-kenny: I read about half of your link, but most of it went over my head. The 11 pills before it look like a good read too!<br/>
+<font color="#16569E"><font size="2">(11:36:10 PM)</font> <b>magnetophon:</b></font> goibhniu: I got disconnected from my wifi for a bit. Did you get/answer &quot;cool! what can I do?&quot;?<br/>
+<font color="#16569E"><font size="2">(11:37:04 PM)</font> <b>magnetophon:</b></font> is it possible for an email client to know wether a message was actually sent? pidgin doesnt, I think...<br/>
+<font color="#16569E"><font size="2">(11:37:16 PM)</font> <b>magnetophon:</b></font> s/email/irc/<br/>
+<font size="2">(11:46:46 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

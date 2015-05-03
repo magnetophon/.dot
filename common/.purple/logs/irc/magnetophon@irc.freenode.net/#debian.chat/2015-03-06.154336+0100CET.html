@@ -1,0 +1,930 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Fri 06 Mar 2015 03:43:36 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Fri 06 Mar 2015 03:43:36 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(03:43:36 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(03:43:36 PM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(03:43:50 PM)</font> <b>Blueer:</b></font> i used rdiff-backup some years ago<br/>
+<font color="#A82F2F"><font size="2">(03:44:04 PM)</font> <b>Blueer:</b></font> for a year now obnam, but it sucks on big installations<br/>
+<font color="#A82F2F"><font size="2">(03:44:24 PM)</font> <b>Blueer:</b></font> does many tb traffic on one 100gb server<br/>
+<font color="#A82F2F"><font size="2">(03:46:21 PM)</font> <b>tErik:</b></font> Hi, in ssh, &quot;scponly&quot; option can restrict certain set of users for accessing files+foldes only.  how do i restrict &amp; chroot certain set of users in ssh, to only use a chrooted bind&apos;s 127.0.01 port 53 tcp+udp only ?<br/>
+<font color="#A82F2F"><font size="2">(03:46:46 PM)</font> <b>WormFood:</b></font> Does anyone else have a problem with &quot;cheese&quot; being super dark, when it takes a picture on Jessie? It worked fine on previous versions.<br/>
+<font color="#A82F2F"><font size="2">(03:48:12 PM)</font> <b>tErik:</b></font> i dont want those set of ssh users to access any files inside their chroot env or chrooted bind/named&apos;s any file.<br/>
+<font color="#A82F2F"><font size="2">(03:50:45 PM)</font> <b>tErik:</b></font> in sshd, how can i configure it to allow users to access only specific local port (for example port 53), and they cannot have access to any file, how to do that ?<br/>
+<font color="#A82F2F"><font size="2">(03:54:58 PM)</font> <b>abrotman:</b></font> tErik: What are you actually trying to do?<br/>
+<font color="#A82F2F"><font size="2">(03:58:38 PM)</font> <b>tErik:</b></font> my+our laptops, will use server&apos;s bind dns server, configured as caching dnssec enabled dns server, but user will use it via a SSH tunnel, this ssh tunnel&apos;s user lets say pc1, pc2, etc, can only use the port 53 tcp+udp of server&apos;s bind dns server, they must not be able to access any files. just ssh connection for using specific network port, not for any files.<br/>
+<font color="#A82F2F"><font size="2">(04:01:11 PM)</font> <b>bezaban:</b></font> ssh might not be your best bet.<br/>
+<font color="#A82F2F"><font size="2">(04:01:36 PM)</font> <b>bezaban:</b></font> openvpn and iptables per[Chaps<br/>
+<font color="#A82F2F"><font size="2">(04:03:34 PM)</font> <b>bezaban:</b></font> or ssh in a jail of some sorts, but seems pointless as opposed to doing something that won&apos;t grant local access<br/>
+<font color="#A82F2F"><font size="2">(04:03:38 PM)</font> <b>tErik:</b></font> there should be some option to force users to only use network-traffics, and deny any access to any files.<br/>
+<font color="#A82F2F"><font size="2">(04:04:33 PM)</font> <b>bezaban:</b></font> not sure that&apos;s in the scope of ssh. It&apos;s a service to grant access (also facilitates all kinds of firewall-defying tricks)<br/>
+<font color="#A82F2F"><font size="2">(04:08:48 PM)</font> <b>tErik:</b></font> i&apos;m putting one sshd (lets call it 2nd sshd) entirely inside a chroot, so that all users is inside chroot.  this 2nd-sshd, i think i will keep all files as read-only mode, and restrict user to access only one ip&amp;port, 127.0.0.1:5353, thats where chrooted named is listening for dns queries.<br/>
+<font color="#A82F2F"><font size="2">(04:15:53 PM)</font> <b>jelly:</b></font> tErik: do you know how to put custom ports in (chrooted) /etc/resolv.conf<br/>
+<font color="#A82F2F"><font size="2">(04:19:39 PM)</font> <b>tErik:</b></font> jelly, i see some options+info here: https://wiki.archlinux.org/index.php/resolv.conf<br/>
+<font size="2">(04:21:32 PM)</font><b> corey84_ is now known as Corey84</b><br/>
+<font color="#A82F2F"><font size="2">(04:23:08 PM)</font> <b>larryone:</b></font> is there an easy way to mirror just two packages of a repo on a local server?<br/>
+<font size="2">(04:24:37 PM)</font><b> sidv is now known as zz_sidv</b><br/>
+<font color="#A82F2F"><font size="2">(04:24:52 PM)</font> <b>cinnamon:</b></font> Hi do you guys recommond debian as a good free software os for beginners?<br/>
+<font color="#A82F2F"><font size="2">(04:25:34 PM)</font> <b>cinnamon:</b></font> why was there a disagreement between debian and gnu/linux? https://www.gnu.org/distros/free-distros.html<br/>
+<font color="#A82F2F"><font size="2">(04:25:55 PM)</font> <b>jelly:</b></font> cinnamon: if you&apos;re prepared to help and admin those new users, yes<br/>
+<font color="#A82F2F"><font size="2">(04:27:07 PM)</font> <b>centrx:</b></font> cinnamon, FSF disapproves of the fact that Debian distributes some non-free packages, even though they are not part of the main Debian distribution<br/>
+<font color="#A82F2F"><font size="2">(04:27:23 PM)</font> <b>cinnamon:</b></font> and why does debian include them?<br/>
+<font color="#A82F2F"><font size="2">(04:27:48 PM)</font> <b>centrx:</b></font> cinnamon, Because they are important or even essential for users (especially non-free firmware for wifi cards)<br/>
+<font color="#A82F2F"><font size="2">(04:27:50 PM)</font> <b>johnkeates:</b></font> cinnamon: because life gets really hard if debian doesn&apos;t.<br/>
+<font color="#A82F2F"><font size="2">(04:27:54 PM)</font> <b>jelly:</b></font> cinnamon: it does not.  They&apos;re merely hosted on same infrastructure.<br/>
+<font color="#A82F2F"><font size="2">(04:28:22 PM)</font> <b>cinnamon:</b></font> yeah I understand<br/>
+<font color="#A82F2F"><font size="2">(04:28:22 PM)</font> <b>jelly:</b></font> debian does not contain non-free software as defined by DFSG<br/>
+<font color="#A82F2F"><font size="2">(04:28:27 PM)</font> <b>centrx:</b></font> cinnamon, It&apos;s kept explicitly separate<br/>
+<font color="#A82F2F"><font size="2">(04:28:43 PM)</font> <b>kodapa:</b></font> you have to enable the &apos;non-free&apos; repository<br/>
+<font color="#A82F2F"><font size="2">(04:29:08 PM)</font> <b>jelly:</b></font> however, for practical reasons, there are some non-free bits on same mirrors because they make debian a lot more usable on some hardware<br/>
+<font color="#A82F2F"><font size="2">(04:29:19 PM)</font> <b>jelly:</b></font> !tell cinnamon about non-free<br/>
+<font color="#A82F2F"><font size="2">(04:30:48 PM)</font> <b>cinnamon:</b></font> However I am using ubuntu right now which is debian based<br/>
+<font color="#A82F2F"><font size="2">(04:31:15 PM)</font> <b>jelly:</b></font> ubuntu has a lot more non-free components readily available<br/>
+<font color="#A82F2F"><font size="2">(04:31:19 PM)</font> <b>cinnamon:</b></font> and it works well out of the box but the non-free is more ingrained with the free and there is a weak manifesto and amazon leaks<br/>
+<font color="#A82F2F"><font size="2">(04:31:26 PM)</font> <b>cinnamon:</b></font> and I don&apos;t like that<br/>
+<font color="#A82F2F"><font size="2">(04:31:34 PM)</font> <b>johnkeates:</b></font> well, don&apos;t use ubuntu :p<br/>
+<font color="#A82F2F"><font size="2">(04:32:11 PM)</font> <b>jelly:</b></font> cinnamon: debian and fsf have been working for a long time on reaching some sort of consensus, http://lwn.net/Articles/505085/<br/>
+<font color="#A82F2F"><font size="2">(04:32:12 PM)</font> <b>cinnamon:</b></font> on the other hand debian seems alot more userfriendly than gnewsense gnulinux, even though that is the pure free software<br/>
+<font color="#A82F2F"><font size="2">(04:32:33 PM)</font> <b>cinnamon:</b></font> Do you think the debate is merited or frivolous?<br/>
+<font color="#A82F2F"><font size="2">(04:32:51 PM)</font> <b>cinnamon:</b></font> because both are very concerned with free software<br/>
+<font color="#A82F2F"><font size="2">(04:33:03 PM)</font> <b>cinnamon:</b></font> and free software doesn&apos;t mean everything<br/>
+<font color="#A82F2F"><font size="2">(04:33:25 PM)</font> <b>centrx:</b></font> If you need the non-free software to run on your computer, it&apos;s not frivolous<br/>
+<font size="2">(04:33:26 PM)</font><b> johnkeates left the room (&quot;Leaving&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(04:34:13 PM)</font> <b>cinnamon:</b></font> I think it says on their website fsf that many packages in debian depend on non-free software so assume that under the guideness of the debian manifesto<br/>
+<font color="#A82F2F"><font size="2">(04:34:32 PM)</font> <b>centrx:</b></font> That&apos;s not correct, packages in main do not depend on non-free<br/>
+<font color="#A82F2F"><font size="2">(04:34:59 PM)</font> <b>centrx:</b></font> You will not accidentally bring in non-free software if you have only the &quot;main&quot; section in your sources.list<br/>
+<font color="#A82F2F"><font size="2">(04:35:15 PM)</font> <b>yei:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(04:35:27 PM)</font> <b>centrx:</b></font> yeillo<br/>
+<font color="#A82F2F"><font size="2">(04:36:00 PM)</font> <b>miskatonic:</b></font> I only have main<br/>
+<font color="#A82F2F"><font size="2">(04:37:21 PM)</font> <b>jelly:</b></font> cinnamon: such a dependency, if it existed, would be a severe bug in the offending package, and reason to remove it from debian if unfixed.  This is further defined in Debian&apos;s packaging policy.<br/>
+<font color="#A82F2F"><font size="2">(04:37:35 PM)</font> <b>jelly:</b></font> cinnamon: so... [[citation needed]]<br/>
+<font color="#A82F2F"><font size="2">(04:38:23 PM)</font> <b>DammitJim:</b></font> I just installed chrome<br/>
+<font color="#A82F2F"><font size="2">(04:38:35 PM)</font> <b>DammitJim:</b></font> do I need to reboot for it to show up in my update-alternatives?<br/>
+<font color="#A82F2F"><font size="2">(04:39:24 PM)</font> <b>jelly:</b></font> DammitJim: no, it ought to be listed in &quot;update-alternatives --list x-www-browser&quot; right away<br/>
+<font color="#A82F2F"><font size="2">(04:40:23 PM)</font> <b>jelly:</b></font> DammitJim: google&apos;s packaging of chrome seems decent that way<br/>
+<font size="2">(04:44:39 PM)</font><b> mode (+o jelly) by ChanServ</b><br/>
+<font size="2">(04:45:28 PM)</font><b> mode (+b *!*@105.158.19.11$##not-a-honeypot) by jelly</b><br/>
+<font size="2">(04:46:09 PM)</font><b> mode (+b *!*@plb95-1-82-229-89-38.fbx.proxad.net$##not-a-honeypot) by jelly</b><br/>
+<font size="2">(04:48:31 PM)</font><b> mode (-o jelly) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(04:50:19 PM)</font> <b>Halbard:</b></font> Hi, I want to install a program which requires glibc6 &gt;=2.14 but debian is currently on 2.13, is it possible to install current version libc6_2.19-15 from jessie?<br/>
+<font color="#A82F2F"><font size="2">(04:51:17 PM)</font> <b>miskatonic:</b></font> if it is backported<br/>
+<font color="#A82F2F"><font size="2">(04:51:41 PM)</font> <b>centrx:</b></font> Halbard, You could upgrade your system to jessie, but without a backport you can&apos;t safely upgrade just the libc6 package without upgrading the rest of your system.<br/>
+<font color="#A82F2F"><font size="2">(04:52:08 PM)</font> <b>centrx:</b></font> Halbard, What&apos;s the program?<br/>
+<font color="#A82F2F"><font size="2">(04:52:18 PM)</font> <b>Halbard:</b></font> viber<br/>
+<font color="#A82F2F"><font size="2">(04:52:28 PM)</font> <b>jelly:</b></font> Halbard: that&apos;s not really a safe thing to do<br/>
+<font color="#A82F2F"><font size="2">(04:54:05 PM)</font> <b>Halbard:</b></font> so upgrading to jessie would be a safest option?<br/>
+<font color="#A82F2F"><font size="2">(04:54:26 PM)</font> <b>centrx:</b></font> Yes<br/>
+<font color="#A82F2F"><font size="2">(04:55:00 PM)</font> <b>centrx:</b></font> Actually, the safest option is not to use non-free third-party software<br/>
+<font color="#A82F2F"><font size="2">(04:55:02 PM)</font> <b>Halbard:</b></font> I&apos;m not really sure how to do that.<br/>
+<font color="#A82F2F"><font size="2">(04:55:27 PM)</font> <b>centrx:</b></font> dpkg: wheezy-&gt;jessie<br/>
+<font color="#A82F2F"><font size="2">(04:55:28 PM)</font> <b>dpkg:</b></font> Remember that testing is a pre-release distribution without timely security support to be cautious; ask me about &lt;testing security&gt;. (1) READ THE RELEASE NOTES: http://deb.li/ldcj (2) From /etc/apt/sources.list, remove stable-specific lines like wheezy-updates and backports, and change wheezy to jessie.  apt-get update &amp;&amp; apt-get dist-upgrade.<br/>
+<font size="2">(04:56:01 PM)</font><b> corey84_ is now known as Corey84</b><br/>
+<font color="#A82F2F"><font size="2">(04:56:05 PM)</font> <b>DammitJim:</b></font> weird jelly , only iceweasel shows<br/>
+<font color="#A82F2F"><font size="2">(04:56:28 PM)</font> <b>jelly:</b></font> DammitJim: how exactly did you install chrome?<br/>
+<font color="#A82F2F"><font size="2">(04:56:55 PM)</font> <b>DammitJim:</b></font> dpkg -i google....deb<br/>
+<font color="#A82F2F"><font size="2">(04:56:55 PM)</font> <b>dpkg:</b></font> package google....deb is already installed<br/>
+<font color="#A82F2F"><font size="2">(04:57:01 PM)</font> <b>jelly:</b></font> if you got google&apos;s google-chrome-stable_whatever.deb package for debian it ought to have created that stuff<br/>
+<font color="#A82F2F"><font size="2">(04:57:12 PM)</font> <b>DammitJim:</b></font> something got borked, then<br/>
+<font color="#A82F2F"><font size="2">(04:57:23 PM)</font> <b>jelly:</b></font> nod<br/>
+<font color="#A82F2F"><font size="2">(04:57:43 PM)</font> <b>sine0:</b></font> what do i need to read/write ntfs<br/>
+<font color="#A82F2F"><font size="2">(04:57:46 PM)</font> <b>jelly:</b></font> DammitJim: run apt-get update, then show output of &quot;apt-cache policy google-chrome-stable&quot; and just &quot;apt-cache policy&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:57:52 PM)</font> <b>centrx:</b></font> sine0, ntfs-3g<br/>
+<font color="#A82F2F"><font size="2">(04:57:53 PM)</font> <b>Halbard:</b></font> centrx: I have already installed viber using gdebi but it wont work because there is not libc6-2.14<br/>
+<font color="#A82F2F"><font size="2">(04:58:24 PM)</font> <b>Halbard:</b></font> I have no idea why gdebi didn&apos;t warn me about unmet dependecies<br/>
+<font color="#A82F2F"><font size="2">(04:58:47 PM)</font> <b>miskatonic:</b></font> soon er or later, Jessie will go stable<br/>
+<font color="#A82F2F"><font size="2">(04:58:49 PM)</font> <b>centrx:</b></font> Halbard, May be a poorly made package that doesn&apos;t have the right dependencies listed<br/>
+<font color="#A82F2F"><font size="2">(04:58:59 PM)</font> <b>DammitJim:</b></font> jelly, it says Installed: 41.0.2272.76-1<br/>
+<font color="#A82F2F"><font size="2">(05:00:18 PM)</font> <b>Halbard:</b></font> centrx: thats possible, actually there are no listed dependencies, I had to manually  run ./viber to see what will phappen<br/>
+<font size="2">(05:02:03 PM)</font><b> mode (+l 1634) by debhelper</b><br/>
+<font size="2">(05:05:05 PM)</font><b> sine0 left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(05:07:05 PM)</font> <b>Halbard:</b></font> Do I have to remove stable-specific lines or it will be enough to just comment them?<br/>
+<font color="#A82F2F"><font size="2">(05:08:51 PM)</font> <b>htqp:</b></font> you may want to create a chroot for both keeping wheezy stable and keeping viber out of your personal data<br/>
+<font color="#A82F2F"><font size="2">(05:09:29 PM)</font> <b>htqp:</b></font> https://wiki.debian.org/Debootstrap<br/>
+<font color="#A82F2F"><font size="2">(05:10:55 PM)</font> <b>DammitJim:</b></font> brb<br/>
+<font color="#A82F2F"><font size="2">(05:11:00 PM)</font> <b>DammitJim:</b></font> let&apos;s see if it shows up after reboot<br/>
+<font size="2">(05:11:01 PM)</font><b> DammitJim left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(05:12:00 PM)</font> <b>Halbard:</b></font> there is also a .zip version of viber but I dont know how to properly integrate required libraries so that viber executable can find them<br/>
+<font size="2">(05:12:03 PM)</font><b> mode (+l 1628) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:20:47 PM)</font> <b>cinnamon:</b></font> which version of debian do you recommend beginners?<br/>
+<font color="#A82F2F"><font size="2">(05:20:51 PM)</font> <b>cinnamon:</b></font> testing or stable?<br/>
+<font color="#A82F2F"><font size="2">(05:20:57 PM)</font> <b>cinnamon:</b></font> I see thunderbird is from 10 to 30<br/>
+<font color="#A82F2F"><font size="2">(05:22:06 PM)</font> <b>centrx:</b></font> cinnamon, stable has icedove 31.5<br/>
+<font color="#A82F2F"><font size="2">(05:22:20 PM)</font> <b>cinnamon:</b></font> oh i see<br/>
+<font color="#A82F2F"><font size="2">(05:22:32 PM)</font> <b>frangor:</b></font> you can use backports from mozilla.debian.net<br/>
+<font color="#A82F2F"><font size="2">(05:22:50 PM)</font> <b>cinnamon:</b></font> so how sohuld i go about replacing ubuntu with debian?<br/>
+<font color="#A82F2F"><font size="2">(05:22:57 PM)</font> <b>cinnamon:</b></font> reinstalling whole thing or dual boot?<br/>
+<font color="#A82F2F"><font size="2">(05:23:58 PM)</font> <b>centrx:</b></font> cinnamon, Up to you if you want to dual boot, either way a new installation is the best way<br/>
+<font size="2">(05:27:31 PM)</font><b> `hypermist` is now known as sleepypc</b><br/>
+<font color="#A82F2F"><font size="2">(05:29:44 PM)</font> <b>cinnamon:</b></font> are there any guides to switching to debian from ubuntu?<br/>
+<font size="2">(05:30:56 PM)</font><b> Cydrobolt is now known as cy</b><br/>
+<font size="2">(05:31:02 PM)</font><b> cy is now known as Cydrobolt</b><br/>
+<font size="2">(05:32:02 PM)</font><b> mode (+l 1622) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:33:14 PM)</font> <b>centrx:</b></font> cinnamon, Debian and Ubuntu are fundamentally similar, any good Debian install guide will do - https://www.debian.org/releases/stable/amd64/index.html.en - http://debian-handbook.info/browse/stable/sect.installation-steps.html<br/>
+<font color="#A82F2F"><font size="2">(05:33:38 PM)</font> <b>centrx:</b></font> cinnamon, If you&apos;re talking about migrating from Ubuntu to Debian without doing a fresh install, that&apos;s not recommended and is likely to fail.<br/>
+<font color="#A82F2F"><font size="2">(05:34:14 PM)</font> <b>centrx:</b></font> cinnamon, https://www.google.com/search?q=what%27s+different+between+debian+and+ubuntu<br/>
+<font color="#A82F2F"><font size="2">(05:41:36 PM)</font> <b>watmm:</b></font> Anyone know how to force a btrfs check --repair on boot?<br/>
+<font color="#A82F2F"><font size="2">(05:43:50 PM)</font> <b>frostschutz:</b></font> watmm, if all else fails, a @reboot cron job?<br/>
+<font color="#A82F2F"><font size="2">(05:46:42 PM)</font> <b>watmm:</b></font> Interesting. But doesn&apos;t cron require a path to something to run? The issue is you can only run it on un-mounted devices<br/>
+<font color="#A82F2F"><font size="2">(05:47:43 PM)</font> <b>htqp:</b></font> then do it in the initramfs<br/>
+<font color="#A82F2F"><font size="2">(05:50:10 PM)</font> <b>srg:</b></font> Is http.debian.net a replacement for ftp.us.debian.org ?<br/>
+<font color="#A82F2F"><font size="2">(05:52:55 PM)</font> <b>DammitJim:</b></font> jelly, I&apos;m blind... didn&apos;t see that I had problems with some dependencies<br/>
+<font color="#A82F2F"><font size="2">(05:56:19 PM)</font> <b>centrx:</b></font> srg, http.debian.net is a mirror redirector that chooses the best mirror for you based on network/geographic location<br/>
+<font color="#A82F2F"><font size="2">(05:56:46 PM)</font> <b>centrx:</b></font> srg, So yes it is a suitable replacement<br/>
+<font size="2">(05:57:14 PM)</font><b> fraff is now known as fraff_</b><br/>
+<font color="#A82F2F"><font size="2">(06:01:08 PM)</font> <b>srg:</b></font> centrx: Thanks<br/>
+<font color="#A82F2F"><font size="2">(06:06:04 PM)</font> <b>srg:</b></font> centrx: ftp.us.debian.org should have all the same repos that http.debian.net does, right? I ask because the mozilla.debian.net page says to use http.debian.net<br/>
+<font color="#A82F2F"><font size="2">(06:06:49 PM)</font> <b>srg:</b></font> Like, it has &apos;unstable&apos; and &apos;experimental&apos;?<br/>
+<font color="#A82F2F"><font size="2">(06:07:29 PM)</font> <b>jelly:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(06:07:31 PM)</font> <b>centrx:</b></font> srg, http.debian.net incorporates that info in choosing what mirror to use<br/>
+<font color="#A82F2F"><font size="2">(06:07:56 PM)</font> <b>jelly:</b></font> !tell srg about hdn<br/>
+<font color="#A82F2F"><font size="2">(06:07:57 PM)</font> <b>centrx:</b></font> maybe that&apos;s only for architecture<br/>
+<font color="#A82F2F"><font size="2">(06:09:34 PM)</font> <b>polyphagia:</b></font> !tell polyphagia about hdn<br/>
+<font color="#A82F2F"><font size="2">(06:10:02 PM)</font> <b>centrx:</b></font> !tell polyphagia about msg<br/>
+<font color="#A82F2F"><font size="2">(06:10:46 PM)</font> <b>srg:</b></font> lol<br/>
+<font size="2">(06:22:03 PM)</font><b> mode (+l 1630) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(06:27:00 PM)</font> <b>cinnamon:</b></font> does thinkpad work on debia?<br/>
+<font color="#A82F2F"><font size="2">(06:29:09 PM)</font> <b>centrx:</b></font> cinnamon, Lenovo Thinkpad laptops? Yes<br/>
+<font color="#A82F2F"><font size="2">(06:33:53 PM)</font> <b>cinnamon:</b></font> how do you deal with wifi on thinkpads?<br/>
+<font color="#A82F2F"><font size="2">(06:35:06 PM)</font> <b>rwp:</b></font> We deal with wifi on thinkpads very well.  Thank you for asking.<br/>
+<font color="#A82F2F"><font size="2">(06:37:10 PM)</font> <b>cinnamon:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(06:37:15 PM)</font> <b>cinnamon:</b></font> I mean it doesnt work out of the box right<br/>
+<font color="#A82F2F"><font size="2">(06:37:35 PM)</font> <b>mo1991reg:</b></font> cinnamon - you probably will need some firmware from the non-free section<br/>
+<font color="#A82F2F"><font size="2">(06:37:39 PM)</font> <b>mo1991reg:</b></font> for the wifi<br/>
+<font color="#A82F2F"><font size="2">(06:37:48 PM)</font> <b>cinnamon:</b></font> but how can you install it if you get no wifi to work?<br/>
+<font color="#A82F2F"><font size="2">(06:37:55 PM)</font> <b>mo1991reg:</b></font> and potentially for the video card<br/>
+<font color="#A82F2F"><font size="2">(06:38:44 PM)</font> <b>mo1991reg:</b></font> wired connection.   Or get the wifi drivers from non-free ahead of time and move to a usb drive or cd.   During install it will normally find the wifi card and ask if you have the firmware to be installed<br/>
+<font color="#A82F2F"><font size="2">(06:40:30 PM)</font> <b>mo1991reg:</b></font> I have installed using only wifi - but I had put the drivers on via a usb stick.   It&apos;s easiest to just use wired connection to do install and get wifi drivers like that, or to have another computer that is Internet ready to pull the required drivers needed to a usb drive if you don&apos;t know what your wifi chipset is before install<br/>
+<font color="#A82F2F"><font size="2">(06:41:28 PM)</font> <b>rwp:</b></font> I always boot a live cd first on new systems and then check what drivers will be needed. Using &quot;lspci&quot;.<br/>
+<font color="#A82F2F"><font size="2">(06:41:47 PM)</font> <b>mo1991reg:</b></font> this is the disadvantage of not having &quot;non-free&quot; included by default - but also a big advantage of really knowing what &quot;non-free&quot; packages you install - aka control over what non-free installs<br/>
+<font color="#A82F2F"><font size="2">(06:42:07 PM)</font> <b>mo1991reg:</b></font> rwp has a good idea as well<br/>
+<font color="#A82F2F"><font size="2">(06:42:13 PM)</font> <b>cinnamon:</b></font> can you choose th ewifi as a exception<br/>
+<font color="#A82F2F"><font size="2">(06:42:21 PM)</font> <b>mo1991reg:</b></font> typically you really only need to make sure you have the wifi firmware for the install<br/>
+<font color="#A82F2F"><font size="2">(06:42:24 PM)</font> <b>rwp:</b></font> For good information resources on ThinkPads http://www.thinkwiki.org/wiki/ThinkWiki<br/>
+<font color="#A82F2F"><font size="2">(06:42:25 PM)</font> <b>cinnamon:</b></font> so when u include non free yo ucant decide?<br/>
+<font color="#A82F2F"><font size="2">(06:42:35 PM)</font> <b>rwp:</b></font> You can find a lot of information about your make and model there.<br/>
+<font color="#A82F2F"><font size="2">(06:42:39 PM)</font> <b>centrx:</b></font> cinnamon, There is an installer that comes with non-free firmware<br/>
+<font color="#A82F2F"><font size="2">(06:42:46 PM)</font> <b>rwp:</b></font> But there are variations. Best to check your exact device.<br/>
+<font color="#A82F2F"><font size="2">(06:43:05 PM)</font> <b>centrx:</b></font> cinnamon, You can also do a wired install then download the non-free firmware, or install it with external media<br/>
+<font color="#A82F2F"><font size="2">(06:43:29 PM)</font> <b>centrx:</b></font> s/wired/wired or ISO/<br/>
+<font size="2">(06:50:20 PM)</font><b> centrx left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(06:52:02 PM)</font><b> mode (+l 1624) by debhelper</b><br/>
+<font size="2">(06:55:19 PM)</font><b> hassoon is now known as Anti_College</b><br/>
+<font color="#A82F2F"><font size="2">(07:16:51 PM)</font> <b>GrosMerlu:</b></font> hi, can I get the top panel in dark with Gnome in classic mode?<br/>
+<font color="#A82F2F"><font size="2">(07:19:45 PM)</font> <b>sailcat:</b></font> GrosMerlu, you can make it as dark as you want, but you might want to use gnome-color-chooser to set a light panel font and dark background so you can read it.<br/>
+<font color="#A82F2F"><font size="2">(07:20:38 PM)</font> <b>Guest29636:</b></font> booting debian on my macbook laptop sometimes hangs. It seems like it is at different points each time, and sometimes it works (often, but not always, when I set rescue/enable=true as boot parameter).<br/>
+<font color="#A82F2F"><font size="2">(07:20:57 PM)</font> <b>Guest29636:</b></font> how can I figure out what is wrong?<br/>
+<font color="#A82F2F"><font size="2">(07:21:02 PM)</font> <b>GrosMerlu:</b></font> sailcat: doesnt the &quot;Global dark theme&quot; switch in Tweak Tool take care of that?<br/>
+<font color="#A82F2F"><font size="2">(07:21:41 PM)</font> <b>sailcat:</b></font> GrosMerlu, i don&apos;t know. maybe.<br/>
+<font color="#A82F2F"><font size="2">(07:22:37 PM)</font> <b>sailcat:</b></font> GrosMerlu, in my experience, all of the dark themes have font legibility problems unless you also use gnome-color-chooser.<br/>
+<font color="#A82F2F"><font size="2">(07:22:55 PM)</font> <b>GrosMerlu:</b></font> sailcat: alright, I will test then<br/>
+<font color="#A82F2F"><font size="2">(07:23:18 PM)</font> <b>GrosMerlu:</b></font> thx for the help<br/>
+<font size="2">(07:23:22 PM)</font><b> GrosMerlu left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(07:23:22 PM)</font> <b>sailcat:</b></font> yep<br/>
+<font color="#A82F2F"><font size="2">(07:28:11 PM)</font> <b>cinnamon:</b></font> whats the fastest way to backup as little files and install debian?<br/>
+<font color="#A82F2F"><font size="2">(07:28:47 PM)</font> <b>mtn:</b></font> cinnamon: copy and paste to external drive<br/>
+<font size="2">(07:32:03 PM)</font><b> mode (+l 1632) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(07:33:48 PM)</font> <b>g00se:</b></font> task-xfce-desktop appears to be broken ( http://paste.debian.net/159966/ ) I _think_ i understand why, but don&apos;t know what to do about it. Can you help?<br/>
+<font color="#A82F2F"><font size="2">(07:34:07 PM)</font> <b>rozie:</b></font> g00se: report a bug<br/>
+<font color="#A82F2F"><font size="2">(07:34:36 PM)</font> <b>rozie:</b></font> reportbug-ng - Easy to use alternative to Debian&apos;s classic reportbug<br/>
+<font color="#A82F2F"><font size="2">(07:34:46 PM)</font> <b>rozie:</b></font> nice tool with GUI<br/>
+<font color="#A82F2F"><font size="2">(07:35:09 PM)</font> <b>jelly:</b></font> g00se: what command line results in that output?<br/>
+<font color="#A82F2F"><font size="2">(07:36:14 PM)</font> <b>g00se:</b></font> aptitude install task-xfce4-desktop<br/>
+<font color="#A82F2F"><font size="2">(07:36:55 PM)</font> <b>g00se:</b></font> s/4//<br/>
+<font color="#A82F2F"><font size="2">(07:38:01 PM)</font> <b>jelly:</b></font> g00se: alright.  Can you pastebin the output of &quot;apt-cache policy&quot; and &quot;apt-cache policy tzdata-java tzdata&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:39:23 PM)</font> <b>trysten:</b></font> does anyone have experience making a bootable harddisk from within debian? i&apos;m trying to get a debootstrapped partition to boot. i think one thing i really could use is some kind of emulator i can point at the partition<br/>
+<font color="#A82F2F"><font size="2">(07:40:37 PM)</font> <b>RoyK:</b></font> trysten: what&apos;re you trying to do?<br/>
+<font color="#A82F2F"><font size="2">(07:42:17 PM)</font> <b>g00se:</b></font> jelly: http://paste.debian.net/159967/ http://paste.debian.net/159968/<br/>
+<font color="#A82F2F"><font size="2">(07:43:18 PM)</font> <b>trysten:</b></font> RoyK. i have a harddisk in my machine. i want to take it out and put it in another machine and have it boot right up<br/>
+<font size="2">(07:43:47 PM)</font><b> commie is now known as CommunistSpectat</b><br/>
+<font size="2">(07:44:13 PM)</font><b> CommunistSpectat is now known as BigMouthCommie</b><br/>
+<font color="#A82F2F"><font size="2">(07:44:43 PM)</font> <b>g00se:</b></font> trysten: is the machine identical to the one you&apos;re on now?<br/>
+<font size="2">(07:44:49 PM)</font><b> Zoddo is now known as Guest77922</b><br/>
+<font size="2">(07:45:24 PM)</font><b> Zoddo is now known as Guest8925</b><br/>
+<font color="#A82F2F"><font size="2">(07:46:03 PM)</font> <b>Deniska80:</b></font> Hello. My hoster add disk to server, as a result debian boot only in inintramfs. it search boot on sda3, but now it on sdb3.<br/>
+<font color="#A82F2F"><font size="2">(07:46:11 PM)</font> <b>trysten:</b></font> g00se: it&apos;s not<br/>
+<font color="#A82F2F"><font size="2">(07:46:45 PM)</font> <b>SynrGy:</b></font> Deniska80: should be temporarily fixable in grub boot menu. edit it to root=/dev/sdb3<br/>
+<font color="#A82F2F"><font size="2">(07:46:47 PM)</font> <b>Deniska80:</b></font> i sad in initramfs &apos;boot=/dev/sdb3&apos;, and what next? ^))<br/>
+<font color="#A82F2F"><font size="2">(07:46:51 PM)</font> <b>srg:</b></font> What&apos;s the difference between &quot;testing&quot; and &quot;testing-updates&quot; suites?<br/>
+<font color="#A82F2F"><font size="2">(07:46:52 PM)</font> <b>SynrGy:</b></font> root=<br/>
+<font color="#A82F2F"><font size="2">(07:47:09 PM)</font> <b>g00se:</b></font> Then you&apos;re asking for trouble attempting it in that way<br/>
+<font color="#A82F2F"><font size="2">(07:47:10 PM)</font> <b>jelly:</b></font> g00se: downgrade that tzdata package back to what&apos;s available in wheezy.<br/>
+<font color="#A82F2F"><font size="2">(07:47:12 PM)</font> <b>Deniska80:</b></font> SynrGy : thx. i think it possible from initramfs<br/>
+<font color="#A82F2F"><font size="2">(07:47:24 PM)</font> <b>SynrGy:</b></font> Deniska80: do it from the grub boot prompt instead.<br/>
+<font color="#A82F2F"><font size="2">(07:47:45 PM)</font> <b>jelly:</b></font> g00se: eg. aptitude install tzdata=2014j-0wheezy1<br/>
+<font color="#A82F2F"><font size="2">(07:48:13 PM)</font> <b>g00se:</b></font> jelly: OK thanks. I wonder how this got borked?<br/>
+<font color="#A82F2F"><font size="2">(07:48:24 PM)</font> <b>RA3OR:</b></font> Any germans here? what does &apos;Systemspeicher&apos; mean ?<br/>
+<font color="#A82F2F"><font size="2">(07:48:38 PM)</font> <b>RA3OR:</b></font> Der richtige systemspeicher wurde nicht gefunden<br/>
+<font color="#A82F2F"><font size="2">(07:48:43 PM)</font> <b>BigMouthCommie:</b></font> i m running jessie, and under gnome (not an issue in lxde) my left control key is non-functioning<br/>
+<font color="#A82F2F"><font size="2">(07:48:53 PM)</font> <b>jelly:</b></font> g00se: I _think_ the 2015something version _was_ available at some point in the repo, but was problematic and got removed<br/>
+<font color="#A82F2F"><font size="2">(07:49:17 PM)</font> <b>BigMouthCommie:</b></font> it breaks a lot of my shortcuts (and makes emacs next to unusable)<br/>
+<font color="#A82F2F"><font size="2">(07:49:27 PM)</font> <b>trysten:</b></font> g00se: are you sure? i thought the system was pretty dynamic when loading drivers and whatnot. i have done essentially the same thing before. actually, i&apos;m just going to copy an entire working system over<br/>
+<font color="#A82F2F"><font size="2">(07:49:31 PM)</font> <b>BigMouthCommie:</b></font> how do i get my control key working under gnome?<br/>
+<font color="#A82F2F"><font size="2">(07:50:33 PM)</font> <b>jelly:</b></font> BigMouthCommie: dunno, but can you run &quot;xev&quot; from a terminal, focus the mouse on its window, and try pressing and releasing that key to see if there&apos;s any output from xev?<br/>
+<font color="#A82F2F"><font size="2">(07:50:44 PM)</font> <b>g00se:</b></font> Thanks jelly - that fixed it<br/>
+<font color="#A82F2F"><font size="2">(07:51:17 PM)</font> <b>g00se:</b></font> trysten: you might get away with it but it&apos;s probably inadvisable<br/>
+<font color="#A82F2F"><font size="2">(07:52:00 PM)</font> <b>trysten:</b></font> g00se: ok. well, i&apos;ll just use the installer then. boo hoo<br/>
+<font color="#A82F2F"><font size="2">(07:52:34 PM)</font> <b>g00se:</b></font> e.g. you won&apos;t get told about missing firmware, will you? You will with the installer<br/>
+<font color="#A82F2F"><font size="2">(07:53:09 PM)</font> <b>puzzola:</b></font> clear<br/>
+<font color="#A82F2F"><font size="2">(07:53:27 PM)</font> <b>Deniska80:</b></font> SynrGy : ok, i boot almost normal, edit /etc/fstab. How can i permanent edit grub entry?<br/>
+<font color="#A82F2F"><font size="2">(07:54:15 PM)</font> <b>g00se:</b></font> RA3OR: Dim memory it means &apos;system disk&apos;<br/>
+<font color="#A82F2F"><font size="2">(07:54:28 PM)</font> <b>trysten:</b></font> g00se: i&apos;d expect the kernel to complain about missing firmware. i always skip that part of the installer anyways XD<br/>
+<font color="#A82F2F"><font size="2">(07:55:00 PM)</font> <b>RA3OR:</b></font> g00se: thank you<br/>
+<font color="#062585"><font size="2">(07:55:17 PM)</font> <b>***g00se</b></font> could be wrong ;)<br/>
+<font color="#A82F2F"><font size="2">(07:55:19 PM)</font> <b>Kippz:</b></font> hey :D<br/>
+<font size="2">(07:55:37 PM)</font><b> puzzola left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(07:55:59 PM)</font> <b>g00se:</b></font> trysten: Well of course you&apos;ll be forced to have a &apos;fat kernel&apos; as well<br/>
+<font size="2">(07:57:04 PM)</font><b> puzzola [<em>~puzzola@c-98-195-204-191.hsd1.tx.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:57:12 PM)</font> <b>trysten:</b></font> g00se: what do you mean? is that not what the installer does?<br/>
+<font color="#A82F2F"><font size="2">(07:57:58 PM)</font> <b>g00se:</b></font> It gives you a choice - fat or thin<br/>
+<font size="2">(07:58:24 PM)</font><b> Kippz left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(08:00:09 PM)</font> <b>srg:</b></font> What exactly is the difference between the &quot;testing&quot; and the &quot;testing-updates&quot; suites? &quot;testing&quot; gets updates, does it not?<br/>
+<font color="#A82F2F"><font size="2">(08:01:23 PM)</font> <b>centrx:</b></font> srg, testing-updates never has any packages as far as I&apos;ve seen<br/>
+<font color="#A82F2F"><font size="2">(08:01:54 PM)</font> <b>centrx:</b></font> srg, It may be there either to simulate the complete structure of a Debian stable repo, or it might be a relic from the time when there were security updates for testing<br/>
+<font color="#A82F2F"><font size="2">(08:02:43 PM)</font> <b>srg:</b></font> ah ok.<br/>
+<font color="#A82F2F"><font size="2">(08:02:45 PM)</font> <b>srg:</b></font> Thanks!<br/>
+<font size="2">(08:10:53 PM)</font><b> Zoddo is now known as Guest15028</b><br/>
+<font color="#A82F2F"><font size="2">(08:11:03 PM)</font> <b>maziar:</b></font> how to solve this error on debian wheezy ? http://pastebin.com/5CAEG4GZ<br/>
+<font color="#A82F2F"><font size="2">(08:11:32 PM)</font> <b>centrx:</b></font> maziar, postgresql-9.4 is not in wheezy<br/>
+<font size="2">(08:12:03 PM)</font><b> samizdat_ is now known as samizdat</b><br/>
+<font color="#A82F2F"><font size="2">(08:13:04 PM)</font> <b>maziar:</b></font> centrx, i add psql repository , look at this : https://wiki.postgresql.org/wiki/Apt<br/>
+<font color="#A82F2F"><font size="2">(08:15:10 PM)</font> <b>centrx:</b></font> maziar, You can try installing this libwx packages from wheezy-backports<br/>
+<font color="#A82F2F"><font size="2">(08:15:29 PM)</font> <b>centrx:</b></font> maziar, Another option is to upgrade to testing and use the postgresql-9.4 in testing<br/>
+<font color="#A82F2F"><font size="2">(08:19:26 PM)</font> <b>maziar:</b></font> centrx, how can install that from wheezy-backport ?<br/>
+<font color="#A82F2F"><font size="2">(08:20:06 PM)</font> <b>centrx:</b></font> dpkg, tell maziar about wheezy-backports<br/>
+<font size="2">(08:20:08 PM)</font><b> Anti_College is now known as hassoon</b><br/>
+<font color="#A82F2F"><font size="2">(08:20:57 PM)</font> <b>hardy11:</b></font> !weather nzsp<br/>
+<font color="#A82F2F"><font size="2">(08:21:00 PM)</font> <b>dpkg:</b></font> Amundsen-Scott South Pole Station, Antarctica; (NZSP) 90-00S 00-00E 2835M; last updated: 2015.03.06 1750 UTC; Pressure (altimeter): 28.39 in. Hg (961 hPa); Sky conditions: partly cloudy; Visibility: 3 mile(s); Weather: -54 F (-48 C); Wind: from the E (080 degrees) at 12 MPH (10 KT); Windchill: -85 F (-65 C)<br/>
+<font color="#A82F2F"><font size="2">(08:21:46 PM)</font> <b>hardy11:</b></font>  !weather Chatanga<br/>
+<font color="#A82F2F"><font size="2">(08:21:49 PM)</font> <b>dpkg:</b></font> I can&apos;t find station code &quot;CHATANGA&quot; (see http://www.nws.noaa.gov/oso/site.shtml or http://www.nws.noaa.gov/tg/siteloc.shtml for ICAO locations codes).<br/>
+<font color="#A82F2F"><font size="2">(08:22:04 PM)</font> <b>hardy11:</b></font> !weather Oymyakon<br/>
+<font color="#A82F2F"><font size="2">(08:22:05 PM)</font> <b>digilink:</b></font> [Oymyakon, Russia] Smoke. Temp is -52*C. Humidity: 55%.<br/>
+<font color="#A82F2F"><font size="2">(08:22:05 PM)</font> <b>technec_:</b></font> [Oymyakon, Russia] Smoke. Temp is -52*C. Humidity: 55%.<br/>
+<font color="#A82F2F"><font size="2">(08:22:07 PM)</font> <b>dpkg:</b></font> I can&apos;t find station code &quot;OYMYAKON&quot; (see http://www.nws.noaa.gov/oso/site.shtml or http://www.nws.noaa.gov/tg/siteloc.shtml for ICAO locations codes).<br/>
+<font color="#A82F2F"><font size="2">(08:22:21 PM)</font> <b>maziar:</b></font> centrx, can you tell me a &quot;how to &quot; for doing that ?<br/>
+<font color="#A82F2F"><font size="2">(08:22:36 PM)</font> <b>jelly:</b></font> hardy11: please play with the bot in /msg dpkg<br/>
+<font color="#A82F2F"><font size="2">(08:23:41 PM)</font> <b>centrx:</b></font> maziar, http://backports.debian.org/Instructions/<br/>
+<font size="2">(08:24:26 PM)</font><b> hardy11 left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:28:52 PM)</font> <b>maziar:</b></font> centrx, very very thank you<br/>
+<font color="#A82F2F"><font size="2">(08:33:58 PM)</font> <b>Bremsstrahlung:</b></font> Hello.<br/>
+<font color="#A82F2F"><font size="2">(08:59:38 PM)</font> <b>cariveri:</b></font> Hi. how do I add a user to a group ? I tried useradd -g uucp user  but it says user already existent<br/>
+<font color="#A82F2F"><font size="2">(09:00:26 PM)</font> <b>NoImNotNineVolt:</b></font> man usermod<br/>
+<font color="#A82F2F"><font size="2">(09:00:55 PM)</font> <b>NoImNotNineVolt:</b></font> usermod -G groupname username # i think<br/>
+<font color="#A82F2F"><font size="2">(09:01:07 PM)</font> <b>NoImNotNineVolt:</b></font> sorry, wait.<br/>
+<font color="#A82F2F"><font size="2">(09:01:19 PM)</font> <b>NoImNotNineVolt:</b></font> usermod -a -G groupname username # i think<br/>
+<font color="#A82F2F"><font size="2">(09:01:34 PM)</font> <b>NoImNotNineVolt:</b></font> but rtfm, as i&apos;m an idiot.<br/>
+<font color="#A82F2F"><font size="2">(09:02:54 PM)</font> <b>valdyn:</b></font> cariveri: adduser username groupname<br/>
+<font color="#A82F2F"><font size="2">(09:04:01 PM)</font> <b>cariveri:</b></font> valdyn: whats the difference? usermod worked pretty good. unfortunately it didnt enable my users to send mails via mailq/ exim4 which I expect when they are part of the uucp rgoup<br/>
+<font color="#A82F2F"><font size="2">(09:04:34 PM)</font> <b>valdyn:</b></font> cariveri: its less typing, no real difference<br/>
+<font color="#A82F2F"><font size="2">(09:04:54 PM)</font> <b>cariveri:</b></font> valdyn: thanks for your very precise answer.<br/>
+<font color="#A82F2F"><font size="2">(09:05:17 PM)</font> <b>valdyn:</b></font> cariveri: users can send mail without being in any special group<br/>
+<font color="#A82F2F"><font size="2">(09:05:43 PM)</font> <b>cariveri:</b></font> valdyn should be able you mean.<br/>
+<font color="#A82F2F"><font size="2">(09:05:50 PM)</font> <b>valdyn:</b></font> cariveri: I dont know where you might have hit a permission issue<br/>
+<font color="#A82F2F"><font size="2">(09:06:14 PM)</font> <b>valdyn:</b></font> cariveri: yes, of course. It&apos;s just i cannot imagine any way this might be randomly not working<br/>
+<font size="2">(09:06:31 PM)</font><b> fran` is now known as fran</b><br/>
+<font color="#A82F2F"><font size="2">(09:06:43 PM)</font> <b>patachu1:</b></font> hi; got an issue on Squeeze 64bit freshly rteinstalled<br/>
+<font color="#A82F2F"><font size="2">(09:06:51 PM)</font> <b>patachu1:</b></font> &gt;install all drivers<br/>
+<font color="#A82F2F"><font size="2">(09:07:05 PM)</font> <b>valdyn:</b></font> cariveri: the uucp group has got nothing to do with it<br/>
+<font color="#A82F2F"><font size="2">(09:07:14 PM)</font> <b>patachu1:</b></font> &gt;plug in an USB wireless dongle<br/>
+<font color="#A82F2F"><font size="2">(09:07:19 PM)</font> <b>cariveri:</b></font> not randomly of course. its a server with exim4 (configured for local use) , then mutt is configured to use mailq alias exim4<br/>
+<font color="#A82F2F"><font size="2">(09:07:25 PM)</font> <b>patachu1:</b></font> &gt;nothing in the notification area<br/>
+<font color="#A82F2F"><font size="2">(09:07:36 PM)</font> <b>cariveri:</b></font> but when sending with mutt. permission denied error occurs.<br/>
+<font color="#A82F2F"><font size="2">(09:07:46 PM)</font> <b>patachu1:</b></font> i also installed the firmware and everything that match, nothing does<br/>
+<font color="#A82F2F"><font size="2">(09:07:48 PM)</font> <b>valdyn:</b></font> cariveri: who configured exim?<br/>
+<font color="#A82F2F"><font size="2">(09:07:53 PM)</font> <b>valdyn:</b></font> cariveri: who configured mutt?<br/>
+<font color="#A82F2F"><font size="2">(09:07:57 PM)</font> <b>greycat:</b></font> what do you mean, &quot;mutt is configured to use mailq&quot;?<br/>
+<font color="#A82F2F"><font size="2">(09:08:01 PM)</font> <b>cariveri:</b></font> valdyn in the exim4 congif I foudn a section trusted users with was pointing to uucp<br/>
+<font color="#A82F2F"><font size="2">(09:08:02 PM)</font> <b>valdyn:</b></font> cariveri: sending mail with mutt works by default.<br/>
+<font color="#A82F2F"><font size="2">(09:08:10 PM)</font> <b>valdyn:</b></font> cariveri: ok, I see<br/>
+<font color="#A82F2F"><font size="2">(09:08:12 PM)</font> <b>greycat:</b></font> Isn&apos;t mailq a command to *examine* the mail queue?<br/>
+<font color="#A82F2F"><font size="2">(09:08:33 PM)</font> <b>cariveri:</b></font> greycat. ok let me check again<br/>
+<font color="#A82F2F"><font size="2">(09:08:38 PM)</font> <b>valdyn:</b></font> cariveri: but thats still not for *sending* mail permissions<br/>
+<font color="#A82F2F"><font size="2">(09:08:50 PM)</font> <b>valdyn:</b></font> cariveri: what did you do to mutt ?<br/>
+<font color="#A82F2F"><font size="2">(09:08:50 PM)</font> <b>greycat:</b></font> UUCP is a 1980s technology for long-distance networking with dial-up modems.<br/>
+<font color="#A82F2F"><font size="2">(09:09:22 PM)</font> <b>patachu1:</b></font> irc is a 1980s technology :^)<br/>
+<font color="#A82F2F"><font size="2">(09:09:28 PM)</font> <b>greycat:</b></font> You should not be messing with anything that says &quot;uucp&quot; on it unless you&apos;re actually doing UUCP networking, in which case you would know.<br/>
+<font color="#A82F2F"><font size="2">(09:09:38 PM)</font> <b>greycat:</b></font> IRC is early 90s, I think<br/>
+<font color="#A82F2F"><font size="2">(09:10:13 PM)</font> <b>cariveri:</b></font> greyat I was jsut following the clues. because I didnt find anything on the net and no one answered on #exim<br/>
+<font color="#A82F2F"><font size="2">(09:10:17 PM)</font> <b>valdyn:</b></font> cariveri: or you should probably tell us what you actualy want to do with mutt<br/>
+<font color="#A82F2F"><font size="2">(09:10:55 PM)</font> <b>valdyn:</b></font> cariveri: since exim being configured to do local mail only it probably makes no sense at all to even use the local mail spool for sending to remote<br/>
+<font color="#A82F2F"><font size="2">(09:10:59 PM)</font> <b>cariveri:</b></font> valdyn for the time being local mail exchange on the machine for some users. some time later they will be allowed to send mails out.<br/>
+<font color="#A82F2F"><font size="2">(09:11:16 PM)</font> <b>valdyn:</b></font> cariveri: ok - this works by default.<br/>
+<font color="#A82F2F"><font size="2">(09:11:22 PM)</font> <b>valdyn:</b></font> cariveri: so, what else did you modify?<br/>
+<font color="#A82F2F"><font size="2">(09:12:06 PM)</font> <b>cariveri:</b></font> I had mutt point to /usr/bin/mailq  as sendmail command<br/>
+<font color="#A82F2F"><font size="2">(09:12:16 PM)</font> <b>valdyn:</b></font> cariveri: ok, dont do that<br/>
+<font color="#A82F2F"><font size="2">(09:12:29 PM)</font> <b>valdyn:</b></font> cariveri: mutt already does this correctly without you configuring anything<br/>
+<font color="#A82F2F"><font size="2">(09:12:39 PM)</font> <b>cariveri:</b></font> but it didnt.<br/>
+<font color="#A82F2F"><font size="2">(09:12:51 PM)</font> <b>greycat:</b></font> Undo that mailq thing, because that is very wrong.<br/>
+<font color="#A82F2F"><font size="2">(09:12:53 PM)</font> <b>valdyn:</b></font> cariveri: no, it didnt do what you wanted.<br/>
+<font color="#A82F2F"><font size="2">(09:12:57 PM)</font> <b>greycat:</b></font> Then figure out what else is misconfigured.<br/>
+<font color="#A82F2F"><font size="2">(09:13:18 PM)</font> <b>valdyn:</b></font> cariveri: we dont know what you *wanted*. Of course mutt will send local mail just fine. You probably triggered something else.<br/>
+<font color="#A82F2F"><font size="2">(09:13:58 PM)</font> <b>yalo:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(09:14:02 PM)</font> <b>greycat:</b></font> If I understood his earlier comment, he was trying to *restrict* the sending of outgoing mail.<br/>
+<font color="#A82F2F"><font size="2">(09:14:23 PM)</font> <b>valdyn:</b></font> ok - but that was already restricted by his exim4 setup<br/>
+<font color="#A82F2F"><font size="2">(09:14:35 PM)</font> <b>yalo:</b></font> when i am using gpg and trying to decrypt seed.txt file, it says gpg: unknown suffix Enter new filename: why?<br/>
+<font color="#A82F2F"><font size="2">(09:15:16 PM)</font> <b>valdyn:</b></font> yalo: if you gave us the whole command, then we could try and see<br/>
+<font color="#A82F2F"><font size="2">(09:15:50 PM)</font> <b>yalo:</b></font> valdyn first i did echo &quot;seed goes here&quot; | gpg -c &gt; seed.txt<br/>
+<font color="#A82F2F"><font size="2">(09:15:57 PM)</font> <b>cariveri:</b></font> valdyn: mutt didnt send it just fine. there was errors al over the place, and I resolved them until here.<br/>
+<font color="#A82F2F"><font size="2">(09:15:58 PM)</font> <b>yalo:</b></font> to encrypt it<br/>
+<font color="#A82F2F"><font size="2">(09:16:08 PM)</font> <b>yalo:</b></font> thene i use gpg seed.txt to decrypt it<br/>
+<font color="#A82F2F"><font size="2">(09:16:19 PM)</font> <b>yalo:</b></font> and this showed up<br/>
+<font color="#A82F2F"><font size="2">(09:16:32 PM)</font> <b>yalo:</b></font> when i am using gpg and trying to decrypt seed.txt file, it says gpg: unknown suffix Enter new filename: why?<br/>
+<font color="#A82F2F"><font size="2">(09:16:46 PM)</font> <b>valdyn:</b></font> cariveri: this does not work: We dont know what you really did, we dont know what messages you saw. But we defenitely know that mutt by default sends local mail fine.<br/>
+<font color="#A82F2F"><font size="2">(09:17:08 PM)</font> <b>trysten:</b></font> where does the message spam come from on the HW console<br/>
+<font color="#A82F2F"><font size="2">(09:17:17 PM)</font> <b>trysten:</b></font> my rsyslog.conf doesn&apos;t have it<br/>
+<font color="#A82F2F"><font size="2">(09:17:26 PM)</font> <b>valdyn:</b></font> trysten: the kernel<br/>
+<font color="#A82F2F"><font size="2">(09:17:37 PM)</font> <b>yalo:</b></font> valdyn you asked me then what?<br/>
+<font color="#A82F2F"><font size="2">(09:17:46 PM)</font> <b>yalo:</b></font> you know why it ask me to Enter new filename?<br/>
+<font color="#A82F2F"><font size="2">(09:18:53 PM)</font> <b>cariveri:</b></font> valdyn: I had installed mutt long before exim . and as I said it didnt even find a mailbox thus error after error. then I asked on #mutt who said exim4 is needed. I then came to this point. what do you suggest?<br/>
+<font color="#A82F2F"><font size="2">(09:18:54 PM)</font> <b>_lex:</b></font> hi guys. i&apos;ve a hp pro book 470 and i can&apos;t seem to get my wireless working; running on: 3.16.0-0.bpo.4-amd64  debian wheezy 7.8.0 with wheezy-backports in source.list; installed linux-firmwares both free and non free and other (many) packages, still no luck, network manager does not show any wifi<br/>
+<font color="#A82F2F"><font size="2">(09:19:04 PM)</font> <b>_lex:</b></font> (and no wlan0 interface is created)<br/>
+<font color="#A82F2F"><font size="2">(09:19:09 PM)</font> <b>_lex:</b></font> iwlwifi installed as well<br/>
+<font color="#A82F2F"><font size="2">(09:19:18 PM)</font> <b>_lex:</b></font> don&apos;t know what else to do; rebuilt initramfs many times...<br/>
+<font color="#A82F2F"><font size="2">(09:19:32 PM)</font> <b>greycat:</b></font> cariveri: At this point, I would consider purging everything mail-related and starting over.  Install exim4, configure it for local listening only, install mutt, test.<br/>
+<font color="#A82F2F"><font size="2">(09:19:33 PM)</font> <b>_lex:</b></font> and exhausted google links<br/>
+<font color="#A82F2F"><font size="2">(09:20:53 PM)</font> <b>valdyn:</b></font> yalo: gpg doesn&apos;t know the suffix so it does not know how to name the decrypted file<br/>
+<font color="#A82F2F"><font size="2">(09:21:11 PM)</font> <b>jelly:</b></font> _lex: which version of firmware-iwlwifi is installed, is it the one from wheezy-backports as well?<br/>
+<font color="#A82F2F"><font size="2">(09:21:20 PM)</font> <b>valdyn:</b></font> yalo: this error wont show if you use a suffix that gpg knows try, encrypting to &quot;seed.txt.gpg&quot; for example<br/>
+<font color="#A82F2F"><font size="2">(09:21:22 PM)</font> <b>jelly:</b></font> ,v firmware-iwlwifi<br/>
+<font color="#A82F2F"><font size="2">(09:21:23 PM)</font> <b>judd:</b></font> Package: firmware-iwlwifi on i386 -- squeeze/non-free: 0.28+squeeze1; squeeze-backports/non-free: 0.36+wheezy.1~bpo60+1; wheezy/non-free: 0.36+wheezy.1; wheezy-backports/non-free: 0.43~bpo70+1; jessie/non-free: 0.43; sid/non-free: 0.43<br/>
+<font color="#A82F2F"><font size="2">(09:21:26 PM)</font> <b>_lex:</b></font> jelly: 0.36+wheezy.1<br/>
+<font color="#A82F2F"><font size="2">(09:21:28 PM)</font> <b>yalo:</b></font> vayldyn: the same of the file is seed.txt, what should i use instead of .txt then?<br/>
+<font color="#A82F2F"><font size="2">(09:21:40 PM)</font> <b>_lex:</b></font> jelly: from backports, yep<br/>
+<font color="#A82F2F"><font size="2">(09:21:47 PM)</font> <b>valdyn:</b></font> yalo: ^<br/>
+<font color="#A82F2F"><font size="2">(09:21:49 PM)</font> <b>jelly:</b></font> _lex: nope<br/>
+<font color="#A82F2F"><font size="2">(09:22:01 PM)</font> <b>jelly:</b></font> _lex: get the one from wheezy-backports<br/>
+<font color="#A82F2F"><font size="2">(09:22:01 PM)</font> <b>yalo:</b></font> valdyn: its strange because i didnt saw this message yestoday.<br/>
+<font color="#A82F2F"><font size="2">(09:22:28 PM)</font> <b>valdyn:</b></font> yalo: maybe yesterday you used the .gpg suffix<br/>
+<font color="#A82F2F"><font size="2">(09:22:40 PM)</font> <b>yalo:</b></font> valdyn: no i didnt. it was the same file<br/>
+<font color="#A82F2F"><font size="2">(09:22:46 PM)</font> <b>_lex:</b></font> jelly: # apt-get -t wheezy-backports install --reinstall firmware-iwlwifi     &lt;-- i get: Preparing to replace firmware-iwlwifi 0.36+wheezy.1 (using .../firmware-iwlwifi_0.36+wheezy.1_all.deb) ...<br/>
+<font color="#A82F2F"><font size="2">(09:22:57 PM)</font> <b>jelly:</b></font> _lex: omit the &quot;--reinstall&quot; option<br/>
+<font color="#A82F2F"><font size="2">(09:23:01 PM)</font> <b>valdyn:</b></font> yalo: gpg did not change meanwhile<br/>
+<font color="#A82F2F"><font size="2">(09:23:35 PM)</font> <b>yalo:</b></font> valdyn: i dont get it. what you mean that it not change it meanwhile?<br/>
+<font color="#A82F2F"><font size="2">(09:24:01 PM)</font> <b>valdyn:</b></font> yalo: yesterday you did something different than you think, because you may forget, but gpg is just a program<br/>
+<font color="#A82F2F"><font size="2">(09:24:34 PM)</font> <b>_lex:</b></font> jelly: firmware-iwlwifi is already the newest version.<br/>
+<font color="#A82F2F"><font size="2">(09:24:58 PM)</font> <b>yalo:</b></font> valdyn: is there no way to let the text appear on screen? instead of making a new file?<br/>
+<font color="#A82F2F"><font size="2">(09:25:41 PM)</font> <b>greycat:</b></font> gpg -d writes to stdout by default<br/>
+<font color="#A82F2F"><font size="2">(09:26:20 PM)</font> <b>jelly:</b></font> _lex: hm, that sounds as if wheezy-backports are not enabled properly or you did not do apt-get update since enabling it.  But it&apos;s weird you do have the kernel from wheezy-backports installed.  Run &quot;apt-get update&quot;, pastebin the output of &quot;apt-cache policy&quot; and &quot;apt-cache policy firmware-iwlwifi&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:26:36 PM)</font> <b>jelly:</b></font> !tell _lex about paste<br/>
+<font color="#A82F2F"><font size="2">(09:27:20 PM)</font> <b>yalo:</b></font> valdyn: gpg &lt; seed.txt<br/>
+<font color="#A82F2F"><font size="2">(09:27:20 PM)</font> <b>yalo:</b></font> right?<br/>
+<font color="#A82F2F"><font size="2">(09:27:52 PM)</font> <b>_lex:</b></font> jelly: policy: http://sprunge.us/ZUIf  ;  policy iwl: http://sprunge.us/RMce<br/>
+<font color="#A82F2F"><font size="2">(09:28:20 PM)</font> <b>_lex:</b></font> maybe is the mirror jelly ?<br/>
+<font color="#A82F2F"><font size="2">(09:29:13 PM)</font> <b>cariveri:</b></font> valdyn: I dont see how this would do anything. I installed it freshly and nothing worked. why would it after reinstall.<br/>
+<font color="#A82F2F"><font size="2">(09:29:32 PM)</font> <b>yalo:</b></font> valdyn: what is -c -e doing?<br/>
+<font color="#A82F2F"><font size="2">(09:29:33 PM)</font> <b>yalo:</b></font> to gpg?<br/>
+<font color="#A82F2F"><font size="2">(09:29:41 PM)</font> <b>yalo:</b></font> gpg -c -e &lt;filename&gt;<br/>
+<font color="#A82F2F"><font size="2">(09:30:14 PM)</font> <b>greycat:</b></font> echo &quot;secret text&quot; | gpg -e &gt; foo.txt.gpg  &lt;...later...&gt;  gpg -d &lt; foo.txt.gpg<br/>
+<font color="#A82F2F"><font size="2">(09:31:08 PM)</font> <b>jelly:</b></font> _lex: you&apos;re missing the non-free component in the wheezy-backports deb line<br/>
+<font color="#A82F2F"><font size="2">(09:31:18 PM)</font> <b>_lex:</b></font> jelly: is same with that; i will update it and repaste<br/>
+<font color="#A82F2F"><font size="2">(09:31:57 PM)</font> <b>_lex:</b></font> jelly: no, i&apos;m an idiot; pardon<br/>
+<font color="#A82F2F"><font size="2">(09:32:01 PM)</font> <b>jelly:</b></font> _lex: your sources.list as well, if there&apos;s still no 0.43~bpo70+1 visible<br/>
+<font color="#A82F2F"><font size="2">(09:32:08 PM)</font> <b>_lex:</b></font> jelly: i had &quot;cotrib non-free&quot; contrib broke it<br/>
+<font color="#A82F2F"><font size="2">(09:32:15 PM)</font> <b>jelly:</b></font> huh<br/>
+<font color="#A82F2F"><font size="2">(09:32:25 PM)</font> <b>_lex:</b></font> jelly: Preparing to replace firmware-iwlwifi 0.36+wheezy.1 (using .../firmware-iwlwifi_0.43~bpo70+1_all.deb) ...   all fine now<br/>
+<font color="#A82F2F"><font size="2">(09:32:36 PM)</font> <b>yalo:</b></font> gpg: processing message failed: eof<br/>
+<font color="#A82F2F"><font size="2">(09:32:38 PM)</font> <b>yalo:</b></font> why ?<br/>
+<font color="#A82F2F"><font size="2">(09:32:47 PM)</font> <b>jelly:</b></font> _lex: right, unload/reload the kernel modoule, or simply reboot<br/>
+<font color="#A82F2F"><font size="2">(09:33:06 PM)</font> <b>_lex:</b></font> jelly: did that, and restarted network-manager, no luck though, trying reboot; please excuse one moment<br/>
+<font size="2">(09:33:10 PM)</font><b> _lex left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:35:10 PM)</font><b> _lex [<em>~Unknown@unaffiliated/-lex/x-5881854</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:35:15 PM)</font> <b>_lex:</b></font> jelly: no joy :-9<br/>
+<font color="#A82F2F"><font size="2">(09:35:50 PM)</font> <b>Contrl:</b></font> On Wheezy I&apos;d do sudo apt-get install ia32-libs and get the 32-bit libs on a 64-bit system, but with Jessie it says not available. What do I use now?<br/>
+<font color="#A82F2F"><font size="2">(09:36:05 PM)</font> <b>valdyn:</b></font> !multiarch<br/>
+<font color="#A82F2F"><font size="2">(09:36:06 PM)</font> <b>dpkg:</b></font> Multiarch allows you to install foreign architecture packages.  For example, to allow i386 packages to be installed on an amd64 system: «dpkg --add-architecture i386 &amp;&amp; apt-get update».  See http://wiki.debian.org/Multiarch and &lt;multiarch howto&gt;, &lt;multiarch failures&gt;.  For the unrelated installer that can install i386 or amd64, see &lt;multi-arch installer&gt;.<br/>
+<font color="#A82F2F"><font size="2">(09:36:07 PM)</font> <b>_lex:</b></font> jelly: kernel booted without iwlwifi probed so i had to modprobe manually now and still no luck<br/>
+<font color="#A82F2F"><font size="2">(09:36:17 PM)</font> <b>valdyn:</b></font> Contrl: what dpkg said<br/>
+<font size="2">(09:36:32 PM)</font><b> cypherman is now known as asterismo</b><br/>
+<font color="#A82F2F"><font size="2">(09:36:39 PM)</font> <b>Contrl:</b></font> Oh, I forgot the apt-get update<br/>
+<font color="#A82F2F"><font size="2">(09:36:40 PM)</font> <b>Contrl:</b></font> hurrr<br/>
+<font color="#A82F2F"><font size="2">(09:37:13 PM)</font> <b>valdyn:</b></font> Contrl: ok, ia32-libs is still gone though<br/>
+<font color="#A82F2F"><font size="2">(09:37:23 PM)</font> <b>Contrl:</b></font> So, what would I use?<br/>
+<font color="#A82F2F"><font size="2">(09:37:25 PM)</font> <b>jelly:</b></font> _lex: verify that it found the right firmware in dmesg / /var/log/kern.log<br/>
+<font color="#A82F2F"><font size="2">(09:37:42 PM)</font> <b>valdyn:</b></font> Contrl: you use the regular packages, for example &quot;apt-get install libc6:i386&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:37:56 PM)</font> <b>_lex:</b></font> jelly: yes, about this... some issues i get during probing at boot just before login prompt... may i paste?<br/>
+<font color="#A82F2F"><font size="2">(09:38:28 PM)</font> <b>_lex:</b></font> jelly: dmesg | grep firmware --&gt; http://sprunge.us/KeDX<br/>
+<font color="#A82F2F"><font size="2">(09:38:41 PM)</font> <b>acz32:</b></font> can i3 be set to open windows in floating mode by default?<br/>
+<font color="#A82F2F"><font size="2">(09:39:39 PM)</font> <b>polyphagia:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(09:40:03 PM)</font> <b>Contrl:</b></font> After I do apt-get install libc6:i386 I get the following when attempting to run a 32-bit program.. error while loading shared libraries: libstdc++.so.6: cannot open shared object file: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(09:40:14 PM)</font> <b>valdyn:</b></font> Contrl: of course<br/>
+<font color="#A82F2F"><font size="2">(09:40:39 PM)</font> <b>valdyn:</b></font> Contrl: you need the package containing libstdc++.so.6<br/>
+<font color="#A82F2F"><font size="2">(09:41:10 PM)</font> <b>_lex:</b></font> Contrl: http://sprunge.us/dURL on mine<br/>
+<font color="#A82F2F"><font size="2">(09:41:28 PM)</font> <b>valdyn:</b></font> Contrl: precisely in the :i386 incarnation<br/>
+<font color="#A82F2F"><font size="2">(09:41:43 PM)</font> <b>jelly:</b></font> _lex: well... intel wireless firmware isn&apos;t going to work for realtek wifi?<br/>
+<font color="#A82F2F"><font size="2">(09:41:45 PM)</font> <b>BigMouthCommie:</b></font> jelly: i haven&apos;t switched to gnome yet to try, but i will. thanx for the tip<br/>
+<font color="#A82F2F"><font size="2">(09:42:00 PM)</font> <b>Contrl:</b></font> apt-get install libstdc++6-4.9-dbg:i386 worked<br/>
+<font color="#A82F2F"><font size="2">(09:42:03 PM)</font> <b>_lex:</b></font> jelly: yeah that makes sense, i wonder if its a conflict somewhere though<br/>
+<font color="#A82F2F"><font size="2">(09:42:25 PM)</font> <b>jelly:</b></font> there&apos;s no conflict, you just did not install the right thing yet<br/>
+<font color="#A82F2F"><font size="2">(09:43:49 PM)</font> <b>_lex:</b></font> jelly: http://sprunge.us/LFKj &lt;- #  lspci | grep -i realtek | curl -F &quot;sprunge=&lt;-&quot; http://sprunge.us    i&apos;ve also installed pretty much every package suggested in /lib/firmware returned by apt-file --package-only search: http://sprunge.us/MUCT<br/>
+<font color="#A82F2F"><font size="2">(09:44:03 PM)</font> <b>jelly:</b></font> judd: file rtlwifi/rtl8723befw.bin<br/>
+<font color="#A82F2F"><font size="2">(09:44:05 PM)</font> <b>_lex:</b></font> jelly: i also see some needed by 3.2.0-4 which obviously is not existing anymore on the disk<br/>
+<font color="#A82F2F"><font size="2">(09:44:06 PM)</font> <b>judd:</b></font> No packages in wheezy/i386 were found with that file.<br/>
+<font color="#A82F2F"><font size="2">(09:45:36 PM)</font> <b>jelly:</b></font> judd: file rtlwifi/rtl8723befw.bin --release wheezy-backports<br/>
+<font color="#A82F2F"><font size="2">(09:45:37 PM)</font> <b>judd:</b></font> Search for rtlwifi/rtl8723befw.bin in wheezy-backports/i386: firmware-realtek: lib/firmware/rtlwifi/rtl8723befw.bin<br/>
+<font color="#A82F2F"><font size="2">(09:45:46 PM)</font> <b>_lex:</b></font> jelly: if i rebuild   update-initramfs -k `uname -r` -u   -&gt; http://sprunge.us/KcEg  and full lspci here: http://sprunge.us/SHOc<br/>
+<font color="#A82F2F"><font size="2">(09:45:48 PM)</font> <b>jelly:</b></font> _lex: that thing.  Also from wheezy-backports.<br/>
+<font color="#A82F2F"><font size="2">(09:46:10 PM)</font> <b>RoyK:</b></font> just don?t use realtek stuff<br/>
+<font color="#A82F2F"><font size="2">(09:46:12 PM)</font> <b>_lex:</b></font> jelly: crap... don&apos;t know why it was not upgraded, i tried just about now<br/>
+<font color="#A82F2F"><font size="2">(09:46:16 PM)</font> <b>RoyK:</b></font> just don&apos;t use realtek stuff<br/>
+<font color="#A82F2F"><font size="2">(09:46:25 PM)</font> <b>_lex:</b></font> seems is fixed with it RoyK<br/>
+<font color="#A82F2F"><font size="2">(09:46:28 PM)</font> <b>RoyK:</b></font> bit using realtek is like valium<br/>
+<font color="#A82F2F"><font size="2">(09:46:37 PM)</font> <b>_lex:</b></font> update-initramfs: Generating /boot/initrd.img-3.16.0-0.bpo.4-amd64   &lt;-- no more firmware load errors<br/>
+<font color="#A82F2F"><font size="2">(09:46:38 PM)</font> <b>RoyK:</b></font> _lex: get better gear<br/>
+<font color="#A82F2F"><font size="2">(09:46:53 PM)</font> <b>_lex:</b></font> pardon me a while to reboot RoyK jelly<br/>
+<font size="2">(09:46:57 PM)</font><b> _lex left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:47:01 PM)</font> <b>cariveri:</b></font> valdyn: I reisntalled mutt and reconfigured exim4  . I refrained now from using Maildir format. sending appears to be working, though mailbox remains empty. mail.log doesnt show me anything useful.<br/>
+<font color="#A82F2F"><font size="2">(09:47:30 PM)</font> <b>valdyn:</b></font> cariveri: thats ok, nothing you mentioned is a program that would log to mail.log<br/>
+<font color="#A82F2F"><font size="2">(09:47:48 PM)</font> <b>valdyn:</b></font> cariveri: which mailbox is remaining empty?<br/>
+<font color="#A82F2F"><font size="2">(09:47:53 PM)</font> <b>valdyn:</b></font> cariveri: run &quot;mail&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:48:08 PM)</font> <b>greycat:</b></font> Or run &quot;ls -l /var/mail&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:48:28 PM)</font> <b>cariveri:</b></font> valdyn: ther user Mailbox the was sending. I added himself to cc.<br/>
+<font size="2">(09:49:03 PM)</font><b> _lex [<em>~Unknown@unaffiliated/-lex/x-5881854</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:49:05 PM)</font> <b>cariveri:</b></font> greycat: -rw-r--r-- 1 root mail 0 Mär  4 23:19<br/>
+<font color="#A82F2F"><font size="2">(09:49:13 PM)</font> <b>valdyn:</b></font> cariveri: i mean file<br/>
+<font color="#A82F2F"><font size="2">(09:49:14 PM)</font> <b>_lex:</b></font> jelly: that did it!!!!! I want to hug you 1000 times, thanks a lot<br/>
+<font color="#A82F2F"><font size="2">(09:49:23 PM)</font> <b>_lex:</b></font> jelly: ahhh, at last, on wifi, no more ethernet cables for me!<br/>
+<font color="#A82F2F"><font size="2">(09:49:44 PM)</font> <b>cariveri:</b></font> valdyn: mail lead to &quot;no mail for user&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:49:57 PM)</font> <b>_lex:</b></font> RoyK: valium&apos;s good in this moment; upgrading fimware-realtek from wheezy-backports solved the firmware load for 3.16.0 amd64<br/>
+<font color="#A82F2F"><font size="2">(09:50:01 PM)</font> <b>_lex:</b></font> life&apos;s good<br/>
+<font color="#A82F2F"><font size="2">(09:50:02 PM)</font> <b>valdyn:</b></font> cariveri: this one also works by default<br/>
+<font color="#A82F2F"><font size="2">(09:50:20 PM)</font> <b>valdyn:</b></font> cariveri: who exactly did you send to literally?<br/>
+<font color="#A82F2F"><font size="2">(09:50:44 PM)</font> <b>valdyn:</b></font> cariveri: see /var/log/exim4/ btw<br/>
+<font color="#A82F2F"><font size="2">(09:50:47 PM)</font> <b>greycat:</b></font> cariveri: if    echo test | mail -s test &quot;$LOGNAME&quot;     does not deliver a message to /var/mail/&quot;$LOGNAME&quot; then track down the exim logs and find out what happened<br/>
+<font color="#A82F2F"><font size="2">(09:51:08 PM)</font> <b>greycat:</b></font> (where $LOGNAME is NOT root, because root is usually special, configured to forward all mail to a regular account)<br/>
+<font color="#A82F2F"><font size="2">(09:51:36 PM)</font> <b>valdyn:</b></font> cariveri: ok, and see /etc/aliases, because there you can see where root mail is dumped<br/>
+<font size="2">(09:53:08 PM)</font><b> _lex left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:54:26 PM)</font> <b>cariveri:</b></font> valdyn: ah that was a good hint. exim4 has its own log. that was better. I got one step closer. myuser@localhost R=local_user T=mail_spool defer (-6): mailbox /var/mail/myuser has wrong uid (0 != 1001)<br/>
+<font color="#A82F2F"><font size="2">(09:54:50 PM)</font> <b>valdyn:</b></font> cariveri: i wonder how you changed that uid<br/>
+<font color="#A82F2F"><font size="2">(09:55:04 PM)</font> <b>valdyn:</b></font> cariveri: but thats easy to fix...<br/>
+<font color="#A82F2F"><font size="2">(09:55:48 PM)</font> <b>greycat:</b></font> probably better to delete it, check the perms on the *directory*, and let exim recreate it<br/>
+<font color="#A82F2F"><font size="2">(09:55:51 PM)</font> <b>cariveri:</b></font> well the user ids seem to be good . id of myuser reveals 1001<br/>
+<font color="#A82F2F"><font size="2">(09:56:03 PM)</font> <b>greycat:</b></font> drwxrwsr-x 2 root mail 4096 Dec  3  2012 /var/mail<br/>
+<font color="#A82F2F"><font size="2">(09:56:13 PM)</font> <b>valdyn:</b></font> cariveri: of course, but the spool is owned by root, which is wrong<br/>
+<font color="#A82F2F"><font size="2">(09:57:26 PM)</font> <b>cariveri:</b></font> valdyn: so how to fix it now?<br/>
+<font color="#A82F2F"><font size="2">(09:57:49 PM)</font> <b>valdyn:</b></font> cariveri: compared the permissions on /var/mail to what greycat showed you<br/>
+<font color="#A82F2F"><font size="2">(09:57:56 PM)</font> <b>valdyn:</b></font> cariveri: *compare* the permissions on /var/mail to what greycat showed you<br/>
+<font color="#A82F2F"><font size="2">(09:58:08 PM)</font> <b>valdyn:</b></font> cariveri: and remove the spool file, /var/mail/myuser<br/>
+<font color="#A82F2F"><font size="2">(09:58:13 PM)</font> <b>cariveri:</b></font> drwxrwsr-x  2 root mail  4096 Mär  6 21:52 mail<br/>
+<font color="#A82F2F"><font size="2">(09:58:34 PM)</font> <b>greycat:</b></font> good<br/>
+<font color="#A82F2F"><font size="2">(09:59:01 PM)</font> <b>cariveri:</b></font> ok deleted<br/>
+<font color="#A82F2F"><font size="2">(09:59:12 PM)</font> <b>valdyn:</b></font> cariveri: now you can send a mail to myuser<br/>
+<font color="#A82F2F"><font size="2">(09:59:33 PM)</font> <b>valdyn:</b></font> cariveri: with mutt or like &quot;echo &quot;mailtext&quot; | mail -s subject myuser&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:59:34 PM)</font> <b>greycat:</b></font> There might still be one queued up, too.<br/>
+<font color="#A82F2F"><font size="2">(09:59:42 PM)</font> <b>cariveri:</b></font> valdyn: no mutt complains that /var/mail/myuser does not exist. errno = 2<br/>
+<font color="#A82F2F"><font size="2">(09:59:50 PM)</font> <b>greycat:</b></font> Don&apos;t worry about mutt yet.<br/>
+<font color="#A82F2F"><font size="2">(10:00:17 PM)</font> <b>valdyn:</b></font> cariveri: that just means that mutt cant check it for mail, but thats obvious and it will fix itself<br/>
+<font color="#A82F2F"><font size="2">(10:00:38 PM)</font> <b>cariveri:</b></font> so what now?<br/>
+<font color="#A82F2F"><font size="2">(10:00:49 PM)</font> <b>valdyn:</b></font> cariveri: send an email<br/>
+<font size="2">(10:02:02 PM)</font><b> mode (+l 1623) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:02:12 PM)</font> <b>cariveri:</b></font> ah ! great. thanks guys.<br/>
+<font color="#A82F2F"><font size="2">(10:11:39 PM)</font> <b>droid909:</b></font> how to access top menu in mc?<br/>
+<font color="#A82F2F"><font size="2">(10:11:42 PM)</font> <b>droid909:</b></font> via putty<br/>
+<font color="#A82F2F"><font size="2">(10:12:45 PM)</font> <b>droid909:</b></font> come on<br/>
+<font color="#A82F2F"><font size="2">(10:12:46 PM)</font> <b>needhelp_noob:</b></font> hello, do you offer help for absolute noobs here?<br/>
+<font color="#A82F2F"><font size="2">(10:12:50 PM)</font> <b>droid909:</b></font> nobody uses mc?<br/>
+<font color="#A82F2F"><font size="2">(10:13:01 PM)</font> <b>droid909:</b></font> needhelp_noob: nobody offers anything in irc<br/>
+<font color="#A82F2F"><font size="2">(10:13:02 PM)</font> <b>needhelp_noob:</b></font> ooh i know mc, that&apos;s like the norton commander in DOS days<br/>
+<font color="#A82F2F"><font size="2">(10:13:03 PM)</font> <b>droid909:</b></font> just ask<br/>
+<font color="#A82F2F"><font size="2">(10:13:09 PM)</font> <b>droid909:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(10:13:13 PM)</font> <b>needhelp_noob:</b></font> what do you need?<br/>
+<font color="#A82F2F"><font size="2">(10:13:20 PM)</font> <b>needhelp_noob:</b></font> F10 will take you out<br/>
+<font color="#A82F2F"><font size="2">(10:13:21 PM)</font> <b>droid909:</b></font> needhelp_noob: how to access top menu<br/>
+<font color="#A82F2F"><font size="2">(10:13:35 PM)</font> <b>needhelp_noob:</b></font> oh, hmm, does mouse work?<br/>
+<font color="#A82F2F"><font size="2">(10:13:38 PM)</font> <b>needhelp_noob:</b></font> right click?<br/>
+<font color="#A82F2F"><font size="2">(10:13:40 PM)</font> <b>droid909:</b></font> needhelp_noob: LEFT FILE<br/>
+<font color="#A82F2F"><font size="2">(10:13:47 PM)</font> <b>droid909:</b></font> needhelp_noob: mouse don&apos;t work ...<br/>
+<font color="#A82F2F"><font size="2">(10:13:55 PM)</font> <b>needhelp_noob:</b></font> why wont you install gpm?<br/>
+<font color="#A82F2F"><font size="2">(10:13:57 PM)</font> <b>droid909:</b></font> needhelp_noob: it is over putty ssh client<br/>
+<font color="#A82F2F"><font size="2">(10:14:05 PM)</font> <b>needhelp_noob:</b></font> oh i see<br/>
+<font color="#A82F2F"><font size="2">(10:14:14 PM)</font> <b>needhelp_noob:</b></font> i dont remember sorry<br/>
+<font color="#A82F2F"><font size="2">(10:14:51 PM)</font> <b>valdyn:</b></font> droid909: F9<br/>
+<font color="#A82F2F"><font size="2">(10:15:09 PM)</font> <b>droid909:</b></font> valdyn: thank you!<br/>
+<font color="#A82F2F"><font size="2">(10:15:24 PM)</font> <b>valdyn:</b></font> droid909: the bottom line has those hotkeys listed...<br/>
+<font color="#A82F2F"><font size="2">(10:15:42 PM)</font> <b>needhelp_noob:</b></font> i just installed the latest debian, and i am now on a console with very small text, how can i fix it back to 80x25?<br/>
+<font color="#A82F2F"><font size="2">(10:16:18 PM)</font> <b>valdyn:</b></font> needhelp_noob: just use X<br/>
+<font color="#A82F2F"><font size="2">(10:16:46 PM)</font> <b>DebWanabee:</b></font> any people who tried installing gnome-flashback?<br/>
+<font color="#A82F2F"><font size="2">(10:17:20 PM)</font> <b>valdyn:</b></font> needhelp_noob: the console is on your native resolution by default - that can probably cause very small text in certain laptops<br/>
+<font color="#A82F2F"><font size="2">(10:18:14 PM)</font> <b>valdyn:</b></font> needhelp_noob: is the text very small in the boot manager too?<br/>
+<font color="#A82F2F"><font size="2">(10:19:51 PM)</font> <b>valdyn:</b></font> needhelp_noob: going to be hard to get help if you dont reply<br/>
+<font size="2">(10:20:08 PM)</font><b> elysium^away is now known as elysium</b><br/>
+<font color="#A82F2F"><font size="2">(10:24:08 PM)</font> <b>needhelp_noob:</b></font> valdyn: i know how to fix it in lilo, i fixed it in slackware<br/>
+<font color="#A82F2F"><font size="2">(10:24:51 PM)</font> <b>valdyn:</b></font> needhelp_noob: well, are you using lilo ?<br/>
+<font color="#A82F2F"><font size="2">(10:25:22 PM)</font> <b>valdyn:</b></font> needhelp_noob: i know how to fix it in grub - but you arent answering my questions<br/>
+<font color="#A82F2F"><font size="2">(10:26:14 PM)</font> <b>needhelp_noob:</b></font> valdyn: you know the BIOS screen, it starts 80x25, but after linux boots, it increases the resolution, still text mode<br/>
+<font size="2">(10:26:16 PM)</font><b> koeppea is now known as format_c</b><br/>
+<font color="#A82F2F"><font size="2">(10:26:49 PM)</font> <b>BigMouthCommie:</b></font> jelly: gnome ... fixed itself. so thank you, but your help was unnecessary...<br/>
+<font color="#A82F2F"><font size="2">(10:27:07 PM)</font> <b>valdyn:</b></font> needhelp_noob: see /etc/default/grub , add GRUB_GFXPAYLOAD_LINUX=keep<br/>
+<font color="#A82F2F"><font size="2">(10:27:43 PM)</font> <b>valdyn:</b></font> needhelp_noob: you may or may not want to uncomment #GRUB_GFXMODE=640x480<br/>
+<font color="#A82F2F"><font size="2">(10:27:56 PM)</font> <b>BigMouthCommie:</b></font> i have another question though: i like trasparent consoles, and i think i need to install drivers for my graphics card to enable that behavior (gnome-terminal or tilda). do you have aguess how to do that?<br/>
+<font color="#A82F2F"><font size="2">(10:28:03 PM)</font> <b>valdyn:</b></font> needhelp_noob: after any modification run &quot;update-grub&quot; as root<br/>
+<font color="#A82F2F"><font size="2">(10:28:03 PM)</font> <b>needhelp_noob:</b></font> valdyn: ok and after that, do i update-grub?<br/>
+<font color="#A82F2F"><font size="2">(10:28:06 PM)</font> <b>BigMouthCommie:</b></font> i installed fglrx-driver<br/>
+<font color="#A82F2F"><font size="2">(10:28:09 PM)</font> <b>needhelp_noob:</b></font> valdyn: thanks<br/>
+<font color="#A82F2F"><font size="2">(10:28:16 PM)</font> <b>BigMouthCommie:</b></font> but that broke my gui<br/>
+<font color="#A82F2F"><font size="2">(10:30:01 PM)</font> <b>needhelp_noob:</b></font> valdyn: keep or &quot;keep&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(10:30:15 PM)</font> <b>srg:</b></font> BigMouthCommie: maybe you need openGL?<br/>
+<font color="#A82F2F"><font size="2">(10:30:29 PM)</font> <b>srg:</b></font> BigMouthCommie: I&apos;m using xfce4-terminal and it works with transparency just fine<br/>
+<font color="#A82F2F"><font size="2">(10:30:36 PM)</font> <b>valdyn:</b></font> needhelp_noob: just keep is ok<br/>
+<font color="#A82F2F"><font size="2">(10:30:46 PM)</font> <b>yalo:</b></font> srg: how do you use transparency? what you installed?<br/>
+<font color="#A82F2F"><font size="2">(10:30:56 PM)</font> <b>needhelp_noob:</b></font> valdyn: ok thnnks, let me reboot to see<br/>
+<font color="#A82F2F"><font size="2">(10:30:56 PM)</font> <b>valdyn:</b></font> needhelp_noob: i dont think it matters though, guess both works<br/>
+<font size="2">(10:30:58 PM)</font><b> needhelp_noob left the room (quit: Quit: leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(10:31:20 PM)</font> <b>srg:</b></font> yalo: I installed the `xfce4` package, which brings in `xfce4-terminal` and the transparency is just in the options for it.<br/>
+<font color="#A82F2F"><font size="2">(10:31:37 PM)</font> <b>yalo:</b></font> srg: what if i am using lxde?<br/>
+<font color="#A82F2F"><font size="2">(10:31:49 PM)</font> <b>yalo:</b></font> is there transparency for it?<br/>
+<font color="#A82F2F"><font size="2">(10:32:02 PM)</font> <b>domovoy:</b></font> if i get it right ahci and sata_mv are both sata drivers right? so if need sata_mv, ahci is not needed and won&apos;t make any difference?<br/>
+<font color="#A82F2F"><font size="2">(10:32:12 PM)</font> <b>srg:</b></font> yalo: nah, there isn&apos;t. I just recently switched from lxde to xfce and like it a lot. You might be able to install xfce4-terminal on lxde without many dependacies<br/>
+<font color="#A82F2F"><font size="2">(10:36:03 PM)</font> <b>BigMouthCommie:</b></font> opengl? can you specify a pkg list srg?<br/>
+<font color="#A82F2F"><font size="2">(10:37:42 PM)</font> <b>srg:</b></font> BigMouthCommie: libgl1-mesa-dri or libgl1-mesa-glx<br/>
+<font color="#A82F2F"><font size="2">(10:38:25 PM)</font> <b>BigMouthCommie:</b></font> thx srg.<br/>
+<font color="#A82F2F"><font size="2">(10:38:36 PM)</font> <b>srg:</b></font> np, it may or may not help<br/>
+<font color="#A82F2F"><font size="2">(10:38:51 PM)</font> <b>srg:</b></font> actually, you might want both packages, not either<br/>
+<font size="2">(10:39:58 PM)</font><b> elysium is now known as elysium^away</b><br/>
+<font color="#A82F2F"><font size="2">(10:41:52 PM)</font> <b>BigMouthCommie:</b></font> i mean my gui is completely broken now, and since i installed mesa drivers, my tty is at a ridiculous(ly low) resolution<br/>
+<font color="#A82F2F"><font size="2">(10:42:48 PM)</font> <b>DebWanabee:</b></font> gnome-session-fallback or gnome-session-flashback? which one should I get?<br/>
+<font color="#A82F2F"><font size="2">(10:43:20 PM)</font> <b>syntroPi:</b></font> i am trying to use the latest jessie/testing netinstall iso in the installer (console): when creating a partition table, then a primary partition its marked as &quot;do not use&quot;. How would i format that to ext4 now? i only get presented XFS, FAT16, FAT32, swap, enc, raid and lvm... NO ext4 avail from console installer??<br/>
+<font color="#A82F2F"><font size="2">(10:43:52 PM)</font> <b>srg:</b></font> BigMouthCommie: openGL support shouldn&apos;t change any resolution. It just enables software to use the OpenGL framework to render graphics...<br/>
+<font color="#A82F2F"><font size="2">(10:44:17 PM)</font> <b>acz32:</b></font> can i3 be set to open windows in floating mode by default?<br/>
+<font color="#A82F2F"><font size="2">(10:44:21 PM)</font> <b>ompaul:</b></font> ,v encrypt<br/>
+<font color="#A82F2F"><font size="2">(10:44:22 PM)</font> <b>judd:</b></font> No package named &apos;encrypt&apos; was found in i386.<br/>
+<font color="#A82F2F"><font size="2">(10:46:16 PM)</font> <b>syntroPi:</b></font> i used this cd image here http://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-netinst.iso<br/>
+<font size="2">(10:50:37 PM)</font><b> ompaul left the room (quit: Quit: and zebedee said its time for other stuff).</b><br/>
+<font color="#A82F2F"><font size="2">(10:50:38 PM)</font> <b>BigMouthCommie:</b></font> srg thank you for trying to help. i have just enough knowledge to be dangerous... and i am issuing commands rather recklessly.<br/>
+<font size="2">(10:50:57 PM)</font><b> ompaul [<em>~ompaul@unaffiliated/ompaul</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:01:06 PM)</font> <b>syntroPi:</b></font> well http://cdimage.debian.org/cdimage/jessie_di_rc1/amd64/iso-cd/debian-jessie-DI-rc1-amd64-netinst.iso seems to be working correctly concerning the above mentioned issue though<br/>
+<font color="#A82F2F"><font size="2">(11:01:29 PM)</font> <b>needhelp_noob:</b></font> valdyn: your solution didn&apos;t work, so i installed lilo and fixed it the way i know, but it is uglier now, interesting that grub booted much faster<br/>
+<font color="#A82F2F"><font size="2">(11:02:42 PM)</font> <b>ompaul:</b></font> a noob installed lilo<br/>
+<font color="#062585"><font size="2">(11:02:45 PM)</font> <b>***ompaul</b></font> phaints<br/>
+<font color="#A82F2F"><font size="2">(11:02:56 PM)</font> <b>needhelp_noob:</b></font> ompaul: just apt-get<br/>
+<font color="#A82F2F"><font size="2">(11:03:13 PM)</font> <b>needhelp_noob:</b></font> needhelp_noob: i want the 80x25 console<br/>
+<font color="#A82F2F"><font size="2">(11:07:23 PM)</font> <b>honigkuchen:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(11:07:31 PM)</font> <b>needhelp_noob:</b></font> ompaul: i want 80x25 console, can you help-<br/>
+<font color="#A82F2F"><font size="2">(11:08:50 PM)</font> <b>honigkuchen:</b></font> why do I have no /boot/initrd.img......... file  and how do I get it?<br/>
+<font color="#A82F2F"><font size="2">(11:09:07 PM)</font> <b>needhelp_noob:</b></font> honigkuchen: install the kernel i says<br/>
+<font color="#A82F2F"><font size="2">(11:09:24 PM)</font> <b>honigkuchen:</b></font> what kernel packets?<br/>
+<font color="#A82F2F"><font size="2">(11:09:37 PM)</font> <b>honigkuchen:</b></font> initramfs-tools are installed<br/>
+<font color="#A82F2F"><font size="2">(11:09:50 PM)</font> <b>honigkuchen:</b></font> packages<br/>
+<font color="#A82F2F"><font size="2">(11:10:14 PM)</font> <b>ompaul:</b></font> needhelp_noob: not something I&apos;ve done in years - sorry no can do<br/>
+<font color="#A82F2F"><font size="2">(11:10:52 PM)</font> <b>rabbitear_sdf:</b></font> oh I love that line &apos;sorry no can do&apos;<br/>
+<font color="#A82F2F"><font size="2">(11:12:18 PM)</font> <b>honigkuchen:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(11:12:19 PM)</font> <b>kyudo:</b></font> how do I configure WiFi without dongle on a free is?<br/>
+<font size="2">(11:15:56 PM)</font><b> needhelp_noob left the room (quit: Quit: Changing server).</b><br/>
+<font color="#A82F2F"><font size="2">(11:19:34 PM)</font> <b>masterm:</b></font> hello. I have a bit... unconventional question. does anyone have an iso of Debian 2.2 (yes, &quot;potato&quot; release) for m68k laying around? I&apos;ve searched the internet with no luck whatsoever :/<br/>
+<font size="2">(11:19:57 PM)</font><b> hassoon is now known as hassoonet</b><br/>
+<font color="#A82F2F"><font size="2">(11:21:00 PM)</font> <b>srg:</b></font> It seems that my very simple iptables setup is killing my IPv6 connectivity. http://pastebin.com/zkKwk4T0<br/>
+<font color="#A82F2F"><font size="2">(11:21:16 PM)</font> <b>droid909:</b></font> masterm: https://www.debian.org/releases/potato/<br/>
+<font color="#A82F2F"><font size="2">(11:22:32 PM)</font> <b>masterm:</b></font> droid909: I&apos;m aware of this site, but I need an iso file. unfortunately debian cdimage archive starts at 3.0<br/>
+<font color="#A82F2F"><font size="2">(11:23:34 PM)</font> <b>droid909:</b></font> masterm: http://mirror.debianforum.de/debian-iso-archive/potato/i386/<br/>
+<font color="#A82F2F"><font size="2">(11:23:56 PM)</font> <b>masterm:</b></font> droid909: it&apos;s for i386. I need m68k. wrong architecture :)<br/>
+<font color="#A82F2F"><font size="2">(11:24:11 PM)</font> <b>droid909:</b></font> what is m68k?<br/>
+<font color="#A82F2F"><font size="2">(11:24:39 PM)</font> <b>masterm:</b></font> Motorola 68000<br/>
+<font color="#A82F2F"><font size="2">(11:24:40 PM)</font> <b>droid909:</b></font> masterm: what box do you have?<br/>
+<font color="#A82F2F"><font size="2">(11:25:01 PM)</font> <b>masterm:</b></font> my box is an Amiga 1200 with Motorola 68030 @ 50Mhz<br/>
+<font color="#A82F2F"><font size="2">(11:25:25 PM)</font> <b>droid909:</b></font> masterm: this https://farm8.staticflickr.com/7134/13506722985_1ce0e0552d_o.jpg &gt;<br/>
+<font color="#A82F2F"><font size="2">(11:25:25 PM)</font> <b>droid909:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(11:26:08 PM)</font> <b>droid909:</b></font> masterm: connected to tv?<br/>
+<font color="#A82F2F"><font size="2">(11:26:58 PM)</font> <b>masterm:</b></font> droid909: http://www.bygonebytes.co.uk/images/AmigaInternet.jpg that&apos;s what A1200 looks like<br/>
+<font color="#A82F2F"><font size="2">(11:27:12 PM)</font> <b>Dagger:</b></font> srg: that&apos;s because you&apos;re blocking all incoming ICMPv6 that isn&apos;t to $me6<br/>
+<font color="#A82F2F"><font size="2">(11:27:13 PM)</font> <b>masterm:</b></font> it&apos;s connected to a LCD monitor via Indivision AGA internal scandoubler<br/>
+<font color="#A82F2F"><font size="2">(11:27:39 PM)</font> <b>masterm:</b></font> (but that picture is not my Amiga btw)<br/>
+<font color="#A82F2F"><font size="2">(11:28:15 PM)</font> <b>droid909:</b></font> masterm: doesn&apos;t the link i gave you, the one of CD&apos;s contains the sources?<br/>
+<font color="#A82F2F"><font size="2">(11:28:23 PM)</font> <b>droid909:</b></font> masterm: you can build for your arch?<br/>
+<font color="#A82F2F"><font size="2">(11:28:52 PM)</font> <b>srg:</b></font> Dagger: I don&apos;t understand why that would be a problem. WHy would I receive legimiate icmp6 traffic that is not sent to me?<br/>
+<font color="#A82F2F"><font size="2">(11:29:00 PM)</font> <b>masterm:</b></font> well I could cross-compile but I&apos;m not sure if I&apos;m up to the task of building the entire Debian distro<br/>
+<font color="#A82F2F"><font size="2">(11:29:28 PM)</font> <b>Dagger:</b></font> srg: it is sent to you, you&apos;re just dropping it<br/>
+<font color="#A82F2F"><font size="2">(11:29:33 PM)</font> <b>srg:</b></font> Dagger: all outgoing icmp is allowed. if I ping6 google, it should send me icmp echo-response packets back to $me6, should it not?<br/>
+<font color="#A82F2F"><font size="2">(11:29:35 PM)</font> <b>srg:</b></font> hm<br/>
+<font color="#A82F2F"><font size="2">(11:29:38 PM)</font> <b>srg:</b></font> let me look at it<br/>
+<font color="#A82F2F"><font size="2">(11:29:43 PM)</font> <b>Dagger:</b></font> srg: specifically you&apos;re dropping everything to the link-local address, which is needed for NDP<br/>
+<font color="#A82F2F"><font size="2">(11:30:14 PM)</font> <b>droid909:</b></font> masterm: http://archive.debian.org/debian/dists/Debian-2.0/<br/>
+<font color="#A82F2F"><font size="2">(11:30:37 PM)</font> <b>srg:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(11:30:40 PM)</font> <b>srg:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(11:31:12 PM)</font> <b>droid909:</b></font> masterm: http://archive.debian.org/debian/dists/potato/<br/>
+<font color="#A82F2F"><font size="2">(11:31:21 PM)</font> <b>Dagger:</b></font> srg: I&apos;d just remove all those --dst matches... the packet won&apos;t go though INPUT if it&apos;s not addressed to one of the local machine&apos;s IPs anyway<br/>
+<font size="2">(11:32:03 PM)</font><b> mode (+l 1616) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:32:04 PM)</font> <b>srg:</b></font> Dagger: ah, that makes sense. I&apos;m coming from openbsd&apos;s PF which is a bit different in syntax<br/>
+<font color="#A82F2F"><font size="2">(11:32:05 PM)</font> <b>masterm:</b></font> droid909: is there a way to &quot;install&quot; it without a cd? will debootstrap handle repo that old?<br/>
+<font color="#A82F2F"><font size="2">(11:33:20 PM)</font> <b>srg:</b></font> Dagger: Oh, this system has multiple IPv6 addresses; I think I did that to block all traffic except for on $me6<br/>
+<font color="#A82F2F"><font size="2">(11:37:02 PM)</font> <b>Dagger:</b></font> srg: I guess I&apos;d probably put some -j DROP lines at the top for those IPs<br/>
+<font color="#A82F2F"><font size="2">(11:37:14 PM)</font> <b>Dagger:</b></font> you could also just not assign them... :p<br/>
+<font color="#A82F2F"><font size="2">(11:37:51 PM)</font> <b>Dagger:</b></font> srg: also I note I have a &quot;-A INPUT -i lo -j ACCEPT&quot; line in my own firewall, I guess that&apos;s needed to avoid blocking localhost connections<br/>
+<font size="2">(11:42:02 PM)</font><b> mode (+l 1622) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:49:24 PM)</font> <b>droid909:</b></font> masterm: i don&apos;t know<br/>
+<font color="#A82F2F"><font size="2">(11:50:07 PM)</font> <b>masterm:</b></font> droid909: I think I&apos;m getting hang of it. I might now need a CD after all. thanks anyway :)<br/>
+<font size="2">(11:53:47 PM)</font><b> branco is now known as NIGER</b><br/>
+<font size="2">(11:55:28 PM)</font><b> sleepypc is now known as `hypermist`</b><br/>
+<font size="2">(12:01:11 AM)</font><b> rbanffy_ is now known as rbanffy</b><br/>
+<font size="2">(12:02:02 AM)</font><b> mode (+l 1610) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:03:18 AM)</font> <b>preyalone:</b></font> xbian is a collective name for Debian, Ubuntu, Raspbian, etc. Is there a similar collective name for RHEL, Fedora, and CentOS?<br/>
+<font color="#A82F2F"><font size="2">(12:05:13 AM)</font> <b>phre4k:</b></font> preyalone: never heard xbian, but: RPM-based and APT-based<br/>
+<font color="#A82F2F"><font size="2">(12:05:47 AM)</font> <b>preyalone:</b></font> true<br/>
+<font color="#A82F2F"><font size="2">(12:11:47 AM)</font> <b>preyalone:</b></font> Hmm, *bian might be a better term, since &quot;xbian&quot; is specifically an XBMC edition of Debian<br/>
+<font size="2">(12:12:32 AM)</font><b> mode (+o jelly) by ChanServ</b><br/>
+<font size="2">(12:12:33 AM)</font><b> mode (+b *!02523603@gateway/*) by jelly</b><br/>
+<font size="2">(12:12:34 AM)</font><b> mode (-o jelly) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(12:12:59 AM)</font> <b>___aaa:</b></font> siup<br/>
+<font color="#A82F2F"><font size="2">(12:15:41 AM)</font> <b>jelly:</b></font> preyalone: &quot;debian and derivatives&quot; is precise enough<br/>
+<font color="#A82F2F"><font size="2">(12:15:42 AM)</font> <b>DanDare:</b></font> Hi. Im on Debian wheezy. Im trying to add lines to /etc/sysctl.conf by doing &apos;sysctl -w&apos; but nothing happens. I though so it would create something inside /etc/sysctl.d but nothing there also<br/>
+<font color="#A82F2F"><font size="2">(12:16:05 AM)</font> <b>DanDare:</b></font> should I create some blank conf file under /etc/sysctl.d and try again ?<br/>
+<font color="#A82F2F"><font size="2">(12:16:47 AM)</font> <b>jelly:</b></font> DanDare: sysctl -w just sets current values in the kernel.  Use a text editor if you want permanent settings<br/>
+<font color="#A82F2F"><font size="2">(12:17:27 AM)</font> <b>DanDare:</b></font> jelly, oh I see, thanks. sysctl manpage wasnt clear about it<br/>
+<font color="#A82F2F"><font size="2">(12:17:32 AM)</font> <b>jelly:</b></font> in other words yes, create and edit /etc/sysctl.conf or something like /etc/sysctl.d/local<br/>
+<font size="2">(12:22:03 AM)</font><b> mode (+l 1603) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:22:31 AM)</font> <b>domovoy:</b></font> hmmm, &quot;fsck.cramfs: compiled without -x support&quot; can anyone recommand an easy way to extract a cramfs?<br/>
+<font color="#A82F2F"><font size="2">(12:30:21 AM)</font> <b>DanDare:</b></font> hmm I think I have a problem. IPV6 is like greek to me<br/>
+<font color="#062585"><font size="2">(12:31:45 AM)</font> <b>***thewanderer1</b></font> looks at his IPv6 T-shirt from HE.net<br/>
+<font size="2">(12:32:02 AM)</font><b> mode (+l 1595) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:32:10 AM)</font> <b>DanDare:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(12:32:51 AM)</font> <b>phix:</b></font> DanDare: :D<br/>
+<font color="#A82F2F"><font size="2">(12:34:11 AM)</font> <b>DanDare:</b></font> phix, one day people will say &quot;oh good old ip4 days&quot; but nah it just looks awful to me atm<br/>
+<font size="2">(12:34:36 AM)</font><b> Bremsstrahlung is now known as Troll_Founder</b><br/>
+<font size="2">(12:35:39 AM)</font><b> Troll_Founder is now known as Bremsstrahlung</b><br/>
+<font color="#A82F2F"><font size="2">(12:36:03 AM)</font> <b>Dagger:</b></font> eh, it&apos;s mostly just v4 with longer addresses<br/>
+<font color="#A82F2F"><font size="2">(12:36:59 AM)</font> <b>thewanderer1:</b></font> yeah, and SLAAC... and increased address space and no NAT<br/>
+<font color="#A82F2F"><font size="2">(12:38:07 AM)</font> <b>Blanc0:</b></font> Bonne nuit<br/>
+<font color="#A82F2F"><font size="2">(12:41:27 AM)</font> <b>SpaghettiNoThank:</b></font> hi guys, when trying a sudo command, terminal answer me with: &quot;bash: sudo: command not found&quot;. Did Jessie forget to install me sudo? How can I do to fix that since I can&apos;t install sudo with doing sudo? :/<br/>
+<font color="#A82F2F"><font size="2">(12:42:01 AM)</font> <b>jhutchins:</b></font> My ping lag over ipv6 is nearly 10x the ipv4 lag.<br/>
+<font color="#A82F2F"><font size="2">(12:42:16 AM)</font> <b>Mousey:</b></font> apt-get install sodoers<br/>
+<font color="#A82F2F"><font size="2">(12:42:20 AM)</font> <b>Dagger:</b></font> jhutchins: congratulations<br/>
+<font color="#A82F2F"><font size="2">(12:42:35 AM)</font> <b>Mousey:</b></font> apt-get install sudoo<br/>
+<font color="#A82F2F"><font size="2">(12:42:36 AM)</font> <b>Mousey:</b></font> apt-get install sudo<br/>
+<font color="#A82F2F"><font size="2">(12:42:37 AM)</font> <b>jhutchins:</b></font> Dagger: Yeah, what would google know about setting it up anyway.<br/>
+<font color="#062585"><font size="2">(12:42:42 AM)</font> <b>***Mousey</b></font> kant spel<br/>
+<font color="#A82F2F"><font size="2">(12:43:16 AM)</font> <b>jhutchins:</b></font> Dagger: Actually, I read that as configurations, which I think are about as good as possible.<br/>
+<font color="#A82F2F"><font size="2">(12:43:29 AM)</font> <b>SpaghettiNoThank:</b></font> Mousey: I get &quot;permission denied stuff&quot; &quot;are you root?&quot; :/<br/>
+<font color="#A82F2F"><font size="2">(12:43:38 AM)</font> <b>Dagger:</b></font> SpaghettiNoThank: just log in as root? or change to root with &quot;su root&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:43:48 AM)</font> <b>Mousey:</b></font> or &quot;su -&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:44:21 AM)</font> <b>SpaghettiNoThank:</b></font> Dagger: dats working thank you<br/>
+<font color="#A82F2F"><font size="2">(12:44:29 AM)</font> <b>jhutchins:</b></font> Dagger: There are a lot of things that are just not implemented yet, and there are a lot of web services that can&apos;t function over ipv6 architecture.  Stuff that relies on IP/Hostname matches and such.<br/>
+<font color="#A82F2F"><font size="2">(12:44:33 AM)</font> <b>SpaghettiNoThank:</b></font> why do I have to go threw that btw?<br/>
+<font color="#A82F2F"><font size="2">(12:44:54 AM)</font> <b>SpaghettiNoThank:</b></font> isn&apos;t sudo supposed to be install by default? I&apos;m on a fresh clean install of Jessie RC1<br/>
+<font color="#A82F2F"><font size="2">(12:44:57 AM)</font> <b>Mousey:</b></font> SpaghettiNoThank: sudo isn&apos;t strictly necessary<br/>
+<font color="#A82F2F"><font size="2">(12:45:21 AM)</font> <b>tremon:</b></font> SpaghettiNoThank: sudo is only installed by default if you don&apos;t set a root password iirc<br/>
+<font color="#A82F2F"><font size="2">(12:45:22 AM)</font> <b>phix:</b></font> DanDare: Good old IPX/SPX days :P<br/>
+<font color="#A82F2F"><font size="2">(12:45:27 AM)</font> <b>Dagger:</b></font> jhutchins: all true. you should still have v6 deployed though<br/>
+<font color="#A82F2F"><font size="2">(12:45:31 AM)</font> <b>jhutchins:</b></font> SpaghettiNoThank: Debian supports sudo, but comes from an era where actually working as root was more common.<br/>
+<font color="#A82F2F"><font size="2">(12:45:51 AM)</font> <b>Mousey:</b></font> SpaghettiNoThank: once sudo is installed do &quot;usermod -G sudo -a &lt;yourusername&gt;<br/>
+<font color="#A82F2F"><font size="2">(12:45:58 AM)</font> <b>SpaghettiNoThank:</b></font> thanks guys<br/>
+<font color="#A82F2F"><font size="2">(12:46:05 AM)</font> <b>Mousey:</b></font> ..which will add you to the sudo group, and then log out, and back in, and sudo will work for your account<br/>
+<font color="#A82F2F"><font size="2">(12:46:07 AM)</font> <b>jhutchins:</b></font> Dagger: If you have access to a true ipv6 backbone that can actually carry all the way through to servers you use, sure.<br/>
+<font color="#A82F2F"><font size="2">(12:46:44 AM)</font> <b>jhutchins:</b></font> Dagger: If you&apos;re just local, or if your &quot;backbone&quot; doesn&apos;t go beyond your local ISP without tunnelling, it&apos;s not worth the overhead.<br/>
+<font color="#A82F2F"><font size="2">(12:47:55 AM)</font> <b>domovoy:</b></font> how do i get the kernel to create md arrays at boot? On the original manufacturer kernel, it is done even before the kernel mounts the root fs. I enabled CONFIG_BLK_DEV_MD and CONFIG_MD_AUTODETECT, but nothing happens (i can examine the raid members with mdadm after boot)<br/>
+<font color="#A82F2F"><font size="2">(12:49:41 AM)</font> <b>Dagger:</b></font> jhutchins: I guess maybe not if you have enough v4 addresses to avoid NAT (and assuming you don&apos;t need to access somebody else&apos;s v6-only server), but if you&apos;re NATing on v4 then it very much is<br/>
+<font color="#A82F2F"><font size="2">(12:50:08 AM)</font> <b>Dagger:</b></font> (although of course your ISP should be giving you native anyway)<br/>
+<font color="#A82F2F"><font size="2">(12:52:59 AM)</font> <b>SpaghettiNoThank:</b></font> is there a way to choose which package to install by default at the installation? Like for instance there is those &quot;games&quot; which I don&apos;t need and are installed by def<br/>
+<font color="#A82F2F"><font size="2">(01:00:43 AM)</font> <b>dondelelcaro:</b></font> SpaghettiNoThank: if you don&apos;t select a task, you won&apos;t get anything by default.<br/>
+<font color="#A82F2F"><font size="2">(01:01:00 AM)</font> <b>dondelelcaro:</b></font> SpaghettiNoThank: you can then choose the specific packages you do want installed. You can also just remove the packages that you don&apos;t like after the initial install<br/>
+<font color="#A82F2F"><font size="2">(01:01:04 AM)</font> <b>dondelelcaro:</b></font> SpaghettiNoThank: whatever works best for you<br/>
+<font color="#A82F2F"><font size="2">(01:02:32 AM)</font> <b>SpaghettiNoThank:</b></font> dondelelcaro: got it<br/>
+<font color="#A82F2F"><font size="2">(01:05:36 AM)</font> <b>iio7:</b></font> Where is the start-stop-daemon normally provided by dpkg?<br/>
+<font size="2">(01:06:50 AM)</font><b> iio7 left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(01:09:23 AM)</font> <b>Vikhenzo:</b></font> Oh wow the channel bot is dpkg<br/>
+<font color="#A82F2F"><font size="2">(01:09:25 AM)</font> <b>Vikhenzo:</b></font> that&apos;s funny<br/>
+<font color="#A82F2F"><font size="2">(01:09:27 AM)</font> <b>Vikhenzo:</b></font> haha<br/>
+<font color="#A82F2F"><font size="2">(01:11:10 AM)</font> <b>Vikhenzo:</b></font> So I have a question, I have an extra router and I want to plug it into my debian server and then be able to have a mini internet in my house<br/>
+<font color="#A82F2F"><font size="2">(01:11:27 AM)</font> <b>Vikhenzo:</b></font> by having other devices plug into that wifi and pull files from the server<br/>
+<font color="#A82F2F"><font size="2">(01:11:33 AM)</font> <b>Vikhenzo:</b></font> how would I go about doing it?<br/>
+<font size="2">(01:18:20 AM)</font><b> koeppea is now known as format_c</b><br/>
+<font size="2">(01:20:10 AM)</font><b> Vikhenzo left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font size="2">(01:22:03 AM)</font><b> mode (+l 1583) by debhelper</b><br/>
+<font size="2">(01:45:42 AM)</font><b> hexagoxel_ is now known as hexagoxel</b><br/>
+<font color="#A82F2F"><font size="2">(02:00:04 AM)</font> <b>yoLo_:</b></font> how do i update the sqlite3 on linux ?<br/>
+<font color="#A82F2F"><font size="2">(02:00:11 AM)</font> <b>yoLo_:</b></font> debian*<br/>
+<font color="#A82F2F"><font size="2">(02:00:23 AM)</font> <b>dondelelcaro:</b></font> yoLo_: just apt-get update; apt-get upgrade;<br/>
+<font color="#A82F2F"><font size="2">(02:00:37 AM)</font> <b>dondelelcaro:</b></font> yoLo_: if there&apos;s a new version of sqlite3, it&apos;ll be upgraded.<br/>
+<font color="#A82F2F"><font size="2">(02:00:37 AM)</font> <b>yoLo_:</b></font> hmmm..<br/>
+<font color="#A82F2F"><font size="2">(02:00:43 AM)</font> <b>yoLo_:</b></font> i see<br/>
+<font color="#A82F2F"><font size="2">(02:02:25 AM)</font> <b>Brigo:</b></font> ,v sqlite3<br/>
+<font color="#A82F2F"><font size="2">(02:02:26 AM)</font> <b>judd:</b></font> Package: sqlite3 on i386 -- squeeze: 3.7.3-1; squeeze-backports: 3.7.13-1~bpo60+1; wheezy: 3.7.13-1+deb7u1; jessie: 3.8.7.1-1; sid: 3.8.7.4-1; experimental: 3.8.8.2-1<br/>
+<font color="#A82F2F"><font size="2">(02:11:57 AM)</font> <b>SpaghettiNoThank:</b></font> After installing gnome-flashback it doesnt appear in the DE selection before logging in. Did I miss a step? Just did &quot;apt-get install gnome-flashback&quot;<br/>
+<font size="2">(02:12:03 AM)</font><b> mode (+l 1575) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(02:34:10 AM)</font> <b>jaggzt:</b></font> what package gives the smbfs type for mount -t ?<br/>
+<font color="#A82F2F"><font size="2">(02:35:14 AM)</font> <b>Brigo:</b></font> jaggzt, samba, i guess<br/>
+<font color="#A82F2F"><font size="2">(02:35:15 AM)</font> <b>Brigo:</b></font> ,v samba<br/>
+<font color="#A82F2F"><font size="2">(02:35:16 AM)</font> <b>judd:</b></font> Package: samba on i386 -- squeeze: 2:3.5.6~dfsg-3squeeze11; squeeze-security: 2:3.5.6~dfsg-3squeeze11; squeeze-security-lts: 2:3.5.6~dfsg-3squeeze12; wheezy: 2:3.6.6-6+deb7u4; squeeze-backports: 2:3.6.6-6+deb7u5~bpo60+1; wheezy-proposed-updates: 2:3.6.6-6+deb7u5; wheezy-security: 2:3.6.6-6+deb7u5; wheezy-backports: 2:4.1.17+dfsg-1~bpo70+1; sid: 2:4.1.17+dfsg-1; jessie: 2:4.1.17+dfsg-1<br/>
+<font color="#A82F2F"><font size="2">(02:35:32 AM)</font> <b>jaggzt:</b></font> do I need i386?  I&apos;m using x64<br/>
+<font color="#A82F2F"><font size="2">(02:36:29 AM)</font> <b>Brigo:</b></font> ,v samba --arch amd64<br/>
+<font color="#A82F2F"><font size="2">(02:36:30 AM)</font> <b>judd:</b></font> Package: samba on amd64 -- squeeze: 2:3.5.6~dfsg-3squeeze11; squeeze-security: 2:3.5.6~dfsg-3squeeze11; squeeze-security-lts: 2:3.5.6~dfsg-3squeeze12; wheezy: 2:3.6.6-6+deb7u4; squeeze-backports: 2:3.6.6-6+deb7u5~bpo60+1; wheezy-proposed-updates: 2:3.6.6-6+deb7u5; wheezy-security: 2:3.6.6-6+deb7u5; wheezy-backports: 2:4.1.17+dfsg-1~bpo70+1; sid: 2:4.1.17+dfsg-1; jessie: 2:4.1.17+dfsg-1<br/>
+<font color="#A82F2F"><font size="2">(02:37:15 AM)</font> <b>jelly:</b></font> jaggzt: install cifs-utils and use -t cifs, I guess<br/>
+<font color="#A82F2F"><font size="2">(02:41:48 AM)</font> <b>jaggzt:</b></font> finally.. got it..   there&apos;s no -t cifs still for some reason but cifs-utils comes with mount.cifs<br/>
+<font size="2">(02:41:53 AM)</font><b> Brigo left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:41:55 AM)</font> <b>jaggzt:</b></font> thanks a lot :)<br/>
+<font color="#A82F2F"><font size="2">(02:42:13 AM)</font> <b>jaggzt:</b></font> (I don&apos;t have a mount.smbfs, fwiw)<br/>
+<font color="#A82F2F"><font size="2">(02:42:40 AM)</font> <b>SpaghettiNoThank:</b></font> while Jessie pack Xfce 4.12 ?<br/>
+<font color="#A82F2F"><font size="2">(02:52:14 AM)</font> <b>beepie:</b></font> jaggz, for the mount -t cifs, you&apos;ll need to modprobe cifs<br/>
+<font size="2">(02:52:23 AM)</font><b> indrorafk is now known as indrora</b><br/>
+<font color="#A82F2F"><font size="2">(02:52:32 AM)</font> <b>beepie:</b></font> jaggzt, ^<br/>
+<font size="2">(02:57:23 AM)</font><b> beepie left the room (quit: Quit: Ex-Chat).</b><br/>
+<font color="#A82F2F"><font size="2">(03:02:15 AM)</font> <b>d[^_^]b:</b></font> i&apos;m trying to install openstack with zfs and it is wanting to install zfs-fuse<br/>
+<font color="#A82F2F"><font size="2">(03:02:35 AM)</font> <b>d[^_^]b:</b></font> how do i tell debian i don&apos;t need, and can&apos;t have zfs-fuse because it conflicts with local zfsonlinux packages<br/>
+<font color="#A82F2F"><font size="2">(03:05:35 AM)</font> <b>acidjazz:</b></font> hey all.. i just upgraded from wheezy to jessie and i had drivers loadin gin /etc/modules fine. looks like jessie moved thenm to /etc/modprobe.d/etc-modules-parameters.conf , and hte lcd stops working on boot. now when i sudo modprobe each line it works fine. any1 know my issue?<br/>
+<font color="#A82F2F"><font size="2">(03:05:45 AM)</font> <b>d[^_^]b:</b></font> something tells me i need a package &apos;provides&apos; file<br/>
+<font color="#A82F2F"><font size="2">(03:05:48 AM)</font> <b>d[^_^]b:</b></font> i&apos;ve done this before<br/>
+<font color="#A82F2F"><font size="2">(03:06:51 AM)</font> <b>acidjazz:</b></font> so i guess jessie ignores /etc/modules now?<br/>
+<font color="#A82F2F"><font size="2">(03:07:10 AM)</font> <b>PryMar56:</b></font> acidjazz, systemd prefers /usr/lib/modules-load.d<br/>
+<font color="#A82F2F"><font size="2">(03:07:23 AM)</font> <b>lucascastro:</b></font> acidjazz, you need to put then in  /etc/modules-load.d<br/>
+<font color="#A82F2F"><font size="2">(03:08:52 AM)</font> <b>acidjazz:</b></font> so jessie did htis<br/>
+<font color="#A82F2F"><font size="2">(03:08:55 AM)</font> <b>acidjazz:</b></font> lrwxrwxrwx   1 root root    10 Feb 28 13:03 modules.conf -&gt; ../modules<br/>
+<font color="#A82F2F"><font size="2">(03:09:09 AM)</font> <b>sakujo_:</b></font> stupid question, do i need exim4?<br/>
+<font color="#A82F2F"><font size="2">(03:09:11 AM)</font> <b>lucascastro:</b></font> where is that?<br/>
+<font color="#A82F2F"><font size="2">(03:09:11 AM)</font> <b>acidjazz:</b></font> moduels.conf just points to ../modules<br/>
+<font color="#A82F2F"><font size="2">(03:09:19 AM)</font> <b>acidjazz:</b></font> in modules-load.d<br/>
+<font color="#A82F2F"><font size="2">(03:09:24 AM)</font> <b>sakujo_:</b></font> on a htpc that runs kodi home theater and retroarch (nothing else)<br/>
+<font size="2">(03:09:36 AM)</font><b> domovoy is now known as domovoy_out</b><br/>
+<font color="#A82F2F"><font size="2">(03:10:10 AM)</font> <b>acidjazz:</b></font> lucascastro: that just points to ../modules which i definitely have the same stuff in there<br/>
+<font color="#A82F2F"><font size="2">(03:11:16 AM)</font> <b>lucascastro:</b></font> so, try in /usr/lib/modules-load.d<br/>
+<font color="#A82F2F"><font size="2">(03:11:30 AM)</font> <b>acidjazz:</b></font> taht folders empty<br/>
+<font color="#A82F2F"><font size="2">(03:11:37 AM)</font> <b>acidjazz:</b></font> illl create a conf<br/>
+<font color="#A82F2F"><font size="2">(03:11:46 AM)</font> <b>lucascastro:</b></font> plx, do it!<br/>
+<font color="#A82F2F"><font size="2">(03:11:48 AM)</font> <b>lucascastro:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(03:12:15 AM)</font> <b>acidjazz:</b></font> darn... still no lcd on boot :(<br/>
+<font color="#A82F2F"><font size="2">(03:12:36 AM)</font> <b>lucascastro:</b></font> acidjazz, try /etc/modprobe.d/<br/>
+<font color="#A82F2F"><font size="2">(03:13:01 AM)</font> <b>acidjazz:</b></font> so that is a bunch of conf files, mainly blacklists. i created my own and tried that there<br/>
+<font color="#A82F2F"><font size="2">(03:13:09 AM)</font> <b>acidjazz:</b></font> maybe hte format of modprob/conf files is different in jessie?<br/>
+<font color="#A82F2F"><font size="2">(03:13:51 AM)</font> <b>acidjazz:</b></font> like it seems the keyword options is used?<br/>
+<font color="#A82F2F"><font size="2">(03:13:52 AM)</font> <b>lucascastro:</b></font> acidjazz, but I still think if you create a .conf file on /etc/modules-load.d  will works.<br/>
+<font color="#A82F2F"><font size="2">(03:14:01 AM)</font> <b>acidjazz:</b></font> yea i tried that before ic ame<br/>
+<font color="#A82F2F"><font size="2">(03:14:37 AM)</font> <b>acidjazz:</b></font> so heres my old /etc/modules that worked https://gist.github.com/anonymous/3edb9541a33ebcd04491<br/>
+<font color="#A82F2F"><font size="2">(03:14:46 AM)</font> <b>acidjazz:</b></font> is that format still ok for jessie/<br/>
+<font color="#A82F2F"><font size="2">(03:14:53 AM)</font> <b>acidjazz:</b></font> cuz if i sudo modprobe each of those lines, lcd turns on fine<br/>
+<font color="#A82F2F"><font size="2">(03:15:23 AM)</font> <b>lucascastro:</b></font> acidjazz, wait a minute, I will make a try.<br/>
+<font color="#A82F2F"><font size="2">(03:19:59 AM)</font> <b>acidjazz:</b></font> maybe i need to do something in /lib/modules ?<br/>
+<font color="#A82F2F"><font size="2">(03:20:13 AM)</font> <b>acidjazz:</b></font> nah cuz its already there<br/>
+<font color="#A82F2F"><font size="2">(03:20:19 AM)</font> <b>acidjazz:</b></font> otherwise modprobe wouldnt work<br/>
+<font color="#A82F2F"><font size="2">(03:22:35 AM)</font> <b>acidjazz:</b></font> i could just add these to rc.local heh<br/>
+<font color="#A82F2F"><font size="2">(03:22:50 AM)</font> <b>lucascastro:</b></font> acidjazz.<br/>
+<font color="#A82F2F"><font size="2">(03:23:25 AM)</font> <b>lucascastro:</b></font> I&apos;ve put the dummy module on /etc/modules-load.d/dummy.conf and just worked<br/>
+<font color="#A82F2F"><font size="2">(03:23:41 AM)</font> <b>lucascastro:</b></font> on jessie.<br/>
+<font color="#A82F2F"><font size="2">(03:24:19 AM)</font> <b>acidjazz:</b></font> can i see your dummy.conf<br/>
+<font color="#A82F2F"><font size="2">(03:24:24 AM)</font> <b>acidjazz:</b></font> howd you know it worked? error when booting?<br/>
+<font color="#A82F2F"><font size="2">(03:25:07 AM)</font> <b>lucascastro:</b></font> just the modules name, dummy in the file.<br/>
+<font color="#A82F2F"><font size="2">(03:25:38 AM)</font> <b>acidjazz:</b></font> lucascastro: trying again<br/>
+<font color="#A82F2F"><font size="2">(03:25:41 AM)</font> <b>lucascastro:</b></font> if you need to pass any options you need to write on the /etc/modprobe.d/modulename.conf<br/>
+<font color="#A82F2F"><font size="2">(03:26:08 AM)</font> <b>acidjazz:</b></font> so maybe this is broken where kmod runs these files<br/>
+<font color="#A82F2F"><font size="2">(03:26:19 AM)</font> <b>acidjazz:</b></font> because i just did that exact thing and no lcd<br/>
+<font color="#A82F2F"><font size="2">(03:26:28 AM)</font> <b>acidjazz:</b></font> but if i take those 3 lines, put them in rc.local w/ modprobe in front it works at boot<br/>
+<font color="#A82F2F"><font size="2">(03:26:41 AM)</font> <b>lucascastro:</b></font> what is the lcd module name?<br/>
+<font color="#A82F2F"><font size="2">(03:27:02 AM)</font> <b>acidjazz:</b></font> flexfb and fbtft_deice<br/>
+<font color="#A82F2F"><font size="2">(03:27:12 AM)</font> <b>acidjazz:</b></font> https://gist.github.com/anonymous/3edb9541a33ebcd04491#file-modules-L12<br/>
+<font color="#A82F2F"><font size="2">(03:28:23 AM)</font> <b>acidjazz:</b></font> so odd<br/>
+<font color="#A82F2F"><font size="2">(03:28:31 AM)</font> <b>acidjazz:</b></font> why wont these just load properly<br/>
+<font color="#A82F2F"><font size="2">(03:29:10 AM)</font> <b>lucascastro:</b></font> okay, I think that it is in problem cause you may to write the options on /etc/modprobe.d/modulename.conf<br/>
+<font color="#A82F2F"><font size="2">(03:30:55 AM)</font> <b>acidjazz:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(03:31:07 AM)</font> <b>acidjazz:</b></font> yea thats what jessie automatically did<br/>
+<font color="#A82F2F"><font size="2">(03:31:18 AM)</font> <b>polyphagia:</b></font> so i did an upgrade and my bitmap font stopped working in urxvt, i used to be able to use it via xft:<br/>
+<font color="#A82F2F"><font size="2">(03:31:33 AM)</font> <b>polyphagia:</b></font> i readded it somehow but it&apos;s still not visible in iceweasel or anything<br/>
+<font color="#A82F2F"><font size="2">(03:31:42 AM)</font> <b>polyphagia:</b></font> and the xft: still doesn&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(03:32:08 AM)</font> <b>acidjazz:</b></font> but ih ad those commented out lucascastro<br/>
+<font color="#A82F2F"><font size="2">(03:32:20 AM)</font> <b>polyphagia:</b></font> it does show up in xlsfonts but not in any GUI applications or anything<br/>
+<font color="#A82F2F"><font size="2">(03:32:31 AM)</font> <b>polyphagia:</b></font> i did the force bitmap font configuration in /etc/fonts/conf.d/<br/>
+<font color="#A82F2F"><font size="2">(03:33:21 AM)</font> <b>acidjazz:</b></font> i REALLY dont wanna leave w/ these things loading in rc.local but thats really all thats working<br/>
+<font color="#A82F2F"><font size="2">(03:34:03 AM)</font> <b>lucascastro:</b></font> acidjazz, it&apos;s not comment out. the options is in front of that not commented.<br/>
+<font color="#A82F2F"><font size="2">(03:35:31 AM)</font> <b>lucascastro:</b></font> like this, I put options for my dummy module on /etc/modprobe.d/dummy, and there  has options dummy numdummies=4.<br/>
+<font color="#A82F2F"><font size="2">(03:37:18 AM)</font> <b>lucascastro:</b></font> acidjazz, when you load manually you pass some options ?<br/>
+<font color="#A82F2F"><font size="2">(03:38:15 AM)</font> <b>acidjazz:</b></font> lucascastro: the exact same lines<br/>
+<font color="#A82F2F"><font size="2">(03:38:20 AM)</font> <b>acidjazz:</b></font> i take the 3 lines in dummy.conf<br/>
+<font color="#A82F2F"><font size="2">(03:38:30 AM)</font> <b>acidjazz:</b></font> and i do sudo modprobe *line*<br/>
+<font color="#A82F2F"><font size="2">(03:38:36 AM)</font> <b>acidjazz:</b></font> i dont add/remove any options<br/>
+<font color="#A82F2F"><font size="2">(03:38:51 AM)</font> <b>lucascastro:</b></font> then remove all that and let&apos;s start from the scratch.<br/>
+<font color="#A82F2F"><font size="2">(03:38:53 AM)</font> <b>lucascastro:</b></font> right?<br/>
+<font color="#A82F2F"><font size="2">(03:39:16 AM)</font> <b>lucascastro:</b></font> when you are ready just let me know.<br/>
+<font color="#A82F2F"><font size="2">(03:41:06 AM)</font> <b>acidjazz:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(03:41:08 AM)</font> <b>acidjazz:</b></font> im ready<br/>
+<font color="#A82F2F"><font size="2">(03:41:09 AM)</font> <b>acidjazz:</b></font> all gone<br/>
+<font size="2">(03:41:31 AM)</font><b> NightTrain is now known as b</b><br/>
+<font size="2">(03:42:03 AM)</font><b> mode (+l 1562) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:42:56 AM)</font> <b>polyphagia:</b></font> yeah i&apos;m pretty confused, why does my font show up in xlsfonts but not fc-list?<br/>
+<font color="#A82F2F"><font size="2">(03:43:16 AM)</font> <b>lucascastro:</b></font> fine, first of all let write all your options to modprobe.d<br/>
+<font color="#A82F2F"><font size="2">(03:43:33 AM)</font> <b>polyphagia:</b></font> fc-cache -vf shows it finding the directory, but finding 0 fonts within it<br/>
+<font color="#A82F2F"><font size="2">(03:44:00 AM)</font> <b>lucascastro:</b></font> I noticed you have there modules to write options, icedjazz<br/>
+<font color="#A82F2F"><font size="2">(03:44:09 AM)</font> <b>acidjazz:</b></font> three?<br/>
+<font color="#A82F2F"><font size="2">(03:44:11 AM)</font> <b>acidjazz:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(03:44:19 AM)</font> <b>polyphagia:</b></font> the permissions are the same and i enabled bitmap fonts<br/>
+<font color="#A82F2F"><font size="2">(03:44:40 AM)</font> <b>lucascastro:</b></font> flexfb, ftbft_device and ads7846_device<br/>
+<font color="#A82F2F"><font size="2">(03:44:55 AM)</font> <b>lucascastro:</b></font> acidjazz, you saw?<br/>
+<font color="#A82F2F"><font size="2">(03:46:32 AM)</font> <b>lucascastro:</b></font> acidjazz, create the file /etc/modprobe.d/flexfb.conf and write in options flexfb  width=320  height=480  regwidth=16 init=-1,0xb0,0x0,-1,0x11,-2,250,-1,0x3A,0x55,-1,0xC2,0x44,-1,0xC5,0x00,0x00,0x00,0x00,-1,0xE0,0x0F,0x1F,0x1C,0x0C,0x0F,0x08,0x48,0x98,0x37,0x0A,0x13,0x04,0x11,0x0D,0x00,-1,0xE1,0x0F,0x32,0x2E,0x0B,0x0D,0x05,0x47,0x75,0x37,0x06,0x10,0x03,0x24,0x20,0x00,-1,0xE2,0x0F,0x32,0x2E,0x0B,0x0D,0x05,0x47,0x75,0x37,0x06,0x10,0x<br/>
+<font color="#A82F2F"><font size="2">(03:46:32 AM)</font> <b>lucascastro:</b></font> 03,0x24,0x20,0x00,-1,0x36,0x28,-1,0x11,-1,0x29,-3<br/>
+<font color="#A82F2F"><font size="2">(03:46:47 AM)</font> <b>lucascastro:</b></font> write &quot;options flexfb  width=320  height=480  regwidth=16 init=-1,0xb0,0x0,-1,0x11,-2,250,-1,0x3A,0x55,-1,0xC2,0x44,-1,0xC5,0x00,0x00,0x00,0x00,-1,0xE0,0x0F,0x1F,0x1C,0x0C,0x0F,0x08,0x48,0x98,0x37,0x0A,0x13,0x04,0x11,0x0D,0x00,-1,0xE1,0x0F,0x32,0x2E,0x0B,0x0D,0x05,0x47,0x75,0x37,0x06,0x10,0x03,0x24,0x20,0x00,-1,0xE2,0x0F,0x32,0x2E,0x0B,0x0D,0x05,0x47,0x75,0x37,0x06,0x10,0x03,0x24,0x20,0x00,-1,0x36,0x28,-1,0x11,-1,0x29,-3&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:47:03 AM)</font> <b>lucascastro:</b></font> without the &quot; &quot;<br/>
+<font color="#A82F2F"><font size="2">(03:47:37 AM)</font> <b>acidjazz:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(03:48:30 AM)</font> <b>acidjazz:</b></font> done<br/>
+<font color="#A82F2F"><font size="2">(03:48:41 AM)</font> <b>lucascastro:</b></font> acidjazz, you may do that for each module, create the .conf  in modprobe.d and write the options there. when you finished all let me know, please.<br/>
+<font color="#A82F2F"><font size="2">(03:48:46 AM)</font> <b>acidjazz:</b></font> now you want a fbtvt_device.conf the same?<br/>
+<font color="#A82F2F"><font size="2">(03:48:46 AM)</font> <b>acidjazz:</b></font> k<br/>
+<font color="#A82F2F"><font size="2">(03:48:51 AM)</font> <b>acidjazz:</b></font> 1m<br/>
+<font color="#A82F2F"><font size="2">(03:48:52 AM)</font> <b>lucascastro:</b></font> yes.<br/>
+<font color="#A82F2F"><font size="2">(03:49:21 AM)</font> <b>lucascastro:</b></font> not the same, but with the options you use for it<br/>
+<font color="#A82F2F"><font size="2">(03:49:38 AM)</font> <b>acidjazz:</b></font> ok all done<br/>
+<font color="#A82F2F"><font size="2">(03:49:57 AM)</font> <b>lucascastro:</b></font> options fbtvt_device.conf debug=3 rotate=90 name=flexfb speed=16000000 gpios=reset:25,dc:24<br/>
+<font color="#A82F2F"><font size="2">(03:50:04 AM)</font> <b>lucascastro:</b></font> you do it ?<br/>
+<font color="#A82F2F"><font size="2">(03:50:11 AM)</font> <b>lucascastro:</b></font> let me see.<br/>
+<font color="#A82F2F"><font size="2">(03:50:13 AM)</font> <b>acidjazz:</b></font> https://gist.github.com/acidjazz/9082b78e1d52e4a130ad<br/>
+<font color="#A82F2F"><font size="2">(03:50:41 AM)</font> <b>lucascastro:</b></font> fine.<br/>
+<font color="#A82F2F"><font size="2">(03:50:58 AM)</font> <b>acidjazz:</b></font> now what<br/>
+<font color="#A82F2F"><font size="2">(03:51:19 AM)</font> <b>acidjazz:</b></font> add flexfb, fbtft_device, and ads* to /etc/modules ?<br/>
+<font color="#A82F2F"><font size="2">(03:51:49 AM)</font> <b>lucascastro:</b></font> now, create a  /etc/modules-load/lcd.conf and put the modules name there .<br/>
+<font color="#A82F2F"><font size="2">(03:51:52 AM)</font> <b>lucascastro:</b></font> one per line.<br/>
+<font color="#A82F2F"><font size="2">(03:52:12 AM)</font> <b>acidjazz:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(03:52:33 AM)</font> <b>lucascastro:</b></font> after that just check if it&apos;ll work.<br/>
+<font color="#A82F2F"><font size="2">(03:53:05 AM)</font> <b>acidjazz:</b></font> https://gist.github.com/acidjazz/30e95689dba6ba231a51<br/>
+<font color="#A82F2F"><font size="2">(03:53:48 AM)</font> <b>lucascastro:</b></font> alright, now test if it will work.<br/>
+<font color="#A82F2F"><font size="2">(03:53:51 AM)</font> <b>acidjazz:</b></font> nope<br/>
+<font color="#A82F2F"><font size="2">(03:54:03 AM)</font> <b>lucascastro:</b></font> how are you testing, rebooting?<br/>
+<font color="#A82F2F"><font size="2">(03:54:40 AM)</font> <b>acidjazz:</b></font> yup<br/>
+<font color="#A82F2F"><font size="2">(03:54:57 AM)</font> <b>acidjazz:</b></font> rebooting watching the hdmi output and then the lcd<br/>
+<font color="#A82F2F"><font size="2">(03:55:02 AM)</font> <b>acidjazz:</b></font> wanna see what does owrk?<br/>
+<font color="#A82F2F"><font size="2">(03:55:10 AM)</font> <b>lucascastro:</b></font> try to run modprobe modulename without options to see if it will works.<br/>
+<font color="#A82F2F"><font size="2">(03:55:28 AM)</font> <b>acidjazz:</b></font> https://gist.github.com/acidjazz/cafb70957909d25b9b6a<br/>
+<font color="#A82F2F"><font size="2">(03:55:31 AM)</font> <b>acidjazz:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(03:55:35 AM)</font> <b>acidjazz:</b></font> ok ill try that<br/>
+<font color="#A82F2F"><font size="2">(03:56:30 AM)</font> <b>lucascastro:</b></font> cause if works the modprobe is really taking the options from modprobe.<br/>
+<font color="#A82F2F"><font size="2">(03:56:44 AM)</font> <b>acidjazz:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(03:56:44 AM)</font> <b>acidjazz:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(03:56:53 AM)</font> <b>lucascastro:</b></font> worked ?<br/>
+<font color="#A82F2F"><font size="2">(03:57:02 AM)</font> <b>lucascastro:</b></font> without pass the options ?<br/>
+<font color="#A82F2F"><font size="2">(03:57:47 AM)</font> <b>acidjazz:</b></font> oh man.. ssh is down :(<br/>
+<font color="#A82F2F"><font size="2">(03:58:13 AM)</font> <b>acidjazz:</b></font> ok phew<br/>
+<font color="#A82F2F"><font size="2">(03:58:25 AM)</font> <b>acidjazz:</b></font> wow systemd<br/>
+<font color="#A82F2F"><font size="2">(03:58:25 AM)</font> <b>acidjazz:</b></font>     1 root      20   0    5248   3832   2740 R  77.8  0.4   1:08.31 systemd<br/>
+<font color="#A82F2F"><font size="2">(03:58:32 AM)</font> <b>acidjazz:</b></font> 80% cpu<br/>
+<font color="#A82F2F"><font size="2">(03:59:19 AM)</font> <b>acidjazz:</b></font> so the options are being set lucascastro<br/>
+<font color="#A82F2F"><font size="2">(03:59:20 AM)</font> <b>acidjazz:</b></font> that worked<br/>
+<font color="#A82F2F"><font size="2">(04:00:34 AM)</font> <b>acidjazz:</b></font> uhm actually<br/>
+<font color="#A82F2F"><font size="2">(04:00:38 AM)</font> <b>acidjazz:</b></font> x windows won tstart when i run those alone<br/>
+<font color="#A82F2F"><font size="2">(04:00:42 AM)</font> <b>acidjazz:</b></font> let me try again<br/>
+<font color="#A82F2F"><font size="2">(04:00:53 AM)</font> <b>lucascastro:</b></font> okay, so we just need the right place to put the modules, try in /etc/modules<br/>
+<font color="#A82F2F"><font size="2">(04:01:25 AM)</font> <b>lucascastro:</b></font> so without options don&apos;t really works ?<br/>
+<font color="#A82F2F"><font size="2">(04:01:30 AM)</font> <b>acidjazz:</b></font> well console worked<br/>
+<font color="#A82F2F"><font size="2">(04:01:34 AM)</font> <b>acidjazz:</b></font> but xwindwos crapped<br/>
+<font color="#A82F2F"><font size="2">(04:01:35 AM)</font> <b>acidjazz:</b></font> let me try again<br/>
+<font color="#A82F2F"><font size="2">(04:01:35 AM)</font> <b>acidjazz:</b></font> to amke sure<br/>
+<font color="#A82F2F"><font size="2">(04:01:46 AM)</font> <b>acidjazz:</b></font> cuz console will still work w/ou tthose params, its xwindwos that needs the options mainly<br/>
+<font color="#A82F2F"><font size="2">(04:01:57 AM)</font> <b>acidjazz:</b></font> cant we list out or dump them somehow? see if theyre set?<br/>
+<font color="#A82F2F"><font size="2">(04:02:51 AM)</font> <b>lucascastro:</b></font> try to reach at dmesg<br/>
+<font color="#A82F2F"><font size="2">(04:05:55 AM)</font> <b>lucascastro:</b></font> acidjazz, try to make that step with the dummy modules just for check.<br/>
+<font color="#A82F2F"><font size="2">(04:06:19 AM)</font> <b>jerichowasahoax:</b></font> I&apos;m setting up a Debian install via debootstrap, and after chrooting in, everything works, but apt throws a huge fit every time I try to install something because it can&apos;t verify that the packages come from where they say they do. How do I fix this?<br/>
+<font color="#A82F2F"><font size="2">(04:07:19 AM)</font> <b>acidjazz:</b></font> step w/ the dummy modules?<br/>
+<font color="#A82F2F"><font size="2">(04:07:38 AM)</font> <b>lucascastro:</b></font> yes...<br/>
+<font color="#A82F2F"><font size="2">(04:08:17 AM)</font> <b>lucascastro:</b></font> dummy is a interface modules and may create a network interface with dummy0 name.<br/>
+<font color="#A82F2F"><font size="2">(04:12:06 AM)</font> <b>acidjazz:</b></font> lucascastro: can yo ucat me your dummy module conf<br/>
+<font color="#A82F2F"><font size="2">(04:12:10 AM)</font> <b>acidjazz:</b></font> or gist me<br/>
+<font color="#A82F2F"><font size="2">(04:12:12 AM)</font> <b>acidjazz:</b></font> so ic an try that<br/>
+<font color="#A82F2F"><font size="2">(04:12:14 AM)</font> <b>acidjazz:</b></font> i can*<br/>
+<font color="#A82F2F"><font size="2">(04:13:58 AM)</font> <b>lucascastro:</b></font> cat /etc/modprobe.d/dummy.conf<br/>
+<font color="#A82F2F"><font size="2">(04:13:58 AM)</font> <b>lucascastro:</b></font> options dummy numdummies=4<br/>
+<font color="#A82F2F"><font size="2">(04:14:23 AM)</font> <b>lucascastro:</b></font> cat /etc/modules-load.d/dummy.conf<br/>
+<font color="#A82F2F"><font size="2">(04:14:24 AM)</font> <b>lucascastro:</b></font> dummy<br/>
+<font color="#A82F2F"><font size="2">(04:14:29 AM)</font> <b>lucascastro:</b></font> acidjazz<br/>
+<font color="#A82F2F"><font size="2">(04:15:26 AM)</font> <b>acidjazz:</b></font> ty<br/>
+<font size="2">(04:18:01 AM)</font><b> fran` is now known as fran</b><br/>
+<font color="#A82F2F"><font size="2">(04:18:44 AM)</font> <b>acidjazz:</b></font> rebooting w/ dummy setup<br/>
+<font color="#A82F2F"><font size="2">(04:19:00 AM)</font> <b>acidjazz:</b></font> lucascastro: so ill see dummyX when i ifconfig?<br/>
+<font color="#A82F2F"><font size="2">(04:19:42 AM)</font> <b>lucascastro:</b></font> ifconfig -a<br/>
+<font color="#A82F2F"><font size="2">(04:19:54 AM)</font> <b>acidjazz:</b></font> dummy works<br/>
+<font color="#A82F2F"><font size="2">(04:19:55 AM)</font> <b>lucascastro:</b></font> and so?<br/>
+<font color="#A82F2F"><font size="2">(04:19:56 AM)</font> <b>acidjazz:</b></font> 4 dummy interfaces<br/>
+<font color="#A82F2F"><font size="2">(04:19:57 AM)</font> <b>acidjazz:</b></font> sigh<br/>
+<font color="#A82F2F"><font size="2">(04:20:04 AM)</font> <b>acidjazz:</b></font> ok so at least thats nort broekn<br/>
+<font color="#A82F2F"><font size="2">(04:20:53 AM)</font> <b>lucascastro:</b></font> fine... you already check those aren&apos;t in blacklist?<br/>
+<font color="#A82F2F"><font size="2">(04:21:04 AM)</font> <b>acidjazz:</b></font> yea ill check again<br/>
+<font color="#A82F2F"><font size="2">(04:21:08 AM)</font> <b>acidjazz:</b></font> wheres are the blacklists<br/>
+<font color="#A82F2F"><font size="2">(04:21:18 AM)</font> <b>acidjazz:</b></font> are there maybe locations i dont know about<br/>
+<font color="#A82F2F"><font size="2">(04:21:57 AM)</font> <b>lucascastro:</b></font> is there some at blacklist.conf on /etc/modprobe.d/ ?<br/>
+<font size="2">(04:22:17 AM)</font><b> mode (+o eir) by ChanServ</b><br/>
+<font size="2">(04:22:34 AM)</font><b> mode (-bo *!02523603@gateway/* eir) by eir</b><br/>
+<font color="#A82F2F"><font size="2">(04:25:19 AM)</font> <b>acidjazz:</b></font> nothign fbdev or fbtft<br/>
+<font color="#A82F2F"><font size="2">(04:25:21 AM)</font> <b>acidjazz:</b></font> let me grep some more<br/>
+<font color="#A82F2F"><font size="2">(04:27:11 AM)</font> <b>acidjazz:</b></font> im getting crashing now<br/>
+<font color="#A82F2F"><font size="2">(04:27:13 AM)</font> <b>acidjazz:</b></font> and freezing<br/>
+<font color="#A82F2F"><font size="2">(04:27:38 AM)</font> <b>acidjazz:</b></font> systemd is not happy<br/>
+<font color="#A82F2F"><font size="2">(04:28:45 AM)</font> <b>acidjazz:</b></font> nah nothing in /etc/modprobe.d<br/>
+<font color="#A82F2F"><font size="2">(04:28:54 AM)</font> <b>acidjazz:</b></font> blacklists live anywhere else?<br/>
+<font color="#A82F2F"><font size="2">(04:29:15 AM)</font> <b>lucascastro:</b></font> I don&apos;t know what is happening<br/>
+<font color="#A82F2F"><font size="2">(04:29:31 AM)</font> <b>lucascastro:</b></font> the dummy modules worked so much fine.<br/>
+<font color="#A82F2F"><font size="2">(04:30:44 AM)</font> <b>acidjazz:</b></font> if i do modprobe -c i see the options<br/>
+<font color="#A82F2F"><font size="2">(04:31:24 AM)</font> <b>acidjazz:</b></font> i guess i ahve to use the rc.local trick<br/>
+<font color="#A82F2F"><font size="2">(04:31:27 AM)</font> <b>acidjazz:</b></font> is that bad?<br/>
+<font color="#A82F2F"><font size="2">(04:33:51 AM)</font> <b>lucascastro:</b></font> acidjazz, not bad, but it&apos;d be good if work like were to work. what is your device?<br/>
+<font size="2">(04:42:02 AM)</font><b> mode (+l 1556) by debhelper</b><br/>
+<font size="2">(04:52:02 AM)</font><b> mode (+l 1550) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:05:11 AM)</font> <b>Utils:</b></font> What&apos;s the repository to install GLIBC 2.14? I currently have  2.13 and a specific npm module requires 2.14.<br/>
+<font color="#A82F2F"><font size="2">(05:06:49 AM)</font> <b>Utils:</b></font> Oh interesting...<br/>
+<font color="#A82F2F"><font size="2">(05:07:02 AM)</font> <b>Utils:</b></font> I have eglibc 2.13, this makes things trickier.<br/>
+<font color="#A82F2F"><font size="2">(05:07:29 AM)</font> <b>themill:</b></font> If something wants a newer libc then it is not being compiled properly<br/>
+<font color="#A82F2F"><font size="2">(05:11:28 AM)</font> <b>Ooze:</b></font> This might be a silly question but can you hook an ethernet cable from the GB2 port to another server and have the connection continue through both servers?<br/>
+<font size="2">(05:14:13 AM)</font><b> Granis` is now known as Granis</b><br/>
+<font color="#A82F2F"><font size="2">(05:14:35 AM)</font> <b>DasEi:</b></font> Utils: tried backports ?<br/>
+<font size="2">(05:16:03 AM)</font><b> austin is now known as Guest16066</b><br/>
+<font color="#A82F2F"><font size="2">(05:22:59 AM)</font> <b>Utils:</b></font> I attempted to upgrade GLIBC before I noticd it was EGLIBC, it installed what I needed... while still having EGLIBC in place. I don&apos;t think I have any problems, things seem to be running fine.<br/>
+<font color="#A82F2F"><font size="2">(05:23:32 AM)</font> <b>Utils:</b></font> Having managed debian in the noobiest way possible since 2012, I still don&apos;t have a clue what I&apos;m doing half the time.<br/>
+<font color="#A82F2F"><font size="2">(05:23:54 AM)</font> <b>themill:</b></font> ick. sounds like you have a very unpleasant mess now.<br/>
+<font color="#A82F2F"><font size="2">(05:40:20 AM)</font> <b>veritas:</b></font> hey I need a video player that plays .wav files<br/>
+<font color="#A82F2F"><font size="2">(05:44:36 AM)</font> <b>StaticLNX:</b></font> anyone got a good guide to getting sound over xrdp in Debian?<br/>
+<font color="#A82F2F"><font size="2">(05:44:52 AM)</font> <b>polyphagia:</b></font> veritas: pretty much any of them<br/>
+<font color="#A82F2F"><font size="2">(05:51:25 AM)</font> <b>acidjazz:</b></font> why is there no chromium in jessie<br/>
+<font color="#A82F2F"><font size="2">(05:52:19 AM)</font> <b>polyphagia:</b></font> ,versions chromium<br/>
+<font color="#A82F2F"><font size="2">(05:52:20 AM)</font> <b>judd:</b></font> Package: chromium on i386 -- squeeze: 0.9.14.1-2; wheezy: 37.0.2062.120-1~deb7u1; wheezy-security: 37.0.2062.120-1~deb7u1; jessie: 40.0.2214.111-1; sid: 41.0.2272.76-2<br/>
+<font color="#A82F2F"><font size="2">(05:52:29 AM)</font> <b>polyphagia:</b></font> looks like it&apos;s there<br/>
+<font color="#A82F2F"><font size="2">(05:52:56 AM)</font> <b>acidjazz:</b></font> E: Package &apos;chromium-browser&apos; has no installation candidate<br/>
+<font color="#A82F2F"><font size="2">(05:53:06 AM)</font> <b>acidjazz:</b></font> E: Package &apos;chromium&apos; has no installation candidate<br/>
+<font color="#A82F2F"><font size="2">(05:53:09 AM)</font> <b>acidjazz:</b></font> what is wrong w/ my setup<br/>
+<font size="2">(05:54:56 AM)</font><b> shingouz_ is now known as shingouz</b><br/>
+<font color="#A82F2F"><font size="2">(05:55:16 AM)</font> <b>themill:</b></font> acidjazz: the output of &quot;apt-cache policy&quot; will be informative<br/>
+<font size="2">(06:14:53 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

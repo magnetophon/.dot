@@ -1,0 +1,605 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Thu 19 Feb 2015 12:31:55 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Thu 19 Feb 2015 12:31:55 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(12:31:55 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(12:31:55 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(12:32:03 AM)</font> <b>ttuegel:</b></font> anelson: if you are packaging your own software, there is really no limit to what you can put into the nix expression, i.e. how much nix can control for you<br/>
+<font color="#A82F2F"><font size="2">(12:32:33 AM)</font> <b>FrozenCow:</b></font> turtil, thanks! looks good. hopefully we can find why all this is happening :/<br/>
+<font color="#A82F2F"><font size="2">(12:33:49 AM)</font> <b>Haskellfant:</b></font> bennofs: so I guess that it wants to upgrade ghc-7.8.4 to the wrapper version is also wrong? afaik the wrapper versions are gone with haskellng?<br/>
+<font color="#A82F2F"><font size="2">(12:34:09 AM)</font> <b>bennofs:</b></font> Haskellfant: yes, they are<br/>
+<font color="#A82F2F"><font size="2">(12:36:11 AM)</font> <b>FrozenCow:</b></font> anyway, I&apos;m off...<br/>
+<font size="2">(12:36:28 AM)</font><b> FrozenCow left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(12:45:52 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] henrytill opened pull request #6445: hsetroot: fix shared library error (master...hsetroot) http://git.io/AIRg<br/>
+<font color="#A82F2F"><font size="2">(12:54:36 AM)</font> <b>butyoudonot:</b></font> m@nixos&gt; sudo nix-channel --update                                                                                                                                                                                                                         ~<br/>
+<font color="#A82F2F"><font size="2">(12:54:37 AM)</font> <b>butyoudonot:</b></font> /run/current-system/sw/bin/nix-channel: unable to check `https://nixos.org/channels/nixpkgs-unstable&apos;<br/>
+<font color="#A82F2F"><font size="2">(12:54:45 AM)</font> <b>butyoudonot:</b></font> Any ideas how to debug it?<br/>
+<font color="#A82F2F"><font size="2">(12:59:30 AM)</font> <b>butyoudonot:</b></font> Ah, it&apos;s an old good https git issue<br/>
+<font color="#A82F2F"><font size="2">(01:03:40 AM)</font> <b>avn:</b></font> Guys, which simpler program in nixpkgs, which capable to output rfc5424 capable messages to tcp syslog?<br/>
+<font color="#A82F2F"><font size="2">(01:05:29 AM)</font> <b>geomyidae_:</b></font> how difficult would it be to port this to nixpkgs? https://aur.archlinux.org/packages/plex-media-server-plexpass/<br/>
+<font color="#A82F2F"><font size="2">(01:09:29 AM)</font> <b>Haskellfant:</b></font> do I need to restart nix daemon for trusted-binary-caches to take effect?<br/>
+<font color="#A82F2F"><font size="2">(01:09:49 AM)</font> <b>Haskellfant:</b></font> I added hydra there but I still get the error that it&apos;s not trusted<br/>
+<font color="#A82F2F"><font size="2">(01:16:19 AM)</font> <b>Haskellfant:</b></font> apparently, it seems to work now<br/>
+<font color="#A82F2F"><font size="2">(01:16:23 AM)</font> <b>c0refile:</b></font> nix-collect-garbage question... been using myEnvFun, and I have a number of packages in /nix/store that don&apos;t have gc roots (according to nix-store --query --roots), but &apos;nix-collect-garbage -d&apos; won&apos;t remove them.... any ideas?<br/>
+<font color="#A82F2F"><font size="2">(01:17:48 AM)</font> <b>avn:</b></font> Which option in nixos enable forwarding from journald to ordinary syslog? (syslog-ng or rsyslogd)<br/>
+<font color="#A82F2F"><font size="2">(01:30:19 AM)</font> <b>ewemoa:</b></font> avn: on a side note, the following suggests that from certain versions of syslog-ng / rsyslog, those sysloggers read from the journal, is that relevant here? https://wiki.archlinux.org/index.php/Systemd#Journald_in_conjunction_with_syslog<br/>
+<font size="2">(01:31:37 AM)</font><b> pmahoney left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:32:08 AM)</font> <b>ewemoa:</b></font> c0refile: perhaps the --indirect flag docs in nix-store&apos;s man page might be relevant?<br/>
+<font color="#A82F2F"><font size="2">(02:13:18 AM)</font> <b>bfrog:</b></font> trying to build something with go... seeing &apos;cannot find ltdl&apos; using ld<br/>
+<font color="#A82F2F"><font size="2">(02:13:22 AM)</font> <b>bfrog:</b></font> wut<br/>
+<font color="#A82F2F"><font size="2">(02:13:36 AM)</font> <b>bfrog:</b></font> libtool and friends isn&apos;t installed?<br/>
+<font color="#A82F2F"><font size="2">(02:14:47 AM)</font> <b>avn:</b></font> ewemoa: on debian boxes I am enable forwarding, so all journald messages copied to ordinary syslog.<br/>
+<font color="#A82F2F"><font size="2">(02:15:22 AM)</font> <b>ewemoa:</b></font> avn: ordinary syslog is diff from syslog-ng and rsyslog, right?<br/>
+<font color="#A82F2F"><font size="2">(02:15:42 AM)</font> <b>avn:</b></font> ewemoa: well, I consider all of them &quot;ordinary&quot; aka traditional ;)<br/>
+<font color="#A82F2F"><font size="2">(02:17:11 AM)</font> <b>ewemoa:</b></font> avn: well i ask because, at least the arch link mentioned earlier suggests that specifically for syslog-ng and rsyslog greater than certain versions, they read the journal directly -- i didn&apos;t see anything mentioned about other syslogs<br/>
+<font size="2">(02:17:53 AM)</font><b> bfrog left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:19:16 AM)</font> <b>avn:</b></font> ahh, well, then I should try<br/>
+<font color="#A82F2F"><font size="2">(02:25:34 AM)</font> <b>kaidelong:</b></font> what does something like &quot;error: cannot repair path ‘/nix/store/1639i4y5ckzz997g98kpch9yzj56jyyy-zenity-2.32.1’&quot; mean?<br/>
+<font color="#A82F2F"><font size="2">(02:26:12 AM)</font> <b>kaidelong:</b></font> I was hoping nix-store --gc might get rid of it but obviously something depends on this<br/>
+<font color="#A82F2F"><font size="2">(02:26:20 AM)</font> <b>kaidelong:</b></font> it failed a hash code check<br/>
+<font color="#A82F2F"><font size="2">(02:27:10 AM)</font> <b>kaidelong:</b></font> incidentally, when I ran &quot;nix-store --verify --check-contents --repair&quot; to get that output<br/>
+<font color="#A82F2F"><font size="2">(02:27:13 AM)</font> <b>kaidelong:</b></font> it did not terminate<br/>
+<font color="#A82F2F"><font size="2">(02:27:35 AM)</font> <b>kaidelong:</b></font> I&apos;m worried this means I will corrupt the nix store further when I have to reboot<br/>
+<font color="#A82F2F"><font size="2">(02:28:06 AM)</font> <b>ewemoa:</b></font> kaidelong: haven&apos;t had the issue myself, but i notice a --repair mentioned in the nix-store man page<br/>
+<font color="#A82F2F"><font size="2">(02:28:21 AM)</font> <b>ewemoa:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(02:28:24 AM)</font> <b>ewemoa:</b></font> you tried --repair :)<br/>
+<font color="#A82F2F"><font size="2">(02:29:09 AM)</font> <b>ewemoa:</b></font> kaidelong: wonder if building again might work<br/>
+<font color="#A82F2F"><font size="2">(02:29:24 AM)</font> <b>kaidelong:</b></font> maybe I need to rebuild my user profile<br/>
+<font color="#A82F2F"><font size="2">(02:29:31 AM)</font> <b>kaidelong:</b></font> err<br/>
+<font color="#A82F2F"><font size="2">(02:29:33 AM)</font> <b>kaidelong:</b></font> how do I do that?<br/>
+<font color="#A82F2F"><font size="2">(02:29:55 AM)</font> <b>ewemoa:</b></font> kaidelong: do you use nix-env?<br/>
+<font color="#A82F2F"><font size="2">(02:30:10 AM)</font> <b>ewemoa:</b></font> i guess so<br/>
+<font color="#A82F2F"><font size="2">(02:30:25 AM)</font> <b>kaidelong:</b></font> is there a more idiomatic way to install things per-user?<br/>
+<font color="#A82F2F"><font size="2">(02:30:27 AM)</font> <b>ewemoa:</b></font> so maybe nix-env -i zenity might do something useful<br/>
+<font color="#A82F2F"><font size="2">(02:30:47 AM)</font> <b>kaidelong:</b></font> well it succeeded at least<br/>
+<font color="#A82F2F"><font size="2">(02:31:31 AM)</font> <b>ewemoa:</b></font> kaidelong: may be --check-contents will not report an error now<br/>
+<font color="#A82F2F"><font size="2">(02:31:39 AM)</font> <b>kaidelong:</b></font> same error<br/>
+<font color="#A82F2F"><font size="2">(02:31:55 AM)</font> <b>ewemoa:</b></font> ah, then what&apos;s in the nix store is still no good i guess<br/>
+<font color="#A82F2F"><font size="2">(02:32:10 AM)</font> <b>kaidelong:</b></font> nix-env probably installed a different version of zenity from the broken one?<br/>
+<font color="#A82F2F"><font size="2">(02:32:25 AM)</font> <b>ewemoa:</b></font> i guess that&apos;s possible<br/>
+<font color="#A82F2F"><font size="2">(02:32:55 AM)</font> <b>kaidelong:</b></font> I did make some mistakes in the install, like I accidentally ran nixos-install twice<br/>
+<font color="#A82F2F"><font size="2">(02:32:58 AM)</font> <b>ewemoa:</b></font> what do you see for ls -ald /nix/store/*zenity*<br/>
+<font color="#A82F2F"><font size="2">(02:33:21 AM)</font> <b>kaidelong:</b></font> 5 derivations<br/>
+<font color="#A82F2F"><font size="2">(02:33:46 AM)</font> <b>ewemoa:</b></font> kaidelong: hmm...no directories?<br/>
+<font color="#A82F2F"><font size="2">(02:33:51 AM)</font> <b>kaidelong:</b></font> all of them created &quot;Dec 31, 1969&quot; which probably has to do with that the nix liveCD could not communicate with my system clock out of the box<br/>
+<font color="#A82F2F"><font size="2">(02:34:10 AM)</font> <b>ewemoa:</b></font> i think the timestamps for the nix store don&apos;t reflect info about when things are installed<br/>
+<font color="#A82F2F"><font size="2">(02:34:49 AM)</font> <b>ewemoa:</b></font> kaidelong: for reference, here the dates are jan 1 1970 on dirs in /nix/store<br/>
+<font color="#A82F2F"><font size="2">(02:35:10 AM)</font> <b>kaidelong:</b></font>  /nix/store/05gi0szsbmmhax0jmym63lmwk1bxw9hx-zenity-3.12.1 and /nix/store/1639i4y5ckzz997g98kpch9yzj56jyyy-zenity-2.32.1 are highlighted in blue for some reason<br/>
+<font color="#A82F2F"><font size="2">(02:35:21 AM)</font> <b>kaidelong:</b></font> I guess they&apos;re simlinks<br/>
+<font color="#A82F2F"><font size="2">(02:35:24 AM)</font> <b>kaidelong:</b></font> sym*<br/>
+<font color="#A82F2F"><font size="2">(02:35:33 AM)</font> <b>kaidelong:</b></font> oh no<br/>
+<font color="#A82F2F"><font size="2">(02:35:35 AM)</font> <b>kaidelong:</b></font> they&apos;re directories<br/>
+<font color="#A82F2F"><font size="2">(02:35:36 AM)</font> <b>kaidelong:</b></font> I see<br/>
+<font color="#A82F2F"><font size="2">(02:35:37 AM)</font> <b>ewemoa:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(02:35:42 AM)</font> <b>ewemoa:</b></font> how many zenity dirs?<br/>
+<font color="#A82F2F"><font size="2">(02:35:50 AM)</font> <b>kaidelong:</b></font> just those two<br/>
+<font color="#A82F2F"><font size="2">(02:36:05 AM)</font> <b>ewemoa:</b></font> then no additional zenity 2.x was installed iiuc<br/>
+<font color="#A82F2F"><font size="2">(02:36:14 AM)</font> <b>kaidelong:</b></font> mmm<br/>
+<font color="#A82F2F"><font size="2">(02:36:15 AM)</font> <b>kaidelong:</b></font> I guess<br/>
+<font color="#A82F2F"><font size="2">(02:36:25 AM)</font> <b>kaidelong:</b></font> the thing I want to do here<br/>
+<font color="#A82F2F"><font size="2">(02:36:31 AM)</font> <b>kaidelong:</b></font> is run a reverse dependency check on zenity<br/>
+<font color="#A82F2F"><font size="2">(02:36:39 AM)</font> <b>kaidelong:</b></font> uninstall all the things that depend on it<br/>
+<font color="#A82F2F"><font size="2">(02:36:46 AM)</font> <b>kaidelong:</b></font> and garbage collect<br/>
+<font color="#A82F2F"><font size="2">(02:36:55 AM)</font> <b>kaidelong:</b></font> but I dunno if nixos has any reverse dependency resolver?<br/>
+<font color="#A82F2F"><font size="2">(02:37:08 AM)</font> <b>ewemoa:</b></font> kaidelong: some query related things mentioned in nix-store man page<br/>
+<font color="#A82F2F"><font size="2">(02:37:27 AM)</font> <b>ewemoa:</b></font> in OPERATION --QUERY section<br/>
+<font color="#A82F2F"><font size="2">(02:37:53 AM)</font> <b>kaidelong:</b></font> --referrers ?<br/>
+<font color="#A82F2F"><font size="2">(02:38:05 AM)</font> <b>ewemoa:</b></font> that sounds promising<br/>
+<font color="#A82F2F"><font size="2">(02:38:17 AM)</font> <b>kaidelong:</b></font> yeah that&apos;s probably it, &quot;--references&quot; gets the dependencies<br/>
+<font color="#A82F2F"><font size="2">(02:38:31 AM)</font> <b>ewemoa:</b></font> --referrers-closure may get indirect things too<br/>
+<font color="#A82F2F"><font size="2">(02:38:31 AM)</font> <b>kaidelong:</b></font> so it would be incredible surprising if &quot;--referrers&quot; did not do the opposite, I&apos;ll try it<br/>
+<font color="#A82F2F"><font size="2">(02:39:48 AM)</font> <b>kaidelong:</b></font> nixos-14.12.428 is a referrer<br/>
+<font color="#A82F2F"><font size="2">(02:40:00 AM)</font> <b>ewemoa:</b></font> may be rebuilding would help<br/>
+<font color="#A82F2F"><font size="2">(02:40:19 AM)</font> <b>kaidelong:</b></font> alright, how do I rebuild? Just to make sure I know<br/>
+<font color="#A82F2F"><font size="2">(02:41:08 AM)</font> <b>ewemoa:</b></font> kaidelong: nixos-rebuild with appropriate arg<br/>
+<font color="#A82F2F"><font size="2">(02:41:16 AM)</font> <b>goodwill:</b></font> erm, anyone got nixos on thinkpad ... I got trackpoint working but not the pad<br/>
+<font color="#A82F2F"><font size="2">(02:41:19 AM)</font> <b>goodwill:</b></font> trackpad<br/>
+<font color="#A82F2F"><font size="2">(02:41:27 AM)</font> <b>kaidelong:</b></font> alright<br/>
+<font color="#A82F2F"><font size="2">(02:41:31 AM)</font> <b>kaidelong:</b></font> so what I&apos;ve been doing<br/>
+<font color="#A82F2F"><font size="2">(02:41:33 AM)</font> <b>kaidelong:</b></font> mmm<br/>
+<font color="#A82F2F"><font size="2">(02:42:33 AM)</font> <b>kaidelong:</b></font> maybe I can try nixos-rebuild --upgrade<br/>
+<font color="#A82F2F"><font size="2">(02:42:47 AM)</font> <b>kaidelong:</b></font> and hope that a newer version of nixos doesn&apos;t depend on this version of zenity?<br/>
+<font color="#A82F2F"><font size="2">(02:43:06 AM)</font> <b>kaidelong:</b></font> seems like it&apos;d be dangerous to risk breaking the entire system though to deal with a bad path on the nix store<br/>
+<font color="#A82F2F"><font size="2">(02:43:53 AM)</font> <b>ewemoa:</b></font> kaidelong: if things are working appropriately you should be able to roll back to what you are using now<br/>
+<font color="#A82F2F"><font size="2">(02:44:20 AM)</font> <b>ewemoa:</b></font> e.g. here there are multiple boot entries in grub that get created<br/>
+<font color="#A82F2F"><font size="2">(02:44:26 AM)</font> <b>ewemoa:</b></font> so easy to boot in to older setups<br/>
+<font color="#A82F2F"><font size="2">(02:44:34 AM)</font> <b>kaidelong:</b></font> that&apos;s what the case was with my older installation of nixos<br/>
+<font color="#A82F2F"><font size="2">(02:44:40 AM)</font> <b>kaidelong:</b></font> which was what converted me<br/>
+<font color="#A82F2F"><font size="2">(02:44:48 AM)</font> <b>kaidelong:</b></font> this sadly doesn&apos;t seem to be the default behavior anymore<br/>
+<font color="#A82F2F"><font size="2">(02:44:53 AM)</font> <b>kaidelong:</b></font> I really would like that grub menu back<br/>
+<font color="#A82F2F"><font size="2">(02:45:16 AM)</font> <b>ewemoa:</b></font> kaidelong: no grub on the current machine? or just no grub menu?<br/>
+<font color="#A82F2F"><font size="2">(02:45:19 AM)</font> <b>kaidelong:</b></font> (it could be that I don&apos;t get it because I&apos;m using an EFI installation?)<br/>
+<font color="#A82F2F"><font size="2">(02:45:25 AM)</font> <b>kaidelong:</b></font> grub is invoked by gummiboot<br/>
+<font color="#A82F2F"><font size="2">(02:45:42 AM)</font> <b>kaidelong:</b></font> which because my BIOS doesn&apos;t play nice with gummiboot, is in turn invoked by refined<br/>
+<font color="#A82F2F"><font size="2">(02:46:00 AM)</font> <b>ewemoa:</b></font> ah, sorry, i have been avoiding (U)EFI for nixos -- won&apos;t be much help in that regard<br/>
+<font color="#A82F2F"><font size="2">(02:47:02 AM)</font> <b>kaidelong:</b></font> I would like to get rid of the gummiboot middleman but it&apos;d require me to change my configuration.nix and I can&apos;t find docs on what to change it to<br/>
+<font color="#A82F2F"><font size="2">(02:47:22 AM)</font> <b>ewemoa:</b></font> kaidelong: may be something here is relevant? http://nixos.org/nixos/manual/sec-installation.html#sec-uefi-installation<br/>
+<font color="#A82F2F"><font size="2">(02:47:57 AM)</font> <b>kaidelong:</b></font> yes that&apos;s the docs that got me to the point this thing was able to boot!<br/>
+<font color="#A82F2F"><font size="2">(02:47:59 AM)</font> <b>kaidelong:</b></font> they were helpful<br/>
+<font color="#A82F2F"><font size="2">(02:48:32 AM)</font> <b>ewemoa:</b></font> kaidelong: those instructions leave me with the impression that if you want to use uefi gummiboot is required (at least for the corr version of nixos)<br/>
+<font color="#A82F2F"><font size="2">(02:48:51 AM)</font> <b>kaidelong:</b></font> yeah I worked around that by using refined to invoke gummiboot<br/>
+<font color="#A82F2F"><font size="2">(02:49:11 AM)</font> <b>kaidelong:</b></font> (I could configure it to directly invoke grub but I&apos;d have to do that manually)<br/>
+<font color="#A82F2F"><font size="2">(02:49:12 AM)</font> <b>ewemoa:</b></font> kaidelong: what i mean is -- not having gummiboot might be riskier<br/>
+<font color="#A82F2F"><font size="2">(02:49:36 AM)</font> <b>ewemoa:</b></font> must you use (u)efi?<br/>
+<font color="#A82F2F"><font size="2">(02:50:03 AM)</font> <b>kaidelong:</b></font> mmm, I could turn it off maybe? although I&apos;d have to reinstall nixos then anyway<br/>
+<font color="#A82F2F"><font size="2">(02:50:17 AM)</font> <b>kaidelong:</b></font> actually<br/>
+<font color="#A82F2F"><font size="2">(02:50:18 AM)</font> <b>kaidelong:</b></font> would I?<br/>
+<font color="#A82F2F"><font size="2">(02:50:25 AM)</font> <b>kaidelong:</b></font> oh yes, I would<br/>
+<font color="#A82F2F"><font size="2">(02:50:34 AM)</font> <b>kaidelong:</b></font> because I&apos;m using a GPT partitioning scheme<br/>
+<font color="#A82F2F"><font size="2">(02:50:46 AM)</font> <b>ewemoa:</b></font> kaidelong: is your disk large?<br/>
+<font color="#A82F2F"><font size="2">(02:50:50 AM)</font> <b>ewemoa:</b></font> or many partitioned?<br/>
+<font color="#A82F2F"><font size="2">(02:50:53 AM)</font> <b>kaidelong:</b></font> 2TB<br/>
+<font color="#A82F2F"><font size="2">(02:50:55 AM)</font> <b>kaidelong:</b></font> 4 partitions<br/>
+<font color="#A82F2F"><font size="2">(02:50:56 AM)</font> <b>ewemoa:</b></font> ah i see<br/>
+<font color="#A82F2F"><font size="2">(02:51:25 AM)</font> <b>ewemoa:</b></font> so perhaps gpt is necessary<br/>
+<font color="#A82F2F"><font size="2">(02:51:48 AM)</font> <b>kaidelong:</b></font> I think I&apos;m stuck with EFI =(<br/>
+<font color="#A82F2F"><font size="2">(02:52:14 AM)</font> <b>kaidelong:</b></font> it&apos;s a bit awful because my lenovo bios doesn&apos;t want to invoke anything that doesn&apos;t call itself &quot;Windows Boot Loader&quot; or &quot;Red Hat Enterprise Linux Boot Loader&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:52:42 AM)</font> <b>kaidelong:</b></font> which I think is how I ended up at the refined-&gt;gummiboot hack<br/>
+<font color="#A82F2F"><font size="2">(02:53:24 AM)</font> <b>ewemoa:</b></font> kaidelong: is that hard-wired or may be there&apos;s something in the bios that one can tweak<br/>
+<font color="#A82F2F"><font size="2">(02:53:33 AM)</font> <b>kaidelong:</b></font> not that I could find<br/>
+<font color="#A82F2F"><font size="2">(02:53:39 AM)</font> <b>kaidelong:</b></font> perhaps if I flashed the bios?<br/>
+<font color="#A82F2F"><font size="2">(02:53:42 AM)</font> <b>ewemoa:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(02:53:47 AM)</font> <b>ewemoa:</b></font> which model?<br/>
+<font color="#A82F2F"><font size="2">(02:53:54 AM)</font> <b>kaidelong:</b></font> Lenovo HS520S<br/>
+<font color="#A82F2F"><font size="2">(02:54:04 AM)</font> <b>kaidelong:</b></font> although<br/>
+<font color="#A82F2F"><font size="2">(02:54:05 AM)</font> <b>ewemoa:</b></font> not familiar with that one<br/>
+<font color="#A82F2F"><font size="2">(02:54:09 AM)</font> <b>kaidelong:</b></font> I updated the BIOS pretty recently<br/>
+<font color="#A82F2F"><font size="2">(02:54:26 AM)</font> <b>kaidelong:</b></font> I wouldn&apos;t want to mess with the BIOS, the hack works well enough<br/>
+<font color="#A82F2F"><font size="2">(02:55:00 AM)</font> <b>kaidelong:</b></font> perhaps<br/>
+<font color="#A82F2F"><font size="2">(02:55:25 AM)</font> <b>kaidelong:</b></font> I should just live with zenity being broken until a new version of it comes out that nixos doesn&apos;t depend on<br/>
+<font color="#A82F2F"><font size="2">(02:55:29 AM)</font> <b>kaidelong:</b></font> err<br/>
+<font color="#A82F2F"><font size="2">(02:55:31 AM)</font> <b>kaidelong:</b></font> depends on instead<br/>
+<font color="#A82F2F"><font size="2">(02:55:44 AM)</font> <b>ewemoa:</b></font> kaidelong: i think rebuilding nixos is worth a try<br/>
+<font color="#A82F2F"><font size="2">(02:56:01 AM)</font> <b>kaidelong:</b></font> nixos-rebuild switch?<br/>
+<font color="#A82F2F"><font size="2">(02:56:14 AM)</font> <b>ewemoa:</b></font> may be it&apos;s worth trying nixos-rebuild test<br/>
+<font color="#A82F2F"><font size="2">(02:56:44 AM)</font> <b>ewemoa:</b></font> kaidelong: the result should be that your bootloader stuff won&apos;t be messed with<br/>
+<font color="#A82F2F"><font size="2">(02:56:48 AM)</font> <b>kaidelong:</b></font> it&apos;s pretty much a no-op<br/>
+<font color="#A82F2F"><font size="2">(02:56:51 AM)</font> <b>ewemoa:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(02:56:53 AM)</font> <b>kaidelong:</b></font> it completes instantly<br/>
+<font color="#A82F2F"><font size="2">(02:57:03 AM)</font> <b>ewemoa:</b></font> we would be able to see if /nix/store gets anything new<br/>
+<font color="#A82F2F"><font size="2">(02:57:09 AM)</font> <b>ewemoa:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(02:57:12 AM)</font> <b>ewemoa:</b></font> strange<br/>
+<font color="#A82F2F"><font size="2">(02:57:22 AM)</font> <b>kaidelong:</b></font> I&apos;ll try nixos-rebuild --upgrade test<br/>
+<font color="#A82F2F"><font size="2">(02:57:31 AM)</font> <b>ewemoa:</b></font> nixos-rebuild build?<br/>
+<font color="#A82F2F"><font size="2">(02:58:05 AM)</font> <b>kaidelong:</b></font> nixos-rebuild --upgrade test did add something to the nix store<br/>
+<font color="#A82F2F"><font size="2">(02:58:14 AM)</font> <b>kaidelong:</b></font> running nixos-rebuild build after that didn&apos;t do anything<br/>
+<font color="#A82F2F"><font size="2">(02:58:26 AM)</font> <b>ewemoa:</b></font> no symlink?<br/>
+<font color="#A82F2F"><font size="2">(02:58:44 AM)</font> <b>kaidelong:</b></font> no it didn&apos;t make any new symlinks<br/>
+<font color="#A82F2F"><font size="2">(02:58:50 AM)</font> <b>ewemoa:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(02:58:50 AM)</font> <b>kaidelong:</b></font> maybe I should try rebooting, though?<br/>
+<font color="#A82F2F"><font size="2">(02:59:03 AM)</font> <b>ewemoa:</b></font> before that<br/>
+<font color="#A82F2F"><font size="2">(02:59:09 AM)</font> <b>ewemoa:</b></font> may be it&apos;s worth checking dmesg for errors<br/>
+<font color="#A82F2F"><font size="2">(02:59:36 AM)</font> <b>ewemoa:</b></font> zenity being broken is strange<br/>
+<font color="#A82F2F"><font size="2">(02:59:43 AM)</font> <b>ewemoa:</b></font> and repair not working also seems strange<br/>
+<font color="#A82F2F"><font size="2">(03:00:26 AM)</font> <b>ewemoa:</b></font> kaidelong: nix-store man page suggests that --repair is likely to take a long time<br/>
+<font color="#A82F2F"><font size="2">(03:00:58 AM)</font> <b>ewemoa:</b></font> kaidelong: looks like --repair-path allows one to be more specific<br/>
+<font color="#A82F2F"><font size="2">(03:01:03 AM)</font> <b>ewemoa:</b></font> may be that is worth trying for zenity<br/>
+<font color="#A82F2F"><font size="2">(03:01:26 AM)</font> <b>kaidelong:</b></font> nothing weird in my dmesg other than some firewall hits<br/>
+<font color="#A82F2F"><font size="2">(03:02:24 AM)</font> <b>ewemoa:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(03:02:30 AM)</font> <b>ewemoa:</b></font> kaidelong: in your case may be it&apos;s worth trying:<br/>
+<font color="#A82F2F"><font size="2">(03:02:34 AM)</font> <b>ewemoa:</b></font> nix-store --repair-path /nix/store/1639i4y5ckzz997g98kpch9yzj56jyyy-zenity-2.32.1<br/>
+<font color="#A82F2F"><font size="2">(03:02:58 AM)</font> <b>ewemoa:</b></font> it was the 2.x version that was broken right?<br/>
+<font color="#A82F2F"><font size="2">(03:03:09 AM)</font> <b>kaidelong:</b></font> error: cannot repair path ‘/nix/store/1639i4y5ckzz997g98kpch9yzj56jyyy-zenity-2.32.1’<br/>
+<font color="#A82F2F"><font size="2">(03:03:18 AM)</font> <b>kaidelong:</b></font> I believe it was, yes<br/>
+<font color="#A82F2F"><font size="2">(03:03:21 AM)</font> <b>ewemoa:</b></font> tnx<br/>
+<font color="#A82F2F"><font size="2">(03:03:25 AM)</font> <b>ewemoa:</b></font> did you try as root?<br/>
+<font color="#A82F2F"><font size="2">(03:03:38 AM)</font> <b>kaidelong:</b></font> I am logged in as root through sudo<br/>
+<font color="#A82F2F"><font size="2">(03:03:44 AM)</font> <b>ewemoa:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(03:03:45 AM)</font> <b>kaidelong:</b></font> that is important on some distros but<br/>
+<font color="#A82F2F"><font size="2">(03:03:53 AM)</font> <b>kaidelong:</b></font> I imagine it wouldn&apos;t be<br/>
+<font color="#A82F2F"><font size="2">(03:04:00 AM)</font> <b>ewemoa:</b></font> i think it should be ok as you suggest<br/>
+<font color="#A82F2F"><font size="2">(03:04:23 AM)</font> <b>kaidelong:</b></font> well, thanks for the help<br/>
+<font color="#A82F2F"><font size="2">(03:04:33 AM)</font> <b>ewemoa:</b></font> kaidelong: sorry i wasn&apos;t much help<br/>
+<font color="#A82F2F"><font size="2">(03:04:45 AM)</font> <b>kaidelong:</b></font> well I understand the troubleshooting process better now<br/>
+<font color="#A82F2F"><font size="2">(03:04:49 AM)</font> <b>ewemoa:</b></font> good luck :)<br/>
+<font color="#A82F2F"><font size="2">(03:05:07 AM)</font> <b>kaidelong:</b></font> thank you<br/>
+<font size="2">(03:05:18 AM)</font><b> kaidelong left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(03:05:40 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 3 new commits to master: http://git.io/ALJj<br/>
+<font color="#A82F2F"><font size="2">(03:05:41 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 51cc961 William A. Kennington III: openexr: 1.7.1 -&gt; 2.2.0<br/>
+<font color="#A82F2F"><font size="2">(03:05:41 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e9c1a56 William A. Kennington III: ilmbase: Update to openexr version<br/>
+<font color="#A82F2F"><font size="2">(03:05:41 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f94d0c3 William A. Kennington III: ctl: Update to 1.5.2<br/>
+<font color="#A82F2F"><font size="2">(03:06:11 AM)</font> <b>joelteon:</b></font> how do I gc .drv files?<br/>
+<font size="2">(03:07:11 AM)</font><b> kaidelong [<em>~kaidelong@73.11.13.223</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:08:18 AM)</font> <b>joelteon:</b></font> can I just remove them?<br/>
+<font color="#A82F2F"><font size="2">(03:09:17 AM)</font> <b>joelteon:</b></font> oh wait, it&apos;s bxeacuse it&apos;s live still<br/>
+<font color="#A82F2F"><font size="2">(03:09:18 AM)</font> <b>joelteon:</b></font> my bad<br/>
+<font color="#A82F2F"><font size="2">(03:09:21 AM)</font> <b>joelteon:</b></font> because...<br/>
+<font color="#A82F2F"><font size="2">(03:11:55 AM)</font> <b>ewemoa:</b></font> goodwill: i noticed a configuration.nix for an ideapad mentioning something about synaptics -- may be that&apos;s worth looking at? https://github.com/ierton/nixrc/blob/master/nixos-intel-ideapad.nix<br/>
+<font color="#A82F2F"><font size="2">(03:16:12 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/ALkO<br/>
+<font color="#A82F2F"><font size="2">(03:16:12 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 47f9a27 William A. Kennington III: graphviz: Add a no x dependency version<br/>
+<font color="#A82F2F"><font size="2">(03:17:45 AM)</font> <b>kaidelong:</b></font> now to try and figure out why KDE cannot play sound<br/>
+<font color="#A82F2F"><font size="2">(03:21:16 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/ALIt<br/>
+<font color="#A82F2F"><font size="2">(03:21:16 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 524e815 William A. Kennington III: krb5: 1.13 -&gt; 1.13.1<br/>
+<font color="#A82F2F"><font size="2">(03:30:29 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] codyopel opened pull request #6446: wayland: 1.6.0 -&gt; 1.7.0 &amp; add optinals (master...wayland) http://git.io/ALtI<br/>
+<font color="#A82F2F"><font size="2">(03:31:48 AM)</font> <b>ewemoa:</b></font> kaidelong: i don&apos;t use kde but when i had audio-related issues, i found some of the following content to be helpful: https://nixos.org/wiki/Audio_HOWTO<br/>
+<font color="#A82F2F"><font size="2">(04:19:25 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] copumpkin pushed 1 new commit to master: http://git.io/ALnC<br/>
+<font color="#A82F2F"><font size="2">(04:19:25 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e25150b Dan Peebles: No need for this hack anymore<br/>
+<font color="#A82F2F"><font size="2">(04:33:15 AM)</font> <b>kaidelong:</b></font> that had been my reference so far, yes!<br/>
+<font color="#A82F2F"><font size="2">(04:33:33 AM)</font> <b>kaidelong:</b></font> audio seems to work for everything except for KDE, so I imagine it&apos;s phonon-related<br/>
+<font size="2">(04:43:26 AM)</font><b> kaidelong left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:48:12 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wizeman pushed 1 new commit to master: http://git.io/AL4I<br/>
+<font color="#A82F2F"><font size="2">(04:48:12 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 99eb870 Ricardo M. Correia: grsecurity: Update stable patch from 3.0-3.14.33-201502180832 -&gt; 3.0-3.14.33-201502181906<br/>
+<font color="#A82F2F"><font size="2">(04:52:31 AM)</font> <b>kaidelong:</b></font> is there an idiomatic way to set up an X11 panic keychain?<br/>
+<font color="#A82F2F"><font size="2">(05:08:09 AM)</font> <b>c0refile:</b></font> ewemoa: sorry for taking so long to respond, was afk... thanks for the suggestion, but i don&apos;t have any entries in /nix/var/nix/gcroots/auto either :(<br/>
+<font size="2">(05:09:52 AM)</font><b> c0refile left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(05:20:29 AM)</font> <b>McEnroe:</b></font> systemd service question: How do &quot;mkdir ... &amp;&amp; chown&quot; as root while having set &quot;User = sth-else&quot; for the service?<br/>
+<font color="#A82F2F"><font size="2">(05:20:42 AM)</font> <b>McEnroe:</b></font> ... within nixos modules<br/>
+<font size="2">(05:29:46 AM)</font><b> c74d is now known as Guest12641</b><br/>
+<font color="#A82F2F"><font size="2">(05:39:30 AM)</font> <b>MP2E:</b></font> anyone cross compile windows64 programs with NixOS?<br/>
+<font color="#A82F2F"><font size="2">(05:39:42 AM)</font> <b>MP2E:</b></font> i suppose i should ask my real question first<br/>
+<font color="#A82F2F"><font size="2">(05:39:50 AM)</font> <b>MP2E:</b></font> I have this https://github.com/MP2E/nix-projects/blob/master/mingw-w64.nix<br/>
+<font size="2">(05:40:03 AM)</font><b> hugod is now known as Guest67199</b><br/>
+<font color="#A82F2F"><font size="2">(05:40:22 AM)</font> <b>MP2E:</b></font> I want to cross compile a nix expression i&apos;ve written and i&apos;m evoking nix-build with &apos;nix-build -I nixpkgs=/home/cray/nixpkgs -A windows64.doom64ex.crossDrv mingw-w64.nix&apos;<br/>
+<font color="#A82F2F"><font size="2">(05:40:32 AM)</font> <b>MP2E:</b></font> however, the cross toolchain isn&apos;t even building<br/>
+<font color="#A82F2F"><font size="2">(05:40:40 AM)</font> <b>MP2E:</b></font> it says resource.h is missing I believe?<br/>
+<font color="#A82F2F"><font size="2">(05:40:51 AM)</font> <b>MP2E:</b></font> just was curious if there&apos;s a quick fix for this<br/>
+<font color="#A82F2F"><font size="2">(05:49:47 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] eduarrrd opened pull request #6448: ddclient module: fix module (master...ddclient) http://git.io/ALw1<br/>
+<font size="2">(06:11:47 AM)</font><b> MichaelRaskin [<em>~MichaelRa@195.178.216.113</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:44:25 AM)</font> <b>nkar:</b></font> mpd fails to install with: mu mpd-pre-start[7508]: mkdir: cannot create directory ‘/var/lib/mpd’: Permission denied  I&apos;ll try specifying a different dataDir, but is this behavior expected?<br/>
+<font color="#A82F2F"><font size="2">(06:48:42 AM)</font> <b>nkar:</b></font> nah, that didn&apos;t help: http://dpaste.com/15QKEPZ<br/>
+<font color="#A82F2F"><font size="2">(07:31:53 AM)</font> <b>MagBo:</b></font> So, I guess NixThor had a problem with libsigsegv; did anyone reproduce/fix it?<br/>
+<font color="#A82F2F"><font size="2">(07:32:22 AM)</font> <b>MagBo:</b></font> I&apos;m facing exactly this — https://gist.github.com/thorhop/dcd23750d5dabb259e03<br/>
+<font color="#A82F2F"><font size="2">(07:32:34 AM)</font> <b>MagBo:</b></font> (error-wise)<br/>
+<font size="2">(07:33:02 AM)</font><b> c74d is now known as Guest61840</b><br/>
+<font color="#A82F2F"><font size="2">(07:56:15 AM)</font> <b>copumpkin:</b></font> anyone have opinions on https://github.com/NixOS/nixpkgs/issues/6188?<br/>
+<font color="#A82F2F"><font size="2">(07:56:58 AM)</font> <b>MP2E:</b></font> not really, i&apos;d say axe the old point releases but i don&apos;t use ruby too much<br/>
+<font color="#A82F2F"><font size="2">(08:04:00 AM)</font> <b>Digit:</b></font> interesting: https://vivaldi.com/#Story  ...hope to see packaged for nixos .<br/>
+<font color="#A82F2F"><font size="2">(08:06:00 AM)</font> <b>Digit:</b></font> o wait, nm... seems like they follow a different philosophy drum to me.<br/>
+<font size="2">(08:14:19 AM)</font><b> contrapumpkin is now known as copumpkin</b><br/>
+<font color="#062585"><font size="2">(08:20:33 AM)</font> <b>***ewemoa</b></font> thanks Fuuzetsu for easytag<br/>
+<font size="2">(08:46:01 AM)</font><b> Chris is now known as Guest34651</b><br/>
+<font color="#A82F2F"><font size="2">(09:08:22 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] garrison opened pull request #6450: julia: 0.3.5 -&gt; 0.3.6 (master...julia-v0.3.6) http://git.io/AtLW<br/>
+<font size="2">(09:51:25 AM)</font><b> Lethalman [<em>~luca@89.118.249.114</em>] entered the room.</b><br/>
+<font size="2">(09:53:15 AM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:53:58 AM)</font> <b>josteink:</b></font> whats the &quot;normal&quot; strategy for building software in nixos?<br/>
+<font color="#A82F2F"><font size="2">(09:54:12 AM)</font> <b>josteink:</b></font> obviously running ./configure &amp;&amp; make runs against the spirit of the OS<br/>
+<font color="#A82F2F"><font size="2">(09:54:26 AM)</font> <b>josteink:</b></font> and resolving library dependencies doesn&apos;t really work as I&apos;m used to<br/>
+<font color="#A82F2F"><font size="2">(09:54:27 AM)</font> <b>Lethalman:</b></font> package it<br/>
+<font color="#A82F2F"><font size="2">(09:54:54 AM)</font> <b>goibhniu:</b></font> you can also add a default.nix to your project<br/>
+<font color="#A82F2F"><font size="2">(09:55:05 AM)</font> <b>josteink:</b></font> got a n00b-friendly link for taking a &quot;./configure &amp;&amp; make&quot; into a *.nix file?<br/>
+<font color="#A82F2F"><font size="2">(09:55:14 AM)</font> <b>josteink:</b></font> basicaly how one would approach the problem?<br/>
+<font color="#A82F2F"><font size="2">(09:55:25 AM)</font> <b>Lethalman:</b></font> josteink, read the nix manual, read other expressions<br/>
+<font color="#A82F2F"><font size="2">(09:55:40 AM)</font> <b>Lethalman:</b></font> you must learn nix<br/>
+<font color="#A82F2F"><font size="2">(09:56:19 AM)</font> <b>josteink:</b></font> sometimes you get exactly the answer you dont want ;)<br/>
+<font color="#A82F2F"><font size="2">(09:56:47 AM)</font> <b>Lethalman:</b></font> josteink, why are you using nixos_<br/>
+<font color="#A82F2F"><font size="2">(09:56:53 AM)</font> <b>Lethalman:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(09:57:04 AM)</font> <b>josteink:</b></font> I was about to thank you for the help in theat github thread<br/>
+<font color="#A82F2F"><font size="2">(09:57:21 AM)</font> <b>josteink:</b></font> it seems different. I like the idea of a &quot;stateless&quot; system where everything can be rebuilt easily<br/>
+<font color="#A82F2F"><font size="2">(09:57:34 AM)</font> <b>Lethalman:</b></font> josteink, so if you like it, don&apos;t configure make make install<br/>
+<font color="#A82F2F"><font size="2">(09:57:50 AM)</font> <b>josteink:</b></font> it&apos;s just that doing a full dive-in where -everything- needs to work is a bit heavier than just fooling around in a test-VM<br/>
+<font color="#A82F2F"><font size="2">(09:57:54 AM)</font> <b>josteink:</b></font> things takes time<br/>
+<font color="#A82F2F"><font size="2">(09:58:01 AM)</font> <b>Lethalman:</b></font> josteink, take your time :)<br/>
+<font color="#A82F2F"><font size="2">(09:58:11 AM)</font> <b>josteink:</b></font> its like emacs. you may like emacs, and the packages, but you dont want to learn elisp right away<br/>
+<font color="#A82F2F"><font size="2">(09:58:22 AM)</font> <b>Lethalman:</b></font> I used emacs for years without learning elisp<br/>
+<font color="#A82F2F"><font size="2">(09:58:34 AM)</font> <b>Lethalman:</b></font> because I never had to write anything<br/>
+<font color="#A82F2F"><font size="2">(09:58:39 AM)</font> <b>Lethalman:</b></font> if I had to, I had to learn elisp<br/>
+<font color="#A82F2F"><font size="2">(09:58:44 AM)</font> <b>Lethalman:</b></font> now you have to write a package, so you have to learn nix<br/>
+<font color="#A82F2F"><font size="2">(09:58:51 AM)</font> <b>viric:</b></font> where does KDE store how to run &quot;Gimp&quot;?<br/>
+<font color="#A82F2F"><font size="2">(09:58:59 AM)</font> <b>viric:</b></font> - what binary to run<br/>
+<font color="#A82F2F"><font size="2">(09:59:09 AM)</font> <b>Lethalman:</b></font> viric, it&apos;s usually a .desktop file<br/>
+<font color="#A82F2F"><font size="2">(09:59:09 AM)</font> <b>viric:</b></font> I can&apos;t find anything particular in ~/.kde<br/>
+<font color="#A82F2F"><font size="2">(09:59:20 AM)</font> <b>Lethalman:</b></font> not sure on kde, but generally on DEs<br/>
+<font color="#A82F2F"><font size="2">(09:59:35 AM)</font> <b>Lethalman:</b></font> viric, and it&apos;s probably installed by gimp in share/applications<br/>
+<font color="#A82F2F"><font size="2">(09:59:35 AM)</font> <b>viric:</b></font> but I can&apos;t find a reference to any gimp .desktop file in ~/.kde<br/>
+<font color="#A82F2F"><font size="2">(09:59:41 AM)</font> <b>Lethalman:</b></font> viric, why ~/.kde?<br/>
+<font color="#A82F2F"><font size="2">(09:59:46 AM)</font> <b>Lethalman:</b></font> how did you install gimp?<br/>
+<font color="#A82F2F"><font size="2">(10:00:02 AM)</font> <b>viric:</b></font> well, kde seems to reference an old gimp<br/>
+<font color="#A82F2F"><font size="2">(10:00:13 AM)</font> <b>viric:</b></font> not the last I have installed<br/>
+<font color="#A82F2F"><font size="2">(10:00:18 AM)</font> <b>Lethalman:</b></font> viric, if you upgraded it while still running kde, it&apos;s probable yes<br/>
+<font color="#A82F2F"><font size="2">(10:00:23 AM)</font> <b>Lethalman:</b></font> same problem with gnome<br/>
+<font color="#A82F2F"><font size="2">(10:00:35 AM)</font> <b>josteink:</b></font> viric: viric  ~/.local/share/applications/ ?<br/>
+<font color="#A82F2F"><font size="2">(10:00:42 AM)</font> <b>Lethalman:</b></font> the problem is that these DEs don&apos;t follow when profile symlinks change<br/>
+<font color="#A82F2F"><font size="2">(10:00:52 AM)</font> <b>Lethalman:</b></font> josteink, no it should be a share/applications in a profile<br/>
+<font color="#A82F2F"><font size="2">(10:00:54 AM)</font> <b>viric:</b></font> ah nice one ,josteink . But it&apos;s not there<br/>
+<font color="#A82F2F"><font size="2">(10:01:15 AM)</font> <b>Lethalman:</b></font> viric, really the .desktop should come with the gimp package, so search in any of the profiles<br/>
+<font color="#A82F2F"><font size="2">(10:01:21 AM)</font> <b>viric:</b></font> let&apos;s see restarting kde. KDE wasn&apos;t restarted since the gimp update<br/>
+<font color="#A82F2F"><font size="2">(10:01:21 AM)</font> <b>Lethalman:</b></font> the problem is as I stated<br/>
+<font color="#A82F2F"><font size="2">(10:02:21 AM)</font> <b>viric:</b></font> ah restaring KDE seems to have had a good effect<br/>
+<font color="#A82F2F"><font size="2">(10:02:27 AM)</font> <b>viric:</b></font> it may read the .dekstop files at kde start<br/>
+<font color="#A82F2F"><font size="2">(10:02:48 AM)</font> <b>Lethalman:</b></font> viric, no<br/>
+<font color="#A82F2F"><font size="2">(10:02:57 AM)</font> <b>Lethalman:</b></font> they don&apos;t follow when profile symlinks change<br/>
+<font color="#A82F2F"><font size="2">(10:03:09 AM)</font> <b>Lethalman:</b></font> they listen for notifications about filesystem changes<br/>
+<font color="#A82F2F"><font size="2">(10:03:14 AM)</font> <b>viric:</b></font> ah.<br/>
+<font color="#A82F2F"><font size="2">(10:03:16 AM)</font> <b>Lethalman:</b></font> so they stick with the original directory<br/>
+<font color="#A82F2F"><font size="2">(10:03:35 AM)</font> <b>viric:</b></font> well, in my case, I erased gimp in the &apos;default&apos; profile, and put it into configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(10:03:40 AM)</font> <b>viric:</b></font> so even harder :)<br/>
+<font color="#A82F2F"><font size="2">(10:03:47 AM)</font> <b>Lethalman:</b></font> the same<br/>
+<font color="#A82F2F"><font size="2">(10:03:52 AM)</font> <b>viric:</b></font> thank you.<br/>
+<font color="#A82F2F"><font size="2">(10:04:04 AM)</font> <b>Lethalman:</b></font> this is a tough problem to solve<br/>
+<font color="#A82F2F"><font size="2">(10:05:17 AM)</font> <b>ocharles_:</b></font> Fuuzetsu: I could have sworn there was a nixpkgs issue about haskell-ng and emacs packaging<br/>
+<font color="#A82F2F"><font size="2">(10:05:24 AM)</font> <b>ocharles_:</b></font> does that ring any bells for you?<br/>
+<font color="#A82F2F"><font size="2">(10:13:43 AM)</font> <b>ewemoa:</b></font> josteink: if you start by modifying an existing nix expression (a simple one) perhaps it won&apos;t be so bad :)<br/>
+<font color="#A82F2F"><font size="2">(10:15:26 AM)</font> <b>Lethalman:</b></font> josteink, like this :) https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/misc/hello/ex-2/default.nix<br/>
+<font color="#A82F2F"><font size="2">(10:19:04 AM)</font> <b>josteink:</b></font> Lethalman: a very good start. thanks. now I just need to figure out how to handle dependencies.<br/>
+<font size="2">(10:19:04 AM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#A82F2F"><font size="2">(10:19:16 AM)</font> <b>Lethalman:</b></font> josteink, right, buildInputs<br/>
+<font color="#A82F2F"><font size="2">(10:19:32 AM)</font> <b>josteink:</b></font> Ill bookmark it and take a look at it later, when Im not at work and not supposed to do things like this ;)<br/>
+<font color="#A82F2F"><font size="2">(10:20:11 AM)</font> <b>josteink:</b></font> Lethalman: I have to say, this is probably very good for the NixOS ecosystem<br/>
+<font color="#A82F2F"><font size="2">(10:20:26 AM)</font> <b>josteink:</b></font> if the only way to build software is to also build packages... you probably do get a fair amount of packages for free<br/>
+<font color="#A82F2F"><font size="2">(10:20:33 AM)</font> <b>ewemoa:</b></font> indeed...my first n months was spent packaging things i wanted to use that didn&apos;t exist yet :)<br/>
+<font color="#A82F2F"><font size="2">(10:20:52 AM)</font> <b>josteink:</b></font> in Ubuntu i just built this stuff for my self, in a non-repeatable, non-organized manner<br/>
+<font color="#A82F2F"><font size="2">(10:21:16 AM)</font> <b>Lethalman:</b></font> ewemoa, lol<br/>
+<font color="#A82F2F"><font size="2">(10:21:58 AM)</font> <b>josteink:</b></font> ewemoa: so you&apos;re telling to get someone else using NixOS to &quot;need&quot; exact-image and hocr2pdf and wait it out a copule of months? :P<br/>
+<font color="#A82F2F"><font size="2">(10:22:42 AM)</font> <b>Lethalman:</b></font> josteink, we package stuff for our own needs, it&apos;s not that we crawl the web and package anything we find :P<br/>
+<font color="#A82F2F"><font size="2">(10:22:52 AM)</font> <b>josteink:</b></font> mhm<br/>
+<font color="#A82F2F"><font size="2">(10:22:59 AM)</font> <b>josteink:</b></font> I absolutely find that fair enough<br/>
+<font color="#A82F2F"><font size="2">(10:23:20 AM)</font> <b>josteink:</b></font> Im versed enough in open-source to know how it actually works ;)<br/>
+<font color="#A82F2F"><font size="2">(10:23:30 AM)</font> <b>josteink:</b></font> a whole lot of itch-scratching :)<br/>
+<font color="#A82F2F"><font size="2">(10:24:37 AM)</font> <b>ewemoa:</b></font> josteink: patience can have its pay-offs sometimes ;)<br/>
+<font color="#A82F2F"><font size="2">(10:26:56 AM)</font> <b>Lethalman:</b></font> unstable releases are on a rampage..... waiting for cache.nixos.org to fill :(<br/>
+<font color="#062585"><font size="2">(10:30:08 AM)</font> <b>***Lethalman</b></font> has to blog post and suggest to use the latest unstable release... so<br/>
+<font color="#A82F2F"><font size="2">(10:41:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] rushmorem opened pull request #6451: New package: Mesos marathon framework (master...mesos-marathon) http://git.io/Atu7<br/>
+<font color="#A82F2F"><font size="2">(10:41:50 AM)</font> <b>viric:</b></font> Is it only me, or gitk shows a graph very hard to follow (nixpkgs master)?<br/>
+<font color="#A82F2F"><font size="2">(10:42:25 AM)</font> <b>viric:</b></font> It&apos;s a hell, compared to fossil.<br/>
+<font color="#A82F2F"><font size="2">(10:43:17 AM)</font> <b>josteink:</b></font> https://github.com/NixOS/nixpkgs/network ?<br/>
+<font color="#A82F2F"><font size="2">(10:43:28 AM)</font> <b>josteink:</b></font> git commit-graphs can be very hard to follow if people dont rebase :(<br/>
+<font color="#A82F2F"><font size="2">(10:46:43 AM)</font> <b>viric:</b></font> because git is a big tool from hell<br/>
+<font color="#A82F2F"><font size="2">(10:46:56 AM)</font> <b>viric:</b></font> rebase completely destroys the history of development<br/>
+<font color="#A82F2F"><font size="2">(10:48:17 AM)</font> <b>Lethalman:</b></font> viric, that&apos;s because you don&apos;t tell it to preserve merges<br/>
+<font color="#A82F2F"><font size="2">(10:48:23 AM)</font> <b>Lethalman:</b></font> if that&apos;s what you mean<br/>
+<font color="#A82F2F"><font size="2">(10:48:28 AM)</font> <b>viric:</b></font> me?<br/>
+<font color="#A82F2F"><font size="2">(10:48:31 AM)</font> <b>Lethalman:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(10:48:35 AM)</font> <b>viric:</b></font> tell me how can I call gitk so it helps me :)<br/>
+<font color="#A82F2F"><font size="2">(10:49:11 AM)</font> <b>Lethalman:</b></font> sorry don&apos;t know why you talked about rebase and then gitk<br/>
+<font color="#A82F2F"><font size="2">(10:49:29 AM)</font> <b>Lethalman:</b></font> but always git rebase -p<br/>
+<font color="#A82F2F"><font size="2">(10:49:46 AM)</font> <b>viric:</b></font> I said that gitk gives a graph very hard to follow. Then josteink said that people should not merge but rebase.<br/>
+<font color="#A82F2F"><font size="2">(10:50:06 AM)</font> <b>viric:</b></font> and you told me theat I should tell git to preserve merges, which I don&apos;t understand what I should I do specifically.<br/>
+<font size="2">(10:51:38 AM)</font><b> straycat is now known as ofcourseistilllo</b><br/>
+<font color="#A82F2F"><font size="2">(10:52:38 AM)</font> <b>viric:</b></font> in git, it seems like it takes for granted that branching is an involuntary action<br/>
+<font color="#A82F2F"><font size="2">(10:53:01 AM)</font> <b>viric:</b></font> So there is nothing that helps tracking the purpose of any branch or merge along time.<br/>
+<font color="#A82F2F"><font size="2">(10:53:21 AM)</font> <b>viric:</b></font> so the merge is involuntary<br/>
+<font color="#A82F2F"><font size="2">(10:53:28 AM)</font> <b>bennofs:</b></font> git log --graph in nixpkgs doesn&apos;t look too bad IMO<br/>
+<font color="#A82F2F"><font size="2">(10:53:33 AM)</font> <b>Lethalman:</b></font> ah didn&apos;t follow then sorry ahah<br/>
+<font color="#A82F2F"><font size="2">(10:53:49 AM)</font> <b>viric:</b></font> bennofs: really? then I may have a too little brain :)<br/>
+<font color="#A82F2F"><font size="2">(10:54:20 AM)</font> <b>Lethalman:</b></font> anyway I agree that following branches is hard<br/>
+<font color="#A82F2F"><font size="2">(10:54:25 AM)</font> <b>viric:</b></font> Lethalman: in git<br/>
+<font color="#A82F2F"><font size="2">(10:54:36 AM)</font> <b>Lethalman:</b></font> because git doesn&apos;t help to distinguish commits that have been done specifically in that branch once merged<br/>
+<font color="#A82F2F"><font size="2">(10:55:17 AM)</font> <b>viric:</b></font> it doesn&apos;t distinguish voluntary branching from unwanted forks.<br/>
+<font color="#A82F2F"><font size="2">(10:56:18 AM)</font> <b>Phlogistique:</b></font> what&apos;s an &quot;unwanted fork&quot;?<br/>
+<font color="#A82F2F"><font size="2">(10:57:13 AM)</font> <b>viric:</b></font> you commit in your local &apos;master&apos;, and other people commit to the remote &apos;master&apos;<br/>
+<font color="#A82F2F"><font size="2">(10:57:47 AM)</font> <b>viric:</b></font> then there are two heads for master<br/>
+<font color="#A82F2F"><font size="2">(10:57:53 AM)</font> <b>josteink:</b></font> &lt; viric&gt; rebase completely destroys the history of development<br/>
+<font color="#A82F2F"><font size="2">(10:57:57 AM)</font> <b>josteink:</b></font> only if you use it wrongly<br/>
+<font color="#A82F2F"><font size="2">(10:58:15 AM)</font> <b>Lethalman:</b></font> viric, agreed<br/>
+<font color="#A82F2F"><font size="2">(10:58:22 AM)</font> <b>josteink:</b></font> Im not talking about rewriting public history. Im talking about rebasing your own patch/feature on top of master<br/>
+<font color="#A82F2F"><font size="2">(10:58:23 AM)</font> <b>Lethalman:</b></font> when you &quot;pull&quot; you merge the remote branch<br/>
+<font color="#A82F2F"><font size="2">(10:58:35 AM)</font> <b>Lethalman:</b></font> there is the first time you lose the ability to distinguish your own commits etc. once merged<br/>
+<font color="#A82F2F"><font size="2">(10:58:42 AM)</font> <b>josteink:</b></font> viric: such is a the nature DVCS<br/>
+<font color="#A82F2F"><font size="2">(10:58:48 AM)</font> <b>MichaelRaskin:</b></font> josteink:<br/>
+<font color="#A82F2F"><font size="2">(10:58:49 AM)</font> <b>viric:</b></font> that is the nature of GIT<br/>
+<font color="#A82F2F"><font size="2">(10:58:50 AM)</font> <b>MichaelRaskin:</b></font> No<br/>
+<font color="#A82F2F"><font size="2">(10:58:56 AM)</font> <b>viric:</b></font> and only git<br/>
+<font color="#A82F2F"><font size="2">(10:59:00 AM)</font> <b>josteink:</b></font> ah well<br/>
+<font color="#A82F2F"><font size="2">(10:59:07 AM)</font> <b>josteink:</b></font> if I have made a patch<br/>
+<font color="#A82F2F"><font size="2">(10:59:08 AM)</font> <b>MichaelRaskin:</b></font> That is the nature of Git as most DVCSes preserve way more data than Git<br/>
+<font color="#A82F2F"><font size="2">(10:59:13 AM)</font> <b>josteink:</b></font> I can do a &quot;git pull origin master --rebase&quot;<br/>
+<font color="#A82F2F"><font size="2">(10:59:21 AM)</font> <b>josteink:</b></font> and then rebase MY patch on top of master before submitting<br/>
+<font color="#A82F2F"><font size="2">(10:59:27 AM)</font> <b>josteink:</b></font> it doesnt ruin or rewrite history<br/>
+<font color="#A82F2F"><font size="2">(10:59:29 AM)</font> <b>viric:</b></font> josteink: and your original development vanishes<br/>
+<font color="#A82F2F"><font size="2">(10:59:36 AM)</font> <b>Lethalman:</b></font> josteink, except certain times you don&apos;t want --rebase<br/>
+<font color="#A82F2F"><font size="2">(10:59:52 AM)</font> <b>josteink:</b></font> viric: define vanishes. you still get all the individual commits<br/>
+<font color="#A82F2F"><font size="2">(11:00:01 AM)</font> <b>josteink:</b></font> just at the HEAD of the branch instead of intertwined in a weird merge-graphg<br/>
+<font color="#A82F2F"><font size="2">(11:00:04 AM)</font> <b>viric:</b></font> josteink: but they are not stored anymore in the context you committed them<br/>
+<font color="#A82F2F"><font size="2">(11:00:13 AM)</font> <b>Lethalman:</b></font> josteink, you lose the order<br/>
+<font color="#A82F2F"><font size="2">(11:00:38 AM)</font> <b>josteink:</b></font> viric: true. they are stored in a new context, on top of HEAD<br/>
+<font color="#A82F2F"><font size="2">(11:00:42 AM)</font> <b>viric:</b></font> neither any track is left, about the original context.<br/>
+<font color="#A82F2F"><font size="2">(11:00:54 AM)</font> <b>josteink:</b></font> unless there are conflicts, which you then would have had to resolve anyway<br/>
+<font color="#A82F2F"><font size="2">(11:01:12 AM)</font> <b>josteink:</b></font> you still get all your individual commits which -should- be atomic and discriptive enough in the first place<br/>
+<font color="#A82F2F"><font size="2">(11:01:30 AM)</font> <b>josteink:</b></font> or am I missing something obvious and big here?<br/>
+<font color="#A82F2F"><font size="2">(11:01:31 AM)</font> <b>MichaelRaskin:</b></font> josteink: atomic commits are a myth<br/>
+<font color="#A82F2F"><font size="2">(11:01:38 AM)</font> <b>viric:</b></font> then use darcs<br/>
+<font color="#A82F2F"><font size="2">(11:01:39 AM)</font> <b>viric:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(11:02:28 AM)</font> <b>MichaelRaskin:</b></font> Well, atomic commits are myth even there<br/>
+<font color="#A82F2F"><font size="2">(11:02:32 AM)</font> <b>viric:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(11:02:38 AM)</font> <b>josteink:</b></font> anyway<br/>
+<font color="#A82F2F"><font size="2">(11:02:42 AM)</font> <b>josteink:</b></font> I dont see any reason to hate on rebase<br/>
+<font color="#A82F2F"><font size="2">(11:02:55 AM)</font> <b>viric:</b></font> With rebase you can&apos;t track back to the commit context.<br/>
+<font color="#A82F2F"><font size="2">(11:02:56 AM)</font> <b>josteink:</b></font> it solves a real problem<br/>
+<font color="#A82F2F"><font size="2">(11:02:57 AM)</font> <b>Lethalman:</b></font> josteink, the hate is in git giving too flexibility<br/>
+<font color="#A82F2F"><font size="2">(11:03:12 AM)</font> <b>viric:</b></font> it solves the problem of git being unable to handle voluntary branches<br/>
+<font color="#A82F2F"><font size="2">(11:03:15 AM)</font> <b>josteink:</b></font> viric: for me that has yet to be a problem<br/>
+<font color="#A82F2F"><font size="2">(11:03:24 AM)</font> <b>josteink:</b></font> but oh well<br/>
+<font color="#A82F2F"><font size="2">(11:03:33 AM)</font> <b>josteink:</b></font> Im not going to preach or tell anyone how to do their thing<br/>
+<font color="#A82F2F"><font size="2">(11:03:48 AM)</font> <b>josteink:</b></font> just saying git graphs are nicer if people rebase instead of add a million merge-commit bubbles<br/>
+<font color="#A82F2F"><font size="2">(11:03:55 AM)</font> <b>MichaelRaskin:</b></font> Actually, the NixOS spirit is to trash most of the history<br/>
+<font color="#A82F2F"><font size="2">(11:03:56 AM)</font> <b>josteink:</b></font> that at least is a fact :)<br/>
+<font color="#A82F2F"><font size="2">(11:04:00 AM)</font> <b>Lethalman:</b></font> josteink, you lose the reason of the commits if you rebase<br/>
+<font color="#A82F2F"><font size="2">(11:04:01 AM)</font> <b>MichaelRaskin:</b></font> On the local level<br/>
+<font color="#A82F2F"><font size="2">(11:04:11 AM)</font> <b>Lethalman:</b></font> josteink, so let&apos;s say you want to know which commits have been done from a PR, how do you know with rebase<br/>
+<font color="#A82F2F"><font size="2">(11:04:16 AM)</font> <b>MichaelRaskin:</b></font> Squashing commits etc.<br/>
+<font color="#A82F2F"><font size="2">(11:04:17 AM)</font> <b>viric:</b></font> So with git you end up with commits automatically in history position X, when they were done originally in position Y. all storage will tell they were done in X.<br/>
+<font color="#A82F2F"><font size="2">(11:04:34 AM)</font> <b>MichaelRaskin:</b></font> Git loses history<br/>
+<font color="#A82F2F"><font size="2">(11:04:48 AM)</font> <b>MichaelRaskin:</b></font> But NixOS project seems to be about losing a bit more than Git does on its own<br/>
+<font color="#A82F2F"><font size="2">(11:05:04 AM)</font> <b>viric:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(11:05:17 AM)</font> <b>ikwildrpepper:</b></font> is it this time of the year again?<br/>
+<font color="#A82F2F"><font size="2">(11:05:19 AM)</font> <b>viric:</b></font> losing what more?<br/>
+<font color="#A82F2F"><font size="2">(11:05:21 AM)</font> <b>viric:</b></font> ikwildrpepper: yes :)<br/>
+<font color="#A82F2F"><font size="2">(11:05:31 AM)</font> <b>josteink:</b></font> Lethalman: OK. that is a fair argument. In other projects Ive contributed to, they&apos;ve asked me to squash the PR into one commit<br/>
+<font color="#A82F2F"><font size="2">(11:05:38 AM)</font> <b>ikwildrpepper:</b></font> viric: ok, /me signing off for the next few days then ;)<br/>
+<font color="#A82F2F"><font size="2">(11:05:45 AM)</font> <b>josteink:</b></font> Lethalman: but I can see how that is a workaround<br/>
+<font color="#A82F2F"><font size="2">(11:06:04 AM)</font> <b>Lethalman:</b></font> josteink, exactly, you may want to have multiple commits<br/>
+<font color="#A82F2F"><font size="2">(11:06:16 AM)</font> <b>Lethalman:</b></font> first of all for simplicity to read, second for bisecting<br/>
+<font color="#A82F2F"><font size="2">(11:06:22 AM)</font> <b>Lethalman:</b></font> yet, even after a merge<br/>
+<font color="#A82F2F"><font size="2">(11:06:24 AM)</font> <b>MichaelRaskin:</b></font> viric: well, it seems to be customary to squash as much as possible when handling PRs<br/>
+<font color="#A82F2F"><font size="2">(11:06:29 AM)</font> <b>Lethalman:</b></font> in git you are not sure which commits have been made from that PR<br/>
+<font color="#A82F2F"><font size="2">(11:06:41 AM)</font> <b>Lethalman:</b></font> because if you had other merges etc. in that PR<br/>
+<font color="#A82F2F"><font size="2">(11:06:43 AM)</font> <b>Lethalman:</b></font> it&apos;s just a mess<br/>
+<font color="#A82F2F"><font size="2">(11:06:53 AM)</font> <b>josteink:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(11:06:56 AM)</font> <b>josteink:</b></font> fair enough<br/>
+<font color="#A82F2F"><font size="2">(11:07:01 AM)</font> <b>butyoudonot:</b></font> Is there a way to recover /etc/nixos/configuration.nix?<br/>
+<font color="#A82F2F"><font size="2">(11:07:11 AM)</font> <b>ikwildrpepper:</b></font> we should go back to svn, life was so much simpler then....<br/>
+<font color="#A82F2F"><font size="2">(11:07:11 AM)</font> <b>MichaelRaskin:</b></font> After a rebase, a bisect will go over states that noone has ever tested before<br/>
+<font color="#A82F2F"><font size="2">(11:07:15 AM)</font> <b>viric:</b></font> MichaelRaskin: ah ok, I&apos;m not really up to date with that<br/>
+<font color="#A82F2F"><font size="2">(11:07:17 AM)</font> <b>ikwildrpepper:</b></font> (trolling, sorry)<br/>
+<font color="#A82F2F"><font size="2">(11:07:20 AM)</font> <b>viric:</b></font> I&apos;m not following PR much<br/>
+<font color="#A82F2F"><font size="2">(11:07:45 AM)</font> <b>viric:</b></font> MichaelRaskin: right, a very relevant point.<br/>
+<font color="#A82F2F"><font size="2">(11:07:48 AM)</font> <b>josteink:</b></font> anyway, you guys dont know a thing about mess<br/>
+<font color="#A82F2F"><font size="2">(11:07:53 AM)</font> <b>Lethalman:</b></font> josteink, it&apos;s just too flexibility, and anyway it&apos;s not that other vcs are any better at other things<br/>
+<font color="#062585"><font size="2">(11:07:55 AM)</font> <b>***josteink</b></font> works with Microsoft TFS source control at work<br/>
+<font color="#A82F2F"><font size="2">(11:07:58 AM)</font> <b>viric:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(11:07:58 AM)</font> <b>josteink:</b></font> its not inflexible<br/>
+<font color="#A82F2F"><font size="2">(11:08:02 AM)</font> <b>josteink:</b></font> its carved in rock<br/>
+<font color="#A82F2F"><font size="2">(11:08:02 AM)</font> <b>MichaelRaskin:</b></font> It loses data<br/>
+<font color="#A82F2F"><font size="2">(11:08:07 AM)</font> <b>viric:</b></font> I don&apos;t doubt there are things worse than git<br/>
+<font color="#A82F2F"><font size="2">(11:08:09 AM)</font> <b>Lethalman:</b></font> josteink, lol<br/>
+<font color="#A82F2F"><font size="2">(11:08:09 AM)</font> <b>MichaelRaskin:</b></font> Or so I heard<br/>
+<font color="#A82F2F"><font size="2">(11:08:16 AM)</font> <b>viric:</b></font> but that doesn&apos;t make git ideal<br/>
+<font color="#A82F2F"><font size="2">(11:08:27 AM)</font> <b>josteink:</b></font> viric: agreed<br/>
+<font color="#A82F2F"><font size="2">(11:08:44 AM)</font> <b>MichaelRaskin:</b></font> Git is a nice tool for merging, backups and not losing data (as oppposed to metadata)<br/>
+<font color="#A82F2F"><font size="2">(11:08:56 AM)</font> <b>viric:</b></font> fossil, monotone, mercurial or cvs seem to handle branches better<br/>
+<font color="#A82F2F"><font size="2">(11:09:03 AM)</font> <b>viric:</b></font> (I&apos;m not sure about mercurial)<br/>
+<font color="#A82F2F"><font size="2">(11:09:08 AM)</font> <b>MichaelRaskin:</b></font> mercurial yes<br/>
+<font color="#A82F2F"><font size="2">(11:09:10 AM)</font> <b>MichaelRaskin:</b></font> CVS no<br/>
+<font color="#A82F2F"><font size="2">(11:09:13 AM)</font> <b>viric:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(11:09:16 AM)</font> <b>MichaelRaskin:</b></font> SVN probably<br/>
+<font color="#A82F2F"><font size="2">(11:09:56 AM)</font> <b>MichaelRaskin:</b></font> Although I heard their merge is fine now, and history of branches in SVN is done very well<br/>
+<font color="#A82F2F"><font size="2">(11:10:06 AM)</font> <b>viric:</b></font> svn handling branches better than git? hm :)<br/>
+<font color="#A82F2F"><font size="2">(11:10:23 AM)</font> <b>MichaelRaskin:</b></font> Git is great at handling branch merges<br/>
+<font color="#A82F2F"><font size="2">(11:10:33 AM)</font> <b>MichaelRaskin:</b></font> SVN is great at storing the result<br/>
+<font color="#A82F2F"><font size="2">(11:11:18 AM)</font> <b>viric:</b></font> about the specific algorithm for merging you mean?<br/>
+<font color="#A82F2F"><font size="2">(11:11:39 AM)</font> <b>MichaelRaskin:</b></font> Yes<br/>
+<font color="#A82F2F"><font size="2">(11:12:46 AM)</font> <b>rushmorem:</b></font> Hi guys. I have just submitted my first package (Mesos marathon framework). I can&apos;t figure out why the Travis build is failling though...<br/>
+<font color="#A82F2F"><font size="2">(11:12:48 AM)</font> <b>rushmorem:</b></font> https://github.com/NixOS/nixpkgs/pull/6451#issuecomment-75026436<br/>
+<font color="#A82F2F"><font size="2">(11:13:18 AM)</font> <b>Lethalman:</b></font> rushmorem, ignore it<br/>
+<font color="#A82F2F"><font size="2">(11:13:49 AM)</font> <b>rushmorem:</b></font> Lethalman, cool thanks :)<br/>
+<font color="#A82F2F"><font size="2">(11:14:04 AM)</font> <b>viric:</b></font> Look at github<br/>
+<font color="#A82F2F"><font size="2">(11:14:10 AM)</font> <b>viric:</b></font> they couldn&apos;t manage to show branches yet<br/>
+<font color="#A82F2F"><font size="2">(11:14:42 AM)</font> <b>viric:</b></font> despite being so a big thing<br/>
+<font color="#A82F2F"><font size="2">(11:14:50 AM)</font> <b>viric:</b></font> a so big thing<br/>
+<font color="#A82F2F"><font size="2">(11:15:10 AM)</font> <b>viric:</b></font> look at nixpkgs in gitk.<br/>
+<font size="2">(11:16:00 AM)</font><b> c74d is now known as Guest95670</b><br/>
+<font color="#A82F2F"><font size="2">(11:16:30 AM)</font> <b>josteink:</b></font> CVS and SVN is not decentralized though<br/>
+<font color="#A82F2F"><font size="2">(11:16:45 AM)</font> <b>josteink:</b></font> which is a big thing for having lively open source projects ;)<br/>
+<font color="#A82F2F"><font size="2">(11:17:10 AM)</font> <b>josteink:</b></font> with git I dont need to have my patch already accepted before I can work safely on my code in a version-controlled manner<br/>
+<font color="#A82F2F"><font size="2">(11:17:28 AM)</font> <b>viric:</b></font> there are other dvcs than git<br/>
+<font color="#A82F2F"><font size="2">(11:17:43 AM)</font> <b>josteink:</b></font> yes yes, sure<br/>
+<font color="#A82F2F"><font size="2">(11:18:00 AM)</font> <b>josteink:</b></font> just saying that I would prefer $ANY_DVCS over $ANY_NON_DVCS<br/>
+<font color="#A82F2F"><font size="2">(11:18:08 AM)</font> <b>josteink:</b></font> for open-source projects at least<br/>
+<font color="#A82F2F"><font size="2">(11:19:25 AM)</font> <b>MichaelRaskin:</b></font> SVK over SVN is mostly decentralised<br/>
+<font color="#A82F2F"><font size="2">(11:19:59 AM)</font> <b>viric:</b></font> I never used svk<br/>
+<font color="#A82F2F"><font size="2">(11:20:08 AM)</font> <b>viric:</b></font> svn doesn&apos;t have cryptographically safe history, though<br/>
+<font color="#A82F2F"><font size="2">(11:21:00 AM)</font> <b>viric:</b></font> does it? can someone sign a file tree version?<br/>
+<font color="#A82F2F"><font size="2">(11:21:47 AM)</font> <b>viric:</b></font> what if someone modifies the repository history?<br/>
+<font color="#A82F2F"><font size="2">(11:22:16 AM)</font> <b>butyoudonot:</b></font> http://stackoverflow.com/q/28603773/570689<br/>
+<font color="#A82F2F"><font size="2">(11:24:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vbgl pushed 2 new commits to master: http://git.io/AtPJ<br/>
+<font color="#A82F2F"><font size="2">(11:24:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 66097d8 Jim Garrison: julia: 0.3.5 -&gt; 0.3.6<br/>
+<font color="#A82F2F"><font size="2">(11:24:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b34d63e vbgl: Merge pull request #6450 from garrison/julia-v0.3.6...<br/>
+<font color="#A82F2F"><font size="2">(11:25:05 AM)</font> <b>josteink:</b></font> butyoudonot: Im not a NixOS wiz, but doesnt NixOS store all its former configurations (until recycled) so that they can be booted by grub<br/>
+<font color="#A82F2F"><font size="2">(11:25:19 AM)</font> <b>josteink:</b></font> how about checking the trails from grub and see where they lead?<br/>
+<font color="#A82F2F"><font size="2">(11:25:22 AM)</font> <b>viric:</b></font> butyoudonot: great solution :)<br/>
+<font color="#A82F2F"><font size="2">(11:25:43 AM)</font> <b>viric:</b></font> josteink: it does not store configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(11:26:08 AM)</font> <b>viric:</b></font> it stores the resulting nixoses, not the expressions that generated them<br/>
+<font color="#A82F2F"><font size="2">(11:26:15 AM)</font> <b>josteink:</b></font> ah well. would have been a good idea<br/>
+<font color="#A82F2F"><font size="2">(11:26:23 AM)</font> <b>josteink:</b></font> the kernel stores its own config in /proc/ somewhere<br/>
+<font color="#A82F2F"><font size="2">(11:26:36 AM)</font> <b>josteink:</b></font> invaluable when trying to reproduce a android kernel ;)<br/>
+<font color="#A82F2F"><font size="2">(11:26:39 AM)</font> <b>butyoudonot:</b></font> Maybe it could be reassemblied from some generated stuff?<br/>
+<font color="#A82F2F"><font size="2">(11:27:09 AM)</font> <b>viric:</b></font> I think MarcWeber had a trick to store configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(11:27:23 AM)</font> <b>viric:</b></font> years ago<br/>
+<font color="#A82F2F"><font size="2">(11:27:43 AM)</font> <b>viric:</b></font> but configuration.nix can refer to other files, ... so it&apos;s tricky<br/>
+<font color="#A82F2F"><font size="2">(11:27:58 AM)</font> <b>lhvwb:</b></font> just keep your /etc/nixos directory under version control<br/>
+<font color="#A82F2F"><font size="2">(11:28:09 AM)</font> <b>butyoudonot:</b></font> Actually this is the case :)<br/>
+<font color="#A82F2F"><font size="2">(11:28:09 AM)</font> <b>josteink:</b></font> mhm<br/>
+<font color="#A82F2F"><font size="2">(11:28:10 AM)</font> <b>goibhniu:</b></font> system.copySystemConfiguration = true; will copy that one file, but not the ones it uses<br/>
+<font color="#A82F2F"><font size="2">(11:28:26 AM)</font> <b>butyoudonot:</b></font> it was `git reset --hard`<br/>
+<font color="#A82F2F"><font size="2">(11:28:27 AM)</font> <b>josteink:</b></font> goibhniu: ooh nice<br/>
+<font color="#A82F2F"><font size="2">(11:28:50 AM)</font> <b>butyoudonot:</b></font> goibhniu: what about hardware-configuration ?<br/>
+<font color="#A82F2F"><font size="2">(11:28:58 AM)</font> <b>goibhniu:</b></font> butyoudonot: nope<br/>
+<font color="#A82F2F"><font size="2">(11:29:49 AM)</font> <b>butyoudonot:</b></font> wait, all these attributes are set in the system now, maybe they could be fetched via nix-repl?<br/>
+<font color="#A82F2F"><font size="2">(11:29:55 AM)</font> <b>ewemoa:</b></font> josteink: i&apos;ve had a look at packaging exact-image -- looks like patching may be necessary though it appears other projects such as arch have something working<br/>
+<font color="#A82F2F"><font size="2">(11:30:09 AM)</font> <b>josteink:</b></font> ewemoa: hm ok.<br/>
+<font color="#A82F2F"><font size="2">(11:30:15 AM)</font> <b>turtil:</b></font> if i have made changes to /etc/nixos/configuration.nix how do i install it again?<br/>
+<font color="#A82F2F"><font size="2">(11:30:16 AM)</font> <b>goibhniu:</b></font> you could import your configuration using fetch-git though<br/>
+<font color="#A82F2F"><font size="2">(11:30:28 AM)</font> <b>josteink:</b></font> ewemoa: basically I have my own hand-rolled CLI-based scan-ocr-archive-as-pdf system<br/>
+<font color="#062585"><font size="2">(11:30:39 AM)</font> <b>***goibhniu</b></font> saw a nice way to do this in henrytill&apos;s musnix config<br/>
+<font color="#A82F2F"><font size="2">(11:30:41 AM)</font> <b>josteink:</b></font> ewemoa: it depends on exact-image&apos;s hocr2pdf for final PDF-generation<br/>
+<font color="#A82F2F"><font size="2">(11:30:53 AM)</font> <b>josteink:</b></font> until I have that running, my scanner is just a brick, and a big one :P<br/>
+<font color="#A82F2F"><font size="2">(11:31:16 AM)</font> <b>josteink:</b></font> turtil: sudo nixos-rebuild switch<br/>
+<font color="#A82F2F"><font size="2">(11:31:21 AM)</font> <b>turtil:</b></font> ty<br/>
+<font color="#A82F2F"><font size="2">(11:31:30 AM)</font> <b>josteink:</b></font> its a tricky one<br/>
+<font color="#A82F2F"><font size="2">(11:31:38 AM)</font> <b>josteink:</b></font> at first I tried nix-rebuild and all kinds of stuff<br/>
+<font color="#A82F2F"><font size="2">(11:31:45 AM)</font> <b>josteink:</b></font> forgot it needed to be nixOS-rebuild<br/>
+<font color="#A82F2F"><font size="2">(11:31:49 AM)</font> <b>josteink:</b></font> same error I did with the installer :)<br/>
+<font color="#A82F2F"><font size="2">(11:33:35 AM)</font> <b>turtil:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(11:33:42 AM)</font> <b>ewemoa:</b></font> josteink: nice to have such a system!  i can pass on the work i&apos;ve done so far for packaging if you&apos;d like to consider continuing ;)<br/>
+<font color="#A82F2F"><font size="2">(11:33:54 AM)</font> <b>turtil:</b></font> yeah im still new to this, but linux im not new to, but this is all very different to archland<br/>
+<font color="#A82F2F"><font size="2">(11:37:34 AM)</font> <b>turtil:</b></font> mmmm startx is tricky lol<br/>
+<font color="#A82F2F"><font size="2">(11:38:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 1 new commit to release-14.12: http://git.io/AtMu<br/>
+<font color="#A82F2F"><font size="2">(11:38:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 efba0f9 Eelco Dolstra: nixUnstable: Update...<br/>
+<font color="#A82F2F"><font size="2">(11:38:36 AM)</font> <b>ewemoa:</b></font> turtil: iiuc, it&apos;s not likely to work w/ recent versions of nixos<br/>
+<font color="#A82F2F"><font size="2">(11:39:06 AM)</font> <b>turtil:</b></font> ehhhh<br/>
+<font color="#A82F2F"><font size="2">(11:39:17 AM)</font> <b>turtil:</b></font> so i need to configure slim to boot bspwm then?<br/>
+<font color="#A82F2F"><font size="2">(11:40:40 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] rushmorem opened pull request #6452: Update chronos default port (master...update-chronos-port) http://git.io/AtDG<br/>
+<font color="#A82F2F"><font size="2">(11:40:58 AM)</font> <b>ewemoa:</b></font> turtil: don&apos;t know -- i use xfce or xfce w/ fluxbox so i&apos;ve got examples of how to do those<br/>
+<font color="#A82F2F"><font size="2">(11:42:33 AM)</font> <b>turtil:</b></font> ewemoa: ty, i should be good, im probably going to call it a night, and give it a better go on the weekend :)<br/>
+<font color="#A82F2F"><font size="2">(11:42:34 AM)</font> <b>turtil:</b></font> i want to get the mindset on how to do things down pat first, before i rip into it properly :)<br/>
+<font color="#A82F2F"><font size="2">(11:42:51 AM)</font> <b>ewemoa:</b></font> he he<br/>
+<font color="#A82F2F"><font size="2">(11:49:31 AM)</font> <b>ewemoa:</b></font> josteink: fwiw: https://pastee.org/2epky -- and the following might be handy for patches: https://aur.archlinux.org/packages/exactimage/ https://aur.archlinux.org/packages/ex/exactimage/PKGBUILD<br/>
+<font color="#A82F2F"><font size="2">(11:52:51 AM)</font> <b>JamesJRH:</b></font> Hi. How do I mount ExFAT? I&apos;ve tried installing fuse-exfat but I still can&apos;t mount.<br/>
+<font color="#A82F2F"><font size="2">(11:56:18 AM)</font> <b>Lethalman:</b></font> niksnut, any reason why there&apos;s no new unstable release although the tested job passed since yesterday? takes time to copy the stuff to the cache?<br/>
+<font color="#A82F2F"><font size="2">(12:01:17 PM)</font> <b>JamesJRH:</b></font> So frustrating that Android will not accept Ext4 or BtrFS, yet I cannot access ExFAT from NixOS.<br/>
+<font color="#A82F2F"><font size="2">(12:02:06 PM)</font> <b>JamesJRH:</b></font> Curse Microsoft for making ExFAT the patent-encumbered defacto.<br/>
+<font color="#A82F2F"><font size="2">(12:02:13 PM)</font> <b>JamesJRH:</b></font> I have to go now. Bye.<br/>
+<font color="#A82F2F"><font size="2">(12:09:35 PM)</font> <b>butyoudonot:</b></font> could someone please remind me name of `make` nix package?<br/>
+<font color="#A82F2F"><font size="2">(12:10:09 PM)</font> <b>goibhniu:</b></font> butyoudonot: does `command-not-found make` work?<br/>
+<font color="#A82F2F"><font size="2">(12:10:49 PM)</font> <b>josteink:</b></font> ewemoa: Ive never bothered publishing it anywhere, since that involved actually packaging it<br/>
+<font color="#A82F2F"><font size="2">(12:10:54 PM)</font> <b>josteink:</b></font> ewemoa: and I could never be bothered<br/>
+<font color="#A82F2F"><font size="2">(12:10:59 PM)</font> <b>goibhniu:</b></font> butyoudonot: BTW stdenv.mkDerivation runs `make` in the buildPhase by default<br/>
+<font color="#A82F2F"><font size="2">(12:11:08 PM)</font> <b>josteink:</b></font> if I accidentally end up packaging all the dependencies for it now, I might consider publishing it as well ;)<br/>
+<font color="#A82F2F"><font size="2">(12:11:14 PM)</font> <b>josteink:</b></font> at least share the recipe<br/>
+<font color="#A82F2F"><font size="2">(12:11:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] k0ral opened pull request #6453: prosody: added luaevent dependency (master...prosody) http://git.io/AtFS<br/>
+<font color="#A82F2F"><font size="2">(12:11:54 PM)</font> <b>josteink:</b></font> thanks for those resources. looking very good :)<br/>
+<font color="#A82F2F"><font size="2">(12:12:45 PM)</font> <b>josteink:</b></font> and thanks for the package :D<br/>
+<font color="#A82F2F"><font size="2">(12:15:15 PM)</font> <b>butyoudonot:</b></font> goibhniu: thanks<br/>
+<font color="#A82F2F"><font size="2">(12:17:06 PM)</font> <b>goibhniu:</b></font> np<br/>
+<font color="#A82F2F"><font size="2">(12:19:48 PM)</font> <b>josteink:</b></font> out of curiosity<br/>
+<font color="#A82F2F"><font size="2">(12:19:59 PM)</font> <b>josteink:</b></font> does it exist an emacs-package / major-mode for nix-syntax?<br/>
+<font color="#A82F2F"><font size="2">(12:20:11 PM)</font> <b>josteink:</b></font> or do people just use CC-mode/javascript mode?<br/>
+<font color="#A82F2F"><font size="2">(12:21:11 PM)</font> <b>kmicu:</b></font> Yes, we have poor man’s nix-mode.<br/>
+<font color="#A82F2F"><font size="2">(12:21:14 PM)</font> <b>Haskellfant:</b></font> josteink: there is one builtin<br/>
+<font color="#A82F2F"><font size="2">(12:21:42 PM)</font> <b>Haskellfant:</b></font> it&apos;s very … simple?<br/>
+<font color="#A82F2F"><font size="2">(12:22:43 PM)</font> <b>josteink:</b></font> (apropos &quot;nix&quot;) doesnt give me anything to go by<br/>
+<font color="#A82F2F"><font size="2">(12:22:56 PM)</font> <b>Haskellfant:</b></font> it&apos;s built into nix not into emacs<br/>
+<font color="#A82F2F"><font size="2">(12:23:00 PM)</font> <b>josteink:</b></font> oh wait<br/>
+<font color="#A82F2F"><font size="2">(12:23:02 PM)</font> <b>Haskellfant:</b></font> (iirc)<br/>
+<font color="#A82F2F"><font size="2">(12:23:04 PM)</font> <b>josteink:</b></font> this is a uncofigured installation.<br/>
+<font color="#A82F2F"><font size="2">(12:23:09 PM)</font> <b>josteink:</b></font> no melpa/marmalade<br/>
+<font color="#A82F2F"><font size="2">(12:23:19 PM)</font> <b>Haskellfant:</b></font> (require &apos;nix-mode)<br/>
+<font color="#A82F2F"><font size="2">(12:23:26 PM)</font> <b>Haskellfant:</b></font> should work if you have emacs from nix<br/>
+<font color="#A82F2F"><font size="2">(12:23:32 PM)</font> <b>kmicu:</b></font> It’s in site-lisp, just load it.<br/>
+<font color="#A82F2F"><font size="2">(12:24:17 PM)</font> <b>josteink:</b></font> oh yes. thats much better<br/>
+<font color="#A82F2F"><font size="2">(12:24:23 PM)</font> <b>josteink:</b></font> its also on melpa, I see<br/>
+<font color="#A82F2F"><font size="2">(12:25:31 PM)</font> <b>kmicu:</b></font> (Do not expect too much—it’s just syntax highlighting)<br/>
+<font color="#A82F2F"><font size="2">(12:26:37 PM)</font> <b>kmicu:</b></font> (no linting, no indentation, no completion, no…)<br/>
+<font color="#A82F2F"><font size="2">(12:26:46 PM)</font> <b>josteink:</b></font> np<br/>
+<font color="#A82F2F"><font size="2">(12:36:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] rushmorem opened pull request #6454: New package: Mesos marathon framework (updated) (master...mesos-marathon-squashed) http://git.io/AqeS<br/>
+<font color="#A82F2F"><font size="2">(12:39:47 PM)</font> <b>niksnut:</b></font> Lethalman: looks like the channel just updated: http://nixos.org/channels/<br/>
+<font color="#A82F2F"><font size="2">(12:40:16 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] rushmorem closed pull request #6451: New package: Mesos marathon framework (master...mesos-marathon) http://git.io/Atu7<br/>
+<font color="#A82F2F"><font size="2">(12:40:48 PM)</font> <b>Haskellfant:</b></font> I wonder why nixpkgs doesn&apos;t update<br/>
+<font color="#A82F2F"><font size="2">(12:41:34 PM)</font> <b>niksnut:</b></font> because it&apos;s currently broken on darwin: http://hydra.nixos.org/job/nixpkgs/trunk/unstable#tabs-constituents<br/>
+<font color="#A82F2F"><font size="2">(12:41:43 PM)</font> <b>niksnut:</b></font> oh and the tarball is also broken<br/>
+<font color="#A82F2F"><font size="2">(12:45:05 PM)</font> <b>Haskellfant:</b></font> niksnut: ah fair enough<br/>
+<font color="#A82F2F"><font size="2">(12:45:49 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [hydra] edolstra pushed 1 new commit to master: http://git.io/AqJY<br/>
+<font color="#A82F2F"><font size="2">(12:45:49 PM)</font> <b>NixOS_GitHub:</b></font> (notice) hydra/master 00e03b9 Eelco Dolstra: For consistency, Use base32 hashes in manifests<br/>
+<font color="#A82F2F"><font size="2">(12:46:10 PM)</font> <b>Lethalman:</b></font> niksnut, I see it on 17 feb here http://releases.nixos.org/nixos/unstable/<br/>
+<font color="#A82F2F"><font size="2">(12:46:42 PM)</font> <b>Lethalman:</b></font> niksnut, ah it doesn&apos;t update because of darwin? ok :S<br/>
+<font color="#A82F2F"><font size="2">(12:47:41 PM)</font> <b>Lethalman:</b></font> niksnut, btw I mean the nixos release<br/>
+<font color="#A82F2F"><font size="2">(12:47:53 PM)</font> <b>Lethalman:</b></font> niksnut, http://hydra.nixos.org/job/nixos/trunk-combined/tested<br/>
+<font color="#A82F2F"><font size="2">(12:52:53 PM)</font> <b>niksnut:</b></font> Lethalman: it updated on 11:27 today<br/>
+<font color="#A82F2F"><font size="2">(12:53:26 PM)</font> <b>Lethalman:</b></font> niksnut, why don&apos;t I see it in http://releases.nixos.org/nixos/unstable/ ?<br/>
+<font color="#A82F2F"><font size="2">(12:53:52 PM)</font> <b>niksnut:</b></font> I see it, right at the bottom<br/>
+<font color="#A82F2F"><font size="2">(12:54:03 PM)</font> <b>niksnut:</b></font> maybe you&apos;re looking at a cached version?<br/>
+<font color="#A82F2F"><font size="2">(12:54:07 PM)</font> <b>Lethalman:</b></font> omg I must have some cache problem with the browser then<br/>
+<font color="#A82F2F"><font size="2">(12:54:20 PM)</font> <b>Lethalman:</b></font> indeed<br/>
+<font color="#A82F2F"><font size="2">(12:54:24 PM)</font> <b>Lethalman:</b></font> damn it<br/>
+<font color="#A82F2F"><font size="2">(12:54:29 PM)</font> <b>niksnut:</b></font> might be due to cloudfront<br/>
+<font color="#A82F2F"><font size="2">(12:54:33 PM)</font> <b>Lethalman:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(12:54:37 PM)</font> <b>viric:</b></font> ikwildrpepper: I can&apos;t find how to build a raspberrypi2 kernel<br/>
+<font color="#A82F2F"><font size="2">(12:54:44 PM)</font> <b>Lethalman:</b></font> niksnut, shouldn&apos;t be on cloudfront this kind of page I guess :P<br/>
+<font color="#A82F2F"><font size="2">(12:54:46 PM)</font> <b>niksnut:</b></font> it&apos;s better to look at https://nixos.org/channels/, which doesn&apos;t go through cloudfront<br/>
+<font color="#A82F2F"><font size="2">(12:54:53 PM)</font> <b>Lethalman:</b></font> ok thanks<br/>
+<font color="#A82F2F"><font size="2">(12:54:56 PM)</font> <b>niksnut:</b></font> Lethalman: you shouldn&apos;t be looking at that page :p<br/>
+<font color="#A82F2F"><font size="2">(12:55:01 PM)</font> <b>Lethalman:</b></font> niksnut, ahah<br/>
+<font color="#A82F2F"><font size="2">(12:55:03 PM)</font> <b>Lethalman:</b></font> ok thanks<br/>
+<font color="#A82F2F"><font size="2">(12:55:19 PM)</font> <b>viric:</b></font> I always go to nixos.org/channels<br/>
+<font color="#A82F2F"><font size="2">(12:55:27 PM)</font> <b>viric:</b></font> I didn&apos;t know any other url :)<br/>
+<font color="#A82F2F"><font size="2">(01:35:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bennofs pushed 1 new commit to master: http://git.io/AqZy<br/>
+<font color="#A82F2F"><font size="2">(01:35:06 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e47675d Benno Fünfstück: cutecom: new expression<br/>
+<font size="2">(02:04:08 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

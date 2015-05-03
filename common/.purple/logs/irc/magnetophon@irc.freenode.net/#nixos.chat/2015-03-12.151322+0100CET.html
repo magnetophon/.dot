@@ -1,0 +1,153 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Thu 12 Mar 2015 03:13:22 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Thu 12 Mar 2015 03:13:22 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(03:13:22 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(03:13:22 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(03:14:49 PM)</font><b> pmahoney [<em>~user@50.56.229.7</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:20:01 PM)</font> <b>chaoflow:</b></font> magnetophon: just read about your intention to package contrib of notmuch<br/>
+<font color="#A82F2F"><font size="2">(03:20:16 PM)</font> <b>chaoflow:</b></font> magnetophon: sorry, I&apos;m not around much on IRC the moment<br/>
+<font color="#A82F2F"><font size="2">(03:20:25 PM)</font> <b>chaoflow:</b></font> magnetophon: would surely appreciate it<br/>
+<font color="#16569E"><font size="2">(03:21:19 PM)</font> <b>magnetophon:</b></font> chaoflow: you mean mutt-kz?<br/>
+<font color="#A82F2F"><font size="2">(03:22:23 PM)</font> <b>chaoflow:</b></font> 2015-02-18 17:19:06	magnetophon	chaoflow: It seems the contrib section of notmuch is not in NixOS. 1)am I right? 2)If so, why?<br/>
+<font color="#A82F2F"><font size="2">(03:22:25 PM)</font> <b>chaoflow:</b></font> 2015-02-18 17:20:10	magnetophon	chaoflow: would you appreciate a PR on it?<br/>
+<font color="#A82F2F"><font size="2">(03:25:50 PM)</font> <b>FrozenCow:</b></font> Lethalman, what needs to be done to fix hydra?<br/>
+<font size="2">(03:26:41 PM)</font><b> npcomp_ is now known as npcomp</b><br/>
+<font color="#A82F2F"><font size="2">(03:32:49 PM)</font> <b>pierron:</b></font> shlevy: I will reply on the commit later this evening.<br/>
+<font color="#A82F2F"><font size="2">(03:33:00 PM)</font> <b>jack_c:</b></font> Gah. I&apos;m getting &quot;while setting up the build environment: executing /nix/store/vkcbyhhdm65plm22j24ldxrk1mpg9qzj-bash-4.3-p30/bin/bash’: Argument l<br/>
+<font color="#A82F2F"><font size="2">(03:33:02 PM)</font> <b>jack_c:</b></font> ist too long&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:33:26 PM)</font> <b>pierron:</b></font> shlevy: but I still don&apos;t understand the problem as the merge function has to be executed any way, so all attributes of the attribute set have to be known.<br/>
+<font color="#062585"><font size="2">(03:34:21 PM)</font> <b>***jack_c</b></font> ponders perhaps splitting up the derivation into smaller derivations. <br/>
+<font color="#A82F2F"><font size="2">(03:34:31 PM)</font> <b>pierron:</b></font> shlevy: oh, I think I see what you mean.<br/>
+<font color="#A82F2F"><font size="2">(03:35:15 PM)</font> <b>pierron:</b></font> shlevy: that&apos;s sad, but unfortunate.<br/>
+<font color="#A82F2F"><font size="2">(03:36:08 PM)</font> <b>pierron:</b></font> shlevy: I will add a comment in the source.<br/>
+<font color="#A82F2F"><font size="2">(03:38:00 PM)</font> <b>shlevy:</b></font> pierron: It&apos;s because sets are strict in names. If we limit the names without needing to know the entire arg list, we avoid the problem<br/>
+<font color="#16569E"><font size="2">(03:38:00 PM)</font> <b>magnetophon:</b></font> chaoflow: right. tbh I don't think I will. At least for now my notmuch needs are met by mutt-kz. Sorry!<br/>
+<font color="#A82F2F"><font size="2">(03:48:18 PM)</font> <b>page:</b></font> magnetophon: you&apos;re using mutt + labels with success?<br/>
+<font color="#16569E"><font size="2">(03:50:26 PM)</font> <b>magnetophon:</b></font> page: I'm not actually using labels.<br/>
+<font size="2">(03:51:32 PM)</font><b> roconnor [<em>roconnor@nat/google/x-cmuavqyduywaxgqn</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:51:58 PM)</font> <b>page:</b></font> sorry, I mixed mutt forks :)<br/>
+<font color="#A82F2F"><font size="2">(03:54:05 PM)</font> <b>pierron:</b></font> shlevy: I think I understand now.  Basically, the code is lazier than the name resolution, thus we query the name from the module and map each name to the piece of code which access it from the option.<br/>
+<font color="#A82F2F"><font size="2">(03:55:57 PM)</font> <b>spwhitt:</b></font> Does anyone know precisely what horrible things will happen if you loose your NixOps state database? I&apos;ve been curious since I heard it needs to be backed up.<br/>
+<font color="#A82F2F"><font size="2">(03:58:49 PM)</font> <b>dnhgff:</b></font> is there some way to merge src trees<br/>
+<font color="#A82F2F"><font size="2">(03:59:02 PM)</font> <b>dnhgff:</b></font> like say i have some fetchgit derivation<br/>
+<font color="#A82F2F"><font size="2">(03:59:04 PM)</font> <b>dnhgff:</b></font> and i want to say<br/>
+<font color="#A82F2F"><font size="2">(03:59:19 PM)</font> <b>the-kenny:</b></font> dnhgff: yes! buildEnv or something? Let me check<br/>
+<font color="#A82F2F"><font size="2">(03:59:21 PM)</font> <b>dnhgff:</b></font> src = mergeSource ./ fetchedFromGit<br/>
+<font color="#A82F2F"><font size="2">(03:59:41 PM)</font> <b>the-kenny:</b></font> buildEnv<br/>
+<font color="#A82F2F"><font size="2">(03:59:46 PM)</font> <b>dnhgff:</b></font> cool<br/>
+<font color="#A82F2F"><font size="2">(03:59:50 PM)</font> <b>dnhgff:</b></font> so that&apos;s what that does<br/>
+<font color="#A82F2F"><font size="2">(04:00:01 PM)</font> <b>dnhgff:</b></font> i saw that being used in the ihaskell haskellng wrapper<br/>
+<font color="#A82F2F"><font size="2">(04:00:12 PM)</font> <b>the-kenny:</b></font> Yup. You give it a bunch of paths and it will merge them recursively.<br/>
+<font color="#A82F2F"><font size="2">(04:00:13 PM)</font> <b>dnhgff:</b></font> and then i sort of copy pasta&apos;d it<br/>
+<font color="#A82F2F"><font size="2">(04:00:28 PM)</font> <b>the-kenny:</b></font> you might habve to enable ignoreCollisions too<br/>
+<font color="#A82F2F"><font size="2">(04:00:33 PM)</font> <b>dnhgff:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(04:00:39 PM)</font> <b>dnhgff:</b></font> in case the trees overlap<br/>
+<font color="#A82F2F"><font size="2">(04:01:15 PM)</font> <b>the-kenny:</b></font> yup<br/>
+<font color="#A82F2F"><font size="2">(04:02:25 PM)</font> <b>dnhgff:</b></font> thank<br/>
+<font color="#A82F2F"><font size="2">(04:06:32 PM)</font> <b>shlevy:</b></font> pierron: Yep exactly<br/>
+<font size="2">(04:13:13 PM)</font><b> goibhniu1 [<em>~goibhniu@pD9FBE666.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(04:14:23 PM)</font><b> goibhniu left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:28:55 PM)</font> <b>chaoflow:</b></font> magnetophon: np<br/>
+<font size="2">(04:32:15 PM)</font><b> goibhniu1 is now known as goibhniu</b><br/>
+<font color="#A82F2F"><font size="2">(04:40:58 PM)</font> <b>roconnor:</b></font> what&apos;s the easiest way to check how old the unstable channel is?<br/>
+<font color="#A82F2F"><font size="2">(04:41:34 PM)</font> <b>petar:</b></font> roconnor: timestamp here: http://nixos.org/releases/nixpkgs/<br/>
+<font color="#A82F2F"><font size="2">(04:43:34 PM)</font> <b>roconnor:</b></font> right.  https://nixos.org/channels also seems good.<br/>
+<font color="#A82F2F"><font size="2">(04:43:37 PM)</font> <b>roconnor:</b></font> ty<br/>
+<font color="#A82F2F"><font size="2">(04:44:24 PM)</font> <b>roconnor:</b></font> ugh, coreutils-8.23 keeps failing its testsuite.<br/>
+<font color="#A82F2F"><font size="2">(04:52:21 PM)</font> <b>roconnor:</b></font> it fails the tests/chown/separator test<br/>
+<font color="#A82F2F"><font size="2">(04:52:35 PM)</font> <b>roconnor:</b></font> chown: changing ownership of &apos;.&apos;: Operation not permitted.<br/>
+<font color="#A82F2F"><font size="2">(04:53:34 PM)</font> <b>roconnor:</b></font> I wonder if this is a nix on debian vs nixos thing<br/>
+<font color="#A82F2F"><font size="2">(04:56:15 PM)</font> <b>Haskellfant:</b></font> RchrdB: afaik https://howoldis.herokuapp.com/ is the best way<br/>
+<font color="#A82F2F"><font size="2">(04:56:22 PM)</font> <b>Haskellfant:</b></font> srry ^ roconnor<br/>
+<font color="#A82F2F"><font size="2">(04:56:57 PM)</font> <b>m0rphism:</b></font> roconnor: for checking time since last channel update there is also the inofficial https://howoldis.herokuapp.com/<br/>
+<font color="#A82F2F"><font size="2">(04:57:05 PM)</font> <b>m0rphism:</b></font> ohh, a bit too slow<br/>
+<font color="#A82F2F"><font size="2">(04:57:07 PM)</font> <b>m0rphism:</b></font> ;3<br/>
+<font color="#A82F2F"><font size="2">(04:57:47 PM)</font> <b>roconnor:</b></font> amazing<br/>
+<font color="#A82F2F"><font size="2">(05:00:21 PM)</font> <b>RchrdB:</b></font> Haskellfant: sweet, I just learned a thing by accident! &lt;3<br/>
+<font color="#A82F2F"><font size="2">(05:00:34 PM)</font> <b>Haskellfant:</b></font> hehe<br/>
+<font color="#A82F2F"><font size="2">(05:15:37 PM)</font> <b>roconnor:</b></font> well hydra did build it, so I guess I can just get it from there.<br/>
+<font size="2">(05:39:18 PM)</font><b> vcunat [<em>~admin@vetr-0455.koleje.cuni.cz</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:40:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] svanderburg pushed 1 new commit to master: http://git.io/pX56<br/>
+<font color="#A82F2F"><font size="2">(05:40:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 0bc51ea Sander van der Burg: dysnomia: bump development version<br/>
+<font color="#A82F2F"><font size="2">(05:41:04 PM)</font> <b>Lethalman:</b></font> FrozenCow, understand the evaluation errors tab<br/>
+<font color="#A82F2F"><font size="2">(05:41:12 PM)</font> <b>Lethalman:</b></font> FrozenCow, I&apos;m unable to reproduce that error<br/>
+<font color="#A82F2F"><font size="2">(05:57:05 PM)</font> <b>vcunat:</b></font> Lethalman: what do you mean about Hydra being broken?<br/>
+<font color="#A82F2F"><font size="2">(05:57:05 PM)</font> <b>vcunat:</b></font> &gt; let&apos;s not merge this before hydra is fixed, so we can test with latest unstable changes.<br/>
+<font color="#A82F2F"><font size="2">(05:57:28 PM)</font> <b>Lethalman:</b></font> vcunat, don&apos;t you see the evaluation errors in combined trunk?<br/>
+<font color="#A82F2F"><font size="2">(05:57:37 PM)</font> <b>Lethalman:</b></font> nixos is not evaluating since 25 feb<br/>
+<font color="#A82F2F"><font size="2">(05:58:15 PM)</font> <b>vcunat:</b></font> ah, I see<br/>
+<font color="#A82F2F"><font size="2">(05:58:19 PM)</font> <b>vcunat:</b></font> Feb 23<br/>
+<font color="#A82F2F"><font size="2">(05:58:28 PM)</font> <b>vcunat:</b></font> I was looking at nixpkgs right now<br/>
+<font color="#A82F2F"><font size="2">(05:59:18 PM)</font> <b>vcunat:</b></font> evaluation is gradualy becoming prohibitively expensive<br/>
+<font color="#A82F2F"><font size="2">(05:59:23 PM)</font> <b>vcunat:</b></font> *gradually<br/>
+<font color="#A82F2F"><font size="2">(06:18:17 PM)</font> <b>earldouglas:</b></font> Is it possible to change the configureFlags of a package from my configuration.nix?<br/>
+<font color="#A82F2F"><font size="2">(06:18:25 PM)</font> <b>earldouglas:</b></font> I want to add +xterm_clipboard to vim.<br/>
+<font size="2">(06:18:51 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(06:20:51 PM)</font> <b>vcunat:</b></font> earldouglas: I&apos;d use nixpkgs.config.packageOverrides + overrideDerivation<br/>
+<font color="#A82F2F"><font size="2">(06:20:51 PM)</font> <b>vcunat:</b></font> For an idea see: https://nixos.org/wiki/Nix_Modifying_Packages#Creating_a_config.nix_File<br/>
+<font color="#A82F2F"><font size="2">(06:23:59 PM)</font> <b>earldouglas:</b></font> vcunat: excellent, thanks<br/>
+<font color="#A82F2F"><font size="2">(06:24:04 PM)</font> <b>vcunat:</b></font> :-)<br/>
+<font color="#A82F2F"><font size="2">(06:25:51 PM)</font> <b>vcunat:</b></font> earldouglas: I have one of our standard vim versions and it claims to support the option<br/>
+<font color="#A82F2F"><font size="2">(06:26:15 PM)</font> <b>vcunat:</b></font> but it&apos;s a rather heavy config if you only want that, I guess<br/>
+<font color="#A82F2F"><font size="2">(06:26:22 PM)</font> <b>earldouglas:</b></font> Hmm, mine does not.<br/>
+<font color="#A82F2F"><font size="2">(06:26:35 PM)</font> <b>earldouglas:</b></font> vim --version | grep xterm_clipboard -&gt; shows -xterm_clipboard<br/>
+<font color="#A82F2F"><font size="2">(06:26:59 PM)</font> <b>vcunat:</b></font> my vim is called vim-configurable<br/>
+<font color="#A82F2F"><font size="2">(06:27:19 PM)</font> <b>vcunat:</b></font> which has the &quot;huge&quot; feature set<br/>
+<font color="#A82F2F"><font size="2">(06:27:36 PM)</font> <b>vcunat:</b></font> (X, python, etc.)<br/>
+<font color="#A82F2F"><font size="2">(06:32:34 PM)</font> <b>earldouglas:</b></font> vcunat: after I write my packageOverride, do I just do nix-env -i vim?<br/>
+<font color="#A82F2F"><font size="2">(06:32:42 PM)</font> <b>earldouglas:</b></font> It doesn&apos;t seem to recompile vim.<br/>
+<font color="#A82F2F"><font size="2">(06:33:05 PM)</font> <b>vcunat:</b></font> nix-env knows nothing about configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(06:33:17 PM)</font> <b>earldouglas:</b></font> I put it in ~/.nixpkgs/config.nix<br/>
+<font color="#A82F2F"><font size="2">(06:33:23 PM)</font> <b>vcunat:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(06:33:27 PM)</font> <b>vcunat:</b></font> I was just writing that<br/>
+<font color="#A82F2F"><font size="2">(06:41:22 PM)</font> <b>earldouglas:</b></font> Ah, there we go.  I misspelled packageOverrides. :/<br/>
+<font size="2">(06:53:57 PM)</font><b> suvash_away is now known as suvash</b><br/>
+<font size="2">(06:55:40 PM)</font><b> Lethalman left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(06:56:26 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/p1gk<br/>
+<font color="#A82F2F"><font size="2">(06:56:26 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 42d985d William A. Kennington III: rsyslog-light: Add derivation<br/>
+<font color="#A82F2F"><font size="2">(07:16:02 PM)</font> <b>elasticdog:</b></font> is there an easy query to list the contents of a package?<br/>
+<font color="#A82F2F"><font size="2">(07:18:21 PM)</font> <b>vcunat:</b></font> elasticdog: no, but you can search package names by binary names<br/>
+<font color="#A82F2F"><font size="2">(07:18:58 PM)</font> <b>elasticdog:</b></font> vcunat: right...but lets say I&apos;m interested in seeing an example config file that is likely built/installed with a particular package<br/>
+<font color="#A82F2F"><font size="2">(07:19:44 PM)</font> <b>elasticdog:</b></font> it would be nice to be able to dump a list of all of the files that a particular package installed<br/>
+<font color="#A82F2F"><font size="2">(07:20:01 PM)</font> <b>vcunat:</b></font> you could install it (put into /nix/store, I mean)<br/>
+<font color="#A82F2F"><font size="2">(07:20:01 PM)</font> <b>vcunat:</b></font> or find it elswhere<br/>
+<font color="#A82F2F"><font size="2">(07:20:19 PM)</font> <b>vcunat:</b></font> some distros have filename lists for packages<br/>
+<font color="#A82F2F"><font size="2">(07:20:45 PM)</font> <b>vcunat:</b></font> I do aggree it would be nice<br/>
+<font color="#A82F2F"><font size="2">(07:20:58 PM)</font> <b>vcunat:</b></font> if Hydra provided it<br/>
+<font color="#A82F2F"><font size="2">(07:21:21 PM)</font> <b>elasticdog:</b></font> yeah, I suppose just running tree on the /nix/store/&lt;package&gt;/ would work<br/>
+<font color="#A82F2F"><font size="2">(07:22:10 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bobvanderlinden opened pull request #6774: grub: make sure grub builds again (master...grub-fix) http://git.io/p1D5<br/>
+<font color="#A82F2F"><font size="2">(07:37:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/p1FQ<br/>
+<font color="#A82F2F"><font size="2">(07:37:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c32437b William A. Kennington III: libressl: 2.1.3 -&gt; 2.1.4<br/>
+<font color="#A82F2F"><font size="2">(07:53:34 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ts468 closed pull request #6498: Build qemu-vm without KVM. Require KVM only for execution of VM. (master...qemu-vm) http://git.io/ABwT<br/>
+<font size="2">(07:59:35 PM)</font><b> pmahoney left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(08:03:17 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(08:15:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 3 new commits to master: http://git.io/pMYP<br/>
+<font color="#A82F2F"><font size="2">(08:15:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master edaa3a7 Nikolay Amiantov: xorg-server: add Xephyr (close #6715)<br/>
+<font color="#A82F2F"><font size="2">(08:15:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 263ac41 Vladimír Čunát: texLiveModerntimeline: fix download by updating...<br/>
+<font color="#A82F2F"><font size="2">(08:15:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 07e49e6 Vladimír Čunát: libav*: maintenance updates, including security<br/>
+<font color="#A82F2F"><font size="2">(08:16:07 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] abbradar closed pull request #6715: xorg-server: add Xephyr (master...xephyr) http://git.io/pOqz<br/>
+<font color="#A82F2F"><font size="2">(08:18:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 3 new commits to release-14.12: http://git.io/pM3Y<br/>
+<font color="#A82F2F"><font size="2">(08:18:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 28c0d0f Eelco Dolstra: nixos: enhance squashfs handling during boot...<br/>
+<font color="#A82F2F"><font size="2">(08:18:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 b37188e Nikolay Amiantov: stage-1: fix hibernation (close #6675)...<br/>
+<font color="#A82F2F"><font size="2">(08:18:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 98b8eb6 Vladimír Čunát: libav*: maintenance updates, including security...<br/>
+<font size="2">(08:22:56 PM)</font><b> Lethalman [<em>~lethal@89.119.188.238</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:32:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/pMCb<br/>
+<font color="#A82F2F"><font size="2">(08:32:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a5ae04f William A. Kennington III: chromium: Update...<br/>
+<font color="#A82F2F"><font size="2">(08:39:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] fredlebel opened pull request #6775: Atom: updated to 0.187.0 (master...atom_0.187.0) http://git.io/pM8h<br/>
+<font size="2">(08:44:41 PM)</font><b> boegel is now known as boegel}afk</b><br/>
+<font size="2">(08:44:44 PM)</font><b> boegel}afk is now known as boegel|afk</b><br/>
+<font color="#A82F2F"><font size="2">(09:02:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga pushed 2 new commits to master: http://git.io/pMwl<br/>
+<font color="#A82F2F"><font size="2">(09:02:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b9f0cfd Frederic LeBel: Atom: updated to 0.187.0<br/>
+<font color="#A82F2F"><font size="2">(09:02:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master efa28a0 Arseniy Seroka: Merge pull request #6775 from fredlebel/atom_0.187.0...<br/>
+<font size="2">(09:06:41 PM)</font><b> pmahoney [<em>~user@50.56.229.7</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:07:43 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] giogadi opened pull request #6776: Add derivation for google ceres-solver library (master...add-ceres-solver) http://git.io/pMKI<br/>
+<font color="#A82F2F"><font size="2">(09:10:50 PM)</font> <b>dnhgff:</b></font> i have this container that i start hydra and gitolite in on my dev box, and i&apos;m currently trying to set it up so that it will be up and running with a user account created already if the container is new. i was able to get the postgresql role and databases setup, but my question is<br/>
+<font color="#A82F2F"><font size="2">(09:11:10 PM)</font> <b>dnhgff:</b></font> how would you create .pgpass<br/>
+<font color="#A82F2F"><font size="2">(09:12:19 PM)</font> <b>dnhgff:</b></font> and is there a nice way to one-time-only run a command asa user on install or something? because at that point i&apos;d just have to issue the hydra-create-user command<br/>
+<font color="#A82F2F"><font size="2">(09:13:17 PM)</font> <b>dnhgff:</b></font> perhaps throw a cheap test in .profile that runs the command if the user doesn&apos;t exist in the db<br/>
+<font size="2">(09:17:35 PM)</font><b> chrisdotcode_ is now known as chrisdotcode</b><br/>
+<font color="#A82F2F"><font size="2">(09:18:56 PM)</font> <b>dnhgff:</b></font> ah, i see<br/>
+<font color="#A82F2F"><font size="2">(09:19:11 PM)</font> <b>dnhgff:</b></font> environment.extraInit<br/>
+<font color="#A82F2F"><font size="2">(09:20:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 2 new commits to master: http://git.io/pM1j<br/>
+<font color="#A82F2F"><font size="2">(09:20:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e0d91fa Pascal Wittmann: levmar: update from 2.5 to 2.6<br/>
+<font color="#A82F2F"><font size="2">(09:20:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9cda91b Pascal Wittmann: pmd: update from 4.2.6 to 5.2.3<br/>
+<font size="2">(09:52:01 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

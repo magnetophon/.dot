@@ -1,0 +1,31 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #dataflow at Tue 10 Mar 2015 01:09:41 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #dataflow at Tue 10 Mar 2015 01:09:41 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(01:09:41 AM)</font><b> The topic for #dataflow is: ∿∿ The PureData Chatline ♫ ENGLISH FRANÇAIS DEUTSCH ♫ The Diagram is the Program™ ∿∿ Readymade Solutions Require Readymade Problems ; For Everything Else There Is PureData.™ ♫ <a href="http://puredata.info/">http://puredata.info/</a> ∿∿ <a href="http://gridflow.ca/">http://gridflow.ca/</a> ♫ ♩♬♫♩♪♩ <a href="http://wiki.dataflow.ws/DataFlow">http://wiki.dataflow.ws/DataFlow</a> ∿∿</b><br/>
+<font size="2">(01:09:41 AM)</font><b> Topic for #dataflow set by matju at 07:06:16 AM on 11/07/2011</b><br/>
+<font size="2">(02:17:03 AM)</font><b> wotwot_ is now known as wotwot</b><br/>
+<font color="#16569E"><font size="2">(11:00:47 AM)</font> <b>magnetophon:</b></font> What is currently the preferred way of handling externals in vanilla?  I packaged a few of them and put them in pd's path (via the -path flag). They work, but only when I prepend the name of the dir they are in. Unfortunately a lot of the help files don't have that dir name prepended in them...<br/>
+<font color="#A82F2F"><font size="2">(11:16:43 AM)</font> <b>rdz:</b></font> magnetophon, if you use the full path to the directory containing externals with -path, then you do not have to prepend the directory when creating objects<br/>
+<font color="#A82F2F"><font size="2">(11:17:17 AM)</font> <b>rdz:</b></font> actually, you can just drop the the directories in &lt;pd-installpath&gt;/extra and you don&apos;t need to specify -path<br/>
+<font color="#16569E"><font size="2">(11:17:38 AM)</font> <b>magnetophon:</b></font> rdz: thanks!<br/>
+<font color="#A82F2F"><font size="2">(11:17:42 AM)</font> <b>rdz:</b></font> you then either create objects like this [dirname/externals]<br/>
+<font color="#A82F2F"><font size="2">(11:17:57 AM)</font> <b>rdz:</b></font> or you use [declare]<br/>
+<font color="#A82F2F"><font size="2">(11:18:23 AM)</font> <b>rdz:</b></font> [declare -stdpath extra/dirname] and then [external]<br/>
+<font color="#A82F2F"><font size="2">(11:19:13 AM)</font> <b>rdz:</b></font> however, [declare] is quite awkward.. it doesn&apos;t add the path immediately when creating it, you have to save the patch close and re-open  it<br/>
+<font color="#16569E"><font size="2">(11:19:25 AM)</font> <b>magnetophon:</b></font> rdz: I am using the NixOS distro, and one of its features is easy rollback. Therefore it cannot change package contents after installing (so no dropping anything in &lt;pd-installpath&gt;<br/>
+<font color="#A82F2F"><font size="2">(11:19:25 AM)</font> <b>rdz:</b></font> only then [declare] is effective<br/>
+<font color="#A82F2F"><font size="2">(11:19:40 AM)</font> <b>rdz:</b></font> magnetophon, i see<br/>
+<font color="#A82F2F"><font size="2">(11:20:03 AM)</font> <b>rdz:</b></font> however, the _usual_ thing is to put externals and other libraries in extra<br/>
+<font color="#16569E"><font size="2">(11:20:07 AM)</font> <b>magnetophon:</b></font> rdz: I had never heard of declare. Is that like import in pd-extended?<br/>
+<font color="#A82F2F"><font size="2">(11:20:30 AM)</font> <b>rdz:</b></font> it is, but [import] is much simpler to use and works immediately<br/>
+<font color="#A82F2F"><font size="2">(11:20:39 AM)</font> <b>rdz:</b></font> however, [declare] works everywhere<br/>
+<font color="#16569E"><font size="2">(11:21:05 AM)</font> <b>magnetophon:</b></font> what do you mean by everywhere?<br/>
+<font color="#16569E"><font size="2">(11:21:19 AM)</font> <b>magnetophon:</b></font> doesn't import work everywhere too?<br/>
+<font color="#A82F2F"><font size="2">(11:21:52 AM)</font> <b>rdz:</b></font> no.. [import] is specific to pd-extended<br/>
+<font color="#16569E"><font size="2">(11:22:02 AM)</font> <b>magnetophon:</b></font> ah, right<br/>
+<font color="#A82F2F"><font size="2">(11:22:09 AM)</font> <b>rdz:</b></font> pd-vanilla doesn&apos;t come with [import]<br/>
+<font color="#16569E"><font size="2">(11:23:37 AM)</font> <b>magnetophon:</b></font> I think your first suggestion is my best bet. I do remember some externals having the same name, so in those cases it is helpfull to have to refer to them via familyname/externalname...  Your thoughts?<br/>
+<font color="#16569E"><font size="2">(11:24:12 AM)</font> <b>magnetophon:</b></font> Can I have the best of both worlds somehow?<br/>
+<font size="2">(02:37:36 PM)</font><b> djotaa is now known as djota</b><br/>
+<font size="2">(02:41:58 PM)</font><b> djotaa is now known as djota</b><br/>
+<font size="2">(06:01:01 PM)</font><b> Claudius1aximus is now known as ClaudiusMaximus</b><br/>
+<font size="2">(06:10:39 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

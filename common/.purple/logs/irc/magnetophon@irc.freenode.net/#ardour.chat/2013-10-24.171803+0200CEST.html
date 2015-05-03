@@ -1,0 +1,168 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Thu 24 Oct 2013 05:18:03 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Thu 24 Oct 2013 05:18:03 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(05:18:03 PM)</font><b> The topic for #ardour is: ardour 3.5 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font color="#A82F2F"><font size="2">(05:18:07 PM)</font> <b>torbenh3:</b></font> las: a crashed client leads to the graph not completing. <br/>
+<font color="#A82F2F"><font size="2">(05:18:49 PM)</font> <b>torbenh3:</b></font> las: in that case marking the last client in the chain with an error is just wrong !<br/>
+<font color="#A82F2F"><font size="2">(05:18:51 PM)</font> <b>las:</b></font> torbenh3: they can both look the same<br/>
+<font color="#A82F2F"><font size="2">(05:18:55 PM)</font> <b>torbenh3:</b></font> no.<br/>
+<font color="#A82F2F"><font size="2">(05:19:08 PM)</font> <b>las:</b></font> torbenh3: all you know is that you failed to read the byte from the wait pipe<br/>
+<font color="#A82F2F"><font size="2">(05:19:22 PM)</font> <b>torbenh3:</b></font> the check clients code will find that the last client was not triggered.<br/>
+<font color="#A82F2F"><font size="2">(05:19:24 PM)</font> <b>las:</b></font> torbenh3: it could be because a client crashed, or because a client hasn&apos;t finished by the time you go to read it<br/>
+<font size="2">(05:19:31 PM)</font><b> vihcs [<em>~schiv@180.234.21.168</em>] entered the room.</b><br/>
+<font size="2">(05:19:33 PM)</font><b> vihcs left the room (quit: Changing host).</b><br/>
+<font size="2">(05:19:33 PM)</font><b> vihcs [<em>~schiv@archlinux/developer/schiv</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:19:40 PM)</font> <b>torbenh3:</b></font> and IFF that client was the crasher. then it will be marked triggered.<br/>
+<font color="#A82F2F"><font size="2">(05:19:44 PM)</font> <b>las:</b></font> torbenh3: yeah, that comes later but ... i got traces where i saw that ardour was not triggered<br/>
+<font color="#A82F2F"><font size="2">(05:19:48 PM)</font> <b>las:</b></font> torbenh3: it is wrong<br/>
+<font color="#A82F2F"><font size="2">(05:19:54 PM)</font> <b>las:</b></font> torbenh3: why? because it was dumping core<br/>
+<font color="#A82F2F"><font size="2">(05:20:10 PM)</font> <b>las:</b></font> torbenh3: the process was still alive, but it was not responding to anything, so it appears to still be running, untriggered<br/>
+<font color="#A82F2F"><font size="2">(05:20:39 PM)</font> <b>las:</b></font> torbenh3: so the heuristic that checks for &quot;was triggered&quot; fails to realize that ardour is the failure point<br/>
+<font color="#A82F2F"><font size="2">(05:21:11 PM)</font> <b>torbenh3:</b></font> ahh... right. i forgot that in jack1 client X doesnt mark client Y as triggered, when it triggers it... damn<br/>
+<font color="#A82F2F"><font size="2">(05:21:31 PM)</font> <b>las:</b></font> torbenh3: that&apos;s a good idea<br/>
+<font color="#A82F2F"><font size="2">(05:21:37 PM)</font> <b>las:</b></font> torbenh3: you mean in the shm struct ?<br/>
+<font color="#A82F2F"><font size="2">(05:22:08 PM)</font> <b>las:</b></font> torbenh3: another way to extend the heuristic is to look at all the clients that are triggered+finished, check their times<br/>
+<font color="#A82F2F"><font size="2">(05:22:21 PM)</font> <b>torbenh3:</b></font> in tschack i mark clients, when i trigger them.<br/>
+<font color="#A82F2F"><font size="2">(05:22:23 PM)</font> <b>las:</b></font> torbenh3: if they are all OK, don&apos;t consider any of them at fault, even if the byte was not available<br/>
+<font color="#A82F2F"><font size="2">(05:22:37 PM)</font> <b>las:</b></font> torbenh3: but you mark them from another client, not when their own thread wakes up,yes /<br/>
+<font color="#A82F2F"><font size="2">(05:22:38 PM)</font> <b>las:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(05:22:43 PM)</font> <b>torbenh3:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(05:23:15 PM)</font> <b>torbenh3:</b></font> i moved the timestamps into a per-client array in the engine shm.<br/>
+<font color="#A82F2F"><font size="2">(05:23:47 PM)</font> <b>torbenh3:</b></font> which is the reason, why i need the client_id_t as an array index....<br/>
+<font color="#A82F2F"><font size="2">(05:24:41 PM)</font> <b>las:</b></font> torbenh3: right, i&apos;m goign to change the UUIDs<br/>
+<font color="#A82F2F"><font size="2">(05:24:48 PM)</font> <b>las:</b></font> torbenh3: to be segmented as we discussed<br/>
+<font color="#A82F2F"><font size="2">(05:29:00 PM)</font> <b>torbenh3:</b></font> hmm... Tschack distinguishes Triggered and Signaled, BTW<br/>
+<font color="#A82F2F"><font size="2">(05:30:31 PM)</font> <b>torbenh3:</b></font> triggered means, its ready to run, because all ports are filled.<br/>
+<font color="#A82F2F"><font size="2">(05:31:06 PM)</font> <b>torbenh3:</b></font> and Signaled means, i wrote a byte into the pipe.<br/>
+<font color="#A82F2F"><font size="2">(05:31:36 PM)</font> <b>torbenh3:</b></font> i am managing execution tokens, so that no more than N clients run a once.<br/>
+<font color="#A82F2F"><font size="2">(05:32:22 PM)</font> <b>las:</b></font> torbenh3: perfectly sensible<br/>
+<font color="#A82F2F"><font size="2">(05:33:34 PM)</font> <b>torbenh3:</b></font> las: you might achieve something similar, with a field in the client-shm... signaled next client, or an additional state<br/>
+<font size="2">(05:34:03 PM)</font><b> schiv [<em>~schiv@archlinux/developer/schiv</em>] entered the room.</b><br/>
+<font size="2">(05:34:20 PM)</font><b> vihcs left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:35:21 PM)</font> <b>torbenh3:</b></font> las: theres a small race between writing to pipe and writing to shm though.<br/>
+<font color="#A82F2F"><font size="2">(05:35:32 PM)</font> <b>torbenh3:</b></font> but the window is pretty small.<br/>
+<font color="#A82F2F"><font size="2">(05:35:51 PM)</font> <b>las:</b></font> torbenh3: race? <br/>
+<font size="2">(05:36:02 PM)</font><b> nettings [<em>~nettings@ip-109-41-32-206.web.vodafone.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:36:18 PM)</font> <b>torbenh3:</b></font> when another thread crashes between the 2 things. <br/>
+<font color="#A82F2F"><font size="2">(05:36:45 PM)</font> <b>torbenh3:</b></font> then we would be back to heuristics, i guess :S<br/>
+<font color="#A82F2F"><font size="2">(05:37:35 PM)</font> <b>las:</b></font> torbenh3: right, but it isn&apos;t what i&apos;d really call a race - the two independent marks let you understand what has happened (better)<br/>
+<font size="2">(05:37:39 PM)</font><b> AndChat|448896 left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:38:00 PM)</font> <b>torbenh3:</b></font> but normally its better to not kick anybody. and let the timeout of the xrun callback do the rest.<br/>
+<font size="2">(05:39:09 PM)</font><b> AndChat448896 [<em>~AndChat44@2600:1003:b126:7d00:16c8:bf16:f79a:c5fd</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:40:04 PM)</font> <b>torbenh3:</b></font> the crashing client will not react to it. as its still writing its core.<br/>
+<font color="#A82F2F"><font size="2">(05:40:35 PM)</font> <b>torbenh3:</b></font> and its only the core dumping thats the problem, because the the fds remain open while its happening.<br/>
+<font size="2">(05:40:39 PM)</font><b> clark|w is now known as clark|w|afk</b><br/>
+<font size="2">(05:41:41 PM)</font><b> AndChat|448896 [<em>~AndChat44@2600:1003:b126:7d00:4c6e:243c:9cda:4d9c</em>] entered the room.</b><br/>
+<font size="2">(05:43:29 PM)</font><b> AndChat448896 left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:44:46 PM)</font> <b>las:</b></font> torbenh3: this is mostly a developer problem, indeed<br/>
+<font color="#A82F2F"><font size="2">(05:45:20 PM)</font> <b>las:</b></font> torbenh3: but hey, an audio system that can keep playing even when its clients keep dumping core over and over is a better system, right? :)<br/>
+<font color="#A82F2F"><font size="2">(05:45:29 PM)</font> <b>torbenh3:</b></font> las: yes.<br/>
+<font color="#A82F2F"><font size="2">(05:46:03 PM)</font> <b>torbenh3:</b></font> las: jack2 handles it nicely in async mode.<br/>
+<font color="#A82F2F"><font size="2">(05:46:18 PM)</font> <b>torbenh3:</b></font> las: in sync mode... hahahaha....<br/>
+<font color="#A82F2F"><font size="2">(05:47:04 PM)</font> <b>torbenh3:</b></font> it just locks up completely.<br/>
+<font color="#A82F2F"><font size="2">(05:49:29 PM)</font> <b>las:</b></font> torbenh3: we should fix that<br/>
+<font color="#A82F2F"><font size="2">(05:49:41 PM)</font> <b>torbenh3:</b></font> in jack2 ?<br/>
+<font color="#A82F2F"><font size="2">(05:49:55 PM)</font> <b>las:</b></font> torbenh3: just kidding :)<br/>
+<font color="#A82F2F"><font size="2">(05:51:03 PM)</font> <b>torbenh3:</b></font> ok... gotta go.<br/>
+<font size="2">(05:56:40 PM)</font><b> nettings left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font size="2">(06:00:45 PM)</font><b> corresponder_ is now known as corresponder</b><br/>
+<font size="2">(06:03:11 PM)</font><b> Vulpes [<em>~user@unaffiliated/vulpes</em>] entered the room.</b><br/>
+<font size="2">(06:10:13 PM)</font><b> Joschii left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(06:20:59 PM)</font><b> naptastic [<em>~david@99-20-201-27.lightspeed.hstntx.sbcglobal.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:24:28 PM)</font> <b>the_CLA:</b></font> oofus, rgareus|afk: Have you been able to load and use 24 bit files in ISSE?<br/>
+<font color="#A82F2F"><font size="2">(06:26:23 PM)</font> <b>oofus:</b></font> the_CLA: yes, the only 2 files I loaded were both 24 bit<br/>
+<font size="2">(06:26:39 PM)</font><b> jpbouza [<em>~jpbouza@201.255.212.173</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:26:51 PM)</font> <b>the_CLA:</b></font> oofus: Hm, strange. I don&apos;t get any spectrogram when using 24 bit wav. *shrugs*<br/>
+<font color="#A82F2F"><font size="2">(06:28:03 PM)</font> <b>las:</b></font> the_CLA: i wonder if they tried to roll their own audio file I/O code <br/>
+<font size="2">(06:28:50 PM)</font><b> how-to-ardroid [<em>bb79002e@gateway/web/freenode/ip.187.121.0.46</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:29:46 PM)</font> <b>how-to-ardroid:</b></font> Hi. Anyone can help-me with how to use ardroid (android remote control) for control ardour?<br/>
+<font color="#A82F2F"><font size="2">(06:30:26 PM)</font> <b>las:</b></font> how-to-ardroid: a link was just posted in the forums at ardour.org<br/>
+<font color="#A82F2F"><font size="2">(06:31:20 PM)</font> <b>how-to-ardroid:</b></font> I can undestand how works it, wifi, bluetooh? I try search, but not find a good post for my doubts.<br/>
+<font color="#A82F2F"><font size="2">(06:31:42 PM)</font> <b>las:</b></font> how-to-ardroid: please go back to the forums and read the link that was just posted there<br/>
+<font color="#A82F2F"><font size="2">(06:31:52 PM)</font> <b>las:</b></font> how-to-ardroid: &quot;just posted&quot; as in .. the last 30 minutes<br/>
+<font color="#A82F2F"><font size="2">(06:32:02 PM)</font> <b>Seablade:</b></font> how-to-ardroid, Posted in this thread in fact... https://community.ardour.org/node/7565<br/>
+<font color="#A82F2F"><font size="2">(06:32:09 PM)</font> <b>las:</b></font>  http://www.zthmusic.com/ardroid-and-ardour/<br/>
+<font color="#A82F2F"><font size="2">(06:32:18 PM)</font> <b>las:</b></font> how-to-ardroid: not that ardroid is no longer under development<br/>
+<font color="#A82F2F"><font size="2">(06:32:22 PM)</font> <b>Seablade:</b></font> las, Well our ago actually:)<br/>
+<font color="#A82F2F"><font size="2">(06:32:43 PM)</font> <b>Seablade:</b></font> las, I think you meant &apos;note&apos; at the beginning of that?<br/>
+<font color="#A82F2F"><font size="2">(06:34:11 PM)</font> <b>how-to-ardroid:</b></font> las: thanks I go read the posts.<br/>
+<font color="#A82F2F"><font size="2">(06:34:51 PM)</font> <b>zth:</b></font> lol, we should rename this the day of Ardroid :D<br/>
+<font color="#A82F2F"><font size="2">(06:35:27 PM)</font> <b>naptastic:</b></font> TIL, having your computer crash in the middle of &apos;apt-get dist-upgrade&apos; isn&apos;t that big of a deal. But, Ardour3 isn&apos;t building anymore because it says libbooooost is tool old<br/>
+<font color="#A82F2F"><font size="2">(06:35:31 PM)</font> <b>Seablade:</b></font> zth, :)<br/>
+<font color="#A82F2F"><font size="2">(06:35:52 PM)</font> <b>Seablade:</b></font> zth, I tried it out some time back, but IIRC it was trying to use an OSC function to discover tracks that didn&apos;t exist that I saw<br/>
+<font color="#A82F2F"><font size="2">(06:36:06 PM)</font> <b>naptastic:</b></font> for whatever reason, Debian decided that, after upgrading to Jessie, I didn&apos;t need xchat or libboost anymore. Wonder what else got removed :-|<br/>
+<font color="#A82F2F"><font size="2">(06:37:02 PM)</font> <b>zth:</b></font> Seablade, i tried to make it work way back too, but it turns out that what was failing me was enabling OSC in Ardour<br/>
+<font color="#A82F2F"><font size="2">(06:37:19 PM)</font> <b>Seablade:</b></font> zth, Yep that wasn&apos;t my issue:)<br/>
+<font color="#A82F2F"><font size="2">(06:37:25 PM)</font> <b>zth:</b></font> i guess the upside is that it was an easy fix ;)<br/>
+<font color="#A82F2F"><font size="2">(06:37:31 PM)</font> <b>zth:</b></font> the downside is ofc the shame!!<br/>
+<font color="#A82F2F"><font size="2">(06:38:03 PM)</font> <b>zth:</b></font> but it&apos;s really handy<br/>
+<font color="#A82F2F"><font size="2">(06:38:15 PM)</font> <b>how-to-ardroid:</b></font> I want use the ardroid for record myself in other room. (I am a loonely guy) Do you know other possibilities to control ardour with a smatphone with android?<br/>
+<font color="#A82F2F"><font size="2">(06:38:33 PM)</font> <b>zth:</b></font> how-to-ardroid, did you try the tutorial? that&apos;s what Ardroid does<br/>
+<font color="#A82F2F"><font size="2">(06:38:49 PM)</font> <b>zth:</b></font> it won&apos;t move your mic to the other room for you ;) but it has the rest of it covered<br/>
+<font color="#A82F2F"><font size="2">(06:39:28 PM)</font> <b>how-to-ardroid:</b></font> zth: funny :P<br/>
+<font color="#A82F2F"><font size="2">(06:39:38 PM)</font> <b>how-to-ardroid:</b></font> lol<br/>
+<font size="2">(06:43:52 PM)</font><b> how-to-ardroid left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#062585"><font size="2">(06:43:58 PM)</font> <b>***tom^_</b></font> fixing another OSC / plugin related issue (only use ports of type control _+_ input to not crash accidentally if port is latency(control/output))<br/>
+<font color="#062585"><font size="2">(06:45:22 PM)</font> <b>***tom^_</b></font> bbl<br/>
+<font size="2">(06:51:05 PM)</font><b> HarryHaaren left the room (quit: Quit: Quittin&apos;).</b><br/>
+<font size="2">(06:57:50 PM)</font><b> ANero [<em>~nero@unaffiliated/anero</em>] entered the room.</b><br/>
+<font size="2">(07:01:23 PM)</font><b> clark|w|afk is now known as clark|w</b><br/>
+<font size="2">(07:02:21 PM)</font><b> Joschii [<em>~joschii@89.204.139.16</em>] entered the room.</b><br/>
+<font size="2">(07:03:28 PM)</font><b> How-to-Ardroid [<em>~tester@187.121.0.46</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:04:02 PM)</font> <b>How-to-Ardroid:</b></font> Hi, the webchat freeze me.<br/>
+<font color="#A82F2F"><font size="2">(07:04:34 PM)</font> <b>How-to-Ardroid:</b></font> I read the instructions and I will try user ardour 3 with osc and ardroir latter.<br/>
+<font color="#A82F2F"><font size="2">(07:04:52 PM)</font> <b>How-to-Ardroid:</b></font> Thanks for reply-me.<br/>
+<font size="2">(07:06:58 PM)</font><b> How-to-Ardroid left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(07:18:29 PM)</font> <b>naptastic:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(07:18:41 PM)</font> <b>naptastic:</b></font> that&apos;s an interesting way to conjugate a reflexive verb.<br/>
+<font size="2">(07:18:52 PM)</font><b> naptastic left the room (&quot;Leaving&quot;).</b><br/>
+<font size="2">(07:25:48 PM)</font><b> AndChat448896 [<em>~AndChat44@2600:1003:b126:7d00:bc48:f4ee:e77c:c29f</em>] entered the room.</b><br/>
+<font size="2">(07:27:14 PM)</font><b> AndChat|448896 left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:36:51 PM)</font> <b>edogawa:</b></font> i can clearly see a massive increase of interest in ardroid lately, every couple of days the same questions are made :)<br/>
+<font color="#A82F2F"><font size="2">(07:37:14 PM)</font> <b>edogawa:</b></font> so it&apos;s a blessing to have zth&apos;s blog now <br/>
+<font size="2">(07:39:50 PM)</font><b> corresponder left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(07:41:55 PM)</font><b> AndChat448896 left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:45:35 PM)</font> <b>zth:</b></font> edogawa, thanks, and thanks for actually making it work for me.. looking forward to using it this weekend, got some recording coming up<br/>
+<font size="2">(07:56:53 PM)</font><b> Rxke [<em>4e141902@gateway/web/freenode/ip.78.20.25.2</em>] entered the room.</b><br/>
+<font size="2">(07:59:53 PM)</font><b> Rxke left the room.</b><br/>
+<font size="2">(08:06:28 PM)</font><b> thorwil [<em>~thorwil@p4FFB53DA.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:09:17 PM)</font> <b>holstein:</b></font> away<br/>
+<font color="#A82F2F"><font size="2">(08:09:20 PM)</font> <b>holstein:</b></font> sorry..<br/>
+<font color="#A82F2F"><font size="2">(08:09:52 PM)</font> <b>holstein:</b></font> i dint even have anything good to say either ;)<br/>
+<font color="#A82F2F"><font size="2">(08:09:54 PM)</font> <b>holstein:</b></font> didnt*<br/>
+<font size="2">(08:15:36 PM)</font><b> LAbot [<em>~supybot@2001:468:c80:2133:216:3eff:fe5d:e9e2</em>] entered the room.</b><br/>
+<font size="2">(08:19:54 PM)</font><b> orl [<em>~orl@lns-bzn-48f-81-56-240-95.adsl.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(08:29:14 PM)</font><b> ousado left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font size="2">(08:31:51 PM)</font><b> merlin-vrn [<em>d919e7f3@gateway/web/freenode/ip.217.25.231.243</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:31:57 PM)</font> <b>thorwil:</b></font> las: you might find http://code.blender.org/index.php/2013/10/redefining-blender/ interesting, especially the &quot;but it&apos;s also for everyone&quot; section<br/>
+<font color="#A82F2F"><font size="2">(08:32:00 PM)</font> <b>LAbot:</b></font> Title: (Re)defining Blender | Blender Code (at code.blender.org)<br/>
+<font color="#A82F2F"><font size="2">(08:32:29 PM)</font> <b>las:</b></font> thorwil: prokoudine pointed me at it yesterday. it sounded as if you wrote it :)<br/>
+<font color="#A82F2F"><font size="2">(08:33:14 PM)</font> <b>thorwil:</b></font> lol<br/>
+<font size="2">(08:33:31 PM)</font><b> ousado [<em>~ousado@unaffiliated/ousado</em>] entered the room.</b><br/>
+<font size="2">(08:33:50 PM)</font><b> nox- [<em>noident@freebsd/developer/nox</em>] entered the room.</b><br/>
+<font size="2">(08:34:02 PM)</font><b> nox- left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:34:34 PM)</font><b> colinf1 left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font size="2">(08:34:36 PM)</font><b> nox- [<em>noident@freebsd/developer/nox</em>] entered the room.</b><br/>
+<font size="2">(08:44:43 PM)</font><b> prokoudine [<em>~prokoudin@ppp85-141-143-156.pppoe.mtu-net.ru</em>] entered the room.</b><br/>
+<font size="2">(08:58:57 PM)</font><b> boom1992 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(08:58:58 PM)</font><b> rgareus|afk is now known as rgareus</b><br/>
+<font size="2">(09:00:36 PM)</font><b> merlin-vrn left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(09:04:37 PM)</font> <b>rgareus:</b></font> edogawa: there&apos;s no need to patch the makefile to change the font, you can specify it as make variable (same as PREFIX, DESTDIR,..)<br/>
+<font color="#A82F2F"><font size="2">(09:05:00 PM)</font> <b>rgareus:</b></font> edogawa: and you don&apos;t need pugl, its shipped with the plugin(s) and a patched/customized version of it, anyway<br/>
+<font color="#A82F2F"><font size="2">(09:08:13 PM)</font> <b>rgareus:</b></font> edogawa: as for the &quot;nothing provides lv2-devel &gt;= 1.4&quot; error - bet guess is that the &apos;non-rolling-release openSuSE&apos; is too old.<br/>
+<font color="#A82F2F"><font size="2">(09:08:33 PM)</font> <b>rgareus:</b></font> s/bet/best/<br/>
+<font color="#A82F2F"><font size="2">(09:09:17 PM)</font> <b>edogawa:</b></font> rgareus: yes i know about the enVar, but will it suffice to define that at compile time or does the user have to do that again?<br/>
+<font color="#A82F2F"><font size="2">(09:10:04 PM)</font> <b>edogawa:</b></font> rgareus: i realized that pugl is included, i was just wondering because the debian control file had it listed<br/>
+<font color="#A82F2F"><font size="2">(09:10:28 PM)</font> <b>rgareus:</b></font> edogawa: you need to set it both at build and install.<br/>
+<font color="#A82F2F"><font size="2">(09:10:41 PM)</font> <b>edogawa:</b></font> rgareus: and last, i looked at the repo content and lv2-devel 1.6.0 is there<br/>
+<font color="#A82F2F"><font size="2">(09:10:43 PM)</font> <b>rgareus:</b></font> edogawa: well, the patch works too.<br/>
+<font color="#A82F2F"><font size="2">(09:11:14 PM)</font> <b>rgareus:</b></font> edogawa: but patches need to be maintained (if the makefile changes), so I try to expose everything that dists need as variables.<br/>
+<font color="#A82F2F"><font size="2">(09:12:13 PM)</font> <b>rgareus:</b></font> edogawa: maybe it&apos;s a packaging error. does lv2-devel 1.6.0 also *provide* lv2-devel &gt;= 1.4.0<br/>
+<font color="#A82F2F"><font size="2">(09:12:37 PM)</font> <b>rgareus:</b></font> edogawa: sometimes API/ABI revision numbers differ from version numbers<br/>
+<font size="2">(09:12:52 PM)</font><b> pepsifx357 [<em>~ben@adsl-184-37-2-114.asm.bellsouth.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:14:18 PM)</font> <b>edogawa:</b></font> rgareus: i shrug for the moment :)<br/>
+<font color="#A82F2F"><font size="2">(09:14:48 PM)</font> <b>pepsifx357:</b></font> I&apos;m trying to create a puch range based off of a region in the editor.  I noticed that you can right click on the region -&gt; Select -&gt; Set range to punch range, but It doesn&apos;t seem to do anything.<br/>
+<font color="#A82F2F"><font size="2">(09:16:47 PM)</font> <b>edogawa:</b></font> rgareus: didn&apos;t get an answer from #opensuse-buildservice either... and my feeling is that no more than 10 people are using my repo anyway... there&apos;s an alternative lv2 package in rui&apos;s home project on OBS, maybe i&apos;ll try with that instead<br/>
+<font color="#A82F2F"><font size="2">(09:17:29 PM)</font> <b>edogawa:</b></font> pepsifx357: region != range<br/>
+<font color="#A82F2F"><font size="2">(09:19:15 PM)</font> <b>pepsifx357:</b></font> So how can I create a punch range from a region?<br/>
+<font size="2">(09:24:11 PM)</font><b> orl left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:47:41 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

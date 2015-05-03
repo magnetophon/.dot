@@ -1,0 +1,178 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Wed 24 Dec 2014 12:25:10 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Wed 24 Dec 2014 12:25:10 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(12:25:11 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(12:25:11 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(12:30:15 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] muflax opened pull request #5458: git-remote-hg: fix compatibility with mercurial 3.2 (master...git-remote-hg) http://git.io/8qZvSQ<br/>
+<font color="#A82F2F"><font size="2">(12:49:49 AM)</font> <b>niksnut:</b></font> pierron: nice :-)<br/>
+<font color="#A82F2F"><font size="2">(12:51:26 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/-Ra_pg<br/>
+<font color="#A82F2F"><font size="2">(12:51:26 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3d9bbdb Vladimír Čunát: nvidia_x11: document the updating policy...<br/>
+<font color="#A82F2F"><font size="2">(12:59:20 AM)</font> <b>Profpatsch:</b></font> When I set mutableUsers to false, how do I set the root Password?<br/>
+<font color="#A82F2F"><font size="2">(01:00:05 AM)</font> <b>Profpatsch:</b></font> It obviously got cleared out with the switch.<br/>
+<font color="#A82F2F"><font size="2">(01:00:29 AM)</font> <b>Profpatsch:</b></font> But users.extraUsers.root.password doesn’t seem to do a thing, the password stays empty.<br/>
+<font color="#A82F2F"><font size="2">(01:10:03 AM)</font> <b>Profpatsch:</b></font> Can I disable root password altogether?<br/>
+<font color="#A82F2F"><font size="2">(01:11:17 AM)</font> <b>Profpatsch:</b></font> Oh, I see, I have to set security initialRootPassword<br/>
+<font color="#A82F2F"><font size="2">(01:13:51 AM)</font> <b>Profpatsch:</b></font> Can I generate a hashedPassword somehow?<br/>
+<font color="#A82F2F"><font size="2">(01:14:50 AM)</font> <b>_deepfire:</b></font> excellent question<br/>
+<font color="#A82F2F"><font size="2">(01:15:23 AM)</font> <b>_deepfire:</b></font> the way I did it was by setting a password, then cutting and pasting it from /etc/shadow<br/>
+<font color="#A82F2F"><font size="2">(01:15:27 AM)</font> <b>Profpatsch:</b></font> _deepfire: I could look it up in /etc/shadow, but that kind of defeats the purpose. :)<br/>
+<font color="#A82F2F"><font size="2">(01:15:32 AM)</font> <b>Profpatsch:</b></font> Okay.<br/>
+<font color="#A82F2F"><font size="2">(01:16:04 AM)</font> <b>_deepfire:</b></font> I wish I knew a better recipe<br/>
+<font color="#A82F2F"><font size="2">(01:16:14 AM)</font> <b>Profpatsch:</b></font> But if I want the user to be able to change the password, I have to completely enable mutableUsers?<br/>
+<font color="#A82F2F"><font size="2">(01:16:23 AM)</font> <b>_deepfire:</b></font> of course<br/>
+<font color="#A82F2F"><font size="2">(01:16:49 AM)</font> <b>_deepfire:</b></font> well, I see what you might be getting at<br/>
+<font color="#A82F2F"><font size="2">(01:17:15 AM)</font> <b>_deepfire:</b></font> I have produced the salted password hash on a different system<br/>
+<font color="#A82F2F"><font size="2">(01:17:17 AM)</font> <b>Profpatsch:</b></font> Hm, if I use passwordFile then he should be able to change his password as he wishes.<br/>
+<font color="#A82F2F"><font size="2">(01:17:42 AM)</font> <b>Profpatsch:</b></font> But only if he can generate a hashed password.<br/>
+<font color="#A82F2F"><font size="2">(01:17:57 AM)</font> <b>Profpatsch:</b></font> I need only the hash in shadow, rigth?<br/>
+<font color="#A82F2F"><font size="2">(01:18:04 AM)</font> <b>_deepfire:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(01:18:14 AM)</font> <b>_deepfire:</b></font> ..with the salt, naturally<br/>
+<font color="#A82F2F"><font size="2">(01:18:18 AM)</font> <b>_deepfire:</b></font> the whole gecos field<br/>
+<font color="#A82F2F"><font size="2">(01:18:50 AM)</font> <b>_deepfire:</b></font> ..everything between the ::<br/>
+<font color="#A82F2F"><font size="2">(01:19:07 AM)</font> <b>Profpatsch:</b></font> But how does it know the hashing function or the number of rounds?<br/>
+<font color="#A82F2F"><font size="2">(01:19:29 AM)</font> <b>_deepfire:</b></font> well, the gecos field carries a number which specifies that<br/>
+<font color="#A82F2F"><font size="2">(01:19:51 AM)</font> <b>_deepfire:</b></font> the field contains the algo, the salt and the hash<br/>
+<font color="#A82F2F"><font size="2">(01:20:38 AM)</font> <b>Profpatsch:</b></font> Okay.<br/>
+<font color="#A82F2F"><font size="2">(01:20:56 AM)</font> <b>_deepfire:</b></font> $algo$salt$hash<br/>
+<font color="#A82F2F"><font size="2">(01:24:58 AM)</font> <b>Profpatsch:</b></font> Okay, so passwordFile is simply configured right in, I have to rebuild if I change that.<br/>
+<font color="#A82F2F"><font size="2">(01:25:36 AM)</font> <b>Profpatsch:</b></font> So no method for the user to change his password if I want the thing to be immutable.<br/>
+<font color="#A82F2F"><font size="2">(01:27:10 AM)</font> <b>Profpatsch:</b></font> Which is sad, because stuff like groups being configured declaratively would be nice even if passwords can be changed by users.<br/>
+<font color="#A82F2F"><font size="2">(01:28:59 AM)</font> <b>_deepfire:</b></font> : -)<br/>
+<font color="#A82F2F"><font size="2">(01:29:28 AM)</font> <b>_deepfire:</b></font> most certainly, you have a fine taste, sir!<br/>
+<font color="#A82F2F"><font size="2">(01:31:06 AM)</font> <b>Profpatsch:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(01:31:26 AM)</font> <b>Profpatsch:</b></font> Posted an issue about it to github.<br/>
+<font color="#A82F2F"><font size="2">(01:31:50 AM)</font> <b>ChongLi:</b></font> why is $sourceRoot a relative path?<br/>
+<font color="#A82F2F"><font size="2">(01:31:57 AM)</font> <b>ChongLi:</b></font> by default<br/>
+<font color="#A82F2F"><font size="2">(01:40:42 AM)</font> <b>ChongLi:</b></font> nevermind, figured out a different way<br/>
+<font color="#A82F2F"><font size="2">(02:07:15 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 2 new commits to master: http://git.io/wxP8Wg<br/>
+<font color="#A82F2F"><font size="2">(02:07:15 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7e8eea5 William A. Kennington III: spl: 0.6.3 -&gt; 0.6.3-1.2<br/>
+<font color="#A82F2F"><font size="2">(02:07:15 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f662240 William A. Kennington III: zfs: 0.6.3 -&gt; 0.6.3-1.2<br/>
+<font color="#A82F2F"><font size="2">(02:30:10 AM)</font> <b>Shados:</b></font> So how are people handling deploying Ruby apps at the moment? I&apos;ve read through everything related on the wiki but am now probably more confused than when I began ._.<br/>
+<font color="#A82F2F"><font size="2">(02:40:53 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] Phreedom pushed 1 new commit to master: http://git.io/NYvNig<br/>
+<font color="#A82F2F"><font size="2">(02:40:53 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b6e68d2 Evgeny Egorochkin: KDE4: update 4.14.1 to 4.14.3<br/>
+<font color="#A82F2F"><font size="2">(03:27:04 AM)</font> <b>shlevy:</b></font> wkennington: yeah, upstream doesn&apos;t want it. It should be straightforward to maintain, I guess I can keep it up to date<br/>
+<font color="#A82F2F"><font size="2">(03:27:30 AM)</font> <b>shlevy:</b></font> wkennington: Did you see the ml thread? Amazing the &quot;reasoning&quot; behind rejecting it<br/>
+<font color="#A82F2F"><font size="2">(03:29:25 AM)</font> <b>copumpkin:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(04:32:57 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] mvcisback opened pull request #5460: Rawdog RSS Reader (master...master) http://git.io/7ihi2A<br/>
+<font size="2">(05:47:08 AM)</font><b> MichaelRaskin left the room (quit: Quit: MichaelRaskin).</b><br/>
+<font color="#A82F2F"><font size="2">(06:31:17 AM)</font> <b>enthropy:</b></font> is there a straightforward way to disable haddock being run with a haskell package?<br/>
+<font color="#A82F2F"><font size="2">(06:32:11 AM)</font> <b>enthropy:</b></font> I&apos;m trying to build xmonad with ghc-6.12 with nix, and I&apos;m running into &quot;Setup: Can&apos;t find transitive deps for haddock<br/>
+<font color="#A82F2F"><font size="2">(06:32:12 AM)</font> <b>enthropy:</b></font> &quot;<br/>
+<font color="#A82F2F"><font size="2">(06:34:19 AM)</font> <b>copumpkin:</b></font> is there some way I can print out a graph of a given derivations dependencies?<br/>
+<font color="#A82F2F"><font size="2">(06:34:47 AM)</font> <b>copumpkin:</b></font> oh yes I see it<br/>
+<font color="#A82F2F"><font size="2">(06:36:22 AM)</font> <b>copumpkin:</b></font> oh what if something isn&apos;t in my store yet<br/>
+<font color="#A82F2F"><font size="2">(06:36:28 AM)</font> <b>copumpkin:</b></font> and I want to get a dependency graph<br/>
+<font color="#A82F2F"><font size="2">(06:36:34 AM)</font> <b>copumpkin:</b></font> is that even possible?<br/>
+<font color="#A82F2F"><font size="2">(06:36:54 AM)</font> <b>copumpkin:</b></font> (I&apos;m getting a nontrivial infinite recursion when evaluating something and would like to figure out how to disentangle it)<br/>
+<font color="#A82F2F"><font size="2">(06:38:03 AM)</font> <b>Shados:</b></font> How is gem-nix meant to be used?<br/>
+<font color="#A82F2F"><font size="2">(06:56:31 AM)</font> <b>ChongLi:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(06:56:36 AM)</font> <b>ChongLi:</b></font> is there no package for unrar?<br/>
+<font color="#A82F2F"><font size="2">(07:02:50 AM)</font> <b>sj_mackenzie:</b></font> does nix have some kind of trace functionality?<br/>
+<font color="#A82F2F"><font size="2">(07:03:39 AM)</font> <b>ChongLi:</b></font> sj_mackenzie: for building a package?<br/>
+<font color="#A82F2F"><font size="2">(07:08:59 AM)</font> <b>enthropy:</b></font> my nixpkgs has a tools/archivers/unrar<br/>
+<font color="#A82F2F"><font size="2">(07:10:15 AM)</font> <b>ChongLi:</b></font> enthropy: I see it in there<br/>
+<font color="#A82F2F"><font size="2">(07:10:54 AM)</font> <b>ChongLi:</b></font> but it doesn&apos;t show up when I nix-env -qaP<br/>
+<font color="#A82F2F"><font size="2">(07:13:01 AM)</font> <b>ChongLi:</b></font> ahh, it&apos;s an unfree thing<br/>
+<font color="#A82F2F"><font size="2">(07:14:11 AM)</font> <b>ChongLi:</b></font> I got confused because I had already had allowUnfree = true in my configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(07:14:25 AM)</font> <b>ChongLi:</b></font> apparently I need that in my local ~/.nixpkgs/config.nix as well<br/>
+<font color="#A82F2F"><font size="2">(07:39:58 AM)</font> <b>sj_mackenzie:</b></font> Ah sorry ChongLi I was asking my own question, with no reference to yours :)<br/>
+<font color="#A82F2F"><font size="2">(07:40:31 AM)</font> <b>sj_mackenzie:</b></font> I think you&apos;ll find even if you have it in config.nix it&apos;ll still throw an error.<br/>
+<font color="#A82F2F"><font size="2">(07:40:49 AM)</font> <b>sj_mackenzie:</b></font> try nix-build instead of nix-env<br/>
+<font color="#A82F2F"><font size="2">(07:41:31 AM)</font> <b>sj_mackenzie:</b></font> Also nix handles recursive quite well as it&apos;s a lazy language<br/>
+<font color="#A82F2F"><font size="2">(07:41:39 AM)</font> <b>sj_mackenzie:</b></font> just add the &apos;rec&apos; keyword<br/>
+<font color="#A82F2F"><font size="2">(07:41:56 AM)</font> <b>sj_mackenzie:</b></font> this will resolve recursive deps - as I understand it.<br/>
+<font color="#A82F2F"><font size="2">(07:42:09 AM)</font> <b>sj_mackenzie:</b></font> rec means recursive<br/>
+<font color="#A82F2F"><font size="2">(07:46:09 AM)</font> <b>paraseba:</b></font> is there some way to get slim to load my .xinitrc ?<br/>
+<font color="#A82F2F"><font size="2">(09:54:27 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 2 new commits to master: http://git.io/_oPGWw<br/>
+<font color="#A82F2F"><font size="2">(09:54:27 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7ef5798 Jaka Hudoklin: pythonPackages: add fig<br/>
+<font color="#A82F2F"><font size="2">(09:54:27 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 6a236b2 Domen Kožar: Merge pull request #5151 from offlinehacker/pkgs/pythonPackages/fig...<br/>
+<font size="2">(09:55:04 AM)</font><b> MichaelRaskin [<em>~MichaelRa@195.178.216.113</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:57:26 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/skNpTA<br/>
+<font color="#A82F2F"><font size="2">(09:57:26 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 157e63c Peter Simons: Update default Haskell compiler from GHC 7.8.3 to 7.8.4.<br/>
+<font color="#A82F2F"><font size="2">(10:58:03 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 2 new commits to master: http://git.io/FVAg1w<br/>
+<font color="#A82F2F"><font size="2">(10:58:03 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c998edf Domen Kožar: libcec: 2.1.4 -&gt; 2.2.0<br/>
+<font color="#A82F2F"><font size="2">(10:58:03 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 20e0da5 Domen Kožar: add kodi 14.0 (renamed from xbmc, new release)<br/>
+<font color="#A82F2F"><font size="2">(10:58:33 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric closed pull request #4861: libcec: Update to 2.2.0 (master...libcec-update) http://git.io/XjIDig<br/>
+<font color="#A82F2F"><font size="2">(11:02:06 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 2 new commits to release-14.12: http://git.io/V7PAZQ<br/>
+<font color="#A82F2F"><font size="2">(11:02:06 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 ea2977d Brandon Dimcheff: Fix compiled-in /bin/bash in foomatic filters...<br/>
+<font color="#A82F2F"><font size="2">(11:02:06 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 cd3f849 Brandon Dimcheff: squish cups patches all into one statement...<br/>
+<font color="#A82F2F"><font size="2">(11:12:26 AM)</font> <b>sg2002:</b></font> Hello. How do I list all available versions of package?<br/>
+<font color="#A82F2F"><font size="2">(12:03:40 PM)</font> <b>boothead:</b></font> Morning folks. I&apos;ve just dropped into a nix-shell with a haskell package that has cabal as an argument, but I don&apos;t have cabal as a command within it (Cabal does appear in ghc-pkg list) an ideas?<br/>
+<font color="#A82F2F"><font size="2">(12:10:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bjornfor pushed 1 new commit to master: http://git.io/gzTqfQ<br/>
+<font color="#A82F2F"><font size="2">(12:10:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1a79e7f Bjørn Forsman: attic: fetchurl -&gt; fetchzip...<br/>
+<font size="2">(12:20:40 PM)</font><b> vcunat [<em>~admin@nat-34.starnet.cz</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:21:27 PM)</font> <b>iElectric:</b></font> boothead: I use buildTools = [ cabalInstall ];<br/>
+<font color="#A82F2F"><font size="2">(12:21:37 PM)</font> <b>iElectric:</b></font> not sure if that&apos;s correct approach, but it seems to work<br/>
+<font color="#A82F2F"><font size="2">(12:22:42 PM)</font> <b>boothead:</b></font> iElectric, what is buildTools? I haven&apos;t come across that one before, do you have a link to docs?<br/>
+<font color="#A82F2F"><font size="2">(12:29:04 PM)</font> <b>vcunat:</b></font> iElectric: Is there something left to do before releasing 14.12? Do you need help?<br/>
+<font color="#A82F2F"><font size="2">(12:34:04 PM)</font> <b>iElectric:</b></font> vcunat: nope, just waiting on release<br/>
+<font color="#A82F2F"><font size="2">(12:38:27 PM)</font> <b>vcunat:</b></font> waiting on what?<br/>
+<font color="#A82F2F"><font size="2">(12:38:50 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] aszlig pushed 1 new commit to master: http://git.io/eLPSog<br/>
+<font color="#A82F2F"><font size="2">(12:38:50 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c7e3ddf aszlig: nixos/synergy: Fix use of the &quot;optional&quot; function....<br/>
+<font color="#A82F2F"><font size="2">(12:39:13 PM)</font> <b>boothead:</b></font> hmm that&apos;s a new one: error: while evaluating the attribute `propagatedNativeBuildInputs&apos; of the derivation this is from pkgs/build-support/cabal/ghcjs.nix:63:13<br/>
+<font size="2">(12:56:31 PM)</font><b> vcunat left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:03:24 PM)</font> <b>anty:</b></font> Dec 24 12:58:21 nixos systemd[1]: Activating swap /dev/dmx2d1...<br/>
+<font color="#A82F2F"><font size="2">(01:03:27 PM)</font> <b>anty:</b></font> Dec 24 12:58:21 nixos swapon[6263]: swapon: stat failed /dev/dmx2d1: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(01:03:27 PM)</font> <b>anty:</b></font> Dec 24 12:58:21 nixos systemd[1]: dev-dmx2d1.swap swap process exited, code=exited status=255<br/>
+<font color="#A82F2F"><font size="2">(01:03:27 PM)</font> <b>anty:</b></font> Dec 24 12:58:21 nixos systemd[1]: Failed to activate swap /dev/dmx2d1.<br/>
+<font color="#A82F2F"><font size="2">(01:03:27 PM)</font> <b>anty:</b></font> Dec 24 12:58:21 nixos systemd[1]: Unit dev-dmx2d1.swap entered failed state.<br/>
+<font color="#A82F2F"><font size="2">(01:03:27 PM)</font> <b>anty:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(01:03:36 PM)</font> <b>anty:</b></font> what did i break?<br/>
+<font color="#A82F2F"><font size="2">(01:03:59 PM)</font> <b>anty:</b></font> this happens during rebuild switch<br/>
+<font color="#16569E"><font size="2">(01:05:23 PM)</font> <b>magnetophon:</b></font> anty: did you check  if the partition exists?<br/>
+<font color="#A82F2F"><font size="2">(01:08:48 PM)</font> <b>anty:</b></font> magnetophon, well no. There is no /dev/dmx.. but why would it suddenly start to use it?<br/>
+<font size="2">(01:09:38 PM)</font><b> vcunat [<em>~admin@nat-34.starnet.cz</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(01:09:41 PM)</font> <b>magnetophon:</b></font> anty: No idea. did you seach your config for that string?<br/>
+<font color="#A82F2F"><font size="2">(01:10:08 PM)</font> <b>anty:</b></font>   swapDevices = [{ device = &quot;/dev/mapper/xirios-swapvol&quot;; }];<br/>
+<font color="#A82F2F"><font size="2">(01:10:12 PM)</font> <b>anty:</b></font> d..m..x<br/>
+<font color="#A82F2F"><font size="2">(01:10:20 PM)</font> <b>anty:</b></font> ?<br/>
+<font color="#16569E"><font size="2">(01:13:25 PM)</font> <b>magnetophon:</b></font> anty: so does that device exist?<br/>
+<font color="#A82F2F"><font size="2">(01:14:11 PM)</font> <b>anty:</b></font> magnetophon, yes, that one exists<br/>
+<font color="#16569E"><font size="2">(01:15:25 PM)</font> <b>magnetophon:</b></font> anty: hmmm. odd. sorry, I'm out of ideas...<br/>
+<font size="2">(01:18:11 PM)</font><b> anty left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:18:24 PM)</font><b> anty [<em>~anty@dslb-088-065-005-039.088.065.pools.vodafone-ip.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:18:47 PM)</font> <b>anty:</b></font> i guess Ill reboot and then I&apos;ll see<br/>
+<font color="#A82F2F"><font size="2">(01:18:52 PM)</font> <b>anty:</b></font> thanks magnetophon<br/>
+<font color="#16569E"><font size="2">(01:19:08 PM)</font> <b>magnetophon:</b></font> anty: good luck<br/>
+<font size="2">(01:19:24 PM)</font><b> anty left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:20:53 PM)</font><b> anty [<em>~anty@dslb-088-065-005-039.088.065.pools.vodafone-ip.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:23:06 PM)</font> <b>anty:</b></font> magnetophon, its fine now<br/>
+<font color="#16569E"><font size="2">(01:23:37 PM)</font> <b>magnetophon:</b></font> anty: glad to hear that, though it would have been better to find the actual cause...<br/>
+<font color="#A82F2F"><font size="2">(01:26:15 PM)</font> <b>anty:</b></font> I have an idea..<br/>
+<font color="#A82F2F"><font size="2">(01:27:44 PM)</font> <b>anty:</b></font> magnetophon, I tried rebuilding as normal user (it failed on creating symlinks - no permissions) and then switched to root to do it...<br/>
+<font color="#16569E"><font size="2">(01:29:38 PM)</font> <b>magnetophon:</b></font> anty: I don't see a clear relation. I'm no wizzard mind you...<br/>
+<font color="#A82F2F"><font size="2">(01:32:23 PM)</font> <b>anty:</b></font> i guess the rebuild removed/locked whatever temporary device and did not release/restore it on failure or something<br/>
+<font color="#A82F2F"><font size="2">(01:32:49 PM)</font> <b>anty:</b></font> but neither am i magnetophon, and Im completely new to nixos<br/>
+<font color="#16569E"><font size="2">(01:33:40 PM)</font> <b>magnetophon:</b></font> anty: I see. makes sense<br/>
+<font color="#A82F2F"><font size="2">(01:35:33 PM)</font> <b>anty:</b></font> maybe Ill try to reproduce this to confirm that was the cause. no time now, though<br/>
+<font color="#A82F2F"><font size="2">(01:35:37 PM)</font> <b>anty:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(01:43:04 PM)</font> <b>iElectric:</b></font> vcunat: for niksnut to announce the release<br/>
+<font color="#A82F2F"><font size="2">(01:43:26 PM)</font> <b>vcunat:</b></font> ah... and does he know he should do it already?<br/>
+<font color="#A82F2F"><font size="2">(01:43:37 PM)</font> <b>iElectric:</b></font> yup<br/>
+<font color="#A82F2F"><font size="2">(01:43:53 PM)</font> <b>vcunat:</b></font> OK, nice. (I understand he may not have time around these days...)<br/>
+<font color="#A82F2F"><font size="2">(01:44:02 PM)</font> <b>iElectric:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(01:45:06 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/V4ZzEw<br/>
+<font color="#A82F2F"><font size="2">(01:45:07 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master ea50da9 Peter Simons: haskell-libnotify: re-generate with cabal2nix (and override reference to pkgs.libnotify)<br/>
+<font color="#A82F2F"><font size="2">(02:00:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vbgl pushed 1 new commit to master: http://git.io/FIN65A<br/>
+<font color="#A82F2F"><font size="2">(02:00:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 78ea82f Vincent Laporte: pyqt4: update from 4.10.2 to 4.11.3<br/>
+<font color="#A82F2F"><font size="2">(03:22:29 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 1 new commit to master: http://git.io/JWvPpg<br/>
+<font color="#A82F2F"><font size="2">(03:22:29 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 19a979d Pascal Wittmann: cv: update to 0.6<br/>
+<font size="2">(03:22:33 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:38:00 PM)</font> <b>anty:</b></font> collision between `/nix/store/4zpxli4vq57cn4gqdvn7h9pd8x7kxfhd-texinfo-5.2/texmf-dist/tex/texinfo/txi-uk.tex&apos; and `/nix/store/lbxsykcirclk8mbgfjgwvmrhad0bp4hv-texinfo-5.2/texmf-dist/tex/texinfo/txi-uk.tex&apos; at /nix/store/9z6d76pz8rr7gci2n3igh5dqi7ac5xqj-builder.pl line 69.<br/>
+<font color="#A82F2F"><font size="2">(03:38:11 PM)</font> <b>anty:</b></font> does this stuff need to worry me?<br/>
+<font color="#A82F2F"><font size="2">(03:55:20 PM)</font> <b>anty:</b></font> Ill check back later for answers ;) happy easter, everyone<br/>
+<font color="#A82F2F"><font size="2">(03:55:27 PM)</font> <b>anty:</b></font> ahm, halloween<br/>
+<font color="#A82F2F"><font size="2">(03:55:42 PM)</font> <b>anty:</b></font> duh, the thing.. you know<br/>
+<font color="#A82F2F"><font size="2">(03:55:47 PM)</font> <b>anty:</b></font> bye<br/>
+<font size="2">(03:55:54 PM)</font><b> anty left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(04:23:28 PM)</font> <b>sj_mackenzie:</b></font> is it possible to garbage collect a single package?<br/>
+<font color="#A82F2F"><font size="2">(04:23:57 PM)</font> <b>MichaelRaskin:</b></font> nix-store --delete<br/>
+<font color="#A82F2F"><font size="2">(04:24:04 PM)</font> <b>MichaelRaskin:</b></font> Now, the package may be in use…<br/>
+<font color="#A82F2F"><font size="2">(04:28:08 PM)</font> <b>sj_mackenzie:</b></font> MichaelRaskin:  Excellent ta<br/>
+<font color="#A82F2F"><font size="2">(04:28:21 PM)</font> <b>sj_mackenzie:</b></font> ... in use .... -&gt; boom<br/>
+<font color="#A82F2F"><font size="2">(04:34:17 PM)</font> <b>MichaelRaskin:</b></font> boom?<br/>
+<font color="#A82F2F"><font size="2">(04:35:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 2 new commits to master: http://git.io/kGZwAA<br/>
+<font color="#A82F2F"><font size="2">(04:35:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 63ae630 William A. Kennington III: qemu: 2.0.0 -&gt; 2.2.0...<br/>
+<font color="#A82F2F"><font size="2">(04:35:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 2af2d5a Domen Kožar: Merge pull request #3835 from wkennington/master.qemu...<br/>
+<font color="#A82F2F"><font size="2">(04:39:34 PM)</font> <b>sj_mackenzie:</b></font> delete a dependency in use -&gt; boom :)<br/>
+<font color="#A82F2F"><font size="2">(04:41:45 PM)</font> <b>MichaelRaskin:</b></font> nix-store will complain<br/>
+<font size="2">(05:06:12 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

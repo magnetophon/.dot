@@ -1,0 +1,147 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Wed 28 Aug 2013 04:21:08 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Wed 28 Aug 2013 04:21:08 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:21:08 PM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font size="2">(04:29:47 PM)</font><b> orl [<em>~orl@ip-220.net-89-2-170.rev.numericable.fr</em>] entered the room.</b><br/>
+<font size="2">(04:44:51 PM)</font><b> AndreeeCZ left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(04:45:06 PM)</font><b> AndreeeCZ [<em>~AndreeeCZ@88.103.20.84</em>] entered the room.</b><br/>
+<font size="2">(05:06:21 PM)</font><b> kardioid left the room (quit: Quit: Lost terminal).</b><br/>
+<font size="2">(05:12:11 PM)</font><b> hybrid [<em>~R3n4t0@177.34.168.18</em>] entered the room.</b><br/>
+<font size="2">(05:14:25 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(05:15:04 PM)</font><b> orl left the room (quit: Quit: Lost terminal).</b><br/>
+<font size="2">(05:53:06 PM)</font><b> ssj71 [<em>3fe13f6a@gateway/web/cgi-irc/kiwiirc.com/ip.63.225.63.106</em>] entered the room.</b><br/>
+<font size="2">(06:06:29 PM)</font><b> hybrid left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(06:09:29 PM)</font><b> rncbc [<em>~rncbc@a95-93-202-132.cpe.netcabo.pt</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:22:59 PM)</font> <b>male:</b></font> falktx: Something like a codec might indeed fail due -ffast-math<br/>
+<font color="#A82F2F"><font size="2">(06:27:54 PM)</font> <b>falktx:</b></font> yes, but that&apos;s why there&apos;s source tests<br/>
+<font color="#A82F2F"><font size="2">(06:28:08 PM)</font> <b>falktx:</b></font> ogg, vorbis, flac and opus pass them<br/>
+<font color="#A82F2F"><font size="2">(06:28:18 PM)</font> <b>falktx:</b></font> anyway, I disabled that flag for sndfile<br/>
+<font color="#A82F2F"><font size="2">(06:28:32 PM)</font> <b>falktx:</b></font> male: I&apos;m now building plugins, starting with latest caps<br/>
+<font color="#A82F2F"><font size="2">(06:35:04 PM)</font> <b>male:</b></font> falktx: Caps needs -msse3 for some reason.<br/>
+<font color="#A82F2F"><font size="2">(06:35:23 PM)</font> <b>male:</b></font> falktx: But I don&apos;t think it really does. You might try patching it to require SSE2 instead I&apos;m pretty sure it&apos;ll work.<br/>
+<font color="#A82F2F"><font size="2">(06:35:48 PM)</font> <b>falktx:</b></font> I don&apos;t see that in the cflags<br/>
+<font color="#A82F2F"><font size="2">(06:35:49 PM)</font> <b>male:</b></font> falktx: THen it won&apos;t build with the optimized code.<br/>
+<font color="#A82F2F"><font size="2">(06:35:58 PM)</font> <b>falktx:</b></font> caps has this:<br/>
+<font color="#A82F2F"><font size="2">(06:35:58 PM)</font> <b>falktx:</b></font> OPTS = -O6 -ffast-math -funroll-loops -Wall -Wno-psabi -fPIC -DPIC<br/>
+<font color="#A82F2F"><font size="2">(06:35:59 PM)</font> <b>male:</b></font> falktx: It&apos;s got an #ifdef __SSE3__<br/>
+<font color="#A82F2F"><font size="2">(06:36:28 PM)</font> <b>male:</b></font> falktx: Yeah, that&apos;s because dbeian packages are always unoptimized...<br/>
+<font color="#A82F2F"><font size="2">(06:36:49 PM)</font> <b>male:</b></font> falktx: Grep the code for SSE3, you&apos;ll see what I&apos;m talking about.<br/>
+<font size="2">(06:36:52 PM)</font><b> kardioid [<em>~ff@190.249.128.156</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:36:52 PM)</font> <b>falktx:</b></font> those are the flags in the actual caps source Makefile<br/>
+<font color="#A82F2F"><font size="2">(06:37:19 PM)</font> <b>male:</b></font> falktx: You didn&apos;t run configure.py...<br/>
+<font color="#A82F2F"><font size="2">(06:37:32 PM)</font> <b>male:</b></font> falktx: Or you&apos;re looking at code that was patched by debian maintainers.<br/>
+<font color="#A82F2F"><font size="2">(06:37:46 PM)</font> <b>falktx:</b></font> I&apos;m looking at the last tarball<br/>
+<font color="#A82F2F"><font size="2">(06:37:53 PM)</font> <b>falktx:</b></font> configure.py is not needed afaik<br/>
+<font color="#A82F2F"><font size="2">(06:37:57 PM)</font> <b>male:</b></font> falktx: Ok. You don&apos;t have sse3, am I right?<br/>
+<font color="#A82F2F"><font size="2">(06:38:13 PM)</font> <b>male:</b></font> falktx: Well, if you don&apos;t have it in /etc/cpuinfo, then that configure.py will disable its use.<br/>
+<font color="#A82F2F"><font size="2">(06:38:17 PM)</font> <b>male:</b></font> falktx: And you get nothing.<br/>
+<font color="#A82F2F"><font size="2">(06:38:31 PM)</font> <b>falktx:</b></font> configure.py is never used<br/>
+<font color="#A82F2F"><font size="2">(06:38:35 PM)</font> <b>male:</b></font> falktx: What I&apos;m saying is that I think only SSE2 is really needed and the tests/clfags should be changed.<br/>
+<font color="#A82F2F"><font size="2">(06:39:20 PM)</font> <b>male:</b></font> falktx: CAPS has some vector math code that is conditonally compiled in only when -msse3 is provided.<br/>
+<font color="#A82F2F"><font size="2">(06:39:43 PM)</font> <b>falktx:</b></font> ok, then I won&apos;t use it<br/>
+<font color="#A82F2F"><font size="2">(06:39:50 PM)</font> <b>male:</b></font> falktx: Won&apos;t use what?<br/>
+<font color="#A82F2F"><font size="2">(06:40:09 PM)</font> <b>falktx:</b></font> sse3<br/>
+<font color="#A82F2F"><font size="2">(06:40:24 PM)</font> <b>falktx:</b></font> male: the only caps code that has __sse3__ is this bit:<br/>
+<font color="#A82F2F"><font size="2">(06:40:28 PM)</font> <b>falktx:</b></font> _MM_SET_DENORMALS_ZERO_MODE (_MM_DENORMALS_ZERO_ON);<br/>
+<font color="#A82F2F"><font size="2">(06:40:28 PM)</font> <b>male:</b></font> falktx: Change the ifdef to #ifdef __SSE2__ and I think you&apos;ll be able to benefit from the vectorization!<br/>
+<font color="#A82F2F"><font size="2">(06:40:38 PM)</font> <b>male:</b></font> falktx: Hmm. Maybe he changed it.<br/>
+<font color="#A82F2F"><font size="2">(06:41:24 PM)</font> <b>falktx:</b></font> hm, wait, is this the thing that sets cpu flags?<br/>
+<font color="#A82F2F"><font size="2">(06:41:29 PM)</font> <b>male:</b></font> falktx: Yes.<br/>
+<font color="#A82F2F"><font size="2">(06:41:34 PM)</font> <b>falktx:</b></font> I&apos;ll remove it<br/>
+<font color="#A82F2F"><font size="2">(06:41:35 PM)</font> <b>male:</b></font> falktx: And that also only requires SSE2.<br/>
+<font color="#A82F2F"><font size="2">(06:42:21 PM)</font> <b>falktx:</b></font> hmm, but this code is never used<br/>
+<font color="#A82F2F"><font size="2">(06:42:22 PM)</font> <b>male:</b></font> falktx: That&apos;s what I did on my system ;-)<br/>
+<font color="#A82F2F"><font size="2">(06:42:33 PM)</font> <b>falktx:</b></font> it&apos;s inside a function that is never called<br/>
+<font color="#A82F2F"><font size="2">(06:42:57 PM)</font> <b>male:</b></font> falktx: Used to be called from activate(). Tim *said* he moved it to run().<br/>
+<font color="#A82F2F"><font size="2">(06:43:50 PM)</font> <b>male:</b></font> falktx: I guess he make a mistake.<br/>
+<font size="2">(06:43:56 PM)</font><b> kardioid is now known as son0p</b><br/>
+<font color="#A82F2F"><font size="2">(06:44:22 PM)</font> <b>falktx:</b></font> male: after I removed that (unused) code, there&apos;s nothing else when searching for sse2 or sse3<br/>
+<font color="#A82F2F"><font size="2">(06:44:26 PM)</font> <b>male:</b></font> falktx: Don&apos;t tell him. Maybe he wont notice.<br/>
+<font color="#A82F2F"><font size="2">(06:44:39 PM)</font> <b>male:</b></font> falktx: Ok, you should be good then.<br/>
+<font color="#A82F2F"><font size="2">(06:44:57 PM)</font> <b>male:</b></font> falktx: What version is the latest, BTW?<br/>
+<font color="#A82F2F"><font size="2">(06:45:14 PM)</font> <b>falktx:</b></font> 0.9.16 I guess<br/>
+<font color="#A82F2F"><font size="2">(06:45:26 PM)</font> <b>male:</b></font> falktx: Ah. Ok I&apos;m a few behind then.<br/>
+<font size="2">(06:48:55 PM)</font><b> vihcs [<em>~schiv@archlinux/developer/schiv</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:50:29 PM)</font> <b>falktx:</b></font> male: btw, did you saw zita-rev1 ladspa update? quite nice<br/>
+<font color="#A82F2F"><font size="2">(06:50:51 PM)</font> <b>male:</b></font> falktx: No. Where was it posted?<br/>
+<font color="#A82F2F"><font size="2">(06:50:57 PM)</font> <b>falktx:</b></font> lad<br/>
+<font color="#A82F2F"><font size="2">(06:51:20 PM)</font> <b>falktx:</b></font> &quot;update of rev-plugins&quot;, by Fons<br/>
+<font color="#A82F2F"><font size="2">(06:51:20 PM)</font> <b>male:</b></font> falktx: Ah sweet.<br/>
+<font color="#A82F2F"><font size="2">(06:51:44 PM)</font> <b>falktx:</b></font> male: so you see, not everyone is forcing lv2 to happen<br/>
+<font color="#A82F2F"><font size="2">(06:54:23 PM)</font> <b>male:</b></font> falktx: Things are looking up!<br/>
+<font color="#A82F2F"><font size="2">(07:09:07 PM)</font> <b>falktx:</b></font> zita-rev needs some presets<br/>
+<font color="#A82F2F"><font size="2">(07:09:47 PM)</font> <b>falktx:</b></font> we need a ladspa preset format spec like lv2 has<br/>
+<font color="#A82F2F"><font size="2">(07:13:19 PM)</font> <b>falktx:</b></font> I love fons plugins cause I don&apos;t have to fear messing with params. some plugins have nasty effects when moving too many things at once<br/>
+<font size="2">(07:13:54 PM)</font><b> Tumulte left the room (quit: Quit: Lost terminal).</b><br/>
+<font size="2">(07:19:34 PM)</font><b> vihcs left the room (quit: Quit: I quit!).</b><br/>
+<font color="#A82F2F"><font size="2">(07:23:26 PM)</font> <b>male:</b></font> falktx: There is a ladspa preset spec isn&apos;t there? It&apos;s RDF.<br/>
+<font color="#A82F2F"><font size="2">(07:23:48 PM)</font> <b>falktx:</b></font> afaik it was never used<br/>
+<font color="#A82F2F"><font size="2">(07:23:57 PM)</font> <b>falktx:</b></font> and no one likes rdf<br/>
+<font color="#A82F2F"><font size="2">(07:24:34 PM)</font> <b>falktx:</b></font> ladspa only has port indexes and values, so all we need is:<br/>
+<font color="#A82F2F"><font size="2">(07:24:41 PM)</font> <b>falktx:</b></font> 1: 0.5<br/>
+<font color="#A82F2F"><font size="2">(07:24:42 PM)</font> <b>male:</b></font> falktx: Too many. When I told the CAPS author about such problems and how they could be fixed, he basically ignored me. Then Fons made the same comments in public and he basically ignored those too. There is a quite good method of parameter smoothing that solves a lot of these problems, but nobody seems to want to use it.<br/>
+<font color="#A82F2F"><font size="2">(07:24:43 PM)</font> <b>falktx:</b></font> 2: 0.9<br/>
+<font color="#A82F2F"><font size="2">(07:24:44 PM)</font> <b>falktx:</b></font> etc<br/>
+<font color="#A82F2F"><font size="2">(07:25:27 PM)</font> <b>male:</b></font> falktx: Yep. And a name.<br/>
+<font color="#A82F2F"><font size="2">(07:26:18 PM)</font> <b>falktx:</b></font> name is just for niceness<br/>
+<font color="#A82F2F"><font size="2">(07:26:24 PM)</font> <b>male:</b></font> falktx: However, I&apos;m not so convinced that presets are that useful.<br/>
+<font color="#A82F2F"><font size="2">(07:26:33 PM)</font> <b>male:</b></font> falktx: I meant a name for the preset, BTW.<br/>
+<font color="#A82F2F"><font size="2">(07:26:38 PM)</font> <b>falktx:</b></font> oh  yes<br/>
+<font color="#A82F2F"><font size="2">(07:27:40 PM)</font> <b>falktx:</b></font> hmm, effects are possible with DSSI and it has presets<br/>
+<font color="#A82F2F"><font size="2">(07:27:55 PM)</font> <b>falktx:</b></font> but not a host-side preset API/spec though<br/>
+<font color="#A82F2F"><font size="2">(07:28:43 PM)</font> <b>male:</b></font> falktx: By prsets do you mean programs?<br/>
+<font color="#A82F2F"><font size="2">(07:28:54 PM)</font> <b>falktx:</b></font> yeah, whatever<br/>
+<font color="#A82F2F"><font size="2">(07:29:12 PM)</font> <b>male:</b></font> falktx: Not whatever, they&apos;re two different things.<br/>
+<font color="#A82F2F"><font size="2">(07:29:26 PM)</font> <b>male:</b></font> falktx: Program is just another parameter (that might be included in a preset)<br/>
+<font color="#062585"><font size="2">(07:30:17 PM)</font> <b>***male</b></font> needs to eventually finish his DSSI support<br/>
+<font color="#A82F2F"><font size="2">(07:35:20 PM)</font> <b>nilsge:</b></font> hi folks<br/>
+<font color="#A82F2F"><font size="2">(07:36:31 PM)</font> <b>falktx:</b></font> falks? there&apos;s only one here<br/>
+<font color="#A82F2F"><font size="2">(07:36:38 PM)</font> <b>nilsge:</b></font> right.<br/>
+<font color="#A82F2F"><font size="2">(07:36:50 PM)</font> <b>nilsge:</b></font> the lossless flactx<br/>
+<font color="#A82F2F"><font size="2">(07:37:05 PM)</font> <b>nilsge:</b></font> brother of oggtx<br/>
+<font color="#A82F2F"><font size="2">(07:37:06 PM)</font> <b>male:</b></font> Is there a gas leak in here?<br/>
+<font color="#A82F2F"><font size="2">(07:37:16 PM)</font> <b>falktx:</b></font> no, falktx is short for falkTsshiddán, long story<br/>
+<font size="2">(07:40:17 PM)</font><b> hybrid [<em>~R3n4t0@177.34.168.18</em>] entered the room.</b><br/>
+<font size="2">(07:46:37 PM)</font><b> male left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:02:54 PM)</font><b> male [<em>~malnourit@dav.osapostle.com</em>] entered the room.</b><br/>
+<font size="2">(08:05:12 PM)</font><b> falktx left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(08:20:12 PM)</font><b> falktx [<em>~falktx@2.81.12.248</em>] entered the room.</b><br/>
+<font size="2">(08:24:03 PM)</font><b> schiv [<em>~schiv@archlinux/developer/schiv</em>] entered the room.</b><br/>
+<font size="2">(08:24:35 PM)</font><b> son0p left the room (quit: Quit: Lost terminal).</b><br/>
+<font size="2">(09:11:07 PM)</font><b> corresponder_ left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(09:11:27 PM)</font><b> thorwil [<em>~thorwil@p4FFB5470.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(09:14:33 PM)</font><b> rncbc is now known as rncbc|AFK</b><br/>
+<font size="2">(09:19:09 PM)</font><b> _o_o_oOo_o_o_ [<em>~macambot@177.132.8.50</em>] entered the room.</b><br/>
+<font size="2">(09:20:08 PM)</font><b> _o_o_oOo_o_o_` left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:41:14 PM)</font> <b>thorwil:</b></font> who&apos;s in charge of the lad and lau mailing lists these days?<br/>
+<font color="#A82F2F"><font size="2">(09:42:08 PM)</font> <b>nedko:</b></font> thorwil: last time i talked to rgareus<br/>
+<font size="2">(09:56:14 PM)</font><b> nilsge left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(09:58:16 PM)</font><b> nilsge [<em>hammerfest@gateway/shell/devio.us/x-qryaveosqzlewpxl</em>] entered the room.</b><br/>
+<font size="2">(09:59:18 PM)</font><b> falktx left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(10:03:14 PM)</font><b> AndreeeCZ left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(10:05:59 PM)</font><b> thorwil left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(10:26:21 PM)</font><b> falktx [<em>~falktx@2.81.12.248</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:28:32 PM)</font> <b>falktx:</b></font> this is awesome, software patents are now banned in New Zealand<br/>
+<font size="2">(10:28:57 PM)</font><b> Z0oM [<em>~Z0oM@105.Red-80-34-15.staticIP.rima-tde.net</em>] entered the room.</b><br/>
+<font size="2">(10:29:09 PM)</font><b> custos-mundi left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(10:30:58 PM)</font><b> Z0oM left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(10:56:10 PM)</font> <b>male:</b></font> falktx: Thinking of moving?<br/>
+<font size="2">(10:57:07 PM)</font><b> bsjones left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(10:57:28 PM)</font> <b>falktx:</b></font> I wish EU would do the same<br/>
+<font size="2">(11:06:22 PM)</font><b> rncbc|AFK is now known as rncbc</b><br/>
+<font size="2">(11:34:38 PM)</font><b> rncbc left the room (quit: Quit: byee!).</b><br/>
+<font size="2">(11:46:11 PM)</font><b> HisaoNakai left the room (quit: Quit: &quot;We will not go quietly into the night!&quot; https://www.prism-break.org).</b><br/>
+<font size="2">(12:19:58 AM)</font><b> falktx left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(12:26:07 AM)</font><b> nilg` [<em>~user@77.70.2.229</em>] entered the room.</b><br/>
+<font size="2">(12:27:48 AM)</font><b> nilg left the room (quit: Write error: Connection reset by peer).</b><br/>
+<font size="2">(01:02:27 AM)</font><b> ssj71 left the room (quit: Quit: http://www.kiwiirc.com/ - A hand crafted IRC client).</b><br/>
+<font size="2">(01:02:35 AM)</font><b> ssj71 [<em>3fe13f6a@gateway/web/cgi-irc/kiwiirc.com/ip.63.225.63.106</em>] entered the room.</b><br/>
+<font size="2">(01:11:09 AM)</font><b> ssj71 left the room (quit: Quit: http://www.kiwiirc.com/ - A hand crafted IRC client).</b><br/>
+<font size="2">(01:42:14 AM)</font><b> custos-mundi [<em>~custos-mu@ip-109-85-99-22.web.vodafone.de</em>] entered the room.</b><br/>
+<font size="2">(02:06:47 AM)</font><b> monotomy left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(02:15:10 AM)</font><b> vihcs [<em>~schiv@archlinux/developer/schiv</em>] entered the room.</b><br/>
+<font size="2">(02:17:36 AM)</font><b> schiv left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:23:09 AM)</font><b> vihcs left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:24:39 AM)</font><b> vihcs [<em>~schiv@archlinux/developer/schiv</em>] entered the room.</b><br/>
+<font size="2">(02:39:01 AM)</font><b> vihcs left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:42:33 AM)</font><b> magnetophon left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(02:42:33 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

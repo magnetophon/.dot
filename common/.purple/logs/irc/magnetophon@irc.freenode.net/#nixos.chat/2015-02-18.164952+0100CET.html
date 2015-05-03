@@ -1,0 +1,78 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Wed 18 Feb 2015 04:49:52 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Wed 18 Feb 2015 04:49:52 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:49:52 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(04:49:52 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(04:50:00 PM)</font> <b>anelson:</b></font> hey guys is there a way to temporarily remove the nix-installed version of something from my path? I have an existing installation in my /usr/bin and I want to use that one, without uninstalling the one that nix has<br/>
+<font color="#A82F2F"><font size="2">(04:50:36 PM)</font> <b>goibhniu:</b></font> hi anelson, why not uninstall it?<br/>
+<font color="#A82F2F"><font size="2">(04:50:42 PM)</font> <b>goibhniu:</b></font> (nix-env -e)<br/>
+<font color="#A82F2F"><font size="2">(04:50:58 PM)</font> <b>avn:</b></font> chromium didn&apos;t pass night rebuild,  gyp failing on import multiprocessing.<br/>
+<font color="#16569E"><font size="2">(04:51:11 PM)</font> <b>magnetophon:</b></font> Could someone have a look at this travis report? https://travis-ci.org/NixOS/nixpkgs/builds/51227434   It stopped, and I don't really get why...<br/>
+<font color="#A82F2F"><font size="2">(04:51:23 PM)</font> <b>anelson:</b></font> hmm well because I figure it would be wasted work... oh but it wouldn&apos;t delete the files right? unless I ran garbage-collect<br/>
+<font color="#A82F2F"><font size="2">(04:51:34 PM)</font> <b>Lethalman:</b></font> magnetophon, timed out<br/>
+<font color="#A82F2F"><font size="2">(04:51:52 PM)</font> <b>Lethalman:</b></font> anelson, right<br/>
+<font color="#A82F2F"><font size="2">(04:52:01 PM)</font> <b>goibhniu:</b></font> anelson: you could also fiddle with the PATH to remove $HOME/.nix-profile/bin ... but yeah, uninstalling and re-installing will be very fast<br/>
+<font color="#A82F2F"><font size="2">(04:52:16 PM)</font> <b>anelson:</b></font> awesome, thanks!<br/>
+<font color="#16569E"><font size="2">(04:52:49 PM)</font> <b>magnetophon:</b></font> Lethalman: OK, thanks, so nothing wrong with my PR then.<br/>
+<font color="#A82F2F"><font size="2">(04:57:40 PM)</font> <b>the-kenny:</b></font> magnetophon: sorry, just got back to you. Haven&apos;t checked your code, but your description sounds fine<br/>
+<font color="#A82F2F"><font size="2">(04:58:33 PM)</font> <b>jimstutt:</b></font> goibhniu: nixos-option nixpkgs.environment.systemPackages | curl -F &apos;text=&lt;-&apos; http://nixpaste.noip.me  ==&gt; error: attribute config.nixpkgs.environment.systemPackages missing at &quot;{string):1:1<br/>
+<font color="#A82F2F"><font size="2">(04:59:18 PM)</font> <b>jimstutt:</b></font> goibhniu: ++ &quot;No data&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:59:24 PM)</font> <b>anelson:</b></font> anyone get error messages when starting emacs &apos;Gtk-Message: Failed to load module &quot;canberra-gtk-module&quot;&apos;? I don&apos;t get this when I run the version of emacs I had installed without nix. I&apos;d also note that the error persists after installing libcanberra...<br/>
+<font color="#A82F2F"><font size="2">(05:00:06 PM)</font> <b>goibhniu:</b></font> jimstutt: ah ok, I wanted to know what `nixos-option nixpkgs.config.allowUnfree` says<br/>
+<font color="#16569E"><font size="2">(05:00:36 PM)</font> <b>magnetophon:</b></font> the-kenny: not sure which of my questions you are answering... :)  I did  a PR, with a simple version of the code: no sharing or anything. I guess I'll find out if I need to improve anything.<br/>
+<font color="#A82F2F"><font size="2">(05:01:50 PM)</font> <b>jimstutt:</b></font> goibhniu: but if I add --show-trace I get http://nixpaste.noip.me/ayUyevwI which you might be able to see.<br/>
+<font color="#A82F2F"><font size="2">(05:02:16 PM)</font> <b>goibhniu:</b></font> jimstutt: that&apos;s the manual<br/>
+<font color="#A82F2F"><font size="2">(05:02:21 PM)</font> <b>kmicu:</b></font> anelson: nope, only ‘(emacs:15136): GLib-GIO-CRITICAL **: g_settings_schema_source_lookup: assertion &apos;source != NULL&apos; failed’<br/>
+<font color="#A82F2F"><font size="2">(05:02:46 PM)</font> <b>jimstutt:</b></font> goibhmiu: it does say true despite the error. Oh it&apos;s the manual - ha ha :)<br/>
+<font color="#A82F2F"><font size="2">(05:03:00 PM)</font> <b>goibhniu:</b></font> jimstutt: what command are you running?<br/>
+<font color="#A82F2F"><font size="2">(05:03:08 PM)</font> <b>anelson:</b></font> does nix use the global lib directories to find such things?<br/>
+<font color="#16569E"><font size="2">(05:03:22 PM)</font> <b>magnetophon:</b></font> I'm doing a &quot;nixos-rebuild switch --upgrade&quot; atm, and it's pulling in a huge list of pkgs. Did some important lib get upgraded or something?<br/>
+<font color="#A82F2F"><font size="2">(05:03:30 PM)</font> <b>anelson:</b></font> as in, when emacs installed via nix looks for /lib/foo.so, does it look in the global /lib?<br/>
+<font color="#A82F2F"><font size="2">(05:03:58 PM)</font> <b>jimstutt:</b></font> goibhniu: exactly the nixos-option you gave me @16:58<br/>
+<font color="#16569E"><font size="2">(05:04:06 PM)</font> <b>magnetophon:</b></font> anelson: there is no global /lib :)<br/>
+<font color="#A82F2F"><font size="2">(05:04:06 PM)</font> <b>kmicu:</b></font> anelson: nope, everything is /nix/store/longhash-somepackage/<br/>
+<font color="#A82F2F"><font size="2">(05:04:43 PM)</font> <b>jimstutt:</b></font> goibhniu: I&apos;ll paste my /etc/configuration.nix in a few minutes.<br/>
+<font color="#A82F2F"><font size="2">(05:05:00 PM)</font> <b>anelson:</b></font> magnetophon: but how does it get emacs (for example) to play along with that? it&apos;s not like docker with a faux-filesystem is it?<br/>
+<font color="#A82F2F"><font size="2">(05:05:00 PM)</font> <b>goibhniu:</b></font> jimstutt: it should say true or false<br/>
+<font color="#A82F2F"><font size="2">(05:05:34 PM)</font> <b>anelson:</b></font> and if that&apos;s the case, then why am I getting error messages, especially those that other&apos;s aren&apos;t getting? :P<br/>
+<font color="#A82F2F"><font size="2">(05:05:53 PM)</font> <b>kmicu:</b></font> anelson: what is your channel and emacs version?<br/>
+<font color="#16569E"><font size="2">(05:06:09 PM)</font> <b>magnetophon:</b></font> anelson: nix patches the programs it uses so they work<br/>
+<font color="#A82F2F"><font size="2">(05:07:35 PM)</font> <b>goibhniu:</b></font> anelson: I guess your gtk theme uses canberra, `env | grep GTK` might help<br/>
+<font color="#16569E"><font size="2">(05:08:50 PM)</font> <b>magnetophon:</b></font> anelson: if you look up emacs here: https://nixos.org/nixos/packages.html and click the github link, you'll see exactly how, in the cae of emacs.<br/>
+<font color="#A82F2F"><font size="2">(05:08:57 PM)</font> <b>goibhniu:</b></font> anelson: I guess if you clear the GTK variables and run emacs you won&apos;t see the error message ... that&apos;s a bit of a guess though<br/>
+<font color="#A82F2F"><font size="2">(05:09:10 PM)</font> <b>kmicu:</b></font> https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/emacs-24/default.nix<br/>
+<font color="#16569E"><font size="2">(05:09:43 PM)</font> <b>magnetophon:</b></font> kmicu: give a man a fish, and all that...    ;)<br/>
+<font color="#A82F2F"><font size="2">(05:10:34 PM)</font> <b>anelson:</b></font> emacs 24.4.1<br/>
+<font color="#A82F2F"><font size="2">(05:10:44 PM)</font> <b>anelson:</b></font> not sure what you mean by &quot;channel&quot; (I&apos;m a newb)<br/>
+<font color="#A82F2F"><font size="2">(05:11:01 PM)</font> <b>kmicu:</b></font> What is your distro?<br/>
+<font color="#A82F2F"><font size="2">(05:11:40 PM)</font> <b>anelson:</b></font> arch<br/>
+<font color="#A82F2F"><font size="2">(05:12:18 PM)</font> <b>kmicu:</b></font> Then it’s probably a problem with your environment variables as suggested by goibhniu<br/>
+<font color="#A82F2F"><font size="2">(05:12:59 PM)</font> <b>jimstutt:</b></font> goibhniu: I&apos;ve pasted my /etc/nixos/configuration.nix at http://nixpaste.noip.me/FT5BhWjj (if it worked :P).<br/>
+<font color="#A82F2F"><font size="2">(05:13:04 PM)</font> <b>bfrog:</b></font> any ideas why this line isn&apos;t working? https://github.com/NixOS/nixpkgs/pull/5926/files#diff-088447969f253ec47d6c2bc05a61fabeR8<br/>
+<font color="#A82F2F"><font size="2">(05:13:08 PM)</font> <b>bfrog:</b></font> I get....<br/>
+<font color="#A82F2F"><font size="2">(05:13:16 PM)</font> <b>bfrog:</b></font> error: attribute ‘v_2_1_4’ missing, at &quot;/etc/nixos/configuration.nix&quot;:19:40<br/>
+<font color="#A82F2F"><font size="2">(05:13:25 PM)</font> <b>bfrog:</b></font> nixos-rebuild switch --upgrade<br/>
+<font color="#A82F2F"><font size="2">(05:13:33 PM)</font> <b>goibhniu:</b></font> jimstutt: it didn&apos;t :D<br/>
+<font color="#A82F2F"><font size="2">(05:13:45 PM)</font> <b>bfrog:</b></font> or is the nixpkgs snapshot not updated yet?<br/>
+<font color="#A82F2F"><font size="2">(05:14:54 PM)</font> <b>jimstutt:</b></font> goibhniu: despite the error  `nixos-option nixpkgs.config.allowUnfree` says &quot;true&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:15:08 PM)</font> <b>goibhniu:</b></font> jimstutt: good!<br/>
+<font color="#A82F2F"><font size="2">(05:15:38 PM)</font> <b>jimstutt:</b></font> goibhniu: having got a nixpaste login I&apos;ll manually paste it if I can.<br/>
+<font color="#16569E"><font size="2">(05:19:05 PM)</font> <b>magnetophon:</b></font> chaoflow: It seems the contrib section of notmuch is not in NixOS. 1)am I right? 2)If so, why?<br/>
+<font color="#A82F2F"><font size="2">(05:19:54 PM)</font> <b>jimstutt:</b></font> goibhniu: http://pastebin.com/n42NqJhe<br/>
+<font color="#16569E"><font size="2">(05:20:10 PM)</font> <b>magnetophon:</b></font> chaoflow: would you appreciate a PR on it?<br/>
+<font color="#16569E"><font size="2">(05:21:44 PM)</font> <b>magnetophon:</b></font> the-kenny: Speaking of PR: I put myself as the maintainer of mutt-kz, even though I don't fully understand the code that you wrote (for mutt). Did I make the right decision?<br/>
+<font color="#A82F2F"><font size="2">(05:23:02 PM)</font> <b>goibhniu:</b></font> jimstutt: add }; on line 31<br/>
+<font color="#A82F2F"><font size="2">(05:24:11 PM)</font> <b>goibhniu:</b></font> jimstutt: I think you have loads of syntax errors in there :)<br/>
+<font color="#A82F2F"><font size="2">(05:24:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] abbradar pushed 3 new commits to master: http://git.io/AJxN<br/>
+<font color="#A82F2F"><font size="2">(05:24:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master aa2fd49 Nikolay Amiantov: rpcbind: update<br/>
+<font color="#A82F2F"><font size="2">(05:24:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7791a53 Nikolay Amiantov: libtirpc: adopt<br/>
+<font color="#A82F2F"><font size="2">(05:24:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1c83ca2 Nikolay Amiantov: Merge pull request #6433 from abbradar/rpcbind...<br/>
+<font color="#A82F2F"><font size="2">(05:25:18 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wizeman pushed 1 new commit to master: http://git.io/AJps<br/>
+<font color="#A82F2F"><font size="2">(05:25:18 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c5a7115 Ricardo M. Correia: grsecurity: Update stable and test patches...<br/>
+<font color="#16569E"><font size="2">(05:30:16 PM)</font> <b>magnetophon:</b></font> pmahoney: ah, you're here to! :) Care to have a chat about your faust?<br/>
+<font color="#A82F2F"><font size="2">(05:31:01 PM)</font> <b>jimstutt:</b></font> goibhniu:thanks for that - I&apos;ve been pretty randomly adding and removing stuff for a few days. I&apos;ll read what it says now, go away and try and fix some and give you some peace :).<br/>
+<font color="#A82F2F"><font size="2">(05:31:38 PM)</font> <b>goibhniu:</b></font> jimstutt: it mainly looks like you&apos;ve commented out lines with opening { which are closed later on ... stuff like that<br/>
+<font color="#A82F2F"><font size="2">(05:33:17 PM)</font> <b>jimstutt:</b></font> goibhniu: it did rebuild. Does it automatically generate log files somewhere?<br/>
+<font color="#A82F2F"><font size="2">(05:34:11 PM)</font> <b>goibhniu:</b></font> --show-trace helps to debug, it probably just skipped loads of stuff<br/>
+<font color="#A82F2F"><font size="2">(05:34:15 PM)</font> <b>pmahoney:</b></font> magnetophon: hi<br/>
+<font color="#A82F2F"><font size="2">(05:38:59 PM)</font> <b>bfrog:</b></font> does it take awhile for changes to nixpkgs on github to be useable by nixos-rebuild?<br/>
+<font size="2">(05:46:55 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

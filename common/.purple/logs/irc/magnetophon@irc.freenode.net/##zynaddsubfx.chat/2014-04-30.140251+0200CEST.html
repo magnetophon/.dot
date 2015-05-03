@@ -1,0 +1,45 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with ##zynaddsubfx at Wed 30 Apr 2014 02:02:51 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with ##zynaddsubfx at Wed 30 Apr 2014 02:02:51 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(07:55:04 PM)</font><b> __johannes__ [<em>~johannes@HSI-KBW-095-208-214-087.hsi5.kabel-badenwuerttemberg.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:25:10 PM)</font> <b>__johannes__:</b></font> Hi fundamental<br/>
+<font color="#A82F2F"><font size="2">(08:25:15 PM)</font> <b>fundamental:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(08:25:25 PM)</font> <b>__johannes__:</b></font> a few short questions about code...<br/>
+<font color="#A82F2F"><font size="2">(08:25:43 PM)</font> <b>__johannes__:</b></font> The first one: I discovered a lot of code in the FL widgets that is FL independent<br/>
+<font color="#A82F2F"><font size="2">(08:25:57 PM)</font> <b>__johannes__:</b></font> (i.e. the VU meter has some algorithms that I&apos;ll need aswell)<br/>
+<font color="#A82F2F"><font size="2">(08:26:12 PM)</font> <b>__johannes__:</b></font> I&apos;d propose to write a base class in such a case, like BaseVuMeter<br/>
+<font color="#A82F2F"><font size="2">(08:27:17 PM)</font> <b>__johannes__:</b></font> maybe even a directory called UI_base, which FL and QT can share<br/>
+<font color="#A82F2F"><font size="2">(08:27:25 PM)</font> <b>__johannes__:</b></font> err include<br/>
+<font color="#A82F2F"><font size="2">(08:29:39 PM)</font> <b>fundamental:</b></font> the only math that should really be in the fltk widgets is the math needed to convert values into drawn shapes<br/>
+<font color="#A82F2F"><font size="2">(08:30:16 PM)</font> <b>fundamental:</b></font> as that is coupled with the resulting style of the output and calls to the underlying rendering APIs, I would not expect this to be useful to multiple toolkits<br/>
+<font color="#A82F2F"><font size="2">(08:32:37 PM)</font> <b>__johannes__:</b></font> for example:<br/>
+<font color="#A82F2F"><font size="2">(08:32:51 PM)</font> <b>__johannes__:</b></font> src/UI/VuMeter.h<br/>
+<font color="#A82F2F"><font size="2">(08:33:01 PM)</font> <b>__johannes__:</b></font> the limit function is Fl independent<br/>
+<font color="#A82F2F"><font size="2">(08:33:59 PM)</font> <b>__johannes__:</b></font> src/UI/VuMasterMeter : update() looks (mostly) FL independent<br/>
+<font color="#A82F2F"><font size="2">(08:34:16 PM)</font> <b>__johannes__:</b></font> I ask because I want to avoid copying 100s of lines...<br/>
+<font color="#A82F2F"><font size="2">(08:34:43 PM)</font> <b>fundamental:</b></font> the limit function should have a more general version in Misc/Utils.h<br/>
+<font color="#A82F2F"><font size="2">(08:35:00 PM)</font> <b>fundamental:</b></font> and most of what I see in VuMasterMeter is fl dependent<br/>
+<font color="#A82F2F"><font size="2">(08:35:41 PM)</font> <b>fundamental:</b></font> handle() completely fl dependent, tick() once again dependent on fltk timer interfaces, draw() is mostly calls to fl_draw() and update is independent<br/>
+<font color="#A82F2F"><font size="2">(08:40:13 PM)</font> <b>__johannes__:</b></font> what about update() ?<br/>
+<font color="#A82F2F"><font size="2">(08:40:34 PM)</font> <b>fundamental:</b></font> &quot;update is independent&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:40:49 PM)</font> <b>__johannes__:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(08:40:59 PM)</font> <b>fundamental:</b></font> but it is not necessarily relevant depending on how Qt does rendering<br/>
+<font color="#A82F2F"><font size="2">(08:41:12 PM)</font> <b>__johannes__:</b></font> oh ok...<br/>
+<font color="#A82F2F"><font size="2">(08:43:17 PM)</font> <b>__johannes__:</b></font> another thing: I found multiple widgets that inherit from Fl_Osc_Widget, and overwrite fetchOscPane()... will you clear this up in the future?<br/>
+<font color="#A82F2F"><font size="2">(08:45:01 PM)</font> <b>__johannes__:</b></font> they overwrite it, but I think it is exact code duplication<br/>
+<font color="#062585"><font size="2">(08:45:24 PM)</font> <b>***fundamental</b></font> double checks<br/>
+<font color="#A82F2F"><font size="2">(08:47:13 PM)</font> <b>fundamental:</b></font> yeah, that looks like some copy/paste issue<br/>
+<font color="#A82F2F"><font size="2">(08:48:11 PM)</font> <b>__johannes__:</b></font> ok and one minor problem I had I just wanted to tell you: In the CMakeLists.txt I originally had add_definitions(-DQT_GUI)<br/>
+<font color="#A82F2F"><font size="2">(08:48:24 PM)</font> <b>__johannes__:</b></font> however, this was somehow not set for all files while compiling<br/>
+<font color="#A82F2F"><font size="2">(08:48:39 PM)</font> <b>__johannes__:</b></font> it works now with -DQT_GUI=1<br/>
+<font color="#A82F2F"><font size="2">(08:49:19 PM)</font> <b>__johannes__:</b></font> the DFLTK_GUI and similar macros are also in this style, is this dangerous?<br/>
+<font color="#A82F2F"><font size="2">(08:50:09 PM)</font> <b>fundamental:</b></font> assuming my memory is right it only really mattered that that flag was visible to main.cpp, so it shouldn&apos;t be a problem<br/>
+<font color="#A82F2F"><font size="2">(08:52:41 PM)</font> <b>__johannes__:</b></font> yes, strangely, CMake did it correct for main.cpp ;)<br/>
+<font color="#A82F2F"><font size="2">(08:53:28 PM)</font> <b>fundamental:</b></font> you might just need to move things around with regards to the sub folder includes<br/>
+<font color="#A82F2F"><font size="2">(10:31:34 PM)</font> <b>__johannes__:</b></font> fundamental: I&apos;ve just pushed a commit. Can you please check if my changes in MiddleWare.cpp were all okay?<br/>
+<font color="#A82F2F"><font size="2">(10:35:25 PM)</font> <b>fundamental:</b></font> the last_url stuff in the requestValue(std::string) method looks wrong<br/>
+<font color="#A82F2F"><font size="2">(10:36:54 PM)</font> <b>__johannes__:</b></font> it should be commented out<br/>
+<font color="#A82F2F"><font size="2">(10:37:08 PM)</font> <b>fundamental:</b></font> I also find it odd that you had to change anything related to the Fl_Osc_Widget stuff<br/>
+<font color="#A82F2F"><font size="2">(10:37:11 PM)</font> <b>__johannes__:</b></font> my version of requestValue only calls writeRawUi(s.c_str()); - nothing else<br/>
+<font color="#A82F2F"><font size="2">(10:37:27 PM)</font> <b>fundamental:</b></font> ah, fine<br/>
+<font color="#A82F2F"><font size="2">(10:38:34 PM)</font> <b>__johannes__:</b></font> I only had to change anything with panes (was not much), and add a typedef Fl_Widget as void<br/>
+<font size="2">(11:30:12 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,895 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Tue 10 Mar 2015 01:09:42 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Tue 10 Mar 2015 01:09:42 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(01:09:42 AM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(01:09:42 AM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(01:10:11 AM)</font> <b>dondelelcaro:</b></font> apparently, edbrowse does<br/>
+<font color="#A82F2F"><font size="2">(01:11:46 AM)</font> <b>dondelelcaro:</b></font> (and apparently, elinks, but not the way it&apos;s currently packaged in Debian; see #721198)<br/>
+<font color="#A82F2F"><font size="2">(01:12:54 AM)</font> <b>dondelelcaro:</b></font> heh; the packager found out that it &quot;supports&quot; javascript, but really doesn&apos;t, so disabled it.<br/>
+<font color="#A82F2F"><font size="2">(01:23:29 AM)</font> <b>srg:</b></font> abrotman: I figured it out. I use a proxy for Iceweasel; The DNS traffic wasn&apos;t using my resolv.conf, it was going through the proxy.<br/>
+<font color="#A82F2F"><font size="2">(01:27:16 AM)</font> <b>acz32:</b></font> if i dual boot debian and windows, i can overwrite the debian space with a new install using encrypted LVM and it shouln&apos;t mess with windows, right?<br/>
+<font color="#A82F2F"><font size="2">(01:36:26 AM)</font> <b>abrotman:</b></font> srg: that&apos;ll be difficult<br/>
+<font color="#A82F2F"><font size="2">(01:41:07 AM)</font> <b>Brigo:</b></font> acz32, if you dual boot with debian and windows, you need to use grub as boot loader, so you will not mell windows at all.<br/>
+<font color="#A82F2F"><font size="2">(01:41:26 AM)</font> <b>Brigo:</b></font> as far as you don&apos;t overwrit it, of course :D<br/>
+<font size="2">(01:48:30 AM)</font><b> mode (+o eir) by ChanServ</b><br/>
+<font size="2">(01:48:34 AM)</font><b> mode (-bo *!*@176.96.167.187 eir) by eir</b><br/>
+<font color="#A82F2F"><font size="2">(01:48:42 AM)</font> <b>acz32:</b></font> Brigo: thanks<br/>
+<font color="#A82F2F"><font size="2">(01:49:18 AM)</font> <b>Brigo:</b></font> acz32, np :)<br/>
+<font color="#A82F2F"><font size="2">(01:49:20 AM)</font> <b>acz32:</b></font> so i&apos;ll just delete all debian partitions and let LVM organize it into correct sizes again for the free space<br/>
+<font color="#A82F2F"><font size="2">(01:49:56 AM)</font> <b>Brigo:</b></font> as long as you do not touch windows partitions you should be fine.<br/>
+<font color="#A82F2F"><font size="2">(01:50:32 AM)</font> <b>acz32:</b></font> ok<br/>
+<font size="2">(01:52:03 AM)</font><b> mode (+l 1611) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(01:53:07 AM)</font> <b>s7r:</b></font> I have a virtual machine on vmware with debian wheezy. All files are in a single partition (recommended for new users) setting. I have just increased the virtual disk size (/dev/sda).  I rebooted and can see the new space in fdisk -l. How do I extend the partition size?<br/>
+<font color="#A82F2F"><font size="2">(01:53:54 AM)</font> <b>acz32:</b></font> you can use gparted<br/>
+<font color="#A82F2F"><font size="2">(01:54:21 AM)</font> <b>teraflops:</b></font> s7r: resizing the partition to fill the empty space?<br/>
+<font color="#A82F2F"><font size="2">(01:54:28 AM)</font> <b>s7r:</b></font> I only have command line<br/>
+<font color="#A82F2F"><font size="2">(01:54:45 AM)</font> <b>s7r:</b></font> rephrase. expanding the root partition<br/>
+<font color="#A82F2F"><font size="2">(01:55:25 AM)</font> <b>teraflops:</b></font> s7r: expanding the partition to fill the empty space?<br/>
+<font color="#A82F2F"><font size="2">(01:55:41 AM)</font> <b>s7r:</b></font> what do you mean?<br/>
+<font color="#A82F2F"><font size="2">(02:01:20 AM)</font> <b>s7r:</b></font> no ideas?<br/>
+<font color="#A82F2F"><font size="2">(02:01:23 AM)</font> <b>s7r:</b></font> i don&apos;t want to lose the data<br/>
+<font size="2">(02:03:25 AM)</font><b> hexagoxel_ is now known as hexagoxel</b><br/>
+<font color="#A82F2F"><font size="2">(02:04:44 AM)</font> <b>teraflops:</b></font> s7r: without using lvm I think you can not erasing the partition<br/>
+<font color="#A82F2F"><font size="2">(02:05:10 AM)</font> <b>Voobr:</b></font> Hello. I&apos;m using debhelper to make a binary deb package. &quot;dh&quot; complains, though, that my control file is missing a Source field: &quot;error: syntax error in debian/control at line 9: first block lacks a source field&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:05:21 AM)</font> <b>Voobr:</b></font> The target I&apos;m using is &quot;binary-arch&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:05:32 AM)</font> <b>Voobr:</b></font> I thought &quot;Source&quot; was unnecessary for a binary package...?<br/>
+<font color="#A82F2F"><font size="2">(02:05:41 AM)</font> <b>s7r:</b></font> teraflops so i cannot do it ?<br/>
+<font color="#A82F2F"><font size="2">(02:05:46 AM)</font> <b>s7r:</b></font> cannot expand the disk without formatting ?<br/>
+<font color="#A82F2F"><font size="2">(02:07:25 AM)</font> <b>teraflops:</b></font> s7r: uhm i just use lvm because of that<br/>
+<font color="#A82F2F"><font size="2">(02:08:12 AM)</font> <b>teraflops:</b></font> s7r: there are several links about doing that, never tried so i cant say<br/>
+<font color="#A82F2F"><font size="2">(02:08:57 AM)</font> <b>Brigo:</b></font> s7r, If you cannot use gparted, use parted.<br/>
+<font color="#A82F2F"><font size="2">(02:09:20 AM)</font> <b>Brigo:</b></font> s7r, what filesystem are you using?<br/>
+<font color="#A82F2F"><font size="2">(02:11:49 AM)</font> <b>teraflops:</b></font> s7r: something like that? http://goo.gl/3kM3rL<br/>
+<font size="2">(02:13:20 AM)</font><b> GodBlessesCanada is now known as hassoon</b><br/>
+<font color="#A82F2F"><font size="2">(02:13:27 AM)</font> <b>Brigo:</b></font> i am going to sleep. Good night teraflops . s7r good luck and good night :)ç<br/>
+<font color="#A82F2F"><font size="2">(02:13:39 AM)</font> <b>teraflops:</b></font> gn Brigo<br/>
+<font color="#A82F2F"><font size="2">(02:14:13 AM)</font> <b>s7r:</b></font> Brigo thank you<br/>
+<font color="#A82F2F"><font size="2">(02:14:16 AM)</font> <b>s7r:</b></font> i am using ext3<br/>
+<font size="2">(02:18:19 AM)</font><b> Brigo left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:22:54 AM)</font> <b>roothorick:</b></font> what&apos;s the best way to get a home server to send mail to actual public email addresses?<br/>
+<font color="#A82F2F"><font size="2">(02:23:53 AM)</font> <b>srg:</b></font> Run postfix or exim, set it up to NOT listen on port 25 (or anything else), give it a real hostname, static IP with reverse-DNS records<br/>
+<font color="#A82F2F"><font size="2">(02:24:05 AM)</font> <b>abrotman:</b></font> roothorick: depends on your ISP.  But generally, use your ISP&apos;s SMTP serveres as a smart host<br/>
+<font color="#A82F2F"><font size="2">(02:24:12 AM)</font> <b>srg:</b></font> if you don&apos;t have a static IP or the proper reverse-DNS, it&apos;s likely that your mail will be rejected by the remote server.<br/>
+<font color="#A82F2F"><font size="2">(02:24:20 AM)</font> <b>abrotman:</b></font> roothorick: that also depends on which domains you&apos;re using as your From address<br/>
+<font color="#A82F2F"><font size="2">(02:26:04 AM)</font> <b>roothorick:</b></font> in the absence of an accessible ISP server, suggestions?<br/>
+<font color="#A82F2F"><font size="2">(02:26:23 AM)</font> <b>abrotman:</b></font> roothorick: but rr.com has an SMTP server<br/>
+<font color="#A82F2F"><font size="2">(02:26:28 AM)</font> <b>teraflops:</b></font> roothorick: may be using a ipv6 tunnelbroker<br/>
+<font color="#A82F2F"><font size="2">(02:26:43 AM)</font> <b>roothorick:</b></font> abrotman: keyword &quot;accessible&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:27:12 AM)</font> <b>abrotman:</b></font> roothorick: If you have credentials, you should be able to send from anywhere .. /me can&apos;t imagine why someone on rr.com wouldn&apos;t be able to access the rr.com SMTP server<br/>
+<font color="#A82F2F"><font size="2">(02:27:37 AM)</font> <b>srg:</b></font> roothorick: Is this a dynamic IP with a generic reverse DNS (like 12345.east.pool.verizon.net or something) ?<br/>
+<font color="#A82F2F"><font size="2">(02:27:47 AM)</font> <b>roothorick:</b></font> srg: I think so<br/>
+<font color="#A82F2F"><font size="2">(02:27:58 AM)</font> <b>srg:</b></font> If so, then you can try it, but you&apos;re mostly out of luck. Remote servers will reject your mail.<br/>
+<font color="#A82F2F"><font size="2">(02:27:59 AM)</font> <b>teraflops:</b></font> then you can&apos;t<br/>
+<font color="#A82F2F"><font size="2">(02:27:59 AM)</font> <b>abrotman:</b></font> roois this actually from the IP you just came from?<br/>
+<font color="#A82F2F"><font size="2">(02:28:05 AM)</font> <b>abrotman:</b></font> roothorick: ^^<br/>
+<font color="#A82F2F"><font size="2">(02:28:18 AM)</font> <b>roothorick:</b></font> yeah, it&apos;ll be from the home server with this IP<br/>
+<font color="#A82F2F"><font size="2">(02:28:36 AM)</font> <b>roothorick:</b></font> so basically, I need to connect it to an account on some external server<br/>
+<font color="#A82F2F"><font size="2">(02:28:53 AM)</font> <b>roothorick:</b></font> I wouldn&apos;t even know how to get into the ISP email, tbh<br/>
+<font color="#A82F2F"><font size="2">(02:29:01 AM)</font> <b>abrotman:</b></font> roothorick: yes, Gmail can suffice (again, depending on the From address you&apos;re trying to use)<br/>
+<font color="#A82F2F"><font size="2">(02:29:51 AM)</font> <b>teraflops:</b></font> roothorick: i have several vms running mail server and other stuff just using he.net ipv6 addresses with reverse dns and all that stuff, but if your remote server dont do ipv6 it is worthless<br/>
+<font color="#A82F2F"><font size="2">(02:29:58 AM)</font> <b>abrotman:</b></font> roothorick: and yes, your IP is listed in the spamhaus PBL.  So you&apos;d have a hard time<br/>
+<font size="2">(02:30:22 AM)</font><b> AntiSpamMeta is now known as AntiSpamMeta`</b><br/>
+<font size="2">(02:30:27 AM)</font><b> AntiSpamMeta` is now known as AntiSpamMeta</b><br/>
+<font size="2">(02:31:59 AM)</font><b> AlphaTech|AWAY is now known as AlphaTech</b><br/>
+<font size="2">(02:32:03 AM)</font><b> mode (+l 1605) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(02:33:43 AM)</font> <b>abrotman:</b></font> roothorick: I know rr.com allows their customers to operate mail servers, but the reality is that it&apos;s hard to have work effectively<br/>
+<font color="#A82F2F"><font size="2">(02:49:11 AM)</font> <b>AlexLikerock:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(02:49:33 AM)</font> <b>AlexLikerock:</b></font> where can i found  boot  LOGs   in systemD?<br/>
+<font color="#A82F2F"><font size="2">(02:50:44 AM)</font> <b>rudi_s:</b></font> AlexLikerock: journalctl<br/>
+<font color="#A82F2F"><font size="2">(02:51:23 AM)</font> <b>AlexLikerock:</b></font> rudi_s,  ,   tanks<br/>
+<font color="#A82F2F"><font size="2">(02:51:39 AM)</font> <b>AlexLikerock:</b></font>  but   where  they are the  file   at   *.txt ?<br/>
+<font color="#A82F2F"><font size="2">(02:52:24 AM)</font> <b>rudi_s:</b></font> AlexLikerock: man systemd-journald<br/>
+<font color="#A82F2F"><font size="2">(02:52:36 AM)</font> <b>rudi_s:</b></font> *and there are no text files, it&apos;s a binary log format.<br/>
+<font color="#A82F2F"><font size="2">(02:53:45 AM)</font> <b>AlexLikerock:</b></font> Grrrrrr !<br/>
+<font color="#A82F2F"><font size="2">(02:53:54 AM)</font> <b>AlexLikerock:</b></font>  that its bad :-(<br/>
+<font color="#A82F2F"><font size="2">(02:54:12 AM)</font> <b>AlexLikerock:</b></font> if my pc not startup,<br/>
+<font color="#A82F2F"><font size="2">(02:54:31 AM)</font> <b>AlexLikerock:</b></font>  i can&apos;t  read my  Txt files :-S<br/>
+<font color="#A82F2F"><font size="2">(02:54:35 AM)</font> <b>AlexLikerock:</b></font> tooo bad<br/>
+<font color="#A82F2F"><font size="2">(02:54:42 AM)</font> <b>AlexLikerock:</b></font> how remove  sistemd ?<br/>
+<font color="#A82F2F"><font size="2">(02:55:40 AM)</font> <b>rudi_s:</b></font> !enter<br/>
+<font color="#A82F2F"><font size="2">(02:55:41 AM)</font> <b>dpkg:</b></font> The enter key is not a substitute for punctuation.  Hitting enter unnecessarily makes it difficult to follow what you are saying.  Consider using &apos;,&apos;, &apos;. &apos;, &apos;;&apos;, &apos;...&apos;, &apos;---&apos;, or &apos;:&apos; instead.  If you hit enter too often, you will be autokicked by debhelper for flooding the channel.<br/>
+<font color="#A82F2F"><font size="2">(02:56:21 AM)</font> <b>rudi_s:</b></font> AlexLikerock: ^ - and secondly, you can still read them. You boot from a rescue disk and then run journalctl --file path/to/log or --rot path/to/logs.<br/>
+<font color="#A82F2F"><font size="2">(02:56:38 AM)</font> <b>AlexLikerock:</b></font> naaa<br/>
+<font color="#A82F2F"><font size="2">(02:56:55 AM)</font> <b>AlexLikerock:</b></font> i dont  like<br/>
+<font color="#A82F2F"><font size="2">(02:57:05 AM)</font> <b>rudi_s:</b></font> If you just want to troll, please go somewhere else.<br/>
+<font color="#A82F2F"><font size="2">(02:57:07 AM)</font> <b>AlexLikerock:</b></font> can do that  (run journalctl --file path/to/log or --rot path/to/logs.)<br/>
+<font color="#A82F2F"><font size="2">(02:57:12 AM)</font> <b>AlexLikerock:</b></font> whit  linux  ppuppy ?<br/>
+<font color="#A82F2F"><font size="2">(02:57:20 AM)</font> <b>AlexLikerock:</b></font> no, im not  trooll<br/>
+<font color="#A82F2F"><font size="2">(02:57:37 AM)</font> <b>AlexLikerock:</b></font> just   i say , what  i  tink<br/>
+<font color="#A82F2F"><font size="2">(02:57:45 AM)</font> <b>AlexLikerock:</b></font>  tanks  rudis,<br/>
+<font color="#A82F2F"><font size="2">(02:57:47 AM)</font> <b>AlexLikerock:</b></font>  bye<br/>
+<font size="2">(02:57:52 AM)</font><b> AlexLikerock left the room (&quot;Leaving&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(02:58:26 AM)</font> <b>abrotman:</b></font> rudi_s: sadly, not a troll, just not ambitious<br/>
+<font size="2">(02:58:32 AM)</font><b> aphoriser is now known as aphorise</b><br/>
+<font size="2">(02:58:40 AM)</font><b> AlexLikerock [<em>~AlexLiker@unaffiliated/alexlikerock</em>] entered the room.</b><br/>
+<font size="2">(02:58:55 AM)</font><b> AlexLikerock left the room (&quot;Leaving&quot;).</b><br/>
+<font size="2">(03:01:07 AM)</font><b> AlexLikerock [<em>~AlexLiker@unaffiliated/alexlikerock</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:01:10 AM)</font> <b>AlexLikerock:</b></font> http://without-systemd.org<br/>
+<font size="2">(03:01:20 AM)</font><b> AlexLikerock left the room (&quot;Leaving&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(03:10:09 AM)</font> <b>rudi_s:</b></font> Ok.<br/>
+<font size="2">(03:12:03 AM)</font><b> mode (+l 1595) by debhelper</b><br/>
+<font size="2">(03:32:03 AM)</font><b> mode (+l 1588) by debhelper</b><br/>
+<font size="2">(03:48:42 AM)</font><b> cafuego is now known as c|AFK|uego</b><br/>
+<font color="#A82F2F"><font size="2">(04:05:59 AM)</font> <b>aphorise:</b></font> If I have &quot;Router 1&quot; &amp; &quot;Router 2&quot; with my IPv6? - how / where do I define these?<br/>
+<font color="#A82F2F"><font size="2">(04:06:19 AM)</font> <b>aphorise:</b></font> I&apos;ve been able to configure ip, etc. &amp; can ping my router but I cant get outside.<br/>
+<font color="#A82F2F"><font size="2">(04:22:45 AM)</font> <b>haeikou:</b></font> hi guys ... i&apos;m lost. /usr/bin/libtool doesn&apos;t exist on my sid system even though the package is installed<br/>
+<font color="#A82F2F"><font size="2">(04:22:52 AM)</font> <b>haeikou:</b></font> what is going on there?<br/>
+<font size="2">(04:26:43 AM)</font><b> k-man_ is now known as k-man</b><br/>
+<font size="2">(04:27:55 AM)</font><b> c|AFK|uego is now known as cafuego</b><br/>
+<font size="2">(04:36:18 AM)</font><b> Administrator is now known as Guest39427</b><br/>
+<font color="#A82F2F"><font size="2">(04:38:09 AM)</font> <b>momoterra:</b></font> hi guys do i need to download all 3 dvd to install debian server<br/>
+<font color="#A82F2F"><font size="2">(04:46:25 AM)</font> <b>somiaj:</b></font> momoterra: you don&apos;t even need to download one. If you have a decent network connenction the netinstall is a good starting point, then just download the packages you need with apt after you get the base system isntalled.<br/>
+<font color="#A82F2F"><font size="2">(04:46:34 AM)</font> <b>somiaj:</b></font> momoterra: but dvd1 is enough for many things<br/>
+<font color="#A82F2F"><font size="2">(04:46:46 AM)</font> <b>momoterra:</b></font> yeah im download DVD 1 right now<br/>
+<font color="#A82F2F"><font size="2">(04:46:50 AM)</font> <b>momoterra:</b></font> how do i do netinstall?<br/>
+<font color="#A82F2F"><font size="2">(04:47:49 AM)</font> <b>momoterra:</b></font> actually its fine ill just do dvd1 its easy enough<br/>
+<font color="#A82F2F"><font size="2">(04:48:56 AM)</font> <b>somiaj:</b></font> It is just another download option, it is a 300megish file I think. It contains a functional minimal install on it (off line) and once you configure the network you can just download anything else you need with apt.<br/>
+<font color="#A82F2F"><font size="2">(04:49:07 AM)</font> <b>momoterra:</b></font> oh okay i got it now<br/>
+<font color="#A82F2F"><font size="2">(04:49:15 AM)</font> <b>momoterra:</b></font> yeah dvd should be fine<br/>
+<font color="#A82F2F"><font size="2">(04:49:50 AM)</font> <b>somiaj:</b></font> the installer is the same on both, during the install it will configure your network and install stuff if you ask it to. Biggiest issue is most wifi and some wired network cards require non-free firmware which is not included in the &apos;main&apos; installer.<br/>
+<font color="#A82F2F"><font size="2">(04:50:06 AM)</font> <b>somiaj:</b></font> have fun, if you run into any questions feel free to ask them here<br/>
+<font color="#A82F2F"><font size="2">(04:50:22 AM)</font> <b>momoterra:</b></font> thanks!<br/>
+<font color="#A82F2F"><font size="2">(04:50:43 AM)</font> <b>momoterra:</b></font> its my first time setting up debian server<br/>
+<font color="#A82F2F"><font size="2">(04:51:00 AM)</font> <b>momoterra:</b></font> had a choice between ubuntu vs debian and from what i gather in google<br/>
+<font color="#A82F2F"><font size="2">(04:51:04 AM)</font> <b>momoterra:</b></font> debian is rock solid<br/>
+<font color="#A82F2F"><font size="2">(04:51:32 AM)</font> <b>polyphagia:</b></font> good choice momoterra<br/>
+<font color="#A82F2F"><font size="2">(04:51:46 AM)</font> <b>polyphagia:</b></font> debian doesn&apos;t afraid of anything<br/>
+<font color="#A82F2F"><font size="2">(04:52:12 AM)</font> <b>momoterra:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(04:59:13 AM)</font> <b>nell:</b></font> guys I made a big mistake<br/>
+<font color="#A82F2F"><font size="2">(04:59:21 AM)</font> <b>nell:</b></font> I deleted the wrong partition on gparted<br/>
+<font color="#A82F2F"><font size="2">(05:00:00 AM)</font> <b>polyphagia:</b></font> rip<br/>
+<font color="#A82F2F"><font size="2">(05:01:22 AM)</font> <b>booby_tables_24:</b></font> u dun goofd<br/>
+<font color="#A82F2F"><font size="2">(05:05:00 AM)</font> <b>z8z:</b></font> debian compiler version supports up to c++11 standard correct?<br/>
+<font color="#A82F2F"><font size="2">(05:07:57 AM)</font> <b>Rusty1:</b></font> z8z:  ask #gcc , they should be able to help check your version against it<br/>
+<font color="#A82F2F"><font size="2">(05:08:52 AM)</font> <b>z8z:</b></font> Rusty1: ok thanks<br/>
+<font size="2">(05:11:16 AM)</font><b> booby_tables_24 left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(05:12:02 AM)</font><b> mode (+l 1575) by debhelper</b><br/>
+<font size="2">(05:21:22 AM)</font><b> `hypermist` is now known as sleepypc</b><br/>
+<font size="2">(05:27:54 AM)</font><b> sleepypc is now known as `hypermist`</b><br/>
+<font size="2">(05:32:22 AM)</font><b> `hypermist` is now known as sleepypc</b><br/>
+<font size="2">(05:35:54 AM)</font><b> sleepypc is now known as `hypermist`</b><br/>
+<font color="#A82F2F"><font size="2">(05:38:03 AM)</font> <b>Contrl:</b></font> I have two systems that when they first boot into the desktop the mouse doesn&apos;t show up for a while. 15 - 30 seconds? Why is this?<br/>
+<font color="#A82F2F"><font size="2">(05:38:53 AM)</font> <b>TyrfingMjolnir:</b></font> How stable is jessie?<br/>
+<font color="#A82F2F"><font size="2">(05:39:49 AM)</font> <b>Contrl:</b></font> TyrfingMjolnir: Fairly stable, except for my issue above.<br/>
+<font color="#A82F2F"><font size="2">(05:40:13 AM)</font> <b>TyrfingMjolnir:</b></font> mouse?<br/>
+<font color="#A82F2F"><font size="2">(05:40:14 AM)</font> <b>TyrfingMjolnir:</b></font> I only use my macbook as mouse<br/>
+<font color="#A82F2F"><font size="2">(05:40:23 AM)</font> <b>Contrl:</b></font> I mean the pointer doesn&apos;t show<br/>
+<font color="#A82F2F"><font size="2">(05:40:25 AM)</font> <b>TyrfingMjolnir:</b></font> I only run debian on servers<br/>
+<font color="#A82F2F"><font size="2">(05:40:43 AM)</font> <b>TyrfingMjolnir:</b></font> All my interactions with my debian systems( 12 of the ) are through ssh<br/>
+<font color="#A82F2F"><font size="2">(05:40:53 AM)</font> <b>Contrl:</b></font> Should try it on desktop. Pretty well put together<br/>
+<font color="#A82F2F"><font size="2">(05:40:58 AM)</font> <b>TyrfingMjolnir:</b></font> *the/them<br/>
+<font color="#A82F2F"><font size="2">(05:41:15 AM)</font> <b>TyrfingMjolnir:</b></font> I prefer bodhi for my &quot;windows&quot; laptops<br/>
+<font color="#A82F2F"><font size="2">(05:41:23 AM)</font> <b>TyrfingMjolnir:</b></font> Not that I ever run Windows<br/>
+<font color="#A82F2F"><font size="2">(05:41:45 AM)</font> <b>TyrfingMjolnir:</b></font> Enligthenment is my favorite desktop, is there a reasonable e19 for debian?<br/>
+<font color="#A82F2F"><font size="2">(05:41:54 AM)</font> <b>TyrfingMjolnir:</b></font> I have seen in ubuntu there is only e17<br/>
+<font color="#A82F2F"><font size="2">(05:42:07 AM)</font> <b>Contrl:</b></font> e19 / e17?<br/>
+<font color="#A82F2F"><font size="2">(05:43:31 AM)</font> <b>TyrfingMjolnir:</b></font> e19 is in Bodhi Linux<br/>
+<font color="#A82F2F"><font size="2">(05:43:46 AM)</font> <b>TyrfingMjolnir:</b></font> e17 I think is the one in Jessie and Ubuntu, no?<br/>
+<font color="#A82F2F"><font size="2">(05:44:09 AM)</font> <b>TyrfingMjolnir:</b></font> Contrl: What kind of stuff do you do?<br/>
+<font color="#A82F2F"><font size="2">(05:44:25 AM)</font> <b>Contrl:</b></font> I have no clue what e17/e19 is<br/>
+<font color="#A82F2F"><font size="2">(05:44:28 AM)</font> <b>TyrfingMjolnir:</b></font> I&apos;m looking for a good IDE for cpp and JS<br/>
+<font color="#A82F2F"><font size="2">(05:44:40 AM)</font> <b>TyrfingMjolnir:</b></font> e17 = enlightenment desktop environment version 17<br/>
+<font color="#A82F2F"><font size="2">(05:44:48 AM)</font> <b>TyrfingMjolnir:</b></font> e19 = enlightenment desktop environment version 19<br/>
+<font color="#A82F2F"><font size="2">(05:44:53 AM)</font> <b>Contrl:</b></font> I&apos;d suggest the corresponding channels. #javascript or #c++<br/>
+<font color="#A82F2F"><font size="2">(05:44:59 AM)</font> <b>TyrfingMjolnir:</b></font> http://www.enlightenment.org<br/>
+<font color="#A82F2F"><font size="2">(05:45:11 AM)</font> <b>Contrl:</b></font> I do some Python coding, and just general desktop stuff. IRC, etc<br/>
+<font color="#A82F2F"><font size="2">(05:45:32 AM)</font> <b>TyrfingMjolnir:</b></font> I always use vim, and have used vi[m[ last 30 years or so<br/>
+<font color="#A82F2F"><font size="2">(05:45:50 AM)</font> <b>Contrl:</b></font> https://bitbucket.org/contrl/contrl/src if interested - not remotely feature complete.<br/>
+<font size="2">(05:46:40 AM)</font><b> infinity0_ is now known as infinity0</b><br/>
+<font color="#A82F2F"><font size="2">(05:48:25 AM)</font> <b>Contrl:</b></font> No info about the mouse pointer issue?<br/>
+<font color="#A82F2F"><font size="2">(05:50:16 AM)</font> <b>TyrfingMjolnir:</b></font> Terminology 0.8.0 is the best<br/>
+<font color="#A82F2F"><font size="2">(05:50:41 AM)</font> <b>Contrl:</b></font> TyrfingMjolnir: ?<br/>
+<font color="#A82F2F"><font size="2">(06:00:37 AM)</font> <b>TyrfingMjolnir:</b></font> Conhttp://www.enlightenment.org/p.php?p=about/terminology&amp;l=en<br/>
+<font color="#A82F2F"><font size="2">(06:00:40 AM)</font> <b>TyrfingMjolnir:</b></font> Contrl: http://www.enlightenment.org/p.php?p=about/terminology&amp;l=en<br/>
+<font color="#A82F2F"><font size="2">(06:01:09 AM)</font> <b>Contrl:</b></font> TyrfingMjolnir: I don&apos;t really need a new terminal, though<br/>
+<font color="#A82F2F"><font size="2">(06:20:51 AM)</font> <b>momoterra:</b></font> should i use graphical install or just normal install<br/>
+<font color="#A82F2F"><font size="2">(06:27:28 AM)</font> <b>momoterra:</b></font> when should i use LVM<br/>
+<font color="#A82F2F"><font size="2">(06:29:06 AM)</font> <b>rjsalts:</b></font> momoterra: Whenever you can imo<br/>
+<font color="#A82F2F"><font size="2">(06:29:24 AM)</font> <b>sillysquirt:</b></font> How do I get started with Debian using Debootstrap?<br/>
+<font color="#A82F2F"><font size="2">(06:29:26 AM)</font> <b>momoterra:</b></font> oh shit i just click next without it<br/>
+<font color="#A82F2F"><font size="2">(06:29:43 AM)</font> <b>rjsalts:</b></font> momoterra: it&apos;s not the end of the world, you can either go back<br/>
+<font color="#A82F2F"><font size="2">(06:29:45 AM)</font> <b>momoterra:</b></font> im installing debian though vm<br/>
+<font color="#A82F2F"><font size="2">(06:29:57 AM)</font> <b>momoterra:</b></font> yeah this is test server anyways<br/>
+<font color="#A82F2F"><font size="2">(06:29:59 AM)</font> <b>rjsalts:</b></font> momoterra: it&apos;s less of a concern in a vm<br/>
+<font color="#A82F2F"><font size="2">(06:30:01 AM)</font> <b>momoterra:</b></font> maybe in production<br/>
+<font color="#A82F2F"><font size="2">(06:30:05 AM)</font> <b>momoterra:</b></font> oh okay<br/>
+<font color="#A82F2F"><font size="2">(06:30:47 AM)</font> <b>rjsalts:</b></font> momoterra: it gives you flexibility in resizing filesystems<br/>
+<font color="#A82F2F"><font size="2">(06:30:52 AM)</font> <b>momoterra:</b></font> oh i see<br/>
+<font color="#A82F2F"><font size="2">(06:31:11 AM)</font> <b>momoterra:</b></font> does people install desktop environment for like servers<br/>
+<font color="#A82F2F"><font size="2">(06:31:16 AM)</font> <b>momoterra:</b></font> its checked off by default<br/>
+<font color="#A82F2F"><font size="2">(06:31:29 AM)</font> <b>momoterra:</b></font> i meant on<br/>
+<font color="#A82F2F"><font size="2">(06:31:59 AM)</font> <b>rjsalts:</b></font> momoterra: I wouldn&apos;t recommend it, it adds more attack surface for little gain<br/>
+<font size="2">(06:32:03 AM)</font><b> mode (+l 1569) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(06:32:13 AM)</font> <b>momoterra:</b></font> oh okay<br/>
+<font color="#A82F2F"><font size="2">(06:32:15 AM)</font> <b>momoterra:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(06:33:32 AM)</font> <b>rjsalts:</b></font> the other thing lvm is useful for is block based backups<br/>
+<font color="#A82F2F"><font size="2">(06:34:12 AM)</font> <b>rjsalts:</b></font> momoterra: i.e. you can use it to snapshot filesystem and then do dump to tape<br/>
+<font color="#A82F2F"><font size="2">(06:35:14 AM)</font> <b>rjsalts:</b></font> momoterra: although it might be easier to just do a file based backup<br/>
+<font color="#A82F2F"><font size="2">(06:35:23 AM)</font> <b>momoterra:</b></font> i see<br/>
+<font color="#A82F2F"><font size="2">(06:35:52 AM)</font> <b>MasterShake:</b></font> hey guys i keep getting KEY_EXPIRED errors when apt-get update-ing, how can i fix this?<br/>
+<font color="#A82F2F"><font size="2">(06:36:01 AM)</font> <b>momoterra:</b></font> why is sudo not working<br/>
+<font color="#A82F2F"><font size="2">(06:36:31 AM)</font> <b>MasterShake:</b></font> r u asking me?<br/>
+<font color="#A82F2F"><font size="2">(06:36:44 AM)</font> <b>rjsalts:</b></font> MasterShake: stop using the repo with the expired key<br/>
+<font color="#A82F2F"><font size="2">(06:36:57 AM)</font> <b>MasterShake:</b></font> okay how can i adjust this?<br/>
+<font color="#A82F2F"><font size="2">(06:37:01 AM)</font> <b>MasterShake:</b></font> im new =(<br/>
+<font color="#A82F2F"><font size="2">(06:37:26 AM)</font> <b>momoterra:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(06:37:34 AM)</font> <b>rjsalts:</b></font> MasterShake: edit /etc/apt/sources.list to remove the repo that&apos;s signed by the key<br/>
+<font color="#A82F2F"><font size="2">(06:38:04 AM)</font> <b>rjsalts:</b></font> or you can ignore it<br/>
+<font color="#A82F2F"><font size="2">(06:38:19 AM)</font> <b>rjsalts:</b></font> it just means that the packages will not be marked as trusted<br/>
+<font color="#A82F2F"><font size="2">(06:38:50 AM)</font> <b>sillysquirt:</b></font> debhelper: debootstrap<br/>
+<font color="#A82F2F"><font size="2">(06:38:51 AM)</font> <b>rjsalts:</b></font> so you don&apos;t get any guarantees on their provenance<br/>
+<font color="#A82F2F"><font size="2">(06:39:12 AM)</font> <b>rjsalts:</b></font> momoterra: what does it say when sudo doesn&apos;t work?<br/>
+<font color="#A82F2F"><font size="2">(06:39:29 AM)</font> <b>TyrfingMjolnir:</b></font> When dist-upgrading to Jessie<br/>
+<font color="#A82F2F"><font size="2">(06:39:30 AM)</font> <b>TyrfingMjolnir:</b></font> W: Possible missing firmware /lib/firmware/tigon/tg3_tso5.bin for module tg3<br/>
+<font color="#A82F2F"><font size="2">(06:39:31 AM)</font> <b>TyrfingMjolnir:</b></font> W: Possible missing firmware /lib/firmware/tigon/tg3_tso.bin for module tg3<br/>
+<font color="#A82F2F"><font size="2">(06:39:31 AM)</font> <b>TyrfingMjolnir:</b></font> W: Possible missing firmware /lib/firmware/tigon/tg3.bin for module tg3<br/>
+<font size="2">(06:39:32 AM)</font><b> TyrfingMjolnir left the room (Kicked by debhelper (flood. Please use http://paste.debian.net instead.)).</b><br/>
+<font size="2">(06:39:55 AM)</font><b> TyrfingMjolnir [<em>~Tyrfing@118.189.1.18</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:40:38 AM)</font> <b>momoterra:</b></font> sudo not found<br/>
+<font color="#A82F2F"><font size="2">(06:40:40 AM)</font> <b>rjsalts:</b></font> TyrfingMjolnir: install the firmware from non-free<br/>
+<font color="#A82F2F"><font size="2">(06:40:48 AM)</font> <b>MasterShake:</b></font> apt-get install su?<br/>
+<font color="#A82F2F"><font size="2">(06:40:50 AM)</font> <b>rjsalts:</b></font> momoterra: install sudo<br/>
+<font color="#A82F2F"><font size="2">(06:41:07 AM)</font> <b>momoterra:</b></font> oh okay damn im such a noob<br/>
+<font color="#A82F2F"><font size="2">(06:41:26 AM)</font> <b>TyrfingMjolnir:</b></font> rjsalts: That part I guessed<br/>
+<font color="#A82F2F"><font size="2">(06:41:32 AM)</font> <b>TyrfingMjolnir:</b></font> But do I need this firmware?<br/>
+<font color="#A82F2F"><font size="2">(06:41:33 AM)</font> <b>MasterShake:</b></font> there aren&apos;t any keys in my sources.list<br/>
+<font color="#A82F2F"><font size="2">(06:41:42 AM)</font> <b>TyrfingMjolnir:</b></font> How can I check if I need this firmware?<br/>
+<font color="#A82F2F"><font size="2">(06:41:42 AM)</font> <b>MasterShake:</b></font> i just see deb entries<br/>
+<font color="#A82F2F"><font size="2">(06:41:52 AM)</font> <b>momoterra:</b></font> should i install program as root<br/>
+<font color="#A82F2F"><font size="2">(06:42:08 AM)</font> <b>MasterShake:</b></font> and i kinda really need those entries<br/>
+<font color="#A82F2F"><font size="2">(06:42:14 AM)</font> <b>rjsalts:</b></font> TyrfingMjolnir: it&apos;s for the tg3 network card, your network may not work without it<br/>
+<font color="#A82F2F"><font size="2">(06:42:48 AM)</font> <b>TyrfingMjolnir:</b></font> rjsalts: I<br/>
+<font color="#A82F2F"><font size="2">(06:42:55 AM)</font> <b>TyrfingMjolnir:</b></font> &apos;m logged in over ssh now<br/>
+<font color="#A82F2F"><font size="2">(06:43:02 AM)</font> <b>TyrfingMjolnir:</b></font> While doing this distupgrade<br/>
+<font color="#A82F2F"><font size="2">(06:43:45 AM)</font> <b>rjsalts:</b></font> MasterShake: yeah, it&apos;s not exactly obvious, the keys are found with apt-key command. apt-key list and see which one has the key id mentioned<br/>
+<font color="#A82F2F"><font size="2">(06:44:07 AM)</font> <b>momoterra:</b></font> Media change: please insert the disc labeled im getting that message trying to install something<br/>
+<font color="#A82F2F"><font size="2">(06:44:16 AM)</font> <b>momoterra:</b></font> how can i change it to grab it from the net<br/>
+<font color="#A82F2F"><font size="2">(06:44:49 AM)</font> <b>rjsalts:</b></font> TyrfingMjolnir: if you&apos;re upgrading from wheezy then the firmware should already have been in the non-free package<br/>
+<font color="#A82F2F"><font size="2">(06:45:16 AM)</font> <b>rjsalts:</b></font> momoterra: I think you can just hit enter<br/>
+<font color="#A82F2F"><font size="2">(06:45:28 AM)</font> <b>MasterShake:</b></font> $apt-key list outputs &quot; /usr/bin/apt-key: 216: /usr/bin/apt-key: gpg: Input/output error&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:50:22 AM)</font> <b>momoterra:</b></font> i think i a broken repository since i installed using the dvd<br/>
+<font color="#A82F2F"><font size="2">(06:50:26 AM)</font> <b>momoterra:</b></font> i removed the dvd<br/>
+<font color="#A82F2F"><font size="2">(06:52:51 AM)</font> <b>momoterra:</b></font> im trying to install a package and its giving me<br/>
+<font color="#A82F2F"><font size="2">(06:52:56 AM)</font> <b>momoterra:</b></font> E: Package &apos;libodbc1&apos; has no installation candidate<br/>
+<font color="#A82F2F"><font size="2">(06:57:39 AM)</font> <b>MasterShake:</b></font> guys im getting an input/output error when i apt-key<br/>
+<font color="#A82F2F"><font size="2">(06:57:55 AM)</font> <b>MasterShake:</b></font> idk how to fix it<br/>
+<font color="#A82F2F"><font size="2">(06:59:38 AM)</font> <b>momoterra:</b></font> i think i figured it out the /etc/apt/sources.list that youget from the dvd install is screwy<br/>
+<font color="#A82F2F"><font size="2">(06:59:46 AM)</font> <b>momoterra:</b></font> i have to edit it and set the sources<br/>
+<font size="2">(07:03:44 AM)</font><b> elysium is now known as elysium^away</b><br/>
+<font size="2">(07:05:23 AM)</font><b> elysium^away is now known as elysium</b><br/>
+<font color="#A82F2F"><font size="2">(07:15:14 AM)</font> <b>WesterosCamping:</b></font> I am low on disk space, where are some places I can cut bloat?<br/>
+<font size="2">(07:18:36 AM)</font><b> cafuego is now known as c|AFK|uego</b><br/>
+<font color="#A82F2F"><font size="2">(07:21:03 AM)</font> <b>htqp:</b></font> sudo apt-get clean<br/>
+<font color="#A82F2F"><font size="2">(07:21:20 AM)</font> <b>htqp:</b></font> $HOME/.cache<br/>
+<font color="#A82F2F"><font size="2">(07:21:25 AM)</font> <b>htqp:</b></font>  /var/cache in general<br/>
+<font color="#A82F2F"><font size="2">(07:21:48 AM)</font> <b>Broatcast:</b></font> but dont delete all dirctorys in cache<br/>
+<font color="#A82F2F"><font size="2">(07:22:00 AM)</font> <b>Broatcast:</b></font> some applications need the structure and index files<br/>
+<font size="2">(07:22:02 AM)</font><b> mode (+l 1575) by debhelper</b><br/>
+<font size="2">(07:34:43 AM)</font><b> pvoigt is now known as Guest53662</b><br/>
+<font color="#A82F2F"><font size="2">(07:38:14 AM)</font> <b>keltim:</b></font> yeah, dpkg in particular<br/>
+<font size="2">(07:40:12 AM)</font><b> Guest78558 is now known as Internat</b><br/>
+<font size="2">(07:40:29 AM)</font><b> percY is now known as Guest32519</b><br/>
+<font size="2">(07:40:42 AM)</font><b> Guest32519 is now known as percY-</b><br/>
+<font color="#A82F2F"><font size="2">(07:40:50 AM)</font> <b>WesterosCamping:</b></font> sudo apt-get clen returned nothing?<br/>
+<font color="#A82F2F"><font size="2">(07:41:25 AM)</font> <b>htqp:</b></font> that&apos;s expected<br/>
+<font color="#A82F2F"><font size="2">(07:41:34 AM)</font> <b>Broatcast:</b></font> it correct<br/>
+<font color="#A82F2F"><font size="2">(07:41:49 AM)</font> <b>Broatcast:</b></font> just do its work and then exit<br/>
+<font color="#A82F2F"><font size="2">(07:42:08 AM)</font> <b>Broatcast:</b></font> try df -h and see how many space its free now<br/>
+<font color="#A82F2F"><font size="2">(07:43:09 AM)</font> <b>darxmurf:</b></font> hi all<br/>
+<font color="#A82F2F"><font size="2">(07:43:12 AM)</font> <b>Broatcast:</b></font> apt-get clean and aptitude clean just delete all downloaded packages in /var/cache/apt/ and the rewrite the index<br/>
+<font color="#A82F2F"><font size="2">(07:43:48 AM)</font> <b>htqp:</b></font> where&apos;s the index stored?<br/>
+<font color="#A82F2F"><font size="2">(07:44:01 AM)</font> <b>mjt:</b></font> they both do the same, so once one deleted the packages, nothing&apos;s left to do for the other...<br/>
+<font color="#A82F2F"><font size="2">(07:44:13 AM)</font> <b>mjt:</b></font> and there&apos;s no index of d/loaded pkgs<br/>
+<font color="#A82F2F"><font size="2">(07:44:26 AM)</font> <b>htqp:</b></font> ok thx<br/>
+<font color="#A82F2F"><font size="2">(07:44:55 AM)</font> <b>mjt:</b></font> (if you don&apos;t consider the directory index in the filesystem)<br/>
+<font color="#A82F2F"><font size="2">(07:54:05 AM)</font> <b>darxmurf:</b></font> I hate e2fsck on ext3... zZZzZzZ<br/>
+<font color="#A82F2F"><font size="2">(08:00:50 AM)</font> <b>Broatcast:</b></font> there is an index...<br/>
+<font color="#A82F2F"><font size="2">(08:01:10 AM)</font> <b>Broatcast:</b></font> # /var/cache/apt/pkgcache.bin<br/>
+<font color="#A82F2F"><font size="2">(08:01:30 AM)</font> <b>Broatcast:</b></font> and /var/cache/apt/srcpgkcache.bin<br/>
+<font color="#A82F2F"><font size="2">(08:02:05 AM)</font> <b>Broatcast:</b></font> thats the reason why you should&apos;nt delete the *.deb packages in the archives directory manualy<br/>
+<font color="#A82F2F"><font size="2">(08:09:24 AM)</font> <b>themill:</b></font> Broatcast: that&apos;s not what is actually in those files<br/>
+<font size="2">(08:12:03 AM)</font><b> mode (+l 1565) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:18:16 AM)</font> <b>htqp:</b></font> Broatcast: https://wiki.ubuntu.com/ReducingDiskFootprint &quot;Apt stores two caches in /var/cache/apt/: srcpkgcache.bin is rather useless these days, and pkgcache.bin is only needed for faster lookups with apt-cache (software-center has its own cache). Removing those two buys 26 MB, for the price of apt-cache taking an extra two seconds for each lookup.&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:18:42 AM)</font> <b>htqp:</b></font> (could not find doc for debian proper...)<br/>
+<font color="#A82F2F"><font size="2">(08:23:16 AM)</font> <b>Broatcast:</b></font> searched to for deb and only find bug reports ^^<br/>
+<font size="2">(08:32:02 AM)</font><b> mode (+l 1572) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:58:18 AM)</font> <b>ahop:</b></font> Hi! what&apos;s the simplest way to have &quot;python myscript.py&quot; starting at linux startup, automatically?<br/>
+<font color="#A82F2F"><font size="2">(09:00:54 AM)</font> <b>cnodell:</b></font> ahop: Assuming you really mean startup and not login, probably using the init system.<br/>
+<font color="#A82F2F"><font size="2">(09:01:49 AM)</font> <b>ahop:</b></font> I try /etc/rc.local<br/>
+<font color="#A82F2F"><font size="2">(09:01:58 AM)</font> <b>ahop:</b></font> is it a good idea?<br/>
+<font color="#A82F2F"><font size="2">(09:02:29 AM)</font> <b>cnodell:</b></font> Which version of Debian are you using?<br/>
+<font color="#A82F2F"><font size="2">(09:04:30 AM)</font> <b>ahop:</b></font> cnodell: RaspBian<br/>
+<font color="#A82F2F"><font size="2">(09:08:11 AM)</font> <b>cnodell:</b></font> ahop: I have no idea what init system Raspbian uses. If they use Systemd, you should do things the systemd way. Otherwise, I would create a script in /etc/init.d then link it to the various rcX.d folders to start or stopp depending on the runlevel.<br/>
+<font color="#A82F2F"><font size="2">(09:08:32 AM)</font> <b>cnodell:</b></font> That is just my preference. Lots of ways to do this.<br/>
+<font color="#A82F2F"><font size="2">(09:09:49 AM)</font> <b>plat_:</b></font> systemd way is so much easier once you figure out how it likes service files formatted<br/>
+<font color="#A82F2F"><font size="2">(09:10:44 AM)</font> <b>cnodell:</b></font> plat_, I still have mixed feelings - probably because systemd has not &apos;clicked&apos; for me yet.<br/>
+<font color="#A82F2F"><font size="2">(09:11:02 AM)</font> <b>cnodell:</b></font> I should really dedicate an afternoon to tinkering!<br/>
+<font color="#A82F2F"><font size="2">(09:12:02 AM)</font> <b>plat_:</b></font> I&apos;ve had the benefit of toying with it for at least the last three years, knowing systemd makes me better at my job since that&apos;s where the server world is headed<br/>
+<font size="2">(09:12:03 AM)</font><b> mode (+l 1581) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:12:40 AM)</font> <b>MoonGNatRouth:</b></font> hi, guys, I&apos;m trying to configure bridge by brctl in my virtual linux machine. I&apos;ve set up interfaces like here https://wiki.debian.org/BridgeNetworkConnections#Configuring_bridging_in_.2Fetc.2Fnetwork.2Finterfaces with static ip. restarted network, ifconfig shows right setting in br0, but when I try to ping 192.168.1.1 it types &quot;destination host unreachable. What is wrong? Should I change some kernel options?<br/>
+<font color="#A82F2F"><font size="2">(09:15:22 AM)</font> <b>plat_:</b></font> cnodell: protip, if you want to override a value in an already-established service file, you have to blank-out the variable then set it to what you want, in your own service file<br/>
+<font color="#A82F2F"><font size="2">(09:15:45 AM)</font> <b>plat_:</b></font> I got stuck on that once, not entirely sure if it&apos;s a bug or not but that&apos;s just how I&apos;ve been doing mine, for example bind<br/>
+<font color="#A82F2F"><font size="2">(09:18:06 AM)</font> <b>zoobab:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(09:18:10 AM)</font> <b>ychaouche:</b></font> Hello #debian<br/>
+<font color="#A82F2F"><font size="2">(09:18:14 AM)</font> <b>cnodell:</b></font> plat_, thanks for the tip!<br/>
+<font color="#A82F2F"><font size="2">(09:18:26 AM)</font> <b>MoonGNatRouth:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(09:18:34 AM)</font> <b>ychaouche:</b></font> I am pretty sure yesterday I created a directory in /var/run/, but today after reboot I didn&apos;t find it.<br/>
+<font color="#A82F2F"><font size="2">(09:18:50 AM)</font> <b>ychaouche:</b></font> Is this intended behaviour of /var/run/ ?<br/>
+<font color="#A82F2F"><font size="2">(09:18:54 AM)</font> <b>zoobab:</b></font> I am building an i386 kernel on a amd64 box with that command:<br/>
+<font color="#A82F2F"><font size="2">(09:19:01 AM)</font> <b>zoobab:</b></font> make-kpkg -j5 --initrd --cross-compile - --arch i386 kernel-image kernel-headers<br/>
+<font color="#A82F2F"><font size="2">(09:19:21 AM)</font> <b>zoobab:</b></font> it builds a _amd64.deb package with a i386 kernel inside<br/>
+<font color="#A82F2F"><font size="2">(09:19:26 AM)</font> <b>plat_:</b></font> cnodell: this last post explains it somewhat better than me probably: https://bbs.archlinux.org/viewtopic.php?pid=1379005#p1379005<br/>
+<font color="#A82F2F"><font size="2">(09:19:30 AM)</font> <b>zoobab:</b></font> any idea what went wrong?<br/>
+<font color="#A82F2F"><font size="2">(09:19:49 AM)</font> <b>ychaouche:</b></font> Is my web server required to recreate the directory at each restart ? (check for its existence before of course).<br/>
+<font color="#A82F2F"><font size="2">(09:21:04 AM)</font> <b>plat_:</b></font> cnodell: so I guess it&apos;s not a bug, it&apos;s a feature, literally, ha<br/>
+<font color="#A82F2F"><font size="2">(09:21:13 AM)</font> <b>plat_:</b></font> TIL<br/>
+<font color="#A82F2F"><font size="2">(09:21:24 AM)</font> <b>plat_:</b></font> glad I searched again<br/>
+<font color="#A82F2F"><font size="2">(09:21:26 AM)</font> <b>cnodell:</b></font> From what I recall, /var/run/ contains info since last boot. I wouldn&apos;t be surprised if it was wiped on restart.<br/>
+<font size="2">(09:22:03 AM)</font><b> mode (+l 1594) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:22:58 AM)</font> <b>plat_:</b></font> and yea /var/run is wiped after reboot<br/>
+<font color="#A82F2F"><font size="2">(09:23:04 AM)</font> <b>cnodell:</b></font> plat_, I would never have expected that!<br/>
+<font color="#A82F2F"><font size="2">(09:23:06 AM)</font> <b>plat_:</b></font> everything recreates their pidfiles in there<br/>
+<font color="#A82F2F"><font size="2">(09:23:57 AM)</font> <b>plat_:</b></font> and sockets, and locks<br/>
+<font color="#A82F2F"><font size="2">(09:24:01 AM)</font> <b>plat_:</b></font> oh my<br/>
+<font color="#A82F2F"><font size="2">(09:26:47 AM)</font> <b>ychaouche:</b></font> ok thanks<br/>
+<font color="#A82F2F"><font size="2">(09:27:08 AM)</font> <b>ychaouche:</b></font> I&apos;ll have to add some more code logic then.<br/>
+<font color="#A82F2F"><font size="2">(09:27:32 AM)</font> <b>SPF:</b></font> what&apos;s the difference between AllowTcpForwarding and AllowAgentForwarding in sshd configuration?<br/>
+<font color="#A82F2F"><font size="2">(09:28:27 AM)</font> <b>jelly:</b></font> SPF: the latter concerns only the ssh-agent socket<br/>
+<font color="#A82F2F"><font size="2">(09:29:42 AM)</font> <b>plat_:</b></font> agentforwarding is amazing<br/>
+<font size="2">(09:32:03 AM)</font><b> mode (+l 1601) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:39:00 AM)</font> <b>darxmurf:</b></font> to force fsck on all disks on next reboot, I should only add a /forcefsck file isn&apos;t it ? and echo &quot;-y&quot; &gt; /fsckoptions ?<br/>
+<font size="2">(09:53:38 AM)</font><b> `hypermist` is now known as sleepypc</b><br/>
+<font size="2">(09:57:20 AM)</font><b> sleepypc is now known as `hypermist`</b><br/>
+<font size="2">(10:02:02 AM)</font><b> mode (+l 1610) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:04:27 AM)</font> <b>hipodilski:</b></font> w<br/>
+<font color="#A82F2F"><font size="2">(10:31:52 AM)</font> <b>_taw_:</b></font> is there already a package for https://github.com/miloyip/rapidjson or does it make sense to create one?<br/>
+<font size="2">(10:32:52 AM)</font><b> fraff_ is now known as fraff</b><br/>
+<font color="#A82F2F"><font size="2">(10:33:36 AM)</font> <b>themill:</b></font> ,i rapidjson-dev sid<br/>
+<font color="#A82F2F"><font size="2">(10:33:37 AM)</font> <b>judd:</b></font> Package rapidjson-dev (libdevel, optional) in sid/i386: fast JSON parser/generator for C++ with SAX/DOM style API. Version: 0.12~git20141031-1; Size: 53.3k; Installed: 362k; Homepage: https://miloyip.github.io/rapidjson<br/>
+<font color="#A82F2F"><font size="2">(10:33:39 AM)</font> <b>themill:</b></font> _taw_: ^^<br/>
+<font color="#A82F2F"><font size="2">(10:35:38 AM)</font> <b>_taw_:</b></font> judd, themill, thanks, will try<br/>
+<font size="2">(10:51:15 AM)</font><b> bchamber_ is now known as bchamberlain</b><br/>
+<font size="2">(10:52:02 AM)</font><b> mode (+l 1616) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:59:44 AM)</font> <b>ws2k3:</b></font> hello i just moved a debian vm from vmware to xen but now it complains that it cannot find /dev/sda1(this is correct) its not called /dev/xvda1 how do i tell debian to use /dev/xvda1 instead of /dev/sda1?<br/>
+<font color="#A82F2F"><font size="2">(11:04:06 AM)</font> <b>fraff:</b></font> ws2k3: see /etc/fstab<br/>
+<font color="#A82F2F"><font size="2">(11:04:25 AM)</font> <b>ws2k3:</b></font> fraff can i do this from busybox?<br/>
+<font color="#A82F2F"><font size="2">(11:04:34 AM)</font> <b>ws2k3:</b></font> cause pico nano and vi all say command not found<br/>
+<font color="#A82F2F"><font size="2">(11:05:15 AM)</font> <b>fraff:</b></font> ws2k3: maybe, but you should mount -o loop /path/to/your/disk.img /mnt and edit from /mnt/etc/fstab<br/>
+<font color="#A82F2F"><font size="2">(11:06:01 AM)</font> <b>fraff:</b></font> ws2k3: it also might be possible to tell xen to present disk image as /dev/sda but I&apos;m not sure<br/>
+<font color="#A82F2F"><font size="2">(11:06:04 AM)</font> <b>ws2k3:</b></font> fraff i now mounted the disk to /mnt and i am now seeing my fstab(i used cat)<br/>
+<font color="#A82F2F"><font size="2">(11:06:33 AM)</font> <b>ws2k3:</b></font> but what editor can i use to change the fstab pico nano and vi are not found in busybox<br/>
+<font color="#A82F2F"><font size="2">(11:07:37 AM)</font> <b>fraff:</b></font> ws2k3: I was not talking about busybox ... on xen machine, mount disk image to /mnt and edit fstab<br/>
+<font color="#A82F2F"><font size="2">(11:14:24 AM)</font> <b>TomyWork:</b></font> A prerm scriptlet I wrote returned exit status 128 when the customer updated the package. It&apos;s rather short and basically all it does is stop a service through invoke-rc.d. I also use dh_stop. Can somebody enlighten me about what&apos;s going on?<br/>
+<font color="#A82F2F"><font size="2">(11:17:59 AM)</font> <b>Zitter:</b></font> hi, I&apos;m following this guide: https://wiki.debian.org/it/iPhone but when I try to add my user to group &quot;fuse&quot; Debian says that &quot;usermod: group &apos;fuse&apos; does not exist&apos;. How to add fuse group? I have these pkgs installed: exfat-fuse, fuse, gcfs-fuse and libfuse2<br/>
+<font color="#A82F2F"><font size="2">(11:18:08 AM)</font> <b>fraff:</b></font> TomyWork: did you &quot;set -x&quot; at the begining of the script to see what&apos;s going on ?<br/>
+<font color="#A82F2F"><font size="2">(11:19:28 AM)</font> <b>fraff:</b></font> Zitter: package fuse should haved created it, see /var/lib/dpkg/info/fuse.postinst<br/>
+<font color="#A82F2F"><font size="2">(11:20:42 AM)</font> <b>otyugh:</b></font> something like groupadd fuse ? &gt;.&gt;<br/>
+<font color="#A82F2F"><font size="2">(11:21:21 AM)</font> <b>Zitter:</b></font> nope :/<br/>
+<font color="#A82F2F"><font size="2">(11:21:55 AM)</font> <b>Zitter:</b></font> no &quot;groupadd fuse&quot; found in /var/lib/dpkg/info/fuse.postinst<br/>
+<font size="2">(11:22:02 AM)</font><b> mode (+l 1623) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:22:13 AM)</font> <b>ws2k3:</b></font> fraff i changed /dev/sda1 to /dev/xvda1 but at boot it still try&apos;s to use /dev/sda1<br/>
+<font color="#A82F2F"><font size="2">(11:25:46 AM)</font> <b>fraff:</b></font> ws2k3: hope you didn&apos;t modified fstab of xen machine instead of virtual machine&apos;s :)<br/>
+<font color="#A82F2F"><font size="2">(11:25:56 AM)</font> <b>fraff:</b></font> ws2k3: what&apos;s see error message ?<br/>
+<font color="#A82F2F"><font size="2">(11:26:53 AM)</font> <b>ws2k3:</b></font> the alert is the same ALERT cannot find /dev/sda1<br/>
+<font color="#A82F2F"><font size="2">(11:27:17 AM)</font> <b>ws2k3:</b></font> no i changed the right file i was able to change fstab from inside de vm(using busybox) i changes fstab by using sed<br/>
+<font size="2">(11:27:20 AM)</font><b> Zitter left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(11:27:25 AM)</font> <b>ws2k3:</b></font> sed -i<br/>
+<font color="#A82F2F"><font size="2">(11:27:41 AM)</font> <b>ws2k3:</b></font> sed -i &apos;/s/sda1/xvda1&apos; fstab<br/>
+<font color="#A82F2F"><font size="2">(11:28:05 AM)</font> <b>ws2k3:</b></font> i verifyd with cat if my fstab is correctly now and it is<br/>
+<font color="#A82F2F"><font size="2">(11:28:51 AM)</font> <b>devweasel:</b></font> ws2k3: chances are, there is still a root=/dev/sda1 directive within your grub config; make sure to change this as well.<br/>
+<font color="#A82F2F"><font size="2">(11:30:39 AM)</font> <b>fraff:</b></font> devweasel: that&apos;s a xen VM, it should&apos;nt use grub<br/>
+<font color="#A82F2F"><font size="2">(11:32:51 AM)</font> <b>DevAntoine:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(11:33:09 AM)</font> <b>DevAntoine:</b></font> I&apos;ve got more than 60 apache process and growing<br/>
+<font color="#A82F2F"><font size="2">(11:33:33 AM)</font> <b>Vroomfon1el:</b></font> how many apache processes are you expecting to have?<br/>
+<font color="#A82F2F"><font size="2">(11:33:39 AM)</font> <b>DevAntoine:</b></font> yesterday I had to restart apache because it wasn&apos;t responding and it was taking more than 1.5Gb<br/>
+<font color="#A82F2F"><font size="2">(11:33:56 AM)</font> <b>DevAntoine:</b></font> I never had issues like this in years on that machine<br/>
+<font color="#A82F2F"><font size="2">(11:34:03 AM)</font> <b>devweasel:</b></font> fraff: normally it shouldn&apos;t yes, but the mentioned &quot;busybox&quot; shell sounds very much like the initrd rescue system, *before* fstab is read.<br/>
+<font color="#A82F2F"><font size="2">(11:34:11 AM)</font> <b>Vroomfon1el:</b></font> you&apos;ve set an appropriate process limit in the Apache config?<br/>
+<font color="#A82F2F"><font size="2">(11:34:29 AM)</font> <b>DevAntoine:</b></font> Vroomfon1el: I don&apos;t know, I can&apos;t remember seeing so many of them<br/>
+<font color="#A82F2F"><font size="2">(11:34:39 AM)</font> <b>DevAntoine:</b></font> Vroomfon1el: nop<br/>
+<font color="#A82F2F"><font size="2">(11:34:44 AM)</font> <b>Vroomfon1el:</b></font> DevAntoine: then set one :)<br/>
+<font color="#A82F2F"><font size="2">(11:35:22 AM)</font> <b>DevAntoine:</b></font> and netstat worries me. There is 2 ips with more than 20 connections on my server<br/>
+<font color="#A82F2F"><font size="2">(11:35:55 AM)</font> <b>DevAntoine:</b></font> well, 3 ip actually<br/>
+<font color="#A82F2F"><font size="2">(11:36:26 AM)</font> <b>Vroomfon1el:</b></font> DevAntoine: you can limit the number of processes via the MaxClients directive in the Apache configuraiton file<br/>
+<font color="#A82F2F"><font size="2">(11:36:46 AM)</font> <b>Vroomfon1el:</b></font> and lots of connections is fairly normal for some browsers. Chrome in particular tends to create a lot.<br/>
+<font color="#A82F2F"><font size="2">(11:36:53 AM)</font> <b>jelly:</b></font> DevAntoine: use lsof to see what files each processes keeps open.  Use access logs to see if there&apos;s actual traffic and whether it looks legit<br/>
+<font color="#A82F2F"><font size="2">(11:37:16 AM)</font> <b>DevAntoine:</b></font> Vroomfon1el: it&apos;s the same ips for days oO<br/>
+<font color="#A82F2F"><font size="2">(11:37:34 AM)</font> <b>fraff:</b></font> ws2k3: can you paste your /etc/xen/your-vm.cfg ?<br/>
+<font color="#A82F2F"><font size="2">(11:37:54 AM)</font> <b>DevAntoine:</b></font> in syslog I&apos;ve got lot of lines like this: Mar 10 11:35:09 lolilolbox suhosin[2073]: ALERT - script tried to increase memory_limit to 268435456 bytes which is above the allowed value (attacker &apos;62.210.73.64&apos;, file &apos;/home/koskoz/sd/blog/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack.php&apos;, line 123)<br/>
+<font color="#A82F2F"><font size="2">(11:38:02 AM)</font> <b>Bremsstrahlung:</b></font> What&apos;s the better way to install Debian wheezy with the lxde desktop environment? From http://lxde.org/ with their iso, or https://www.debian.org/CD/netinst/ and then running the commands here: https://wiki.debian.org/LXDE ?<br/>
+<font color="#A82F2F"><font size="2">(11:38:10 AM)</font> <b>DevAntoine:</b></font> and like this: Mar 10 11:35:24 lolilolbox kernel: [2316807.978521] iptables denied: IN=eth0 OUT= MAC=ff:ff:ff:ff:ff:ff:c8:0a:a9:c8:f1:ff:08:00 SRC=195.154.109.148 DST=195.154.109.255 LEN=61 TOS=0x00 PREC=0x00 TTL=64 ID=43352 DF PROTO=UDP SPT=33445 DPT=33445 LEN=41<br/>
+<font color="#A82F2F"><font size="2">(11:38:42 AM)</font> <b>ws2k3:</b></font> fraff which config do you mean exacly?<br/>
+<font color="#A82F2F"><font size="2">(11:39:24 AM)</font> <b>waqstar:</b></font> I&apos;ve just written a bash start/stop script for my tool. However I want to be able to use systemctl start ... Is there a way I can call my start script with the new systemd tool? If what do I have to do to make my script work here?<br/>
+<font color="#A82F2F"><font size="2">(11:40:31 AM)</font> <b>otyugh:</b></font> Bremsstrahlung: depends if you want to install lxde by yourself from scratch or just get lxde fast and all.<br/>
+<font color="#A82F2F"><font size="2">(11:41:18 AM)</font> <b>Vroomfon1el:</b></font> DevAntoine: the suhosin alert might just be because the script is misbehaving rather than being due to an actual attack<br/>
+<font color="#A82F2F"><font size="2">(11:41:22 AM)</font> <b>fraff:</b></font> ws2k3: the configuration of your xen VM, the one in /etc/xen/something.cfg<br/>
+<font color="#A82F2F"><font size="2">(11:41:31 AM)</font> <b>Bremsstrahlung:</b></font> otyugh: But the end result will be the same?<br/>
+<font color="#A82F2F"><font size="2">(11:43:05 AM)</font> <b>otyugh:</b></font> I guess there is some tweaking added in the lxde edition. From what I see of the wiki, it&apos;s quite of a minimalist setup. Thought it&apos;s good too. Depends if you want a minimalist  setup or a good to go one.<br/>
+<font color="#A82F2F"><font size="2">(11:43:57 AM)</font> <b>otyugh:</b></font> I wonder if there is a changelog in the lxde edition<br/>
+<font color="#A82F2F"><font size="2">(11:44:05 AM)</font> <b>ws2k3:</b></font> so i need to look for that config on my xenserver?<br/>
+<font color="#A82F2F"><font size="2">(11:44:22 AM)</font> <b>Bremsstrahlung:</b></font> otyugh: I see. Which is the minimalist edition, the one from Debian and running the commands?<br/>
+<font color="#A82F2F"><font size="2">(11:44:42 AM)</font> <b>Hallo32:</b></font> Bremsstrahlung: The debian version could included patches/fixes for Debian which are not in the source of the lxde page.<br/>
+<font color="#A82F2F"><font size="2">(11:45:13 AM)</font> <b>Bremsstrahlung:</b></font> Hallo32: Good point.<br/>
+<font color="#A82F2F"><font size="2">(11:46:12 AM)</font> <b>Bremsstrahlung:</b></font> Hm, I wonder what desktop manager it&apos;ll use.<br/>
+<font color="#A82F2F"><font size="2">(11:46:51 AM)</font> <b>Hallo32:</b></font> Bremsstrahlung: If you take the source from the lxde page, you have also to monitoring it for security holes.<br/>
+<font color="#A82F2F"><font size="2">(11:46:53 AM)</font> <b>ws2k3:</b></font> fraff on my xenserver i do not have such config<br/>
+<font color="#A82F2F"><font size="2">(11:47:31 AM)</font> <b>fraff:</b></font> ws2k3: how do your start your VM then ?<br/>
+<font color="#A82F2F"><font size="2">(11:47:43 AM)</font> <b>Bremsstrahlung:</b></font> Hallo32: I see.<br/>
+<font color="#A82F2F"><font size="2">(11:48:03 AM)</font> <b>ws2k3:</b></font> by using xencenter<br/>
+<font color="#A82F2F"><font size="2">(11:48:25 AM)</font> <b>ws2k3:</b></font> i did not install xen on debian i am running xenserver(OS)<br/>
+<font color="#A82F2F"><font size="2">(11:49:08 AM)</font> <b>jelly:</b></font> Bremsstrahlung: the lxde.org page seems to link to (an older version of) debian&apos;s own installers<br/>
+<font color="#A82F2F"><font size="2">(11:49:20 AM)</font> <b>Bremsstrahlung:</b></font> jelly: Interesting.<br/>
+<font color="#A82F2F"><font size="2">(11:49:25 AM)</font> <b>Bremsstrahlung:</b></font> I&apos;ll take that into account.<br/>
+<font color="#A82F2F"><font size="2">(11:50:08 AM)</font> <b>jelly:</b></font> so you might just go and use 7.8 d-i instead of 7.6 linked there<br/>
+<font color="#A82F2F"><font size="2">(11:50:29 AM)</font> <b>Bremsstrahlung:</b></font> And 7.8 d-i is the current stable netinstall?<br/>
+<font color="#A82F2F"><font size="2">(11:50:41 AM)</font> <b>jelly:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(11:50:44 AM)</font> <b>Bremsstrahlung:</b></font> OK, cool beans.<br/>
+<font color="#A82F2F"><font size="2">(11:51:00 AM)</font> <b>jelly:</b></font> !install lxde<br/>
+<font color="#A82F2F"><font size="2">(11:51:00 AM)</font> <b>dpkg:</b></font> To install &lt;LXDE&gt; on established systems, ask me about &lt;install x&gt;, then: «aptitude install lxde».  To install using Debian-Installer (if not using LXDE CD-1): from the Installer boot menu, select &quot;Advanced options &gt; Alternative desktop environments &gt; LXDE &gt; Install&quot;.<br/>
+<font color="#A82F2F"><font size="2">(11:51:20 AM)</font> <b>Bremsstrahlung:</b></font> Ahhhh, I see. So there&apos;s something in the advanced options.<br/>
+<font color="#A82F2F"><font size="2">(11:51:22 AM)</font> <b>Bremsstrahlung:</b></font> Gotcha.<br/>
+<font color="#A82F2F"><font size="2">(11:51:27 AM)</font> <b>Bremsstrahlung:</b></font> Will remember that.<br/>
+<font color="#A82F2F"><font size="2">(11:51:42 AM)</font> <b>Bremsstrahlung:</b></font> That way I don&apos;t have to tinker with the command line later to install it.<br/>
+<font color="#A82F2F"><font size="2">(11:51:55 AM)</font> <b>DevAntoine:</b></font> Vroomfon1el: I&apos;ve got lot of lines like the one with the memory limit, from lot of ips, plus, iptables is flooding syslog<br/>
+<font color="#A82F2F"><font size="2">(11:52:02 AM)</font> <b>Bremsstrahlung:</b></font> A question though; what default display manager does that option install?<br/>
+<font color="#A82F2F"><font size="2">(11:52:10 AM)</font> <b>Bremsstrahlung:</b></font> I may guess LightDM, though I am not sure.<br/>
+<font color="#A82F2F"><font size="2">(11:53:35 AM)</font> <b>bubbleguN:</b></font> hey<br/>
+<font color="#A82F2F"><font size="2">(11:53:41 AM)</font> <b>bubbleguN:</b></font> Hey! all :)<br/>
+<font color="#A82F2F"><font size="2">(11:53:46 AM)</font> <b>Bremsstrahlung:</b></font> Hi.<br/>
+<font color="#A82F2F"><font size="2">(11:53:56 AM)</font> <b>bubbleguN:</b></font> Can someone help me installing roccat-tools , plz.<br/>
+<font color="#A82F2F"><font size="2">(11:54:22 AM)</font> <b>Vroomfon1el:</b></font> DevAntoine: is the script doing an &quot;ini_set(&apos;memory_limit&apos;, ...&quot;  ?<br/>
+<font color="#A82F2F"><font size="2">(11:54:31 AM)</font> <b>Bremsstrahlung:</b></font> bubbleguN: Help in which way? Are you getting an error trying to do it? See /topic :)<br/>
+<font color="#A82F2F"><font size="2">(11:55:29 AM)</font> <b>fraff:</b></font> ws2k3: ha, I don&apos;t know then, sorry<br/>
+<font color="#A82F2F"><font size="2">(11:55:58 AM)</font> <b>bubbleguN:</b></font> btw, Bremsstrahlung .. i use deb reps ... here are the errors, http://pastebin.com/LMmx0j3r<br/>
+<font color="#A82F2F"><font size="2">(11:56:02 AM)</font> <b>Vroomfon1el:</b></font> DevAntoine: anyway if you set your MaxClients a bit lower it should help prevent your server getting overwhelmed.<br/>
+<font color="#A82F2F"><font size="2">(11:56:19 AM)</font> <b>DevAntoine:</b></font> Vroomfon1el: yep<br/>
+<font color="#A82F2F"><font size="2">(11:57:13 AM)</font> <b>Vroomfon1el:</b></font> DevAntoine: well that&apos;s what the alert is about, then. If the script&apos;s doing that and it&apos;s asking for more memory than you&apos;ve allowed via your PHP configuration, suhosin will warn you. It&apos;s not necessarily an attack.<br/>
+<font color="#A82F2F"><font size="2">(11:58:10 AM)</font> <b>otyugh:</b></font> I&apos;m wondering : when wayland will be installed everywhere now ?<br/>
+<font color="#A82F2F"><font size="2">(11:58:33 AM)</font> <b>otyugh:</b></font> We heard a lot of it a year ago, and I still see we use Xorg everywhere<br/>
+<font color="#A82F2F"><font size="2">(12:01:49 PM)</font> <b>DevAntoine:</b></font> Vroomfon1el: hum, if I set the maxclient to a lower value when the limit is reached users will have apache errors (which is better than always failling, I agree). It&apos;s really weird with 2gb of ram and such low trafic<br/>
+<font color="#A82F2F"><font size="2">(12:01:58 PM)</font> <b>devweasel:</b></font> ws2k3: is this plain XEN or Citrix XenServer?<br/>
+<font size="2">(12:02:02 PM)</font><b> mode (+l 1631) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:04:33 PM)</font> <b>_bt:</b></font> hello - is there a place i can see which patches are applied to a package? (9.8.4.dfsg.P1-6+nmu2+deb7u) - i&apos;m looking specifically to see if this package supports response rate limiting<br/>
+<font color="#A82F2F"><font size="2">(12:04:50 PM)</font> <b>_bt:</b></font> oops, thats bind9 :)<br/>
+<font color="#A82F2F"><font size="2">(12:05:41 PM)</font> <b>towo^work:</b></font> _bt, apt-get source the package, then you see the used patches<br/>
+<font color="#A82F2F"><font size="2">(12:06:01 PM)</font> <b>ws2k3:</b></font> fraff maby i can boot a live cd mount my disk and run update-grub<br/>
+<font color="#A82F2F"><font size="2">(12:07:24 PM)</font> <b>DevAntoine:</b></font> Vroomfon1el: hum, I&apos;ve got KeepAlive set to On<br/>
+<font color="#A82F2F"><font size="2">(12:07:28 PM)</font> <b>DevAntoine:</b></font> maybe it&apos;s that<br/>
+<font color="#A82F2F"><font size="2">(12:07:33 PM)</font> <b>_bt:</b></font> towo^work: thank you<br/>
+<font color="#A82F2F"><font size="2">(12:08:04 PM)</font> <b>bubbleguN:</b></font>  i use deb reps ... here are the errors, http://pastebin.com/LMmx0j3r .... help needed plz :)<br/>
+<font color="#A82F2F"><font size="2">(12:08:32 PM)</font> <b>fraff:</b></font> ws2k3: you mean a live debian instead of xencenter ? maybe<br/>
+<font color="#A82F2F"><font size="2">(12:09:19 PM)</font> <b>bubbleguN:</b></font> fraff, download also os-prober<br/>
+<font color="#A82F2F"><font size="2">(12:09:30 PM)</font> <b>trysten:</b></font> what sources ~/.profile? when i log in wish ssh, it does not seem to get evaled<br/>
+<font color="#A82F2F"><font size="2">(12:09:55 PM)</font> <b>colp2:</b></font> patch-tracker.debian.org is down, which breaks the link &quot;Debian patch tracker&quot; on packages.debian.org/bar  What is the best place to report this problem?<br/>
+<font color="#A82F2F"><font size="2">(12:10:09 PM)</font> <b>ws2k3:</b></font> fraff i found that my /boot/grub/grub.cfg still contained root=/dev/sda1 i changed this to root=/dev/xvda1 do i need to run update-grub now? or is that not neccesery?<br/>
+<font color="#A82F2F"><font size="2">(12:11:59 PM)</font> <b>hsr:</b></font> so guys<br/>
+<font color="#A82F2F"><font size="2">(12:12:15 PM)</font> <b>hsr:</b></font> I have sudo access but the root is blocked from logging in<br/>
+<font color="#A82F2F"><font size="2">(12:12:27 PM)</font> <b>bubbleguN:</b></font> sudo su -<br/>
+<font color="#A82F2F"><font size="2">(12:12:29 PM)</font> <b>bubbleguN:</b></font> visudo<br/>
+<font color="#A82F2F"><font size="2">(12:12:30 PM)</font> <b>colp2:</b></font> ws2k3, update-grub essentially regenerates and overwrites grub.cfg  from scratch<br/>
+<font color="#A82F2F"><font size="2">(12:12:31 PM)</font> <b>hsr:</b></font> but the thing is, I can&apos;t find sudo<br/>
+<font color="#A82F2F"><font size="2">(12:12:44 PM)</font> <b>bubbleguN:</b></font> add line above root equal to root but with your user name<br/>
+<font color="#A82F2F"><font size="2">(12:12:58 PM)</font> <b>hsr:</b></font> for that you need root/sudo access right?<br/>
+<font color="#A82F2F"><font size="2">(12:13:03 PM)</font> <b>bubbleguN:</b></font> nop<br/>
+<font color="#A82F2F"><font size="2">(12:13:06 PM)</font> <b>bubbleguN:</b></font> su -<br/>
+<font color="#A82F2F"><font size="2">(12:13:07 PM)</font> <b>bubbleguN:</b></font> only<br/>
+<font color="#A82F2F"><font size="2">(12:13:16 PM)</font> <b>colp2:</b></font> hsr, sudo su -l     spawns a root login shell<br/>
+<font color="#A82F2F"><font size="2">(12:13:28 PM)</font> <b>bubbleguN:</b></font> l stand for login<br/>
+<font color="#A82F2F"><font size="2">(12:13:32 PM)</font> <b>hsr:</b></font> oh alright<br/>
+<font color="#A82F2F"><font size="2">(12:13:37 PM)</font> <b>hsr:</b></font> so we can use password?<br/>
+<font color="#A82F2F"><font size="2">(12:13:47 PM)</font> <b>fraff:</b></font> ws2k3: yes, but you&apos;ll propably need no mount proc and dev for that<br/>
+<font color="#A82F2F"><font size="2">(12:14:10 PM)</font> <b>hsr:</b></font> god my root password is a bitch<br/>
+<font color="#A82F2F"><font size="2">(12:14:32 PM)</font> <b>d1b:</b></font> you can enable sudo without a password as well, if you so wish.<br/>
+<font color="#A82F2F"><font size="2">(12:14:39 PM)</font> <b>bubbleguN:</b></font> hsr, i have a macro keyboard and M1 stand for root passwd, M2 , stand for user pass ! etc..<br/>
+<font color="#A82F2F"><font size="2">(12:14:48 PM)</font> <b>bubbleguN:</b></font> i just press it :P<br/>
+<font color="#A82F2F"><font size="2">(12:14:51 PM)</font> <b>hsr:</b></font> ahaha<br/>
+<font color="#A82F2F"><font size="2">(12:15:18 PM)</font> <b>hsr:</b></font> I use lastpass for the desktop so my memory skills are not that great<br/>
+<font color="#A82F2F"><font size="2">(12:16:14 PM)</font> <b>hsr:</b></font> colp2, noticed something btw<br/>
+<font color="#A82F2F"><font size="2">(12:16:28 PM)</font> <b>hsr:</b></font> sudo su -l requires sudo which I dont have<br/>
+<font color="#A82F2F"><font size="2">(12:16:33 PM)</font> <b>hsr:</b></font> (the binary)<br/>
+<font color="#A82F2F"><font size="2">(12:16:37 PM)</font> <b>hsr:</b></font> hehe<br/>
+<font color="#A82F2F"><font size="2">(12:17:22 PM)</font> <b>colp2:</b></font> su -l then? this will require root password instead (as opposed to non-root-user password)<br/>
+<font color="#A82F2F"><font size="2">(12:18:07 PM)</font> <b>hsr:</b></font> you saved a couple of hours from a man&apos;s life<br/>
+<font color="#A82F2F"><font size="2">(12:18:12 PM)</font> <b>hsr:</b></font> it worked like a charm<br/>
+<font color="#A82F2F"><font size="2">(12:18:18 PM)</font> <b>hsr:</b></font> thxboise<br/>
+<font color="#A82F2F"><font size="2">(12:18:27 PM)</font> <b>colp2:</b></font> you may want to apt-get install sudo now ;)<br/>
+<font color="#A82F2F"><font size="2">(12:18:39 PM)</font> <b>hsr:</b></font> oh yeah :D<br/>
+<font color="#A82F2F"><font size="2">(12:18:51 PM)</font> <b>hsr:</b></font> this is new to me<br/>
+<font color="#A82F2F"><font size="2">(12:19:00 PM)</font> <b>hsr:</b></font> never thought VPSes came without sudo<br/>
+<font color="#A82F2F"><font size="2">(12:20:52 PM)</font> <b>hsr:</b></font> p.s. ##linux fails at verifying webchat logged in users<br/>
+<font size="2">(12:20:53 PM)</font><b> fstd_ is now known as fstd</b><br/>
+<font color="#A82F2F"><font size="2">(12:21:20 PM)</font> <b>colp2:</b></font> hsr, you may want to report that to the network tech support #freenode<br/>
+<font color="#A82F2F"><font size="2">(12:21:36 PM)</font> <b>hsr:</b></font> oh noes they don&apos;t like me at #freenode<br/>
+<font color="#A82F2F"><font size="2">(12:22:12 PM)</font> <b>hsr:</b></font> anyways thanks everyone<br/>
+<font color="#A82F2F"><font size="2">(12:22:46 PM)</font> <b>ws2k3:</b></font> fraff got it fixed i changed the grub.cfg then rebooten then it did a fsck and booted into my os then i could do a update-grub(just to make sure) and reboot again so its working now thanks<br/>
+<font color="#A82F2F"><font size="2">(12:24:40 PM)</font> <b>ntz:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(12:24:51 PM)</font> <b>ntz:</b></font> stupid Q: .. I modified etc/security/access.conf (added ``-:root:ALL EXCEPT localhost&apos;&apos;) but I can still login via ssh from remote host .. what do I do wrong please ?<br/>
+<font color="#A82F2F"><font size="2">(12:26:52 PM)</font> <b>fraff:</b></font> ws2k3: glad I could help<br/>
+<font color="#A82F2F"><font size="2">(12:28:08 PM)</font> <b>colp2:</b></font> ntz, no idea, but the man page says &apos;scanned for the FIRST entry that matches&apos;... is it the first entry?<br/>
+<font color="#A82F2F"><font size="2">(12:28:22 PM)</font> <b>ntz:</b></font> yes, first and only entry :)<br/>
+<font color="#A82F2F"><font size="2">(12:30:56 PM)</font> <b>tobis:</b></font> Hi there<br/>
+<font color="#A82F2F"><font size="2">(12:32:09 PM)</font> <b>bubbleguN:</b></font> Can i haz helps plz :P , http://pastebin.com/LMmx0j3r .... Im using debian reps , but the problem is i cant compile well the roccat-tools ! im missing something in cmake canberra<br/>
+<font color="#A82F2F"><font size="2">(12:32:26 PM)</font> <b>tobis:</b></font> I have an issue with some bash script when trying to inject a function ( with declare or typeset ) in a ssh hop of 2 servers, if anyone here have some knowledge about this<br/>
+<font color="#A82F2F"><font size="2">(12:34:58 PM)</font> <b>newbieAlert:</b></font> hey whats the way to get the sectors of file ??<br/>
+<font color="#A82F2F"><font size="2">(12:35:18 PM)</font> <b>bubbleguN:</b></font> ln --sectors ?:P<br/>
+<font color="#A82F2F"><font size="2">(12:35:25 PM)</font> <b>hsr:</b></font> ntz: have you restarted the sshd service?<br/>
+<font color="#A82F2F"><font size="2">(12:35:29 PM)</font> <b>ntz:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(12:35:40 PM)</font> <b>bubbleguN:</b></font> just kiddin newbieAlert  :)<br/>
+<font color="#A82F2F"><font size="2">(12:35:46 PM)</font> <b>ntz:</b></font> I did this I think 10 years ago ...... I must miss something<br/>
+<font color="#A82F2F"><font size="2">(12:36:20 PM)</font> <b>newbieAlert:</b></font> bubbleguN tracks cylinder sectors.<br/>
+<font color="#A82F2F"><font size="2">(12:37:37 PM)</font> <b>hsr:</b></font> wait what<br/>
+<font color="#A82F2F"><font size="2">(12:37:46 PM)</font> <b>hsr:</b></font> you appended that line 10 years ago?<br/>
+<font color="#A82F2F"><font size="2">(12:38:44 PM)</font> <b>hsr:</b></font> + : root : 127.0.0.1 localhost<br/>
+<font color="#A82F2F"><font size="2">(12:38:48 PM)</font> <b>hsr:</b></font> that should do<br/>
+<font color="#A82F2F"><font size="2">(12:39:28 PM)</font> <b>hsr:</b></font> what you are trying to do is restrict all traffic from localhost and allow everyone else<br/>
+<font color="#A82F2F"><font size="2">(12:39:39 PM)</font> <b>hsr:</b></font> &quot;all except localhost&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:39:41 PM)</font> <b>themill:</b></font> ntz: which release of debian?<br/>
+<font color="#A82F2F"><font size="2">(12:40:10 PM)</font> <b>ntz:</b></font> 7.8<br/>
+<font color="#A82F2F"><font size="2">(12:40:56 PM)</font> <b>hsr:</b></font> okay I might not have hit puberty when it was 7.8<br/>
+<font color="#A82F2F"><font size="2">(12:41:00 PM)</font> <b>hsr:</b></font> peace out<br/>
+<font color="#A82F2F"><font size="2">(12:41:00 PM)</font> <b>Eduard_Munteanu:</b></font> What kernel package do I need for Debian on armel?<br/>
+<font color="#A82F2F"><font size="2">(12:41:03 PM)</font> <b>ntz:</b></font> hsr: yes, exactly ... I want to keep PermitRootLogin yes but allow to login to the root only fromn localhost<br/>
+<font color="#A82F2F"><font size="2">(12:42:15 PM)</font> <b>hsr:</b></font> what purpose if I may ask?<br/>
+<font color="#A82F2F"><font size="2">(12:42:18 PM)</font> <b>rjsalts:</b></font> ntz: any particular form of root login, e.g. including password?<br/>
+<font color="#A82F2F"><font size="2">(12:42:31 PM)</font> <b>hsr:</b></font> as I discovered earlier you can get root shell via su -l<br/>
+<font color="#A82F2F"><font size="2">(12:42:35 PM)</font> <b>hsr:</b></font> no need to ssh as host<br/>
+<font color="#A82F2F"><font size="2">(12:42:56 PM)</font> <b>ntz:</b></font> rjsalts: only keys are allowed<br/>
+<font color="#A82F2F"><font size="2">(12:42:57 PM)</font> <b>hsr:</b></font> *at localhost<br/>
+<font color="#A82F2F"><font size="2">(12:43:28 PM)</font> <b>hsr:</b></font> oh I see<br/>
+<font color="#A82F2F"><font size="2">(12:43:49 PM)</font> <b>bubbleguN:</b></font> guys what repository gives us, the ROCCAT-TOOLS ?<br/>
+<font color="#A82F2F"><font size="2">(12:43:51 PM)</font> <b>rjsalts:</b></font> So just go PermitRootLogin without-password<br/>
+<font color="#A82F2F"><font size="2">(12:44:13 PM)</font> <b>hsr:</b></font> http://unix.stackexchange.com/questions/53306/how-to-limit-ssh-access-for-localhost-only<br/>
+<font color="#A82F2F"><font size="2">(12:44:23 PM)</font> <b>hsr:</b></font> AllowUsers root@localhost<br/>
+<font size="2">(12:44:41 PM)</font><b> zz_mbainrot is now known as mbainrot</b><br/>
+<font color="#A82F2F"><font size="2">(12:45:01 PM)</font> <b>lyft:</b></font> Hi, I need to install gcc-4.8-plugin-dev and the latest stable version on wheezy is 4.7. I need 4.8 version because that requires mSIGNA bitcoin wallet. This information I get from terminal: E: Unable to locate package gcc-4.8-plugin-dev E: Couldn&apos;t find any package by regex &apos;gcc-4.8-plugin-dev&apos;<br/>
+<font color="#A82F2F"><font size="2">(12:46:36 PM)</font> <b>hsr:</b></font> oh crap I just had an epiphany bubbleguN<br/>
+<font color="#A82F2F"><font size="2">(12:46:52 PM)</font> <b>bubbleguN:</b></font> hsr ?<br/>
+<font color="#A82F2F"><font size="2">(12:47:02 PM)</font> <b>hsr:</b></font> put user&apos;s public key as root&apos;s authorized_host<br/>
+<font color="#A82F2F"><font size="2">(12:47:09 PM)</font> <b>hsr:</b></font> easy root shell<br/>
+<font color="#A82F2F"><font size="2">(12:47:12 PM)</font> <b>hsr:</b></font> :3<br/>
+<font color="#A82F2F"><font size="2">(12:47:18 PM)</font> <b>bubbleguN:</b></font> can i pm you hsr ?<br/>
+<font color="#A82F2F"><font size="2">(12:48:09 PM)</font> <b>hsr:</b></font> hope it is not for calling my mum :P sure<br/>
+<font color="#A82F2F"><font size="2">(12:49:05 PM)</font> <b>bubbleguN:</b></font> hehe<br/>
+<font color="#A82F2F"><font size="2">(12:49:09 PM)</font> <b>bubbleguN:</b></font> :P<br/>
+<font size="2">(12:49:22 PM)</font><b> lyft left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(12:53:33 PM)</font> <b>TomyWork:</b></font> &lt;fraff&gt; TomyWork: did you &quot;set -x&quot; at the begining of the script to see what&apos;s going on ?<br/>
+<font color="#A82F2F"><font size="2">(12:53:46 PM)</font> <b>TomyWork:</b></font> fraff i would, but I can&apos;t reproduce the issue<br/>
+<font color="#A82F2F"><font size="2">(12:54:02 PM)</font> <b>TomyWork:</b></font> Original question was: A prerm scriptlet I wrote returned exit status 128 when the customer updated the package. It&apos;s rather short and basically all it does is stop a service through invoke-rc.d. I also use dh_stop. Can somebody enlighten me about what&apos;s going on?<br/>
+<font color="#A82F2F"><font size="2">(12:58:44 PM)</font> <b>g00se:</b></font> Can anyone using Icedove confirm that Attachment Status has now disappeared from IMAP searches for some reason?<br/>
+<font color="#A82F2F"><font size="2">(01:04:09 PM)</font> <b>bubbleguN:</b></font> Wich repository of debian, contains roccat-tools ?<br/>
+<font color="#A82F2F"><font size="2">(01:04:30 PM)</font> <b>bazhang:</b></font> ,v roccat-tools<br/>
+<font color="#A82F2F"><font size="2">(01:04:32 PM)</font> <b>judd:</b></font> No package named &apos;roccat-tools&apos; was found in i386.<br/>
+<font color="#A82F2F"><font size="2">(01:04:41 PM)</font> <b>jelly:</b></font> &quot;none&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:04:51 PM)</font> <b>bubbleguN:</b></font> and about this one<br/>
+<font color="#A82F2F"><font size="2">(01:05:27 PM)</font> <b>bubbleguN:</b></font> there is a guy called, berfenger ,, that did this for ubuntu ppa:berfenger/roccat<br/>
+<font color="#A82F2F"><font size="2">(01:05:47 PM)</font> <b>bubbleguN:</b></font> can i do the same in debian using ppa or what is it called<br/>
+<font color="#A82F2F"><font size="2">(01:06:08 PM)</font> <b>jelly:</b></font> not really, the ppa infrastructure only has builders for ubuntu releases<br/>
+<font color="#A82F2F"><font size="2">(01:06:24 PM)</font> <b>bubbleguN:</b></font> yeh i tought so<br/>
+<font color="#A82F2F"><font size="2">(01:06:36 PM)</font> <b>bubbleguN:</b></font> jelly could you help me plz ?<br/>
+<font color="#A82F2F"><font size="2">(01:06:43 PM)</font> <b>Hallo32:</b></font> bubbleguN: get the source and build it.<br/>
+<font color="#A82F2F"><font size="2">(01:06:48 PM)</font> <b>bubbleguN:</b></font> to see what i am doing wrong in compiling process<br/>
+<font color="#A82F2F"><font size="2">(01:06:50 PM)</font> <b>jelly:</b></font> bubbleguN: help with what?<br/>
+<font color="#A82F2F"><font size="2">(01:07:02 PM)</font> <b>bubbleguN:</b></font> http://pastebin.com/LMmx0j3r<br/>
+<font color="#A82F2F"><font size="2">(01:07:07 PM)</font> <b>bubbleguN:</b></font> I am doing that allready !<br/>
+<font color="#A82F2F"><font size="2">(01:07:10 PM)</font> <b>bubbleguN:</b></font> :P<br/>
+<font color="#A82F2F"><font size="2">(01:08:04 PM)</font> <b>jelly:</b></font> bubbleguN: note that knoppix isn&apos;t debian, I&apos;m not sure this is the right place to ask<br/>
+<font color="#A82F2F"><font size="2">(01:08:21 PM)</font> <b>bubbleguN:</b></font> yeh but #coders is empty<br/>
+<font color="#A82F2F"><font size="2">(01:08:22 PM)</font> <b>bubbleguN:</b></font> atm<br/>
+<font color="#A82F2F"><font size="2">(01:08:31 PM)</font> <b>bubbleguN:</b></font> so. .im trying it here<br/>
+<font color="#A82F2F"><font size="2">(01:08:32 PM)</font> <b>bazhang:</b></font> try #knoppix<br/>
+<font color="#A82F2F"><font size="2">(01:08:37 PM)</font> <b>bubbleguN:</b></font> empty as well<br/>
+<font color="#A82F2F"><font size="2">(01:08:38 PM)</font> <b>bubbleguN:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(01:08:57 PM)</font> <b>bazhang:</b></font> no its not<br/>
+<font color="#A82F2F"><font size="2">(01:09:23 PM)</font> <b>jelly:</b></font> bubbleguN: be patient.  There&apos;s also ##linux for general linux queries<br/>
+<font color="#A82F2F"><font size="2">(01:09:34 PM)</font> <b>bubbleguN:</b></font> oh boy<br/>
+<font color="#A82F2F"><font size="2">(01:09:34 PM)</font> <b>bubbleguN:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(01:09:40 PM)</font> <b>bubbleguN:</b></font> i forgot that one :P<br/>
+<font color="#A82F2F"><font size="2">(01:09:40 PM)</font> <b>bubbleguN:</b></font> tks<br/>
+<font color="#A82F2F"><font size="2">(01:09:49 PM)</font> <b>ChrisH:</b></font> bubbleguN: you need the -dev packages normally to build using cmake and pkgconfig<br/>
+<font color="#A82F2F"><font size="2">(01:10:02 PM)</font> <b>bubbleguN:</b></font> cmake-dev !?<br/>
+<font color="#A82F2F"><font size="2">(01:10:03 PM)</font> <b>bubbleguN:</b></font> :P<br/>
+<font color="#A82F2F"><font size="2">(01:10:36 PM)</font> <b>ChrisH:</b></font> bubbleguN: no. libcanberra-dev and all the other stuff you did get<br/>
+<font color="#A82F2F"><font size="2">(01:11:11 PM)</font> <b>jelly:</b></font> bubbleguN: if, for example, your build process complained about not being able to find something called CANBERRA, and if you were using Debian, you&apos;d try to find it using something like &quot;apt-cache search canberra dev&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:11:30 PM)</font> <b>bubbleguN:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(01:11:35 PM)</font> <b>bubbleguN:</b></font> here is the same<br/>
+<font color="#A82F2F"><font size="2">(01:11:39 PM)</font> <b>jelly:</b></font> but since you&apos;re using a derivative, this channel is the wrong place to ask<br/>
+<font color="#A82F2F"><font size="2">(01:11:49 PM)</font> <b>jelly:</b></font> !knoppix<br/>
+<font color="#A82F2F"><font size="2">(01:11:49 PM)</font> <b>dpkg:</b></font> Knoppix is _not_ Debian.  Seek Knoppix help in freenode&apos;s #knoppix.  Knoppix is a live CD distribution which is &lt;based on Debian&gt;, useful as a rescue CD, to test hardware, and for situations where you have access to a computer but it isn&apos;t Debian.  http://www.knoppix.org/ unofficial: http://Debian-knoppix.alioth.Debian.org/  &lt;Debian-live&gt; is the Debian equivalent for publishing live systems.<br/>
+<font color="#A82F2F"><font size="2">(01:13:26 PM)</font> <b>bubbleguN:</b></font> my knoppix, you dont ever talk bad about my knoppix :&apos;#(<br/>
+<font color="#A82F2F"><font size="2">(01:13:38 PM)</font> <b>bubbleguN:</b></font> understood ! :]]]]<br/>
+<font color="#A82F2F"><font size="2">(01:13:59 PM)</font> <b>bubbleguN:</b></font> its not a rescue cd its a imba cd to snort cocaine<br/>
+<font color="#A82F2F"><font size="2">(01:14:04 PM)</font> <b>bubbleguN:</b></font> AHAHAHAHA<br/>
+<font color="#A82F2F"><font size="2">(01:14:26 PM)</font> <b>hsr:</b></font> ntz: so did it work?<br/>
+<font color="#A82F2F"><font size="2">(01:16:05 PM)</font> <b>ntz:</b></font> hsr: minute ... I started doing something else<br/>
+<font size="2">(01:19:00 PM)</font><b> mode (+o jelly) by ChanServ</b><br/>
+<font size="2">(01:19:00 PM)</font><b> mode (+b *!*@41.141.14.168$##not-a-honeypot) by jelly</b><br/>
+<font size="2">(01:19:00 PM)</font><b> mode (-o jelly) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(01:22:36 PM)</font> <b>Che-Anarc:</b></font> Trying to configure my network - I&apos;ve been given 1x Gateway IP &amp; 2x Router IP&apos;s - do I add &quot;post-up route add x.x.x.x dev eth0&quot; twice?  I cant seem to ping outside world.<br/>
+<font color="#A82F2F"><font size="2">(01:25:25 PM)</font> <b>foreverska:</b></font> Debian appears to be ignoring my inittab...  I&apos;m trying to auto login and it never does.  Comment out all getty lines and it starts like normal.<br/>
+<font color="#A82F2F"><font size="2">(01:26:48 PM)</font> <b>Brigo:</b></font> foreverska, whezzy or jessie?<br/>
+<font color="#A82F2F"><font size="2">(01:26:54 PM)</font> <b>foreverska:</b></font> Jessie<br/>
+<font color="#A82F2F"><font size="2">(01:26:56 PM)</font> <b>ntz:</b></font> hsr: well, perhaps it works but it&apos;s not the &quot;correct&quot; setup .. I checked other servers set like this and nowhere is allowing root this way<br/>
+<font color="#A82F2F"><font size="2">(01:27:21 PM)</font> <b>Brigo:</b></font> foreverska, if you are using systemd, it ignores inittab at all :)<br/>
+<font color="#A82F2F"><font size="2">(01:27:34 PM)</font> <b>foreverska:</b></font> -.- oh geeze...<br/>
+<font size="2">(01:28:03 PM)</font><b> hsr is now known as hsr__</b><br/>
+<font color="#A82F2F"><font size="2">(01:28:58 PM)</font> <b>bubbleguN:</b></font> add-apt-repository<br/>
+<font color="#A82F2F"><font size="2">(01:29:03 PM)</font> <b>bubbleguN:</b></font> dont work , why?<br/>
+<font color="#A82F2F"><font size="2">(01:29:17 PM)</font> <b>bubbleguN:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(01:29:27 PM)</font> <b>jelly:</b></font> bubbleguN: ask the knoppix people.<br/>
+<font color="#A82F2F"><font size="2">(01:29:53 PM)</font> <b>bubbleguN:</b></font> ok dude cya<br/>
+<font size="2">(01:30:02 PM)</font><b> bubbleguN left the room (&quot;Leaving&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(01:30:10 PM)</font> <b>cnodell:</b></font> Che-Anarc: Is this computer acting as a router or a host?<br/>
+<font color="#A82F2F"><font size="2">(01:31:13 PM)</font> <b>Che-Anarc:</b></font> cnodell,   as a host.<br/>
+<font size="2">(01:32:02 PM)</font><b> mode (+l 1637) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(01:32:17 PM)</font> <b>foreverska:</b></font> Well that worked, thanks Brigo<br/>
+<font color="#A82F2F"><font size="2">(01:32:28 PM)</font> <b>Brigo:</b></font> foreverska, np :)<br/>
+<font color="#A82F2F"><font size="2">(01:33:03 PM)</font> <b>avrdude:</b></font> when running as root, my LD_LIBRARY_PATH variable is reset<br/>
+<font color="#A82F2F"><font size="2">(01:33:10 PM)</font> <b>avrdude:</b></font> even though i am telling it not to<br/>
+<font color="#A82F2F"><font size="2">(01:33:14 PM)</font> <b>avrdude:</b></font> any fixes?<br/>
+<font color="#A82F2F"><font size="2">(01:33:25 PM)</font> <b>themill:</b></font> you&apos;d need to explain what you&apos;re actually doing<br/>
+<font color="#A82F2F"><font size="2">(01:33:49 PM)</font> <b>avrdude:</b></font> i am running a python script with sudo, and it relies on some environment variables to work<br/>
+<font color="#A82F2F"><font size="2">(01:34:00 PM)</font> <b>themill:</b></font> ewww<br/>
+<font color="#A82F2F"><font size="2">(01:34:04 PM)</font> <b>avrdude:</b></font> but it fails, because LD_LIBRARY_PATH isnt set when running as root<br/>
+<font color="#A82F2F"><font size="2">(01:34:19 PM)</font> <b>themill:</b></font> sudo eats crap like that (if you&apos;re relying on that, you&apos;ve already lost)<br/>
+<font color="#A82F2F"><font size="2">(01:34:36 PM)</font> <b>avrdude:</b></font> well, any help would be appreciated<br/>
+<font color="#A82F2F"><font size="2">(01:34:51 PM)</font> <b>avrdude:</b></font> right now i have to login as root, export the variable, then start my script<br/>
+<font color="#A82F2F"><font size="2">(01:34:56 PM)</font> <b>avrdude:</b></font> but i dont like doing that<br/>
+<font color="#A82F2F"><font size="2">(01:35:15 PM)</font> <b>themill:</b></font> why do you need to set LD_LIBRARY_PATH?<br/>
+<font color="#A82F2F"><font size="2">(01:35:27 PM)</font> <b>avrdude:</b></font> because without it, my python script fails<br/>
+<font color="#A82F2F"><font size="2">(01:35:32 PM)</font> <b>themill:</b></font> ...<br/>
+<font size="2">(01:35:36 PM)</font><b> foreverska left the room (&quot;Leaving&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(01:35:43 PM)</font> <b>avrdude:</b></font> what<br/>
+<font color="#A82F2F"><font size="2">(01:36:07 PM)</font> <b>colp2:</b></font> avrdude, meta.stackexchange.com/q/66377<br/>
+<font color="#A82F2F"><font size="2">(01:36:12 PM)</font> <b>themill:</b></font> please try to actually offer useful information. This is currently like a trip the dentist.<br/>
+<font color="#A82F2F"><font size="2">(01:36:21 PM)</font> <b>colp2:</b></font> please paste.debian.org the script and tell us the exact error message<br/>
+<font color="#A82F2F"><font size="2">(01:37:09 PM)</font> <b>hsr:</b></font> how do you trip the dentist?<br/>
+<font color="#A82F2F"><font size="2">(01:37:22 PM)</font> <b>hsr:</b></font> chemically or using a string?<br/>
+<font color="#A82F2F"><font size="2">(01:37:24 PM)</font> <b>themill:</b></font> by sticking out my foot<br/>
+<font color="#A82F2F"><font size="2">(01:37:29 PM)</font> <b>hsr:</b></font> aah<br/>
+<font color="#A82F2F"><font size="2">(01:37:30 PM)</font> <b>hsr:</b></font> touche<br/>
+<font color="#A82F2F"><font size="2">(01:38:50 PM)</font> <b>avrdude:</b></font> my script: http://pastebin.com/Xnzqbakp my output: http://pastebin.com/pFXCTKhx and as i said, if i login as root and export LD_LIBRARY_PATH, then the script works<br/>
+<font color="#A82F2F"><font size="2">(01:39:04 PM)</font> <b>avrdude:</b></font> but i would like to just &quot;sudo python3 script.py&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:39:43 PM)</font> <b>themill:</b></font> /usr/local/lib? There is nothing good about where this is going<br/>
+<font color="#A82F2F"><font size="2">(01:39:44 PM)</font> <b>avrdude:</b></font> i have tried sudo -E but it wont work<br/>
+<font color="#A82F2F"><font size="2">(01:40:20 PM)</font> <b>avrdude:</b></font> i just want to permanently set this variable in the root user, and i have tried several things, and i would really appreciate some help<br/>
+<font color="#A82F2F"><font size="2">(01:42:57 PM)</font> <b>Che-Anarc:</b></font> cnodell,   I&apos;m just trying to get net connectivity beyond the gateway &amp; router-1 &amp; router-2 which I can ping... but I cant seem to get outside that.<br/>
+<font color="#A82F2F"><font size="2">(01:45:48 PM)</font> <b>avrdude:</b></font> so, what, you guys gave up?<br/>
+<font color="#A82F2F"><font size="2">(01:45:50 PM)</font> <b>colp2:</b></font> avrdude, why aren&apos;t you using gstreamer1.0-plugins-* from the repo?<br/>
+<font color="#A82F2F"><font size="2">(01:46:09 PM)</font> <b>avrdude:</b></font> i had to compile them myself for raspbian<br/>
+<font color="#A82F2F"><font size="2">(01:46:22 PM)</font> <b>themill:</b></font> avrdude: this is #debian ...<br/>
+<font color="#A82F2F"><font size="2">(01:46:24 PM)</font> <b>colp2:</b></font> wait, you are on raspbian?<br/>
+<font color="#A82F2F"><font size="2">(01:46:38 PM)</font> <b>avrdude:</b></font> also, someone just told me LD_LIBRARY_PATH cant be set because of security issues<br/>
+<font color="#A82F2F"><font size="2">(01:46:59 PM)</font> <b>otyugh:</b></font> hey there. I was wondering if it was a myth or not that a defective hard drive could lead the system to slow down. I call defective a technical reason of course, not talking of fragmentation issues.<br/>
+<font color="#A82F2F"><font size="2">(01:47:10 PM)</font> <b>avrdude:</b></font> isnt raspbian and debian basically the same?<br/>
+<font color="#A82F2F"><font size="2">(01:47:19 PM)</font> <b>themill:</b></font> avrdude: no<br/>
+<font color="#A82F2F"><font size="2">(01:47:24 PM)</font> <b>avrdude:</b></font> ._.<br/>
+<font color="#A82F2F"><font size="2">(01:47:25 PM)</font> <b>colp2:</b></font> ask to channel #raspbian<br/>
+<font color="#A82F2F"><font size="2">(01:47:51 PM)</font> <b>themill:</b></font> avrdude: gstreamer1.0-plugins-good for instance exists in debian.<br/>
+<font color="#A82F2F"><font size="2">(01:48:19 PM)</font> <b>otyugh:</b></font> Because my logic was telling me a defective HDD was giving fatal bug warnings right away, not just slowing stuff.<br/>
+<font color="#A82F2F"><font size="2">(01:48:46 PM)</font> <b>avrdude:</b></font> right, but how does that matter? surely its possible to do what i am trying to do? i just want to set this one little variable so i can run my script as sudo..<br/>
+<font color="#A82F2F"><font size="2">(01:48:55 PM)</font> <b>jelly:</b></font> otyugh: it&apos;s possible alirght<br/>
+<font color="#A82F2F"><font size="2">(01:48:58 PM)</font> <b>cnodell:</b></font> Che-Anarc: For this you just need your host&apos;s IP, Subnet Mask and your gateway ip. Your gateway IP should be in the same subnet as your host&apos;s IP.<br/>
+<font color="#A82F2F"><font size="2">(01:49:24 PM)</font> <b>cnodell:</b></font> Che-Anarc: Are you using a gui like Network Manager?<br/>
+<font color="#A82F2F"><font size="2">(01:49:24 PM)</font> <b>otyugh:</b></font> jelly: do you have some text about that, or a rationnal explanation ?<br/>
+<font color="#A82F2F"><font size="2">(01:49:38 PM)</font> <b>jelly:</b></font> otyugh: just anecdotal observation<br/>
+<font color="#A82F2F"><font size="2">(01:49:55 PM)</font> <b>otyugh:</b></font> hell for rationnality é_è<br/>
+<font color="#A82F2F"><font size="2">(01:50:25 PM)</font> <b>Che-Anarc:</b></font> cnodell, no CLI only -   I have gateway IP defined but also there are router-1 &amp; router-2 in the details I&apos;ve been given which I think are the intended outbound routes?<br/>
+<font color="#A82F2F"><font size="2">(01:50:28 PM)</font> <b>jelly:</b></font> otyugh: I prefer observing what happens instead of rationalizing it out :-]<br/>
+<font color="#A82F2F"><font size="2">(01:50:51 PM)</font> <b>otyugh:</b></font> The twi us good to me<br/>
+<font color="#A82F2F"><font size="2">(01:51:21 PM)</font> <b>otyugh:</b></font> Computing is without theory is vodoo art.<br/>
+<font color="#A82F2F"><font size="2">(01:51:25 PM)</font> <b>cnodell:</b></font> Che-Anarc: A host has no use for any router IPs aside from their gateway. Could these be DNS servers?<br/>
+<font color="#A82F2F"><font size="2">(01:51:28 PM)</font> <b>otyugh:</b></font> -is<br/>
+<font color="#A82F2F"><font size="2">(01:51:38 PM)</font> <b>jelly:</b></font> otyugh: but here: SATA controllers and drivers can take a _lot_ of time retrying to read a marginal block<br/>
+<font color="#A82F2F"><font size="2">(01:52:02 PM)</font> <b>otyugh:</b></font> why ?<br/>
+<font size="2">(01:52:02 PM)</font><b> mode (+l 1643) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(01:52:23 PM)</font> <b>cnodell:</b></font> Che-Anarc: You set your hosts&apos; IP, netmask and gateway like this: https://wiki.debian.org/NetworkConfiguration#Configuring_the_interface_manually<br/>
+<font color="#A82F2F"><font size="2">(01:52:35 PM)</font> <b>jelly:</b></font> otyugh: that&apos;s a good question for hdd firmware devs<br/>
+<font color="#A82F2F"><font size="2">(01:52:45 PM)</font> <b>sqwk:</b></font> Having some trouble with network/interfaces and wpa_supplicant—what am I missing to make wlan0 automatically connect? http://pastie.org/10016104<br/>
+<font color="#A82F2F"><font size="2">(01:53:41 PM)</font> <b>cnodell:</b></font> Che-Anarc: Then you specify your DNS servers in your resolve.conf like this: https://wiki.debian.org/NetworkConfiguration#Defining_the_.28DNS.29_Nameservers<br/>
+<font color="#A82F2F"><font size="2">(01:54:17 PM)</font> <b>jelly:</b></font> otyugh: this was a huge problem when you use consumer devices with such firmware in raid arrays.  Thus http://en.wikipedia.org/wiki/Error_recovery_control got introduced<br/>
+<font color="#A82F2F"><font size="2">(01:54:22 PM)</font> <b>Che-Anarc:</b></font> cnodell,  I dont think they are DNS - this is IPv6 setup and its a strange bonded eth0 &amp; eth1 I have so I&apos;m defining all IP&apos;s etc via bond0 - could it be that the Router-1 &amp; Router-2 are applicable in this context?<br/>
+<font color="#A82F2F"><font size="2">(01:57:02 PM)</font> <b>g00se:</b></font> Can anyone using Icedove confirm that Attachment Status has now disappeared from IMAP searches for some reason?<br/>
+<font color="#A82F2F"><font size="2">(02:07:42 PM)</font> <b>cnodell:</b></font> Che-Anarc: Sorry, I have never set this up before. The ipv4 example here (https://wiki.debian.org/Bonding) suggests that you still only need a host IP, netmask, default gateway and DNS servers IPs. I imagine that for ipv6 you just need to change &quot;inet&quot; to &quot;inet6&quot;, and provide your IPV6 address details for address, netmask and gateway. You might want to use one of the balance modes instead of active-backup<br/>
+<font color="#A82F2F"><font size="2">(02:08:01 PM)</font> <b>Che-Anarc:</b></font> cnodell,   thanks its ok I got it going.<br/>
+<font color="#A82F2F"><font size="2">(02:08:37 PM)</font> <b>cnodell:</b></font> Che-Anarc: Good to hear! What were those two router addresses for anyways?<br/>
+<font color="#A82F2F"><font size="2">(02:09:04 PM)</font> <b>Che-Anarc:</b></font>  cnodell   they are routers - as in intended routers to be used.<br/>
+<font size="2">(02:12:02 PM)</font><b> mode (+l 1649) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(02:15:49 PM)</font> <b>rfkillz:</b></font> hi, how to pick supported WiFi usb? where is some good list with exact models that I should take with me to the shop?<br/>
+<font color="#A82F2F"><font size="2">(02:19:00 PM)</font> <b>ghormoon:</b></font> hi, any idea what to check when i don&apos;t get tray or anything as nonroot user on mate? Root sees it ok, standard user has only desktop background and icons, but not the things that should be on top and bottom<br/>
+<font size="2">(02:22:07 PM)</font><b> rfkillz left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font size="2">(02:42:02 PM)</font><b> mode (+l 1657) by debhelper</b><br/>
+<font size="2">(02:52:02 PM)</font><b> mode (+l 1649) by debhelper</b><br/>
+<font size="2">(02:53:02 PM)</font><b> fran` is now known as fran</b><br/>
+<font color="#A82F2F"><font size="2">(02:58:54 PM)</font> <b>Jonuz:</b></font> How do I get rid of this message? http://i.imgur.com/l47JneH.png<br/>
+<font color="#A82F2F"><font size="2">(02:59:26 PM)</font> <b>ntz:</b></font> Jonuz: omg<br/>
+<font color="#A82F2F"><font size="2">(02:59:35 PM)</font> <b>ntz:</b></font> I suggest you to cut the power cable :D<br/>
+<font color="#A82F2F"><font size="2">(03:00:19 PM)</font> <b>Jonuz:</b></font> why<br/>
+<font color="#A82F2F"><font size="2">(03:00:32 PM)</font> <b>ChrisH:</b></font> Jonuz: clean up your disk.<br/>
+<font color="#A82F2F"><font size="2">(03:00:56 PM)</font> <b>Jonuz:</b></font> ChrisH: I did but that message wont appear and its really annoying<br/>
+<font color="#A82F2F"><font size="2">(03:01:22 PM)</font> <b>ntz:</b></font> Jonuz: pastebin please `df -h&apos;<br/>
+<font color="#A82F2F"><font size="2">(03:01:44 PM)</font> <b>otyugh:</b></font> ncdu is an awesome light tool to detect heavy crap<br/>
+<font color="#A82F2F"><font size="2">(03:01:58 PM)</font> <b>Jonuz:</b></font> http://pastebin.com/5wjLz8xP<br/>
+<font color="#A82F2F"><font size="2">(03:02:42 PM)</font> <b>ChrisH:</b></font> Jonuz: check line 1 and tell me again you did clean up the disk.<br/>
+<font color="#A82F2F"><font size="2">(03:02:49 PM)</font> <b>otyugh:</b></font> :p<br/>
+<font color="#A82F2F"><font size="2">(03:03:58 PM)</font> <b>Jonuz:</b></font> I removed stuff what I just downloaded, IMO I should have ~1gig free space now<br/>
+<font color="#A82F2F"><font size="2">(03:04:10 PM)</font> <b>Jonuz:</b></font> And I assume if I logout and come back I wont see that anymore<br/>
+<font color="#A82F2F"><font size="2">(03:04:16 PM)</font> <b>Jonuz:</b></font> But I dont want to do that<br/>
+<font color="#A82F2F"><font size="2">(03:04:25 PM)</font> <b>Jonuz:</b></font> I want that just disappear<br/>
+<font color="#A82F2F"><font size="2">(03:04:30 PM)</font> <b>ntz:</b></font> they might be still in trash<br/>
+<font color="#A82F2F"><font size="2">(03:04:50 PM)</font> <b>ntz:</b></font> you 100% in root filesystem<br/>
+<font color="#A82F2F"><font size="2">(03:05:03 PM)</font> <b>ntz:</b></font> it&apos;s wrong ... you should have separate /home partition<br/>
+<font color="#A82F2F"><font size="2">(03:05:10 PM)</font> <b>ntz:</b></font> **you have 100%<br/>
+<font color="#A82F2F"><font size="2">(03:05:12 PM)</font> <b>Jonuz:</b></font> ntz: nope, i dont have<br/>
+<font color="#A82F2F"><font size="2">(03:05:22 PM)</font> <b>ntz:</b></font> Jonuz: yes, you do ...<br/>
+<font color="#A82F2F"><font size="2">(03:05:30 PM)</font> <b>ntz:</b></font> /dev/sda1       141G  133G  902M 100% /<br/>
+<font color="#A82F2F"><font size="2">(03:05:46 PM)</font> <b>Jonuz:</b></font> root and home is in same partition<br/>
+<font color="#A82F2F"><font size="2">(03:06:08 PM)</font> <b>ntz:</b></font> and that&apos;s wrong .. and your &quot;rootfs&quot; is 100% .. anything still unclear ?<br/>
+<font color="#A82F2F"><font size="2">(03:06:16 PM)</font> <b>ntz:</b></font> **100% full<br/>
+<font color="#A82F2F"><font size="2">(03:06:33 PM)</font> <b>Jonuz:</b></font> well I have no idea whats going on then, maybe I broke somethinbg<br/>
+<font color="#A82F2F"><font size="2">(03:06:34 PM)</font> <b>ntz:</b></font> sorry, not sure why, but having friday typing syndrome today already<br/>
+<font color="#A82F2F"><font size="2">(03:06:35 PM)</font> <b>Jonuz:</b></font> something<br/>
+<font color="#A82F2F"><font size="2">(03:07:05 PM)</font> <b>Jonuz:</b></font> by &quot;wrong&quot; do you mean it should not be done like that?<br/>
+<font color="#A82F2F"><font size="2">(03:07:16 PM)</font> <b>Brigo:</b></font> Jonuz, what filesystem are you using?<br/>
+<font color="#A82F2F"><font size="2">(03:07:17 PM)</font> <b>ntz:</b></font> Jonuz: again, check please trashbins ... kde and gnome use different places for trashbin<br/>
+<font color="#A82F2F"><font size="2">(03:07:37 PM)</font> <b>Jonuz:</b></font> gparted says that there should be 8gig free<br/>
+<font color="#A82F2F"><font size="2">(03:07:48 PM)</font> <b>Jonuz:</b></font> Brigo: ext4<br/>
+<font color="#A82F2F"><font size="2">(03:08:14 PM)</font> <b>ntz:</b></font> Jonuz: so you perhaps deleted some file which was used by some process and it&apos;s still mapped<br/>
+<font color="#A82F2F"><font size="2">(03:08:17 PM)</font> <b>Jonuz:</b></font> ah, fuck it, i will just logout and come back<br/>
+<font color="#A82F2F"><font size="2">(03:08:22 PM)</font> <b>cnodell:</b></font> ntz: Start in / and run &quot;du -hs&quot; to see what directories are largest. &quot;cd&quot; into these directories and run &quot;du -hs&quot; again and again until you have tracked down where all that data is being stored... When you find the data, you can clean it our using rm (if it is in your home directory). If it is somewhere else (like the apt cache) there are commands for clearing that too.<br/>
+<font color="#A82F2F"><font size="2">(03:08:31 PM)</font> <b>ntz:</b></font> cnodell: ^^ not me ;)<br/>
+<font color="#A82F2F"><font size="2">(03:09:42 PM)</font> <b>cnodell:</b></font> sorry &quot;du -hs *&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:10:51 PM)</font> <b>Jonuz:</b></font> aands its gone<br/>
+<font color="#A82F2F"><font size="2">(03:10:53 PM)</font> <b>Jonuz:</b></font> aand*<br/>
+<font size="2">(03:12:16 PM)</font><b> multi_io_ is now known as multi_io</b><br/>
+<font size="2">(03:16:43 PM)</font><b> Olipro_ is now known as Olipro</b><br/>
+<font size="2">(03:22:03 PM)</font><b> mode (+l 1642) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:26:17 PM)</font> <b>Iuz:</b></font> where is x-ttcidfont-conf on wheezy?<br/>
+<font color="#A82F2F"><font size="2">(03:26:32 PM)</font> <b>petn-randall:</b></font> ,v x-ttcidfont-conf<br/>
+<font color="#A82F2F"><font size="2">(03:26:33 PM)</font> <b>judd:</b></font> Package: x-ttcidfont-conf on i386 -- squeeze: 32<br/>
+<font color="#A82F2F"><font size="2">(03:26:41 PM)</font> <b>petn-randall:</b></font> Iuz: It&apos;s not in wheezy.<br/>
+<font color="#A82F2F"><font size="2">(03:28:05 PM)</font> <b>ahop:</b></font> How to automount SDcard inserted in SDcard reader to /mnt/sdcard ?<br/>
+<font size="2">(03:32:02 PM)</font><b> mode (+l 1653) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:32:15 PM)</font> <b>Iuz:</b></font> petn-randall: is there a place where I can see why it was deprecated?<br/>
+<font color="#A82F2F"><font size="2">(03:37:08 PM)</font> <b>ahop:</b></font> any idea Iuz?<br/>
+<font color="#A82F2F"><font size="2">(03:37:44 PM)</font> <b>ChrisH:</b></font> ahop: thats normally done by your DE (Dektoip Environment)<br/>
+<font color="#A82F2F"><font size="2">(03:38:31 PM)</font> <b>ahop:</b></font> ChrisH: I use a raspbian without GUI (no screen, no kbd)<br/>
+<font color="#A82F2F"><font size="2">(03:39:32 PM)</font> <b>petn-randall:</b></font> !raspbian<br/>
+<font color="#A82F2F"><font size="2">(03:39:36 PM)</font> <b>dpkg:</b></font> Raspbian is a distribution &lt;based on Debian&gt; made specifically for the &lt;Raspberry Pi&gt;.  Raspbian is not Debian and it is not supported in #debian.  Please use #raspbian on irc.freenode.net for support.   http://www.raspbian.org/<br/>
+<font color="#A82F2F"><font size="2">(03:39:39 PM)</font> <b>jelly:</b></font> judd: bug rm x-ttcidfont-conf<br/>
+<font color="#A82F2F"><font size="2">(03:39:44 PM)</font> <b>judd:</b></font> Bug http://bugs.debian.org/654533 in ftp.debian.org (closed): «RM: x-ttcidfont-conf -- RoQA; Debian-specific, unmaintained, tied to defoma removal»; severity: normal; opened: 2012-01-04; last modified: 2012-02-07.<br/>
+<font color="#A82F2F"><font size="2">(03:39:54 PM)</font> <b>jelly:</b></font> Iuz: ^^<br/>
+<font color="#A82F2F"><font size="2">(03:44:28 PM)</font> <b>Iuz:</b></font> thanks jelly<br/>
+<font size="2">(03:45:23 PM)</font><b> ahop left the room.</b><br/>
+<font size="2">(03:55:06 PM)</font><b> bedpanboy_return is now known as bedpanboy</b><br/>
+<font size="2">(04:17:47 PM)</font><b> newbie is now known as Guest21176</b><br/>
+<font size="2">(04:32:03 PM)</font><b> mode (+l 1659) by debhelper</b><br/>
+<font size="2">(04:39:21 PM)</font><b> mode (+o jelly) by ChanServ</b><br/>
+<font size="2">(04:39:23 PM)</font><b> mode (-o jelly) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(04:39:51 PM)</font> <b>t4nk485:</b></font> hey<br/>
+<font size="2">(04:40:05 PM)</font><b> t4nk485 left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(05:05:59 PM)</font> <b>d[^_^]b:</b></font> so my system won&apos;t boot after updating jessie<br/>
+<font color="#A82F2F"><font size="2">(05:06:04 PM)</font> <b>d[^_^]b:</b></font> it&apos;s in &quot;systemd emergency mode&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:06:14 PM)</font> <b>d[^_^]b:</b></font> this systemd thing seems intensely fragile<br/>
+<font color="#A82F2F"><font size="2">(05:06:25 PM)</font> <b>d[^_^]b:</b></font> but wasn&apos;t it created to get away from fragility?<br/>
+<font color="#A82F2F"><font size="2">(05:07:05 PM)</font> <b>epsilon:</b></font> every monolithic thingys are fragile and/or vulnerable<br/>
+<font color="#A82F2F"><font size="2">(05:07:30 PM)</font> <b>d[^_^]b:</b></font> this is beyond usual fragility. the number of interdependencies that are created without fully testing is insane<br/>
+<font color="#A82F2F"><font size="2">(05:07:46 PM)</font> <b>d[^_^]b:</b></font> how does something like systemd get past sid into jessie without being &apos;ready&apos;<br/>
+<font color="#A82F2F"><font size="2">(05:08:05 PM)</font> <b>d[^_^]b:</b></font> maybe it&apos;s a sign that debian policy is just... falling apart<br/>
+<font color="#A82F2F"><font size="2">(05:08:47 PM)</font> <b>Walex:</b></font> d[^_^]b: I really dislike &apos;systemd&apos; too, but as some people say &quot;it works&quot;. Indeed it works in most cases, like things like GRUB2 etc.<br/>
+<font color="#A82F2F"><font size="2">(05:09:20 PM)</font> <b>d[^_^]b:</b></font> Walex: i hear you. i try to use ZFS root filesystem and Grub2 becomes an issue there, as well.<br/>
+<font color="#A82F2F"><font size="2">(05:09:30 PM)</font> <b>d[^_^]b:</b></font> Grub 0.97 doesn&apos;t error out unnecessarily like Grub2 does :)<br/>
+<font color="#062585"><font size="2">(05:10:04 PM)</font> <b>***ntz</b></font> can&apos;t help himself to not murmur something about that the debian is the most retarded distro in the world ... yuck<br/>
+<font color="#A82F2F"><font size="2">(05:10:32 PM)</font> <b>d[^_^]b:</b></font> ntz: careful - abrotman will ban you for saying that :)<br/>
+<font color="#A82F2F"><font size="2">(05:10:55 PM)</font> <b>d[^_^]b:</b></font> in fact abrotman will probably ban me just for warning you<br/>
+<font color="#A82F2F"><font size="2">(05:11:30 PM)</font> <b>ntz:</b></font> d[^_^]b: I think that abrotman will leave me here unbanned as a kind of unusual and cruel punishment<br/>
+<font color="#A82F2F"><font size="2">(05:12:04 PM)</font> <b>petn-randall:</b></font> d[^_^]b: Do you have a support request? If not, please keep the channel clear for support.<br/>
+<font color="#A82F2F"><font size="2">(05:12:12 PM)</font> <b>d[^_^]b:</b></font> petn-randall: yes i do - scroll up to read it<br/>
+<font color="#A82F2F"><font size="2">(05:12:17 PM)</font> <b>petn-randall:</b></font> !ask<br/>
+<font color="#A82F2F"><font size="2">(05:12:17 PM)</font> <b>dpkg:</b></font> If you have a question, just ask! For example: &quot;I have a problem with ___; I&apos;m running Debian version ___. When I try to do ___ I get the following output ___. I expected it to do ___.&quot; Don&apos;t ask if you can ask, if anyone uses it, or pick one person to ask. We&apos;re all volunteers; make it easy for us to help you. If you don&apos;t get an answer try a few hours later or on debian-user@lists.debian.org. See &lt;smart questions&gt;&lt;errors&gt;.<br/>
+<font color="#A82F2F"><font size="2">(05:12:39 PM)</font> <b>petn-randall:</b></font> d[^_^]b: Other than &quot;doesn&apos;t work&quot; you&apos;re not providing any details.<br/>
+<font color="#A82F2F"><font size="2">(05:12:52 PM)</font> <b>ntz:</b></font> d[^_^]b: what exactly systemd says to you that it doesn&apos;t continue booting ?<br/>
+<font color="#A82F2F"><font size="2">(05:12:53 PM)</font> <b>d[^_^]b:</b></font> petn-randall: i sure did! it says its in emergency mode even though all my services and filesystems are mounted<br/>
+<font color="#A82F2F"><font size="2">(05:13:35 PM)</font> <b>ntz:</b></font> and yep, systemd is fragile and mainly used that much because the young and unexperienced ppl rule the distros communities<br/>
+<font color="#A82F2F"><font size="2">(05:13:36 PM)</font> <b>petn-randall:</b></font> d[^_^]b: What do the logs say? From where to where did you upgrade?<br/>
+<font color="#A82F2F"><font size="2">(05:13:39 PM)</font> <b>d[^_^]b:</b></font> when i try to actually use the &apos;emergency shell&apos;, it will say &quot;hangup&quot; if a command runs for more than &gt; 10 seconds<br/>
+<font color="#A82F2F"><font size="2">(05:13:54 PM)</font> <b>d[^_^]b:</b></font> petn-randall: i was on a jessie snapshot from ~November and then i did dist-upgrade a few days ago<br/>
+<font color="#A82F2F"><font size="2">(05:14:16 PM)</font> <b>d[^_^]b:</b></font> it had 27 day uptime before i rebooted and then i got to witness systemd fully take over my system for the first time<br/>
+<font color="#A82F2F"><font size="2">(05:14:31 PM)</font> <b>d[^_^]b:</b></font> annnd i forgot to take a ZFS snapshot before i upgraded so i&apos;m pretty much screwed<br/>
+<font color="#A82F2F"><font size="2">(05:14:42 PM)</font> <b>ntz:</b></font> that has to be very disturbing :P<br/>
+<font color="#A82F2F"><font size="2">(05:15:16 PM)</font> <b>petn-randall:</b></font> ntz: Please stop bickering about systemd if you can continue using sysv init without problems. Everyone is fed up with the senseless ramblings about systemd.<br/>
+<font color="#A82F2F"><font size="2">(05:15:30 PM)</font> <b>d[^_^]b:</b></font> petn-randall: it&apos;s not useless ramblings dude<br/>
+<font color="#A82F2F"><font size="2">(05:15:37 PM)</font> <b>d[^_^]b:</b></font> and it&apos;s certainly not bickering<br/>
+<font color="#A82F2F"><font size="2">(05:15:42 PM)</font> <b>d[^_^]b:</b></font> systemd doesn&apos;t &quot;just work&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:15:50 PM)</font> <b>d[^_^]b:</b></font> that attitude is horrible, petn-randall<br/>
+<font color="#A82F2F"><font size="2">(05:15:52 PM)</font> <b>petn-randall:</b></font> d[^_^]b: Take it elsewhere, this is a support channel.<br/>
+<font color="#A82F2F"><font size="2">(05:16:04 PM)</font> <b>d[^_^]b:</b></font> and i&apos;m asking for support with something debian decided to include<br/>
+<font color="#A82F2F"><font size="2">(05:16:20 PM)</font> <b>d[^_^]b:</b></font> you&apos;re just ignoring my support request because it&apos;s convenient to you<br/>
+<font color="#A82F2F"><font size="2">(05:16:48 PM)</font> <b>d[^_^]b:</b></font> petn-randall: you just said &quot;Please stop bickering about systemd if you can continue using sysv init without  problems.<br/>
+<font color="#A82F2F"><font size="2">(05:17:02 PM)</font> <b>petn-randall:</b></font> d[^_^]b: If you want it fixed, please provide the logs I asked for.<br/>
+<font color="#A82F2F"><font size="2">(05:17:27 PM)</font> <b>d[^_^]b:</b></font> petn-randall: you mean &apos;journalctl -xb&apos;? it doesn&apos;t tell me anything<br/>
+<font color="#A82F2F"><font size="2">(05:17:34 PM)</font> <b>petn-randall:</b></font> d[^_^]b: I will not discuss why Debian decided to use systemd, we&apos;ve beaten this horse to death a long time ago.<br/>
+<font color="#A82F2F"><font size="2">(05:17:54 PM)</font> <b>d[^_^]b:</b></font> petn-randall: and now it&apos;s going to start affecting more people... so get used to people coming into this &quot;support channel&quot; to ask about it<br/>
+<font color="#A82F2F"><font size="2">(05:18:12 PM)</font> <b>d[^_^]b:</b></font> petn-randall: if you don&apos;t like how this is a support channel where people have issues and ask for help maybe you should go elsewhere<br/>
+<font color="#A82F2F"><font size="2">(05:18:46 PM)</font> <b>petn-randall:</b></font> d[^_^]b: Again, I&apos;m here for support, not discussing the systemd cabal taking over FOSS.<br/>
+<font color="#A82F2F"><font size="2">(05:18:47 PM)</font> <b>ntz:</b></font> d[^_^]b: petn-randall is right ... don&apos;t elaborate your personal opinions, we know them already<br/>
+<font color="#A82F2F"><font size="2">(05:19:02 PM)</font> <b>d[^_^]b:</b></font> it&apos;s not a personal opinion :) it&apos;s a real situation i&apos;m in<br/>
+<font color="#A82F2F"><font size="2">(05:19:28 PM)</font> <b>d[^_^]b:</b></font> you say not to ramble about systemd *if* we can use init scripts without issues<br/>
+<font color="#A82F2F"><font size="2">(05:19:33 PM)</font> <b>petn-randall:</b></font> d[^_^]b: /var/log/syslog and kern.log would also be a good start to look into.<br/>
+<font color="#A82F2F"><font size="2">(05:19:36 PM)</font> <b>d[^_^]b:</b></font> but as far as i can see systemd is just erroring out about nothing<br/>
+<font color="#A82F2F"><font size="2">(05:19:40 PM)</font> <b>ntz:</b></font> d[^_^]b: so give us some debugging output which would help us to determine, what went wrong with your systemd<br/>
+<font color="#A82F2F"><font size="2">(05:20:29 PM)</font> <b>d[^_^]b:</b></font> i&apos;m trying to currently find a way to even get into the filesystem<br/>
+<font color="#A82F2F"><font size="2">(05:21:21 PM)</font> <b>jelly:</b></font> d[^_^]b: in the meantime, you&apos;ll probably get better help for jessie in #debian-next on irc.oftc.net<br/>
+<font color="#A82F2F"><font size="2">(05:21:54 PM)</font> <b>d[^_^]b:</b></font> jelly: i was banned from there for mentioning how quiet it was<br/>
+<font color="#A82F2F"><font size="2">(05:22:14 PM)</font> <b>jelly:</b></font> lol<br/>
+<font color="#062585"><font size="2">(05:22:23 PM)</font> <b>***d[^_^]b</b></font> refrains from using words &apos;power hungry&apos;<br/>
+<font color="#A82F2F"><font size="2">(05:23:07 PM)</font> <b>jelly:</b></font> d[^_^]b: do you happen to know which nickname you used and when did that happen<br/>
+<font color="#A82F2F"><font size="2">(05:23:44 PM)</font> <b>d[^_^]b:</b></font> &apos;kash&apos;, just a couple days ago.<br/>
+<font color="#A82F2F"><font size="2">(05:24:05 PM)</font> <b>d[^_^]b:</b></font> ya know what, this is just.. not going to work for me. i&apos;m sure i can figure out how to get Gentoo running as a root filesystem without too much effort.<br/>
+<font color="#A82F2F"><font size="2">(05:24:17 PM)</font> <b>d[^_^]b:</b></font> you guys enjoy your systemd, i&apos;m going to stay away<br/>
+<font color="#A82F2F"><font size="2">(05:24:19 PM)</font> <b>petn-randall:</b></font> !next<br/>
+<font color="#A82F2F"><font size="2">(05:24:19 PM)</font> <b>dpkg:</b></font> Another happy customer leaves the building.<br/>
+<font color="#A82F2F"><font size="2">(05:24:42 PM)</font> <b>d[^_^]b:</b></font> petn-randall: aw you have such a good track record you have to make the bot say something for it :)<br/>
+<font color="#A82F2F"><font size="2">(05:26:16 PM)</font> <b>blackyboy:</b></font> How can i monitor terminal activities, Whom ever type any commands or what ever it want to get in a log file.<br/>
+<font color="#A82F2F"><font size="2">(05:27:39 PM)</font> <b>petn-randall:</b></font> blackyboy: You could use something like screen or tmux, they have builtin logging capabilities.<br/>
+<font color="#A82F2F"><font size="2">(05:28:21 PM)</font> <b>blackyboy:</b></font> oh cool will byoubu log every activities ?<br/>
+<font color="#A82F2F"><font size="2">(05:28:48 PM)</font> <b>d[^_^]b:</b></font> blackyboy: bash does that. screen/tmux aren&apos;t what you&apos;re looking for.<br/>
+<font color="#A82F2F"><font size="2">(05:29:00 PM)</font> <b>d[^_^]b:</b></font> blackyboy: there&apos;s a bash setting to &quot;log everything&quot; to syslog or somewhere else<br/>
+<font color="#A82F2F"><font size="2">(05:29:41 PM)</font> <b>halt:</b></font> Hi All, I try to setup an program to run as service I already have the init.d script for it all looks good if I run the same command just from bash, but the when i run it with start-stop-daemon then nothing happeneds, how can I find out what&apos;s wrong ? Here is the init script ( template )  https://raw.githubusercontent.com/solarkennedy/puppet-consul/master/templates/consul.debian.erb<br/>
+<font color="#A82F2F"><font size="2">(05:29:43 PM)</font> <b>blackyboy:</b></font> d[^_^]b: oh cool how can i achieve it ? Google dosen&apos;t helped<br/>
+<font color="#A82F2F"><font size="2">(05:30:25 PM)</font> <b>d[^_^]b:</b></font> blackyboy: http://askubuntu.com/questions/93566/how-to-log-all-bash-commands-by-all-users-on-a-server<br/>
+<font color="#A82F2F"><font size="2">(05:31:04 PM)</font> <b>ntz:</b></font> blackyboy: but at the beginnig: set -x; exec 2 &gt; /var/tmp/`basename $0`.debug<br/>
+<font color="#A82F2F"><font size="2">(05:31:15 PM)</font> <b>ntz:</b></font> ^^ and investigate that file what&apos;s wrong<br/>
+<font color="#A82F2F"><font size="2">(05:31:18 PM)</font> <b>d[^_^]b:</b></font> blackyboy: there&apos;s a package called &apos;acct&apos; that does process accounting.<br/>
+<font color="#A82F2F"><font size="2">(05:31:20 PM)</font> <b>ntz:</b></font> s/but/put/<br/>
+<font color="#A82F2F"><font size="2">(05:31:47 PM)</font> <b>ntz:</b></font> halt: ^^ sorry, for you<br/>
+<font size="2">(05:32:02 PM)</font><b> mode (+l 1668) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:32:13 PM)</font> <b>d[^_^]b:</b></font> blackyboy: if you&apos;re wanting to log all the *commands* people run, this works for you. if you&apos;re wanting to log the *output* of the commands, you&apos;ll need something else for each individual one.<br/>
+<font color="#A82F2F"><font size="2">(05:32:17 PM)</font> <b>blackyboy:</b></font> Ok let me check<br/>
+<font color="#A82F2F"><font size="2">(05:32:34 PM)</font> <b>d[^_^]b:</b></font> bbiab<br/>
+<font color="#A82F2F"><font size="2">(05:32:48 PM)</font> <b>blackyboy:</b></font> d[^_^]b: i want to log everything including output and command<br/>
+<font color="#A82F2F"><font size="2">(05:34:47 PM)</font> <b>halt:</b></font> ntz: Oh thanks, and which part is the worst ? ( using puppet to install consul on debian ) the still using init.d and not systemd useing puppet and not something else, useing consul or having to resolve this myself<br/>
+<font color="#A82F2F"><font size="2">(05:35:12 PM)</font> <b>ChrisH:</b></font> blackyboy: depending on where you do that it might be illegal<br/>
+<font color="#A82F2F"><font size="2">(05:36:08 PM)</font> <b>blackyboy:</b></font> ChrisH: i want to make documentation when ever i setup some server, So i need to log everything to reduce my typing work<br/>
+<font color="#A82F2F"><font size="2">(05:37:31 PM)</font> <b>ChrisH:</b></font> blackyboy: Then using screen -L  might be the easiest way to do it.<br/>
+<font color="#A82F2F"><font size="2">(05:37:39 PM)</font> <b>halt:</b></font> blackyboy: Use config management to reduce the time.. loging is useful but this is not the soltuion for the issue<br/>
+<font size="2">(05:37:44 PM)</font><b> Oscilax_ is now known as Oscilax</b><br/>
+<font color="#A82F2F"><font size="2">(05:38:02 PM)</font> <b>d[^_^]b:</b></font> blackyboy: use &apos;script&apos;<br/>
+<font color="#A82F2F"><font size="2">(05:38:20 PM)</font> <b>d[^_^]b:</b></font> blackyboy: it will record the output of a terminal session and you can play it back as a &apos;video&apos; later :)<br/>
+<font color="#A82F2F"><font size="2">(05:38:33 PM)</font> <b>d[^_^]b:</b></font> blackyboy: sorry i think it&apos;s called &apos;record&apos;<br/>
+<font color="#A82F2F"><font size="2">(05:39:25 PM)</font> <b>jhutchins:</b></font> screen can do that too, but us more for the user to record than to audit users.<br/>
+<font color="#A82F2F"><font size="2">(05:39:33 PM)</font> <b>halt:</b></font> for that this is the best https://asciinema.org/<br/>
+<font color="#A82F2F"><font size="2">(05:41:07 PM)</font> <b>teraflops:</b></font> halt: asciinema is nice ;)<br/>
+<font color="#A82F2F"><font size="2">(05:41:47 PM)</font> <b>kb3ien:</b></font> looking to run ucarp ON a machine that provides NAT and routing. Is there a way to ensure that on each hosts both VLAN_2 and VLAN_3 both get the same master/standby relationship?<br/>
+<font color="#A82F2F"><font size="2">(05:44:15 PM)</font> <b>kb3ien:</b></font> must one use a single CARP instance ?<br/>
+<font color="#A82F2F"><font size="2">(05:44:23 PM)</font> <b>halt:</b></font> so anyone on the (cunsul) init.d script ? I just need suggestion how to debug it, I have no clue how to start since all looks fine when running the same command from bash :(<br/>
+<font color="#A82F2F"><font size="2">(05:44:45 PM)</font> <b>d[^_^]b:</b></font> kb3ien: Debian/kFreeBSD?<br/>
+<font size="2">(05:44:57 PM)</font><b> teraflops left the room (quit: Quit: WeeChat 0.4.3).</b><br/>
+<font color="#A82F2F"><font size="2">(05:45:33 PM)</font> <b>kb3ien:</b></font> Debian linux 3.12<br/>
+<font color="#A82F2F"><font size="2">(05:46:48 PM)</font> <b>centrx:</b></font> kb3ien, This sounds like a ucarp-specific question, is there a channel for that software?<br/>
+<font color="#A82F2F"><font size="2">(05:46:58 PM)</font> <b>centrx:</b></font> kb3ien, Could also try #linux<br/>
+<font color="#A82F2F"><font size="2">(05:48:15 PM)</font> <b>d[^_^]b:</b></font> i wonder if ucarp is similar to freebsd carp<br/>
+<font color="#A82F2F"><font size="2">(05:50:20 PM)</font> <b>petn-randall:</b></font> d[^_^]b: On the network level they&apos;re identical and 100% compatible, setup-wise AFAIR they&apos;re a little different.<br/>
+<font color="#A82F2F"><font size="2">(05:51:53 PM)</font> <b>d[^_^]b:</b></font> ah makes sense<br/>
+<font color="#A82F2F"><font size="2">(05:56:01 PM)</font> <b>marcelomauro:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(05:57:27 PM)</font> <b>marcelomauro:</b></font> I&apos;m trying to use ddclient but I&apos;m not sure if I configure it correctly. Someone can halp me?<br/>
+<font color="#A82F2F"><font size="2">(05:58:08 PM)</font> <b>d[^_^]b:</b></font> marcelomauro: the Dynamic DNS thing?<br/>
+<font color="#A82F2F"><font size="2">(05:58:18 PM)</font> <b>marcelomauro:</b></font> yes?<br/>
+<font color="#A82F2F"><font size="2">(05:58:28 PM)</font> <b>d[^_^]b:</b></font> marcelomauro: sorry was trying to see if you typo&apos;d &apos;dhclient&apos; :)<br/>
+<font color="#A82F2F"><font size="2">(05:58:54 PM)</font> <b>d[^_^]b:</b></font> marcelomauro: the common saying in this channel is not to ask if you can ask, but just ask the question<br/>
+<font color="#A82F2F"><font size="2">(05:58:56 PM)</font> <b>marcelomauro:</b></font> it&apos;s ok.<br/>
+<font color="#A82F2F"><font size="2">(05:59:24 PM)</font> <b>d[^_^]b:</b></font> i.e. post a paste.debian.org snippet of your configuration and any debug output<br/>
+<font color="#A82F2F"><font size="2">(06:01:17 PM)</font> <b>marcelomauro:</b></font> d[^_^]b, I&apos;m not sure about login and password because there is a password for site service and other for domain<br/>
+<font color="#A82F2F"><font size="2">(06:01:34 PM)</font> <b>d[^_^]b:</b></font> marcelomauro: don&apos;t post your passwords on the pastebin<br/>
+<font color="#A82F2F"><font size="2">(06:01:42 PM)</font> <b>marcelomauro:</b></font> I know<br/>
+<font color="#A82F2F"><font size="2">(06:02:19 PM)</font> <b>abrotman:</b></font> d[^_^]b: any reason you&apos;re evading your ban, and violating freenode policy?<br/>
+<font color="#A82F2F"><font size="2">(06:03:49 PM)</font> <b>marcelomauro:</b></font> d[^_^]b, I just follow this<br/>
+<font color="#A82F2F"><font size="2">(06:03:49 PM)</font> <b>marcelomauro:</b></font> http://ddns.winco.com.br/perguntas-frequentes/#cat5-post116<br/>
+<font color="#A82F2F"><font size="2">(06:03:49 PM)</font> <b>d[^_^]b:</b></font> abrotman: i&apos;m not purposely doing much, my ipv6 timed out so i just connected normally.<br/>
+<font color="#A82F2F"><font size="2">(06:03:49 PM)</font> <b>d[^_^]b:</b></font> this channel is on my auto-join list.<br/>
+<font color="#A82F2F"><font size="2">(06:03:49 PM)</font> <b>marcelomauro:</b></font> on linux configuration section<br/>
+<font color="#A82F2F"><font size="2">(06:03:49 PM)</font> <b>d[^_^]b:</b></font> abrotman: any reason you banned me originally beyond personal prejudice?<br/>
+<font color="#A82F2F"><font size="2">(06:03:49 PM)</font> <b>abrotman:</b></font> no, you purposely didn&apos;t authenticate to services<br/>
+<font size="2">(06:03:50 PM)</font><b> fraff is now known as fraff_</b><br/>
+<font size="2">(06:03:50 PM)</font><b> mode (+o abrotman) by ChanServ</b><br/>
+<font size="2">(06:03:50 PM)</font><b> mode (+q *!*@tripleback.net) by abrotman</b><br/>
+<font size="2">(06:03:50 PM)</font><b> mode (-o abrotman) by abrotman</b><br/>
+<font size="2">(06:10:38 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

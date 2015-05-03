@@ -1,0 +1,136 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Thu 01 Jan 2015 03:01:07 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Thu 01 Jan 2015 03:01:07 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(03:01:07 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(03:01:07 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font size="2">(03:16:37 PM)</font><b> oofus_ is now known as oofus</b><br/>
+<font color="#A82F2F"><font size="2">(03:39:53 PM)</font> <b>Ricardus:</b></font> Happy new year to all<br/>
+<font size="2">(04:48:13 PM)</font><b> karswell` is now known as karswell</b><br/>
+<font color="#A82F2F"><font size="2">(06:06:41 PM)</font> <b>FlorianBd:</b></font> Happy new year Ardour team :)<br/>
+<font color="#A82F2F"><font size="2">(06:42:32 PM)</font> <b>roudar:</b></font> I&apos;ve been having different problems with midi, but there is one I can&apos;t solve. One of my midi instruments kicks in midway through if you start playback before the region, but might work fine if started somewhere in the middle.<br/>
+<font color="#A82F2F"><font size="2">(06:43:06 PM)</font> <b>roudar:</b></font> When it does not work, the input metering bar keeps bouncing with the midi notes, but the output ones don&apos;t move<br/>
+<font color="#A82F2F"><font size="2">(06:43:11 PM)</font> <b>roudar:</b></font> like it would be muted<br/>
+<font color="#A82F2F"><font size="2">(06:43:47 PM)</font> <b>roudar:</b></font> I&apos;m using 6 midi tracks that each have a calf fluidsynth plugin with a different instrument selected<br/>
+<font color="#A82F2F"><font size="2">(06:44:57 PM)</font> <b>las:</b></font> roudar: &quot;kicks in&quot; ? what version of ardour?<br/>
+<font color="#A82F2F"><font size="2">(06:45:48 PM)</font> <b>las:</b></font> roudar: if you meter &quot;post fader&quot; with an instrument that &quot;eats&quot; the MIDI data you will only see the audio meter move, because there is no MIDI data leaving the track<br/>
+<font color="#A82F2F"><font size="2">(06:45:51 PM)</font> <b>roudar:</b></font> It seems like it kicks in during the middle of a long note most of the time, a second after most other midi tracks have finished<br/>
+<font color="#A82F2F"><font size="2">(06:46:27 PM)</font> <b>roudar:</b></font> version 3.5.3979<br/>
+<font color="#A82F2F"><font size="2">(06:46:37 PM)</font> <b>las:</b></font> roudar: did you try a newer version from nightly.ardour.org ? the issue *may* be fixed already<br/>
+<font color="#A82F2F"><font size="2">(06:47:22 PM)</font> <b>roudar:</b></font> I will, I built this version myself since the stable one from the package manager crashed every time when adding a track, which had been fixed<br/>
+<font color="#A82F2F"><font size="2">(06:47:39 PM)</font> <b>roudar:</b></font> but I wanted to ask first in case it&apos;s something known.... like a problem with the plugin or having too many instances of it<br/>
+<font color="#A82F2F"><font size="2">(06:47:57 PM)</font> <b>roudar:</b></font> because it seems like the midi input is bouncing along nicely but the plugin is not generating sound the first part of the track<br/>
+<font color="#A82F2F"><font size="2">(06:48:37 PM)</font> <b>las:</b></font> roudar: we are nearly 200 commits ahead of the version you built at this point<br/>
+<font color="#A82F2F"><font size="2">(06:48:54 PM)</font> <b>las:</b></font> roudar: what you&apos;re describing doesn&apos;t seem familiar tome<br/>
+<font color="#A82F2F"><font size="2">(06:48:55 PM)</font> <b>las:</b></font> to me<br/>
+<font color="#A82F2F"><font size="2">(06:51:28 PM)</font> <b>roudar:</b></font> las: and it&apos;s a reasonable approach to have a dozen midi tracks emitting midi channel 1 data each, and each of them having their own fluidsynth plugin with some instrument selected?<br/>
+<font color="#A82F2F"><font size="2">(06:52:07 PM)</font> <b>roudar:</b></font> just so I&apos;m not approaching this wrong... just thinking if the whole setup is messed and I should be outputting data on different channels to one plugin or something<br/>
+<font color="#A82F2F"><font size="2">(06:52:33 PM)</font> <b>las:</b></font> roudar: personally i think you&apos;re doing it right<br/>
+<font color="#A82F2F"><font size="2">(06:52:39 PM)</font> <b>las:</b></font> roudar: there are people who disagree<br/>
+<font color="#A82F2F"><font size="2">(06:52:49 PM)</font> <b>las:</b></font> roudar: but as ardour&apos;s lead author, i claim priviledge :)<br/>
+<font color="#A82F2F"><font size="2">(06:53:24 PM)</font> <b>las:</b></font> roudar: we do have a lot of subtle and not-so-subtle issues with MIDI though. some of them have been worked out since the version you built<br/>
+<font color="#A82F2F"><font size="2">(06:53:30 PM)</font> <b>roudar:</b></font> ok, good to hear<br/>
+<font color="#A82F2F"><font size="2">(06:56:43 PM)</font> <b>roudar:</b></font> after building the latest git version a few weeks ago I&apos;ve only really had midi issues... mostly minor, but once even having a whole midi region wiped on exit (empty file in folders too) and weird stuff like trying to create just 3 tracks on a new project and ardour complaining about running out of jack ports<br/>
+<font color="#A82F2F"><font size="2">(06:57:12 PM)</font> <b>las:</b></font> roudar: hopefully you don&apos;t build with --optimize<br/>
+<font color="#A82F2F"><font size="2">(06:57:37 PM)</font> <b>roudar:</b></font> I changed to building the git version after doing a backtrace on the constant crashes when creating an audio track after touching a midi track, and noticed it was already fixed in the latest git version<br/>
+<font color="#A82F2F"><font size="2">(06:58:17 PM)</font> <b>FlorianBd:</b></font> roudar: did you experiment with different notes just to make sure it&apos;s not because the ntoes are outside of the playable range of your instrument?<br/>
+<font color="#A82F2F"><font size="2">(06:58:32 PM)</font> <b>roudar:</b></font> I&apos;ll try the newest one, and if it does not work I&apos;ll try to delete the problematic track and recreating it or something to see if it has any effect<br/>
+<font color="#A82F2F"><font size="2">(06:58:33 PM)</font> <b>FlorianBd:</b></font> roudar: also, did you try to route the midi track directly to jack_midi_dump ?<br/>
+<font color="#A82F2F"><font size="2">(06:59:40 PM)</font> <b>roudar:</b></font> FlorianBd: the notes sound sometimes when starting playback in the middle, but other times (and when exporting) the first 4 don&apos;t sound, and the 5th note which lasts for around 2 seconds starts playing halfway through the note<br/>
+<font color="#A82F2F"><font size="2">(06:59:43 PM)</font> <b>FlorianBd:</b></font> roudar: and 3rd thing I can think of:  what if something (plugin?) was putting some velocities at 0 in some cases? .. That would result in a vu meter without sound<br/>
+<font color="#A82F2F"><font size="2">(07:00:33 PM)</font> <b>roudar:</b></font> I thought about similar stuff, but it has no plugins besides fluidsynth and I checked the velocities and since they play sometimes it&apos;s not that<br/>
+<font color="#A82F2F"><font size="2">(07:00:50 PM)</font> <b>FlorianBd:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(07:01:19 PM)</font> <b>rgareus:</b></font> IIRC the &apos;midi&apos; meter adds the velocity  and then +1 for every other midi message.  note-offs should not make the meter go &apos;bonk&apos;<br/>
+<font color="#A82F2F"><font size="2">(07:02:42 PM)</font> <b>rgareus:</b></font> roudar: an easy thing to check is probably just try another synth. just to confirm it&apos;s an ardour issue (and not a synth issue)<br/>
+<font color="#A82F2F"><font size="2">(07:02:52 PM)</font> <b>FlorianBd:</b></font> ah, right... so the velocity is the correct one of the note when it shows but does not play?<br/>
+<font color="#A82F2F"><font size="2">(07:02:56 PM)</font> <b>roudar:</b></font> I&apos;ve not been able to get any consistent results so I could explain it better. The first notes never sound (but the leftmost meter stays high for the duration of the notes) if the whole song is started from the beginning. This happens even if the problematic track is in solo mode. If I start playback after the start of the midi region it seems to sound them most of the time<br/>
+<font color="#A82F2F"><font size="2">(07:03:26 PM)</font> <b>roudar:</b></font> rgareus: good idea, I&apos;ll grab another plugin<br/>
+<font color="#A82F2F"><font size="2">(07:04:17 PM)</font> <b>FlorianBd:</b></font> roudar: you really need to get the last git and see<br/>
+<font color="#A82F2F"><font size="2">(07:11:53 PM)</font> <b>roudar:</b></font> ok, got another synth plugin. seemed to work with it regardless of where playback is started. removed fluidsynth plugin to test it, put it back in place after, but problem appeared again. tried moving region and adjusting notes, etc, but no help. deleted whole midi track and made a new one, seems to work with the same plugin and instrument. go figure :p<br/>
+<font color="#A82F2F"><font size="2">(07:13:56 PM)</font> <b>rgareus:</b></font> roudar: a shoot in the dark: maybe there were some MIDI CC on the track that screwed up the synth-plugin.<br/>
+<font color="#A82F2F"><font size="2">(07:15:16 PM)</font> <b>roudar:</b></font> rgareus: could be, a decent idea. it was the most simple backing brass with one note repeated, so it&apos;s unlikely anything else got mixed in but who knows<br/>
+<font color="#A82F2F"><font size="2">(07:16:22 PM)</font> <b>roudar:</b></font> building the newest version now anyway<br/>
+<font color="#A82F2F"><font size="2">(07:17:09 PM)</font> <b>roudar:</b></font> I was left with a bunch of &quot;SessionHandleRef exists across session deletion&quot; errors when closing the project though the last two times when trying to fix the midi issue, hope it loads up fine<br/>
+<font color="#A82F2F"><font size="2">(07:17:45 PM)</font> <b>rgareus:</b></font> roudar: don&apos;t worry about those.<br/>
+<font color="#A82F2F"><font size="2">(07:18:04 PM)</font> <b>rgareus:</b></font> roudar: most of them have been fixed. and the only effect of thise is a small memory-leak<br/>
+<font color="#A82F2F"><font size="2">(07:18:57 PM)</font> <b>roudar:</b></font> alright. it did pop up some errors about loading history the last time too, but I guess it&apos;s nothing to be concerned about<br/>
+<font color="#A82F2F"><font size="2">(07:19:06 PM)</font> <b>roudar:</b></font> thanks everyone for the help!<br/>
+<font color="#A82F2F"><font size="2">(07:20:13 PM)</font> <b>rgareus:</b></font> las: is there a specific reason why they&apos;re an error? I think we should demote those to warning or even just a note.<br/>
+<font color="#A82F2F"><font size="2">(07:20:31 PM)</font> <b>las:</b></font> rgareus: mostly there to stop us developers from slacking off<br/>
+<font color="#A82F2F"><font size="2">(07:20:37 PM)</font> <b>las:</b></font> rgareus: not the best excuse in the world :(<br/>
+<font color="#A82F2F"><font size="2">(07:20:43 PM)</font> <b>roudar:</b></font> las: is there any other way to donate than through paypal? coming from protools (even though it&apos;s a few years) I&apos;ve really enjoyed ardour and think it&apos;s mostly a great interface to work through.... that is when it has been working without crashing ;p<br/>
+<font color="#A82F2F"><font size="2">(07:20:51 PM)</font> <b>las:</b></font> roudar: nope, not really<br/>
+<font color="#A82F2F"><font size="2">(07:21:14 PM)</font> <b>roudar:</b></font> (but that&apos;s what the donation would be for)<br/>
+<font color="#A82F2F"><font size="2">(07:21:24 PM)</font> <b>roudar:</b></font> ok, maybe I&apos;ll set up an account<br/>
+<font color="#A82F2F"><font size="2">(07:21:28 PM)</font> <b>las:</b></font> roudar: if you were going to give a substantial amount, i&apos;d give you wire transfer info, but banks charge so much for this that it is hardly worth it<br/>
+<font color="#A82F2F"><font size="2">(07:21:36 PM)</font> <b>las:</b></font> roudar: if you are US based, checks are possible<br/>
+<font color="#062585"><font size="2">(07:21:49 PM)</font> <b>***las</b></font> curses the mid-20th century banking system the US is still cursed with<br/>
+<font color="#A82F2F"><font size="2">(07:24:00 PM)</font> <b>rgareus:</b></font> not US only. pretty much all international transfer suck<br/>
+<font color="#A82F2F"><font size="2">(07:24:11 PM)</font> <b>rgareus:</b></font> las: have you considered bitcoin?<br/>
+<font color="#A82F2F"><font size="2">(07:24:17 PM)</font> <b>Seablade:</b></font> Yea but US is suck even non-international:)<br/>
+<font color="#A82F2F"><font size="2">(07:24:36 PM)</font> <b>roudar:</b></font> one more thing actually. I very often get random floods of &quot;note xx/xx was already on&quot; messages for duplicate midi notes. They are just a nuisance since just stopping the track and restarting playback (maybe hitting midi panic a few times for good measure) gets rid of the problem. However, I&apos;m a bit concerned if this can happen when exporting the track. I&apos;d rather not stress about having to listen through the resulting wave file note <br/>
+<font color="#A82F2F"><font size="2">(07:24:42 PM)</font> <b>roudar:</b></font> ed that time<br/>
+<font color="#A82F2F"><font size="2">(07:24:46 PM)</font> <b>Seablade:</b></font> ACH I suppose may be a possibility, but typically requires giving out more info than you really probably want to in the US<br/>
+<font color="#A82F2F"><font size="2">(07:24:59 PM)</font> <b>roudar:</b></font> las: not in the US :(<br/>
+<font color="#A82F2F"><font size="2">(07:25:45 PM)</font> <b>Seablade:</b></font> I do ACH transfers between my own accounts at different banks, not sure if I would want to give out the needed info for other people to use it for instance<br/>
+<font color="#A82F2F"><font size="2">(07:26:50 PM)</font> <b>roudar:</b></font> rgareus: new EU stuff has made transfers inside the EU essentially free, if no currency conversion is involved<br/>
+<font color="#A82F2F"><font size="2">(07:26:53 PM)</font> <b>rgareus:</b></font> inside europe things are OKish (&lt;24 h transfers, sometimes even 1-2hours for online transfers even between nations)<br/>
+<font color="#A82F2F"><font size="2">(07:27:18 PM)</font> <b>roudar:</b></font> rgareus: you can just use the IBAN number like paying any account domestically<br/>
+<font color="#A82F2F"><font size="2">(07:27:36 PM)</font> <b>las:</b></font> rgareus: i have considered bitcoin. i don&apos;t find it entirely convincing yet for this purpose, though there are few examples of sites that make it close<br/>
+<font color="#A82F2F"><font size="2">(07:28:11 PM)</font> <b>las:</b></font> roudar: rgareus knows; he&apos;s an EU trans-national :)<br/>
+<font color="#A82F2F"><font size="2">(07:28:51 PM)</font> <b>roudar:</b></font> las: I just commented on rgareus saying pretty much all international transfers suck since I had some positive experiences recently :p<br/>
+<font color="#A82F2F"><font size="2">(07:29:33 PM)</font> <b>roudar:</b></font> las: I think my brother has a paypal account so I&apos;m gonna ask him if he can do the donation and I&apos;ll just give him cash next time I see him or something... that&apos;s gonna be easier than you setting up new payment methods :D<br/>
+<font color="#A82F2F"><font size="2">(07:29:36 PM)</font> <b>rgareus:</b></font> las: the reasoning is rather &quot;if someone wants to give you bitcoin. Why not just take them?&quot;  Donation only, no subscription/payment<br/>
+<font color="#A82F2F"><font size="2">(07:29:49 PM)</font> <b>las:</b></font> rgareus: indeed<br/>
+<font color="#A82F2F"><font size="2">(07:29:59 PM)</font> <b>las:</b></font> rgareus: my suspicion is that it will turn out like flattr<br/>
+<font color="#A82F2F"><font size="2">(07:30:11 PM)</font> <b>las:</b></font> rgareus: which might have reached the 7EU mark after a year :)<br/>
+<font color="#A82F2F"><font size="2">(07:31:09 PM)</font> <b>las:</b></font> roudar: international in this context means &quot;cross-currency&quot; :))<br/>
+<font color="#A82F2F"><font size="2">(07:31:27 PM)</font> <b>roudar:</b></font> yeah, I figured after he mentioned the EU stuff himself<br/>
+<font color="#A82F2F"><font size="2">(07:31:29 PM)</font> <b>las:</b></font> roudar: certainly within the eurozone and even just a bit beyond it, things are quite good as i understand them<br/>
+<font color="#A82F2F"><font size="2">(07:31:47 PM)</font> <b>las:</b></font> roudar: but change currencies, or be in the US (or most non-eurozone places) and its a hellhole<br/>
+<font color="#A82F2F"><font size="2">(07:32:50 PM)</font> <b>rgareus:</b></font> roudar: I don&apos;t consider the EU as &apos;international&apos; :)<br/>
+<font color="#A82F2F"><font size="2">(07:33:28 PM)</font> <b>roudar:</b></font> las: surprisingly transferring to a GBP account in the UK was automatic. They just used their own conversion rate but nothing else had to be done. I&apos;m sure anything outside the EU (which will automatically be cross-currency too) is still way too hard<br/>
+<font color="#A82F2F"><font size="2">(07:34:03 PM)</font> <b>roudar:</b></font> rgareus: I get it, I&apos;ve switched countries inside the EU like moving between different states so it&apos;s almost like one big country :p<br/>
+<font color="#A82F2F"><font size="2">(07:34:45 PM)</font> <b>rgareus:</b></font> There&apos;s no good reason why it should be hard to wire money around the world these days.<br/>
+<font color="#A82F2F"><font size="2">(07:35:38 PM)</font> <b>roudar:</b></font> rgareus: it&apos;s surprising how many cases there are where someone would want to give all their money but no good option is provided<br/>
+<font color="#A82F2F"><font size="2">(07:36:48 PM)</font> <b>roudar:</b></font> region locking being the most common example probably... all those pesky contracts and exclusivities and no local providers<br/>
+<font color="#A82F2F"><font size="2">(07:42:50 PM)</font> <b>rgareus:</b></font> region locking?<br/>
+<font color="#A82F2F"><font size="2">(07:42:57 PM)</font> <b>rgareus:</b></font> sounds like an ardour feature :D<br/>
+<font color="#A82F2F"><font size="2">(07:52:58 PM)</font> <b>Seablade:</b></font> las, Heh starting off the year right with a freeze huh? :)<br/>
+<font color="#062585"><font size="2">(07:53:08 PM)</font> <b>***Seablade</b></font> is excited to see the progress being made in git<br/>
+<font color="#16569E"><font size="2">(08:02:21 PM)</font> <b>magnetophon:</b></font> Seablade: you mean a feature freeze?<br/>
+<font color="#A82F2F"><font size="2">(08:04:23 PM)</font> <b>rgareus:</b></font> magnetophon: yes. see the ardour-dev email list<br/>
+<font color="#A82F2F"><font size="2">(08:04:27 PM)</font> <b>Seablade:</b></font> magnetophon, Yes, see the ardour-dev list<br/>
+<font color="#A82F2F"><font size="2">(08:04:34 PM)</font> <b>Seablade:</b></font> magnetophon, Or just what rgareus said:)<br/>
+<font color="#16569E"><font size="2">(08:05:44 PM)</font> <b>magnetophon:</b></font> rgareus, Seablade: that's great news!<br/>
+<font color="#A82F2F"><font size="2">(08:09:15 PM)</font> <b>las:</b></font> Seablade: i thought you meant the weather :)<br/>
+<font color="#A82F2F"><font size="2">(08:09:37 PM)</font> <b>Seablade:</b></font> las, It was double meaning:)<br/>
+<font color="#A82F2F"><font size="2">(08:09:53 PM)</font> <b>las:</b></font> Seablade: warming up today, nearly 60F by the weekend!<br/>
+<font color="#A82F2F"><font size="2">(08:11:15 PM)</font> <b>oofus_lt_:</b></font> las: Big Clock is still broken, even after your changes on how it works<br/>
+<font color="#A82F2F"><font size="2">(08:11:29 PM)</font> <b>oofus_lt_:</b></font> las: in fact it now has one further issue<br/>
+<font size="2">(08:11:34 PM)</font><b> oofus_lt_ is now known as oofus_lt</b><br/>
+<font color="#A82F2F"><font size="2">(08:12:05 PM)</font> <b>oofus_lt:</b></font> las: the still broken bit is that the font size isn&apos;t remembered between Ardour restarts<br/>
+<font color="#A82F2F"><font size="2">(08:12:37 PM)</font> <b>oofus_lt:</b></font> las: and the new bit is that the aspect ratio of the font isn&apos;t maintained when re-sized<br/>
+<font color="#A82F2F"><font size="2">(08:19:32 PM)</font> <b>las:</b></font> oofus_lt: i deliberately dropped the aspect ratio part<br/>
+<font color="#A82F2F"><font size="2">(08:20:05 PM)</font> <b>las:</b></font> oofus_lt: having seen how logic does theirs and thought about it, there&apos;s no particular benefit to keeping it and it causes some issues with some WM&apos;s<br/>
+<font color="#A82F2F"><font size="2">(08:20:37 PM)</font> <b>las:</b></font> oofus_lt: but yes, i can see now that you mention it that the resizing isn&apos;t maintained correctly ... will need to fix that<br/>
+<font color="#A82F2F"><font size="2">(08:21:04 PM)</font> <b>las:</b></font> oofus_lt: but is it really still broken? if so, there&apos;s something really odd going on because nothing in this window ever asks for a resize now<br/>
+<font color="#A82F2F"><font size="2">(08:23:08 PM)</font> <b>oofus_lt:</b></font> las: yes, it&apos;s definitely still broken<br/>
+<font color="#A82F2F"><font size="2">(08:23:22 PM)</font> <b>oofus_lt:</b></font> las: I just tested it with the latest build<br/>
+<font color="#A82F2F"><font size="2">(08:25:28 PM)</font> <b>las:</b></font> oofus_lt: i don&apos;t understand how that can be. all that takes place now is that you (the user) resizes the window; the next redraw scales the text up without changing the apparent size of anything<br/>
+<font color="#A82F2F"><font size="2">(08:26:14 PM)</font> <b>las:</b></font> oofus_lt: i am referring to the WM-related issues you and others have seen<br/>
+<font color="#A82F2F"><font size="2">(08:27:39 PM)</font> <b>oofus_lt:</b></font> las: start Ardour, open a session. Open the big clock. Re-size it so it&apos;s pretty big. Save the session. Quit Ardour. Start Ardour and open the same session. The big clock window is restored to the size it was on quit, but the clos font is small, as if the window was it&apos;s smallest possible size.<br/>
+<font color="#A82F2F"><font size="2">(08:28:03 PM)</font> <b>oofus_lt:</b></font> clos=clocks<br/>
+<font color="#A82F2F"><font size="2">(08:30:30 PM)</font> <b>las:</b></font> oofus_lt: ok, that&apos;s a totally different kind of breakage from the one you and rgareus were describing the other day<br/>
+<font color="#A82F2F"><font size="2">(08:31:15 PM)</font> <b>Seablade:</b></font> las, Heh VA weather is having fun as normal going back and forth between spring and winter already:)<br/>
+<font color="#A82F2F"><font size="2">(08:33:19 PM)</font> <b>oofus_lt:</b></font> las: really<br/>
+<font color="#A82F2F"><font size="2">(08:33:38 PM)</font> <b>oofus_lt:</b></font> las: what did you think i was describing before ?<br/>
+<font color="#A82F2F"><font size="2">(08:33:54 PM)</font> <b>rgareus:</b></font> font-scaling and minium size<br/>
+<font color="#A82F2F"><font size="2">(08:36:44 PM)</font> <b>oofus_lt:</b></font> maybe we were taking at cross purposes<br/>
+<font color="#A82F2F"><font size="2">(08:40:11 PM)</font> <b>las:</b></font> and misbehaviour as resizing took place<br/>
+<font color="#A82F2F"><font size="2">(08:44:01 PM)</font> <b>oofus_lt:</b></font> las: as I remember resizing has been pretty well behaved since you last reworked it<br/>
+<font color="#A82F2F"><font size="2">(08:44:43 PM)</font> <b>las:</b></font> oofus_lt: so what was still wrong 3 days ago?<br/>
+<font color="#A82F2F"><font size="2">(08:45:46 PM)</font> <b>oofus_lt:</b></font> las: what I just described when re-opening a session and the window being the correct (large) size but the font being the smallest it can be.<br/>
+<font color="#A82F2F"><font size="2">(08:47:26 PM)</font> <b>las:</b></font> rgareus: you had some other actual problems, though, correct?<br/>
+<font color="#062585"><font size="2">(08:47:35 PM)</font> <b>***las</b></font> has seen it behave terribly on OS X also<br/>
+<font color="#A82F2F"><font size="2">(08:51:38 PM)</font> <b>rgareus:</b></font> las: no. the clock displayed the correct time. that part is fine<br/>
+<font color="#A82F2F"><font size="2">(08:51:56 PM)</font> <b>las:</b></font> rgareus: phew! :)<br/>
+<font color="#A82F2F"><font size="2">(08:52:03 PM)</font> <b>rgareus:</b></font> las: but it was possible to crash the WM when changing the font-scaling<br/>
+<font color="#A82F2F"><font size="2">(08:53:26 PM)</font> <b>rgareus:</b></font> font-size increases -&gt; increases window size -&gt; font is increased to fit -&gt;   endless loop<br/>

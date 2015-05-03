@@ -1,0 +1,37 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #pentadactyl at Thu 16 Apr 2015 05:33:40 PM CEST on magnetophon@irc.oftc.net (irc)</title></head><body><h3>Conversation with #pentadactyl at Thu 16 Apr 2015 05:33:40 PM CEST on magnetophon@irc.oftc.net (irc)</h3>
+<font size="2">(05:33:40 PM)</font><b> The topic for #pentadactyl is: Pentadactyl: Firefox for Vim junkies - <a href="http://5digits.org/pentadactyl/faq">http://5digits.org/pentadactyl/faq</a> - Entropy</b><br/>
+<font size="2">(05:33:40 PM)</font><b> Topic for #pentadactyl set by ChanServ!services@services.oftc.net at 02:57:35 PM on 02/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(02:01:20 AM)</font> <b>edgimar_:</b></font> anybody here familiar w/ pentadactyl internals? I&apos;m trying to figure out why it isn&apos;t saving quickmarks.  I have a ~/.pentadactyl directory already.<br/>
+<font color="#A82F2F"><font size="2">(02:03:48 AM)</font> <b>edgimar_:</b></font> I am wondering if this directory is even used any more -- if I grep the git HEAD tree, the only place &quot;.pentadactyl&quot; exists is in some &quot;testCommands.js&quot; file.<br/>
+<font color="#A82F2F"><font size="2">(02:04:39 AM)</font> <b>edgimar_:</b></font> and if ~/.pentadactyl is no longer used to store persistent info, what is?<br/>
+<font color="#A82F2F"><font size="2">(02:11:14 AM)</font> <b>edgimar_:</b></font> ^^ thesnowdog1 ?<br/>
+<font color="#A82F2F"><font size="2">(02:11:59 AM)</font> <b>edgimar_:</b></font> ^^ or John-Galt ?<br/>
+<font color="#A82F2F"><font size="2">(02:15:29 AM)</font> <b>edgimar_:</b></font> I also found ~/.mozilla/firefox/&lt;profile_dir&gt;/dactyl -- I&apos;m guessing this is where quickmarks should get stored?<br/>
+<font color="#A82F2F"><font size="2">(02:17:22 AM)</font> <b>edgimar_:</b></font> is there some online documentation where I should look to find this information?<br/>
+<font color="#A82F2F"><font size="2">(02:25:29 AM)</font> <b>edgimar_:</b></font> anybody here?<br/>
+<font color="#A82F2F"><font size="2">(02:55:21 AM)</font> <b>edgimar_:</b></font> ok, I figured out that I also need to create the info subdirectory within ~/.pentadactyl  -- I guess this is a bug.  Ideally, pentadactyl should create any config directories that do not already exist...<br/>
+<font color="#A82F2F"><font size="2">(03:04:27 AM)</font> <b>edgimar_:</b></font> In case anyone cares (I think I&apos;m talking to the wall), I&apos;ve opened an issue regarding this: https://github.com/5digits/dactyl/issues/34<br/>
+<font color="#A82F2F"><font size="2">(03:04:28 AM)</font> <b>eris_prime:</b></font> [#34]<span style='font-weight: bold;'>title:</span> necessary config directories should be created if they don&apos;t already exist <span style='font-weight: bold;'>|</span> Currently pentadactyl does not create the `~/.pentadactyl` folder (nor the `info` subfolder), and thus no settings like quickmarks get saved across sessions.  There is nowhere that I could find any documentation clearly indicating the need to create `~/.pentadactyl/info`, but this turned out to be necessary in order for pentadactyl to start s<br/>
+<font color="#A82F2F"><font size="2">(03:04:55 AM)</font> <b>edgimar_:</b></font> goodnight all.<br/>
+<font color="#A82F2F"><font size="2">(03:05:00 AM)</font> <b>michaelrose:</b></font> don&apos;t have an info subdir here<br/>
+<font color="#A82F2F"><font size="2">(03:05:37 AM)</font> <b>edgimar_:</b></font> check your versions...  with only ~/.pentadactyl on the versions I&apos;m using, nothing gets saved<br/>
+<font color="#A82F2F"><font size="2">(03:06:15 AM)</font> <b>michaelrose:</b></font> nothing being what?<br/>
+<font color="#A82F2F"><font size="2">(03:06:28 AM)</font> <b>edgimar_:</b></font> e.g. quickmarks<br/>
+<font color="#A82F2F"><font size="2">(03:06:52 AM)</font> <b>edgimar_:</b></font> there are no files that appear inside ~/.pentadactyl<br/>
+<font color="#A82F2F"><font size="2">(03:07:00 AM)</font> <b>edgimar_:</b></font> (nor folders)<br/>
+<font color="#A82F2F"><font size="2">(03:07:10 AM)</font> <b>michaelrose:</b></font> that isn&apos;t the case in my case<br/>
+<font color="#A82F2F"><font size="2">(03:07:35 AM)</font> <b>edgimar_:</b></font> what OS are you using?<br/>
+<font color="#A82F2F"><font size="2">(03:07:53 AM)</font> <b>michaelrose:</b></font> linux<br/>
+<font color="#A82F2F"><font size="2">(03:08:48 AM)</font> <b>edgimar_:</b></font> same here -- the only thing I can guess is that it has to do with having a different FF / pentadactyl version.<br/>
+<font color="#A82F2F"><font size="2">(03:09:18 AM)</font> <b>michaelrose:</b></font> ff35<br/>
+<font color="#A82F2F"><font size="2">(03:09:39 AM)</font> <b>michaelrose:</b></font> penta 7166<br/>
+<font color="#A82F2F"><font size="2">(03:10:01 AM)</font> <b>edgimar_:</b></font> Ok, I&apos;m using 37.0.1, and rev &quot;hg7166&quot; for pentadactyl<br/>
+<font color="#A82F2F"><font size="2">(03:12:26 AM)</font> <b>edgimar_:</b></font> oh, well, I guess I found the solution:  https://github.com/5digits/dactyl/commit/df81b7fca20f981fd921f8260683811a4f327816<br/>
+<font color="#A82F2F"><font size="2">(03:12:28 AM)</font> <b>eris_prime:</b></font> [ Create the info directory if it doesn&apos;t exist. · 5digits/dactyl@df81b7f · GitHub ] - github.com<br/>
+<font color="#A82F2F"><font size="2">(03:13:06 AM)</font> <b>edgimar_:</b></font> I don&apos;t know, however, if this also creates the .pentadactyl directory<br/>
+<font color="#A82F2F"><font size="2">(03:13:23 AM)</font> <b>michaelrose:</b></font> did they switch from mercurial to git?<br/>
+<font color="#A82F2F"><font size="2">(03:14:43 AM)</font> <b>michaelrose:</b></font> that repo seems to be nice commits ahead of my hg repo<br/>
+<font color="#A82F2F"><font size="2">(03:14:50 AM)</font> <b>edgimar_:</b></font> yes, I believe so, because google code is closing<br/>
+<font color="#A82F2F"><font size="2">(03:16:00 AM)</font> <b>michaelrose:</b></font> ah may need to go grab that<br/>
+<font size="2">(09:05:53 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

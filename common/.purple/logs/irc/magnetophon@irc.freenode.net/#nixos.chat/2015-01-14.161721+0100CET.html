@@ -1,0 +1,198 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Wed 14 Jan 2015 04:17:21 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Wed 14 Jan 2015 04:17:21 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:17:21 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(04:17:21 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(04:38:14 PM)</font> <b>madjar:</b></font> stupid question : is there any reason to fetch a tag from github when we can get the nice tarball ?<br/>
+<font color="#A82F2F"><font size="2">(04:41:53 PM)</font> <b>niksnut:</b></font> madjar: don&apos;t think so<br/>
+<font color="#A82F2F"><font size="2">(04:42:08 PM)</font> <b>niksnut:</b></font> fetching a tarball is more efficient and doesn&apos;t require a dependency on git<br/>
+<font color="#A82F2F"><font size="2">(04:47:36 PM)</font> <b>madjar:</b></font> niksnut: bareos is failing because the hash of its fetchgit has changed, so I&apos;ll switch to fetchurl while I fix it<br/>
+<font color="#A82F2F"><font size="2">(04:48:02 PM)</font> <b>ktosiek:</b></font> madjar: if it&apos;s from github, you might want fetchzip<br/>
+<font color="#A82F2F"><font size="2">(04:48:18 PM)</font> <b>ktosiek:</b></font> or the github-specific wrapper, IIRC fetchFromGitHub<br/>
+<font color="#A82F2F"><font size="2">(04:48:40 PM)</font> <b>ktosiek:</b></font> (they might re-generate the release archives)<br/>
+<font color="#A82F2F"><font size="2">(04:48:45 PM)</font> <b>madjar:</b></font> oh, we have that, nice<br/>
+<font color="#A82F2F"><font size="2">(04:54:12 PM)</font> <b>madjar:</b></font> ktosiek: damned, fetchFromGitHub doesn&apos;t work because there is a &quot;/&quot; in the rev<br/>
+<font color="#A82F2F"><font size="2">(04:54:31 PM)</font> <b>ktosiek:</b></font> ugh<br/>
+<font color="#A82F2F"><font size="2">(04:54:48 PM)</font> <b>ktosiek:</b></font> well, you can try to fix it ;-)<br/>
+<font color="#A82F2F"><font size="2">(04:55:24 PM)</font> <b>madjar:</b></font> do we have some string processing in nix or nixpkgs ?<br/>
+<font color="#A82F2F"><font size="2">(04:55:34 PM)</font> <b>Lethalman:</b></font> why does grub says &quot;Installing for i386-pc platform&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(04:55:35 PM)</font> <b>madjar:</b></font> ie &quot;replace all / with - in string&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(04:55:39 PM)</font> <b>Lethalman:</b></font> madjar, yes<br/>
+<font color="#A82F2F"><font size="2">(04:56:10 PM)</font> <b>madjar:</b></font> cool, back to the manual then<br/>
+<font color="#A82F2F"><font size="2">(05:05:40 PM)</font> <b>Lethalman:</b></font> so I was on 14.04, updated to unstable a server and everything worked fine<br/>
+<font color="#A82F2F"><font size="2">(05:05:41 PM)</font> <b>Lethalman:</b></font> phew<br/>
+<font color="#A82F2F"><font size="2">(05:05:41 PM)</font> <b>Lethalman:</b></font> :P<br/>
+<font color="#A82F2F"><font size="2">(05:06:51 PM)</font> <b>kmicu:</b></font> \o/<br/>
+<font color="#A82F2F"><font size="2">(05:07:37 PM)</font> <b>Lethalman:</b></font> that&apos;s great, it&apos;s not on every distro you can upgrade a major version without any trouble<br/>
+<font color="#A82F2F"><font size="2">(05:07:44 PM)</font> <b>Lethalman:</b></font>  my setup is pretty simple, but well<br/>
+<font color="#A82F2F"><font size="2">(05:10:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lethalman pushed 1 new commit to release-14.12: http://git.io/shKBOg<br/>
+<font color="#A82F2F"><font size="2">(05:10:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 314c5e9 Luca Bruno: nixos-rebuild: use reload-or-restart for dbus. Closes #5767...<br/>
+<font size="2">(05:10:21 PM)</font><b> MichaelRaskin left the room (quit: Quit: MichaelRaskin).</b><br/>
+<font color="#A82F2F"><font size="2">(05:10:23 PM)</font> <b>SrPx:</b></font> Hello, how do I solve this? &quot;This version of Nixpkgs requires Nix &gt;= 1.8, please upgrade!’&quot; - I&apos;ve ran nix-env --upgrade, but I guess it is not about nix-env, right? How do I update nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(05:11:49 PM)</font> <b>Lethalman:</b></font> nix-channel --update<br/>
+<font color="#A82F2F"><font size="2">(05:12:01 PM)</font> <b>Lethalman:</b></font> SrPx, ah<br/>
+<font color="#A82F2F"><font size="2">(05:12:11 PM)</font> <b>Lethalman:</b></font> uhm<br/>
+<font color="#A82F2F"><font size="2">(05:12:20 PM)</font> <b>Lethalman:</b></font> indeed<br/>
+<font color="#A82F2F"><font size="2">(05:12:52 PM)</font> <b>SrPx:</b></font> Didn&apos;t work :(<br/>
+<font color="#A82F2F"><font size="2">(05:13:28 PM)</font> <b>ktosiek:</b></font> SrPx: you can try the one-click install from here: http://hydra.nixos.org/release/nix/nix-1.8<br/>
+<font color="#A82F2F"><font size="2">(05:13:29 PM)</font> <b>Lethalman:</b></font> niksnut, ^^ how is one supposed to update nix there?<br/>
+<font color="#A82F2F"><font size="2">(05:13:34 PM)</font> <b>Lethalman:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(05:13:49 PM)</font> <b>gereedy:</b></font> SrPx: https://nixos.org/wiki/How_to_update_when_nix_is_too_old_to_evaluate_nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(05:13:58 PM)</font> <b>Lethalman:</b></font> apart that, maybe it&apos;s better to keep the nix expression not constrainted to the nix version itself :P<br/>
+<font color="#A82F2F"><font size="2">(05:14:09 PM)</font> <b>Lethalman:</b></font> gereedy, good one<br/>
+<font color="#A82F2F"><font size="2">(05:14:10 PM)</font> <b>SrPx:</b></font> Hmm nothing for mac? :( ktosiek<br/>
+<font color="#A82F2F"><font size="2">(05:14:21 PM)</font> <b>SrPx:</b></font> gereedy: interesting, thanks!<br/>
+<font color="#A82F2F"><font size="2">(05:15:05 PM)</font> <b>ktosiek:</b></font> SrPx: the one-click install is for anything with Nix already installed :-)<br/>
+<font color="#A82F2F"><font size="2">(05:15:23 PM)</font> <b>ktosiek:</b></font> (and store in /nix/store, and matching hardware architecture :-))<br/>
+<font color="#A82F2F"><font size="2">(05:15:52 PM)</font> <b>Lethalman:</b></font> iElectric, am I wrong or python circus has no dependency management<br/>
+<font color="#A82F2F"><font size="2">(05:16:08 PM)</font> <b>iElectric:</b></font> you&apos;re right<br/>
+<font color="#A82F2F"><font size="2">(05:16:15 PM)</font> <b>Lethalman:</b></font> I must find a way to make systemd services work as user then<br/>
+<font color="#A82F2F"><font size="2">(05:16:23 PM)</font> <b>Lethalman:</b></font> something simple.... like systemctl start ./this.service<br/>
+<font color="#A82F2F"><font size="2">(05:16:29 PM)</font> <b>Lethalman:</b></font> I know there are user services<br/>
+<font color="#A82F2F"><font size="2">(05:16:33 PM)</font> <b>Lethalman:</b></font> have to try them<br/>
+<font color="#A82F2F"><font size="2">(05:16:59 PM)</font> <b>Lethalman:</b></font> I think $XDG_CONFIG_HOME could be a starting point before running systemctl<br/>
+<font color="#A82F2F"><font size="2">(05:17:09 PM)</font> <b>gereedy:</b></font> SrPx: other platforms are at http://hydra.nixos.org/release/nix/nix-1.8<br/>
+<font color="#A82F2F"><font size="2">(05:17:37 PM)</font> <b>SrPx:</b></font> (?)<br/>
+<font color="#A82F2F"><font size="2">(05:17:44 PM)</font> <b>Lethalman:</b></font> &quot;Failed to start test.service: Interactive authentication required.&quot;<br/>
+<font size="2">(05:17:56 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(05:18:08 PM)</font> <b>Lethalman:</b></font> ops<br/>
+<font color="#A82F2F"><font size="2">(05:18:18 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] madjar opened pull request #5769: fix fetchFromGithub to work with revs that contain &apos;/&apos; (master...master) http://git.io/fOt6FQ<br/>
+<font color="#A82F2F"><font size="2">(05:18:31 PM)</font> <b>madjar:</b></font> ktosiek, Lethalman: could you take a quick look at that : https://github.com/NixOS/nixpkgs/pull/5769 ?<br/>
+<font color="#A82F2F"><font size="2">(05:20:19 PM)</font> <b>ktosiek:</b></font> looks good to me<br/>
+<font color="#A82F2F"><font size="2">(05:20:30 PM)</font> <b>Lethalman:</b></font> not to me, I&apos;ve commented<br/>
+<font color="#A82F2F"><font size="2">(05:21:31 PM)</font> <b>ktosiek:</b></font> it wouldn&apos;t change anything (even the hash) for projects that alread work, right?<br/>
+<font color="#A82F2F"><font size="2">(05:22:22 PM)</font> <b>ktosiek:</b></font> I&apos;ve got to go now, I&apos;ll look through the backlog when I&apos;m back<br/>
+<font color="#A82F2F"><font size="2">(05:22:59 PM)</font> <b>madjar:</b></font> Lethalman: got it. I&apos;ll make a custom call to fetchzip<br/>
+<font size="2">(05:24:07 PM)</font><b> goibhniu1 [<em>~goibhniu@p5DCBF4BF.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(05:24:39 PM)</font><b> goibhniu left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:25:26 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] madjar closed pull request #5769: fix fetchFromGithub to work with revs that contain &apos;/&apos; (master...master) http://git.io/fOt6FQ<br/>
+<font color="#A82F2F"><font size="2">(05:28:32 PM)</font> <b>Lethalman:</b></font> shlevy can&apos;t remember if it was you, but systemctl enable --runtime works without changing /etc<br/>
+<font color="#A82F2F"><font size="2">(05:29:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] madjar pushed 1 new commit to master: http://git.io/t1j4SQ<br/>
+<font color="#A82F2F"><font size="2">(05:29:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 0ab2707 Georges Dubus: bareos: fixed source fetching<br/>
+<font color="#A82F2F"><font size="2">(05:33:32 PM)</font> <b>carter_cloud:</b></font> ttuegel:  lemme know when you want me to test it this week :)<br/>
+<font color="#A82F2F"><font size="2">(05:37:54 PM)</font> <b>SrPx:</b></font> For some reason I can&apos;t see GCC using &quot;nix-env -qa gcc&quot;. I think I changed something, because I could before, iirc. How do I see it again?<br/>
+<font color="#A82F2F"><font size="2">(05:39:47 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] madjar opened pull request #5770: fetchFromGitHub: add option for custom name (master...master) http://git.io/SV2RCw<br/>
+<font size="2">(05:55:59 PM)</font><b> vpm_ is now known as vpm</b><br/>
+<font color="#A82F2F"><font size="2">(05:56:23 PM)</font> <b>the_scourge:</b></font> hi, i&apos;ve received some helpful feedback on a PR but i can&apos;t get it to work the way it was recommended:<br/>
+<font color="#A82F2F"><font size="2">(05:56:26 PM)</font> <b>the_scourge:</b></font> https://github.com/NixOS/nixpkgs/pull/5418<br/>
+<font color="#A82F2F"><font size="2">(05:56:53 PM)</font> <b>the_scourge:</b></font> basically, when i add and inherit (pythonPackges) pyfoo pybar;<br/>
+<font color="#A82F2F"><font size="2">(05:57:21 PM)</font> <b>the_scourge:</b></font> i get &quot;called with unexpected argument &apos;pyfoo&apos;&quot; when i try to build the expression<br/>
+<font color="#A82F2F"><font size="2">(05:57:24 PM)</font> <b>the_scourge:</b></font> :(<br/>
+<font color="#A82F2F"><font size="2">(05:57:45 PM)</font> <b>the_scourge:</b></font> the only mention of this kind of thing in the manual is for perl stuff<br/>
+<font color="#A82F2F"><font size="2">(05:58:45 PM)</font> <b>the_scourge:</b></font> should i be adding the package declaration to python-packages.nix instead of all-packages.nix ? if so, i&apos;ll be the first person to use an inherits statement like that in the entire file!<br/>
+<font color="#A82F2F"><font size="2">(06:00:01 PM)</font> <b>SrPx:</b></font> Will anything that run on Ubuntu run on Nixos? For example, I just googled a screen-ruler for ubuntu<br/>
+<font color="#A82F2F"><font size="2">(06:00:10 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ehmry opened pull request #5771: plan9port: fix acme font loading (master...acme) http://git.io/2_NP0A<br/>
+<font color="#A82F2F"><font size="2">(06:00:41 PM)</font> <b>the_scourge:</b></font> SrPx: yes it will run on nixos if you can get either the source or the binary somewhere<br/>
+<font color="#A82F2F"><font size="2">(06:01:46 PM)</font> <b>SrPx:</b></font> the_scourge: is it a good idea to have nixos as my main for everything machine? Will it run VLC, chrome? Will it drain more battery than OSX itself?<br/>
+<font color="#A82F2F"><font size="2">(06:02:35 PM)</font> <b>goibhniu1:</b></font> the_scourge: what&apos;s pyfoo? ... gmpy?<br/>
+<font size="2">(06:02:40 PM)</font><b> goibhniu1 is now known as goibhniu</b><br/>
+<font color="#A82F2F"><font size="2">(06:03:17 PM)</font> <b>goibhniu:</b></font> the_scourge: can you post your current version of the expression and the full error message?<br/>
+<font color="#A82F2F"><font size="2">(06:03:44 PM)</font> <b>ruediger:</b></font> SrPx: if you are unsure then give it a try in a vm.<br/>
+<font color="#A82F2F"><font size="2">(06:04:45 PM)</font> <b>SrPx:</b></font> I have, it is unbearably slow :(<br/>
+<font color="#A82F2F"><font size="2">(06:04:47 PM)</font> <b>goibhniu:</b></font> SrPx: we have chromium, but not chrome ... and we do have VLC<br/>
+<font size="2">(06:05:05 PM)</font><b> the_scourge left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(06:05:38 PM)</font><b> the_scourge [<em>~scourge@host-2-96-102-139.as13285.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:06:20 PM)</font> <b>goibhniu:</b></font> SrPx: I think there are quite a few people running NixOS on macbooks, so, the hardware should be well supported<br/>
+<font color="#062585"><font size="2">(06:06:31 PM)</font> <b>***goibhniu</b></font> uses kruler as a screen ruler<br/>
+<font color="#062585"><font size="2">(06:06:47 PM)</font> <b>***SrPx</b></font> shrugs<br/>
+<font color="#A82F2F"><font size="2">(06:07:02 PM)</font> <b>SrPx:</b></font> really don&apos;t know what do to :p<br/>
+<font color="#A82F2F"><font size="2">(06:07:27 PM)</font> <b>goibhniu:</b></font> why not dual boot?<br/>
+<font color="#A82F2F"><font size="2">(06:07:35 PM)</font> <b>SrPx:</b></font> If I could just preview it without destroying my yosemite install<br/>
+<font color="#A82F2F"><font size="2">(06:08:04 PM)</font> <b>SrPx:</b></font> goibhniu: what if I later decide I don&apos;t want it, won&apos;t this make I lose the space I dedicated to nixos&apos;s partition?<br/>
+<font color="#A82F2F"><font size="2">(06:08:23 PM)</font> <b>goibhniu:</b></font> can&apos;t you resize later?<br/>
+<font color="#A82F2F"><font size="2">(06:08:32 PM)</font> <b>SrPx:</b></font> I don&apos;t know... are you sure?<br/>
+<font color="#A82F2F"><font size="2">(06:08:38 PM)</font> <b>Lethalman:</b></font> SrPx, does yosemite have a boot loader where you can choose what to boot?<br/>
+<font color="#062585"><font size="2">(06:08:42 PM)</font> <b>***goibhniu</b></font> has no idea about hfs+<br/>
+<font color="#A82F2F"><font size="2">(06:09:15 PM)</font> <b>SrPx:</b></font> Lethalman: yes I have no idea<br/>
+<font color="#A82F2F"><font size="2">(06:09:20 PM)</font> <b>SrPx:</b></font> ^^<br/>
+<font color="#A82F2F"><font size="2">(06:09:46 PM)</font> <b>goibhniu:</b></font> SrPx: anyway, as long as you have a backup, you can repartition and restore ... I wouldn&apos;t advise trying it without a backup :D<br/>
+<font color="#A82F2F"><font size="2">(06:09:47 PM)</font> <b>Lethalman:</b></font> mh<br/>
+<font color="#A82F2F"><font size="2">(06:10:08 PM)</font> <b>Lethalman:</b></font> SrPx, what are you using for virtualization?<br/>
+<font color="#A82F2F"><font size="2">(06:10:33 PM)</font> <b>kmicu:</b></font> goibhniu: you have on idea, but Linus has »Quite frankly, HFS+ is probably the worst filesystem ever. Christ what shit it is.« j/k :)<br/>
+<font color="#A82F2F"><font size="2">(06:13:02 PM)</font> <b>goibhniu:</b></font> kmicu: ^_^<br/>
+<font color="#A82F2F"><font size="2">(06:13:09 PM)</font> <b>SrPx:</b></font> virtualbox<br/>
+<font color="#A82F2F"><font size="2">(06:13:43 PM)</font> <b>SrPx:</b></font> what do you mean by backup? I can/do backup my essential files, I&apos;m not sure about something that allows me to reinstall the whole os<br/>
+<font color="#A82F2F"><font size="2">(06:14:39 PM)</font> <b>RchrdB:</b></font> SrPx: if you have a USB3/firewire/something hard disk lying around that&apos;s bigger than your Macbook&apos;s hard disk, you could take a block-level copy of the Mac&apos;s disk with &apos;dd&apos; from a liveCD or live USB stick<br/>
+<font color="#A82F2F"><font size="2">(06:15:29 PM)</font> <b>RchrdB:</b></font> as a nuclear option for if *everything* goes wrong and you want to entirely give up and put the system all the way back to how it was…<br/>
+<font color="#A82F2F"><font size="2">(06:17:32 PM)</font> <b>goibhniu:</b></font> hrm ... I&apos;ve seen my brother transfer his mac system to a new harddrive by plugging it in and clicking some buttons, sorry .. but I don&apos;t know more about it<br/>
+<font color="#A82F2F"><font size="2">(06:18:00 PM)</font> <b>ocharles_:</b></font> https://gist.github.com/ocharles/26b2f1555c7322ecb787 anyone in the Nix python team make sense of that?<br/>
+<font color="#A82F2F"><font size="2">(06:18:02 PM)</font> <b>ocharles_:</b></font> wal-e certainly used to work<br/>
+<font color="#A82F2F"><font size="2">(06:18:16 PM)</font> <b>ocharles_:</b></font> This is on release-14.12<br/>
+<font color="#A82F2F"><font size="2">(06:18:19 PM)</font> <b>ocharles_:</b></font> maybe I should just update wal-e<br/>
+<font color="#A82F2F"><font size="2">(06:20:04 PM)</font> <b>the_scourge:</b></font> goibhniu: can you give me a pointer for that PR? i&apos;m struggling<br/>
+<font color="#A82F2F"><font size="2">(06:20:44 PM)</font> <b>goibhniu:</b></font> the_scourge: please post your expression and the full error message you get<br/>
+<font color="#A82F2F"><font size="2">(06:21:34 PM)</font> <b>goibhniu:</b></font> ocharles_: it looks like that broke with the last python update e.g. https://github.com/eventlet/eventlet/issues/135 ... so maybe that is indeed fixed in a newer version of wal-e<br/>
+<font color="#A82F2F"><font size="2">(06:21:59 PM)</font> <b>ocharles_:</b></font> goibhniu: thanks for the related issue!<br/>
+<font color="#A82F2F"><font size="2">(06:22:05 PM)</font> <b>ocharles_:</b></font> I&apos;ll try updating to 0.7 now<br/>
+<font size="2">(06:24:23 PM)</font><b> the_scourge left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font size="2">(06:24:31 PM)</font><b> the_scou1ge is now known as the_scourge</b><br/>
+<font color="#A82F2F"><font size="2">(06:24:34 PM)</font> <b>goibhniu:</b></font> cool, I guess it&apos;s actually gevent that needs to be updates<br/>
+<font color="#A82F2F"><font size="2">(06:24:46 PM)</font> <b>goibhniu:</b></font> ^updated<br/>
+<font color="#A82F2F"><font size="2">(06:25:09 PM)</font> <b>the_scourge:</b></font> can anyone help me with this python app? please :)<br/>
+<font color="#A82F2F"><font size="2">(06:25:27 PM)</font> <b>the_scourge:</b></font> or at least point me to a man page for this stuff<br/>
+<font color="#A82F2F"><font size="2">(06:25:32 PM)</font> <b>goibhniu:</b></font> the_scourge: I can&apos;t help unless I see the expression and the error :D<br/>
+<font color="#A82F2F"><font size="2">(06:25:52 PM)</font> <b>kmicu:</b></font> goibhniu: there is not Google Chrome™ by choice or b/c of packaging problems?<br/>
+<font color="#A82F2F"><font size="2">(06:26:24 PM)</font> <b>the_scourge:</b></font> expression: https://github.com/NixOS/nixpkgs/pull/5418<br/>
+<font color="#A82F2F"><font size="2">(06:26:33 PM)</font> <b>goibhniu:</b></font> kmicu: I guess nobody is interested enough to package it since we have chromium<br/>
+<font color="#062585"><font size="2">(06:26:51 PM)</font> <b>***kmicu</b></font> loves this community even more :)<br/>
+<font color="#A82F2F"><font size="2">(06:27:09 PM)</font> <b>the_scourge:</b></font> error: tribler/default.nix&quot;:1:1 called with unexpected argument ‘pil’, at &quot;/data/git/nixpkgs/lib/customisation.nix&quot;:58:12<br/>
+<font color="#A82F2F"><font size="2">(06:28:24 PM)</font> <b>the_scourge:</b></font> goibhniu: i&apos;m trying to do what bluescreen303 has recommended, calling the package with an inherits (pythonPackages) pyfoo pybar;<br/>
+<font color="#A82F2F"><font size="2">(06:29:01 PM)</font> <b>the_scourge:</b></font> but... it doesn&apos;t seem like anyone else does that? i&apos;ve been reading and re-reading the repo for hours now and i honestly can&apos;t find anyone else who does anything even close<br/>
+<font color="#A82F2F"><font size="2">(06:29:50 PM)</font> <b>mpickering:</b></font> Does &quot;file ‘nixpkgs’ was not found in the Nix search path&quot; mean that my $NIX_PATH is set wrong?<br/>
+<font color="#A82F2F"><font size="2">(06:30:43 PM)</font> <b>goibhniu:</b></font> the_scourge: please put the full error message in a pastebin<br/>
+<font color="#A82F2F"><font size="2">(06:30:44 PM)</font> <b>ocharles_:</b></font> goibhniu: oh, that might be easier than updating wal-e<br/>
+<font color="#A82F2F"><font size="2">(06:30:52 PM)</font> <b>ocharles_:</b></font> of course 0.7 has a load more dependencies than 0.6<br/>
+<font color="#A82F2F"><font size="2">(06:31:17 PM)</font> <b>Lethalman:</b></font> mpickering, yes<br/>
+<font color="#A82F2F"><font size="2">(06:31:47 PM)</font> <b>ocharles_:</b></font> Hmm, maybe not easier - we&apos;re already on the latest version of gevent<br/>
+<font color="#A82F2F"><font size="2">(06:32:12 PM)</font> <b>the_scourge:</b></font> https://gist.github.com/gavinrogers/986d03f60cababf15661<br/>
+<font color="#A82F2F"><font size="2">(06:32:16 PM)</font> <b>the_scourge:</b></font> goibhniu: ^<br/>
+<font size="2">(06:32:27 PM)</font><b> MichaelRaskin [<em>~MichaelRa@195.91.224.161</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:32:30 PM)</font> <b>ocharles_:</b></font> https://github.com/gevent/gevent/issues/477 is the issue at heart<br/>
+<font color="#A82F2F"><font size="2">(06:33:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lethalman pushed 1 new commit to master: http://git.io/DTICpw<br/>
+<font color="#A82F2F"><font size="2">(06:33:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 804a958 Luca Bruno: pam: add pam_wheel<br/>
+<font color="#A82F2F"><font size="2">(06:33:23 PM)</font> <b>goibhniu:</b></font> the_scourge: thanks .. oh .. I think it&apos;s because there is no pythonPackages.pil :D<br/>
+<font color="#A82F2F"><font size="2">(06:33:27 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lethalman closed pull request #2670: pam: add pam_wheel (master...pam_wheel) http://git.io/uJfaJw<br/>
+<font color="#A82F2F"><font size="2">(06:33:27 PM)</font> <b>mpickering:</b></font> echo $NIX_PATH is.. /home/matt/nixpkgs:nixpkgs=/home/matt/nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(06:34:17 PM)</font> <b>goibhniu:</b></font> the_scourge: you could try &quot;pil&quot; or &quot;pythonPackages.pillow&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:34:56 PM)</font> <b>Lethalman:</b></font> mpickering, nix-instantiate --find-file nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(06:36:09 PM)</font> <b>mpickering:</b></font> &quot;file ‘nixpkgs’ was not found in the Nix search path (&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:36:35 PM)</font> <b>the_scourge:</b></font> goibhniu: then why does line 7546 say  pil = pythonPackages.pil; ?<br/>
+<font color="#A82F2F"><font size="2">(06:36:48 PM)</font> <b>Lethalman:</b></font> mpickering, well...<br/>
+<font color="#A82F2F"><font size="2">(06:36:59 PM)</font> <b>Lethalman:</b></font> mpickering, hope you are not using sudo, right<br/>
+<font color="#A82F2F"><font size="2">(06:37:09 PM)</font> <b>Lethalman:</b></font> you are in the same shell I hope<br/>
+<font color="#A82F2F"><font size="2">(06:37:50 PM)</font> <b>mpickering:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(06:37:53 PM)</font> <b>mpickering:</b></font> what was meant to happen?<br/>
+<font color="#A82F2F"><font size="2">(06:38:28 PM)</font> <b>goibhniu:</b></font> the_scourge: good question! :/<br/>
+<font color="#A82F2F"><font size="2">(06:39:47 PM)</font> <b>goibhniu:</b></font> the_scourge: and indeed `nix-env -iA nixos.pkgs.python27Packages.pil` works fine ... sorry for the noise<br/>
+<font color="#A82F2F"><font size="2">(06:40:08 PM)</font> <b>the_scou1ge:</b></font> i think this is easier if i just put my dependencies in pythonPath?<br/>
+<font size="2">(06:40:52 PM)</font><b> the_scourge left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(06:41:25 PM)</font><b> the_scou1ge is now known as the_scourge</b><br/>
+<font color="#A82F2F"><font size="2">(06:51:23 PM)</font> <b>the_scourge:</b></font> goibhniu: i don&apos;t get it, if there&apos;s no pythonPackages.pil, then what is on line 6968 of pythonPackages.nix ?<br/>
+<font color="#A82F2F"><font size="2">(06:54:00 PM)</font> <b>goibhniu:</b></font> the_scourge: yeah, I don&apos;t understand why it doesn&apos;t appear in `nix-env -qaP` either .. but it should be fine AFAICT<br/>
+<font color="#A82F2F"><font size="2">(06:56:01 PM)</font> <b>the_scourge:</b></font> it works OK when i put it back in the expression<br/>
+<font color="#A82F2F"><font size="2">(06:56:30 PM)</font> <b>the_scourge:</b></font> using pythonPath = with pythonPkgs; [ pyfoo pybar];<br/>
+<font color="#A82F2F"><font size="2">(06:57:44 PM)</font> <b>goibhniu:</b></font> the_scourge: &quot; pythonPackages; [pyfoo pybar];&quot; right?<br/>
+<font color="#A82F2F"><font size="2">(06:57:58 PM)</font> <b>the_scourge:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(06:58:27 PM)</font> <b>the_scourge:</b></font> downloading shedloads of expressions now to see if this will work (i merged in from master a minute ago)<br/>
+<font color="#A82F2F"><font size="2">(06:59:07 PM)</font> <b>the_scourge:</b></font> um... what is the benefit to putting the dependencies in when you call the expression, rather than in the expression itself (like bluescreen303 recommended)<br/>
+<font color="#A82F2F"><font size="2">(06:59:47 PM)</font> <b>the_scourge:</b></font> and why does it not work for me, and why can&apos;t i seem to find anywhere that documents this, and why isn&apos;t there any exmaples of anyone doing this (in python)?<br/>
+<font color="#A82F2F"><font size="2">(06:59:55 PM)</font> <b>the_scourge:</b></font> i can see that it works for perl dependencies<br/>
+<font color="#A82F2F"><font size="2">(07:03:01 PM)</font> <b>the_scourge:</b></font> hmm asciidoc does it that way<br/>
+<font color="#A82F2F"><font size="2">(07:13:54 PM)</font> <b>Sonarpulse:</b></font> how does the cabal2nix infrastructure work for packages that rely on non-haskell packages, e.g. C libs?<br/>
+<font color="#A82F2F"><font size="2">(07:14:09 PM)</font> <b>Sonarpulse:</b></font> is any of that handled automatically?<br/>
+<font color="#A82F2F"><font size="2">(07:20:06 PM)</font> <b>ttuegel:</b></font> Sonarpulse: cabal2nix knows which c libraries a package depends on, but it doesn&apos;t necessarily know their name in nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(07:20:38 PM)</font> <b>Sonarpulse:</b></font> so the pkg names need to be manually inserted?<br/>
+<font color="#A82F2F"><font size="2">(07:20:58 PM)</font> <b>ttuegel:</b></font> Sonarpulse: just when you call the package<br/>
+<font color="#A82F2F"><font size="2">(07:21:13 PM)</font> <b>ttuegel:</b></font> e.g., haskellPackages.callPackage { umfpack = suitesparse; };<br/>
+<font color="#A82F2F"><font size="2">(07:21:20 PM)</font> <b>ttuegel:</b></font> to give an example from one of my projects<br/>
+<font color="#A82F2F"><font size="2">(07:21:29 PM)</font> <b>ttuegel:</b></font> cabal2nix doesn&apos;t know that the suitesparse package provides the library umfpack<br/>
+<font color="#A82F2F"><font size="2">(07:21:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra closed pull request #5770: fetchFromGitHub: add option for custom name (master...master) http://git.io/SV2RCw<br/>
+<font color="#A82F2F"><font size="2">(07:21:43 PM)</font> <b>Sonarpulse:</b></font> ahh, nice<br/>
+<font color="#A82F2F"><font size="2">(07:21:59 PM)</font> <b>Sonarpulse:</b></font> so the autogenerated nix file still does not need to be touched<br/>
+<font color="#A82F2F"><font size="2">(07:22:05 PM)</font> <b>Sonarpulse:</b></font> thanks ttuegel<br/>
+<font color="#A82F2F"><font size="2">(07:32:03 PM)</font> <b>goibhniu:</b></font> hrm, I have an old imperative container that won&apos;t start, I think it&apos;s because the post-start script for networking has changed in a way that isn&apos;t compatible with my host system ... I wonder if I can update the container from the host<br/>
+<font color="#A82F2F"><font size="2">(07:34:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 2 new commits to master: http://git.io/_CbNWw<br/>
+<font color="#A82F2F"><font size="2">(07:34:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1ec68e0 William A. Kennington III: kernel: Fix path to stp bridge helper<br/>
+<font color="#A82F2F"><font size="2">(07:34:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8e5ef7d William A. Kennington III: nixos/network-interfaces: Fix rstp support<br/>
+<font color="#A82F2F"><font size="2">(07:37:21 PM)</font> <b>Ralith:</b></font> so how does callPackage work, if packages are functions which must be passed a record containing exactly their dependencies and nothing else?<br/>
+<font color="#A82F2F"><font size="2">(07:37:42 PM)</font> <b>Ralith:</b></font> seems like it&apos;d need some sort of introspection on the package<br/>
+<font size="2">(08:05:32 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,43 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Sat 28 Mar 2015 04:25:46 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Sat 28 Mar 2015 04:25:46 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:25:46 AM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font size="2">(04:25:46 AM)</font><b> Topic for #lad set by tapas!~tapas@static.231.2.63.178.clients.your-server.de at 10:37:26 AM on 05/13/2013</b><br/>
+<font size="2">(09:29:52 AM)</font><b> edogawa [<em>~quassel@194-166-112-32.adsl.highway.telekom.at</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:12:44 AM)</font> <b>andrewrk:</b></font> check out this many reader, many writer, lock-free queue implementation I made: https://github.com/andrewrk/genesis/blob/pipeline/src/thread_safe_queue.hpp<br/>
+<font color="#A82F2F"><font size="2">(10:13:32 AM)</font> <b>andrewrk:</b></font> it makes no syscalls unless a reader tries to dequeue an empty queue, in which case it waits on a futex<br/>
+<font size="2">(10:51:49 AM)</font><b> edogawa left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:08:35 PM)</font> <b>fundamental:</b></font> andrewrk: there&apos;s a bug depending on the queue size<br/>
+<font color="#A82F2F"><font size="2">(02:11:36 PM)</font> <b>fundamental:</b></font> if the modulo behavior of the wrapping of atomic_int differs from the modulo behavior of (%_size) then on the wrapping of _read_index or _write_index invalid behavior will be produced<br/>
+<font color="#A82F2F"><font size="2">(02:12:06 PM)</font> <b>fundamental:</b></font> considering that these appear to by integers and not unsigned integers, the wrapping behavior is already undefined<br/>
+<font color="#A82F2F"><font size="2">(02:13:05 PM)</font> <b>fundamental:</b></font> hm<br/>
+<font color="#A82F2F"><font size="2">(02:13:18 PM)</font> <b>fundamental:</b></font> wait, that&apos;s in a different routine...<br/>
+<font color="#A82F2F"><font size="2">(02:15:02 PM)</font> <b>fundamental:</b></font> nevermind that seems right<br/>
+<font color="#A82F2F"><font size="2">(04:25:11 PM)</font> <b>damo22:</b></font> anyone familiar with the webrtc echo cancellation routines?<br/>
+<font color="#A82F2F"><font size="2">(04:26:12 PM)</font> <b>fundamental:</b></font> damo22: I&apos;m familiar with AEC, but not webrtc&apos;s specific implementation<br/>
+<font color="#A82F2F"><font size="2">(04:26:26 PM)</font> <b>damo22:</b></font> fundamental: how does it work generally?<br/>
+<font color="#A82F2F"><font size="2">(04:26:54 PM)</font> <b>damo22:</b></font> is it like a gate that ducks the mic when the other person is speaking?<br/>
+<font color="#A82F2F"><font size="2">(04:27:14 PM)</font> <b>fundamental:</b></font> damo22: you find unvoiced regions and you estimate the impulse response of the speaker -&gt; microphone system<br/>
+<font color="#A82F2F"><font size="2">(04:27:23 PM)</font> <b>fundamental:</b></font> then you subtract it off<br/>
+<font color="#A82F2F"><font size="2">(04:27:58 PM)</font> <b>damo22:</b></font> ugh sounds complex<br/>
+<font color="#A82F2F"><font size="2">(04:28:06 PM)</font> <b>fundamental:</b></font> eh, it&apos;s relatively simple<br/>
+<font color="#A82F2F"><font size="2">(04:28:22 PM)</font> <b>damo22:</b></font> how do you know if its an unvoiced region<br/>
+<font color="#A82F2F"><font size="2">(04:28:31 PM)</font> <b>fundamental:</b></font> getting it to run nicely when unvoiced regions are comparatively rare is tricky<br/>
+<font color="#A82F2F"><font size="2">(04:28:45 PM)</font> <b>fundamental:</b></font> damo22: compare the RMS levels in the speaker vs the microphone<br/>
+<font color="#A82F2F"><font size="2">(04:28:53 PM)</font> <b>damo22:</b></font> i see<br/>
+<font color="#A82F2F"><font size="2">(04:29:06 PM)</font> <b>damo22:</b></font> i am helping tox with audio stuff<br/>
+<font color="#A82F2F"><font size="2">(04:29:06 PM)</font> <b>fundamental:</b></font> if the mic gets a lot more energy than the speaker can produce, then the speaker didn&apos;t produce the noise<br/>
+<font color="#A82F2F"><font size="2">(04:30:30 PM)</font> <b>fundamental:</b></font> it&apos;s only a few lines of code to get the basics done<br/>
+<font color="#A82F2F"><font size="2">(04:30:58 PM)</font> <b>fundamental:</b></font> getting a nice system can be quite tricky as I saw from proprietary solutions<br/>
+<font color="#A82F2F"><font size="2">(04:31:33 PM)</font> <b>damo22:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(04:32:07 PM)</font> <b>damo22:</b></font> i want to prevent echo by ducking the mic whenever the other person is speaking<br/>
+<font color="#A82F2F"><font size="2">(04:32:07 PM)</font> <b>fundamental:</b></font> who/what is &quot;tox&quot;?<br/>
+<font color="#A82F2F"><font size="2">(04:32:28 PM)</font> <b>damo22:</b></font> fundamental: free software replacement for skype, using DHT and p2p<br/>
+<font color="#A82F2F"><font size="2">(04:33:03 PM)</font> <b>damo22:</b></font> full encryption end to nd<br/>
+<font color="#A82F2F"><font size="2">(04:33:34 PM)</font> <b>fundamental:</b></font> damo22: nice<br/>
+<font color="#A82F2F"><font size="2">(04:34:05 PM)</font> <b>damo22:</b></font> i just got some basic HP/LP filters into their audio filtering routines<br/>
+<font color="#A82F2F"><font size="2">(04:34:24 PM)</font> <b>fundamental:</b></font> damo22: if you can introduce me to the relevant bits of the stack I might be able to put in a basic solution<br/>
+<font color="#A82F2F"><font size="2">(04:34:24 PM)</font> <b>damo22:</b></font> to prevent rumble eetc<br/>
+<font color="#A82F2F"><font size="2">(04:34:37 PM)</font> <b>fundamental:</b></font> not a very good one, but something enough to build off of<br/>
+<font color="#A82F2F"><font size="2">(04:35:30 PM)</font> <b>damo22:</b></font> fundamental: https://github.com/irungentoo/filter_audio<br/>
+<font color="#A82F2F"><font size="2">(04:36:35 PM)</font> <b>damo22:</b></font> theyre already using a sophisticated one afaict from webrtc<br/>
+<font color="#A82F2F"><font size="2">(04:37:26 PM)</font> <b>damo22:</b></font> but it would be nice to be able to duck the mic with a gate whenever playback is loud<br/>
+<font color="#A82F2F"><font size="2">(04:42:35 PM)</font> <b>fundamental:</b></font> damo22: yeah, that looks like a standard architecture<br/>

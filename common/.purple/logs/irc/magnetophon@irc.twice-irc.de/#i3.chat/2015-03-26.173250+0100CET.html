@@ -1,0 +1,68 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #i3 at Thu 26 Mar 2015 05:32:50 PM CET on magnetophon@irc.twice-irc.de (irc)</title></head><body><h3>Conversation with #i3 at Thu 26 Mar 2015 05:32:50 PM CET on magnetophon@irc.twice-irc.de (irc)</h3>
+<font size="2">(05:32:50 PM)</font><b> The topic for #i3 is: i3 v4.9.1 released | i3status 2.9 released | i3lock 2.6 released | <a href="http://code.i3wm.org/">http://code.i3wm.org/</a> | <a href="http://i3wm.org/">http://i3wm.org/</a> | <a href="http://faq.i3wm.org/">http://faq.i3wm.org/</a> | <a href="http://build.i3wm.org/download-count.txt">http://build.i3wm.org/download-count.txt</a> | paste at <a href="http://p.nnev.de/">http://p.nnev.de/</a> | file upload at <a href="https://transfer.sh/">https://transfer.sh/</a>  </b><br/>
+<font size="2">(05:32:50 PM)</font><b> Topic for #i3 set by sECuRE at 07:17:55 PM on 03/22/2015</b><br/>
+<font color="#A82F2F"><font size="2">(05:37:08 PM)</font> <b>stef204:</b></font> SardemFF7: https://bpaste.net/show/de86547645db<br/>
+<font color="#A82F2F"><font size="2">(05:37:09 PM)</font> <b>frank:</b></font> [Link Info] show at bpaste<br/>
+<font color="#A82F2F"><font size="2">(05:39:34 PM)</font> <b>stef204:</b></font> you can see lines 69 and 70 which I have to always alternate--since this &apos;issue&apos; appeared<br/>
+<font color="#A82F2F"><font size="2">(05:41:36 PM)</font> <b>stef204:</b></font> I can replace more parameters/sections to use j4status as well--why not? I don&apos;t use NM so the wireless and ethernet sections cannot change. But the rest--possibly using additional plugins for j4status, am willing to change and test/check out<br/>
+<font color="#A82F2F"><font size="2">(05:48:36 PM)</font> <b>SardemFF7:</b></font> stef204: You just need to force i3status to output in i3bar format, so just add “ output_format = &quot;i3bar&quot; ” in the general section :-)<br/>
+<font color="#A82F2F"><font size="2">(05:53:05 PM)</font> <b>SardemFF7:</b></font> stef204: There are 2 parts that j4status can replace with existing plugins. The time plugin (shipped with j4status). And the ALSA plugin is in j4status-plugins ( https://github.com/j4tools/j4status-plugins )<br/>
+<font color="#A82F2F"><font size="2">(05:53:06 PM)</font> <b>frank:</b></font> [Link Info] j4tools/j4status-plugins · GitHub<br/>
+<font color="#A82F2F"><font size="2">(05:53:10 PM)</font> <b>stef204:</b></font> SardemFF7: you mean line 12? uncomment it and replace &quot;dzen&quot; with &quot;i3bar&quot;?<br/>
+<font color="#A82F2F"><font size="2">(05:53:16 PM)</font> <b>SardemFF7:</b></font> stef204: Yes<br/>
+<font color="#A82F2F"><font size="2">(05:54:27 PM)</font> <b>stef204:</b></font> ok done, now...how do I get the whole thing going? I mean how do I tell i3status to use j4status or vice versa?<br/>
+<font color="#A82F2F"><font size="2">(05:55:25 PM)</font> <b>SardemFF7:</b></font> stef204: You can test just by running &quot;j4status -o flat&quot; (assuming you used the tiny j4status config file I gave you)<br/>
+<font color="#A82F2F"><font size="2">(05:55:40 PM)</font> <b>stef204:</b></font> I did use it. Let me try that<br/>
+<font color="#A82F2F"><font size="2">(05:56:37 PM)</font> <b>SardemFF7:</b></font> You can also add &quot;Output=i3bar&quot; in the [Plugins] section to default the output to i3bar format (full file: https://gist.github.com/sardemff7/dcaf8e5e7d36d1e11791 )<br/>
+<font color="#A82F2F"><font size="2">(05:56:38 PM)</font> <b>frank:</b></font> [cached 1h ago] Basic j4status config eating i3status output<br/>
+<font color="#A82F2F"><font size="2">(05:59:06 PM)</font> <b>stef204:</b></font> the result of % j4status --config=~HOME/j4status/config/j4status.conf --input=sensors -o flat -1 is http://codepad.org/09HFYGsY<br/>
+<font color="#A82F2F"><font size="2">(05:59:08 PM)</font> <b>frank:</b></font> [Link Info] Plain Text code - 2 lines - codepad<br/>
+<font color="#A82F2F"><font size="2">(05:59:31 PM)</font> <b>stef204:</b></font> just running j4status -o flat gives error message wants plugins<br/>
+<font color="#A82F2F"><font size="2">(05:59:58 PM)</font> <b>stef204:</b></font> I need to pipe the output so it shows into the bar; otherwise, I fail to see hot it would show up magically<br/>
+<font color="#A82F2F"><font size="2">(06:00:15 PM)</font> <b>stef204:</b></font> but I am just a lowly newb, so what do i know ;)<br/>
+<font color="#A82F2F"><font size="2">(06:00:50 PM)</font> <b>stef204:</b></font> I only need the Physical id0 reading<br/>
+<font color="#A82F2F"><font size="2">(06:01:04 PM)</font> <b>stef204:</b></font> all of it is nice but overkill for me<br/>
+<font color="#A82F2F"><font size="2">(06:01:46 PM)</font> <b>stef204:</b></font> I think that&apos;s the reading I want, anyway. not even sure; I just want a generic.main temp reading<br/>
+<font color="#A82F2F"><font size="2">(06:02:57 PM)</font> <b>SardemFF7:</b></font> stef204: First point, the config file should be &quot;~/.config/j4status/config&quot; :-) Otherwise you need &quot;--config&quot; (&quot;-c&quot;) for j4status to find it.<br/>
+<font color="#A82F2F"><font size="2">(06:03:15 PM)</font> <b>SardemFF7:</b></font> stef204: That should remove the “no plugins” error<br/>
+<font color="#A82F2F"><font size="2">(06:04:19 PM)</font> <b>stef204:</b></font> ok, I thought it should be that path so let me change it<br/>
+<font color="#A82F2F"><font size="2">(06:06:47 PM)</font> <b>SardemFF7:</b></font> For the “I just need one of the thingy” part, it’s not really possible for now :-D Let me try to add something to filter out<br/>
+<font color="#A82F2F"><font size="2">(06:11:02 PM)</font> <b>stef204:</b></font> OK, I have j4status like this ~/.config/j4status/config/j4status.conf ; correct or incorrect? <br/>
+<font color="#A82F2F"><font size="2">(06:11:32 PM)</font> <b>stef204:</b></font> I mean that&apos;s the location of my j4status.conf<br/>
+<font color="#A82F2F"><font size="2">(06:11:38 PM)</font> <b>SardemFF7:</b></font> stef204: Incorrect sorry, the file itself is &quot;~/.config/j4status/config&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:11:52 PM)</font> <b>stef204:</b></font> ..... ah ok<br/>
+<font color="#A82F2F"><font size="2">(06:12:00 PM)</font> <b>SardemFF7:</b></font> j4status.conf is just a name for the man page (’cause &quot;config&quot; would be confusing ^^&apos; )<br/>
+<font color="#A82F2F"><font size="2">(06:12:05 PM)</font> <b>stef204:</b></font> that makes more sense<br/>
+<font color="#A82F2F"><font size="2">(06:12:14 PM)</font> <b>stef204:</b></font> let me correct that<br/>
+<font color="#A82F2F"><font size="2">(06:16:07 PM)</font> <b>stef204:</b></font> OK, got rid of the error and it outputs. I would have to comment out the section temperature in i3status/config and replace by .... what? I mean I want it in same sequence<br/>
+<font color="#A82F2F"><font size="2">(06:16:43 PM)</font> <b>SardemFF7:</b></font> stef204: *That* will be the tricy part… ordering<br/>
+<font color="#A82F2F"><font size="2">(06:17:06 PM)</font> <b>SardemFF7:</b></font> stef204: Give me just a sec to add filtering to j4status sections (so you can get only one sensor displayed)<br/>
+<font color="#A82F2F"><font size="2">(06:17:39 PM)</font> <b>stef204:</b></font> all the time in the world....  ;)<br/>
+<font color="#A82F2F"><font size="2">(06:25:33 PM)</font> <b>SardemFF7:</b></font> stef204: done<br/>
+<font color="#A82F2F"><font size="2">(06:26:20 PM)</font> <b>SardemFF7:</b></font> stef204: I need your &quot;sensors -u&quot; output<br/>
+<font color="#A82F2F"><font size="2">(06:27:01 PM)</font> <b>stef204:</b></font> ok, coming<br/>
+<font color="#A82F2F"><font size="2">(06:28:18 PM)</font> <b>stef204:</b></font> SardemFF7: % sensors -u --&gt; http://codepad.org/krvYXic2<br/>
+<font color="#A82F2F"><font size="2">(06:28:19 PM)</font> <b>frank:</b></font> [Link Info] Plain Text code - 39 lines - codepad<br/>
+<font color="#A82F2F"><font size="2">(06:30:43 PM)</font> <b>SardemFF7:</b></font> stef204: You have to get the latest commits of j4status (via git pull I mean) and recompile :-)<br/>
+<font color="#A82F2F"><font size="2">(06:33:46 PM)</font> <b>SardemFF7:</b></font> stef204: Then use this config file to remove the other sensors https://gist.github.com/sardemff7/dcaf8e5e7d36d1e11791<br/>
+<font color="#A82F2F"><font size="2">(06:33:47 PM)</font> <b>frank:</b></font> [cached 2h ago] Basic j4status config eating i3status output<br/>
+<font color="#A82F2F"><font size="2">(06:37:05 PM)</font> <b>SardemFF7:</b></font> stef204: Once &quot;j4status -o flat&quot; output is “ok” (but ordering), paste the output of &quot;j4status -o debug&quot; :-D<br/>
+<font color="#A82F2F"><font size="2">(06:40:00 PM)</font> <b>stef204:</b></font> ok, 1 sec please<br/>
+<font color="#A82F2F"><font size="2">(06:40:29 PM)</font> <b>SardemFF7:</b></font> stef204: all the time in the world ;-)<br/>
+<font color="#A82F2F"><font size="2">(06:40:41 PM)</font> <b>stef204:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(06:42:02 PM)</font> <b>stef204:</b></font> let me get new git and recompile<br/>
+<font color="#A82F2F"><font size="2">(06:46:13 PM)</font> <b>stef204:</b></font> is this correct? j4status 0.1 - 93e4ad4 (master)<br/>
+<font color="#A82F2F"><font size="2">(06:47:31 PM)</font> <b>SardemFF7:</b></font> stef204: No, it should be f619c0e<br/>
+<font color="#A82F2F"><font size="2">(06:47:39 PM)</font> <b>SardemFF7:</b></font> Forgot to install?<br/>
+<font color="#A82F2F"><font size="2">(06:48:07 PM)</font> <b>stef204:</b></font> 1 sec<br/>
+<font color="#A82F2F"><font size="2">(06:52:30 PM)</font> <b>stef204:</b></font> j4status 0.1 - f619c0e (master)<br/>
+<font color="#A82F2F"><font size="2">(06:53:09 PM)</font> <b>SardemFF7:</b></font> \o/<br/>
+<font color="#A82F2F"><font size="2">(06:59:25 PM)</font> <b>stef204:</b></font> some type of encoding problem? Physical id 0: +46.0?C<br/>
+<font color="#A82F2F"><font size="2">(06:59:44 PM)</font> <b>SardemFF7:</b></font> stef204: On terminal yes, it should work fine once in i3bar<br/>
+<font color="#A82F2F"><font size="2">(06:59:52 PM)</font> <b>stef204:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(07:01:30 PM)</font> <b>stef204:</b></font> % j4status -o debug --&gt; http://codepad.org/eMexzn3d<br/>
+<font color="#A82F2F"><font size="2">(07:01:31 PM)</font> <b>frank:</b></font> [Link Info] Plain Text code - 184 lines - codepad<br/>
+<font color="#A82F2F"><font size="2">(07:05:38 PM)</font> <b>SardemFF7:</b></font> stef204: That should work https://gist.github.com/sardemff7/dcaf8e5e7d36d1e11791<br/>
+<font color="#A82F2F"><font size="2">(07:05:39 PM)</font> <b>frank:</b></font> [cached 2h ago] Basic j4status config eating i3status output<br/>
+<font size="2">(07:09:19 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

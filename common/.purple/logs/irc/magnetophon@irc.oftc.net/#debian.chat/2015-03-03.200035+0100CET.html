@@ -1,0 +1,78 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Tue 03 Mar 2015 08:00:35 PM CET on magnetophon@irc.oftc.net (irc)</title></head><body><h3>Conversation with #debian at Tue 03 Mar 2015 08:00:35 PM CET on magnetophon@irc.oftc.net (irc)</h3>
+<font size="2">(08:00:39 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next | chanlogs: /msg dpkg irclog | Broken suspend with 7.8? <a href="http://deb.li/5tYG">http://deb.li/5tYG</a></b><br/>
+<font size="2">(08:00:39 PM)</font><b> Topic for #debian set by Maulkin!~maulkin@maulkin.noc.oftc.net at 04:53:46 PM on 01/12/2015</b><br/>
+<font size="2">(08:04:47 PM)</font><b> Corey84 is now known as Guest499</b><br/>
+<font color="#A82F2F"><font size="2">(08:15:16 PM)</font> <b>ph0b0s:</b></font> is it possible to find when changes in file permissions occured, with syslog or any other manner?<br/>
+<font size="2">(08:15:17 PM)</font><b> legaume_ is now known as legaume</b><br/>
+<font color="#A82F2F"><font size="2">(08:17:00 PM)</font> <b>unk1nd:</b></font> where can i find the drivers for Alfa AWUS036NH ?<br/>
+<font size="2">(08:20:45 PM)</font><b> H2 is now known as H2DaZ</b><br/>
+<font color="#A82F2F"><font size="2">(08:21:40 PM)</font> <b>H2DaZ:</b></font> Thanx a ton mate<br/>
+<font size="2">(08:21:53 PM)</font><b> H2DaZ left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(08:22:58 PM)</font> <b>gsimmons:</b></font> unk1nd: That device is supported by the Linux kernel&apos;s rt2800usb driver.  You will need to supply firmware for its use ; /msg dpkg ralink firmware<br/>
+<font color="#A82F2F"><font size="2">(08:32:29 PM)</font> <b>unk1nd:</b></font> gsimmons: have installed the firmware for rt2800usb but it still uses &quot;driver=rtl8187&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:34:56 PM)</font> <b>unk1nd:</b></font> should i blacklist the rtl8187 driver ?<br/>
+<font color="#A82F2F"><font size="2">(08:34:59 PM)</font> <b>gsimmons:</b></font> unk1nd: Where is that defined?  It&apos;s the wrong driver for a device with a Ralink RT3070 chip.<br/>
+<font color="#A82F2F"><font size="2">(08:35:34 PM)</font> <b>unk1nd:</b></font> root@debian ~ # sudo lshw -C network<br/>
+<font color="#A82F2F"><font size="2">(08:35:43 PM)</font> <b>unk1nd:</b></font> gave me this on the device<br/>
+<font color="#A82F2F"><font size="2">(08:35:58 PM)</font> <b>unk1nd:</b></font>  configuration: broadcast=yes driver=rtl8187 driverversion=3.2.0-4-amd64 firmware=N/A link=no multicast=yes wireless=IEEE 802.11bg<br/>
+<font color="#A82F2F"><font size="2">(08:38:01 PM)</font> <b>gsimmons:</b></font> unk1nd: At least you&apos;re on Linux 3.2 now.  Does &quot;lsusb | grep 148f&quot; return any output?<br/>
+<font color="#A82F2F"><font size="2">(08:38:25 PM)</font> <b>unk1nd:</b></font> nothing<br/>
+<font color="#A82F2F"><font size="2">(08:39:13 PM)</font> <b>unk1nd:</b></font> lsusb comes up with &quot;Bus 001 Device 002: ID 0bda:8187 Realtek Semiconductor Corp. RTL8187 Wireless Adapter&quot; for the device<br/>
+<font color="#A82F2F"><font size="2">(08:40:16 PM)</font> <b>unk1nd:</b></font> the problem i am having that i cant get the device to go in ac-hoc mode<br/>
+<font color="#A82F2F"><font size="2">(08:40:54 PM)</font> <b>unk1nd:</b></font> root@debian ~ # iwconfig wlan0 channel 1 essid MYNETWORK mode ad-hoc<br/>
+<font color="#A82F2F"><font size="2">(08:40:54 PM)</font> <b>unk1nd:</b></font> Error for wireless request &quot;Set Mode&quot; (8B06) :<br/>
+<font color="#A82F2F"><font size="2">(08:40:54 PM)</font> <b>unk1nd:</b></font>     SET failed on device wlan0 ; Operation not supported.<br/>
+<font color="#A82F2F"><font size="2">(08:41:29 PM)</font> <b>Elvano:</b></font> Because of some issues I tinkered a bit with the settings of my keyboard. Sadly for some reason now my alt-gr key does no longer work. Anyone an idea on how to fix this?<br/>
+<font color="#A82F2F"><font size="2">(08:44:08 PM)</font> <b>awal:</b></font> !keymap<br/>
+<font color="#A82F2F"><font size="2">(08:44:08 PM)</font> <b>dpkg:</b></font> Run &quot;dpkg-reconfigure keyboard-configuration&quot; to change both your default console and X keymap; the setxkbmap utility can be used to adjust keymap settings during X operation.  For setting up X keymaps, see xkeycaps, xev and ask me about &lt;multimedia keys&gt;.<br/>
+<font color="#A82F2F"><font size="2">(08:44:29 PM)</font> <b>awal:</b></font> Elvano: probably thats what you need to know ^<br/>
+<font color="#A82F2F"><font size="2">(08:44:52 PM)</font> <b>gsimmons:</b></font> unk1nd: OK, sounds you have the older AWUS036H (which is a Realtek).  Your system is already using the Linux kernel&apos;s driver (rtl8187), which doesn&apos;t require firmware to be supplied.  The configuration examples at https://wiki.debian.org/WiFi/AdHoc may be of help.<br/>
+<font color="#A82F2F"><font size="2">(08:45:39 PM)</font> <b>Elvano:</b></font> I already tried that one, awal <br/>
+<font color="#A82F2F"><font size="2">(08:48:16 PM)</font> <b>awal:</b></font> Elvano: users in this channel aren&apos;t with you there and do&apos;t know what you did ...<br/>
+<font color="#A82F2F"><font size="2">(08:48:43 PM)</font> <b>unk1nd:</b></font> gsimmons: i have tryed that all day :P<br/>
+<font color="#A82F2F"><font size="2">(08:48:51 PM)</font> <b>unk1nd:</b></font> still get the error i posted<br/>
+<font color="#A82F2F"><font size="2">(08:50:05 PM)</font> <b>gsimmons:</b></font> unk1nd: Ah, ad-hoc (IBSS) wasn&apos;t supported in that driver until Linux 3.4.  You&apos;ll need to use the kernel from backports (/msg dpkg bdo kernel).<br/>
+<font color="#A82F2F"><font size="2">(09:06:36 PM)</font> <b>unk1nd:</b></font> is this something i need to be scared of ?<br/>
+<font color="#A82F2F"><font size="2">(09:06:37 PM)</font> <b>unk1nd:</b></font> Setter opp linux-image-3.16.0-0.bpo.4-amd64 (3.16.7-ckt4-3~bpo70+1) ...<br/>
+<font color="#A82F2F"><font size="2">(09:06:37 PM)</font> <b>unk1nd:</b></font> dkms: WARNING: linux headers are missing, which may explain the above failures.<br/>
+<font color="#A82F2F"><font size="2">(09:06:37 PM)</font> <b>unk1nd:</b></font>       please install the linux-headers-3.16.0-0.bpo.4-amd64 package to fix this.<br/>
+<font size="2">(09:06:37 PM)</font><b> unk1nd left the room (Kicked by debhelper (flood. Please use http://paste.debian.net instead.)).</b><br/>
+<font size="2">(09:06:50 PM)</font><b> unk1nd [<em>~duux@ti0053a400-3785.bb.online.no</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:07:48 PM)</font> <b>unk1nd:</b></font> http://paste.debian.net/159497/<br/>
+<font color="#A82F2F"><font size="2">(09:08:52 PM)</font> <b>unk1nd:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(09:09:16 PM)</font> <b>musca:</b></font> line 4:   please install the linux-headers-3.16.0-0.bpo.4-amd64 package to fix this.<br/>
+<font color="#A82F2F"><font size="2">(09:11:31 PM)</font> <b>RalfJ:</b></font> damnit... now that DebConf is in Germany, it collides with the chaos communication camp :(<br/>
+<font size="2">(09:39:48 PM)</font><b> Corey84 is now known as Guest509</b><br/>
+<font color="#A82F2F"><font size="2">(10:11:00 PM)</font> <b>ziGuy:</b></font> Hello guys,<br/>
+<font color="#A82F2F"><font size="2">(10:11:00 PM)</font> <b>ziGuy:</b></font> Updating debian kind of destroy my os (learned to safe-upgrade next time).<br/>
+<font color="#A82F2F"><font size="2">(10:11:00 PM)</font> <b>ziGuy:</b></font> killed my xserver, video drivers and now i can&apos;t use apt-get / aptitude - which is my main problem right now.<br/>
+<font color="#A82F2F"><font size="2">(10:11:00 PM)</font> <b>ziGuy:</b></font> I CAN use dpkg<br/>
+<font color="#A82F2F"><font size="2">(10:11:00 PM)</font> <b>ziGuy:</b></font> my os: Linux wheezy 3.2.0-4-amd64 #1 SMP Debian 3.2.65-1+deb7u1 x86_64 GNU/Linux<br/>
+<font size="2">(10:11:00 PM)</font><b> ziGuy left the room (Kicked by debhelper (flood. Please use http://paste.debian.net instead.)).</b><br/>
+<font size="2">(10:11:50 PM)</font><b> ziGuy [<em>4d7e07fc@107.161.19.109</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:12:03 PM)</font> <b>ziGuy:</b></font> any ideas?<br/>
+<font size="2">(10:18:01 PM)</font><b> mode (+l 710) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:23:03 PM)</font> <b>retrospectacus:</b></font> ziGuy: upgrade from what? what&apos;d&apos;you mean &quot;can&apos;t use apt-get&quot;?<br/>
+<font color="#A82F2F"><font size="2">(10:24:52 PM)</font> <b>ompaul:</b></font> ,v kernels<br/>
+<font color="#A82F2F"><font size="2">(10:24:53 PM)</font> <b>judd:</b></font> No package named &apos;kernels&apos; was found in i386.<br/>
+<font color="#A82F2F"><font size="2">(10:24:54 PM)</font> <b>ziGuy:</b></font> just run aptitude update or aptitude upgradem can&apos;t remember. Please take a look at the second paragraph: http://pastebin.com/f4G3AJrD<br/>
+<font color="#A82F2F"><font size="2">(10:24:56 PM)</font> <b>ompaul:</b></font> ,kernels<br/>
+<font color="#A82F2F"><font size="2">(10:24:57 PM)</font> <b>judd:</b></font> Available kernel versions are: <span style='font-weight: bold;'>experimental</span>: 3.19.0-trunk-686-pae (3.19-1~exp1); <span style='font-weight: bold;'>sid</span>: 3.16.0-4-686-pae (3.16.7-ckt7-1); <span style='font-weight: bold;'>jessie</span>: 3.16.0-4-686-pae (3.16.7-ckt4-3); <span style='font-weight: bold;'>wheezy-backports</span>: 3.16.0-0.bpo.4-686-pae (3.16.7-ckt4-3~bpo70+1); <span style='font-weight: bold;'>wheezy</span>: 3.2.0-4-686-pae (3.2.65-1+deb7u2); <span style='font-weight: bold;'>squeeze-backports</span>: 3.2.0-0.bpo.4-686-pae (3.2.65-1+deb7u1~bpo60+1); <span style='font-weight: bold;'>squeeze</span>: 2.6.32-5-686 (2.6.32-48squeeze6)<br/>
+<font color="#A82F2F"><font size="2">(10:25:54 PM)</font> <b>ompaul:</b></font> ziGuy: upgrading from what too what? when it said it was done did you reboot?<br/>
+<font color="#A82F2F"><font size="2">(10:25:58 PM)</font> <b>ziGuy:</b></font> in addition i got the same error when trying to install a package using aptitude<br/>
+<font color="#A82F2F"><font size="2">(10:26:02 PM)</font> <b>ompaul:</b></font> s/too/to/<br/>
+<font color="#A82F2F"><font size="2">(10:27:00 PM)</font> <b>ziGuy:</b></font> yes, reboot didn&apos;t help. i didn&apos;t upgrade a specific package<br/>
+<font color="#A82F2F"><font size="2">(10:27:32 PM)</font> <b>ompaul:</b></font> ziGuy: you said safe-upgrade - what were you upgrading <br/>
+<font color="#A82F2F"><font size="2">(10:27:45 PM)</font> <b>ompaul:</b></font> where you on squeeze and moved to wheezy or something else?<br/>
+<font color="#A82F2F"><font size="2">(10:28:41 PM)</font> <b>ompaul:</b></font> safe-upgrade is from one major version to another - not for security (and the odd other) fixes in a particular version <br/>
+<font color="#A82F2F"><font size="2">(10:28:56 PM)</font> <b>ompaul:</b></font> i.e. from squeeze -&gt; wheezy <br/>
+<font color="#A82F2F"><font size="2">(10:29:42 PM)</font> <b>ziGuy:</b></font> I didn&apos;t upgrade my distro. i&apos;ve got a notification from my update manager said that there are updates available and just click to update<br/>
+<font color="#A82F2F"><font size="2">(10:30:10 PM)</font> <b>ompaul:</b></font> ziGuy: good, ok on the command line do this as root:    apt-get update<br/>
+<font color="#A82F2F"><font size="2">(10:31:07 PM)</font> <b>ompaul:</b></font> ziGuy: makes sure whatever update manager program that is available to you is closed <br/>
+<font color="#062585"><font size="2">(10:31:19 PM)</font> <b>***ompaul</b></font> awaits confirmation that is being done<br/>
+<font color="#A82F2F"><font size="2">(10:32:09 PM)</font> <b>ziGuy:</b></font> here is the output: http://pastebin.com/U2VWbQGN<br/>
+<font color="#A82F2F"><font size="2">(10:33:28 PM)</font> <b>ompaul:</b></font> ziGuy: please paste all the file /etc/apt/sources.list and give us a url - please be aware that http://paste.debian.net does not have nasty captchas and the like<br/>
+<font color="#A82F2F"><font size="2">(10:34:34 PM)</font> <b>ziGuy:</b></font> http://paste.debian.net/159510/<br/>
+<font color="#A82F2F"><font size="2">(10:34:35 PM)</font> <b>ziGuy:</b></font> excuse me a couple of moments please, my baby is crying<br/>
+<font size="2">(11:00:39 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

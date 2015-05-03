@@ -1,0 +1,350 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Tue 27 Aug 2013 03:31:22 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Tue 27 Aug 2013 03:31:22 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(03:31:22 PM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font size="2">(03:33:24 PM)</font><b> jzu left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(03:38:27 PM)</font><b> jzu [<em>~jzu@79.174.206.23</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:38:30 PM)</font> <b>falktx:</b></font> male: I&apos;m going to have a go at rebuilding all plugins with the proper flags<br/>
+<font color="#A82F2F"><font size="2">(03:38:54 PM)</font> <b>falktx:</b></font> male: but is using optimizations enough?<br/>
+<font color="#A82F2F"><font size="2">(03:39:09 PM)</font> <b>falktx:</b></font> I think about using these, since I use those in my host:<br/>
+<font color="#A82F2F"><font size="2">(03:39:10 PM)</font> <b>falktx:</b></font> -O3 -ffast-math -mtune=generic -msse -mfpmath=sse<br/>
+<font color="#A82F2F"><font size="2">(03:39:26 PM)</font> <b>falktx:</b></font> perhaps -msse2 too<br/>
+<font size="2">(03:45:40 PM)</font><b> basti_ [<em>~basti@p4FF7D173.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:46:27 PM)</font> <b>fundamental:</b></font> falktx: that looks like the basic set<br/>
+<font color="#A82F2F"><font size="2">(03:46:59 PM)</font> <b>falktx:</b></font> fundamental: do you think this will produce any good results without side-effects?<br/>
+<font color="#A82F2F"><font size="2">(03:48:30 PM)</font> <b>fundamental:</b></font> falktx: fast-math can yield incorrect code depending how closely the program depends on IEEE floating point behavior, though this should not be much of an issue for most audio plugin code<br/>
+<font color="#A82F2F"><font size="2">(03:48:56 PM)</font> <b>fundamental:</b></font> falktx: -O3 occasionally yields slower code than -O2, but gcc seems to be a bit better now<br/>
+<font color="#A82F2F"><font size="2">(03:49:26 PM)</font> <b>falktx:</b></font> well, I&apos;ll be using gcc-4.4<br/>
+<font color="#A82F2F"><font size="2">(03:49:28 PM)</font> <b>fundamental:</b></font> falktx: from what I&apos;ve seen within the past few releases clang has surpassed gcc in terms of SSE instruction fiddling<br/>
+<font color="#A82F2F"><font size="2">(03:49:37 PM)</font> <b>falktx:</b></font> so perhaps -O2 is better<br/>
+<font color="#A82F2F"><font size="2">(03:49:50 PM)</font> <b>fundamental:</b></font> gcc-4.4??<br/>
+<font color="#A82F2F"><font size="2">(03:50:03 PM)</font> <b>falktx:</b></font> yes, this is for generic linux packages that will work *anywhere*<br/>
+<font color="#A82F2F"><font size="2">(03:50:07 PM)</font> <b>falktx:</b></font> like, *anywhere*<br/>
+<font color="#A82F2F"><font size="2">(03:50:25 PM)</font> <b>falktx:</b></font> I can use gcc-4.6 if needed<br/>
+<font color="#A82F2F"><font size="2">(03:52:57 PM)</font> <b>fundamental:</b></font> are you doing all the building on that slow common builder?<br/>
+<font color="#A82F2F"><font size="2">(03:53:25 PM)</font> <b>falktx:</b></font> no, PPAs<br/>
+<font color="#A82F2F"><font size="2">(03:54:13 PM)</font> <b>fundamental:</b></font> yea, that&apos;s the thing I was referring to<br/>
+<font color="#A82F2F"><font size="2">(03:54:27 PM)</font> <b>falktx:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(03:54:45 PM)</font> <b>falktx:</b></font> my laptop is dying, I couldn&apos;t seriouly build all that stuff locally<br/>
+<font color="#A82F2F"><font size="2">(03:55:00 PM)</font> <b>fundamental:</b></font> well everytime you mention it you say &quot;oh, it will get to it in X time&quot;<br/>
+<font size="2">(03:55:07 PM)</font><b> basti_ left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(04:05:01 PM)</font><b> hansfbaier left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font size="2">(04:18:29 PM)</font><b> hansfbaier [<em>~jack@125.163.225.219</em>] entered the room.</b><br/>
+<font size="2">(04:24:07 PM)</font><b> rncbc [<em>~rncbc@a95-93-202-132.cpe.netcabo.pt</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:34:40 PM)</font> <b>nilsge:</b></font> hello people<br/>
+<font color="#A82F2F"><font size="2">(04:35:10 PM)</font> <b>falktx:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(04:35:40 PM)</font> <b>fundamental:</b></font> greetings<br/>
+<font size="2">(04:43:16 PM)</font><b> nilg` [<em>~user@113.28.186.28</em>] entered the room.</b><br/>
+<font size="2">(04:45:52 PM)</font><b> monotomy left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(04:49:59 PM)</font><b> kardioid [<em>~ff@190.71.38.21</em>] entered the room.</b><br/>
+<font color="#062585"><font size="2">(04:53:38 PM)</font> <b>***HarryHaaren</b></font> does some shameless self-promo... Luppp in action (leaked video :)  https://www.dropbox.com/s/ldpckf05d69topv/luppp_27_aug_13.ogv<br/>
+<font color="#A82F2F"><font size="2">(04:56:02 PM)</font> <b>falktx:</b></font> self-leaks should be banned<br/>
+<font color="#A82F2F"><font size="2">(04:56:15 PM)</font> <b>falktx:</b></font> at least ask someone else to post it and say it was leaked ;)<br/>
+<font color="#A82F2F"><font size="2">(04:56:23 PM)</font> <b>falktx:</b></font> this said, let me check it out!<br/>
+<font color="#A82F2F"><font size="2">(04:56:27 PM)</font> <b>HarryHaaren:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(04:56:32 PM)</font> <b>fundamental:</b></font> hm, mplayer does not like the url<br/>
+<font color="#A82F2F"><font size="2">(04:56:50 PM)</font> <b>fundamental:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(04:56:51 PM)</font> <b>fundamental:</b></font> silly dropbox<br/>
+<font color="#A82F2F"><font size="2">(04:57:13 PM)</font> <b>HarryHaaren:</b></font> yeah.. i should just get some http / ftp space :/<br/>
+<font color="#A82F2F"><font size="2">(04:57:31 PM)</font> <b>falktx:</b></font> wget gets the file just fine<br/>
+<font color="#A82F2F"><font size="2">(04:58:48 PM)</font> <b>falktx:</b></font> the metronome is quite loud<br/>
+<font color="#A82F2F"><font size="2">(04:59:20 PM)</font> <b>falktx:</b></font> hm wait<br/>
+<font size="2">(04:59:27 PM)</font><b> Tumulte left the room (quit: Quit: Lost terminal).</b><br/>
+<font color="#A82F2F"><font size="2">(04:59:29 PM)</font> <b>HarryHaaren:</b></font> haha that&apos;s my horrible beat-boxing skills... :D<br/>
+<font color="#A82F2F"><font size="2">(04:59:53 PM)</font> <b>HarryHaaren:</b></font> There&apos;s a metro in the top right: its disabled during the video though<br/>
+<font size="2">(05:00:07 PM)</font><b> Tumulte [<em>~tumulte@ALyon-651-1-131-175.w2-3.abo.wanadoo.fr</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:00:23 PM)</font> <b>falktx:</b></font> ok, I have no idea what that is all about<br/>
+<font color="#A82F2F"><font size="2">(05:00:33 PM)</font> <b>falktx:</b></font> but looks nice and functional<br/>
+<font color="#A82F2F"><font size="2">(05:00:40 PM)</font> <b>fundamental:</b></font> while completely unnecessary, it feels like some of the widgets are missing intermediate drawing states<br/>
+<font color="#A82F2F"><font size="2">(05:01:45 PM)</font> <b>nedko:</b></font> fundamental: the mplayer problem is probably https://<br/>
+<font color="#A82F2F"><font size="2">(05:02:04 PM)</font> <b>HarryHaaren:</b></font> fundamental, indeed the top &quot;circle&quot; widgets only redraw on 1/16 ths.  same as the volume. Reduces GUI load, and is actually quite refreshing once one is accustomed to it.<br/>
+<font color="#A82F2F"><font size="2">(05:02:18 PM)</font> <b>HarryHaaren:</b></font> also, the screencast @ 20fps makes it lots worse<br/>
+<font color="#A82F2F"><font size="2">(05:03:39 PM)</font> <b>fundamental:</b></font> HarryHaaren: understandable, though the source of the style does not make the utilitarian choice as expected as it might be otherwise<br/>
+<font color="#A82F2F"><font size="2">(05:12:21 PM)</font> <b>falktx:</b></font> APIs are not copyrightable, correct?<br/>
+<font color="#A82F2F"><font size="2">(05:12:44 PM)</font> <b>falktx:</b></font> say someone wants to make a commercial version of some opensource lib<br/>
+<font color="#A82F2F"><font size="2">(05:13:52 PM)</font> <b>falktx:</b></font> the API (and possbibly ABI) matches<br/>
+<font color="#A82F2F"><font size="2">(05:13:52 PM)</font> <b>falktx:</b></font> is that a violation of anything?<br/>
+<font color="#A82F2F"><font size="2">(05:22:11 PM)</font> <b>fundamental:</b></font> Oracle v Google would indicate that having the same API/ABI does not always imply infringement, but IANAL<br/>
+<font color="#A82F2F"><font size="2">(05:22:26 PM)</font> <b>falktx:</b></font> I though the same<br/>
+<font color="#A82F2F"><font size="2">(05:23:01 PM)</font> <b>falktx:</b></font> fundamental: that case was settled on EU courts, not USA ones, right?<br/>
+<font color="#A82F2F"><font size="2">(05:23:22 PM)</font> <b>fundamental:</b></font> falktx: I had thought it happened in the USA, but I don&apos;t really know<br/>
+<font size="2">(05:42:55 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(05:43:12 PM)</font><b> AndreeeCZ [<em>~AndreeeCZ@88.103.20.84</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:53:48 PM)</font> <b>male:</b></font> falktx: Those flags look OK. I&apos;d use -msse2. The CAPS plugins require -msse3 for some reason (although the author couldn&apos;t tell me why).<br/>
+<font color="#A82F2F"><font size="2">(05:54:40 PM)</font> <b>falktx:</b></font> male: I can&apos;t use -msse3, even my cpu doesn&apos;t support that!<br/>
+<font color="#A82F2F"><font size="2">(05:55:05 PM)</font> <b>male:</b></font> falktx: In order for it to help with denormals, the host will have to set the FTZ and DAZ flags in its JACK thread. *OR* Since you have your own fork of JACK, you could just have JACKD do that before it calls the clients, thread_init() and then it would even help e.g. jconvolver.<br/>
+<font color="#A82F2F"><font size="2">(05:55:29 PM)</font> <b>falktx:</b></font> oh, that actually sounds nice<br/>
+<font color="#A82F2F"><font size="2">(05:55:39 PM)</font> <b>falktx:</b></font> male: do you have code for this?<br/>
+<font color="#A82F2F"><font size="2">(05:55:43 PM)</font> <b>male:</b></font> falktx: I know, I&apos;m pretty sure he&apos;s wrong, but you&apos;ll have to patch CAPS to remove the SSE3 condition and replace with with an SSE2 one.<br/>
+<font color="#A82F2F"><font size="2">(05:55:51 PM)</font> <b>male:</b></font> falktx: Yes.<br/>
+<font color="#A82F2F"><font size="2">(05:56:00 PM)</font> <b>male:</b></font> falktx: Look in nonlib/JACK/Client.C<br/>
+<font color="#A82F2F"><font size="2">(05:56:06 PM)</font> <b>male:</b></font> falktx: In thread_init.<br/>
+<font color="#A82F2F"><font size="2">(05:56:42 PM)</font> <b>falktx:</b></font> what&apos;s #if __SSE2_MATH_ ?<br/>
+<font color="#A82F2F"><font size="2">(05:57:04 PM)</font> <b>male:</b></font> falktx: The only problem is, I don&apos;t know how to detect if those flags are valid at runtime (I don&apos;t think anyone else in the community does either). And I don&apos;t know what happens when you run it on a machine without sse2.<br/>
+<font color="#A82F2F"><font size="2">(05:57:24 PM)</font> <b>falktx:</b></font> heh, what machines don&apos;t have sse2?<br/>
+<font color="#A82F2F"><font size="2">(05:57:30 PM)</font> <b>falktx:</b></font> pentium3 ?<br/>
+<font color="#A82F2F"><font size="2">(05:57:30 PM)</font> <b>male:</b></font> falktx: __SSE2_MATH__ is defined when -msse2 -mfpmath=sse (by GCC)<br/>
+<font color="#A82F2F"><font size="2">(05:57:53 PM)</font> <b>male:</b></font> falktx: Right. ANd presumably ARM, but you&apos;d have to recompile for that anyway so its a moot point.<br/>
+<font size="2">(05:57:58 PM)</font><b> hansfbaier left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:58:10 PM)</font> <b>male:</b></font> falktx: Older athlons maybe...<br/>
+<font color="#A82F2F"><font size="2">(05:58:25 PM)</font> <b>falktx:</b></font> that what, pcs from 2002?<br/>
+<font color="#A82F2F"><font size="2">(06:00:17 PM)</font> <b>male:</b></font> falktx: las told me he would accept such a patch into JACK if it were optional and disabled by default (why I don&apos;t know)<br/>
+<font color="#A82F2F"><font size="2">(06:00:43 PM)</font> <b>falktx:</b></font> that means having to deal with waf<br/>
+<font color="#A82F2F"><font size="2">(06:00:45 PM)</font> <b>falktx:</b></font> ouch<br/>
+<font color="#A82F2F"><font size="2">(06:00:52 PM)</font> <b>nedko:</b></font> my previous pc has no sse2<br/>
+<font color="#A82F2F"><font size="2">(06:01:02 PM)</font> <b>male:</b></font> falktx: Been on my TODO list for a while, but it&apos;s pointless unless on a distribution that compiles *everything* with -msse2 -mfpmath=sse.<br/>
+<font color="#A82F2F"><font size="2">(06:01:21 PM)</font> <b>male:</b></font> falktx: Including libfftw and other libraries that plugins tend to use.<br/>
+<font color="#A82F2F"><font size="2">(06:01:21 PM)</font> <b>nedko:</b></font> s/pc/workstation/<br/>
+<font color="#A82F2F"><font size="2">(06:01:28 PM)</font> <b>falktx:</b></font> male: I&apos;ll not compile libs with sse2 like sndfile, samplerate etc, only the plugins<br/>
+<font color="#A82F2F"><font size="2">(06:01:40 PM)</font> <b>falktx:</b></font> and jack audio apps, sure<br/>
+<font color="#A82F2F"><font size="2">(06:02:08 PM)</font> <b>male:</b></font> falktx: just do zita-convolver and libfftw...<br/>
+<font color="#A82F2F"><font size="2">(06:02:27 PM)</font> <b>male:</b></font> falktx: libsndfile wouldn&apos;t matter really.<br/>
+<font color="#A82F2F"><font size="2">(06:03:20 PM)</font> <b>falktx:</b></font> hmm but fftw3 does, right<br/>
+<font color="#A82F2F"><font size="2">(06:03:24 PM)</font> <b>male:</b></font> falktx: It&apos;s not completely useless if some part of the code isn&apos;t compiled right, if just means that denormals can still happen in that part of the code.<br/>
+<font color="#A82F2F"><font size="2">(06:03:24 PM)</font> <b>falktx:</b></font> any other libs used in realtime?<br/>
+<font color="#A82F2F"><font size="2">(06:03:35 PM)</font> <b>male:</b></font> falktx: I can&apos;t think of any.<br/>
+<font color="#A82F2F"><font size="2">(06:03:46 PM)</font> <b>falktx:</b></font> libsamplerate ?<br/>
+<font color="#A82F2F"><font size="2">(06:04:27 PM)</font> <b>male:</b></font> falktx: Yeah, you should probably do that and fons zita-resample too.<br/>
+<font color="#A82F2F"><font size="2">(06:04:54 PM)</font> <b>falktx:</b></font> I need to do the libs first, as they are static<br/>
+<font color="#A82F2F"><font size="2">(06:05:13 PM)</font> <b>male:</b></font> falktx: FWIW *every* x86_64 processor supports SSE2, so you can tie it to the amd-64 arch.<br/>
+<font color="#A82F2F"><font size="2">(06:05:25 PM)</font> <b>falktx:</b></font> I know<br/>
+<font color="#A82F2F"><font size="2">(06:05:46 PM)</font> <b>falktx:</b></font> everyone should move to 64bit anyway (if possible)<br/>
+<font color="#A82F2F"><font size="2">(06:08:20 PM)</font> <b>nedko:</b></font> we shall feed the industry<br/>
+<font color="#A82F2F"><font size="2">(06:08:38 PM)</font> <b>male:</b></font> Heh. I was just recently regretting having switch to 64 bit.<br/>
+<font color="#062585"><font size="2">(06:08:56 PM)</font> <b>***nedko</b></font> is on 32bit<br/>
+<font color="#A82F2F"><font size="2">(06:09:17 PM)</font> <b>male:</b></font> I mean, I honestly don&apos;t need it for any reason. I never compute long long and double.<br/>
+<font color="#A82F2F"><font size="2">(06:09:30 PM)</font> <b>male:</b></font> And PAE can address 8GB of RAM.<br/>
+<font color="#A82F2F"><font size="2">(06:09:33 PM)</font> <b>nedko:</b></font> address space?<br/>
+<font color="#A82F2F"><font size="2">(06:09:40 PM)</font> <b>nedko:</b></font> sometimes you may need more<br/>
+<font color="#A82F2F"><font size="2">(06:10:08 PM)</font> <b>nedko:</b></font> PAE doesnt help you address more than 3G from user space<br/>
+<font color="#A82F2F"><font size="2">(06:10:29 PM)</font> <b>male:</b></font> Yeah. What I&apos;d really like to do is compare performance on the same chip in both modes.<br/>
+<font color="#A82F2F"><font size="2">(06:10:38 PM)</font> <b>male:</b></font> nedko: Heh. I don&apos;t have any processes that use 3G of RAM.<br/>
+<font color="#A82F2F"><font size="2">(06:11:19 PM)</font> <b>nedko:</b></font> stay away from haskell :)<br/>
+<font color="#A82F2F"><font size="2">(06:12:34 PM)</font> <b>bobo1on1:</b></font> male: with PAE you&apos;re still limited to 4 gb per process<br/>
+<font color="#A82F2F"><font size="2">(06:13:36 PM)</font> <b>male:</b></font> bobo1on1: Who has processes that use 4GB? I only have 8GB of RAM in this box and I never use more than 20% of it total.<br/>
+<font color="#A82F2F"><font size="2">(06:13:43 PM)</font> <b>falktx:</b></font> blender can easily use more than 3Gb RAM<br/>
+<font color="#A82F2F"><font size="2">(06:13:56 PM)</font> <b>falktx:</b></font> firefox sometimes uses so much it&apos;s scary<br/>
+<font color="#A82F2F"><font size="2">(06:14:04 PM)</font> <b>bobo1on1:</b></font> yeah, firefox :P<br/>
+<font color="#A82F2F"><font size="2">(06:15:10 PM)</font> <b>male:</b></font> I&apos;m running a bazillion iceweasel windows and it&apos;s currently using 6.7% of my RAM.<br/>
+<font color="#A82F2F"><font size="2">(06:15:56 PM)</font> <b>male:</b></font> Anyway, I know that the software I use runs fine in 2GB total.<br/>
+<font color="#A82F2F"><font size="2">(06:16:06 PM)</font> <b>male:</b></font> So 4GB per process is not a struggle.<br/>
+<font color="#A82F2F"><font size="2">(06:16:19 PM)</font> <b>male:</b></font> Except maybe with photo editing.<br/>
+<font color="#A82F2F"><font size="2">(06:16:31 PM)</font> <b>male:</b></font> And there are lots of programs that still don&apos;t work on 64-bits.<br/>
+<font color="#A82F2F"><font size="2">(06:16:31 PM)</font> <b>falktx:</b></font> hmm, let me try something quick...<br/>
+<font color="#A82F2F"><font size="2">(06:16:36 PM)</font> <b>nedko:</b></font> bobo1on1: 3g, 1g of address space is for kernel mode<br/>
+<font color="#A82F2F"><font size="2">(06:16:41 PM)</font> <b>male:</b></font> Emulators mostly.<br/>
+<font color="#A82F2F"><font size="2">(06:18:28 PM)</font> <b>male:</b></font> I mainly switched to 64-bit so I could fix 64-bit related bugs in my own software.<br/>
+<font color="#A82F2F"><font size="2">(06:19:00 PM)</font> <b>male:</b></font> That and preparing for future memory bloat hardly seems like a noble reason to switch.<br/>
+<font color="#A82F2F"><font size="2">(06:19:04 PM)</font> <b>nedko:</b></font> male: and in linux there is also mixed mode :)<br/>
+<font color="#A82F2F"><font size="2">(06:19:40 PM)</font> <b>nedko:</b></font> also, you can run 64bit os as a guest of 32bit os<br/>
+<font color="#A82F2F"><font size="2">(06:19:49 PM)</font> <b>nedko:</b></font> if your cpu is 64bit one<br/>
+<font color="#A82F2F"><font size="2">(06:20:01 PM)</font> <b>falktx:</b></font> male: try this:<br/>
+<font color="#A82F2F"><font size="2">(06:20:03 PM)</font> <b>falktx:</b></font> echo &quot;int main(){while(1) new long;return 0;}&quot; &gt; /tmp/r.cc; g++ /tmp/r.cc -o ramtest; ./ramtest<br/>
+<font color="#A82F2F"><font size="2">(06:20:06 PM)</font> <b>falktx:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(06:20:54 PM)</font> <b>nedko:</b></font> falktx: address space size test?<br/>
+<font color="#A82F2F"><font size="2">(06:21:06 PM)</font> <b>falktx:</b></font> nedko: fill all your ram test<br/>
+<font color="#A82F2F"><font size="2">(06:21:19 PM)</font> <b>nedko:</b></font> falktx: no, at least not on linux<br/>
+<font color="#A82F2F"><font size="2">(06:21:23 PM)</font> <b>nedko:</b></font> because of memory overcommit<br/>
+<font color="#A82F2F"><font size="2">(06:21:27 PM)</font> <b>falktx:</b></font> wanna try?<br/>
+<font color="#A82F2F"><font size="2">(06:21:53 PM)</font> <b>nedko:</b></font> unless new fills memory<br/>
+<font color="#A82F2F"><font size="2">(06:21:55 PM)</font> <b>falktx:</b></font> I get into 700Mb quickly, let me check again<br/>
+<font color="#A82F2F"><font size="2">(06:22:18 PM)</font> <b>nedko:</b></font> you get pages but not backed with actual ram<br/>
+<font color="#A82F2F"><font size="2">(06:22:36 PM)</font> <b>falktx:</b></font> ha! terminal says:<br/>
+<font color="#A82F2F"><font size="2">(06:22:44 PM)</font> <b>falktx:</b></font> &quot;Killed&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:22:44 PM)</font> <b>male:</b></font> HarryHaaren: Looking good on Luppp, BTW.<br/>
+<font color="#A82F2F"><font size="2">(06:22:44 PM)</font> <b>falktx:</b></font> linux works!<br/>
+<font color="#A82F2F"><font size="2">(06:23:30 PM)</font> <b>falktx:</b></font> nedko: calloc should be better, right?<br/>
+<font color="#A82F2F"><font size="2">(06:23:38 PM)</font> <b>nedko:</b></font> falktx: depends on what you want to test<br/>
+<font color="#A82F2F"><font size="2">(06:23:51 PM)</font> <b>falktx:</b></font> not test, screwing a system<br/>
+<font color="#A82F2F"><font size="2">(06:24:07 PM)</font> <b>nedko:</b></font> you cannot, the system got guns. BAM! you are dead<br/>
+<font color="#A82F2F"><font size="2">(06:24:22 PM)</font> <b>nedko:</b></font> OOM killer shot you down<br/>
+<font color="#A82F2F"><font size="2">(06:24:31 PM)</font> <b>nedko:</b></font> shut<br/>
+<font color="#A82F2F"><font size="2">(06:24:32 PM)</font> <b>nedko:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(06:24:34 PM)</font> <b>male:</b></font> falktx: The stress program has options for this and more.<br/>
+<font color="#A82F2F"><font size="2">(06:25:42 PM)</font> <b>falktx:</b></font> nedko: I think so, I got &quot;Killed&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:26:43 PM)</font> <b>falktx:</b></font> male: btw, should this sse flag set only when in realtime mode, or always?<br/>
+<font color="#A82F2F"><font size="2">(06:27:58 PM)</font> <b>male:</b></font> falktx: Always, as long as its in each clients process() thread i.e. just before calling the thread_init callback.<br/>
+<font color="#A82F2F"><font size="2">(06:28:31 PM)</font> <b>falktx:</b></font> before or after thread_init() ?<br/>
+<font color="#A82F2F"><font size="2">(06:29:01 PM)</font> <b>falktx:</b></font> I don&apos;t think it matters, as long as it&apos;s on the same thread<br/>
+<font color="#A82F2F"><font size="2">(06:29:08 PM)</font> <b>male:</b></font> falktx: Well, I&apos;d say before because then the client could override it if it really wanted to or check if the flags are set.<br/>
+<font color="#A82F2F"><font size="2">(06:30:46 PM)</font> <b>male:</b></font> falktx: Oh, and make sure it&apos;ll work even if the client hasn&apos;t set a callback on thread_init!<br/>
+<font color="#A82F2F"><font size="2">(06:30:50 PM)</font> <b>male:</b></font> falktx: (because most clients that this would help wouldn&apos;t)<br/>
+<font color="#A82F2F"><font size="2">(06:30:55 PM)</font> <b>falktx:</b></font> jack2 calls thread_init on each jack_activate it seems<br/>
+<font color="#A82F2F"><font size="2">(06:32:02 PM)</font> <b>HarryHaaren:</b></font> cheers male<br/>
+<font color="#A82F2F"><font size="2">(06:33:52 PM)</font> <b>falktx:</b></font> male: done, https://github.com/falkTX/jack2/commit/6f7b83abdf0326828565a9c4f73394dd636694ba<br/>
+<font color="#A82F2F"><font size="2">(06:33:57 PM)</font> <b>male:</b></font> HarryHaaren: Hey, how did you make the video, BTW?<br/>
+<font color="#A82F2F"><font size="2">(06:34:21 PM)</font> <b>HarryHaaren:</b></font> good auld gtk-recordmysdesktop... its not too bad for sync. Pure fluke though :D<br/>
+<font color="#A82F2F"><font size="2">(06:34:43 PM)</font> <b>male:</b></font> falktx: Shouldn&apos;t it be #ifdef in both places?<br/>
+<font color="#A82F2F"><font size="2">(06:35:01 PM)</font> <b>falktx:</b></font> male: I don&apos;t know, I copied from your code<br/>
+<font color="#A82F2F"><font size="2">(06:35:17 PM)</font> <b>male:</b></font> falktx: Heh. I&apos;ll fix it there too ;-)<br/>
+<font color="#A82F2F"><font size="2">(06:35:24 PM)</font> <b>falktx:</b></font> haha, busted<br/>
+<font color="#A82F2F"><font size="2">(06:35:43 PM)</font> <b>male:</b></font> falktx: Don&apos;t forget that you have to build JACK with the right flags.<br/>
+<font color="#A82F2F"><font size="2">(06:35:52 PM)</font> <b>falktx:</b></font> yes, I added #error because of it<br/>
+<font color="#A82F2F"><font size="2">(06:37:29 PM)</font> <b>falktx:</b></font> hmm, jack doesn&apos;t seem to set optimizations flags, or am I missing something?<br/>
+<font color="#A82F2F"><font size="2">(06:38:24 PM)</font> <b>male:</b></font> falktx: I think you&apos;re right.<br/>
+<font color="#A82F2F"><font size="2">(06:38:50 PM)</font> <b>falktx:</b></font> male: -O2 or -O3 for jack?<br/>
+<font color="#A82F2F"><font size="2">(06:39:22 PM)</font> <b>male:</b></font> falktx: With that old gcc, I don&apos;t know that it makes a huge difference.<br/>
+<font color="#A82F2F"><font size="2">(06:39:36 PM)</font> <b>falktx:</b></font> that old gcc will not build jack<br/>
+<font color="#A82F2F"><font size="2">(06:39:51 PM)</font> <b>male:</b></font> falktx: JACK appears to have hard coded sse optimization.<br/>
+<font color="#A82F2F"><font size="2">(06:39:58 PM)</font> <b>falktx:</b></font> jack is build with gcc4.6 (ubuntu) and gcc4.7 (debian)<br/>
+<font color="#A82F2F"><font size="2">(06:40:19 PM)</font> <b>falktx:</b></font> I&apos;ll add the defauls &quot;-O3 -ffast-math -mtune=generic -msse -msse2 -mfpmath=sse&quot; anyway<br/>
+<font color="#A82F2F"><font size="2">(06:40:35 PM)</font> <b>male:</b></font> falktx: Look ni JackAudioPort.cpp<br/>
+<font color="#A82F2F"><font size="2">(06:40:56 PM)</font> <b>male:</b></font> falktx: -msse is redundant. It&apos;s enabled on 64-bit always.<br/>
+<font color="#A82F2F"><font size="2">(06:41:12 PM)</font> <b>male:</b></font> falktx: But sse2 is not IIRC.<br/>
+<font color="#A82F2F"><font size="2">(06:41:30 PM)</font> <b>male:</b></font> falktx: I&apos;m not really sure what effect mtune=generic will have.<br/>
+<font color="#A82F2F"><font size="2">(06:41:48 PM)</font> <b>falktx:</b></font> it&apos;s set before sse, so it&apos;s safe<br/>
+<font color="#A82F2F"><font size="2">(06:42:00 PM)</font> <b>falktx:</b></font> it&apos;s usually there to ensure it replaces -march=native<br/>
+<font color="#A82F2F"><font size="2">(06:42:15 PM)</font> <b>falktx:</b></font> arch=native is evil on repositories<br/>
+<font color="#A82F2F"><font size="2">(06:44:45 PM)</font> <b>male:</b></font> falktx: I believe it.<br/>
+<font color="#A82F2F"><font size="2">(06:46:06 PM)</font> <b>male:</b></font> falktx: So, technically as long as -msse is on (which is is always on 64-bit) JACK2 will be using SSE for its port mixing, which is the only thing that would potentially have denormal problems.<br/>
+<font color="#A82F2F"><font size="2">(06:46:37 PM)</font> <b>male:</b></font> falktx: But since that flag setting stuff is conditioned on SSE2, you need that as well, (the DAZ flag is new in SSSE2)<br/>
+<font color="#A82F2F"><font size="2">(06:47:18 PM)</font> <b>falktx:</b></font> I&apos;m uploading the optimized package for building, I&apos;ll do some tests tomorrow<br/>
+<font color="#A82F2F"><font size="2">(06:56:56 PM)</font> <b>male:</b></font> falktx: There was a denormal generating test thingie floating around lad somewhere.<br/>
+<font color="#A82F2F"><font size="2">(06:59:19 PM)</font> <b>falktx:</b></font> male: can&apos;t we just add a very small value in a plugin? that should work right?<br/>
+<font color="#A82F2F"><font size="2">(06:59:38 PM)</font> <b>falktx:</b></font> ie, buffer[i]= 0.000000000000000000000000000000000000000000000000000000000000000000000000000001f<br/>
+<font color="#A82F2F"><font size="2">(07:00:18 PM)</font> <b>male:</b></font> falktx: A plugin to what? Most if not all plugin hosts are already setting the FTZ and DAZ flags.<br/>
+<font color="#A82F2F"><font size="2">(07:00:55 PM)</font> <b>falktx:</b></font> except mine, cause I actually didn&apos;t know about this... :shame:<br/>
+<font color="#A82F2F"><font size="2">(07:01:11 PM)</font> <b>HarryHaaren:</b></font> for plugin stress-testing? https://github.com/cth103/plugin-torture<br/>
+<font color="#A82F2F"><font size="2">(07:01:44 PM)</font> <b>male:</b></font> HarryHaaren: I thought there was a jack app for it.<br/>
+<font color="#A82F2F"><font size="2">(07:01:57 PM)</font> <b>falktx:</b></font> I think so too, I remember<br/>
+<font color="#A82F2F"><font size="2">(07:02:09 PM)</font> <b>male:</b></font> falktx: Anyway, according to that readme, it&apos;s a buffer full of 1e-38f.<br/>
+<font color="#A82F2F"><font size="2">(07:02:11 PM)</font> <b>HarryHaaren:</b></font> ah ok.. umm dunno. If you find it, link me please, I&apos;d like to stress test mine :)<br/>
+<font color="#A82F2F"><font size="2">(07:02:13 PM)</font> <b>bobo1on1:</b></font> falktx: FLT_MIN?<br/>
+<font color="#A82F2F"><font size="2">(07:03:00 PM)</font> <b>falktx:</b></font> see http://jackaudio.org/applications<br/>
+<font color="#A82F2F"><font size="2">(07:03:13 PM)</font> <b>falktx:</b></font> there&apos;s &quot;jack-demolition&quot; in there<br/>
+<font color="#A82F2F"><font size="2">(07:03:18 PM)</font> <b>bobo1on1:</b></font> in my app I just set denormals to zero when they come out of a ladspa plugin<br/>
+<font color="#A82F2F"><font size="2">(07:03:22 PM)</font> <b>falktx:</b></font> &quot;a very simple jack client that connects to every input port and squirts undesirable numbers (denomals, HUGE, NaN, Inf etc.) to it.&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:03:43 PM)</font> <b>male:</b></font> falktx: That&apos;s the one.<br/>
+<font color="#A82F2F"><font size="2">(07:04:30 PM)</font> <b>falktx:</b></font> male: from 2003<br/>
+<font color="#A82F2F"><font size="2">(07:05:34 PM)</font> <b>falktx:</b></font> 1.0/0.0 == +inf ??<br/>
+<font color="#A82F2F"><font size="2">(07:06:28 PM)</font> <b>male:</b></font> falktx: That *is* a constant.<br/>
+<font size="2">(07:06:34 PM)</font><b> kardioid left the room (quit: Quit: Lost terminal).</b><br/>
+<font color="#A82F2F"><font size="2">(07:07:01 PM)</font> <b>bobo1on1:</b></font> the compiler calculates that at compile time and replaces it with a constant<br/>
+<font color="#A82F2F"><font size="2">(07:07:38 PM)</font> <b>falktx:</b></font> ok, another new thing to me<br/>
+<font color="#A82F2F"><font size="2">(07:07:43 PM)</font> <b>male:</b></font> bobo1on1: Your approach is not very efficient and doesn&apos;t help all the time wasted processing denormals inside the plugin.<br/>
+<font color="#A82F2F"><font size="2">(07:08:07 PM)</font> <b>bobo1on1:</b></font> yes I am perfectly happy with it<br/>
+<font color="#A82F2F"><font size="2">(07:08:09 PM)</font> <b>male:</b></font> bobo1on1: It&apos;s better than nothing... But nothing is better than FTZ and DAZ flags.<br/>
+<font color="#A82F2F"><font size="2">(07:08:20 PM)</font> <b>bobo1on1:</b></font> :P<br/>
+<font color="#A82F2F"><font size="2">(07:08:30 PM)</font> <b>bobo1on1:</b></font> I use sse for it, it&apos;s quite fast<br/>
+<font color="#A82F2F"><font size="2">(07:09:22 PM)</font> <b>male:</b></font> bobo1on1: Also, you may or may not know this, but some plugins actually set the cpu flags themselves.<br/>
+<font color="#A82F2F"><font size="2">(07:09:27 PM)</font> <b>male:</b></font> bobo1on1: The CAPS plugins do.<br/>
+<font color="#A82F2F"><font size="2">(07:09:58 PM)</font> <b>male:</b></font> bobo1on1: (which I think is a little evil)<br/>
+<font size="2">(07:10:15 PM)</font><b> basti_ [<em>~basti@p54AE07C2.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:10:15 PM)</font> <b>bobo1on1:</b></font> that is indeed evil<br/>
+<font color="#A82F2F"><font size="2">(07:12:49 PM)</font> <b>bobo1on1:</b></font> libraries should not set global process flags<br/>
+<font color="#A82F2F"><font size="2">(07:13:06 PM)</font> <b>nedko:</b></font> plugins are evil<br/>
+<font color="#A82F2F"><font size="2">(07:13:15 PM)</font> <b>male:</b></font> bobo1on1: I tried to convince Tim of that, but he&apos;s quite hard headed.<br/>
+<font color="#A82F2F"><font size="2">(07:13:16 PM)</font> <b>bobo1on1:</b></font> so are you<br/>
+<font color="#A82F2F"><font size="2">(07:13:53 PM)</font> <b>male:</b></font> bobo1on1: At least he moved it out of activate(), where it was setting the flags in Non Mixer&apos;s GUI thread.<br/>
+<font color="#A82F2F"><font size="2">(07:14:02 PM)</font> <b>bobo1on1:</b></font> nvidia&apos;s closed libGL once screwed up popen()<br/>
+<font color="#A82F2F"><font size="2">(07:14:20 PM)</font> <b>bobo1on1:</b></font> now that is nasty<br/>
+<font color="#A82F2F"><font size="2">(07:14:21 PM)</font> <b>male:</b></font> bobo1on1: But the nature of plugins implies that the author cannot guess the context in which they will be run.<br/>
+<font color="#A82F2F"><font size="2">(07:14:30 PM)</font> <b>male:</b></font> bobo1on1: And he doesn&apos;t seem to get that.<br/>
+<font color="#A82F2F"><font size="2">(07:14:38 PM)</font> <b>bobo1on1:</b></font> yeah so, use standard C<br/>
+<font color="#A82F2F"><font size="2">(07:14:46 PM)</font> <b>bobo1on1:</b></font> you can assume that will work<br/>
+<font color="#A82F2F"><font size="2">(07:15:03 PM)</font> <b>bobo1on1:</b></font> it&apos;s not like a plugin has to do any kind of IO<br/>
+<font color="#A82F2F"><font size="2">(07:16:23 PM)</font> <b>male:</b></font> bobo1on1: Heh. The LV2 plugins do I/O to load IR files and whatnot.<br/>
+<font color="#A82F2F"><font size="2">(07:16:39 PM)</font> <b>bobo1on1:</b></font> ugh<br/>
+<font size="2">(07:18:27 PM)</font><b> schiv [<em>~schiv@archlinux/developer/schiv</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:20:52 PM)</font> <b>male:</b></font> http://hackaday.com/2013/08/27/building-a-high-end-usb-audio-dac/<br/>
+<font color="#A82F2F"><font size="2">(07:27:40 PM)</font> <b>nedko:</b></font> male: interesting<br/>
+<font size="2">(07:30:49 PM)</font><b> nilg` left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(07:33:51 PM)</font><b> Tumulte left the room (quit: Quit: Lost terminal).</b><br/>
+<font color="#A82F2F"><font size="2">(07:45:14 PM)</font> <b>falktx:</b></font> male: jack2 build fails on 32bit, sse2 is missing... hrmmm<br/>
+<font color="#A82F2F"><font size="2">(07:45:23 PM)</font> <b>falktx:</b></font> (sorry for the paste)<br/>
+<font color="#A82F2F"><font size="2">(07:45:25 PM)</font> <b>falktx:</b></font> g++ -Wall -fPIC -fvisibility=hidden -Ibuild/linux -Ilinux -Ibuild/posix -Iposix -Ibuild/common -Icommon -Ibuild/common/jack -Icommon/jack -Ibuild -I -I/usr/include/opus -I/usr/include/dbus-1.0 -I/usr/lib/i386-linux-gnu/dbus-1.0/include -DHAVE_ALSA=1 -DHAVE_LIBFFADO=1 -DHAVE_PPOLL=1 -DHAVE_DBUS_1=1 -DHAVE_EXPAT=1 -DHAVE_SAMPLERATE=1 -DHAVE_SNDFILE=1 -DHAVE_READLINE=1 -DHAVE_CELT=0 -DHAVE_CELT_API_0_11=0 -DHAVE_CELT_API_0_8=0 -DHAVE_CELT_API_0_7=0 -<br/>
+<font color="#A82F2F"><font size="2">(07:45:26 PM)</font> <b>falktx:</b></font> DHAVE_CELT_API_0_5=0 -DHAVE_OPUS=1 -DHAVE_OPUS_OPUS_CUSTOM_H=1 -DUSE_LIBDBUS_AUTOLAUNCH=1 -DCLIENT_NUM=256 -DPORT_NUM_FOR_CLIENT=2048 -DADDON_DIR=&quot;/usr/lib/i386-linux-gnu/jack&quot; -DJACK_LOCATION=&quot;/usr/bin&quot; -DUSE_POSIX_SHM=1 -DJACKMP=1 -DJACK_DBUS=1 -DHAVE_CONFIG_H -DSERVER_SIDE ../common/JackClient.cpp -c -o common/JackClient.cpp.1.o<br/>
+<font color="#A82F2F"><font size="2">(07:45:49 PM)</font> <b>falktx:</b></font> my CFLAGS and CXXFLAGS were set properly<br/>
+<font color="#A82F2F"><font size="2">(07:48:08 PM)</font> <b>falktx:</b></font> debian doesn&apos;t really like waf<br/>
+<font size="2">(07:52:32 PM)</font><b> falktx left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(08:29:16 PM)</font><b> HisaoNakai left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(08:33:14 PM)</font><b> distrozapper [<em>~Robert@212.23.103.76</em>] entered the room.</b><br/>
+<font size="2">(08:37:16 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(08:38:55 PM)</font><b> HisaoNakai left the room (quit: Excess Flood).</b><br/>
+<font size="2">(08:39:49 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(08:46:36 PM)</font><b> alex-EU [<em>~alex@213.192.34.156</em>] entered the room.</b><br/>
+<font size="2">(09:02:38 PM)</font><b> thorwil [<em>~thorwil@p4FFB5F9E.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:08:03 PM)</font> <b>bobo1on1:</b></font> I just ordered an asus xonar d2x<br/>
+<font color="#A82F2F"><font size="2">(09:08:08 PM)</font> <b>bobo1on1:</b></font> I hope it&apos;s good<br/>
+<font color="#A82F2F"><font size="2">(09:12:30 PM)</font> <b>male:</b></font> bobo1on1: You&apos;re not going to miss balanced I/Os?<br/>
+<font color="#A82F2F"><font size="2">(09:12:54 PM)</font> <b>male:</b></font> bobo1on1: I love how all this asus stuff is wrapped in plastic shrouds instead of you know.. sheilding.<br/>
+<font color="#A82F2F"><font size="2">(09:13:13 PM)</font> <b>bobo1on1:</b></font> I don&apos;t need balanced IO for an amp without balanced input<br/>
+<font color="#A82F2F"><font size="2">(09:13:28 PM)</font> <b>bobo1on1:</b></font> I designed my amp properly, I don&apos;t need balanced IO at all in fact<br/>
+<font color="#A82F2F"><font size="2">(09:14:39 PM)</font> <b>male:</b></font> bobo1on1: How does all this dolby headphone shit work? Can you use it with linux?<br/>
+<font color="#A82F2F"><font size="2">(09:14:52 PM)</font> <b>male:</b></font> bobo1on1: Does it do HRTF on 8.1 output or something?<br/>
+<font color="#A82F2F"><font size="2">(09:15:06 PM)</font> <b>bobo1on1:</b></font> I have no idea, it&apos;s probably some software solution<br/>
+<font color="#A82F2F"><font size="2">(09:15:11 PM)</font> <b>bobo1on1:</b></font> which is probably crap<br/>
+<font color="#A82F2F"><font size="2">(09:15:13 PM)</font> <b>male:</b></font> bobo1on1: Balls.<br/>
+<font color="#A82F2F"><font size="2">(09:15:20 PM)</font> <b>bobo1on1:</b></font> what?<br/>
+<font size="2">(09:15:29 PM)</font><b> alex-EU left the room (quit: Quit: Ex-Chat).</b><br/>
+<font color="#A82F2F"><font size="2">(09:15:34 PM)</font> <b>male:</b></font> bobo1on1: Testicals.<br/>
+<font color="#A82F2F"><font size="2">(09:15:53 PM)</font> <b>bobo1on1:</b></font> yes, I have those, how does it relate to this conversation? :)<br/>
+<font color="#A82F2F"><font size="2">(09:16:11 PM)</font> <b>male:</b></font> bobo1on1: It would be nice if it was in hardware with a control in the hardware mixer interface.<br/>
+<font color="#A82F2F"><font size="2">(09:16:17 PM)</font> <b>bobo1on1:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(09:16:32 PM)</font> <b>bobo1on1:</b></font> I think it&apos;s just HRTF with some room reverb stuff<br/>
+<font color="#A82F2F"><font size="2">(09:16:49 PM)</font> <b>bobo1on1:</b></font> so basically it makes your headphones sound like a room with speakers in it<br/>
+<font color="#A82F2F"><font size="2">(09:16:59 PM)</font> <b>bobo1on1:</b></font> which is exactlt what I don&apos;t want from headphones<br/>
+<font size="2">(09:17:04 PM)</font><b> alex-EU [<em>~alex@213.192.34.156</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:17:17 PM)</font> <b>male:</b></font> bobo1on1: We really need a free software b-format to binarual solution.<br/>
+<font color="#A82F2F"><font size="2">(09:17:34 PM)</font> <b>bobo1on1:</b></font> there is bs2b<br/>
+<font color="#A82F2F"><font size="2">(09:17:43 PM)</font> <b>male:</b></font> bobo1on1: There&apos;s some stuff in supercollider, but well, that&apos;s supercollider.<br/>
+<font color="#A82F2F"><font size="2">(09:17:59 PM)</font> <b>bobo1on1:</b></font> http://bs2b.sourceforge.net/<br/>
+<font color="#A82F2F"><font size="2">(09:18:15 PM)</font> <b>bobo1on1:</b></font> but it&apos;s just delay + attenuation + lowpass<br/>
+<font color="#A82F2F"><font size="2">(09:18:15 PM)</font> <b>bobo1on1:</b></font> no hrtf<br/>
+<font color="#A82F2F"><font size="2">(09:18:36 PM)</font> <b>male:</b></font> bobo1on1: There are plenty of stereo to biaural things.<br/>
+<font color="#A82F2F"><font size="2">(09:18:51 PM)</font> <b>bobo1on1:</b></font> what would be better, is if you could guess the direction of a sound from a 5.1 signal, and then position it using hrtf<br/>
+<font color="#A82F2F"><font size="2">(09:19:24 PM)</font> <b>male:</b></font> bobo1on1: You don&apos;t have to guess in 5.1.<br/>
+<font color="#A82F2F"><font size="2">(09:19:24 PM)</font> <b>male:</b></font> bobo1on1: You just need 5 HRTF IRs.<br/>
+<font color="#A82F2F"><font size="2">(09:19:32 PM)</font> <b>bobo1on1:</b></font> that just makes it sound like 5 speakers<br/>
+<font color="#A82F2F"><font size="2">(09:19:43 PM)</font> <b>male:</b></font> bobo1on1: O_o.<br/>
+<font color="#A82F2F"><font size="2">(09:21:24 PM)</font> <b>male:</b></font> bobo1on1: It&apos;s still going into the same perceptual system that makes phantom images.<br/>
+<font color="#A82F2F"><font size="2">(09:21:25 PM)</font> <b>male:</b></font> bobo1on1: It doesn&apos;t matter if the speakers are real or virtual.<br/>
+<font color="#A82F2F"><font size="2">(09:21:25 PM)</font> <b>male:</b></font> bobo1on1: Assuming the HRTF is any good.<br/>
+<font color="#A82F2F"><font size="2">(09:21:25 PM)</font> <b>bobo1on1:</b></font> what I wonder is, if you assume sounds come from a point source, can you guess where it&apos;s coming from based on the 5 signals<br/>
+<font color="#A82F2F"><font size="2">(09:21:25 PM)</font> <b>bobo1on1:</b></font> then apply specific hrtf to that<br/>
+<font color="#A82F2F"><font size="2">(09:21:25 PM)</font> <b>male:</b></font> bobo1on1: You&apos;d need infinite HRTFs.<br/>
+<font color="#A82F2F"><font size="2">(09:21:25 PM)</font> <b>male:</b></font> bobo1on1: Which is kind of what you need for B-Format to binaural.<br/>
+<font color="#A82F2F"><font size="2">(09:21:25 PM)</font> <b>bobo1on1:</b></font> or quantized with high enough resolution<br/>
+<font color="#A82F2F"><font size="2">(09:21:27 PM)</font> <b>male:</b></font> bobo1on1: But 16 or 32 should be plenty.<br/>
+<font color="#A82F2F"><font size="2">(09:21:54 PM)</font> <b>bobo1on1:</b></font> I guess you would have to know how the studios mix sound to make it come from a certain direction<br/>
+<font color="#A82F2F"><font size="2">(09:22:11 PM)</font> <b>male:</b></font> bobo1on1: What studios? Not if it&apos;s b-format.<br/>
+<font color="#A82F2F"><font size="2">(09:22:35 PM)</font> <b>male:</b></font> bobo1on1: If it&apos;s 5.1 or 7.1 or whatever, then it&apos;s always the same shitty two speaker intesitiy panning.<br/>
+<font color="#A82F2F"><font size="2">(09:22:43 PM)</font> <b>bobo1on1:</b></font> ah, b-format<br/>
+<font color="#A82F2F"><font size="2">(09:23:03 PM)</font> <b>bobo1on1:</b></font> then you already have all the info you need<br/>
+<font color="#A82F2F"><font size="2">(09:23:44 PM)</font> <b>male:</b></font> bobo1on1: Yep. And I said supercollider has this in the ATK, I forget how many IRs and virtual speakers they used though. But that&apos;s got a usability level slightly above 0.<br/>
+<font color="#A82F2F"><font size="2">(09:24:13 PM)</font> <b>bobo1on1:</b></font> well, if you start with an hrtf algorithm<br/>
+<font color="#A82F2F"><font size="2">(09:24:28 PM)</font> <b>bobo1on1:</b></font> or just get a dummy, 2 measuring microphones and an anechoic chamber<br/>
+<font size="2">(09:25:10 PM)</font><b> HarryHaaren left the room (quit: Quit: Quittin&apos;).</b><br/>
+<font color="#A82F2F"><font size="2">(09:25:15 PM)</font> <b>male:</b></font> bobo1on1: Just ;-)<br/>
+<font color="#A82F2F"><font size="2">(09:25:29 PM)</font> <b>bobo1on1:</b></font> yeah? :P<br/>
+<font color="#A82F2F"><font size="2">(09:25:37 PM)</font> <b>male:</b></font> bobo1on1: I think the IRs exist already. It&apos;s just a matter of packaging the whole thing in a usable way.<br/>
+<font color="#A82F2F"><font size="2">(09:25:53 PM)</font> <b>bobo1on1:</b></font> hey if you get enough IRs, you can just apply them<br/>
+<font color="#A82F2F"><font size="2">(09:25:54 PM)</font> <b>male:</b></font> bobo1on1: I.e. as a simple JACK app or plugin.<br/>
+<font color="#A82F2F"><font size="2">(09:26:17 PM)</font> <b>bobo1on1:</b></font> but where to get movies with b-format audio<br/>
+<font color="#A82F2F"><font size="2">(09:26:45 PM)</font> <b>male:</b></font> bobo1on1: well, you can always encode 5.1 to b-format. That&apos;s fairly trivial.<br/>
+<font color="#A82F2F"><font size="2">(09:27:02 PM)</font> <b>bobo1on1:</b></font> but doesn&apos;t that make it sound again like 5 speakers?<br/>
+<font color="#A82F2F"><font size="2">(09:27:31 PM)</font> <b>male:</b></font> bobo1on1: I don&apos;t know where you get the idea that having 5 speakers in one context is different from having them in another.<br/>
+<font color="#A82F2F"><font size="2">(09:27:44 PM)</font> <b>male:</b></font> bobo1on1: 5.1 is always 5 speakers.<br/>
+<font color="#A82F2F"><font size="2">(09:28:02 PM)</font> <b>bobo1on1:</b></font> true<br/>
+<font color="#A82F2F"><font size="2">(09:28:25 PM)</font> <b>bobo1on1:</b></font> normal directional mixing in studios, is that just volume mixing on different channels?<br/>
+<font color="#A82F2F"><font size="2">(09:28:32 PM)</font> <b>bobo1on1:</b></font> or are there some delays used as well<br/>
+<font color="#A82F2F"><font size="2">(09:28:50 PM)</font> <b>male:</b></font> bobo1on1: Well, I&apos;m sure they use delays, but not intelligently--simply for effect.<br/>
+<font color="#A82F2F"><font size="2">(09:28:59 PM)</font> <b>bobo1on1:</b></font> hm<br/>
+<font size="2">(09:29:04 PM)</font><b> teak [<em>~teak@64.150.196.95</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:29:33 PM)</font> <b>male:</b></font> bobo1on1: But yeah, 5.1 is normally mixed in a very unreal way. You have a center channel with just e.g. dialog on it.<br/>
+<font color="#A82F2F"><font size="2">(09:29:49 PM)</font> <b>bobo1on1:</b></font> yes, which I find sounds like utter shit<br/>
+<font color="#A82F2F"><font size="2">(09:29:55 PM)</font> <b>male:</b></font> bobo1on1: Then you have effects that are just intensity panned between two or even one speaker so that e.g. an explosion happens somewhere behind.<br/>
+<font color="#A82F2F"><font size="2">(09:30:15 PM)</font> <b>male:</b></font> bobo1on1: Mostly it&apos;s just normal stereo intensity panning + a center channel that&apos;s unrelated to the others.<br/>
+<font color="#A82F2F"><font size="2">(09:30:16 PM)</font> <b>bobo1on1:</b></font> center mixed on the fronts sounds way better imho<br/>
+<font color="#A82F2F"><font size="2">(09:30:53 PM)</font> <b>male:</b></font> bobo1on1: I think the center speaker is useless. It&apos;s more of a cinema thing than a home theater thing.<br/>
+<font color="#A82F2F"><font size="2">(09:31:02 PM)</font> <b>bobo1on1:</b></font> but I prefer headphoes for watching movies<br/>
+<font color="#A82F2F"><font size="2">(09:31:08 PM)</font> <b>male:</b></font> bobo1on1: In a big theater, it helps even out the front of the sound image.<br/>
+<font color="#A82F2F"><font size="2">(09:31:10 PM)</font> <b>bobo1on1:</b></font> yes, for cinemas a center speaker is probably preferred<br/>
+<font color="#A82F2F"><font size="2">(09:31:33 PM)</font> <b>bobo1on1:</b></font> otherwise in certain positions you can&apos;t understand the dialog because of the smearing<br/>
+<font color="#A82F2F"><font size="2">(09:32:05 PM)</font> <b>bobo1on1:</b></font> not that I ever go to a cinema<br/>
+<font size="2">(09:32:24 PM)</font><b> corresponder left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(09:33:17 PM)</font> <b>male:</b></font> bobo1on1: But when you encode 5.1 to b-format, you are effectively merging the center and side speakers.<br/>
+<font color="#A82F2F"><font size="2">(09:33:26 PM)</font> <b>bobo1on1:</b></font> correct<br/>
+<font color="#A82F2F"><font size="2">(09:35:08 PM)</font> <b>bobo1on1:</b></font> so anyway, I hope this soundcard will sound nice<br/>
+<font color="#A82F2F"><font size="2">(09:35:34 PM)</font> <b>bobo1on1:</b></font> I&apos;m building an htpc with integrated audio amplifier<br/>
+<font color="#A82F2F"><font size="2">(09:37:26 PM)</font> <b>male:</b></font> bobo1on1: Cool. Just for stereo? What amp are you going to use?<br/>
+<font size="2">(09:50:24 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

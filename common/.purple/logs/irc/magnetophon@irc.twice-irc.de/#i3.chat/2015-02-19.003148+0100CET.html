@@ -1,0 +1,39 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #i3 at Thu 19 Feb 2015 12:31:48 AM CET on magnetophon@irc.twice-irc.de (irc)</title></head><body><h3>Conversation with #i3 at Thu 19 Feb 2015 12:31:48 AM CET on magnetophon@irc.twice-irc.de (irc)</h3>
+<font size="2">(12:31:48 AM)</font><b> The topic for #i3 is: i3 v4.8 released | i3status 2.8 released | i3lock 2.6 released | <a href="http://code.i3wm.org/">http://code.i3wm.org/</a> | <a href="http://i3wm.org/">http://i3wm.org/</a> | <a href="http://faq.i3wm.org/">http://faq.i3wm.org/</a> | <a href="http://build.i3wm.org/download-count.txt">http://build.i3wm.org/download-count.txt</a> | paste at <a href="http://p.nnev.de/">http://p.nnev.de/</a> | file upload at <a href="https://transfer.sh/">https://transfer.sh/</a></b><br/>
+<font size="2">(12:31:48 AM)</font><b> Topic for #i3 set by sECuRE at 09:42:18 AM on 10/06/2014</b><br/>
+<font color="#A82F2F"><font size="2">(01:01:33 AM)</font> <b>gsingh93:</b></font> i&apos;m trying to save and restore a layout that has weechat as a window, but it&apos;s not working<br/>
+<font color="#A82F2F"><font size="2">(01:02:07 AM)</font> <b>gsingh93:</b></font> if i open a terminal and type `weechat`, should it get moved to the weechat placeholder window?<br/>
+<font color="#A82F2F"><font size="2">(01:02:16 AM)</font> <b>gsingh93:</b></font> or does it not work for terminal applications<br/>
+<font color="#A82F2F"><font size="2">(01:04:57 AM)</font> <b>gsingh93:</b></font> yea, actually, it makes sense that it wouldn&apos;t work for terminal problems<br/>
+<font color="#A82F2F"><font size="2">(01:05:02 AM)</font> <b>gsingh93:</b></font> programs*<br/>
+<font color="#A82F2F"><font size="2">(01:05:10 AM)</font> <b>gsingh93:</b></font> is there any workaround?<br/>
+<font size="2">(05:57:27 AM)</font><b> kruM is now known as kraM</b><br/>
+<font color="#A82F2F"><font size="2">(08:50:54 AM)</font> <b>deterenkelt:</b></font> There is a bug that lets Thunar to run an application in such a way that its window appear on the current workspace ignoring i3 rules for WM_CLASS. For example, I have Thunar on 3:Thunar workspace, and ‘assign [class=&quot;^libreoffice.*&quot;] → &quot;5:Misc&quot;’ in my ~/.i3/config. If I open a document in Thunar by doubleclicking it, the document opens on the fifth workspace, but if I run it from the right mouse button menu (the topmost item—libreoff<br/>
+<font color="#A82F2F"><font size="2">(08:59:55 AM)</font> <b>lasers:</b></font> deterenkelt: Did you try it with different apps (GUI editors)? I&apos;m unable to get the same behavior. It kept opening the editor in the correct place. <br/>
+<font color="#A82F2F"><font size="2">(09:00:05 AM)</font> <b>lasers:</b></font> (I don&apos;t have libreoffice installed)<br/>
+<font color="#A82F2F"><font size="2">(09:02:35 AM)</font> <b>lasers:</b></font> Also, what version?  $ i3 -v<br/>
+<font color="#A82F2F"><font size="2">(09:03:09 AM)</font> <b>deterenkelt:</b></font> i3 version 4.8 (2014-06-15, branch &quot;4.8&quot;) © 2009-2014 Michael Stapelberg and contributors<br/>
+<font color="#A82F2F"><font size="2">(09:03:39 AM)</font> <b>deterenkelt:</b></font> I think it may be somehow related to that /usr/bin/loffice wrapper application<br/>
+<font color="#A82F2F"><font size="2">(09:04:44 AM)</font> <b>deterenkelt:</b></font> Like Thunar runs it and it starting the actual app then dies.<br/>
+<font color="#A82F2F"><font size="2">(09:04:51 AM)</font> <b>lasers:</b></font> deterenkelt: I think your first message got cut off.<br/>
+<font color="#A82F2F"><font size="2">(09:04:52 AM)</font> <b>deterenkelt:</b></font> it starts*<br/>
+<font color="#A82F2F"><font size="2">(09:04:58 AM)</font> <b>lasers:</b></font> ... button menu (the topmost item—libreoff <br/>
+<font color="#A82F2F"><font size="2">(09:05:07 AM)</font> <b>deterenkelt:</b></font> oh…<br/>
+<font color="#A82F2F"><font size="2">(09:06:02 AM)</font> <b>deterenkelt:</b></font> &gt; (the topmost item—libreoffice suggested by the file manager), it opens on the same workspace. How can that be?<br/>
+<font color="#A82F2F"><font size="2">(09:06:02 AM)</font> <b>deterenkelt:</b></font> Whole message: http://pastebin.com/raw.php?i=D3pyXWDZ<br/>
+<font color="#A82F2F"><font size="2">(09:07:15 AM)</font> <b>deterenkelt:</b></font> LO 4.2.8.2, if anything.<br/>
+<font color="#A82F2F"><font size="2">(09:09:21 AM)</font> <b>lasers:</b></font> deterenkelt: Try assign [class=&quot;(?i)libreoffice*&quot;]  <br/>
+<font color="#A82F2F"><font size="2">(09:09:32 AM)</font> <b>lasers:</b></font> Your rule might have something to do with it.<br/>
+<font color="#A82F2F"><font size="2">(09:09:41 AM)</font> <b>deterenkelt:</b></font> O-okay.<br/>
+<font color="#A82F2F"><font size="2">(09:11:18 AM)</font> <b>deterenkelt:</b></font> I don’t understand, but that fixed it. What’s the (?i) does?<br/>
+<font color="#A82F2F"><font size="2">(09:11:59 AM)</font> <b>lasers:</b></font> Case insensitive -- but I think it&apos;s because you had a dot at end of your ^libreoffice.*  <br/>
+<font color="#A82F2F"><font size="2">(09:12:22 AM)</font> <b>lasers:</b></font> I&apos;m not too sure.<br/>
+<font color="#A82F2F"><font size="2">(09:15:33 AM)</font> <b>deterenkelt:</b></font> Oh, user’s guide updated.<br/>
+<font color="#A82F2F"><font size="2">(09:15:39 AM)</font> <b>deterenkelt:</b></font> Thanks.<br/>
+<font color="#A82F2F"><font size="2">(09:15:45 AM)</font> <b>lasers:</b></font> Np np.<br/>
+<font color="#A82F2F"><font size="2">(09:50:16 AM)</font> <b>TonyC:</b></font> sECuRE: fbe25297b7921c390bcdac846710667fc04569f8 broke my outputs<br/>
+<font color="#A82F2F"><font size="2">(09:51:23 AM)</font> <b>TonyC:</b></font> xrandr doesnt work right<br/>
+<font color="#A82F2F"><font size="2">(09:51:37 AM)</font> <b>TonyC:</b></font> there is a black box over some of the screen<br/>
+<font color="#A82F2F"><font size="2">(09:51:54 AM)</font> <b>TonyC:</b></font> reverting fixed the issue<br/>
+<font size="2">(02:06:11 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,112 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Fri 21 Nov 2014 08:59:33 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Fri 21 Nov 2014 08:59:33 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:59:34 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(08:59:34 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(09:01:02 PM)</font><b> moha_hunt [<em>~moha@95.90.232.1</em>] entered the room.</b><br/>
+<font size="2">(09:01:24 PM)</font><b> vizant0 [<em>~Adium@host46.tivo.com</em>] entered the room.</b><br/>
+<font size="2">(09:07:33 PM)</font><b> Lowl3v3l left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(09:08:01 PM)</font><b> Lowl3v3l [<em>~Lowl3v3l@2a02:810a:8380:92c:f83c:5118:ab0e:353b</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:11:19 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] shlevy pushed 1 new commit to master: http://git.io/FMABqw<br/>
+<font color="#A82F2F"><font size="2">(09:11:19 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master d123f1f Shea Levy: solr: bump<br/>
+<font size="2">(09:11:19 PM)</font><b> mizu_no_oto [<em>~textual@gw1.mcgraw-hill.com</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(09:12:20 PM)</font> <b>magnetophon:</b></font> I have a package that relies on CMAKE_HOST_WIN32 for it's compile to see if we are on windows. A manual make compiles fine, yet a nix-build complains about a missing windows file. How do I troubleshoot this further? <br/>
+<font size="2">(09:12:56 PM)</font><b> rost left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#16569E"><font size="2">(09:14:37 PM)</font> <b>magnetophon:</b></font> excuse me if I missed any replies to my previous similar question. I've got unreliable wifi here, and stuff this recent is not yet in the logs...<br/>
+<font color="#A82F2F"><font size="2">(09:15:59 PM)</font> <b>goibhniu:</b></font> magnetophon: when you say that it compiles with make, is that inside a nix-shell?<br/>
+<font color="#16569E"><font size="2">(09:17:06 PM)</font> <b>magnetophon:</b></font> goibhniu: no, a normal terminal. (not sure what a nix-shell is though)<br/>
+<font size="2">(09:17:25 PM)</font><b> moha_hunt left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:17:57 PM)</font> <b>goibhniu:</b></font> magnetophon: ah, I guess it&apos;s due to some impurity<br/>
+<font color="#A82F2F"><font size="2">(09:18:14 PM)</font> <b>goibhniu:</b></font> can you post the error?<br/>
+<font size="2">(09:18:32 PM)</font><b> moha_hunt [<em>~moha@95.90.232.1</em>] entered the room.</b><br/>
+<font size="2">(09:21:20 PM)</font><b> chrisfarms left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#16569E"><font size="2">(09:21:34 PM)</font> <b>magnetophon:</b></font> goibhniu: Sorry,I cannot copy from the terminal on this machine, but it just complains about a missing windows header called winsock2.h<br/>
+<font color="#16569E"><font size="2">(09:21:57 PM)</font> <b>magnetophon:</b></font> goibhniu: if you want I can recompile piped into nixpaste...<br/>
+<font color="#16569E"><font size="2">(09:23:01 PM)</font> <b>magnetophon:</b></font> goibhniu: doing that anyway, doesn't hurt.<br/>
+<font size="2">(09:23:42 PM)</font><b> Heffalump [<em>~ganesh@urchin.earth.li</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:24:08 PM)</font> <b>Heffalump:</b></font> anyone got any good/bad stories about using mythtv on nixos? Trying to decide between mythbuntu and nixos for a fresh install.<br/>
+<font color="#A82F2F"><font size="2">(09:24:48 PM)</font> <b>hyper_ch:</b></font> no<br/>
+<font color="#062585"><font size="2">(09:25:01 PM)</font> <b>***goibhniu</b></font> has some bad stories about mythtv on mythbuntu FWIW :)<br/>
+<font color="#A82F2F"><font size="2">(09:25:19 PM)</font> <b>goibhniu:</b></font> I haven&apos;t tried it on NixOS yet though<br/>
+<font color="#A82F2F"><font size="2">(09:25:45 PM)</font> <b>goibhniu:</b></font> magnetophon: do you have a link to the source handy?<br/>
+<font size="2">(09:26:27 PM)</font><b> roni [<em>~roni@cpe-72-231-152-207.nycap.res.rr.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:28:51 PM)</font> <b>roni:</b></font> hi all - i need some help getting GL drivers working, not sure where to really even start :(<br/>
+<font size="2">(09:28:52 PM)</font><b> FrozenCow [<em>~FrozenCow@dhcp-089-099-057-228.chello.nl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:28:52 PM)</font> <b>roni:</b></font> glxinfo says &apos;extension &quot;GLX&quot; missing...&apos; a whole bunch of times<br/>
+<font size="2">(09:29:50 PM)</font><b> nslqqq left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#16569E"><font size="2">(09:29:57 PM)</font> <b>magnetophon:</b></font> goibhniu: http://downloads.sourceforge.net/project/faudiostream/faust-0.9.67.zip<br/>
+<font color="#16569E"><font size="2">(09:31:05 PM)</font> <b>magnetophon:</b></font> goibhniu: and here's the .nix I made: http://nixpaste.noip.me/sA6qFj0d?nix<br/>
+<font color="#A82F2F"><font size="2">(09:31:13 PM)</font> <b>goibhniu:</b></font> hi roni, have you got the right setting for services.xserver.videoDrivers?<br/>
+<font color="#A82F2F"><font size="2">(09:32:02 PM)</font> <b>roni:</b></font> not sure... it says [&quot;nvidiaLegacy304&quot; &quot;intel&quot; &quot;nv&quot; &quot;vesa&quot;]<br/>
+<font color="#A82F2F"><font size="2">(09:32:18 PM)</font> <b>goibhniu:</b></font> magnetophon: oh! looks interesting!<br/>
+<font color="#A82F2F"><font size="2">(09:32:24 PM)</font> <b>roni:</b></font> i changed it to &quot;nvidia&quot; earlier and i could no longer start X after reboot<br/>
+<font color="#16569E"><font size="2">(09:34:05 PM)</font> <b>magnetophon:</b></font> goibhniu: yeah, it's a great language. A purely functional audio language. I was suprised there where so many nixos audio packages, yet not the one functional language!<br/>
+<font color="#16569E"><font size="2">(09:34:49 PM)</font> <b>magnetophon:</b></font> goibhniu: I made quite some software with it, and can fully recommend it.<br/>
+<font color="#A82F2F"><font size="2">(09:35:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] 7c6f434c pushed 1 new commit to master: http://git.io/LGQDbw<br/>
+<font color="#A82F2F"><font size="2">(09:35:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 4027494 Michael Raskin: We had hash for wrong mcabber version and the tarball was cached<br/>
+<font size="2">(09:36:10 PM)</font><b> moha_hunt left the room (quit: Quit: moha_hunt).</b><br/>
+<font color="#A82F2F"><font size="2">(09:36:38 PM)</font> <b>goibhniu:</b></font> magnetophon: cool! I guess it&apos;s missing some buildInputs, but I have to leave for a while now ... will definitely check back in a bit<br/>
+<font color="#16569E"><font size="2">(09:38:52 PM)</font> <b>magnetophon:</b></font> goibhniu: well, it looks like it's missing this CMAKE_HOST_WIN32 value, which functionas as an ifdef for to see if we are on windows. I just don't know how and where I set that variable. <br/>
+<font color="#16569E"><font size="2">(09:39:20 PM)</font> <b>magnetophon:</b></font> goibhniu: hope you can help me when you get back. Thanks!<br/>
+<font size="2">(09:51:54 PM)</font><b> Hijiri left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font size="2">(09:52:00 PM)</font><b> roni left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(09:53:26 PM)</font><b> roni [<em>~roni@tripoint.kitware.com</em>] entered the room.</b><br/>
+<font size="2">(09:58:12 PM)</font><b> Havvy left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(10:00:08 PM)</font><b> Ivanych [<em>~n@78.108.195.214</em>] entered the room.</b><br/>
+<font size="2">(10:00:44 PM)</font><b> vizant0 left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(10:01:41 PM)</font> <b>goibhniu:</b></font> magnetophon: oh, I was assuming that you ran make on NixOS ... did you?<br/>
+<font color="#A82F2F"><font size="2">(10:01:49 PM)</font> <b>wkennington:</b></font> any willing volunteers to test my networkd changes? I can&apos;t promise it won&apos;t break your network but it is working fine for my fairly complex gateway configuration<br/>
+<font color="#A82F2F"><font size="2">(10:03:09 PM)</font> <b>mornfall:</b></font> oh, so nixos will get networkd afterall?<br/>
+<font color="#A82F2F"><font size="2">(10:03:23 PM)</font> <b>roni:</b></font> goibhniu: do you have any tips for my opengl issue?<br/>
+<font color="#A82F2F"><font size="2">(10:03:24 PM)</font> <b>mornfall:</b></font> I&apos;m starting to see a pattern. :-)<br/>
+<font color="#A82F2F"><font size="2">(10:03:29 PM)</font> <b>roni:</b></font> anything is appreciated :-D<br/>
+<font color="#16569E"><font size="2">(10:03:41 PM)</font> <b>magnetophon:</b></font> goibhniu: yes I did<br/>
+<font size="2">(10:03:58 PM)</font><b> Havvy [<em>~Havvy@unaffiliated/havvy</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:04:07 PM)</font> <b>wkennington:</b></font> mornfall: https://github.com/NixOS/nixpkgs/pull/5043<br/>
+<font color="#A82F2F"><font size="2">(10:04:52 PM)</font> <b>goibhniu:</b></font> roni: which GPU have you got enabled on your system?<br/>
+<font color="#A82F2F"><font size="2">(10:05:29 PM)</font> <b>roni:</b></font> i think it&apos;s an integrated intel chipset but i can&apos;t remember how to verify that<br/>
+<font color="#A82F2F"><font size="2">(10:06:08 PM)</font> <b>goibhniu:</b></font> roni: maybe: `lspci | grep VGA`<br/>
+<font color="#A82F2F"><font size="2">(10:06:13 PM)</font> <b>wkennington:</b></font> mornfall: from what i can tell already, it&apos;s way more stable that the old scripts<br/>
+<font color="#A82F2F"><font size="2">(10:06:32 PM)</font> <b>roni:</b></font> 00:02.0 VGA compatible controller: Intel Corporation 4th Gen Core Processor Integrated Graphics Controller (rev 06)<br/>
+<font color="#A82F2F"><font size="2">(10:06:32 PM)</font> <b>goibhniu:</b></font> magnetophon: OK, I can reproduce the issue<br/>
+<font color="#A82F2F"><font size="2">(10:06:39 PM)</font> <b>roni:</b></font> yep, intel!<br/>
+<font color="#16569E"><font size="2">(10:07:20 PM)</font> <b>magnetophon:</b></font> goibhniu: I'm getting more and more confused: CMAKE_HOST_WIN32 is a cmake variable, but I was able to compile faust without explicitly installing cmake, while I DID need to install gnumake.<br/>
+<font color="#A82F2F"><font size="2">(10:07:36 PM)</font> <b>goibhniu:</b></font> magnetophon: ah, that&apos;s interesting<br/>
+<font color="#16569E"><font size="2">(10:08:43 PM)</font> <b>magnetophon:</b></font> goibhniu: also I don't see a CMakeLists.txt in the source<br/>
+<font color="#A82F2F"><font size="2">(10:08:45 PM)</font> <b>goibhniu:</b></font> roni: `ls -l /run/opengl-driver`<br/>
+<font color="#A82F2F"><font size="2">(10:09:05 PM)</font> <b>roni:</b></font> lrwxrwxrwx 1 root root 70 Nov 21 15:17 /run/opengl-driver -&gt; /nix/store/qrxshizncs5cvqkplq3va737s1y38gay-nvidia-x11-304.117-3.12.22<br/>
+<font color="#A82F2F"><font size="2">(10:09:40 PM)</font> <b>goibhniu:</b></font> roni: ah, remove the nvidia stuff from you videoDrivers section<br/>
+<font color="#A82F2F"><font size="2">(10:09:49 PM)</font> <b>roni:</b></font> oh really?<br/>
+<font color="#062585"><font size="2">(10:09:57 PM)</font> <b>***goibhniu</b></font> thought you could have multiple things in there<br/>
+<font color="#A82F2F"><font size="2">(10:10:00 PM)</font> <b>roni:</b></font> what should it have at the front, just intel?<br/>
+<font color="#A82F2F"><font size="2">(10:10:05 PM)</font> <b>goibhniu:</b></font> roni: well, you only have an intel GPU right?<br/>
+<font color="#A82F2F"><font size="2">(10:10:11 PM)</font> <b>roni:</b></font> yeah i believe so<br/>
+<font color="#A82F2F"><font size="2">(10:10:16 PM)</font> <b>goibhniu:</b></font> just use that then<br/>
+<font color="#A82F2F"><font size="2">(10:10:46 PM)</font> <b>roni:</b></font> trying...<br/>
+<font color="#A82F2F"><font size="2">(10:12:50 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] shlevy pushed 1 new commit to master: http://git.io/MRwnRw<br/>
+<font color="#A82F2F"><font size="2">(10:12:50 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5c7c63a Shea Levy: Add src revision control software<br/>
+<font size="2">(10:14:08 PM)</font><b> narph left the room (quit: Quit: Connection closed for inactivity).</b><br/>
+<font color="#16569E"><font size="2">(10:14:56 PM)</font> <b>magnetophon:</b></font> goibhniu: ok, my fault. I found some CMakeLists.txt deeper in de directory structure.<br/>
+<font color="#16569E"><font size="2">(10:15:29 PM)</font> <b>magnetophon:</b></font> goibhniu: still odd, it compiled without having cmake installed.<br/>
+<font color="#A82F2F"><font size="2">(10:15:42 PM)</font> <b>roni:</b></font> goibhniu: after nixos-rebuild will i just need to log out and back into X, or reboot do you think?<br/>
+<font color="#A82F2F"><font size="2">(10:17:41 PM)</font> <b>goibhniu:</b></font> roni: I&apos;m not sure TBH<br/>
+<font color="#A82F2F"><font size="2">(10:17:58 PM)</font> <b>goibhniu:</b></font> magnetophon: yeah, it&apos;s mysterious<br/>
+<font size="2">(10:18:52 PM)</font><b> Havvy[Hex] [<em>~Havvy@c-67-168-237-57.hsd1.wa.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(10:19:06 PM)</font><b> civodul [<em>~user@gateway/tor-sasl/civodul</em>] entered the room.</b><br/>
+<font color="#062585"><font size="2">(10:19:09 PM)</font> <b>***goibhniu</b></font> tries stepping through it a la: https://nixos.org/wiki/Create_and_debug_nix_packages<br/>
+<font color="#A82F2F"><font size="2">(10:19:37 PM)</font> <b>roni:</b></font> goibhniu: cool, i will try things out in order of increasing disruption to my current workspace :-P<br/>
+<font color="#A82F2F"><font size="2">(10:19:40 PM)</font> <b>roni:</b></font> thanks for your help!!<br/>
+<font size="2">(10:19:55 PM)</font><b> Takle [<em>~takle@56347a1c.rev.stofanet.dk</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:20:41 PM)</font> <b>magnetophon:</b></font> goibhniu: I was looking at that one too.<br/>
+<font size="2">(10:21:07 PM)</font><b> Havvy left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(10:21:36 PM)</font><b> bennofs left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#16569E"><font size="2">(10:22:22 PM)</font> <b>magnetophon:</b></font> goibhniu: make sure you remember to checkout your version of nixos after cloning the repo (assuming you are folowing it to the letter) <br/>
+<font color="#16569E"><font size="2">(10:22:38 PM)</font> <b>magnetophon:</b></font> goibhniu: i almost got burned by that...<br/>
+<font size="2">(10:23:34 PM)</font><b> RchrdB left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font color="#A82F2F"><font size="2">(10:24:32 PM)</font> <b>goibhniu:</b></font> ah, to avoid building extra stuff from master?<br/>
+<font size="2">(10:24:41 PM)</font><b> RchrdB [<em>~RichardB@approximately.understood.systems</em>] entered the room.</b><br/>
+<font size="2">(10:25:08 PM)</font><b> Havvy[Hex] is now known as Havvy</b><br/>
+<font size="2">(10:25:13 PM)</font><b> Havvy left the room (quit: Changing host).</b><br/>
+<font size="2">(10:25:14 PM)</font><b> Havvy [<em>~Havvy@unaffiliated/havvy</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:27:19 PM)</font> <b>magnetophon:</b></font> goibhniu: yeah, my os started building almost everything again... Now I see that later in the wiki it IS mentioned to checkout your ver...<br/>
+<font color="#16569E"><font size="2">(10:33:20 PM)</font> <b>magnetophon:</b></font> goibhniu: got disconnected again. I'm tethered to my phone now, should be more reliable. Did I miss anything?<br/>
+<font size="2">(10:46:33 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

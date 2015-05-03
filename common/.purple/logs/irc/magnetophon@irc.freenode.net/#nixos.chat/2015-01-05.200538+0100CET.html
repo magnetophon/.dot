@@ -1,0 +1,87 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Mon 05 Jan 2015 08:05:38 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Mon 05 Jan 2015 08:05:38 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:05:39 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(08:05:39 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#062585"><font size="2">(08:06:30 PM)</font> <b>***Baughn</b></font> wonders how hard it&apos;d be to make a JDK 8 package<br/>
+<font color="#A82F2F"><font size="2">(08:07:11 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bjornfor pushed 1 new commit to release-14.12: http://git.io/W4FGuw<br/>
+<font color="#A82F2F"><font size="2">(08:07:11 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 fa97e9a Peter Simons: nixos/modules/services/misc/nix-daemon.nix: document meaning of &apos;0&apos; for the buildCores attribute...<br/>
+<font color="#A82F2F"><font size="2">(08:13:52 PM)</font> <b>joelteon:</b></font> hey, anybody happen to know why bash&apos;s builder is specifically /bin/bash instead of the bash inside the bootstrap tools tarball on OSX?<br/>
+<font color="#A82F2F"><font size="2">(08:25:27 PM)</font> <b>shlevy:</b></font> Any objection to me merge 5496 in? http://hydra.nixos.org/jobset/nixpkgs/pr-5496 looks good<br/>
+<font color="#A82F2F"><font size="2">(08:26:44 PM)</font> <b>zmbmartin:</b></font> I have installed nixos in virtualbox under mac os x and fonts are really ugly and blurry?<br/>
+<font color="#A82F2F"><font size="2">(08:27:10 PM)</font> <b>ChongLi:</b></font> shlevy: I still can&apos;t get #5392 to build<br/>
+<font color="#A82F2F"><font size="2">(08:27:17 PM)</font> <b>zmbmartin:</b></font> I have tried gtk settings and Xdefaults with dpi, hinting, etc. but still really quite blurry and ugly.<br/>
+<font color="#A82F2F"><font size="2">(08:28:06 PM)</font> <b>ChongLi:</b></font> shlevy: I end up with this:<br/>
+<font color="#A82F2F"><font size="2">(08:28:07 PM)</font> <b>ChongLi:</b></font> http://lpaste.net/raw/117839<br/>
+<font color="#A82F2F"><font size="2">(08:28:40 PM)</font> <b>shlevy:</b></font> ChongLi: Is your /nix/store on btrfs?<br/>
+<font color="#A82F2F"><font size="2">(08:28:44 PM)</font> <b>ChongLi:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(08:28:45 PM)</font> <b>shlevy:</b></font> or your tmp?<br/>
+<font color="#A82F2F"><font size="2">(08:28:49 PM)</font> <b>ChongLi:</b></font> zfs<br/>
+<font color="#A82F2F"><font size="2">(08:28:51 PM)</font> <b>shlevy:</b></font> OK<br/>
+<font color="#A82F2F"><font size="2">(08:29:00 PM)</font> <b>shlevy:</b></font> I&apos;ve seen coreutils test fail on weird filesystems<br/>
+<font color="#A82F2F"><font size="2">(08:29:05 PM)</font> <b>shlevy:</b></font> That&apos;s not due to the PR<br/>
+<font color="#A82F2F"><font size="2">(08:29:08 PM)</font> <b>ChongLi:</b></font> ahh<br/>
+<font color="#A82F2F"><font size="2">(08:29:24 PM)</font> <b>shlevy:</b></font> try nix-store -r /nix/store/fcb4kg8m8d3jcc9gq7r8swav89kf6ja0-coreutils-8.23.drv --option binary-caches http://hydra.nixos.org<br/>
+<font color="#A82F2F"><font size="2">(08:29:32 PM)</font> <b>shlevy:</b></font> It should be available there now<br/>
+<font color="#A82F2F"><font size="2">(08:30:30 PM)</font> <b>ChongLi:</b></font> download-from-binary-cache.pl: could not download ‘http://hydra.nixo/nix-cache-info’ (Curl error 6)<br/>
+<font color="#A82F2F"><font size="2">(08:30:30 PM)</font> <b>ChongLi:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(08:30:51 PM)</font> <b>ChongLi:</b></font> weird<br/>
+<font color="#A82F2F"><font size="2">(08:30:51 PM)</font> <b>ChongLi:</b></font> weird<br/>
+<font color="#A82F2F"><font size="2">(08:30:51 PM)</font> <b>shlevy:</b></font> mistyped url<br/>
+<font color="#A82F2F"><font size="2">(08:30:51 PM)</font> <b>shlevy:</b></font> hydra.nixos.org<br/>
+<font color="#A82F2F"><font size="2">(08:30:58 PM)</font> <b>ChongLi:</b></font> ahh nvm<br/>
+<font color="#A82F2F"><font size="2">(08:31:03 PM)</font> <b>ChongLi:</b></font> haha<br/>
+<font color="#A82F2F"><font size="2">(08:31:03 PM)</font> <b>ChongLi:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(08:35:39 PM)</font> <b>ChongLi:</b></font> that seems to have worked<br/>
+<font color="#A82F2F"><font size="2">(08:35:40 PM)</font> <b>ChongLi:</b></font> would a better long-term solution be to patch coreutils to skip those tests?<br/>
+<font color="#A82F2F"><font size="2">(08:35:40 PM)</font> <b>iElectric:</b></font> zmbmartin: nixos-version<br/>
+<font color="#A82F2F"><font size="2">(08:35:40 PM)</font> <b>shlevy:</b></font> Probably yeah<br/>
+<font color="#A82F2F"><font size="2">(08:35:40 PM)</font> <b>zmbmartin:</b></font> iElectric: 14.12.95.fa4e45f (Caterpillar)<br/>
+<font color="#A82F2F"><font size="2">(08:35:40 PM)</font> <b>iElectric:</b></font> that should come with the new font changes<br/>
+<font color="#062585"><font size="2">(08:35:40 PM)</font> <b>***iElectric</b></font> shrugs<br/>
+<font color="#A82F2F"><font size="2">(08:35:40 PM)</font> <b>kmicu:</b></font> zmbmartin: ugly and blurry are subjective terms. You can adjust fontconfig settings. It is hard to guess what do you really have w/o some screenshot.<br/>
+<font color="#A82F2F"><font size="2">(08:35:40 PM)</font> <b>zmbmartin:</b></font> iElectric: Yeah I tried setting my own fontconfig in ~/.config/fontconfig/fonts.conf<br/>
+<font color="#A82F2F"><font size="2">(08:36:13 PM)</font> <b>zmbmartin:</b></font> kmicu: I realize that. I will get a screen grab.<br/>
+<font color="#A82F2F"><font size="2">(08:36:43 PM)</font> <b>zmbmartin:</b></font> kmicu: quite a bit worse then my osx.<br/>
+<font color="#A82F2F"><font size="2">(08:36:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 2 new commits to master: http://git.io/UyCNog<br/>
+<font color="#A82F2F"><font size="2">(08:36:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 712186f Dmitry Malikov: haskellPackages.xmonadScreenshot: add 0.1.0.0<br/>
+<font color="#A82F2F"><font size="2">(08:36:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 0c99319 Peter Simons: Merge pull request #5591 from dmalikov/master...<br/>
+<font color="#A82F2F"><font size="2">(08:37:14 PM)</font> <b>kmicu:</b></font> zmbmartin: ‘quite a bit worse then my osx’ is just as informative a previous one :)<br/>
+<font color="#A82F2F"><font size="2">(08:37:30 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti closed pull request #5590: New Haskell package: classy-prelude-yesod (master...classy-prelude-yesod) http://git.io/LZE3kA<br/>
+<font color="#A82F2F"><font size="2">(08:38:05 PM)</font> <b>JagaJaga:</b></font> Tests are always running if there is no `doCheck = false`?<br/>
+<font color="#A82F2F"><font size="2">(08:38:46 PM)</font> <b>kmicu:</b></font> zmbmartin: if you are searching for settings similar to OSX then you can ask at https://bbs.archlinux.org/viewtopic.php?id=162098&amp;p=62 for some pointers how to emulate similar look&amp;feel.<br/>
+<font color="#A82F2F"><font size="2">(08:40:53 PM)</font> <b>zmbmartin:</b></font> kmicu: iElectric http://postimg.org/image/pervs4k6l<br/>
+<font color="#A82F2F"><font size="2">(08:40:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] shlevy pushed 1 new commit to master: http://git.io/oownWQ<br/>
+<font color="#A82F2F"><font size="2">(08:40:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3e1fdb7 Shea Levy: gcc-wrapper is used for clang too<br/>
+<font color="#A82F2F"><font size="2">(08:41:48 PM)</font> <b>zmbmartin:</b></font> kmicu: Is it strictly settings then?<br/>
+<font color="#A82F2F"><font size="2">(08:41:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] shlevy closed pull request #5496: gcc-wrapper is used for clang too (staging...gcc-wrapper-not-just-gcc) http://git.io/RPa0uA<br/>
+<font color="#A82F2F"><font size="2">(08:41:48 PM)</font> <b>kirelagin:</b></font> zmbmartin: looks like your terminal uses some horrible font<br/>
+<font size="2">(08:42:31 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:42:31 PM)</font> <b>kmicu:</b></font> zmbmartin: Yes. It look like settings issue. I guess this is PragmataPro.<br/>
+<font color="#A82F2F"><font size="2">(08:42:54 PM)</font> <b>zmbmartin:</b></font> kmicu: Looks great in os x and other fonts look bad as well.<br/>
+<font color="#A82F2F"><font size="2">(08:43:14 PM)</font> <b>kmicu:</b></font> ‘great’ and ‘bad’ are wrong words here.<br/>
+<font color="#A82F2F"><font size="2">(08:43:49 PM)</font> <b>zmbmartin:</b></font> kmicu: Really, other fonts look as blurry as that screenshot I showed.<br/>
+<font color="#A82F2F"><font size="2">(08:43:56 PM)</font> <b>kmicu:</b></font> You need to tweak settings. I cannot afford PragmataPro to reproduce it or test it.<br/>
+<font color="#A82F2F"><font size="2">(08:44:51 PM)</font> <b>zmbmartin:</b></font> kmicu: nixos config settings or just fonts ones?<br/>
+<font color="#A82F2F"><font size="2">(08:45:41 PM)</font> <b>kmicu:</b></font> There is a lot of settings available in Infinality e.g. INFINALITY_FT_FILTER_PARAMS=&quot;11 22 38 22 11&quot;;<br/>
+<font color="#A82F2F"><font size="2">(08:45:57 PM)</font> <b>zmbmartin:</b></font> kmicu: OK I will check into it. Thanks!<br/>
+<font color="#A82F2F"><font size="2">(08:47:04 PM)</font> <b>kmicu:</b></font> You should test it with fresh environment (no personal tweaks to font.conf and .Xdefaults|.Xresources) and with some font which is freely available and could be tested by us.<br/>
+<font color="#A82F2F"><font size="2">(08:47:41 PM)</font> <b>kmicu:</b></font> (I’m referring to OOTB™ font rendering)<br/>
+<font color="#A82F2F"><font size="2">(08:48:59 PM)</font> <b>kmicu:</b></font> Also I see that font settings for OX are different:<br/>
+<font color="#A82F2F"><font size="2">(08:49:00 PM)</font> <b>kmicu:</b></font>   osx = default // {<br/>
+<font color="#A82F2F"><font size="2">(08:49:02 PM)</font> <b>kmicu:</b></font>     INFINALITY_FT_FILTER_PARAMS=&quot;03 32 38 32 03&quot;;<br/>
+<font color="#A82F2F"><font size="2">(08:50:27 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] AndersonTorres opened pull request #5592: FS-UAE (version 2.4.1): New Package (master...fsuae) http://git.io/_M_6ug<br/>
+<font color="#A82F2F"><font size="2">(08:50:58 PM)</font> <b>kmicu:</b></font> zmbmartin: In such case you also need a response from an another osx user (which I’m not). Good luck.<br/>
+<font color="#A82F2F"><font size="2">(08:51:13 PM)</font> <b>zmbmartin:</b></font> kmicu: Do I just run that INFINALITY_FT_FILTER_PARAMS=&quot;03 32 38 32 03&quot;; from the terminal<br/>
+<font color="#A82F2F"><font size="2">(08:51:47 PM)</font> <b>pmahoney:</b></font> ooh, i did not know about use-ssh-substituter. also, in nix/src/libstore/globals.cc it appears i can provide my own substituters in NIX_SUBSTITUTERS, so https w/client-cert binary cache should be possible<br/>
+<font color="#A82F2F"><font size="2">(08:52:23 PM)</font> <b>zmbmartin:</b></font> kmicu: I will clear out my changes and start fresh like you said, just need to figure out how to use INFINALITY<br/>
+<font color="#A82F2F"><font size="2">(08:55:06 PM)</font> <b>kmicu:</b></font> zmbmartin: you should probably set environment.variables.INFINALITY_FT_FILTER_PARAMS=&quot;some tweaked  params&quot;; and restart session, but I have no experience with OSX.<br/>
+<font color="#A82F2F"><font size="2">(09:00:53 PM)</font> <b>kmicu:</b></font> zmbmartin: check ‘nixos-option fonts.fontconfig.ultimate.rendering’<br/>
+<font color="#A82F2F"><font size="2">(09:02:15 PM)</font> <b>kmicu:</b></font> zmbmartin: I guess you could test predefined profiles like ‘sharpened’ etc.<br/>
+<font color="#A82F2F"><font size="2">(09:03:25 PM)</font> <b>kmicu:</b></font> (and ‘osx’ profile if it was not enabled by default)<br/>
+<font color="#A82F2F"><font size="2">(09:04:07 PM)</font> <b>hyper_ch:</b></font> Fuuzetsu: you don&apos;t happen to watch Chihayafuru?<br/>
+<font color="#A82F2F"><font size="2">(09:13:14 PM)</font> <b>musicmatze:</b></font> Hey, how to install vim with python support?<br/>
+<font color="#A82F2F"><font size="2">(09:14:58 PM)</font> <b>zmbmartin:</b></font> kmicu: I only want to change them in the virtualbox linux not osx.<br/>
+<font color="#A82F2F"><font size="2">(09:15:37 PM)</font> <b>zmbmartin:</b></font> kmicu: in nixos<br/>
+<font color="#A82F2F"><font size="2">(09:18:29 PM)</font> <b>kmicu:</b></font> zmbmartin: ok, then check predefined profiles and some should be close to what *you* want. With another font I will be able to compare rendering and help more.<br/>
+<font color="#A82F2F"><font size="2">(09:20:07 PM)</font> <b>zmbmartin:</b></font> kmicu: ok I will work on that. Thanks!<br/>
+<font size="2">(09:37:41 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

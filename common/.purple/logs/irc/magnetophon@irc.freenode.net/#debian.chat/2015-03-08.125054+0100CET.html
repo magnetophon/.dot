@@ -1,0 +1,145 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Sun 08 Mar 2015 12:50:54 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Sun 08 Mar 2015 12:50:54 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(12:50:54 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(12:50:54 PM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(12:50:56 PM)</font> <b>l0p3n:</b></font> jelly: Ok, do you know if that is set up on the host system or on the guest system?<br/>
+<font color="#A82F2F"><font size="2">(12:51:00 PM)</font> <b>themill:</b></font> sounds like you need to cluebat your vserver provider into making decent packages -- in the meantime, look at equivs<br/>
+<font color="#A82F2F"><font size="2">(12:51:17 PM)</font> <b>arwan:</b></font> is it possible to copy a bootable iso&apos;s content directly tobe bootable as the other usb<br/>
+<font size="2">(12:52:03 PM)</font><b> mode (+l 1602) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:52:04 PM)</font> <b>arwan:</b></font> for example i have a 686 32bit crunchbang linux already on usb1, and i want to copy it to usb2 which is another content<br/>
+<font color="#A82F2F"><font size="2">(12:52:38 PM)</font> <b>arwan:</b></font> is there a way to copy it directly w/o needing the step by step download of .iso and burning it to usb<br/>
+<font color="#A82F2F"><font size="2">(12:54:21 PM)</font> <b>SirLagz:</b></font> arwan: dd<br/>
+<font color="#A82F2F"><font size="2">(12:54:32 PM)</font> <b>arwan:</b></font> what?<br/>
+<font color="#A82F2F"><font size="2">(12:54:43 PM)</font> <b>SirLagz:</b></font> arwan: dd can copy directly from one usb to another usb<br/>
+<font color="#A82F2F"><font size="2">(12:54:54 PM)</font> <b>arwan:</b></font> would it also be bootable?<br/>
+<font size="2">(12:55:25 PM)</font><b> l0p3n left the room (quit: Quit: WeeChat 0.3.8).</b><br/>
+<font color="#A82F2F"><font size="2">(12:55:32 PM)</font> <b>arwan:</b></font> SirLagz,<br/>
+<font color="#A82F2F"><font size="2">(12:55:41 PM)</font> <b>arwan:</b></font> would it be?<br/>
+<font color="#A82F2F"><font size="2">(12:55:44 PM)</font> <b>SirLagz:</b></font> arwan: it makes a bit for bit copy. Just make sure the target usb is big enough<br/>
+<font color="#A82F2F"><font size="2">(12:56:05 PM)</font> <b>arwan:</b></font> yes it is<br/>
+<font color="#A82F2F"><font size="2">(12:56:18 PM)</font> <b>arwan:</b></font> how do i do that<br/>
+<font size="2">(12:58:02 PM)</font><b> l0p3n [<em>~l0p3n@unaffiliated/l0p3n</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:58:24 PM)</font> <b>SirLagz:</b></font> arwan: `man dd` should give you all the details you need<br/>
+<font color="#A82F2F"><font size="2">(12:58:46 PM)</font> <b>jelly:</b></font> l0p3n: looks like it&apos;s supposed to be set on the host<br/>
+<font color="#A82F2F"><font size="2">(12:59:28 PM)</font> <b>arwan:</b></font> so technical for me.<br/>
+<font color="#A82F2F"><font size="2">(12:59:33 PM)</font> <b>arwan:</b></font> was expecting it like dd &lt;usb1 path&gt; &lt;usb2path&gt;<br/>
+<font color="#A82F2F"><font size="2">(12:59:48 PM)</font> <b>arwan:</b></font> and it will copy contents of usb1 to usb2<br/>
+<font color="#A82F2F"><font size="2">(01:00:28 PM)</font> <b>SirLagz:</b></font> arwan: that&apos;s pretty much it...<br/>
+<font color="#A82F2F"><font size="2">(01:01:29 PM)</font> <b>SirLagz:</b></font> arwan: dd if=/dev/usb1 of=/dev/usb2, just make sure you use the right disk devices. there&apos;s a reason why dd is also known as disk destroyer :P<br/>
+<font color="#A82F2F"><font size="2">(01:02:17 PM)</font> <b>arwan:</b></font> even its a usb disk stick device?<br/>
+<font size="2">(01:02:30 PM)</font><b> multi_io_ is now known as multi_io</b><br/>
+<font color="#A82F2F"><font size="2">(01:04:20 PM)</font> <b>l0p3n:</b></font> jelly: Ok thanks!<br/>
+<font color="#A82F2F"><font size="2">(01:05:13 PM)</font> <b>themill:</b></font> l0p3n: note that not all init systems pay attention to /etc/inittab and that particular configuration may not work in future releases<br/>
+<font color="#A82F2F"><font size="2">(01:06:18 PM)</font> <b>SirLagz:</b></font> arwan: yes<br/>
+<font color="#A82F2F"><font size="2">(01:06:46 PM)</font> <b>arwan:</b></font> why would it destroy a usb drive when its just data?<br/>
+<font color="#A82F2F"><font size="2">(01:06:51 PM)</font> <b>arwan:</b></font> it overvolts?<br/>
+<font color="#A82F2F"><font size="2">(01:06:53 PM)</font> <b>l0p3n:</b></font> themill: Ok that&apos;s good to know :)<br/>
+<font color="#A82F2F"><font size="2">(01:09:12 PM)</font> <b>SirLagz:</b></font> arwan: destroy as in destroy any data on it<br/>
+<font color="#A82F2F"><font size="2">(01:09:20 PM)</font> <b>SirLagz:</b></font> arwan: not literally destroy<br/>
+<font color="#A82F2F"><font size="2">(01:09:30 PM)</font> <b>SirLagz:</b></font> arwan: or you could think of dd as data destroyer :P<br/>
+<font color="#A82F2F"><font size="2">(01:09:58 PM)</font> <b>arwan:</b></font> data destroyer is the much better term<br/>
+<font color="#A82F2F"><font size="2">(01:10:06 PM)</font> <b>arwan:</b></font> i thought it also destroys disk<br/>
+<font color="#A82F2F"><font size="2">(01:10:14 PM)</font> <b>arwan:</b></font> very risky to use if thats the case..<br/>
+<font color="#A82F2F"><font size="2">(01:15:39 PM)</font> <b>boris``:</b></font> themill: that worked well, thanks<br/>
+<font color="#A82F2F"><font size="2">(01:16:38 PM)</font> <b>themill:</b></font> boris``: no worries. Just remember that using equivs like that is in the &quot;when it breaks, you get to keep both pieces&quot; territory.<br/>
+<font color="#A82F2F"><font size="2">(01:17:49 PM)</font> <b>boris``:</b></font> understood :)<br/>
+<font size="2">(01:32:02 PM)</font><b> mode (+l 1609) by debhelper</b><br/>
+<font size="2">(02:12:03 PM)</font><b> mode (+l 1598) by debhelper</b><br/>
+<font size="2">(02:25:56 PM)</font><b> takeyourhatoff is now known as Guest74169</b><br/>
+<font size="2">(02:28:49 PM)</font><b> blaisebo_ is now known as blaisebool</b><br/>
+<font size="2">(02:32:02 PM)</font><b> mode (+l 1607) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(02:36:33 PM)</font> <b>s7r:</b></font> OpenVPN in Debian wheezy is OpenVPN 2.2.1, while the latest is 2.3.6 (?)<br/>
+<font color="#A82F2F"><font size="2">(02:39:34 PM)</font> <b>towo`:</b></font> s7r, and?<br/>
+<font color="#A82F2F"><font size="2">(02:39:56 PM)</font> <b>s7r:</b></font> wouldn&apos;t it be normal to use the latest version<br/>
+<font color="#A82F2F"><font size="2">(02:39:59 PM)</font> <b>s7r:</b></font> which has all the fixes?<br/>
+<font color="#A82F2F"><font size="2">(02:40:21 PM)</font> <b>towo`:</b></font> in stable never comes new versions<br/>
+<font color="#A82F2F"><font size="2">(02:40:49 PM)</font> <b>s7r:</b></font> why?<br/>
+<font color="#A82F2F"><font size="2">(02:41:04 PM)</font> <b>towo`:</b></font> because it&apos;s stable?<br/>
+<font color="#A82F2F"><font size="2">(02:41:12 PM)</font> <b>themill:</b></font> !stable<br/>
+<font color="#A82F2F"><font size="2">(02:41:12 PM)</font> <b>dpkg:</b></font> [stable] The status of a Debian release when no packages will be added, new versions introduced and changes will only fix security issues and critical bugs.  Packages can be removed in rare circumstances.  The current stable version of Debian is Wheezy (7.8); ask me about &lt;releases&gt;.  Security bugs are fixed in stable by backporting the fix to the stable version (ask me about &lt;security backports&gt;).  https://wiki.debian.org/DebianStable<br/>
+<font color="#A82F2F"><font size="2">(02:45:21 PM)</font> <b>Raazeer:</b></font> hi all. I&apos;ve got a problem with systemd, maybe one of you can help me:<br/>
+<font color="#A82F2F"><font size="2">(02:45:49 PM)</font> <b>Raazeer:</b></font> I&apos;ve got a crypto disk that&apos;s supposed to be started by systemd.<br/>
+<font color="#A82F2F"><font size="2">(02:46:24 PM)</font> <b>Raazeer:</b></font> When it is supposed to start, I get that thre-red-star-waiting thingy, saying three jobs are blocked, all of them with something to do with those crypto disks.<br/>
+<font color="#A82F2F"><font size="2">(02:46:46 PM)</font> <b>Raazeer:</b></font> apparently two of them have a timeout, the other says it&apos;s supposed to wait infinitely.<br/>
+<font color="#A82F2F"><font size="2">(02:46:59 PM)</font> <b>Raazeer:</b></font> if the ones with timeout run out, the system locks up.<br/>
+<font color="#A82F2F"><font size="2">(02:47:15 PM)</font> <b>Raazeer:</b></font> now here&apos;s the question: How do I find those two that do lock up and set them to infinite timeout too?<br/>
+<font color="#A82F2F"><font size="2">(02:48:21 PM)</font> <b>s7r:</b></font> got it thx<br/>
+<font color="#A82F2F"><font size="2">(03:00:35 PM)</font> <b>Deicide34:</b></font> Hello, I need an good radio streaming program for Wheezy.<br/>
+<font size="2">(03:02:03 PM)</font><b> mode (+l 1613) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:02:09 PM)</font> <b>Deicide34:</b></font> Will radiotray display in tint2 taskbar?<br/>
+<font color="#A82F2F"><font size="2">(03:04:56 PM)</font> <b>Deicide34:</b></font> Yup, all is set :)<br/>
+<font size="2">(03:05:02 PM)</font><b> Deicide34 left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:06:39 PM)</font> <b>Klapo:</b></font> can someon tell me, what I&apos;m doing wrong.. http://wklej.org/hash/4cabb3df06e/ - I need eth0 as default network interface on VM, but it&apos;s not working (can&apos;t even ping it)... eth1 is<br/>
+<font size="2">(03:07:18 PM)</font><b> martinst is now known as martins-afk</b><br/>
+<font color="#A82F2F"><font size="2">(03:10:14 PM)</font> <b>abrotman:</b></font> Klapo: /etc/udev/rules.d/70-persistent-net.rules any help?<br/>
+<font color="#A82F2F"><font size="2">(03:10:49 PM)</font> <b>GNU\colossus:</b></font> I want to install a Debian jessie system to an USB thumb drive, and I&apos;d like that installation to be bootable on both UEFI and &quot;classic&quot; BIOS systems. what are my options/what&apos;s the best way to make sure that will work as intended?<br/>
+<font color="#A82F2F"><font size="2">(03:12:24 PM)</font> <b>Raazeer:</b></font> does really nobody here know anything about systemd?<br/>
+<font color="#A82F2F"><font size="2">(03:13:02 PM)</font> <b>Klapo:</b></font> abrotman: ops, it&apos;s ubuntu. Don&apos;t have this file, should I create it?<br/>
+<font color="#A82F2F"><font size="2">(03:13:15 PM)</font> <b>abrotman:</b></font> Klapo: no idea, ask #ubuntu<br/>
+<font color="#A82F2F"><font size="2">(03:13:24 PM)</font> <b>Raazeer:</b></font> there&apos;s going to be big trouble once testing rolls over into stable...<br/>
+<font color="#A82F2F"><font size="2">(03:13:30 PM)</font> <b>Klapo:</b></font> hehe, okay<br/>
+<font color="#A82F2F"><font size="2">(03:14:52 PM)</font> <b>Alex-xd:</b></font> I Like the Shit┌∩┐(◣_◢)┌∩┐<br/>
+<font color="#A82F2F"><font size="2">(03:15:51 PM)</font> <b>abrotman:</b></font> ...<br/>
+<font size="2">(03:20:34 PM)</font><b> Raazeer left the room (quit: Quit: I&apos;m outa here).</b><br/>
+<font color="#A82F2F"><font size="2">(03:20:46 PM)</font> <b>jelly:</b></font> Raazeer: try ask.. eh<br/>
+<font color="#062585"><font size="2">(03:22:05 PM)</font> <b>***abrotman</b></font> looks at jelly&apos;s hat<br/>
+<font color="#A82F2F"><font size="2">(03:22:21 PM)</font> <b>jelly:</b></font> hm.<br/>
+<font size="2">(03:22:25 PM)</font><b> mode (-o jelly) by jelly</b><br/>
+<font color="#A82F2F"><font size="2">(03:23:02 PM)</font> <b>jelly:</b></font> it&apos;s been there since last night, so apparently I&apos;ve been sleeping with my hat on<br/>
+<font color="#A82F2F"><font size="2">(03:23:26 PM)</font> <b>Stijn:</b></font> ... you can leave your hat on<br/>
+<font size="2">(03:32:02 PM)</font><b> mode (+l 1619) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:45:03 PM)</font> <b>srg:</b></font> I can&apos;t find my Postfix logs. It&apos;s set to log to the mail facility in syslog. However, nothing from postfix is showing up in /var/log/mail.log. Dovecot&apos;s logs are showing up, which is also configured to log to syslog.<br/>
+<font color="#A82F2F"><font size="2">(03:45:17 PM)</font> <b>srg:</b></font> I even tailed the log file while forcing a restart of Postfix; nothing at all showed up.<br/>
+<font color="#A82F2F"><font size="2">(03:45:33 PM)</font> <b>abrotman:</b></font> srg: Using Debian ppostfix packageS?<br/>
+<font color="#A82F2F"><font size="2">(03:45:40 PM)</font> <b>srg:</b></font> Yeah<br/>
+<font color="#A82F2F"><font size="2">(03:45:45 PM)</font> <b>srg:</b></font> on Jessie<br/>
+<font color="#A82F2F"><font size="2">(03:46:03 PM)</font> <b>srg:</b></font> It it some systemd magic?<br/>
+<font color="#A82F2F"><font size="2">(03:46:38 PM)</font> <b>abrotman:</b></font> can you put your main.cf in a pastebin (if it has private things, redact them, paste.debian.net please)<br/>
+<font color="#A82F2F"><font size="2">(03:46:57 PM)</font> <b>srg:</b></font> sure<br/>
+<font color="#A82F2F"><font size="2">(03:47:14 PM)</font> <b>abrotman:</b></font> and I suppose your syslog config<br/>
+<font color="#A82F2F"><font size="2">(03:47:38 PM)</font> <b>jelly:</b></font> srg: that includes stuff in /etc/rsyslog.d/ directory<br/>
+<font color="#A82F2F"><font size="2">(03:47:47 PM)</font> <b>srg:</b></font> I haven&apos;t touched it at all; don&apos;t even know where it is. So it would be all defaults<br/>
+<font color="#A82F2F"><font size="2">(03:48:13 PM)</font> <b>jelly:</b></font> debian defaults to chrooting a lot of postfix services (needlessly)<br/>
+<font color="#A82F2F"><font size="2">(03:48:36 PM)</font> <b>abrotman:</b></font> jelly: it makes debugging way more fun<br/>
+<font color="#A82F2F"><font size="2">(03:49:07 PM)</font> <b>jelly:</b></font> it makes one more step in my mail server installation &quot;remove all the chroot crap from master.cf&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:49:33 PM)</font> <b>abrotman:</b></font> srg: dpkg -l | grep syslog .. which do you have installed?<br/>
+<font color="#A82F2F"><font size="2">(03:50:39 PM)</font> <b>srg:</b></font> syslog-ng<br/>
+<font color="#A82F2F"><font size="2">(03:50:50 PM)</font> <b>srg:</b></font> main.cf http://paste.debian.net/160238/<br/>
+<font color="#A82F2F"><font size="2">(03:51:27 PM)</font> <b>Alex-xd:</b></font> -8- I Like the Shit┌∩┐(◣_◢)┌∩┐<br/>
+<font color="#A82F2F"><font size="2">(03:52:06 PM)</font> <b>jelly:</b></font> srg: syslog-ng is one non-default thing you have, can you make it provide a listening socket at /var/spool/postfix/dev/log<br/>
+<font color="#A82F2F"><font size="2">(03:52:26 PM)</font> <b>Alex-xd:</b></font> -h- I Like the Shit┌∩┐(◣_◢)┌∩┐<br/>
+<font size="2">(03:52:49 PM)</font><b> mode (+o jelly) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(03:52:50 PM)</font> <b>srg:</b></font> oh? I don&apos;t remember installing anything related to syslog myself. It must&apos;ve came preconfigured with the VPS image?<br/>
+<font size="2">(03:52:50 PM)</font><b> mode (+q *!*@87.13.134.169) by jelly</b><br/>
+<font size="2">(03:52:51 PM)</font><b> mode (-o jelly) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(03:53:00 PM)</font> <b>jelly:</b></font> Alex-xd: switch that off<br/>
+<font color="#A82F2F"><font size="2">(03:53:51 PM)</font> <b>jelly:</b></font> srg: possible, it means other things in your vps image might not correspond to debian defaults<br/>
+<font color="#A82F2F"><font size="2">(03:55:44 PM)</font> <b>srg:</b></font> hm. What&apos;s the default syslog on Jessie? I&apos;m tempted to uninstall -ng and install that (rsyslog or whatever<br/>
+<font color="#A82F2F"><font size="2">(03:56:12 PM)</font> <b>voidvoid:</b></font> hi, is there any way to install pantheon &quot;elementary desktop&quot; into debian ?<br/>
+<font color="#A82F2F"><font size="2">(03:58:16 PM)</font> <b>jelly:</b></font> srg: rsyslog is default<br/>
+<font color="#A82F2F"><font size="2">(03:58:41 PM)</font> <b>jelly:</b></font> your provider might have had a reason for that change<br/>
+<font color="#062585"><font size="2">(03:59:18 PM)</font> <b>***abrotman</b></font> thought syslog-ng was the default for Jessie?<br/>
+<font color="#A82F2F"><font size="2">(03:59:37 PM)</font> <b>abrotman:</b></font> though, he&apos;s on wheezy .. so that wouldn&apos;t matter<br/>
+<font color="#A82F2F"><font size="2">(04:00:07 PM)</font> <b>jelly:</b></font> actually, I don&apos;t know.  jessies I installed from d-i are bare<br/>
+<font color="#A82F2F"><font size="2">(04:00:23 PM)</font> <b>srg:</b></font> hm<br/>
+<font color="#A82F2F"><font size="2">(04:00:54 PM)</font> <b>Ryndack:</b></font> Hello!<br/>
+<font color="#A82F2F"><font size="2">(04:01:34 PM)</font> <b>Ryndack:</b></font> I am trying to install debian testing, but the installer don&apos;t have the ext4 option. Is that a bug?<br/>
+<font color="#A82F2F"><font size="2">(04:02:19 PM)</font> <b>abrotman:</b></font> amd64 netinst?<br/>
+<font color="#062585"><font size="2">(04:02:59 PM)</font> <b>***Stijn</b></font> just did a fresh install, amd64 netinst and it did have the ext4 option<br/>
+<font color="#A82F2F"><font size="2">(04:03:47 PM)</font> <b>Ryndack:</b></font> I tryed two images, amd64 cd1, e amd64 kde...<br/>
+<font color="#A82F2F"><font size="2">(04:04:13 PM)</font> <b>abrotman:</b></font> Ryndack: I&apos;m sure it has ext4<br/>
+<font color="#A82F2F"><font size="2">(04:04:19 PM)</font> <b>Ryndack:</b></font> I will download the netinst image<br/>
+<font color="#A82F2F"><font size="2">(04:05:31 PM)</font> <b>Ryndack:</b></font> http://upload.ryndack.com.br/upload/debian.png<br/>
+<font color="#A82F2F"><font size="2">(04:05:42 PM)</font> <b>Ryndack:</b></font> Sorry the installer is in portuguese<br/>
+<font color="#A82F2F"><font size="2">(04:06:38 PM)</font> <b>Ryndack:</b></font> I am testing this image in a VM, but I tried in a real machine and it was the same<br/>
+<font color="#A82F2F"><font size="2">(04:06:39 PM)</font> <b>jelly:</b></font> Ryndack: what is the exact URL of the installer image you&apos;re using?<br/>
+<font color="#A82F2F"><font size="2">(04:06:55 PM)</font> <b>Ryndack:</b></font> http://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-CD-1.iso<br/>
+<font color="#A82F2F"><font size="2">(04:07:01 PM)</font> <b>Ryndack:</b></font> and<br/>
+<font color="#A82F2F"><font size="2">(04:07:06 PM)</font> <b>Ryndack:</b></font> http://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-kde-CD-1.iso<br/>
+<font color="#A82F2F"><font size="2">(04:07:14 PM)</font> <b>abrotman:</b></font> Ryndack: Please try the netinst, not the large CDs<br/>
+<font color="#A82F2F"><font size="2">(04:07:26 PM)</font> <b>Ryndack:</b></font> I will try. Thank you<br/>
+<font color="#062585"><font size="2">(04:08:07 PM)</font> <b>***abrotman</b></font> sort of wishes they&apos;d make those large CDs harder to find prior to release<br/>
+<font color="#A82F2F"><font size="2">(04:09:07 PM)</font> <b>Ryndack:</b></font> why abrotman ?<br/>
+<font color="#A82F2F"><font size="2">(04:10:19 PM)</font> <b>abrotman:</b></font> because, sometimes, they&apos;re not up to date (at this point, they should be okay), and testing fluctuates a lot.  Downloading those huge CDs and then running aptitude dist-upgrade, etc generates in half the CD contents being updated anyway<br/>
+<font color="#A82F2F"><font size="2">(04:10:42 PM)</font> <b>rozie:</b></font> I think CDs/DVDs should be distributed only by torrents<br/>
+<font size="2">(04:29:36 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

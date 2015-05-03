@@ -1,0 +1,101 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Fri 06 Sep 2013 05:44:33 AM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Fri 06 Sep 2013 05:44:33 AM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(05:44:33 AM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font size="2">(06:17:46 AM)</font><b> falktx_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(06:41:21 AM)</font><b> hybrid [<em>~R3n4t0@187.23.82.135</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:50:08 AM)</font> <b>male:</b></font> Don&apos;t you hate it when you spend two hours debugging the wrong binary?<br/>
+<font size="2">(07:09:22 AM)</font><b> nilg [<em>~user@ALagny-551-1-238-4.w83-114.abo.wanadoo.fr</em>] entered the room.</b><br/>
+<font size="2">(07:28:50 AM)</font><b> nilg left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(07:31:46 AM)</font><b> edogawa left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:35:56 AM)</font><b> naptastic [<em>~david@99-20-201-27.lightspeed.hstntx.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(07:38:23 AM)</font><b> nilg [<em>~user@ALagny-551-1-238-4.w83-114.abo.wanadoo.fr</em>] entered the room.</b><br/>
+<font size="2">(07:45:52 AM)</font><b> orl [<em>~orl@lns-bzn-48f-81-56-240-95.adsl.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(07:52:29 AM)</font><b> neXyon [<em>~xenon@91-115-18-187.adsl.highway.telekom.at</em>] entered the room.</b><br/>
+<font size="2">(07:59:45 AM)</font><b> neXyon left the room (quit: Quit: bye).</b><br/>
+<font size="2">(08:10:02 AM)</font><b> muldjord [<em>~muldjord@aarhussygehus.dyn.rm.dk</em>] entered the room.</b><br/>
+<font size="2">(08:21:16 AM)</font><b> zequence-work [<em>~zequence-@ubuntu/member/zequence</em>] entered the room.</b><br/>
+<font size="2">(08:22:49 AM)</font><b> corresponder [<em>~walther@p3EE3A0AD.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:42:14 AM)</font> <b>fps:</b></font> male: oh yes...<br/>
+<font color="#A82F2F"><font size="2">(08:42:40 AM)</font> <b>fps:</b></font> the time, when you finally realise it is the worst<br/>
+<font size="2">(08:43:12 AM)</font><b> gabrbedd left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:46:30 AM)</font> <b>male:</b></font> fps: Now I&apos;ve spent another few hours hunting a very strange bug which now seems to actually be in JACK.<br/>
+<font size="2">(08:46:40 AM)</font><b> naptastic left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(08:47:05 AM)</font> <b>male:</b></font> fps: Somehow I can get JACK into a state where everything works normally except 1) DSP load always shows 1% and 2) freewheeling doesn&apos;t work.<br/>
+<font color="#A82F2F"><font size="2">(08:47:13 AM)</font> <b>male:</b></font> fps: That&apos;s not the weird part though.<br/>
+<font color="#A82F2F"><font size="2">(08:47:43 AM)</font> <b>male:</b></font> fps: The weird part is that the condition persists even AFTER RESTARTING JACK.<br/>
+<font color="#A82F2F"><font size="2">(08:47:53 AM)</font> <b>male:</b></font> fps: Rebooting the computer is the only way I&apos;ve found to get back to normal.<br/>
+<font color="#A82F2F"><font size="2">(08:48:26 AM)</font> <b>fps:</b></font> male: how do you get jack into that state?<br/>
+<font color="#A82F2F"><font size="2">(08:48:35 AM)</font> <b>male:</b></font> fps: I have no idae.<br/>
+<font color="#A82F2F"><font size="2">(08:48:50 AM)</font> <b>fps:</b></font> male: afaik jack has no persistent data except for maybe some named pipes?<br/>
+<font color="#A82F2F"><font size="2">(08:49:12 AM)</font> <b>male:</b></font> fps: Yeah, that&apos;s what I thought too.<br/>
+<font color="#A82F2F"><font size="2">(08:49:14 AM)</font> <b>fps:</b></font> aaah, there&apos;s one thing that could keep weird state: the sound driver<br/>
+<font size="2">(08:49:26 AM)</font><b> suhr [<em>~nemo@56340422.rev.stofanet.dk</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:49:40 AM)</font> <b>male:</b></font> fps: Could be. Strange that everything works fine except for freewheeling and the dsp load.<br/>
+<font color="#A82F2F"><font size="2">(08:50:13 AM)</font> <b>fps:</b></font> ah dammit. i thought you maybe had a clue about how to reproduce it :(<br/>
+<font color="#A82F2F"><font size="2">(08:50:26 AM)</font> <b>fps:</b></font> is it the same with jack1 and jack2?<br/>
+<font color="#A82F2F"><font size="2">(08:50:26 AM)</font> <b>male:</b></font> fps: sem.jack_sem.1000_default_freewheel<br/>
+<font color="#A82F2F"><font size="2">(08:50:36 AM)</font> <b>male:</b></font> fps: Is the name of one of JACK&apos;s pipes...<br/>
+<font color="#A82F2F"><font size="2">(08:50:46 AM)</font> <b>male:</b></font> fps: It&apos;s jack2.<br/>
+<font color="#A82F2F"><font size="2">(08:51:19 AM)</font> <b>male:</b></font> fps: Erm shared semaphore I guess.<br/>
+<font color="#A82F2F"><font size="2">(08:51:39 AM)</font> <b>fps:</b></font> i was always suspicious of freewheeling ;D it seems no one really bothered hacking their apps to support it<br/>
+<font color="#A82F2F"><font size="2">(08:51:46 AM)</font> <b>fps:</b></font> so i guess it&apos;s one of the least tested jack features?<br/>
+<font color="#A82F2F"><font size="2">(08:51:50 AM)</font> <b>male:</b></font> fps: Well mine support it.<br/>
+<font color="#A82F2F"><font size="2">(08:51:56 AM)</font> <b>fps:</b></font> [except for ardour and non :D]<br/>
+<font color="#A82F2F"><font size="2">(08:51:59 AM)</font> <b>male:</b></font> fps: Except for this little hiccup.<br/>
+<font color="#A82F2F"><font size="2">(08:52:56 AM)</font> <b>fps:</b></font> hmm. would be interesting to see whether it happens with jack1, too<br/>
+<font color="#A82F2F"><font size="2">(08:53:03 AM)</font> <b>fps:</b></font> if not, you kinda know jack2 is the culprit<br/>
+<font color="#A82F2F"><font size="2">(08:53:20 AM)</font> <b>male:</b></font> fps: Deleting everything from /etc/shm does appear to fix it.<br/>
+<font color="#A82F2F"><font size="2">(08:53:30 AM)</font> <b>male:</b></font>  /dev/shm I mean<br/>
+<font color="#A82F2F"><font size="2">(08:53:36 AM)</font> <b>fps:</b></font> male: ah, there you go :D<br/>
+<font color="#A82F2F"><font size="2">(08:54:00 AM)</font> <b>male:</b></font> fps: There goes my evening...<br/>
+<font size="2">(08:54:14 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:54:27 AM)</font> <b>fps:</b></font> i guess that&apos;s something that stephane and the others could use as a starting point for debugging<br/>
+<font color="#A82F2F"><font size="2">(08:54:30 AM)</font> <b>male:</b></font> fps: All this time I thought I had a bug.<br/>
+<font color="#A82F2F"><font size="2">(08:54:33 AM)</font> <b>fps:</b></font> male: or do you want to fix it yourself?<br/>
+<font color="#A82F2F"><font size="2">(08:54:50 AM)</font> <b>fps:</b></font> male: heh, it&apos;s still possible that you have a bug AND jack has a bug :D<br/>
+<font color="#A82F2F"><font size="2">(08:54:52 AM)</font> <b>male:</b></font> fps: Have to figure out what&apos;s triggering it first.<br/>
+<font color="#A82F2F"><font size="2">(08:57:07 AM)</font> <b>fps:</b></font> male: i suppose it does not happen with other apps supporting freewheeling?<br/>
+<font color="#A82F2F"><font size="2">(08:58:15 AM)</font> <b>male:</b></font> fps: I don&apos;t really know--it&apos;s not like there&apos;s a huge selection.<br/>
+<font color="#A82F2F"><font size="2">(08:58:34 AM)</font> <b>male:</b></font> fps: And it&apos;s not happening every time (until it gets into the state where it doesn&apos;t work at all)<br/>
+<font color="#A82F2F"><font size="2">(08:58:46 AM)</font> <b>fps:</b></font> male: maybe it&apos;s possible to hack up a little test case program<br/>
+<font color="#A82F2F"><font size="2">(08:59:05 AM)</font> <b>fps:</b></font> male: i really never looked into freewheeling though<br/>
+<font color="#A82F2F"><font size="2">(08:59:16 AM)</font> <b>fps:</b></font> so i don&apos;t even know how to, in principle, support it<br/>
+<font color="#A82F2F"><font size="2">(08:59:49 AM)</font> <b>fps:</b></font> aha, 1] set the freewheel callback, if nessecary..<br/>
+<font color="#A82F2F"><font size="2">(09:00:52 AM)</font> <b>fps:</b></font> 2] call jack_set_freewheel<br/>
+<font color="#A82F2F"><font size="2">(09:01:24 AM)</font> <b>male:</b></font> fps: Might be too simplistic.<br/>
+<font color="#A82F2F"><font size="2">(09:01:40 AM)</font> <b>male:</b></font> fps: it doesn&apos;t make sense to freewheel without at least one slow-sync client.<br/>
+<font color="#A82F2F"><font size="2">(09:01:55 AM)</font> <b>fps:</b></font> is that the whole API concerning freewheeling?<br/>
+<font color="#A82F2F"><font size="2">(09:02:04 AM)</font> <b>fps:</b></font> the rest is in implicit requirements for the apps to support it?<br/>
+<font color="#A82F2F"><font size="2">(09:02:33 AM)</font> <b>fps:</b></font> brb<br/>
+<font color="#A82F2F"><font size="2">(09:03:32 AM)</font> <b>male:</b></font> fps: Yeah.<br/>
+<font color="#A82F2F"><font size="2">(09:03:55 AM)</font> <b>male:</b></font> fps: Although, I have to say the JACK docs are pretty light on details.<br/>
+<font color="#A82F2F"><font size="2">(09:04:17 AM)</font> <b>male:</b></font> fps: Such as, when the freewheeling callback is run, is process() running at the same time etc.<br/>
+<font color="#A82F2F"><font size="2">(09:04:58 AM)</font> <b>male:</b></font> fps: And of course now I can&apos;t reproduce it.<br/>
+<font color="#A82F2F"><font size="2">(09:06:35 AM)</font> <b>fps:</b></font> hmm, maybe it really was bad state in /dev/shm<br/>
+<font color="#A82F2F"><font size="2">(09:06:54 AM)</font> <b>fps:</b></font> and now that you deleted it, it won&apos;t show up again until you hit that right combination of circumstanecs<br/>
+<font color="#A82F2F"><font size="2">(09:07:42 AM)</font> <b>fps:</b></font> shared memory can be a bit tricky iirc when it comes to who is responsible for deleting state<br/>
+<font color="#A82F2F"><font size="2">(09:10:00 AM)</font> <b>fps:</b></font> male: my interpretation of the freewheeling callback is that it has to be called in between two process callbacks<br/>
+<font color="#A82F2F"><font size="2">(09:10:16 AM)</font> <b>fps:</b></font> since process cycles as a whole are either freewheeling or not<br/>
+<font color="#A82F2F"><font size="2">(09:10:20 AM)</font> <b>fps:</b></font> or rather:<br/>
+<font color="#A82F2F"><font size="2">(09:10:31 AM)</font> <b>fps:</b></font> freewheeling determines WHEN process callbacks are called<br/>
+<font color="#A82F2F"><font size="2">(09:10:56 AM)</font> <b>fps:</b></font> either after waiting for the soundcard [non freewheeling] or not [freewheeling]<br/>
+<font color="#A82F2F"><font size="2">(09:11:07 AM)</font> <b>male:</b></font> fps: In my experience that is certainly true.<br/>
+<font color="#A82F2F"><font size="2">(09:11:18 AM)</font> <b>male:</b></font> fps: But it&apos;s the kind of thing the docs should really mention.<br/>
+<font color="#A82F2F"><font size="2">(09:11:43 AM)</font> <b>fps:</b></font> i agree. the best approach is probably to send a doc patch :D and if it&apos;s wrong it will be corrected :D<br/>
+<font size="2">(09:13:04 AM)</font><b> hansfbaier [<em>~jack@118.96.159.141</em>] entered the room.</b><br/>
+<font size="2">(09:30:38 AM)</font><b> monotomy [<em>~monotomy@drsd-4d05e0ed.pool.mediaWays.net</em>] entered the room.</b><br/>
+<font size="2">(09:34:36 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(09:39:14 AM)</font><b> zequence-work left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font size="2">(09:50:04 AM)</font><b> hansfbaier [<em>~jack@36.73.49.220</em>] entered the room.</b><br/>
+<font size="2">(10:04:26 AM)</font><b> ssj71 left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:23:04 AM)</font><b> RytmenPinne [<em>~alex@35-51.bob.fi</em>] entered the room.</b><br/>
+<font size="2">(10:30:25 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font size="2">(10:46:04 AM)</font><b> hansfbaier [<em>~jack@36.73.56.200</em>] entered the room.</b><br/>
+<font size="2">(10:48:13 AM)</font><b> corresponder_ [<em>~walther@p3EE39487.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(10:48:21 AM)</font><b> corresponder left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(11:50:46 AM)</font><b> zequence-work [<em>~zequence-@ubuntu/member/zequence</em>] entered the room.</b><br/>
+<font size="2">(11:56:27 AM)</font><b> nilg left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:56:43 AM)</font><b> nilg [<em>~user@ALagny-551-1-238-4.w83-114.abo.wanadoo.fr</em>] entered the room.</b><br/>
+<font size="2">(11:57:23 AM)</font><b> zequence-work left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(12:06:01 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font size="2">(12:39:29 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,109 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sat 22 Nov 2014 09:37:00 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sat 22 Nov 2014 09:37:00 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(09:37:01 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(09:37:01 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(09:37:58 PM)</font> <b>henrytill:</b></font> there&apos;s also --opeion build-use-substitutes false<br/>
+<font color="#A82F2F"><font size="2">(09:38:46 PM)</font> <b>henrytill:</b></font> s/opeion/option<br/>
+<font color="#A82F2F"><font size="2">(09:39:37 PM)</font> <b>henrytill:</b></font> which AFAIK forces building from source<br/>
+<font color="#A82F2F"><font size="2">(09:40:58 PM)</font> <b>Fuuzetsu:</b></font> sounds good<br/>
+<font size="2">(09:41:00 PM)</font><b> ajhager [<em>~ajhager@99-8-18-142.lightspeed.iplsin.sbcglobal.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:41:23 PM)</font> <b>Fuuzetsu:</b></font> oh yeah, that did it<br/>
+<font color="#A82F2F"><font size="2">(09:41:27 PM)</font> <b>Fuuzetsu:</b></font> awesome<br/>
+<font color="#A82F2F"><font size="2">(09:41:31 PM)</font> <b>henrytill:</b></font> excellent<br/>
+<font color="#A82F2F"><font size="2">(09:44:17 PM)</font> <b>henrytill:</b></font> yeah, i haven&apos;t tested this because i enabled chroot builds globally, but it seems you can also do --option build-use-chroot true for a one-time chroot<br/>
+<font color="#A82F2F"><font size="2">(09:44:32 PM)</font> <b>henrytill:</b></font> can anyone confirm this?<br/>
+<font color="#16569E"><font size="2">(09:45:29 PM)</font> <b>magnetophon:</b></font> When I have this in my .nix: &quot;    sed -i s/usr/$out  tools/faust2appls/faust2jack&quot;,   I get &quot;syntax error, unexpected $undefined&quot; pointing at the $out.  What am I dooing wrong?<br/>
+<font color="#A82F2F"><font size="2">(09:46:08 PM)</font> <b>henrytill:</b></font> magnetophon: have you tried $(out)?<br/>
+<font color="#16569E"><font size="2">(09:46:16 PM)</font> <b>magnetophon:</b></font> henrytill: will do<br/>
+<font color="#16569E"><font size="2">(09:47:32 PM)</font> <b>magnetophon:</b></font> henrytill: same error...<br/>
+<font color="#A82F2F"><font size="2">(09:47:48 PM)</font> <b>henrytill:</b></font> yeah i realized that probably isn&apos;t right<br/>
+<font color="#A82F2F"><font size="2">(09:47:54 PM)</font> <b>henrytill:</b></font> can you paste me the file?<br/>
+<font color="#16569E"><font size="2">(09:48:02 PM)</font> <b>magnetophon:</b></font> henrytill: coming up<br/>
+<font color="#16569E"><font size="2">(09:50:57 PM)</font> <b>magnetophon:</b></font> henrytill: http://nixpaste.noip.me/E6PrTC6V<br/>
+<font size="2">(09:53:45 PM)</font><b> emery left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(09:55:01 PM)</font><b> dysinger [<em>~dysinger@cpe-24-94-75-243.hawaii.res.rr.com</em>] entered the room.</b><br/>
+<font size="2">(09:56:30 PM)</font><b> emery [<em>~emery@gateway/tor-sasl/nickemery</em>] entered the room.</b><br/>
+<font size="2">(09:57:00 PM)</font><b> hnoob [<em>~hnoob@66.185.108.211</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:57:13 PM)</font> <b>the-kenny:</b></font> mm. *Something* is causing nixops to build gtk, pinentry, ghostscript, etc. for my (headless) server. Any idea how I could track down the responsible package(s)? :/<br/>
+<font size="2">(09:57:44 PM)</font><b> dysinger left the room (quit: Client Quit).</b><br/>
+<font size="2">(09:59:29 PM)</font><b> psnively left the room (quit: Quit: psnively).</b><br/>
+<font color="#A82F2F"><font size="2">(10:00:35 PM)</font> <b>henrytill:</b></font> the-kenny: i&apos;ve had gpg build those for me<br/>
+<font color="#A82F2F"><font size="2">(10:00:48 PM)</font> <b>the-kenny:</b></font> ghostscript too?<br/>
+<font color="#A82F2F"><font size="2">(10:00:53 PM)</font> <b>the-kenny:</b></font> Meh :/ I want gtk there<br/>
+<font color="#A82F2F"><font size="2">(10:00:59 PM)</font> <b>the-kenny:</b></font> s/gtk/gpg/<br/>
+<font color="#A82F2F"><font size="2">(10:01:25 PM)</font> <b>henrytill:</b></font> the-kenny: memory is a bit fuzzy, but i think so?<br/>
+<font color="#A82F2F"><font size="2">(10:01:31 PM)</font> <b>the-kenny:</b></font> I wonder why it *builds* these instead of just downloading them<br/>
+<font color="#A82F2F"><font size="2">(10:01:45 PM)</font> <b>henrytill:</b></font> the-kenny: good question<br/>
+<font color="#A82F2F"><font size="2">(10:01:45 PM)</font> <b>the-kenny:</b></font> It never builds them for my local system (which uses the same package lists)<br/>
+<font color="#A82F2F"><font size="2">(10:02:13 PM)</font> <b>henrytill:</b></font> magnetophon: just building...<br/>
+<font size="2">(10:04:04 PM)</font><b> Ivanych left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(10:04:53 PM)</font><b> MP2E [<em>~cray@ip70-170-88-148.lv.lv.cox.net</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:04:57 PM)</font> <b>magnetophon:</b></font> henrytill: wait, it works for you? Using &quot;nix-build -A faust &quot; ????<br/>
+<font color="#A82F2F"><font size="2">(10:06:09 PM)</font> <b>the-kenny:</b></font> magnetophon: small comment: using substituteInPlace is preferred over sed<br/>
+<font size="2">(10:06:12 PM)</font><b> moha_hunt left the room (quit: Quit: moha_hunt).</b><br/>
+<font color="#16569E"><font size="2">(10:06:31 PM)</font> <b>magnetophon:</b></font> henrytill: PS: are you dutch too?<br/>
+<font size="2">(10:06:49 PM)</font><b> zz_flazz is now known as flazz</b><br/>
+<font color="#16569E"><font size="2">(10:06:49 PM)</font> <b>magnetophon:</b></font> the-kenny: thanks, I'll google that<br/>
+<font color="#A82F2F"><font size="2">(10:07:08 PM)</font> <b>the-kenny:</b></font> magnetophon: no need for that ;) http://nixos.org/nixpkgs/manual/<br/>
+<font color="#A82F2F"><font size="2">(10:07:26 PM)</font> <b>the-kenny:</b></font> it&apos;s basicalli substitueInPlace file --replace foo bar<br/>
+<font color="#A82F2F"><font size="2">(10:07:43 PM)</font> <b>henrytill:</b></font> the-kenny, magnetophon: that&apos;s a good point about sed vs substituteInPlace<br/>
+<font color="#A82F2F"><font size="2">(10:07:54 PM)</font> <b>the-kenny:</b></font> *basically<br/>
+<font size="2">(10:08:02 PM)</font><b> jb55 [<em>~jb55@S0106f46d049a0b83.vc.shawcable.net</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:08:03 PM)</font> <b>magnetophon:</b></font> the-kenny: thanks. Why is it preferred?<br/>
+<font color="#A82F2F"><font size="2">(10:08:39 PM)</font> <b>the-kenny:</b></font> I think that&apos;s mentioned in the manua<br/>
+<font color="#A82F2F"><font size="2">(10:08:46 PM)</font> <b>the-kenny:</b></font> something about special characters &amp; binary stuff<br/>
+<font color="#A82F2F"><font size="2">(10:08:58 PM)</font> <b>the-kenny:</b></font> (but I mostly prefer it because I find sed horrible to read)<br/>
+<font color="#A82F2F"><font size="2">(10:09:12 PM)</font> <b>the-kenny:</b></font> magnetophon: another comment: gnumake is in included in stdenv<br/>
+<font color="#A82F2F"><font size="2">(10:10:02 PM)</font> <b>the-kenny:</b></font> aaaand another thing! you can use patchShebangs instead of your find *.sh<br/>
+<font color="#A82F2F"><font size="2">(10:10:27 PM)</font> <b>the-kenny:</b></font> wait no. You can&apos;t. This isn&apos;t for patching shebangs. Sorry<br/>
+<font color="#16569E"><font size="2">(10:11:41 PM)</font> <b>magnetophon:</b></font> the-kenny: that is a line I copied for ispiration. I need to patch a whole dir-tree full of scripts. Is there a prefered method for that?<br/>
+<font color="#A82F2F"><font size="2">(10:11:52 PM)</font> <b>the-kenny:</b></font> I don&apos;t think so<br/>
+<font color="#A82F2F"><font size="2">(10:12:19 PM)</font> <b>the-kenny:</b></font> I just confused this with patching shebangs, sorry<br/>
+<font color="#A82F2F"><font size="2">(10:12:28 PM)</font> <b>henrytill:</b></font> magnetophon: what&apos;s the deal with $FAUST_LIB_PATH?<br/>
+<font color="#A82F2F"><font size="2">(10:12:41 PM)</font> <b>henrytill:</b></font> couldn&apos;t we set that<br/>
+<font color="#A82F2F"><font size="2">(10:12:43 PM)</font> <b>henrytill:</b></font> ?<br/>
+<font color="#16569E"><font size="2">(10:13:28 PM)</font> <b>magnetophon:</b></font> henrytill: idk. I'm quite bad with scripts, makefiles and environment varables and such...<br/>
+<font color="#A82F2F"><font size="2">(10:13:50 PM)</font> <b>henrytill:</b></font> magnetophon: well then, let me dig a little deeper<br/>
+<font color="#16569E"><font size="2">(10:15:04 PM)</font> <b>magnetophon:</b></font> the-kenny: I was thinking of:     find . -type f | xargs substituteInPlace.command.yet.to.be.written<br/>
+<font color="#16569E"><font size="2">(10:15:36 PM)</font> <b>magnetophon:</b></font> the-kenny: for fixing paths in a dir-tree full of scripts that is. no idea if it would work :)<br/>
+<font color="#16569E"><font size="2">(10:15:44 PM)</font> <b>magnetophon:</b></font> henrytill: thanks<br/>
+<font color="#A82F2F"><font size="2">(10:15:58 PM)</font> <b>the-kenny:</b></font> I&apos;d just use find .. --exec substituteInPlace ...<br/>
+<font color="#16569E"><font size="2">(10:16:18 PM)</font> <b>magnetophon:</b></font> the-kenny: cool,  I'll work on that.<br/>
+<font color="#A82F2F"><font size="2">(10:16:35 PM)</font> <b>pharpend:</b></font> Why is there no killall in nix?<br/>
+<font color="#A82F2F"><font size="2">(10:17:26 PM)</font> <b>pharpend:</b></font> or rather, how do I get killall? There&apos;s nothing googling it<br/>
+<font size="2">(10:17:44 PM)</font><b> elifrey left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(10:17:48 PM)</font> <b>henrytill:</b></font> pharpend: try typing killall<br/>
+<font color="#A82F2F"><font size="2">(10:18:09 PM)</font> <b>henrytill:</b></font> pharpend: you&apos;ll get a very informative error<br/>
+<font color="#A82F2F"><font size="2">(10:18:38 PM)</font> <b>iElectric:</b></font> don&apos;t try that on solaris with killall installed :D<br/>
+<font color="#A82F2F"><font size="2">(10:19:04 PM)</font> <b>iElectric:</b></font> (yes, it kills everything under particular user)<br/>
+<font color="#A82F2F"><font size="2">(10:19:18 PM)</font> <b>the-kenny:</b></font> there&apos;s also pkill<br/>
+<font color="#A82F2F"><font size="2">(10:19:20 PM)</font> <b>pharpend:</b></font> henrytill: zsh: command not found: killall<br/>
+<font color="#A82F2F"><font size="2">(10:19:23 PM)</font> <b>pharpend:</b></font> not really useful<br/>
+<font color="#A82F2F"><font size="2">(10:19:37 PM)</font> <b>the-kenny:</b></font> bash is more informative ;)<br/>
+<font color="#A82F2F"><font size="2">(10:19:37 PM)</font> <b>henrytill:</b></font> pharpend: ah, i use bash<br/>
+<font color="#A82F2F"><font size="2">(10:19:50 PM)</font> <b>pharpend:</b></font> psmisc package<br/>
+<font color="#A82F2F"><font size="2">(10:19:52 PM)</font> <b>the-kenny:</b></font> iirc killall is in psmisc<br/>
+<font color="#A82F2F"><font size="2">(10:19:54 PM)</font> <b>henrytill:</b></font> psmisc or busybox<br/>
+<font color="#A82F2F"><font size="2">(10:19:59 PM)</font> <b>henrytill:</b></font> jinx<br/>
+<font size="2">(10:20:01 PM)</font><b> dysinger [<em>~dysinger@cpe-24-94-75-243.hawaii.res.rr.com</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:20:39 PM)</font> <b>magnetophon:</b></font> Meanwhile I'm still getting &quot;syntax error, unexpected $undefined&quot; when I use $out or $(out) in my .nix.....<br/>
+<font color="#16569E"><font size="2">(10:21:26 PM)</font> <b>magnetophon:</b></font> how can it work for henrytill but not for me?<br/>
+<font color="#A82F2F"><font size="2">(10:21:34 PM)</font> <b>henrytill:</b></font> magnetophon: no no don&apos;t worry<br/>
+<font color="#A82F2F"><font size="2">(10:22:04 PM)</font> <b>henrytill:</b></font> magnetophon: i&apos;m just reading up on building Faust<br/>
+<font color="#A82F2F"><font size="2">(10:22:45 PM)</font> <b>henrytill:</b></font> magnetophon: seems like faust2appls stuff comes after we build the main part<br/>
+<font color="#16569E"><font size="2">(10:22:54 PM)</font> <b>magnetophon:</b></font> henrytill: but you DID say my .nix worked for you, or did I misunderstand?<br/>
+<font color="#A82F2F"><font size="2">(10:23:33 PM)</font> <b>henrytill:</b></font> magnetophon: no no it was a sed command that didn&apos;t throw an error but didn&apos;t do what we want<br/>
+<font color="#16569E"><font size="2">(10:24:03 PM)</font> <b>magnetophon:</b></font> henrytill: what do you mean by &quot;comes after&quot;? Are you asuming these scripts are part of the build process? They aren't.<br/>
+<font color="#A82F2F"><font size="2">(10:25:08 PM)</font> <b>henrytill:</b></font> magnetophon: right the readme seems suggests that we &quot;make install&quot; faust2appls after we &quot;make install&quot; in the main directory<br/>
+<font color="#A82F2F"><font size="2">(10:25:11 PM)</font> <b>pharpend:</b></font> there&apos;s a function in /etc/bashrc<br/>
+<font size="2">(10:25:27 PM)</font><b> turtlethumper left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:25:29 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] titanous opened pull request #5086: makemkv: Update 1.8.14 -&gt; 1.9.0 (master...update-makemkv) http://git.io/xnqNSg<br/>
+<font color="#A82F2F"><font size="2">(10:26:30 PM)</font> <b>pharpend:</b></font> can&apos;t figure out how to get zsh&apos;s command not found to work<br/>
+<font size="2">(10:26:47 PM)</font><b> copumpkin [<em>~copumpkin@unaffiliated/copumpkin</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:28:10 PM)</font> <b>pharpend:</b></font> okay figured it out<br/>
+<font color="#A82F2F"><font size="2">(10:29:44 PM)</font> <b>copumpkin:</b></font> anyone know how https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-darwin.tar.bz2 is built?<br/>
+<font color="#16569E"><font size="2">(10:30:54 PM)</font> <b>magnetophon:</b></font> henrytill: ah, now I undertand the confusion: we need to make the makefile, and I thought you wanted to run the individual scripts as part of the build-process.<br/>
+<font color="#16569E"><font size="2">(10:38:46 PM)</font> <b>magnetophon:</b></font> henrytill: If I checked correctly, the makefile in faust2appls works fine with my nix, we just need to patch the individual scripts in the dir tree, which all have hardcoded paths to faust. And they seem to use command called error, that I don't have on my system, see line 24 of faust2jack, for example. <br/>
+<font color="#16569E"><font size="2">(10:47:16 PM)</font> <b>magnetophon:</b></font> henrytill: sorry, got disconnected. What'd I miss?<br/>
+<font color="#16569E"><font size="2">(10:48:14 PM)</font> <b>magnetophon:</b></font> henrytill: did you recieve my remarks about the makefile?<br/>
+<font size="2">(10:50:24 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

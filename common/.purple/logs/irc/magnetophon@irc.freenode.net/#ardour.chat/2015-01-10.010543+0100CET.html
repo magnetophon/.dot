@@ -1,0 +1,227 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Sat 10 Jan 2015 01:05:43 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Sat 10 Jan 2015 01:05:43 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(01:05:43 AM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(01:05:43 AM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(01:05:47 AM)</font> <b>xhoch3:</b></font> well, the one I chose is in the JACK sources<br/>
+<font color="#A82F2F"><font size="2">(01:05:54 AM)</font> <b>xhoch3:</b></font> so I guess that&apos;s the moste reliable<br/>
+<font color="#A82F2F"><font size="2">(01:06:08 AM)</font> <b>xhoch3:</b></font> if not, it should be exchanged<br/>
+<font color="#A82F2F"><font size="2">(01:06:11 AM)</font> <b>rgareus:</b></font> xhoch3: guess again :)<br/>
+<font color="#A82F2F"><font size="2">(01:06:22 AM)</font> <b>xhoch3:</b></font> or at least removed<br/>
+<font color="#A82F2F"><font size="2">(01:06:41 AM)</font> <b>rgareus:</b></font> xhoch3: netjack is reliable.<br/>
+<font color="#A82F2F"><font size="2">(01:07:06 AM)</font> <b>rgareus:</b></font> xhoch3: however netjack2 does not forward transport and netone does not include port latencies<br/>
+<font color="#A82F2F"><font size="2">(01:07:49 AM)</font> <b>xhoch3:</b></font> well, there are two programs shipping with JACK<br/>
+<font color="#A82F2F"><font size="2">(01:07:52 AM)</font> <b>rgareus:</b></font> netjack2 uses multicast and makes otherwise little network assumtions.   netone is UDP based and includes a lot if low-level tricks<br/>
+<font color="#A82F2F"><font size="2">(01:08:00 AM)</font> <b>rgareus:</b></font> xhoch3: those are just examples<br/>
+<font color="#062585"><font size="2">(01:08:17 AM)</font> <b>***rgareus</b></font> wishes distros would not install example-clients to /usr/bin/<br/>
+<font color="#A82F2F"><font size="2">(01:08:17 AM)</font> <b>xhoch3:</b></font> ok, but those examples to do not work<br/>
+<font color="#A82F2F"><font size="2">(01:08:32 AM)</font> <b>xhoch3:</b></font> kind of defeats the purpose :P<br/>
+<font color="#A82F2F"><font size="2">(01:08:58 AM)</font> <b>rgareus:</b></font> xhoch3: -&gt; #jack or file a bug report<br/>
+<font color="#A82F2F"><font size="2">(01:09:44 AM)</font> <b>rgareus:</b></font> drobilla: here&apos;s how it looks here: http://robin.linuxaudio.org/tmp/grid_on_top.png <br/>
+<font color="#A82F2F"><font size="2">(01:10:18 AM)</font> <b>xhoch3:</b></font> I can do that, but it doesn&apos;t help me for now<br/>
+<font color="#A82F2F"><font size="2">(01:10:28 AM)</font> <b>xhoch3:</b></font> I need to find out what&apos;s wrong<br/>
+<font color="#A82F2F"><font size="2">(01:14:21 AM)</font> <b>tom-:</b></font> xhoch3: do you intend to integrate network jack facilities to the redesigned qjackctrl?<br/>
+<font color="#A82F2F"><font size="2">(01:14:21 AM)</font> <b>xhoch3:</b></font> also, yes<br/>
+<font color="#A82F2F"><font size="2">(01:14:21 AM)</font> <b>tom-:</b></font> xhoch3: from my POV, n2jbridge would be the best choice<br/>
+<font color="#A82F2F"><font size="2">(01:14:23 AM)</font> <b>rgareus:</b></font> xhoch3: that sounds like an odd design decision for a control application.<br/>
+<font color="#A82F2F"><font size="2">(01:14:24 AM)</font> <b>tom-:</b></font> xhoch3: it doesn&apos;t forward all jack things but has well decoupling / no master/client foo and does resampling nice<br/>
+<font color="#A82F2F"><font size="2">(01:15:04 AM)</font> <b>rgareus:</b></font> xhoch3: why would qjackctl itself play any part in receiving/transmissing data? surely it should just tell jack to do that<br/>
+<font color="#A82F2F"><font size="2">(01:15:07 AM)</font> <b>tom-:</b></font> agreed it could also be a separate gui/program<br/>
+<font color="#A82F2F"><font size="2">(01:15:26 AM)</font> <b>tom-:</b></font> but related<br/>
+<font color="#A82F2F"><font size="2">(01:15:28 AM)</font> <b>xhoch3:</b></font> rgareus, I am building two things. First, I have a thing called QJack that abstracts away JACKs C API in favor of a C++/Qt API<br/>
+<font color="#A82F2F"><font size="2">(01:15:45 AM)</font> <b>rgareus:</b></font> and it&apos;s currently already possible just add  jack_load netmanager to qjactctl&apos;s post-startup  and use the net backend <br/>
+<font color="#A82F2F"><font size="2">(01:15:47 AM)</font> <b>xhoch3:</b></font> I aim to get a full wrapper<br/>
+<font color="#A82F2F"><font size="2">(01:16:11 AM)</font> <b>xhoch3:</b></font> second, on top of that wrapper, I will redesign qjackctl<br/>
+<font color="#A82F2F"><font size="2">(01:16:26 AM)</font> <b>xhoch3:</b></font> which doesn&apos;t mean I use all features<br/>
+<font color="#A82F2F"><font size="2">(01:16:46 AM)</font> <b>tom-:</b></font> a gui for the networking things would help. it&apos;s a bit confusing to choose the right way &amp; setup so it works.<br/>
+<font color="#A82F2F"><font size="2">(01:16:50 AM)</font> <b>xhoch3:</b></font> but I want to have QJack complete in the first stage<br/>
+<font color="#A82F2F"><font size="2">(01:17:04 AM)</font> <b>xhoch3:</b></font> so I have a solid foundation<br/>
+<font color="#A82F2F"><font size="2">(01:17:44 AM)</font> <b>rgareus:</b></font> xhoch3: that sounds like a different project - not qjackctl<br/>
+<font color="#A82F2F"><font size="2">(01:18:02 AM)</font> <b>rgareus:</b></font> xhoch3: why redesign it anyway?<br/>
+<font color="#A82F2F"><font size="2">(01:18:22 AM)</font> <b>xhoch3:</b></font> well, it&apos;s messy code<br/>
+<font color="#A82F2F"><font size="2">(01:18:26 AM)</font> <b>rgareus:</b></font> it&apos;s very mature software that just needs a few small tweaks.<br/>
+<font color="#A82F2F"><font size="2">(01:18:29 AM)</font> <b>tom-:</b></font> btw, did anyone managed to compile zita n2jbridge for osx and windows?<br/>
+<font color="#A82F2F"><font size="2">(01:18:33 AM)</font> <b>rgareus:</b></font> sure. it&apos;s messy<br/>
+<font color="#A82F2F"><font size="2">(01:18:52 AM)</font> <b>rgareus:</b></font> but the connection dialog and patchbay work brilliantly from a user&apos;s POV.<br/>
+<font color="#A82F2F"><font size="2">(01:19:01 AM)</font> <b>xhoch3:</b></font> it&apos;s a Qt program, but was not designed like one<br/>
+<font color="#A82F2F"><font size="2">(01:19:33 AM)</font> <b>xhoch3:</b></font> you can keep on patching it with ducktape, but at some point, you will give up<br/>
+<font color="#A82F2F"><font size="2">(01:19:34 AM)</font> <b>rgareus:</b></font> xhoch3: well, it started out 14 years ago.<br/>
+<font color="#A82F2F"><font size="2">(01:20:00 AM)</font> <b>tom-:</b></font> ... and still is the de-facto jack control tool on most distros<br/>
+<font color="#A82F2F"><font size="2">(01:20:03 AM)</font> <b>xhoch3:</b></font> I already refactored lots of the code, luckily, a lot by deleting<br/>
+<font color="#A82F2F"><font size="2">(01:20:04 AM)</font> <b>rgareus:</b></font> xhoch3: so you&apos;ll start a new project - not change qjactctl?<br/>
+<font color="#A82F2F"><font size="2">(01:20:25 AM)</font> <b>rgareus:</b></font> xhoch3: ie an almost complete rewrite.<br/>
+<font color="#A82F2F"><font size="2">(01:20:27 AM)</font> <b>xhoch3:</b></font> I took the latest qjackctl and started transforming it<br/>
+<font color="#A82F2F"><font size="2">(01:21:09 AM)</font> <b>xhoch3:</b></font> there is a lot of JACK magic going on still, and it&apos;s spread all over<br/>
+<font color="#A82F2F"><font size="2">(01:21:21 AM)</font> <b>xhoch3:</b></font> I want ti have that encapsulated nicely<br/>
+<font color="#A82F2F"><font size="2">(01:21:45 AM)</font> <b>xhoch3:</b></font> partially, I am on the way<br/>
+<font color="#A82F2F"><font size="2">(01:22:17 AM)</font> <b>rgareus:</b></font> xhoch3: are you going to keep the name and intend to superseed qjackctl?<br/>
+<font color="#A82F2F"><font size="2">(01:22:28 AM)</font> <b>xhoch3:</b></font> I can configure and start and a JACK server, it got an application main window, proper actions and so on<br/>
+<font color="#A82F2F"><font size="2">(01:22:39 AM)</font> <b>xhoch3:</b></font> this is my intention<br/>
+<font color="#A82F2F"><font size="2">(01:22:40 AM)</font> <b>rgareus:</b></font> xhoch3: or will current qjackctl be around in paralell - until it dies<br/>
+<font color="#A82F2F"><font size="2">(01:23:24 AM)</font> <b>tom-:</b></font> &quot;newjackctrl&quot;<br/>
+<font color="#16569E"><font size="2">(01:23:40 AM)</font> <b>magnetophon:</b></font> could someone remind me how to make ardour display the mixer on too small screens?  <br/>
+<font color="#A82F2F"><font size="2">(01:23:44 AM)</font> <b>tom-:</b></font> &quot;new jack city ctrl&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:23:54 AM)</font> <b>rgareus:</b></font> xhoch3: I hope you keep the current features - in particular being able to control qjactctl via dbus.<br/>
+<font color="#A82F2F"><font size="2">(01:24:13 AM)</font> <b>rgareus:</b></font> and the patchbacy<br/>
+<font color="#A82F2F"><font size="2">(01:24:16 AM)</font> <b>xhoch3:</b></font> I planned to keep all features<br/>
+<font color="#A82F2F"><font size="2">(01:24:26 AM)</font> <b>xhoch3:</b></font> and even reuse views<br/>
+<font color="#A82F2F"><font size="2">(01:24:47 AM)</font> <b>rgareus:</b></font> xhoch3: tabs?<br/>
+<font color="#A82F2F"><font size="2">(01:24:56 AM)</font> <b>tom-:</b></font> magnetophon: if (g_getenv (&quot;ARDOUR_LOVES_STUPID_TINY_SCREENS&quot;) == 0 &amp;&amp; screen &amp;&amp; screen-&gt;get_height() &lt; 700)<br/>
+<font color="#16569E"><font size="2">(01:25:10 AM)</font> <b>magnetophon:</b></font> tom-: thanks<br/>
+<font color="#16569E"><font size="2">(01:25:49 AM)</font> <b>magnetophon:</b></font> I googled ardour loves stupid small screens and got nothin ...<br/>
+<font color="#A82F2F"><font size="2">(01:25:55 AM)</font> <b>tom-:</b></font> magnetophon: i think it should go away and just display that ..*&quot;&quot; mixer screen :)<br/>
+<font color="#A82F2F"><font size="2">(01:26:27 AM)</font> <b>rgareus:</b></font> magnetophon: 1st google hit here: https://community.ardour.org/node/7739<br/>
+<font color="#A82F2F"><font size="2">(01:26:42 AM)</font> <b>tom-:</b></font> if ardour says the screen is too small -&gt; no way to add a plugin<br/>
+<font color="#A82F2F"><font size="2">(01:26:51 AM)</font> <b>tom-:</b></font> not in the editor mixer, not in the main mixer. odd<br/>
+<font color="#A82F2F"><font size="2">(01:26:55 AM)</font> <b>rgareus:</b></font> tom-: editor mixer should still work<br/>
+<font color="#A82F2F"><font size="2">(01:27:21 AM)</font> <b>tom-:</b></font> rgareus: it didn&apos;t last time i was trying on the eee book (which has a STUPID_TINY_SCREEN)<br/>
+<font color="#16569E"><font size="2">(01:28:12 AM)</font> <b>magnetophon:</b></font> I had quite a long discussion with las and this env var was his compromise...<br/>
+<font color="#A82F2F"><font size="2">(01:28:28 AM)</font> <b>tom-:</b></font> xhoch3: the last screenshot you showed looked good. slight change of ui strategy<br/>
+<font color="#A82F2F"><font size="2">(01:33:37 AM)</font> <b>xhoch3:</b></font> as you can see it completely broken: https://vid.me/MOXk<br/>
+<font color="#A82F2F"><font size="2">(01:33:39 AM)</font> <b>LAbot:</b></font> Title: Bildschirmaufnahme 2015-01-10 01:30:50 - vidme (at vid.me)<br/>
+<font color="#A82F2F"><font size="2">(01:33:49 AM)</font> <b>xhoch3:</b></font> I need to pull it together again<br/>
+<font color="#A82F2F"><font size="2">(01:34:06 AM)</font> <b>xhoch3:</b></font> I needed to completely remove the main widget<br/>
+<font color="#A82F2F"><font size="2">(01:34:52 AM)</font> <b>tom-:</b></font> xhoch3: at a first glance, i think the transport play and &quot;start jack server&quot; play need better distinction<br/>
+<font color="#A82F2F"><font size="2">(01:35:04 AM)</font> <b>xhoch3:</b></font> maybe different icons<br/>
+<font color="#A82F2F"><font size="2">(01:35:08 AM)</font> <b>tom-:</b></font> xhoch3: plus the clock should be visible at all times<br/>
+<font color="#A82F2F"><font size="2">(01:35:25 AM)</font> <b>xhoch3:</b></font> I thought I put it into the toolbar about<br/>
+<font color="#A82F2F"><font size="2">(01:35:27 AM)</font> <b>tom-:</b></font> xhoch3: i&apos;d simply make two sections<br/>
+<font color="#A82F2F"><font size="2">(01:35:49 AM)</font> <b>tom-:</b></font> xhoch3: i think start/stop the server should be first<br/>
+<font color="#A82F2F"><font size="2">(01:36:11 AM)</font> <b>tom-:</b></font> xhoch3: like the icons in a ~1pixel frame around<br/>
+<font color="#A82F2F"><font size="2">(01:36:41 AM)</font> <b>xhoch3:</b></font> those control panels are detachable an reorganizable<br/>
+<font color="#A82F2F"><font size="2">(01:36:48 AM)</font> <b>tom-:</b></font> xhoch3: you cold even put all transport &amp; clock to it&apos;s own tab<br/>
+<font color="#A82F2F"><font size="2">(01:37:01 AM)</font> <b>xhoch3:</b></font> you can have them on the side or below, or on a different screen<br/>
+<font color="#A82F2F"><font size="2">(01:37:09 AM)</font> <b>tom-:</b></font> xhoch3: main screen would have start/stop/configure icons + connection tab open<br/>
+<font color="#16569E"><font size="2">(01:37:19 AM)</font> <b>magnetophon:</b></font> hmm, I did: &quot;export ARDOUR_LOVES_STUPID_TINY_SCREENS=1&quot; and restarted A3, but it won't budge...<br/>
+<font color="#A82F2F"><font size="2">(01:37:59 AM)</font> <b>tom-:</b></font> xhoch3: here start the details :) i&apos;ll keep quiet<br/>
+<font color="#A82F2F"><font size="2">(01:39:41 AM)</font> <b>xhoch3:</b></font> tom, I love details. Give it to me baby =)<br/>
+<font color="#A82F2F"><font size="2">(01:40:24 AM)</font> <b>xhoch3:</b></font> really, it is what bugs me most about some apps, they work somehow, but I prefer to have a nice, practical design<br/>
+<font color="#A82F2F"><font size="2">(01:40:27 AM)</font> <b>tom-:</b></font> xhoch3: do you know &quot;JackPilot&quot; on mac?<br/>
+<font color="#A82F2F"><font size="2">(01:40:45 AM)</font> <b>xhoch3:</b></font> oh, I don&apos;t use Macs<br/>
+<font color="#A82F2F"><font size="2">(01:40:47 AM)</font> <b>tom-:</b></font> xhoch3: it has two buttons: &quot;start&quot; (which becomes &quot;stop&quot; if running), and routing.<br/>
+<font color="#A82F2F"><font size="2">(01:40:55 AM)</font> <b>tom-:</b></font> xhoch3: plus a cpu load gauge. that&apos;s all<br/>
+<font color="#A82F2F"><font size="2">(01:40:56 AM)</font> <b>rgareus:</b></font> magnetophon: mmh that should work.  <br/>
+<font color="#A82F2F"><font size="2">(01:41:21 AM)</font> <b>rgareus:</b></font> magnetophon: just to be sure: you did the export in the same terminal where you later started ardour in, right?<br/>
+<font color="#A82F2F"><font size="2">(01:41:21 AM)</font> <b>tom-:</b></font> xhoch3: if i could wish, a new jack ctrl would be similarly simple if not in extended state<br/>
+<font color="#16569E"><font size="2">(01:41:38 AM)</font> <b>magnetophon:</b></font> rgareus: I'm trying that now<br/>
+<font color="#A82F2F"><font size="2">(01:42:00 AM)</font> <b>drobilla:</b></font> UDF FTW<br/>
+<font color="#A82F2F"><font size="2">(01:42:07 AM)</font> <b>rgareus:</b></font> magnetophon: &apos;export&apos; sets the current shell environment. not the Desktop env.<br/>
+<font color="#A82F2F"><font size="2">(01:42:18 AM)</font> <b>rgareus:</b></font> drobilla: UDF?<br/>
+<font color="#16569E"><font size="2">(01:42:19 AM)</font> <b>magnetophon:</b></font> rgareus: ah yes. now it works<br/>
+<font color="#16569E"><font size="2">(01:42:26 AM)</font> <b>magnetophon:</b></font> rgareus: thanks<br/>
+<font color="#A82F2F"><font size="2">(01:42:29 AM)</font> <b>tom-:</b></font> xhoch3: you could then use (as foreseen) tabs and dialogues (via menu) for some stuff<br/>
+<font color="#A82F2F"><font size="2">(01:43:07 AM)</font> <b>drobilla:</b></font> rgareus: Universal Disk Format.  Which is basically for CD-RW&apos;s, but has out of the box write support on Linux and OSX if you format it right (and apparently Windows but I haven&apos;t tried that)<br/>
+<font color="#A82F2F"><font size="2">(01:43:18 AM)</font> <b>drobilla:</b></font> rgareus: This could be fun since the canvas doesn&apos;t really have layers anymore, but I&apos;ll check it out<br/>
+<font color="#A82F2F"><font size="2">(01:43:22 AM)</font> <b>xhoch3:</b></font> why do you distinct between routing and patchbay?<br/>
+<font color="#A82F2F"><font size="2">(01:43:34 AM)</font> <b>xhoch3:</b></font> I mean the patchbay is a kind of routing, isn&apos;t it?<br/>
+<font color="#A82F2F"><font size="2">(01:44:16 AM)</font> <b>tom-:</b></font> xhoch3: routing would be &quot;connection&quot; in current qjackctl<br/>
+<font color="#A82F2F"><font size="2">(01:44:58 AM)</font> <b>tom-:</b></font> &quot;connectionS&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:45:00 AM)</font> <b>xhoch3:</b></font> we need to go into detail some time again<br/>
+<font color="#A82F2F"><font size="2">(01:45:15 AM)</font> <b>tom-:</b></font> xhoch3: anytime<br/>
+<font color="#A82F2F"><font size="2">(01:45:18 AM)</font> <b>xhoch3:</b></font> Im very tired, got to go get spme sleep<br/>
+<font color="#A82F2F"><font size="2">(01:45:39 AM)</font> <b>xhoch3:</b></font> we&apos;ll read each other, good night girls<br/>
+<font size="2">(01:45:59 AM)</font><b> xhoch3 left the room (quit: Quit: Verlassend).</b><br/>
+<font color="#A82F2F"><font size="2">(01:46:00 AM)</font> <b>tom-:</b></font> xhoch3: g&apos;night<br/>
+<font color="#A82F2F"><font size="2">(01:46:54 AM)</font> <b>rgareus:</b></font> mmh I will really have to get used to this if it becomes the new qjactctl.<br/>
+<font color="#A82F2F"><font size="2">(01:47:26 AM)</font> <b>rgareus:</b></font> I like that I can have transport control on a separate desktop than the connection window and also &quot;hide buttons&quot; and make them tiny<br/>
+<font color="#A82F2F"><font size="2">(01:48:33 AM)</font> <b>tom-:</b></font> rgareus: it&apos;s multiple tools in one<br/>
+<font color="#A82F2F"><font size="2">(01:49:36 AM)</font> <b>rgareus:</b></font> here&apos;s my default view http://robin.linuxaudio.org/tmp/qjackctl1.png<br/>
+<font color="#A82F2F"><font size="2">(01:49:39 AM)</font> <b>tom-:</b></font> rgareus: jack configuration, start/stop jack, jack transport control, jack connections ... there are 100 ways how to pack that into one app reasonably while trying to keep the most used ops simple<br/>
+<font color="#A82F2F"><font size="2">(01:50:28 AM)</font> <b>tom-:</b></font> rgareus: whoot? no serif fonts? :)<br/>
+<font color="#A82F2F"><font size="2">(01:50:38 AM)</font> <b>rgareus:</b></font> lol yeah<br/>
+<font color="#A82F2F"><font size="2">(01:50:56 AM)</font> <b>avlinux:</b></font> rgareus, wow that is a slim Openbox theme<br/>
+<font color="#A82F2F"><font size="2">(01:50:57 AM)</font> <b>rgareus:</b></font> I didn&apos;t bother to configure qt. it&apos;s pretty much the onlt qt app I use <br/>
+<font color="#A82F2F"><font size="2">(01:50:59 AM)</font> <b>tom-:</b></font> the window title fonts is really small. like in ardour ;)<br/>
+<font color="#A82F2F"><font size="2">(01:52:02 AM)</font> <b>rgareus:</b></font> tom-: window bar just eats up space.<br/>
+<font color="#A82F2F"><font size="2">(01:53:27 AM)</font> <b>tom-:</b></font> rgareus: ye<br/>
+<font size="2">(02:01:01 AM)</font><b> HarryHaaren left the room (quit: Quit: HarryHaaren).</b><br/>
+<font color="#A82F2F"><font size="2">(02:01:52 AM)</font> <b>avlinux:</b></font> tom-, Wanna try some new drumkits?<br/>
+<font color="#A82F2F"><font size="2">(02:02:18 AM)</font> <b>tom-:</b></font> avlinux: sure :)<br/>
+<font color="#A82F2F"><font size="2">(02:02:43 AM)</font> <b>tom-:</b></font> avlinux: i can&apos;t *now*, but i will<br/>
+<font color="#A82F2F"><font size="2">(02:02:59 AM)</font> <b>tom-:</b></font> avlinux: .deb?<br/>
+<font color="#A82F2F"><font size="2">(02:03:24 AM)</font> <b>avlinux:</b></font> tom-, Ok gimme a couple of minutes.. just uploading.. no debs yet, but there will be soon.<br/>
+<font color="#A82F2F"><font size="2">(02:03:38 AM)</font> <b>tom-:</b></font> avlinux: kewl<br/>
+<font color="#A82F2F"><font size="2">(02:04:07 AM)</font> <b>avlinux:</b></font> tom-, There will be H2, SFZ, SF2, and debs when I&apos;m finished (I hope)<br/>
+<font color="#A82F2F"><font size="2">(02:05:01 AM)</font> <b>tom-:</b></font> nice<br/>
+<font color="#A82F2F"><font size="2">(02:06:46 AM)</font> <b>avlinux:</b></font> tom-, OK.. http://www.bandshed.net/sounds/sfz/AVL_Drumkits.zip<br/>
+<font color="#A82F2F"><font size="2">(02:08:23 AM)</font> <b>avlinux:</b></font> oops<br/>
+<font color="#A82F2F"><font size="2">(02:08:24 AM)</font> <b>tom-:</b></font> avlinux: thanks /me downloading<br/>
+<font color="#A82F2F"><font size="2">(02:08:49 AM)</font> <b>tom-:</b></font> rgareus: i saw there is an example sampler in ardour .. what can it do/play?<br/>
+<font color="#A82F2F"><font size="2">(02:09:45 AM)</font> <b>avlinux:</b></font> tom-, Are you going to LAC this year?<br/>
+<font color="#A82F2F"><font size="2">(02:10:18 AM)</font> <b>tom-:</b></font> avlinux: don&apos;t know yet, you?<br/>
+<font color="#062585"><font size="2">(02:10:34 AM)</font> <b>***tom-</b></font> mplayer -ao jack *.wav<br/>
+<font color="#A82F2F"><font size="2">(02:12:26 AM)</font> <b>avlinux:</b></font> tom-, Doesn&apos;t look like it this year.. but I hope to again in the future, maybe next year<br/>
+<font color="#A82F2F"><font size="2">(02:13:58 AM)</font> <b>tom-:</b></font> avlinux: you have done great work there. the samples sound really natural and clean (in terms of recording), kudos!<br/>
+<font color="#A82F2F"><font size="2">(02:14:23 AM)</font> <b>tom-:</b></font> avlinux: what&apos;s your favourite sfz player?<br/>
+<font color="#A82F2F"><font size="2">(02:16:03 AM)</font> <b>avlinux:</b></font> tom-, Thanks, well so far Carla for Linux but I used to cheat with Sforzando and the free Cakewalk one in my ArdourVST days<br/>
+<font color="#A82F2F"><font size="2">(02:17:21 AM)</font> <b>avlinux:</b></font> tom-, I&apos;m not a huge MIDI user or terribly familiar with SFZ&apos;s generally..<br/>
+<font color="#A82F2F"><font size="2">(02:18:55 AM)</font> <b>tom-:</b></font> avlinux: is that carla or carla2? i&apos;ve no LS on that system and will give it a try<br/>
+<font color="#062585"><font size="2">(02:19:26 AM)</font> <b>***tom-</b></font> tries carla2<br/>
+<font color="#A82F2F"><font size="2">(02:19:47 AM)</font> <b>avlinux:</b></font> tom-, Carla2 beta3, I use the binary versions from the KX Studio site<br/>
+<font color="#A82F2F"><font size="2">(02:22:09 AM)</font> <b>avlinux:</b></font> tom-, What distro do you use? KX?<br/>
+<font color="#A82F2F"><font size="2">(02:23:00 AM)</font> <b>tom-:</b></font> avlinux: ubuntu, i just dl&apos;ed the 90 megs<br/>
+<font color="#A82F2F"><font size="2">(02:23:33 AM)</font> <b>tom-:</b></font> and.. it works. <br/>
+<font color="#A82F2F"><font size="2">(02:24:07 AM)</font> <b>avlinux:</b></font> tom-, You don&apos;t add the KX repos? You could get steaming fresh Carla from GIT there :)<br/>
+<font color="#A82F2F"><font size="2">(02:25:26 AM)</font> <b>tom-:</b></font> falktx does a great job, &quot;it just works&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:28:01 AM)</font> <b>tom-:</b></font> oh. i can load a carla rack in the carla rack :)<br/>
+<font color="#A82F2F"><font size="2">(02:28:24 AM)</font> <b>tom-:</b></font> should i add a plugin that can play sfz or is this built-in?<br/>
+<font color="#A82F2F"><font size="2">(02:32:47 AM)</font> <b>avlinux:</b></font> tom-, No it&apos;s built in, if you use the LV2 you can browse your SFZ with the file manager in Carla<br/>
+<font color="#A82F2F"><font size="2">(02:33:37 AM)</font> <b>avlinux:</b></font> tom-, Or... you can set the default path to your SFZ&apos;s in Carla&apos;s PATH settings<br/>
+<font color="#A82F2F"><font size="2">(02:34:23 AM)</font> <b>avlinux:</b></font> tom-, When you refresh the plugin list your SFZ&apos;s will be selectable in Carla&apos;s list just like any other plugin<br/>
+<font color="#A82F2F"><font size="2">(02:35:06 AM)</font> <b>tom-:</b></font> avlinux: that did the trick!<br/>
+<font color="#A82F2F"><font size="2">(02:35:16 AM)</font> <b>tom-:</b></font> avlinux: i was trying to open via menu/file<br/>
+<font color="#A82F2F"><font size="2">(02:35:23 AM)</font> <b>avlinux:</b></font> tom-, Carla also will play GIG&apos;s and SF2&apos;s since it&apos;s uses linuxsampler<br/>
+<font color="#A82F2F"><font size="2">(02:35:34 AM)</font> <b>avlinux:</b></font> *it&apos;s using<br/>
+<font color="#A82F2F"><font size="2">(02:40:28 AM)</font> <b>tom-:</b></font> carla is quite complete, and working nicely. i haven&apos;t used it so far<br/>
+<font color="#062585"><font size="2">(02:41:12 AM)</font> <b>***avlinux</b></font> needs a lit keyboard..<br/>
+<font color="#A82F2F"><font size="2">(02:41:49 AM)</font> <b>avlinux:</b></font> tom-, It&apos;s very good and well on it&apos;s way for sure<br/>
+<font color="#A82F2F"><font size="2">(02:42:35 AM)</font> <b>tom-:</b></font> avlinux: the drumkit rocks too! :)<br/>
+<font color="#A82F2F"><font size="2">(02:43:25 AM)</font> <b>avlinux:</b></font> tom-, Not bad to have 5 kits in less than 25mb I suppose<br/>
+<font color="#A82F2F"><font size="2">(02:44:59 AM)</font> <b>tom-:</b></font> avlinux: that&apos;s awesome. space not a problem though (sound is more important)<br/>
+<font color="#A82F2F"><font size="2">(02:45:11 AM)</font> <b>avlinux:</b></font> tom-, This was done (in Hydrogen) with the 5pc Red_Zeppelin: https://soundcloud.com/glen-macarthur/four-months-on-tuesday-masterrc1<br/>
+<font color="#A82F2F"><font size="2">(02:45:12 AM)</font> <b>LAbot:</b></font> Title: Four Months On Tuesday - MasterRC1 by Glen MacArthur - Hear the world’s sounds (at soundcloud.com)<br/>
+<font color="#062585"><font size="2">(02:45:18 AM)</font> <b>***tom-</b></font> should remember to make a donation to falktx<br/>
+<font color="#A82F2F"><font size="2">(02:46:46 AM)</font> <b>tom-:</b></font> avlinux: i still haven&apos;t flash installed :|<br/>
+<font size="2">(02:48:49 AM)</font><b> naught102 is now known as naught101</b><br/>
+<font color="#A82F2F"><font size="2">(02:49:25 AM)</font> <b>avlinux:</b></font> tom-, Ahh no biggie, hmm just a sec... <br/>
+<font color="#A82F2F"><font size="2">(02:50:23 AM)</font> <b>avlinux:</b></font> Try this: http://www.bandshed.net/music/Rated_Blue_MIXES/Masters/FourMonths-MasterRC2_session.mp3<br/>
+<font color="#A82F2F"><font size="2">(02:50:38 AM)</font> <b>tom-:</b></font> avlinux: thanks<br/>
+<font color="#A82F2F"><font size="2">(02:51:26 AM)</font> <b>avlinux:</b></font> tom-, Just an example of how the  sounds, may not be your cup of tea otherwise :)<br/>
+<font color="#A82F2F"><font size="2">(02:52:40 AM)</font> <b>tom-:</b></font> avlinux: sounds great!<br/>
+<font color="#A82F2F"><font size="2">(02:53:58 AM)</font> <b>tom-:</b></font> avlinux: also nice drum programming<br/>
+<font color="#A82F2F"><font size="2">(02:54:37 AM)</font> <b>tom-:</b></font> avlinux: is that you playing the guitar?<br/>
+<font color="#A82F2F"><font size="2">(02:55:23 AM)</font> <b>avlinux:</b></font> tom-, Thanks, it took a bit of time, Hydrogen is clunky with 6/8 time, that particular recording is all me<br/>
+<font color="#A82F2F"><font size="2">(02:56:02 AM)</font> <b>tom-:</b></font> avlinux: for my taste the drums might be mixed a tiny bit too hot (snares), but that might be my headphones and/or a side-effect of the new kit ;)<br/>
+<font color="#A82F2F"><font size="2">(02:56:47 AM)</font> <b>tom-:</b></font> avlinux: i didn&apos;t know you do such nice drum programming<br/>
+<font color="#A82F2F"><font size="2">(02:57:27 AM)</font> <b>avlinux:</b></font> tom-, Possible, it is a WIP mix so far so any feedback is appreciated... to me the bass is a touch loud too<br/>
+<font color="#A82F2F"><font size="2">(02:58:52 AM)</font> <b>avlinux:</b></font> tom-, I&apos;m trying very hard to transition to programming right in Ardour but it is still very volatile with MIDI I find... although the recent amont of drobilla commits is stunning..<br/>
+<font color="#A82F2F"><font size="2">(02:59:05 AM)</font> <b>avlinux:</b></font> *amount<br/>
+<font color="#A82F2F"><font size="2">(02:59:55 AM)</font> <b>tom-:</b></font> avlinux: i will dive in again soon <br/>
+<font color="#A82F2F"><font size="2">(03:00:35 AM)</font> <b>avlinux:</b></font> tom-, Do you use Ardour primarily or other DAW&apos;s?<br/>
+<font color="#A82F2F"><font size="2">(03:00:36 AM)</font> <b>tom-:</b></font> avlinux: one could think it&apos;s a real drummer at play<br/>
+<font color="#A82F2F"><font size="2">(03:00:49 AM)</font> <b>tom-:</b></font> avlinux: nicely prorammed + nice kit<br/>
+<font color="#A82F2F"><font size="2">(03:01:06 AM)</font> <b>avlinux:</b></font> tom-, hehe thanks, <br/>
+<font color="#A82F2F"><font size="2">(03:01:19 AM)</font> <b>tom-:</b></font> avlinux: i currently have no other DAW at hand<br/>
+<font color="#A82F2F"><font size="2">(03:02:18 AM)</font> <b>tom-:</b></font> avlinux: i use an earlier version around 3.4 (mainly for stability and some small convenience tweaks)<br/>
+<font color="#A82F2F"><font size="2">(03:02:33 AM)</font> <b>avlinux:</b></font> tom-, I have used EnergyXT for MIDI quite a bit, but it&apos;s no Ardour in the audio department :)<br/>
+<font color="#A82F2F"><font size="2">(03:03:24 AM)</font> <b>tom-:</b></font> avlinux: i haven&apos;t used midi at all (except for testing), i tried to play directly and work with waves<br/>
+<font color="#A82F2F"><font size="2">(03:03:37 AM)</font> <b>tom-:</b></font> avlinux: you would laugh at my latest attempts ;)<br/>
+<font color="#A82F2F"><font size="2">(03:04:16 AM)</font> <b>avlinux:</b></font> tom-, I&apos;ve tried very hard to appreciate Qtractor and I had a great time meeting Rui last year.. great guy... but I can&apos;t seem to get away from Ardour either<br/>
+<font color="#A82F2F"><font size="2">(03:04:47 AM)</font> <b>avlinux:</b></font> tom-, Hey man whatever works! <br/>
+<font color="#A82F2F"><font size="2">(03:04:57 AM)</font> <b>tom-:</b></font> avlinux: yep<br/>
+<font color="#A82F2F"><font size="2">(03:07:20 AM)</font> <b>rgareus:</b></font> oofus: 3 soundcards all unsynced. http://robin.linuxaudio.org/tmp/ltc_measurement.jpg resulting LTC is always withing +-1 sample accurate.<br/>
+<font color="#A82F2F"><font size="2">(03:07:35 AM)</font> <b>avlinux:</b></font> tom-, I also stuck with Ardour 3.4 on my studio computer for a long time, it was a very stable plateau for sure..<br/>
+<font color="#A82F2F"><font size="2">(03:07:36 AM)</font> <b>rgareus:</b></font> oofus: when checking the sync-lock it starts drifting.<br/>
+<font color="#A82F2F"><font size="2">(03:07:47 AM)</font> <b>rgareus:</b></font> ..obviously<br/>
+<font color="#062585"><font size="2">(03:13:13 AM)</font> <b>***avlinux</b></font> is off to actually use his Qello subscription, have a great weekend friends!<br/>
+<font size="2">(03:13:25 AM)</font><b> avlinux left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(03:19:40 AM)</font> <b>tom-:</b></font> a completely half-baked, unfinished and boring snapshot http://trellis.ch/lowres/misc/hangin_at_lous_dirty_Selection_2015-01-10_0312.ogg<br/>
+<font color="#A82F2F"><font size="2">(03:20:15 AM)</font> <b>tom-:</b></font> rgareus: ^^^ the setbfree sounds so nice it can have a lot of time :)<br/>
+<font color="#A82F2F"><font size="2">(03:21:30 AM)</font> <b>rgareus:</b></font> tom-: I&apos;l listen too it later -  all soundcards are currently re-purposed :)<br/>
+<font color="#A82F2F"><font size="2">(03:21:52 AM)</font> <b>tom-:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(03:58:38 AM)</font> <b>scherbi:</b></font> sounds nice, Tom<br/>
+<font color="#A82F2F"><font size="2">(04:17:39 AM)</font> <b>tom-:</b></font> scherbi: thx .. this is really not a good &quot;showcase&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:18:53 AM)</font> <b>tom-:</b></font> scherbi: i think you posted an url to your son playing the bass but i couldn&apos;t dl/listen unfortunately<br/>
+<font color="#A82F2F"><font size="2">(05:10:57 AM)</font> <b>scherbi:</b></font> tom: https://soundcloud.com/odin-scherer<br/>
+<font color="#A82F2F"><font size="2">(05:10:58 AM)</font> <b>LAbot:</b></font> Title: Odin Scherer Musics profile - Hear the world’s sounds (at soundcloud.com)<br/>
+<font color="#A82F2F"><font size="2">(06:13:30 AM)</font> <b>damo22:</b></font> dats some mean blues<br/>
+<font size="2">(01:19:25 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

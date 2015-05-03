@@ -1,0 +1,43 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Wed 18 Feb 2015 11:42:57 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Wed 18 Feb 2015 11:42:57 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(11:42:57 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(11:42:57 PM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(11:43:55 PM)</font> <b>kirb:</b></font> any ideas about my apt compilation issue above?<br/>
+<font color="#A82F2F"><font size="2">(11:47:47 PM)</font> <b>dutchfish:</b></font> kirb, rules file missing, https://www.debian.org/doc/manuals/maint-guide/  specially the part, compiling from git<br/>
+<font color="#A82F2F"><font size="2">(11:49:25 PM)</font> <b>dutchfish:</b></font> kirb, also https://github.com/hbang/apt/blob/macosx/README.make<br/>
+<font color="#A82F2F"><font size="2">(11:50:03 PM)</font> <b>dutchfish:</b></font> kirb, btw, if you encounter bugs, best place to ask is at the devs<br/>
+<font color="#A82F2F"><font size="2">(11:51:55 PM)</font> <b>kirb:</b></font> dutchfish: aha. thanks. where is &quot;at the devs&quot;? (&lt;-- noob :p)<br/>
+<font size="2">(11:52:02 PM)</font><b> mode (+l 1541) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:52:38 PM)</font> <b>dutchfish:</b></font> kirb, maybe #debian-mentors or mail the git repo owner<br/>
+<font color="#A82F2F"><font size="2">(11:52:42 PM)</font> <b>knosys:</b></font> dutchfish: i dont get it to remove the vboxdrv man<br/>
+<font color="#A82F2F"><font size="2">(11:53:34 PM)</font> <b>dutchfish:</b></font> knosys, it is on the wiki page i gave you the link; use dpkg -l to the correct naming convention and the example given<br/>
+<font color="#A82F2F"><font size="2">(11:54:16 PM)</font> <b>dutchfish:</b></font> knosys, dkms remove -m &lt;name&gt; -v &lt;version&gt; --all || true<br/>
+<font color="#A82F2F"><font size="2">(11:55:29 PM)</font> <b>knosys:</b></font> about the version, how to check?<br/>
+<font color="#A82F2F"><font size="2">(11:55:41 PM)</font> <b>knosys:</b></font> the module name is vboxdrv right?<br/>
+<font color="#A82F2F"><font size="2">(11:55:57 PM)</font> <b>dutchfish:</b></font> knosys, right<br/>
+<font color="#A82F2F"><font size="2">(11:56:12 PM)</font> <b>knosys:</b></font> modinfo<br/>
+<font color="#A82F2F"><font size="2">(11:56:20 PM)</font> <b>dutchfish:</b></font> knosys, or check you logs<br/>
+<font color="#A82F2F"><font size="2">(11:56:35 PM)</font> <b>dutchfish:</b></font> knosys, they should contain the version<br/>
+<font color="#A82F2F"><font size="2">(11:56:59 PM)</font> <b>knosys:</b></font> what log? terminal? When installed virtualbox?<br/>
+<font color="#A82F2F"><font size="2">(11:57:45 PM)</font> <b>dutchfish:</b></font> knosys, dkms build log<br/>
+<font color="#A82F2F"><font size="2">(11:58:12 PM)</font> <b>knosys:</b></font> oook, thanks i will look into it<br/>
+<font color="#A82F2F"><font size="2">(11:58:58 PM)</font> <b>kirb:</b></font> dutchfish: thanks. also when you say bugs, that includes bugs specific to os x or am i on my own?<br/>
+<font color="#A82F2F"><font size="2">(11:59:01 PM)</font> <b>dutchfish:</b></font> knosys, or look at /usr/src/&lt;name&gt;-&lt;version&gt;/dkms.conf<br/>
+<font color="#A82F2F"><font size="2">(11:59:20 PM)</font> <b>dutchfish:</b></font> kirb, as long as it is debian, you can ask<br/>
+<font color="#A82F2F"><font size="2">(11:59:44 PM)</font> <b>kirb:</b></font> cool, thanks.<br/>
+<font color="#A82F2F"><font size="2">(11:59:54 PM)</font> <b>dutchfish:</b></font> kirb, but rem that spinoffs from debian are not supported<br/>
+<font color="#A82F2F"><font size="2">(12:00:00 AM)</font> <b>dutchfish:</b></font> yw<br/>
+<font color="#A82F2F"><font size="2">(12:04:10 AM)</font> <b>knosys:</b></font> dutchfish: Error! There are no instances of module: vboxdrv<br/>
+<font color="#A82F2F"><font size="2">(12:05:41 AM)</font> <b>dutchfish:</b></font> knosys, then check /usr/src/&lt;name&gt;-&lt;version&gt;/dkms.conf closely; if nit is not there; rinse and report to build it with dlms<br/>
+<font color="#A82F2F"><font size="2">(12:05:51 AM)</font> <b>dutchfish:</b></font> s/nit/it<br/>
+<font color="#A82F2F"><font size="2">(12:06:04 AM)</font> <b>dutchfish:</b></font> sorry for my typos<br/>
+<font color="#A82F2F"><font size="2">(12:06:15 AM)</font> <b>dutchfish:</b></font> knosys, then check /usr/src/&lt;name&gt;-&lt;version&gt;/dkms.conf closely; if it is not there; rinse and report to build it with dkms<br/>
+<font color="#A82F2F"><font size="2">(12:06:50 AM)</font> <b>knosys:</b></font> if &lt;name&gt; should be vboxdrv , there is not<br/>
+<font color="#A82F2F"><font size="2">(12:06:57 AM)</font> <b>knosys:</b></font> but there is virtual box 4.3.18<br/>
+<font color="#A82F2F"><font size="2">(12:08:04 AM)</font> <b>dutchfish:</b></font> knosys, yes<br/>
+<font color="#A82F2F"><font size="2">(12:08:16 AM)</font> <b>dutchfish:</b></font> knosys, the module name itself is not the same<br/>
+<font color="#A82F2F"><font size="2">(12:09:05 AM)</font> <b>dutchfish:</b></font> knosys, /usr/src/ hold the correct name for the dkms remove statement<br/>
+<font color="#A82F2F"><font size="2">(12:09:20 AM)</font> <b>dutchfish:</b></font> knosys, and version<br/>
+<font color="#A82F2F"><font size="2">(12:09:46 AM)</font> <b>dutchfish:</b></font> its a bit confusing as a primer, i admit<br/>
+<font color="#A82F2F"><font size="2">(12:10:23 AM)</font> <b>knosys:</b></font> inside src there are only 4 directories: Linux headers, linux-headers-common, linux-kbuild, virtualbox-4.3.18<br/>
+<font size="2">(12:29:24 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

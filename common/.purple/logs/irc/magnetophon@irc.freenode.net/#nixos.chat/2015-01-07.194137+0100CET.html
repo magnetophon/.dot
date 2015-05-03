@@ -1,0 +1,873 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Wed 07 Jan 2015 07:41:37 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Wed 07 Jan 2015 07:41:37 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(07:41:38 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(07:41:38 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(07:49:57 PM)</font><b> vcunat [<em>~admin@vetr-0455.koleje.cuni.cz</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:51:03 PM)</font> <b>stephenjudkins:</b></font> is there a way to show all expressions that (even transitively) depend on a given expression?<br/>
+<font color="#A82F2F"><font size="2">(07:51:21 PM)</font> <b>MichaelRaskin:</b></font> nix-store -q --referrers-closure<br/>
+<font color="#A82F2F"><font size="2">(07:52:38 PM)</font> <b>stephenjudkins:</b></font> MichaelRaskin: how do I specify i&apos;m talking about an expression in nixpkgs?<br/>
+<font color="#A82F2F"><font size="2">(07:53:05 PM)</font> <b>MichaelRaskin:</b></font> nix-instantiate &apos;&lt;nixpkgs&gt;&apos; -A package<br/>
+<font color="#A82F2F"><font size="2">(07:53:33 PM)</font> <b>MichaelRaskin:</b></font> You can run nix-store -q --outputs on this derivation<br/>
+<font color="#A82F2F"><font size="2">(07:53:57 PM)</font> <b>MichaelRaskin:</b></font> Now, you may need to look both at output reverse dependencies and derivation reverse dependencies<br/>
+<font color="#A82F2F"><font size="2">(07:55:46 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/xyvJCA<br/>
+<font color="#A82F2F"><font size="2">(07:55:46 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e0098e8 William A. Kennington III: Revert &quot;linux kernel: set VFIO_PCI_VGA to `y` for versions &gt; 3.9&quot;...<br/>
+<font color="#A82F2F"><font size="2">(07:56:34 PM)</font> <b>stephenjudkins:</b></font> MichaelRaskin: i&apos;m very confused now<br/>
+<font color="#A82F2F"><font size="2">(07:56:56 PM)</font> <b>stephenjudkins:</b></font> are you saying this: nix-store -q --referrers-closure `nix-instantiate &apos;&lt;nixpkgs&gt;&apos; -A ant`<br/>
+<font color="#A82F2F"><font size="2">(07:56:58 PM)</font> <b>stephenjudkins:</b></font> should work?<br/>
+<font color="#A82F2F"><font size="2">(07:58:05 PM)</font> <b>aristid:</b></font> can somebody else please try if nix-build &apos;&lt;nixpkgs&gt;&apos; -A pkgs.perlPackages.DateCalc works for them?<br/>
+<font color="#A82F2F"><font size="2">(07:58:24 PM)</font> <b>MichaelRaskin:</b></font> stephenjudkins: yes, but may turn out not the whole story<br/>
+<font color="#A82F2F"><font size="2">(07:58:41 PM)</font> <b>MichaelRaskin:</b></font> Should be a good start anyway<br/>
+<font color="#A82F2F"><font size="2">(07:58:57 PM)</font> <b>stephenjudkins:</b></font> MichaelRaskin: no, the only result is &quot;/nix/store/m2f7wfiza7l5ccwmjirh1j6brw0k137l-ant-1.9.4.drv&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:59:22 PM)</font> <b>MichaelRaskin:</b></font> So, nix-store -q --outputs<br/>
+<font color="#A82F2F"><font size="2">(07:59:30 PM)</font> <b>MichaelRaskin:</b></font> nix-store -q --outputs /nix/store/m2f7wfiza7l5ccwmjirh1j6brw0k137l-ant-1.9.4.drv<br/>
+<font color="#A82F2F"><font size="2">(08:00:37 PM)</font> <b>MichaelRaskin:</b></font> aristid: 3/51 test programs failed<br/>
+<font color="#A82F2F"><font size="2">(08:00:51 PM)</font> <b>MichaelRaskin:</b></font> And it is /nix/store/3sq0cb2i7zpz6qphm87gih8xncnhgayg-perl-Date-Calc-6.3.drv<br/>
+<font color="#A82F2F"><font size="2">(08:00:55 PM)</font> <b>aristid:</b></font> MichaelRaskin: ok same problem here.<br/>
+<font color="#A82F2F"><font size="2">(08:00:56 PM)</font> <b>MichaelRaskin:</b></font> (64-bit)<br/>
+<font color="#A82F2F"><font size="2">(08:00:58 PM)</font> <b>aristid:</b></font> chroot?<br/>
+<font color="#A82F2F"><font size="2">(08:01:06 PM)</font> <b>MichaelRaskin:</b></font> Yes, chroot<br/>
+<font color="#A82F2F"><font size="2">(08:01:14 PM)</font> <b>iElectric:</b></font> MichaelRaskin: I&apos;ll play with staging over the weekend<br/>
+<font color="#A82F2F"><font size="2">(08:01:26 PM)</font> <b>iElectric:</b></font> feel free to revert my commit until then<br/>
+<font color="#A82F2F"><font size="2">(08:01:30 PM)</font> <b>aristid:</b></font> MichaelRaskin: i figure it&apos;s a chroot impurity?<br/>
+<font color="#A82F2F"><font size="2">(08:01:41 PM)</font> <b>MichaelRaskin:</b></font> aristid: no idea<br/>
+<font color="#A82F2F"><font size="2">(08:02:01 PM)</font> <b>MichaelRaskin:</b></font> iElectric: maybe I will look at texinfo, should be simple enough to fix<br/>
+<font color="#A82F2F"><font size="2">(08:02:08 PM)</font> <b>aristid:</b></font> can somebody without chroot please try? nix-build &apos;&lt;nixpkgs&gt;&apos; -A pkgs.perlPackages.DateCalc<br/>
+<font color="#A82F2F"><font size="2">(08:02:13 PM)</font> <b>stephenjudkins:</b></font> MichaelRaskin: that outputs only &quot;/nix/store/bqkp98fny676j24jbcw4n90ni6mb9jdj-ant-1.9.4&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:02:38 PM)</font> <b>MichaelRaskin:</b></font> stephenjudkins: Right, and this can be fed to nix-store -q --referrers-closure<br/>
+<font color="#A82F2F"><font size="2">(08:02:50 PM)</font> <b>aristid:</b></font> if you don&apos;t know whether you have chroot, you don&apos;t have it?<br/>
+<font color="#A82F2F"><font size="2">(08:02:58 PM)</font> <b>aristid:</b></font> -?+.<br/>
+<font color="#A82F2F"><font size="2">(08:03:00 PM)</font> <b>MichaelRaskin:</b></font> aristid: not so on NixOS<br/>
+<font color="#A82F2F"><font size="2">(08:03:22 PM)</font> <b>aristid:</b></font> MichaelRaskin: chroot is still off by default.<br/>
+<font color="#A82F2F"><font size="2">(08:03:33 PM)</font> <b>aristid:</b></font> unless niksnut changed his mind without me noticing:)<br/>
+<font color="#A82F2F"><font size="2">(08:03:38 PM)</font> <b>MichaelRaskin:</b></font> On NixOS??? You must be kidding me?<br/>
+<font color="#A82F2F"><font size="2">(08:03:47 PM)</font> <b>stephenjudkins:</b></font> MichaelRaskin: yes... and that returns &quot;/nix/store/bqkp98fny676j24jbcw4n90ni6mb9jdj-ant-1.9.4&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:03:51 PM)</font> <b>MichaelRaskin:</b></font> I thought it is only off-by-default on non-NixOS<br/>
+<font color="#A82F2F"><font size="2">(08:03:53 PM)</font> <b>aristid:</b></font> MichaelRaskin: let me check<br/>
+<font color="#A82F2F"><font size="2">(08:04:12 PM)</font> <b>MichaelRaskin:</b></font> stephenjudkins: then you probably have nothing that depends on the _current_ version of ant<br/>
+<font color="#A82F2F"><font size="2">(08:04:33 PM)</font> <b>aristid:</b></font>        nix.useChroot<br/>
+<font color="#A82F2F"><font size="2">(08:04:33 PM)</font> <b>aristid:</b></font>            Default:false<br/>
+<font color="#A82F2F"><font size="2">(08:04:47 PM)</font> <b>stephenjudkins:</b></font> MichaelRaskin: i&apos;m looking for all packages that depend on ant in nixpkgs, not in my local store<br/>
+<font color="#A82F2F"><font size="2">(08:04:50 PM)</font> <b>MichaelRaskin:</b></font> stephenjudkins: you can look for /nix/store/*-ant-1*/<br/>
+<font color="#A82F2F"><font size="2">(08:04:55 PM)</font> <b>aristid:</b></font> MichaelRaskin: niksnut things it slows down builds too much<br/>
+<font color="#A82F2F"><font size="2">(08:05:01 PM)</font> <b>aristid:</b></font> *thinks<br/>
+<font color="#A82F2F"><font size="2">(08:05:02 PM)</font> <b>MichaelRaskin:</b></font> And feed these to -q --referrers-closure<br/>
+<font color="#A82F2F"><font size="2">(08:05:03 PM)</font> <b>vcunat:</b></font> MichaelRaskin: for chroot discussion see https://github.com/NixOS/nix/issues/179<br/>
+<font color="#A82F2F"><font size="2">(08:05:24 PM)</font> <b>vcunat:</b></font> the official reason is that it&apos;s slow<br/>
+<font color="#A82F2F"><font size="2">(08:05:42 PM)</font> <b>vcunat:</b></font> (when building hundreds of trivial nixos derivations)<br/>
+<font color="#A82F2F"><font size="2">(08:06:08 PM)</font> <b>MichaelRaskin:</b></font> And it was last tested on 3.4?<br/>
+<font color="#A82F2F"><font size="2">(08:06:14 PM)</font> <b>aristid:</b></font> MichaelRaskin: i hate especially that upstream hydra does not use chroot.<br/>
+<font color="#A82F2F"><font size="2">(08:06:23 PM)</font> <b>MichaelRaskin:</b></font> Ouch??<br/>
+<font color="#A82F2F"><font size="2">(08:06:53 PM)</font> <b>vcunat:</b></font> at least hydra.nixos.org does<br/>
+<font color="#A82F2F"><font size="2">(08:08:24 PM)</font> <b>vcunat:</b></font> aristid: on master?<br/>
+<font color="#A82F2F"><font size="2">(08:08:33 PM)</font> <b>vcunat:</b></font> (sorry)<br/>
+<font color="#A82F2F"><font size="2">(08:08:45 PM)</font> <b>aristid:</b></font> vcunat: master, yes.<br/>
+<font color="#A82F2F"><font size="2">(08:08:59 PM)</font> <b>vcunat:</b></font> I meant to reply to<br/>
+<font color="#A82F2F"><font size="2">(08:08:59 PM)</font> <b>vcunat:</b></font> &gt; aristid: can somebody without chroot please try? nix-build &apos;&lt;nixpkgs&gt;&apos; -A pkgs.perlPackages.DateCalc<br/>
+<font color="#A82F2F"><font size="2">(08:09:07 PM)</font> <b>aristid:</b></font> i know<br/>
+<font color="#A82F2F"><font size="2">(08:09:10 PM)</font> <b>vcunat:</b></font> I&apos;ll try<br/>
+<font color="#A82F2F"><font size="2">(08:09:20 PM)</font> <b>aristid:</b></font> thx<br/>
+<font color="#A82F2F"><font size="2">(08:10:46 PM)</font> <b>wkennington:</b></font> wait chroot is really that slow?<br/>
+<font color="#A82F2F"><font size="2">(08:10:48 PM)</font> <b>vcunat:</b></font> I wonder why it&apos;s trying to build stdenv<br/>
+<font color="#A82F2F"><font size="2">(08:10:53 PM)</font> <b>wkennington:</b></font> i can&apos;t say i&apos;ve ever noticed any issues<br/>
+<font color="#A82F2F"><font size="2">(08:11:06 PM)</font> <b>MichaelRaskin:</b></font> vcunat: what version do you have<br/>
+<font color="#A82F2F"><font size="2">(08:11:15 PM)</font> <b>MichaelRaskin:</b></font> vcunat: I fixed a zlib hash change today<br/>
+<font color="#A82F2F"><font size="2">(08:11:23 PM)</font> <b>MichaelRaskin:</b></font> (back)<br/>
+<font color="#A82F2F"><font size="2">(08:11:31 PM)</font> <b>vcunat:</b></font> wkennington: it&apos;s subjective. I don&apos;t consider it slow enough to bother me (even on my 5-year-old crappy acer).<br/>
+<font color="#A82F2F"><font size="2">(08:11:43 PM)</font> <b>vcunat:</b></font> MichaelRaskin: pulled a minute ago<br/>
+<font color="#A82F2F"><font size="2">(08:11:56 PM)</font> <b>vcunat:</b></font> e0098e840<br/>
+<font color="#A82F2F"><font size="2">(08:11:59 PM)</font> <b>wkennington:</b></font> yeah, i&apos;ve never even considered disabling it<br/>
+<font color="#A82F2F"><font size="2">(08:12:06 PM)</font> <b>stephenjudkins:</b></font> so, I&apos;m looking to find all expressions *available in nixpkgs* that depend on a given nixpkgs expression. is this possible?<br/>
+<font color="#A82F2F"><font size="2">(08:12:23 PM)</font> <b>vcunat:</b></font> MichaelRaskin: it&apos;s after your commit (I see it in the history)<br/>
+<font color="#A82F2F"><font size="2">(08:12:23 PM)</font> <b>MichaelRaskin:</b></font> vcunat: you know that in the last _week_ there were multiple stdenv changes on master?<br/>
+<font color="#A82F2F"><font size="2">(08:12:27 PM)</font> <b>MichaelRaskin:</b></font> Apparently accidental<br/>
+<font color="#A82F2F"><font size="2">(08:12:51 PM)</font> <b>vcunat:</b></font> so stdenv is not in binary cache yet?<br/>
+<font color="#A82F2F"><font size="2">(08:13:11 PM)</font> <b>MichaelRaskin:</b></font> Maybe some of it is on Hydra, but not better<br/>
+<font color="#A82F2F"><font size="2">(08:13:22 PM)</font> <b>vcunat:</b></font> well, never mind, pulling binaries from Hydra<br/>
+<font color="#A82F2F"><font size="2">(08:13:27 PM)</font> <b>MichaelRaskin:</b></font> If you trust me, I can share my IPv6 binary cache URL<br/>
+<font color="#A82F2F"><font size="2">(08:13:51 PM)</font> <b>vcunat:</b></font> aristid: builder for ‘/nix/store/6cp06zvnfbn3bcivri1692rakglk475y-perl-Date-Calc-6.3.drv’ failed with exit code 2<br/>
+<font color="#A82F2F"><font size="2">(08:14:04 PM)</font> <b>vcunat:</b></font> aristid_: ^^ (or whoever really asked)<br/>
+<font color="#A82F2F"><font size="2">(08:14:28 PM)</font> <b>vcunat:</b></font> Test Summary Report<br/>
+<font color="#A82F2F"><font size="2">(08:14:28 PM)</font> <b>vcunat:</b></font> -------------------<br/>
+<font color="#A82F2F"><font size="2">(08:14:28 PM)</font> <b>vcunat:</b></font> t/f016.t (Wstat: 0 Tests: 25 Failed: 16)<br/>
+<font color="#A82F2F"><font size="2">(08:14:28 PM)</font> <b>vcunat:</b></font>   Failed tests:  1-4, 6-7, 9-12, 15-17, 21-23<br/>
+<font color="#A82F2F"><font size="2">(08:14:28 PM)</font> <b>vcunat:</b></font> t/f027.t (Wstat: 0 Tests: 46 Failed: 22)<br/>
+<font color="#A82F2F"><font size="2">(08:14:28 PM)</font> <b>vcunat:</b></font>   Failed tests:  7-15, 22, 24-27, 30-35, 44-45<br/>
+<font color="#A82F2F"><font size="2">(08:14:28 PM)</font> <b>vcunat:</b></font> t/f028.t (Wstat: 0 Tests: 46 Failed: 22)<br/>
+<font color="#A82F2F"><font size="2">(08:14:29 PM)</font> <b>vcunat:</b></font>   Failed tests:  7-15, 22, 24-27, 30, 32, 34-37, 44-45<br/>
+<font color="#A82F2F"><font size="2">(08:14:29 PM)</font> <b>vcunat:</b></font> Files=51, Tests=3381,  3 wallclock secs ( 0.31 usr  0.04 sys +  2.64 cusr  0.30 csys =  3.29 CPU)<br/>
+<font color="#A82F2F"><font size="2">(08:14:30 PM)</font> <b>vcunat:</b></font> Result: FAIL<br/>
+<font color="#A82F2F"><font size="2">(08:14:30 PM)</font> <b>vcunat:</b></font> Failed 3/51 test programs. 60/3381 subtests failed.<br/>
+<font color="#A82F2F"><font size="2">(08:14:31 PM)</font> <b>vcunat:</b></font> make: *** [test_dynamic] Error 255<br/>
+<font color="#A82F2F"><font size="2">(08:14:32 PM)</font> <b>aristid:</b></font> vcunat: ok, same then<br/>
+<font color="#A82F2F"><font size="2">(08:14:32 PM)</font> <b>Sonarpulse:</b></font> has rustcMaster not been updated in a while?<br/>
+<font color="#A82F2F"><font size="2">(08:14:39 PM)</font> <b>aristid:</b></font> so it&apos;s not chroot<br/>
+<font color="#A82F2F"><font size="2">(08:14:49 PM)</font> <b>Sonarpulse:</b></font> or failed to build?<br/>
+<font color="#A82F2F"><font size="2">(08:15:29 PM)</font> <b>aristid:</b></font> according to git bisect it&apos;s 3e1fdb7a35369440dc624f74af24a13fb2be7708<br/>
+<font color="#A82F2F"><font size="2">(08:15:36 PM)</font> <b>vcunat:</b></font> aristid: I believe Hydra is using chroots<br/>
+<font color="#A82F2F"><font size="2">(08:15:38 PM)</font> <b>Sonarpulse:</b></font> i keep on upgrading nipkgs-unstable<br/>
+<font color="#A82F2F"><font size="2">(08:15:39 PM)</font> <b>aristid:</b></font> &quot;gcc-wrapper is used for clang too&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:15:45 PM)</font> <b>aristid:</b></font> but that doesn&apos;t make sense<br/>
+<font color="#A82F2F"><font size="2">(08:15:47 PM)</font> <b>aristid:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(08:16:03 PM)</font> <b>Sonarpulse:</b></font> but not getting anything since a december build<br/>
+<font color="#A82F2F"><font size="2">(08:16:15 PM)</font> <b>Sonarpulse:</b></font> wizeman seems to have updated the package at least twice since<br/>
+<font color="#A82F2F"><font size="2">(08:16:31 PM)</font> <b>aristid:</b></font> hmm, if i revert the commit the build works<br/>
+<font color="#A82F2F"><font size="2">(08:16:34 PM)</font> <b>aristid:</b></font> but it&apos;s cached then<br/>
+<font color="#A82F2F"><font size="2">(08:25:04 PM)</font> <b>aristid:</b></font> LOLOLOL i found the problem<br/>
+<font color="#A82F2F"><font size="2">(08:25:19 PM)</font> <b>iElectric:</b></font> kittens?<br/>
+<font color="#A82F2F"><font size="2">(08:25:21 PM)</font> <b>aristid:</b></font> it wants 64 to parse as 1964, but it does parse as 2064<br/>
+<font color="#A82F2F"><font size="2">(08:25:43 PM)</font> <b>aristid:</b></font> i guess 2015 is some kind of trigger date for that...<br/>
+<font color="#A82F2F"><font size="2">(08:25:56 PM)</font> <b>vcunat:</b></font> closer to one than the other?<br/>
+<font color="#A82F2F"><font size="2">(08:26:14 PM)</font> <b>vcunat:</b></font> seems so<br/>
+<font color="#A82F2F"><font size="2">(08:26:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bennofs pushed 1 new commit to master: http://git.io/aFFMng<br/>
+<font color="#A82F2F"><font size="2">(08:26:29 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master acadc60 Benno Fünfstück: go-mtpfs: new package<br/>
+<font color="#A82F2F"><font size="2">(08:26:30 PM)</font> <b>vcunat:</b></font> perl is so clever with the input, always guessing what you want :-D<br/>
+<font color="#A82F2F"><font size="2">(08:29:50 PM)</font> <b>vcunat:</b></font> iElectric: I think c33716f5f changes/breaks things on unexpected weird places<br/>
+<font color="#A82F2F"><font size="2">(08:29:57 PM)</font> <b>vcunat:</b></font> I have no idea about the errors<br/>
+<font color="#A82F2F"><font size="2">(08:30:18 PM)</font> <b>vcunat:</b></font> maybe some script got patchShebanged and started to work, and everything changed by that<br/>
+<font color="#A82F2F"><font size="2">(08:30:45 PM)</font> <b>vcunat:</b></font> anyway, I don&apos;t directly see how to fix stdenv build ATM<br/>
+<font color="#A82F2F"><font size="2">(08:30:50 PM)</font> <b>vcunat:</b></font> (it&apos;s on staging)<br/>
+<font color="#A82F2F"><font size="2">(08:31:01 PM)</font> <b>iElectric:</b></font> vcunat: feel free to revert for now<br/>
+<font color="#A82F2F"><font size="2">(08:31:05 PM)</font> <b>MichaelRaskin:</b></font> Well, I will now try to directly look into texinfp<br/>
+<font color="#A82F2F"><font size="2">(08:31:14 PM)</font> <b>iElectric:</b></font> the problem is that it modifies sources<br/>
+<font color="#A82F2F"><font size="2">(08:31:18 PM)</font> <b>aristid:</b></font> just disabling those tests now.<br/>
+<font color="#A82F2F"><font size="2">(08:31:20 PM)</font> <b>iElectric:</b></font> so packages will require automake<br/>
+<font color="#A82F2F"><font size="2">(08:31:24 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] aristidb pushed 1 new commit to master: http://git.io/Vj5guA<br/>
+<font color="#A82F2F"><font size="2">(08:31:24 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master ba1ad03 Aristid Breitkreuz: fix perl Date::Calc (by disabling the bogus tests)<br/>
+<font color="#A82F2F"><font size="2">(08:31:31 PM)</font> <b>vcunat:</b></font> iElectric: ah, I see, thanks<br/>
+<font color="#A82F2F"><font size="2">(08:31:32 PM)</font> <b>iElectric:</b></font> no idea why automake doesn&apos;t build<br/>
+<font color="#A82F2F"><font size="2">(08:31:47 PM)</font> <b>MichaelRaskin:</b></font> It looks like there is a loop between texinfo and automake<br/>
+<font color="#A82F2F"><font size="2">(08:31:47 PM)</font> <b>vcunat:</b></font> heh, that&apos;s exactly what I tried now<br/>
+<font color="#A82F2F"><font size="2">(08:32:05 PM)</font> <b>MichaelRaskin:</b></font> For me, texinfo fails to build because it wants automake<br/>
+<font color="#A82F2F"><font size="2">(08:32:09 PM)</font> <b>MichaelRaskin:</b></font> Which is not in its inputs<br/>
+<font color="#A82F2F"><font size="2">(08:32:25 PM)</font> <b>vcunat:</b></font> automake doesn&apos;t need texinfo AFAIK<br/>
+<font color="#A82F2F"><font size="2">(08:32:32 PM)</font> <b>iElectric:</b></font> yeah it doesn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(08:32:36 PM)</font> <b>iElectric:</b></font> but then autmake fails<br/>
+<font color="#A82F2F"><font size="2">(08:32:41 PM)</font> <b>iElectric:</b></font> due to some obscure error<br/>
+<font color="#A82F2F"><font size="2">(08:32:44 PM)</font> <b>MichaelRaskin:</b></font> I think current stdenv bootstrap needs texinfo at some stage<br/>
+<font color="#A82F2F"><font size="2">(08:33:03 PM)</font> <b>MichaelRaskin:</b></font> Well, I checked out staging and built some glibc<br/>
+<font color="#A82F2F"><font size="2">(08:33:10 PM)</font> <b>MichaelRaskin:</b></font> Then I see a texinfo failure<br/>
+<font color="#A82F2F"><font size="2">(08:33:27 PM)</font> <b>vcunat:</b></font> hmm, and using 114 instead of automake112 doesn&apos;t help either<br/>
+<font color="#A82F2F"><font size="2">(08:33:32 PM)</font> <b>MichaelRaskin:</b></font> The theories about what-needs-what are trumped by the fact that I see this repeatably<br/>
+<font color="#A82F2F"><font size="2">(08:34:12 PM)</font> <b>vcunat:</b></font> ah, it seems like automake needs automake<br/>
+<font color="#A82F2F"><font size="2">(08:34:20 PM)</font> <b>iElectric:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(08:34:22 PM)</font> <b>vcunat:</b></font> directly, when you modify its sources<br/>
+<font color="#A82F2F"><font size="2">(08:34:26 PM)</font> <b>MichaelRaskin:</b></font> Do we have _different_ failures for bootstrap of the _same_ thing?<br/>
+<font color="#A82F2F"><font size="2">(08:34:40 PM)</font> <b>iElectric:</b></font> vcunat: yeah probably many packages will require automake<br/>
+<font color="#A82F2F"><font size="2">(08:34:49 PM)</font> <b>iElectric:</b></font> that&apos;s the price we pay for patching sources<br/>
+<font color="#A82F2F"><font size="2">(08:35:00 PM)</font> <b>iElectric:</b></font> niksnut: thoughts?<br/>
+<font color="#A82F2F"><font size="2">(08:35:04 PM)</font> <b>vcunat:</b></font> well, either we add it to stdenv and adapt the bootstrapping<br/>
+<font color="#A82F2F"><font size="2">(08:35:10 PM)</font> <b>MichaelRaskin:</b></font> iElectric: maybe it would be a good idea to backdate the sources uniformly?<br/>
+<font color="#A82F2F"><font size="2">(08:35:20 PM)</font> <b>vcunat:</b></font> or we have to avoid such aggressive patching<br/>
+<font color="#A82F2F"><font size="2">(08:35:29 PM)</font> <b>MichaelRaskin:</b></font> Also an option<br/>
+<font color="#A82F2F"><font size="2">(08:35:48 PM)</font> <b>iElectric:</b></font> not sure how huge automake, autoconf and m4 are<br/>
+<font color="#A82F2F"><font size="2">(08:36:10 PM)</font> <b>MichaelRaskin:</b></font> Why not just patch but keep the original timestamp?<br/>
+<font color="#A82F2F"><font size="2">(08:36:12 PM)</font> <b>iElectric:</b></font> but yeah probably massive patching would mean they become stdenv<br/>
+<font color="#A82F2F"><font size="2">(08:36:24 PM)</font> <b>iElectric:</b></font> MichaelRaskin: hmmmm.<br/>
+<font color="#A82F2F"><font size="2">(08:36:38 PM)</font> <b>iElectric:</b></font> sure, let&apos;s try that :-)<br/>
+<font color="#A82F2F"><font size="2">(08:36:47 PM)</font> <b>MichaelRaskin:</b></font> Given what I see with automake updates, putting this into stdenv sounds like a risky plan<br/>
+<font color="#A82F2F"><font size="2">(08:36:59 PM)</font> <b>MichaelRaskin:</b></font> I guess I will try this now<br/>
+<font color="#A82F2F"><font size="2">(08:37:37 PM)</font> <b>vcunat:</b></font> automake+autoconf+m4+libtool are ~8-10 MB for me<br/>
+<font color="#A82F2F"><font size="2">(08:37:43 PM)</font> <b>MichaelRaskin:</b></font> (note: I hope the local LibreOffice build was a segmentation fault because of ENOSPC --- hard to tell with BtrFS)<br/>
+<font color="#A82F2F"><font size="2">(08:38:00 PM)</font> <b>MichaelRaskin:</b></font> vcunat: the real problem is not the size, but compatibility profile<br/>
+<font color="#A82F2F"><font size="2">(08:38:11 PM)</font> <b>MichaelRaskin:</b></font> m4 and libtool seem to be fine<br/>
+<font color="#A82F2F"><font size="2">(08:38:33 PM)</font> <b>MichaelRaskin:</b></font> automake/autoconf are the things where X wants version &lt;N and Y wants &gt;N+2<br/>
+<font color="#A82F2F"><font size="2">(08:39:06 PM)</font> <b>vcunat:</b></font> ah, we would have to allow to specify version that come before those in PATH<br/>
+<font color="#A82F2F"><font size="2">(08:39:24 PM)</font> <b>vcunat:</b></font> we probably don&apos;t allow that easily ATM<br/>
+<font color="#A82F2F"><font size="2">(08:39:28 PM)</font> <b>MichaelRaskin:</b></font> Would be only a partial improvement<br/>
+<font color="#A82F2F"><font size="2">(08:39:53 PM)</font> <b>MichaelRaskin:</b></font> Having both automakes available by full name may lead to FUN. Urist McPackageMaintainer confirms!<br/>
+<font color="#A82F2F"><font size="2">(08:40:28 PM)</font> <b>iElectric:</b></font> so something like<br/>
+<font color="#A82F2F"><font size="2">(08:40:30 PM)</font> <b>iElectric:</b></font> mod_time=$(stat --format=%y $file)<br/>
+<font color="#A82F2F"><font size="2">(08:40:32 PM)</font> <b>iElectric:</b></font> sed -i ..<br/>
+<font color="#A82F2F"><font size="2">(08:40:39 PM)</font> <b>iElectric:</b></font> touch -d &apos;&apos;$mod_time&apos;&apos; $file<br/>
+<font color="#A82F2F"><font size="2">(08:41:11 PM)</font> <b>musicmatze:</b></font> hi. Anyone in here running nixos with kde and having akonadi installed ?<br/>
+<font color="#A82F2F"><font size="2">(08:41:26 PM)</font> <b>MichaelRaskin:</b></font> iElectric: looks like that, yes<br/>
+<font color="#A82F2F"><font size="2">(08:41:31 PM)</font> <b>musicmatze:</b></font> if I install akonadi (which is required for Kontakt), my plasma desktop crashes on login...<br/>
+<font color="#A82F2F"><font size="2">(08:41:37 PM)</font> <b>musicmatze:</b></font> and I cannot find the issue<br/>
+<font color="#A82F2F"><font size="2">(08:41:41 PM)</font> <b>MichaelRaskin:</b></font> While we are at it, should we also patch .* in addition to *?<br/>
+<font color="#A82F2F"><font size="2">(08:41:47 PM)</font> <b>musicmatze:</b></font> (I already posted this on the ml, though)<br/>
+<font color="#A82F2F"><font size="2">(08:41:52 PM)</font> <b>MichaelRaskin:</b></font> Apparently this matters for some wrappers<br/>
+<font color="#A82F2F"><font size="2">(08:42:35 PM)</font> <b>iElectric:</b></font> MichaelRaskin: example?<br/>
+<font color="#A82F2F"><font size="2">(08:42:43 PM)</font> <b>MichaelRaskin:</b></font> faust<br/>
+<font color="#A82F2F"><font size="2">(08:43:07 PM)</font> <b>MichaelRaskin:</b></font> Wrapped scripts have to be patched; so I recommended adding patchShebangs before wrapping<br/>
+<font color="#A82F2F"><font size="2">(08:43:46 PM)</font> <b>MichaelRaskin:</b></font> But if patchShebangs patched .*-wrapped too, it would be fine automagically<br/>
+<font color="#A82F2F"><font size="2">(08:44:24 PM)</font> <b>vcunat:</b></font> aha, so change patchShebangs not to modify mtime?<br/>
+<font color="#A82F2F"><font size="2">(08:44:41 PM)</font> <b>MichaelRaskin:</b></font> vcunat; that&apos;s our current plan<br/>
+<font color="#A82F2F"><font size="2">(08:44:51 PM)</font> <b>vcunat:</b></font> sounds relatively safe<br/>
+<font color="#A82F2F"><font size="2">(08:44:59 PM)</font> <b>MichaelRaskin:</b></font> I looked at sed manual, and apparently we&apos;ll have to do this manually<br/>
+<font color="#A82F2F"><font size="2">(08:45:04 PM)</font> <b>MichaelRaskin:</b></font> Hoped for a sed flag, but no<br/>
+<font color="#A82F2F"><font size="2">(08:45:07 PM)</font> <b>vcunat:</b></font> it doesn&apos;t really do a semantic change that should need a reconfigure/remake<br/>
+<font color="#A82F2F"><font size="2">(08:46:02 PM)</font> <b>ehabs:</b></font> i’m just starting to use nix on os x yosemite. i have it working except everything is compiling from source. i followed the directions on the wiki for getting nix working on os x including the part about binary caches. does anyone have any idea why this would happen?<br/>
+<font color="#A82F2F"><font size="2">(08:46:10 PM)</font> <b>vcunat:</b></font> e.g. we can make a preserved-copy of that file and then use its timestamp by touch -r<br/>
+<font color="#A82F2F"><font size="2">(08:46:28 PM)</font> <b>iElectric:</b></font> yeah I&apos;m testing that now<br/>
+<font color="#A82F2F"><font size="2">(08:46:46 PM)</font> <b>MichaelRaskin:</b></font> vcunat: I wonder if this is better or worse than simply saving timestamp into a variable<br/>
+<font color="#A82F2F"><font size="2">(08:47:00 PM)</font> <b>vcunat:</b></font> I&apos;m not sure the strings has full precision<br/>
+<font color="#A82F2F"><font size="2">(08:47:03 PM)</font> <b>johnw:</b></font> ehabs: yeah, it means the hydra is being us<br/>
+<font color="#A82F2F"><font size="2">(08:47:06 PM)</font> <b>johnw:</b></font> is behind us<br/>
+<font color="#A82F2F"><font size="2">(08:47:14 PM)</font> <b>vcunat:</b></font> (miliseconds or whatever it is in reality)<br/>
+<font color="#A82F2F"><font size="2">(08:47:16 PM)</font> <b>johnw:</b></font> there have been very recent changes that required every package to rebuild<br/>
+<font color="#A82F2F"><font size="2">(08:47:37 PM)</font> <b>MichaelRaskin:</b></font> iElectric: you are testing the timestamp-saving change?<br/>
+<font color="#A82F2F"><font size="2">(08:47:40 PM)</font> <b>MichaelRaskin:</b></font> Which approach?<br/>
+<font color="#A82F2F"><font size="2">(08:48:20 PM)</font> <b>MichaelRaskin:</b></font> String or a copy or a temporary file to hold timestamp with touch -r back and forth?<br/>
+<font color="#A82F2F"><font size="2">(08:48:40 PM)</font> <b>ehabs:</b></font> johnw: ok, cool. thanks a lot<br/>
+<font size="2">(08:48:57 PM)</font><b> ehabs left the room (quit: Quit: ehabs).</b><br/>
+<font color="#A82F2F"><font size="2">(08:49:07 PM)</font> <b>iElectric:</b></font> MichaelRaskin: temp var to hold the time, then touch it softly<br/>
+<font color="#A82F2F"><font size="2">(08:49:11 PM)</font> <b>johnw:</b></font> I&apos;m not exactly sure how long it takes after a stdenv change for Zalora&apos;s Hydra to catch up to us; shlevy would know<br/>
+<font color="#A82F2F"><font size="2">(08:49:49 PM)</font> <b>MichaelRaskin:</b></font> iElectric: I actually buy into vcunat&apos;s concerns about &apos;touch -r &apos; keeping (possibly) full precision<br/>
+<font color="#A82F2F"><font size="2">(08:50:08 PM)</font> <b>MichaelRaskin:</b></font> With strings including dec&lt;-&gt;bin conversions<br/>
+<font color="#A82F2F"><font size="2">(08:51:48 PM)</font> <b>the-kenny:</b></font> how can texLiveExtra be 1.5x the size of texLive?<br/>
+<font color="#A82F2F"><font size="2">(08:51:53 PM)</font> <b>the-kenny:</b></font> I don&apos;t want to live in this world anymore<br/>
+<font color="#A82F2F"><font size="2">(08:51:55 PM)</font> <b>vcunat:</b></font> one can use the seconds-since-epoch-started format, but it&apos;s still only seconds, which certainly isn&apos;t full precision<br/>
+<font color="#A82F2F"><font size="2">(08:52:39 PM)</font> <b>vcunat:</b></font> the-kenny: there&apos;s a plan for a better world https://github.com/NixOS/nixpkgs/issues/287<br/>
+<font color="#A82F2F"><font size="2">(08:52:43 PM)</font> <b>MichaelRaskin:</b></font> the-kenny: you want to live in the world where NixTeX exists?<br/>
+<font color="#A82F2F"><font size="2">(08:53:03 PM)</font> <b>vcunat:</b></font> mind reading :-)<br/>
+<font color="#A82F2F"><font size="2">(08:53:24 PM)</font> <b>johnw:</b></font> ooh, what is NixTeX?<br/>
+<font color="#A82F2F"><font size="2">(08:53:25 PM)</font> <b>iElectric:</b></font> well the point of texlive is to package all tex plugins<br/>
+<font color="#A82F2F"><font size="2">(08:53:27 PM)</font> <b>vcunat:</b></font> TeX needs smaller granularity than gigabytes<br/>
+<font color="#A82F2F"><font size="2">(08:53:40 PM)</font> <b>the-kenny:</b></font> I think I&apos;m just gonna format this one letter in plain text in Emacs<br/>
+<font color="#A82F2F"><font size="2">(08:53:46 PM)</font> <b>vcunat:</b></font> johnw: not even an idea/plan of that exists AFAIK<br/>
+<font color="#A82F2F"><font size="2">(08:53:55 PM)</font> <b>the-kenny:</b></font> in a nice monotype font and print it on a needle printer<br/>
+<font color="#A82F2F"><font size="2">(08:53:56 PM)</font> <b>johnw:</b></font> but what would it even be?<br/>
+<font color="#A82F2F"><font size="2">(08:54:04 PM)</font> <b>the-kenny:</b></font> s/needle/dot matrix/<br/>
+<font color="#A82F2F"><font size="2">(08:54:21 PM)</font> <b>MichaelRaskin:</b></font> johnw: per-CTAN-package granularity<br/>
+<font color="#A82F2F"><font size="2">(08:54:23 PM)</font> <b>vcunat:</b></font> johnw: I would imagine e.g. something like cabal2nix<br/>
+<font color="#A82F2F"><font size="2">(08:54:27 PM)</font> <b>johnw:</b></font> ooh, that&apos;s cool<br/>
+<font color="#A82F2F"><font size="2">(08:54:29 PM)</font> <b>vcunat:</b></font> auto-generating deps<br/>
+<font color="#A82F2F"><font size="2">(08:54:34 PM)</font> <b>johnw:</b></font> so a Nix-based TeX distribution<br/>
+<font color="#A82F2F"><font size="2">(08:54:35 PM)</font> <b>vcunat:</b></font> etc.<br/>
+<font color="#A82F2F"><font size="2">(08:54:49 PM)</font> <b>johnw:</b></font> sounds like an enormous amount of work<br/>
+<font color="#A82F2F"><font size="2">(08:55:07 PM)</font> <b>MichaelRaskin:</b></font> vcunat: I always explain Nix like &quot;you can pay sanity damage by the generous exchange rate of 1 GiB of HDD space per 1 point of sanity damage&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:55:14 PM)</font> <b>vcunat:</b></font> I expect most use cases only need several megabytes of TeX packages.<br/>
+<font color="#A82F2F"><font size="2">(08:55:15 PM)</font> <b>johnw:</b></font> nix-env -iA pkgs.texPackages.beamer<br/>
+<font color="#A82F2F"><font size="2">(08:55:24 PM)</font> <b>MichaelRaskin:</b></font> johnw: actually, the most work is the basic binaries<br/>
+<font color="#A82F2F"><font size="2">(08:55:29 PM)</font> <b>the-kenny:</b></font> vcunat: definitely<br/>
+<font color="#A82F2F"><font size="2">(08:55:47 PM)</font> <b>johnw:</b></font> MichaelRaskin: if you build it, I will come<br/>
+<font color="#A82F2F"><font size="2">(08:56:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/nJLclg<br/>
+<font color="#A82F2F"><font size="2">(08:56:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 55d6b7e Peter Simons: all-packages.nix: remove redundant gmp51 attribute<br/>
+<font color="#A82F2F"><font size="2">(08:56:32 PM)</font> <b>MichaelRaskin:</b></font> johnw: _I_ pay sanity damage with gigabytes and smile<br/>
+<font color="#A82F2F"><font size="2">(08:56:45 PM)</font> <b>devhell:</b></font> or, if you want something fast-n-dirty: sharelatex or overleaf (nee writeLaTeX)<br/>
+<font color="#A82F2F"><font size="2">(08:56:46 PM)</font> <b>johnw:</b></font> I actually like having so much stuff installed<br/>
+<font color="#A82F2F"><font size="2">(08:56:57 PM)</font> <b>johnw:</b></font> because then i don&apos;t need to install it at inopportune moments when I have no Internet access<br/>
+<font color="#A82F2F"><font size="2">(08:57:07 PM)</font> <b>johnw:</b></font> but I can definitely see the appeal<br/>
+<font color="#A82F2F"><font size="2">(08:57:55 PM)</font> <b>MichaelRaskin:</b></font> I want SAL (and even pure-functional portable services), bit-perfect builds, etc. more than NixTeX<br/>
+<font color="#A82F2F"><font size="2">(08:58:16 PM)</font> <b>MichaelRaskin:</b></font> Although it may be that I am reasonably qualified for NixTeX core<br/>
+<font color="#A82F2F"><font size="2">(08:58:35 PM)</font> <b>johnw:</b></font> I wouldn&apos;t mind if &apos;sage&apos; built on OS X<br/>
+<font color="#A82F2F"><font size="2">(08:58:37 PM)</font> <b>johnw:</b></font> I got so close one time<br/>
+<font color="#A82F2F"><font size="2">(08:59:45 PM)</font> <b>iElectric:</b></font> MichaelRaskin: it&apos;s building kernel now<br/>
+<font color="#A82F2F"><font size="2">(08:59:50 PM)</font> <b>iElectric:</b></font> so looks good<br/>
+<font color="#A82F2F"><font size="2">(09:00:01 PM)</font> <b>iElectric:</b></font> going to grab some food and be back in an hour to report.<br/>
+<font color="#A82F2F"><font size="2">(09:00:36 PM)</font> <b>MichaelRaskin:</b></font> Maybe we should use temporary files for full precision?<br/>
+<font color="#A82F2F"><font size="2">(09:01:48 PM)</font> <b>iElectric:</b></font> doesn&apos;t seem like it&apos;s needed<br/>
+<font color="#A82F2F"><font size="2">(09:02:10 PM)</font> <b>zmbmartin:</b></font> I installed rethinkdb. Is that suppose to start it for me or do I need to do that? I tried `sudo systemctl start rethinkdb` but got an error no such service.<br/>
+<font color="#A82F2F"><font size="2">(09:02:13 PM)</font> <b>MichaelRaskin:</b></font> iElectric: _so far_<br/>
+<font color="#A82F2F"><font size="2">(09:02:21 PM)</font> <b>iElectric:</b></font> MichaelRaskin: well for automake, yes<br/>
+<font color="#A82F2F"><font size="2">(09:02:41 PM)</font> <b>MichaelRaskin:</b></font> Maybe switch to a more reliable thing before too long?<br/>
+<font color="#A82F2F"><font size="2">(09:02:53 PM)</font> <b>iElectric:</b></font> MichaelRaskin:<br/>
+<font color="#A82F2F"><font size="2">(09:02:55 PM)</font> <b>iElectric:</b></font> $ stat --format=%y before.txt<br/>
+<font color="#A82F2F"><font size="2">(09:02:57 PM)</font> <b>iElectric:</b></font> 2014-10-09 19:08:59.326084551 +0200<br/>
+<font color="#A82F2F"><font size="2">(09:03:21 PM)</font> <b>MichaelRaskin:</b></font> I think this will break when some package ships all-same-timestamp files, then this split-second will become relevant<br/>
+<font color="#A82F2F"><font size="2">(09:03:43 PM)</font> <b>MichaelRaskin:</b></font> I am not sure it doesn&apos;t have last-bit rounding error in random direction<br/>
+<font color="#A82F2F"><font size="2">(09:03:49 PM)</font> <b>the-kenny:</b></font> zmbmartin: usually the service should start on itself<br/>
+<font color="#A82F2F"><font size="2">(09:04:11 PM)</font> <b>the-kenny:</b></font> zmbmartin: how did you &quot;install&quot; it?<br/>
+<font color="#A82F2F"><font size="2">(09:04:33 PM)</font> <b>zmbmartin:</b></font> the-kenny: Just added it to my configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(09:04:46 PM)</font> <b>zmbmartin:</b></font> It doesn&apos;t appear to have a service from what I can tell.<br/>
+<font color="#A82F2F"><font size="2">(09:05:07 PM)</font> <b>the-kenny:</b></font> Oh. If there&apos;s no service in configuration.nix it won&apos;t start on itself obviously<br/>
+<font color="#A82F2F"><font size="2">(09:05:47 PM)</font> <b>zmbmartin:</b></font> the-kenny: Oh ok, so I need to add services in configuration.nix.<br/>
+<font color="#A82F2F"><font size="2">(09:05:49 PM)</font> <b>the-kenny:</b></font> Nix(OS) has a pretty strong distinction between packages and services: nixpkgs (the package collection) contains no services and is usable without NixOS. NixOS USES the package collection and allows you to define services<br/>
+<font color="#A82F2F"><font size="2">(09:05:52 PM)</font> <b>the-kenny:</b></font> Yup :)<br/>
+<font color="#A82F2F"><font size="2">(09:06:50 PM)</font> <b>zmbmartin:</b></font> the-kenny: What do I add?<br/>
+<font color="#A82F2F"><font size="2">(09:07:45 PM)</font> <b>vcunat:</b></font> yeah, now it seems strange to me why installing a package in other distros may cause it to start by itself on boot<br/>
+<font color="#A82F2F"><font size="2">(09:07:55 PM)</font> <b>the-kenny:</b></font> vcunat: I hate that behavior<br/>
+<font color="#A82F2F"><font size="2">(09:08:10 PM)</font> <b>the-kenny:</b></font> I always feel like I don&apos;t know what&apos;s going on in debian etc.<br/>
+<font color="#A82F2F"><font size="2">(09:08:42 PM)</font> <b>vcunat:</b></font> it&apos;s partly about what one is used to<br/>
+<font color="#A82F2F"><font size="2">(09:08:42 PM)</font> <b>vcunat:</b></font> others may feel like: why did I download the service package if not to use it...<br/>
+<font color="#A82F2F"><font size="2">(09:09:03 PM)</font> <b>the-kenny:</b></font> zmbmartin: basically a) clean the nixpkgs git repository, b) search for a &quot;similar&quot; service in nixos/modules/services c) adapt it to rethinkdb, d) rebuild your system from this git repository<br/>
+<font color="#A82F2F"><font size="2">(09:09:11 PM)</font> <b>the-kenny:</b></font> and e) create a pull request<br/>
+<font color="#A82F2F"><font size="2">(09:09:17 PM)</font> <b>the-kenny:</b></font> sorry, this is a bit complicated :/<br/>
+<font color="#A82F2F"><font size="2">(09:09:40 PM)</font> <b>the-kenny:</b></font> You can also define a service ad-hoc in your configuration.nix by using the systemd interface there<br/>
+<font color="#A82F2F"><font size="2">(09:09:53 PM)</font> <b>the-kenny:</b></font> (not preferable, but surely easier for now)<br/>
+<font color="#A82F2F"><font size="2">(09:10:06 PM)</font> <b>zmbmartin:</b></font> the-kenny: OK I will do that, Thanks!<br/>
+<font color="#A82F2F"><font size="2">(09:10:16 PM)</font> <b>zmbmartin:</b></font> I am trying to change my train of though.<br/>
+<font color="#A82F2F"><font size="2">(09:10:55 PM)</font> <b>zmbmartin:</b></font> Another thing I am trying to think differently on is rvm(ruby version manager) and nvm(node version manager).<br/>
+<font color="#A82F2F"><font size="2">(09:10:56 PM)</font> <b>the-kenny:</b></font> vcunat: Yeah, but what about postgres? I may want to connect to a remote db via psql (not that unusable) WITHOUT automatically starting a local instance<br/>
+<font color="#A82F2F"><font size="2">(09:11:24 PM)</font> <b>vcunat:</b></font> well, I do aggree it&apos;s better to decouple these things<br/>
+<font color="#A82F2F"><font size="2">(09:11:31 PM)</font> <b>vcunat:</b></font> just as nix+nixos does<br/>
+<font color="#A82F2F"><font size="2">(09:11:50 PM)</font> <b>zmbmartin:</b></font> Currently I rely on those a ton in my usual workflow. They are just shell scripts that change which version I am using.<br/>
+<font color="#A82F2F"><font size="2">(09:11:59 PM)</font> <b>the-kenny:</b></font> Yeah, I agree with you too. Sorry, that was a bit harsh ;) It might be strange to people no tused to it, but obviously the &apos;cleaner&apos; solution<br/>
+<font color="#A82F2F"><font size="2">(09:12:19 PM)</font> <b>zmbmartin:</b></font> But I can accomplish these mini environments within projects using nix-shell right?<br/>
+<font color="#A82F2F"><font size="2">(09:12:26 PM)</font> <b>the-kenny:</b></font> yup<br/>
+<font color="#A82F2F"><font size="2">(09:12:34 PM)</font> <b>the-kenny:</b></font> and not just for ruby or node, but ALL THE THINGS<br/>
+<font color="#A82F2F"><font size="2">(09:12:36 PM)</font> <b>the-kenny:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(09:16:32 PM)</font> <b>MichaelRaskin:</b></font> myEnvFun-based expressions seem to be better than nix-shell, though<br/>
+<font color="#A82F2F"><font size="2">(09:16:53 PM)</font> <b>the-kenny:</b></font> because of the rebuilds?<br/>
+<font color="#A82F2F"><font size="2">(09:17:52 PM)</font> <b>MichaelRaskin:</b></font> Because adding multiple dependencies into nix-shell ends up looking kludgier<br/>
+<font color="#A82F2F"><font size="2">(09:18:15 PM)</font> <b>MichaelRaskin:</b></font> If you want saving the list<br/>
+<font color="#A82F2F"><font size="2">(09:18:19 PM)</font> <b>ktosiek:</b></font> or you leave shell.nix files everywhere<br/>
+<font color="#A82F2F"><font size="2">(09:19:11 PM)</font> <b>ktosiek:</b></font> (which is nice when you publish your projects, as it might expose new people to Nix :-))<br/>
+<font color="#A82F2F"><font size="2">(09:19:46 PM)</font> <b>anty:</b></font> johnw, qknight I still am nowhere with this problem<br/>
+<font color="#A82F2F"><font size="2">(09:19:52 PM)</font> <b>zmbmartin:</b></font> MichaelRaskin: How does the myEnvFun expressions work? Are those per Project(folder) based?<br/>
+<font color="#A82F2F"><font size="2">(09:20:11 PM)</font> <b>zmbmartin:</b></font> I would love to be able to cd into a folder and my env kicks in for me.<br/>
+<font color="#A82F2F"><font size="2">(09:20:22 PM)</font> <b>zmbmartin:</b></font> With whatever pkgs I need for that env.<br/>
+<font color="#A82F2F"><font size="2">(09:21:14 PM)</font> <b>MichaelRaskin:</b></font> zmbmartin: you know why this is dangerous, right?<br/>
+<font color="#A82F2F"><font size="2">(09:21:31 PM)</font> <b>MichaelRaskin:</b></font> myEnvFun just creates you a script that initializes the environment you need<br/>
+<font color="#A82F2F"><font size="2">(09:22:30 PM)</font> <b>MichaelRaskin:</b></font> Also, initializing environment... what happens when you leave the directory?<br/>
+<font color="#A82F2F"><font size="2">(09:22:39 PM)</font> <b>MichaelRaskin:</b></font> Current shell session ends?<br/>
+<font color="#A82F2F"><font size="2">(09:23:00 PM)</font> <b>ktosiek:</b></font> MichaelRaskin: it&apos;d have to mutate current session&apos;s env<br/>
+<font color="#A82F2F"><font size="2">(09:23:12 PM)</font> <b>ktosiek:</b></font> like with loading/deactivating python&apos;s virtualenvs<br/>
+<font color="#A82F2F"><font size="2">(09:23:23 PM)</font> <b>Sonarpulse:</b></font> http://hydra.nixos.org/job/nixos/trunk-combined/nixpkgs.rustcMaster.i686-linux does this mean i should be able to get the most recent build from nixpkgs-unstable?<br/>
+<font color="#A82F2F"><font size="2">(09:23:33 PM)</font> <b>ktosiek:</b></font> (but that assumes nothing else touches the variables that virtualenv changes)<br/>
+<font color="#A82F2F"><font size="2">(09:24:26 PM)</font> <b>zmbmartin:</b></font> MichaelRaskin: I realize that is dangerous. It is more of a pipe dream.<br/>
+<font color="#A82F2F"><font size="2">(09:24:41 PM)</font> <b>wkennington:</b></font> it&apos;s this kind of stuff that bothers me<br/>
+<font color="#A82F2F"><font size="2">(09:24:42 PM)</font> <b>wkennington:</b></font> http://hydra.nixos.org/build/18518219/log/raw<br/>
+<font size="2">(09:24:52 PM)</font><b> anty left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:24:57 PM)</font> <b>ktosiek:</b></font> and about auto-loading envs being dangerous - how so?<br/>
+<font color="#A82F2F"><font size="2">(09:25:11 PM)</font> <b>zmbmartin:</b></font> So with what you are saying. I would just have scripts like myEnvFun for different projects and just run them when I need them. Is that what you are getting at?<br/>
+<font color="#A82F2F"><font size="2">(09:26:24 PM)</font> <b>MichaelRaskin:</b></font> Yes<br/>
+<font color="#A82F2F"><font size="2">(09:26:54 PM)</font> <b>MichaelRaskin:</b></font> You can also create an alias like cd-env that launches the environment that is listed in a _separate_ database<br/>
+<font color="#A82F2F"><font size="2">(09:27:22 PM)</font> <b>zmbmartin:</b></font> MichaelRaskin: Does your suggestion basically install a set of packages, etc that I have defined?<br/>
+<font color="#A82F2F"><font size="2">(09:27:32 PM)</font> <b>MichaelRaskin:</b></font> In some sense<br/>
+<font color="#A82F2F"><font size="2">(09:28:07 PM)</font> <b>MichaelRaskin:</b></font> I would keep ~/rc/shell-list.nix<br/>
+<font color="#A82F2F"><font size="2">(09:28:16 PM)</font> <b>MichaelRaskin:</b></font> With path -&gt; env correspendence<br/>
+<font color="#A82F2F"><font size="2">(09:28:31 PM)</font> <b>MichaelRaskin:</b></font> When you cd-env, a proper environment is launched<br/>
+<font color="#A82F2F"><font size="2">(09:29:00 PM)</font> <b>MichaelRaskin:</b></font> (the current one exits, if it is a project env)<br/>
+<font color="#A82F2F"><font size="2">(09:30:05 PM)</font> <b>zmbmartin:</b></font> OK, I will dig into that when I get there. Thanks!<br/>
+<font color="#A82F2F"><font size="2">(09:38:26 PM)</font> <b>bdimcheff:</b></font> is hydra broken?  it seems like there are a lot of strange failures<br/>
+<font color="#A82F2F"><font size="2">(09:38:46 PM)</font> <b>vcunat:</b></font> would you link an example?<br/>
+<font color="#A82F2F"><font size="2">(09:40:41 PM)</font> <b>bdimcheff:</b></font> the current build of trunk has over 1000 failures, for instance: http://hydra.nixos.org/eval/1170692#tabs-still-fail<br/>
+<font color="#A82F2F"><font size="2">(09:40:45 PM)</font> <b>bdimcheff:</b></font> maybe it&apos;s mostly pypy tho?<br/>
+<font color="#A82F2F"><font size="2">(09:43:59 PM)</font> <b>bdimcheff:</b></font> yeah I guess it looks like it&apos;s mostly pypy, so maybe that&apos;s just a known issue.  I also thought it was odd there were no builds from dec31-&gt;jan7 tho<br/>
+<font color="#A82F2F"><font size="2">(09:45:08 PM)</font> <b>vcunat:</b></font> it&apos;s mostly pypy, which often fails randomly in the last months, although the errors seemed different IIRC<br/>
+<font color="#A82F2F"><font size="2">(09:45:43 PM)</font> <b>vcunat:</b></font> I think Hydra was overwhelmed by mass rebuilds around that time<br/>
+<font color="#A82F2F"><font size="2">(09:47:12 PM)</font> <b>anty:</b></font> question: http://unix.stackexchange.com/questions/13391/getting-not-found-message-when-running-a-32-bit-binary-on-a-64-bit-system seems to suggest i should install something like ia32-libs<br/>
+<font color="#A82F2F"><font size="2">(09:48:07 PM)</font> <b>vcunat:</b></font> anty: what is your problem?<br/>
+<font color="#A82F2F"><font size="2">(09:49:19 PM)</font> <b>anty:</b></font> files that are abviously present yield bash/zsh: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(09:49:25 PM)</font> <b>anty:</b></font> *obviously<br/>
+<font color="#A82F2F"><font size="2">(09:50:00 PM)</font> <b>ktosiek:</b></font> see if ldd path/to/file says the same<br/>
+<font color="#A82F2F"><font size="2">(09:50:06 PM)</font> <b>anty:</b></font> it does<br/>
+<font color="#A82F2F"><font size="2">(09:50:09 PM)</font> <b>vcunat:</b></font> some (package) searching for files on wrong places?<br/>
+<font color="#A82F2F"><font size="2">(09:50:33 PM)</font> <b>ktosiek:</b></font> ok, so you probably need patchelf<br/>
+<font color="#A82F2F"><font size="2">(09:50:37 PM)</font> <b>vcunat:</b></font> what package reports this?<br/>
+<font color="#A82F2F"><font size="2">(09:50:44 PM)</font> <b>anty:</b></font> isabelle<br/>
+<font color="#A82F2F"><font size="2">(09:53:07 PM)</font> <b>anty:</b></font> ktosiek, that sounds about right<br/>
+<font color="#A82F2F"><font size="2">(09:53:35 PM)</font> <b>ktosiek:</b></font> patchelf --get-interpreter path/to/binary, and see if the returned path exists<br/>
+<font color="#A82F2F"><font size="2">(09:54:18 PM)</font> <b>ktosiek:</b></font> wait, is this isabelle from nixpkgs?<br/>
+<font color="#A82F2F"><font size="2">(09:54:30 PM)</font> <b>anty:</b></font> yes,<br/>
+<font color="#A82F2F"><font size="2">(09:55:21 PM)</font> <b>vcunat:</b></font> I&apos;m just downloading it to find out<br/>
+<font color="#A82F2F"><font size="2">(09:55:39 PM)</font> <b>anty:</b></font> well actually I get the same problem when using the tar.gz from the project website<br/>
+<font size="2">(09:57:09 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:57:32 PM)</font> <b>ktosiek:</b></font> anty: but that&apos;s normal. The nixpkgs version should be patched<br/>
+<font color="#16569E"><font size="2">(09:58:06 PM)</font> <b>magnetophon:</b></font> HarryHaaren: hi!  :)<br/>
+<font color="#A82F2F"><font size="2">(09:58:16 PM)</font> <b>HarryHaaren:</b></font> hey<br/>
+<font color="#A82F2F"><font size="2">(09:58:50 PM)</font> <b>anty:</b></font> apparently it isnt:(<br/>
+<font color="#A82F2F"><font size="2">(10:01:55 PM)</font> <b>anty:</b></font> patchelf --get-interpreter /nix/store/11k15dbnwn1jx0qsv12i16vmgmx12ygl-isabelle-2014/Isabelle2014/contrib/jdk/x86_64-linux/bin/java<br/>
+<font color="#A82F2F"><font size="2">(10:01:55 PM)</font> <b>anty:</b></font> stat: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(10:04:02 PM)</font> <b>vcunat:</b></font> eh, it installs java into its own output?<br/>
+<font color="#A82F2F"><font size="2">(10:04:22 PM)</font> <b>anty:</b></font> apparently it does<br/>
+<font color="#062585"><font size="2">(10:04:30 PM)</font> <b>***vcunat</b></font> still downloading the texlive dependencies<br/>
+<font color="#A82F2F"><font size="2">(10:04:36 PM)</font> <b>ktosiek:</b></font> and badly, at that<br/>
+<font color="#062585"><font size="2">(10:05:16 PM)</font> <b>***ktosiek</b></font> still has 700MB to download, &apos;ll be ready to inspect this in an hour or 10<br/>
+<font color="#A82F2F"><font size="2">(10:05:33 PM)</font> <b>anty:</b></font> :(<br/>
+<font color="#A82F2F"><font size="2">(10:05:37 PM)</font> <b>anty:</b></font> sorry<br/>
+<font color="#A82F2F"><font size="2">(10:06:35 PM)</font> <b>vcunat:</b></font> well, I have 100 Mb symmetric connectivity, but the master stuff isn&apos;t in binary cache yet and apparently Hydra is rather slow to supply the files<br/>
+<font color="#16569E"><font size="2">(10:07:06 PM)</font> <b>magnetophon:</b></font> HarryHaaren: did your wget finish yet?<br/>
+<font color="#A82F2F"><font size="2">(10:07:42 PM)</font> <b>ktosiek:</b></font> is it only broken on master? I&apos;m downloading a version from unstable channel and the only thing that&apos;s not built is isabelle itself<br/>
+<font color="#A82F2F"><font size="2">(10:08:13 PM)</font> <b>HarryHaaren:</b></font> magnetophon, yep, gonna install another time though, busy until weekend<br/>
+<font color="#16569E"><font size="2">(10:09:07 PM)</font> <b>magnetophon:</b></font> HarryHaaren: I figured you're here, so you must have needed a break :)<br/>
+<font color="#A82F2F"><font size="2">(10:09:31 PM)</font> <b>wkennington:</b></font> vcunat: i have gigabit put pull at 300k :/<br/>
+<font color="#A82F2F"><font size="2">(10:09:38 PM)</font> <b>wkennington:</b></font> vcunat: the netherlands is too far away<br/>
+<font color="#A82F2F"><font size="2">(10:10:17 PM)</font> <b>vcunat:</b></font> I don&apos;t think the distance can be a problem<br/>
+<font color="#A82F2F"><font size="2">(10:10:17 PM)</font> <b>vcunat:</b></font> my international connection is fairly good<br/>
+<font color="#A82F2F"><font size="2">(10:10:40 PM)</font> <b>wkennington:</b></font> well, the problem is you hit more congestion and tcp is terrible at congestion control with high latency<br/>
+<font color="#A82F2F"><font size="2">(10:11:16 PM)</font> <b>wkennington:</b></font> we&apos;re talking over 150ms<br/>
+<font color="#A82F2F"><font size="2">(10:11:20 PM)</font> <b>wkennington:</b></font> in my case<br/>
+<font color="#A82F2F"><font size="2">(10:11:41 PM)</font> <b>wkennington:</b></font> but im sure the bigger problem is actually hydra not being setup as a mirror<br/>
+<font color="#A82F2F"><font size="2">(10:11:46 PM)</font> <b>wkennington:</b></font> understandably so<br/>
+<font size="2">(10:12:02 PM)</font><b> emery is now known as nickemery</b><br/>
+<font size="2">(10:12:35 PM)</font><b> nickemery is now known as emery</b><br/>
+<font color="#A82F2F"><font size="2">(10:13:13 PM)</font> <b>vcunat:</b></font> my ping to hydra.nixos.org is 16 ms<br/>
+<font color="#A82F2F"><font size="2">(10:14:25 PM)</font> <b>vcunat:</b></font> I&apos;m lucky<br/>
+<font color="#A82F2F"><font size="2">(10:14:26 PM)</font> <b>wkennington:</b></font> :/<br/>
+<font color="#A82F2F"><font size="2">(10:15:40 PM)</font> <b>vcunat:</b></font> given by speed of light bound, you need to have on the order of 100 ms latency between USA and Europe<br/>
+<font color="#A82F2F"><font size="2">(10:16:28 PM)</font> <b>wkennington:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(10:16:36 PM)</font> <b>wkennington:</b></font> and 60ms from west to east<br/>
+<font color="#A82F2F"><font size="2">(10:17:40 PM)</font> <b>vcunat:</b></font> this minute it&apos;s sending me ~3 Mbps<br/>
+<font color="#A82F2F"><font size="2">(10:18:07 PM)</font> <b>vcunat:</b></font> I guess it&apos;s under load when generating this dynamically<br/>
+<font color="#A82F2F"><font size="2">(10:18:08 PM)</font> <b>wkennington:</b></font> Current Speed: 30306<br/>
+<font size="2">(10:18:11 PM)</font><b> HarryHaaren left the room.</b><br/>
+<font color="#16569E"><font size="2">(10:19:20 PM)</font> <b>magnetophon:</b></font> I was having trouble with faust, a package I maintain. It didn't function anymore in 14.12. Fixed it now. Would you prefer a pull request rebased on 14.12, on master, or on both?<br/>
+<font color="#A82F2F"><font size="2">(10:20:27 PM)</font> <b>vcunat:</b></font> magnetophon: do a PR against master<br/>
+<font color="#A82F2F"><font size="2">(10:20:33 PM)</font> <b>vcunat:</b></font> it&apos;s customary to merge there first<br/>
+<font color="#A82F2F"><font size="2">(10:20:51 PM)</font> <b>vcunat:</b></font> and then cherry-pick (sometimes after some period of testing)<br/>
+<font color="#16569E"><font size="2">(10:21:35 PM)</font> <b>magnetophon:</b></font> vcunat: I know, but since this package doesn't do anything at all in it's current incarnation, I wanted to doublecheck.<br/>
+<font color="#A82F2F"><font size="2">(10:21:47 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/dZRaDQ<br/>
+<font color="#A82F2F"><font size="2">(10:21:47 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c827471 Peter Simons: ihaskell-wrapper: adapt so that it evaluates with the new Haskell infrastructure<br/>
+<font color="#A82F2F"><font size="2">(10:22:10 PM)</font> <b>vcunat:</b></font> magnetophon: in such case it&apos;s probably best to merge at once :-)<br/>
+<font color="#16569E"><font size="2">(10:23:06 PM)</font> <b>magnetophon:</b></font> vcunat: PR coming up, right after I do some more testing! Thanks<br/>
+<font color="#A82F2F"><font size="2">(10:23:06 PM)</font> <b>johnw:</b></font> anty: hi<br/>
+<font color="#A82F2F"><font size="2">(10:23:19 PM)</font> <b>johnw:</b></font> anty: so, run ldd on it, run gdb on it<br/>
+<font color="#A82F2F"><font size="2">(10:23:27 PM)</font> <b>johnw:</b></font> anty: use strace to attempt to execute it<br/>
+<font color="#A82F2F"><font size="2">(10:23:30 PM)</font> <b>johnw:</b></font> we need to find out who exactly thinks that it&apos;s not there<br/>
+<font color="#A82F2F"><font size="2">(10:23:38 PM)</font> <b>vcunat:</b></font> ah, the maintainer :-)<br/>
+<font color="#A82F2F"><font size="2">(10:29:05 PM)</font> <b>ewooy:</b></font> Is there any docs for configuring automatic mountpoints?<br/>
+<font color="#A82F2F"><font size="2">(10:29:38 PM)</font> <b>ewooy:</b></font> I dont know if I phrased this correctly but I want to mount /home and other partitions on boot<br/>
+<font size="2">(10:30:17 PM)</font><b> Ankhers` is now known as Ankhers</b><br/>
+<font color="#A82F2F"><font size="2">(10:31:04 PM)</font> <b>the-kenny:</b></font> ewooy: so &apos;normal&apos; mount points?<br/>
+<font color="#A82F2F"><font size="2">(10:31:06 PM)</font> <b>vcunat:</b></font> ewooy: see &quot;man configuration.nix&quot;, options filesystem.*<br/>
+<font size="2">(10:31:11 PM)</font><b> ewooy left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(10:31:21 PM)</font> <b>vcunat:</b></font> FSs are mounted on boot by default<br/>
+<font color="#A82F2F"><font size="2">(10:31:49 PM)</font> <b>vcunat:</b></font> (had HW detection generates those that are mounted at install-time)<br/>
+<font color="#A82F2F"><font size="2">(10:32:07 PM)</font> <b>vcunat:</b></font> (s/install/detect/)<br/>
+<font color="#A82F2F"><font size="2">(10:37:29 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] 7c6f434c pushed 1 new commit to master: http://git.io/YWtHWA<br/>
+<font color="#A82F2F"><font size="2">(10:37:29 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5b77abf Michael Raskin: Unmark haskellPackages.ipprint as broken<br/>
+<font color="#A82F2F"><font size="2">(10:38:00 PM)</font> <b>vcunat:</b></font> johnw: http://sprunge.us/YNFW<br/>
+<font color="#A82F2F"><font size="2">(10:38:31 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/7vHC7A<br/>
+<font color="#A82F2F"><font size="2">(10:38:31 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7c6cbdc William A. Kennington III: mstpd: Add derivation<br/>
+<font color="#A82F2F"><font size="2">(10:38:32 PM)</font> <b>vcunat:</b></font> strace isabelle on x86_64-linux NixOS, current master<br/>
+<font color="#A82F2F"><font size="2">(10:38:35 PM)</font> <b>johnw:</b></font> is this in relation to anty&apos;s problem?<br/>
+<font color="#A82F2F"><font size="2">(10:38:46 PM)</font> <b>johnw:</b></font> oh, this is another issue?<br/>
+<font color="#A82F2F"><font size="2">(10:39:01 PM)</font> <b>vcunat:</b></font> same error message<br/>
+<font color="#A82F2F"><font size="2">(10:39:15 PM)</font> <b>vcunat:</b></font> (some 32-bit vs. 64-bit thing)<br/>
+<font color="#A82F2F"><font size="2">(10:40:01 PM)</font> <b>vcunat:</b></font> there&apos;s just stdout: http://sprunge.us/diGW<br/>
+<font color="#A82F2F"><font size="2">(10:40:10 PM)</font> <b>vcunat:</b></font> the previous paste contained both mixed together<br/>
+<font color="#A82F2F"><font size="2">(10:40:13 PM)</font> <b>johnw:</b></font> vcunat: what is this in relation to?<br/>
+<font color="#A82F2F"><font size="2">(10:40:34 PM)</font> <b>vcunat:</b></font> (ah, the stdout is useless; OK, I mean)<br/>
+<font color="#A82F2F"><font size="2">(10:40:48 PM)</font> <b>vcunat:</b></font> johnw: I&apos;m not getting you<br/>
+<font color="#A82F2F"><font size="2">(10:40:57 PM)</font> <b>johnw:</b></font> I don&apos;t know why you&apos;re showing me this information<br/>
+<font color="#A82F2F"><font size="2">(10:41:46 PM)</font> <b>anty:</b></font> sorry I&apos;m not really responding timely<br/>
+<font color="#A82F2F"><font size="2">(10:42:00 PM)</font> <b>vcunat:</b></font> oh, or are these messages not errors?<br/>
+<font color="#A82F2F"><font size="2">(10:42:00 PM)</font> <b>vcunat:</b></font> ### Cannot execute Poly/ML in 32bit mode (missing shared libraries for C/C++)<br/>
+<font color="#A82F2F"><font size="2">(10:42:00 PM)</font> <b>vcunat:</b></font> ### Using bulky 64bit version of Poly/ML instead<br/>
+<font color="#A82F2F"><font size="2">(10:42:36 PM)</font> <b>vcunat:</b></font> maybe I just misinterpreted it (I don&apos;t know much how to use isabelle anyway)<br/>
+<font color="#A82F2F"><font size="2">(10:42:44 PM)</font> <b>anty:</b></font> I thought they were not really errors<br/>
+<font color="#A82F2F"><font size="2">(10:43:12 PM)</font> <b>anty:</b></font> but johnw should know better than me<br/>
+<font color="#A82F2F"><font size="2">(10:43:24 PM)</font> <b>Twey:</b></font> Fuuzetsu: Did you ever fix http://permalink.gmane.org/gmane.linux.distributions.nixos/13929 ?  I get the same error when trying to use ghcWithPackages<br/>
+<font color="#A82F2F"><font size="2">(10:43:35 PM)</font> <b>johnw:</b></font> note: johnw does not actually use isabelle<br/>
+<font color="#A82F2F"><font size="2">(10:44:34 PM)</font> <b>vcunat:</b></font> well, if noone really needs it... :-)<br/>
+<font color="#A82F2F"><font size="2">(10:44:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/cYmafA<br/>
+<font color="#A82F2F"><font size="2">(10:44:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master bf22749 William A. Kennington III: mstpd: Fix patch<br/>
+<font color="#A82F2F"><font size="2">(10:49:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 2 new commits to master: http://git.io/rnxSxg<br/>
+<font color="#A82F2F"><font size="2">(10:49:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 82f62af Eduard Bachmakov: libva: 1.3.1 -&gt; 1.5.0<br/>
+<font color="#A82F2F"><font size="2">(10:49:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 82b55b9 Eduard Bachmakov: libva-intel-driver: 1.3.2 -&gt; 1.5.0...<br/>
+<font color="#A82F2F"><font size="2">(10:49:11 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat closed pull request #5502: Vaapi update (libva+intel) (master...vaapi) http://git.io/Kdtcaw<br/>
+<font color="#A82F2F"><font size="2">(10:50:22 PM)</font> <b>ewooy:</b></font> Vcunat: Thanks<br/>
+<font size="2">(10:51:00 PM)</font><b> ewooy left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(10:52:13 PM)</font> <b>vcunat:</b></font> For the merge? It was you (eduarrrd?) who did all the work.<br/>
+<font color="#A82F2F"><font size="2">(10:53:33 PM)</font> <b>anty:</b></font> vcunat, I _do_ need it though ;)<br/>
+<font color="#A82F2F"><font size="2">(10:58:21 PM)</font> <b>viric:</b></font> niksnut: nix 1.7 tells me &quot;7.54 MiB download&quot; and it&apos;s downloading 47MB (firefox uin 14.04)<br/>
+<font color="#A82F2F"><font size="2">(10:58:24 PM)</font> <b>viric:</b></font> in<br/>
+<font color="#A82F2F"><font size="2">(10:58:38 PM)</font> <b>viric:</b></font> just in case noone had noticed.<br/>
+<font color="#A82F2F"><font size="2">(10:58:54 PM)</font> <b>vcunat:</b></font> that&apos;s just some rounding error ;-)<br/>
+<font color="#A82F2F"><font size="2">(10:59:13 PM)</font> <b>MichaelRaskin:</b></font> Hydra downloads anywhere?<br/>
+<font color="#A82F2F"><font size="2">(10:59:24 PM)</font> <b>vcunat:</b></font> I thought the binary cache used to report 0 MB for the downloads...<br/>
+<font color="#A82F2F"><font size="2">(10:59:30 PM)</font> <b>ktosiek:</b></font> viric: I get &quot;0.0 to download&quot; when downloading hydra<br/>
+<font color="#A82F2F"><font size="2">(10:59:31 PM)</font> <b>MichaelRaskin:</b></font> I think no<br/>
+<font color="#A82F2F"><font size="2">(10:59:35 PM)</font> <b>MichaelRaskin:</b></font> Hydra reports 0<br/>
+<font color="#A82F2F"><font size="2">(10:59:44 PM)</font> <b>MichaelRaskin:</b></font> Static caches report real size<br/>
+<font color="#A82F2F"><font size="2">(10:59:53 PM)</font> <b>MichaelRaskin:</b></font> Source downloads are never calculated<br/>
+<font color="#A82F2F"><font size="2">(10:59:57 PM)</font> <b>vcunat:</b></font> ah, maybe just Hydra and I confused it (makes sense)<br/>
+<font color="#A82F2F"><font size="2">(11:00:02 PM)</font> <b>MichaelRaskin:</b></font> (fetchurl ones)<br/>
+<font color="#A82F2F"><font size="2">(11:00:35 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] magnetophon opened pull request #5633: bugfix. The version in 14.12 doesn&apos;t do anything. (master...faust_bugfix) http://git.io/h7n26Q<br/>
+<font color="#A82F2F"><font size="2">(11:01:04 PM)</font> <b>viric:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(11:01:11 PM)</font> <b>viric:</b></font> ktosiek: I&apos;m using https://hydra.nixos.org in fact<br/>
+<font color="#A82F2F"><font size="2">(11:01:25 PM)</font> <b>MichaelRaskin:</b></font> Bad you<br/>
+<font color="#A82F2F"><font size="2">(11:01:38 PM)</font> <b>viric:</b></font> BUT maybe all but firefox (40MB) was in the static cache<br/>
+<font color="#A82F2F"><font size="2">(11:01:42 PM)</font> <b>viric:</b></font> so it could sum up to 7MB<br/>
+<font color="#A82F2F"><font size="2">(11:02:04 PM)</font> <b>ktosiek:</b></font> hmm, is there some less straining cache for hydra.nixos.org?<br/>
+<font color="#A82F2F"><font size="2">(11:02:05 PM)</font> <b>viric:</b></font> MichaelRaskin: the firefox in 14.04 is annoyingly &apos;broken&apos;<br/>
+<font color="#A82F2F"><font size="2">(11:02:24 PM)</font> <b>viric:</b></font> ktosiek: is it straining?<br/>
+<font color="#A82F2F"><font size="2">(11:02:31 PM)</font> <b>ktosiek:</b></font> (I assume cache.nixos.org is only updated after some jobs)<br/>
+<font color="#A82F2F"><font size="2">(11:02:40 PM)</font> <b>viric:</b></font> ktosiek: only if the nixos tests pass<br/>
+<font color="#A82F2F"><font size="2">(11:02:50 PM)</font> <b>viric:</b></font> which don&apos;t for firefox in 14.04, but firefox builds<br/>
+<font color="#A82F2F"><font size="2">(11:03:02 PM)</font> <b>MichaelRaskin:</b></font> I think direct Hydra usage is somewhat straining for Hydra<br/>
+<font color="#A82F2F"><font size="2">(11:03:03 PM)</font> <b>ktosiek:</b></font> viric: isn&apos;t it? I was under the impression that hydra.nixos.org shouldn&apos;t be used directly, as hydra doesn&apos;t like it<br/>
+<font color="#A82F2F"><font size="2">(11:03:25 PM)</font> <b>viric:</b></font> my 300KB/s download link may not be very straining<br/>
+<font color="#A82F2F"><font size="2">(11:03:56 PM)</font> <b>viric:</b></font> I use that only exceptionally<br/>
+<font color="#A82F2F"><font size="2">(11:04:18 PM)</font> <b>viric:</b></font> with NIX_REMOTE= nix-build --option binary-caches https://hydra.nixos.org/ -A firefox<br/>
+<font color="#A82F2F"><font size="2">(11:04:42 PM)</font> <b>vcunat:</b></font> a while ago it wouldn&apos;t send me more than 3Mb/s (~375 KB/s)<br/>
+<font color="#A82F2F"><font size="2">(11:05:01 PM)</font> <b>viric:</b></font> but &apos;exceptionally&apos; means I had to do it in most machines since the 22nd of Dec :)<br/>
+<font color="#A82F2F"><font size="2">(11:05:34 PM)</font> <b>vcunat:</b></font> yeah, some people were pushing mass-rebuild changes to master directly :-/<br/>
+<font color="#A82F2F"><font size="2">(11:05:43 PM)</font> <b>ktosiek:</b></font> viric: set up squid? :-P<br/>
+<font color="#A82F2F"><font size="2">(11:05:48 PM)</font> <b>MichaelRaskin:</b></font> Some of them accidentally<br/>
+<font color="#A82F2F"><font size="2">(11:06:05 PM)</font> <b>MichaelRaskin:</b></font> ktosiek: Squid would need to be set up at the Hydra side<br/>
+<font color="#A82F2F"><font size="2">(11:06:17 PM)</font> <b>viric:</b></font> right :)<br/>
+<font color="#A82F2F"><font size="2">(11:06:20 PM)</font> <b>vcunat:</b></font> yeah, I read it was accidental<br/>
+<font color="#A82F2F"><font size="2">(11:06:29 PM)</font> <b>johnw:</b></font> vcunat: should I be saying oops?<br/>
+<font color="#A82F2F"><font size="2">(11:06:42 PM)</font> <b>viric:</b></font> ktosiek: I live fine with 300KB/s<br/>
+<font color="#A82F2F"><font size="2">(11:06:53 PM)</font> <b>viric:</b></font> it&apos;s nice, once you haven&apos;t experienced anything faster any often :)<br/>
+<font color="#A82F2F"><font size="2">(11:06:57 PM)</font> <b>johnw:</b></font> ah, 3 MBit, brings back memories<br/>
+<font color="#A82F2F"><font size="2">(11:07:37 PM)</font> <b>viric:</b></font> you will become blind, at such fast internet!<br/>
+<font color="#A82F2F"><font size="2">(11:07:40 PM)</font> <b>vcunat:</b></font> viric: in 90s I was happy without any connection for weeks<br/>
+<font color="#A82F2F"><font size="2">(11:08:11 PM)</font> <b>vcunat:</b></font> it&apos;s just about what one gets used to<br/>
+<font color="#A82F2F"><font size="2">(11:08:15 PM)</font> <b>obb:</b></font> hi, i am currently running arch with syslinux. i created a nix os flash drive with dd. unfortunately it fails cannot boot. why?<br/>
+<font color="#A82F2F"><font size="2">(11:08:26 PM)</font> <b>viric:</b></font> vcunat: yes.<br/>
+<font color="#16569E"><font size="2">(11:09:12 PM)</font> <b>magnetophon:</b></font> obb: you're supposed to use UnetBootin<br/>
+<font color="#A82F2F"><font size="2">(11:09:20 PM)</font> <b>obb:</b></font> cannot use unet bootin<br/>
+<font color="#A82F2F"><font size="2">(11:09:32 PM)</font> <b>obb:</b></font> https://bugs.archlinux.org/task/42030?project=5<br/>
+<font color="#A82F2F"><font size="2">(11:09:38 PM)</font> <b>obb:</b></font> i get this bug<br/>
+<font color="#A82F2F"><font size="2">(11:09:50 PM)</font> <b>johnw:</b></font> I still tailor my dev environment so that it works nicely when completely offline for days at a time<br/>
+<font color="#A82F2F"><font size="2">(11:10:09 PM)</font> <b>obb:</b></font> is there _any_ other way?<br/>
+<font color="#A82F2F"><font size="2">(11:10:37 PM)</font> <b>MichaelRaskin:</b></font> obb: there is an arguably simpler way<br/>
+<font color="#A82F2F"><font size="2">(11:11:11 PM)</font> <b>vcunat:</b></font> burn a DVD?<br/>
+<font color="#A82F2F"><font size="2">(11:11:13 PM)</font> <b>MichaelRaskin:</b></font> Boot a Qemu off LiveCD, install onto a USB drive as if it were HDD (give it as HDD to Qemu)<br/>
+<font color="#16569E"><font size="2">(11:11:18 PM)</font> <b>magnetophon:</b></font> obb: sure, Just google what unetbootin does different from dd, and do that manually. (sorry idk the actual answer). Or burn a CD<br/>
+<font color="#A82F2F"><font size="2">(11:12:29 PM)</font> <b>MichaelRaskin:</b></font> Usually people who ask for help with unetbootin cannot easily use a CD...<br/>
+<font color="#A82F2F"><font size="2">(11:13:02 PM)</font> <b>MichaelRaskin:</b></font> Installing to USB drive via Qemu is way easier than manually imitating unetbootin<br/>
+<font color="#A82F2F"><font size="2">(11:13:53 PM)</font> <b>MichaelRaskin:</b></font> I think that manual installation via Qemu has one caveat: inside Qemu, the drive wouldn&apos;t need USB drivers<br/>
+<font color="#A82F2F"><font size="2">(11:14:14 PM)</font> <b>McEnroe:</b></font> I&apos;m still on 15.05pre54730.cbe467e . Does it make sense to switch my channel to 14.12 to get some updates and switch back to unstable later?<br/>
+<font color="#16569E"><font size="2">(11:14:14 PM)</font> <b>magnetophon:</b></font> Speaking of unetbootin: I recently heard it only does http downloading, no https. Maybe NixOS should provide another way, being a server OS and all.<br/>
+<font color="#A82F2F"><font size="2">(11:14:38 PM)</font> <b>MichaelRaskin:</b></font> So it may be a good idea to open configuration.nix, find initrd kernelModules and add xhci-hcd, ehci-hcd, uhci-hcd and usb-storage<br/>
+<font color="#A82F2F"><font size="2">(11:18:44 PM)</font> <b>obb:</b></font> MichaelRaskin can you elaborate a bit on the qemu approach?<br/>
+<font color="#A82F2F"><font size="2">(11:19:27 PM)</font> <b>obb:</b></font> i really just need the commands to get my system running on my flash drive<br/>
+<font color="#A82F2F"><font size="2">(11:19:31 PM)</font> <b>jonc:</b></font> the men in blue are gettting very close to you<br/>
+<font color="#A82F2F"><font size="2">(11:19:36 PM)</font> <b>MichaelRaskin:</b></font> Well, when you run Qemu you can tell it to use whatever files/devices you name for emulated disks<br/>
+<font color="#A82F2F"><font size="2">(11:20:03 PM)</font> <b>MichaelRaskin:</b></font> You can tell it that hda is your USB drive, and cdrom is the LiveCD image<br/>
+<font color="#A82F2F"><font size="2">(11:20:20 PM)</font> <b>MichaelRaskin:</b></font> I guess you&apos;ll also need -boot d for that setup, just in case<br/>
+<font color="#A82F2F"><font size="2">(11:20:39 PM)</font> <b>MichaelRaskin:</b></font> Obviously, enabling KVM is recommended<br/>
+<font color="#A82F2F"><font size="2">(11:20:56 PM)</font> <b>MichaelRaskin:</b></font> And you should use -net user, I guess<br/>
+<font color="#A82F2F"><font size="2">(11:21:34 PM)</font> <b>anty:</b></font> so no workaround or fix for the isabelle issue?<br/>
+<font color="#A82F2F"><font size="2">(11:22:24 PM)</font> <b>johnw:</b></font> anty: can you use strace to run that java executable?<br/>
+<font color="#A82F2F"><font size="2">(11:22:36 PM)</font> <b>anty:</b></font> yeah it says no such file<br/>
+<font color="#A82F2F"><font size="2">(11:22:45 PM)</font> <b>johnw:</b></font> same with ldd?<br/>
+<font color="#A82F2F"><font size="2">(11:22:56 PM)</font> <b>johnw:</b></font> man, I&apos;ve seen this before...<br/>
+<font color="#A82F2F"><font size="2">(11:22:59 PM)</font> <b>johnw:</b></font> like, recently<br/>
+<font color="#A82F2F"><font size="2">(11:23:10 PM)</font> <b>anty:</b></font> yes, same with ldd<br/>
+<font color="#A82F2F"><font size="2">(11:23:10 PM)</font> <b>johnw:</b></font> I think it may have been on my NixOS server too<br/>
+<font color="#A82F2F"><font size="2">(11:23:33 PM)</font> <b>johnw:</b></font> so, &quot;file&quot; is the only one that admits to its existence<br/>
+<font color="#A82F2F"><font size="2">(11:23:44 PM)</font> <b>johnw:</b></font> how about running &quot;stat -v java&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:23:48 PM)</font> <b>anty:</b></font> file, ls, vim,<br/>
+<font color="#A82F2F"><font size="2">(11:23:49 PM)</font> <b>MichaelRaskin:</b></font> patchelf --print-interpreter ?<br/>
+<font size="2">(11:24:15 PM)</font><b> obb left the room (&quot;Leaving&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(11:24:23 PM)</font> <b>johnw:</b></font> it definitely sounds like a loader problem, rather than a filesystem problem<br/>
+<font size="2">(11:24:25 PM)</font><b> jonc is now known as bai-jon-hu</b><br/>
+<font color="#A82F2F"><font size="2">(11:24:30 PM)</font> <b>johnw:</b></font> I bet you can run sha256 on it too<br/>
+<font color="#A82F2F"><font size="2">(11:24:32 PM)</font> <b>MichaelRaskin:</b></font> no such file when running an existing file usually means that specified dynamic linker is non-existent<br/>
+<font color="#A82F2F"><font size="2">(11:24:37 PM)</font> <b>johnw:</b></font> i.e., treat it as data just fine<br/>
+<font color="#A82F2F"><font size="2">(11:24:47 PM)</font> <b>MichaelRaskin:</b></font> johnw: obviously<br/>
+<font color="#A82F2F"><font size="2">(11:25:00 PM)</font> <b>johnw:</b></font> hopefully obvious<br/>
+<font color="#A82F2F"><font size="2">(11:25:19 PM)</font> <b>anty:</b></font> MichaelRaskin, yes that throws the same error but I agree with johnw, idont think this refers to the actual file<br/>
+<font color="#A82F2F"><font size="2">(11:25:26 PM)</font> <b>johnw:</b></font> I think it happened for me when I was using an executable created on an incompatible system<br/>
+<font color="#A82F2F"><font size="2">(11:25:42 PM)</font> <b>MichaelRaskin:</b></font> patchelf throws an error??<br/>
+<font color="#A82F2F"><font size="2">(11:25:45 PM)</font> <b>johnw:</b></font> which is what MichaelRaskin says<br/>
+<font color="#A82F2F"><font size="2">(11:25:47 PM)</font> <b>MichaelRaskin:</b></font> Now that is interesting<br/>
+<font color="#A82F2F"><font size="2">(11:26:06 PM)</font> <b>johnw:</b></font> it seems that any attempt to interpret this file as an ELF file results in this error<br/>
+<font color="#A82F2F"><font size="2">(11:26:34 PM)</font> <b>anty:</b></font> http://unix.stackexchange.com/questions/13391/getting-not-found-message-when-running-a-32-bit-binary-on-a-64-bit-system the explanation here is good, I just don know how to apply the fix (&quot;aptitude instal ia32-libs&quot;)<br/>
+<font color="#A82F2F"><font size="2">(11:26:40 PM)</font> <b>MichaelRaskin:</b></font> patchelf is a tool to _fix_ such problems, though<br/>
+<font color="#A82F2F"><font size="2">(11:27:08 PM)</font> <b>johnw:</b></font> oh, did I miss the bit-width variance?<br/>
+<font color="#A82F2F"><font size="2">(11:27:25 PM)</font> <b>MichaelRaskin:</b></font> patchelf shouldn&apos;t depend on this<br/>
+<font color="#A82F2F"><font size="2">(11:27:32 PM)</font> <b>anty:</b></font> patchelf --get-interpreter /nix/store/11k15dbnwn1jx0qsv12i16vmgmx12ygl-isabelle-2014/Isabelle2014/contrib/jdk/x86_64-linux/bin/java<br/>
+<font color="#A82F2F"><font size="2">(11:27:32 PM)</font> <b>anty:</b></font> stat: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(11:27:45 PM)</font> <b>MichaelRaskin:</b></font> Is it a symlink??<br/>
+<font color="#A82F2F"><font size="2">(11:27:57 PM)</font> <b>MichaelRaskin:</b></font> What does ls -l in the corresponding directory say?<br/>
+<font color="#A82F2F"><font size="2">(11:29:08 PM)</font> <b>anty:</b></font> -r-xr-xr-x 1 root nixbld   7718 Jan  1  1970 java<br/>
+<font color="#A82F2F"><font size="2">(11:29:15 PM)</font> <b>anty:</b></font> same for all the other files<br/>
+<font color="#A82F2F"><font size="2">(11:29:27 PM)</font> <b>johnw:</b></font> MichaelRaskin: bizarre, isn&apos;t it?<br/>
+<font color="#A82F2F"><font size="2">(11:29:28 PM)</font> <b>anty:</b></font> basically<br/>
+<font color="#A82F2F"><font size="2">(11:29:44 PM)</font> <b>MichaelRaskin:</b></font> I think &quot;stat&quot; was ran in a wrong directory or without complete path<br/>
+<font color="#A82F2F"><font size="2">(11:30:24 PM)</font> <b>MichaelRaskin:</b></font> I mean, &quot;stat -v java&quot; in the directory where java doesn&apos;t exist<br/>
+<font color="#A82F2F"><font size="2">(11:31:19 PM)</font> <b>johnw:</b></font> please try: stat -v /nix/store/11k15dbnwn1jx0qsv12i16vmgmx12ygl-isabelle-2014/Isabelle2014/contrib/jdk/x86_64-linux/bin/java<br/>
+<font color="#A82F2F"><font size="2">(11:32:07 PM)</font> <b>anty:</b></font> stat -v?<br/>
+<font color="#A82F2F"><font size="2">(11:32:43 PM)</font> <b>MichaelRaskin:</b></font> just stat<br/>
+<font color="#A82F2F"><font size="2">(11:32:57 PM)</font> <b>anty:</b></font> k sec<br/>
+<font color="#A82F2F"><font size="2">(11:33:00 PM)</font> <b>pierron:</b></font> I am failing at trying to find the right color match for the NixOS logo :(<br/>
+<font color="#A82F2F"><font size="2">(11:33:29 PM)</font> <b>anty:</b></font>   File: ‘/nix/store/11k15dbnwn1jx0qsv12i16vmgmx12ygl-isabelle-2014/Isabelle2014/contrib/jdk/x86_64-linux/bin/java’<br/>
+<font color="#A82F2F"><font size="2">(11:33:30 PM)</font> <b>anty:</b></font>   Size: 7718            Blocks: 16         IO Block: 4096   regular file<br/>
+<font color="#A82F2F"><font size="2">(11:33:30 PM)</font> <b>anty:</b></font> Device: 13h/19d Inode: 1949334     Links: 1<br/>
+<font color="#A82F2F"><font size="2">(11:33:30 PM)</font> <b>anty:</b></font> Access: (0555/-r-xr-xr-x)  Uid: (    0/    root)   Gid: (30000/  nixbld)<br/>
+<font color="#A82F2F"><font size="2">(11:33:30 PM)</font> <b>anty:</b></font> Access: 2015-01-06 13:27:48.530446208 +0100<br/>
+<font color="#A82F2F"><font size="2">(11:33:31 PM)</font> <b>anty:</b></font> Modify: 1970-01-01 01:00:01.000000000 +0100<br/>
+<font color="#A82F2F"><font size="2">(11:33:33 PM)</font> <b>anty:</b></font> Change: 2015-01-06 13:27:46.542441150 +0100<br/>
+<font color="#A82F2F"><font size="2">(11:33:35 PM)</font> <b>anty:</b></font>  Birth: -<br/>
+<font color="#A82F2F"><font size="2">(11:33:46 PM)</font> <b>pierron:</b></font> if somebody know how to precisely map the RGB color set to CMYK, in such a way that we do not end-up with washed colors …<br/>
+<font color="#A82F2F"><font size="2">(11:34:15 PM)</font> <b>MichaelRaskin:</b></font> pierron: I am afraid the correct answer is that there is no way to do it _precisely_<br/>
+<font color="#A82F2F"><font size="2">(11:34:41 PM)</font> <b>pierron:</b></font> all CMYK are just like old t-shirts.<br/>
+<font color="#A82F2F"><font size="2">(11:35:23 PM)</font> <b>wkennington:</b></font> wow are we still changing stdenv :/<br/>
+<font color="#A82F2F"><font size="2">(11:35:27 PM)</font> <b>pierron:</b></font> everything is either pale white, or washed grey :(<br/>
+<font color="#A82F2F"><font size="2">(11:35:52 PM)</font> <b>MichaelRaskin:</b></font> wkennington: sometimes back and forth inside one day<br/>
+<font color="#A82F2F"><font size="2">(11:36:10 PM)</font> <b>anty:</b></font> is that helpful johnw?<br/>
+<font color="#A82F2F"><font size="2">(11:36:10 PM)</font> <b>wkennington:</b></font> yeah i just feel like i&apos;ve been redownloading it all day<br/>
+<font color="#A82F2F"><font size="2">(11:36:27 PM)</font> <b>MichaelRaskin:</b></font> A-&gt;B-&gt;C-&gt;B-&gt;A seems to have happened just today for LibreOffice<br/>
+<font color="#A82F2F"><font size="2">(11:36:40 PM)</font> <b>johnw:</b></font> anty: it&apos;s more just confirming<br/>
+<font color="#A82F2F"><font size="2">(11:36:46 PM)</font> <b>johnw:</b></font> that we&apos;re sane<br/>
+<font color="#A82F2F"><font size="2">(11:36:57 PM)</font> <b>pierron:</b></font> MichaelRaskin: I thinking of making the logo bleu-ish to make it shinier :/<br/>
+<font color="#A82F2F"><font size="2">(11:37:03 PM)</font> <b>johnw:</b></font> what was the output from &quot;file&quot; again?<br/>
+<font color="#A82F2F"><font size="2">(11:37:08 PM)</font> <b>MichaelRaskin:</b></font> anty: patchelf --print-interpreter<br/>
+<font color="#A82F2F"><font size="2">(11:37:13 PM)</font> <b>MichaelRaskin:</b></font> (on the full path)<br/>
+<font color="#A82F2F"><font size="2">(11:37:16 PM)</font> <b>johnw:</b></font> yeah, and that<br/>
+<font color="#A82F2F"><font size="2">(11:37:26 PM)</font> <b>anty:</b></font> ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.9, BuildID[sha1]=b82a586842f6da3df8a61093daadf04180e85c16, not stripped<br/>
+<font color="#A82F2F"><font size="2">(11:37:40 PM)</font> <b>johnw:</b></font> ok, so 32-bit libs isn&apos;t the issue<br/>
+<font color="#A82F2F"><font size="2">(11:37:47 PM)</font> <b>johnw:</b></font> what is your kernel version?<br/>
+<font color="#A82F2F"><font size="2">(11:38:05 PM)</font> <b>johnw:</b></font> I think this executable is simply incompatible with your system<br/>
+<font color="#A82F2F"><font size="2">(11:38:15 PM)</font> <b>johnw:</b></font> because this was compiled against 2.6.9, but I bet you&apos;re using 3.x<br/>
+<font color="#A82F2F"><font size="2">(11:38:47 PM)</font> <b>johnw:</b></font> do we have a functional JRE in Nix for Linux that anty can use?<br/>
+<font color="#A82F2F"><font size="2">(11:38:51 PM)</font> <b>johnw:</b></font> that&apos;s the real issue here<br/>
+<font color="#A82F2F"><font size="2">(11:38:51 PM)</font> <b>MichaelRaskin:</b></font> johnw: sacrilege<br/>
+<font color="#A82F2F"><font size="2">(11:38:57 PM)</font> <b>MichaelRaskin:</b></font> We have icedtea<br/>
+<font color="#A82F2F"><font size="2">(11:39:00 PM)</font> <b>anty:</b></font> lol well yes of course.. Im on 3.14<br/>
+<font color="#A82F2F"><font size="2">(11:39:06 PM)</font> <b>anty:</b></font> how did I not see that<br/>
+<font color="#A82F2F"><font size="2">(11:39:13 PM)</font> <b>ktosiek:</b></font> um, that would be interesting. I mean, 2.6.9 binaries not starting on 3.x<br/>
+<font color="#A82F2F"><font size="2">(11:39:20 PM)</font> <b>anty:</b></font> and why is it compiled against 2.6.9??<br/>
+<font color="#A82F2F"><font size="2">(11:39:28 PM)</font> <b>MichaelRaskin:</b></font> There is an obvious problem of ld-linux being /lib/ld-linux.so.2 in java binary<br/>
+<font color="#A82F2F"><font size="2">(11:39:39 PM)</font> <b>MichaelRaskin:</b></font> 2.6.9 binaries run just fine on 3.17<br/>
+<font color="#A82F2F"><font size="2">(11:39:47 PM)</font> <b>johnw:</b></font> this is a contrib file from the isabelle distribution<br/>
+<font color="#A82F2F"><font size="2">(11:39:53 PM)</font> <b>johnw:</b></font> I wouldn&apos;t trust it anyway<br/>
+<font color="#A82F2F"><font size="2">(11:40:04 PM)</font> <b>MichaelRaskin:</b></font> Contrib java obviously uses FHS ld-linux.so.2 path<br/>
+<font color="#A82F2F"><font size="2">(11:40:04 PM)</font> <b>ktosiek:</b></font> they bundle their own Java?<br/>
+<font color="#A82F2F"><font size="2">(11:40:07 PM)</font> <b>MichaelRaskin:</b></font> We have another one<br/>
+<font color="#A82F2F"><font size="2">(11:40:11 PM)</font> <b>MichaelRaskin:</b></font> They do bundle<br/>
+<font color="#A82F2F"><font size="2">(11:40:15 PM)</font> <b>johnw:</b></font>  ktosiek: believe it or not<br/>
+<font color="#A82F2F"><font size="2">(11:40:23 PM)</font> <b>johnw:</b></font> icedtea, that&apos;s amusing<br/>
+<font color="#A82F2F"><font size="2">(11:40:35 PM)</font> <b>ktosiek:</b></font> is isabelle only used by scientists?<br/>
+<font color="#A82F2F"><font size="2">(11:40:44 PM)</font> <b>anty:</b></font> i think so<br/>
+<font color="#A82F2F"><font size="2">(11:40:46 PM)</font> <b>johnw:</b></font> who else would it be used by?<br/>
+<font color="#A82F2F"><font size="2">(11:40:49 PM)</font> <b>MichaelRaskin:</b></font> It being a computer proof system...<br/>
+<font color="#A82F2F"><font size="2">(11:40:58 PM)</font> <b>anty:</b></font> ktosiek, who else needs an automated theorem prover?<br/>
+<font color="#A82F2F"><font size="2">(11:40:59 PM)</font> <b>johnw:</b></font> it&apos;s used by software engineers too<br/>
+<font color="#062585"><font size="2">(11:41:02 PM)</font> <b>***ktosiek</b></font> has a feeling scietists bundle random parts of runtime all the time<br/>
+<font color="#A82F2F"><font size="2">(11:41:10 PM)</font> <b>johnw:</b></font> it was used to build sel4<br/>
+<font color="#A82F2F"><font size="2">(11:41:12 PM)</font> <b>ktosiek:</b></font> anty: software developers<br/>
+<font color="#A82F2F"><font size="2">(11:41:19 PM)</font> <b>ktosiek:</b></font> for critical systems<br/>
+<font color="#A82F2F"><font size="2">(11:41:22 PM)</font> <b>MichaelRaskin:</b></font> It&apos;s not that much designed for integrted software correctness proofs<br/>
+<font color="#A82F2F"><font size="2">(11:41:27 PM)</font> <b>MichaelRaskin:</b></font> I think<br/>
+<font color="#A82F2F"><font size="2">(11:41:27 PM)</font> <b>ktosiek:</b></font> like, a hundred of them ;-)<br/>
+<font color="#A82F2F"><font size="2">(11:41:30 PM)</font> <b>anty:</b></font> well, yes<br/>
+<font color="#A82F2F"><font size="2">(11:41:50 PM)</font> <b>anty:</b></font> but then they are scientists as well, aren&apos;t they?<br/>
+<font color="#A82F2F"><font size="2">(11:42:09 PM)</font> <b>johnw:</b></font> that&apos;s when we run into the fact that &quot;scientist&quot; is not a rigorously defined notion<br/>
+<font color="#A82F2F"><font size="2">(11:42:24 PM)</font> <b>anty:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(11:42:25 PM)</font> <b>johnw:</b></font> if we define &quot;scientist&quot; as anyone who actually needs isabelle, then sure<br/>
+<font color="#A82F2F"><font size="2">(11:42:57 PM)</font> <b>anty:</b></font> so, what do I do now?<br/>
+<font color="#A82F2F"><font size="2">(11:43:10 PM)</font> <b>johnw:</b></font> try icedtea<br/>
+<font color="#A82F2F"><font size="2">(11:43:16 PM)</font> <b>anty:</b></font> yay, I&apos;m a scientist<br/>
+<font color="#A82F2F"><font size="2">(11:43:17 PM)</font> <b>johnw:</b></font> nixpkgs.icedtea7_jre<br/>
+<font color="#A82F2F"><font size="2">(11:43:24 PM)</font> <b>johnw:</b></font> there&apos;s also openjre<br/>
+<font color="#A82F2F"><font size="2">(11:43:28 PM)</font> <b>johnw:</b></font> nixpkgs.jre<br/>
+<font color="#A82F2F"><font size="2">(11:43:37 PM)</font> <b>johnw:</b></font> maybe one of them will work<br/>
+<font color="#A82F2F"><font size="2">(11:43:57 PM)</font> <b>anty:</b></font> and do I have to fiddle with isabelle somehow?<br/>
+<font color="#A82F2F"><font size="2">(11:44:21 PM)</font> <b>johnw:</b></font> just set ISABELLE_JDK_HOME<br/>
+<font color="#A82F2F"><font size="2">(11:44:28 PM)</font> <b>johnw:</b></font> to point to wherever the JRE you install is<br/>
+<font color="#A82F2F"><font size="2">(11:44:42 PM)</font> <b>johnw:</b></font> which will be somewhere under ~/.nix-profile<br/>
+<font color="#A82F2F"><font size="2">(11:46:22 PM)</font> <b>michas:</b></font> Hi, in https://nixos.org/releases/nix/nix-1.8/ there are small packages like &quot;nix-1.8.tar.bz2&quot; and big ones like &quot;nix-1.8-x86_64-linux.tar.bz2&quot;. What is the difference? (Did I miss some documentation about that?)<br/>
+<font color="#A82F2F"><font size="2">(11:46:52 PM)</font> <b>MichaelRaskin:</b></font> Source versus prebuilt binaries, I guess<br/>
+<font color="#A82F2F"><font size="2">(11:46:54 PM)</font> <b>ktosiek:</b></font> first is source, second is a build for x86_64<br/>
+<font color="#A82F2F"><font size="2">(11:47:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/Zc_2AA<br/>
+<font color="#A82F2F"><font size="2">(11:47:23 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 54baa53 Peter Simons: Say hello to our brand-new Haskell infrastructure.<br/>
+<font color="#A82F2F"><font size="2">(11:49:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edwtjo pushed 2 new commits to master: http://git.io/5DShRA<br/>
+<font color="#A82F2F"><font size="2">(11:49:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master d8d9cc6 Edward Tjörnhammar: idea-{community,ultimate}: 14.0.1 -&gt; 14.0.2...<br/>
+<font color="#A82F2F"><font size="2">(11:49:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3a3a53d Edward Tjörnhammar: i2pd: 0.4.0 -&gt; 0.6.0<br/>
+<font color="#A82F2F"><font size="2">(11:49:04 PM)</font> <b>michas:</b></font> In this case the arch-linux package seem to install the source only. How do I install any software with only the source package?<br/>
+<font color="#A82F2F"><font size="2">(11:49:39 PM)</font> <b>ktosiek:</b></font> you mean, AUR package?<br/>
+<font color="#A82F2F"><font size="2">(11:49:45 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/hOrJ2Q<br/>
+<font color="#A82F2F"><font size="2">(11:49:45 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9a7766e William A. Kennington III: nixos/network-interfaces: Add mstpd support for bridges<br/>
+<font color="#A82F2F"><font size="2">(11:49:45 PM)</font> <b>michas:</b></font> yes. exactly.<br/>
+<font color="#A82F2F"><font size="2">(11:50:14 PM)</font> <b>MichaelRaskin:</b></font> AUR package gets the source then builds it<br/>
+<font color="#A82F2F"><font size="2">(11:50:40 PM)</font> <b>michas:</b></font> oh, you are right.<br/>
+<font color="#A82F2F"><font size="2">(11:52:22 PM)</font> <b>michas:</b></font> But now i have for example the nix-build command available but no all-packages.nix or stdenv. - where does this come from?<br/>
+<font color="#A82F2F"><font size="2">(11:53:04 PM)</font> <b>michas:</b></font> I&apos;m just trying to work through the documentation and build something using nix.<br/>
+<font color="#A82F2F"><font size="2">(11:53:19 PM)</font> <b>viric:</b></font> it&apos;s like having installed &apos;unzip&apos;, but not having zip files<br/>
+<font size="2">(11:53:27 PM)</font><b> anty left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:53:36 PM)</font> <b>ktosiek:</b></font> those come from nixpkgs, the package descriptions repository<br/>
+<font color="#A82F2F"><font size="2">(11:53:41 PM)</font> <b>viric:</b></font> michas: you want nixpkgs. a collection of packages for nix<br/>
+<font color="#A82F2F"><font size="2">(11:54:27 PM)</font> <b>MichaelRaskin:</b></font> The most transparent way is to get it using a git checkout<br/>
+<font color="#A82F2F"><font size="2">(11:54:33 PM)</font> <b>michas:</b></font> The documentation shows how to write that hello-world package, but this needs for example stdenv, which is not yet available.<br/>
+<font color="#A82F2F"><font size="2">(11:54:40 PM)</font> <b>ktosiek:</b></font> you can use nix-channel to download it (nix-channel --update)<br/>
+<font color="#A82F2F"><font size="2">(11:54:54 PM)</font> <b>ktosiek:</b></font> oh, and just to be sure: . /etc/profile<br/>
+<font color="#A82F2F"><font size="2">(11:56:04 PM)</font> <b>michas:</b></font> does /etc/profile contain anything nix specific?<br/>
+<font color="#A82F2F"><font size="2">(11:56:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 7 new commits to master: http://git.io/rp4HbA<br/>
+<font color="#A82F2F"><font size="2">(11:56:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master bbc4262 William A. Kennington III: java: Add home passthru<br/>
+<font color="#A82F2F"><font size="2">(11:56:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c82410e William A. Kennington III: java: Normalize to the default jre / jdk<br/>
+<font color="#A82F2F"><font size="2">(11:56:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a3eb246 William A. Kennington III: java: Use icedtea by default on linux<br/>
+<font color="#A82F2F"><font size="2">(11:56:32 PM)</font> <b>ktosiek:</b></font> no, but /etc/profile.d/nix.sh might (I&apos;m not sure how arch organizes the system profile script)<br/>
+<font color="#A82F2F"><font size="2">(11:56:39 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington closed pull request #5526: Clean up / normalize java references and make icedtea the default jre / jdk (master...master.java) http://git.io/SOxDUQ<br/>
+<font color="#A82F2F"><font size="2">(11:56:44 PM)</font> <b>michas:</b></font> oh, I see, thx.<br/>
+<font color="#A82F2F"><font size="2">(11:57:18 PM)</font> <b>anty:</b></font> &lt;anty&gt; YES!<br/>
+<font color="#A82F2F"><font size="2">(11:57:19 PM)</font> <b>anty:</b></font> &lt;anty&gt; thanks guys/gals!<br/>
+<font color="#A82F2F"><font size="2">(11:57:19 PM)</font> <b>anty:</b></font> &lt;anty&gt; seems to work now:ISABELLE_JDK_HOME=~/.nix-profile/ isabelle jedit<br/>
+<font color="#A82F2F"><font size="2">(11:57:58 PM)</font> <b>nico__:</b></font> has anybody had any luck booting from a usb drive?<br/>
+<font color="#A82F2F"><font size="2">(11:58:50 PM)</font> <b>vcunat:</b></font> I tried recently both unetbootin and dd-method, and failed both<br/>
+<font color="#A82F2F"><font size="2">(11:58:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/wOXU1g<br/>
+<font color="#A82F2F"><font size="2">(11:58:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c1c0b4b Peter Simons: ghc: bump HEAD compiler to 7.10.1-rc1<br/>
+<font color="#A82F2F"><font size="2">(11:59:00 PM)</font> <b>vcunat:</b></font> perhaps I was unlucky, or something has changed<br/>
+<font color="#A82F2F"><font size="2">(11:59:02 PM)</font> <b>vcunat:</b></font> I don&apos;t know<br/>
+<font color="#A82F2F"><font size="2">(11:59:33 PM)</font> <b>nico__:</b></font> me too =( for some reason it&apos;s not recognizing the partition as bootable I think<br/>
+<font color="#A82F2F"><font size="2">(11:59:49 PM)</font> <b>vcunat:</b></font> yes, that&apos;s what it looks<br/>
+<font color="#A82F2F"><font size="2">(12:00:05 AM)</font> <b>vcunat:</b></font> but I checked in gparted that the key is marked as bootable<br/>
+<font color="#A82F2F"><font size="2">(12:00:10 AM)</font> <b>anty:</b></font> yep it started up fine now!<br/>
+<font color="#A82F2F"><font size="2">(12:00:35 AM)</font> <b>johnw:</b></font> sweet<br/>
+<font color="#A82F2F"><font size="2">(12:00:39 AM)</font> <b>johnw:</b></font> great, anty!<br/>
+<font color="#A82F2F"><font size="2">(12:00:42 AM)</font> <b>vcunat:</b></font> (and I have used that particular combination of computer + key before)<br/>
+<font color="#A82F2F"><font size="2">(12:00:57 AM)</font> <b>johnw:</b></font> sorry it took us so long to unfog our brains and figure that out<br/>
+<font color="#A82F2F"><font size="2">(12:01:28 AM)</font> <b>nico__:</b></font> I wonder if https://github.com/NixOS/nixpkgs/pull/4678 will make it possible/easier<br/>
+<font color="#A82F2F"><font size="2">(12:01:37 AM)</font> <b>anty:</b></font> no problem!<br/>
+<font color="#A82F2F"><font size="2">(12:01:56 AM)</font> <b>anty:</b></font> thanks johnw<br/>
+<font color="#A82F2F"><font size="2">(12:02:32 AM)</font> <b>johnw:</b></font> lesson of the day: never trust a bundled executable<br/>
+<font color="#A82F2F"><font size="2">(12:02:41 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/tvKTuw<br/>
+<font color="#A82F2F"><font size="2">(12:02:41 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3e931d4 William A. Kennington III: openjdk-darwin: Add missing home passthru<br/>
+<font color="#A82F2F"><font size="2">(12:02:43 AM)</font> <b>MichaelRaskin:</b></font> nico__: I usually just use Qemu to install from LiveCD image file to USB drive<br/>
+<font color="#A82F2F"><font size="2">(12:03:29 AM)</font> <b>MichaelRaskin:</b></font> johnw: real lesson of the day: always tell whether you want to use full paths explicitly<br/>
+<font color="#A82F2F"><font size="2">(12:04:06 AM)</font> <b>johnw:</b></font> I think the full path thing only bit us once in that discussion, relating to the use of stat, right?<br/>
+<font color="#A82F2F"><font size="2">(12:04:14 AM)</font> <b>nico__:</b></font> MichaelRaskin: Thanks, I&apos;ll give that a shot<br/>
+<font color="#A82F2F"><font size="2">(12:06:05 AM)</font> <b>MichaelRaskin:</b></font> Well, the rest of the story was at least completely clear and transparent<br/>
+<font color="#A82F2F"><font size="2">(12:07:05 AM)</font> <b>johnw:</b></font> the kernel&apos;s error message in this case could certainly be better<br/>
+<font color="#A82F2F"><font size="2">(12:07:16 AM)</font> <b>johnw:</b></font> I guess it&apos;s trying to tell us that ld-linux is not found<br/>
+<font color="#A82F2F"><font size="2">(12:07:26 AM)</font> <b>johnw:</b></font> I wonder why it doesn&apos;t mention the name<br/>
+<font color="#A82F2F"><font size="2">(12:07:45 AM)</font> <b>anty:</b></font> yes, not very helpful, true<br/>
+<font size="2">(12:08:02 AM)</font><b> vcunat left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(12:15:51 AM)</font> <b>ttuegel:</b></font> johnw: for some reason, ld-linux not-found errors are always cryptic like that. i think they just report argv[0]. more than once i&apos;ve been convinced i have a borked shell<br/>
+<font color="#062585"><font size="2">(12:17:45 AM)</font> <b>***ktosiek</b></font> learned to start debugging &quot;file not founds&quot; with patchelf --print-interpreter when first tried to use NixOS<br/>
+<font color="#A82F2F"><font size="2">(12:20:11 AM)</font> <b>anty:</b></font> thanks for all the help, I&apos;m off to bed, good night<br/>
+<font size="2">(12:21:57 AM)</font><b> anty left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(12:23:22 AM)</font> <b>ttuegel:</b></font> ktosiek: yes, since using nixos my plan of attack has become stat &gt;&gt; ldd &gt;&gt; patchelf<br/>
+<font size="2">(01:01:16 AM)</font><b> phreedom_ is now known as phreedom</b><br/>
+<font color="#A82F2F"><font size="2">(01:52:58 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 2 new commits to release-14.12: http://git.io/N_AH3Q<br/>
+<font color="#A82F2F"><font size="2">(01:52:58 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 6ff4d51 Markus Kohlhase: nixpkgs: prosody 0.9.6 -&gt; 0.9.7<br/>
+<font color="#A82F2F"><font size="2">(01:52:58 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 7a5db26 Domen Kožar: Merge pull request #5617 from flosse/prosody-097...<br/>
+<font color="#A82F2F"><font size="2">(01:53:33 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 2 new commits to master: http://git.io/RJuaQw<br/>
+<font color="#A82F2F"><font size="2">(01:53:33 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 635d335 Nikolay Amiantov: iwlwifi: re-enable 7265 firmware for 3.17+<br/>
+<font color="#A82F2F"><font size="2">(01:53:33 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 156b780 Domen Kožar: Merge pull request #5603 from abbradar/iwlwifi...<br/>
+<font color="#A82F2F"><font size="2">(02:54:17 AM)</font> <b>Sonarpulse:</b></font> is there a way to see what package/versions are availible on a channel?<br/>
+<font color="#A82F2F"><font size="2">(02:54:30 AM)</font> <b>Sonarpulse:</b></font> in case one is not updating a channel correctly?<br/>
+<font size="2">(02:59:08 AM)</font><b> emery is now known as emery_</b><br/>
+<font size="2">(05:11:00 AM)</font><b> Hakisho_ is now known as Hakisho</b><br/>
+<font color="#A82F2F"><font size="2">(05:48:10 AM)</font> <b>copumpkin:</b></font> does nix have special facilities for installing a project whose source bundle contains a .nix file (that you use for development, nix-shell, etc.)?<br/>
+<font color="#A82F2F"><font size="2">(05:55:28 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] Ralith opened pull request #5635: Update libuv repository and add latest stable version (master...libuv) http://git.io/hKN6Ow<br/>
+<font size="2">(06:41:03 AM)</font><b> roconnor left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(06:47:50 AM)</font> <b>Ralith:</b></font> I&apos;m trying to set up a dual boot on a machine with SLI GTX 970s. During boot, nouveau prints a couple errors to the effect of &apos;unrecognized chipset&apos; and the display locks up. Is there a way I can prevent nouveau from being loaded?<br/>
+<font color="#A82F2F"><font size="2">(06:48:08 AM)</font> <b>Ralith:</b></font> during boot from install media, to be specific<br/>
+<font color="#A82F2F"><font size="2">(06:49:52 AM)</font> <b>copumpkin:</b></font> ooh it&apos;s Ralith<br/>
+<font color="#A82F2F"><font size="2">(06:50:02 AM)</font> <b>copumpkin:</b></font> (I don&apos;t have an answer to your question unfortunately)<br/>
+<font color="#A82F2F"><font size="2">(06:50:25 AM)</font> <b>Ralith:</b></font> the answer to my question is almost certainly modprobe.blacklist=nouveau<br/>
+<font color="#A82F2F"><font size="2">(06:50:27 AM)</font> <b>Ralith:</b></font> also hi<br/>
+<font color="#A82F2F"><font size="2">(06:50:31 AM)</font> <b>copumpkin:</b></font> hi!<br/>
+<font color="#A82F2F"><font size="2">(06:50:58 AM)</font> <b>Ralith:</b></font> argh that didn&apos;t work it still loaded<br/>
+<font color="#A82F2F"><font size="2">(06:51:26 AM)</font> <b>copumpkin:</b></font> perhaps it needs to be a real list?<br/>
+<font color="#A82F2F"><font size="2">(06:51:39 AM)</font> <b>copumpkin:</b></font> (yay types?)<br/>
+<font color="#A82F2F"><font size="2">(06:52:05 AM)</font> <b>Ralith:</b></font> not according to man modprobe<br/>
+<font color="#A82F2F"><font size="2">(06:52:09 AM)</font> <b>copumpkin:</b></font> ah ok<br/>
+<font color="#A82F2F"><font size="2">(06:52:14 AM)</font> <b>Ralith:</b></font> looks like I may have just put it in the wrong entry or something though<br/>
+<font color="#A82F2F"><font size="2">(06:52:46 AM)</font> <b>Ralith:</b></font> yep, adding it by hand during boot did the trick<br/>
+<font color="#A82F2F"><font size="2">(06:53:51 AM)</font> <b>Ralith:</b></font> copumpkin: anyway, re: my presence: I got tired of swapping between builds of llvm, and having arch upgrades break stuff, and so on<br/>
+<font color="#A82F2F"><font size="2">(06:54:10 AM)</font> <b>copumpkin:</b></font> I know the feeling<br/>
+<font color="#A82F2F"><font size="2">(06:54:34 AM)</font> <b>Ralith:</b></font> also the ability to sideload nix onto my workstation at my job so I could have up to date tools on old CentOS is amazing<br/>
+<font color="#A82F2F"><font size="2">(07:00:13 AM)</font> <b>benley:</b></font> hrm ... is there a way to serialize a full nix expression into a single long string in order to send it over the network (or whatever else)?<br/>
+<font color="#A82F2F"><font size="2">(07:00:53 AM)</font> <b>benley:</b></font> that&apos;s got to be how this whole thing works internally anyway. imma read more about nix-instantiate and nix-store I think.<br/>
+<font color="#A82F2F"><font size="2">(07:06:19 AM)</font> <b>benley:</b></font> aha nix-store --export<br/>
+<font color="#A82F2F"><font size="2">(07:07:02 AM)</font> <b>benley:</b></font> if I use that on a .drv I _think_ that will do what I&apos;m after<br/>
+<font color="#A82F2F"><font size="2">(07:08:54 AM)</font> <b>benley:</b></font> or maybe this is just what nix-copy-closure is for.<br/>
+<font color="#A82F2F"><font size="2">(07:11:48 AM)</font> <b>copumpkin:</b></font> it won&apos;t get the full nix expression<br/>
+<font color="#A82F2F"><font size="2">(07:12:08 AM)</font> <b>copumpkin:</b></font> it&apos;ll give you the thing that the expression &quot;compiles down to&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:12:15 AM)</font> <b>benley:</b></font> yeah, the derivation<br/>
+<font color="#A82F2F"><font size="2">(07:12:30 AM)</font> <b>benley:</b></font> (right?)<br/>
+<font color="#A82F2F"><font size="2">(07:12:38 AM)</font> <b>copumpkin:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(07:13:14 AM)</font> <b>benley:</b></font> the use case here is one where I edit a nixpkgs tree on my laptop and run some command that triggers an expression to be built on a remote server<br/>
+<font color="#A82F2F"><font size="2">(07:14:15 AM)</font> <b>benley:</b></font> (to be used on that remote machine, not sent back to my laptop)<br/>
+<font color="#A82F2F"><font size="2">(07:17:06 AM)</font> <b>benley:</b></font> nix-copy-closure --use-substitutes gets pretty close<br/>
+<font color="#A82F2F"><font size="2">(07:19:12 AM)</font> <b>benley:</b></font> oooh and with --sign this can even happen multiuser. this might work.<br/>
+<font color="#A82F2F"><font size="2">(07:26:21 AM)</font> <b>thoughtpolice:</b></font> benley: Nix already supports that natively<br/>
+<font color="#A82F2F"><font size="2">(07:26:39 AM)</font> <b>thoughtpolice:</b></font> benley: have you seen this? http://nixos.org/nix/manual/#chap-distributed-builds<br/>
+<font color="#A82F2F"><font size="2">(07:26:59 AM)</font> <b>thoughtpolice:</b></font> It uses the &apos;ssh&apos; substituter to do distributed builds on other machines, and then exports the closure of the result and copies it to your machine<br/>
+<font color="#A82F2F"><font size="2">(07:27:28 AM)</font> <b>thoughtpolice:</b></font> You can even do things like run &apos;nix-build -A foo.x86_64-darwin&apos;, and &apos;build&apos; darwin binaries from a Linux machine, providing you have access to one somewhere.<br/>
+<font color="#A82F2F"><font size="2">(07:27:38 AM)</font> <b>benley:</b></font> *nod* that is pretty awesome<br/>
+<font color="#A82F2F"><font size="2">(07:27:54 AM)</font> <b>benley:</b></font> can I get it to skip the part where it sends the result back to my local machine?<br/>
+<font color="#A82F2F"><font size="2">(07:27:54 AM)</font> <b>thoughtpolice:</b></font> this was quite convenient for me to write code on Linux and test it on OS X/Linux lockstep as part of my build step<br/>
+<font color="#A82F2F"><font size="2">(07:27:58 AM)</font> <b>thoughtpolice:</b></font> this is also how Hydra works<br/>
+<font color="#A82F2F"><font size="2">(07:28:06 AM)</font> <b>benley:</b></font> oh nice<br/>
+<font color="#A82F2F"><font size="2">(07:28:18 AM)</font> <b>thoughtpolice:</b></font> benley: I don&apos;t think so<br/>
+<font color="#A82F2F"><font size="2">(07:28:37 AM)</font> <b>thoughtpolice:</b></font> build-remote.pl should be a good starting point for writing your own substituter, though<br/>
+<font color="#A82F2F"><font size="2">(07:28:41 AM)</font> <b>benley:</b></font> what I&apos;m trying to do is use nix inside of Mesos jobs<br/>
+<font color="#A82F2F"><font size="2">(07:29:08 AM)</font> <b>benley:</b></font> (with the Aurora framework in particular)<br/>
+<font color="#A82F2F"><font size="2">(07:29:22 AM)</font> <b>thoughtpolice:</b></font> I don&apos;t really know anything about Mesos etc, I&apos;m afraid<br/>
+<font color="#A82F2F"><font size="2">(07:29:40 AM)</font> <b>thoughtpolice:</b></font> offline might be able to help though, I think he&apos;s working on Mesos packaging and whatnot<br/>
+<font color="#A82F2F"><font size="2">(07:29:44 AM)</font> <b>thoughtpolice:</b></font> offlinehacker: ^^<br/>
+<font color="#A82F2F"><font size="2">(07:30:07 AM)</font> <b>benley:</b></font> it&apos;s a general &quot;run these commands on some machine somewhere as this user. It needs XX ram and NN cpu time.&quot; sort of thing<br/>
+<font color="#A82F2F"><font size="2">(07:30:58 AM)</font> <b>benley:</b></font> so it would be cool if the job definition could include a nix expression that would be sent up to the cluster and built in the container where the job runs.<br/>
+<font color="#A82F2F"><font size="2">(07:32:11 AM)</font> <b>benley:</b></font> I was considering just uploading a tarball of the relevant .nix files and downloading it at the start of a job<br/>
+<font color="#A82F2F"><font size="2">(07:32:23 AM)</font> <b>benley:</b></font> I&apos;ll read build-remote.pl and see what I can come up with :)<br/>
+<font color="#A82F2F"><font size="2">(07:36:43 AM)</font> <b>benley:</b></font> the eventual outcome of this might end up being nix expressions that launch mesos tasks.<br/>
+<font color="#A82F2F"><font size="2">(07:37:17 AM)</font> <b>benley:</b></font> which might fit in with nixops somehow<br/>
+<font color="#A82F2F"><font size="2">(07:41:15 AM)</font> <b>Ralith:</b></font> How should boot.loader.generationsDir.copyKernels be set for EFI?<br/>
+<font color="#A82F2F"><font size="2">(07:41:24 AM)</font> <b>Ralith:</b></font> er<br/>
+<font color="#A82F2F"><font size="2">(07:41:27 AM)</font> <b>Ralith:</b></font> and/or boot.loader.generationsDir.enable<br/>
+<font color="#A82F2F"><font size="2">(08:32:38 AM)</font> <b>orbitz:</b></font> Hey, running NixOS in VirtualBox and have addeda shared folder, what&apos;s the best way to make the shared folder owned by a particular user?  Right now root owns it which is inconvenient<br/>
+<font color="#A82F2F"><font size="2">(08:40:56 AM)</font> <b>Sonarpulse:</b></font> is there a nixpkgs builtin to take the first few characters of a string?<br/>
+<font color="#A82F2F"><font size="2">(08:42:02 AM)</font> <b>Sonarpulse:</b></font> nix exprs<br/>
+<font color="#A82F2F"><font size="2">(08:43:43 AM)</font> <b>benley:</b></font> Sonarpulse: https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix there&apos;s some useful stuff in there<br/>
+<font color="#A82F2F"><font size="2">(08:43:57 AM)</font> <b>benley:</b></font> Sonarpulse: stringToCharacters perhaps<br/>
+<font color="#A82F2F"><font size="2">(08:45:57 AM)</font> <b>benley:</b></font> holycrap I finally grok overrides all of a sudden<br/>
+<font color="#062585"><font size="2">(08:46:05 AM)</font> <b>***benley</b></font> :3<br/>
+<font color="#A82F2F"><font size="2">(08:46:14 AM)</font> <b>Sonarpulse:</b></font> thanks benley<br/>
+<font color="#A82F2F"><font size="2">(08:46:32 AM)</font> <b>benley:</b></font> np<br/>
+<font color="#A82F2F"><font size="2">(09:02:59 AM)</font> <b>karshan:</b></font> Hello, I was just trying to install couchdb on my ec2 instance running nixos with &quot;nix-env -i couchdb&quot; and apparently there isn&apos;t a cached binary so nix began compiling couchdb and I&apos;m getting a trivial error caused by the fact the couchd is being compiled with -Werror<br/>
+<font color="#A82F2F"><font size="2">(09:04:10 AM)</font> <b>orbitz:</b></font> Whoop figured it out, user needs to be part of vboxfs<br/>
+<font color="#A82F2F"><font size="2">(09:05:29 AM)</font> <b>karshan:</b></font> So do I need to download the couchdb nix expression and modify it to not use -Werror to be able to compile ? if so, does anyone know how to do this ?<br/>
+<font color="#A82F2F"><font size="2">(09:05:38 AM)</font> <b>Ralith:</b></font> whee, that install went flawlessly<br/>
+<font color="#A82F2F"><font size="2">(09:06:26 AM)</font> <b>Ralith:</b></font> which is pretty neat given that I was simultaneously moving windows to a different disk and setting up a dualboot and going all in on EFI<br/>
+<font color="#A82F2F"><font size="2">(09:10:47 AM)</font> <b>iElectric:</b></font> morning<br/>
+<font color="#A82F2F"><font size="2">(09:14:13 AM)</font> <b>Ralith:</b></font> under what circumstances should I be installing software system-wide vs per-user?<br/>
+<font size="2">(09:14:15 AM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#A82F2F"><font size="2">(09:18:41 AM)</font> <b>MichaelRaskin:</b></font> Ralith: it is completely your choice whether to use systemPackages, nix-env or nix-build an environment and use it in some special way<br/>
+<font color="#A82F2F"><font size="2">(09:18:52 AM)</font> <b>MichaelRaskin:</b></font> The implications are about mode of updates<br/>
+<font color="#A82F2F"><font size="2">(09:20:09 AM)</font> <b>Ralith:</b></font> I get that there are no systemic restrictions, but I don&apos;t have enough of a grasp on how things work to understand which approach is most likely to be convenient<br/>
+<font color="#A82F2F"><font size="2">(09:21:18 AM)</font> <b>Ralith:</b></font> MichaelRaskin: could you elaborate?<br/>
+<font color="#A82F2F"><font size="2">(09:22:13 AM)</font> <b>MichaelRaskin:</b></font> systemPackages: these get updated all together, also every time you change service configurations<br/>
+<font color="#A82F2F"><font size="2">(09:22:24 AM)</font> <b>MichaelRaskin:</b></font> nix-env: these are managed somewhat imperatively<br/>
+<font color="#A82F2F"><font size="2">(09:23:14 AM)</font> <b>MichaelRaskin:</b></font> custom-written  buildEnv/myEnvFun/*-based expressions built and saved as symlinks (using nix-build): these are updated one expression a time whenever you want<br/>
+<font size="2">(09:23:19 AM)</font><b> wkennington left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:25:33 AM)</font> <b>MichaelRaskin:</b></font> Personally, I don&apos;t use nix-env at all, but put a lot into systemPackages and have a few nix-built custom environments and also sometimes use &quot;nix-build --no-out-link&quot; to use something once<br/>
+<font color="#A82F2F"><font size="2">(09:26:29 AM)</font> <b>MichaelRaskin:</b></font> I also have many scripts around all this. I would say that comfortably using Nix almost requires writing some custom scripts.<br/>
+<font color="#A82F2F"><font size="2">(09:28:04 AM)</font> <b>Ralith:</b></font> so with nix-build --no-out-link, you might use something via nix-shell, and then leave it to be GCd later?<br/>
+<font color="#A82F2F"><font size="2">(09:34:08 AM)</font> <b>MichaelRaskin:</b></font> Yes<br/>
+<font color="#A82F2F"><font size="2">(09:35:58 AM)</font> <b>Ralith:</b></font> cool<br/>
+<font color="#A82F2F"><font size="2">(09:36:06 AM)</font> <b>Ralith:</b></font> I like the idea of that<br/>
+<font size="2">(09:39:45 AM)</font><b> wkennington [<em>~william@76.77.180.195</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:42:32 AM)</font> <b>Sonarpulse:</b></font> hmm anyway to tell a remote repo to fetch from another remote?<br/>
+<font color="#A82F2F"><font size="2">(09:42:39 AM)</font> <b>Sonarpulse:</b></font> would make pushing to github a lot quicker....<br/>
+<font color="#A82F2F"><font size="2">(09:51:06 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] Ericson2314 opened pull request #5636: Misc cleanups of rustc and cargo packaging (master...master) http://git.io/O1B1ZA<br/>
+<font color="#A82F2F"><font size="2">(09:52:06 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] thoughtpolice pushed 1 new commit to master: http://git.io/X4YD-w<br/>
+<font color="#A82F2F"><font size="2">(09:52:06 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master caaebc7 Austin Seipp: nixpkgs: btsync 1.4.103 -&gt; 1.4.106...<br/>
+<font color="#A82F2F"><font size="2">(09:52:47 AM)</font> <b>Lethalman:</b></font> uhm somebody broke gnome :) morning<br/>
+<font color="#A82F2F"><font size="2">(09:54:59 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] thoughtpolice closed pull request #5609: cjdns: bump to protocol version 13 (master...cjdns) http://git.io/iM_4uQ<br/>
+<font color="#A82F2F"><font size="2">(09:56:39 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] thoughtpolice pushed 2 new commits to master: http://git.io/Ntbe2A<br/>
+<font color="#A82F2F"><font size="2">(09:56:39 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master fdefa49 tomberek: Bump minecraft-server to 1.8.1<br/>
+<font color="#A82F2F"><font size="2">(09:56:39 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 23a9bf8 Austin Seipp: Merge pull request #5518 from tomberek/patch-1...<br/>
+<font color="#A82F2F"><font size="2">(09:56:52 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] thoughtpolice pushed 2 new commits to master: http://git.io/xY-ziw<br/>
+<font color="#A82F2F"><font size="2">(09:56:52 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5afa961 Kovacsics Robert (rmk35): Added program ddate, discordian date....<br/>
+<font color="#A82F2F"><font size="2">(09:56:52 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b4f4291 Austin Seipp: Merge pull request #5528 from KoviRobi/ddate...<br/>
+<font color="#A82F2F"><font size="2">(09:59:28 AM)</font> <b>Ralith:</b></font> geez, the nvidia drivers are really outdated<br/>
+<font color="#A82F2F"><font size="2">(10:00:35 AM)</font> <b>Ralith:</b></font> or do I need to switch to unstable<br/>
+<font size="2">(10:02:56 AM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:04:08 AM)</font> <b>viric:</b></font> does unstable have them updated?<br/>
+<font color="#A82F2F"><font size="2">(10:07:38 AM)</font> <b>Ralith:</b></font> I&apos;m not sure how to check<br/>
+<font color="#A82F2F"><font size="2">(10:12:00 AM)</font> <b>Ralith:</b></font> I don&apos;t even know how to find the package name :/<br/>
+<font color="#A82F2F"><font size="2">(10:14:39 AM)</font> <b>viric:</b></font> Ralith: 14.12 has nvidia drivers from 15 days ago<br/>
+<font color="#A82F2F"><font size="2">(10:15:08 AM)</font> <b>viric:</b></font> https://github.com/NixOS/nixpkgs/blob/release-14.12/pkgs/os-specific/linux/nvidia-x11/legacy340.nix<br/>
+<font color="#A82F2F"><font size="2">(10:16:05 AM)</font> <b>Ralith:</b></font> viric: 340? 343.22 was released in september...<br/>
+<font color="#A82F2F"><font size="2">(10:17:19 AM)</font> <b>viric:</b></font> ah no idea about &gt; 340<br/>
+<font color="#A82F2F"><font size="2">(10:17:37 AM)</font> <b>Ralith:</b></font> master has it, at least<br/>
+<font color="#A82F2F"><font size="2">(10:17:49 AM)</font> <b>Ralith:</b></font> what&apos;s the path of least resistance to grab a single package from the future?<br/>
+<font color="#A82F2F"><font size="2">(10:17:52 AM)</font> <b>viric:</b></font> hm I think I looked at legacy things<br/>
+<font color="#A82F2F"><font size="2">(10:18:18 AM)</font> <b>Ralith:</b></font> there&apos;s nothing in that directory that *doesn&apos;t* say legacy<br/>
+<font color="#A82F2F"><font size="2">(10:18:22 AM)</font> <b>Ralith:</b></font> not sure what&apos;s going on there<br/>
+<font color="#A82F2F"><font size="2">(10:18:31 AM)</font> <b>Ralith:</b></font> but master has a default.nix which is up to date<br/>
+<font color="#A82F2F"><font size="2">(10:20:15 AM)</font> <b>viric:</b></font> weird<br/>
+<font color="#A82F2F"><font size="2">(10:20:32 AM)</font> <b>viric:</b></font> why isn&apos;t there default.nix in release-14.12?<br/>
+<font color="#A82F2F"><font size="2">(10:21:34 AM)</font> <b>page:</b></font> viric: I guess it&apos;s to make it more easy to sync master/14.12?<br/>
+<font color="#A82F2F"><font size="2">(10:23:55 AM)</font> <b>page:</b></font> I guess we should ask vcunat<br/>
+<font color="#A82F2F"><font size="2">(10:24:38 AM)</font> <b>Ralith:</b></font> I just want to know how to get a newer driver installed on my system with a minimum of fuss and a maximum of maintainability<br/>
+<font color="#A82F2F"><font size="2">(10:24:45 AM)</font> <b>Ralith:</b></font> 340 doesn&apos;t support my GPU :/<br/>
+<font color="#A82F2F"><font size="2">(10:25:20 AM)</font> <b>viric:</b></font> why wouldn&apos;t we have the latest drivers in the release?<br/>
+<font color="#A82F2F"><font size="2">(10:25:58 AM)</font> <b>Ralith:</b></font> it is a mystery!<br/>
+<font color="#A82F2F"><font size="2">(10:26:37 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric created staging.patchShebangs (+1 new commit): http://git.io/seuwGA<br/>
+<font color="#A82F2F"><font size="2">(10:26:38 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging.patchShebangs 1eeb4b3 Domen Kožar: While patching shebangs in source, keep the modification date...<br/>
+<font color="#A82F2F"><font size="2">(10:26:48 AM)</font> <b>Ralith:</b></font> the nouveau version in 14.12 doesn&apos;t support it either, though I don&apos;t know for sure whether that&apos;s been fixed<br/>
+<font color="#A82F2F"><font size="2">(10:27:17 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 1 new commit to staging: http://git.io/6fEMAA<br/>
+<font color="#A82F2F"><font size="2">(10:27:17 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 9b7b2ce Domen Kožar: Revert &quot;Introduce patchShebangsPhase ran in preConfigurePhases&quot;...<br/>
+<font color="#A82F2F"><font size="2">(10:27:27 AM)</font> <b>page:</b></font> https://github.com/NixOS/nixpkgs/pull/5070<br/>
+<font color="#A82F2F"><font size="2">(10:27:38 AM)</font> <b>page:</b></font> the discussion is here -^<br/>
+<font color="#A82F2F"><font size="2">(10:31:32 AM)</font> <b>viric:</b></font> Ralith: tell about your problem there<br/>
+<font color="#A82F2F"><font size="2">(10:31:39 AM)</font> <b>page:</b></font> I don&apos;t understand the resolution... 14.12 is not meant to support newest cards?<br/>
+<font color="#A82F2F"><font size="2">(10:32:35 AM)</font> <b>Ralith:</b></font> it looks like the resolution was:<br/>
+<font color="#A82F2F"><font size="2">(10:32:38 AM)</font> <b>Ralith:</b></font> &quot;Pushed long-lived update and new legacy alias. Adding the STS branch remains, but I would leave that after branching off release-14.11, which is certainly supposed to happen this week.&quot;<br/>
+<font color="#A82F2F"><font size="2">(10:32:42 AM)</font> <b>Ralith:</b></font> iow, TODO.<br/>
+<font color="#A82F2F"><font size="2">(10:33:10 AM)</font> <b>Ralith:</b></font> anyway, my question is still unanswered<br/>
+<font color="#A82F2F"><font size="2">(10:33:35 AM)</font> <b>Ralith:</b></font> the package I want exists in master. What&apos;s the best way to install that on my otherwise-stable-branch system?<br/>
+<font color="#A82F2F"><font size="2">(10:38:23 AM)</font> <b>ikwildrpepper:</b></font> Ralith: you can install it in your user environment, or (if you use declaritive installation of packages on nixos) you import the master tree from your configuration and then just refer to that<br/>
+<font color="#A82F2F"><font size="2">(10:38:43 AM)</font> <b>Ralith:</b></font> ikwildrpepper: I can install a *video driver* in my user environment?<br/>
+<font size="2">(10:57:38 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

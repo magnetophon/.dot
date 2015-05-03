@@ -1,0 +1,70 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Sun 15 Mar 2015 04:13:17 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Sun 15 Mar 2015 04:13:17 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:13:17 PM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font size="2">(04:13:17 PM)</font><b> Topic for #lad set by tapas!~tapas@static.231.2.63.178.clients.your-server.de at 10:37:26 AM on 05/13/2013</b><br/>
+<font color="#A82F2F"><font size="2">(04:15:11 PM)</font> <b>zth:</b></font> fundamental, rgareus thanks you both! i think i&apos;ll just go for rsync and not complicate things<br/>
+<font color="#A82F2F"><font size="2">(04:15:14 PM)</font> <b>zth:</b></font> i guess i can reinstall stuff<br/>
+<font color="#A82F2F"><font size="2">(04:15:22 PM)</font> <b>zth:</b></font> as long as i don&apos;t loose _actual_ stuff again<br/>
+<font color="#A82F2F"><font size="2">(04:15:22 PM)</font> <b>rgareus:</b></font> zth: for the initial dd I used a live-system (so that the disk to be backed up is not mounted)<br/>
+<font color="#A82F2F"><font size="2">(04:15:28 PM)</font> <b>fundamental:</b></font> zth: rsnapshot is a pretty good tool<br/>
+<font color="#A82F2F"><font size="2">(04:16:00 PM)</font> <b>fundamental:</b></font> zth: more recently I&apos;ve been looking at attic, though that&apos;s likely more complicated than is needed for this use case<br/>
+<font color="#A82F2F"><font size="2">(04:16:22 PM)</font> <b>rgareus:</b></font> zth: after that     rsync -aHAX -W -x --delete --exclude /mnt --exclude /proc --exclude /sys --exclude /dev --exclude /media --exclude /lost+found   /  /media/backup-disk/<br/>
+<font color="#A82F2F"><font size="2">(04:17:21 PM)</font> <b>distrozapper:</b></font> kfoltman, Thanks, --prefix=/usr renders fine GUI now, testing...<br/>
+<font color="#A82F2F"><font size="2">(04:18:23 PM)</font> <b>zth:</b></font> rgareus, awesome! will that run at an interval, or do i invoke that each time i want to backup?<br/>
+<font color="#A82F2F"><font size="2">(04:18:31 PM)</font> <b>rgareus:</b></font> zth: but really if this is about data (not system)  just put it in git<br/>
+<font color="#A82F2F"><font size="2">(04:18:45 PM)</font> <b>rgareus:</b></font> zth: and push to a few remotes - the more the better :)<br/>
+<font color="#A82F2F"><font size="2">(04:19:02 PM)</font> <b>zth:</b></font> rgareus, even for regular files like images and whatnot...?<br/>
+<font color="#A82F2F"><font size="2">(04:19:09 PM)</font> <b>fundamental:</b></font> unison is another option for unversioned stuff<br/>
+<font color="#A82F2F"><font size="2">(04:19:42 PM)</font> <b>fundamental:</b></font> I use that for keeping 3 machines in sync with pictures/music/general misc files<br/>
+<font color="#A82F2F"><font size="2">(04:19:42 PM)</font> <b>rgareus:</b></font> zth: depends.. how large your image collection is.<br/>
+<font color="#A82F2F"><font size="2">(04:20:39 PM)</font> <b>rgareus:</b></font> zth:  in my case  /media/backup-disk/ is not always present.  so I do this backups manually (full system)<br/>
+<font color="#A82F2F"><font size="2">(04:21:23 PM)</font> <b>rgareus:</b></font> zth: and the important stuff is  in git.<br/>
+<font color="#A82F2F"><font size="2">(04:28:23 PM)</font> <b>distrozapper:</b></font> kfoltman, Bug#70 is partly fixed, no resetting of preset on midi-channel 1 anymore. But midi-channel #2 is still set to same preset as channel #1, like in the picture I attached in bug#70.<br/>
+<font color="#A82F2F"><font size="2">(04:29:15 PM)</font> <b>kfoltman:</b></font> distrozapper: that&apos;s not a bug<br/>
+<font color="#A82F2F"><font size="2">(04:29:30 PM)</font> <b>kfoltman:</b></font> distrozapper: the program change for channel 2 is actually in the data that tuxguitar sends<br/>
+<font color="#A82F2F"><font size="2">(04:29:47 PM)</font> <b>kfoltman:</b></font> I&apos;ve checked with aseqdump<br/>
+<font color="#A82F2F"><font size="2">(04:30:11 PM)</font> <b>distrozapper:</b></font> kfoltman, ah ok<br/>
+<font color="#A82F2F"><font size="2">(04:31:06 PM)</font> <b>distrozapper:</b></font> kfoltman, midisnoop didnt show me that, sorry<br/>
+<font color="#A82F2F"><font size="2">(04:31:07 PM)</font> <b>kfoltman:</b></font> distrozapper: you can check, just to be sure<br/>
+<font color="#A82F2F"><font size="2">(04:31:38 PM)</font> <b>distrozapper:</b></font> kfoltman, OK I will do.<br/>
+<font color="#A82F2F"><font size="2">(04:35:47 PM)</font> <b>distrozapper:</b></font> kfoltman, confirmed, aseqdump indeed shows two program changes from tuxguitar.<br/>
+<font color="#062585"><font size="2">(04:36:32 PM)</font> <b>***distrozapper</b></font> dumps midisnoop ;)<br/>
+<font color="#A82F2F"><font size="2">(04:36:44 PM)</font> <b>kfoltman:</b></font> distrozapper: ok, I&apos;ll close the bug then :)<br/>
+<font color="#A82F2F"><font size="2">(04:36:57 PM)</font> <b>distrozapper:</b></font> kfolt, yes close it :)<br/>
+<font color="#A82F2F"><font size="2">(04:37:39 PM)</font> <b>kfoltman:</b></font> ok, so, no known release blockers then?<br/>
+<font color="#A82F2F"><font size="2">(04:50:23 PM)</font> <b>damo22:</b></font> rgareus: im stuck, i checked that the channel mapping was corrected for midi in first quadlet<br/>
+<font color="#A82F2F"><font size="2">(05:02:46 PM)</font> <b>damo22:</b></font> rgareus: this is what the buggy driver is doing when it starts to play a wav file: http://paste.debian.net/161390/<br/>
+<font color="#A82F2F"><font size="2">(05:03:35 PM)</font> <b>rgareus:</b></font> damo22: and the working driver?<br/>
+<font color="#A82F2F"><font size="2">(05:03:57 PM)</font> <b>damo22:</b></font> getting that now<br/>
+<font color="#A82F2F"><font size="2">(05:06:15 PM)</font> <b>damo22:</b></font> rgareus: http://paste.debian.net/161391/  my original dump<br/>
+<font color="#A82F2F"><font size="2">(05:06:43 PM)</font> <b>damo22:</b></font> that is loading and playing a 48kHz wav file in protools<br/>
+<font color="#A82F2F"><font size="2">(05:07:35 PM)</font> <b>rgareus:</b></font> damo22: so it seems the problem is not the xor-encoding part but the device setup/config<br/>
+<font color="#A82F2F"><font size="2">(05:07:45 PM)</font> <b>damo22:</b></font> could be<br/>
+<font color="#A82F2F"><font size="2">(05:11:32 PM)</font> <b>damo22:</b></font> i think the machinery is in the wrong state<br/>
+<font color="#A82F2F"><font size="2">(05:12:16 PM)</font> <b>damo22:</b></font> 003works branch has better code for all this<br/>
+<font color="#A82F2F"><font size="2">(05:12:59 PM)</font> <b>damo22:</b></font> well, not better laid out, but more obvious and actually does the right thing<br/>
+<font size="2">(05:20:43 PM)</font><b> HarryHaaren left the room (quit: Quit: HarryHaaren).</b><br/>
+<font color="#A82F2F"><font size="2">(05:23:36 PM)</font> <b>damo22:</b></font> rgareus: he optimised the state machine in begin_session()<br/>
+<font color="#A82F2F"><font size="2">(05:24:20 PM)</font> <b>rgareus:</b></font> damo22: he&apos;s not on IRC, is he?<br/>
+<font color="#A82F2F"><font size="2">(05:24:25 PM)</font> <b>damo22:</b></font> nope<br/>
+<font color="#A82F2F"><font size="2">(05:28:14 PM)</font> <b>damo22:</b></font> rgareus: the first time the state machine is read at 0xffffe0000000, it returns 3<br/>
+<font color="#A82F2F"><font size="2">(05:28:23 PM)</font> <b>damo22:</b></font> meaning the stream is shutdown<br/>
+<font color="#A82F2F"><font size="2">(05:33:19 PM)</font> <b>damo22:</b></font> rgareus: begin_session() does not poll the device until it returns the correct value, it just forces the next state upon the device<br/>
+<font size="2">(07:02:31 PM)</font><b> bpe is now known as adq</b><br/>
+<font color="#A82F2F"><font size="2">(08:01:14 PM)</font> <b>nikitamog:</b></font> Good day everyone. I have some questions about parsing audio files sample by sample.<br/>
+<font color="#A82F2F"><font size="2">(08:01:54 PM)</font> <b>nikitamog:</b></font> I want to do a crude version of audio encryption by multiplying sections of the audio data sample by sample or bit by bit.<br/>
+<font color="#A82F2F"><font size="2">(08:02:45 PM)</font> <b>nikitamog:</b></font> The sample would be multiplied by some matrix, converted to gibberish, then someone with the reverse matrix would decode it/<br/>
+<font color="#A82F2F"><font size="2">(08:03:24 PM)</font> <b>nikitamog:</b></font> So I want to use a wav file because it seems simple but I&apos;m open to using any audio file easy to work with.<br/>
+<font color="#A82F2F"><font size="2">(08:03:50 PM)</font> <b>nikitamog:</b></font> How do I go about taking apart an audio file sample by sample of bit by bit?<br/>
+<font color="#A82F2F"><font size="2">(08:04:00 PM)</font> <b>damo22:</b></font> nikitamog: believe it or not, we are working on the same thing that someone implemented in hardware on a sound card<br/>
+<font color="#A82F2F"><font size="2">(08:04:13 PM)</font> <b>nikitamog:</b></font> woah<br/>
+<font color="#A82F2F"><font size="2">(08:04:25 PM)</font> <b>nikitamog:</b></font> I just wanted to do it in java or something.<br/>
+<font color="#A82F2F"><font size="2">(08:04:51 PM)</font> <b>nikitamog:</b></font> How are you guys approaching this? I&apos;m curious now.<br/>
+<font color="#A82F2F"><font size="2">(08:05:34 PM)</font> <b>damo22:</b></font> trying to figure out the damn code was the hard bit, but now there is a bug in the implementation of it in the kernel driver<br/>
+<font color="#A82F2F"><font size="2">(08:29:44 PM)</font> <b>nikitamog:</b></font> what kind of audio are you guys encoding?<br/>
+<font color="#A82F2F"><font size="2">(08:30:12 PM)</font> <b>nikitamog:</b></font> mp3 seems pretty simple. Takes 2 byte samples and records left and right audio channels.<br/>
+<font color="#A82F2F"><font size="2">(08:30:49 PM)</font> <b>nikitamog:</b></font> That means I could make a 16 by 2 matrix if I&apos;m working it out bit by bit.<br/>
+<font color="#A82F2F"><font size="2">(08:34:13 PM)</font> <b>damo22:</b></font> my laptop went spaztic<br/>
+<font color="#A82F2F"><font size="2">(08:45:17 PM)</font> <b>nikitamog:</b></font> Oh my mistake. That&apos;s how a cd flac is stored.<br/>
+<font size="2">(10:06:55 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font size="2">(11:25:38 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

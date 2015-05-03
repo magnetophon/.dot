@@ -1,0 +1,658 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Fri 06 Mar 2015 06:02:04 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Fri 06 Mar 2015 06:02:04 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(06:02:04 AM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(06:02:04 AM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(06:10:48 AM)</font> <b>sakujo:</b></font> can somebody tell me why i have some dpms stuff set up on a sort of minimal installation inside /etc/kdb?<br/>
+<font color="#A82F2F"><font size="2">(06:11:34 AM)</font> <b>sakujo:</b></font> how can i check what installed /etc/kbd/config ?<br/>
+<font color="#A82F2F"><font size="2">(06:16:43 AM)</font> <b>Rusty1:</b></font> man apt-file<br/>
+<font color="#A82F2F"><font size="2">(06:17:04 AM)</font> <b>Rusty1:</b></font> oops, sry wrong window<br/>
+<font color="#A82F2F"><font size="2">(06:18:27 AM)</font> <b>Rusty1:</b></font> sakujo:  actually apt-file might help<br/>
+<font size="2">(06:22:56 AM)</font><b> Rusty1 left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(06:23:21 AM)</font> <b>sakujo:</b></font> hmm i have no debian system that i can install apt-file on -.-<br/>
+<font color="#A82F2F"><font size="2">(06:24:10 AM)</font> <b>sakujo:</b></font> (before someone seriously facepalms, i do have debian systems, just none that i can install packages on right now)<br/>
+<font color="#A82F2F"><font size="2">(06:25:30 AM)</font> <b>themill:</b></font> ,i kbd<br/>
+<font color="#A82F2F"><font size="2">(06:25:32 AM)</font> <b>judd:</b></font> Package kbd (utils, optional) in wheezy/i386: Linux console font and keytable utilities. Version: 1.15.3-9; Size: 440.3k; Installed: 1364k<br/>
+<font color="#A82F2F"><font size="2">(06:26:01 AM)</font> <b>themill:</b></font> (Given it&apos;s an installed file, dpkg -S would tell you which package owns it)<br/>
+<font color="#A82F2F"><font size="2">(06:26:17 AM)</font> <b>sakujo:</b></font> awesome themill &lt;3<br/>
+<font color="#A82F2F"><font size="2">(06:30:30 AM)</font> <b>sakujo:</b></font> ok so now i aptitude why kbd and aptitude gives me &quot;i&quot; for console-setup and &quot;i A&quot; for console-setup-linux<br/>
+<font color="#A82F2F"><font size="2">(06:30:49 AM)</font> <b>sakujo:</b></font> that means console-setup got manually installed, which depends on console-setup-linux which depends on kbd?<br/>
+<font color="#A82F2F"><font size="2">(06:31:21 AM)</font> <b>sakujo:</b></font> and since i am virtually 100% certain not having manually installed console-setup i&apos;d believe it gets installed as one of the system packages during install?<br/>
+<font color="#A82F2F"><font size="2">(06:32:10 AM)</font> <b>themill:</b></font> anything installed by the installer is marked as manually installed (otherwise aptitude would want to uninstall your base-system)<br/>
+<font color="#A82F2F"><font size="2">(06:32:40 AM)</font> <b>sakujo:</b></font> no i understand that they are<br/>
+<font color="#A82F2F"><font size="2">(06:32:54 AM)</font> <b>sakujo:</b></font> but after all i am only virtually 100% certain that i did not manually install it<br/>
+<font color="#A82F2F"><font size="2">(06:33:03 AM)</font> <b>sakujo:</b></font> but technically it could have been debian installation or me, of course<br/>
+<font color="#A82F2F"><font size="2">(06:35:09 AM)</font> <b>themill:</b></font> cryptsetup recommends console-setup (to ensure that keymaps are set correctly for passphrases being typed in)<br/>
+<font color="#A82F2F"><font size="2">(06:35:58 AM)</font> <b>themill:</b></font> If the machine was identified as being a laptop then pm-utils gets installed which brings in kbd<br/>
+<font size="2">(06:42:03 AM)</font><b> mode (+l 1534) by debhelper</b><br/>
+<font size="2">(07:24:51 AM)</font><b> Yukkino is now known as Yukkii</b><br/>
+<font size="2">(07:39:12 AM)</font><b> zz_sidv is now known as sidv</b><br/>
+<font color="#A82F2F"><font size="2">(07:39:25 AM)</font> <b>Cocodude:</b></font> Debian should include support for the crypto aes-xts-plain64, right? I was able to set up a partition using that about a year ago and recently rebooted and Debian now thinks it can&apos;t be accessed, so just want to check the encryption hasn&apos;t been removed from a more recent Wheezy kernel<br/>
+<font color="#A82F2F"><font size="2">(07:42:58 AM)</font> <b>tErik:</b></font> Hi, what server control/administration/panel software is comparatively more secured, (and consumes less memory), and can also do comparatively more secure settings in debian server ?  i will need to inside openvz vm and kvm instances<br/>
+<font color="#A82F2F"><font size="2">(07:50:11 AM)</font> <b>tErik:</b></font> i want to control+configure via openssh tunnel from my side to remote debian 7 wheezy servers.<br/>
+<font color="#A82F2F"><font size="2">(07:50:33 AM)</font> <b>petn-randall:</b></font> tErik: comparatively more secured to what? IMHO no control panel is useful on a server. Use SSH and learn what you need to do on the command line.<br/>
+<font color="#A82F2F"><font size="2">(07:50:59 AM)</font> <b>petn-randall:</b></font> Cocodude: Which release are you using?<br/>
+<font size="2">(07:55:52 AM)</font><b> ski_ is now known as ski</b><br/>
+<font color="#A82F2F"><font size="2">(07:57:14 AM)</font> <b>Cocodude:</b></font> petn-randall: Wheezy, 3.2.0-4-amd64<br/>
+<font color="#A82F2F"><font size="2">(07:58:07 AM)</font> <b>Cocodude:</b></font> I just fine it really weird I was able to set up the LUKS partition and mount it, but after a year it&apos;s stopped being able to mount<br/>
+<font color="#A82F2F"><font size="2">(07:59:06 AM)</font> <b>Cocodude:</b></font> Indeed, https://wiki.debian.org/AesXtsEncryptedLvm talks about aes-xts-plain (although admittedly not -plain64)<br/>
+<font size="2">(08:04:27 AM)</font><b> cnj is now known as chinmay</b><br/>
+<font color="#A82F2F"><font size="2">(08:04:49 AM)</font> <b>petn-randall:</b></font> Cocodude: It&apos;s very unlikely that features get removed in a stable release. Have you seen any error messages in /var/log/kern.log when you try to mount it?<br/>
+<font color="#A82F2F"><font size="2">(08:05:59 AM)</font> <b>Cocodude:</b></font> petn-randall: Agreed. All the errors seem to suggest that the crypto is not available. Error on console is &quot;Check that kernel supports aes-xts-plain64 cipher (check syslog for more info).&quot; and kern.log is &quot;device-mapper: table: 253:0: crypt: Error allocating crypto tfm&quot; and &quot;device-mapper: ioctl: error adding target to table&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:06:31 AM)</font> <b>Cocodude:</b></font> Hence I&apos;m wondering if there may have been an oversight<br/>
+<font color="#A82F2F"><font size="2">(08:06:41 AM)</font> <b>petn-randall:</b></font> Cocodude: Can you paste the last 10 lines of /var/log/kern.log and syslog to http://paste.debian.net?<br/>
+<font size="2">(08:06:50 AM)</font><b> chinmay is now known as cnj</b><br/>
+<font color="#A82F2F"><font size="2">(08:07:07 AM)</font> <b>Cocodude:</b></font> http://paste.debian.net/159873/<br/>
+<font color="#A82F2F"><font size="2">(08:07:11 AM)</font> <b>Cocodude:</b></font> petn-randall: Those two lines are the only relevant ones<br/>
+<font color="#A82F2F"><font size="2">(08:07:29 AM)</font> <b>Cocodude:</b></font> That&apos;s me trying multiple times<br/>
+<font color="#A82F2F"><font size="2">(08:07:37 AM)</font> <b>Cocodude:</b></font> tali /var/log/syslog.2.gz<br/>
+<font color="#A82F2F"><font size="2">(08:07:41 AM)</font> <b>Cocodude:</b></font> Oops<br/>
+<font color="#A82F2F"><font size="2">(08:07:57 AM)</font> <b>Cocodude:</b></font> Syslog&apos;s exactly the same in this instance<br/>
+<font color="#A82F2F"><font size="2">(08:08:10 AM)</font> <b>Cocodude:</b></font> From my Googling, it&apos;s just saying the crypt module isn&apos;t available to the kernel<br/>
+<font color="#A82F2F"><font size="2">(08:08:33 AM)</font> <b>petn-randall:</b></font> Cocodude: I&apos;d verify with smartctl that the underlying HDD is fine, too. Though you&apos;d probably see read errors if that&apos;s the case.<br/>
+<font color="#A82F2F"><font size="2">(08:08:40 AM)</font> <b>tErik:</b></font> Secured means usage of comparatively stronger encryption suites+combinations, like SHA512, AES256, etc,  it also means Not-Using (aka, &quot;Avoid&quot; using) broken or weaker stuff like MD5, SHA1, SSL-FREAK, HEARTBLEED, etc.<br/>
+<font color="#A82F2F"><font size="2">(08:08:41 AM)</font> <b>Cocodude:</b></font> Indeed<br/>
+<font color="#A82F2F"><font size="2">(08:08:53 AM)</font> <b>tErik:</b></font> which admin panel carefully can set those ?<br/>
+<font color="#A82F2F"><font size="2">(08:09:10 AM)</font> <b>Cocodude:</b></font> petn-randall: It&apos;s a SSD, so I don&apos;t trust smartctl, but no errors and the partition seems to be fully readable<br/>
+<font color="#A82F2F"><font size="2">(08:09:40 AM)</font> <b>petn-randall:</b></font> Cocodude: smartctl should run fine on SSDs, they all support SMART error reporting.<br/>
+<font color="#A82F2F"><font size="2">(08:09:40 AM)</font> <b>Cocodude:</b></font> I can get the LUKS headers and it also looks just fine and tells me the encryption is aes xts-plain64<br/>
+<font color="#A82F2F"><font size="2">(08:09:55 AM)</font> <b>petn-randall:</b></font> Cocodude: Maybe you need to load the module by hand?<br/>
+<font color="#A82F2F"><font size="2">(08:10:08 AM)</font> <b>Cocodude:</b></font> petn-randall: They don&apos;t all work with SMART in my experience, especially OCZ ones (bleh) but it reports as OK in any case<br/>
+<font color="#A82F2F"><font size="2">(08:10:22 AM)</font> <b>tErik:</b></font> which admin panel software will not make weaker server ?<br/>
+<font color="#A82F2F"><font size="2">(08:10:25 AM)</font> <b>petn-randall:</b></font> Cocodude: Ah, I see.<br/>
+<font color="#A82F2F"><font size="2">(08:10:30 AM)</font> <b>Cocodude:</b></font> petn-randall: I&apos;ve loaded all the modules in kernel/crypto manually just to be sure<br/>
+<font color="#A82F2F"><font size="2">(08:10:33 AM)</font> <b>Cocodude:</b></font> Still no luck<br/>
+<font color="#A82F2F"><font size="2">(08:11:17 AM)</font> <b>petn-randall:</b></font> tErik: You won&apos;t get around to understand each problem and addressing it by hand. No panel in the world will help you fix security problems with a click.<br/>
+<font color="#A82F2F"><font size="2">(08:12:18 AM)</font> <b>tErik:</b></font> when a panel updates, then what do they update ?!! if they are updating security, blocking holes, removing weak/broken stuff, then they are useless, why people use them ?<br/>
+<font color="#A82F2F"><font size="2">(08:12:41 AM)</font> <b>tErik:</b></font> * if they are NOT updating<br/>
+<font color="#A82F2F"><font size="2">(08:12:46 AM)</font> <b>petn-randall:</b></font> tErik: Who said sane people use them?<br/>
+<font color="#A82F2F"><font size="2">(08:14:23 AM)</font> <b>petn-randall:</b></font> tErik: A control panel won&apos;t automatically weaken your server. But installing one will give you a false sense of security because you won&apos;t get any added security, either.<br/>
+<font color="#A82F2F"><font size="2">(08:15:12 AM)</font> <b>petn-randall:</b></font> tErik: the heartbleed bug was fixed by applying an update in a timely manner. No panel will magically do that for you.<br/>
+<font color="#A82F2F"><font size="2">(08:19:38 AM)</font> <b>tErik:</b></font> none of these panels shown in url-link can warn server admin, if server componenets or settings are using MD5, SHA1, etc ? !!!! https://wiki.debian.org/HostingControlPanels<br/>
+<font color="#A82F2F"><font size="2">(08:20:49 AM)</font> <b>tErik:</b></font> unless secured config is given in apache, then its vulnerable to FREAK-SSL, unless secure settings used in SSH, its vulnerable to various attacks.   and you are saying, none warn or change from weak/broken  into  safer stuff ?!!<br/>
+<font size="2">(08:22:03 AM)</font><b> mode (+l 1540) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:23:41 AM)</font> <b>tErik:</b></font> MD5 takes under 1 second to break, SHA1 takes around half an hour with just two gpu cluster.<br/>
+<font color="#A82F2F"><font size="2">(08:24:14 AM)</font> <b>tErik:</b></font> these panel software developer does not know about these ?!!<br/>
+<font color="#A82F2F"><font size="2">(08:25:38 AM)</font> <b>tErik:</b></font> AES128 broken by NSA in 2010 or 2012.<br/>
+<font color="#A82F2F"><font size="2">(08:26:57 AM)</font> <b>Cocodude:</b></font> I can confirm that this isn&apos;t a disk issue and really does seem to be a missing cypher issue<br/>
+<font color="#A82F2F"><font size="2">(08:27:09 AM)</font> <b>Cocodude:</b></font> Running &quot;cryptsetup luksFormat -c aes-xts-plain64 -s 512 -h sha512 testFile&quot; gives the same error<br/>
+<font color="#A82F2F"><font size="2">(08:29:16 AM)</font> <b>Cocodude:</b></font> And that works under Ubuntu 14.04 (which seems to have the xts(aes) module in /proc/crypto whereas by Debian install doesn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(08:31:08 AM)</font> <b>Cocodude:</b></font> Oh, that&apos;s not quite true. Debian has xts(aes) provided by xts-aes-aesni but Ubuntu provided by simply xts<br/>
+<font size="2">(08:32:03 AM)</font><b> mode (+l 1546) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:33:13 AM)</font> <b>Cocodude:</b></font> Can someone on Wheezy please test something for me<br/>
+<font color="#A82F2F"><font size="2">(08:34:11 AM)</font> <b>Cocodude:</b></font> Actually, just found a spare Wheezy server<br/>
+<font color="#A82F2F"><font size="2">(08:35:32 AM)</font> <b>Cocodude:</b></font> Very interesting. The command works on my box that&apos;s been up for 246 days<br/>
+<font color="#A82F2F"><font size="2">(08:36:37 AM)</font> <b>mjt:</b></font> what is &quot;breaking MD5&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(08:36:41 AM)</font> <b>petn-randall:</b></font> tErik: You clearly have no clue what you&apos;re talking about. MD5/SHA1 are hash algorithms. They&apos;re not used for encryption. That being said, &quot;MD5 takes under 1 second to break&quot; is non-sensical. Break in what sense? How much processing power? I&apos;ll not go on with any of your other statements.<br/>
+<font color="#A82F2F"><font size="2">(08:36:51 AM)</font> <b>mjt:</b></font> it is a hash algorithm, how do you &quot;break&quot; it?<br/>
+<font color="#A82F2F"><font size="2">(08:37:01 AM)</font> <b>mjt:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(08:38:21 AM)</font> <b>telmich:</b></font> petn-randall: that is not entirely right what you say<br/>
+<font color="#A82F2F"><font size="2">(08:39:15 AM)</font> <b>petn-randall:</b></font> tErik: All applications in Debian stable come with sane defaults. There&apos;s always a trade-off between security and accessibility. For example, you could disable all ciphers that don&apos;t use &quot;Perfect Forward Secrecy&quot; in apache2, and gain some extra security through that. But that&apos;ll make your website inaccessible by many older browsers.<br/>
+<font color="#A82F2F"><font size="2">(08:39:29 AM)</font> <b>telmich:</b></font> petn-randall: hash algorithms _are_ actually being used for encryption; any non reversible function can be used for encryption<br/>
+<font color="#A82F2F"><font size="2">(08:39:53 AM)</font> <b>mjt:</b></font> for signing, telmich<br/>
+<font color="#A82F2F"><font size="2">(08:39:59 AM)</font> <b>petn-randall:</b></font> tErik: No control panel in the world can hold your hand through the decision process of that.<br/>
+<font color="#A82F2F"><font size="2">(08:40:40 AM)</font> <b>telmich:</b></font> mjt: how do you think passwords in /etc/shadow are encrypted?<br/>
+<font color="#A82F2F"><font size="2">(08:40:51 AM)</font> <b>mjt:</b></font> they&apos;re hashed not encrypted<br/>
+<font color="#A82F2F"><font size="2">(08:40:58 AM)</font> <b>Cocodude:</b></font> telmich: You don&apos;t need to go from the hash back to the plaintext<br/>
+<font color="#A82F2F"><font size="2">(08:41:04 AM)</font> <b>petn-randall:</b></font> telmich: How do you &quot;decrypt&quot; then? Hash algorithms are used to end up with something smaller that can verify the authenticity of something larger. Sure, they&apos;re related to encryption, but not used for it.<br/>
+<font color="#A82F2F"><font size="2">(08:41:13 AM)</font> <b>mjt:</b></font> using the term &quot;encrypt&quot; for that is technically incorrect<br/>
+<font color="#A82F2F"><font size="2">(08:41:34 AM)</font> <b>Cocodude:</b></font> telmich: Encrypt implies you can decrypt. There is no way to &quot;decrypt&quot; a hash function like MD5 or SHA1<br/>
+<font color="#A82F2F"><font size="2">(08:44:18 AM)</font> <b>telmich:</b></font> that is exactly the point of hash algorithms that you cannot decrypt them, but have to provide the same input and verify the output<br/>
+<font color="#A82F2F"><font size="2">(08:46:09 AM)</font> <b>tErik:</b></font>  https://www.schneier.com/blog/archives/2005/02/sha1_broken.html http://www.golubev.com/hashgpu.htm http://www.geek.com/news/researcher-cracks-sha-1-hashes-for-2-10-with-amazons-cloud-service-1295926/<br/>
+<font color="#A82F2F"><font size="2">(08:46:35 AM)</font> <b>l3archos:</b></font> hi there.Using Jessie with Gnome3. Everytime I come back and my screen was locked, after I enter the unlock password I get the notification bottom bar. Is it possible to completely deactivate this bottom notification bar or change its behaviour ?<br/>
+<font color="#A82F2F"><font size="2">(08:46:38 AM)</font> <b>telmich:</b></font> hm, no. I see that my interpretation is wrong, as in encryption also requires decryption, sorry for the confusion<br/>
+<font color="#A82F2F"><font size="2">(08:48:22 AM)</font> <b>Cocodude:</b></font> I&apos;m pretty sure my cryptsetup / aes issue is a Debian bug you know. I had a VPS that had 150 days uptime. Trying to use aes-xts-plain64 worked on that. Then I rebooted it (so it used the latest kernel) and the exact same command no longer works. I think we have a regression here.<br/>
+<font color="#A82F2F"><font size="2">(08:48:47 AM)</font> <b>Cocodude:</b></font> Just to rule anything stupid I&apos;m doing, can someone with a recent Wheezy run two commands for me?<br/>
+<font color="#A82F2F"><font size="2">(08:48:53 AM)</font> <b>Cocodude:</b></font> 1. dd if=/dev/zero of=testFile bs=1M count=50<br/>
+<font color="#A82F2F"><font size="2">(08:48:59 AM)</font> <b>Cocodude:</b></font> 2. cryptsetup luksFormat -c aes-xts-plain64 -s 512 -h sha512 testFile<br/>
+<font color="#A82F2F"><font size="2">(08:49:11 AM)</font> <b>Cocodude:</b></font> Just enter any old password. Let me know what happens.<br/>
+<font color="#A82F2F"><font size="2">(08:49:53 AM)</font> <b>Cocodude:</b></font> *Also* if anyone happens to have a WHeezy box that hasn&apos;t been updated in a while (150 days ideally, less might work), please also run those commands and I bet it&apos;ll work<br/>
+<font size="2">(08:52:03 AM)</font><b> mode (+l 1552) by debhelper</b><br/>
+<font size="2">(09:03:41 AM)</font><b> fran` is now known as fran</b><br/>
+<font color="#A82F2F"><font size="2">(09:03:46 AM)</font> <b>d3lphi1:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(09:04:03 AM)</font> <b>petn-randall:</b></font> tErik: If you&apos;re worried about your server being broken into, make sure to apply security updates in a timely manner. Something like 99.9% of all break-in are due to unpatched software. I don&apos;t know of a single break-in that was due to old encryption software.<br/>
+<font size="2">(09:04:07 AM)</font><b> d3lphi1 left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:05:07 AM)</font> <b>petn-randall:</b></font> tErik: Also notice that &quot;broken&quot; in cryptography means that the complexity to run some kinds of attacks are less than the design expectation. It /doesn&apos;t/ mean that it&apos;s unusuable from that minute onwards.<br/>
+<font color="#A82F2F"><font size="2">(09:05:20 AM)</font> <b>petn-randall:</b></font> *doesn&apos;t necessarily mean<br/>
+<font color="#A82F2F"><font size="2">(09:06:45 AM)</font> <b>tErik:</b></font> if debian users follows you &amp; your these statements, they are doomed to be the WEAKEST LINUX<br/>
+<font color="#A82F2F"><font size="2">(09:07:57 AM)</font> <b>tErik:</b></font> if anyone in healthy mind still uses MD5, SHA1, then they have something wrong in their brain.  that is not called anymore &quot;secured&quot;.<br/>
+<font color="#A82F2F"><font size="2">(09:08:28 AM)</font> <b>petn-randall:</b></font> tErik: Good luck finding another distro then.<br/>
+<font color="#A82F2F"><font size="2">(09:08:30 AM)</font> <b>petn-randall:</b></font> !next<br/>
+<font color="#A82F2F"><font size="2">(09:08:30 AM)</font> <b>dpkg:</b></font> Another happy customer leaves the building.<br/>
+<font color="#A82F2F"><font size="2">(09:13:08 AM)</font> <b>tErik:</b></font> from this https://wiki.debian.org/MD5inDebian an article from 2009, quoting &quot;md5 - should be treated as essentially completely broken and dropped yesterday, sha1 - not actually broken yet as far as we know, but it will be the next to go and will be soon. Should be migrated away from at the earliest possible opportunity&quot; &quot;<br/>
+<font color="#A82F2F"><font size="2">(09:13:21 AM)</font> <b>tErik:</b></font> this is 2015.<br/>
+<font color="#A82F2F"><font size="2">(09:16:52 AM)</font> <b>tErik:</b></font> Some people LOVES to hold onto old+weak things, and thinks &quot;doesn&apos;t necessarily mean it&apos;s unusuable from that minute onwards&quot; &lt;-- by petn-randall #debian freenode irc user, 2015.<br/>
+<font color="#A82F2F"><font size="2">(09:17:01 AM)</font> <b>tErik:</b></font> If you do that, you are done for.<br/>
+<font color="#A82F2F"><font size="2">(09:17:23 AM)</font> <b>tErik:</b></font> Secured system means, you are staying few steps ahead.<br/>
+<font color="#A82F2F"><font size="2">(09:18:04 AM)</font> <b>tErik:</b></font> means you use that, which have no chance of getting broken any time sooner.<br/>
+<font color="#A82F2F"><font size="2">(09:19:39 AM)</font> <b>tErik:</b></font> petn-randall, please learn what secured means.<br/>
+<font color="#A82F2F"><font size="2">(09:20:41 AM)</font> <b>tErik:</b></font> please start from the URL i posted in top.<br/>
+<font size="2">(09:22:03 AM)</font><b> mode (+l 1558) by debhelper</b><br/>
+<font size="2">(09:25:25 AM)</font><b> indrora is now known as indrorafk</b><br/>
+<font color="#A82F2F"><font size="2">(09:31:36 AM)</font> <b>knosys:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(09:31:52 AM)</font> <b>knosys:</b></font> I am wondering if its possible to move workspaces of Gnome in debian<br/>
+<font size="2">(09:32:03 AM)</font><b> mode (+l 1568) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:32:05 AM)</font> <b>knosys:</b></font> i would like to have workspaces at the left, right, bottom...<br/>
+<font color="#A82F2F"><font size="2">(09:32:25 AM)</font> <b>knosys:</b></font> instead of scrolling 3 times down, it would be nice 1 left, 1 right, 1 bottom. is that possible to customize?<br/>
+<font color="#A82F2F"><font size="2">(09:39:27 AM)</font> <b>pksadiq:</b></font> knosys: Did you try this extenstion: https://extensions.gnome.org/extension/484/workspace-grid/ ? I have not tried myself. A simple web search brought me that.<br/>
+<font size="2">(09:42:03 AM)</font><b> mode (+l 1574) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:42:22 AM)</font> <b>petn-randall:</b></font> tErik: If I&apos;d need some lecturing, I&apos;d ask someone who doesn&apos;t use cpanel, thanks. If you want to carry on the conversation, feel free to join me on #debian-offtopic, as this is our support channel.<br/>
+<font color="#A82F2F"><font size="2">(09:47:23 AM)</font> <b>tErik:</b></font> i asked about debian friendly &quot;SECURED&quot; admin panel, i did not ask about cpanel.   insecured cpanel, i do not want.<br/>
+<font color="#A82F2F"><font size="2">(09:47:42 AM)</font> <b>nerobex:</b></font> test<br/>
+<font color="#A82F2F"><font size="2">(09:47:47 AM)</font> <b>tErik:</b></font> that is clarified in my 1st to last post.<br/>
+<font color="#A82F2F"><font size="2">(09:48:10 AM)</font> <b>pksadiq:</b></font> nerobex: failed!<br/>
+<font color="#A82F2F"><font size="2">(09:48:25 AM)</font> <b>petn-randall:</b></font> tErik: You already got the answer. To my knowledge, there&apos;s no such panel that offers what you want.<br/>
+<font color="#A82F2F"><font size="2">(09:49:38 AM)</font> <b>Skyrider1:</b></font> Small question.<br/>
+<font color="#A82F2F"><font size="2">(09:49:55 AM)</font> <b>Skyrider1:</b></font> I&apos;ve attempting to install a package within remote.. but the package manager is asking for a password.<br/>
+<font color="#A82F2F"><font size="2">(09:50:12 AM)</font> <b>Skyrider1:</b></font> my sudo password for the account isn&apos;t working, and root has been disabled..<br/>
+<font color="#A82F2F"><font size="2">(09:50:19 AM)</font> <b>Skyrider1:</b></font> Why does it say invalid password then?..<br/>
+<font color="#A82F2F"><font size="2">(09:50:45 AM)</font> <b>Skyrider1:</b></font> and I mean, the account password doesn&apos;t work with the package manager, but works fine in shell/terminal.<br/>
+<font color="#A82F2F"><font size="2">(09:50:55 AM)</font> <b>petn-randall:</b></font> Skyrider1: which package manager?<br/>
+<font color="#A82F2F"><font size="2">(09:51:15 AM)</font> <b>Skyrider1:</b></font> GDebi<br/>
+<font color="#A82F2F"><font size="2">(09:51:45 AM)</font> <b>petn-randall:</b></font> Skyrider1: Does it specifically ask for the root password?<br/>
+<font color="#A82F2F"><font size="2">(09:51:51 AM)</font> <b>tErik:</b></font> petn-randall, thanks for your attempts to help. but now at-least you have said a better+smart answer: &quot;To my knowledge&quot;. please allow others to post their opinions &amp; experiences.  we cannot be absolute on what we don&apos;t know.<br/>
+<font size="2">(09:52:03 AM)</font><b> mode (+l 1568) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:52:16 AM)</font> <b>Skyrider1:</b></font> Not specificly.. no, just &quot;you need to grand administrative rights to install software&quot;<br/>
+<font size="2">(09:52:36 AM)</font><b> Skyrider1 is now known as Skyrider</b><br/>
+<font color="#A82F2F"><font size="2">(09:52:46 AM)</font> <b>petn-randall:</b></font> Skyrider1: Ah, then try running gdebi with &apos;gksudo gdebi&apos;, it should ask for your password, and then it should work.<br/>
+<font color="#A82F2F"><font size="2">(09:53:09 AM)</font> <b>Skyrider:</b></font> awesome, will try, thanks.<br/>
+<font color="#A82F2F"><font size="2">(09:53:25 AM)</font> <b>l3archos:</b></font> hey all. I used to use &quot;irfanview&quot; on Windows for quickly open an image and crop it and do some optimizations on quality. Which tool do you suggest me on Debian Jessie and GNome3 ?<br/>
+<font color="#A82F2F"><font size="2">(09:53:26 AM)</font> <b>salih-emin:</b></font> Skyrider, is the account in sudoers ?<br/>
+<font color="#A82F2F"><font size="2">(09:54:08 AM)</font> <b>Skyrider:</b></font> Yup, with ALL rights.<br/>
+<font color="#A82F2F"><font size="2">(09:54:14 AM)</font> <b>salih-emin:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(09:54:27 AM)</font> <b>Skyrider:</b></font> hence I find it strange it rejects my password.<br/>
+<font color="#A82F2F"><font size="2">(09:55:03 AM)</font> <b>petn-randall:</b></font> tErik: Feel free to join me on #debian-offtopic if you want to further discuss this.<br/>
+<font color="#A82F2F"><font size="2">(09:56:29 AM)</font> <b>Skyrider:</b></font> had to add -gtk for GUI.<br/>
+<font color="#A82F2F"><font size="2">(09:57:36 AM)</font> <b>Skyrider:</b></font> But it did the trick, appreciate it.<br/>
+<font color="#A82F2F"><font size="2">(09:58:33 AM)</font> <b>pksadiq:</b></font> l3lu3: try gthumb, or eog, or The worst way: run that software in wine.<br/>
+<font color="#A82F2F"><font size="2">(09:59:06 AM)</font> <b>tErik:</b></font> petn-randall, there are admin panel type of software, not exactly falls into only that &quot;server administration&quot; category, some are more powerful, they can also manipulate hypervisors and VM-servers on (host) server, such can provide much secured settings, i have seen such for CentOS/Fedora. i was hoping someone can hints to such for debian.<br/>
+<font color="#A82F2F"><font size="2">(09:59:55 AM)</font> <b>jpinx:</b></font> l3archos: irfaview runs ok in wine ;)<br/>
+<font color="#A82F2F"><font size="2">(10:01:48 AM)</font> <b>Cocodude:</b></font> petn-randall: My issue is now resolved and (as is always the case) Debian isn&apos;t at fault. I don&apos;t know how, but the VPS it&apos;s running against no longer had linux-image-* installed (but still ran OK, modules were there etc.). Reinstalling this and rebooting let things work just fine.<br/>
+<font color="#A82F2F"><font size="2">(10:02:54 AM)</font> <b>tErik:</b></font> Please inform me or give me pointer to Debian friendly few VM / hypervisor management software. Thanks in advance.<br/>
+<font color="#A82F2F"><font size="2">(10:04:46 AM)</font> <b>petn-randall:</b></font> Cocodude: Ah, that&apos;s interesting. But how could you load the kernel modules then?<br/>
+<font color="#062585"><font size="2">(10:04:53 AM)</font> <b>***Cocodude</b></font> shrugs<br/>
+<font color="#A82F2F"><font size="2">(10:05:07 AM)</font> <b>Cocodude:</b></font> I really don&apos;t know<br/>
+<font color="#A82F2F"><font size="2">(10:05:18 AM)</font> <b>petn-randall:</b></font> Cocodude: Oh well. Glad you got it fixed.<br/>
+<font color="#A82F2F"><font size="2">(10:05:39 AM)</font> <b>Cocodude:</b></font> I can only assume that somehow, it didn&apos;t get officially uninstalled, but ultimately got out of date and missing a couple of bits.<br/>
+<font color="#A82F2F"><font size="2">(10:05:46 AM)</font> <b>Cocodude:</b></font> Thanks for your help<br/>
+<font color="#A82F2F"><font size="2">(10:06:13 AM)</font> <b>tErik:</b></font> Which are COMPARATIVELY (by default) good+secure in Debian, from these choices : https://en.wikipedia.org/wiki/Comparison_of_platform_virtualization_software<br/>
+<font color="#A82F2F"><font size="2">(10:07:40 AM)</font> <b>Cocodude:</b></font> tErik: Those aren&apos;t control panels. That&apos;s a listing of virtualisation software, i.e. at a lower level.<br/>
+<font color="#A82F2F"><font size="2">(10:08:01 AM)</font> <b>tErik:</b></font> i know, i asked a 2nd qusiton<br/>
+<font color="#A82F2F"><font size="2">(10:08:17 AM)</font> <b>Skyrider:</b></font> Ugh.. this is so, confusing..<br/>
+<font color="#A82F2F"><font size="2">(10:08:22 AM)</font> <b>Cocodude:</b></font> I only use Xen, but the settings for that are definitely good and secure<br/>
+<font color="#A82F2F"><font size="2">(10:08:36 AM)</font> <b>Skyrider:</b></font> I&apos;ve installed dropbox through remote.. but whenever I attempt to login inside dropbox, all the keys are scrambled..<br/>
+<font color="#A82F2F"><font size="2">(10:08:43 AM)</font> <b>Cocodude:</b></font> tErik: I would have thought all were good and secure, but you could stick with a well known one like Xen,or KVM<br/>
+<font color="#A82F2F"><font size="2">(10:08:44 AM)</font> <b>Skyrider:</b></font> when I enter S, it shows b.<br/>
+<font color="#A82F2F"><font size="2">(10:08:47 AM)</font> <b>Skyrider:</b></font> and so on.<br/>
+<font color="#A82F2F"><font size="2">(10:09:14 AM)</font> <b>Skyrider:</b></font> Oddly enough, if I type in firefox (through remote) it types just fine.<br/>
+<font color="#A82F2F"><font size="2">(10:10:56 AM)</font> <b>petn-randall:</b></font> Cocodude: You&apos;re welcome! Feel free to ask if you run into any other problems.<br/>
+<font size="2">(10:12:55 AM)</font><b> Cocodude left the room (&quot;All now resolved. Ta :)&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(10:14:22 AM)</font> <b>tErik:</b></font> Cocodude, i think i will go with KVM, (i do not rust Xen anymore), is there a nice GUI administration front panel for KVM hypevisors ?<br/>
+<font color="#A82F2F"><font size="2">(10:14:35 AM)</font> <b>tErik:</b></font> s/ rust / trust /<br/>
+<font color="#A82F2F"><font size="2">(10:18:05 AM)</font> <b>Skyrider:</b></font> Can anyone recommend me a good GUI package manager? I&apos;m using apt-get, but I wish to find / install packages through remote as well<br/>
+<font color="#A82F2F"><font size="2">(10:19:32 AM)</font> <b>tErik:</b></font> is Proxmox a good solution (as hypervisor mgmt) ? http://proxmox.com/proxmox-ve/comparison<br/>
+<font color="#A82F2F"><font size="2">(10:20:27 AM)</font> <b>Vroomfon1el:</b></font> Skyrider: synaptic is the most popular I think<br/>
+<font color="#A82F2F"><font size="2">(10:20:35 AM)</font> <b>petn-randall:</b></font> Skyrider: try aptitude, it&apos;s interactive with a ncurses interface.<br/>
+<font size="2">(10:22:02 AM)</font><b> mode (+l 1575) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:22:12 AM)</font> <b>Skyrider:</b></font> 2 suggestions :p<br/>
+<font color="#A82F2F"><font size="2">(10:22:23 AM)</font> <b>Skyrider:</b></font> I&apos;ve installed Synaptic , though not showing through remote.<br/>
+<font color="#A82F2F"><font size="2">(10:29:59 AM)</font> <b>Skyrider:</b></font> Its weird..<br/>
+<font color="#A82F2F"><font size="2">(10:30:19 AM)</font> <b>Skyrider:</b></font> The only thing I need to do, is to enter a user/password in dropbox through remote.. I just cannot figure out, why the hell, its scrambling my keys.<br/>
+<font size="2">(10:31:25 AM)</font><b> fraff_ is now known as fraff</b><br/>
+<font size="2">(10:31:58 AM)</font><b> pksadiq` is now known as pksadiq</b><br/>
+<font color="#A82F2F"><font size="2">(10:40:49 AM)</font> <b>umbra_purus:</b></font> hey. Just installed debian without graphical interface. Can someone help me choose which graphical interface is best for it?<br/>
+<font color="#A82F2F"><font size="2">(10:41:18 AM)</font> <b>rozie:</b></font> depends what you like, really<br/>
+<font color="#A82F2F"><font size="2">(10:41:24 AM)</font> <b>rozie:</b></font> there&apos;s no &quot;best one&quot;<br/>
+<font color="#A82F2F"><font size="2">(10:42:04 AM)</font> <b>rozie:</b></font> I&apos;d give KDE and Gnome a try, they are pretty common<br/>
+<font color="#A82F2F"><font size="2">(10:42:39 AM)</font> <b>rozie:</b></font> if you want something &quot;lighter&quot; I recommend LXDE, which is my default WM/DE<br/>
+<font size="2">(10:43:06 AM)</font><b> Dibbler_ is now known as Dibbler</b><br/>
+<font color="#A82F2F"><font size="2">(10:44:50 AM)</font> <b>petn-randall:</b></font> umbra_purus: KDE, Gnome3 and Xfce are the most popular ones. But there are at least a dozen more. Have a look at screenshots, read reviews and then decide for yourself. You can also install all of them in parallel, and try them consecutively and then stick with the one you like.<br/>
+<font color="#A82F2F"><font size="2">(10:45:48 AM)</font> <b>umbra_purus:</b></font> petn-randall: And what about elementary? Everyone says that is amazing. Really lightweight<br/>
+<font color="#A82F2F"><font size="2">(10:46:29 AM)</font> <b>umbra_purus:</b></font> Do you recommend?<br/>
+<font color="#062585"><font size="2">(10:47:12 AM)</font> <b>***petn-randall</b></font> shrugs.<br/>
+<font color="#A82F2F"><font size="2">(10:47:26 AM)</font> <b>umbra_purus:</b></font> So that not good...<br/>
+<font color="#A82F2F"><font size="2">(10:47:39 AM)</font> <b>cnodell:</b></font> umbra_purus: No best really. Best fit for you maybe. Here in my office one guy loves Gnome3, another KDE while I use i3. Each for our own reasons. Perhaps you can tell us more about what you want from your DE/WM?<br/>
+<font color="#A82F2F"><font size="2">(10:49:17 AM)</font> <b>umbra_purus:</b></font> Well I&apos;ve enroll in computer science and starting thinking the windows is a just a restricted SO to work in. I mean there so much more you can do in Linux. I&apos;m kind learning how to live in linux and so far I really enjoy more than windows.<br/>
+<font color="#A82F2F"><font size="2">(10:49:19 AM)</font> <b>cnodell:</b></font> It sounds like light weight is important to you... Do you prefer tiling/floating? Do you prefer just the basics or feature rich? Do you prefer to configure with text files or using gui tools? Do you use mostly GTK or QT apps?<br/>
+<font color="#A82F2F"><font size="2">(10:49:38 AM)</font> <b>umbra_purus:</b></font> Maybe this are stupid reasons but then again I&apos;m kinda newbie in computer science.<br/>
+<font color="#A82F2F"><font size="2">(10:51:10 AM)</font> <b>umbra_purus:</b></font> cnodell: what is GTK or QT apps»<br/>
+<font color="#A82F2F"><font size="2">(10:51:11 AM)</font> <b>cnodell:</b></font> Naw, nothing stupid about any of this. Just keep in mind, there is no best, we can only give you personal advice, and you will have to play arround a bit if you are set on finding the &quot;perfect fit&quot; for you.<br/>
+<font color="#A82F2F"><font size="2">(10:51:12 AM)</font> <b>umbra_purus:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(10:51:43 AM)</font> <b>Skyrider:</b></font> So I assume no one knows why the keys are being scrambled in remote, when I enter my user/pass.<br/>
+<font color="#A82F2F"><font size="2">(10:53:12 AM)</font> <b>umbra_purus:</b></font> I prefer something fast then all beautiful and crap.. Something fast but really with a functionality that is flexible if you know what I mean..<br/>
+<font color="#A82F2F"><font size="2">(10:53:42 AM)</font> <b>umbra_purus:</b></font> So with all this, what do you really recommend? Even the top 3 so I can check them<br/>
+<font color="#A82F2F"><font size="2">(10:54:13 AM)</font> <b>cnodell:</b></font> Gui apps on linux use graphical libraries to draw the pretty pictures on the screen. The two most popular libraries are GTK and QT. If all your gui apps (including the DE/WM use the same gui library, you save harddrive space and use less memory. Not too important if you have a fast, modern computer. If you have limited system resources, it might matter to you.<br/>
+<font color="#A82F2F"><font size="2">(10:54:39 AM)</font> <b>Skyrider:</b></font> I suggest you check it out: https://wiki.debian.org/DesktopEnvironment and google some reviews.<br/>
+<font color="#A82F2F"><font size="2">(10:56:06 AM)</font> <b>petn-randall:</b></font> umbra_purus: Try xfce and lxde then, and install any other you see and try them out.<br/>
+<font color="#A82F2F"><font size="2">(10:56:09 AM)</font> <b>cnodell:</b></font> If spped is your first concern, Gnome3/KDE might be bad choices but they are feature rich. IF you want a balance of features and performance try XFCE (Medium-Weight) or LXDE (Medium-Light Weight).<br/>
+<font color="#A82F2F"><font size="2">(10:56:59 AM)</font> <b>umbra_purus:</b></font> but with a i7 4700Q 2.Ghz and 8Gb RAM will gnome3 or KDE  have any issue?<br/>
+<font color="#A82F2F"><font size="2">(10:57:20 AM)</font> <b>umbra_purus:</b></font> probably not right?<br/>
+<font color="#A82F2F"><font size="2">(10:57:32 AM)</font> <b>umbra_purus:</b></font> i7 4700hq<br/>
+<font color="#A82F2F"><font size="2">(10:58:47 AM)</font> <b>Vroomfon1el:</b></font> umbra_purus: any DE will work fine on that kind of PC<br/>
+<font color="#A82F2F"><font size="2">(11:00:28 AM)</font> <b>cnodell:</b></font> umbra_purus: Your PC will have a little less membor available for other tasks, but for everyday use you will have no issues with any desktop you chose!<br/>
+<font color="#A82F2F"><font size="2">(11:01:14 AM)</font> <b>cnodell:</b></font> If you want to try one of the big DE&apos;s and customization is important to you, I believe KDE is easier to customize than Gnome3<br/>
+<font color="#A82F2F"><font size="2">(11:01:40 AM)</font> <b>cnodell:</b></font> Out of the box at least. People can correct me if I am wrong, I haven&apos;t used either in a while!<br/>
+<font size="2">(11:02:03 AM)</font><b> mode (+l 1583) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:02:27 AM)</font> <b>Skyrider:</b></font> I&apos;m on the edge of giving up...<br/>
+<font color="#A82F2F"><font size="2">(11:02:33 AM)</font> <b>umbra_purus:</b></font> Can you provide with a good tutorial on how to unistall graphical interface and installing it?<br/>
+<font color="#A82F2F"><font size="2">(11:02:49 AM)</font> <b>pksadiq:</b></font> cnodell: Gnome 3 is now much mature in Debian jessie. But haven&apos;t reached the Gnome 2 maturity yet.<br/>
+<font color="#A82F2F"><font size="2">(11:03:05 AM)</font> <b>umbra_purus:</b></font> Can find anything that would explain on how they work in general so I understand how each one might work..<br/>
+<font color="#A82F2F"><font size="2">(11:04:55 AM)</font> <b>cnodell:</b></font> Install &quot;apt-get install task-gnome-desktop&quot; or &quot;apt-get install task-kde-desktop&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:05:54 AM)</font> <b>umbra_purus:</b></font> cnodell: so I can have multiple GI working in linux?<br/>
+<font color="#A82F2F"><font size="2">(11:06:46 AM)</font> <b>cnodell:</b></font> Remove &quot;apt-get remove task-$DE-desktop&quot; then, &quot;apt-get autoremove --purge&quot; but be sure to review the packages debian wants to remove when you run autoremove. Sometimes it might try to take something away you do not want removed.<br/>
+<font color="#A82F2F"><font size="2">(11:06:52 AM)</font> <b>cnodell:</b></font> Yes. No problems.<br/>
+<font color="#A82F2F"><font size="2">(11:07:17 AM)</font> <b>umbra_purus:</b></font> Okay thanks<br/>
+<font color="#A82F2F"><font size="2">(11:07:23 AM)</font> <b>cnodell:</b></font> Some live cd&apos;s have more than 30 DE/WS&apos;s installed so you can try out various options.<br/>
+<font color="#A82F2F"><font size="2">(11:07:51 AM)</font> <b>Skyrider:</b></font> yup.. screw this..<br/>
+<font color="#A82F2F"><font size="2">(11:08:38 AM)</font> <b>umbra_purus:</b></font> Skyrider: what&apos;s up?<br/>
+<font color="#A82F2F"><font size="2">(11:09:24 AM)</font> <b>umbra_purus:</b></font> cnodell: Probably i&apos;ve missed that but then again when i installed linux I needed help to make dual boot because I wasn&apos;t installing it correctly because of UEFI<br/>
+<font color="#A82F2F"><font size="2">(11:11:04 AM)</font> <b>Skyrider:</b></font> umbra_purus: Scrambled keys through remote.<br/>
+<font color="#A82F2F"><font size="2">(11:11:13 AM)</font> <b>Skyrider:</b></font> Been trying to figure out for hours why it is doing it.<br/>
+<font color="#A82F2F"><font size="2">(11:13:13 AM)</font> <b>cnodell:</b></font> Skyrider: What do you mean when you say &quot;through remote&quot;?<br/>
+<font color="#A82F2F"><font size="2">(11:13:25 AM)</font> <b>Skyrider:</b></font> vncserver<br/>
+<font color="#A82F2F"><font size="2">(11:13:49 AM)</font> <b>Skyrider:</b></font> I&apos;ve installed dropbox through remote.. but whenever I attempt to login inside dropbox, all the keys are scrambled.. when I enter s, it shows b.<br/>
+<font color="#A82F2F"><font size="2">(11:14:01 AM)</font> <b>Skyrider:</b></font> and so on<br/>
+<font color="#A82F2F"><font size="2">(11:14:37 AM)</font> <b>cnodell:</b></font> OK. SO you have a vnc server running on the remote debian box and you are accessing it through the network using a vnc client on your local box. Everything works fine except when you try to enter text into a dropbox window...<br/>
+<font color="#A82F2F"><font size="2">(11:15:13 AM)</font> <b>cnodell:</b></font> What vnc server and what vnc client are you using? What is your client OS?<br/>
+<font color="#A82F2F"><font size="2">(11:17:08 AM)</font> <b>cnodell:</b></font> What locale i setup on each system?<br/>
+<font color="#A82F2F"><font size="2">(11:17:13 AM)</font> <b>Skyrider:</b></font> server package, no idea. (yet), been a while.. client, ultra/tightvnc.<br/>
+<font color="#A82F2F"><font size="2">(11:17:15 AM)</font> <b>cnodell:</b></font> is setup*<br/>
+<font color="#A82F2F"><font size="2">(11:17:18 AM)</font> <b>Skyrider:</b></font> Windows 7.<br/>
+<font color="#A82F2F"><font size="2">(11:17:52 AM)</font> <b>cnodell:</b></font> Not saying I have an answer but I will spend a few minutes and see if i can help find one!<br/>
+<font color="#A82F2F"><font size="2">(11:18:17 AM)</font> <b>adrin:</b></font> Morning, could anyone tell me why I have this problem? http://stackoverflow.com/questions/28877319/linux-user-groups-and-file-system-permissions<br/>
+<font color="#A82F2F"><font size="2">(11:20:18 AM)</font> <b>Skyrider:</b></font> cnodell: I also just tried a new server/client app, x2go<br/>
+<font color="#A82F2F"><font size="2">(11:20:25 AM)</font> <b>Skyrider:</b></font> it appears to be doing it exactly the same.<br/>
+<font size="2">(11:22:02 AM)</font><b> mode (+l 1594) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:22:14 AM)</font> <b>cnodell:</b></font> How about languages?<br/>
+<font color="#A82F2F"><font size="2">(11:22:40 AM)</font> <b>cnodell:</b></font> Are both boxes set to use english, german, dutch, or are the locale settings different?<br/>
+<font color="#A82F2F"><font size="2">(11:23:39 AM)</font> <b>frederik_2:</b></font> hi , does anybody here have experience with xen 4.4 pci passthrough ?   tried xen channel, but nobody home<br/>
+<font color="#A82F2F"><font size="2">(11:25:27 AM)</font> <b>xrlabs:</b></font> hey guys! What&apos;s the definitive place to set my IP Address?<br/>
+<font color="#A82F2F"><font size="2">(11:25:38 AM)</font> <b>Skyrider:</b></font> locale -a shows &quot;C, C.UTF-8, POSIX&quot; &lt;- , indicates a new line.. to prevent spamming this channel.<br/>
+<font color="#A82F2F"><font size="2">(11:26:08 AM)</font> <b>SynrGy:</b></font> adrin: chmod g+s the directory so that anything created in it inherits the same group the directory is in<br/>
+<font color="#A82F2F"><font size="2">(11:26:08 AM)</font> <b>jww:</b></font> xrlabs: /etc/network/interfaces.d I guess<br/>
+<font color="#A82F2F"><font size="2">(11:26:26 AM)</font> <b>petn-randall:</b></font> xrlabs: temporary or permanently? Statically or dynamically?<br/>
+<font color="#A82F2F"><font size="2">(11:26:40 AM)</font> <b>xrlabs:</b></font> I need to change my IP to static 192.168.20.110<br/>
+<font color="#A82F2F"><font size="2">(11:26:48 AM)</font> <b>xrlabs:</b></font> permantently<br/>
+<font color="#A82F2F"><font size="2">(11:26:54 AM)</font> <b>xrlabs:</b></font> *permanently<br/>
+<font color="#A82F2F"><font size="2">(11:26:57 AM)</font> <b>cnodell:</b></font> xrlabs: also depends on what service you are using to manage your NIC.<br/>
+<font color="#A82F2F"><font size="2">(11:27:08 AM)</font> <b>daemon_erebus:</b></font> then etc/network/interfaces would be the place<br/>
+<font color="#A82F2F"><font size="2">(11:28:06 AM)</font> <b>Skyrider:</b></font> I appear to be using en_ZW ISO-8859-1<br/>
+<font color="#A82F2F"><font size="2">(11:31:33 AM)</font> <b>petn-randall:</b></font> xrlabs: what daemon_erebus  said. See &apos;man interfaces&apos; for details.<br/>
+<font color="#A82F2F"><font size="2">(11:31:33 AM)</font> <b>adrin:</b></font> SynrGy: it doesn&apos;t work: https://bpaste.net/show/c6572c6b5f77<br/>
+<font color="#A82F2F"><font size="2">(11:32:49 AM)</font> <b>SynrGy:</b></font> adrin: sorry. works for me. i did the same test.<br/>
+<font color="#A82F2F"><font size="2">(11:33:14 AM)</font> <b>umbra_purus:</b></font> can someone explain me to difference between window manager and desktop environment?<br/>
+<font color="#A82F2F"><font size="2">(11:33:19 AM)</font> <b>SynrGy:</b></font> adrin: is this a debian system?<br/>
+<font color="#A82F2F"><font size="2">(11:33:56 AM)</font> <b>cnodell:</b></font> Skyrider, I found mention on a randome forum mentioning that conflicting locales had cause a similar problem but this had to do with UltraVNC not supporting Hebrew...<br/>
+<font color="#A82F2F"><font size="2">(11:34:57 AM)</font> <b>SynrGy:</b></font> umbra_purus: the responsibilities of a WM only extend to deciding how to place windows and decorate them. a desktop environment is something much more, encompassing managing interactions between applications and objects within a desktop user&apos;s session<br/>
+<font color="#A82F2F"><font size="2">(11:35:24 AM)</font> <b>umbra_purus:</b></font> right.. thanks<br/>
+<font color="#A82F2F"><font size="2">(11:35:29 AM)</font> <b>Skyrider:</b></font> Guess you can see now why I am confused.<br/>
+<font color="#A82F2F"><font size="2">(11:35:38 AM)</font> <b>Skyrider:</b></font> Not a single remote app appears to be working.<br/>
+<font color="#A82F2F"><font size="2">(11:35:46 AM)</font> <b>daemon_erebus:</b></font> umbra_purus, Window Manager: Takes the requests of windows and puts them where they need to go. Does things like titlebars, menus, etc. Example: Metacity. Desktop Environment: A superset of Window Managers that add things like panels, backgrounds, and other niceties. Example: GNOMEas well. it&apos;s a valuable resource<br/>
+<font color="#A82F2F"><font size="2">(11:35:53 AM)</font> <b>Skyrider:</b></font> not even a onscreen keyboard works, gives the same problem.<br/>
+<font color="#A82F2F"><font size="2">(11:36:38 AM)</font> <b>SynrGy:</b></font> daemon_erebus: those &apos;niceties&apos; are not the distinguishing feature of DEs, as WMs may have those as well.<br/>
+<font color="#A82F2F"><font size="2">(11:36:43 AM)</font> <b>petn-randall:</b></font> a DE also includes common apps like a settings manager, etc.<br/>
+<font size="2">(11:36:52 AM)</font><b> xrlabs left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:37:35 AM)</font> <b>daemon_erebus:</b></font> SynrGy, it&apos;s just a generic statement. If umbra_purus wants a more concise answer to the question he/she can always use their google-fu to do a bit more research on the subject as well as examples.<br/>
+<font color="#A82F2F"><font size="2">(11:37:39 AM)</font> <b>SynrGy:</b></font> daemon_erebus: the object layer connecting applications and settings for the session is the principal difference. in a DE, applications make use of libraries to talk to that object layer<br/>
+<font color="#A82F2F"><font size="2">(11:37:54 AM)</font> <b>adrin:</b></font> SynGy: it&apos;s odd then. This particular machine is debian, but I have some centos, mostly ubuntu (server and client) and some debian machines. These folders are located on an NFS server, which is an ubuntu server, but this particular client is a debian<br/>
+<font color="#A82F2F"><font size="2">(11:38:08 AM)</font> <b>adrin:</b></font> SynGy: why would it matter? Does it?<br/>
+<font color="#A82F2F"><font size="2">(11:38:18 AM)</font> <b>SynrGy:</b></font> daemon_erebus: it was an incorrect statement. panels and backgrounds are present in WMs.<br/>
+<font color="#A82F2F"><font size="2">(11:38:20 AM)</font> <b>Skyrider:</b></font> cnodell: Now here&apos;s the weird thing..<br/>
+<font color="#A82F2F"><font size="2">(11:38:38 AM)</font> <b>SynrGy:</b></font> adrin: you are on #debian. we support debian.<br/>
+<font color="#A82F2F"><font size="2">(11:38:48 AM)</font> <b>SynrGy:</b></font> adrin: if you&apos;re not on debian, you&apos;re in the wrong place for support.<br/>
+<font color="#A82F2F"><font size="2">(11:38:57 AM)</font> <b>Skyrider:</b></font> When I run dropbox through remote on 2 other users, it shows a GUI of dropbox to login.. pretty normal..<br/>
+<font color="#A82F2F"><font size="2">(11:39:11 AM)</font> <b>Skyrider:</b></font> but when I login to my root, and run dropbox.. it shows an entire different login screen.<br/>
+<font color="#A82F2F"><font size="2">(11:39:14 AM)</font> <b>Skyrider:</b></font> of which btw, works.<br/>
+<font color="#A82F2F"><font size="2">(11:39:25 AM)</font> <b>Skyrider:</b></font> but I need to run it on another profile, not root.<br/>
+<font color="#A82F2F"><font size="2">(11:39:58 AM)</font> <b>SynrGy:</b></font> adrin: since it involves a debian client, we will do what we can, but if the filesystem on the server underneath does not implement &apos;normal&apos; semantics ...<br/>
+<font color="#A82F2F"><font size="2">(11:40:18 AM)</font> <b>adrin:</b></font> SynrGy: Ah no don&apos;t take me wrong, I&apos;m not asking for your support on something other than debian, I genuinely don&apos;t know where the problems is coming from.<br/>
+<font color="#A82F2F"><font size="2">(11:40:38 AM)</font> <b>SynrGy:</b></font> adrin: ok. try this purely on debian, on a local filesystem<br/>
+<font color="#A82F2F"><font size="2">(11:40:42 AM)</font> <b>SynrGy:</b></font> adrin: i did, and it worked.<br/>
+<font color="#A82F2F"><font size="2">(11:40:56 AM)</font> <b>SynrGy:</b></font> adrin: if it works there but fails on the remote filesystem, debug that layer ... check docs, etc.<br/>
+<font color="#A82F2F"><font size="2">(11:41:42 AM)</font> <b>adrin:</b></font> SynrGy: cool, this gives me at least somewhere to go. Thanks, really.<br/>
+<font color="#A82F2F"><font size="2">(11:42:18 AM)</font> <b>SynrGy:</b></font> adrin: in my particular test case, i picked an arbitrary group i&apos;m in, cdrom. i created a dir owned by synrg:cdrom and made it g+s, i created a second dir in that. it was also owned by synrg:cdrom.<br/>
+<font color="#A82F2F"><font size="2">(11:42:55 AM)</font> <b>SynrGy:</b></font> adrin: it also inherited g+s, so a third dir created in that is also synrg:cdrom.<br/>
+<font color="#A82F2F"><font size="2">(11:43:09 AM)</font> <b>SynrGy:</b></font> i mean nested within the second<br/>
+<font color="#A82F2F"><font size="2">(11:45:51 AM)</font> <b>Skyrider:</b></font> Oke, look...<br/>
+<font color="#A82F2F"><font size="2">(11:46:12 AM)</font> <b>Skyrider:</b></font> http://i.imgur.com/DIAyMNf.png &lt;- this is what happens when I attempt to enter my username through remote.<br/>
+<font color="#A82F2F"><font size="2">(11:46:19 AM)</font> <b>cnodell:</b></font> Skyrider, I am finding nothing here... Just spinning my wheels. Since it is only happening with dropbox, I am not at all sure that this is a problem with VNC or locales. How are you launching dropbox?<br/>
+<font color="#A82F2F"><font size="2">(11:46:31 AM)</font> <b>Skyrider:</b></font> What I typed in the login box, is the alphabet.<br/>
+<font color="#A82F2F"><font size="2">(11:47:01 AM)</font> <b>Skyrider:</b></font> http://i.imgur.com/gAKAS2u.png &lt;- this, is what happens if I run dropbox under root.<br/>
+<font color="#A82F2F"><font size="2">(11:47:14 AM)</font> <b>Skyrider:</b></font> as you can see, way different GUI.. and works, perfectly.<br/>
+<font color="#A82F2F"><font size="2">(11:47:41 AM)</font> <b>Skyrider:</b></font> I&apos;m launching dropbox through the start-menu.<br/>
+<font color="#A82F2F"><font size="2">(11:47:44 AM)</font> <b>adrin:</b></font> SynrGy: oh, the difference is that in your test case the folder is owned by you, as the user, and a group that you belong to. So the permission most probably came from the fact that you owned it. In this test case, the parent folder has to be owned by for example root:cdrom, and then try to make a folder as synrg<br/>
+<font color="#A82F2F"><font size="2">(11:48:57 AM)</font> <b>JyZyXEL:</b></font> how do you get an scsi device back after doing: &quot;echo 1 &gt; /sys/block/sdd/device/delete&quot;?<br/>
+<font color="#A82F2F"><font size="2">(11:49:08 AM)</font> <b>SynrGy:</b></font> adrin: i see. you may need to resort to ACLs then<br/>
+<font color="#A82F2F"><font size="2">(11:49:37 AM)</font> <b>SynrGy:</b></font> adrin: see setfacl<br/>
+<font color="#A82F2F"><font size="2">(11:50:19 AM)</font> <b>SynrGy:</b></font> i guess that depends on the filesystem supporting ACLs ...<br/>
+<font color="#A82F2F"><font size="2">(11:50:58 AM)</font> <b>cnodell:</b></font> Skyrider: move all .dropbox* files in the user&apos;s home directory then try an launch it again...<br/>
+<font size="2">(11:50:58 AM)</font><b> Twinkletoes is now known as Guest96474</b><br/>
+<font color="#A82F2F"><font size="2">(11:51:21 AM)</font> <b>cnodell:</b></font> this might force dropbox to re-create it&apos;s config files...<br/>
+<font size="2">(11:52:03 AM)</font><b> mode (+l 1602) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:55:30 AM)</font> <b>Skyrider:</b></font> What is the command to locate the package directory info?<br/>
+<font color="#A82F2F"><font size="2">(12:00:47 PM)</font> <b>adrin:</b></font> SynrGy: I&apos;ll check it out.<br/>
+<font size="2">(12:02:03 PM)</font><b> mode (+l 1594) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:02:51 PM)</font> <b>Skyrider:</b></font> I give up....<br/>
+<font color="#A82F2F"><font size="2">(12:03:58 PM)</font> <b>SynrGy:</b></font> Skyrider: &apos;the package directory info&apos;? not sure what you mean. list the files in a package that you&apos;ve installed? or that you want to install?<br/>
+<font color="#A82F2F"><font size="2">(12:04:02 PM)</font> <b>SynrGy:</b></font> Skyrider: or something else?<br/>
+<font color="#A82F2F"><font size="2">(12:04:12 PM)</font> <b>Skyrider:</b></font> I&apos;ve installed dropbox through a *.deb package file<br/>
+<font color="#A82F2F"><font size="2">(12:04:17 PM)</font> <b>Skyrider:</b></font> I&apos;d like to know where it has been installed to.<br/>
+<font color="#A82F2F"><font size="2">(12:04:29 PM)</font> <b>SynrGy:</b></font> Skyrider: dpkg -L dropbox<br/>
+<font color="#A82F2F"><font size="2">(12:04:38 PM)</font> <b>Skyrider:</b></font> ty<br/>
+<font color="#A82F2F"><font size="2">(12:05:01 PM)</font> <b>Skyrider:</b></font> still doesn&apos;t explain why root / and other users are showing a different dropbox GUI.<br/>
+<font color="#A82F2F"><font size="2">(12:05:37 PM)</font> <b>SynrGy:</b></font> Skyrider: huh. well, since it&apos;s third-party, little we can do to help with that. do they have a support forum?<br/>
+<font color="#A82F2F"><font size="2">(12:06:06 PM)</font> <b>Skyrider:</b></font> they do, not active though<br/>
+<font color="#A82F2F"><font size="2">(12:06:59 PM)</font> <b>Skyrider:</b></font> but the keyboard input, should be an issue with either debian, or the remote.<br/>
+<font color="#A82F2F"><font size="2">(12:10:42 PM)</font> <b>l3archos:</b></font> hi all. How can I safely install &quot;wine-unstable&quot; to my Jessie desktop ? I tried to download these 2 packages from &quot;http://dev.carbon-project.org/debian/wine-unstable/&quot; called &quot;libwine-unstable_1.7.15-0.1_amd64.deb&quot; and &quot;wine64-unstable_1.7.15-0.1_amd64.deb&quot; but they cannot be installed because &quot;libwine-gecko-1.4&quot; is not installed. Any help appreciated<br/>
+<font color="#A82F2F"><font size="2">(12:12:03 PM)</font> <b>cnodell:</b></font> Skyrider, I would agree if the keyboard input was scrabbled for all users and all apps. but it only seems to affect this single, third party app and only for a specific user...<br/>
+<font color="#A82F2F"><font size="2">(12:12:13 PM)</font> <b>SynrGy:</b></font> ,v wine-unstable<br/>
+<font color="#A82F2F"><font size="2">(12:12:14 PM)</font> <b>judd:</b></font> No package named &apos;wine-unstable&apos; was found in i386.<br/>
+<font size="2">(12:12:20 PM)</font><b> l3archos left the room (quit: Changing host).</b><br/>
+<font size="2">(12:12:20 PM)</font><b> l3archos [<em>~l3archos@unaffiliated/l3archos</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:12:27 PM)</font> <b>SynrGy:</b></font> sec. there is something in debian ...<br/>
+<font color="#A82F2F"><font size="2">(12:12:37 PM)</font> <b>SynrGy:</b></font> ,v wine-development<br/>
+<font color="#A82F2F"><font size="2">(12:12:38 PM)</font> <b>judd:</b></font> Package: wine-development on i386 -- jessie: 1.7.29-4; sid: 1.7.29-4; experimental: 1.7.37-1<br/>
+<font color="#A82F2F"><font size="2">(12:12:58 PM)</font> <b>SynrGy:</b></font> l3archos: we don&apos;t support that. we do support wine 1.7.29-4 on jessie, however.<br/>
+<font color="#A82F2F"><font size="2">(12:13:19 PM)</font> <b>SynrGy:</b></font> l3archos: if you&apos;re on wheezy, tough luck, as:<br/>
+<font color="#A82F2F"><font size="2">(12:13:20 PM)</font> <b>SynrGy:</b></font> ,v wine<br/>
+<font color="#A82F2F"><font size="2">(12:13:21 PM)</font> <b>judd:</b></font> Package: wine on i386 -- squeeze: 1.0.1-3.1; wheezy: 1.4.1-4; jessie: 1.6.2-20; sid: 1.6.2-20<br/>
+<font color="#A82F2F"><font size="2">(12:13:36 PM)</font> <b>SynrGy:</b></font> wheezy only has a really ancient version<br/>
+<font color="#A82F2F"><font size="2">(12:13:42 PM)</font> <b>SynrGy:</b></font> and there&apos;s no backport.<br/>
+<font color="#A82F2F"><font size="2">(12:14:28 PM)</font> <b>tx:</b></font> http://backports.debian.org/changes/wheezy-backports.html<br/>
+<font color="#A82F2F"><font size="2">(12:14:30 PM)</font> <b>tx:</b></font> &gt; no backport<br/>
+<font color="#A82F2F"><font size="2">(12:15:00 PM)</font> <b>tx:</b></font> oh, you mean no package for that on backports :P<br/>
+<font color="#A82F2F"><font size="2">(12:15:01 PM)</font> <b>tx:</b></font> sorry<br/>
+<font color="#A82F2F"><font size="2">(12:15:14 PM)</font> <b>l3archos:</b></font> SynrGy: well listen, my issue is following. I installed the wine package from normal Jessie repository, it&apos;s version 1.6.2-20. But as soon as I try to execute &quot;winecfg&quot; I get the error, that winecfg.exe couldn&apos;t be found. I googled and hit on this bug report ==&gt; https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=739863<br/>
+<font color="#A82F2F"><font size="2">(12:15:16 PM)</font> <b>SynrGy:</b></font> exactly, as my output above shows.<br/>
+<font color="#A82F2F"><font size="2">(12:15:33 PM)</font> <b>l3archos:</b></font> the maintainer said, that this bug is fixed in wine 1.7.14-4 that&apos;s why I am trying to get a newer version<br/>
+<font color="#A82F2F"><font size="2">(12:15:37 PM)</font> <b>SynrGy:</b></font> and?<br/>
+<font color="#A82F2F"><font size="2">(12:15:55 PM)</font> <b>SynrGy:</b></font> i don&apos;t understand what&apos;s wrong with my solution above ...<br/>
+<font color="#A82F2F"><font size="2">(12:16:04 PM)</font> <b>SynrGy:</b></font> install wine-development<br/>
+<font color="#A82F2F"><font size="2">(12:16:15 PM)</font> <b>SynrGy:</b></font> reading problems, perhaps? :)<br/>
+<font color="#A82F2F"><font size="2">(12:16:27 PM)</font> <b>l3archos:</b></font> sorry, didnt read it, let me check :)<br/>
+<font color="#A82F2F"><font size="2">(12:16:31 PM)</font> <b>SynrGy:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(12:16:57 PM)</font> <b>SynrGy:</b></font> l3archos: but purge any third-party stuff you may have already installed or partly installed<br/>
+<font color="#A82F2F"><font size="2">(12:17:30 PM)</font> <b>l3archos:</b></font> I have purged everything related to wine<br/>
+<font color="#A82F2F"><font size="2">(12:17:34 PM)</font> <b>SynrGy:</b></font> k, good<br/>
+<font color="#A82F2F"><font size="2">(12:17:40 PM)</font> <b>l3archos:</b></font> now I am installing wine64-development<br/>
+<font color="#A82F2F"><font size="2">(12:17:46 PM)</font> <b>Skyrider:</b></font> cnodell:<br/>
+<font color="#A82F2F"><font size="2">(12:18:00 PM)</font> <b>Skyrider:</b></font> I am this error through when launching it from the remote terminal<br/>
+<font color="#A82F2F"><font size="2">(12:18:10 PM)</font> <b>Skyrider:</b></font> &quot;extension GLX missing on display&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:19:47 PM)</font> <b>l3archos:</b></font> SynrGy: well, it finished installing &quot;wine64-development&quot; but there is no &quot;winecfg&quot; command now :(<br/>
+<font color="#A82F2F"><font size="2">(12:19:50 PM)</font> <b>l3archos:</b></font> what am I missing?<br/>
+<font color="#A82F2F"><font size="2">(12:20:15 PM)</font> <b>SynrGy:</b></font> apt-file search winecfg<br/>
+<font color="#A82F2F"><font size="2">(12:20:16 PM)</font> <b>SynrGy:</b></font> wine-development: /usr/bin/winecfg-development<br/>
+<font color="#A82F2F"><font size="2">(12:20:18 PM)</font> <b>kakeform:</b></font> Microphone and web camera work flawlessly, but WebRTC&apos;s GetUserMedia doesn&apos;t work with the microphone (webcam works fine). It&apos;s the same in Iceweasel, Chromium and Firefox Nightly: The list of devices that can be shared seem to include all audio output possibilities, but not the microphone input.<br/>
+<font color="#A82F2F"><font size="2">(12:20:22 PM)</font> <b>SynrGy:</b></font> l3archos: namespace clash<br/>
+<font color="#A82F2F"><font size="2">(12:20:50 PM)</font> <b>SynrGy:</b></font> l3archos: you&apos;ll see an outstanding bug against wine-development to have it use the alternatives system: #758291<br/>
+<font color="#A82F2F"><font size="2">(12:21:09 PM)</font> <b>l3archos:</b></font> oh, I need wine-development, too<br/>
+<font color="#A82F2F"><font size="2">(12:21:13 PM)</font> <b>SynrGy:</b></font> yep<br/>
+<font color="#A82F2F"><font size="2">(12:21:19 PM)</font> <b>l3archos:</b></font> ok, installed it, now there is a winecfg :)<br/>
+<font color="#A82F2F"><font size="2">(12:21:23 PM)</font> <b>SynrGy:</b></font> isn&apos;t that what i said? :)<br/>
+<font color="#A82F2F"><font size="2">(12:21:27 PM)</font> <b>l3archos:</b></font> let me try now if I can install irfanview<br/>
+<font color="#A82F2F"><font size="2">(12:21:32 PM)</font> <b>l3archos:</b></font> SynrGy: you&apos;re my man ;)<br/>
+<font color="#A82F2F"><font size="2">(12:21:44 PM)</font> <b>SynrGy:</b></font> good luck<br/>
+<font size="2">(12:22:03 PM)</font><b> mode (+l 1603) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:23:05 PM)</font> <b>SynrGy:</b></font> Skyrider: ah. so it is apparently GL-based and has a fallback to non-GL when GLX is unavailable.<br/>
+<font color="#A82F2F"><font size="2">(12:23:18 PM)</font> <b>l3archos:</b></font> SynrGy: what I still don&apos;t understand. I am on the terminal of my jessie user within ~/Downloads. There I execute the command &quot;wine-development iview438g_setup.exe&quot; which I freshly downloaded from irfanview.com but I only get an empty prompt. No reaction<br/>
+<font color="#A82F2F"><font size="2">(12:23:20 PM)</font> <b>SynrGy:</b></font> Skyrider: lack of GLX is normal for remote display<br/>
+<font color="#A82F2F"><font size="2">(12:23:55 PM)</font> <b>SynrGy:</b></font> l3archos: here&apos;s where my knowledge gets shaky. wine has always been a *royal* pain in the butt for me.<br/>
+<font color="#A82F2F"><font size="2">(12:23:57 PM)</font> <b>SynrGy:</b></font> !wine<br/>
+<font color="#A82F2F"><font size="2">(12:23:58 PM)</font> <b>dpkg:</b></font> Wine (Wine Is Not an Emulator) is an application intended to allow execution of Microsoft Windows programs on Unix-like operating systems.  Application compatibility database: http://appdb.winehq.org/ .  http://wiki.winehq.org/HowTo  http://wiki.winehq.org/FAQ  #winehq on irc.freenode.net.  See &lt;mmap_min_addr&gt; regarding use of Win16 binaries.  See also &lt;newer wine&gt;.<br/>
+<font color="#A82F2F"><font size="2">(12:23:59 PM)</font> <b>phale:</b></font> hello, i have debian and ruby came with it<br/>
+<font color="#A82F2F"><font size="2">(12:24:04 PM)</font> <b>SynrGy:</b></font> l3archos: ^^ these guys are probably more help<br/>
+<font color="#A82F2F"><font size="2">(12:24:06 PM)</font> <b>phale:</b></font> hwo do i update it now?<br/>
+<font color="#A82F2F"><font size="2">(12:24:22 PM)</font> <b>SynrGy:</b></font> l3archos: really good with the debian problems. not so good with wine itself :)<br/>
+<font color="#A82F2F"><font size="2">(12:24:35 PM)</font> <b>l3archos:</b></font> hmmm ok<br/>
+<font color="#A82F2F"><font size="2">(12:24:45 PM)</font> <b>SynrGy:</b></font> phale: please be more specific. debian, which release? ruby, which release? and update to what?<br/>
+<font color="#A82F2F"><font size="2">(12:24:53 PM)</font> <b>SynrGy:</b></font> ,v ruby<br/>
+<font color="#A82F2F"><font size="2">(12:24:54 PM)</font> <b>judd:</b></font> Package: ruby on i386 -- squeeze: 4.5; wheezy: 1:1.9.3; sid: 1:2.1.0.4; jessie: 1:2.1.0.4<br/>
+<font color="#A82F2F"><font size="2">(12:25:23 PM)</font> <b>phale:</b></font> SynrGy: Linux glimmer 3.2.0-4-686-pae #1 SMP Debian 3.2.65-1 i686 GNU/Linux<br/>
+<font color="#A82F2F"><font size="2">(12:25:29 PM)</font> <b>phale:</b></font> ruby 1.9.3p194 (2012-04-20 revision 35410) [i486-linux]<br/>
+<font color="#A82F2F"><font size="2">(12:25:37 PM)</font> <b>Skyrider:</b></font> then I just might need to give up<br/>
+<font color="#A82F2F"><font size="2">(12:25:53 PM)</font> <b>phale:</b></font> i need to get 2.2.0<br/>
+<font color="#A82F2F"><font size="2">(12:26:09 PM)</font> <b>SynrGy:</b></font> phale: there is no more recent ruby available for it. you might have to abandon debian packages entirely and use rvm.<br/>
+<font color="#A82F2F"><font size="2">(12:26:27 PM)</font> <b>SynrGy:</b></font> phale: i use rvm on jessie at work. i don&apos;t know if wheezy is supported. should be, though.<br/>
+<font color="#A82F2F"><font size="2">(12:26:30 PM)</font> <b>phale:</b></font> okay<br/>
+<font color="#A82F2F"><font size="2">(12:26:32 PM)</font> <b>phale:</b></font> how do i do that<br/>
+<font color="#A82F2F"><font size="2">(12:26:42 PM)</font> <b>SynrGy:</b></font> see rvm.io<br/>
+<font color="#A82F2F"><font size="2">(12:26:51 PM)</font> <b>phale:</b></font> k thx<br/>
+<font color="#A82F2F"><font size="2">(12:27:09 PM)</font> <b>SynrGy:</b></font> it has install instructions. you&apos;ll have to see rvm for support if you hit issues, though, as debian doesn&apos;t support it on wheezy.<br/>
+<font color="#A82F2F"><font size="2">(12:27:13 PM)</font> <b>phale:</b></font> can this break ruby?<br/>
+<font color="#A82F2F"><font size="2">(12:27:32 PM)</font> <b>kakeform:</b></font> When WebRTC&apos;s GetUserMedia fails to display my microphone in the prompt (independent of browser; webcam works finde; microphone works fine otherwise), where do I post the bug report?<br/>
+<font color="#A82F2F"><font size="2">(12:27:42 PM)</font> <b>SynrGy:</b></font> phale: it is 100% incompatible with all ruby packages in debian.<br/>
+<font color="#A82F2F"><font size="2">(12:27:59 PM)</font> <b>SynrGy:</b></font> phale: you have to entirely install everything ruby based on rvm versions from gems.<br/>
+<font color="#A82F2F"><font size="2">(12:28:07 PM)</font> <b>phale:</b></font> that&apos;s insane<br/>
+<font color="#A82F2F"><font size="2">(12:28:16 PM)</font> <b>SynrGy:</b></font> well, it is a way forward.<br/>
+<font color="#A82F2F"><font size="2">(12:28:21 PM)</font> <b>SynrGy:</b></font> alternatively, run jessie.<br/>
+<font color="#A82F2F"><font size="2">(12:28:28 PM)</font> <b>phale:</b></font> okay<br/>
+<font color="#A82F2F"><font size="2">(12:28:30 PM)</font> <b>SynrGy:</b></font> however, jessie has only 2.1<br/>
+<font color="#A82F2F"><font size="2">(12:28:31 PM)</font> <b>SynrGy:</b></font> not 2.2<br/>
+<font color="#A82F2F"><font size="2">(12:28:40 PM)</font> <b>SynrGy:</b></font> hopefully the differences are not big enough to matter for your use case.<br/>
+<font color="#A82F2F"><font size="2">(12:28:46 PM)</font> <b>phale:</b></font> also how come everything in stable is so old<br/>
+<font color="#A82F2F"><font size="2">(12:28:58 PM)</font> <b>SynrGy:</b></font> because stable is old. and stable is stable.<br/>
+<font color="#A82F2F"><font size="2">(12:29:07 PM)</font> <b>phale:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(12:29:14 PM)</font> <b>SynrGy:</b></font> !stable<br/>
+<font color="#A82F2F"><font size="2">(12:29:14 PM)</font> <b>dpkg:</b></font> [stable] The status of a Debian release when no packages will be added, new versions introduced and changes will only fix security issues and critical bugs.  Packages can be removed in rare circumstances.  The current stable version of Debian is Wheezy (7.8); ask me about &lt;releases&gt;.  Security bugs are fixed in stable by backporting the fix to the stable version (ask me about &lt;security backports&gt;).  https://wiki.debian.org/DebianStable<br/>
+<font color="#A82F2F"><font size="2">(12:29:34 PM)</font> <b>phale:</b></font> so everything in that repository is software that has been confirmed to work the best<br/>
+<font color="#A82F2F"><font size="2">(12:29:40 PM)</font> <b>phale:</b></font> that&apos;s why it&apos;s old etc<br/>
+<font color="#A82F2F"><font size="2">(12:30:17 PM)</font> <b>phale:</b></font> anyways thanks i&apos;ll try some solutions<br/>
+<font color="#A82F2F"><font size="2">(12:30:22 PM)</font> <b>SynrGy:</b></font> no problem. good luck<br/>
+<font color="#A82F2F"><font size="2">(12:30:33 PM)</font> <b>SynrGy:</b></font> staying on top of ruby releases has been a hassle for me as a ruby developer ...<br/>
+<font color="#A82F2F"><font size="2">(12:30:40 PM)</font> <b>SynrGy:</b></font> which is why at work we decided to go the rvm route<br/>
+<font color="#A82F2F"><font size="2">(12:30:51 PM)</font> <b>SynrGy:</b></font> not ideal from a debian admin perspective. but best for development.<br/>
+<font color="#A82F2F"><font size="2">(12:30:51 PM)</font> <b>l3archos:</b></font> SynrGy: solved it! :) I did need mfc42.dll in .wine/c_drive/windows/system32. I downloaded the file from web and moved it to that directory. Afterwards I was able to launch the installer.<br/>
+<font color="#A82F2F"><font size="2">(12:30:58 PM)</font> <b>SynrGy:</b></font> l3archos: excellent!<br/>
+<font color="#A82F2F"><font size="2">(12:30:59 PM)</font> <b>l3archos:</b></font> SynrGy: thanks again for your assistance!<br/>
+<font size="2">(12:30:59 PM)</font><b> phale left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:31:02 PM)</font> <b>SynrGy:</b></font> no prob<br/>
+<font color="#A82F2F"><font size="2">(12:31:05 PM)</font> <b>l3archos:</b></font> *THANK YOU*<br/>
+<font color="#A82F2F"><font size="2">(12:31:11 PM)</font> <b>l3archos:</b></font> bye to all<br/>
+<font color="#A82F2F"><font size="2">(12:31:14 PM)</font> <b>SynrGy:</b></font> later<br/>
+<font size="2">(12:31:16 PM)</font><b> l3archos left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:32:13 PM)</font> <b>SynrGy:</b></font> hmm. should i have mentioned rubygems-integration?<br/>
+<font color="#A82F2F"><font size="2">(12:32:23 PM)</font> <b>SynrGy:</b></font> oh well. i don&apos;t think it substantially changes what i asserted :)<br/>
+<font color="#A82F2F"><font size="2">(12:32:52 PM)</font> <b>SynrGy:</b></font> ,v rubygems-integration<br/>
+<font color="#A82F2F"><font size="2">(12:32:58 PM)</font> <b>judd:</b></font> Package: rubygems-integration on i386 -- wheezy: 1.1; sid: 1.8; jessie: 1.8<br/>
+<font color="#A82F2F"><font size="2">(12:33:07 PM)</font> <b>SynrGy:</b></font> how about that. available on wheezy too<br/>
+<font color="#A82F2F"><font size="2">(12:33:57 PM)</font> <b>frederik_2:</b></font> anyone here have experience with xen 4.4 ?<br/>
+<font color="#A82F2F"><font size="2">(12:39:59 PM)</font> <b>petn-randall:</b></font> !tell frederik_2 -about anyone<br/>
+<font color="#A82F2F"><font size="2">(12:40:29 PM)</font> <b>kakeform:</b></font> When WebRTC&apos;s GetUserMedia fails to display my microphone in the prompt (independent of browser; webcam works finde; microphone works fine otherwise), where do I post the bug report?<br/>
+<font color="#A82F2F"><font size="2">(12:41:41 PM)</font> <b>frederik_2:</b></font> anyone know how to passtrough a multifunction pci-e card under xen 4.4/debian jessie ?<br/>
+<font color="#A82F2F"><font size="2">(12:44:52 PM)</font> <b>frederik_2:</b></font> the card functions ( 30:00.0 - 30:00.6 ) pass pciback with xl -pci-assignable-list and are configured in the vm (ubuntu) with pci [&apos;30:00.*&apos;] , but doesn&apos;t see the card in the vm :( . if i do pci = [&apos; 30:00.0&apos; &apos;30:00.2&apos;) , then its shows op in the vm but with -110 error<br/>
+<font color="#A82F2F"><font size="2">(12:46:23 PM)</font> <b>frederik_2:</b></font> the thing is : the pci-e card is a dual dvb-s2 (tevii s482) card that acts a  4 port usb 2.0 controller that with right firmware shows 2 dvb-S usb tuners<br/>
+<font color="#A82F2F"><font size="2">(12:46:52 PM)</font> <b>frederik_2:</b></font> anyone got a clue ?<br/>
+<font color="#A82F2F"><font size="2">(12:47:10 PM)</font> <b>rabbitear_sdf:</b></font> do the usb thing<br/>
+<font color="#A82F2F"><font size="2">(12:47:21 PM)</font> <b>rabbitear_sdf:</b></font> if that is what the device actually is<br/>
+<font color="#A82F2F"><font size="2">(12:48:35 PM)</font> <b>rabbitear_sdf:</b></font> frederik_2: many things are usb on top of other stuff<br/>
+<font color="#A82F2F"><font size="2">(12:48:48 PM)</font> <b>rabbitear_sdf:</b></font> but you use the &apos;thing&apos; as a usb device<br/>
+<font color="#A82F2F"><font size="2">(12:49:05 PM)</font> <b>rabbitear_sdf:</b></font> in the internet of things :) &lt;--- I love saying that<br/>
+<font color="#A82F2F"><font size="2">(12:49:07 PM)</font> <b>frederik_2:</b></font> this is pastebin of everything : http://pastebin.com/BRCER5Lq<br/>
+<font color="#A82F2F"><font size="2">(12:50:06 PM)</font> <b>SynrGy:</b></font> uggh<br/>
+<font color="#A82F2F"><font size="2">(12:50:09 PM)</font> <b>SynrGy:</b></font> !pastebin.com<br/>
+<font color="#A82F2F"><font size="2">(12:50:10 PM)</font> <b>dpkg:</b></font> pastebin.com mangles input, takes forever to load, often makes us enter a CAPTCHA to see your paste and fills the screen with ads.  Please use a different site, like http://paste.debian.net/<br/>
+<font color="#A82F2F"><font size="2">(12:50:11 PM)</font> <b>frederik_2:</b></font> i tried with usb , but it seems the firmware doesn&apos;t work like that . and isn&apos;t it best to pass the entire controller ?<br/>
+<font color="#A82F2F"><font size="2">(12:50:36 PM)</font> <b>rabbitear_sdf:</b></font> most likely happen nobody cares, and you&apos;ll end up with mental issues thinking people in #debian know what you mean<br/>
+<font color="#A82F2F"><font size="2">(12:51:48 PM)</font> <b>rabbitear_sdf:</b></font> yeah, yeah, so you do NOT highlight what the device is that you are talking about<br/>
+<font color="#A82F2F"><font size="2">(12:51:48 PM)</font> <b>frederik_2:</b></font> http://paste.debian.net/159899/<br/>
+<font color="#A82F2F"><font size="2">(12:52:02 PM)</font> <b>rabbitear_sdf:</b></font> so we have to go thru ever freakin one<br/>
+<font color="#A82F2F"><font size="2">(12:52:04 PM)</font> <b>rabbitear_sdf:</b></font> and guess<br/>
+<font color="#A82F2F"><font size="2">(12:52:19 PM)</font> <b>rabbitear_sdf:</b></font> just reminder, this isn&apos;t in chinese<br/>
+<font color="#A82F2F"><font size="2">(12:52:21 PM)</font> <b>Skyrider:</b></font> Anyway.. cnodell .. thanks for trying..<br/>
+<font color="#A82F2F"><font size="2">(12:52:23 PM)</font> <b>SynrGy:</b></font> frederik_2: i have no idea. however, if you&apos;re patient, maybe someone with a clue will chime in<br/>
+<font color="#A82F2F"><font size="2">(12:52:26 PM)</font> <b>Skyrider:</b></font> I&apos;ve created a ticket with dropbox instead.<br/>
+<font color="#A82F2F"><font size="2">(12:53:05 PM)</font> <b>rabbitear_sdf:</b></font> know what your problem is<br/>
+<font color="#A82F2F"><font size="2">(12:53:10 PM)</font> <b>rabbitear_sdf:</b></font> it helps<br/>
+<font color="#A82F2F"><font size="2">(12:53:14 PM)</font> <b>frederik_2:</b></font> strange part is if i pass thru the device functions seperatly, its shows up in the vm , but with unable to emurate device-110 and doesnt work<br/>
+<font color="#A82F2F"><font size="2">(12:53:40 PM)</font> <b>rabbitear_sdf:</b></font> the stranger part is that who knows what you mean<br/>
+<font color="#A82F2F"><font size="2">(12:53:50 PM)</font> <b>rabbitear_sdf:</b></font> nobody, that is way too much text<br/>
+<font color="#A82F2F"><font size="2">(12:54:05 PM)</font> <b>rabbitear_sdf:</b></font> you&apos;re gonna have to get used to shortening it up<br/>
+<font color="#A82F2F"><font size="2">(12:54:15 PM)</font> <b>rabbitear_sdf:</b></font> I&apos;m just saying that for our own good<br/>
+<font color="#A82F2F"><font size="2">(12:54:46 PM)</font> <b>frederik_2:</b></font> and if ask on how do you guys pass thrue multifuncion pci device ?<br/>
+<font color="#A82F2F"><font size="2">(12:55:03 PM)</font> <b>SynrGy:</b></font> rabbitear_sdf: are you done berating frederik_2? do you have something else useful to contribute to actually solving the problem?<br/>
+<font color="#A82F2F"><font size="2">(12:55:11 PM)</font> <b>frederik_2:</b></font> so that its its own usb tree in the vm<br/>
+<font color="#A82F2F"><font size="2">(12:56:21 PM)</font> <b>frederik_2:</b></font> a realtek eth0 card ( single fuction ) passes just fine and works<br/>
+<font color="#A82F2F"><font size="2">(12:56:32 PM)</font> <b>frederik_2:</b></font> &quot;function&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:56:43 PM)</font> <b>rabbitear_sdf:</b></font> SynrGy: yes, that thru all that mess, you can not see any problem<br/>
+<font color="#A82F2F"><font size="2">(12:57:05 PM)</font> <b>l3archos:</b></font> hi. When I&apos;m away for about 10mins and return to my Notebook, I get the screen lock. After I enter my password, I get my screen back, but on the bottom there is a notification bar, which I have to acknowledge by left mouse click. Is there a way to completely remove this notification bar on the bottom? I am on Jessie+Gnome3<br/>
+<font color="#A82F2F"><font size="2">(12:57:54 PM)</font> <b>frederik_2:</b></font> who in here uses xen to passthrough multifunction pci devices ?<br/>
+<font color="#A82F2F"><font size="2">(12:58:30 PM)</font> <b>rabbitear_sdf:</b></font> l3archos: you should join #gnome instead<br/>
+<font color="#A82F2F"><font size="2">(12:58:35 PM)</font> <b>SynrGy:</b></font> frederik_2: through all that mess, no, i cannot see the problem. and yes, it is good to politely focus the user on singling out the details that would help us. emphasis on &quot;politely&quot;. i find your approach unconstructive.<br/>
+<font color="#A82F2F"><font size="2">(12:58:41 PM)</font> <b>rabbitear_sdf:</b></font> l3archos: or run like a normal wm<br/>
+<font color="#A82F2F"><font size="2">(12:58:48 PM)</font> <b>SynrGy:</b></font> bleah. s/frederik_2/rabbitear_sdf/<br/>
+<font color="#A82F2F"><font size="2">(12:59:14 PM)</font> <b>SynrGy:</b></font> rabbitear_sdf: that is, i don&apos;t substantially disagree with you. it&apos;s just a matter of tone<br/>
+<font color="#A82F2F"><font size="2">(12:59:35 PM)</font> <b>frederik_2:</b></font> where then can i find other xen logs ?<br/>
+<font color="#A82F2F"><font size="2">(01:00:04 PM)</font> <b>frederik_2:</b></font> in /var/log/xen i haven&apos;t found anything usefull<br/>
+<font color="#A82F2F"><font size="2">(01:00:07 PM)</font> <b>rabbitear_sdf:</b></font> SynrGy: okay, I hear the way, if I am rude it is via mistake or learning<br/>
+<font color="#A82F2F"><font size="2">(01:00:17 PM)</font> <b>SynrGy:</b></font> l3archos: or maybe use some gnome extensions for that?<br/>
+<font color="#A82F2F"><font size="2">(01:00:35 PM)</font> <b>rabbitear_sdf:</b></font> SynrGy: I&apos;m sorry, and I will not so much say things that come to mind here<br/>
+<font color="#A82F2F"><font size="2">(01:01:47 PM)</font> <b>rabbitear_sdf:</b></font> SynrGy: I&apos;m actually mainly a slackware user<br/>
+<font color="#A82F2F"><font size="2">(01:01:58 PM)</font> <b>rabbitear_sdf:</b></font> SynrGy: but I use debian stuff too<br/>
+<font color="#A82F2F"><font size="2">(01:02:31 PM)</font> <b>rabbitear_sdf:</b></font> SynrGy: I&apos;m just some odd guy that knew(knows) c back in the day<br/>
+<font color="#A82F2F"><font size="2">(01:03:15 PM)</font> <b>rabbitear_sdf:</b></font> SynrGy: having an IPA, its spring brake, meaning, I can relax as well<br/>
+<font color="#A82F2F"><font size="2">(01:03:44 PM)</font> <b>frederik_2:</b></font> is it possible that xen-tools need to be installed in the vm ?<br/>
+<font color="#A82F2F"><font size="2">(01:05:12 PM)</font> <b>rabbitear_sdf:</b></font> SynrGy: I normally get taken in this way [sometimes] where I think I know what I&apos;m talking about<br/>
+<font color="#A82F2F"><font size="2">(01:05:44 PM)</font> <b>rabbitear_sdf:</b></font> SynrGy: I&apos;m trying, to see the other side :)<br/>
+<font color="#A82F2F"><font size="2">(01:05:48 PM)</font> <b>SynrGy:</b></font> rabbitear_sdf: ok. (though this whole discussion is probably better for #debian-offtopic)<br/>
+<font color="#A82F2F"><font size="2">(01:05:53 PM)</font> <b>SynrGy:</b></font> rabbitear_sdf: thanks for your efforts<br/>
+<font color="#A82F2F"><font size="2">(01:06:02 PM)</font> <b>rabbitear_sdf:</b></font> no worries, thanks too<br/>
+<font color="#A82F2F"><font size="2">(01:06:09 PM)</font> <b>jonny_:</b></font> Hi, is there a set of pkgs for pg-9.4.1 that works with wheezy?<br/>
+<font color="#A82F2F"><font size="2">(01:06:15 PM)</font> <b>l3archos:</b></font> SynrGy: already looked for some, but there is no extension for that. But however, thanks<br/>
+<font color="#A82F2F"><font size="2">(01:06:33 PM)</font> <b>SynrGy:</b></font> frederik_2: again, this whole topic is outside my area of expertise. but maybe if you can focus your questions better and lurk here a while, someone can help.<br/>
+<font color="#A82F2F"><font size="2">(01:06:43 PM)</font> <b>SynrGy:</b></font> l3archos: i&apos;m happier with cinnamon<br/>
+<font color="#A82F2F"><font size="2">(01:06:47 PM)</font> <b>SynrGy:</b></font> ,v cinnamon<br/>
+<font color="#A82F2F"><font size="2">(01:06:48 PM)</font> <b>judd:</b></font> Package: cinnamon on i386 -- sid: 2.2.16-5; jessie: 2.2.16-5; experimental: 2.4.6-1<br/>
+<font color="#A82F2F"><font size="2">(01:06:53 PM)</font> <b>SynrGy:</b></font> ,v cinnamon-desktop<br/>
+<font color="#A82F2F"><font size="2">(01:06:54 PM)</font> <b>judd:</b></font> No package named &apos;cinnamon-desktop&apos; was found in i386.<br/>
+<font color="#A82F2F"><font size="2">(01:06:59 PM)</font> <b>l3archos:</b></font> SynrGy: I used Cinnamon on my old LMDE machine.<br/>
+<font color="#A82F2F"><font size="2">(01:07:03 PM)</font> <b>SynrGy:</b></font> l3archos: only available for jessie, however.<br/>
+<font color="#A82F2F"><font size="2">(01:07:07 PM)</font> <b>l3archos:</b></font> it&apos;s pretty ok, too. But I also like Gnome :)<br/>
+<font color="#A82F2F"><font size="2">(01:07:32 PM)</font> <b>l3archos:</b></font> SynrGy: when I install cinnamon, will it affect somehow my actual gnome installation? I think it should work, right? On the login screen I could choose Cinnamon then?<br/>
+<font color="#A82F2F"><font size="2">(01:07:33 PM)</font> <b>SynrGy:</b></font> seems to be a good compromise between gnome3&apos;s modern goodness and a good old, familiar desktop paradigm centred around a panel<br/>
+<font color="#A82F2F"><font size="2">(01:07:36 PM)</font> <b>jonny_:</b></font> , v postgresql<br/>
+<font color="#A82F2F"><font size="2">(01:07:37 PM)</font> <b>judd:</b></font> Package: postgresql on i386 -- squeeze-security: 8.4.20-0squeeze1; squeeze: 8.4.21-0squeeze1; squeeze-security-lts: 8.4.22lts1-0+deb6u1; squeeze-backports: 9.1+134wheezy4~bpo60+1; wheezy: 9.1+134wheezy4; jessie: 9.4+165; sid: 9.4+166<br/>
+<font color="#A82F2F"><font size="2">(01:08:05 PM)</font> <b>SynrGy:</b></font> l3archos: well, you can switch freely between cinnamon and gnome, if that&apos;s what you&apos;re asking<br/>
+<font color="#A82F2F"><font size="2">(01:08:14 PM)</font> <b>jelly:</b></font> jonny_: you can ask that bot in private using /msg judd v something<br/>
+<font color="#A82F2F"><font size="2">(01:08:17 PM)</font> <b>SynrGy:</b></font> gives you a chance to try things out<br/>
+<font color="#A82F2F"><font size="2">(01:08:20 PM)</font> <b>l3archos:</b></font> ok, I&apos;ll give a try. Let me look for cinnamon and install it now ...<br/>
+<font color="#A82F2F"><font size="2">(01:08:22 PM)</font> <b>SynrGy:</b></font> i.e. they are co-installable<br/>
+<font color="#A82F2F"><font size="2">(01:08:31 PM)</font> <b>SynrGy:</b></font> l3archos: on jessie, right?<br/>
+<font color="#A82F2F"><font size="2">(01:08:39 PM)</font> <b>l3archos:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(01:08:52 PM)</font> <b>SynrGy:</b></font> it&apos;s somewhat lacking in extensions at the moment ...<br/>
+<font color="#A82F2F"><font size="2">(01:09:02 PM)</font> <b>SynrGy:</b></font> but well-enough supported for me, personally, for daily use.<br/>
+<font color="#062585"><font size="2">(01:09:20 PM)</font> <b>***l3archos</b></font> about installing cinnamon...<br/>
+<font color="#A82F2F"><font size="2">(01:09:26 PM)</font> <b>l3archos:</b></font> brb<br/>
+<font size="2">(01:09:27 PM)</font><b> l3archos left the room (quit: Quit: leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(01:10:35 PM)</font> <b>jonny_:</b></font> jelly, so in your estimation there would be a difference between myself and synrgy?<br/>
+<font size="2">(01:11:15 PM)</font><b> l3archos [<em>~l3archos@unaffiliated/l3archos</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:11:36 PM)</font> <b>jonny_:</b></font> if not, you would have said that to him since he &quot;violated&quot; by trying to get info he was interested in first<br/>
+<font color="#A82F2F"><font size="2">(01:11:43 PM)</font> <b>l3archos:</b></font> SynrGy: ok, I installed it and logged in now. I&apos;ll have to play around and customize it in the next days and I&apos;ll compare<br/>
+<font color="#A82F2F"><font size="2">(01:15:02 PM)</font> <b>SynrGy:</b></font> jonny_: the difference is the audience.<br/>
+<font color="#A82F2F"><font size="2">(01:15:26 PM)</font> <b>SynrGy:</b></font> jonny_: the bots are there to help the group help users, and keep the answers in public so the whole group knows what has been shared.<br/>
+<font color="#A82F2F"><font size="2">(01:15:39 PM)</font> <b>SynrGy:</b></font> jonny_: but if you have a personal inquiry, please message the bot.<br/>
+<font color="#A82F2F"><font size="2">(01:15:42 PM)</font> <b>SynrGy:</b></font> !message the bot<br/>
+<font color="#A82F2F"><font size="2">(01:15:46 PM)</font> <b>SynrGy:</b></font> !msg the bot<br/>
+<font color="#A82F2F"><font size="2">(01:15:46 PM)</font> <b>dpkg:</b></font> Please have conversations with the bots in a private message as much as possible.  Instead of using &quot;!topic&quot; or &quot;!tell &lt;your nick&gt; about &lt;topic&gt;&quot; in the channel, you can just &quot;/msg dpkg topic&quot;.  See &lt;bot help&gt; and http://wiki.debian.org/IRC/DpkgBot to learn more and browse my factoids on-line at http://ircbots.debian.net/ .  Also ask me about &lt;judd&gt;, which is another bot and window into the Ultimate Debian Database.<br/>
+<font color="#A82F2F"><font size="2">(01:16:33 PM)</font> <b>SynrGy:</b></font> l3archos: yep. have fun<br/>
+<font color="#A82F2F"><font size="2">(01:17:07 PM)</font> <b>jonny_:</b></font> and how do you know I didn&apos;t want to have &quot;the whole group knows what has been shared&quot;?<br/>
+<font color="#A82F2F"><font size="2">(01:19:27 PM)</font> <b>SynrGy:</b></font> jonny_: are you going to just argue with our rules or comply? because i have no patience for it.<br/>
+<font color="#A82F2F"><font size="2">(01:20:19 PM)</font> <b>SynrGy:</b></font> if it&apos;s a personal inquiry, msg the bot, as is our convention. if it&apos;s a help session involving another user, then use one of the public forms. either !topic, or !tell user topic<br/>
+<font color="#A82F2F"><font size="2">(01:20:24 PM)</font> <b>jelly:</b></font> jonny_: there seems to be no previous discussion about pgsql in recent logs.  It&apos;s not my intent to make you feel isolated for violating some rules, just to show you a way to get more info without cluttering the channel<br/>
+<font color="#A82F2F"><font size="2">(01:20:35 PM)</font> <b>SynrGy:</b></font> jelly++<br/>
+<font color="#A82F2F"><font size="2">(01:21:53 PM)</font> <b>jelly:</b></font> usually when someone repeats a query syntax in the channel for an unrelated package, it is because they simply do not know they can ask in /msg<br/>
+<font color="#A82F2F"><font size="2">(01:23:00 PM)</font> <b>g00se:</b></font> Hoping the answer is yes, but does mke2fs alter the partition table to the correct value or must one do it explicitly?<br/>
+<font color="#A82F2F"><font size="2">(01:23:43 PM)</font> <b>l3archos:</b></font> SynrGy: hey cool! the nasty bug in Remmina where the top bar didn&apos;t appear is working FINE in Cinnamon. Yeah! :)<br/>
+<font color="#A82F2F"><font size="2">(01:23:44 PM)</font> <b>jelly:</b></font> g00se: it does not touch the partition table or that &quot;type&quot; byte value at all.  In general, linux doesn&apos;t care about that byte really<br/>
+<font color="#A82F2F"><font size="2">(01:24:09 PM)</font> <b>SynrGy:</b></font> l3archos: awesome<br/>
+<font color="#A82F2F"><font size="2">(01:24:24 PM)</font> <b>SynrGy:</b></font> l3archos: although i&apos;ve discovered if you resize the screen, remmina&apos;s top bar goes all strange.<br/>
+<font color="#A82F2F"><font size="2">(01:24:32 PM)</font> <b>SynrGy:</b></font> l3archos: i have to quit it and reconnect<br/>
+<font color="#A82F2F"><font size="2">(01:24:44 PM)</font> <b>l3archos:</b></font> SynrGy: did you try customized resolution sizes ?<br/>
+<font color="#A82F2F"><font size="2">(01:24:53 PM)</font> <b>l3archos:</b></font> me for example, I&apos;m using 1919x1079<br/>
+<font color="#A82F2F"><font size="2">(01:25:08 PM)</font> <b>l3archos:</b></font> when I used the default one 1920x1080 it broke everything (in Gnome)<br/>
+<font color="#A82F2F"><font size="2">(01:25:20 PM)</font> <b>l3archos:</b></font> I don&apos;t know if it&apos;ll help in Cinnamon though<br/>
+<font color="#A82F2F"><font size="2">(01:25:24 PM)</font> <b>l3archos:</b></font> ymmv<br/>
+<font color="#A82F2F"><font size="2">(01:25:26 PM)</font> <b>SynrGy:</b></font> l3archos: just fullscreen<br/>
+<font color="#A82F2F"><font size="2">(01:25:32 PM)</font> <b>l3archos:</b></font> affected also ;)<br/>
+<font color="#A82F2F"><font size="2">(01:25:43 PM)</font> <b>l3archos:</b></font> but I&apos;m talking about Gnome, I don&apos;t know how it&apos;s processed in Cinnamon<br/>
+<font color="#A82F2F"><font size="2">(01:25:49 PM)</font> <b>l3archos:</b></font> worth a try ;)<br/>
+<font color="#A82F2F"><font size="2">(01:25:51 PM)</font> <b>g00se:</b></font> jelly: Ah. So let&apos;s say that i&apos;m going to install Wheezy on it afterwards, the installer wouldn&apos;t see NTFS and start getting confused?<br/>
+<font color="#A82F2F"><font size="2">(01:26:07 PM)</font> <b>jelly:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(01:26:12 PM)</font> <b>jonny_:</b></font> jelly, do you think it&apos;s possible to build the pg 9.4.1 packages under wheezy?<br/>
+<font color="#A82F2F"><font size="2">(01:26:23 PM)</font> <b>SynrGy:</b></font> l3archos: in /win 4<br/>
+<font color="#A82F2F"><font size="2">(01:26:25 PM)</font> <b>SynrGy:</b></font> oops<br/>
+<font color="#A82F2F"><font size="2">(01:26:32 PM)</font> <b>l3archos:</b></font> if I could stick my desktop icon &quot;Irfanview&quot; somehow to the bottom bar? Huhmm...can&apos;t get it to work. Is it possible at all (because it&apos;s a wine application) ?<br/>
+<font color="#A82F2F"><font size="2">(01:26:40 PM)</font> <b>g00se:</b></font> jelly: You mean, no it wouldn&apos;t get confused? ;)<br/>
+<font color="#A82F2F"><font size="2">(01:26:41 PM)</font> <b>SynrGy:</b></font> l3archos: i had to get the door and had something else typed :)<br/>
+<font color="#A82F2F"><font size="2">(01:26:53 PM)</font> <b>l3archos:</b></font> np<br/>
+<font color="#A82F2F"><font size="2">(01:26:57 PM)</font> <b>SynrGy:</b></font> and yes, you can do that<br/>
+<font color="#A82F2F"><font size="2">(01:27:06 PM)</font> <b>SynrGy:</b></font> right-click the bar and add a launcher, i mean<br/>
+<font color="#A82F2F"><font size="2">(01:27:14 PM)</font> <b>SynrGy:</b></font> you just need a .desktop file for it somewhere<br/>
+<font color="#A82F2F"><font size="2">(01:27:32 PM)</font> <b>SynrGy:</b></font> ~/.local/share/applications/ or so<br/>
+<font color="#A82F2F"><font size="2">(01:27:40 PM)</font> <b>Pulec:</b></font> Hi, I would need some brainstorming, I have this theoretical situation:<br/>
+<font color="#A82F2F"><font size="2">(01:27:41 PM)</font> <b>Pulec:</b></font> Consider you are managing some servers. On each of these servers there is a critical<br/>
+<font color="#A82F2F"><font size="2">(01:27:41 PM)</font> <b>Pulec:</b></font> application. The application stores certain files in the temp directory (e.g: /tmp). Several times<br/>
+<font color="#A82F2F"><font size="2">(01:27:42 PM)</font> <b>Pulec:</b></font> a day you receive “disk is full” events for this location.<br/>
+<font size="2">(01:27:42 PM)</font><b> Pulec left the room (Kicked by debhelper (flood. Please use http://paste.debian.net instead.)).</b><br/>
+<font color="#A82F2F"><font size="2">(01:27:46 PM)</font> <b>l3archos:</b></font> where do I get the .desktop file from ?<br/>
+<font size="2">(01:27:52 PM)</font><b> Pulec [<em>~pulec@2a01:4f8:162:732f:468::6298</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:27:54 PM)</font> <b>Pulec:</b></font> ups<br/>
+<font color="#A82F2F"><font size="2">(01:28:09 PM)</font> <b>l3archos:</b></font> Pulec: :)<br/>
+<font color="#A82F2F"><font size="2">(01:28:31 PM)</font> <b>Pulec:</b></font> did you see the whole situation?<br/>
+<font color="#A82F2F"><font size="2">(01:28:37 PM)</font> <b>SynrGy:</b></font> l3archos: um, there&apos;s some wine thingy that makes them iirc ...<br/>
+<font color="#A82F2F"><font size="2">(01:28:46 PM)</font> <b>SynrGy:</b></font> that has been my experience<br/>
+<font color="#A82F2F"><font size="2">(01:28:50 PM)</font> <b>SynrGy:</b></font> but i forget what<br/>
+<font color="#A82F2F"><font size="2">(01:28:50 PM)</font> <b>Pulec:</b></font> several times a day disk is full event<br/>
+<font color="#A82F2F"><font size="2">(01:29:05 PM)</font> <b>l3archos:</b></font> SynrGy: can you explain what I need to add Irfanview to the bottom bar on the left side (where iceweasel, terminal, etc... is located) in detail?<br/>
+<font size="2">(01:29:07 PM)</font><b> martinst is now known as martins-afk</b><br/>
+<font color="#A82F2F"><font size="2">(01:29:07 PM)</font> <b>g00se:</b></font> &apos;for this location&apos; The directory is not relevant then, is it?<br/>
+<font color="#A82F2F"><font size="2">(01:29:39 PM)</font> <b>l3archos:</b></font> Pulec: I would check why the disks get full and fix that first ;)<br/>
+<font color="#A82F2F"><font size="2">(01:29:56 PM)</font> <b>Pulec:</b></font> good<br/>
+<font color="#A82F2F"><font size="2">(01:30:23 PM)</font> <b>Pulec:</b></font> the result of this situation should be script that does all recoomended actions<br/>
+<font color="#A82F2F"><font size="2">(01:30:56 PM)</font> <b>l3archos:</b></font> SynrGy: ok solved, got it :)<br/>
+<font color="#A82F2F"><font size="2">(01:31:03 PM)</font> <b>SynrGy:</b></font> l3archos: wish i could. all i remember is that i ran the installer of some program in wine, and when the windows installer itself created a desktop icon (i clicked that option in the installer) it created the .desktop file<br/>
+<font color="#A82F2F"><font size="2">(01:31:15 PM)</font> <b>SynrGy:</b></font> l3archos: ah, k. more or less like i described?<br/>
+<font color="#A82F2F"><font size="2">(01:31:23 PM)</font> <b>markotitel:</b></font> cd<br/>
+<font color="#A82F2F"><font size="2">(01:31:32 PM)</font> <b>l3archos:</b></font> it was just as easy ==&gt; click on bottom left the start menu, search for &quot;irfanview&quot;, right-click on it, and add it to the bottom bar. That&apos;s it! :)<br/>
+<font color="#A82F2F"><font size="2">(01:31:38 PM)</font> <b>markotitel:</b></font> wrong window :)<br/>
+<font color="#A82F2F"><font size="2">(01:31:55 PM)</font> <b>SynrGy:</b></font> l3archos: yay. so apparently wine already did that. you can use find in ~/.local/applications and see<br/>
+<font size="2">(01:32:02 PM)</font><b> mode (+l 1609) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(01:32:03 PM)</font> <b>l3archos:</b></font> great, thx<br/>
+<font color="#A82F2F"><font size="2">(01:32:11 PM)</font> <b>SynrGy:</b></font> errr,<br/>
+<font color="#A82F2F"><font size="2">(01:32:16 PM)</font> <b>SynrGy:</b></font> ~/.local/share/applications<br/>
+<font color="#A82F2F"><font size="2">(01:32:16 PM)</font> <b>apt:</b></font> [/.local/share/applications] pretty standard<br/>
+<font color="#A82F2F"><font size="2">(01:32:30 PM)</font> <b>SynrGy:</b></font> pfft. thanks, apt<br/>
+<font color="#A82F2F"><font size="2">(01:34:23 PM)</font> <b>l3archos:</b></font> the hotkey combination fn+F6 doesn&apos;t work on my Jessie system. &quot;acpi_listen&quot; and even &quot;xev&quot; do NOT respond and show any output when I press Fn+F6. Other combinations like fn+F1, fn+F2, fn+F3 work... Do I need to patch my kernel somehow, and if so how?<br/>
+<font color="#A82F2F"><font size="2">(01:34:55 PM)</font> <b>SynrGy:</b></font> i&apos;m out. errands<br/>
+<font color="#A82F2F"><font size="2">(01:36:03 PM)</font> <b>g00se:</b></font> l3archos: Well that would be a bug, no?<br/>
+<font color="#A82F2F"><font size="2">(01:36:50 PM)</font> <b>l3archos:</b></font> g00se: would it?<br/>
+<font size="2">(01:36:55 PM)</font><b> multi_io_ is now known as multi_io</b><br/>
+<font color="#A82F2F"><font size="2">(01:38:22 PM)</font> <b>g00se:</b></font> Sounds like it<br/>
+<font color="#A82F2F"><font size="2">(01:40:21 PM)</font> <b>Kaceytron:</b></font> yo, my computer got an Nvidia graphic card, what can I install on Debian Jessie to get the best of it (including proprietary software)?<br/>
+<font color="#A82F2F"><font size="2">(01:41:55 PM)</font> <b>Brigo:</b></font> !tell Kaceytron about nvidia<br/>
+<font size="2">(01:42:03 PM)</font><b> mode (+l 1617) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(01:42:28 PM)</font> <b>larryone:</b></font> hello happy debfolk<br/>
+<font color="#A82F2F"><font size="2">(01:42:47 PM)</font> <b>larryone:</b></font> I am having trouble trying to pin an installation package to a particular repo<br/>
+<font color="#A82F2F"><font size="2">(01:43:11 PM)</font> <b>Kaceytron:</b></font> Brigo: ?<br/>
+<font color="#A82F2F"><font size="2">(01:43:22 PM)</font> <b>Brigo:</b></font> Kaceytron, yes?<br/>
+<font color="#A82F2F"><font size="2">(01:43:32 PM)</font> <b>Kaceytron:</b></font> ah that pm<br/>
+<font color="#A82F2F"><font size="2">(01:43:38 PM)</font> <b>larryone:</b></font> setting the Pin-Priority in /etc/apt/preferences isn&apos;t working in quite the way that I am expecting<br/>
+<font color="#A82F2F"><font size="2">(01:44:00 PM)</font> <b>Brigo:</b></font> Kaceytron, it was a bot, dpkg.<br/>
+<font color="#A82F2F"><font size="2">(01:44:31 PM)</font> <b>Kaceytron:</b></font> yep got it, thanks<br/>
+<font color="#A82F2F"><font size="2">(01:44:33 PM)</font> <b>l3archos:</b></font> !tell l3archos about nvidia<br/>
+<font color="#A82F2F"><font size="2">(01:44:35 PM)</font> <b>larryone:</b></font> does the preferences file have some kind of processing where later entries overwrite the previous ones?<br/>
+<font color="#A82F2F"><font size="2">(01:44:56 PM)</font> <b>larryone:</b></font> as in, if I specify a package in an entry, but a wildcard in a later one<br/>
+<font color="#A82F2F"><font size="2">(01:47:29 PM)</font> <b>Brigo:</b></font> Kaceytron, if any other problem just ask again :)<br/>
+<font size="2">(01:47:46 PM)</font><b> l3archos left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(01:47:55 PM)</font> <b>Kaceytron:</b></font> should be fine thanks :)<br/>
+<font size="2">(01:49:14 PM)</font><b> l3archos [<em>~l3archos@unaffiliated/l3archos</em>] entered the room.</b><br/>
+<font size="2">(01:55:55 PM)</font><b> Kaceytron left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(01:59:23 PM)</font> <b>netan:</b></font> hi all, I try to set up unprivileged containers and have successfully upgraded to jessi and got systemd running<br/>
+<font color="#A82F2F"><font size="2">(02:00:27 PM)</font> <b>netan:</b></font> ..but acording to this guide http://www.flockport.com/lxc-using-unprivileged-containers/ I need to apt get &quot;systemd-services&quot; but there are no such package<br/>
+<font color="#A82F2F"><font size="2">(02:00:45 PM)</font> <b>netan:</b></font> do anybody know about a guide for debian ?<br/>
+<font color="#A82F2F"><font size="2">(02:01:52 PM)</font> <b>jonny_:</b></font> netan, you can look up packages at packages.debian.org<br/>
+<font color="#A82F2F"><font size="2">(02:03:10 PM)</font> <b>jonny_:</b></font> judd the bot also knows some things. look at this, which you can also do in /msg:<br/>
+<font color="#A82F2F"><font size="2">(02:03:49 PM)</font> <b>jonny_:</b></font> judd, versions systemd-services<br/>
+<font color="#A82F2F"><font size="2">(02:03:50 PM)</font> <b>judd:</b></font> No package named &apos;systemd-services&apos; was found in i386.<br/>
+<font color="#A82F2F"><font size="2">(02:04:44 PM)</font> <b>jonny_:</b></font> hmm. looks like it was referring to stuff that&apos;s not contained in a debian package<br/>
+<font color="#A82F2F"><font size="2">(02:05:58 PM)</font> <b>jonny_:</b></font> so, to find these service programs for systemd, maybe there is a systemd website and if you look there, maybe you can find them<br/>
+<font color="#A82F2F"><font size="2">(02:06:27 PM)</font> <b>jelly:</b></font> netan: that guide seems to be made for ubuntu, not debian<br/>
+<font size="2">(02:25:25 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,143 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sat 27 Dec 2014 05:22:44 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sat 27 Dec 2014 05:22:44 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(05:22:44 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(05:22:44 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(05:25:12 PM)</font> <b>kmicu:</b></font> broken log access on HDDs?<br/>
+<font color="#A82F2F"><font size="2">(05:26:40 PM)</font> <b>MichaelRaskin:</b></font> If the journal files are not in RAM, journalctl -n 50 needs an infinite amount of time<br/>
+<font color="#A82F2F"><font size="2">(05:26:48 PM)</font> <b>MichaelRaskin:</b></font> More than a minute<br/>
+<font color="#A82F2F"><font size="2">(05:27:16 PM)</font> <b>MichaelRaskin:</b></font> It reads hundreds of megabytes in a pseudorandom order<br/>
+<font color="#A82F2F"><font size="2">(05:27:37 PM)</font> <b>copumpkin:</b></font> so it&apos;s trying to be a database, but not a very good one?<br/>
+<font color="#A82F2F"><font size="2">(05:27:46 PM)</font> <b>copumpkin:</b></font> or is it using an existing DB?<br/>
+<font color="#A82F2F"><font size="2">(05:28:02 PM)</font> <b>kmicu:</b></font> Inefficient is not broken.<br/>
+<font color="#A82F2F"><font size="2">(05:28:17 PM)</font> <b>kmicu:</b></font> It was less than a minute for me.<br/>
+<font color="#A82F2F"><font size="2">(05:28:35 PM)</font> <b>kmicu:</b></font> Slow yes, but broken?<br/>
+<font color="#A82F2F"><font size="2">(05:28:37 PM)</font> <b>MichaelRaskin:</b></font> When I cnnot find out what a service said for multiple minutes (sometimes), it seems to be broken<br/>
+<font color="#A82F2F"><font size="2">(05:29:19 PM)</font> <b>kmicu:</b></font> “journalctl -n 50 needs an infinite amount of time” is a FUD not based on facts.<br/>
+<font color="#A82F2F"><font size="2">(05:29:26 PM)</font> <b>copumpkin:</b></font> -_-<br/>
+<font color="#A82F2F"><font size="2">(05:29:34 PM)</font> <b>copumpkin:</b></font> [10:54:22]  &lt;copumpkin&gt;	 why does every systemd discussion get so heated<br/>
+<font color="#A82F2F"><font size="2">(05:29:38 PM)</font> <b>MichaelRaskin:</b></font> Ah, and when corruption does happen, with text logs I lose 4KiBs, here I have no idea how to extract multiple MiBs of logs<br/>
+<font color="#A82F2F"><font size="2">(05:29:49 PM)</font> <b>MichaelRaskin:</b></font> kmicu: It is a fact<br/>
+<font color="#A82F2F"><font size="2">(05:29:55 PM)</font> <b>MichaelRaskin:</b></font> I measured time a few times<br/>
+<font color="#A82F2F"><font size="2">(05:30:00 PM)</font> <b>kmicu:</b></font>  “journalctl -n 50 needs an infinite amount of time” is BS<br/>
+<font color="#A82F2F"><font size="2">(05:30:05 PM)</font> <b>copumpkin:</b></font> hyperbole...<br/>
+<font color="#A82F2F"><font size="2">(05:30:15 PM)</font> <b>kmicu:</b></font> Hyperbole is not a fact.<br/>
+<font color="#062585"><font size="2">(05:30:23 PM)</font> <b>***copumpkin</b></font> sighs and bows out<br/>
+<font color="#A82F2F"><font size="2">(05:31:50 PM)</font> <b>MichaelRaskin:</b></font> 4–5 decimal orders of magnitude slower than &quot;tail -n&quot; on text logs<br/>
+<font color="#A82F2F"><font size="2">(05:32:08 PM)</font> <b>kmicu:</b></font> journald is not a text log.<br/>
+<font size="2">(05:32:55 PM)</font><b> copumpkin left the room (&quot;I&apos;ll be back when this crap is over&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(05:32:56 PM)</font> <b>MichaelRaskin:</b></font> What benefits it has w.r.t. text logs with a separate signature list?<br/>
+<font color="#A82F2F"><font size="2">(05:33:17 PM)</font> <b>MichaelRaskin:</b></font> I compare with what dirty hacks usually provide (rotated text logs)<br/>
+<font color="#A82F2F"><font size="2">(05:35:24 PM)</font> <b>MichaelRaskin:</b></font> Maybe I should check with full-disk encryption plus LVM<br/>
+<font color="#A82F2F"><font size="2">(05:36:03 PM)</font> <b>MichaelRaskin:</b></font> I need to find a computer where I can test a situation of journalctl reading logs, usually after a few minutes I gave up<br/>
+<font color="#A82F2F"><font size="2">(05:36:06 PM)</font> <b>kmicu:</b></font> I’m aware of that. I’m not denying that journald for versions IIRC gt v215 is slow, but “broken log access on HDDs is BS<br/>
+<font color="#A82F2F"><font size="2">(05:36:10 PM)</font> <b>MichaelRaskin:</b></font> Without it producing any output<br/>
+<font color="#A82F2F"><font size="2">(05:36:29 PM)</font> <b>MichaelRaskin:</b></font> 5 minutes for a fresh service failure _is_ «broken»<br/>
+<font color="#A82F2F"><font size="2">(05:36:33 PM)</font> <b>kmicu:</b></font> With the same logic I can say that all software is broken.<br/>
+<font color="#A82F2F"><font size="2">(05:37:03 PM)</font> <b>kmicu:</b></font> nix search with 500MiB RAM usage is broken.<br/>
+<font color="#A82F2F"><font size="2">(05:37:15 PM)</font> <b>MichaelRaskin:</b></font> I think I should just engineer a situation where I can afford measuring journalctl response time an make it an hour with innocent-lookin tricks<br/>
+<font color="#A82F2F"><font size="2">(05:37:23 PM)</font> <b>MichaelRaskin:</b></font> It wasn&apos;t fast before 215, either<br/>
+<font color="#A82F2F"><font size="2">(05:37:36 PM)</font> <b>kmicu:</b></font> It was fast in previous versions.<br/>
+<font color="#A82F2F"><font size="2">(05:37:51 PM)</font> <b>kmicu:</b></font> Response is almost instant.<br/>
+<font color="#A82F2F"><font size="2">(05:37:57 PM)</font> <b>kmicu:</b></font> /is/was<br/>
+<font color="#A82F2F"><font size="2">(05:38:02 PM)</font> <b>MichaelRaskin:</b></font> I don&apos;t remember any time when NixOS used SystemD and log access was reliably faster than 10s<br/>
+<font color="#A82F2F"><font size="2">(05:38:11 PM)</font> <b>kmicu:</b></font> I’m not talking about NixOS.<br/>
+<font color="#A82F2F"><font size="2">(05:38:16 PM)</font> <b>MichaelRaskin:</b></font> Maybe it was reliably &lt;50s, though<br/>
+<font color="#A82F2F"><font size="2">(05:38:29 PM)</font> <b>MichaelRaskin:</b></font> NixOS uses SystemD for a long time<br/>
+<font color="#A82F2F"><font size="2">(05:38:51 PM)</font> <b>kmicu:</b></font> I was on Arch with v213|v214<br/>
+<font color="#A82F2F"><font size="2">(05:39:05 PM)</font> <b>MichaelRaskin:</b></font> Maybe Arch knew some magic tricks<br/>
+<font color="#A82F2F"><font size="2">(05:39:13 PM)</font> <b>kmicu:</b></font> It is possible.<br/>
+<font color="#A82F2F"><font size="2">(05:40:16 PM)</font> <b>kmicu:</b></font> I like when you complain about systemd, but with objective statements and reproducible measurements.<br/>
+<font color="#A82F2F"><font size="2">(05:41:10 PM)</font> <b>MichaelRaskin:</b></font> I have locally-reproducible measurements of huge log-reading delays<br/>
+<font color="#A82F2F"><font size="2">(05:41:18 PM)</font> <b>MichaelRaskin:</b></font> Maybe they are all with 215+<br/>
+<font color="#A82F2F"><font size="2">(05:41:53 PM)</font> <b>kmicu:</b></font> Or links to upstream with discussion in PRs.<br/>
+<font color="#A82F2F"><font size="2">(05:42:03 PM)</font> <b>MichaelRaskin:</b></font> It was always at least tw decimal orders of magnitude slower than tailing a huge text file for me<br/>
+<font color="#A82F2F"><font size="2">(05:42:31 PM)</font> <b>kmicu:</b></font> I do not have fancy quires with text file.<br/>
+<font color="#A82F2F"><font size="2">(05:42:32 PM)</font> <b>MichaelRaskin:</b></font> Were it you who asked me for links and got one for every my rant?<br/>
+<font color="#A82F2F"><font size="2">(05:42:53 PM)</font> <b>kmicu:</b></font> No.<br/>
+<font color="#A82F2F"><font size="2">(05:42:57 PM)</font> <b>MichaelRaskin:</b></font> Ah.<br/>
+<font color="#A82F2F"><font size="2">(05:43:17 PM)</font> <b>kmicu:</b></font> If you have some log file then I’m happy to check.<br/>
+<font color="#A82F2F"><font size="2">(05:43:24 PM)</font> <b>MichaelRaskin:</b></font> It was on ML<br/>
+<font color="#A82F2F"><font size="2">(05:43:37 PM)</font> <b>kmicu:</b></font> Our or systemd’s?<br/>
+<font color="#A82F2F"><font size="2">(05:43:44 PM)</font> <b>MichaelRaskin:</b></font> I can give you a link that I actually care about and ask if there is any sane workaround<br/>
+<font color="#A82F2F"><font size="2">(05:43:52 PM)</font> <b>MichaelRaskin:</b></font> Our<br/>
+<font color="#A82F2F"><font size="2">(05:43:54 PM)</font> <b>MichaelRaskin:</b></font> And today<br/>
+<font color="#A82F2F"><font size="2">(05:44:12 PM)</font> <b>shlevy:</b></font> kmicu: FWIW I&apos;ve seen extraordinarily slow journal accesses as well<br/>
+<font color="#A82F2F"><font size="2">(05:44:12 PM)</font> <b>kmicu:</b></font> I will check. Thanks.<br/>
+<font color="#A82F2F"><font size="2">(05:44:18 PM)</font> <b>shlevy:</b></font> I think it was worse on btrfs<br/>
+<font color="#A82F2F"><font size="2">(05:44:18 PM)</font> <b>straycat:</b></font> You can usually speedup journalctl by defragging the logfiles<br/>
+<font color="#A82F2F"><font size="2">(05:44:27 PM)</font> <b>straycat:</b></font> (when you&apos;re using btrfs that is)<br/>
+<font color="#A82F2F"><font size="2">(05:44:28 PM)</font> <b>kmicu:</b></font> shlevy: yes it is slow now, very slow.<br/>
+<font color="#A82F2F"><font size="2">(05:44:52 PM)</font> <b>MichaelRaskin:</b></font> https://bugs.freedesktop.org/show_bug.cgi?id=69934#c7<br/>
+<font color="#A82F2F"><font size="2">(05:44:57 PM)</font> <b>MichaelRaskin:</b></font> http://lists.freedesktop.org/archives/systemd-devel/2012-February/004614.html<br/>
+<font color="#A82F2F"><font size="2">(05:45:04 PM)</font> <b>MichaelRaskin:</b></font> https://github.com/NixOS/nixpkgs/issues/5193 + https://github.com/NixOS/nixpkgs/pull/5202<br/>
+<font color="#A82F2F"><font size="2">(05:45:09 PM)</font> <b>MichaelRaskin:</b></font> The rest is fluff<br/>
+<font color="#A82F2F"><font size="2">(05:45:49 PM)</font> <b>MichaelRaskin:</b></font> The last one is hopefully a bug to be fixed upstream soon<br/>
+<font color="#A82F2F"><font size="2">(05:46:09 PM)</font> <b>MichaelRaskin:</b></font> The first two are dealbreakers that at least someone upstream has described as «by design»<br/>
+<font color="#A82F2F"><font size="2">(05:46:40 PM)</font> <b>the_scourge:</b></font> anyone want to give my PR a spin? it works fine for me but travis is saying something stupid about fetchgit not working with tags<br/>
+<font color="#A82F2F"><font size="2">(05:46:41 PM)</font> <b>kmicu:</b></font> It would be better to have some “report” with link to such comments.<br/>
+<font color="#A82F2F"><font size="2">(05:47:27 PM)</font> <b>shlevy:</b></font> michas: BTW why do you insist on spelling it SystemD? Surely you know the upstream spelling is systemd<br/>
+<font color="#A82F2F"><font size="2">(05:47:31 PM)</font> <b>kmicu:</b></font> I will create a org file with that. MichaelRaskin if you find out something new then ping me.<br/>
+<font color="#A82F2F"><font size="2">(05:47:33 PM)</font> <b>shlevy:</b></font> oops, MichaelRaskin ^ not michas<br/>
+<font color="#A82F2F"><font size="2">(05:48:00 PM)</font> <b>MichaelRaskin:</b></font> shlevy: I try to separate words in some way<br/>
+<font color="#A82F2F"><font size="2">(05:48:22 PM)</font> <b>MichaelRaskin:</b></font> And it is not a unix-style daemon<br/>
+<font color="#062585"><font size="2">(05:48:23 PM)</font> <b>***kmicu</b></font> assumes that it is a sign of opposition to systemd.<br/>
+<font color="#A82F2F"><font size="2">(05:48:42 PM)</font> <b>shlevy:</b></font> MichaelRaskin: do you also say SShD and InetD? :D<br/>
+<font color="#A82F2F"><font size="2">(05:48:45 PM)</font> <b>michaelpj:</b></font> I&apos;m having a bit of trouble getting `nix-shell` to work - can anyone give me a hint? The expression builds with `nix-build`, however `nix-shell` doesn&apos;t seem to add any of the dependencies<br/>
+<font color="#A82F2F"><font size="2">(05:49:03 PM)</font> <b>michaelpj:</b></font> my default.nix looks like this: http://pastebin.com/dq5QrDFf<br/>
+<font color="#A82F2F"><font size="2">(05:49:11 PM)</font> <b>kmicu:</b></font> Please call me kmicu — now I don’t like you. I will call you KmicU.<br/>
+<font color="#A82F2F"><font size="2">(05:49:14 PM)</font> <b>MichaelRaskin:</b></font> sshd is a traditional single-purpose unix daemon<br/>
+<font color="#A82F2F"><font size="2">(05:49:25 PM)</font> <b>shlevy:</b></font> MichaelRaskin: What does that have to do with its name?<br/>
+<font color="#A82F2F"><font size="2">(05:49:39 PM)</font> <b>MichaelRaskin:</b></font> It is a narrowly defined override<br/>
+<font color="#A82F2F"><font size="2">(05:49:44 PM)</font> <b>shlevy:</b></font> I dislike systemd too, but why should I then call it SystemD?<br/>
+<font color="#A82F2F"><font size="2">(05:49:48 PM)</font> <b>Havvy:</b></font> My name is Demikas. Okay Mister Democracy. *glassadjust*<br/>
+<font color="#A82F2F"><font size="2">(05:50:19 PM)</font> <b>MichaelRaskin:</b></font> Well, they also tend to call components *D<br/>
+<font color="#A82F2F"><font size="2">(05:50:49 PM)</font> <b>shlevy:</b></font> there are dozens to hundres of *d components<br/>
+<font color="#A82F2F"><font size="2">(05:50:50 PM)</font> <b>MichaelRaskin:</b></font> I want to have some way to distinguish sshd and SshD<br/>
+<font color="#A82F2F"><font size="2">(05:50:57 PM)</font> <b>shlevy:</b></font> huh?<br/>
+<font color="#A82F2F"><font size="2">(05:51:05 PM)</font> <b>MichaelRaskin:</b></font> Wait a couple of releases<br/>
+<font color="#A82F2F"><font size="2">(05:51:18 PM)</font> <b>shlevy:</b></font> if systemd incorporates an ssh daemon<br/>
+<font color="#A82F2F"><font size="2">(05:51:18 PM)</font> <b>MichaelRaskin:</b></font> They will say sshd breaks their session management logic<br/>
+<font color="#A82F2F"><font size="2">(05:51:25 PM)</font> <b>shlevy:</b></font> it will be called systemd-sshd or something<br/>
+<font color="#A82F2F"><font size="2">(05:52:27 PM)</font> <b>shlevy:</b></font> To be completely honest, coming from someone who agrees with many of your concerns, the insistance on SystemD undermines your position. It comes off as petty and silly<br/>
+<font color="#A82F2F"><font size="2">(05:53:27 PM)</font> <b>shlevy:</b></font> It is called systemd. And despite your explanations here I don&apos;t understand what point the alternae capitalization makes other than &quot;I don&apos;t like them so I&apos;ll choose a different name&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:54:16 PM)</font> <b>shlevy:</b></font> (as a contrast, I also find stuff like&quot;M$FT&quot; petty but at least I know what is trying to be communicated)<br/>
+<font color="#A82F2F"><font size="2">(05:55:22 PM)</font> <b>MichaelRaskin:</b></font> Well, there are WikiWords and then there are narrow overrides<br/>
+<font color="#A82F2F"><font size="2">(05:55:38 PM)</font> <b>shlevy:</b></font> I don&apos;t understand what you mean by &quot;narrow overrides&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:55:41 PM)</font> <b>MichaelRaskin:</b></font> Hm, boycottsystemd.org disappeared<br/>
+<font size="2">(05:55:46 PM)</font><b> the_scourge left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:56:20 PM)</font> <b>kmicu:</b></font> You can read another FUD http://www.boycottlinux.org/ :)<br/>
+<font size="2">(05:56:37 PM)</font><b> the_scourge [<em>~scourge@host-92-20-235-5.as13285.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:56:39 PM)</font> <b>MichaelRaskin:</b></font> Well, WikiWords are camel-cased by default, unless they are in a narrowly-defined override<br/>
+<font color="#A82F2F"><font size="2">(05:56:53 PM)</font> <b>shlevy:</b></font> I don&apos;t understand what that means at all<br/>
+<font color="#A82F2F"><font size="2">(05:57:05 PM)</font> <b>shlevy:</b></font> what is a WikiWord? What is a narrowly-defined override?<br/>
+<font color="#A82F2F"><font size="2">(05:57:11 PM)</font> <b>MichaelRaskin:</b></font> I actually tried to ask them to include a technical complaint section<br/>
+<font color="#A82F2F"><font size="2">(05:57:23 PM)</font> <b>MichaelRaskin:</b></font> With the links I have posted here, for example<br/>
+<font color="#A82F2F"><font size="2">(05:58:02 PM)</font> <b>dikim33:</b></font> Hi guys, I am very new to nix. I am sorry for the lazy and careless question but what does ~/.nixpkgs/ do? What is it for?<br/>
+<font color="#A82F2F"><font size="2">(05:58:03 PM)</font> <b>MichaelRaskin:</b></font> shlevy: WikiWord is a smashing of multiple words together to make an indentifier<br/>
+<font color="#A82F2F"><font size="2">(05:58:59 PM)</font> <b>shlevy:</b></font> You mean a compound word?<br/>
+<font color="#A82F2F"><font size="2">(05:59:28 PM)</font> <b>shlevy:</b></font> systemd is a proper noun, not a compound word, but even if it were, since when is there a rule that compound words are CamelCased?<br/>
+<font color="#A82F2F"><font size="2">(05:59:29 PM)</font> <b>MichaelRaskin:</b></font> Words become compound words when they get recognized by generic dictionaries<br/>
+<font color="#A82F2F"><font size="2">(05:59:41 PM)</font> <b>MichaelRaskin:</b></font> Since c2.com Wiki<br/>
+<font color="#A82F2F"><font size="2">(06:00:25 PM)</font> <b>shlevy:</b></font> OK. I stand by my previous statement, if you are trying to communicate something useful to anyone else by that spelling you are failing<br/>
+<font color="#A82F2F"><font size="2">(06:01:42 PM)</font> <b>MichaelRaskin:</b></font> shlevy: actually no<br/>
+<font color="#A82F2F"><font size="2">(06:01:56 PM)</font> <b>MichaelRaskin:</b></font> MichaelRaskin:.*SystemD is a good ignore expression<br/>
+<font color="#A82F2F"><font size="2">(06:02:09 PM)</font> <b>shlevy:</b></font> Heh<br/>
+<font color="#A82F2F"><font size="2">(06:02:48 PM)</font> <b>MichaelRaskin:</b></font> With lowercase spelling, I am likely copying some file path, so it is going to contain _some_ content<br/>
+<font color="#A82F2F"><font size="2">(06:03:36 PM)</font> <b>MichaelRaskin:</b></font> With CamelCase, I explain the problems from these RESOLVED INVALID bugs<br/>
+<font color="#A82F2F"><font size="2">(06:04:09 PM)</font> <b>copumpkin:</b></font> ShLevy: get it?<br/>
+<font color="#062585"><font size="2">(06:04:15 PM)</font> <b>***copumpkin</b></font> runs<br/>
+<font color="#A82F2F"><font size="2">(06:04:17 PM)</font> <b>copumpkin:</b></font> :P<br/>
+<font color="#A82F2F"><font size="2">(06:04:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] copumpkin pushed 1 new commit to master: http://git.io/zi7HCA<br/>
+<font color="#A82F2F"><font size="2">(06:04:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8df8943 Daniel Peebles: I think this should fix the evaluation errors in hydra<br/>
+<font color="#A82F2F"><font size="2">(06:09:48 PM)</font> <b>MichaelRaskin:</b></font> shlevy: defnixos is currently not generating any configs for deployed services?<br/>
+<font color="#A82F2F"><font size="2">(06:11:19 PM)</font> <b>shlevy:</b></font> MichaelRaskin: Nope, we&apos;ve found in most cases that we just want to specify the config file directly<br/>
+<font color="#A82F2F"><font size="2">(06:12:29 PM)</font> <b>MichaelRaskin:</b></font> I currently try to find out how to manage my init-less system until SAL is either accepted or rejected<br/>
+<font color="#A82F2F"><font size="2">(06:12:51 PM)</font> <b>MichaelRaskin:</b></font> For, say, X.org I do need to generate config…<br/>
+<font color="#A82F2F"><font size="2">(06:13:00 PM)</font> <b>MichaelRaskin:</b></font> So I see what to adopt, if anything<br/>
+<font color="#A82F2F"><font size="2">(06:13:57 PM)</font> <b>MichaelRaskin:</b></font> Do you think that compile-c-file is a bad idea for upstream NixPkgs?<br/>
+<font color="#A82F2F"><font size="2">(06:15:55 PM)</font> <b>copumpkin:</b></font> MichaelRaskin: I think he had to run off<br/>
+<font size="2">(06:16:28 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font size="2">(06:19:34 PM)</font><b> vcunat [<em>~admin@nat-34.starnet.cz</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:22:19 PM)</font> <b>copumpkin:</b></font> vcunat: I don&apos;t know my way around hydra very well, but shlevy had to run and asked me to fix an evaluation error in master (due to the gcc-&gt;cc change). Not sure how to tell if it worked<br/>
+<font color="#A82F2F"><font size="2">(06:22:36 PM)</font> <b>copumpkin:</b></font> I pushed this: https://github.com/NixOS/nixpkgs/commit/8df8943b92661f703399db514c0551a321ff54b6<br/>
+<font size="2">(06:25:28 PM)</font><b> vcunat left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font size="2">(06:38:03 PM)</font><b> vcunat [<em>~admin@nat-34.starnet.cz</em>] entered the room.</b><br/>

@@ -1,0 +1,129 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Tue 03 Feb 2015 07:09:48 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Tue 03 Feb 2015 07:09:48 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(07:09:48 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(07:09:48 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(07:10:28 AM)</font> <b>benley:</b></font> I think my brain is too fried to be of much use anymore tonight<br/>
+<font color="#A82F2F"><font size="2">(07:11:17 AM)</font> <b>NixThor:</b></font> benley: yes<br/>
+<font color="#A82F2F"><font size="2">(07:11:20 AM)</font> <b>NixThor:</b></font> that&apos;s what happens<br/>
+<font color="#A82F2F"><font size="2">(07:11:31 AM)</font> <b>NixThor:</b></font> frame builds fine without it, but x11 support is necessary<br/>
+<font color="#A82F2F"><font size="2">(07:13:43 AM)</font> <b>NixThor:</b></font> benley: perhaps I should add inherit xorg; to callPackages?<br/>
+<font color="#A82F2F"><font size="2">(07:13:54 AM)</font> <b>NixThor:</b></font> or would that be overkill ^^;<br/>
+<font color="#A82F2F"><font size="2">(07:14:33 AM)</font> <b>benley:</b></font> oh I think those inherit lines in your all-packages.nix are superfluous actually<br/>
+<font color="#A82F2F"><font size="2">(07:16:13 AM)</font> <b>NixThor:</b></font> Ah<br/>
+<font color="#A82F2F"><font size="2">(07:16:15 AM)</font> <b>NixThor:</b></font> Thought so...<br/>
+<font color="#A82F2F"><font size="2">(07:16:21 AM)</font> <b>NixThor:</b></font> Captain Misinformed, AWAY...!<br/>
+<font color="#A82F2F"><font size="2">(07:22:29 AM)</font> <b>NixThor:</b></font> benley:  $PKG_CONFIG --exists --print-errors &quot;x11 xext xorg-server xi &gt;= 1.5.99.1 inputproto &gt;= 2.1.99.6&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:24:12 AM)</font> <b>NixThor:</b></font> What the heck is xi?<br/>
+<font color="#A82F2F"><font size="2">(07:24:56 AM)</font> <b>benley:</b></font> libxi? I dunno, some x thing<br/>
+<font color="#A82F2F"><font size="2">(07:24:57 AM)</font> <b>benley:</b></font> :P<br/>
+<font color="#A82F2F"><font size="2">(07:25:48 AM)</font> <b>NixThor:</b></font> Yeah, nothing in xlibs that denotes it...<br/>
+<font color="#A82F2F"><font size="2">(07:26:57 AM)</font> <b>benley:</b></font> &quot;libx11 input extension library&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:30:17 AM)</font> <b>NixThor:</b></font> So libx11 isn&apos;t properly initiated?<br/>
+<font color="#A82F2F"><font size="2">(07:31:00 AM)</font> <b>benley:</b></font> ¯\(°_o)/¯<br/>
+<font color="#A82F2F"><font size="2">(07:33:33 AM)</font> <b>NixThor:</b></font> maybe I can set the X11_LIBS so that configure ditches pkg-config<br/>
+<font color="#A82F2F"><font size="2">(07:42:52 AM)</font> <b>NixThor:</b></font> benley: in any case we&apos;re off to a good start ^^ thanks for the help, mate<br/>
+<font color="#A82F2F"><font size="2">(07:42:56 AM)</font> <b>NixThor:</b></font> Time to put this on the side for a moment...<br/>
+<font color="#A82F2F"><font size="2">(07:48:53 AM)</font> <b>NixThor:</b></font> benley: lol - know how to make grep ignore capitalized letters?<br/>
+<font color="#A82F2F"><font size="2">(07:49:00 AM)</font> <b>NixThor:</b></font> benley: because libXi exists... and now it builds xD<br/>
+<font color="#A82F2F"><font size="2">(07:49:08 AM)</font> <b>MP2E:</b></font> grep -i<br/>
+<font color="#A82F2F"><font size="2">(07:57:55 AM)</font> <b>NixThor:</b></font> Crud this is confusing... why isn&apos;t there a callPackages for libXi in all-packages.nix?<br/>
+<font color="#A82F2F"><font size="2">(07:58:11 AM)</font> <b>NixThor:</b></font> It&apos;s depended upon left and right, but I can&apos;t for the life of me find where it is built...<br/>
+<font color="#A82F2F"><font size="2">(08:01:08 AM)</font> <b>Ralith:</b></font> NixThor: grep -Rni &apos;libxi =&apos;<br/>
+<font color="#A82F2F"><font size="2">(08:04:00 AM)</font> <b>NixThor:</b></font> How do I install packages on my system (or on my user profile) using my fork of nixpkgs...<br/>
+<font color="#A82F2F"><font size="2">(08:04:33 AM)</font> <b>NixThor:</b></font> I&apos;ve tried using NIX_PATH=${NIX_PATH}:/path/to/folder nix-env -i &lt;package&gt;<br/>
+<font size="2">(08:11:21 AM)</font><b> nckx|away is now known as nckx</b><br/>
+<font color="#A82F2F"><font size="2">(08:13:35 AM)</font> <b>NixThor:</b></font> benley: so far frame is the only package that needs xorgserver to find xinput... which is weird<br/>
+<font size="2">(08:18:38 AM)</font><b> roconnor left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(08:24:47 AM)</font> <b>NixThor:</b></font> benley: BUT they all work now! :D or at least so I think...<br/>
+<font color="#A82F2F"><font size="2">(08:27:12 AM)</font> <b>ronny:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(08:27:32 AM)</font> <b>NixThor:</b></font> Hey, ronny :D Welcome back<br/>
+<font color="#A82F2F"><font size="2">(08:27:43 AM)</font> <b>ronny:</b></font> is there any way to express tim-dependent buillds (like for the atest version of a package)<br/>
+<font color="#A82F2F"><font size="2">(08:29:29 AM)</font> <b>benley:</b></font> NixThor: awesome<br/>
+<font color="#A82F2F"><font size="2">(08:29:54 AM)</font> <b>NixThor:</b></font> benley: the apps in bin work :D they recognise xinputs and everything<br/>
+<font color="#A82F2F"><font size="2">(08:30:07 AM)</font> <b>NixThor:</b></font> benley: this bodes well since if I get touchegg to work everything should run smoothly:D<br/>
+<font color="#A82F2F"><font size="2">(08:30:48 AM)</font> <b>benley:</b></font> what ended up being the trick to get geis building?<br/>
+<font color="#A82F2F"><font size="2">(08:31:02 AM)</font> <b>benley:</b></font> heck I&apos;m interested in the whole thing if you post it somewhere<br/>
+<font color="#A82F2F"><font size="2">(08:32:36 AM)</font> <b>ronny:</b></font> NixThor: bascially i&apos;d like to make rebuilding on fetching a pakcage dependent on a symlink on a webserver<br/>
+<font color="#A82F2F"><font size="2">(08:34:20 AM)</font> <b>NixThor:</b></font> benley: I swear it was all me, fumbling with how to do things<br/>
+<font color="#A82F2F"><font size="2">(08:34:32 AM)</font> <b>NixThor:</b></font> benley: with the exception of libXi everything was peechy keen<br/>
+<font color="#A82F2F"><font size="2">(08:35:15 AM)</font> <b>NixThor:</b></font> ronny: Well perhaps using jobs? https://nixos.org/wiki/NixOS:extend_NixOS<br/>
+<font color="#A82F2F"><font size="2">(08:35:33 AM)</font> <b>NixThor:</b></font> ronny: I wouldn&apos;t know the best way though - sorry :/<br/>
+<font color="#A82F2F"><font size="2">(08:36:29 AM)</font> <b>ronny:</b></font> NixThor: not what i meant, what i have in mind should work with just nix<br/>
+<font color="#A82F2F"><font size="2">(08:41:40 AM)</font> <b>ronny:</b></font> hmm, are htere any efforts to mov version/hash declarations out of the package specs?<br/>
+<font color="#A82F2F"><font size="2">(08:47:58 AM)</font> <b>NixThor:</b></font> benley: https://gist.github.com/thorhop/05597a5b21db7af8d677<br/>
+<font color="#A82F2F"><font size="2">(08:48:02 AM)</font> <b>NixThor:</b></font> There you go :)<br/>
+<font color="#A82F2F"><font size="2">(08:48:52 AM)</font> <b>NixThor:</b></font> benley: complete with touchegg as well... though I haven&apos;t gotten itto build properly, as it assumes it will be installed in /usr/bin and /usr/share, which is stipulated through touchegg.pro which is run by qmake<br/>
+<font color="#A82F2F"><font size="2">(08:49:18 AM)</font> <b>NixThor:</b></font> I need to learn how to use sed first so I can change those two dang lines...<br/>
+<font color="#A82F2F"><font size="2">(08:49:54 AM)</font> <b>NixThor:</b></font> or, alternatively, find a way to change target.path and config.path using qmake..<br/>
+<font color="#A82F2F"><font size="2">(08:56:17 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] benley opened pull request #6115: Update Packer to 0.7.5 (master...packer-0.7.5) http://git.io/bLyg<br/>
+<font color="#A82F2F"><font size="2">(09:14:39 AM)</font> <b>NixThor:</b></font> benley: woa... a job well done ^^;<br/>
+<font color="#062585"><font size="2">(09:23:23 AM)</font> <b>***benley</b></font> hax<br/>
+<font color="#A82F2F"><font size="2">(09:23:41 AM)</font> <b>benley:</b></font> NixThor: glad you got all that stuff working!<br/>
+<font color="#A82F2F"><font size="2">(09:25:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] benley closed pull request #5569: Add rubyLibs.synapse and its dependencies (master...synapse) http://git.io/j0ORGA<br/>
+<font color="#A82F2F"><font size="2">(09:37:21 AM)</font> <b>dejanr:</b></font> hey everyone, can anyone help me to figure out clipboard madness on linux, i am trying to transition to nixos, stumpwm, conkeror, tmux, and vim development envirionment<br/>
+<font color="#A82F2F"><font size="2">(09:38:03 AM)</font> <b>MoreTea:</b></font> &apos;morning all.<br/>
+<font color="#A82F2F"><font size="2">(09:38:26 AM)</font> <b>MoreTea:</b></font> I&apos;ve got a question about getting the installation path of a package in a nix expression<br/>
+<font color="#A82F2F"><font size="2">(09:38:50 AM)</font> <b>MoreTea:</b></font> I&apos;m used to opening new tabs in the same working directory when using gnome-terminal<br/>
+<font color="#A82F2F"><font size="2">(09:39:18 AM)</font> <b>MoreTea:</b></font> For thus purpose, I&apos;m trying to do something like:<br/>
+<font color="#A82F2F"><font size="2">(09:39:19 AM)</font> <b>MoreTea:</b></font>   environment.interactiveShellInit = &quot;. ${pkgs.vte}/etc/profile.d/vte.sh&quot;;<br/>
+<font color="#A82F2F"><font size="2">(09:40:04 AM)</font> <b>dejanr:</b></font> MoreTea: can&apos;t you do that inside your dotfiles instead? bashrc zshrc or whatever you use<br/>
+<font color="#A82F2F"><font size="2">(09:41:32 AM)</font> <b>dejanr:</b></font> how do you guys sync clipboard among, tmux, vim, x11, terminator<br/>
+<font size="2">(09:41:48 AM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#A82F2F"><font size="2">(09:43:24 AM)</font> <b>MoreTea:</b></font> dejanr, how would  get the nix-store path of vte?<br/>
+<font color="#A82F2F"><font size="2">(09:45:26 AM)</font> <b>dejanr:</b></font> MoreTea: just use /run/current-system/etc/profile.d/vte.sh ?<br/>
+<font color="#A82F2F"><font size="2">(09:46:24 AM)</font> <b>MoreTea:</b></font> find /run/current-system | grep vte # =&gt; no results<br/>
+<font size="2">(09:47:17 AM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:48:32 AM)</font> <b>MoreTea:</b></font> got it<br/>
+<font color="#A82F2F"><font size="2">(09:48:47 AM)</font> <b>MoreTea:</b></font>   environment.interactiveShellInit = &quot;. ${pkgs.gnome3.vte}/etc/profile.d/vte.sh&quot;;<br/>
+<font color="#A82F2F"><font size="2">(09:48:59 AM)</font> <b>MoreTea:</b></font> apparently, this package is nested<br/>
+<font color="#A82F2F"><font size="2">(09:49:24 AM)</font> <b>dejanr:</b></font> MoreTea: how do you handle clipboad sharing? :)<br/>
+<font color="#A82F2F"><font size="2">(09:49:46 AM)</font> <b>MoreTea:</b></font> I generally don&apos;t :P<br/>
+<font color="#A82F2F"><font size="2">(09:50:10 AM)</font> <b>dejanr:</b></font> MoreTea: i am transitioning from osx/tmux/vim to nixos, so far so good, but clipboard is killing me :D<br/>
+<font color="#A82F2F"><font size="2">(09:53:03 AM)</font> <b>viric:</b></font> where is shlevy ? shlevy, were you at fosdem?<br/>
+<font size="2">(09:53:17 AM)</font><b> odi` is now known as odi</b><br/>
+<font color="#A82F2F"><font size="2">(09:53:41 AM)</font> <b>viric:</b></font> dejanr: there is a team of X.org working in fixing the clipboard since 30 years. They may be close to a solution.<br/>
+<font color="#A82F2F"><font size="2">(09:58:12 AM)</font> <b>dejanr:</b></font> viric: i see, thanks :D<br/>
+<font color="#A82F2F"><font size="2">(10:07:47 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/btvV<br/>
+<font color="#A82F2F"><font size="2">(10:07:48 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 740c6ae Vladimír Čunát: iwlwifi, iwlegacy: finally fix 404 URLs...<br/>
+<font color="#16569E"><font size="2">(10:10:34 AM)</font> <b>magnetophon:</b></font> dejanr: iiuc you should try Parcellite.<br/>
+<font size="2">(10:10:44 AM)</font><b> Lethalman [<em>~luca@89.118.249.114</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:15:32 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to release-14.12: http://git.io/btUt<br/>
+<font color="#A82F2F"><font size="2">(10:15:32 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 0021ffa Vladimír Čunát: fix 404 URLs (CC #6105)...<br/>
+<font color="#A82F2F"><font size="2">(10:24:50 AM)</font> <b>NixThor:</b></font> benley: holy crap, it works<br/>
+<font color="#A82F2F"><font size="2">(10:24:57 AM)</font> <b>NixThor:</b></font> benley: TOUCHSCREEN GESTURES...!<br/>
+<font color="#062585"><font size="2">(10:25:17 AM)</font> <b>***NixThor</b></font> scrolls the IRC log up and down while laughing hysterically<br/>
+<font color="#A82F2F"><font size="2">(10:25:28 AM)</font> <b>ikwildrpepper:</b></font> viric: i&apos;m sure shlevy was not at fosdem ;)<br/>
+<font color="#A82F2F"><font size="2">(10:25:46 AM)</font> <b>ts468:</b></font> Hi<br/>
+<font color="#A82F2F"><font size="2">(10:26:21 AM)</font> <b>ts468:</b></font> Could someone maybe merge #5994, please?<br/>
+<font color="#A82F2F"><font size="2">(10:26:21 AM)</font> <b>viric:</b></font> ikwildrpepper: ah ok :) who knows.<br/>
+<font color="#A82F2F"><font size="2">(10:26:42 AM)</font> <b>viric:</b></font> ikwildrpepper: I&apos;m about to get a pi2...<br/>
+<font color="#A82F2F"><font size="2">(10:26:50 AM)</font> <b>ts468:</b></font> and #5995 :)<br/>
+<font color="#A82F2F"><font size="2">(10:26:52 AM)</font> <b>ikwildrpepper:</b></font> viric: ghe, I ordered 2 as well<br/>
+<font color="#A82F2F"><font size="2">(10:27:07 AM)</font> <b>viric:</b></font> really? preparing the farm?<br/>
+<font color="#A82F2F"><font size="2">(10:27:25 AM)</font> <b>ts468:</b></font> and maybe also #5999<br/>
+<font color="#A82F2F"><font size="2">(10:27:34 AM)</font> <b>ikwildrpepper:</b></font> quadcore makes farm bit more feasible<br/>
+<font color="#A82F2F"><font size="2">(10:27:54 AM)</font> <b>viric:</b></font> well, quadcore with 1GB of RAM<br/>
+<font color="#A82F2F"><font size="2">(10:27:59 AM)</font> <b>ts468:</b></font> I&apos;m just trying to clean up my list of open PRs :)<br/>
+<font color="#A82F2F"><font size="2">(10:29:07 AM)</font> <b>ts468:</b></font> if you entrust me with commit access I can merge them myself as well<br/>
+<font color="#A82F2F"><font size="2">(10:29:48 AM)</font> <b>ts468:</b></font> another PR: #6046<br/>
+<font color="#A82F2F"><font size="2">(10:31:35 AM)</font> <b>ts468:</b></font> last one for now: #6003<br/>
+<font color="#A82F2F"><font size="2">(10:32:47 AM)</font> <b>NixThor:</b></font> Alright guys, touchscreen gestures are just around the corner... https://gist.github.com/thorhop/05597a5b21db7af8d677<br/>
+<font color="#A82F2F"><font size="2">(10:32:52 AM)</font> <b>ts468:</b></font> so to sum it up: #5994 #5995 #5999 #6046 #6003<br/>
+<font color="#A82F2F"><font size="2">(10:32:57 AM)</font> <b>ts468:</b></font> thanks :)<br/>
+<font color="#A82F2F"><font size="2">(10:33:01 AM)</font> <b>ikwildrpepper:</b></font> NixThor: cool<br/>
+<font color="#A82F2F"><font size="2">(10:33:07 AM)</font> <b>ikwildrpepper:</b></font> if only I had a touchscreen :)<br/>
+<font color="#A82F2F"><font size="2">(10:33:31 AM)</font> <b>NixThor:</b></font> Check out these nix files - they build and work. Now I wanna try and remove some cruft and make the other packages have optional switches for x11<br/>
+<font color="#A82F2F"><font size="2">(10:35:40 AM)</font> <b>NixThor:</b></font> ikwildrpepper: but I&apos;m still unsure of the paths... check out the all-packages.nix at the bottom<br/>
+<font color="#A82F2F"><font size="2">(10:36:16 AM)</font> <b>NixThor:</b></font> I&apos;ve put all the packages in pkgs/tools/inputmethods/ -- but one or two of those packages are libraries, though they do have some binaries in usr/bin<br/>
+<font color="#A82F2F"><font size="2">(10:44:04 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 4 new commits to master: http://git.io/btOI<br/>
+<font color="#A82F2F"><font size="2">(10:44:04 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 80b1306 Pascal Wittmann: instead: update from 2.2.0 to 2.2.1<br/>
+<font color="#A82F2F"><font size="2">(10:44:04 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 92f1590 Pascal Wittmann: help2man: update from 1.46.4 to 1.46.5<br/>
+<font color="#A82F2F"><font size="2">(10:44:04 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a1ce00d Pascal Wittmann: checkstyle: update from 6.2 to 6.3<br/>
+<font color="#A82F2F"><font size="2">(10:45:03 AM)</font> <b>NixThor:</b></font> in regards to fetchgit; what the heck am I supposed to get the sha256sum from?<br/>
+<font size="2">(10:46:10 AM)</font><b> turtil is now known as turtil-kun</b><br/>
+<font color="#A82F2F"><font size="2">(10:46:45 AM)</font> <b>ikwildrpepper:</b></font> NixThor: you can use nix-prefetch-git from pkgs/build-support/ftchgit<br/>
+<font color="#A82F2F"><font size="2">(10:46:47 AM)</font> <b>ikwildrpepper:</b></font> +e<br/>
+<font color="#A82F2F"><font size="2">(10:47:10 AM)</font> <b>ikwildrpepper:</b></font> NixThor: alternatively, if it is a github project, please use fetchGithub<br/>
+<font color="#A82F2F"><font size="2">(10:48:18 AM)</font> <b>NixThor:</b></font> Yeah it&apos;s a github project<br/>
+<font color="#A82F2F"><font size="2">(10:48:26 AM)</font> <b>NixThor:</b></font> Is there any docus on fetchGithub?<br/>
+<font size="2">(10:49:49 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

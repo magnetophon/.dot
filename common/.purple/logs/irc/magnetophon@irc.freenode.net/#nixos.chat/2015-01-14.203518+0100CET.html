@@ -1,0 +1,51 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Wed 14 Jan 2015 08:35:18 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Wed 14 Jan 2015 08:35:18 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:35:19 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(08:35:19 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(08:35:37 PM)</font> <b>cstrahan_:</b></font> nix will use zip.outPath to coerce zip to a string, to then be interpolated<br/>
+<font color="#A82F2F"><font size="2">(08:35:42 PM)</font> <b>musicmatze:</b></font> Hi, I want to package a bash script. This bash script uses ~/Dropbox (hard coded). Is there a way to provide a patch for the script which makes this configurable, so one can override the derivation to patch it to something else?<br/>
+<font color="#A82F2F"><font size="2">(08:36:04 PM)</font> <b>musicmatze:</b></font> something like &quot;install this, but use ~/Foo as directory and patch that into the script&quot;?<br/>
+<font color="#A82F2F"><font size="2">(08:36:09 PM)</font> <b>Sonarpulse:</b></font> so using outPath is the effect<br/>
+<font color="#A82F2F"><font size="2">(08:36:25 PM)</font> <b>cstrahan_:</b></font> that outPath has a &quot;context&quot; that states that, in order to use it somewhere else, the originating derivation must be built<br/>
+<font color="#A82F2F"><font size="2">(08:36:56 PM)</font> <b>Sonarpulse:</b></font> oh good<br/>
+<font color="#A82F2F"><font size="2">(08:37:45 PM)</font> <b>Sonarpulse:</b></font> this means that on the nix-exprs side, preventing compile time deps from being propigated transitively must be a bit of a hack<br/>
+<font color="#A82F2F"><font size="2">(08:38:31 PM)</font> <b>cstrahan_:</b></font> i don&apos;t see any hack involved.<br/>
+<font color="#A82F2F"><font size="2">(08:38:56 PM)</font> <b>Sonarpulse:</b></font> mkDerivation { x = ${mkDerivation {}} }<br/>
+<font color="#A82F2F"><font size="2">(08:39:09 PM)</font> <b>Sonarpulse:</b></font> or better<br/>
+<font color="#A82F2F"><font size="2">(08:39:41 PM)</font> <b>Sonarpulse:</b></font> mkDerivation { y = ${mkDerivation { x = ${mkDerivation {}} }} }<br/>
+<font color="#A82F2F"><font size="2">(08:40:03 PM)</font> <b>Sonarpulse:</b></font> is the inner most mkDerivation a compile time dep of the outermost?<br/>
+<font color="#A82F2F"><font size="2">(08:40:52 PM)</font> <b>cstrahan_:</b></font> in a way - that inner most drv will impact the hash of the middle, which will then impact the outermost - which is what you would expect.<br/>
+<font color="#A82F2F"><font size="2">(08:41:34 PM)</font> <b>cstrahan_:</b></font> if you instead did something liek<br/>
+<font color="#A82F2F"><font size="2">(08:42:02 PM)</font> <b>the_scourge:</b></font> Lethalman: thats a messy revert<br/>
+<font color="#A82F2F"><font size="2">(08:42:14 PM)</font> <b>Sonarpulse:</b></font> sure, but if i built the middle one, gc&apos;d, and built the outer one<br/>
+<font color="#A82F2F"><font size="2">(08:42:15 PM)</font> <b>cstrahan_:</b></font> mkDerivation { y = ${mkDerivation { name = some-other-drv.name; }} }<br/>
+<font color="#A82F2F"><font size="2">(08:42:53 PM)</font> <b>Sonarpulse:</b></font> some-other-drv is not a dep of anything<br/>
+<font color="#A82F2F"><font size="2">(08:42:54 PM)</font> <b>cstrahan_:</b></font> if some-other-drv was rebuilt for whatever reason, that wouldn&apos;t impact the middle or outer<br/>
+<font color="#A82F2F"><font size="2">(08:42:58 PM)</font> <b>cstrahan_:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(08:43:21 PM)</font> <b>Sonarpulse:</b></font> but in my example, the inner one will be gc&apos;d and not rebuilt<br/>
+<font color="#A82F2F"><font size="2">(08:43:31 PM)</font> <b>Sonarpulse:</b></font> if it is not a runtime dep of the middle one<br/>
+<font color="#A82F2F"><font size="2">(08:44:18 PM)</font> <b>cstrahan_:</b></font> it may not be a runtime dep, but it&apos;s still a build time dep, and nix will know to rebuild those inner two even if a previous GC removed them.<br/>
+<font color="#A82F2F"><font size="2">(08:44:24 PM)</font> <b>cstrahan_:</b></font> (or fetch substitutes)<br/>
+<font color="#A82F2F"><font size="2">(08:44:51 PM)</font> <b>Lethalman:</b></font> the_scourge, why? it probably must be done anyway<br/>
+<font color="#A82F2F"><font size="2">(08:45:05 PM)</font> <b>Sonarpulse:</b></font> but aren&apos;t the compile-time deps not propigated like that by default?<br/>
+<font color="#A82F2F"><font size="2">(08:45:19 PM)</font> <b>Lethalman:</b></font> and I never agreed for gcc -&gt; cc... it&apos;s *obvious* that some build systems may want to optimize some stuff based on the compiler being used<br/>
+<font color="#A82F2F"><font size="2">(08:45:52 PM)</font> <b>Sonarpulse:</b></font> vs mkDerivation { y = { x = mkDerivation {}; }; };<br/>
+<font color="#A82F2F"><font size="2">(08:46:09 PM)</font> <b>Sonarpulse:</b></font> the inner one is certainly a compile time dep of the outer one<br/>
+<font color="#A82F2F"><font size="2">(08:48:07 PM)</font> <b>Ralith:</b></font> how does nix distinguish between build-time and runtime deps?<br/>
+<font color="#A82F2F"><font size="2">(08:48:11 PM)</font> <b>cstrahan_:</b></font> it might help to see how nix sees these derivations at a lower level<br/>
+<font color="#A82F2F"><font size="2">(08:48:22 PM)</font> <b>cstrahan_:</b></font> here&apos;s the .drv for the hello package:<br/>
+<font color="#A82F2F"><font size="2">(08:48:26 PM)</font> <b>cstrahan_:</b></font> Derive([(&quot;out&quot;,&quot;/nix/store/zbcjhddwrjdsb67xdf8n4jh1ja50b6mf-hello-2.10&quot;,&quot;&quot;,&quot;&quot;)],[(&quot;/nix/store/61via9szmk8mdavwrksmpiynqkp79lwq-stdenv.drv&quot;,[&quot;out&quot;]),(&quot;/nix/store/ixai7qhi4j98r5pxl3q6l2pf387jsk7c-hello-2.10.tar.gz.drv&quot;,[&quot;out&quot;]),(&quot;/nix/store/lq35icysmzz96azvvgwikasmzam9sibz-bash-4.3-p30.drv&quot;,[&quot;out&quot;])],[&quot;/nix/store/9krlzvny65gdc8s7kpb6lkx8cd02c25b-default-builde<br/>
+<font color="#A82F2F"><font size="2">(08:48:26 PM)</font> <b>cstrahan_:</b></font> r.sh&quot;],&quot;x86_64-linux&quot;,&quot;/nix/store/cxrc12hkmvrjlq747cm08av6jl41nzi1-bash-4.3-p30/bin/bash&quot;,[&quot;-e&quot;,&quot;/nix/store/9krlzvny65gdc8s7kpb6lkx8cd02c25b-default-builder.sh&quot;],[(&quot;buildInputs&quot;,&quot;&quot;),(&quot;builder&quot;,&quot;/nix/store/cxrc12hkmvrjlq747cm08av6jl41nzi1-bash-4.3-p30/bin/bash&quot;),(&quot;doCheck&quot;,&quot;1&quot;),(&quot;name&quot;,&quot;hello-2.10&quot;),(&quot;nativeBuildInputs&quot;,&quot;&quot;),(&quot;out&quot;,&quot;/nix/store/zbcjhddwrjdsb67x<br/>
+<font color="#A82F2F"><font size="2">(08:48:26 PM)</font> <b>cstrahan_:</b></font> df8n4jh1ja50b6mf-hello-2.10&quot;),(&quot;propagatedBuildInputs&quot;,&quot;&quot;),(&quot;propagatedNativeBuildInputs&quot;,&quot;&quot;),(&quot;src&quot;,&quot;/nix/store/3x7dwzq014bblazs7kq20p9hyzz0qh8g-hello-2.10.tar.gz&quot;),(&quot;stdenv&quot;,&quot;/nix/store/frmyf8fdq5xhm035mr87wn6kj0c278g7-stdenv&quot;),(&quot;system&quot;,&quot;x86_64-linux&quot;)])<br/>
+<font color="#A82F2F"><font size="2">(08:48:39 PM)</font> <b>cstrahan_:</b></font> oops, thought that was going to prompt for a pastebin, oh will.<br/>
+<font color="#A82F2F"><font size="2">(08:48:39 PM)</font> <b>Lethalman:</b></font> you may read some of my nix pills about runtime and build deps<br/>
+<font color="#A82F2F"><font size="2">(08:49:27 PM)</font> <b>cstrahan_:</b></font> in your examples, there would be an `x` and `y` field placed in the derivation, with the full path to the respective build input<br/>
+<font color="#A82F2F"><font size="2">(08:49:34 PM)</font> <b>Lethalman:</b></font> Ralith, about runtime deps: http://lethalman.blogspot.it/2014/08/nix-pill-9-automatic-runtime.html<br/>
+<font color="#A82F2F"><font size="2">(08:49:40 PM)</font> <b>Ralith:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(08:49:52 PM)</font> <b>Sonarpulse:</b></font> oh cstrahan_ my appologies i think i am beginning to understand<br/>
+<font color="#A82F2F"><font size="2">(08:50:14 PM)</font> <b>Sonarpulse:</b></font> the key is since the effect is the generating of the hash, not the using of a derivation set<br/>
+<font color="#A82F2F"><font size="2">(08:50:26 PM)</font> <b>Sonarpulse:</b></font> while yes the hash depends on deps transitively<br/>
+<font color="#A82F2F"><font size="2">(08:50:37 PM)</font> <b>Sonarpulse:</b></font> the hash itself doesn&apos;t &quot;contain&quot; those other hashes<br/>
+<font color="#A82F2F"><font size="2">(08:50:39 PM)</font> <b>cstrahan_:</b></font> Sonarpulse: nix will see &quot;hay, he want&apos;s this &quot;/nix/store/cxrc12hkmvrjlq747cm08av6jl41nzi1-bash-4.3-p30/bin/bash&quot;, but I don&apos;t have that. what derivation provides that? let&apos;s build it.&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:51:08 PM)</font> <b>Sonarpulse:</b></font> and thus prevents the compile time deps from being propigated<br/>
+<font size="2">(08:52:07 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

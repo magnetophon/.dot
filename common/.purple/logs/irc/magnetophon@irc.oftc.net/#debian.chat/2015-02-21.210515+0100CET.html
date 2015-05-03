@@ -1,0 +1,61 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Sat 21 Feb 2015 09:05:15 PM CET on magnetophon@irc.oftc.net (irc)</title></head><body><h3>Conversation with #debian at Sat 21 Feb 2015 09:05:15 PM CET on magnetophon@irc.oftc.net (irc)</h3>
+<font size="2">(09:05:15 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next | chanlogs: /msg dpkg irclog | Broken suspend with 7.8? <a href="http://deb.li/5tYG">http://deb.li/5tYG</a></b><br/>
+<font size="2">(09:05:15 PM)</font><b> Topic for #debian set by Maulkin!~maulkin@maulkin.noc.oftc.net at 04:53:46 PM on 01/12/2015</b><br/>
+<font size="2">(09:13:36 PM)</font><b> fstd_ is now known as fstd</b><br/>
+<font size="2">(09:18:00 PM)</font><b> mode (+l 708) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:31:07 PM)</font> <b>slbtc:</b></font> Hey I need help when I try to update I get this error &quot;The following packages have unmet dependencies&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:32:15 PM)</font> <b>slbtc:</b></font> https://dpaste.de/hnSV<br/>
+<font color="#A82F2F"><font size="2">(09:33:39 PM)</font> <b>slbtc:</b></font> can someone help?<br/>
+<font color="#A82F2F"><font size="2">(09:36:34 PM)</font> <b>devil_:</b></font> slbtc: this is not from update. what is the command you use and are you on stable?<br/>
+<font color="#A82F2F"><font size="2">(09:37:01 PM)</font> <b>slbtc:</b></font> devil: yes<br/>
+<font color="#A82F2F"><font size="2">(09:37:16 PM)</font> <b>devil_:</b></font> and you used apt-get upgrade?<br/>
+<font color="#A82F2F"><font size="2">(09:37:17 PM)</font> <b>slbtc:</b></font> devil: I&apos;m using the update software manager<br/>
+<font color="#A82F2F"><font size="2">(09:37:33 PM)</font> <b>devil_:</b></font> hm, never seen that<br/>
+<font color="#A82F2F"><font size="2">(09:37:36 PM)</font> <b>slbtc:</b></font> devil: when I try apt-get upgrade nothing happens<br/>
+<font color="#A82F2F"><font size="2">(09:37:43 PM)</font> <b>devil_:</b></font> nothing?<br/>
+<font color="#A82F2F"><font size="2">(09:37:44 PM)</font> <b>slbtc:</b></font> devil: it says no updates available<br/>
+<font color="#062585"><font size="2">(09:38:04 PM)</font> <b>***chronoboy</b></font> snickers.<br/>
+<font color="#A82F2F"><font size="2">(09:38:12 PM)</font> <b>slbtc:</b></font> but when I try to do it from the software update it says I have updates<br/>
+<font color="#A82F2F"><font size="2">(09:38:22 PM)</font> <b>devil_:</b></font> can you pastebin the output of apt-cache policy<br/>
+<font color="#A82F2F"><font size="2">(09:38:30 PM)</font> <b>slbtc:</b></font> k<br/>
+<font color="#A82F2F"><font size="2">(09:40:01 PM)</font> <b>slbtc:</b></font> devil: https://dpaste.de/fPTi<br/>
+<font color="#A82F2F"><font size="2">(09:40:56 PM)</font> <b>slbtc:</b></font> am I missing anything?<br/>
+<font color="#A82F2F"><font size="2">(09:41:19 PM)</font> <b>devil_:</b></font> slbtc: no, you have to much<br/>
+<font color="#A82F2F"><font size="2">(09:41:39 PM)</font> <b>slbtc:</b></font> devil: what should I get rid of?<br/>
+<font color="#A82F2F"><font size="2">(09:41:45 PM)</font> <b>devil_:</b></font> slbtc: you have sid and stable with same preferences of 500<br/>
+<font color="#A82F2F"><font size="2">(09:41:57 PM)</font> <b>devil_:</b></font> that is not healthy<br/>
+<font color="#A82F2F"><font size="2">(09:42:22 PM)</font> <b>devil_:</b></font> either comment sid or set it to a different priority<br/>
+<font color="#A82F2F"><font size="2">(09:42:50 PM)</font> <b>slbtc:</b></font> like what?<br/>
+<font color="#A82F2F"><font size="2">(09:43:40 PM)</font> <b>slbtc:</b></font> I&apos;m in sources.list right now what priority should I set it to?<br/>
+<font color="#A82F2F"><font size="2">(09:44:32 PM)</font> <b>devil_:</b></font> you do this in /etc/apt/preferences, not in the sources.list. but mixing stable with sid is not healthy within itself<br/>
+<font color="#A82F2F"><font size="2">(09:44:55 PM)</font> <b>slbtc:</b></font> devil: ah ok well I can get rid of it then <br/>
+<font color="#A82F2F"><font size="2">(09:44:58 PM)</font> <b>devil_:</b></font> or /preferences.d<br/>
+<font color="#A82F2F"><font size="2">(09:45:18 PM)</font> <b>devil_:</b></font> slbtc: you should, until you know what you are doing<br/>
+<font color="#A82F2F"><font size="2">(09:45:33 PM)</font> <b>devil_:</b></font> just put a # in front of it in sources<br/>
+<font color="#A82F2F"><font size="2">(09:45:40 PM)</font> <b>jpleau:</b></font> hello, I am trying to setup raid1+lvm as follow (swap is the volume group, confusing so I mention it): http://i.imgur.com/rCP5tO2.png - But I get this error: http://i.imgur.com/9aEEbDp.png -- Isn&apos;t itwhat I have to do though to create a raid1? Create the exact same partitions on both drives?<br/>
+<font color="#A82F2F"><font size="2">(09:45:53 PM)</font> <b>devil_:</b></font> then apt-get update to make the system see the change<br/>
+<font color="#A82F2F"><font size="2">(09:46:50 PM)</font> <b>slbtc:</b></font> yep already did that<br/>
+<font color="#A82F2F"><font size="2">(09:47:00 PM)</font> <b>slbtc:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(09:51:08 PM)</font> <b>devil_:</b></font> slbtc: what is tox.im?<br/>
+<font color="#A82F2F"><font size="2">(09:51:30 PM)</font> <b>slbtc:</b></font> devil: an alternative to skype<br/>
+<font color="#A82F2F"><font size="2">(09:56:26 PM)</font> <b>facasto:</b></font> ciaooo<br/>
+<font color="#A82F2F"><font size="2">(09:56:31 PM)</font> <b>facasto:</b></font> !list<br/>
+<font color="#A82F2F"><font size="2">(09:56:31 PM)</font> <b>dpkg:</b></font> facasto: Debian è un sistema operativo composto da software libero (un concetto distinto da quello di gratis): vedi http://www.debian.org/intro/free.it.html per saperne di più.<br/>
+<font size="2">(09:57:27 PM)</font><b> facasto left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(10:11:10 PM)</font> <b>fafaonlinux:</b></font> bonsoir ? tous!!<br/>
+<font size="2">(10:12:27 PM)</font><b> fafaonlinux left the room (quit: Quit: Quitte).</b><br/>
+<font color="#A82F2F"><font size="2">(10:13:37 PM)</font> <b>Kasaan:</b></font> hello. Is there&apos;s a way (a web page or mailing list archive) to get the reasons why a package stay for months in NEW (a part from asking FTP master) ?<br/>
+<font color="#A82F2F"><font size="2">(10:14:22 PM)</font> <b>mtn:</b></font> Kasaan: not sure if this is what you are looking for. https://packages.qa.debian.org/common/index.html<br/>
+<font color="#A82F2F"><font size="2">(10:15:40 PM)</font> <b>Kasaan:</b></font> mtn, sorry, no because the PTS page is only created after the package has left NEW.<br/>
+<font size="2">(10:18:01 PM)</font><b> mode (+l 702) by debhelper</b><br/>
+<font size="2">(10:37:42 PM)</font><b> cornerman is now known as Guest189</b><br/>
+<font size="2">(10:58:00 PM)</font><b> mode (+l 694) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:01:17 PM)</font> <b>mohamed-nach:</b></font> hi<br/>
+<font size="2">(11:05:27 PM)</font><b> mohamed-nach left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(11:28:00 PM)</font><b> mode (+l 687) by debhelper</b><br/>
+<font size="2">(11:38:00 PM)</font><b> mode (+l 693) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:56:30 PM)</font> <b>Linnak:</b></font> hi, in icedove when I open a message in a new window and in the new popup window i disable menu, how can I get back?<br/>
+<font size="2">(11:58:00 PM)</font><b> mode (+l 687) by debhelper</b><br/>
+<font size="2">(11:58:42 PM)</font><b> Linnak left the room.</b><br/>
+<font size="2">(12:42:46 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,57 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Tue 06 Jan 2015 08:34:48 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Tue 06 Jan 2015 08:34:48 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:34:49 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(08:34:49 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(08:34:55 PM)</font> <b>kmicu:</b></font> pierron: do you google every logo you see in the world?<br/>
+<font color="#A82F2F"><font size="2">(08:35:20 PM)</font> <b>pierron:</b></font> kmicu: how do you google a logo?<br/>
+<font color="#A82F2F"><font size="2">(08:35:35 PM)</font> <b>wkennington:</b></font> reverse image search :p<br/>
+<font color="#A82F2F"><font size="2">(08:35:35 PM)</font> <b>kmicu:</b></font> Exactly.<br/>
+<font color="#A82F2F"><font size="2">(08:35:45 PM)</font> <b>pierron:</b></font> wkennington: from your brain?<br/>
+<font color="#A82F2F"><font size="2">(08:35:49 PM)</font> <b>wkennington:</b></font> sometimes assumes you can take a picture though<br/>
+<font color="#A82F2F"><font size="2">(08:35:55 PM)</font> <b>iElectric:</b></font> wkennington: hmm, I don&apos;t know the difference<br/>
+<font color="#16569E"><font size="2">(08:36:05 PM)</font> <b>magnetophon:</b></font> MichaelRaskin, iElectric, pmahoney: sorry, bad timing to get disconnected. Did I mis anything?<br/>
+<font color="#A82F2F"><font size="2">(08:36:27 PM)</font> <b>wkennington:</b></font> iElectric: if you look at gentoo / arch openjdk is icedtea<br/>
+<font color="#A82F2F"><font size="2">(08:36:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] 7c6f434c pushed 1 new commit to master: http://git.io/LAe-2Q<br/>
+<font color="#A82F2F"><font size="2">(08:36:39 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 24faa68 Michael Raskin: Midori now depends on sqlite<br/>
+<font color="#16569E"><font size="2">(08:36:47 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: running patchShebangs $out/bin before creating the wrappers fixes the shebang problems, but I still don't have a working faust. I'll investigate further...  Thanks so far.  Though iiuc that is a workaround, and the actual fix is in staging, as iElectric mentioned, right?<br/>
+<font color="#A82F2F"><font size="2">(08:36:54 PM)</font> <b>wkennington:</b></font> and it seems to be more compatible<br/>
+<font color="#A82F2F"><font size="2">(08:37:02 PM)</font> <b>pierron:</b></font> I got feedback from somebody from the Ubuntu community, and apparently even debian logo is not clear.<br/>
+<font color="#A82F2F"><font size="2">(08:37:05 PM)</font> <b>MichaelRaskin:</b></font> magnetophon: remove your patching<br/>
+<font color="#A82F2F"><font size="2">(08:37:27 PM)</font> <b>MichaelRaskin:</b></font> You don&apos;t check whether /bin/bash is in /nix/store/*/bin/bash<br/>
+<font color="#A82F2F"><font size="2">(08:37:40 PM)</font> <b>pierron:</b></font> and Debian is way more popular than NixOS.<br/>
+<font color="#A82F2F"><font size="2">(08:37:48 PM)</font> <b>iElectric:</b></font> wkennington: well, to be honest I have no opinoin then :)<br/>
+<font color="#A82F2F"><font size="2">(08:38:23 PM)</font> <b>iElectric:</b></font> pierron: I think we have more important goals than standardising logo<br/>
+<font color="#A82F2F"><font size="2">(08:38:23 PM)</font> <b>wkennington:</b></font> is there still a way to do a deep override for a package?<br/>
+<font color="#A82F2F"><font size="2">(08:38:24 PM)</font> <b>iElectric:</b></font> :-)<br/>
+<font color="#A82F2F"><font size="2">(08:38:24 PM)</font> <b>pierron:</b></font> kmicu: goibhniu: wkennington: Do you have better idea of where we should put the name then?<br/>
+<font color="#16569E"><font size="2">(08:38:31 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: I have already removed the manual shebang patching that is in master and 14.12, and replaced it by &quot;patchShebangs $out/bin&quot; Is that what you mean?<br/>
+<font color="#A82F2F"><font size="2">(08:38:33 PM)</font> <b>iElectric:</b></font> wkennington: yes, package.deepOverride<br/>
+<font color="#A82F2F"><font size="2">(08:38:52 PM)</font> <b>wkennington:</b></font> iElectric: does nothing use this anymore?<br/>
+<font color="#A82F2F"><font size="2">(08:39:05 PM)</font> <b>MichaelRaskin:</b></font> Yes<br/>
+<font color="#A82F2F"><font size="2">(08:39:11 PM)</font> <b>iElectric:</b></font> wkennington: well, it&apos;s slow.<br/>
+<font color="#A82F2F"><font size="2">(08:39:16 PM)</font> <b>wkennington:</b></font> iElectric: yeah....<br/>
+<font color="#A82F2F"><font size="2">(08:39:21 PM)</font> <b>MichaelRaskin:</b></font> magnetophon: what doesn&apos;t work now?<br/>
+<font color="#A82F2F"><font size="2">(08:39:23 PM)</font> <b>kmicu:</b></font> pierron: don’t put a name into a logo, create another sticker with ‘NixOS’ name. Let people choose sticker with logo and sticker with name.<br/>
+<font color="#16569E"><font size="2">(08:39:36 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: I get missing .h files. <br/>
+<font color="#16569E"><font size="2">(08:40:08 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: /nix/store/njfqn3ajn14dalhrhl92kfi1vnzl2nvq-faust-0.9.67/bin/.faust2alsaconsole-wrapped: line 88: pkg-config: command not found<br/>
+<font color="#16569E"><font size="2">(08:40:08 PM)</font> <b>magnetophon:</b></font> In file included from tst.dsp.cpp:51:0:<br/>
+<font color="#16569E"><font size="2">(08:40:08 PM)</font> <b>magnetophon:</b></font> /nix/store/jgs88c0hvsmx448djl5hs50pwfhr0f2v-faust-compiler-0.9.67/include/faust/audio/alsa-dsp.h:46:28: fatal error: alsa/asoundlib.h: No such file or directory<br/>
+<font color="#16569E"><font size="2">(08:40:08 PM)</font> <b>magnetophon:</b></font>  #include &lt;alsa/asoundlib.h&gt;<br/>
+<font color="#A82F2F"><font size="2">(08:40:10 PM)</font> <b>MichaelRaskin:</b></font> Hm. Maybe your wrapper script should add -I${faust}/include to NIX_CFLAGS_COMPILE<br/>
+<font color="#A82F2F"><font size="2">(08:40:33 PM)</font> <b>MichaelRaskin:</b></font> Probably just all the flags that were set during the build<br/>
+<font color="#A82F2F"><font size="2">(08:40:43 PM)</font> <b>pierron:</b></font> kmicu: give me more money then …<br/>
+<font color="#A82F2F"><font size="2">(08:40:44 PM)</font> <b>pierron:</b></font> kmi	 asking to print more stickers is easy, paying for everybody makes you take decisions.<br/>
+<font color="#A82F2F"><font size="2">(08:41:22 PM)</font> <b>kmicu:</b></font> pierron: you don’t need *more* sticker, but half of current number with name and half with logo.<br/>
+<font color="#A82F2F"><font size="2">(08:41:57 PM)</font> <b>pierron:</b></font> kmicu: who would be interested in a sticker which only has a name on it?<br/>
+<font color="#16569E"><font size="2">(08:43:04 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: Not sure if I understood you correctly, but ${faust}/include only has .dsp and .lib files (so files in the faust language). Those are not needed for the simple example test file I'm compiling.  I'm missing the files that are in alsa.<br/>
+<font color="#A82F2F"><font size="2">(08:43:15 PM)</font> <b>kmicu:</b></font> Putting a name into a logo will create alternative logo.<br/>
+<font color="#A82F2F"><font size="2">(08:43:57 PM)</font> <b>MichaelRaskin:</b></font> magnetophon: maybe your wrapper could just --prefix NIX_CFLAGS_COMPILE &quot; &quot; &quot;$NIX_CFLAGS_COMPILE&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:44:08 PM)</font> <b>MichaelRaskin:</b></font> Possibly the same with NIX_LDFLAGS<br/>
+<font color="#16569E"><font size="2">(08:45:49 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: I'm not following you, but I'll just copy-paste that into the wrapper creation and report back...    (I feel so underqualified....  :(    ) <br/>
+<font color="#16569E"><font size="2">(08:46:43 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: the odd thing is, all of this worked back when it was merged into master....<br/>
+<font color="#16569E"><font size="2">(08:50:47 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: I'll be kicked out of the public library in a few minutes. I'll be back home in 10 minutes, and hope to continue this conversation then.  Thanks so far!<br/>
+<font color="#A82F2F"><font size="2">(08:51:01 PM)</font> <b>zmbmartin:</b></font> I am trying to use https://github.com/SirVer/ultisnips in vim. It complains that python is not installed. It looks like in a number of files it has /usr/bin/env python. But in a bootstrap file there is some vimscript that is if !has(&quot;python&quot;).<br/>
+<font color="#A82F2F"><font size="2">(08:51:32 PM)</font> <b>zmbmartin:</b></font> Is there a recommended way to handle this?<br/>
+<font color="#16569E"><font size="2">(08:52:27 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: I can report the following before I go: /nix/store/d2jadsmfvzsiw0s7qm7yadz6h1sf3ni2-stdenv/setup: line 842: --prefix: command not found<br/>
+<font color="#16569E"><font size="2">(08:52:50 PM)</font> <b>magnetophon:</b></font> brb! Thanks everybody!<br/>
+<font size="2">(09:13:56 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,115 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sun 08 Mar 2015 07:49:26 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sun 08 Mar 2015 07:49:26 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(07:49:26 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(07:49:26 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(07:49:26 PM)</font> <b>sendak.freenode.net:</b></font> (notice) [freenode-info] channel trolls and no channel staff around to help? please check with freenode support: http://freenode.net/faq.shtml#gettinghelp<br/>
+<font color="#A82F2F"><font size="2">(07:52:29 PM)</font> <b>azriphale:</b></font> musicmatze: You must be an expert ;-) I have been using (and really enjoying) it for less than a week.<br/>
+<font color="#A82F2F"><font size="2">(07:52:48 PM)</font> <b>musicmatze:</b></font> azriphale: Nope, I&apos;m not.<br/>
+<font color="#A82F2F"><font size="2">(07:53:15 PM)</font> <b>musicmatze:</b></font> I packaged some stuff, I guess 5 packages by now, 2 are in the pipeline ... and I have a really great setup... but that&apos;s it<br/>
+<font color="#A82F2F"><font size="2">(07:53:31 PM)</font> <b>musicmatze:</b></font> never used nixops or disnix or so... just nixos<br/>
+<font color="#A82F2F"><font size="2">(07:54:07 PM)</font> <b>musicmatze:</b></font> I actually bought a new machine and decided to put nixos on it, after I tried it in a VM and on an old machine of mine<br/>
+<font color="#A82F2F"><font size="2">(07:54:23 PM)</font> <b>musicmatze:</b></font> and I thought it is good, so I installed it on my new machine, too. And it is awesome!<br/>
+<font color="#A82F2F"><font size="2">(07:54:49 PM)</font> <b>musicmatze:</b></font> But, as said, my transition from arch is not complete by now...<br/>
+<font color="#A82F2F"><font size="2">(07:56:08 PM)</font> <b>musicmatze:</b></font> sorry for posting so much here... I&apos;m a bit drunk, I guess... :-P<br/>
+<font color="#A82F2F"><font size="2">(07:59:22 PM)</font> <b>azriphale:</b></font> My story is I couldn&apos;t get an ubuntu installer onto a USB stick without it getting corrupted. So I just  jumped into nixos having fiddled with it about a month ago (around FOSDEM time).<br/>
+<font color="#A82F2F"><font size="2">(07:59:29 PM)</font> <b>Ralith:</b></font> Can anyone advise on how to debug nixos failing to actually shut off my computer&apos;s power after halting?<br/>
+<font color="#A82F2F"><font size="2">(07:59:36 PM)</font> <b>ehmry:</b></font> musicmatze, you might get trapped by nixos, i tried to setup an arch machine from nixos and i didn&apos;t have the patience anymore<br/>
+<font color="#A82F2F"><font size="2">(08:00:14 PM)</font> <b>ehmry:</b></font> Ralith, do your hard drives park and then start up again?<br/>
+<font color="#A82F2F"><font size="2">(08:00:15 PM)</font> <b>musicmatze:</b></font> ehmry: is this a bad thing, actually? :-)<br/>
+<font color="#A82F2F"><font size="2">(08:00:53 PM)</font> <b>musicmatze:</b></font> azriphale: aaah, fosdem... I wasn&apos;t there, as my exams phase started just after this weekend,... next time I will be there I guess... I really want to!<br/>
+<font color="#A82F2F"><font size="2">(08:01:17 PM)</font> <b>Ralith:</b></font> ehmry: my hard drives are SSDs<br/>
+<font color="#A82F2F"><font size="2">(08:01:40 PM)</font> <b>ehmry:</b></font> Ralith, think I&apos;ve been having a similar issue<br/>
+<font color="#A82F2F"><font size="2">(08:02:09 PM)</font> <b>Ralith:</b></font> I&apos;m using an X99-chipset motherboard, which is quite cutting edge and I expect the root cause<br/>
+<font color="#A82F2F"><font size="2">(08:03:01 PM)</font> <b>ehmry:</b></font> I&apos;m using an older surplus dell desktop, but I haven&apos;t had the same problems on my laptops<br/>
+<font color="#A82F2F"><font size="2">(08:03:42 PM)</font> <b>ehmry:</b></font> I had written it off as a decaying bios<br/>
+<font size="2">(08:04:06 PM)</font><b> NixThor [<em>~quassel@84.48.95.109</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:10:22 PM)</font> <b>ttuegel:</b></font> Ralith: ehmry: my guess would be some kind of kernel/acpi interaction issue. either an acpi that&apos;s too new or too old to play nice with the kernel<br/>
+<font color="#A82F2F"><font size="2">(08:11:10 PM)</font> <b>ttuegel:</b></font> i have seen that before when i build my own kernel without the required motherboard-specific acpi bits, but most boards shouldn&apos;t need special bits<br/>
+<font color="#A82F2F"><font size="2">(08:12:16 PM)</font> <b>joelteon:</b></font> what is community policy on dealing with comment trolls?<br/>
+<font color="#A82F2F"><font size="2">(08:12:35 PM)</font> <b>joelteon:</b></font> delete? ignore?<br/>
+<font color="#A82F2F"><font size="2">(08:12:40 PM)</font> <b>joelteon:</b></font> respond?<br/>
+<font color="#A82F2F"><font size="2">(08:12:40 PM)</font> <b>ehmry:</b></font> ttuegel, I&apos;d like to build my own kernel for nixos but I haven&apos;t had the time<br/>
+<font color="#A82F2F"><font size="2">(08:13:04 PM)</font> <b>ttuegel:</b></font> ehmry: yeah, it&apos;s tricky for nixos. i was on gentoo when i had the acpi problems.<br/>
+<font color="#A82F2F"><font size="2">(08:13:29 PM)</font> <b>ehmry:</b></font> ttuegel, yea, I used to be gentoo so I miss it<br/>
+<font color="#A82F2F"><font size="2">(08:13:54 PM)</font> <b>bubblegun:</b></font> didnt find yet the real name of the imba nvidia driver for 9xx<br/>
+<font color="#A82F2F"><font size="2">(08:14:06 PM)</font> <b>bubblegun:</b></font> can someone help ?<br/>
+<font color="#A82F2F"><font size="2">(08:14:15 PM)</font> <b>ehmry:</b></font> linux and the bsd sources don&apos;t play so well with nix<br/>
+<font size="2">(08:15:21 PM)</font><b> NixThor left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(08:17:19 PM)</font> <b>ehmry:</b></font> try and build rump kernels and you&apos;ll taste the pain<br/>
+<font size="2">(08:24:26 PM)</font><b> c2 is now known as c2_</b><br/>
+<font size="2">(08:25:18 PM)</font><b> c2_ is now known as c2</b><br/>
+<font color="#A82F2F"><font size="2">(08:30:12 PM)</font> <b>joelteon:</b></font> Fuuzetsu: do you mind if I delete wwat&apos;s comment and your second one?<br/>
+<font color="#A82F2F"><font size="2">(08:46:08 PM)</font> <b>Fuuzetsu:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(08:46:11 PM)</font> <b>Fuuzetsu:</b></font> I mean, go ahead<br/>
+<font size="2">(09:14:14 PM)</font><b> snipe is now known as bubblegun</b><br/>
+<font color="#A82F2F"><font size="2">(09:14:23 PM)</font> <b>bubblegun:</b></font> hi guys<br/>
+<font color="#A82F2F"><font size="2">(09:14:49 PM)</font> <b>bubblegun:</b></font> can someone give me a hand installing nvidia driver 3d for nixos ? thanks in advanced<br/>
+<font color="#A82F2F"><font size="2">(09:14:56 PM)</font> <b>bubblegun:</b></font> my chipset is 9xx<br/>
+<font color="#A82F2F"><font size="2">(09:26:03 PM)</font> <b>bubblegun:</b></font> is it really possible to install my grafic card on nixos ?<br/>
+<font color="#A82F2F"><font size="2">(09:26:18 PM)</font> <b>bubblegun:</b></font> yes or no ?<br/>
+<font color="#A82F2F"><font size="2">(09:26:19 PM)</font> <b>azriphale:</b></font> I guess you have tried the nvidia section on https://nixos.org/nixos/manual/sec-x11.html<br/>
+<font color="#A82F2F"><font size="2">(09:26:36 PM)</font> <b>azriphale:</b></font> (sorry, I don&apos;t run nvidia under linux anymore, so I can&apos;t be of much practical help)<br/>
+<font color="#A82F2F"><font size="2">(09:28:04 PM)</font> <b>azriphale:</b></font> There is an nvidia driver package in nixpkgs. Based on that, I would expect that people do use it.<br/>
+<font color="#A82F2F"><font size="2">(09:29:24 PM)</font> <b>bubblegun:</b></font> azriphale: thanks you.<br/>
+<font color="#A82F2F"><font size="2">(09:29:39 PM)</font> <b>bubblegun:</b></font> azriphale: Just a question, where do i add those services, /etc/..<br/>
+<font color="#A82F2F"><font size="2">(09:30:04 PM)</font> <b>azriphale:</b></font> It would be /etc/nixos/configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(09:30:18 PM)</font> <b>azriphale:</b></font> That is basically where all your system configuration would go<br/>
+<font color="#A82F2F"><font size="2">(09:31:01 PM)</font> <b>bubblegun:</b></font> and the driver where do i download ?<br/>
+<font color="#A82F2F"><font size="2">(09:31:19 PM)</font> <b>azriphale:</b></font> You probably want to read through the configuration section of the manual: https://nixos.org/nixos/manual/<br/>
+<font color="#A82F2F"><font size="2">(09:31:25 PM)</font> <b>azriphale:</b></font> basically, you edit configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(09:31:39 PM)</font> <b>bubblegun:</b></font> tks man<br/>
+<font color="#A82F2F"><font size="2">(09:31:43 PM)</font> <b>azriphale:</b></font> then (as root) run &quot;nixos-rebuild test&quot; to enable the config in the current session<br/>
+<font color="#A82F2F"><font size="2">(09:31:45 PM)</font> <b>bubblegun:</b></font> i thnink i ll pass this os<br/>
+<font color="#A82F2F"><font size="2">(09:31:47 PM)</font> <b>bubblegun:</b></font> for now<br/>
+<font color="#A82F2F"><font size="2">(09:31:59 PM)</font> <b>azriphale:</b></font> If that works as expected, you cab nixos-rebuild switch to enable it on boot<br/>
+<font color="#A82F2F"><font size="2">(09:32:04 PM)</font> <b>bubblegun:</b></font> going to rollback to gentoo again<br/>
+<font color="#A82F2F"><font size="2">(09:32:12 PM)</font> <b>bubblegun:</b></font> :P<br/>
+<font color="#A82F2F"><font size="2">(09:32:32 PM)</font> <b>azriphale:</b></font> with a quick read through the manual, it can become very easy to get into (I have only been using nixos for a week myself :P )<br/>
+<font color="#A82F2F"><font size="2">(09:32:44 PM)</font> <b>bubblegun:</b></font> hehe<br/>
+<font color="#A82F2F"><font size="2">(09:32:52 PM)</font> <b>azriphale:</b></font> and personally, I find the nix language really readable<br/>
+<font color="#A82F2F"><font size="2">(09:33:30 PM)</font> <b>bubblegun:</b></font> tks once again dude<br/>
+<font color="#A82F2F"><font size="2">(09:33:31 PM)</font> <b>bubblegun:</b></font> xD<br/>
+<font color="#A82F2F"><font size="2">(09:57:11 PM)</font> <b>bubblegun:</b></font> well cya l8r<br/>
+<font size="2">(09:57:13 PM)</font><b> bubblegun left the room (quit: Quit: leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(09:58:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 6 new commits to master: http://git.io/p3Fm<br/>
+<font color="#A82F2F"><font size="2">(09:58:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 02fdd38 Simon Jagoe: Add grin package<br/>
+<font color="#A82F2F"><font size="2">(09:58:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master ab6a03e Simon Jagoe: Place grin in Python 2.7 section; it is not Python 3.x compatible<br/>
+<font color="#A82F2F"><font size="2">(09:58:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f496517 Simon Jagoe: Move grin definition to tools/text and call it from all-packages.nix<br/>
+<font color="#A82F2F"><font size="2">(10:03:29 PM)</font> <b>azriphale:</b></font> My first contribution to nixpkgs! :-D<br/>
+<font color="#A82F2F"><font size="2">(10:06:07 PM)</font> <b>kmicu:</b></font> !m azriphale<br/>
+<font color="#A82F2F"><font size="2">(10:06:08 PM)</font> <b>[0__0]:</b></font> You&apos;re doing good work, azriphale!<br/>
+<font color="#A82F2F"><font size="2">(10:14:56 PM)</font> <b>wkennington:</b></font> offlinehacker: alright<br/>
+<font color="#A82F2F"><font size="2">(10:22:29 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 2 new commits to master: http://git.io/p3pP<br/>
+<font color="#A82F2F"><font size="2">(10:22:29 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 90b7427 Matthias Beyer: Add package: khal<br/>
+<font color="#A82F2F"><font size="2">(10:22:29 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 228183f Pascal Wittmann: Merge pull request #6313 from matthiasbeyer/add-khal...<br/>
+<font color="#A82F2F"><font size="2">(10:25:33 PM)</font> <b>wkennington:</b></font> goodwill: hey are there any plans to be at lfnw?<br/>
+<font color="#A82F2F"><font size="2">(10:25:58 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] waaaaargh opened pull request #6721: nixos: Add vmtest for sudo. (master...master) http://git.io/p3h4<br/>
+<font color="#A82F2F"><font size="2">(10:26:19 PM)</font> <b>goodwill:</b></font> wkennington: where?<br/>
+<font color="#A82F2F"><font size="2">(10:26:28 PM)</font> <b>goodwill:</b></font> linux fest north west?<br/>
+<font color="#A82F2F"><font size="2">(10:26:29 PM)</font> <b>wkennington:</b></font> http://linuxfestnorthwest.org/2015<br/>
+<font color="#A82F2F"><font size="2">(10:26:31 PM)</font> <b>wkennington:</b></font> yar<br/>
+<font color="#A82F2F"><font size="2">(10:26:34 PM)</font> <b>goodwill:</b></font> wkennington: not by me :(<br/>
+<font color="#A82F2F"><font size="2">(10:26:35 PM)</font> <b>goodwill:</b></font> sorry<br/>
+<font color="#A82F2F"><font size="2">(10:26:39 PM)</font> <b>wkennington:</b></font> ah snap<br/>
+<font color="#A82F2F"><font size="2">(10:26:47 PM)</font> <b>wkennington:</b></font> aiight<br/>
+<font color="#062585"><font size="2">(10:26:50 PM)</font> <b>***goodwill</b></font> is a getting conf burned out<br/>
+<font color="#A82F2F"><font size="2">(10:26:56 PM)</font> <b>wkennington:</b></font> just curious<br/>
+<font color="#A82F2F"><font size="2">(10:26:58 PM)</font> <b>wkennington:</b></font> hahahaha<br/>
+<font color="#A82F2F"><font size="2">(10:27:06 PM)</font> <b>wkennington:</b></font> what have you gone to recently other than scale?<br/>
+<font color="#A82F2F"><font size="2">(10:27:12 PM)</font> <b>goodwill:</b></font> iElectric and will be just off PyCon then<br/>
+<font color="#A82F2F"><font size="2">(10:27:14 PM)</font> <b>wkennington:</b></font> i think im going to conf burn myself out this year<br/>
+<font color="#A82F2F"><font size="2">(10:27:20 PM)</font> <b>wkennington:</b></font> sure<br/>
+<font color="#A82F2F"><font size="2">(10:28:17 PM)</font> <b>offlinehacker:</b></font> aaaaa save me i have to hack php &amp; css ...<br/>
+<font color="#A82F2F"><font size="2">(10:29:10 PM)</font> <b>iMatejC:</b></font> no I wont<br/>
+<font color="#A82F2F"><font size="2">(10:30:42 PM)</font> <b>offlinehacker:</b></font> yeah, i allways have to do the dirty job :P<br/>
+<font color="#A82F2F"><font size="2">(10:33:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] joachifm opened pull request #6722: Fix id mismatches (master...fix-id-mismatches) http://git.io/pseT<br/>
+<font color="#A82F2F"><font size="2">(10:35:37 PM)</font> <b>fnord__:</b></font> hi, I am using NixOS and am currently trying to modify /etc/nix/nix.conf to add custom binary caches for the haskellng packages, but it is symlink to a symlink to a nix.conf inside a package in the nix-store. I guess I probably shouldn&apos;t try to change the file in there, so how can one customize the nix.conf?<br/>
+<font color="#A82F2F"><font size="2">(10:35:49 PM)</font> <b>copumpkin:</b></font> joelteon, Fuuzetsu: -_-<br/>
+<font color="#A82F2F"><font size="2">(10:35:57 PM)</font> <b>copumpkin:</b></font> somewhat unsurprisingly, he blew up<br/>
+<font color="#A82F2F"><font size="2">(10:36:52 PM)</font> <b>joelteon:</b></font> it&apos;s so easy just to press that X though<br/>
+<font color="#A82F2F"><font size="2">(10:36:57 PM)</font> <b>joelteon:</b></font> RIP comments<br/>
+<font color="#A82F2F"><font size="2">(10:36:58 PM)</font> <b>JagaJaga_:</b></font> fnord__: read 3 top lines of that file :)<br/>
+<font color="#A82F2F"><font size="2">(10:37:38 PM)</font> <b>fnord__:</b></font> ahh, thanks, now I&apos;m embarressed ;)<br/>
+<font color="#A82F2F"><font size="2">(10:38:32 PM)</font> <b>JagaJaga_:</b></font> fnord__: I think you need nix.binaryCaches<br/>
+<font color="#A82F2F"><font size="2">(10:38:50 PM)</font> <b>JagaJaga_:</b></font> fnord__: modify it in /etc/nixos/configuration.nix<br/>
+<font size="2">(10:59:04 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

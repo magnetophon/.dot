@@ -1,0 +1,154 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Sun 15 Mar 2015 12:25:24 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Sun 15 Mar 2015 12:25:24 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(12:25:24 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(12:25:24 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(12:33:05 PM)</font> <b>chaot4:</b></font> Two things I just found using 4699. Not sure if they&apos;re known.<br/>
+<font color="#A82F2F"><font size="2">(12:34:24 PM)</font> <b>chaot4:</b></font> 1) changing the height of a MIDI track containing a lot of MIDI notes via dragging is laggy.<br/>
+<font color="#A82F2F"><font size="2">(12:34:48 PM)</font> <b>rgareus:</b></font> chaot4: yep as is zooming<br/>
+<font color="#A82F2F"><font size="2">(12:35:17 PM)</font> <b>chaot4:</b></font> 2) duplicating multiple selected regions doesn&apos;t work as I would expect it.<br/>
+<font color="#A82F2F"><font size="2">(12:35:42 PM)</font> <b>rgareus:</b></font> chaot4: we go to some length to speed up waveform rendering - but midi-tracks have not seen any optimization.<br/>
+<font color="#A82F2F"><font size="2">(12:36:11 PM)</font> <b>rgareus:</b></font> chaot4: as for (2).   well, just don&apos;t expect anything and it works great :)<br/>
+<font color="#A82F2F"><font size="2">(12:36:20 PM)</font> <b>chaot4:</b></font> rgareus: Alright :) Just wanted to note it in case it wasn&apos;t known.<br/>
+<font color="#A82F2F"><font size="2">(12:36:31 PM)</font> <b>chaot4:</b></font> Regarding 2) I wanted to go a little more into detail. ;)<br/>
+<font color="#A82F2F"><font size="2">(12:36:39 PM)</font> <b>rgareus:</b></font> chaot4: more seriously... how does it differ from your expectation?<br/>
+<font color="#A82F2F"><font size="2">(12:37:55 PM)</font> <b>chaot4:</b></font> rgareus: I would expect that the beginning of the first duplicate starts at the end of the last selected region. Then the second duplicate at the end of the last region of the first duplicate. The selected regions are all in one track in this case.<br/>
+<font color="#A82F2F"><font size="2">(12:39:41 PM)</font> <b>chaot4:</b></font> I hope the explanation is clear. Else I&apos;ll clarify.<br/>
+<font color="#A82F2F"><font size="2">(12:39:50 PM)</font> <b>rgareus:</b></font> chaot4: that&apos;s indeed what happens<br/>
+<font color="#A82F2F"><font size="2">(12:40:09 PM)</font> <b>rgareus:</b></font> may depend on the edit point though.<br/>
+<font color="#062585"><font size="2">(12:40:43 PM)</font> <b>***rgareus</b></font> starts ardour<br/>
+<font color="#A82F2F"><font size="2">(12:40:57 PM)</font> <b>chaot4:</b></font> Oh! I&apos;ll do two screenshots of what it actually does and what I would expect.<br/>
+<font color="#A82F2F"><font size="2">(12:41:28 PM)</font> <b>chaot4:</b></font> rgareus: Note that I&apos;m using 4699 and not newest git.<br/>
+<font color="#A82F2F"><font size="2">(12:41:48 PM)</font> <b>rgareus:</b></font> chaot4: I select a midi region. right click &gt; . duplicate &gt; multi-duplcate.  choose 5  and get 5 regions. starting directly at the end of the selected region. end-to-end<br/>
+<font color="#A82F2F"><font size="2">(12:41:52 PM)</font> <b>rgareus:</b></font> no gaps<br/>
+<font color="#A82F2F"><font size="2">(12:42:56 PM)</font> <b>rgareus:</b></font> 3.5-4765  - but I don&apos;t think anything has changed here since 4600<br/>
+<font color="#A82F2F"><font size="2">(12:43:00 PM)</font> <b>rgareus:</b></font> 4699, even<br/>
+<font color="#A82F2F"><font size="2">(12:46:15 PM)</font> <b>chaot4:</b></font> rgareus: regions I want to duplicate: http://picpaste.com/Screenshot_from_2015-03-15_12_43_20-LNn8yPJY.png<br/>
+<font color="#A82F2F"><font size="2">(12:46:28 PM)</font> <b>chaot4:</b></font> duplicating: http://picpaste.com/Screenshot_from_2015-03-15_12_43_30-lTCsZHa2.png<br/>
+<font color="#A82F2F"><font size="2">(12:46:40 PM)</font> <b>chaot4:</b></font> result: http://picpaste.com/Screenshot_from_2015-03-15_12_43_34-ZsP4ALDk.png<br/>
+<font color="#A82F2F"><font size="2">(12:46:51 PM)</font> <b>rgareus:</b></font> aah you do select more than 1 at a time<br/>
+<font color="#A82F2F"><font size="2">(12:46:54 PM)</font> <b>chaot4:</b></font> what I&apos;d expect: http://picpaste.com/Screenshot_from_2015-03-15_12_43_55-x08ZQjvI.png<br/>
+<font color="#A82F2F"><font size="2">(12:47:29 PM)</font> <b>chaot4:</b></font> rgareus: Ah, yes!<br/>
+<font color="#A82F2F"><font size="2">(12:47:54 PM)</font> <b>chaot4:</b></font> rgareus: So is it my expectation or is it ardours behavior?<br/>
+<font color="#A82F2F"><font size="2">(12:47:55 PM)</font> <b>rgareus:</b></font> I missed that part<br/>
+<font color="#A82F2F"><font size="2">(12:49:10 PM)</font> <b>chaot4:</b></font> I think next time I&apos;ll just do the screenshots from the beginning. :)<br/>
+<font color="#A82F2F"><font size="2">(12:50:18 PM)</font> <b>rgareus:</b></font> chaot4: I just tried here and it works like you expect (or want it): it takes the group of regions, duplicates it and puts it after the end of the current selection<br/>
+<font color="#A82F2F"><font size="2">(12:50:35 PM)</font> <b>rgareus:</b></font> if that does not happen. the must be a bug <br/>
+<font color="#A82F2F"><font size="2">(12:50:40 PM)</font> <b>chaot4:</b></font> rgareus: How many times do you duplicate?<br/>
+<font color="#A82F2F"><font size="2">(12:50:51 PM)</font> <b>chaot4:</b></font> rgareus: I think it&apos;s only buggy when duplicating more than once.<br/>
+<font color="#A82F2F"><font size="2">(12:51:44 PM)</font> <b>chaot4:</b></font> If it&apos;s of interest: The same also happens with MIDI regions.<br/>
+<font color="#A82F2F"><font size="2">(12:51:51 PM)</font> <b>rgareus:</b></font> chaot4: mmh it works if I dup it once (press D). multi dup is broken<br/>
+<font color="#A82F2F"><font size="2">(12:52:13 PM)</font> <b>chaot4:</b></font> rgareus: So you can reproduce it?<br/>
+<font color="#A82F2F"><font size="2">(12:53:00 PM)</font> <b>rgareus:</b></font> chaot4: yes. if  multi-dup &gt; 1 the regions end up end-to end<br/>
+<font color="#A82F2F"><font size="2">(12:53:09 PM)</font> <b>rgareus:</b></font> chaot4: if I set it to 1.0 it&apos;s fine<br/>
+<font color="#A82F2F"><font size="2">(12:53:35 PM)</font> <b>chaot4:</b></font> rgareus: Yes, same behavior here. Shall I file a report?<br/>
+<font color="#A82F2F"><font size="2">(12:53:43 PM)</font> <b>rgareus:</b></font> chaot4: yesp, please<br/>
+<font color="#A82F2F"><font size="2">(12:53:55 PM)</font> <b>chaot4:</b></font> rgareus: Alright. Thanks for having a look.<br/>
+<font color="#062585"><font size="2">(12:54:05 PM)</font> <b>***rgareus</b></font> is wondering if this could possibly be intentional.<br/>
+<font color="#A82F2F"><font size="2">(12:55:38 PM)</font> <b>chaot4:</b></font> rgareus: I was also wondering about that. But it&apos;s somehow a mixture of &apos;what I expect&apos; and duplicating all he single regions. It definitely isn&apos;t consistent.<br/>
+<font color="#A82F2F"><font size="2">(12:55:40 PM)</font> <b>rgareus:</b></font> chaot4: quick workaround.   selected regions &gt; Edit &gt; combine<br/>
+<font color="#A82F2F"><font size="2">(12:55:49 PM)</font> <b>rgareus:</b></font> chaot4: then duplicate the comound<br/>
+<font color="#A82F2F"><font size="2">(12:55:58 PM)</font> <b>rgareus:</b></font> compound, even<br/>
+<font color="#A82F2F"><font size="2">(12:56:36 PM)</font> <b>chaot4:</b></font> rgareus: Thanks.<br/>
+<font color="#A82F2F"><font size="2">(12:56:36 PM)</font> <b>rgareus:</b></font> and don&apos;t uncombine :)<br/>
+<font color="#A82F2F"><font size="2">(12:58:32 PM)</font> <b>chaot4:</b></font> rgareus: What the hell happens when I uncombine. xD Weird...<br/>
+<font size="2">(12:58:36 PM)</font><b> oofus_ is now known as oofus</b><br/>
+<font color="#A82F2F"><font size="2">(12:58:54 PM)</font> <b>rgareus:</b></font> chaot4: most of the duplicates will be gone.<br/>
+<font color="#A82F2F"><font size="2">(12:59:17 PM)</font> <b>chaot4:</b></font> rgareus: I just tried that... also unknown?<br/>
+<font color="#A82F2F"><font size="2">(12:59:19 PM)</font> <b>rgareus:</b></font> chaot4: I don&apos;t really know what happens under the hood, yet. Just playing araound in a test session<br/>
+<font color="#A82F2F"><font size="2">(12:59:52 PM)</font> <b>rgareus:</b></font> chaot4: likley unknown. I don&apos;t know if las or drobilla are aware of it of it&apos;s already in the tracker<br/>
+<font color="#A82F2F"><font size="2">(01:00:35 PM)</font> <b>rgareus:</b></font> but combine &amp; uncombine is not entierly complete. there are lots of unhandled edge-cases. especially if the regions are not sequential<br/>
+<font color="#A82F2F"><font size="2">(01:01:15 PM)</font> <b>rgareus:</b></font> combine 3 overlapping regions.  move the on top of two other regions.. uncombine. <br/>
+<font color="#A82F2F"><font size="2">(01:01:26 PM)</font> <b>rgareus:</b></font> region stacking + compounds is very complex<br/>
+<font color="#A82F2F"><font size="2">(01:06:42 PM)</font> <b>chaot4:</b></font> rgareus: added as bug 6202<br/>
+<font color="#A82F2F"><font size="2">(01:10:03 PM)</font> <b>chaot4:</b></font> rgareus: Also report uncombine bug?<br/>
+<font color="#A82F2F"><font size="2">(01:11:12 PM)</font> <b>rgareus:</b></font> chaot4: if you don&apos;t mind. sure<br/>
+<font color="#A82F2F"><font size="2">(01:11:33 PM)</font> <b>rgareus:</b></font> I can&apos;t promise a fix anytime soon. but at least it won&apos;t be forgotten<br/>
+<font color="#A82F2F"><font size="2">(01:11:49 PM)</font> <b>rgareus:</b></font> we recently fixed a 5 year old bug...<br/>
+<font color="#A82F2F"><font size="2">(01:15:12 PM)</font> <b>chaot4:</b></font> rgareus: I hardly use combine so I think it won&apos;t affect me. Writing a report.<br/>
+<font color="#A82F2F"><font size="2">(01:15:30 PM)</font> <b>chaot4:</b></font> rgareus: 5 years :D<br/>
+<font color="#A82F2F"><font size="2">(01:15:57 PM)</font> <b>chaot4:</b></font> As long as it saves you time/makes it easier I&apos;m happy.<br/>
+<font color="#A82F2F"><font size="2">(01:22:09 PM)</font> <b>rgareus:</b></font> well it&apos;s not usually the case.<br/>
+<font size="2">(01:25:23 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:32:55 PM)</font> <b>chaot4:</b></font> rgareus: Reported anyway. :)<br/>
+<font color="#A82F2F"><font size="2">(01:44:26 PM)</font> <b>rgareus:</b></font> chaot4: thanks<br/>
+<font color="#A82F2F"><font size="2">(02:11:32 PM)</font> <b>MrDoctor:</b></font> Can somebody please pastebin me the contents of ~/.config/laditools/laditools.conf. Thank you in advance.<br/>
+<font color="#A82F2F"><font size="2">(02:14:43 PM)</font> <b>rgareus:</b></font> MrDoctor: which distro still has laditools?<br/>
+<font color="#A82F2F"><font size="2">(02:14:57 PM)</font> <b>MrDoctor:</b></font> I am using Arch.<br/>
+<font color="#A82F2F"><font size="2">(02:15:21 PM)</font> <b>MrDoctor:</b></font> Is it deprecated? What is now favoured over laditools?<br/>
+<font color="#062585"><font size="2">(02:15:25 PM)</font> <b>***rgareus</b></font> thought it died 3 or 4 years ago with the advent of NSM<br/>
+<font color="#A82F2F"><font size="2">(02:15:39 PM)</font> <b>rgareus:</b></font> MrDoctor: dunno. if it works for you, fine.<br/>
+<font color="#A82F2F"><font size="2">(02:16:10 PM)</font> <b>rgareus:</b></font> MrDoctor: I&apos;m not an expert on session-management tools, so please stick around for someone else. <br/>
+<font color="#A82F2F"><font size="2">(02:16:20 PM)</font> <b>rgareus:</b></font> MrDoctor: I was just curious<br/>
+<font color="#A82F2F"><font size="2">(02:16:22 PM)</font> <b>MrDoctor:</b></font> All right.<br/>
+<font color="#A82F2F"><font size="2">(02:17:07 PM)</font> <b>rgareus:</b></font> pretty much all recent emails that fly by on LAD/LAU are NSM (non session manager) related.<br/>
+<font color="#A82F2F"><font size="2">(02:17:39 PM)</font> <b>MrDoctor:</b></font> Could you plese direct me to online resources so that I may acquaint myself with NSM?<br/>
+<font size="2">(02:18:23 PM)</font><b> HarryHaaren left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:18:37 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:20:01 PM)</font> <b>rgareus:</b></font> http://non.tuxfamily.org/nsm/ I suppose<br/>
+<font color="#A82F2F"><font size="2">(02:20:03 PM)</font> <b>LAbot:</b></font> Title: Non Session Manager User Manual (at non.tuxfamily.org)<br/>
+<font color="#A82F2F"><font size="2">(02:20:11 PM)</font> <b>rgareus:</b></font> but I don&apos;t use it either - /me likes shell scripts<br/>
+<font color="#A82F2F"><font size="2">(02:20:32 PM)</font> <b>rgareus:</b></font> ardour does support NSM, however (and the vast majority of linux-audio tools, does too)<br/>
+<font color="#A82F2F"><font size="2">(02:20:39 PM)</font> <b>scherbi:</b></font> hello everyone. been off irc for a while...having a problem with the latest form git since yesterday...perhaps it&apos;s already been noted here?<br/>
+<font color="#A82F2F"><font size="2">(02:20:41 PM)</font> <b>rgareus:</b></font> there has been some consensus funally.<br/>
+<font color="#A82F2F"><font size="2">(02:20:52 PM)</font> <b>scherbi:</b></font> ./gtk2_ardour/../build/gtk2_ardour/ardour-3.5.4582: symbol lookup error: ./gtk2_ardour/../build/libs/ardour/libardour.so.3: undefined symbol: _ZN6Evoral8SequenceINS_5BeatsEE14const_iterator10invalidateEv<br/>
+<font color="#A82F2F"><font size="2">(02:20:55 PM)</font> <b>MrDoctor:</b></font> Thank you.<br/>
+<font color="#A82F2F"><font size="2">(02:21:55 PM)</font> <b>rgareus:</b></font> scherbi: I have not tried today.  but maybe you&apos;re missing a reconfigure;    ./waf clean  ; ./waf configure ...<br/>
+<font color="#A82F2F"><font size="2">(02:22:17 PM)</font> <b>scherbi:</b></font> i always waf configure, then waf...I&apos;ll try a clean<br/>
+<font color="#A82F2F"><font size="2">(02:22:20 PM)</font> <b>rgareus:</b></font> scherbi: there have been some build-system changes since 4582 (last time you re-configured)<br/>
+<font color="#A82F2F"><font size="2">(02:22:34 PM)</font> <b>scherbi:</b></font> ok. thanks.<br/>
+<font color="#A82F2F"><font size="2">(02:22:39 PM)</font> <b>rgareus:</b></font> you should gett  build/gtk2_ardour/ardour-3.5-4765  <br/>
+<font color="#A82F2F"><font size="2">(02:23:15 PM)</font> <b>scherbi:</b></font> cleaned and config&apos;d. building now<br/>
+<font color="#A82F2F"><font size="2">(02:23:42 PM)</font> <b>scherbi:</b></font> ../libs/backends/jack/weak_libjack.h:185:27: fatal error: jack/metadata.h: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(02:23:51 PM)</font> <b>scherbi:</b></font> must be missing some new dependency?<br/>
+<font color="#A82F2F"><font size="2">(02:24:01 PM)</font> <b>rgareus:</b></font> scherbi: you have an ancient version of jack<br/>
+<font color="#A82F2F"><font size="2">(02:24:10 PM)</font> <b>rgareus:</b></font> scherbi: ./waf configure --no-jack-metadata<br/>
+<font color="#A82F2F"><font size="2">(02:24:13 PM)</font> <b>rgareus:</b></font> or update jack<br/>
+<font color="#A82F2F"><font size="2">(02:24:36 PM)</font> <b>rgareus:</b></font> scherbi: or you&apos;re running Ubuntu (which has a bug in jack2)<br/>
+<font color="#A82F2F"><font size="2">(02:24:43 PM)</font> <b>scherbi:</b></font> i am<br/>
+<font color="#A82F2F"><font size="2">(02:24:49 PM)</font> <b>rgareus:</b></font> (it says it can do metadata, but really can&apos;t)<br/>
+<font color="#A82F2F"><font size="2">(02:24:55 PM)</font> <b>scherbi:</b></font> 14.04<br/>
+<font color="#A82F2F"><font size="2">(02:25:02 PM)</font> <b>rgareus:</b></font> just another ubuntu bug<br/>
+<font color="#A82F2F"><font size="2">(02:25:05 PM)</font> <b>scherbi:</b></font> guess I should build jack from source then<br/>
+<font color="#A82F2F"><font size="2">(02:25:13 PM)</font> <b>rgareus:</b></font> scherbi: don&apos;t bother<br/>
+<font color="#A82F2F"><font size="2">(02:25:29 PM)</font> <b>scherbi:</b></font> ok. any suggestions?<br/>
+<font color="#A82F2F"><font size="2">(02:25:38 PM)</font> <b>rgareus:</b></font> scherbi: build/gtk2_ardour/ardour-<br/>
+<font color="#A82F2F"><font size="2">(02:25:41 PM)</font> <b>rgareus:</b></font> oops<br/>
+<font color="#A82F2F"><font size="2">(02:25:45 PM)</font> <b>rgareus:</b></font> ./waf configure --no-jack-metadata<br/>
+<font color="#A82F2F"><font size="2">(02:25:53 PM)</font> <b>scherbi:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(02:25:57 PM)</font> <b>rgareus:</b></font> scherbi:  the only benefit is nice human readable port-names<br/>
+<font color="#A82F2F"><font size="2">(02:26:07 PM)</font> <b>scherbi:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(02:26:16 PM)</font> <b>rgareus:</b></font> e.g.   &quot;Mic 1&quot; instead of &quot;system:capture_1&quot; <br/>
+<font color="#A82F2F"><font size="2">(02:26:30 PM)</font> <b>scherbi:</b></font> i can live with that<br/>
+<font color="#A82F2F"><font size="2">(02:26:43 PM)</font> <b>rgareus:</b></font> but support for that is pretty thing at the moment anyway. so far only recent jack1 can provide it.<br/>
+<font color="#A82F2F"><font size="2">(02:27:00 PM)</font> <b>rgareus:</b></font> it&apos;s a chicken/egg so we just have to start somewhere.<br/>
+<font color="#A82F2F"><font size="2">(02:27:06 PM)</font> <b>scherbi:</b></font> ok. building again...<br/>
+<font color="#A82F2F"><font size="2">(02:35:03 PM)</font> <b>rgareus:</b></font> scherbi: re-compile finished here, current git (3.5-4766-ga5db1d5) works.<br/>
+<font color="#A82F2F"><font size="2">(02:35:15 PM)</font> <b>scherbi:</b></font> ok. almost done here<br/>
+<font color="#A82F2F"><font size="2">(02:36:51 PM)</font> <b>scherbi:</b></font> rgareus: working! Thank you!<br/>
+<font color="#A82F2F"><font size="2">(03:11:45 PM)</font> <b>ahellquist:</b></font> drobilla, Nice work cleaning up drop zone stuff. Is&apos;nt the drop zone supposed to work from region list as well ? (Just to sync my expectations with a future reality)<br/>
+<font size="2">(03:13:49 PM)</font><b> Guest6438 is now known as nath_</b><br/>
+<font color="#A82F2F"><font size="2">(03:14:41 PM)</font> <b>abbus:</b></font> Hello ther.  I have a question about recording audio with Ardour.  Sometimes when I start recording everything is just fine.  Then when I start a new channel or even on the same track the sound I record is terrible.  Like I&apos;m recording underwater or something like that.  Restart the computer is then the best solution and after that most of the time the recording goes ok.  But then out of nothing sometimes it happens again.  Is there anyone<br/>
+<font color="#A82F2F"><font size="2">(03:14:41 PM)</font> <b>abbus:</b></font>  having the same problem and know how to solve this ??  thanks.<br/>
+<font color="#A82F2F"><font size="2">(03:17:35 PM)</font> <b>abbus:</b></font> Is there anyone?<br/>
+<font color="#A82F2F"><font size="2">(03:18:29 PM)</font> <b>nick_m:</b></font> abbus, never heard of it. underwater? distortion?<br/>
+<font color="#A82F2F"><font size="2">(03:18:54 PM)</font> <b>SzArAk:</b></font> abbus: maybe you have multiple tracks connected to the same input, so you hear it multiple times, just delayed.<br/>
+<font color="#A82F2F"><font size="2">(03:19:46 PM)</font> <b>abbus:</b></font> Hello Nick,  Yes its cracking liand distorted. Like there are not enough samples taken.<br/>
+<font color="#A82F2F"><font size="2">(03:19:48 PM)</font> <b>nick_m:</b></font> abbus, try to use tape machine mode.. that&apos;s just a guess.<br/>
+<font color="#A82F2F"><font size="2">(03:20:14 PM)</font> <b>nick_m:</b></font> abbus, in preferences somewhere (don&apos;t knwo your ardour version)<br/>
+<font color="#A82F2F"><font size="2">(03:20:50 PM)</font> <b>abbus:</b></font> Ok will try that - It&apos;s frustrating when you did a complete track and you have to do it over and over again for this reason.<br/>
+<font color="#A82F2F"><font size="2">(03:20:50 PM)</font> <b>nick_m:</b></font> abbus, ah. crackling. thats different<br/>
+<font color="#A82F2F"><font size="2">(03:21:28 PM)</font> <b>nick_m:</b></font> abbus, what soundcard?<br/>
+<font color="#A82F2F"><font size="2">(03:21:43 PM)</font> <b>chaot4:</b></font> abbus: Did you try to record from the same inputs in another program, when the problem occured in ardour? Just to be sure it&apos;s not comming from the inputs.<br/>
+<font color="#A82F2F"><font size="2">(03:22:17 PM)</font> <b>nick_m:</b></font> abbus, i&apos;ve heard this when using a usb device in a slow usb port<br/>
+<font color="#A82F2F"><font size="2">(03:24:06 PM)</font> <b>abbus:</b></font> INo never tried it.  Good sugestion.  I will try it out wenever it is back again. Thanks perhaps i meet you again here when it is not my input.  I do usb over 2.0 to connect to my external sound modue ( Roland SoniccCell )<br/>
+<font color="#A82F2F"><font size="2">(03:26:22 PM)</font> <b>nick_m:</b></font> abbus, maybe its worth trying a different usb port.<br/>
+<font color="#A82F2F"><font size="2">(03:29:08 PM)</font> <b>abbus:</b></font> Nick - thanks.  I will also try that one. If it&apos;s the port than it must also be on audacity. I will try it out. For now it is waiting until it occures again.<br/>
+<font size="2">(03:32:27 PM)</font><b> abbus left the room (&quot;Ik ga weg&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(03:33:09 PM)</font> <b>rgareus:</b></font> nick_m: tape machine mode? is that still working?<br/>
+<font color="#A82F2F"><font size="2">(03:33:31 PM)</font> <b>nick_m:</b></font> rgareus, i hope so. its a recipe for disaster if it doesn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(03:34:24 PM)</font> <b>rgareus:</b></font> nick_m: aah wait, you didn&apos;t mean destructive tape tracks. <br/>
+<font color="#A82F2F"><font size="2">(03:34:32 PM)</font> <b>nick_m:</b></font> rgareus, no<br/>
+<font color="#A82F2F"><font size="2">(03:34:38 PM)</font> <b>rgareus:</b></font> but hardware monitoring<br/>
+<font color="#A82F2F"><font size="2">(03:35:12 PM)</font> <b>nick_m:</b></font> rgareus, no. it controls whether all tracks switch to input on stop, or just the rec-enabled ones.<br/>
+<font color="#A82F2F"><font size="2">(03:35:40 PM)</font> <b>rgareus:</b></font> yeah, I got confused  reading &quot;tape&quot;<br/>
+<font size="2">(04:10:30 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,54 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Wed 14 Jan 2015 11:26:37 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Wed 14 Jan 2015 11:26:37 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(11:26:38 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(11:26:38 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(11:26:39 PM)</font> <b>mvc`:</b></font> ReinH: yeah, I wish I could just interpret and dump the nix crypt command<br/>
+<font color="#A82F2F"><font size="2">(11:27:30 PM)</font> <b>Haskellfant:</b></font> anyway, it&apos;s getting way too late, I&apos;ll annoy you tomorrow again<br/>
+<font color="#A82F2F"><font size="2">(11:37:34 PM)</font> <b>mvc`:</b></font> Ralith: found it: http://bit.ly/1y02UGR<br/>
+<font color="#A82F2F"><font size="2">(11:37:47 PM)</font> <b>mvc`:</b></font> line 14<br/>
+<font color="#A82F2F"><font size="2">(11:51:36 PM)</font> <b>zmbmartin:</b></font> How can I edit the bash prompt and aliaes for myEnvFun?<br/>
+<font color="#A82F2F"><font size="2">(11:52:33 PM)</font> <b>zmbmartin:</b></font> I have a number of customizations in my bash that I would like access to when I load-env-someEnv.<br/>
+<font color="#A82F2F"><font size="2">(11:55:17 PM)</font> <b>Ralith:</b></font> mvc`: nice<br/>
+<font color="#A82F2F"><font size="2">(11:56:30 PM)</font> <b>henrytill:</b></font> zmbmartin: you could so something like: shell = &quot;${self.bashInteractive}/bin/bash&quot;;<br/>
+<font color="#A82F2F"><font size="2">(11:56:49 PM)</font> <b>henrytill:</b></font> zmbmartin: i believe myEnvFun invokes bash with --no-rc<br/>
+<font color="#A82F2F"><font size="2">(11:57:34 PM)</font> <b>henrytill:</b></font> zmbmartin: you will, however, lose the special prompt<br/>
+<font color="#A82F2F"><font size="2">(11:57:42 PM)</font> <b>zmbmartin:</b></font> henrytill: Can I change that?<br/>
+<font color="#A82F2F"><font size="2">(11:58:02 PM)</font> <b>henrytill:</b></font> zmbmartin: yeah there&apos;s a variable set when you are inside myEnvFun<br/>
+<font color="#A82F2F"><font size="2">(11:58:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 1 new commit to master: http://git.io/1snKFQ<br/>
+<font color="#A82F2F"><font size="2">(11:58:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 116fc8a Pascal Wittmann: yodl: update from 3.04.00 to 3.05.00<br/>
+<font color="#A82F2F"><font size="2">(11:58:59 PM)</font> <b>henrytill:</b></font> zmbmartin: err...see the first message<br/>
+<font color="#A82F2F"><font size="2">(11:59:11 PM)</font> <b>henrytill:</b></font> zmbmartin: shell = &quot;${self.bashInteractive}/bin/bash&quot;;<br/>
+<font color="#A82F2F"><font size="2">(12:00:14 AM)</font> <b>henrytill:</b></font> zmbmartin: sorry did that make sense?<br/>
+<font color="#A82F2F"><font size="2">(12:01:09 AM)</font> <b>zmbmartin:</b></font> henrytill: I get this error error: attribute ‘bashInteractive’ missing, at &quot;/home/bmartin/.nixpkgs/config.nix&quot;:5:24<br/>
+<font color="#A82F2F"><font size="2">(12:01:35 AM)</font> <b>henrytill:</b></font> zmbmartin: oh it&apos;s probably my &quot;self&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:01:43 AM)</font> <b>henrytill:</b></font> zmbmartin: use pkgs.bashInteractive<br/>
+<font color="#A82F2F"><font size="2">(12:03:03 AM)</font> <b>henrytill:</b></font> zmbmartin: there won&apos;t be a nice prompt to tell you if yr in it, though<br/>
+<font color="#A82F2F"><font size="2">(12:03:05 AM)</font> <b>wkennington:</b></font> offlinehacker: what have you done to secure your mesos cluster?<br/>
+<font color="#A82F2F"><font size="2">(12:03:07 AM)</font> <b>zmbmartin:</b></font> henrytill: ok cool, is there an awesome way I can check the env I am in and append that to my prompt if I am in one? Similar to what the prompt did before.<br/>
+<font color="#A82F2F"><font size="2">(12:03:14 AM)</font> <b>zmbmartin:</b></font> henrytill: what just asking you that :)<br/>
+<font color="#A82F2F"><font size="2">(12:03:23 AM)</font> <b>henrytill:</b></font> zmbmartin: :D<br/>
+<font color="#A82F2F"><font size="2">(12:03:25 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] j-keck opened pull request #5774: scala: update to 2.11.5 (master...scala_2.11.5) http://git.io/HCuhFg<br/>
+<font color="#A82F2F"><font size="2">(12:03:30 AM)</font> <b>zmbmartin:</b></font> henrytill: Can I check what env I am in though<br/>
+<font color="#A82F2F"><font size="2">(12:03:33 AM)</font> <b>henrytill:</b></font> zmbmartin: there&apos;s an env variable<br/>
+<font color="#A82F2F"><font size="2">(12:03:39 AM)</font> <b>henrytill:</b></font> zmbmartin: let&apos;s see<br/>
+<font color="#A82F2F"><font size="2">(12:06:31 AM)</font> <b>henrytill:</b></font> zmbmartin: $NIX_MYENV_NAME<br/>
+<font color="#A82F2F"><font size="2">(12:06:43 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/5ISc3w<br/>
+<font color="#A82F2F"><font size="2">(12:06:43 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1912736 Peter Simons: ghc-7.8.4: re-implement &quot;fix build on Darwin&quot; to avoid re-builds on Linux...<br/>
+<font color="#A82F2F"><font size="2">(12:06:57 AM)</font> <b>zmbmartin:</b></font> henrytill: That is blank for me.<br/>
+<font color="#A82F2F"><font size="2">(12:07:07 AM)</font> <b>henrytill:</b></font> zmbmartin: are you in the env?<br/>
+<font color="#A82F2F"><font size="2">(12:07:23 AM)</font> <b>zmbmartin:</b></font> Sorry loed<br/>
+<font color="#A82F2F"><font size="2">(12:07:26 AM)</font> <b>zmbmartin:</b></font> lied<br/>
+<font color="#A82F2F"><font size="2">(12:07:32 AM)</font> <b>zmbmartin:</b></font> Thanks so much henrytill<br/>
+<font color="#A82F2F"><font size="2">(12:07:43 AM)</font> <b>henrytill:</b></font> zmbmartin: np...enjoy!<br/>
+<font color="#A82F2F"><font size="2">(12:25:27 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 1 new commit to master: http://git.io/jvnT3g<br/>
+<font color="#A82F2F"><font size="2">(12:25:27 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master db69fcd Pascal Wittmann: gtmess: update from 0.96 to 0.97...<br/>
+<font color="#A82F2F"><font size="2">(12:27:08 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nckx opened pull request #5775: Add jfbview 0.4.2: framebuffer PDF/image viewer (master...jfbview) http://git.io/ilZxAw<br/>
+<font color="#A82F2F"><font size="2">(01:03:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 5 new commits to master: http://git.io/jDY3tg<br/>
+<font color="#A82F2F"><font size="2">(01:03:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 68c4311 Pascal Wittmann: halibut: update from 1.0 to 1.1...<br/>
+<font color="#A82F2F"><font size="2">(01:03:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 6f27834 Pascal Wittmann: instead: update from 1.9.1 to 2.2.0 and adopt it<br/>
+<font color="#A82F2F"><font size="2">(01:03:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a15198e Pascal Wittmann: squids.latest: update from 3.4.9. to 3.4.11<br/>
+<font color="#A82F2F"><font size="2">(01:11:15 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 2 new commits to master: http://git.io/4grtig<br/>
+<font color="#A82F2F"><font size="2">(01:11:15 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 67fc5b5 j-keck: scala: update to 2.11.5<br/>
+<font color="#A82F2F"><font size="2">(01:11:15 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e38c351 Pascal Wittmann: Merge pull request #5774 from j-keck/scala_2.11.5...<br/>
+<font color="#A82F2F"><font size="2">(01:11:53 AM)</font> <b>CodeWarrior:</b></font> Scala 2.11.5; yay! (=<br/>
+<font size="2">(01:47:46 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

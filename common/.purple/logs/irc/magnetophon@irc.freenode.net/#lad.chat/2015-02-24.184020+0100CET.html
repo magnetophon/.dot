@@ -1,0 +1,134 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Tue 24 Feb 2015 06:40:20 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Tue 24 Feb 2015 06:40:20 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(06:40:20 PM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font size="2">(06:40:20 PM)</font><b> Topic for #lad set by tapas!~tapas@static.231.2.63.178.clients.your-server.de at 10:37:26 AM on 05/13/2013</b><br/>
+<font color="#A82F2F"><font size="2">(06:40:21 PM)</font> <b>wilhelm.freenode.net:</b></font> (notice) [freenode-info] channel trolls and no channel staff around to help? please check with freenode support: http://freenode.net/faq.shtml#gettinghelp<br/>
+<font color="#A82F2F"><font size="2">(06:41:14 PM)</font> <b>falktx:</b></font> ok so it needs clang and that flag<br/>
+<font color="#A82F2F"><font size="2">(06:41:17 PM)</font> <b>falktx:</b></font> what else?<br/>
+<font color="#A82F2F"><font size="2">(06:41:36 PM)</font> <b>fundamental_:</b></font> clang, -emit-llvm, -O0<br/>
+<font color="#A82F2F"><font size="2">(06:41:52 PM)</font> <b>fundamental_:</b></font> get all of your code to compile with at least those flags<br/>
+<font color="#A82F2F"><font size="2">(06:42:02 PM)</font> <b>falktx:</b></font> hm, no optimizations?<br/>
+<font color="#A82F2F"><font size="2">(06:42:08 PM)</font> <b>falktx:</b></font> or just -O0<br/>
+<font color="#A82F2F"><font size="2">(06:42:17 PM)</font> <b>fundamental_:</b></font> annotate something via __attribute__((annotate(&quot;realtime&quot;))<br/>
+<font color="#A82F2F"><font size="2">(06:42:41 PM)</font> <b>fundamental_:</b></font> falktx: try to avoid any major optimizations as it makes the LLVM IR harder to parse<br/>
+<font color="#A82F2F"><font size="2">(06:42:55 PM)</font> <b>fundamental_:</b></font> falktx: I just avoid -O3/-O2/-O1 and it works fine<br/>
+<font color="#A82F2F"><font size="2">(06:43:25 PM)</font> <b>falktx:</b></font> I use this:<br/>
+<font color="#A82F2F"><font size="2">(06:43:26 PM)</font> <b>falktx:</b></font> -O2 -ffast-math -mtune=generic -msse -msse2<br/>
+<font color="#A82F2F"><font size="2">(06:43:40 PM)</font> <b>fundamental_:</b></font> falktx: change -O2 to -O0 and you&apos;re fine<br/>
+<font color="#A82F2F"><font size="2">(06:43:44 PM)</font> <b>falktx:</b></font> ok, thanks<br/>
+<font color="#A82F2F"><font size="2">(06:44:01 PM)</font> <b>fundamental_:</b></font> the only thing it really needs is for the call instructions to be easy enough to figure out<br/>
+<font color="#A82F2F"><font size="2">(06:44:12 PM)</font> <b>fundamental_:</b></font> and the vtables to not be messed with too much<br/>
+<font color="#A82F2F"><font size="2">(06:45:08 PM)</font> <b>falktx:</b></font> fundamental_: how does it know the starting point of the call graph?<br/>
+<font color="#A82F2F"><font size="2">(06:45:16 PM)</font> <b>falktx:</b></font> via the annotate realtime?<br/>
+<font color="#A82F2F"><font size="2">(06:45:21 PM)</font> <b>fundamental_:</b></font> yep<br/>
+<font color="#A82F2F"><font size="2">(06:45:33 PM)</font> <b>fundamental_:</b></font> the annotation forms the base of deductions<br/>
+<font color="#A82F2F"><font size="2">(06:45:53 PM)</font> <b>fundamental_:</b></font> which is essentially &quot;if x is realtime and x calls y then y is realtime&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:46:02 PM)</font> <b>falktx:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(06:46:05 PM)</font> <b>fundamental_:</b></font> until it reaches a contradiction<br/>
+<font color="#A82F2F"><font size="2">(06:46:16 PM)</font> <b>falktx:</b></font> fundamental_: gcc seems to recognize -emit-llvm btw<br/>
+<font color="#A82F2F"><font size="2">(06:47:00 PM)</font> <b>fundamental_:</b></font> falktx: gcc *ignores* -emit-llvm<br/>
+<font color="#A82F2F"><font size="2">(06:53:34 PM)</font> <b>falktx:</b></font> the error is weird<br/>
+<font color="#A82F2F"><font size="2">(06:53:35 PM)</font> <b>falktx:</b></font> ../../build/discovery/Release/carla-discovery.cpp.o: file not recognized: File format not recognized<br/>
+<font color="#A82F2F"><font size="2">(06:53:55 PM)</font> <b>falktx:</b></font> that file doesn&apos;t exist<br/>
+<font color="#A82F2F"><font size="2">(06:54:55 PM)</font> <b>fundamental_:</b></font> depending on your llvm version it may output a .bc or a .ll file instead of .o<br/>
+<font color="#A82F2F"><font size="2">(06:55:04 PM)</font> <b>fundamental_:</b></font> s/llvm/clang/<br/>
+<font color="#A82F2F"><font size="2">(06:56:58 PM)</font> <b>falktx:</b></font> no bc or ll files found<br/>
+<font color="#A82F2F"><font size="2">(06:57:12 PM)</font> <b>falktx:</b></font> fundamental_: does it perhaps conflict with -MM ?<br/>
+<font color="#A82F2F"><font size="2">(06:59:22 PM)</font> <b>fundamental_:</b></font> falktx: presumably your makefile specifies a -o parameter, right?<br/>
+<font color="#A82F2F"><font size="2">(06:59:43 PM)</font> <b>falktx:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(06:59:44 PM)</font> <b>fundamental_:</b></font> the output of compiling a file should still be the output with -emit-llvm<br/>
+<font color="#A82F2F"><font size="2">(06:59:58 PM)</font> <b>fundamental_:</b></font> and file should list the type<br/>
+<font color="#A82F2F"><font size="2">(07:00:13 PM)</font> <b>fundamental_:</b></font> ELF for normally compiled files<br/>
+<font color="#A82F2F"><font size="2">(07:00:22 PM)</font> <b>fundamental_:</b></font> LLVM IR bitcode for -emit-llvm based files<br/>
+<font color="#A82F2F"><font size="2">(07:01:06 PM)</font> <b>falktx:</b></font> alright<br/>
+<font color="#A82F2F"><font size="2">(07:01:08 PM)</font> <b>falktx:</b></font> CarlaEngine.cpp.o: LLVM IR bitcode<br/>
+<font color="#A82F2F"><font size="2">(07:01:22 PM)</font> <b>fundamental_:</b></font> good good<br/>
+<font color="#A82F2F"><font size="2">(07:02:50 PM)</font> <b>fundamental_:</b></font> so, as long as you can get all of your .o files to compile to that format, then you&apos;re all good<br/>
+<font color="#A82F2F"><font size="2">(07:07:43 PM)</font> <b>falktx:</b></font> fundamental_: do I need -emit-llvm for LDFLAGS too?<br/>
+<font color="#A82F2F"><font size="2">(07:08:05 PM)</font> <b>fundamental_:</b></font> falktx: nope<br/>
+<font color="#A82F2F"><font size="2">(07:08:17 PM)</font> <b>fundamental_:</b></font> falktx: linking will fail with this approach (using the normal linker)<br/>
+<font color="#A82F2F"><font size="2">(07:09:01 PM)</font> <b>falktx:</b></font> full command http://kxstudio.sourceforge.net/Paste/repo/gazQM<br/>
+<font color="#A82F2F"><font size="2">(07:09:25 PM)</font> <b>falktx:</b></font> fundamental_: so I can&apos;t get it to link?<br/>
+<font color="#A82F2F"><font size="2">(07:10:04 PM)</font> <b>fundamental_:</b></font> falktx: there is llvm-link, but I&apos;d recommend just doing something to convince your build system not to link stuff<br/>
+<font color="#A82F2F"><font size="2">(07:11:12 PM)</font> <b>fundamental_:</b></font> falktx: most other projects I tested stoat on were relatively easy to get built, but unlinked<br/>
+<font color="#A82F2F"><font size="2">(07:11:32 PM)</font> <b>falktx:</b></font> carla has a bunch of binaries for different things<br/>
+<font color="#A82F2F"><font size="2">(07:11:48 PM)</font> <b>falktx:</b></font> hmm, I&apos;m missing some ruby stuff<br/>
+<font color="#A82F2F"><font size="2">(07:11:50 PM)</font> <b>fundamental_:</b></font> yep :-/<br/>
+<font color="#A82F2F"><font size="2">(07:12:35 PM)</font> <b>falktx:</b></font> ruby-graphviz, now working<br/>
+<font color="#A82F2F"><font size="2">(07:12:58 PM)</font> <b>falktx:</b></font> &quot;dot: graph is too large for cairo-renderer bitmaps. Scaling by 0.489579 to fit&quot; lol<br/>
+<font color="#A82F2F"><font size="2">(07:13:11 PM)</font> <b>fundamental_:</b></font> falktx: you might want -G instead of -g<br/>
+<font color="#A82F2F"><font size="2">(07:14:12 PM)</font> <b>falktx:</b></font> ah I see the issue<br/>
+<font color="#A82F2F"><font size="2">(07:14:22 PM)</font> <b>falktx:</b></font> I don&apos;t link to libjack but dlopen/sym it instead<br/>
+<font color="#A82F2F"><font size="2">(07:14:42 PM)</font> <b>falktx:</b></font> it&apos;s treating all calls to libjack as rt-unsafe<br/>
+<font color="#A82F2F"><font size="2">(07:15:14 PM)</font> <b>fundamental_:</b></font> it treats everything that it doesn&apos;t see defined or whitelisted as unsafe<br/>
+<font color="#A82F2F"><font size="2">(07:15:59 PM)</font> <b>falktx:</b></font> does it take wildcards?<br/>
+<font color="#A82F2F"><font size="2">(07:16:18 PM)</font> <b>fundamental_:</b></font> not yet<br/>
+<font color="#A82F2F"><font size="2">(07:16:21 PM)</font> <b>falktx:</b></font> I need to whitelist all jackbridge_* calls<br/>
+<font color="#A82F2F"><font size="2">(07:17:23 PM)</font> <b>fundamental_:</b></font> I think I can add them pretty quickly<br/>
+<font color="#A82F2F"><font size="2">(07:21:17 PM)</font> <b>falktx:</b></font> ah, much better<br/>
+<font color="#A82F2F"><font size="2">(07:23:12 PM)</font> <b>falktx:</b></font> fundamental_: your &quot;stoat&quot; tool returns -1 if it finds any errors. this is not very nice for &quot;make&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:24:53 PM)</font> <b>falktx:</b></font> as in, adding the stoat tool as part of a makefile operation<br/>
+<font color="#A82F2F"><font size="2">(07:25:20 PM)</font> <b>fundamental_:</b></font> my tests are indicating I might have broke something, but wildcards possibly work<br/>
+<font color="#A82F2F"><font size="2">(07:27:25 PM)</font> <b>fundamental_:</b></font> falktx: I could add an option to provide a dummy output if need be<br/>
+<font color="#A82F2F"><font size="2">(07:27:45 PM)</font> <b>falktx:</b></font> my only issue now is the jackbridge thing<br/>
+<font color="#A82F2F"><font size="2">(07:27:51 PM)</font> <b>falktx:</b></font>  - JackBridge::JackBridge() : The Function Was Deduced To Need To Be RealTime As It Was Called By A Realtime Function<br/>
+<font color="#A82F2F"><font size="2">(07:27:52 PM)</font> <b>falktx:</b></font>  - getBridgeInstance() : The Function Was Declared Realtime By A Whitelist<br/>
+<font color="#A82F2F"><font size="2">(07:28:15 PM)</font> <b>falktx:</b></font> &quot;JackBridge::JackBridge&quot; doesn&apos;t seem to be accepted in the whitelist<br/>
+<font color="#A82F2F"><font size="2">(07:28:58 PM)</font> <b>falktx:</b></font> ah wait, it is working, the issue is dlsym<br/>
+<font color="#A82F2F"><font size="2">(07:30:15 PM)</font> <b>falktx:</b></font> fundamental_: I need your input here. the issue is this function https://github.com/falkTX/Carla/blob/master/source/jackbridge/JackBridge1.cpp#L498<br/>
+<font color="#A82F2F"><font size="2">(07:30:49 PM)</font> <b>falktx:</b></font> it creates a static instance of jackbridge<br/>
+<font color="#A82F2F"><font size="2">(07:31:52 PM)</font> <b>fundamental_:</b></font> there are suppressions if you know that the object creation doesn&apos;t happen in a rt context<br/>
+<font color="#A82F2F"><font size="2">(07:32:31 PM)</font> <b>falktx:</b></font> it doesn&apos;t, I call jackbridge_is_ok first which creates that static class<br/>
+<font color="#A82F2F"><font size="2">(07:33:22 PM)</font> <b>fundamental_:</b></font> suppression file format &quot;call callee&quot; on a single line using the shortend names that show up in the graphviz rendering<br/>
+<font color="#A82F2F"><font size="2">(07:34:06 PM)</font> <b>fundamental_:</b></font> --suppression FILE.txt is the relevent argument<br/>
+<font color="#A82F2F"><font size="2">(07:35:42 PM)</font> <b>falktx:</b></font> errm<br/>
+<font color="#A82F2F"><font size="2">(07:37:05 PM)</font> <b>falktx:</b></font> so &quot;JackBridge::JackBridge getBridgeInstance&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(07:37:37 PM)</font> <b>fundamental_:</b></font> reverse those two<br/>
+<font color="#A82F2F"><font size="2">(07:37:39 PM)</font> <b>fundamental_:</b></font> and then yes<br/>
+<font color="#A82F2F"><font size="2">(07:37:51 PM)</font> <b>fundamental_:</b></font> err<br/>
+<font color="#A82F2F"><font size="2">(07:37:52 PM)</font> <b>falktx:</b></font> haha, thanks!<br/>
+<font color="#A82F2F"><font size="2">(07:38:18 PM)</font> <b>fundamental_:</b></font> yess<br/>
+<font color="#A82F2F"><font size="2">(07:39:51 PM)</font> <b>falktx:</b></font> fundamental_: https://i.imgur.com/01VZmry.png<br/>
+<font color="#A82F2F"><font size="2">(07:40:53 PM)</font> <b>falktx:</b></font> there&apos;s just a tryLock that has a force-lock parameter (for offline/freewheel) and some weird CarlaPlugin40 call<br/>
+<font color="#A82F2F"><font size="2">(07:40:55 PM)</font> <b>fundamental_:</b></font> falktx: that&apos;s way too tiny<br/>
+<font color="#A82F2F"><font size="2">(07:41:19 PM)</font> <b>falktx:</b></font> fundamental_: that&apos;s the full backend. I set rt-annotate on the jack process function<br/>
+<font color="#A82F2F"><font size="2">(07:41:21 PM)</font> <b>fundamental_:</b></font> is the rest of your code not compiled/visible?<br/>
+<font color="#A82F2F"><font size="2">(07:41:36 PM)</font> <b>falktx:</b></font> it has -fvisibility=hidden<br/>
+<font color="#A82F2F"><font size="2">(07:43:16 PM)</font> <b>fundamental_:</b></font> CarlaPlugin40 is the 40th vtable entry which is CarlaPlugin::process<br/>
+<font color="#A82F2F"><font size="2">(07:43:24 PM)</font> <b>fundamental_:</b></font> I&apos;d expect that to actually call some code<br/>
+<font color="#A82F2F"><font size="2">(07:43:39 PM)</font> <b>fundamental_:</b></font> eg subclass&apos;s implementations<br/>
+<font color="#A82F2F"><font size="2">(07:43:58 PM)</font> <b>falktx:</b></font> they are compiled in<br/>
+<font color="#A82F2F"><font size="2">(07:44:16 PM)</font> <b>fundamental_:</b></font> are you using stoat -r /root/dir ?<br/>
+<font color="#A82F2F"><font size="2">(07:44:37 PM)</font> <b>fundamental_:</b></font> it looks like you&apos;re only running it on a single llvm IR file<br/>
+<font color="#A82F2F"><font size="2">(07:44:38 PM)</font> <b>falktx:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(07:45:28 PM)</font> <b>falktx:</b></font> stoat --recursive ./build/ --suppression ./data/stoat-whitelist.txt --whitelist ./data/stoat-whitelist.txt --graph-view ./data/stoat-callgraph.png<br/>
+<font color="#A82F2F"><font size="2">(07:45:38 PM)</font> <b>fundamental_:</b></font> oh no<br/>
+<font color="#A82F2F"><font size="2">(07:45:49 PM)</font> <b>fundamental_:</b></font> --suppressing the whole white list?<br/>
+<font color="#A82F2F"><font size="2">(07:46:58 PM)</font> <b>falktx:</b></font> typo when copying<br/>
+<font color="#A82F2F"><font size="2">(07:47:57 PM)</font> <b>fundamental_:</b></font> ah, then it must have gotten confused with the class hierarcy<br/>
+<font color="#A82F2F"><font size="2">(07:48:13 PM)</font> <b>falktx:</b></font> re-running gives the same results (without optimizations)<br/>
+<font color="#A82F2F"><font size="2">(07:48:17 PM)</font> <b>fundamental_:</b></font> that method is a bit weird<br/>
+<font color="#A82F2F"><font size="2">(07:48:32 PM)</font> <b>falktx:</b></font> is a &quot;virtual process() = 0&quot; thing<br/>
+<font color="#A82F2F"><font size="2">(07:49:03 PM)</font> <b>fundamental_:</b></font> pure virtual methods have confused it in the past (llvm IR just omits a ton)<br/>
+<font color="#A82F2F"><font size="2">(07:49:40 PM)</font> <b>fundamental_:</b></font> worst case you might need to whitelist the subclass&apos;s process methods<br/>
+<font color="#A82F2F"><font size="2">(07:51:12 PM)</font> <b>fundamental_:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(07:51:15 PM)</font> <b>fundamental_:</b></font> I see the bug<br/>
+<font color="#A82F2F"><font size="2">(07:51:21 PM)</font> <b>fundamental_:</b></font> I think<br/>
+<font color="#A82F2F"><font size="2">(07:51:58 PM)</font> <b>fundamental_:</b></font> I&apos;m 50/50 on the class hierarchy detector failing with C++ namespaces<br/>
+<font color="#A82F2F"><font size="2">(07:52:19 PM)</font> <b>fundamental_:</b></font> as it thinks all constructors look like class_name+&quot;::&quot;+class_name<br/>
+<font color="#A82F2F"><font size="2">(07:52:55 PM)</font> <b>falktx:</b></font> all of the backend code is inside a namespace<br/>
+<font color="#A82F2F"><font size="2">(07:53:19 PM)</font> <b>fundamental_:</b></font> yep<br/>
+<font color="#062585"><font size="2">(07:53:28 PM)</font> <b>***fundamental_</b></font> adds a test<br/>
+<font color="#A82F2F"><font size="2">(07:54:17 PM)</font> <b>falktx:</b></font> fundamental_: if I annotate the virtual process function, will subclass implementations get it too?<br/>
+<font color="#A82F2F"><font size="2">(07:54:39 PM)</font> <b>fundamental_:</b></font> falktx: if the method isn&apos;t pure virtual (and I fix this bug), then yes<br/>
+<font color="#A82F2F"><font size="2">(07:55:00 PM)</font> <b>fundamental_:</b></font> falktx: pure virtuals are discarded in the IR file, so there&apos;s no way to see annotations<br/>
+<font color="#A82F2F"><font size="2">(07:55:43 PM)</font> <b>falktx:</b></font> well they&apos;re called by the engine jack-process call anyway<br/>
+<font color="#A82F2F"><font size="2">(07:55:47 PM)</font> <b>fundamental_:</b></font> pure virtual calls on the other hand are fine<br/>
+<font color="#A82F2F"><font size="2">(07:56:42 PM)</font> <b>falktx:</b></font> well, have to go now<br/>
+<font color="#A82F2F"><font size="2">(07:56:51 PM)</font> <b>falktx:</b></font> but added some minor support for this in carla<br/>
+<font color="#A82F2F"><font size="2">(07:57:02 PM)</font> <b>falktx:</b></font> https://github.com/falkTX/Carla/commit/4948f513665e5023e603b8432b20fec52d230ec0<br/>
+<font color="#A82F2F"><font size="2">(07:57:18 PM)</font> <b>falktx:</b></font> clone; make backend STOAT=true; make stoat<br/>
+<font color="#A82F2F"><font size="2">(07:57:29 PM)</font> <b>falktx:</b></font> see the data/stoat-callgraph.png in the end<br/>
+<font color="#A82F2F"><font size="2">(07:57:32 PM)</font> <b>fundamental_:</b></font> falktx: nice, I&apos;ll try to fix the namespace bug<br/>
+<font color="#A82F2F"><font size="2">(07:57:47 PM)</font> <b>falktx:</b></font> later<br/>
+<font size="2">(07:57:50 PM)</font><b> falktx left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(09:43:14 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>

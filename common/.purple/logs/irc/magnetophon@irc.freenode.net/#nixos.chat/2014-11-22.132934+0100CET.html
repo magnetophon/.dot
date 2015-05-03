@@ -1,0 +1,438 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sat 22 Nov 2014 01:29:34 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sat 22 Nov 2014 01:29:34 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(01:29:34 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(01:29:34 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(01:29:58 PM)</font><b> hexagoxel [<em>~hexagoxel@kiel-5f769494.pool.mediaWays.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:30:57 PM)</font> <b>pharpend:</b></font> Hi, I&apos;m getting this error when I try to install something with -j - error: configuration setting `build-max-jobs&apos; should have an integer value<br/>
+<font size="2">(01:31:54 PM)</font><b> sigmundv left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:33:03 PM)</font> <b>pharpend:</b></font> I tried setting that value in configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(01:35:15 PM)</font> <b>etaoinshrdlu:</b></font> pharpend: What does the line where you made that setting look like?<br/>
+<font color="#A82F2F"><font size="2">(01:35:24 PM)</font> <b>pharpend:</b></font> one sec<br/>
+<font size="2">(01:36:16 PM)</font><b> moha_hunt [<em>~moha@95.90.232.1</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:37:51 PM)</font> <b>pharpend:</b></font> etaoinshrdlu: http://lpaste.net/114771<br/>
+<font size="2">(01:39:00 PM)</font><b> cpc26_ [<em>~cpc26@fsf/member/cpc26</em>] entered the room.</b><br/>
+<font size="2">(01:39:42 PM)</font><b> cpc26 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(01:40:14 PM)</font> <b>etaoinshrdlu:</b></font> pharpend: And the nix-env command you run, what does that look like?<br/>
+<font color="#A82F2F"><font size="2">(01:40:27 PM)</font> <b>pharpend:</b></font> nxi () {<br/>
+<font color="#A82F2F"><font size="2">(01:40:29 PM)</font> <b>pharpend:</b></font>  nix-env -ji $@<br/>
+<font color="#A82F2F"><font size="2">(01:40:31 PM)</font> <b>pharpend:</b></font> }<br/>
+<font color="#A82F2F"><font size="2">(01:41:31 PM)</font> <b>hyper_ch:</b></font> happy weekend, everybody<br/>
+<font color="#A82F2F"><font size="2">(01:41:43 PM)</font> <b>pharpend:</b></font> happy weekend<br/>
+<font color="#A82F2F"><font size="2">(01:47:55 PM)</font> <b>etaoinshrdlu:</b></font> pharpend: Do you have the same problem if you test to change the command to &quot;nix-env -j 5 -i $@&quot;? Seems like you need to provide a value to the -j flag.<br/>
+<font color="#A82F2F"><font size="2">(01:48:36 PM)</font> <b>pharpend:</b></font> etaoinshrdlu: that works<br/>
+<font color="#A82F2F"><font size="2">(01:49:10 PM)</font> <b>etaoinshrdlu:</b></font> pharpend: Seems like you only use the -j flag when you want to override max-build-jobs<br/>
+<font color="#A82F2F"><font size="2">(01:49:31 PM)</font> <b>pharpend:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(01:49:40 PM)</font> <b>pharpend:</b></font> I can&apos;t figure out how to set max-build-jobs, though<br/>
+<font color="#A82F2F"><font size="2">(01:54:06 PM)</font> <b>krgn___:</b></font> jk<br/>
+<font color="#A82F2F"><font size="2">(02:00:56 PM)</font> <b>pharpend:</b></font> How do you go about installing gtk themes in Nix?<br/>
+<font color="#A82F2F"><font size="2">(02:01:08 PM)</font> <b>pharpend:</b></font> There don&apos;t seem to be any in the repositories<br/>
+<font color="#A82F2F"><font size="2">(02:05:28 PM)</font> <b>pharpend:</b></font> Also, I haven&apos;t used systemd in a while. Is there a way to start the x server without having to use a display manager?<br/>
+<font color="#A82F2F"><font size="2">(02:06:57 PM)</font> <b>MichaelRaskin:</b></font> Apparently, this way got broken by the latest SystemD update<br/>
+<font color="#A82F2F"><font size="2">(02:07:02 PM)</font> <b>MichaelRaskin:</b></font> There previously was<br/>
+<font color="#062585"><font size="2">(02:07:10 PM)</font> <b>***pharpend</b></font> used to use startx with openrc<br/>
+<font color="#062585"><font size="2">(02:07:15 PM)</font> <b>***pharpend</b></font> wonders why people use systemd<br/>
+<font color="#A82F2F"><font size="2">(02:07:57 PM)</font> <b>MichaelRaskin:</b></font> I am currently using debugging automated image processing in a framebuffer console<br/>
+<font color="#A82F2F"><font size="2">(02:08:11 PM)</font> <b>MichaelRaskin:</b></font> (as in, this hour)<br/>
+<font color="#A82F2F"><font size="2">(02:08:51 PM)</font> <b>MichaelRaskin:</b></font> And started to prepare a few tests for running NixPkgs-based system with a complete stub instead of init<br/>
+<font color="#A82F2F"><font size="2">(02:09:52 PM)</font> <b>MichaelRaskin:</b></font> (as in, started this week)<br/>
+<font color="#A82F2F"><font size="2">(02:10:07 PM)</font> <b>pharpend:</b></font> well let me know how that goes<br/>
+<font color="#A82F2F"><font size="2">(02:10:29 PM)</font> <b>pharpend:</b></font> I feel like I&apos;m going to end up contributing to nixos, maybe even involuntarily<br/>
+<font color="#A82F2F"><font size="2">(02:12:28 PM)</font> <b>krgn___:</b></font> (oops sorry for the spam)<br/>
+<font size="2">(02:25:32 PM)</font><b> JannisLimperg [<em>~jannis@frbg-5f7311ab.pool.mediaWays.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:30:13 PM)</font> <b>JannisLimperg:</b></font> Hi everyone. A question regarding local builds of Haskell packages: I&apos;m following the template at http://www.cse.chalmers.se/~bernardy/nix.html, section &quot;Per-project configuration&quot;, for building a local package from source. This works fine for a library project, but when I use nix-shell with an executable project, no dependencies are built and loaded. The only difference between the two is that the executable project contains &quot;isLibra<br/>
+<font color="#A82F2F"><font size="2">(02:30:50 PM)</font> <b>JannisLimperg:</b></font> k00ml: Already done. Thanks for the suggestion. :)<br/>
+<font color="#A82F2F"><font size="2">(02:31:35 PM)</font> <b>JannisLimperg:</b></font> Sorry, wrong channel.<br/>
+<font size="2">(02:32:57 PM)</font><b> pharpend left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font size="2">(02:37:03 PM)</font><b> pharpend [<em>~prh@unaffiliated/l0cust</em>] entered the room.</b><br/>
+<font size="2">(02:37:19 PM)</font><b> pharpend left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(02:44:54 PM)</font> <b>bennofs:</b></font> JannisLimperg: can you paste the generated default.nix / shell.nix?<br/>
+<font color="#A82F2F"><font size="2">(02:45:26 PM)</font> <b>JannisLimperg:</b></font> bennofs: One second.<br/>
+<font size="2">(02:46:17 PM)</font><b> MP2E left the room (quit: Quit: sleep).</b><br/>
+<font size="2">(02:50:29 PM)</font><b> pharpend [<em>~prh@unaffiliated/l0cust</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:50:31 PM)</font> <b>JannisLimperg:</b></font> bennofs: https://gist.github.com/JLimperg/24e7a429d32afd9fd1c2. monad-hdbc is a local library package.<br/>
+<font color="#A82F2F"><font size="2">(02:51:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] eikek opened pull request #5083: add sqliteman package (master...sqliteman) http://git.io/9uaEww<br/>
+<font color="#A82F2F"><font size="2">(02:53:30 PM)</font> <b>bennofs:</b></font> JannisLimperg: ok, so the problem is probably that executables don&apos;t have propagatedNativeBuildInputs set<br/>
+<font size="2">(02:54:00 PM)</font><b> pharpend left the room (quit: Client Quit).</b><br/>
+<font size="2">(02:54:24 PM)</font><b> ajhager left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font size="2">(02:55:08 PM)</font><b> pharpend [<em>~prh@unaffiliated/l0cust</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:56:00 PM)</font> <b>JannisLimperg:</b></font> bennofs: Ah, that explains a lot. Any suggestion for an alternative shell.nix (given that I have pretty much no clue about what functions are available as part of the Nix environment for Haskell)?<br/>
+<font color="#A82F2F"><font size="2">(02:57:28 PM)</font> <b>bennofs:</b></font> JannisLimperg: I think this should work: https://gist.github.com/bennofs/a1720859b53fcc743894<br/>
+<font color="#A82F2F"><font size="2">(03:01:47 PM)</font> <b>JannisLimperg:</b></font> bennofs: Perfect! Works like a charm. Does that version also work with libraries?<br/>
+<font color="#A82F2F"><font size="2">(03:03:06 PM)</font> <b>bennofs:</b></font> JannisLimperg: it should. this version also has the advantage that you should be able to do nix-build shell.nix to build the package<br/>
+<font color="#A82F2F"><font size="2">(03:03:41 PM)</font> <b>bennofs:</b></font> (of course, that is not really suited for development, as you want incremental builds for that, but it can still be nice)<br/>
+<font color="#A82F2F"><font size="2">(03:04:12 PM)</font> <b>bennofs:</b></font> And you can install the executable with nix-env -i -f shell.nix.<br/>
+<font size="2">(03:04:50 PM)</font><b> pharpend left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font size="2">(03:05:04 PM)</font><b> pharpend [<em>~prh@unaffiliated/l0cust</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:06:07 PM)</font> <b>JannisLimperg:</b></font> bennofs: Confirmed, everything working as intended. Thank you very much!<br/>
+<font size="2">(03:06:16 PM)</font><b> moha_hunt left the room (quit: Quit: moha_hunt).</b><br/>
+<font size="2">(03:06:20 PM)</font><b> mornfall left the room (quit: Quit: ZNC - http://znc.sourceforge.net).</b><br/>
+<font size="2">(03:08:38 PM)</font><b> pharpend left the room (quit: Client Quit).</b><br/>
+<font size="2">(03:09:05 PM)</font><b> pharpend [<em>~prh@unaffiliated/l0cust</em>] entered the room.</b><br/>
+<font size="2">(03:14:29 PM)</font><b> JannisLimperg left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(03:22:50 PM)</font><b> sary left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font size="2">(03:24:30 PM)</font><b> sary [<em>~sm@pdpc/supporter/student/sary</em>] entered the room.</b><br/>
+<font size="2">(03:29:47 PM)</font><b> MarcWeber left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(03:30:39 PM)</font><b> copumpkin left the room (quit: Quit: My MacBook Pro has gone to sleep. ZZZzzz…).</b><br/>
+<font color="#16569E"><font size="2">(03:33:03 PM)</font> <b>magnetophon:</b></font> Somehow my built in collection of licenses does not include gpl1 or gpl1Plus. Should I just add them and do a pull request? Seems like an odd oversight, is it intentional?<br/>
+<font color="#A82F2F"><font size="2">(03:34:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] henrytill opened pull request #5084: mr: update to 1.20141024 (master...mr) http://git.io/LGyUKA<br/>
+<font color="#16569E"><font size="2">(03:35:55 PM)</font> <b>magnetophon:</b></font> git has gpl1Plus but not gpl1, so it looks like I just need to add it, right? https://github.com/NixOS/nixpkgs/blob/master/lib/licenses.nix<br/>
+<font size="2">(03:42:12 PM)</font><b> ro6 left the room (quit: Quit: Connection closed for inactivity).</b><br/>
+<font size="2">(03:43:44 PM)</font><b> ewemoa left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(03:49:55 PM)</font><b> Takle [<em>~takle@56347a1c.rev.stofanet.dk</em>] entered the room.</b><br/>
+<font size="2">(03:54:07 PM)</font><b> eddyb_ [<em>~eddyb@unaffiliated/eddyb</em>] entered the room.</b><br/>
+<font size="2">(03:58:45 PM)</font><b> couchemar left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(03:58:52 PM)</font> <b>MichaelRaskin:</b></font> Yes, adding gpl1 is a good idea<br/>
+<font size="2">(03:59:00 PM)</font><b> rejuvyesh [<em>~rejuvyesh@unaffiliated/rejuvyesh</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(04:00:16 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: OK, will do. I was just a bit suprised that it wasn't in there yet, while so many less common ones are...<br/>
+<font size="2">(04:00:24 PM)</font><b> Ivanych left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(04:00:41 PM)</font><b> ewemoa [<em>~user@124.49.178.127</em>] entered the room.</b><br/>
+<font size="2">(04:02:33 PM)</font><b> ajhager [<em>~ajhager@99-8-18-142.lightspeed.iplsin.sbcglobal.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:02:35 PM)</font> <b>MichaelRaskin:</b></font> GPLv1-only is not that common a license by now<br/>
+<font size="2">(04:03:07 PM)</font><b> queiw [<em>~jeroen@radstand.nl</em>] entered the room.</b><br/>
+<font size="2">(04:04:15 PM)</font><b> Takle left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(04:06:16 PM)</font> <b>queiw:</b></font> hello. how can I blacklist a kernel module in the nixos live image?<br/>
+<font size="2">(04:08:18 PM)</font><b> Takle_ [<em>~takle@56347a1c.rev.stofanet.dk</em>] entered the room.</b><br/>
+<font size="2">(04:08:52 PM)</font><b> turtlethumper left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(04:10:52 PM)</font><b> Takle_ left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(04:11:02 PM)</font> <b>pharpend:</b></font> I have some old shell scripts that run off of bash, that are apparently broken in nix, because /bin/bash doesn&apos;t exist<br/>
+<font color="#A82F2F"><font size="2">(04:11:31 PM)</font> <b>pharpend:</b></font> i have some other machines running Non-nix, so I can&apos;t change the scripts to use /run/current-system/sw/bin/bash<br/>
+<font color="#A82F2F"><font size="2">(04:11:41 PM)</font> <b>kmicu:</b></font> /usr/bin/env bash<br/>
+<font color="#A82F2F"><font size="2">(04:11:51 PM)</font> <b>pharpend:</b></font> /usr/bin/env doesn&apos;t exist<br/>
+<font color="#A82F2F"><font size="2">(04:11:59 PM)</font> <b>MichaelRaskin:</b></font> Some purists try to avoid /usr/bin/env on NixOS<br/>
+<font color="#A82F2F"><font size="2">(04:12:01 PM)</font> <b>pharpend:</b></font> it&apos;s /run/.../bash<br/>
+<font color="#A82F2F"><font size="2">(04:12:08 PM)</font> <b>pharpend:</b></font> i&apos;m sure<br/>
+<font color="#A82F2F"><font size="2">(04:12:26 PM)</font> <b>pharpend:</b></font> but nonetheless, a number of very standard scripts rely on env and bash<br/>
+<font color="#A82F2F"><font size="2">(04:12:27 PM)</font> <b>MichaelRaskin:</b></font> But just creating  /usr/bin/env -&gt; /run/cyrrent-system/sw/bin/env symlink seems to be a sane idea<br/>
+<font color="#A82F2F"><font size="2">(04:12:38 PM)</font> <b>MichaelRaskin:</b></font> current-system<br/>
+<font size="2">(04:12:53 PM)</font><b> eddyb__ [<em>~eddyb@unaffiliated/eddyb</em>] entered the room.</b><br/>
+<font size="2">(04:12:58 PM)</font><b> eddyb_ left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:13:12 PM)</font> <b>MichaelRaskin:</b></font> Personally, I think /usr/bin/env and /bin/sh as the entire contents of /usr and /bin, respectively, is fine<br/>
+<font color="#A82F2F"><font size="2">(04:13:15 PM)</font> <b>pharpend:</b></font> MichaelRaskin: how would I do that in the configuraation.nix file<br/>
+<font color="#A82F2F"><font size="2">(04:13:33 PM)</font> <b>MichaelRaskin:</b></font> Not sure<br/>
+<font color="#A82F2F"><font size="2">(04:13:34 PM)</font> <b>pharpend:</b></font> MichaelRaskin: no, bash, python, ruby, perl need to be there<br/>
+<font color="#A82F2F"><font size="2">(04:14:48 PM)</font> <b>kmicu:</b></font> If purist wants to avoid it then why /usr/bin/env exists in default NixOS installation?<br/>
+<font color="#A82F2F"><font size="2">(04:15:02 PM)</font> <b>MichaelRaskin:</b></font> pharpend: that&apos;s too much for me<br/>
+<font color="#A82F2F"><font size="2">(04:15:06 PM)</font> <b>pharpend:</b></font> kmicu: it doesn&apos;t, that&apos;s the issue<br/>
+<font color="#A82F2F"><font size="2">(04:15:22 PM)</font> <b>pharpend:</b></font> MichaelRaskin: if they aren&apos;t there, 1/5 of the programs on your system will break<br/>
+<font size="2">(04:15:26 PM)</font><b> mizu_no_oto [<em>~textual@c-76-24-18-193.hsd1.ma.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:15:36 PM)</font> <b>kmicu:</b></font> I have it and for sure I did not create it.<br/>
+<font color="#A82F2F"><font size="2">(04:15:37 PM)</font> <b>MichaelRaskin:</b></font> kmicu: so, the _current_ default is not purist-friendly.<br/>
+<font color="#A82F2F"><font size="2">(04:16:17 PM)</font> <b>MichaelRaskin:</b></font> pharpend: we auto-patch everything we install through Nix, and /usr/bin/env is used not only on NixOS<br/>
+<font color="#A82F2F"><font size="2">(04:16:34 PM)</font> <b>MichaelRaskin:</b></font> Yes, currently the default is to create /usr/bin/env<br/>
+<font color="#A82F2F"><font size="2">(04:16:47 PM)</font> <b>pharpend:</b></font> i&apos;m aware, but I&apos;m talking about downloading a script off the internet and expecting it to run<br/>
+<font color="#A82F2F"><font size="2">(04:16:51 PM)</font> <b>kmicu:</b></font> Great, cus I was confused for a moment :)<br/>
+<font color="#A82F2F"><font size="2">(04:16:53 PM)</font> <b>pharpend:</b></font> without dealing with nix bullshit<br/>
+<font color="#A82F2F"><font size="2">(04:16:55 PM)</font> <b>MichaelRaskin:</b></font> pharpend: you are free to manually add the symlinks there: they won&apos;t be touched<br/>
+<font color="#A82F2F"><font size="2">(04:17:19 PM)</font> <b>MichaelRaskin:</b></font> But they will be used by the scripts you downoad<br/>
+<font color="#A82F2F"><font size="2">(04:18:14 PM)</font> <b>MichaelRaskin:</b></font> Some argue that you need to skim the script you download anyway, so fixing #! line by an editor binding will happen just in the process<br/>
+<font color="#A82F2F"><font size="2">(04:18:20 PM)</font> <b>kmicu:</b></font> Arch also has /usr/bin/evn<br/>
+<font color="#A82F2F"><font size="2">(04:18:39 PM)</font> <b>pharpend:</b></font> I&apos;m sure if I create *all* of the symlinks they will work, however, I can&apos;t possibly think of every single symlink needed, so there should be sane defaults<br/>
+<font color="#A82F2F"><font size="2">(04:18:39 PM)</font> <b>kmicu:</b></font> I thought that this is some “standard”.<br/>
+<font color="#A82F2F"><font size="2">(04:18:50 PM)</font> <b>pharpend:</b></font> there is a standard, and nixos apparently ignores it<br/>
+<font color="#A82F2F"><font size="2">(04:19:02 PM)</font> <b>kmicu:</b></font> Can you share a link to it?<br/>
+<font color="#A82F2F"><font size="2">(04:19:14 PM)</font> <b>MichaelRaskin:</b></font> The standard creates a ton of other problems NixOS tries to solve<br/>
+<font color="#A82F2F"><font size="2">(04:19:30 PM)</font> <b>pharpend:</b></font> kmicu: http://www.pathname.com/fhs/pub/fhs-2.3.html<br/>
+<font color="#A82F2F"><font size="2">(04:19:34 PM)</font> <b>MichaelRaskin:</b></font> If you want LSB-lookalike, you can symlink /run/current-system/sw/bin to /usr/bin<br/>
+<font size="2">(04:19:36 PM)</font><b> ajhager left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:19:46 PM)</font> <b>MichaelRaskin:</b></font> It won&apos;t break anything in NixOS<br/>
+<font size="2">(04:19:51 PM)</font><b> silver [<em>~silver@178.124.108.55</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:19:59 PM)</font> <b>MichaelRaskin:</b></font> (especially if you have chroot builds enabled)<br/>
+<font color="#A82F2F"><font size="2">(04:21:32 PM)</font> <b>kmicu:</b></font> Following FHS it is ok to have /usr/bin/env<br/>
+<font color="#A82F2F"><font size="2">(04:21:43 PM)</font> <b>kmicu:</b></font> Similar story in Arch.<br/>
+<font color="#A82F2F"><font size="2">(04:22:13 PM)</font> <b>henrytill:</b></font> pharpend: if you need full fhs-compliance, nixos might not be the right distro for you<br/>
+<font color="#A82F2F"><font size="2">(04:22:51 PM)</font> <b>kmicu:</b></font> Trade-offs everywhere.<br/>
+<font size="2">(04:23:11 PM)</font><b> Ivanych [<em>~n@78.108.195.214</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:24:00 PM)</font> <b>pharpend:</b></font> I have a script that uploads to imgur, it&apos;s claiming curl doesn&apos;t exist, even though &quot;which curl&quot; works<br/>
+<font color="#A82F2F"><font size="2">(04:24:13 PM)</font> <b>MichaelRaskin:</b></font> Symlinking /run/current-system/sw to /usr and symlinking /usr/bin to /bin and symlinking /usr/lib to /lib you can get something relatively close to LSB<br/>
+<font color="#A82F2F"><font size="2">(04:24:42 PM)</font> <b>pharpend:</b></font> http://lpaste.net/114780<br/>
+<font color="#A82F2F"><font size="2">(04:25:21 PM)</font> <b>MichaelRaskin:</b></font> Some people who do not understand the concept of PATH sometimes distribute the scripts they write?<br/>
+<font color="#A82F2F"><font size="2">(04:25:28 PM)</font> <b>pharpend:</b></font> getting this error Couln&apos;t find curl, which is required.<br/>
+<font size="2">(04:27:48 PM)</font><b> ro6 [<em>uid49734@gateway/web/irccloud.com/x-icmqkknjcsscgqqo</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:28:09 PM)</font> <b>henrytill:</b></font> pharpend: how did you install curl?<br/>
+<font color="#A82F2F"><font size="2">(04:28:20 PM)</font> <b>pharpend:</b></font> henrytill: I believe it came installed with the system<br/>
+<font color="#A82F2F"><font size="2">(04:28:41 PM)</font> <b>henrytill:</b></font> pharpend: oh yes, yr right<br/>
+<font color="#A82F2F"><font size="2">(04:29:09 PM)</font> <b>kmicu:</b></font> I’m missing sth or check for curl in that script works ok?<br/>
+<font color="#A82F2F"><font size="2">(04:29:37 PM)</font> <b>pharpend:</b></font> the output of &quot;which curl&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:29:39 PM)</font> <b>pharpend:</b></font> /run/current-system/sw/bin/curl<br/>
+<font size="2">(04:32:38 PM)</font><b> emery left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(04:32:52 PM)</font> <b>pharpend:</b></font> MichaelRaskin: you said it wouldn&apos;t break anything to do those symlinks, but this is happening when I try to rebuild the nixos environment - http://lpaste.net/114781<br/>
+<font color="#A82F2F"><font size="2">(04:33:00 PM)</font> <b>pharpend:</b></font> or, when i do &quot;nixos-rebuild test&quot;<br/>
+<font size="2">(04:33:31 PM)</font><b> komarov left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font size="2">(04:33:57 PM)</font><b> komarov [<em>~komarov@pppoe.95-55-168-111.dynamic.avangarddsl.ru</em>] entered the room.</b><br/>
+<font size="2">(04:35:12 PM)</font><b> emery [<em>~emery@gateway/tor-sasl/nickemery</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:37:40 PM)</font> <b>henrytill:</b></font> pharpend: i can call curl from a script just fine<br/>
+<font color="#A82F2F"><font size="2">(04:38:20 PM)</font> <b>pharpend:</b></font> I have a thinkpad, and there&apos;s a middle-click button, which, if you depressed it and moved the mouse, it would scroll. It doesn&apos;t work by default. Typically I would do this https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_T530#TrackPoint (Edit xorg.conf), but I&apos;m guessing that&apos;s not the way to do it in nixos? If so, how do I go about doing it?<br/>
+<font color="#A82F2F"><font size="2">(04:39:36 PM)</font> <b>MichaelRaskin:</b></font> pharpend: pity, that means you&apos;d need to disable /usr/bin/env setting<br/>
+<font color="#A82F2F"><font size="2">(04:39:49 PM)</font> <b>pharpend:</b></font> hmm?<br/>
+<font color="#A82F2F"><font size="2">(04:40:12 PM)</font> <b>pharpend:</b></font> https://github.com/NixOS/nixos/blob/master/modules/services/x11/xserver.nix &lt;- looks like I have to edit xorg.conf. https://xkcd.com/963/<br/>
+<font color="#A82F2F"><font size="2">(04:41:33 PM)</font> <b>pharpend:</b></font> there&apos;s no /etc/X11 directory, nor a /run/.../etc/X11 directory<br/>
+<font color="#A82F2F"><font size="2">(04:42:11 PM)</font> <b>henrytill:</b></font> pharpend: editing things like that is also generally done from configuration.nix<br/>
+<font size="2">(04:42:48 PM)</font><b> echo_oddly left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(04:43:04 PM)</font> <b>henrytill:</b></font> pharpend: services.xserver.&lt;options&gt;<br/>
+<font color="#A82F2F"><font size="2">(04:43:25 PM)</font> <b>henrytill:</b></font> http://nixos.org/nixos/manual/#ch-options<br/>
+<font color="#A82F2F"><font size="2">(04:43:34 PM)</font> <b>henrytill:</b></font> or man configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(04:47:59 PM)</font> <b>sivteck:</b></font> http://nixos.org/nixos/options.html<br/>
+<font size="2">(04:53:53 PM)</font><b> Ankhers left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:57:33 PM)</font> <b>pharpend:</b></font> okay, thank you<br/>
+<font color="#16569E"><font size="2">(05:05:34 PM)</font> <b>magnetophon:</b></font> When I nix-build this: http://nixpaste.noip.me/kRF9N86F all is well, but when I put faust in my configuration.nix and run nixos-rebuild switch -I /path/to/nixpkgs/ I get &quot; undefined variable `faust'&quot;  Any pointers?<br/>
+<font size="2">(05:10:17 PM)</font><b> Takle [<em>~takle@56347a1c.rev.stofanet.dk</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:13:10 PM)</font> <b>henrytill:</b></font> magnetophon: what did you put in all-packages.nix?<br/>
+<font color="#16569E"><font size="2">(05:14:27 PM)</font> <b>magnetophon:</b></font> henrytill:   faust = callPackage ../applications/audio/faust { };<br/>
+<font size="2">(05:16:37 PM)</font><b> chexxor_ [<em>~alex@206-55-187-22.usiwireless.com</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(05:17:08 PM)</font> <b>magnetophon:</b></font> henrytill: does it work for you?<br/>
+<font color="#A82F2F"><font size="2">(05:17:33 PM)</font> <b>henrytill:</b></font> magnetophon: haven&apos;t tested it yet<br/>
+<font color="#A82F2F"><font size="2">(05:18:13 PM)</font> <b>henrytill:</b></font> magnetophon: i probably wouldn&apos;t rebuild off of HEAD<br/>
+<font color="#A82F2F"><font size="2">(05:18:34 PM)</font> <b>henrytill:</b></font> magnetophon: are you running stable or unstable?<br/>
+<font color="#16569E"><font size="2">(05:18:40 PM)</font> <b>magnetophon:</b></font> henrytill: stable<br/>
+<font color="#A82F2F"><font size="2">(05:19:02 PM)</font> <b>henrytill:</b></font> magnetophon: doing that will rebuild your whole system off the git repo<br/>
+<font color="#A82F2F"><font size="2">(05:19:23 PM)</font> <b>henrytill:</b></font> magnetophon: often compiling many of the most recently updated packages<br/>
+<font color="#16569E"><font size="2">(05:20:14 PM)</font> <b>magnetophon:</b></font> henrytill: I had that problem too, but I just did a git checkout of my version, and now it'll only rebuild stuff that I manually add.<br/>
+<font color="#16569E"><font size="2">(05:20:30 PM)</font> <b>magnetophon:</b></font> henrytill: or am I misunderstanding you? not sure...<br/>
+<font color="#A82F2F"><font size="2">(05:20:32 PM)</font> <b>henrytill:</b></font> magnetophon: ah, so you aren&apos;t on head<br/>
+<font color="#16569E"><font size="2">(05:20:42 PM)</font> <b>magnetophon:</b></font> henrytill: nope<br/>
+<font color="#A82F2F"><font size="2">(05:20:43 PM)</font> <b>henrytill:</b></font> magnetophon: nope you&apos;ve got it<br/>
+<font color="#16569E"><font size="2">(05:21:08 PM)</font> <b>magnetophon:</b></font> henrytill: learned that lesson yesterday, in here... :)<br/>
+<font color="#16569E"><font size="2">(05:21:38 PM)</font> <b>magnetophon:</b></font> henrytill: so IOW you should be able to safely test my nix...<br/>
+<font color="#A82F2F"><font size="2">(05:21:45 PM)</font> <b>pharpend:</b></font> I&apos;m trying to figure out how to add arbitrary x.org configuration in configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(05:21:56 PM)</font> <b>henrytill:</b></font> magnetophon: excellent...any reason a simple nix-env -f /path/to/nixpkgs/ -iA faust wouldn&apos;t suffice?<br/>
+<font color="#A82F2F"><font size="2">(05:21:57 PM)</font> <b>pharpend:</b></font> http://nixos.org/nixos/manual/#opt-services.xserver.config<br/>
+<font color="#A82F2F"><font size="2">(05:22:49 PM)</font> <b>henrytill:</b></font> if you nixos-rebuild from git with a package that isn&apos;t upstream, you&apos;ll need to continue rebuilding that way until it reaches your channel<br/>
+<font color="#A82F2F"><font size="2">(05:24:02 PM)</font> <b>henrytill:</b></font> unless you specify with callPackage in configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(05:24:27 PM)</font> <b>henrytill:</b></font> which is probably the option i would take in your situation<br/>
+<font color="#16569E"><font size="2">(05:25:19 PM)</font> <b>magnetophon:</b></font> henrytill: wait, I thought we just dicussed the rebuilding only happens when your local nixpkgs is at HEAD?<br/>
+<font color="#062585"><font size="2">(05:25:35 PM)</font> <b>***magnetophon</b></font> is confused...<br/>
+<font color="#A82F2F"><font size="2">(05:25:43 PM)</font> <b>henrytill:</b></font> you&apos;ll call nixos-rebuild anytime you change your config<br/>
+<font color="#A82F2F"><font size="2">(05:26:11 PM)</font> <b>henrytill:</b></font> technically it won&apos;t &quot;rebuild&quot; as in recompile lots of stuff from the git repo in your case<br/>
+<font size="2">(05:26:12 PM)</font><b> dysinger [<em>~dysinger@cpe-24-94-75-243.hawaii.res.rr.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:26:56 PM)</font> <b>henrytill:</b></font> you may find that you run nixos-rebuild quite frequently if you change your configuration.nix<br/>
+<font color="#16569E"><font size="2">(05:27:01 PM)</font> <b>magnetophon:</b></font> henrytill: right, I was just typing: but it doesn't actually compile anything. It'll just use the online binaries.. <br/>
+<font color="#A82F2F"><font size="2">(05:27:02 PM)</font> <b>pharpend:</b></font> hmm. Is is there a way to do the moral equivalent of (+=) in configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(05:27:21 PM)</font> <b>henrytill:</b></font> exactly<br/>
+<font color="#16569E"><font size="2">(05:27:36 PM)</font> <b>magnetophon:</b></font> henrytill: so I don't see the problem<br/>
+<font color="#A82F2F"><font size="2">(05:27:43 PM)</font> <b>henrytill:</b></font> but in order to keep using faust if isn&apos;t in your channel<br/>
+<font color="#A82F2F"><font size="2">(05:28:03 PM)</font> <b>henrytill:</b></font> you&apos;ll always need to invoke nixos-rebuild -I /path/to/nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(05:28:13 PM)</font> <b>henrytill:</b></font> or add /path/to/nixpkgs to your channel list<br/>
+<font color="#A82F2F"><font size="2">(05:28:57 PM)</font> <b>henrytill:</b></font> you CAN do that, but it there may be problems if yr git repo isn&apos;t always sync&apos;ed to your nixos-version<br/>
+<font color="#16569E"><font size="2">(05:29:07 PM)</font> <b>magnetophon:</b></font> henrytill: ah, so that is what you meant by &quot;you'll need to continue rebuilding that way until it reaches your channel&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:29:15 PM)</font> <b>henrytill:</b></font> yep<br/>
+<font color="#A82F2F"><font size="2">(05:29:16 PM)</font> <b>kmicu:</b></font> pharpend: reading manual is easier than asking http://nixos.org/nix/manual/#idm47361539098656<br/>
+<font color="#A82F2F"><font size="2">(05:29:31 PM)</font> <b>pharpend:</b></font> the manual doesn&apos;t say, which is why I ask, kmicu<br/>
+<font color="#A82F2F"><font size="2">(05:29:50 PM)</font> <b>henrytill:</b></font> magnetophon: in your configuration.nix, you can put...<br/>
+<font color="#16569E"><font size="2">(05:30:03 PM)</font> <b>magnetophon:</b></font> henrytill: what is this sync problem you speak of?<br/>
+<font color="#A82F2F"><font size="2">(05:30:23 PM)</font> <b>henrytill:</b></font> ...<br/>
+<font color="#16569E"><font size="2">(05:30:53 PM)</font> <b>magnetophon:</b></font> henrytill: I figured I just checkout my version once,and leave it at that untill I decide to upgrade nixos.<br/>
+<font color="#A82F2F"><font size="2">(05:31:05 PM)</font> <b>henrytill:</b></font> well you&apos;re git repo will always need to stay checked out at that revision<br/>
+<font size="2">(05:31:36 PM)</font><b> dmj` [<em>~user@76.29.40.59</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:31:53 PM)</font> <b>henrytill:</b></font> but say you want to change a package that has been updated upstream after that checkout<br/>
+<font color="#A82F2F"><font size="2">(05:32:18 PM)</font> <b>henrytill:</b></font> your own repo will begin to diverge from upstream<br/>
+<font size="2">(05:32:24 PM)</font><b> cpc26_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(05:32:46 PM)</font> <b>henrytill:</b></font> stable can be quite far behind master<br/>
+<font size="2">(05:32:58 PM)</font><b> cpc26 [<em>~cpc26@fsf/member/cpc26</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:33:38 PM)</font> <b>henrytill:</b></font> i digress, sorry if i&apos;m confusing matters here<br/>
+<font color="#16569E"><font size="2">(05:34:00 PM)</font> <b>magnetophon:</b></font> henrytill: sorry you lost me again. I thought that as long as both my repo and my OS are at stable, I'm good. I would like to understand this.<br/>
+<font color="#A82F2F"><font size="2">(05:34:13 PM)</font> <b>henrytill:</b></font> yes that is true<br/>
+<font color="#16569E"><font size="2">(05:34:48 PM)</font> <b>magnetophon:</b></font> henrytill: that is what I meant by &quot;I figured I just checkout my version once,and leave it at that untill I decide to upgrade nixos&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:35:12 PM)</font> <b>henrytill:</b></font> do you plan to contribute packages upstream?<br/>
+<font color="#16569E"><font size="2">(05:35:16 PM)</font> <b>magnetophon:</b></font> henrytill: yes<br/>
+<font color="#A82F2F"><font size="2">(05:35:20 PM)</font> <b>kmicu:</b></font> pharpend: what is the type of expression between &apos;&apos; and &apos;&apos; ? It is explained in manual. After this you can handle concatenation of such types.<br/>
+<font color="#A82F2F"><font size="2">(05:35:34 PM)</font> <b>pharpend:</b></font> http://nixpaste.noip.me/apxjq1Im &lt;- my configuration.nix.<br/>
+<font size="2">(05:35:41 PM)</font><b> Takle left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(05:35:55 PM)</font> <b>pharpend:</b></font> kmicu: you can concatenate things, but I don&apos;t know if there is destructive update<br/>
+<font color="#A82F2F"><font size="2">(05:36:28 PM)</font> <b>pharpend:</b></font> config = let oldConfig = config; in oldConfig + &apos;&apos;<br/>
+<font color="#A82F2F"><font size="2">(05:36:34 PM)</font> <b>pharpend:</b></font> I don&apos;t think that works though<br/>
+<font size="2">(05:36:42 PM)</font><b> Ankhers [<em>~user@gateway/tor-sasl/ankhers</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:37:49 PM)</font> <b>henrytill:</b></font> magnetophon: well you should be aware that master is updated frequently<br/>
+<font color="#A82F2F"><font size="2">(05:38:23 PM)</font> <b>dmj`:</b></font> any haskell nix users here?<br/>
+<font size="2">(05:38:31 PM)</font><b> dysinger left the room (quit: Quit: dysinger).</b><br/>
+<font color="#16569E"><font size="2">(05:39:55 PM)</font> <b>magnetophon:</b></font> henrytill: I need to read up on nixos updating. If I understand you correctly you mean that anytime I do the nixos equivalent of apt-get upgrade, I need to re-sync my local repo to that same version, even if it's an upgrade within 'stable'?<br/>
+<font color="#A82F2F"><font size="2">(05:40:09 PM)</font> <b>henrytill:</b></font> that&apos;s correct<br/>
+<font color="#A82F2F"><font size="2">(05:40:12 PM)</font> <b>marvin-hh:</b></font> How can I set the exact git version of zfs to use?<br/>
+<font color="#A82F2F"><font size="2">(05:40:16 PM)</font> <b>bennofs:</b></font> dmj`: yes<br/>
+<font color="#A82F2F"><font size="2">(05:40:30 PM)</font> <b>henrytill:</b></font> and some packages may already be updated upstream<br/>
+<font size="2">(05:40:30 PM)</font><b> elifrey [<em>~elifrey@c-50-159-28-215.hsd1.wa.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:40:35 PM)</font> <b>marvin-hh:</b></font> The current version of zfs for NixOS doesn&apos;t have setfacl enabled.<br/>
+<font color="#16569E"><font size="2">(05:41:13 PM)</font> <b>magnetophon:</b></font> henrytill: Are there tools to automate this syncing? Should be easy, right?<br/>
+<font color="#A82F2F"><font size="2">(05:41:29 PM)</font> <b>henrytill:</b></font> usually i just type nixos-version<br/>
+<font color="#A82F2F"><font size="2">(05:41:34 PM)</font> <b>dmj`:</b></font> bennofs: I&apos;m trying to get started w/ nixpkgs on osx, but I&apos;m hitting an issue with an old haddock breaking all installs, its been outstanding for 6 months and attempts to manually put haddock into the store don&apos;t help<br/>
+<font color="#A82F2F"><font size="2">(05:41:34 PM)</font> <b>dmj`:</b></font>  <br/>
+<font color="#A82F2F"><font size="2">(05:41:43 PM)</font> <b>dmj`:</b></font> bennofs: https://github.com/NixOS/nixpkgs/issues/2689<br/>
+<font color="#A82F2F"><font size="2">(05:41:44 PM)</font> <b>henrytill:</b></font> then git checkout &lt;revision&gt; -b local<br/>
+<font color="#A82F2F"><font size="2">(05:42:08 PM)</font> <b>henrytill:</b></font> the last seven digits of nixo-revision are the first 7 of the commit sha<br/>
+<font color="#16569E"><font size="2">(05:42:15 PM)</font> <b>magnetophon:</b></font> henrytill: what happens if I forget?<br/>
+<font size="2">(05:42:31 PM)</font><b> copumpkin [<em>~copumpkin@unaffiliated/copumpkin</em>] entered the room.</b><br/>
+<font size="2">(05:42:46 PM)</font><b> bennofs left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font size="2">(05:43:04 PM)</font><b> bennofs [<em>~benno@ip92342b4f.dynamic.kabel-deutschland.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:43:31 PM)</font> <b>henrytill:</b></font> magnetophon: confusion, chaos, potentially armageddon<br/>
+<font color="#A82F2F"><font size="2">(05:44:22 PM)</font> <b>dmj`:</b></font> copumpkin: ping<br/>
+<font color="#16569E"><font size="2">(05:44:53 PM)</font> <b>magnetophon:</b></font> henrytill: lol. I'm taking that to mean: &quot;nixos will cortially warn you and refuse to build untill you fix the issue&quot;? Or is there seriously a problem?<br/>
+<font color="#A82F2F"><font size="2">(05:45:14 PM)</font> <b>dmj`:</b></font> copumpkin: when you manually copied haddock into the nix store in this issue, where in the store did you put it? https://github.com/NixOS/nixpkgs/issues/2689<br/>
+<font color="#A82F2F"><font size="2">(05:45:31 PM)</font> <b>henrytill:</b></font> magnetophon: i&apos;ve never had this happen, but i gather that a nixos-rebuild from an earlier git would downgrade everything to that revision<br/>
+<font color="#A82F2F"><font size="2">(05:45:47 PM)</font> <b>henrytill:</b></font> magnetophon: s/had this happen/attempted this<br/>
+<font size="2">(05:46:05 PM)</font><b> angerman left the room (quit: Quit: Gone).</b><br/>
+<font color="#A82F2F"><font size="2">(05:46:27 PM)</font> <b>henrytill:</b></font> magnetophon: i think in your case, it would be simpler to install packages that you&apos;ve worked on using nix-env<br/>
+<font color="#A82F2F"><font size="2">(05:46:31 PM)</font> <b>copumpkin:</b></font> dmj`: I manually copied haddock into the store?<br/>
+<font color="#A82F2F"><font size="2">(05:46:40 PM)</font> <b>copumpkin:</b></font> news to me!<br/>
+<font color="#A82F2F"><font size="2">(05:47:05 PM)</font> <b>henrytill:</b></font> magnetophon: nix-env -f ../path/to/nixpkgs/ -iA &lt;package&gt;<br/>
+<font color="#16569E"><font size="2">(05:47:14 PM)</font> <b>magnetophon:</b></font> That reminds me: What is the reccomended way to put configuration.nix on github?  Those are kind if hard terms to google for....<br/>
+<font color="#A82F2F"><font size="2">(05:47:39 PM)</font> <b>copumpkin:</b></font> dmj`: oh, my thums up was to the bug, not the hacked solution<br/>
+<font color="#A82F2F"><font size="2">(05:47:47 PM)</font> <b>copumpkin:</b></font> thumb<br/>
+<font size="2">(05:47:49 PM)</font><b> mizu_no_oto left the room (quit: Quit: Computer has gone to sleep.).</b><br/>
+<font color="#A82F2F"><font size="2">(05:47:50 PM)</font> <b>henrytill:</b></font> magnetophon: i keep mine in my dotfiles directory<br/>
+<font color="#A82F2F"><font size="2">(05:48:11 PM)</font> <b>henrytill:</b></font> i have a script that copies it to /etc/nixos and then rebuilds<br/>
+<font color="#16569E"><font size="2">(05:48:31 PM)</font> <b>magnetophon:</b></font> henrytill: not the safest thing to do, right?<br/>
+<font color="#A82F2F"><font size="2">(05:48:31 PM)</font> <b>dmj`:</b></font> copumpkin: oh I read that wrong... :) did you happen to find a work around?<br/>
+<font color="#A82F2F"><font size="2">(05:48:33 PM)</font> <b>copumpkin:</b></font> dmj`: my &quot;solution&quot; is taking several months of my time, joelteon&apos;s time, and a few others :)<br/>
+<font color="#A82F2F"><font size="2">(05:48:50 PM)</font> <b>copumpkin:</b></font> dmj`: that is to say, we&apos;re making nix on darwin pure<br/>
+<font color="#A82F2F"><font size="2">(05:48:56 PM)</font> <b>henrytill:</b></font> magnetophon: safe as in?<br/>
+<font color="#A82F2F"><font size="2">(05:48:57 PM)</font> <b>copumpkin:</b></font> (and clang-based)<br/>
+<font color="#A82F2F"><font size="2">(05:49:04 PM)</font> <b>henrytill:</b></font> magnetophon: security?<br/>
+<font color="#A82F2F"><font size="2">(05:49:06 PM)</font> <b>copumpkin:</b></font> which is very nearly done<br/>
+<font color="#062585"><font size="2">(05:49:24 PM)</font> <b>***henrytill</b></font> cheers for copumpkin<br/>
+<font color="#062585"><font size="2">(05:49:37 PM)</font> <b>***henrytill</b></font> and his darwin cohorts<br/>
+<font color="#A82F2F"><font size="2">(05:49:48 PM)</font> <b>copumpkin:</b></font> ##nix-darwin if you want to stay posted :)<br/>
+<font color="#A82F2F"><font size="2">(05:50:00 PM)</font> <b>copumpkin:</b></font> activity happens in bursts, so don&apos;t get scared off if it&apos;s quiet for a while<br/>
+<font color="#A82F2F"><font size="2">(05:50:13 PM)</font> <b>copumpkin:</b></font> we all have full-time (or more) jobs and very little free time<br/>
+<font color="#A82F2F"><font size="2">(05:50:17 PM)</font> <b>copumpkin:</b></font> but cram in work on it whenever we get a chance<br/>
+<font color="#16569E"><font size="2">(05:50:21 PM)</font> <b>magnetophon:</b></font> henrytill: both security, and user error f***in your system...<br/>
+<font color="#A82F2F"><font size="2">(05:50:31 PM)</font> <b>copumpkin:</b></font> I&apos;m on a bus right now working on it :P<br/>
+<font color="#A82F2F"><font size="2">(05:50:32 PM)</font> <b>dmj`:</b></font> copumpkin: wow! that is great news. Do you recommend I wait to use nix until then? Would like to help if at all possible.<br/>
+<font color="#A82F2F"><font size="2">(05:50:56 PM)</font> <b>henrytill:</b></font> magnetophon: well #1 i don&apos;t publish my dotfiles<br/>
+<font color="#A82F2F"><font size="2">(05:51:07 PM)</font> <b>henrytill:</b></font> magnetophon: #2 i always edit the version in my local dotfiles<br/>
+<font color="#A82F2F"><font size="2">(05:51:08 PM)</font> <b>copumpkin:</b></font> dmj`: I still think it&apos;s usable, and lots of people use ghc on the current impure darwin nix. I just don&apos;t know how they use it (because I put my haskell work on hold to do the darwin thing instead)<br/>
+<font color="#A82F2F"><font size="2">(05:51:23 PM)</font> <b>copumpkin:</b></font> you can just expect things to get a lot better in the not-too-distant future<br/>
+<font size="2">(05:51:54 PM)</font><b> ebzzry_ [<em>~ebzzry@112.204.28.97</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:52:08 PM)</font> <b>henrytill:</b></font> magnetophon: #3 there&apos;s not much in there in my case that would help a would-be attacker<br/>
+<font size="2">(05:52:11 PM)</font><b> Ankhers left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(05:52:47 PM)</font> <b>marvin-hh:</b></font> How can I see which version of ZFS is even currently installed?<br/>
+<font size="2">(05:52:47 PM)</font><b> ebzzry left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:52:55 PM)</font> <b>pharpend:</b></font> My X configuration seems to be failing, here&apos;s /var/log/X.0.log -&gt; http://ix.io/fio<br/>
+<font size="2">(05:53:06 PM)</font><b> Ankhers [<em>~user@gateway/tor-sasl/ankhers</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:53:15 PM)</font> <b>marvin-hh:</b></font> I enabled boot.zfs.useGit = true;, but nothing appears to have happened after a nixos-rebuild switch.<br/>
+<font color="#16569E"><font size="2">(05:54:01 PM)</font> <b>magnetophon:</b></font> henrytill: seems OK. I was mistakingly thingking that would enable system changes without root, but of course it doesn't...<br/>
+<font color="#A82F2F"><font size="2">(05:54:58 PM)</font> <b>marvin-hh:</b></font> collision between `/nix/store/0mf30kwma0c10qs47wk1sik9b3q8rzlh-kmod-17/sbin/modprobe&apos; and `/nix/store/xf7l05xppkr3fymk1ixz7iqvky34visw-modprobe/sbin/mod<br/>
+<font color="#A82F2F"><font size="2">(05:54:59 PM)</font> <b>pharpend:</b></font> I think this is the troublesome spot in configuration.nix - http://ix.io/fir<br/>
+<font color="#A82F2F"><font size="2">(05:55:01 PM)</font> <b>marvin-hh:</b></font> probe&apos; at /nix/store/9z6d76pz8rr7gci2n3igh5dqi7ac5xqj-builder.pl line 69.<br/>
+<font color="#A82F2F"><font size="2">(05:55:13 PM)</font> <b>dmj`:</b></font> copumpkin: wonderful, thanks for your work on this. I&apos;ll stay posted, expect lots of noob questions from me :)<br/>
+<font color="#A82F2F"><font size="2">(05:55:19 PM)</font> <b>marvin-hh:</b></font> Why would I even get this issue?<br/>
+<font color="#A82F2F"><font size="2">(05:55:19 PM)</font> <b>pharpend:</b></font> would someone mind taking a look at that link I just posted, see if there are any obvious issues?<br/>
+<font color="#A82F2F"><font size="2">(05:55:43 PM)</font> <b>copumpkin:</b></font> dmj`: my pleasure :) it&apos;s a whole team though, so don&apos;t just thank me!<br/>
+<font color="#16569E"><font size="2">(05:55:56 PM)</font> <b>magnetophon:</b></font> henrytill: OK enough divergion: I was able to locally install my package, but would really like to have it working from my &quot;one configuration file to rule them all&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:56:18 PM)</font> <b>henrytill:</b></font> magnetophon: so you can specify a package override in your configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(05:56:23 PM)</font> <b>henrytill:</b></font> to use your local version of faust<br/>
+<font color="#A82F2F"><font size="2">(05:56:47 PM)</font> <b>marvin-hh:</b></font> Isn&apos;t the whole idea of NixOS that the above *cannot* happen?<br/>
+<font size="2">(05:56:53 PM)</font><b> ebzzry_ left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#16569E"><font size="2">(05:57:17 PM)</font> <b>magnetophon:</b></font> henrytill: I'm confused again: there is only the local version. I just finished writing the .nix.<br/>
+<font color="#A82F2F"><font size="2">(05:57:22 PM)</font> <b>dmj`:</b></font> copumpkin: :) with issue #2689 was your work around to manually put haddock into the store under the ghc path?<br/>
+<font color="#A82F2F"><font size="2">(05:57:30 PM)</font> <b>henrytill:</b></font> magnetophon: do you have a nixpkgs.config section in your configuration.nix yet?<br/>
+<font color="#A82F2F"><font size="2">(05:57:40 PM)</font> <b>copumpkin:</b></font> dmj`: I never did work around it<br/>
+<font color="#A82F2F"><font size="2">(05:57:45 PM)</font> <b>pharpend:</b></font> HMMM<br/>
+<font color="#A82F2F"><font size="2">(05:57:52 PM)</font> <b>pharpend:</b></font> oops caaps lock<br/>
+<font color="#A82F2F"><font size="2">(05:57:56 PM)</font> <b>copumpkin:</b></font> dmj`: I think johnw just had me build ghc from scratch<br/>
+<font color="#A82F2F"><font size="2">(05:57:57 PM)</font> <b>bennofs:</b></font> magnetophon: the issue is because nixos still needs to decide which program it puts in PATH<br/>
+<font color="#A82F2F"><font size="2">(05:57:59 PM)</font> <b>copumpkin:</b></font> there&apos;s probably a faster way<br/>
+<font size="2">(05:58:01 PM)</font><b> woberto [<em>~mike@5ec2adff.skybroadband.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:58:09 PM)</font> <b>pharpend:</b></font> I think my xorg.conf is bad, does nix not have any way to check this<br/>
+<font size="2">(05:58:14 PM)</font><b> Takle [<em>~takle@56347a1c.rev.stofanet.dk</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:58:16 PM)</font> <b>bennofs:</b></font> oops, meant marvin-hh<br/>
+<font color="#A82F2F"><font size="2">(05:58:29 PM)</font> <b>pharpend:</b></font> The configuration builds just fine<br/>
+<font color="#A82F2F"><font size="2">(05:58:34 PM)</font> <b>pharpend:</b></font> why does it not work?<br/>
+<font color="#A82F2F"><font size="2">(05:58:38 PM)</font> <b>marvin-hh:</b></font> setfacl: /var/log/journal: Operation not supported<br/>
+<font color="#A82F2F"><font size="2">(05:58:45 PM)</font> <b>marvin-hh:</b></font> In particular, this seems to be the major issue.<br/>
+<font color="#16569E"><font size="2">(05:58:46 PM)</font> <b>magnetophon:</b></font> henrytill: yes, containing just adobe flash. why?<br/>
+<font color="#A82F2F"><font size="2">(05:58:53 PM)</font> <b>dmj`:</b></font> copumpkin: ah ok, i&apos;ll ask johnw as well, keep up the good work :P<br/>
+<font color="#A82F2F"><font size="2">(05:59:03 PM)</font> <b>marvin-hh:</b></font> Since this command fails, the rest of the nixos configuration is also not applied.<br/>
+<font size="2">(05:59:09 PM)</font><b> ebzzry_ [<em>~ebzzry@112.204.28.97</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:00:07 PM)</font> <b>henrytill:</b></font> so you can add packageOverrides = pkgs: { faust = pkgs.callPackage ../path/to/default.nix { }; };<br/>
+<font color="#A82F2F"><font size="2">(06:00:15 PM)</font> <b>woberto:</b></font> Hi, can someone help me understand why &apos;nix-env -qa &apos;.*libuv.*&apos; returns nothing? It seems like libuv was added to nixpkgs github a while back and there are mentions of in the nix unstable manifest file. I&apos;m new to this and not sure where else to look.<br/>
+<font color="#A82F2F"><font size="2">(06:00:56 PM)</font> <b>bennofs:</b></font> woberto: your nix probably only supports exact queries (wildcards in queries were only added recently)<br/>
+<font color="#A82F2F"><font size="2">(06:01:05 PM)</font> <b>bennofs:</b></font> woberto: try nix-env -qaP | grep libuv<br/>
+<font color="#A82F2F"><font size="2">(06:01:12 PM)</font> <b>bennofs:</b></font> (-P to also show attribute name)<br/>
+<font color="#A82F2F"><font size="2">(06:01:14 PM)</font> <b>henrytill:</b></font> magnetophon: under nixpkgs.config (see above)<br/>
+<font color="#A82F2F"><font size="2">(06:01:33 PM)</font> <b>iElectric:</b></font> any heroes for docs efforts around mkDerivation?<br/>
+<font color="#A82F2F"><font size="2">(06:01:45 PM)</font> <b>woberto:</b></font> bennofs, thank you, but still nothing :/ Are you getting hits for that?<br/>
+<font color="#16569E"><font size="2">(06:02:12 PM)</font> <b>magnetophon:</b></font> henrytill: ah, OK. I'll try that now.<br/>
+<font color="#A82F2F"><font size="2">(06:02:15 PM)</font> <b>marvin-hh:</b></font> How can I be sure that my boot.zfs.git setting actually had any effect?<br/>
+<font color="#A82F2F"><font size="2">(06:02:22 PM)</font> <b>bennofs:</b></font> woberto: let&apos;s see (could take a while, my disk is slooooooow ...)<br/>
+<font color="#A82F2F"><font size="2">(06:02:47 PM)</font> <b>marvin-hh:</b></font> Or, alternatively, to disable the need for POSIX ACLs temporarily?<br/>
+<font color="#A82F2F"><font size="2">(06:03:06 PM)</font> <b>woberto:</b></font> bennofs, cheers!<br/>
+<font color="#16569E"><font size="2">(06:03:40 PM)</font> <b>magnetophon:</b></font> henrytill: thatis not the standard recommended way to add a package, is it?  (Just trying to learn here. Would like my package to get into nixos...)<br/>
+<font size="2">(06:03:51 PM)</font><b> ebzzry_ left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font size="2">(06:03:59 PM)</font><b> ebzzry__ [<em>~ebzzry@112.204.28.97</em>] entered the room.</b><br/>
+<font size="2">(06:04:16 PM)</font><b> mizu_no_oto [<em>~textual@c-76-24-18-193.hsd1.ma.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:04:47 PM)</font> <b>bennofs:</b></font> woberto: ok, I also don&apos;t get any matches<br/>
+<font color="#A82F2F"><font size="2">(06:05:05 PM)</font> <b>bennofs:</b></font> woberto: you could also try git grep libuv in nixpkgs repo<br/>
+<font color="#A82F2F"><font size="2">(06:07:08 PM)</font> <b>henrytill:</b></font> magnetophon: that&apos;s the way to get a local package in your configuration.nix without needing to nixos-rebuild off the git repo<br/>
+<font color="#A82F2F"><font size="2">(06:07:20 PM)</font> <b>pharpend:</b></font> hmm<br/>
+<font color="#16569E"><font size="2">(06:07:22 PM)</font> <b>magnetophon:</b></font> henrytill: cool, thanks<br/>
+<font color="#A82F2F"><font size="2">(06:07:32 PM)</font> <b>pharpend:</b></font> This is the xorg log that&apos;s failing - http://ix.io/fis<br/>
+<font color="#16569E"><font size="2">(06:07:38 PM)</font> <b>magnetophon:</b></font> henrytill: seems to be working<br/>
+<font color="#A82F2F"><font size="2">(06:08:03 PM)</font> <b>bennofs:</b></font> woberto: seems there is libuvVersion.*<br/>
+<font color="#A82F2F"><font size="2">(06:08:19 PM)</font> <b>henrytill:</b></font> magnetophon: you should be able to &quot;sudo -i nixos-rebuild switch&quot; and have it call your local package<br/>
+<font color="#A82F2F"><font size="2">(06:08:25 PM)</font> <b>henrytill:</b></font> magnetophon: did that work?<br/>
+<font size="2">(06:08:29 PM)</font><b> rejuvyesh left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#16569E"><font size="2">(06:08:31 PM)</font> <b>magnetophon:</b></font> henrytill: yup, it installed!<br/>
+<font color="#A82F2F"><font size="2">(06:08:40 PM)</font> <b>bennofs:</b></font> woberto: s/libuvVersion/libuvVersions   see pkgs/development/libraries/libuv/default.nix for available versions<br/>
+<font color="#A82F2F"><font size="2">(06:08:46 PM)</font> <b>henrytill:</b></font> magnetophon: oh good, that was off the top of my head<br/>
+<font size="2">(06:09:17 PM)</font><b> Ankhers left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(06:09:39 PM)</font><b> rejuvyesh [<em>~rejuvyesh@unaffiliated/rejuvyesh</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:10:02 PM)</font> <b>marvin-hh:</b></font> Where can I read about what nixos-rebuild switch is supposed to do?<br/>
+<font color="#A82F2F"><font size="2">(06:10:02 PM)</font> <b>woberto:</b></font> bennofs, thanks, but shouldn&apos;t that show up with the searches?<br/>
+<font color="#A82F2F"><font size="2">(06:10:16 PM)</font> <b>pharpend:</b></font> marvin-hh: section 2 of the manual<br/>
+<font color="#A82F2F"><font size="2">(06:10:34 PM)</font> <b>woberto:</b></font> I found the package in the github repo and was curious why it wasn&apos;t reflected in my nix-env -qaP searches :/<br/>
+<font color="#A82F2F"><font size="2">(06:10:45 PM)</font> <b>bennofs:</b></font> woberto: I guess the problem is that there is no recurseIntoAttrs<br/>
+<font color="#A82F2F"><font size="2">(06:10:56 PM)</font> <b>marvin-hh:</b></font> pharpend: that doesn&apos;t list any failure conditions.<br/>
+<font color="#A82F2F"><font size="2">(06:10:58 PM)</font> <b>bennofs:</b></font> woberto: by default, nix only looks at the top-level set for packages<br/>
+<font color="#A82F2F"><font size="2">(06:11:05 PM)</font> <b>pharpend:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(06:11:06 PM)</font> <b>marvin-hh:</b></font> pharpend: that is, the manpage at least doesn&apos;t specify any.<br/>
+<font color="#A82F2F"><font size="2">(06:11:30 PM)</font> <b>marvin-hh:</b></font> pharpend: all I want is to enable POSIX ACLs for ZFS, which require a git version of ZFS.<br/>
+<font color="#A82F2F"><font size="2">(06:11:36 PM)</font> <b>woberto:</b></font> bennofs, ah, ok. So there no way to find it from the command then?<br/>
+<font color="#A82F2F"><font size="2">(06:11:52 PM)</font> <b>bennofs:</b></font> woberto: because libuvVersions is a set but not a derivation, nix won&apos;t care about it (nix is not searching recursively). You can change that if you recurseIntoAttrs libuvVersions in all-packages.nix<br/>
+<font color="#A82F2F"><font size="2">(06:12:03 PM)</font> <b>bennofs:</b></font> woberto: yes, it&apos;s not possible<br/>
+<font color="#A82F2F"><font size="2">(06:13:23 PM)</font> <b>marvin-hh:</b></font> pharpend: but in order to do that nixos-rebuild switch currently exits before it can install the new stuff for zfs.<br/>
+<font size="2">(06:14:29 PM)</font><b> jack_c left the room (quit: Read error: Network is unreachable).</b><br/>
+<font color="#A82F2F"><font size="2">(06:15:13 PM)</font> <b>woberto:</b></font> bennofs, thank you very much taking the time to explain that. I&apos;ll have to work a bit more on my understanding of this stuff.<br/>
+<font color="#A82F2F"><font size="2">(06:16:37 PM)</font> <b>pharpend:</b></font> this is a really stupid question, how do I create an /etc file<br/>
+<font color="#A82F2F"><font size="2">(06:17:01 PM)</font> <b>henrytill:</b></font> pharpend: an /etc file?<br/>
+<font color="#A82F2F"><font size="2">(06:17:02 PM)</font> <b>bennofs:</b></font> pharpend: man configuration.nix search for etc<br/>
+<font color="#A82F2F"><font size="2">(06:17:43 PM)</font> <b>pharpend:</b></font> oh cool i didn&apos;t realize configuration.nix had a man page<br/>
+<font color="#A82F2F"><font size="2">(06:17:45 PM)</font> <b>bennofs:</b></font> pharpend: set etc.&lt;file name&gt;.enable = true and etc.&lt;file name&gt;.text to contents of the file<br/>
+<font color="#A82F2F"><font size="2">(06:17:59 PM)</font> <b>henrytill:</b></font> oh that...<br/>
+<font color="#A82F2F"><font size="2">(06:18:14 PM)</font> <b>marvin-hh:</b></font> Hmm, perhaps I fixed it myself now.<br/>
+<font size="2">(06:18:55 PM)</font><b> jack_c [<em>~jack@ice.novusordo.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:19:21 PM)</font> <b>pharpend:</b></font> thanks bennofs<br/>
+<font size="2">(06:20:57 PM)</font><b> Ankhers [<em>~user@gateway/tor-sasl/ankhers</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:22:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga pushed 2 new commits to master: http://git.io/aTQelw<br/>
+<font color="#A82F2F"><font size="2">(06:22:02 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master d4bd977 Henry Till: mr: update to 1.20141024<br/>
+<font color="#A82F2F"><font size="2">(06:22:02 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8bf10bf Arseniy Seroka: Merge pull request #5084 from henrytill/mr...<br/>
+<font color="#A82F2F"><font size="2">(06:23:21 PM)</font> <b>marvin-hh:</b></font> So, I have boot.zfs.useGit = true;, I did nixos-rebuild switch, why don&apos;t I end up with a newer version of ZFS?<br/>
+<font size="2">(06:23:21 PM)</font><b> etaoinshrdlu left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(06:23:27 PM)</font> <b>pharpend:</b></font> Okay, I just tried to rebuild my nix configuration, and this happened - http://ix.io/fiw<br/>
+<font color="#A82F2F"><font size="2">(06:24:19 PM)</font> <b>pharpend:</b></font> build worked fine<br/>
+<font color="#A82F2F"><font size="2">(06:24:35 PM)</font> <b>henrytill:</b></font> pharpend: rebooted recently?<br/>
+<font color="#A82F2F"><font size="2">(06:24:37 PM)</font> <b>pharpend:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(06:25:09 PM)</font> <b>henrytill:</b></font> pharpend: changed swap in hardware-configuration.nix recently?<br/>
+<font color="#A82F2F"><font size="2">(06:25:14 PM)</font> <b>pharpend:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(06:25:22 PM)</font> <b>pharpend:</b></font> not since I ran the bootstrapper<br/>
+<font color="#A82F2F"><font size="2">(06:25:25 PM)</font> <b>henrytill:</b></font> pharpend: changed anything hardware-related?<br/>
+<font color="#A82F2F"><font size="2">(06:25:28 PM)</font> <b>pharpend:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(06:25:31 PM)</font> <b>pharpend:</b></font> well<br/>
+<font color="#A82F2F"><font size="2">(06:25:41 PM)</font> <b>pharpend:</b></font> I tried to change an xorg.conf file<br/>
+<font size="2">(06:25:45 PM)</font><b> Ankhers left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(06:26:19 PM)</font> <b>pharpend:</b></font> Here&apos;s my configuration.nix - http://ix.io/fix<br/>
+<font color="#A82F2F"><font size="2">(06:28:07 PM)</font> <b>henrytill:</b></font> pharpend: i can&apos;t speak specifically to those errors, but if i saw something like that i would reboot/rebuild/reboot<br/>
+<font color="#A82F2F"><font size="2">(06:28:22 PM)</font> <b>pharpend:</b></font> okay<br/>
+<font color="#A82F2F"><font size="2">(06:28:24 PM)</font> <b>pharpend:</b></font> i&apos;ll reboot<br/>
+<font size="2">(06:29:33 PM)</font><b> RyanRN [<em>~Adium@c-67-173-147-126.hsd1.in.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:30:18 PM)</font> <b>RyanRN:</b></font> Hi, does anyone use nix-prefetch-hg successfully?<br/>
+<font color="#A82F2F"><font size="2">(06:30:49 PM)</font> <b>RyanRN:</b></font> (while packaging of course)<br/>
+<font color="#A82F2F"><font size="2">(06:31:08 PM)</font> <b>RyanRN:</b></font> It works for me if I only want to fetch HEAD.  For example:<br/>
+<font color="#A82F2F"><font size="2">(06:31:08 PM)</font> <b>RyanRN:</b></font> “nix-prefetch-hg https://bitbucket.org/iago/z3-haskell”<br/>
+<font color="#A82F2F"><font size="2">(06:31:24 PM)</font> <b>RyanRN:</b></font> But the command line args described in its help don&apos;t seem to actually work<br/>
+<font color="#A82F2F"><font size="2">(06:31:33 PM)</font> <b>RyanRN:</b></font> e.g. this should give the sha for a specific revision, right?<br/>
+<font color="#A82F2F"><font size="2">(06:31:33 PM)</font> <b>RyanRN:</b></font> nix-prefetch-hg -u 47c25178d091  https://bitbucket.org/iago/z3-haskell<br/>
+<font color="#A82F2F"><font size="2">(06:31:42 PM)</font> <b>RyanRN:</b></font> But instead I get:<br/>
+<font color="#A82F2F"><font size="2">(06:31:43 PM)</font> <b>RyanRN:</b></font> error: hash `https://bitbucket.org/iago/z3-haskell&apos; has wrong length for hash type `sha256&apos;<br/>
+<font size="2">(06:32:19 PM)</font><b> dysinger [<em>~dysinger@cpe-24-94-75-243.hawaii.res.rr.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:33:56 PM)</font> <b>RyanRN:</b></font> Oh, I see .. &quot;-u&quot; is actually not a nix-prefetch-hg option… it&apos;s an &quot;hg clone&quot; option<br/>
+<font color="#A82F2F"><font size="2">(06:34:02 PM)</font> <b>pharpend:</b></font> yay it worked!<br/>
+<font size="2">(06:54:19 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

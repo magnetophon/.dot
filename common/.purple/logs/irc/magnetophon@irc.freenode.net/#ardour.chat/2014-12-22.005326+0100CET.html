@@ -1,0 +1,42 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Mon 22 Dec 2014 12:53:26 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Mon 22 Dec 2014 12:53:26 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(12:53:27 AM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(12:53:27 AM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(12:53:54 AM)</font> <b>rgareus:</b></font> changing the clock color in the theme preferences does nothing, either.<br/>
+<font color="#A82F2F"><font size="2">(12:54:28 AM)</font> <b>las:</b></font> rgareus: that&apos;s almost pretty<br/>
+<font color="#A82F2F"><font size="2">(12:55:31 AM)</font> <b>rgareus:</b></font> dialogs are not very readable<br/>
+<font color="#A82F2F"><font size="2">(12:57:10 AM)</font> <b>rgareus:</b></font> http://robin.linuxaudio.org/tmp/a3cyan2.png<br/>
+<font color="#A82F2F"><font size="2">(12:57:40 AM)</font> <b>las:</b></font> rgareus: well, definitely not intended at all<br/>
+<font color="#A82F2F"><font size="2">(12:57:47 AM)</font> <b>rgareus:</b></font> must be some lingering gtk thingy<br/>
+<font color="#A82F2F"><font size="2">(12:58:17 AM)</font> <b>las:</b></font> rgareus: check also all the files shown being loaded at startup<br/>
+<font color="#A82F2F"><font size="2">(12:58:54 AM)</font> <b>rgareus:</b></font> nothing else on this system has this color and the default cyan is what ardour used all along for menu background highlight<br/>
+<font color="#A82F2F"><font size="2">(01:01:20 AM)</font> <b>rgareus:</b></font> build/gtk2_ardour/default_ui_config gtk2_ardour/dark.colors build/gtk2_ardour/clearlooks.rc  <br/>
+<font color="#A82F2F"><font size="2">(01:01:22 AM)</font> <b>FlorianBd:</b></font> that&apos;s beautifulish<br/>
+<font color="#A82F2F"><font size="2">(01:01:30 AM)</font> <b>FlorianBd:</b></font> no,<br/>
+<font color="#A82F2F"><font size="2">(01:01:33 AM)</font> <b>FlorianBd:</b></font> beautifoolish<br/>
+<font color="#A82F2F"><font size="2">(01:01:44 AM)</font> <b>rgareus:</b></font> bug.  the 2nd should actually be build/gtk2_ardour/dark.colors<br/>
+<font color="#A82F2F"><font size="2">(01:02:23 AM)</font> <b>las:</b></font> rgareus: nope<br/>
+<font color="#A82F2F"><font size="2">(01:02:37 AM)</font> <b>rgareus:</b></font> las: why?<br/>
+<font color="#A82F2F"><font size="2">(01:02:39 AM)</font> <b>las:</b></font> rgareus: no, dark.colors isn&apos;t built anymore<br/>
+<font color="#A82F2F"><font size="2">(01:02:55 AM)</font> <b>las:</b></font> rgareus: it doesn&apos;t require any wscript processing<br/>
+<font color="#A82F2F"><font size="2">(01:03:14 AM)</font> <b>rgareus:</b></font> las: right, but it should be copied<br/>
+<font color="#A82F2F"><font size="2">(01:03:29 AM)</font> <b>las:</b></font> rgareus: we don&apos;t copy unchanged files into build/<br/>
+<font color="#A82F2F"><font size="2">(01:03:31 AM)</font> <b>rgareus:</b></font> las: everything to run ardour should end up in buid<br/>
+<font color="#A82F2F"><font size="2">(01:03:34 AM)</font> <b>las:</b></font> rgareus: maybe we could or should<br/>
+<font color="#A82F2F"><font size="2">(01:03:40 AM)</font> <b>las:</b></font> rgareus: that isn&apos;t what build is for<br/>
+<font color="#A82F2F"><font size="2">(01:03:45 AM)</font> <b>las:</b></font> rgareus: build is where *built* files go<br/>
+<font color="#A82F2F"><font size="2">(01:03:52 AM)</font> <b>las:</b></font> rgareus: that&apos;s the waf thing, not our thing<br/>
+<font color="#A82F2F"><font size="2">(01:04:04 AM)</font> <b>las:</b></font> rgareus: system_config isn&apos;t built either<br/>
+<font color="#A82F2F"><font size="2">(01:04:11 AM)</font> <b>las:</b></font> rgareus: neither are the &quot;new&quot; .bindings files<br/>
+<font color="#A82F2F"><font size="2">(01:04:17 AM)</font> <b>las:</b></font> rgareus: nor any of the icons<br/>
+<font color="#A82F2F"><font size="2">(01:04:28 AM)</font> <b>rgareus:</b></font> las: &apos;build/&apos; as waf out variable can be re-located, can&apos;t it?<br/>
+<font color="#A82F2F"><font size="2">(01:04:30 AM)</font> <b>las:</b></font> rgareus: nor the binding maps nor ... etc. etc.<br/>
+<font color="#A82F2F"><font size="2">(01:04:43 AM)</font> <b>las:</b></font> rgareus: yes, i believe you can provide a &quot;build name&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:04:54 AM)</font> <b>rgareus:</b></font> las: you&apos;re right.<br/>
+<font color="#A82F2F"><font size="2">(01:05:04 AM)</font> <b>las:</b></font> rgareus: &quot;build&quot; is just the waf equivalent of cmake&apos;s &quot;out of source-dir build&quot; rule<br/>
+<font color="#A82F2F"><font size="2">(01:06:13 AM)</font> <b>las:</b></font> rgareus: ./waf install is what does the copying<br/>
+<font color="#A82F2F"><font size="2">(01:09:26 AM)</font> <b>rgareus:</b></font> mmh I wonder where gnome saved my default font.  There&apos;s no ~/.gtkrc* - also other gtk apps don&apos;t have this cyan text<br/>
+<font color="#A82F2F"><font size="2">(01:09:38 AM)</font> <b>rgareus:</b></font> aah gconf.  still only font, no colors<br/>
+<font color="#A82F2F"><font size="2">(01:11:38 AM)</font> <b>rgareus:</b></font> mmh I still have various ancient .rc files in build/gtk2_ardour<br/>
+<font size="2">(01:14:23 AM)</font><b> ahellquist__ is now known as ahellquist</b><br/>
+<font size="2">(01:40:12 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

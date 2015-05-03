@@ -1,0 +1,757 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Tue 10 Mar 2015 01:09:42 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Tue 10 Mar 2015 01:09:42 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(01:09:42 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(01:09:42 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(01:20:55 AM)</font> <b>ehmry:</b></font> 124547 store paths deleted, 95898.04 MiB freed<br/>
+<font color="#A82F2F"><font size="2">(01:21:04 AM)</font> <b>ehmry:</b></font> this is what happens when you use nix-make<br/>
+<font color="#A82F2F"><font size="2">(01:22:29 AM)</font> <b>ehmry:</b></font> and don&apos;t clear your store for a few months<br/>
+<font color="#A82F2F"><font size="2">(01:35:16 AM)</font> <b>JagaJaga_:</b></font> ehmry: use nix.gc option in your configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(01:42:06 AM)</font> <b>ehmry:</b></font> I could, but then I might have to recompile my toolchains<br/>
+<font color="#A82F2F"><font size="2">(01:47:01 AM)</font> <b>joelmo:</b></font> maybe you can configure nix-make to add gc-roots?<br/>
+<font color="#A82F2F"><font size="2">(01:50:59 AM)</font> <b>ehmry:</b></font> yea, the problem is you want to strip your outputs so they don&apos;t have runtime dependency on sources and objects, but then you get an object cache that isn&apos;t always there<br/>
+<font color="#A82F2F"><font size="2">(01:56:28 AM)</font> <b>seanz:</b></font> I thought I&apos;d ping again, because I still cannot figure out why I don&apos;t have any DNS resolution within a NixOS container.<br/>
+<font color="#A82F2F"><font size="2">(01:56:40 AM)</font> <b>seanz:</b></font> So nix-channel --update fails, and I basically can&apos;t configure it at all.<br/>
+<font color="#A82F2F"><font size="2">(01:56:50 AM)</font> <b>seanz:</b></font> Error: /run/current-system/sw/bin/nix-channel: unable to check ‘https://nixos.org/channels/nixos-14.12’<br/>
+<font color="#A82F2F"><font size="2">(02:00:33 AM)</font> <b>CADD:</b></font> hey guys, oraclejdk8 at HEAD isnt building because of: builder for ‘/nix/store/lq3qjkqn1d724c6499jx92jnvqj4i66d-frei0r-plugins-1.4.tar.gz.drv’ failed to produce output path ‘/nix/store/kr09zph6vcr9vdi9x4bp6frc8c218kvg-frei0r-plugins-1.4.tar.gz’<br/>
+<font color="#A82F2F"><font size="2">(02:00:39 AM)</font> <b>CADD:</b></font> any ideas?<br/>
+<font size="2">(02:03:25 AM)</font><b> hexagoxel_ is now known as hexagoxel</b><br/>
+<font color="#A82F2F"><font size="2">(02:03:30 AM)</font> <b>seanz:</b></font> Ok, so I got networking working following instructions in this doc: https://nixos.org/nixos/manual/ch-containers.html#sec-container-networking<br/>
+<font color="#A82F2F"><font size="2">(02:03:44 AM)</font> <b>seanz:</b></font> However, I really thought container networking was initially working without those settings.<br/>
+<font color="#A82F2F"><font size="2">(02:03:47 AM)</font> <b>seanz:</b></font> Oh well - it&apos;s working now.<br/>
+<font color="#A82F2F"><font size="2">(02:03:57 AM)</font> <b>seanz:</b></font> Hopefully there aren&apos;t any huge security holes I&apos;m not aware of.<br/>
+<font size="2">(02:13:38 AM)</font><b> nckx|away is now known as nckx</b><br/>
+<font color="#A82F2F"><font size="2">(02:27:52 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 4 new commits to master: http://git.io/p8fn<br/>
+<font color="#A82F2F"><font size="2">(02:27:52 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e76d7e7 William A. Kennington III: lightdm-gtk-greeter: 1.6.1 -&gt; 2.0.0<br/>
+<font color="#A82F2F"><font size="2">(02:27:52 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 2319455 William A. Kennington III: lightdm: 1.8.6 -&gt; 1.13.1<br/>
+<font color="#A82F2F"><font size="2">(02:27:52 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 66bfdf6 William A. Kennington III: nixos/lightdm: We now use a global lightdm.conf<br/>
+<font color="#A82F2F"><font size="2">(02:34:22 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/p8JP<br/>
+<font color="#A82F2F"><font size="2">(02:34:22 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master fdd2b23 William A. Kennington III: hicolor-icon-theme: 0.13 -&gt; 0.14<br/>
+<font color="#A82F2F"><font size="2">(02:43:11 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/p8Tb<br/>
+<font color="#A82F2F"><font size="2">(02:43:11 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 29a3436 William A. Kennington III: lightdm-gtk-greeter: More fixes<br/>
+<font color="#A82F2F"><font size="2">(02:45:48 AM)</font> <b>sonarp:</b></font> I installed Thunar but it&apos;s not displaying any icons. I imagine I&apos;m just missing a package, but I&apos;ve tried xfce4-icon-theme and I&apos;m still not seing any icons. Anyone have suggestions?<br/>
+<font color="#A82F2F"><font size="2">(02:58:06 AM)</font> <b>CADD:</b></font> im getting libXcursor not found, any idea what i should put in nix-shell -p to resolve?<br/>
+<font color="#A82F2F"><font size="2">(02:58:58 AM)</font> <b>CADD:</b></font> hydra says its not in the current evaluation<br/>
+<font color="#A82F2F"><font size="2">(03:13:01 AM)</font> <b>Irenes:</b></font> The quest continues :) :/<br/>
+<font color="#A82F2F"><font size="2">(03:13:45 AM)</font> <b>Irenes:</b></font> I still can’t get earlyprintk output out of this thing.  Even complications with the LUKS root fs shouldn’t lead to that. :(<br/>
+<font color="#A82F2F"><font size="2">(03:19:39 AM)</font> <b>wkennington:</b></font> Irenes: is it uefi?<br/>
+<font color="#A82F2F"><font size="2">(03:20:06 AM)</font> <b>Irenes:</b></font> it is!<br/>
+<font color="#A82F2F"><font size="2">(03:20:14 AM)</font> <b>Irenes:</b></font> hopefully this means you have some specific knowledge? :)<br/>
+<font color="#A82F2F"><font size="2">(03:20:34 AM)</font> <b>Irenes:</b></font> I did make an unencrypted EFI system partition, of course<br/>
+<font color="#A82F2F"><font size="2">(03:20:40 AM)</font> <b>wkennington:</b></font> Do you have the fbcon module in the initrd?<br/>
+<font color="#A82F2F"><font size="2">(03:21:03 AM)</font> <b>wkennington:</b></font> If you don&apos;t you won&apos;t have video<br/>
+<font color="#A82F2F"><font size="2">(03:21:28 AM)</font> <b>Irenes:</b></font> I believe so; I know that I realized that and put the option there, but it’s always possible I did it wrong.  If you don’t mind waiting five minutes for me to reboot a few times to get back into the installer, I can check the exact config.<br/>
+<font color="#A82F2F"><font size="2">(03:21:39 AM)</font> <b>wkennington:</b></font> Sure<br/>
+<font color="#A82F2F"><font size="2">(03:21:42 AM)</font> <b>Irenes:</b></font> thanks :)<br/>
+<font color="#A82F2F"><font size="2">(03:22:01 AM)</font> <b>wkennington:</b></font> We should probably just force include fbcon always<br/>
+<font color="#A82F2F"><font size="2">(03:22:09 AM)</font> <b>wkennington:</b></font> That and USB hid stuff<br/>
+<font color="#A82F2F"><font size="2">(03:22:11 AM)</font> <b>Irenes:</b></font> very likely.<br/>
+<font color="#A82F2F"><font size="2">(03:22:34 AM)</font> <b>johnw:</b></font> Has anyone else seen the problem where, if you try to prefetch a URL, curl complains saying &quot;Failed writing body&quot;?<br/>
+<font color="#A82F2F"><font size="2">(03:22:43 AM)</font> <b>johnw:</b></font> this is on Ubuntu+Nix<br/>
+<font color="#A82F2F"><font size="2">(03:23:02 AM)</font> <b>Irenes:</b></font> surely that’s a filesystem problem?<br/>
+<font color="#A82F2F"><font size="2">(03:23:04 AM)</font> <b>wkennington:</b></font> Bad url maybe?<br/>
+<font color="#A82F2F"><font size="2">(03:23:19 AM)</font> <b>johnw:</b></font> the URL is file://$PWD/filethatexists<br/>
+<font color="#A82F2F"><font size="2">(03:23:30 AM)</font> <b>johnw:</b></font> for which gzip -tv says it is OK<br/>
+<font color="#A82F2F"><font size="2">(03:23:50 AM)</font> <b>johnw:</b></font> some parts of the internet think it&apos;s an encoding problem<br/>
+<font color="#A82F2F"><font size="2">(03:26:53 AM)</font> <b>seanz:</b></font> Question: Is the source for a given NixOS package automatically available to other packages?<br/>
+<font color="#A82F2F"><font size="2">(03:28:38 AM)</font> <b>Irenes:</b></font> okay.  http://sprunge.us/YDXN is configuration.nix; http://sprunge.us/Rggj is hardware-configuration.nix; http://sprunge.us/aKMY is boot.nix<br/>
+<font color="#A82F2F"><font size="2">(03:28:43 AM)</font> <b>wkennington:</b></font> Not automatically<br/>
+<font color="#A82F2F"><font size="2">(03:28:46 AM)</font> <b>Irenes:</b></font> I have others but they seem irrelevant<br/>
+<font color="#A82F2F"><font size="2">(03:29:20 AM)</font> <b>wkennington:</b></font> BTW earlyprintk is a command line option too<br/>
+<font color="#A82F2F"><font size="2">(03:29:25 AM)</font> <b>Irenes:</b></font> I know<br/>
+<font color="#A82F2F"><font size="2">(03:29:32 AM)</font> <b>Irenes:</b></font> yeah, I did “e” in gummiboot and prepended it<br/>
+<font color="#A82F2F"><font size="2">(03:30:02 AM)</font> <b>Irenes:</b></font> ah and I see that that was irrelevant as I had already included it in boot.nix’s setting of boot.kernelParams<br/>
+<font color="#A82F2F"><font size="2">(03:30:18 AM)</font> <b>Irenes:</b></font> dunno why I put the other kernel config in the top level.  heh.<br/>
+<font color="#A82F2F"><font size="2">(03:31:40 AM)</font> <b>wkennington:</b></font> Oh wow<br/>
+<font color="#A82F2F"><font size="2">(03:31:46 AM)</font> <b>wkennington:</b></font> I need cantouchefivariables<br/>
+<font color="#A82F2F"><font size="2">(03:31:53 AM)</font> <b>wkennington:</b></font> I didn&apos;t realize we could do that<br/>
+<font color="#A82F2F"><font size="2">(03:31:54 AM)</font> <b>Irenes:</b></font> heh :)<br/>
+<font color="#A82F2F"><font size="2">(03:31:55 AM)</font> <b>Irenes:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(03:32:08 AM)</font> <b>wkennington:</b></font> I have boards that require the efi entry<br/>
+<font color="#A82F2F"><font size="2">(03:32:14 AM)</font> <b>Irenes:</b></font> it does appear to do it correctly; I checked with efibootmgr and with manual inspection of /sys/firmware/efi/efivars/<br/>
+<font color="#A82F2F"><font size="2">(03:33:19 AM)</font> <b>wkennington:</b></font> That should probably default to true<br/>
+<font color="#A82F2F"><font size="2">(03:33:32 AM)</font> <b>Irenes:</b></font> I think it does, actually, I just don’t like relying on defaults :)<br/>
+<font color="#A82F2F"><font size="2">(03:33:38 AM)</font> <b>wkennington:</b></font> It doesn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(03:33:50 AM)</font> <b>Irenes:</b></font> ah, okay<br/>
+<font color="#A82F2F"><font size="2">(03:33:51 AM)</font> <b>wkennington:</b></font> https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/loader/efi.nix<br/>
+<font color="#A82F2F"><font size="2">(03:33:56 AM)</font> <b>Irenes:</b></font> there are definitely some of these that are redundant :)<br/>
+<font color="#A82F2F"><font size="2">(03:34:22 AM)</font> <b>Irenes:</b></font> are you aware of any channel where I could ask for non-nixos-specific help as to why every kernel I build gives no evidence of even loading?<br/>
+<font color="#A82F2F"><font size="2">(03:34:25 AM)</font> <b>Irenes:</b></font> I’ve looked around a little...<br/>
+<font color="#A82F2F"><font size="2">(03:34:33 AM)</font> <b>wkennington:</b></font> ##kernel<br/>
+<font color="#A82F2F"><font size="2">(03:34:37 AM)</font> <b>Irenes:</b></font> thanks :)<br/>
+<font color="#A82F2F"><font size="2">(03:34:54 AM)</font> <b>wkennington:</b></font> I would probably nomodeset too<br/>
+<font color="#A82F2F"><font size="2">(03:35:07 AM)</font> <b>wkennington:</b></font> Dunno if just blacklisting nouveau is enough<br/>
+<font color="#A82F2F"><font size="2">(03:36:30 AM)</font> <b>wkennington:</b></font> There are other useful params too btw<br/>
+<font color="#A82F2F"><font size="2">(03:36:41 AM)</font> <b>wkennington:</b></font> For getting useful output<br/>
+<font color="#A82F2F"><font size="2">(03:36:45 AM)</font> <b>wkennington:</b></font> What kernel are you using?<br/>
+<font color="#A82F2F"><font size="2">(03:40:20 AM)</font> <b>Irenes:</b></font> er, one sec<br/>
+<font color="#A82F2F"><font size="2">(03:40:29 AM)</font> <b>Irenes:</b></font> I’m also talking in ##kernel now so I’m distracted, but I can get that answer<br/>
+<font color="#A82F2F"><font size="2">(03:41:21 AM)</font> <b>Irenes:</b></font> it appears to be 3.14.35, based on the contents of the loader entry file on the esp<br/>
+<font color="#A82F2F"><font size="2">(03:41:29 AM)</font> <b>Irenes:</b></font> that was yesterday’s release<br/>
+<font color="#A82F2F"><font size="2">(03:41:54 AM)</font> <b>Irenes:</b></font> I tried nomodeset at some point by hand, but certainly I didn’t do a controlled experiment; I might as well add it in :)<br/>
+<font color="#A82F2F"><font size="2">(03:42:26 AM)</font> <b>Irenes:</b></font> since it’s a pain to get back into the system because for some reason I thought it was a good idea to make the LUKS password 50 characters long, I am trying to not reboot without a plausible explanation for why the last time didn’t work :)<br/>
+<font color="#A82F2F"><font size="2">(03:44:29 AM)</font> <b>Irenes:</b></font> do you know offhand, will putting fbcon in boot.kernelModules make it hard-compiled-in?  or do I need to add it to boot.initrd.availableKernelModules as well (or instead)?<br/>
+<font color="#A82F2F"><font size="2">(03:44:52 AM)</font> <b>Irenes:</b></font> can’t hurt to do the latter, I suppose<br/>
+<font color="#A82F2F"><font size="2">(03:45:10 AM)</font> <b>wkennington:</b></font> omg<br/>
+<font color="#A82F2F"><font size="2">(03:45:12 AM)</font> <b>Irenes:</b></font> this is desperate flailing, but I’ve been working on this a week and a half now?<br/>
+<font color="#A82F2F"><font size="2">(03:45:14 AM)</font> <b>Irenes:</b></font> hm?<br/>
+<font color="#A82F2F"><font size="2">(03:45:15 AM)</font> <b>wkennington:</b></font> that&apos;s the problem<br/>
+<font color="#A82F2F"><font size="2">(03:45:18 AM)</font> <b>wkennington:</b></font> not kernelModules<br/>
+<font color="#A82F2F"><font size="2">(03:45:18 AM)</font> <b>Irenes:</b></font> it is?  oh!<br/>
+<font color="#A82F2F"><font size="2">(03:45:23 AM)</font> <b>wkennington:</b></font> boot.initrd.kernelModules<br/>
+<font color="#A82F2F"><font size="2">(03:45:32 AM)</font> <b>Irenes:</b></font> wait, oh<br/>
+<font color="#A82F2F"><font size="2">(03:45:37 AM)</font> <b>wkennington:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(03:46:03 AM)</font> <b>Irenes:</b></font> why are there both boot.initrd.kernelModules and boot.initrd.availableKernelModules?  or is the latter nonexistent?<br/>
+<font color="#A82F2F"><font size="2">(03:46:14 AM)</font> <b>wkennington:</b></font> kernelModules forces them to be loaded<br/>
+<font color="#A82F2F"><font size="2">(03:46:22 AM)</font> <b>wkennington:</b></font> available just makes it possible to load them<br/>
+<font color="#A82F2F"><font size="2">(03:46:22 AM)</font> <b>Irenes:</b></font> ah :)<br/>
+<font color="#A82F2F"><font size="2">(03:46:29 AM)</font> <b>Irenes:</b></font> kernelModules implies available, yeah?<br/>
+<font color="#A82F2F"><font size="2">(03:46:34 AM)</font> <b>Irenes:</b></font> so I don’t need it in both<br/>
+<font color="#A82F2F"><font size="2">(03:46:35 AM)</font> <b>wkennington:</b></font> yea<br/>
+<font color="#A82F2F"><font size="2">(03:46:58 AM)</font> <b>Irenes:</b></font> thanks!  okay :)  then I am going to rerun nixos-install and see what happens<br/>
+<font color="#A82F2F"><font size="2">(03:47:03 AM)</font> <b>Irenes:</b></font> thank you for being a useful rubber duck :)<br/>
+<font color="#A82F2F"><font size="2">(03:47:16 AM)</font> <b>Irenes:</b></font> well, you were more than that.  let’s see if it works, haha<br/>
+<font color="#A82F2F"><font size="2">(04:59:36 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nckx pushed 1 new commit to master: http://git.io/p8z9<br/>
+<font color="#A82F2F"><font size="2">(04:59:36 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9e5abbc Tobias Geerinckx-Rice: vim-plugins: wakatime 3.0.7 -&gt; 3.0.8<br/>
+<font color="#A82F2F"><font size="2">(05:55:45 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] robinbb opened pull request #6736: Dist::Zilla perl packages (master...DistZilla-Perl-Packages) http://git.io/p866<br/>
+<font color="#A82F2F"><font size="2">(06:07:56 AM)</font> <b>ebzzry:</b></font> Does anybody else encounter pinentry installation issues: http://pastebin.com/xhgP1kfU<br/>
+<font size="2">(07:11:32 AM)</font><b> nckx is now known as nckx|away</b><br/>
+<font color="#A82F2F"><font size="2">(07:20:22 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] thoughtpolice pushed 1 new commit to master: http://git.io/p8dT<br/>
+<font color="#A82F2F"><font size="2">(07:20:22 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master ed75d61 Austin Seipp: nixpkgs: afl 1.49b -&gt; 1.56b...<br/>
+<font color="#A82F2F"><font size="2">(07:45:33 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] anderspapitto opened pull request #6737: build-fhs-userenv passes through command line args (master...fhs) http://git.io/p8Nw<br/>
+<font size="2">(09:20:51 AM)</font><b> florent__ is now known as jnaimard</b><br/>
+<font size="2">(09:21:10 AM)</font><b> jnaimard is now known as gal_bolle</b><br/>
+<font color="#A82F2F"><font size="2">(09:24:43 AM)</font> <b>arturdev2:</b></font> Hi, I have a packageOverrides definition on a file, how do I import that from another file?<br/>
+<font color="#A82F2F"><font size="2">(09:26:07 AM)</font> <b>therp:</b></font> packageOverride = import ./your/path.nix<br/>
+<font color="#A82F2F"><font size="2">(09:26:08 AM)</font> <b>therp:</b></font> ;<br/>
+<font color="#A82F2F"><font size="2">(09:27:05 AM)</font> <b>arturdev2:</b></font> therp: thanks!<br/>
+<font color="#A82F2F"><font size="2">(09:27:44 AM)</font> <b>arturdev2:</b></font> what if I had more than one file overriding packageOverride? can I just do it as you said more than once?<br/>
+<font color="#A82F2F"><font size="2">(09:34:04 AM)</font> <b>therp:</b></font> arturdev2: you would need to merge the overrides. let me check<br/>
+<font color="#A82F2F"><font size="2">(09:36:20 AM)</font> <b>therp:</b></font> looks like this isn&apos;t easily mergable, as it&apos;s a transformation from &quot;pkgs&quot; to a tupple of some sort. sorry not an expert here<br/>
+<font color="#A82F2F"><font size="2">(09:37:02 AM)</font> <b>therp:</b></font> I am not sure what the function signature looks like. is this &quot;a -&gt; a&quot; in the haskell type sense?<br/>
+<font color="#A82F2F"><font size="2">(09:39:51 AM)</font> <b>arturdev2:</b></font> I&apos;ll try it, thanks<br/>
+<font color="#A82F2F"><font size="2">(09:47:59 AM)</font> <b>arturdev2:</b></font> I have another issue: I&apos;m using fetchgit to retrieve the given package, but when deploying (I&apos;m using nixops) the operation doesn&apos;t seem to finish (been running for a few minutes already, the git repository is very small)<br/>
+<font color="#A82F2F"><font size="2">(09:49:09 AM)</font> <b>arturdev2:</b></font> any way of seeing logs, or debugging the issue?<br/>
+<font color="#A82F2F"><font size="2">(09:53:36 AM)</font> <b>wmertens:</b></font> arturdev2: is it building locally or on the remote system? firewall maybe?<br/>
+<font color="#A82F2F"><font size="2">(09:53:49 AM)</font> <b>wmertens:</b></font> or proxy<br/>
+<font color="#A82F2F"><font size="2">(09:54:40 AM)</font> <b>arturdev2:</b></font> it&apos;s building locally<br/>
+<font color="#A82F2F"><font size="2">(09:55:53 AM)</font> <b>arturdev2:</b></font> uhm, I get an error when cloning manually. should I get an error anyway on nixops?<br/>
+<font color="#A82F2F"><font size="2">(09:56:38 AM)</font> <b>wmertens:</b></font> arturdev2: well, you should, but that might be a bug :)<br/>
+<font color="#A82F2F"><font size="2">(09:57:02 AM)</font> <b>wmertens:</b></font> if you can figure out what&apos;s going on, that would be nice to report to the nixops repo...<br/>
+<font size="2">(09:58:26 AM)</font><b> Lethalman [<em>~luca@89.118.249.114</em>] entered the room.</b><br/>
+<font size="2">(10:04:35 AM)</font><b> goibhniu1 [<em>~goibhniu@pD9FBE9ED.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(10:06:50 AM)</font><b> goibhniu left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:07:04 AM)</font> <b>donbruno:</b></font> i have a question: When I try todo &quot;nix-env --list-generations&quot; the output is empty, but the /nix/var/nix/profiles has two links. What I want to do is to delete a profile (in this profile &quot;kde&quot; is enabled in the other one is it disabled)<br/>
+<font color="#A82F2F"><font size="2">(10:09:41 AM)</font> <b>Lethalman:</b></font> donbruno, you are probably looking at the default profile, not the user profile?<br/>
+<font color="#A82F2F"><font size="2">(10:10:02 AM)</font> <b>Lethalman:</b></font> donbruno, readlink ~/.nix-profile<br/>
+<font color="#A82F2F"><font size="2">(10:14:46 AM)</font> <b>donbruno:</b></font> Lethalman: the user profile is a link to /nix/var/nix/profiles/default<br/>
+<font color="#A82F2F"><font size="2">(10:23:13 AM)</font> <b>arturdev2:</b></font> wmertens: yes, I&apos;ll file an issue if I figure out what&apos;s happening. I&apos;m a bit confused with fetchgit in general. Do I need to set sha256 hash? (of what set of files exactly?) What URL do I have to use? (currently using something like git@bitbucket.org:ArturSoler/my-repository.git<br/>
+<font color="#A82F2F"><font size="2">(10:25:08 AM)</font> <b>wmertens:</b></font> arturdev2: the hash has to be the one of the result, so you need to fetch it first to know what it is. Uh... I think the URL has to be the https one, not sure.<br/>
+<font color="#A82F2F"><font size="2">(10:26:02 AM)</font> <b>wmertens:</b></font> so that would be https://bitbucket.org/ArturSoler/...<br/>
+<font color="#A82F2F"><font size="2">(10:26:24 AM)</font> <b>arturdev2:</b></font> wmertens: but then it can&apos;t use the SSH keys (it&apos;s a private repo)<br/>
+<font color="#A82F2F"><font size="2">(10:28:23 AM)</font> <b>wmertens:</b></font> ok, fetchgit just uses git to fetch, but you need to get those SSH keys into the build. Not trivial. Instead, use nix-prefetch-git<br/>
+<font color="#A82F2F"><font size="2">(10:28:53 AM)</font> <b>wmertens:</b></font> oh look at this :) https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/fetchgit/private.nix<br/>
+<font color="#A82F2F"><font size="2">(10:30:09 AM)</font> <b>arturdev2:</b></font> wmertens: thanks. I understand that&apos;s a fetchgit-ssh function?<br/>
+<font color="#A82F2F"><font size="2">(10:30:33 AM)</font> <b>wmertens:</b></font> arturdev2: fetchGitPrivate<br/>
+<font color="#A82F2F"><font size="2">(10:45:18 AM)</font> <b>arturdev2:</b></font> any way of trying my package (defined with packageOverrides) in any way other than nixops deploy (which is not showing up errors)?<br/>
+<font color="#A82F2F"><font size="2">(10:56:41 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] rzetterberg opened pull request #6738: django: Adds pypyPackages.django_1_7 (1.7.6) (master...master) http://git.io/p4g2<br/>
+<font color="#A82F2F"><font size="2">(11:02:11 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 2 new commits to master: http://git.io/p4aI<br/>
+<font color="#A82F2F"><font size="2">(11:02:11 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8ca89f9 Richard Zetterberg: django: Adds pypyPackages.django_1_7 (1.7.6)<br/>
+<font color="#A82F2F"><font size="2">(11:02:11 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3eb0dd5 Domen Kožar: Merge pull request #6738 from rzetterberg/master...<br/>
+<font color="#A82F2F"><font size="2">(11:13:07 AM)</font> <b>joelmo:</b></font> is there some function that can set a environment variable, or let a user optionally source a variable when a derivation gets installed?<br/>
+<font color="#A82F2F"><font size="2">(11:22:28 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 3 new commits to master: http://git.io/p4oM<br/>
+<font color="#A82F2F"><font size="2">(11:22:28 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1ce7536 Philipp Hausmann: Add uhc haskell compiler<br/>
+<font color="#A82F2F"><font size="2">(11:22:28 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 2eacaa8 Philipp Hausmann: haskell-uhc: Remove explicit dependency on binary<br/>
+<font color="#A82F2F"><font size="2">(11:22:28 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8196130 Peter Simons: Merge pull request #6711 from phile314/dev...<br/>
+<font color="#A82F2F"><font size="2">(11:30:12 AM)</font> <b>wmertens_:</b></font> Is anybody building stuff on Banana Pi or RPi 2? Maybe we can set up a distcc farm?<br/>
+<font color="#A82F2F"><font size="2">(11:31:21 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] rickynils pushed 1 new commit to release-14.12: http://git.io/p4iL<br/>
+<font color="#A82F2F"><font size="2">(11:31:21 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 7c12c78 koral: opensmtpd: 5.4.2p1 -&gt; 5.4.4p1...<br/>
+<font color="#A82F2F"><font size="2">(11:31:43 AM)</font> <b>Lethalman:</b></font> joelmo, don&apos;t think so and hope not :)<br/>
+<font color="#A82F2F"><font size="2">(11:32:13 AM)</font> <b>rzetterberg:</b></font> How long does it take before a merged PR appears on the unstable channel?<br/>
+<font color="#A82F2F"><font size="2">(11:32:59 AM)</font> <b>Lethalman:</b></font> rzetterberg, https://nixos.org/wiki/FAQ#What_are_channels_and_how_they_get_updated.3F<br/>
+<font color="#A82F2F"><font size="2">(11:34:29 AM)</font> <b>Haskellfant:</b></font> Lethalman: so looking at http://hydra.nixos.org/job/nixos/trunk-combined/tested it seems like hydra has not even tried to build the channel since 2015-02-25?<br/>
+<font color="#A82F2F"><font size="2">(11:34:43 AM)</font> <b>viric:</b></font> wmertens_: I am<br/>
+<font color="#A82F2F"><font size="2">(11:34:58 AM)</font> <b>Lethalman:</b></font> Haskellfant, http://hydra.nixos.org/jobset/nixos/trunk-combined#tabs-errors<br/>
+<font color="#A82F2F"><font size="2">(11:35:04 AM)</font> <b>viric:</b></font> wmertens_: distcc over internet?<br/>
+<font color="#A82F2F"><font size="2">(11:35:13 AM)</font> <b>Haskellfant:</b></font> Lethalman: ah k, thx!<br/>
+<font color="#A82F2F"><font size="2">(11:35:37 AM)</font> <b>Lethalman:</b></font> it&apos;s a nodePackages issue<br/>
+<font color="#A82F2F"><font size="2">(11:35:46 AM)</font> <b>wmertens_:</b></font> viric: cool :) The wiki image didn&apos;t work so I&apos;m building everything from scratch using bananian as a bootstrap base. Yes, over internet, maybe that&apos;s insane<br/>
+<font color="#A82F2F"><font size="2">(11:36:15 AM)</font> <b>viric:</b></font> I think so<br/>
+<font color="#A82F2F"><font size="2">(11:36:25 AM)</font> <b>viric:</b></font> master is quite updated to build most things.<br/>
+<font color="#A82F2F"><font size="2">(11:36:26 AM)</font> <b>wmertens_:</b></font> viric: or we can set up a hydra thing<br/>
+<font color="#A82F2F"><font size="2">(11:36:30 AM)</font> <b>viric:</b></font> I think that for nixos, only the boot is left.<br/>
+<font color="#A82F2F"><font size="2">(11:37:16 AM)</font> <b>wmertens_:</b></font> viric: meaning, if I use nixpkgs master and manually set up a boot loader, things Just Work (TM)?<br/>
+<font color="#A82F2F"><font size="2">(11:37:26 AM)</font> <b>rzetterberg:</b></font> Lethalman: Thank you!<br/>
+<font color="#A82F2F"><font size="2">(11:37:34 AM)</font> <b>arturdev2:</b></font> when using fetchgit (or fetchgitPrivate), what file should the sha256 hash represent?<br/>
+<font color="#A82F2F"><font size="2">(11:37:53 AM)</font> <b>wmertens_:</b></font> arturdev2: use nix-prefetch-git and it tells you the hash<br/>
+<font color="#A82F2F"><font size="2">(11:38:01 AM)</font> <b>viric:</b></font> wmertens_: nixos isn&apos;t far from setting up the bootloader<br/>
+<font color="#A82F2F"><font size="2">(11:38:11 AM)</font> <b>viric:</b></font> just the pi2 has some different things compared to the pi1, and has to beu pdated.<br/>
+<font color="#A82F2F"><font size="2">(11:38:14 AM)</font> <b>Haskellfant:</b></font> or just input the wrong one and wait for nix to tell you the correct hash :)<br/>
+<font color="#A82F2F"><font size="2">(11:39:11 AM)</font> <b>arturdev2:</b></font> Haskellfant: that&apos;s a good idea, thanks<br/>
+<font color="#A82F2F"><font size="2">(11:39:19 AM)</font> <b>arturdev2:</b></font> wmertens_: thanks<br/>
+<font color="#A82F2F"><font size="2">(11:39:22 AM)</font> <b>wmertens_:</b></font> viric: are there any armhf binaries downloadable?<br/>
+<font color="#A82F2F"><font size="2">(11:39:41 AM)</font> <b>viric:</b></font> wmertens_: no, and I&apos;ve not rebuilt since the staging merge.<br/>
+<font size="2">(11:39:47 AM)</font><b> boegel|afk is now known as boegel</b><br/>
+<font color="#A82F2F"><font size="2">(11:40:06 AM)</font> <b>wmertens_:</b></font> viric: right. So I&apos;ll turn my bpi into a space heater for the next couple days then :)<br/>
+<font color="#A82F2F"><font size="2">(11:40:29 AM)</font> <b>viric:</b></font> does it get hot?<br/>
+<font color="#A82F2F"><font size="2">(11:40:36 AM)</font> <b>viric:</b></font> the pi2 didn&apos;t go much over 50°<br/>
+<font color="#A82F2F"><font size="2">(11:41:01 AM)</font> <b>wmertens_:</b></font> not sure yet<br/>
+<font color="#A82F2F"><font size="2">(11:41:13 AM)</font> <b>wmertens_:</b></font> plus I got a heatsink<br/>
+<font color="#A82F2F"><font size="2">(11:42:02 AM)</font> <b>viric:</b></font> for overclock?<br/>
+<font color="#A82F2F"><font size="2">(11:42:54 AM)</font> <b>wmertens_:</b></font> no just because I don&apos;t trust chinese boards :)<br/>
+<font color="#A82F2F"><font size="2">(11:43:26 AM)</font> <b>Haskellfant:</b></font> so … all boards?<br/>
+<font color="#A82F2F"><font size="2">(11:44:07 AM)</font> <b>wmertens_:</b></font> Haskellfant: no just the ones that don&apos;t get a lot of users<br/>
+<font color="#A82F2F"><font size="2">(11:44:11 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 1 new commit to release-14.12: http://git.io/p41D<br/>
+<font color="#A82F2F"><font size="2">(11:44:11 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 cb21db1 Domen Kožar: fix eval<br/>
+<font color="#A82F2F"><font size="2">(11:44:28 AM)</font> <b>m0rphism:</b></font> Is it possible that the FAQ part about nix-channel redirects to the wrong hydra tests? It seems to me that the nixpkgs:trunk:unstable job referenced in the FAQ succeeded two days ago ( http://hydra.nixos.org/job/nixpkgs/trunk/unstable ). Hence I concluded from the FAQ that the new versions should be available soon, once they are transferred to the unstable cache. Am I misreading the FAQ?<br/>
+<font color="#16569E"><font size="2">(11:45:42 AM)</font> <b>magnetophon:</b></font> Could someone have a look at my puredata plugins?  I want to do a PR, but I'm not sure if I should put it all in one commit or do a PR per plugin. Also, should I group the plugins in all-packages.nix somehow? (there are hundreds out there). https://github.com/NixOS/nixpkgs/compare/release-14.12...magnetophon:helmholtz-14.12<br/>
+<font color="#A82F2F"><font size="2">(11:47:43 AM)</font> <b>joelmo:</b></font> Lethalman: why not? it would be optional to use them. I have that python library that uses gtk3, adding that and others to propagateBuildInputs didn&apos;t work, if I can&apos;t provide some variables to source, i have to either wrap or patch?<br/>
+<font size="2">(11:48:07 AM)</font><b> _1126_ is now known as _1126</b><br/>
+<font color="#A82F2F"><font size="2">(11:49:12 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] joachifm opened pull request #6739: nixos: refactor tarsnap backup service module (master...refactor-tarsnap-service) http://git.io/p4M7<br/>
+<font color="#A82F2F"><font size="2">(11:51:19 AM)</font> <b>joelmo:</b></font> Lethalman: gtk3 could just provide a single file for the user to source and then maybe  fewer packages using gtk3 will need to be wrapped<br/>
+<font color="#A82F2F"><font size="2">(11:54:02 AM)</font> <b>Lethalman:</b></font> joelmo, it&apos;s called nix-shell<br/>
+<font color="#A82F2F"><font size="2">(11:54:26 AM)</font> <b>Lethalman:</b></font> joelmo, no installing libraries mines the purpose of nix<br/>
+<font color="#A82F2F"><font size="2">(11:54:38 AM)</font> <b>Lethalman:</b></font> where that single gtk app depends on specific libraries<br/>
+<font color="#A82F2F"><font size="2">(11:56:30 AM)</font> <b>arturdev2:</b></font> Can I set a derivation to not have a builder? (or have an empty builder without creating an empty file)<br/>
+<font color="#A82F2F"><font size="2">(11:56:56 AM)</font> <b>Lethalman:</b></font> arturdev2, no, a derivation needs a builder and expects an $out<br/>
+<font color="#A82F2F"><font size="2">(11:57:15 AM)</font> <b>seanz:</b></font> Has anyone else here been able to successfully build lxml for python 2.6?<br/>
+<font color="#A82F2F"><font size="2">(11:57:15 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] viric pushed 2 new commits to release-14.12: http://git.io/p4SU<br/>
+<font color="#A82F2F"><font size="2">(11:57:15 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 4f00f1e William A. Kennington III: gnupg: Fix default path to pcsclite...<br/>
+<font color="#A82F2F"><font size="2">(11:57:15 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 3a9de8f William A. Kennington III: gnupg: 2.0.26 -&gt; 2.0.27...<br/>
+<font color="#A82F2F"><font size="2">(11:58:01 AM)</font> <b>arturdev2:</b></font> Lethalman: so what should I do if I want the package the same as the git repository?<br/>
+<font color="#A82F2F"><font size="2">(11:58:12 AM)</font> <b>Lethalman:</b></font> arturdev2, can&apos;t follow you sorry<br/>
+<font color="#A82F2F"><font size="2">(11:58:14 AM)</font> <b>Lethalman:</b></font> explain better<br/>
+<font color="#A82F2F"><font size="2">(11:58:59 AM)</font> <b>arturdev2:</b></font> I have a package which I don&apos;t want to transform in the builder (this package is only an HTML&amp;JS website)<br/>
+<font color="#A82F2F"><font size="2">(11:59:47 AM)</font> <b>Lethalman:</b></font> arturdev2, can you explain what&apos;s the source and what&apos;s your expected output of the package?<br/>
+<font color="#A82F2F"><font size="2">(12:00:33 PM)</font> <b>arturdev2:</b></font> Lethalman: The source comes from a git repository (no more issues with that), the output should be the same as the source<br/>
+<font color="#A82F2F"><font size="2">(12:00:49 PM)</font> <b>Lethalman:</b></font> then just use fetchgit?<br/>
+<font color="#A82F2F"><font size="2">(12:01:00 PM)</font> <b>arturdev2:</b></font> yes, I&apos;m using that, but the builder step fails<br/>
+<font color="#A82F2F"><font size="2">(12:01:06 PM)</font> <b>Lethalman:</b></font> no, just fetchgit<br/>
+<font color="#A82F2F"><font size="2">(12:01:19 PM)</font> <b>Lethalman:</b></font> you are using stdenv.mkDerivation { src = fetchgit... } ?<br/>
+<font color="#A82F2F"><font size="2">(12:01:21 PM)</font> <b>arturdev2:</b></font> without mkDerivation¿<br/>
+<font color="#A82F2F"><font size="2">(12:01:22 PM)</font> <b>arturdev2:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(12:01:33 PM)</font> <b>Lethalman:</b></font> why is it failing<br/>
+<font color="#A82F2F"><font size="2">(12:01:48 PM)</font> <b>arturdev2:</b></font> it fails because of the default builder<br/>
+<font color="#A82F2F"><font size="2">(12:01:51 PM)</font> <b>arturdev2:</b></font> make: *** No rule to make target `install&apos;.  Stop.<br/>
+<font color="#A82F2F"><font size="2">(12:02:00 PM)</font> <b>Lethalman:</b></font> ????<br/>
+<font color="#A82F2F"><font size="2">(12:02:07 PM)</font> <b>Lethalman:</b></font> sorry can you paste the nix expression<br/>
+<font color="#A82F2F"><font size="2">(12:02:14 PM)</font> <b>arturdev2:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(12:02:17 PM)</font> <b>Lethalman:</b></font> fetchgit does no make install<br/>
+<font color="#A82F2F"><font size="2">(12:03:02 PM)</font> <b>arturdev2:</b></font> stdenv.mkDerivation { name = &quot;...&quot;; src = pkgs.fetchgitPrivate { url = &quot;...&quot;; rev = &quot;...&quot;; sha256 = &quot;...&quot;; }; }<br/>
+<font color="#A82F2F"><font size="2">(12:03:14 PM)</font> <b>Haskellfant:</b></font> that is obviously using mkDerivation<br/>
+<font color="#A82F2F"><font size="2">(12:03:15 PM)</font> <b>Lethalman:</b></font> you said without mkDerivation...<br/>
+<font color="#A82F2F"><font size="2">(12:03:17 PM)</font> <b>Lethalman:</b></font> -.-&apos;<br/>
+<font color="#A82F2F"><font size="2">(12:03:25 PM)</font> <b>arturdev2:</b></font> I mean with mkDerivation, sorry<br/>
+<font color="#A82F2F"><font size="2">(12:03:27 PM)</font> <b>arturdev2:</b></font> meant<br/>
+<font color="#A82F2F"><font size="2">(12:03:30 PM)</font> <b>Lethalman:</b></font> -.-&apos;<br/>
+<font color="#A82F2F"><font size="2">(12:03:34 PM)</font> <b>Lethalman:</b></font> just use fetchgit<br/>
+<font color="#A82F2F"><font size="2">(12:04:27 PM)</font> <b>arturdev2:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(12:05:44 PM)</font> <b>Lethalman:</b></font> iElectric, I lost track of the discussion about the GC problem, btw reverting https://github.com/NixOS/nixpkgs/commit/bd81885f706dae5cdeb8c03845fa43d8b74fa57c doesn&apos;t solve the problem<br/>
+<font color="#A82F2F"><font size="2">(12:06:00 PM)</font> <b>Lethalman:</b></font> do you remember the issue #?<br/>
+<font color="#A82F2F"><font size="2">(12:07:25 PM)</font> <b>iElectric:</b></font> https://github.com/NixOS/nixpkgs/issues/3594<br/>
+<font color="#062585"><font size="2">(12:08:36 PM)</font> <b>***Lethalman</b></font> bisects manually<br/>
+<font color="#A82F2F"><font size="2">(12:08:44 PM)</font> <b>iElectric:</b></font> btw tarball job is broken in master<br/>
+<font color="#A82F2F"><font size="2">(12:08:46 PM)</font> <b>iElectric:</b></font> while evaluating the attribute ‘src’ of the derivation ‘tuxguitar-1.2’ at &quot;/tmp/nix-build-nixpkgs-tarball-15.05pre1234.abcdef.drv-0/nixpkgs/pkgs/applications/editors/music/tuxguitar/default.nix&quot;:10:3:<br/>
+<font color="#A82F2F"><font size="2">(12:08:48 PM)</font> <b>iElectric:</b></font> while evaluating anonymous function at &quot;/tmp/nix-build-nixpkgs-tarball-15.05pre1234.abcdef.drv-0/nixpkgs/pkgs/build-support/fetchurl/default.nix&quot;:44:1, called from &quot;/tmp/nix-build-nixpkgs-tarball-15.05pre1234.abcdef.drv-0/nixpkgs/pkgs/applications/editors/music/tuxguitar/default.nix&quot;:12:9:<br/>
+<font color="#A82F2F"><font size="2">(12:10:18 PM)</font> <b>arturdev2:</b></font> Lethalman: working fine, thanks. Sorry for the misunderstanding<br/>
+<font color="#A82F2F"><font size="2">(12:10:25 PM)</font> <b>Lethalman:</b></font> np<br/>
+<font color="#A82F2F"><font size="2">(12:11:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to staging: http://git.io/p4QK<br/>
+<font color="#A82F2F"><font size="2">(12:11:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 6694ef4 Peter Simons: Merge branch &apos;master&apos; into staging....<br/>
+<font color="#A82F2F"><font size="2">(12:11:13 PM)</font> <b>seanz:</b></font> Greetings. What is the prescribed way to find the absolute path to an installed program?<br/>
+<font color="#A82F2F"><font size="2">(12:11:53 PM)</font> <b>Haskellfant:</b></font> &apos;readlink $(which programname)&apos; is what I use<br/>
+<font color="#A82F2F"><font size="2">(12:12:12 PM)</font> <b>Haskellfant:</b></font> well to be precise I use &apos;readlink =programname&apos; but that only works with zsh afaik<br/>
+<font color="#A82F2F"><font size="2">(12:12:53 PM)</font> <b>Lethalman:</b></font> readlink -f<br/>
+<font color="#A82F2F"><font size="2">(12:13:24 PM)</font> <b>seanz:</b></font> This is for a library without an executable - libxml2.<br/>
+<font color="#A82F2F"><font size="2">(12:13:34 PM)</font> <b>seanz:</b></font> I don&apos;t think there&apos;s an executable for it, at least.<br/>
+<font color="#A82F2F"><font size="2">(12:13:48 PM)</font> <b>Lethalman:</b></font> don&apos;t install libs plase<br/>
+<font color="#A82F2F"><font size="2">(12:13:50 PM)</font> <b>Lethalman:</b></font> *please<br/>
+<font color="#A82F2F"><font size="2">(12:13:55 PM)</font> <b>Lethalman:</b></font> it&apos;s pointless<br/>
+<font color="#A82F2F"><font size="2">(12:14:21 PM)</font> <b>seanz:</b></font> I have a python 2.6 virtualenv that uses lxml, and it needs that library to work.<br/>
+<font color="#A82F2F"><font size="2">(12:14:48 PM)</font> <b>seanz:</b></font> I found instructions for doing this, but doesn&apos;t dropping into a nix-shell mean I don&apos;t get access to the &quot;system-level&quot; packages?<br/>
+<font color="#A82F2F"><font size="2">(12:15:24 PM)</font> <b>Lethalman:</b></font> there&apos;s no system-level libraries in nix<br/>
+<font color="#A82F2F"><font size="2">(12:15:37 PM)</font> <b>iElectric:</b></font> nix-shell -p virtualenv libxml2 libxslt<br/>
+<font color="#A82F2F"><font size="2">(12:17:00 PM)</font> <b>seanz:</b></font> Ok, giving that a try.<br/>
+<font color="#A82F2F"><font size="2">(12:18:03 PM)</font> <b>Lethalman:</b></font> wow guys we have more users in this channel than slackware :P<br/>
+<font color="#A82F2F"><font size="2">(12:19:15 PM)</font> <b>Fuuzetsu:</b></font> IRC is bloat<br/>
+<font size="2">(12:21:12 PM)</font><b> reinhardt_ is now known as reinhardt</b><br/>
+<font color="#A82F2F"><font size="2">(12:29:00 PM)</font> <b>seanz:</b></font> Is the libpq library available in NixOS? I&apos;m trying to use psycopg, which seems to be requiring it.<br/>
+<font color="#A82F2F"><font size="2">(12:29:19 PM)</font> <b>seanz:</b></font> I could not find it w/ nix-env -qaP | grep libpq, so I&apos;m guessing it is not available.<br/>
+<font color="#A82F2F"><font size="2">(12:29:24 PM)</font> <b>iElectric:</b></font> seanz: nix-shell -p postgresql<br/>
+<font color="#A82F2F"><font size="2">(12:30:35 PM)</font> <b>seanz:</b></font> iElectric: I&apos;m in a nixos-container, and I&apos;ve got the postgresql service started (which installed the postgresql package). That&apos;s not enough?<br/>
+<font color="#A82F2F"><font size="2">(12:30:46 PM)</font> <b>iElectric:</b></font> no, it&apos;s isolated<br/>
+<font color="#A82F2F"><font size="2">(12:30:57 PM)</font> <b>iElectric:</b></font> your package needs to list every dependency<br/>
+<font color="#A82F2F"><font size="2">(12:31:12 PM)</font> <b>iElectric:</b></font> so when you give the file/command to another user, it will work deterministically<br/>
+<font color="#A82F2F"><font size="2">(12:31:42 PM)</font> <b>seanz:</b></font> I see. It will take me a while to get used to that.<br/>
+<font color="#A82F2F"><font size="2">(12:31:51 PM)</font> <b>Haskellfant:</b></font> “installing” doesn&apos;t mean much in nix<br/>
+<font color="#A82F2F"><font size="2">(12:31:55 PM)</font> <b>seanz:</b></font> I&apos;m still confused about what is or isn&apos;t available when I drop into a nix-shell.<br/>
+<font color="#A82F2F"><font size="2">(12:32:01 PM)</font> <b>Lethalman:</b></font> seanz, it should be the main reason why you are using nix<br/>
+<font color="#A82F2F"><font size="2">(12:32:16 PM)</font> <b>seanz:</b></font> Yes, but that doesn&apos;t mean I&apos;m used to it. I really appreciate the help.<br/>
+<font color="#A82F2F"><font size="2">(12:32:23 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] k0ral opened pull request #6740: git: 2.3.0 -&gt; 2.3.2 (master...git) http://git.io/p4Nq<br/>
+<font color="#A82F2F"><font size="2">(12:32:51 PM)</font> <b>seanz:</b></font> So would it be best to put all of my needed libs into a default.nix?<br/>
+<font color="#A82F2F"><font size="2">(12:32:58 PM)</font> <b>seanz:</b></font> Would they be buildInputs?<br/>
+<font color="#A82F2F"><font size="2">(12:33:08 PM)</font> <b>Lethalman:</b></font> seanz, depends, usually yes<br/>
+<font color="#A82F2F"><font size="2">(12:39:19 PM)</font> <b>seanz:</b></font> Is specifying python26 in nix-shell enough to make the python source available for those extensions that want to build against it?<br/>
+<font color="#A82F2F"><font size="2">(12:39:38 PM)</font> <b>Lethalman:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(12:40:02 PM)</font> <b>Lethalman:</b></font> what extension? what are you providing to nix-shell at the moment?<br/>
+<font color="#A82F2F"><font size="2">(12:40:16 PM)</font> <b>Lethalman:</b></font> which packages are you giving to nix-shell -p<br/>
+<font color="#A82F2F"><font size="2">(12:40:30 PM)</font> <b>seanz:</b></font> Lethalman: nix-shell -p libxml2 libxslt postgresql libyaml gmp python26<br/>
+<font color="#A82F2F"><font size="2">(12:40:42 PM)</font> <b>seanz:</b></font> The other package is:<br/>
+<font color="#A82F2F"><font size="2">(12:40:50 PM)</font> <b>seanz:</b></font> (finding it in the build output)<br/>
+<font color="#A82F2F"><font size="2">(12:41:04 PM)</font> <b>Lethalman:</b></font> what are you trying to build, sorry?<br/>
+<font color="#A82F2F"><font size="2">(12:41:32 PM)</font> <b>seanz:</b></font> simplejson<br/>
+<font color="#A82F2F"><font size="2">(12:41:50 PM)</font> <b>seanz:</b></font> Not strictly necessary, but simplejson is trying to build the speedups.<br/>
+<font color="#A82F2F"><font size="2">(12:42:09 PM)</font> <b>Lethalman:</b></font> and... what&apos;s the problem with nix-build -A python26Packages.simplejson<br/>
+<font color="#A82F2F"><font size="2">(12:42:45 PM)</font> <b>seanz:</b></font> Lethalman: Probably nothing, but I don&apos;t understand when I&apos;d want to use nix-build vs nix-env vs nix-shell.<br/>
+<font color="#A82F2F"><font size="2">(12:42:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] k0ral opened pull request #6742: git: 2.3.1 -&gt; 2.3.2 (staging...git-staging) http://git.io/p4xi<br/>
+<font color="#A82F2F"><font size="2">(12:42:55 PM)</font> <b>seanz:</b></font> Also, I couldn&apos;t find that package when I searched w/ nix-env -qaP?<br/>
+<font color="#A82F2F"><font size="2">(12:42:56 PM)</font> <b>seanz:</b></font> .<br/>
+<font color="#A82F2F"><font size="2">(12:42:57 PM)</font> <b>Lethalman:</b></font> seanz, you&apos;ll understand with practice I guess<br/>
+<font color="#A82F2F"><font size="2">(12:43:01 PM)</font> <b>seanz:</b></font> Yes, true.<br/>
+<font color="#A82F2F"><font size="2">(12:43:17 PM)</font> <b>seanz:</b></font> So would I run the nix-build command from within my nix-shell?<br/>
+<font color="#A82F2F"><font size="2">(12:43:19 PM)</font> <b>Lethalman:</b></font> it&apos;s a complex yet very very easy world the one of nix<br/>
+<font color="#A82F2F"><font size="2">(12:43:26 PM)</font> <b>viric:</b></font> hm we don&apos;t have gobby.<br/>
+<font color="#A82F2F"><font size="2">(12:43:33 PM)</font> <b>viric:</b></font> https://gobby.github.io/<br/>
+<font color="#A82F2F"><font size="2">(12:43:39 PM)</font> <b>Lethalman:</b></font> seanz, first of all, what&apos;s your end problem<br/>
+<font color="#A82F2F"><font size="2">(12:43:46 PM)</font> <b>Lethalman:</b></font> what do you want to achieve in the end... the real end<br/>
+<font color="#A82F2F"><font size="2">(12:43:51 PM)</font> <b>viric:</b></font> Lethalman: isn&apos;t it a gnome thing?<br/>
+<font color="#A82F2F"><font size="2">(12:44:04 PM)</font> <b>viric:</b></font> oh it&apos;s there<br/>
+<font color="#A82F2F"><font size="2">(12:44:07 PM)</font> <b>Lethalman:</b></font> viric, it&apos;s gnomeish yes<br/>
+<font color="#A82F2F"><font size="2">(12:44:16 PM)</font> <b>Lethalman:</b></font> a gtk app iirc<br/>
+<font color="#A82F2F"><font size="2">(12:44:21 PM)</font> <b>seanz:</b></font> Lethalman: I&apos;ve got a python 2.6 application that specifies all needed python libraries in a requirements file. There&apos;s a fabric task for building the necessary environment.<br/>
+<font color="#A82F2F"><font size="2">(12:44:29 PM)</font> <b>seanz:</b></font> I&apos;m trying to run the fabric command which builds the environment.<br/>
+<font color="#A82F2F"><font size="2">(12:44:42 PM)</font> <b>viric:</b></font> can be updated to 5.0<br/>
+<font color="#A82F2F"><font size="2">(12:44:44 PM)</font> <b>Lethalman:</b></font> seanz, is it something that can be built with python setup.py ?<br/>
+<font color="#A82F2F"><font size="2">(12:44:56 PM)</font> <b>Lethalman:</b></font> seanz, what app is that? is it open source somewhere?<br/>
+<font color="#A82F2F"><font size="2">(12:45:00 PM)</font> <b>seanz:</b></font> Not open source.<br/>
+<font color="#A82F2F"><font size="2">(12:45:05 PM)</font> <b>seanz:</b></font> The company<br/>
+<font color="#A82F2F"><font size="2">(12:45:12 PM)</font> <b>seanz:</b></font> The company&apos;s setup instructions use pip.<br/>
+<font color="#A82F2F"><font size="2">(12:45:33 PM)</font> <b>seanz:</b></font> pip install -r stable_req.txt<br/>
+<font color="#A82F2F"><font size="2">(12:45:59 PM)</font> <b>seanz:</b></font> The first hurdle I ran into was that I can&apos;t run that outside of a virtualenv because the nix store is readonly (I know that is by design).<br/>
+<font color="#A82F2F"><font size="2">(12:46:04 PM)</font> <b>Lethalman:</b></font> seanz, not sure this can be done with buildPythonPackage<br/>
+<font color="#A82F2F"><font size="2">(12:46:23 PM)</font> <b>Lethalman:</b></font> seanz, anyway, the first thing you must do, is creating a nix package for it<br/>
+<font color="#A82F2F"><font size="2">(12:46:31 PM)</font> <b>Lethalman:</b></font> you aren&apos;t going anywhere without first packaging something in nix<br/>
+<font color="#A82F2F"><font size="2">(12:46:34 PM)</font> <b>seanz:</b></font> Lethalman: For this app&apos;s requirements?<br/>
+<font color="#A82F2F"><font size="2">(12:47:05 PM)</font> <b>seanz:</b></font> This application also requires postgres, redis and rabbitmq. That&apos;s why I started up a container.<br/>
+<font color="#A82F2F"><font size="2">(12:47:12 PM)</font> <b>seanz:</b></font> Was that not the right approach, either?<br/>
+<font color="#A82F2F"><font size="2">(12:47:26 PM)</font> <b>Lethalman:</b></font> seanz, that&apos;s fine...<br/>
+<font color="#A82F2F"><font size="2">(12:47:31 PM)</font> <b>Lethalman:</b></font> but you first have to build the app<br/>
+<font color="#A82F2F"><font size="2">(12:47:41 PM)</font> <b>Lethalman:</b></font> it does require libraries for pgsql, redis and rabbitmq?<br/>
+<font color="#A82F2F"><font size="2">(12:47:46 PM)</font> <b>seanz:</b></font> Yes.<br/>
+<font color="#A82F2F"><font size="2">(12:47:51 PM)</font> <b>Lethalman:</b></font> so you must first package your app<br/>
+<font color="#A82F2F"><font size="2">(12:48:05 PM)</font> <b>Lethalman:</b></font> then put in your container a pgsql instance, a redis instance, rmq instance, and your package<br/>
+<font color="#A82F2F"><font size="2">(12:48:35 PM)</font> <b>Lethalman:</b></font> that&apos;s the workflow, or you will be having hard time composing stuff<br/>
+<font color="#A82F2F"><font size="2">(12:48:53 PM)</font> <b>seanz:</b></font> Ok, so that explains why things are not working for me.<br/>
+<font color="#A82F2F"><font size="2">(12:48:54 PM)</font> <b>Lethalman:</b></font> seanz, you must be able to nix-build your software, and run it with result/bin/app<br/>
+<font color="#A82F2F"><font size="2">(12:49:12 PM)</font> <b>Lethalman:</b></font> and it must just run (minus configuration and data of course)<br/>
+<font color="#A82F2F"><font size="2">(12:49:20 PM)</font> <b>seanz:</b></font> Lethalman: There are 5+ python Flask applications that result from this code base.<br/>
+<font color="#A82F2F"><font size="2">(12:49:31 PM)</font> <b>seanz:</b></font> We run them using python run_${app}.py<br/>
+<font color="#A82F2F"><font size="2">(12:49:35 PM)</font> <b>seanz:</b></font> Does that change anything?<br/>
+<font color="#A82F2F"><font size="2">(12:49:40 PM)</font> <b>Lethalman:</b></font> no that&apos;s fine<br/>
+<font color="#A82F2F"><font size="2">(12:49:43 PM)</font> <b>seanz:</b></font> Ok, good.<br/>
+<font color="#A82F2F"><font size="2">(12:49:57 PM)</font> <b>seanz:</b></font> So I need to create a package for the app&apos;s dependencies then.<br/>
+<font color="#A82F2F"><font size="2">(12:49:58 PM)</font> <b>Lethalman:</b></font> you will probably have all of thsoe run_...py under $out/result/bin/<br/>
+<font color="#A82F2F"><font size="2">(12:50:05 PM)</font> <b>Lethalman:</b></font> seanz, you create a package for the app<br/>
+<font color="#A82F2F"><font size="2">(12:50:23 PM)</font> <b>Lethalman:</b></font> the deps are probably already packaged<br/>
+<font color="#A82F2F"><font size="2">(12:50:45 PM)</font> <b>seanz:</b></font> Ok, but how does that change the way I would work with the app? I normally check out the code base, develop on it and then run the app from the code base in a virtualenv in order to test changes.<br/>
+<font color="#A82F2F"><font size="2">(12:50:49 PM)</font> <b>seanz:</b></font> Pretty standard process.<br/>
+<font color="#A82F2F"><font size="2">(12:51:08 PM)</font> <b>Lethalman:</b></font> seanz, you checkout the code base, do nix-shell and run the app<br/>
+<font color="#A82F2F"><font size="2">(12:51:18 PM)</font> <b>Lethalman:</b></font> no virtualenv involved<br/>
+<font color="#A82F2F"><font size="2">(12:51:34 PM)</font> <b>seanz:</b></font> Ok, so a default.nix should contain the packaging instructions.<br/>
+<font color="#A82F2F"><font size="2">(12:52:01 PM)</font> <b>Lethalman:</b></font> never used virtualenv in nix, so I don&apos;t know how painful it is btw<br/>
+<font color="#A82F2F"><font size="2">(12:52:06 PM)</font> <b>azriphale:</b></font> seanz: I am developing an app similar (on the surface) to you. I am using a virtualenv within a nix-shell. Here is my shell default.nix: https://gist.github.com/sjagoe/e2824d76afdd5b6cfecc<br/>
+<font color="#A82F2F"><font size="2">(12:52:23 PM)</font> <b>seanz:</b></font> azriphale: Thanks, I&apos;ll take a look.<br/>
+<font color="#A82F2F"><font size="2">(12:52:40 PM)</font> <b>seanz:</b></font> Lethalman: Is this the basic procedure you are recommending? https://nixos.org/wiki/Development_Environments#LIBRARY_PATH_Example:_Python_Environment_for_Installing_lxml_in_a_Virtualenv<br/>
+<font color="#A82F2F"><font size="2">(12:52:43 PM)</font> <b>Lethalman:</b></font> azriphale, I&apos;m wondering why are you using virtualenv at all?<br/>
+<font color="#A82F2F"><font size="2">(12:52:43 PM)</font> <b>seanz:</b></font> Something like that?<br/>
+<font color="#A82F2F"><font size="2">(12:52:59 PM)</font> <b>azriphale:</b></font> I run that with &quot;nix-instantiate /home/sjagoe/.shells/demo-shell.nix --indirect --add-root /home/sjagoe/.shells/demo-shell.drv&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:53:06 PM)</font> <b>JagaJaga_:</b></font> azriphale: why do you need virtualenv?<br/>
+<font color="#A82F2F"><font size="2">(12:53:08 PM)</font> <b>Lethalman:</b></font> seanz, no it&apos;s different, perhaps it&apos;s better if you follow the company using virtualenv<br/>
+<font color="#A82F2F"><font size="2">(12:53:13 PM)</font> <b>azriphale:</b></font> then &quot;nix-shell /home/sjagoe/.shells/demo-shell.drv&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:53:14 PM)</font> <b>Lethalman:</b></font> maybe don&apos;t follow my advices<br/>
+<font color="#A82F2F"><font size="2">(12:53:29 PM)</font> <b>azriphale:</b></font> Lethalman: I&apos;m using virtualenv because I set up nixos midweek while needed to continue working ;-)<br/>
+<font color="#A82F2F"><font size="2">(12:53:32 PM)</font> <b>Lethalman:</b></font> JagaJaga_, I think because of the company using virtualenv<br/>
+<font color="#A82F2F"><font size="2">(12:53:51 PM)</font> <b>seanz:</b></font> Lethalman: Ok, apologies for the burden. I want to make this work in NixOS, but obviously have to solve these issues first.<br/>
+<font color="#A82F2F"><font size="2">(12:53:52 PM)</font> <b>Lethalman:</b></font> but I guess one could avoid using that at all<br/>
+<font color="#A82F2F"><font size="2">(12:54:15 PM)</font> <b>JagaJaga_:</b></font> Lethalman: oh ,I see<br/>
+<font color="#A82F2F"><font size="2">(12:54:19 PM)</font> <b>Lethalman:</b></font> seanz, what are the requirements of your app other than flask, psycopg and...?<br/>
+<font color="#A82F2F"><font size="2">(12:54:46 PM)</font> <b>azriphale:</b></font> also, I deploy my app on ubuntu in our company&apos;s cloud services.<br/>
+<font color="#A82F2F"><font size="2">(12:54:52 PM)</font> <b>seanz:</b></font> Lethalman: One moment...gathering them. I should note that most work without issue.<br/>
+<font color="#A82F2F"><font size="2">(12:55:04 PM)</font> <b>seanz:</b></font> Most install within a virtualenv without issue, I mean<br/>
+<font color="#A82F2F"><font size="2">(12:55:04 PM)</font> <b>seanz:</b></font> .<br/>
+<font color="#A82F2F"><font size="2">(12:55:40 PM)</font> <b>seanz:</b></font> Lethalman: https://gist.github.com/SeanZicari/54dce1e4352a5b5cd85a<br/>
+<font color="#A82F2F"><font size="2">(12:55:51 PM)</font> <b>Lethalman:</b></font> wow that&apos;s a lot<br/>
+<font color="#A82F2F"><font size="2">(12:55:55 PM)</font> <b>seanz:</b></font> Only some of these are failing due to unavailable source.<br/>
+<font color="#A82F2F"><font size="2">(12:56:06 PM)</font> <b>Lethalman:</b></font> yes I believe it&apos;s better you use virtualenv :)<br/>
+<font color="#A82F2F"><font size="2">(12:56:10 PM)</font> <b>seanz:</b></font> haha - ok.<br/>
+<font color="#A82F2F"><font size="2">(12:56:18 PM)</font> <b>Lethalman:</b></font> because of those strict == requirements<br/>
+<font color="#A82F2F"><font size="2">(12:56:25 PM)</font> <b>Lethalman:</b></font> understandable in your company<br/>
+<font color="#A82F2F"><font size="2">(12:56:35 PM)</font> <b>seanz:</b></font> Is that because it&apos;s too much to teach over IRC, or because it&apos;s not possible to do w/ a nix package?<br/>
+<font color="#A82F2F"><font size="2">(12:56:50 PM)</font> <b>seanz:</b></font> If it&apos;s the former, I&apos;m inclined to continue figuring this out the &quot;right way&quot;.<br/>
+<font color="#A82F2F"><font size="2">(12:56:56 PM)</font> <b>Lethalman:</b></font> seanz, it&apos;s that in nixpkgs we probably don&apos;t have those exact versions, so you&apos;d have to package some of them to that exact version<br/>
+<font color="#A82F2F"><font size="2">(12:57:17 PM)</font> <b>seanz:</b></font> I see.<br/>
+<font color="#A82F2F"><font size="2">(12:57:27 PM)</font> <b>Lethalman:</b></font> let me find an example<br/>
+<font color="#A82F2F"><font size="2">(12:57:32 PM)</font> <b>seanz:</b></font> Lethalman: Thanks!<br/>
+<font color="#A82F2F"><font size="2">(12:57:42 PM)</font> <b>Lethalman:</b></font> for example simplejson is 3.3.0 in nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(12:57:52 PM)</font> <b>seanz:</b></font> Lethalman: How did you find it?<br/>
+<font color="#A82F2F"><font size="2">(12:57:57 PM)</font> <b>seanz:</b></font> nix-env -qaP?<br/>
+<font color="#A82F2F"><font size="2">(12:58:09 PM)</font> <b>Lethalman:</b></font> seanz, https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/python-packages.nix<br/>
+<font color="#A82F2F"><font size="2">(12:58:49 PM)</font> <b>Lethalman:</b></font> then speaklater is 1.3, while you require 1.2<br/>
+<font color="#A82F2F"><font size="2">(12:58:51 PM)</font> <b>Lethalman:</b></font> ecc. ecc.<br/>
+<font color="#A82F2F"><font size="2">(12:59:09 PM)</font> <b>seanz:</b></font> Yes, I see what you&apos;re saying.<br/>
+<font color="#A82F2F"><font size="2">(12:59:34 PM)</font> <b>Lethalman:</b></font> so yes I&apos;d use virtualenv to get the job done if I were you<br/>
+<font color="#A82F2F"><font size="2">(12:59:40 PM)</font> <b>seanz:</b></font> So the last hurdle I had was simplejson trying to use the python source code to build against. Is there an easy way to include that in my nix-shell?<br/>
+<font color="#A82F2F"><font size="2">(12:59:49 PM)</font> <b>seanz:</b></font> iElectric&apos;s advice got me 90% of the way there, it looked like.<br/>
+<font color="#A82F2F"><font size="2">(12:59:59 PM)</font> <b>seanz:</b></font> I appreciate your help to this point.<br/>
+<font color="#A82F2F"><font size="2">(01:00:01 PM)</font> <b>Lethalman:</b></font> seanz, what&apos;s the error output?<br/>
+<font color="#A82F2F"><font size="2">(01:00:07 PM)</font> <b>seanz:</b></font> One moment...<br/>
+<font color="#A82F2F"><font size="2">(01:02:02 PM)</font> <b>seanz:</b></font> Lethalman: https://gist.github.com/SeanZicari/a119ff3412868ad148e6<br/>
+<font color="#A82F2F"><font size="2">(01:02:27 PM)</font> <b>Lethalman:</b></font> I don&apos;t see errors there<br/>
+<font color="#A82F2F"><font size="2">(01:02:44 PM)</font> <b>seanz:</b></font> Line 7 looks to be a problem resolving a symbol.<br/>
+<font color="#A82F2F"><font size="2">(01:03:01 PM)</font> <b>seanz:</b></font> The error on line 6, unless that&apos;s not serious.<br/>
+<font color="#A82F2F"><font size="2">(01:03:12 PM)</font> <b>Lethalman:</b></font> it&apos;s a warning not an error<br/>
+<font color="#A82F2F"><font size="2">(01:03:18 PM)</font> <b>seanz:</b></font> Ah, ok.<br/>
+<font color="#A82F2F"><font size="2">(01:04:02 PM)</font> <b>seanz:</b></font> So the python source was found for this extension without me specifying python26 in my nix-shell. python26 is installed in my container from the container&apos;s configuration.nix. That confuses me.<br/>
+<font color="#A82F2F"><font size="2">(01:04:10 PM)</font> <b>seanz:</b></font> What is isolated and what isn&apos;t?<br/>
+<font color="#A82F2F"><font size="2">(01:04:24 PM)</font> <b>seanz:</b></font> Should this be able to build without specifying python26 from the nix-shell?<br/>
+<font color="#A82F2F"><font size="2">(01:04:38 PM)</font> <b>seanz:</b></font> By the way, I&apos;m still going through the nix pills. I can hold off on questions if the pills answer them.<br/>
+<font color="#A82F2F"><font size="2">(01:04:54 PM)</font> <b>seanz:</b></font> Maybe I&apos;m just getting ahead of myself.<br/>
+<font color="#A82F2F"><font size="2">(01:06:21 PM)</font> <b>Lethalman:</b></font> seanz, try with nix-shell --pure<br/>
+<font color="#A82F2F"><font size="2">(01:12:13 PM)</font> <b>seanz:</b></font> Lethalman: I see. Yes, now it&apos;s behaving more like I expected. I probably don&apos;t want to use --pure then in this case.<br/>
+<font color="#A82F2F"><font size="2">(01:12:46 PM)</font> <b>Lethalman:</b></font> you want<br/>
+<font color="#A82F2F"><font size="2">(01:13:11 PM)</font> <b>Lethalman:</b></font> that python26 being found because it&apos;s installed it a consequence of some impurities we left in nixos for easeness of use<br/>
+<font color="#A82F2F"><font size="2">(01:13:26 PM)</font> <b>Lethalman:</b></font> some day I&apos;m going to remove that /lib link being merged<br/>
+<font color="#A82F2F"><font size="2">(01:13:46 PM)</font> <b>seanz:</b></font> Then I&apos;ll need to pass in all deps to a nix-shell, I&apos;m guessing.<br/>
+<font color="#A82F2F"><font size="2">(01:13:53 PM)</font> <b>Lethalman:</b></font> you are guessing right<br/>
+<font color="#A82F2F"><font size="2">(01:14:10 PM)</font> <b>Lethalman:</b></font> it&apos;s for your own sanity<br/>
+<font color="#A82F2F"><font size="2">(01:14:25 PM)</font> <b>Lethalman:</b></font> how would you nix-shell in an environment when python26 is not installed system-wide otherwise?<br/>
+<font color="#A82F2F"><font size="2">(01:14:31 PM)</font> <b>Lethalman:</b></font> it won&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(01:14:38 PM)</font> <b>seanz:</b></font> I hear you - I&apos;m going through the steep learning curve, but I&apos;m sure the advantages will become obvious when I&apos;m better w/ Nix.<br/>
+<font color="#A82F2F"><font size="2">(01:15:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 2 new commits to master: http://git.io/pBTZ<br/>
+<font color="#A82F2F"><font size="2">(01:15:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5d02f0e Peter Simons: fetchgit: add &apos;deepClone&apos; argument to disable shallow fetching...<br/>
+<font color="#A82F2F"><font size="2">(01:15:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f5b2b73 Peter Simons: cabal2nix: update git snapshot to latest version<br/>
+<font size="2">(01:17:27 PM)</font><b> florent__ is now known as gal_bolle</b><br/>
+<font size="2">(01:17:57 PM)</font><b> gal_bolle is now known as Guest85151</b><br/>
+<font color="#A82F2F"><font size="2">(01:18:12 PM)</font> <b>seanz:</b></font> Well, I got through to my running app. That&apos;s progress!<br/>
+<font color="#A82F2F"><font size="2">(01:18:53 PM)</font> <b>seanz:</b></font> Many thanks, iElectric, Lethalman and azriphale.<br/>
+<font color="#A82F2F"><font size="2">(01:19:02 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lethalman pushed 2 new commits to master: http://git.io/pBkZ<br/>
+<font color="#A82F2F"><font size="2">(01:19:02 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master d9078d0 koral: Updated fcgiwrap&apos;s systemd unit to match upstream version.<br/>
+<font color="#A82F2F"><font size="2">(01:19:02 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 70527b8 lethalman: Merge pull request #6440 from k0ral/fcgiwrap...<br/>
+<font color="#A82F2F"><font size="2">(01:19:23 PM)</font> <b>seanz:</b></font> Now I just need to sort through what I learned and put these various configuration changes in better places.<br/>
+<font color="#A82F2F"><font size="2">(01:19:24 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 2 new commits to staging: http://git.io/pBk4<br/>
+<font color="#A82F2F"><font size="2">(01:19:24 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 5093338 koral: git: 2.3.1 -&gt; 2.3.2<br/>
+<font color="#A82F2F"><font size="2">(01:19:24 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging e457fdb Peter Simons: Merge pull request #6742 from k0ral/git-staging...<br/>
+<font color="#A82F2F"><font size="2">(01:19:34 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti closed pull request #6740: git: 2.3.0 -&gt; 2.3.2 (master...git) http://git.io/p4Nq<br/>
+<font color="#A82F2F"><font size="2">(01:20:40 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 2 new commits to master: http://git.io/pBk1<br/>
+<font color="#A82F2F"><font size="2">(01:20:40 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a0da863 koral: git: 2.3.0 -&gt; 2.3.1...<br/>
+<font color="#A82F2F"><font size="2">(01:20:40 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5d0cc81 koral: git: 2.3.1 -&gt; 2.3.2...<br/>
+<font color="#A82F2F"><font size="2">(01:26:20 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lethalman closed pull request #6540: Simplify (and fix) settings for transmission module (master...transmission) http://git.io/A6Lk<br/>
+<font size="2">(01:31:24 PM)</font><b> Guest85151 is now known as gal_bolle</b><br/>
+<font color="#A82F2F"><font size="2">(01:33:19 PM)</font> <b>rzetterberg:</b></font> Any way to preseed NixOS USB-installations to make it fully automatic?<br/>
+<font color="#A82F2F"><font size="2">(01:34:40 PM)</font> <b>Lethalman:</b></font> rzetterberg, what you mean, the nixos installation iso is an example I guess<br/>
+<font color="#A82F2F"><font size="2">(01:37:04 PM)</font> <b>rzetterberg:</b></font> Lethalman, I mean that you could insert an USB-pen, turn on the computer and the installation would proceed without interaction<br/>
+<font color="#A82F2F"><font size="2">(01:37:33 PM)</font> <b>Lethalman:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(01:37:38 PM)</font> <b>Lethalman:</b></font> given you know the hardware?<br/>
+<font color="#A82F2F"><font size="2">(01:38:12 PM)</font> <b>rzetterberg:</b></font> yeah, say you have 5 identical computers<br/>
+<font color="#A82F2F"><font size="2">(01:38:24 PM)</font> <b>hyper_ch:</b></font> so, who tested oC on raspi2 yet?<br/>
+<font color="#A82F2F"><font size="2">(01:38:55 PM)</font> <b>Lethalman:</b></font> I think that&apos;s doable, not something done already I guess<br/>
+<font color="#A82F2F"><font size="2">(01:39:03 PM)</font> <b>hyper_ch:</b></font> sorry, wrong channel :)<br/>
+<font color="#A82F2F"><font size="2">(01:39:07 PM)</font> <b>Lethalman:</b></font> but if you&apos;re willing to hack on nixos I think that&apos;s doable<br/>
+<font color="#A82F2F"><font size="2">(01:40:25 PM)</font> <b>rzetterberg:</b></font> Lethalman, I have some experience with setting up preseeded Debian installs, so I was curious whether there was something similar for NixOS<br/>
+<font color="#A82F2F"><font size="2">(01:40:56 PM)</font> <b>Lethalman:</b></font> I think nobody did it<br/>
+<font color="#A82F2F"><font size="2">(01:42:43 PM)</font> <b>rzetterberg:</b></font> I see. Thanks for your help! Sounds like this could be a fun weekend project then :)<br/>
+<font color="#A82F2F"><font size="2">(01:45:26 PM)</font> <b>Lethalman:</b></font> rzetterberg, so I believe the preseed process would be like this: instead of dropping in a login getty during installation, a script would run which does the installation<br/>
+<font color="#A82F2F"><font size="2">(01:45:49 PM)</font> <b>Lethalman:</b></font> the script should do very few things: 1) mount stuff under /mnt 2) copy/paste configuration.nix 3) nixos-install<br/>
+<font color="#A82F2F"><font size="2">(01:47:16 PM)</font> <b>Lethalman:</b></font> the other possible problem is that you may now want to download stuff from the network<br/>
+<font color="#A82F2F"><font size="2">(01:47:46 PM)</font> <b>Lethalman:</b></font> so there I think there&apos;s a way to force some packages into the installation /nix/store so that it doesn&apos;t get downloaded somehow<br/>
+<font color="#A82F2F"><font size="2">(01:51:06 PM)</font> <b>rzetterberg:</b></font> Lethalman, Ah, that makes sense! I&apos;ll see what I can come with this weekend. Thanks for the tips on what direction to take<br/>
+<font color="#A82F2F"><font size="2">(02:11:49 PM)</font> <b>jimstutt:</b></font> I&apos;ve borked my .nix-profile and the nix manual has /nix/var/nix/profiles/my-profile as the target. I don&apos;t have such a file only /nix/var/nix/profiles/per/user/(jim,root). I tried symlinking to ../per-user/jim/system but that didn&apos;t work. Is this fixable?<br/>
+<font color="#A82F2F"><font size="2">(02:15:27 PM)</font> <b>Lethalman:</b></font> jimstutt, what symlinks are under /nix/var/nix/profiles/per/user/<br/>
+<font color="#A82F2F"><font size="2">(02:15:31 PM)</font> <b>jimstutt:</b></font> I found a nix.sh script (not where the manual suggested (/nix/etc/..)) which symlinks ~/.nix-profile to /nix/var/nix/profiles/default but that doesn&apos;t have my installed pkgs.<br/>
+<font color="#A82F2F"><font size="2">(02:15:32 PM)</font> <b>Lethalman:</b></font> jim<br/>
+<font color="#A82F2F"><font size="2">(02:17:02 PM)</font> <b>jimstutt:</b></font> Lethalman: I have /nix/var/nix/profiles/per-user/jim and root ^^^.<br/>
+<font color="#A82F2F"><font size="2">(02:17:42 PM)</font> <b>Lethalman:</b></font> under jim<br/>
+<font color="#A82F2F"><font size="2">(02:17:51 PM)</font> <b>jimstutt:</b></font> Lethalman: with profiles up to 67<br/>
+<font color="#A82F2F"><font size="2">(02:17:58 PM)</font> <b>Lethalman:</b></font> man can you ls that jim directory<br/>
+<font color="#A82F2F"><font size="2">(02:18:04 PM)</font> <b>Lethalman:</b></font> :S<br/>
+<font color="#A82F2F"><font size="2">(02:19:02 PM)</font> <b>jimstutt:</b></font> it has profiles up to profile-99-link<br/>
+<font color="#A82F2F"><font size="2">(02:20:01 PM)</font> <b>Lethalman:</b></font> sigh<br/>
+<font color="#A82F2F"><font size="2">(02:20:10 PM)</font> <b>Lethalman:</b></font> it has only profile?<br/>
+<font color="#A82F2F"><font size="2">(02:20:30 PM)</font> <b>Lethalman:</b></font> so symlink /nix/var/nix/profiles/per/user/jim/profile<br/>
+<font color="#A82F2F"><font size="2">(02:20:32 PM)</font> <b>jimstutt:</b></font> I&apos;ll ls|less and let u know.<br/>
+<font color="#A82F2F"><font size="2">(02:23:14 PM)</font> <b>jimstutt:</b></font> it has channels and 1-29 channels-NN-link files and profile and 1-99 profiles-NN-link files.<br/>
+<font color="#A82F2F"><font size="2">(02:23:41 PM)</font> <b>Lethalman:</b></font> so symlink /nix/var/nix/profiles/per/user/jim/profile<br/>
+<font color="#A82F2F"><font size="2">(02:23:47 PM)</font> <b>Lethalman:</b></font> to ~/.nix-profile<br/>
+<font color="#A82F2F"><font size="2">(02:24:46 PM)</font> <b>jimstutt:</b></font> you mean per-user?<br/>
+<font color="#A82F2F"><font size="2">(02:25:02 PM)</font> <b>jimstutt:</b></font> hard or symbolic?<br/>
+<font color="#A82F2F"><font size="2">(02:25:43 PM)</font> <b>Lethalman:</b></font> ln -s<br/>
+<font color="#A82F2F"><font size="2">(02:25:51 PM)</font> <b>Lethalman:</b></font> ln -s /nix/var/nix/profiles/per/user/jim/profile ~/.nix-profile<br/>
+<font color="#A82F2F"><font size="2">(02:27:00 PM)</font> <b>jimstutt:</b></font> I&apos;did it but it&apos;s /nix/var/nix/profiles/per-user on my machine.<br/>
+<font color="#A82F2F"><font size="2">(02:27:22 PM)</font> <b>jimstutt:</b></font> nix-env -q is empty<br/>
+<font color="#A82F2F"><font size="2">(02:27:33 PM)</font> <b>Lethalman:</b></font> can&apos;t understand you sorry<br/>
+<font color="#A82F2F"><font size="2">(02:27:34 PM)</font> <b>Lethalman:</b></font> really<br/>
+<font color="#A82F2F"><font size="2">(02:27:35 PM)</font> <b>jimstutt:</b></font> still<br/>
+<font color="#062585"><font size="2">(02:28:21 PM)</font> <b>***Fuuzetsu</b></font> tried explaining something to jimstutt yesterday too and had little luck<br/>
+<font color="#A82F2F"><font size="2">(02:28:44 PM)</font> <b>jimstutt:</b></font> I do not have a path /nix/var/nix/profiles/per/user/jim/profile but only /nix/var/nix/profiles/per-user/jim/profile<br/>
+<font color="#A82F2F"><font size="2">(02:28:56 PM)</font> <b>Lethalman:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(02:28:56 PM)</font> <b>Lethalman:</b></font> per-user<br/>
+<font color="#A82F2F"><font size="2">(02:28:59 PM)</font> <b>Lethalman:</b></font> use that per-user<br/>
+<font color="#A82F2F"><font size="2">(02:29:13 PM)</font> <b>Lethalman:</b></font> ln -s /nix/var/nix/profiles/per-user/jim/profile ~/.nix-profile<br/>
+<font color="#A82F2F"><font size="2">(02:29:14 PM)</font> <b>Lethalman:</b></font> :(<br/>
+<font color="#A82F2F"><font size="2">(02:29:19 PM)</font> <b>jimstutt:</b></font> I did. I have a profile but it&apos;s empty.<br/>
+<font color="#A82F2F"><font size="2">(02:29:34 PM)</font> <b>Lethalman:</b></font> list the generations<br/>
+<font color="#A82F2F"><font size="2">(02:29:43 PM)</font> <b>Lethalman:</b></font> switch to some other generation<br/>
+<font color="#A82F2F"><font size="2">(02:30:03 PM)</font> <b>jimstutt:</b></font> ls -l .nix-profile gives the correct path.<br/>
+<font color="#A82F2F"><font size="2">(02:34:00 PM)</font> <b>jimstutt:</b></font> nix-env --list-generations gives &apos;error: opening lock file /nix/var/nix/profiles/per/user/jim.lock&apos; no such file or directory as I tried to explain above.<br/>
+<font color="#A82F2F"><font size="2">(02:36:01 PM)</font> <b>jimstutt:</b></font> ie. I don&apos;t have such a directory.<br/>
+<font color="#A82F2F"><font size="2">(02:37:21 PM)</font> <b>Haskellfant:</b></font> did you symlink to the path with / instead of -?<br/>
+<font color="#A82F2F"><font size="2">(02:37:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] viric pushed 1 new commit to master: http://git.io/pBum<br/>
+<font color="#A82F2F"><font size="2">(02:37:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 44c3256 Lluís Batlle i Rossell: Updating gobby and libinfinity.<br/>
+<font color="#A82F2F"><font size="2">(02:38:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] viric pushed 1 new commit to release-14.12: http://git.io/pBun<br/>
+<font color="#A82F2F"><font size="2">(02:38:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 2db8293 Lluís Batlle i Rossell: Updating gobby and libinfinity....<br/>
+<font color="#A82F2F"><font size="2">(02:39:04 PM)</font> <b>jimstutt:</b></font> you mean per/user? no i symlinked per-user and nix-env looked in the wrong place per/user<br/>
+<font color="#A82F2F"><font size="2">(02:39:40 PM)</font> <b>Haskellfant:</b></font> are you sure about that? what does ls -l ~/.nix-profile show you?<br/>
+<font color="#A82F2F"><font size="2">(02:41:50 PM)</font> <b>viric:</b></font> to get proper gtk icons, some &apos;theme&apos; has to be installed, is it?<br/>
+<font color="#A82F2F"><font size="2">(02:42:38 PM)</font> <b>Lethalman:</b></font> viric, for an app? you can wrap the app, we do that for every gtk app<br/>
+<font color="#A82F2F"><font size="2">(02:42:40 PM)</font> <b>Haskellfant:</b></font> viric: try gnome-themes-standard<br/>
+<font color="#A82F2F"><font size="2">(02:42:45 PM)</font> <b>viric:</b></font> for every?<br/>
+<font color="#A82F2F"><font size="2">(02:42:50 PM)</font> <b>viric:</b></font> then gobby is broken<br/>
+<font color="#A82F2F"><font size="2">(02:42:59 PM)</font> <b>viric:</b></font> homebank too, I think<br/>
+<font color="#A82F2F"><font size="2">(02:43:07 PM)</font> <b>Lethalman:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(02:43:21 PM)</font> <b>Lethalman:</b></font> Haskellfant, that&apos;s for the engine not the icons<br/>
+<font color="#A82F2F"><font size="2">(02:43:38 PM)</font> <b>Haskellfant:</b></font> hm right sorry<br/>
+<font color="#A82F2F"><font size="2">(02:48:09 PM)</font> <b>jimstutt:</b></font> Lethalman: damn it you&apos;re right, sorry. I&apos;ve now got .nix-profile -&gt; /nix/var/nix/profiles/jim/profile<br/>
+<font color="#A82F2F"><font size="2">(02:49:35 PM)</font> <b>jimstutt:</b></font> nix-env --list-generations gives me a long list but nix-env --switch-generation 56 fails as do any other numbers.<br/>
+<font color="#A82F2F"><font size="2">(02:50:40 PM)</font> <b>jimstutt:</b></font> it says &apos;error: generation 56 does not exist&apos;.<br/>
+<font color="#A82F2F"><font size="2">(02:50:55 PM)</font> <b>Lethalman:</b></font> sigh<br/>
+<font color="#A82F2F"><font size="2">(02:50:56 PM)</font> <b>Lethalman:</b></font> man<br/>
+<font color="#A82F2F"><font size="2">(02:51:10 PM)</font> <b>Lethalman:</b></font> you again supplied the wrong directory to the profile<br/>
+<font color="#A82F2F"><font size="2">(02:51:39 PM)</font> <b>Lethalman:</b></font> /nix/var/nix/profiles/per-user/jim/profile<br/>
+<font color="#A82F2F"><font size="2">(02:51:43 PM)</font> <b>Lethalman:</b></font> it&apos;s that easy<br/>
+<font color="#A82F2F"><font size="2">(02:53:11 PM)</font> <b>jimstutt:</b></font> sorry to both you and Fuzetsu. I just made a type here. its .nix-profile -&gt; /nix/var/nix/profiles/per-user/jim/profile<br/>
+<font color="#A82F2F"><font size="2">(02:55:48 PM)</font> <b>Lethalman:</b></font> jimstutt, what bad thing did you do before having this mess?<br/>
+<font color="#A82F2F"><font size="2">(02:55:53 PM)</font> <b>Lethalman:</b></font> because you must have done something<br/>
+<font color="#A82F2F"><font size="2">(02:59:53 PM)</font> <b>jimstutt:</b></font> Lethalma: Lots of experimenting with eveything and yesterday I ran  nix-collect-garbage and nix-store -gc and i don&apos;t want to waste any more of anybody&apos;s time.<br/>
+<font color="#A82F2F"><font size="2">(03:01:03 PM)</font> <b>Lethalman:</b></font> mh<br/>
+<font color="#A82F2F"><font size="2">(03:01:08 PM)</font> <b>Lethalman:</b></font> jimstutt, any power reset?<br/>
+<font color="#A82F2F"><font size="2">(03:01:13 PM)</font> <b>Lethalman:</b></font> because you must still have the generations there<br/>
+<font color="#A82F2F"><font size="2">(03:01:17 PM)</font> <b>Lethalman:</b></font> they are gc roots<br/>
+<font color="#A82F2F"><font size="2">(03:01:23 PM)</font> <b>jimstutt:</b></font>  <br/>
+<font color="#A82F2F"><font size="2">(03:01:52 PM)</font> <b>Lethalman:</b></font> what&apos;s the contents of one of those generations for example? if you go into a e.g. profile-56-link<br/>
+<font color="#A82F2F"><font size="2">(03:03:04 PM)</font> <b>azriphale:</b></font> I have a handful of shell definitions that look a lot like this: https://gist.github.com/sjagoe/e2824d76afdd5b6cfecc<br/>
+<font color="#A82F2F"><font size="2">(03:03:11 PM)</font> <b>azriphale:</b></font> I would like to move some of that into a common definition (maybe in ~/.nixpkgs/config.nix?) and use overrideDerivation to just set the specifics for one environment. What I have tried it this: https://gist.github.com/sjagoe/1307f5d16a66a5916c8d<br/>
+<font color="#A82F2F"><font size="2">(03:03:18 PM)</font> <b>azriphale:</b></font> Then nix-shell fails with error: attempt to call something which is not a function but a set, at &quot;/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs/lib/customisation.nix&quot;:36:45<br/>
+<font color="#A82F2F"><font size="2">(03:03:18 PM)</font> <b>jimstutt:</b></font> I now find that after trying  nix-env --switch-generation 56 saying 56 doesn&apos;t exist .nix-profile -&gt; 57. 57 being the highest numbered.<br/>
+<font color="#A82F2F"><font size="2">(03:03:46 PM)</font> <b>azriphale:</b></font> I&apos;m not quite sure how to proceed. It looks like I am misusing overrideDerivation, but I am not quite sure how I can correct that<br/>
+<font color="#A82F2F"><font size="2">(03:06:03 PM)</font> <b>jimstutt:</b></font> nix-env<br/>
+<font color="#A82F2F"><font size="2">(03:06:23 PM)</font> <b>Lethalman:</b></font> azriphale, on a side note, python34Packages.python instead of python34, if you like<br/>
+<font color="#A82F2F"><font size="2">(03:06:37 PM)</font> <b>Lethalman:</b></font> azriphale, can you paste the log using --show-trace<br/>
+<font color="#A82F2F"><font size="2">(03:07:15 PM)</font> <b>Lethalman:</b></font> azriphale, also I would use overrideDerivation honestly, I&apos;d rather use a function<br/>
+<font color="#A82F2F"><font size="2">(03:07:18 PM)</font> <b>Lethalman:</b></font> *wouldn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(03:08:14 PM)</font> <b>Lethalman:</b></font> azriphale, also note I think attrs.buildInputs should be attrs.nativeBuildInputs<br/>
+<font color="#A82F2F"><font size="2">(03:08:23 PM)</font> <b>jimstutt:</b></font> Lethalman. I&apos;ll try rebooting.<br/>
+<font color="#A82F2F"><font size="2">(03:08:29 PM)</font> <b>Lethalman:</b></font> jimstutt, doesn&apos;t solve anything, really<br/>
+<font color="#A82F2F"><font size="2">(03:08:41 PM)</font> <b>Lethalman:</b></font> reboot to do what.... it&apos;s pointless<br/>
+<font color="#A82F2F"><font size="2">(03:09:57 PM)</font> <b>Lethalman:</b></font> that is, buildInputs -&gt; nativeBuildInputs when using overrideDerivation<br/>
+<font color="#062585"><font size="2">(03:09:59 PM)</font> <b>***Lethalman</b></font> checking<br/>
+<font color="#A82F2F"><font size="2">(03:10:15 PM)</font> <b>jimstutt:</b></font> Lethalman: what did you mean by &quot;any power reset&quot;?<br/>
+<font color="#A82F2F"><font size="2">(03:10:46 PM)</font> <b>Lethalman:</b></font> jimstutt, nothing, ignore<br/>
+<font color="#A82F2F"><font size="2">(03:12:50 PM)</font> <b>jimstutt:</b></font> Lethalman: I&apos;ll reinstall from scratch. This is week 3 of nix so I purposely haven&apos;t put anything important on this machine so no loss compared with abusing your time. Tnx for the help.<br/>
+<font color="#A82F2F"><font size="2">(03:13:06 PM)</font> <b>Lethalman:</b></font> jimstutt, again, I think reinstalling is pointless<br/>
+<font color="#A82F2F"><font size="2">(03:13:42 PM)</font> <b>Lethalman:</b></font> jimstutt, remove those profile-XX-link symlinks, you should be able to start from scratch then<br/>
+<font color="#A82F2F"><font size="2">(03:13:54 PM)</font> <b>Lethalman:</b></font> check by installing some software, then switch between generations<br/>
+<font color="#A82F2F"><font size="2">(03:16:34 PM)</font> <b>jimstutt:</b></font> Lethalman: that&apos;s preferable :) - will do.<br/>
+<font color="#A82F2F"><font size="2">(03:17:03 PM)</font> <b>Lethalman:</b></font> jimstutt, really unless you do something very bad to the nix store ecc. and database, it&apos;s 99% of the times pointless to reinstall or reboot<br/>
+<font color="#A82F2F"><font size="2">(03:17:45 PM)</font> <b>azriphale:</b></font> Lethalman: I&apos;ll get the trace now (I realised just after pasting my problem I was about to be late for a conference call!)<br/>
+<font color="#A82F2F"><font size="2">(03:18:24 PM)</font> <b>seanz:</b></font> Lethalman: Hey, so I&apos;m reviewing what I learned from our conversation earlier: When I&apos;m creating an environment that requires some package source code, nix-shell -p ${the_pkg} makes the source code available to my new, isolated shell. Is that right?<br/>
+<font color="#A82F2F"><font size="2">(03:19:10 PM)</font> <b>azriphale:</b></font> Lethalman: Here is the trace(I haven&apos;t changed the code yet): https://gist.github.com/sjagoe/1307f5d16a66a5916c8d#file-nix-shell-trace<br/>
+<font color="#A82F2F"><font size="2">(03:19:11 PM)</font> <b>Lethalman:</b></font> not the source code, let&apos;s say headers and libs<br/>
+<font color="#A82F2F"><font size="2">(03:19:22 PM)</font> <b>seanz:</b></font> Ah, ok.<br/>
+<font color="#A82F2F"><font size="2">(03:22:32 PM)</font> <b>Lethalman:</b></font> azriphale, I think you are showing me the contents of a different file<br/>
+<font color="#A82F2F"><font size="2">(03:22:40 PM)</font> <b>Lethalman:</b></font> azriphale, you nix-shell test.nix, but you are showing me shell.nix?<br/>
+<font color="#A82F2F"><font size="2">(03:25:10 PM)</font> <b>azriphale:</b></font> Sorry, I named it wrong in the gist. The content is the same<br/>
+<font color="#A82F2F"><font size="2">(03:25:42 PM)</font> <b>jimstutt:</b></font> Lethalman: deleted all symlinks in /nix/var/nix/profiles/per-user/jim/ and vlc installed fine.<br/>
+<font color="#A82F2F"><font size="2">(03:26:07 PM)</font> <b>Lethalman:</b></font> jimstutt, ok now check --list-generations<br/>
+<font color="#A82F2F"><font size="2">(03:26:10 PM)</font> <b>Lethalman:</b></font> and try to switch between them<br/>
+<font color="#A82F2F"><font size="2">(03:26:53 PM)</font> <b>Lethalman:</b></font> azriphale, it&apos;s weird, because the code seems right to me<br/>
+<font color="#A82F2F"><font size="2">(03:27:16 PM)</font> <b>Lethalman:</b></font> azriphale, can you try with something simple like this pyEnv = stdenv.overrideDerivation pythonDevEnv (attrs: {})<br/>
+<font color="#A82F2F"><font size="2">(03:27:30 PM)</font> <b>jimstutt:</b></font> nix-env --list-generations =&gt;  &apos;1 2015-3-10 15:23:39 (current)&apos;<br/>
+<font color="#A82F2F"><font size="2">(03:27:45 PM)</font> <b>Lethalman:</b></font> yeah try installing other stuff<br/>
+<font color="#A82F2F"><font size="2">(03:27:51 PM)</font> <b>jimstutt:</b></font> It&apos;s the only one.<br/>
+<font color="#A82F2F"><font size="2">(03:27:54 PM)</font> <b>jimstutt:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(03:29:04 PM)</font> <b>azriphale:</b></font> Lethalman: https://gist.github.com/sjagoe/1307f5d16a66a5916c8d#file-test-nix with the same result<br/>
+<font color="#A82F2F"><font size="2">(03:29:13 PM)</font> <b>azriphale:</b></font> Sorry: https://gist.github.com/sjagoe/1307f5d16a66a5916c8d#file-test-minimal-nix<br/>
+<font color="#A82F2F"><font size="2">(03:29:40 PM)</font> <b>Lethalman:</b></font> ok let me try locally<br/>
+<font color="#A82F2F"><font size="2">(03:31:18 PM)</font> <b>azriphale:</b></font> If it matters, I am on unstable with $nix-shell --verion -&gt; nix-shell (Nix) 1.8<br/>
+<font color="#A82F2F"><font size="2">(03:33:39 PM)</font> <b>Lethalman:</b></font> azriphale, aaaaaaaaaah<br/>
+<font color="#A82F2F"><font size="2">(03:33:44 PM)</font> <b>Lethalman:</b></font> stupid me lol<br/>
+<font color="#A82F2F"><font size="2">(03:33:50 PM)</font> <b>Lethalman:</b></font> pythonDevEnv is not overridable :)<br/>
+<font color="#A82F2F"><font size="2">(03:34:04 PM)</font> <b>azriphale:</b></font> ah. What causes that?<br/>
+<font color="#A82F2F"><font size="2">(03:34:18 PM)</font> <b>Lethalman:</b></font> have to call makeOverridable<br/>
+<font color="#A82F2F"><font size="2">(03:34:24 PM)</font> <b>azriphale:</b></font> ah!<br/>
+<font color="#A82F2F"><font size="2">(03:34:26 PM)</font> <b>azriphale:</b></font> Thanks ;-)<br/>
+<font color="#A82F2F"><font size="2">(03:34:52 PM)</font> <b>Lethalman:</b></font> still doesn&apos;t work though uhm<br/>
+<font color="#A82F2F"><font size="2">(03:36:52 PM)</font> <b>azriphale:</b></font> Lethalman: is that stdenv.lib.makeOverridable ?<br/>
+<font color="#A82F2F"><font size="2">(03:37:01 PM)</font> <b>Lethalman:</b></font> pkgs.makeOverridable<br/>
+<font color="#A82F2F"><font size="2">(03:39:39 PM)</font> <b>qknight:</b></font> i&apos;ve been playing with nixos-containers again and they still seem to have problems like &apos;nixos-container start foo&apos; will sometimes not start and have problems shutting down<br/>
+<font color="#A82F2F"><font size="2">(03:39:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/pBNy<br/>
+<font color="#A82F2F"><font size="2">(03:39:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7e45327 Peter Simons: mnemosyne: update to version 2.3.2<br/>
+<font color="#A82F2F"><font size="2">(03:39:49 PM)</font> <b>qknight:</b></font> is that common or is that my borken setup?<br/>
+<font color="#A82F2F"><font size="2">(03:40:01 PM)</font> <b>jimstutt:</b></font> ghcHEAD has just installed ok so it seems I am able to carry on atm without wasting any more of your time. tnx again.<br/>
+<font color="#A82F2F"><font size="2">(03:40:22 PM)</font> <b>Lethalman:</b></font> qknight, I think it happened to me sometimes ago, but as you say then maybe they&apos;re still broken<br/>
+<font color="#A82F2F"><font size="2">(03:40:29 PM)</font> <b>Lethalman:</b></font> qknight, declarative containers seem ok though<br/>
+<font color="#A82F2F"><font size="2">(03:40:40 PM)</font> <b>qknight:</b></font> Lethalman: that is supposed to be a declarative container btw<br/>
+<font color="#A82F2F"><font size="2">(03:40:48 PM)</font> <b>qknight:</b></font> Lethalman: but i started it manually as it didn&apos;t work out of the box<br/>
+<font color="#A82F2F"><font size="2">(03:40:55 PM)</font> <b>qknight:</b></font> Lethalman: thanks for your quick feedbcak<br/>
+<font color="#A82F2F"><font size="2">(03:41:02 PM)</font> <b>Lethalman:</b></font> qknight, https://nixos.org/releases/nixos/14.12/nixos-14.12.374.61adf9e/manual/ch-containers.html<br/>
+<font color="#A82F2F"><font size="2">(03:41:23 PM)</font> <b>Lethalman:</b></font> indeed that chapter of declarative containers miss start and stop<br/>
+<font color="#A82F2F"><font size="2">(03:43:02 PM)</font> <b>azriphale:</b></font> I think I&apos;ll put the reusable nix-shell derivation on hold for now until I can spend some more time with the nix language<br/>
+<font color="#A82F2F"><font size="2">(03:43:08 PM)</font> <b>azriphale:</b></font> Thanks for your help Lethalman<br/>
+<font color="#A82F2F"><font size="2">(03:43:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/pBxm<br/>
+<font color="#A82F2F"><font size="2">(03:43:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 581a4da Peter Simons: frei0r: fix invalid download URL<br/>
+<font color="#A82F2F"><font size="2">(03:48:37 PM)</font> <b>Lethalman:</b></font> azriphale, mh sorry anyway makeOverridable doesn&apos;t matter here<br/>
+<font color="#A82F2F"><font size="2">(03:48:42 PM)</font> <b>Lethalman:</b></font> my bad<br/>
+<font color="#A82F2F"><font size="2">(03:50:20 PM)</font> <b>Lethalman:</b></font> azriphale, damn it found the culprit<br/>
+<font color="#A82F2F"><font size="2">(03:50:26 PM)</font> <b>Lethalman:</b></font> azriphale, NOT stdenv.overrideDerivation<br/>
+<font color="#A82F2F"><font size="2">(03:50:30 PM)</font> <b>Lethalman:</b></font> azriphale, use lib.overrideDerivation<br/>
+<font color="#A82F2F"><font size="2">(03:50:32 PM)</font> <b>Lethalman:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(03:50:39 PM)</font> <b>azriphale:</b></font> ah, thanks<br/>
+<font color="#A82F2F"><font size="2">(03:50:45 PM)</font> <b>Lethalman:</b></font> stdenv.overrideDerivation is going to override stdenv<br/>
+<font color="#A82F2F"><font size="2">(03:50:55 PM)</font> <b>Lethalman:</b></font> so it&apos;s like calling lib.overrideDerivation stdenv<br/>
+<font color="#A82F2F"><font size="2">(03:51:12 PM)</font> <b>azriphale:</b></font> oops :P<br/>
+<font color="#A82F2F"><font size="2">(03:51:28 PM)</font> <b>Lethalman:</b></font> and that&apos;s my fault, naming things the same :P I introduced that overrideDerivation inside derivations itself, eh eh -.-&apos;<br/>
+<font color="#A82F2F"><font size="2">(03:52:02 PM)</font> <b>azriphale:</b></font> woo! I have a shell based on common config<br/>
+<font color="#A82F2F"><font size="2">(03:52:05 PM)</font> <b>azriphale:</b></font> Thanks, Lethalman<br/>
+<font color="#A82F2F"><font size="2">(03:52:37 PM)</font> <b>Lethalman:</b></font> azriphale, beware that &quot;virtualenv&quot; command comes from nowhere... it&apos;s impure<br/>
+<font size="2">(03:52:43 PM)</font><b> pmahoney [<em>~user@50.56.229.7</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:52:53 PM)</font> <b>Lethalman:</b></font> azriphale, in fact, I run nix-shell here locally, and doesn&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(03:53:07 PM)</font> <b>Lethalman:</b></font> and probably shouldn&apos;t work for you too if you use nix-shell --pure<br/>
+<font color="#A82F2F"><font size="2">(03:53:11 PM)</font> <b>azriphale:</b></font> Ah. It is (accidentally) in my user profile.<br/>
+<font color="#A82F2F"><font size="2">(03:53:21 PM)</font> <b>Lethalman:</b></font> so that&apos;s why nix enforces certain things<br/>
+<font color="#A82F2F"><font size="2">(03:53:26 PM)</font> <b>Lethalman:</b></font> to make things reproducible<br/>
+<font color="#A82F2F"><font size="2">(03:53:26 PM)</font> <b>azriphale:</b></font> Yes, I ought to be using --pure<br/>
+<font color="#16569E"><font size="2">(03:53:38 PM)</font> <b>magnetophon:</b></font> pmahoney: Hi! I'm using your faust pkgs full on now. You should do a PR!<br/>
+<font color="#A82F2F"><font size="2">(03:54:22 PM)</font> <b>azriphale:</b></font> speaking of which (when _not_ using --pure), inside the shell, emacsclient can&apos;t talk to the emacs server _outside_ the shell. It has a unix socket at /tmp/emacs&lt;uid&gt;/server. Any idea why that might be?<br/>
+<font color="#A82F2F"><font size="2">(03:54:59 PM)</font> <b>pmahoney:</b></font> magnetophon: great to hear! will do, hopefully this week; past few days have been busy<br/>
+<font color="#A82F2F"><font size="2">(03:55:18 PM)</font> <b>Lethalman:</b></font> azriphale, look for TMP stuff or that socket in your env<br/>
+<font color="#16569E"><font size="2">(03:55:21 PM)</font> <b>magnetophon:</b></font> pmahoney: cool!<br/>
+<font color="#A82F2F"><font size="2">(03:57:31 PM)</font> <b>azriphale:</b></font> Lethalman: with nix-shell --pure test.nix the virtualenv creation does work for me<br/>
+<font color="#A82F2F"><font size="2">(03:58:03 PM)</font> <b>Lethalman:</b></font> azriphale, ah I guess because shellHook is ran before entering the shell<br/>
+<font color="#A82F2F"><font size="2">(03:58:09 PM)</font> <b>Lethalman:</b></font> or something like that, so it&apos;s not yet &quot;pure&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:58:15 PM)</font> <b>azriphale:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(03:58:36 PM)</font> <b>ktosiek:</b></font> is there something like tox, but based on nix? I mean, a super simple way to specify a set of execution environments and test commands to run inside of them<br/>
+<font color="#A82F2F"><font size="2">(03:58:53 PM)</font> <b>Lethalman:</b></font> ktosiek, like nixos tests?<br/>
+<font color="#A82F2F"><font size="2">(03:59:02 PM)</font> <b>azriphale:</b></font> Then within the shell, if I run &quot;emacsclient .&quot; I get a complaint about not finding the server. If I run &quot;emacsclient -s /tmp/emacs1000/server .&quot; (i.e. specify server socket), it works<br/>
+<font color="#A82F2F"><font size="2">(03:59:10 PM)</font> <b>azriphale:</b></font> This is in a nix-shell --pure<br/>
+<font color="#A82F2F"><font size="2">(03:59:19 PM)</font> <b>azriphale:</b></font> (and I added emacs to the dependencies of the shell)<br/>
+<font color="#A82F2F"><font size="2">(03:59:20 PM)</font> <b>Lethalman:</b></font> azriphale, --pure discards environment variables<br/>
+<font color="#A82F2F"><font size="2">(03:59:34 PM)</font> <b>Lethalman:</b></font> so there must be an env var containing the emacs socket<br/>
+<font color="#A82F2F"><font size="2">(04:00:16 PM)</font> <b>azriphale:</b></font> $ env | grep emacs -&gt; EDITOR=emacsclient<br/>
+<font color="#A82F2F"><font size="2">(04:00:23 PM)</font> <b>ktosiek:</b></font> Lethalman: aren&apos;t they using qemu VM for each test? But that&apos;s a good place to look at, thanks!<br/>
+<font color="#A82F2F"><font size="2">(04:00:39 PM)</font> <b>Lethalman:</b></font> azriphale, echo $TMPDIR in the shell<br/>
+<font color="#A82F2F"><font size="2">(04:00:42 PM)</font> <b>azriphale:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(04:00:45 PM)</font> <b>Lethalman:</b></font> ktosiek, yes<br/>
+<font color="#A82F2F"><font size="2">(04:00:54 PM)</font> <b>azriphale:</b></font> TMP=/run/user/1000<br/>
+<font color="#A82F2F"><font size="2">(04:01:32 PM)</font> <b>azriphale:</b></font> well, easy enough to add an alias for emacsclient in the shellHook :P<br/>
+<font color="#A82F2F"><font size="2">(04:02:10 PM)</font> <b>Lethalman:</b></font> azriphale, so I suggest you to use userHook instead of shellHook, and add pythonPackages.virtualenv to the buildInputs<br/>
+<font color="#A82F2F"><font size="2">(04:02:36 PM)</font> <b>Lethalman:</b></font> mh<br/>
+<font color="#A82F2F"><font size="2">(04:02:49 PM)</font> <b>azriphale:</b></font> Where does userHook run?<br/>
+<font color="#A82F2F"><font size="2">(04:02:59 PM)</font> <b>Lethalman:</b></font> wait<br/>
+<font color="#A82F2F"><font size="2">(04:04:19 PM)</font> <b>azriphale:</b></font> It does seem to be using virtualenv from my overrideDerivation&apos;s nativeBuildInputs<br/>
+<font color="#A82F2F"><font size="2">(04:04:37 PM)</font> <b>azriphale:</b></font> I in fact do not have virtualenv in my user profile (I removed it yesterday when upgrading to unstable)<br/>
+<font color="#A82F2F"><font size="2">(04:04:56 PM)</font> <b>Lethalman:</b></font> azriphale, ah sorry, I&apos;m using the stripped down example<br/>
+<font color="#A82F2F"><font size="2">(04:04:58 PM)</font> <b>Lethalman:</b></font> so with attrs: {}<br/>
+<font color="#A82F2F"><font size="2">(04:05:07 PM)</font> <b>azriphale:</b></font> removing virtualenv from the nativeBuildInpputs causes the shellHook to fail with The program ‘virtualenv’ is currently not installed.<br/>
+<font color="#A82F2F"><font size="2">(04:06:16 PM)</font> <b>azriphale:</b></font> So this is what I want because I am moving between Python2.7 and Python3.4 sometimes<br/>
+<font color="#A82F2F"><font size="2">(04:06:23 PM)</font> <b>azriphale:</b></font> Thanks for your help!<br/>
+<font color="#A82F2F"><font size="2">(04:06:27 PM)</font> <b>Lethalman:</b></font> good<br/>
+<font color="#A82F2F"><font size="2">(04:06:44 PM)</font> <b>Haskellfant:</b></font> how can I refer to overrideCabal in my config.nix? I&apos;m using pkgs.haskell-ng.packages.ghc7101.override { overrides = self: super: { … }; }; but neither self nor super have the overrideCabal attribute<br/>
+<font color="#A82F2F"><font size="2">(04:07:33 PM)</font> <b>azriphale:</b></font> Lethalman: One other (vaguely related) question. Are there serious dangers associated with using pkgs.nixUnstable?<br/>
+<font color="#A82F2F"><font size="2">(04:08:20 PM)</font> <b>ttuegel:</b></font> Haskellfant: i think it&apos;s in pkgs.haskell-ng.lib<br/>
+<font color="#A82F2F"><font size="2">(04:08:24 PM)</font> <b>Lethalman:</b></font> azriphale, database schema changes is the most dangerous thing I guess, but it&apos;s not done that often<br/>
+<font color="#A82F2F"><font size="2">(04:08:45 PM)</font> <b>azriphale:</b></font> and that would cause inability to roll back?<br/>
+<font color="#A82F2F"><font size="2">(04:08:49 PM)</font> <b>Lethalman:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(04:09:03 PM)</font> <b>azriphale:</b></font> probably not worth it to be able to override a nix-shell PS1 ;-)<br/>
+<font color="#A82F2F"><font size="2">(04:09:21 PM)</font> <b>Lethalman:</b></font> azriphale, I think..... that userHook should run after the shell has started<br/>
+<font color="#A82F2F"><font size="2">(04:09:24 PM)</font> <b>Lethalman:</b></font> but I&apos;m unable to make it work<br/>
+<font color="#A82F2F"><font size="2">(04:10:05 PM)</font> <b>azriphale:</b></font> For the PS1: $ grep -A3 -B3 shellHook $(which nix-shell)<br/>
+<font color="#A82F2F"><font size="2">(04:10:20 PM)</font> <b>azriphale:</b></font> The PS1 (in nix 1.8) is being overridden after running shellHook<br/>
+<font color="#A82F2F"><font size="2">(04:10:39 PM)</font> <b>azriphale:</b></font> that is changed in master<br/>
+<font color="#A82F2F"><font size="2">(04:10:52 PM)</font> <b>Lethalman:</b></font> I know<br/>
+<font color="#A82F2F"><font size="2">(04:10:53 PM)</font> <b>azriphale:</b></font> otherwise it all works as I expct<br/>
+<font size="2">(04:11:13 PM)</font><b> goibhniu1 left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:11:34 PM)</font> <b>Haskellfant:</b></font> ttuegel: thx!<br/>
+<font color="#A82F2F"><font size="2">(04:12:21 PM)</font> <b>Lethalman:</b></font> can&apos;t understand why userHook doesn&apos;t get into the env<br/>
+<font color="#A82F2F"><font size="2">(04:13:34 PM)</font> <b>azriphale:</b></font> I&apos;m not sure what you mean<br/>
+<font size="2">(04:13:36 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:13:36 PM)</font> <b>Lethalman:</b></font> azriphale, oh well postHook works (not userHook, have to investigate)<br/>
+<font color="#A82F2F"><font size="2">(04:13:37 PM)</font> <b>Haskellfant:</b></font> how can I make a nix-shell a gc root?<br/>
+<font color="#A82F2F"><font size="2">(04:13:42 PM)</font> <b>Lethalman:</b></font> but has the same problem of shellHOok<br/>
+<font color="#A82F2F"><font size="2">(04:13:44 PM)</font> <b>azriphale:</b></font> oh, userHook<br/>
+<font color="#A82F2F"><font size="2">(04:13:47 PM)</font> <b>Lethalman:</b></font> getting called early<br/>
+<font color="#A82F2F"><font size="2">(04:13:48 PM)</font> <b>azriphale:</b></font> I&apos;m still on shellHook<br/>
+<font color="#A82F2F"><font size="2">(04:13:50 PM)</font> <b>Lethalman:</b></font> so nvm<br/>
+<font color="#A82F2F"><font size="2">(04:13:52 PM)</font> <b>Haskellfant:</b></font> I end up garbage collecting my development libraries over and over<br/>
+<font color="#A82F2F"><font size="2">(04:14:07 PM)</font> <b>Lethalman:</b></font> aaaaaaaaah<br/>
+<font color="#A82F2F"><font size="2">(04:14:13 PM)</font> <b>Lethalman:</b></font> stdenv.userHook that&apos;s why :) it gets replaced<br/>
+<font color="#A82F2F"><font size="2">(04:15:08 PM)</font> <b>azriphale:</b></font> Have I called another thing I shouldn&apos;t?<br/>
+<font color="#A82F2F"><font size="2">(04:15:56 PM)</font> <b>Lethalman:</b></font> azriphale, shellHook is fine<br/>
+<font color="#A82F2F"><font size="2">(04:16:07 PM)</font> <b>Lethalman:</b></font> I just thought the postHook of stdenv would have called after PS1 was set, but not<br/>
+<font color="#A82F2F"><font size="2">(04:16:36 PM)</font> <b>azriphale:</b></font> Thanks for your help<br/>
+<font size="2">(04:16:56 PM)</font><b> reinhardt_ is now known as reinhardt</b><br/>
+<font color="#A82F2F"><font size="2">(04:23:05 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nslqqq opened pull request #6743: i3: 4.9 -&gt; 4.9.1 (master...master) http://git.io/pR3u<br/>
+<font color="#A82F2F"><font size="2">(04:23:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lethalman pushed 1 new commit to master: http://git.io/pR3M<br/>
+<font color="#A82F2F"><font size="2">(04:23:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 6fdd927 Luca Bruno: Document container@ systemd service<br/>
+<font color="#A82F2F"><font size="2">(04:25:31 PM)</font> <b>azriphale:</b></font> Lethalman: I have an issue with the pure shell. SSL certificates are failing verification. e.g. curl -v https://github.com<br/>
+<font color="#A82F2F"><font size="2">(04:25:37 PM)</font> <b>azriphale:</b></font> SSL certificate problem: unable to get local issuer certificate<br/>
+<font color="#A82F2F"><font size="2">(04:26:06 PM)</font> <b>Lethalman:</b></font> azriphale, based on the things I told you above<br/>
+<font color="#A82F2F"><font size="2">(04:26:11 PM)</font> <b>azriphale:</b></font> Is there a package I need to install for a system CA bundle?<br/>
+<font color="#A82F2F"><font size="2">(04:26:18 PM)</font> <b>Lethalman:</b></font> where do you think the culprit would be<br/>
+<font color="#A82F2F"><font size="2">(04:26:36 PM)</font> <b>Lethalman:</b></font> otherwise here I&apos;m going to explain every single bit<br/>
+<font color="#A82F2F"><font size="2">(04:26:48 PM)</font> <b>azriphale:</b></font> here: env | grep SSL<br/>
+<font color="#A82F2F"><font size="2">(04:26:49 PM)</font> <b>azriphale:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(04:27:28 PM)</font> <b>azriphale:</b></font> Sorry for troubling you so much.<br/>
+<font color="#A82F2F"><font size="2">(04:27:46 PM)</font> <b>Digit:</b></font> i failed to get my bitmap fonts to work in nixos, and after giving up on that, and much effort, i have made my first ttf font... is there a special nixos/systemd trick to getting new fonts to work?<br/>
+<font color="#A82F2F"><font size="2">(04:31:26 PM)</font> <b>qknight:</b></font> Lethalman: when i change the container&apos;s name from: container.database to container.database2 and rerun nixos-rebuild switch it won&apos;t create a new container nor remove the old one<br/>
+<font color="#A82F2F"><font size="2">(04:31:32 PM)</font> <b>qknight:</b></font> Lethalman: i guess there is something broken<br/>
+<font color="#A82F2F"><font size="2">(04:37:40 PM)</font> <b>Lethalman:</b></font> qknight, uhm weird, are you using latest unstable?<br/>
+<font color="#A82F2F"><font size="2">(04:37:49 PM)</font> <b>qknight:</b></font> Lethalman: yes<br/>
+<font color="#A82F2F"><font size="2">(04:38:05 PM)</font> <b>Lethalman:</b></font> last time I think I was successful at creating new containers<br/>
+<font color="#A82F2F"><font size="2">(04:38:06 PM)</font> <b>qknight:</b></font> Lethalman: 15.05pre58357.a869c83 (Dingo)<br/>
+<font color="#A82F2F"><font size="2">(04:38:09 PM)</font> <b>Lethalman:</b></font> but never renamed them<br/>
+<font color="#A82F2F"><font size="2">(04:38:50 PM)</font> <b>qknight:</b></font> Lethalman: i can&apos;t even create new containers declarativly anymore now<br/>
+<font color="#A82F2F"><font size="2">(05:04:04 PM)</font> <b>seanz:</b></font> Lethalman / iElectric: Is there a known good way to provision user-specific things in a nixos container? Things like pre-existing ssh keys, etc.<br/>
+<font color="#A82F2F"><font size="2">(05:04:11 PM)</font> <b>seanz:</b></font> Maybe a .bash_history file.<br/>
+<font color="#A82F2F"><font size="2">(05:04:34 PM)</font> <b>Lethalman:</b></font> you can use an activation script I guess<br/>
+<font color="#A82F2F"><font size="2">(05:32:42 PM)</font> <b>Digit:</b></font> /run/current-system/sw/share/X11-fonts: No such file or directory   ... i have added the code to configuration.nix as seen https://nixos.org/wiki/Fonts ... i&apos;m surely missing a step not mentioned on that page.  like perhaps some way to reinitialise the config?<br/>
+<font color="#A82F2F"><font size="2">(05:33:38 PM)</font> <b>Lethalman:</b></font> uhm I&apos;m trying to use the fhs user env<br/>
+<font color="#A82F2F"><font size="2">(05:33:40 PM)</font> <b>Lethalman:</b></font> I&apos;m missing /proc/self/setgroups<br/>
+<font color="#A82F2F"><font size="2">(05:34:08 PM)</font> <b>Lethalman:</b></font> do I need a specific kernel?<br/>
+<font color="#A82F2F"><font size="2">(05:35:35 PM)</font> <b>Lethalman:</b></font> oh since linux 3.19?<br/>
+<font color="#A82F2F"><font size="2">(05:39:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/pRAv<br/>
+<font color="#A82F2F"><font size="2">(05:39:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master fc15721 Vladimír Čunát: gettext: fix build on darwin...<br/>
+<font color="#A82F2F"><font size="2">(05:39:59 PM)</font> <b>offlinehacker:</b></font> how can i force rebuild store path?<br/>
+<font size="2">(05:40:21 PM)</font><b> vcunat [<em>~admin@vetr-0455.koleje.cuni.cz</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:41:20 PM)</font> <b>Lethalman:</b></font> offlinehacker, delete it<br/>
+<font color="#A82F2F"><font size="2">(05:42:35 PM)</font> <b>offlinehacker:</b></font> Lethalman: isn&apos;t there a way i can rebuild it atomically?<br/>
+<font color="#A82F2F"><font size="2">(05:42:45 PM)</font> <b>Lethalman:</b></font> offlinehacker, don&apos;t know any<br/>
+<font color="#A82F2F"><font size="2">(05:43:10 PM)</font> <b>offlinehacker:</b></font> so what i&apos;m trying is testing deterministic builds, and i would like to rebuild store path twice and check if output hashes are the same<br/>
+<font color="#A82F2F"><font size="2">(05:49:49 PM)</font> <b>qknight:</b></font> offlinehacker: you can force a rebuild by using no channel: &apos;nix-channel list&apos;, then remove it<br/>
+<font color="#A82F2F"><font size="2">(05:50:27 PM)</font> <b>offlinehacker:</b></font> qknight: but this won&apos;t work i gues if path is already in a store?<br/>
+<font color="#A82F2F"><font size="2">(05:50:32 PM)</font> <b>qknight:</b></font> offlinehacker: however, that would be for new stuff you do, if you want to rebuild a already installed set of packages you need another command<br/>
+<font color="#A82F2F"><font size="2">(05:50:43 PM)</font> <b>offlinehacker:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(05:51:02 PM)</font> <b>offlinehacker:</b></font> any idea here? i would not like to delete path, because it could be a system library<br/>
+<font color="#A82F2F"><font size="2">(05:51:08 PM)</font> <b>offlinehacker:</b></font> that&apos;s in use<br/>
+<font color="#A82F2F"><font size="2">(05:51:32 PM)</font> <b>offlinehacker:</b></font> could i do a repair or something?<br/>
+<font color="#A82F2F"><font size="2">(05:53:47 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lethalman closed pull request #6737: build-fhs-userenv passes through command line args (master...fhs) http://git.io/p8Nw<br/>
+<font color="#A82F2F"><font size="2">(05:54:39 PM)</font> <b>qknight:</b></font> offlinehacker: i&apos;ve been doing something like this in the past but i don&apos;t find it<br/>
+<font color="#A82F2F"><font size="2">(05:57:45 PM)</font> <b>offlinehacker:</b></font> qknight: if you could find it i would be really happy<br/>
+<font color="#A82F2F"><font size="2">(05:58:40 PM)</font> <b>Lethalman:</b></font> so guys<br/>
+<font color="#A82F2F"><font size="2">(05:58:46 PM)</font> <b>Lethalman:</b></font> anybody using buildFHSUserEnv?<br/>
+<font color="#A82F2F"><font size="2">(05:58:50 PM)</font> <b>Lethalman:</b></font> I&apos;m wondering how can that work as user!<br/>
+<font color="#A82F2F"><font size="2">(05:59:05 PM)</font> <b>Lethalman:</b></font> this script does CLONE_NEWNS: https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/build-fhs-userenv/chroot-user.rb<br/>
+<font color="#A82F2F"><font size="2">(05:59:15 PM)</font> <b>Lethalman:</b></font> but I thought CLONE_NEWNS was only for cap_sys_admin?<br/>
+<font color="#A82F2F"><font size="2">(05:59:20 PM)</font> <b>Lethalman:</b></font> I&apos;m able to run that script as user :O<br/>
+<font color="#A82F2F"><font size="2">(06:01:07 PM)</font> <b>Lethalman:</b></font> on that CLONE_NEWUSER thing<br/>
+<font color="#A82F2F"><font size="2">(06:01:12 PM)</font> <b>ksf:</b></font> (probably) dumb question: where&apos;s the nixpkgs directory that&apos;s currently used by the system?<br/>
+<font color="#A82F2F"><font size="2">(06:02:21 PM)</font> <b>offlinehacker:</b></font> yes CLONE_NEWNS can be run as user<br/>
+<font color="#A82F2F"><font size="2">(06:03:49 PM)</font> <b>offlinehacker:</b></font> ksf: usually  here ~/.nix-defexpr/channels/nixpkgs/<br/>
+<font size="2">(06:10:38 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,160 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Thu 19 Mar 2015 11:29:19 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Thu 19 Mar 2015 11:29:19 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(11:29:20 AM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(11:29:21 AM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(11:30:26 AM)</font> <b>aeLiXihr:</b></font> well i am here: http://ardour.org/debugging_ardour and i think i need the 1st option: Running Ardour &quot;live&quot; inside the debugger (called &quot;gdb&quot;) and getting information directly from gdb when Ardour crashes. <br/>
+<font color="#A82F2F"><font size="2">(11:32:37 AM)</font> <b>aeLiXihr:</b></font> so: i started JACK with realtime disabled and the client timeout variable set to 5000<br/>
+<font color="#A82F2F"><font size="2">(11:37:02 AM)</font> <b>nick_m:</b></font> aeLiXihr, good. can you start ardour under gdb from the terminal? i.e. &quot;gdb ardour&quot;?<br/>
+<font color="#A82F2F"><font size="2">(11:37:23 AM)</font> <b>nick_m:</b></font> then run after gdb has typed a lot of stuff<br/>
+<font color="#A82F2F"><font size="2">(11:37:59 AM)</font> <b>nick_m:</b></font> it may be simpler to just say what you were doing when ardour crashed<br/>
+<font color="#A82F2F"><font size="2">(11:39:23 AM)</font> <b>aeLiXihr:</b></font> i am doing nothing, it will not start the session :0<br/>
+<font color="#A82F2F"><font size="2">(11:39:46 AM)</font> <b>aeLiXihr:</b></font> ok, i will start gdb<br/>
+<font color="#A82F2F"><font size="2">(11:41:06 AM)</font> <b>aeLiXihr:</b></font> okay i did: /opt/Ardour-3.5.403-dbg/bin/ardour3 --debug<br/>
+<font color="#A82F2F"><font size="2">(11:41:57 AM)</font> <b>aeLiXihr:</b></font> run<br/>
+<font color="#A82F2F"><font size="2">(11:42:22 AM)</font> <b>aeLiXihr:</b></font> than i get a lot of text and than i can choose the session<br/>
+<font color="#A82F2F"><font size="2">(11:42:39 AM)</font> <b>aeLiXihr:</b></font> (a popup) as usual<br/>
+<font color="#A82F2F"><font size="2">(11:43:18 AM)</font> <b>aeLiXihr:</b></font> i think i have to match the sample rate first right?<br/>
+<font color="#A82F2F"><font size="2">(11:45:14 AM)</font> <b>aeLiXihr:</b></font> the ¨corrupt¨session is @88.2k<br/>
+<font color="#A82F2F"><font size="2">(11:48:26 AM)</font> <b>nick_m:</b></font> aeLiXihr, yes. you must match the sample rate<br/>
+<font color="#A82F2F"><font size="2">(11:48:57 AM)</font> <b>aeLiXihr:</b></font> than i will have to stop and restart jack, hang on :)<br/>
+<font color="#A82F2F"><font size="2">(11:50:30 AM)</font> <b>aeLiXihr:</b></font> i did and double clicked the session in the popup<br/>
+<font color="#A82F2F"><font size="2">(11:56:27 AM)</font> <b>nick_m:</b></font> aeLiXihr, now when/if it crashes, the gui will not dissapear, but you should see a lot of text in the terminal<br/>
+<font color="#A82F2F"><font size="2">(11:58:01 AM)</font> <b>weez:</b></font> Ive been experiencing a very annoying bug where Ardour will crash and any midi files in interchange/ will be wiped so that the file remains but contains no data<br/>
+<font color="#A82F2F"><font size="2">(11:58:36 AM)</font> <b>weez:</b></font> Obviously this destroys any midi data Ive been working on. Fortunately I dont use it often and havent lost anything of importance<br/>
+<font color="#A82F2F"><font size="2">(11:58:48 AM)</font> <b>weez:</b></font> Is this a known about thing?<br/>
+<font color="#A82F2F"><font size="2">(11:59:06 AM)</font> <b>nick_m:</b></font> weez, we&apos;re pretty sure that bug has been fixed. if you can reproduce it in the nightly builds it would be good to hear about.<br/>
+<font color="#A82F2F"><font size="2">(12:00:23 PM)</font> <b>aeLiXihr:</b></font> should i paste the terminal in the pastebin?<br/>
+<font color="#A82F2F"><font size="2">(12:00:27 PM)</font> <b>weez:</b></font> Ok, Ill download a nightly build and see if it still occurs.<br/>
+<font color="#A82F2F"><font size="2">(12:00:36 PM)</font> <b>aeLiXihr:</b></font> ardour is closed...<br/>
+<font color="#A82F2F"><font size="2">(12:00:38 PM)</font> <b>nick_m:</b></font> aeLiXihr, yes please<br/>
+<font color="#A82F2F"><font size="2">(12:03:21 PM)</font> <b>aeLiXihr:</b></font> nick_m: it should be here: http://pastebin.com/ufNa1eL0 the first exit is when i changed the samplerate<br/>
+<font size="2">(12:06:43 PM)</font><b> weez left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(12:10:53 PM)</font> <b>nick_m:</b></font> aeLiXihr, ok. so where is says &quot;Program received signal SIGSEGV, Segmentation fault.&quot; - thats when you should type thread apply all bt<br/>
+<font color="#A82F2F"><font size="2">(12:11:23 PM)</font> <b>nick_m:</b></font> aeLiXihr, and keep hitting the return key until its stops spewing stuff in the termonal<br/>
+<font color="#A82F2F"><font size="2">(12:11:52 PM)</font> <b>nick_m:</b></font> aeLiXihr, its the stuff after that we&apos;re interested in<br/>
+<font color="#A82F2F"><font size="2">(12:12:55 PM)</font> <b>nick_m:</b></font> aeLiXihr, but i see some unusual errors already. hang on<br/>
+<font color="#A82F2F"><font size="2">(12:14:21 PM)</font> <b>nick_m:</b></font> aeLiXihr, i&apos;m not certain, but it might help if you moved /home/onno/.config/ardour3 to /home/onno/.config/ardour3_old and tried again<br/>
+<font color="#A82F2F"><font size="2">(12:28:04 PM)</font> <b>aeLiXihr:</b></font> so i change the name right?<br/>
+<font color="#A82F2F"><font size="2">(12:29:05 PM)</font> <b>nick_m:</b></font> aeLiXihr, yes. in the terminal you might use &quot;mv ~.config/ardour3 ~/.config/ardour3_old&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:31:07 PM)</font> <b>aeLiXihr:</b></font> could i also go to the folder and change the name?<br/>
+<font color="#A82F2F"><font size="2">(12:31:13 PM)</font> <b>nick_m:</b></font> aeLiXihr, we&apos;re trying to stop ardour loading your default settings. just to see if the colour changes and other preference changes you have that might not be valid.<br/>
+<font color="#A82F2F"><font size="2">(12:31:18 PM)</font> <b>nick_m:</b></font> aeLiXihr, yes you can<br/>
+<font color="#A82F2F"><font size="2">(12:31:30 PM)</font> <b>nick_m:</b></font> aeLiXihr, change the name of the folder<br/>
+<font color="#A82F2F"><font size="2">(12:31:43 PM)</font> <b>aeLiXihr:</b></font> ok hang on, ill change the name first<br/>
+<font color="#A82F2F"><font size="2">(12:32:39 PM)</font> <b>aeLiXihr:</b></font> oh it is a folder...<br/>
+<font color="#A82F2F"><font size="2">(12:33:18 PM)</font> <b>aeLiXihr:</b></font> it worked<br/>
+<font color="#A82F2F"><font size="2">(12:33:36 PM)</font> <b>aeLiXihr:</b></font> so now i have to type run again?<br/>
+<font color="#A82F2F"><font size="2">(12:34:34 PM)</font> <b>aeLiXihr:</b></font> or should i make a new folder first?<br/>
+<font color="#A82F2F"><font size="2">(12:49:40 PM)</font> <b>nick_m:</b></font> aeLiXihr, just type run<br/>
+<font color="#A82F2F"><font size="2">(12:50:10 PM)</font> <b>nick_m:</b></font> aeLiXihr, ardour will make the folder again.. it will think you&apos;re using it for the first time maybe<br/>
+<font color="#A82F2F"><font size="2">(12:58:56 PM)</font> <b>aeLiXihr:</b></font> it says: The program being debugged has been started already. Start it from the beginning? (y or n)<br/>
+<font color="#A82F2F"><font size="2">(12:59:05 PM)</font> <b>aeLiXihr:</b></font> but the icon is gone<br/>
+<font color="#A82F2F"><font size="2">(12:59:25 PM)</font> <b>nick_m:</b></font> aeLiXihr, yes start it from the beginning.<br/>
+<font color="#A82F2F"><font size="2">(12:59:47 PM)</font> <b>nick_m:</b></font> aeLiXihr, sorry normally you would have typed &quot;kill&quot; to kill it first<br/>
+<font color="#A82F2F"><font size="2">(01:00:04 PM)</font> <b>aeLiXihr:</b></font> okay<br/>
+<font color="#A82F2F"><font size="2">(01:00:37 PM)</font> <b>aeLiXihr:</b></font> i typed yes already<br/>
+<font color="#A82F2F"><font size="2">(01:00:40 PM)</font> <b>aeLiXihr:</b></font> y  Starting program: /opt/Ardour-3.5.403-dbg/bin/ardour-3.5.403  Quit (gdb) <br/>
+<font color="#A82F2F"><font size="2">(01:00:43 PM)</font> <b>nick_m:</b></font> aeLiXihr, all good<br/>
+<font color="#A82F2F"><font size="2">(01:01:17 PM)</font> <b>nick_m:</b></font> aeLiXihr, ok .. it&apos;s not running?<br/>
+<font color="#A82F2F"><font size="2">(01:02:28 PM)</font> <b>aeLiXihr:</b></font> i do not see anyting<br/>
+<font color="#A82F2F"><font size="2">(01:02:53 PM)</font> <b>aeLiXihr:</b></font> so no i think it is not running<br/>
+<font color="#A82F2F"><font size="2">(01:03:05 PM)</font> <b>nick_m:</b></font> aeLiXihr, probably better to get out of gdb and start again then. sorry. do you see the gdb command prompt?<br/>
+<font color="#A82F2F"><font size="2">(01:03:18 PM)</font> <b>nick_m:</b></font> if so, type quit<br/>
+<font color="#A82F2F"><font size="2">(01:03:25 PM)</font> <b>aeLiXihr:</b></font> that is (gbd) right?<br/>
+<font color="#A82F2F"><font size="2">(01:03:30 PM)</font> <b>nick_m:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(01:03:35 PM)</font> <b>aeLiXihr:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(01:04:03 PM)</font> <b>aeLiXihr:</b></font> quit A debugging session is active.          Inferior 1 [process 2578] will be killed.  Quit anyway? (y or n) <br/>
+<font color="#A82F2F"><font size="2">(01:04:10 PM)</font> <b>nick_m:</b></font> n<br/>
+<font color="#A82F2F"><font size="2">(01:04:16 PM)</font> <b>nick_m:</b></font> aeLiXihr, type kill<br/>
+<font color="#A82F2F"><font size="2">(01:04:19 PM)</font> <b>nick_m:</b></font> then y<br/>
+<font color="#A82F2F"><font size="2">(01:04:23 PM)</font> <b>nick_m:</b></font>  then quit<br/>
+<font color="#A82F2F"><font size="2">(01:05:01 PM)</font> <b>aeLiXihr:</b></font> kill Please answer y or n. A debugging session is active.          Inferior 1 [process 2578] will be killed.  Quit anyway? (y or n)<br/>
+<font color="#A82F2F"><font size="2">(01:05:12 PM)</font> <b>nick_m:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(01:05:14 PM)</font> <b>nick_m:</b></font> y<br/>
+<font color="#A82F2F"><font size="2">(01:05:17 PM)</font> <b>nick_m:</b></font> whatever<br/>
+<font color="#A82F2F"><font size="2">(01:06:11 PM)</font> <b>aeLiXihr:</b></font> y onno@aeLiXihr:~$ <br/>
+<font color="#A82F2F"><font size="2">(01:06:41 PM)</font> <b>nick_m:</b></font> good. now hit the up arrow to get your last command back<br/>
+<font color="#A82F2F"><font size="2">(01:07:00 PM)</font> <b>nick_m:</b></font> which should be &quot;gdb /opt/whatever&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:07:17 PM)</font> <b>nick_m:</b></font> aeLiXihr, or type it again if you like<br/>
+<font color="#A82F2F"><font size="2">(01:08:08 PM)</font> <b>aeLiXihr:</b></font> did i fall off the chat?<br/>
+<font color="#A82F2F"><font size="2">(01:08:14 PM)</font> <b>aeLiXihr:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(01:08:17 PM)</font> <b>nick_m:</b></font> aeLiXihr, no<br/>
+<font color="#A82F2F"><font size="2">(01:08:43 PM)</font> <b>aeLiXihr:</b></font> hmm funny<br/>
+<font color="#A82F2F"><font size="2">(01:08:51 PM)</font> <b>aeLiXihr:</b></font> it would not paste <br/>
+<font color="#A82F2F"><font size="2">(01:09:59 PM)</font> <b>aeLiXihr:</b></font> http://pastebin.com/Ya0pguTA<br/>
+<font color="#A82F2F"><font size="2">(01:10:35 PM)</font> <b>aeLiXihr:</b></font> so ardour should be up again, right?<br/>
+<font color="#A82F2F"><font size="2">(01:12:58 PM)</font> <b>aeLiXihr:</b></font> nick_m: it is not, ti. i do not see it<br/>
+<font color="#A82F2F"><font size="2">(01:13:24 PM)</font> <b>nick_m:</b></font> aeLiXihr, you have to type run<br/>
+<font color="#A82F2F"><font size="2">(01:13:39 PM)</font> <b>nick_m:</b></font> aeLiXihr, it is there, but very short<br/>
+<font color="#A82F2F"><font size="2">(01:14:31 PM)</font> <b>aeLiXihr:</b></font> oh sorry, yes i forgot<br/>
+<font color="#A82F2F"><font size="2">(01:15:17 PM)</font> <b>aeLiXihr:</b></font> i get a ¨configure ardour¨ popup<br/>
+<font color="#A82F2F"><font size="2">(01:15:56 PM)</font> <b>nick_m:</b></font> aeLiXihr, yes. because of the ~/.config/ardour3 not being there.<br/>
+<font color="#A82F2F"><font size="2">(01:16:06 PM)</font> <b>aeLiXihr:</b></font> yes i see<br/>
+<font color="#A82F2F"><font size="2">(01:16:13 PM)</font> <b>aeLiXihr:</b></font> but i forgot<br/>
+<font color="#A82F2F"><font size="2">(01:16:13 PM)</font> <b>nick_m:</b></font> aeLiXihr, this is where it makes a new config enrty<br/>
+<font color="#A82F2F"><font size="2">(01:16:37 PM)</font> <b>aeLiXihr:</b></font> where i used to store sessions<br/>
+<font color="#A82F2F"><font size="2">(01:19:21 PM)</font> <b>nick_m:</b></font> aeLiXihr, maybe you can search for the name in your file browser? otherwise open a new terminal and type &quot;find ~/ -iname NAME_OF_SESSION*&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:19:21 PM)</font> <b>aeLiXihr:</b></font> okay i just opened a test session<br/>
+<font color="#A82F2F"><font size="2">(01:19:25 PM)</font> <b>aeLiXihr:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(01:19:39 PM)</font> <b>aeLiXihr:</b></font> ill close it again<br/>
+<font color="#A82F2F"><font size="2">(01:24:32 PM)</font> <b>aeLiXihr:</b></font> i tries opening the session: ¨did not load succesfully¨ http://pastebin.com/9D56Dn8p<br/>
+<font color="#A82F2F"><font size="2">(01:28:01 PM)</font> <b>nick_m:</b></font> aeLiXihr, so you got a dialog saying the session did not load successfully?<br/>
+<font color="#A82F2F"><font size="2">(01:30:29 PM)</font> <b>nick_m:</b></font> aeLiXihr, if so, that usually means something is corrupted in the session file.<br/>
+<font color="#A82F2F"><font size="2">(01:31:09 PM)</font> <b>aeLiXihr:</b></font> eh jes, that is what it was all about<br/>
+<font color="#A82F2F"><font size="2">(01:31:29 PM)</font> <b>nick_m:</b></font> aeLiXihr, you could try copying the SESSION_NAME.ardour.bak file to SESSION_NAME_recovery.ardour and seeing if that loads<br/>
+<font color="#A82F2F"><font size="2">(01:31:29 PM)</font> <b>aeLiXihr:</b></font> sorry if i was not clear<br/>
+<font color="#A82F2F"><font size="2">(01:31:55 PM)</font> <b>nick_m:</b></font> aeLiXihr, i thought you were getting a crash.<br/>
+<font color="#A82F2F"><font size="2">(01:32:00 PM)</font> <b>nick_m:</b></font> aeLiXihr, never mind<br/>
+<font color="#A82F2F"><font size="2">(01:32:11 PM)</font> <b>nick_m:</b></font> kill in gdb and quit<br/>
+<font color="#A82F2F"><font size="2">(01:32:47 PM)</font> <b>nick_m:</b></font> aeLiXihr, or send me the file - mainsbridge at gmail dot com<br/>
+<font color="#A82F2F"><font size="2">(01:33:09 PM)</font> <b>aeLiXihr:</b></font> you mean the session file?<br/>
+<font color="#A82F2F"><font size="2">(01:33:27 PM)</font> <b>nick_m:</b></font> aeLiXihr, yes. the file that ends in .ardour<br/>
+<font color="#A82F2F"><font size="2">(01:33:35 PM)</font> <b>aeLiXihr:</b></font> okay<br/>
+<font color="#A82F2F"><font size="2">(01:33:39 PM)</font> <b>nick_m:</b></font> inside the session folder<br/>
+<font color="#A82F2F"><font size="2">(01:36:04 PM)</font> <b>aeLiXihr:</b></font> it should be there soon<br/>
+<font color="#A82F2F"><font size="2">(01:36:14 PM)</font> <b>aeLiXihr:</b></font> thank you!<br/>
+<font color="#A82F2F"><font size="2">(01:39:26 PM)</font> <b>aeLiXihr:</b></font> nick_m: let me know if you did not receive it<br/>
+<font color="#A82F2F"><font size="2">(01:39:37 PM)</font> <b>nick_m:</b></font> aeLiXihr, looking at it now<br/>
+<font color="#A82F2F"><font size="2">(01:43:10 PM)</font> <b>nick_m:</b></font> aeLiXihr, interesting. hang on.<br/>
+<font color="#A82F2F"><font size="2">(01:45:59 PM)</font> <b>nick_m:</b></font> aeLiXihr, it loads ok here .. but i&apos;m running latest git<br/>
+<font color="#A82F2F"><font size="2">(01:46:27 PM)</font> <b>nick_m:</b></font> aeLiXihr, the only thing left to check is the instant.xml file in the session folder<br/>
+<font color="#A82F2F"><font size="2">(01:49:50 PM)</font> <b>nick_m:</b></font> aeLiXihr, yould you send me that as well?<br/>
+<font color="#A82F2F"><font size="2">(01:49:53 PM)</font> <b>aeLiXihr:</b></font> you ve got it<br/>
+<font color="#A82F2F"><font size="2">(01:50:14 PM)</font> <b>aeLiXihr:</b></font> :) just crossed<br/>
+<font color="#A82F2F"><font size="2">(01:54:02 PM)</font> <b>nick_m:</b></font> aeLiXihr, ok so it works for me. hmm.<br/>
+<font color="#A82F2F"><font size="2">(01:54:59 PM)</font> <b>nick_m:</b></font> wait. you have a track there called &quot;monitor&quot;. how did you do that?<br/>
+<font color="#A82F2F"><font size="2">(01:57:55 PM)</font> <b>aeLiXihr:</b></font> i do not know<br/>
+<font color="#A82F2F"><font size="2">(01:58:05 PM)</font> <b>aeLiXihr:</b></font> i think it was just there<br/>
+<font color="#A82F2F"><font size="2">(01:58:35 PM)</font> <b>aeLiXihr:</b></font> on the ¨default¨ when i created the session<br/>
+<font color="#A82F2F"><font size="2">(01:58:37 PM)</font> <b>nick_m:</b></font> aeLiXihr, put the file i just sent you into the session folder and load it<br/>
+<font color="#A82F2F"><font size="2">(02:00:28 PM)</font> <b>aeLiXihr:</b></font> nick_m: i downloaded the file into the sessionfolder<br/>
+<font color="#A82F2F"><font size="2">(02:00:46 PM)</font> <b>aeLiXihr:</b></font> should i doubleclik it or change the name first<br/>
+<font color="#A82F2F"><font size="2">(02:01:16 PM)</font> <b>nick_m:</b></font> aeLiXihr, no you should be able to see it in the session browser<br/>
+<font color="#A82F2F"><font size="2">(02:01:25 PM)</font> <b>aeLiXihr:</b></font> eh<br/>
+<font color="#A82F2F"><font size="2">(02:01:32 PM)</font> <b>nick_m:</b></font> aeLiXihr, no need to change the name<br/>
+<font color="#A82F2F"><font size="2">(02:01:37 PM)</font> <b>aeLiXihr:</b></font> what is that please<br/>
+<font color="#A82F2F"><font size="2">(02:02:24 PM)</font> <b>nick_m:</b></font> aeLiXihr, nothing -- never mind :) just do what you normally do to open an ardour file<br/>
+<font color="#A82F2F"><font size="2">(02:03:33 PM)</font> <b>aeLiXihr:</b></font> it works: it looks like my session<br/>
+<font color="#A82F2F"><font size="2">(02:03:43 PM)</font> <b>aeLiXihr:</b></font> so you repaired somethings?<br/>
+<font color="#A82F2F"><font size="2">(02:03:57 PM)</font> <b>nick_m:</b></font> aeLiXihr, i removed the monitor buss from your session<br/>
+<font color="#A82F2F"><font size="2">(02:04:02 PM)</font> <b>aeLiXihr:</b></font> (i just doubleclicked it)<br/>
+<font color="#A82F2F"><font size="2">(02:04:15 PM)</font> <b>aeLiXihr:</b></font> okay<br/>
+<font color="#A82F2F"><font size="2">(02:04:20 PM)</font> <b>nick_m:</b></font> aeLiXihr, that should not be there at all<br/>
+<font color="#A82F2F"><font size="2">(02:04:31 PM)</font> <b>aeLiXihr:</b></font> i do not need that?<br/>
+<font color="#A82F2F"><font size="2">(02:04:39 PM)</font> <b>aeLiXihr:</b></font> ohw<br/>
+<font color="#A82F2F"><font size="2">(02:04:43 PM)</font> <b>aeLiXihr:</b></font> funny<br/>
+<font color="#A82F2F"><font size="2">(02:04:55 PM)</font> <b>aeLiXihr:</b></font> iirc it was always theer<br/>
+<font color="#A82F2F"><font size="2">(02:04:59 PM)</font> <b>aeLiXihr:</b></font> there<br/>
+<font color="#A82F2F"><font size="2">(02:05:10 PM)</font> <b>nick_m:</b></font> aeLiXihr, you can have a monitor section if you like, but it appears as a volume knob and some other stuff in the mixer window<br/>
+<font color="#A82F2F"><font size="2">(02:05:32 PM)</font> <b>nick_m:</b></font> aeLiXihr, can you remember what version of ardour you started with?<br/>
+<font color="#A82F2F"><font size="2">(02:07:51 PM)</font> <b>aeLiXihr:</b></font> nick_m: well never mind, if i need a monitor bus i may add it later. Yes i started with ardour 2 but i do not remember wich version<br/>
+<font color="#A82F2F"><font size="2">(02:11:07 PM)</font> <b>nick_m:</b></font> aeLiXihr, maybe you loaded that session using the nightly builds and the went back to your old version of ardour?<br/>
+<font color="#A82F2F"><font size="2">(02:13:07 PM)</font> <b>aeLiXihr:</b></font> i do not remember, i do have a -2000.ardour file which i have been needing iirc<br/>
+<font color="#A82F2F"><font size="2">(02:13:25 PM)</font> <b>aeLiXihr:</b></font> probably ot was that<br/>
+<font color="#A82F2F"><font size="2">(02:13:50 PM)</font> <b>aeLiXihr:</b></font> i will now trow away my old file and rename yours<br/>
+<font color="#A82F2F"><font size="2">(02:14:04 PM)</font> <b>aeLiXihr:</b></font> i guess i am all set than<br/>
+<font color="#A82F2F"><font size="2">(02:14:10 PM)</font> <b>aeLiXihr:</b></font> thanks a heap!<br/>
+<font color="#A82F2F"><font size="2">(02:14:17 PM)</font> <b>aeLiXihr:</b></font> that was very kind!<br/>
+<font color="#A82F2F"><font size="2">(02:15:33 PM)</font> <b>aeLiXihr:</b></font> nick_m: would you know if there will be a possibility to subcribe(again) without paypal?<br/>
+<font color="#A82F2F"><font size="2">(02:16:16 PM)</font> <b>nick_m:</b></font> aeLiXihr, i have no idea.<br/>
+<font size="2">(02:35:17 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,90 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Wed 15 Apr 2015 09:07:40 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Wed 15 Apr 2015 09:07:40 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(09:07:40 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(09:07:40 PM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font size="2">(09:28:00 PM)</font><b> mode (+l 1678) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:33:32 PM)</font> <b>anddam:</b></font> how can just copying the iso image at 4.3.1 possibly work? https://www.debian.org/releases/stable/i386/ch04s03.html.en<br/>
+<font color="#A82F2F"><font size="2">(09:33:59 PM)</font> <b>anddam:</b></font> is there need for special support from the firmware?<br/>
+<font color="#A82F2F"><font size="2">(09:34:35 PM)</font> <b>anddam:</b></font> also on a 4GB Celeron system should I go with i386 image or amd64?<br/>
+<font color="#A82F2F"><font size="2">(09:36:42 PM)</font> <b>SynrG:</b></font> Which precise Celeron model?<br/>
+<font color="#A82F2F"><font size="2">(09:37:16 PM)</font> <b>SynrG:</b></font> Is it a 64 bit Celeron? If so, yes, use amd64<br/>
+<font color="#A82F2F"><font size="2">(09:37:34 PM)</font> <b>SynrG:</b></font> If an old 32 bit, use i386<br/>
+<font color="#A82F2F"><font size="2">(09:38:00 PM)</font> <b>anddam:</b></font> N2820<br/>
+<font color="#A82F2F"><font size="2">(09:38:09 PM)</font> <b>anddam:</b></font> it&apos;s the Intel NUC thingy<br/>
+<font color="#A82F2F"><font size="2">(09:38:25 PM)</font> <b>anddam:</b></font> I&apos;ll check that<br/>
+<font color="#A82F2F"><font size="2">(09:38:30 PM)</font> <b>anddam:</b></font> what about the booting process?<br/>
+<font color="#A82F2F"><font size="2">(09:39:03 PM)</font> <b>anddam:</b></font> http://ark.intel.com/products/79052/Intel-Celeron-Processor-N2820-1M-Cache-up-to-2_39-GHz says 64 bit ISA<br/>
+<font color="#A82F2F"><font size="2">(09:39:40 PM)</font> <b>anddam:</b></font> I&apos;m a bit confused about the install process, I have been installing VM only for a few years, now I need to build an actual USB stick<br/>
+<font color="#A82F2F"><font size="2">(09:40:44 PM)</font> <b>SynrG:</b></font> Build? It&apos;s a simple copy to the device node<br/>
+<font color="#A82F2F"><font size="2">(09:41:05 PM)</font> <b>SynrG:</b></font> It&apos;s a hybrid iso. Works directly<br/>
+<font color="#A82F2F"><font size="2">(09:41:22 PM)</font> <b>SynrG:</b></font> !usb install<br/>
+<font color="#A82F2F"><font size="2">(09:41:22 PM)</font> <b>dpkg:</b></font> You can install Debian from a USB stick/thumbdrive/pen drive/key on x86 systems, as long as your system&apos;s BIOS can boot from USB.  Details are in the Installation Guide, see http://www.debian.org/releases/stable/amd64/ch04s03 and ask me about &lt;install debian&gt; for hybrid CD/DVD images.  Use http://sf.net/projects/win32diskimager/ to write images from Windows.  For BIOSes not capable of USB boot, ask me about &lt;plop&gt;.<br/>
+<font color="#A82F2F"><font size="2">(09:41:48 PM)</font> <b>anddam:</b></font> I don&apos;t get how the simple cp operation would allow the USB to be bootable<br/>
+<font color="#A82F2F"><font size="2">(09:41:52 PM)</font> <b>anddam:</b></font> is there special support nowadays?<br/>
+<font color="#A82F2F"><font size="2">(09:42:21 PM)</font> <b>anddam:</b></font> I&apos;m reading the install guide, chapter 4 specifically<br/>
+<font color="#A82F2F"><font size="2">(09:42:47 PM)</font> <b>SynrG:</b></font> It&apos;s magic<br/>
+<font color="#A82F2F"><font size="2">(09:42:47 PM)</font> <b>dondelelcaro:</b></font> anddam: cp to a block device just writes directly to the block device<br/>
+<font color="#A82F2F"><font size="2">(09:43:03 PM)</font> <b>SynrG:</b></font> It works because it includes a valid boot sector<br/>
+<font color="#A82F2F"><font size="2">(09:43:04 PM)</font> <b>anddam:</b></font> oh, right, missed that /dev/sdX bit<br/>
+<font color="#A82F2F"><font size="2">(09:43:11 PM)</font> <b>SynrG:</b></font> Yep<br/>
+<font color="#A82F2F"><font size="2">(09:43:13 PM)</font> <b>anddam:</b></font> ok makes totally sense<br/>
+<font color="#A82F2F"><font size="2">(09:43:37 PM)</font> <b>anddam:</b></font> so a CD image<br/>
+<font color="#A82F2F"><font size="2">(09:43:44 PM)</font> <b>anddam:</b></font> should I go testing now?<br/>
+<font color="#A82F2F"><font size="2">(09:44:23 PM)</font> <b>anddam:</b></font> IIRC &quot;the Jessie is coming&quot; (tm)<br/>
+<font color="#A82F2F"><font size="2">(09:45:10 PM)</font> <b>SynrG:</b></font> Personally i would. But i need to give the obligatory risks lecture<br/>
+<font color="#A82F2F"><font size="2">(09:45:10 PM)</font> <b>SynrG:</b></font> !testing<br/>
+<font color="#A82F2F"><font size="2">(09:45:10 PM)</font> <b>dpkg:</b></font> Testing is a continuously updated release between &lt;stable&gt; and &lt;unstable&gt;, currently codenamed &lt;jessie&gt;.  See http://wiki.debian.org/DebianTesting and ask me about &lt;testing faq&gt; &lt;wheezy-&gt;jessie&gt; &lt;testing security&gt; &lt;moving target&gt; &lt;dda&gt; &lt;apt-listchanges&gt; &lt;apt-listbugs&gt; and &lt;bts&gt;.  You should have a sound knowledge of Debian packaging and be prepared for a bumpy ride at times.  Don&apos;t use it on things that are critical or on servers.<br/>
+<font color="#A82F2F"><font size="2">(09:45:10 PM)</font> <b>SynrG:</b></font> Lower risk this close to release though<br/>
+<font color="#A82F2F"><font size="2">(09:45:40 PM)</font> <b>anddam:</b></font> it&apos;s a small home system<br/>
+<font color="#A82F2F"><font size="2">(09:45:53 PM)</font> <b>SynrG:</b></font> Probably OK then<br/>
+<font color="#A82F2F"><font size="2">(09:45:58 PM)</font> <b>anddam:</b></font> nothing critical about the risk, if something goes wrong I&apos;ll just wipe<br/>
+<font color="#A82F2F"><font size="2">(09:46:21 PM)</font> <b>anddam:</b></font> mm what else? I haven&apos;t installed a DE in a while, I remember one of the two small was moving from GTK to Qt<br/>
+<font color="#A82F2F"><font size="2">(09:46:26 PM)</font> <b>anddam:</b></font> let me check<br/>
+<font color="#A82F2F"><font size="2">(09:46:34 PM)</font> <b>anddam:</b></font> LXDE<br/>
+<font color="#A82F2F"><font size="2">(09:46:44 PM)</font> <b>SynrG:</b></font> Lxqt not ready yet<br/>
+<font color="#A82F2F"><font size="2">(09:46:52 PM)</font> <b>anddam:</b></font> ok that I wanted to know<br/>
+<font color="#A82F2F"><font size="2">(09:46:55 PM)</font> <b>SynrG:</b></font> Or whatever they call it<br/>
+<font color="#A82F2F"><font size="2">(09:47:04 PM)</font> <b>anddam:</b></font> I LXQt<br/>
+<font color="#A82F2F"><font size="2">(09:47:16 PM)</font> <b>anddam:</b></font> I don&apos;t have a bias between the two, any hint?<br/>
+<font color="#A82F2F"><font size="2">(09:47:19 PM)</font> <b>SynrG:</b></font> But that&apos;s my preferred light desktop<br/>
+<font color="#A82F2F"><font size="2">(09:47:39 PM)</font> <b>anddam:</b></font> oh this is fun, haven&apos;t done the DE dance in years :-)<br/>
+<font color="#A82F2F"><font size="2">(09:47:52 PM)</font> <b>SynrG:</b></font> Well, Debian doesn&apos;t have lxqt so the point is moot<br/>
+<font color="#A82F2F"><font size="2">(09:47:59 PM)</font> <b>anddam:</b></font> but it will, eventually<br/>
+<font color="#A82F2F"><font size="2">(09:49:02 PM)</font> <b>anddam:</b></font> does deb have this &quot;MATE&quot; DE?<br/>
+<font color="#A82F2F"><font size="2">(09:49:18 PM)</font> <b>anddam:</b></font> nvm, should have checked https://wiki.debian.org/Mate<br/>
+<font size="2">(09:54:52 PM)</font><b> Vendetta is now known as Guest15330</b><br/>
+<font size="2">(10:00:15 PM)</font><b> mode (+l 1672) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:00:15 PM)</font> <b>anddam:</b></font> debian-cd has only stable, right?<br/>
+<font color="#A82F2F"><font size="2">(10:00:16 PM)</font> <b>anddam:</b></font> i.e. I couldn&apos;t find a mirror for testing images<br/>
+<font color="#A82F2F"><font size="2">(10:00:16 PM)</font> <b>rainfyre:</b></font> you can download a current testing snapshot<br/>
+<font color="#A82F2F"><font size="2">(10:00:16 PM)</font> <b>ompaul:</b></font> anddam: the official way to install testing is install stable and dist-upgrade<br/>
+<font color="#A82F2F"><font size="2">(10:00:16 PM)</font> <b>ompaul:</b></font> there are testing images<br/>
+<font size="2">(10:00:16 PM)</font><b> AlphaTech is now known as zz_AlphaTech</b><br/>
+<font color="#A82F2F"><font size="2">(10:00:16 PM)</font> <b>ompaul:</b></font> you will find them on the debian site<br/>
+<font color="#A82F2F"><font size="2">(10:00:16 PM)</font> <b>anddam:</b></font> ompaul: yes, but I couldn&apos;t find in mirror<br/>
+<font color="#A82F2F"><font size="2">(10:00:16 PM)</font> <b>pangolinrollin:</b></font> is there not a stable html editor in jessie repos?!<br/>
+<font color="#A82F2F"><font size="2">(10:00:16 PM)</font> <b>rainfyre:</b></font> but better to download and install a minimal stable image and upgrade<br/>
+<font color="#A82F2F"><font size="2">(10:00:16 PM)</font> <b>pangolinrollin:</b></font> tried kompozer, bluefish etc..<br/>
+<font color="#A82F2F"><font size="2">(10:00:25 PM)</font> <b>anddam:</b></font> ompaul: I was trying to reduce the load on debian&apos;s, I&apos;ll use a stable mirror<br/>
+<font color="#A82F2F"><font size="2">(10:01:09 PM)</font> <b>pangolinrollin:</b></font> ^ ahh nvmd bluefish appears to work<br/>
+<font color="#A82F2F"><font size="2">(10:01:20 PM)</font> <b>pangolinrollin:</b></font> just not kompozer fy<br/>
+<font color="#A82F2F"><font size="2">(10:02:29 PM)</font> <b>SynrG:</b></font> of course, this close to the jessie release, you can provide valuable feedback to the debian-boot team if you try the jessie installer release candidate<br/>
+<font color="#A82F2F"><font size="2">(10:03:31 PM)</font> <b>SynrG:</b></font> https://www.debian.org/devel/debian-installer/<br/>
+<font color="#A82F2F"><font size="2">(10:03:33 PM)</font> <b>anddam:</b></font> SynrG: like https://www.debian.org/devel/debian-installer/News/2015/20150327?<br/>
+<font color="#A82F2F"><font size="2">(10:03:38 PM)</font> <b>anddam:</b></font> without the trailing ?<br/>
+<font size="2">(10:03:43 PM)</font><b> Guest15330 is now known as |meta|</b><br/>
+<font color="#A82F2F"><font size="2">(10:03:49 PM)</font> <b>anddam:</b></font> (that HTTP will gladly swallow tho&apos;)<br/>
+<font color="#A82F2F"><font size="2">(10:04:13 PM)</font> <b>SynrG:</b></font> RC2 hopefully has most of the kinks worked out<br/>
+<font size="2">(10:04:14 PM)</font><b> |meta| is now known as Guest99845</b><br/>
+<font color="#A82F2F"><font size="2">(10:04:36 PM)</font> <b>SynrG:</b></font> also note: &quot;After using the Debian-Installer, please send us an installation report, even if there weren&apos;t any problems.&quot;<br/>
+<font color="#A82F2F"><font size="2">(10:05:03 PM)</font> <b>SynrG:</b></font> ,v installation-report<br/>
+<font color="#A82F2F"><font size="2">(10:05:04 PM)</font> <b>judd:</b></font> Package: installation-report on i386 -- squeeze: 2.44; wheezy: 2.49; jessie: 2.58; sid: 2.58<br/>
+<font color="#A82F2F"><font size="2">(10:05:13 PM)</font> <b>anddam:</b></font> also why is there &quot;other images (netboot, USB stick, etc.)&quot; with specific reference to USB stick if you said installing from USB just uses the hybrid iso?<br/>
+<font color="#A82F2F"><font size="2">(10:05:24 PM)</font> <b>anddam:</b></font> at https://www.debian.org/devel/debian-installer/<br/>
+<font color="#A82F2F"><font size="2">(10:05:40 PM)</font> <b>SynrG:</b></font> anddam: in rare corner cases, BIOS can&apos;t handle hybrid<br/>
+<font color="#A82F2F"><font size="2">(10:05:59 PM)</font> <b>SynrG:</b></font> or due to other special needs (e.g. existing USB stick, don&apos;t want to overwrite contents) you might need to do it the &apos;hard way&apos;<br/>
+<font color="#A82F2F"><font size="2">(10:06:52 PM)</font> <b>SynrG:</b></font> that&apos;s what &apos;hd-media&apos; is for<br/>
+<font color="#A82F2F"><font size="2">(10:07:13 PM)</font> <b>SynrG:</b></font> it&apos;s perhaps misleading to call that &quot;USB stick&quot; now<br/>
+<font size="2">(10:07:17 PM)</font><b> mode (+o eir) by ChanServ</b><br/>
+<font size="2">(10:07:18 PM)</font><b> mode (-bo *!*@85-76-178-116-nat.elisa-mobile.fi eir) by eir</b><br/>
+<font size="2">(10:10:08 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

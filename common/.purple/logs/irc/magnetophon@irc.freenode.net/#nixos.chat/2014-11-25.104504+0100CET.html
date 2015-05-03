@@ -1,0 +1,47 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Tue 25 Nov 2014 10:45:04 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Tue 25 Nov 2014 10:45:04 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:45:05 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(10:45:05 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(10:45:29 AM)</font><b> hexagoxel left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#16569E"><font size="2">(10:50:58 AM)</font> <b>magnetophon:</b></font> goibhniu, henrytill, MichaelRaskin: Could someone have a look:   https://github.com/magnetophon/nixpkgs/tree/faustFull    At runtime it looks for some/lib/faust/alsa-gtk.cpp  but doesn't find it. During install I put the .cpp's in both the faust and the faust-compiler lib dirs. I'm stumped...  <br/>
+<font size="2">(10:51:14 AM)</font><b> third3ye left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(10:52:04 AM)</font><b> Lowl3v3l [<em>~Lowl3v3l@2a02:810a:8380:92c:a1b3:73ff:e3b1:cfb6</em>] entered the room.</b><br/>
+<font size="2">(10:53:22 AM)</font><b> MP2E left the room (quit: Quit: leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(10:53:27 AM)</font> <b>goibhniu:</b></font> hi magnetophon, what script are you running?<br/>
+<font color="#16569E"><font size="2">(10:53:49 AM)</font> <b>magnetophon:</b></font> goibhniu: hi.   faust2alsa<br/>
+<font color="#A82F2F"><font size="2">(10:54:21 AM)</font> <b>goibhniu:</b></font> magnetophon: hmm, but that was working in my version<br/>
+<font size="2">(10:54:59 AM)</font><b> MP2E [<em>~cray@ip70-170-88-148.lv.lv.cox.net</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(10:55:08 AM)</font> <b>magnetophon:</b></font> goibhniu: yeah, I know. I f***ed up somewhere along the line :-/<br/>
+<font size="2">(10:56:21 AM)</font><b> MP2E left the room (quit: Client Quit).</b><br/>
+<font color="#16569E"><font size="2">(10:56:49 AM)</font> <b>magnetophon:</b></font> goibhniu: It probably has something to do with the changed installer for faust-compiler.<br/>
+<font size="2">(10:58:01 AM)</font><b> doublec left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(10:58:48 AM)</font><b> doublec [<em>~doublec@gateway/tor-sasl/doublec</em>] entered the room.</b><br/>
+<font size="2">(10:59:12 AM)</font><b> MP2E [<em>~cray@ip70-170-88-148.lv.lv.cox.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:00:25 AM)</font> <b>goibhniu:</b></font> magnetophon: you&apos;ve changed quite a lot, I don&apos;t think the postInstall phase will do anything<br/>
+<font color="#062585"><font size="2">(11:01:14 AM)</font> <b>***goibhniu</b></font> wonders what gets deleted by sed in the patchphase<br/>
+<font size="2">(11:01:22 AM)</font><b> solatis [<em>~lmergen@36.37.156.183</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:01:41 AM)</font> <b>goibhniu:</b></font> magnetophon: you decided to not separate the compiler from the wrappers?<br/>
+<font color="#16569E"><font size="2">(11:01:59 AM)</font> <b>magnetophon:</b></font> goibhniu: nope, still seperated<br/>
+<font color="#A82F2F"><font size="2">(11:02:09 AM)</font> <b>goibhniu:</b></font> ah, you do, but you still compile it here?<br/>
+<font size="2">(11:02:37 AM)</font><b> scounder [<em>~scounder@phroa.lost.the.game.rikairchy.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:03:08 AM)</font> <b>goibhniu:</b></font> magnetophon: you can save some time by only listing the phases that you need<br/>
+<font size="2">(11:03:35 AM)</font><b> divyansh_ [<em>~divyanshu@182.72.122.6</em>] entered the room.</b><br/>
+<font size="2">(11:03:49 AM)</font><b> hyper_ch [<em>~hyper_ch@ns99.roleplayer.org</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(11:04:28 AM)</font> <b>magnetophon:</b></font> goibhniu: I think I took the compilation of the compiler out of the makefile.  (the sed 16d,71d and 74d)<br/>
+<font color="#A82F2F"><font size="2">(11:05:08 AM)</font> <b>divyansh_:</b></font> Hi I am installing yesod using nix package manager. I am getting error : #include &lt;sys/_types/_int8_t.h&gt; no file found.<br/>
+<font color="#A82F2F"><font size="2">(11:05:23 AM)</font> <b>goibhniu:</b></font> magnetophon: ah, ok<br/>
+<font color="#A82F2F"><font size="2">(11:05:45 AM)</font> <b>goibhniu:</b></font> magnetophon: anyway, I think the postInstallPhase is the problem<br/>
+<font color="#A82F2F"><font size="2">(11:05:51 AM)</font> <b>divyansh_:</b></font>  OS X 10.9.4 / nix-env (Nix) 1.7<br/>
+<font color="#16569E"><font size="2">(11:07:31 AM)</font> <b>magnetophon:</b></font> goibhniu: but it's not complaining about missing .h's nor about missing gcc or faust. That is what the postinstall does, right?<br/>
+<font color="#A82F2F"><font size="2">(11:07:41 AM)</font> <b>divyansh_:</b></font> Any ideas what might be problem ?<br/>
+<font color="#A82F2F"><font size="2">(11:08:46 AM)</font> <b>goibhniu:</b></font> magnetophon: have a look at the files that  `find $out/bin/ -name &quot;faust2*&quot;` finds in postInstall<br/>
+<font color="#A82F2F"><font size="2">(11:09:09 AM)</font> <b>goibhniu:</b></font> magnetophon: I think they will just be the wrappers<br/>
+<font color="#A82F2F"><font size="2">(11:09:49 AM)</font> <b>goibhniu:</b></font> magnetophon: maybe you have g++ and pkg-config installed in your user profile too?<br/>
+<font size="2">(11:10:06 AM)</font><b> modulistic [<em>~modulisti@unaffiliated/modulistic</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(11:10:43 AM)</font> <b>magnetophon:</b></font> goibhniu: yes. I'll remove those (g++ and pkg-config)<br/>
+<font color="#16569E"><font size="2">(11:11:12 AM)</font> <b>magnetophon:</b></font> goibhniu: Right, so I should do the sed stuff before the wrappers are created.<br/>
+<font color="#A82F2F"><font size="2">(11:11:24 AM)</font> <b>goibhniu:</b></font> magnetophon: if you enable chroot builds in your nix config (highly recommended!), it will show you problems like this<br/>
+<font color="#A82F2F"><font size="2">(11:11:32 AM)</font> <b>goibhniu:</b></font> magnetophon: yep<br/>
+<font color="#16569E"><font size="2">(11:12:11 AM)</font> <b>magnetophon:</b></font> goibhniu: OK, thanks! I'll try that and report back.<br/>
+<font size="2">(11:13:58 AM)</font><b> komarov [<em>~komarov@37.150.160.222</em>] entered the room.</b><br/>
+<font size="2">(11:34:08 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

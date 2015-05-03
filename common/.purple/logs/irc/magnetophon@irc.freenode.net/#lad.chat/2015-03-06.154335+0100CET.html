@@ -1,0 +1,45 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Fri 06 Mar 2015 03:43:35 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Fri 06 Mar 2015 03:43:35 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(03:43:35 PM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font size="2">(03:43:36 PM)</font><b> Topic for #lad set by tapas!~tapas@static.231.2.63.178.clients.your-server.de at 10:37:26 AM on 05/13/2013</b><br/>
+<font size="2">(06:59:58 PM)</font><b> EvanR_ is now known as EvanR</b><br/>
+<font color="#A82F2F"><font size="2">(07:09:26 PM)</font> <b>Gyro:</b></font> Hi. Are volume problems in the latest regular release of ZynAddSubFX a known problem or specific to me?<br/>
+<font color="#A82F2F"><font size="2">(07:10:11 PM)</font> <b>fundamental_:</b></font> Gyro: can you be a bit more specific?<br/>
+<font color="#A82F2F"><font size="2">(07:10:19 PM)</font> <b>Gyro:</b></font> Part volume (knob in GUI), Midi volume controller and Midi controller 11 (expression) seem not to be additive but independent of each other...?<br/>
+<font color="#A82F2F"><font size="2">(07:11:13 PM)</font> <b>Gyro:</b></font> In particular, although I set midi volume in the tracks, after a restart of the system the volumes of ZASFX parts sometimes seem to differ.<br/>
+<font color="#A82F2F"><font size="2">(07:11:15 PM)</font> <b>fundamental_:</b></font> I&apos;m reasonably sure that&apos;s how it has been structured in the past<br/>
+<font color="#A82F2F"><font size="2">(07:11:53 PM)</font> <b>Gyro:</b></font> Can also be expressed as: midi volume control not fully functional here.<br/>
+<font color="#A82F2F"><font size="2">(07:12:17 PM)</font> <b>fundamental_:</b></font> the state of the midi volume CC is not saved, so it will be at it&apos;s default level on restart<br/>
+<font color="#A82F2F"><font size="2">(07:12:40 PM)</font> <b>fundamental_:</b></font> any of the GUI controls should be saved<br/>
+<font color="#A82F2F"><font size="2">(07:12:43 PM)</font> <b>Gyro:</b></font> Yes, but the sequencer should resend Midi volume control upon playback start.<br/>
+<font color="#A82F2F"><font size="2">(07:14:00 PM)</font> <b>fundamental_:</b></font> Gyro: is this a general bug or is this specifically a 2.4.4-&gt;2.5.0 regression?<br/>
+<font color="#A82F2F"><font size="2">(07:14:18 PM)</font> <b>Gyro:</b></font> For instance, if I set the part volume knob in the ZASFX GUI to 127 the sound is pretty loud. If then send a midi volume 127 the sound gets instantly much softer.<br/>
+<font color="#A82F2F"><font size="2">(07:14:35 PM)</font> <b>fundamental_:</b></font> ah, that<br/>
+<font color="#A82F2F"><font size="2">(07:14:38 PM)</font> <b>Gyro:</b></font> fundamental: dunno, unfortunately. I think I&apos;m using a 2.4.x stikll.<br/>
+<font color="#A82F2F"><font size="2">(07:14:55 PM)</font> <b>Gyro:</b></font> The copyright notice unfortunately still says &quot;Copyright 2009 by...&quot;   ;-)<br/>
+<font color="#A82F2F"><font size="2">(07:14:59 PM)</font> <b>fundamental_:</b></font> yeah, someone mentioned this behavior a while back<br/>
+<font color="#A82F2F"><font size="2">(07:15:16 PM)</font> <b>Gyro:</b></font> Okay, so I take this as a known bug.<br/>
+<font color="#A82F2F"><font size="2">(07:15:17 PM)</font> <b>Gyro:</b></font> Thank you.<br/>
+<font color="#A82F2F"><font size="2">(07:15:31 PM)</font> <b>Gyro:</b></font> Known and reproducible by at least someone else.<br/>
+<font color="#A82F2F"><font size="2">(07:15:41 PM)</font> <b>fundamental_:</b></font> eh, not so much a bug as a weird behavior/feature<br/>
+<font color="#A82F2F"><font size="2">(07:15:49 PM)</font> <b>Gyro:</b></font> fundamental: how&apos;s about progress of ZASFX 3.0?   ;-)<br/>
+<font color="#A82F2F"><font size="2">(07:16:12 PM)</font> <b>fundamental_:</b></font> Gyro: I&apos;m hoping to have something mostly working in ~1 year<br/>
+<font color="#A82F2F"><font size="2">(07:16:16 PM)</font> <b>Gyro:</b></font> Weird behaviour: likely. Feature: no way  ;-)<br/>
+<font color="#A82F2F"><font size="2">(07:16:45 PM)</font> <b>fundamental_:</b></font> Gyro: well, the problem is that fixing it breaks existing recordings using that midi CC<br/>
+<font color="#A82F2F"><font size="2">(07:17:05 PM)</font> <b>Gyro:</b></font> I&apos;d guess all three sorts of controls should be additive (or multiplicative). Currently they not only seem independent of each other but also with totally different scales of volumes.<br/>
+<font color="#A82F2F"><font size="2">(07:17:06 PM)</font> <b>fundamental_:</b></font> I&apos;ll just throw it on as a fix for 3.0.0...<br/>
+<font color="#A82F2F"><font size="2">(07:17:31 PM)</font> <b>fundamental_:</b></font> Gyro: yeah, the solution to that is now most GUI controls can be MIDI learned<br/>
+<font color="#A82F2F"><font size="2">(07:17:37 PM)</font> <b>fundamental_:</b></font> so there isn&apos;t a separate parameter<br/>
+<font color="#A82F2F"><font size="2">(07:20:29 PM)</font> <b>fundamental_:</b></font> it sure does seem to take forever for some distros to get more recent versions of software<br/>
+<font color="#A82F2F"><font size="2">(07:20:29 PM)</font> <b>Gyro:</b></font> fundamental: thank you for your efforts, anyway.<br/>
+<font color="#A82F2F"><font size="2">(07:23:41 PM)</font> <b>Gyro:</b></font> fundamental_: you too, btw   :-)<br/>
+<font color="#A82F2F"><font size="2">(07:24:24 PM)</font> <b>fundamental_:</b></font> Gyro: thanks<br/>
+<font size="2">(10:20:35 PM)</font><b> D-HUND is now known as debdog</b><br/>
+<font color="#A82F2F"><font size="2">(12:08:04 AM)</font> <b>wrl:</b></font> https://software.intel.com/sites/landingpage/IntrinsicsGuide/<br/>
+<font color="#A82F2F"><font size="2">(12:08:06 AM)</font> <b>LAbot:</b></font> Title: Intel Intrinsics Guide (at software.intel.com)<br/>
+<font color="#A82F2F"><font size="2">(12:08:22 AM)</font> <b>wrl:</b></font> searchable reference of C mmx/sse etc intrinsics<br/>
+<font color="#A82F2F"><font size="2">(12:15:08 AM)</font> <b>fundamental:</b></font> wrl: nice find<br/>
+<font color="#A82F2F"><font size="2">(12:31:08 AM)</font> <b>nilsge:</b></font> all right, lets see what archlinux can do on a acer c720p chromebook<br/>
+<font color="#A82F2F"><font size="2">(12:31:26 AM)</font> <b>nilsge:</b></font> if I can find my usb stick..<br/>
+<font color="#A82F2F"><font size="2">(02:37:52 AM)</font> <b>andrewrk:</b></font> with portaudio, you can set the requestedLatency when you open a stream, but is there a way to get the actual latency?<br/>
+<font size="2">(06:14:53 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

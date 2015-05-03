@@ -1,0 +1,264 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Tue 10 Feb 2015 10:41:07 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Tue 10 Feb 2015 10:41:07 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:41:07 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(10:41:07 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#16569E"><font size="2">(10:41:32 PM)</font> <b>magnetophon:</b></font> goibhniu: ah, OK, the new one was still in my local env.  All is well now.  Thanks.<br/>
+<font color="#A82F2F"><font size="2">(10:41:52 PM)</font> <b>goibhniu:</b></font> magnetophon: ahh .. phew!<br/>
+<font color="#A82F2F"><font size="2">(10:42:28 PM)</font> <b>jramnani:</b></font> hello.  I think I may have found a small bug in the Nix installation script at, https://nixos.org/nix/install.<br/>
+<font color="#A82F2F"><font size="2">(10:42:46 PM)</font> <b>jramnani:</b></font> I&apos;m wondering where I can submit a patch for the install script?<br/>
+<font color="#A82F2F"><font size="2">(10:43:16 PM)</font> <b>goibhniu:</b></font> hi jramnani, a pull request on github would be best<br/>
+<font color="#A82F2F"><font size="2">(10:43:31 PM)</font> <b>jramnani:</b></font> cool.  which repo?<br/>
+<font color="#A82F2F"><font size="2">(10:44:17 PM)</font> <b>goibhniu:</b></font> https://github.com/nixos/nix/ I guess<br/>
+<font color="#A82F2F"><font size="2">(10:45:19 PM)</font> <b>jramnani:</b></font> gotcha. Thanks.  I looked at that repo briefly, and didn&apos;t find the install script in there, but I&apos;ll do some more speluniking to find it.<br/>
+<font color="#A82F2F"><font size="2">(10:45:48 PM)</font> <b>goibhniu:</b></font> ah ok, perhaps it&apos;s not there then<br/>
+<font color="#A82F2F"><font size="2">(10:46:36 PM)</font> <b>xplat:</b></font> can someone mark https://github.com/NixOS/nixpkgs/issues/6292 with the haskell tag?<br/>
+<font color="#A82F2F"><font size="2">(10:46:56 PM)</font> <b>jramnani:</b></font> goibhniu: I&apos;ll do some searching in that code base and report back.<br/>
+<font color="#A82F2F"><font size="2">(10:47:35 PM)</font> <b>goibhniu:</b></font> xplat: done<br/>
+<font color="#A82F2F"><font size="2">(10:48:01 PM)</font> <b>goibhniu:</b></font> jramnani: cool, otherwise you could try the mailing list<br/>
+<font color="#A82F2F"><font size="2">(10:49:21 PM)</font> <b>jramnani:</b></font> goibhniu: found it.  I think it&apos;s in &quot;scripts/install-nix-from-closure.sh&quot;.<br/>
+<font color="#A82F2F"><font size="2">(10:49:27 PM)</font> <b>xplat:</b></font> goibhniu: thanks<br/>
+<font color="#A82F2F"><font size="2">(10:49:50 PM)</font> <b>joelmo:</b></font> jramnani: whats the bug, I have used the script and found it was working<br/>
+<font color="#A82F2F"><font size="2">(10:51:21 PM)</font> <b>jramnani:</b></font> joelmo: I&apos;m on OS X 10, and found a bug while copying the nix pkgs from the tarball to the installation destination.<br/>
+<font color="#A82F2F"><font size="2">(10:51:37 PM)</font> <b>jramnani:</b></font> joelmo: er, OS X 10.10.2<br/>
+<font color="#A82F2F"><font size="2">(10:52:09 PM)</font> <b>jramnani:</b></font> joelmo: Turns out the &quot;cd&quot; command can print out the CWD if CDPATH is set.<br/>
+<font color="#A82F2F"><font size="2">(10:52:15 PM)</font> <b>joelmo:</b></font> jramnani: ah I see, I used it in linux<br/>
+<font color="#A82F2F"><font size="2">(10:52:16 PM)</font> <b>jramnani:</b></font> joelmo: This line was failing. https://github.com/NixOS/nix/blob/master/scripts/install-nix-from-closure.sh#L44<br/>
+<font color="#A82F2F"><font size="2">(10:52:36 PM)</font> <b>jramnani:</b></font> joelmo: If I redirect the output of &quot;cd&quot; to /dev/null it works.<br/>
+<font color="#A82F2F"><font size="2">(10:53:14 PM)</font> <b>jramnani:</b></font> gotta run, but it should be a simple pull request.  I&apos;ll hopefully have time today or early tomorrow.<br/>
+<font color="#A82F2F"><font size="2">(11:04:10 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edwtjo opened pull request #6293: fetchFromGitorious, evil-mode, helm (master...emacs-modes-and-fetcher) http://git.io/NIhv<br/>
+<font color="#A82F2F"><font size="2">(11:09:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cillianderoiste pushed 2 new commits to master: http://git.io/NLeP<br/>
+<font color="#A82F2F"><font size="2">(11:09:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f5b3ca1 Emery Hemingway: ratox: bump to 0.2.1<br/>
+<font color="#A82F2F"><font size="2">(11:09:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 26127df cillianderoiste: Merge pull request #6288 from ehmry/ratox...<br/>
+<font color="#A82F2F"><font size="2">(11:11:23 PM)</font> <b>therp:</b></font> I can&apos;t deduce an interpretation of &quot;inherit (pkgs.lib.evalModules { ... })&quot; from the manual. I see that in nixpkgs/nixos/lib/eval-config.nix. I assumed from the manual that &quot;{ inherit x; }&quot; would be syntax sugar for &quot;{ x = x; }&quot; but that doesn&apos;t really work when x is not an atom but an expression. can somebody enlighten me?<br/>
+<font color="#A82F2F"><font size="2">(11:12:49 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edwtjo closed pull request #6293: fetchFromGitorious, evil-mode, helm (master...emacs-modes-and-fetcher) http://git.io/NIhv<br/>
+<font color="#A82F2F"><font size="2">(11:22:40 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edwtjo opened pull request #6294: fetchFromGitorious: add helper (master...fetchFromGitorious) http://git.io/NLkK<br/>
+<font color="#A82F2F"><font size="2">(11:23:18 PM)</font> <b>tjger:</b></font> im having trouble installing a python module. specifically PyYAML. i installed it via &apos;nix-env -i&apos;, however, the script still returns an ImportError<br/>
+<font color="#A82F2F"><font size="2">(11:23:23 PM)</font> <b>calops:</b></font> anybody successully running i3 here?<br/>
+<font color="#A82F2F"><font size="2">(11:25:06 PM)</font> <b>iElectric:</b></font> calops: yes<br/>
+<font color="#A82F2F"><font size="2">(11:25:14 PM)</font> <b>iElectric:</b></font> tjger: that&apos;s not how it works<br/>
+<font color="#A82F2F"><font size="2">(11:25:25 PM)</font> <b>iElectric:</b></font> tjger: $ nix-shell -p pythonPackages.pyyaml<br/>
+<font color="#A82F2F"><font size="2">(11:26:51 PM)</font> <b>Ralith:</b></font> calops: yes<br/>
+<font color="#A82F2F"><font size="2">(11:27:04 PM)</font> <b>calops:</b></font> how do you guys get i3status to work?<br/>
+<font color="#A82F2F"><font size="2">(11:27:13 PM)</font> <b>Ralith:</b></font> with no special effort?<br/>
+<font color="#A82F2F"><font size="2">(11:27:31 PM)</font> <b>Ralith:</b></font> are you on NixOS or nix-on-linux<br/>
+<font color="#A82F2F"><font size="2">(11:27:44 PM)</font> <b>calops:</b></font> well, i have the message &quot;status_command process exited unexpectedly (exit 1)&quot; instead of the status<br/>
+<font color="#A82F2F"><font size="2">(11:27:47 PM)</font> <b>calops:</b></font> nixOS<br/>
+<font color="#A82F2F"><font size="2">(11:28:21 PM)</font> <b>Ralith:</b></font> have you actually installed i3status<br/>
+<font color="#A82F2F"><font size="2">(11:28:24 PM)</font> <b>calops:</b></font> it seems that the problem is that i3status doesn&apos;t find any configuration file, since i don&apos;t have any in my home directory<br/>
+<font color="#A82F2F"><font size="2">(11:28:36 PM)</font> <b>calops:</b></font> but it tries to find one in /etc, which it obviously doesn&apos;t find<br/>
+<font color="#A82F2F"><font size="2">(11:28:52 PM)</font> <b>calops:</b></font> yes, it is installed<br/>
+<font color="#A82F2F"><font size="2">(11:31:43 PM)</font> <b>calops:</b></font> it does work when i put a ~/.i3status.conf file, but i would like to know the proper way to solve this if i wanted to use the default one (that is supposed to be in /etc in normal systems)<br/>
+<font color="#A82F2F"><font size="2">(11:33:30 PM)</font> <b>tjger:</b></font> iElectric: thanks. guess i have some catching up to do<br/>
+<font color="#A82F2F"><font size="2">(11:35:15 PM)</font> <b>schoppenhauer:</b></font> hm. I use the current nixos checkout, and my package does not build anymore: output path ‘/nix/store/f3vxgk7iyr84zdpmdj6y2phdmsg543gc-libpng-1.2.51.tar.xz’ should have sha256 hash ‘0jkdlmnvn72jwm94dp98pznm9fy7alvcr2zpfh2dgbr2n09vimy7’, instead has ‘0b0l0lbmv7svj36b7j0l3yi74s8qg85bf04a95jivji3f51z96jc’<br/>
+<font color="#A82F2F"><font size="2">(11:35:18 PM)</font> <b>schoppenhauer:</b></font> because png<br/>
+<font color="#A82F2F"><font size="2">(11:36:41 PM)</font> <b>schoppenhauer:</b></font> is a dependenc&lt;<br/>
+<font color="#A82F2F"><font size="2">(11:36:43 PM)</font> <b>schoppenhauer:</b></font> y<br/>
+<font color="#A82F2F"><font size="2">(11:37:22 PM)</font> <b>goibhniu:</b></font> hi iElectric, I&apos;m playing around with nix-shell, do you happen to know what --out-link does? ... I was expecting to have a symlink in the current directory (like ./result when you use nix-build) ... or perhaps something in /nix/var/nix/gcroots/ ... but I can&apos;t find anything<br/>
+<font color="#A82F2F"><font size="2">(11:37:58 PM)</font> <b>schoppenhauer:</b></font> can I override this ... I just wanted to make a pull request.<br/>
+<font color="#A82F2F"><font size="2">(11:40:08 PM)</font> <b>iElectric:</b></font> goibhniu: I think you need to pass it a name, result<br/>
+<font color="#A82F2F"><font size="2">(11:40:22 PM)</font> <b>goibhniu:</b></font> iElectric: yeah, I did<br/>
+<font color="#A82F2F"><font size="2">(11:40:35 PM)</font> <b>iElectric:</b></font> huh<br/>
+<font color="#A82F2F"><font size="2">(11:40:40 PM)</font> <b>iElectric:</b></font> last time I tried it worked<br/>
+<font color="#A82F2F"><font size="2">(11:40:46 PM)</font> <b>goibhniu:</b></font> it should create a symlink in the current directory, right?<br/>
+<font color="#A82F2F"><font size="2">(11:43:48 PM)</font> <b>iElectric:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(11:44:19 PM)</font> <b>goibhniu:</b></font> cool thanks, I&apos;ll update the issue with my findings<br/>
+<font size="2">(11:45:13 PM)</font><b> NixThor [<em>~quassel@84.48.92.162</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:12:24 AM)</font> <b>NixThor:</b></font> I&apos;m getting the error &quot;inconsistent kernel versions:  3.14.29&quot; when trying to downgrade to 3.18.3<br/>
+<font color="#A82F2F"><font size="2">(12:12:52 AM)</font> <b>NixThor:</b></font> Could this have anything to do that I have third party modules installed, like nvidia driver?<br/>
+<font size="2">(12:13:10 AM)</font><b> goibhniu left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#16569E"><font size="2">(12:17:52 AM)</font> <b>magnetophon:</b></font> calops: have you looked at the i3status nix-package source, to see if the default config path is patched? <br/>
+<font color="#A82F2F"><font size="2">(12:28:59 AM)</font> <b>NixThor:</b></font> ttuegel: what&apos;s the best way of installing plasma-5.2? Just remove the desktop-manager = &quot;kde5&quot;.. and include the 5.2 packages in systemPackages?<br/>
+<font color="#A82F2F"><font size="2">(12:31:29 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nckx pushed 1 new commit to master: http://git.io/NL20<br/>
+<font color="#A82F2F"><font size="2">(12:31:29 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5439728 Tobias Geerinckx-Rice: Add include-what-you-use 3.5: static C/C++ #include analyser<br/>
+<font color="#A82F2F"><font size="2">(12:35:36 AM)</font> <b>schoppenhauer:</b></font> hm.<br/>
+<font size="2">(12:38:05 AM)</font><b> NixThor left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(12:38:18 AM)</font> <b>schoppenhauer:</b></font> what should I do?<br/>
+<font size="2">(12:41:17 AM)</font><b> NixThor [<em>~quassel@162.84-48-92.nextgentel.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:16:18 AM)</font> <b>ttuegel:</b></font> NixThor: https://nixos.org/wiki/KDE#Testing<br/>
+<font color="#A82F2F"><font size="2">(01:17:11 AM)</font> <b>ttuegel:</b></font> be aware that i hope to push a *big* plasma 5.2 change by the end of the week. takes advantage of my new split Qt build, new Qt version, and takes care of that nasty gstreamer/phonon bug<br/>
+<font color="#A82F2F"><font size="2">(01:17:34 AM)</font> <b>ttuegel:</b></font> so expect churn if you switch to plasma 5.2 now<br/>
+<font color="#A82F2F"><font size="2">(01:17:35 AM)</font> <b>NixThor:</b></font> ttuegel: I like the sound of that :D<br/>
+<font color="#A82F2F"><font size="2">(01:21:08 AM)</font> <b>ttuegel:</b></font> i may also just stabilize plasma 5.2 right after that. i&apos;m not interested in backporting bugfixes indefinitely, and my personal experience is that plasma 5.2 is no more unstable than 5.1<br/>
+<font color="#A82F2F"><font size="2">(01:25:17 AM)</font> <b>dweller:</b></font> it isnt that bad<br/>
+<font color="#A82F2F"><font size="2">(01:25:36 AM)</font> <b>dweller:</b></font> 5.1 crashed instantly on launch for me, on every distro i tested<br/>
+<font color="#A82F2F"><font size="2">(01:25:38 AM)</font> <b>dweller:</b></font> :P<br/>
+<font color="#A82F2F"><font size="2">(01:32:33 AM)</font> <b>ttuegel:</b></font> dweller: even nixos?!<br/>
+<font size="2">(01:32:49 AM)</font><b> boegel is now known as boegel|zzz</b><br/>
+<font color="#A82F2F"><font size="2">(01:34:28 AM)</font> <b>eddyb__:</b></font> dweller: openSUSE was fine around july last year<br/>
+<font size="2">(01:34:57 AM)</font><b> eddyb__ is now known as eddyb</b><br/>
+<font color="#A82F2F"><font size="2">(01:35:37 AM)</font> <b>eddyb:</b></font> it&apos;s pretty sweet nowadays, even on unstable versions (which are essentially git HEAD nightlies AFAICT)<br/>
+<font color="#A82F2F"><font size="2">(01:36:32 AM)</font> <b>schoppenhauer:</b></font> what to doooo ;_;<br/>
+<font color="#A82F2F"><font size="2">(01:36:47 AM)</font> <b>eddyb:</b></font> unless you manage to bork kdeglobals like I did and waste time trying to figure out why everything was so slow (because kded5 would infinitely recurse based on some bad values in the file)<br/>
+<font color="#A82F2F"><font size="2">(01:36:54 AM)</font> <b>eddyb:</b></font> but that has nothing to do with unstable AFAICT<br/>
+<font color="#A82F2F"><font size="2">(01:37:19 AM)</font> <b>schoppenhauer:</b></font> libpng12 ... fails ... to checksum.<br/>
+<font color="#A82F2F"><font size="2">(01:38:35 AM)</font> <b>eddyb:</b></font> does nobody use chromiumDev w/ plugins? the .deb file 404s<br/>
+<font color="#A82F2F"><font size="2">(01:38:56 AM)</font> <b>eddyb:</b></font> and I&apos;m too afraid of screwing up my profile to downgrade to beta/stable<br/>
+<font color="#A82F2F"><font size="2">(01:44:36 AM)</font> <b>mtetreault:</b></font> I&apos;m trying to add samba support to my configuration and everytime that I try to run nixos-rebuild test (or switch). I got the error all build users are currently in use... Anyone have an idea why this is happening?<br/>
+<font size="2">(02:04:09 AM)</font><b> NixThor left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(02:05:39 AM)</font><b> NixThor [<em>~quassel@84.48.92.162</em>] entered the room.</b><br/>
+<font size="2">(02:13:01 AM)</font><b> NixThor left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:40:26 AM)</font> <b>nckx:</b></font> eddyb: aszlig is still working on updating teh chromiums, I believe<br/>
+<font color="#A82F2F"><font size="2">(02:41:20 AM)</font> <b>eddyb:</b></font> nckx: thanks!<br/>
+<font color="#A82F2F"><font size="2">(02:41:58 AM)</font> <b>nckx:</b></font> FWIW, I downgraded to Beta without trouble a week or so ago. But no guarantees, back up, the usual :-)<br/>
+<font color="#A82F2F"><font size="2">(02:42:42 AM)</font> <b>nckx:</b></font> though unless it&apos;s blocking an important upgrade I wouldn&apos;t bother.<br/>
+<font color="#A82F2F"><font size="2">(02:44:07 AM)</font> <b>nckx:</b></font> or try patching manually if it is: https://github.com/NixOS/nixpkgs/pull/6178 (scroll down).<br/>
+<font size="2">(03:39:20 AM)</font><b> kyl_______ is now known as kyl`</b><br/>
+<font color="#A82F2F"><font size="2">(03:45:03 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lovek323 opened pull request #6295: amazonGlacierCmdInterface: add expression (master...amazon-glacier) http://git.io/NtlO<br/>
+<font color="#A82F2F"><font size="2">(03:45:51 AM)</font> <b>Ralith:</b></font> any ideas why gdb might not be prettyprinting STL containers?<br/>
+<font color="#A82F2F"><font size="2">(05:15:03 AM)</font> <b>lovek323:</b></font> anybody interested in giving me a hand with some fairly simple nixops ec2 config?<br/>
+<font size="2">(05:32:12 AM)</font><b> propumpkin is now known as copumpkin</b><br/>
+<font color="#A82F2F"><font size="2">(05:33:29 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nckx opened pull request #6296: Enable kernel configuration options FANOTIFY &amp; X86_MSR (master...add-kernel-config) http://git.io/NtMJ<br/>
+<font size="2">(05:41:23 AM)</font><b> wkennington left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(05:44:23 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] falsifian opened pull request #6297: UNTESTED / possibly a bad idea: nixos/tinc: Don&apos;t generate an ed25519 key if an RSA key is already prese... (master...tinc_use_rsa_if_exists) http://git.io/NtDX<br/>
+<font size="2">(05:49:40 AM)</font><b> wkennington [<em>~william@76.77.180.204</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:08:46 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] falsifian closed pull request #6297: UNTESTED / possibly a bad idea: nixos/tinc: Don&apos;t generate an ed25519 key if an RSA key is already prese... (master...tinc_use_rsa_if_exists) http://git.io/NtDX<br/>
+<font color="#A82F2F"><font size="2">(09:21:27 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 1 new commit to master: http://git.io/NqWe<br/>
+<font color="#A82F2F"><font size="2">(09:21:27 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5da0d18 Domen Kožar: boto: 2.34.0 -&gt; 2.36.0<br/>
+<font color="#A82F2F"><font size="2">(09:33:31 AM)</font> <b>vandenoever:</b></font> coreutils on master fails to build for me since at least a week, i&apos;d like to bisect it find which commit is causing the issue<br/>
+<font color="#A82F2F"><font size="2">(09:34:43 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 1 new commit to master: http://git.io/Nq8S<br/>
+<font color="#A82F2F"><font size="2">(09:34:43 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 4869902 Domen Kožar: sqlalchemy9: 0.9.4 -&gt; 0.9.8<br/>
+<font size="2">(09:35:46 AM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#A82F2F"><font size="2">(09:39:04 AM)</font> <b>vandenoever:</b></font> ah, git-bisect is actually very easy! :-)<br/>
+<font color="#A82F2F"><font size="2">(09:40:57 AM)</font> <b>nkar:</b></font> what&apos;s the state of hnix?<br/>
+<font color="#A82F2F"><font size="2">(09:42:28 AM)</font> <b>iElectric:</b></font> nkar: see https://github.com/jwiegley/hnix/issues/16<br/>
+<font color="#A82F2F"><font size="2">(09:46:57 AM)</font> <b>ronny:</b></font> sup iElectric<br/>
+<font color="#A82F2F"><font size="2">(09:48:05 AM)</font> <b>nkar:</b></font> iElectric: thanks<br/>
+<font color="#A82F2F"><font size="2">(09:49:01 AM)</font> <b>nkar:</b></font> what do I need to change in the config to make the sound louder?  it&apos;s very quiet even on max.  do I need to switch to pulseaudio?<br/>
+<font color="#A82F2F"><font size="2">(09:49:55 AM)</font> <b>iElectric:</b></font> ronny: hey<br/>
+<font color="#A82F2F"><font size="2">(09:50:03 AM)</font> <b>iElectric:</b></font> nkar: I use pulseaudio + pavucontrol to max it out<br/>
+<font color="#A82F2F"><font size="2">(09:50:41 AM)</font> <b>ronny:</b></font> iElectric: want to have a copy of the script i use for creating my testing pypy-bin? the blog post will be state for another while<br/>
+<font size="2">(09:52:50 AM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:53:18 AM)</font> <b>iElectric:</b></font> ronny: sure<br/>
+<font color="#A82F2F"><font size="2">(09:58:17 AM)</font> <b>ronny:</b></font> iElectric: https://friendpaste.com/4gfGiE8rJCg5BgdEfNEyqA<br/>
+<font color="#A82F2F"><font size="2">(09:58:37 AM)</font> <b>ronny:</b></font> iElectric: im working on a revamped version atm<br/>
+<font color="#A82F2F"><font size="2">(09:58:59 AM)</font> <b>ronny:</b></font> (it should be easy to override pltform, path and hashes<br/>
+<font color="#A82F2F"><font size="2">(10:04:37 AM)</font> <b>iElectric:</b></font> ronny: nice, thanks<br/>
+<font color="#A82F2F"><font size="2">(10:05:04 AM)</font> <b>iElectric:</b></font> . $stdenv/setup is not needed<br/>
+<font color="#A82F2F"><font size="2">(10:05:06 AM)</font> <b>ronny:</b></font> iElectric: it turnedout to besurprisinglysimple, main problem is collecting hashes<br/>
+<font color="#A82F2F"><font size="2">(10:05:28 AM)</font> <b>iElectric:</b></font> you probably would need to do just mkdir $out<br/>
+<font color="#A82F2F"><font size="2">(10:06:03 AM)</font> <b>ronny:</b></font> will trt after work<br/>
+<font color="#062585"><font size="2">(10:07:29 AM)</font> <b>***narph</b></font> Can anybody help me with disabling checkPhase of haskell-system-fileio?<br/>
+<font color="#A82F2F"><font size="2">(10:07:50 AM)</font> <b>narph:</b></font> Not sure what all that Cabal stuff is doing, I&apos;m not a haskell guy<br/>
+<font color="#062585"><font size="2">(10:08:58 AM)</font> <b>***narph</b></font> I tried adding doCheck = false; to `pkgs/development/libraries/haskell/system-fileio/default.nix` to no effect.<br/>
+<font color="#A82F2F"><font size="2">(10:10:00 AM)</font> <b>narph:</b></font> Also nix-shell`d into that expression, but apparently none of the usual phases do anything<br/>
+<font size="2">(10:12:06 AM)</font><b> Lethalman [<em>~luca@89.118.249.114</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:14:36 AM)</font> <b>ronny:</b></font> im wondering, are there any efforts to use signatures instead of hashes?<br/>
+<font color="#A82F2F"><font size="2">(10:19:32 AM)</font> <b>vandenoever:</b></font> ronny: what would be the advantage?<br/>
+<font color="#A82F2F"><font size="2">(10:22:41 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 3 new commits to master: http://git.io/Nqw6<br/>
+<font color="#A82F2F"><font size="2">(10:22:41 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 2024e08 Domen Kožar: partially fix pythonPackages.protobuf<br/>
+<font color="#A82F2F"><font size="2">(10:22:41 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a586293 Domen Kožar: sympy: 0.7.4 -&gt; 0.7.6<br/>
+<font color="#A82F2F"><font size="2">(10:22:41 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master fa51c9b Domen Kožar: browserid: disable tests<br/>
+<font color="#A82F2F"><font size="2">(11:01:49 AM)</font> <b>Haskellfant:</b></font> Somehow™ I managed to break cabal. Last time I tried it worked just fine, but now when I am trying to run &apos;cabal init&apos; it complains that &apos;The program ghc version &gt;= 6.4 is required but it could not be found&apos;. I tried switching back a few generations but nothing seems to do the trick, any ideas?<br/>
+<font color="#A82F2F"><font size="2">(11:04:15 AM)</font> <b>Haskellfant:</b></font> what I definitely did in the last few days was doing a git pull, but I&apos;m not sure how that should cause this<br/>
+<font color="#A82F2F"><font size="2">(11:04:23 AM)</font> <b>MagneticDuck:</b></font> hm.. trying to make a nix package for a java game that installs with i4j<br/>
+<font color="#A82F2F"><font size="2">(11:04:39 AM)</font> <b>MagneticDuck:</b></font> http://www.altitudegame.com/<br/>
+<font color="#A82F2F"><font size="2">(11:04:56 AM)</font> <b>MagneticDuck:</b></font> I can&apos;t seem to figure out what to do<br/>
+<font color="#A82F2F"><font size="2">(11:05:28 AM)</font> <b>MagneticDuck:</b></font> the data archive seems to contain a bunch of configuration information for i4j and an installation of jvm, but no game data<br/>
+<font color="#A82F2F"><font size="2">(11:06:06 AM)</font> <b>MagneticDuck:</b></font> https://www.ej-technologies.com/products/install4j/overview.html the installer seems to be made using this<br/>
+<font color="#A82F2F"><font size="2">(11:08:09 AM)</font> <b>MagneticDuck:</b></font> ugh.<br/>
+<font color="#A82F2F"><font size="2">(11:08:34 AM)</font> <b>MagneticDuck:</b></font> I guess I&apos;ll just try actually using the installer<br/>
+<font color="#A82F2F"><font size="2">(11:09:05 AM)</font> <b>MagneticDuck:</b></font> I&apos;ll patch the executables and repackage<br/>
+<font color="#A82F2F"><font size="2">(11:09:10 AM)</font> <b>MagneticDuck:</b></font> .. but then I&apos;ll have a host of other problems<br/>
+<font color="#A82F2F"><font size="2">(11:09:29 AM)</font> <b>MagneticDuck:</b></font> I still won&apos;t be able to make it into a self-contained nix package because the installer opens a super helpful GUI and stuff<br/>
+<font color="#A82F2F"><font size="2">(11:09:54 AM)</font> <b>Haskellfant:</b></font> are you even allowed to redistribute this?<br/>
+<font color="#A82F2F"><font size="2">(11:10:01 AM)</font> <b>MagneticDuck:</b></font> well I guess I could just try to get the thing installed via any means possible and then make my own nix package with a custom installer<br/>
+<font color="#A82F2F"><font size="2">(11:10:16 AM)</font> <b>MagneticDuck:</b></font> Haskellfant: I try not to think about that<br/>
+<font color="#A82F2F"><font size="2">(11:10:25 AM)</font> <b>MagneticDuck:</b></font> sigh<br/>
+<font color="#A82F2F"><font size="2">(11:10:44 AM)</font> <b>MagneticDuck:</b></font> Haskellfant: but tbh I&apos;m a bit confused about that legal stuff<br/>
+<font color="#A82F2F"><font size="2">(11:10:59 AM)</font> <b>MagneticDuck:</b></font> people have been redistributing unfree applications on nixpkgs and other repositories for a long time<br/>
+<font color="#A82F2F"><font size="2">(11:11:05 AM)</font> <b>Haskellfant:</b></font> MagneticDuck: you could get the people maintaining the nix infrastructure in trouble as they are the ones distributing the binaries<br/>
+<font color="#A82F2F"><font size="2">(11:11:19 AM)</font> <b>Haskellfant:</b></font> sure, I&apos;m not saying that it&apos;s always illegal<br/>
+<font color="#A82F2F"><font size="2">(11:11:21 AM)</font> <b>Haskellfant:</b></font> but it could be<br/>
+<font color="#A82F2F"><font size="2">(11:11:25 AM)</font> <b>MagneticDuck:</b></font> do they have to submit a solicitation for every new unfree package they try to redistribute?<br/>
+<font color="#A82F2F"><font size="2">(11:11:43 AM)</font> <b>MagneticDuck:</b></font> Haskellfant: it will only get them in trouble if they accept a merge request into nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(11:11:47 AM)</font> <b>MagneticDuck:</b></font> this is mainly for me and friends<br/>
+<font color="#A82F2F"><font size="2">(11:11:48 AM)</font> <b>Haskellfant:</b></font> ofc<br/>
+<font color="#A82F2F"><font size="2">(11:12:23 AM)</font> <b>MagneticDuck:</b></font> the devs of this game are inactive though<br/>
+<font color="#A82F2F"><font size="2">(11:12:30 AM)</font> <b>MagneticDuck:</b></font> they made the game f2p and put it in the communities hands<br/>
+<font color="#A82F2F"><font size="2">(11:12:42 AM)</font> <b>MagneticDuck:</b></font> I&apos;ll ask them about redistribution, pretty sure they&apos;ll say yes<br/>
+<font color="#A82F2F"><font size="2">(11:12:49 AM)</font> <b>MagneticDuck:</b></font> community&apos;s*<br/>
+<font color="#A82F2F"><font size="2">(11:14:43 AM)</font> <b>madjar:</b></font> hello there<br/>
+<font color="#A82F2F"><font size="2">(11:16:15 AM)</font> <b>madjar:</b></font> I&apos;m trying to deploy some python wsgi application with waitress, is there a simple way to create a waitress executable that knows about additional python packages (kind of like python.buildEnv, but with arbitrary executables) ?<br/>
+<font color="#A82F2F"><font size="2">(11:16:24 AM)</font> <b>madjar:</b></font> iElectric: have you ever done something like this ?<br/>
+<font color="#A82F2F"><font size="2">(11:30:11 AM)</font> <b>iElectric:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(11:30:18 AM)</font> <b>iElectric:</b></font> not at my laptop now<br/>
+<font color="#A82F2F"><font size="2">(12:00:03 PM)</font> <b>iElectric:</b></font> madjar: in short python.buildEnv<br/>
+<font color="#A82F2F"><font size="2">(12:00:43 PM)</font> <b>madjar:</b></font> iElectric: with some extra twidling to get my executables to have the right PYTHONHOME ?<br/>
+<font color="#A82F2F"><font size="2">(12:01:07 PM)</font> <b>iElectric:</b></font> it should also take care of wrapping<br/>
+<font color="#A82F2F"><font size="2">(12:08:49 PM)</font> <b>madjar:</b></font> iElectric: not from executables that are not in the basic python package<br/>
+<font color="#A82F2F"><font size="2">(12:08:53 PM)</font> <b>madjar:</b></font> (in my case, waitress)<br/>
+<font color="#A82F2F"><font size="2">(12:09:08 PM)</font> <b>madjar:</b></font> a little postBuild that wraps it does the trick<br/>
+<font color="#A82F2F"><font size="2">(12:11:15 PM)</font> <b>iElectric:</b></font> oh yeah you have to put waitress in paths<br/>
+<font color="#A82F2F"><font size="2">(12:12:06 PM)</font> <b>bennofs:</b></font> Is there a nix language construct f such that in f a b, a has been realized when b is evaluated?<br/>
+<font color="#A82F2F"><font size="2">(12:12:22 PM)</font> <b>bennofs:</b></font> Like seq, only for realizing derivations<br/>
+<font color="#A82F2F"><font size="2">(12:18:24 PM)</font> <b>ktosiek:</b></font> bennofs: what for?<br/>
+<font color="#A82F2F"><font size="2">(12:19:26 PM)</font> <b>bennofs:</b></font> ktosiek: I want to use builtins.pathExists on a string with a context, but currently nix doesn&apos;t support that (error: string ‘/nix/store/ws1wl34s70x13nh396ni5k6pnxnw3nwh-foo’ cannot refer to other paths, at &quot;(string)&quot;:1:1<br/>
+<font color="#A82F2F"><font size="2">(12:20:19 PM)</font> <b>ktosiek:</b></font> hmm, wouldn&apos;t nixpkgs&apos;s seq work?<br/>
+<font color="#A82F2F"><font size="2">(12:20:22 PM)</font> <b>bennofs:</b></font> ktosiek: so I thought that as a workaround, I could do f deriv (builtins.pathExists (builtins.unsafeDiscardStringContext deriv ++ &quot;/lib&quot;))<br/>
+<font color="#A82F2F"><font size="2">(12:21:11 PM)</font> <b>bennofs:</b></font> let foo = (import &lt;nixpkgs&gt; {}).writeText &quot;foo&quot; &quot;3&quot;; in (import &lt;nixpkgs&gt; {}).lib.seq foo 3<br/>
+<font color="#A82F2F"><font size="2">(12:21:16 PM)</font> <b>bennofs:</b></font> doesn&apos;t seem to realize foo<br/>
+<font color="#A82F2F"><font size="2">(12:21:27 PM)</font> <b>ktosiek:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(12:21:51 PM)</font> <b>ktosiek:</b></font> oh wait, that needs building at evaluation time<br/>
+<font color="#A82F2F"><font size="2">(12:22:36 PM)</font> <b>bennofs:</b></font> ah, and current nix doesn&apos;t allow that? I thought this happens sometimes, for example with baseNameOf or similar<br/>
+<font color="#A82F2F"><font size="2">(12:22:45 PM)</font> <b>bennofs:</b></font> (baseNameOf was fixed recently though)<br/>
+<font color="#A82F2F"><font size="2">(12:23:51 PM)</font> <b>ktosiek:</b></font> I&apos;m not sure, never needed this myself<br/>
+<font color="#A82F2F"><font size="2">(12:25:05 PM)</font> <b>bennofs:</b></font> Ok, builtins.readDir seems to work:  let foo = (import &lt;nixpkgs&gt; {}).writeTextFile  { name = &quot;foo&quot;; text = &quot;3&quot;; destination = &quot;/bin&quot;; }; in (import &lt;nixpkgs&gt; {}).lib.seq (builtins.readDir foo) 3<br/>
+<font color="#A82F2F"><font size="2">(12:44:45 PM)</font> <b>schoppenhauer:</b></font> are the buildDepends the place for all dependencies of a package? (because in debian, there are build-dependencies and runtime-dependencies, and I am not sure how this goes for nixpkgs)<br/>
+<font color="#A82F2F"><font size="2">(12:45:36 PM)</font> <b>Lethalman:</b></font> schoppenhauer, http://lethalman.blogspot.it/2014/08/nix-pill-9-automatic-runtime.html<br/>
+<font color="#A82F2F"><font size="2">(12:46:51 PM)</font> <b>Lethalman:</b></font> schoppenhauer, TL;DR runtime deps are a subset of build deps, and are automatically recognized by nix<br/>
+<font color="#A82F2F"><font size="2">(12:48:02 PM)</font> <b>schoppenhauer:</b></font> ok.<br/>
+<font color="#A82F2F"><font size="2">(12:49:17 PM)</font> <b>schoppenhauer:</b></font> thx.<br/>
+<font color="#A82F2F"><font size="2">(12:49:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lethalman pushed 1 new commit to master: http://git.io/NmGY<br/>
+<font color="#A82F2F"><font size="2">(12:49:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f7b26bf Luca Bruno: gnome3: Set XCURSOR_PATH. Closes #6191<br/>
+<font color="#A82F2F"><font size="2">(12:51:31 PM)</font> <b>schoppenhauer:</b></font> Lethalman: ok, but there is one problem: it doesn&apos;t ...<br/>
+<font color="#A82F2F"><font size="2">(12:51:48 PM)</font> <b>Lethalman:</b></font> don&apos;t know about your case sorry<br/>
+<font color="#A82F2F"><font size="2">(12:51:56 PM)</font> <b>Lethalman:</b></font> if it doesn&apos;t something is missing in your derivation<br/>
+<font color="#A82F2F"><font size="2">(12:52:01 PM)</font> <b>Lethalman:</b></font> or how haskell packages work<br/>
+<font color="#A82F2F"><font size="2">(12:52:15 PM)</font> <b>schoppenhauer:</b></font> Lethalman: or more specifically: I am trying to build x2goclient, and it depends on nxproxy<br/>
+<font color="#A82F2F"><font size="2">(12:53:04 PM)</font> <b>schoppenhauer:</b></font> which is built, but somehow not in the -o directory.<br/>
+<font color="#A82F2F"><font size="2">(12:53:23 PM)</font> <b>bennofs:</b></font> schoppenhauer: can you paste your expression somewhere so we can try it out?<br/>
+<font color="#A82F2F"><font size="2">(12:54:44 PM)</font> <b>schoppenhauer:</b></font> bennofs: hm. I&apos;ll just make a pull request, ok?<br/>
+<font color="#A82F2F"><font size="2">(12:55:07 PM)</font> <b>bennofs:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(12:56:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bennofs pushed 1 new commit to haskell-ng-unify: http://git.io/NmnX<br/>
+<font color="#A82F2F"><font size="2">(12:56:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/haskell-ng-unify 78841e7 Benno Fünfstück: haskell-ng: fix use of unsafeDiscardStringContext<br/>
+<font color="#A82F2F"><font size="2">(12:57:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] dasuxullebt opened pull request #6301: Submit/x2goclient (master...submit/x2goclient) http://git.io/NmcJ<br/>
+<font color="#A82F2F"><font size="2">(12:58:31 PM)</font> <b>schoppenhauer:</b></font> dasuxullebt ← that is me.<br/>
+<font color="#A82F2F"><font size="2">(01:00:56 PM)</font> <b>musicmatze:</b></font> Has someone already looked into #6289 ?<br/>
+<font color="#A82F2F"><font size="2">(01:01:21 PM)</font> <b>musicmatze:</b></font> and ... #6277 is closed, when will it be available in the channels?<br/>
+<font color="#A82F2F"><font size="2">(01:01:44 PM)</font> <b>Lethalman:</b></font> musicmatze, I think it should write in a directory of /run writable by rsnapshot<br/>
+<font color="#A82F2F"><font size="2">(01:01:49 PM)</font> <b>Lethalman:</b></font> e.g. /run/rsnapshot/rsnapshot.pid<br/>
+<font color="#A82F2F"><font size="2">(01:01:56 PM)</font> <b>Lethalman:</b></font> so create that dir in prestart etc. like other services<br/>
+<font color="#A82F2F"><font size="2">(01:02:09 PM)</font> <b>musicmatze:</b></font> Lethalman: How to?<br/>
+<font color="#A82F2F"><font size="2">(01:02:16 PM)</font> <b>Lethalman:</b></font> musicmatze, modify the nixos service<br/>
+<font color="#A82F2F"><font size="2">(01:02:47 PM)</font> <b>musicmatze:</b></font> via the extraConfig ?<br/>
+<font color="#A82F2F"><font size="2">(01:03:00 PM)</font> <b>Lethalman:</b></font> musicmatze, no<br/>
+<font color="#A82F2F"><font size="2">(01:03:03 PM)</font> <b>musicmatze:</b></font> Or do you mean the actual package def?<br/>
+<font color="#A82F2F"><font size="2">(01:03:04 PM)</font> <b>Lethalman:</b></font> look at how other services work<br/>
+<font color="#A82F2F"><font size="2">(01:03:10 PM)</font> <b>Lethalman:</b></font> musicmatze, the nixos module<br/>
+<font color="#A82F2F"><font size="2">(01:03:13 PM)</font> <b>musicmatze:</b></font> ah ok<br/>
+<font color="#A82F2F"><font size="2">(01:03:18 PM)</font> <b>musicmatze:</b></font> I&apos;ll try that<br/>
+<font color="#A82F2F"><font size="2">(01:07:39 PM)</font> <b>schoppenhauer:</b></font> hm. what will happen now? *afraid*<br/>
+<font color="#16569E"><font size="2">(01:20:34 PM)</font> <b>magnetophon:</b></font> anyone happen to use mutt with an invalid cert for the mail?  It keeps asking me about the cert, I say save it, it does, and the next time it asks again. I also have multiple copies of the cert in my certs file...<br/>
+<font color="#16569E"><font size="2">(01:21:27 PM)</font> <b>magnetophon:</b></font> fyi: I use dreamhost for my mail, and the cert belongs to them, so it doesn't match the hostname.<br/>
+<font color="#A82F2F"><font size="2">(01:25:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] matthiasbeyer opened pull request #6302: rsnapshot module: Pidfile in /run/rsnapshot/ (master...rsnapshot-service-pidfile_to_own_vardir) http://git.io/NmEO<br/>
+<font color="#A82F2F"><font size="2">(01:26:37 PM)</font> <b>bennofs:</b></font> How can I make an attribute of a derivation that is not process by nix-env --xml ?<br/>
+<font color="#A82F2F"><font size="2">(01:31:22 PM)</font> <b>Lethalman:</b></font> bennofs, rephrase :S<br/>
+<font color="#A82F2F"><font size="2">(01:32:30 PM)</font> <b>musicmatze:</b></font> How to find my current crontab when installing rsnapshot (for example) with cronjobs?<br/>
+<font color="#A82F2F"><font size="2">(01:33:30 PM)</font> <b>bennofs:</b></font> Lethalman: the problem is that I made a derivation which has a phase (like `buildPhase`) that depends on a variable computed by `builtins.readDir someOtherDerivation`. Now the tarball tests fail with &quot;cannot read path ..., since path ....drv is not valid&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:33:41 PM)</font> <b>bennofs:</b></font> Lethalman: but I should probably move the readDir logic to the nix expression<br/>
+<font color="#A82F2F"><font size="2">(01:33:43 PM)</font> <b>Lethalman:</b></font> musicmatze, look for systemd timers<br/>
+<font color="#A82F2F"><font size="2">(01:34:08 PM)</font> <b>bennofs:</b></font> Lethalman: meaning I should do it with bash instead of doing it in nix<br/>
+<font color="#A82F2F"><font size="2">(01:35:03 PM)</font> <b>bennofs:</b></font> schoppenhauer: do you haev a testcase for me that I can try which fails for you? running x2goclient works fine for me<br/>
+<font color="#A82F2F"><font size="2">(01:35:10 PM)</font> <b>musicmatze:</b></font> Lethalman: systemctl list-timers --all shows only the tmpfiles-clean service.. .<br/>
+<font color="#A82F2F"><font size="2">(01:35:13 PM)</font> <b>musicmatze:</b></font> :-(<br/>
+<font color="#A82F2F"><font size="2">(01:35:53 PM)</font> <b>schoppenhauer:</b></font> bennofs: can you connect to an x2go server?<br/>
+<font color="#A82F2F"><font size="2">(01:36:13 PM)</font> <b>schoppenhauer:</b></font> bennofs: is the command &quot;nxproxy&quot; in the past?<br/>
+<font color="#A82F2F"><font size="2">(01:36:35 PM)</font> <b>bennofs:</b></font> schoppenhauer: ah, x2goclient requires nxproxy to be in the path?<br/>
+<font color="#A82F2F"><font size="2">(01:36:51 PM)</font> <b>schoppenhauer:</b></font> bennofs: yes<br/>
+<font color="#A82F2F"><font size="2">(01:37:25 PM)</font> <b>bennofs:</b></font> schoppenhauer: you can use wrapProgram for that<br/>
+<font color="#A82F2F"><font size="2">(01:37:59 PM)</font> <b>Lethalman:</b></font> musicmatze, cat /etc/crontab if you are using cronjobs<br/>
+<font color="#A82F2F"><font size="2">(01:38:11 PM)</font> <b>Lethalman:</b></font> musicmatze, also check nixos module for cron, really all you have to know about your system is in nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(01:38:13 PM)</font> <b>Lethalman:</b></font> musicmatze, just grep<br/>
+<font color="#A82F2F"><font size="2">(01:38:20 PM)</font> <b>musicmatze:</b></font> Lethalman: Ah, thanks<br/>
+<font color="#A82F2F"><font size="2">(01:38:31 PM)</font> <b>musicmatze:</b></font> yeah, it is in there<br/>
+<font size="2">(01:56:48 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

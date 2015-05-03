@@ -1,0 +1,53 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Wed 25 Mar 2015 01:47:37 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Wed 25 Mar 2015 01:47:37 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(01:47:37 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(01:47:37 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(01:47:40 PM)</font> <b>nick_m:</b></font> rgareus, i know.. las did something there recently, but i can&apos;t remember why.<br/>
+<font color="#A82F2F"><font size="2">(01:47:40 PM)</font> <b>rgareus:</b></font> nick_m: the automation lane is also just another RouteTimeAxis and still counts.<br/>
+<font color="#A82F2F"><font size="2">(01:48:54 PM)</font> <b>rgareus:</b></font> nick_m: las handled the case of single region drags only. I&apos;m currently working on making it work for multiple regions<br/>
+<font color="#A82F2F"><font size="2">(01:49:45 PM)</font> <b>nick_m:</b></font> the code there was awkward but it worked. got the commit # handy?<br/>
+<font color="#A82F2F"><font size="2">(01:50:28 PM)</font> <b>rgareus:</b></font> nick_m: las&apos; commit? no.<br/>
+<font color="#A82F2F"><font size="2">(01:53:41 PM)</font> <b>rgareus:</b></font> nick_m: there were a lot of conceptual flaws (and dirty hacks) in editor_drag. I started to rip it all out to address #6172 #6205  #6176 and #6195<br/>
+<font color="#A82F2F"><font size="2">(01:54:05 PM)</font> <b>rgareus:</b></font> maybe unwisely so just before the 4.0 release but I really think we can&apos;t ship 4.0 with those bugs unfixed<br/>
+<font color="#A82F2F"><font size="2">(02:00:34 PM)</font> <b>nick_m:</b></font> rgareus, yeah. i think i remember this 1024 limit somewhere.<br/>
+<font color="#A82F2F"><font size="2">(02:00:40 PM)</font> <b>rgareus:</b></font> nick_m: git log gtk2_ardour/editor_drag.cc  <br/>
+<font color="#A82F2F"><font size="2">(02:00:59 PM)</font> <b>nick_m:</b></font> rgareus, i&apos;ve found gitk :)<br/>
+<font color="#A82F2F"><font size="2">(02:02:14 PM)</font> <b>rgareus:</b></font> even better<br/>
+<font color="#A82F2F"><font size="2">(02:06:33 PM)</font> <b>nick_m:</b></font> rgareus, i thought the idea of using two bitsets and sliding them over each other was kind of cool. can&apos;t find where that went.<br/>
+<font color="#A82F2F"><font size="2">(02:09:47 PM)</font> <b>nick_m:</b></font> it was kind of infallible - you take as many bits as there are tracks, mark them as allowed with a one, then &amp; it with the selection.<br/>
+<font color="#A82F2F"><font size="2">(02:10:01 PM)</font> <b>rgareus:</b></font> nick_m: it does not work if you drag an audio + midi region at the same time<br/>
+<font color="#A82F2F"><font size="2">(02:10:16 PM)</font> <b>rgareus:</b></font> nick_m: you need 2 bits for the data-type alone<br/>
+<font color="#A82F2F"><font size="2">(02:10:23 PM)</font> <b>nick_m:</b></font> rgareus, right. you need another bit now.<br/>
+<font color="#A82F2F"><font size="2">(02:10:59 PM)</font> <b>rgareus:</b></font> nick_m: also you need to account for hidden-tracks in between or automation lanes (gaps) etc etc<br/>
+<font color="#A82F2F"><font size="2">(02:11:20 PM)</font> <b>nick_m:</b></font> visible() or something.<br/>
+<font color="#A82F2F"><font size="2">(02:11:57 PM)</font> <b>rgareus:</b></font> yeah but add all that  and the bit-set  is also not nice and clean anymore and only brings an additional constraint (64bit)<br/>
+<font color="#A82F2F"><font size="2">(02:13:03 PM)</font> <b>nick_m:</b></font> wow i didn&apos;t know they had that constraint.<br/>
+<font color="#A82F2F"><font size="2">(02:13:26 PM)</font> <b>rgareus:</b></font> nick_m: ah you meant to add a special class..<br/>
+<font color="#062585"><font size="2">(02:13:42 PM)</font> <b>***rgareus</b></font> though about simple and, xor on a register<br/>
+<font color="#A82F2F"><font size="2">(02:15:21 PM)</font> <b>rgareus:</b></font> the bitset would help for the    RegionMotionDrag::y_movement_allowed()   case which is currently a loop O(N)  not too bad really<br/>
+<font color="#A82F2F"><font size="2">(02:15:38 PM)</font> <b>rgareus:</b></font> O(1) would be better. but it&apos;s not really a bottleneck at the moment.<br/>
+<font color="#A82F2F"><font size="2">(02:19:15 PM)</font> <b>nick_m:</b></font> rgareus, selectionbits &amp; audiobits &amp; midibits would work for y_movement_allowed()<br/>
+<font color="#A82F2F"><font size="2">(02:19:41 PM)</font> <b>nick_m:</b></font> rgareus, provided its set up properly in one loop<br/>
+<font color="#A82F2F"><font size="2">(02:20:24 PM)</font> <b>nick_m:</b></font> soeey selectionmidibits .. <br/>
+<font color="#A82F2F"><font size="2">(02:21:25 PM)</font> <b>rgareus:</b></font> nick_m: and bit-shift according to movement distance<br/>
+<font color="#A82F2F"><font size="2">(02:21:39 PM)</font> <b>nick_m:</b></font> rgareus, right. easy. can&apos;t fail :)<br/>
+<font color="#A82F2F"><font size="2">(02:21:57 PM)</font> <b>rgareus:</b></font> and when creating the bitset take invisible tracks into account. and re-create the bitset when visibilty changes...<br/>
+<font color="#A82F2F"><font size="2">(02:22:37 PM)</font> <b>nick_m:</b></font> well its one loop.. you could do it every time<br/>
+<font color="#A82F2F"><font size="2">(02:22:39 PM)</font> <b>rgareus:</b></font> nick_m: for now a loop checking      to-&gt;track()-&gt;data_type() != i-&gt;view-&gt;region()-&gt;data_type()   every time is fine. we have much bigger problems than optimizing this<br/>
+<font color="#A82F2F"><font size="2">(02:23:21 PM)</font> <b>rgareus:</b></font> nick_m: it&apos;s one loop currently.<br/>
+<font color="#A82F2F"><font size="2">(02:23:25 PM)</font> <b>nick_m:</b></font> rgareus, right.<br/>
+<font color="#A82F2F"><font size="2">(02:26:36 PM)</font> <b>rgareus:</b></font> nick_m: but yes, the current solution is not elegant.<br/>
+<font color="#A82F2F"><font size="2">(02:27:22 PM)</font> <b>nick_m:</b></font> i&apos;m more thinking about getting it working. sorry. i do tend to bang on about things :(<br/>
+<font color="#A82F2F"><font size="2">(02:27:38 PM)</font> <b>rgareus:</b></font> nick_m: that part is working<br/>
+<font color="#A82F2F"><font size="2">(02:28:23 PM)</font> <b>rgareus:</b></font> nick_m: can drop returns false. when over an automation lane or bus or a mismatch..<br/>
+<font color="#A82F2F"><font size="2">(02:28:47 PM)</font> <b>rgareus:</b></font> nick_m: it&apos;s later where the regions are drawin during move where things go downhill<br/>
+<font color="#A82F2F"><font size="2">(02:44:02 PM)</font> <b>rgareus:</b></font> oofus, nick_m: crash (re automation lanes) fixed.<br/>
+<font color="#A82F2F"><font size="2">(02:44:05 PM)</font> <b>rgareus:</b></font> but there&apos;s more to come<br/>
+<font color="#A82F2F"><font size="2">(02:44:20 PM)</font> <b>nick_m:</b></font> rgareus, great.<br/>
+<font color="#A82F2F"><font size="2">(02:45:59 PM)</font> <b>rgareus:</b></font> they should really be treated as &apos;invisible&apos; (not count as gaps)<br/>
+<font color="#A82F2F"><font size="2">(02:51:56 PM)</font> <b>oofus:</b></font> rgareus: confirm fix for automation lanes<br/>
+<font color="#A82F2F"><font size="2">(02:57:51 PM)</font> <b>edogawa:</b></font> nick_m: oh no problem, thanks<br/>
+<font color="#A82F2F"><font size="2">(02:58:51 PM)</font> <b>nick_m:</b></font> for the record -  a &quot;nowhere click&quot; is a click on the space below the lowest track :)<br/>
+<font color="#A82F2F"><font size="2">(02:59:58 PM)</font> <b>edogawa:</b></font> :) ok<br/>
+<font color="#A82F2F"><font size="2">(03:00:52 PM)</font> <b>edogawa:</b></font> call it drop zone click for constistency ;)<br/>
+<font size="2">(03:49:26 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

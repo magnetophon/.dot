@@ -1,0 +1,201 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Fri 30 Aug 2013 04:42:55 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Fri 30 Aug 2013 04:42:55 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:42:55 PM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font color="#16569E"><font size="2">(04:43:28 PM)</font> <b>magnetophon:</b></font> rgareus: how appropriate: my battery died! :)<br/>
+<font color="#A82F2F"><font size="2">(04:43:51 PM)</font> <b>rgareus:</b></font> magnetophon: I was wondering..<br/>
+<font color="#A82F2F"><font size="2">(04:45:08 PM)</font> <b>rgareus:</b></font> magnetophon: testing it is a somewhat tricky, the tools/ dir has some tools to create jack DSP load .<br/>
+<font color="#16569E"><font size="2">(04:45:33 PM)</font> <b>magnetophon:</b></font> rgareus: I'm an expert in creating jack dsp load! ;)<br/>
+<font color="#A82F2F"><font size="2">(04:45:41 PM)</font> <b>rgareus:</b></font> magnetophon: actually I should have asked right at the beginning, does your system work properly with the on-demand governor?<br/>
+<font size="2">(04:45:55 PM)</font><b> AndreeeCZ [<em>~AndreeeCZ@88.103.20.84</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:46:02 PM)</font> <b>rgareus:</b></font> magnetophon: ie you don&apos;t get x-runs under normal operation of jack even when the CPU switches frequency?<br/>
+<font color="#16569E"><font size="2">(04:46:23 PM)</font> <b>magnetophon:</b></font> rgareus: good question, let me check. I think it didn't, but I'm not sure.<br/>
+<font color="#A82F2F"><font size="2">(04:46:31 PM)</font> <b>rgareus:</b></font> magnetophon: and you use jack2 and have more than 1 CPU core.. (otherwise jackfreqd does not make sense)<br/>
+<font color="#16569E"><font size="2">(04:46:41 PM)</font> <b>magnetophon:</b></font> rgareus: yes<br/>
+<font size="2">(04:47:35 PM)</font><b> AndreeeCZ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(04:48:14 PM)</font><b> AndreeeCZ [<em>~AndreeeCZ@88.103.20.84</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(04:50:48 PM)</font> <b>magnetophon:</b></font> rgareus: the cpu stays in it's fast mode, even though I'm ondemand<br/>
+<font color="#16569E"><font size="2">(04:51:22 PM)</font> <b>magnetophon:</b></font> rgareus: so I guess I gotta stop my cpu hungry progs and wait for it to go slow again?<br/>
+<font color="#A82F2F"><font size="2">(04:51:35 PM)</font> <b>rgareus:</b></font> magnetophon: maybe you&apos;d disabled it in the bios?<br/>
+<font color="#16569E"><font size="2">(04:52:00 PM)</font> <b>magnetophon:</b></font> rgareus: nope, actually I'm slow again, without killing any apps<br/>
+<font color="#A82F2F"><font size="2">(04:52:05 PM)</font> <b>rgareus:</b></font> magnetophon: &apos;sudo powertop&apos;<br/>
+<font color="#16569E"><font size="2">(04:52:22 PM)</font> <b>magnetophon:</b></font> rgareus: i gotta install that first<br/>
+<font color="#16569E"><font size="2">(04:52:26 PM)</font> <b>magnetophon:</b></font> brb<br/>
+<font color="#16569E"><font size="2">(04:53:33 PM)</font> <b>magnetophon:</b></font> rgareus: OK what do you want to know?<br/>
+<font color="#A82F2F"><font size="2">(04:54:14 PM)</font> <b>rgareus:</b></font> magnetophon: it&apos;ll tell you what apps are eating your CPU and why your CPU freq is high<br/>
+<font color="#16569E"><font size="2">(04:54:15 PM)</font> <b>magnetophon:</b></font> rgareus: my cpu switched from slow to fast without xruns<br/>
+<font color="#A82F2F"><font size="2">(04:54:57 PM)</font> <b>rgareus:</b></font> magnetophon: powertop also has some other hints how to reduce power-consumption (seeing as your battery is not the best anymore)<br/>
+<font color="#A82F2F"><font size="2">(04:55:19 PM)</font> <b>rgareus:</b></font> magnetophon: no x-runs, great<br/>
+<font color="#16569E"><font size="2">(04:56:09 PM)</font> <b>magnetophon:</b></font> rgareus: but if the cpu switched xrun-free one time, does that mean I can just run ondemand and forget about it?<br/>
+<font color="#A82F2F"><font size="2">(04:56:23 PM)</font> <b>rgareus:</b></font> magnetophon: yes and no.<br/>
+<font color="#A82F2F"><font size="2">(04:56:36 PM)</font> <b>rgareus:</b></font> magnetophon: if you have 2 cores, jack can use them both<br/>
+<font color="#A82F2F"><font size="2">(04:56:43 PM)</font> <b>rgareus:</b></font> magnetophon: jack2 that is<br/>
+<font color="#A82F2F"><font size="2">(04:57:13 PM)</font> <b>rgareus:</b></font> magnetophon: but if you do serial processing,  jack2 can be already at 100% DSP load (xruns) while the total CPU is only at 50%<br/>
+<font color="#A82F2F"><font size="2">(04:57:34 PM)</font> <b>rgareus:</b></font> magnetophon: the ondemand governor will not go into fast mode (because it&apos;s looking at the total value)<br/>
+<font color="#16569E"><font size="2">(04:57:53 PM)</font> <b>magnetophon:</b></font> rgareus: yes, the reason d'etre of jackfreqd<br/>
+<font color="#16569E"><font size="2">(04:58:07 PM)</font> <b>magnetophon:</b></font> rgareus: i did my homework :)<br/>
+<font color="#A82F2F"><font size="2">(04:58:14 PM)</font> <b>rgareus:</b></font> magnetophon: exactement.<br/>
+<font color="#16569E"><font size="2">(04:59:44 PM)</font> <b>magnetophon:</b></font> rgareus: so I'll install jackfreqd. Did I understand correctly there is no nead to uninstall any other deamons?<br/>
+<font color="#A82F2F"><font size="2">(05:00:17 PM)</font> <b>rgareus:</b></font> magnetophon: yes, though these days there are no other cpu-freq daemons on debian (by default)<br/>
+<font color="#16569E"><font size="2">(05:00:17 PM)</font> <b>magnetophon:</b></font> rgareus: like cpu-freq-set<br/>
+<font color="#A82F2F"><font size="2">(05:00:37 PM)</font> <b>rgareus:</b></font> magnetophon: that&apos;s a command-line script not a daemon, is it?<br/>
+<font color="#16569E"><font size="2">(05:01:51 PM)</font> <b>magnetophon:</b></font> rgareus: right, I'm not using correct terminology. But IIRC there was some talk about the correct debian packaging of jackfreqd where you where talking about conflicting packages.<br/>
+<font color="#16569E"><font size="2">(05:02:17 PM)</font> <b>magnetophon:</b></font> rgareus: if I do make install it won't be aware of any of those, right?<br/>
+<font color="#16569E"><font size="2">(05:09:12 PM)</font> <b>magnetophon:</b></font> rgareus: I just bit the bullet and installed. How do I know If it went OK?<br/>
+<font color="#A82F2F"><font size="2">(05:13:42 PM)</font> <b>rgareus:</b></font> magnetophon: that was 2010 or early 2011 :)<br/>
+<font color="#A82F2F"><font size="2">(05:14:04 PM)</font> <b>rgareus:</b></font> magnetophon: while squeeze was testing.<br/>
+<font color="#16569E"><font size="2">(05:15:14 PM)</font> <b>magnetophon:</b></font> rgareus: cool. so probably I'm all good now?<br/>
+<font size="2">(05:23:36 PM)</font><b> custos-m1ndi [<em>~custos-mu@ip-109-41-146-238.web.vodafone.de</em>] entered the room.</b><br/>
+<font size="2">(05:26:36 PM)</font><b> custos-mundi left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#16569E"><font size="2">(05:32:12 PM)</font> <b>magnetophon:</b></font> rgareus: I put performance as the default governer. do I need to change that back to ondemand, or is jackfreqd in total controll now? Do I need to reboot?<br/>
+<font color="#062585"><font size="2">(05:44:02 PM)</font> <b>***falktx_</b></font> is having fun playing classical music sidechained to drums<br/>
+<font color="#A82F2F"><font size="2">(05:46:11 PM)</font> <b>rgareus:</b></font> magnetophon: jackfreqd should switch to user-space governor and then act as such<br/>
+<font color="#A82F2F"><font size="2">(05:46:48 PM)</font> <b>rgareus:</b></font> falktx_: philistine.<br/>
+<font color="#A82F2F"><font size="2">(05:47:01 PM)</font> <b>falktx_:</b></font> rgareus: https://soundcloud.com/falktx/journeys-apotheosis-sidechain<br/>
+<font color="#16569E"><font size="2">(05:47:16 PM)</font> <b>magnetophon:</b></font> rgareus: cool, thanks!<br/>
+<font color="#16569E"><font size="2">(05:47:30 PM)</font> <b>magnetophon:</b></font> falktx_: what are you using to side-chain?<br/>
+<font color="#A82F2F"><font size="2">(05:48:17 PM)</font> <b>falktx_:</b></font> my host, carla, with calf-compressor giving me a control-output connected to the music playback volume<br/>
+<font color="#A82F2F"><font size="2">(05:48:24 PM)</font> <b>rgareus:</b></font> falktx_: it&apos;ll have to wait i&apos;m in the middle of Beethoven&apos;s Violin Sonata 9<br/>
+<font size="2">(05:54:35 PM)</font><b> AndreeeCZ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(06:08:54 PM)</font><b> monotomy left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(06:27:03 PM)</font><b> rncbc [<em>~rncbc@a95-93-202-132.cpe.netcabo.pt</em>] entered the room.</b><br/>
+<font size="2">(06:41:07 PM)</font><b> AndreeeCZ [<em>~AndreeeCZ@88.103.20.84</em>] entered the room.</b><br/>
+<font size="2">(07:03:32 PM)</font><b> ze0 [<em>ze@unaffiliated/ze</em>] entered the room.</b><br/>
+<font size="2">(07:04:26 PM)</font><b> ze left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:04:36 PM)</font><b> ze0 is now known as ze</b><br/>
+<font size="2">(07:39:34 PM)</font><b> kardioid [<em>~ff@190.249.128.156</em>] entered the room.</b><br/>
+<font size="2">(07:50:01 PM)</font><b> AndreeeCZ left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(07:53:31 PM)</font><b> monotomy [<em>~monotomy@drsd-4db306a2.pool.mediaWays.net</em>] entered the room.</b><br/>
+<font size="2">(07:53:47 PM)</font><b> ssj71 left the room (quit: Quit: http://www.kiwiirc.com/ - A hand crafted IRC client).</b><br/>
+<font size="2">(07:54:54 PM)</font><b> Tumulte left the room (quit: Quit: Lost terminal).</b><br/>
+<font color="#A82F2F"><font size="2">(08:09:16 PM)</font> <b>male:</b></font> First I&apos;ve heard of this jackcpufreq thing. Sounds like a great idea. It&apos;s such a pain to switch in and out of scaling mode and I feel silly running the CPU at max speed while I&apos;m writing emails and shit.<br/>
+<font color="#A82F2F"><font size="2">(08:10:42 PM)</font> <b>male:</b></font> Something along the same lines I&apos;ve often wanted is an easy way to switch to a simulated slower system. I.e. turn off all but one or 2 cores and reduce the cpu clock to 1Ghz or whatever the minimum is.<br/>
+<font color="#A82F2F"><font size="2">(08:11:20 PM)</font> <b>male:</b></font> Testing in a VM is one thing, but usually a GUI into a VM has its own slowness, so it&apos;s really not representative.<br/>
+<font color="#A82F2F"><font size="2">(08:11:47 PM)</font> <b>male:</b></font> And testing on an actual slower machine requires access to one and the time to set everything up to run there.<br/>
+<font size="2">(08:20:06 PM)</font><b> orl [<em>~orl@lns-bzn-48f-81-56-240-95.adsl.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(08:20:58 PM)</font><b> vihcs is now known as schiv</b><br/>
+<font size="2">(08:34:49 PM)</font><b> kardioid left the room (quit: Quit: Lost terminal).</b><br/>
+<font size="2">(08:36:23 PM)</font><b> rncbc is now known as rncbc|AFK</b><br/>
+<font color="#A82F2F"><font size="2">(08:51:25 PM)</font> <b>falktx_:</b></font> male: I have a cpu-scaling widget in kde that works just fine<br/>
+<font color="#A82F2F"><font size="2">(08:51:35 PM)</font> <b>falktx_:</b></font> I can set ondemand or a specific cpu freq<br/>
+<font color="#A82F2F"><font size="2">(08:52:04 PM)</font> <b>falktx_:</b></font> my cpu does 1.2, 1.6 and 2.0 GHz modes. I often use 1.2<br/>
+<font color="#A82F2F"><font size="2">(08:53:50 PM)</font> <b>male:</b></font> falktx_: Well, I have an 8-core CPU, so even running at 1.4Ghz it&apos;s not really in its lowest power/slowest state.<br/>
+<font color="#A82F2F"><font size="2">(08:56:52 PM)</font> <b>male:</b></font> falktx_: And also, when I&apos;m at 20% JACK DSP load, I only have like %3 CPU load.<br/>
+<font color="#A82F2F"><font size="2">(08:57:05 PM)</font> <b>male:</b></font> falktx_: So the normal frequency scaling governors don&apos;t work right.<br/>
+<font size="2">(08:58:10 PM)</font><b> ssj71 [<em>3fe13f6a@gateway/web/cgi-irc/kiwiirc.com/ip.63.225.63.106</em>] entered the room.</b><br/>
+<font size="2">(09:19:29 PM)</font><b> _o_o_oOo_o_o_` [<em>~macambot@186.212.200.5</em>] entered the room.</b><br/>
+<font size="2">(09:21:05 PM)</font><b> _o_o_oOo_o_o_ left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(09:30:29 PM)</font><b> dennyabrain [<em>~dennyabra@122.161.190.44</em>] entered the room.</b><br/>
+<font size="2">(09:37:13 PM)</font><b> vihcs [<em>~schiv@archlinux/developer/schiv</em>] entered the room.</b><br/>
+<font size="2">(09:37:14 PM)</font><b> schiv left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(09:37:14 PM)</font><b> Tumulte [<em>~tumulte@ALyon-651-1-131-175.w2-3.abo.wanadoo.fr</em>] entered the room.</b><br/>
+<font size="2">(09:37:14 PM)</font><b> nilg [<em>~user@78.100.53.5</em>] entered the room.</b><br/>
+<font size="2">(09:39:12 PM)</font><b> hansfbaier [<em>~jack@180.245.196.30</em>] entered the room.</b><br/>
+<font size="2">(09:50:08 PM)</font><b> nilg left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(10:03:47 PM)</font><b> vihcs is now known as schiv</b><br/>
+<font size="2">(10:31:31 PM)</font><b> monotomy left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(10:34:22 PM)</font><b> dennyabrain left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(10:34:36 PM)</font><b> HisaoNakai left the room (quit: Quit: &quot;We will not go quietly into the night!&quot; https://www.prism-break.org).</b><br/>
+<font size="2">(10:34:52 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(11:07:43 PM)</font><b> ahellquist|afk is now known as ahellquist</b><br/>
+<font size="2">(11:08:15 PM)</font><b> ahellquist is now known as ahellquist|afk</b><br/>
+<font size="2">(11:17:12 PM)</font><b> falktx_ left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(11:25:10 PM)</font><b> hybrid [<em>~R3n4t0@187.23.82.135</em>] entered the room.</b><br/>
+<font size="2">(11:36:03 PM)</font><b> hybrid left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(11:38:08 PM)</font><b> HisaoNakai left the room (quit: Ping timeout: 268 seconds).</b><br/>
+<font size="2">(11:40:51 PM)</font><b> hansfbaier left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(11:40:56 PM)</font><b> hansfbaier1 [<em>~jack@180.245.196.30</em>] entered the room.</b><br/>
+<font size="2">(11:41:59 PM)</font><b> hybrid [<em>~R3n4t0@187.23.82.135</em>] entered the room.</b><br/>
+<font size="2">(12:04:51 AM)</font><b> schiv left the room (quit: Quit: I quit!).</b><br/>
+<font size="2">(12:13:22 AM)</font><b> hansfbaier1 left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(12:20:47 AM)</font><b> Tumulte left the room (quit: Quit: Lost terminal).</b><br/>
+<font size="2">(12:26:34 AM)</font><b> hybrid left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(12:30:16 AM)</font><b> bsjones_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(12:31:37 AM)</font><b> hansfbaier [<em>~jack@180.245.196.30</em>] entered the room.</b><br/>
+<font size="2">(12:35:36 AM)</font><b> ssj71 left the room (quit: Quit: http://www.kiwiirc.com/ - A hand crafted IRC client).</b><br/>
+<font size="2">(01:00:07 AM)</font><b> hansfbaier left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(01:43:18 AM)</font><b> rncbc|AFK left the room (quit: Quit: byee!).</b><br/>
+<font size="2">(01:53:53 AM)</font><b> hansfbaier [<em>~jack@180.245.196.30</em>] entered the room.</b><br/>
+<font size="2">(02:25:22 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(02:30:29 AM)</font><b> hansfbaier [<em>~jack@180.245.196.30</em>] entered the room.</b><br/>
+<font size="2">(06:05:41 AM)</font><b> dennyabrain [<em>~dennyabra@122.161.190.44</em>] entered the room.</b><br/>
+<font size="2">(06:17:24 AM)</font><b> bsjones [<em>~brendan@p5B1686AC.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(06:18:42 AM)</font><b> eagles0513875 left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font size="2">(06:23:14 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(06:37:21 AM)</font><b> hansfbaier [<em>~jack@36.73.94.112</em>] entered the room.</b><br/>
+<font size="2">(06:41:10 AM)</font><b> eagles0513875 [<em>eagles0513@gateway/shell/trekweb.org/x-osycenfjgzjtpjqv</em>] entered the room.</b><br/>
+<font size="2">(07:11:10 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(07:24:25 AM)</font><b> hansfbaier [<em>~jack@36.81.53.48</em>] entered the room.</b><br/>
+<font size="2">(07:53:22 AM)</font><b> naptastic [<em>~david@99-20-201-27.lightspeed.hstntx.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(08:04:30 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(08:18:57 AM)</font><b> hansfbaier [<em>~jack@180.254.98.87</em>] entered the room.</b><br/>
+<font size="2">(08:25:18 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(08:39:24 AM)</font><b> hansfbaier [<em>~jack@36.81.21.130</em>] entered the room.</b><br/>
+<font size="2">(08:42:52 AM)</font><b> prettyvanilla_ [<em>~prettyvan@node-pt089-105-172-230.infra.schwaz.net</em>] entered the room.</b><br/>
+<font size="2">(08:42:58 AM)</font><b> prettyvanilla left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font size="2">(08:43:37 AM)</font><b> custos-m1ndi left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(08:56:09 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(09:07:54 AM)</font><b> hansfbaier [<em>~jack@36.73.53.47</em>] entered the room.</b><br/>
+<font size="2">(09:13:54 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(09:27:45 AM)</font><b> hansfbaier [<em>~jack@36.81.32.179</em>] entered the room.</b><br/>
+<font size="2">(09:46:28 AM)</font><b> RytmenPinne [<em>~alex@35-51.bob.fi</em>] entered the room.</b><br/>
+<font size="2">(09:51:04 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 268 seconds).</b><br/>
+<font size="2">(10:04:10 AM)</font><b> hansfbaier [<em>~jack@180.245.197.124</em>] entered the room.</b><br/>
+<font size="2">(10:09:09 AM)</font><b> monotomy [<em>~monotomy@drsd-4d05e734.pool.mediaWays.net</em>] entered the room.</b><br/>
+<font size="2">(10:09:16 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(10:22:56 AM)</font><b> hansfbaier [<em>~jack@36.73.119.171</em>] entered the room.</b><br/>
+<font size="2">(11:18:36 AM)</font><b> prettyvanilla_ is now known as prettyvanilla</b><br/>
+<font size="2">(11:30:52 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(11:38:15 AM)</font><b> falktx [<em>~falktx@bl20-53-27.dsl.telepac.pt</em>] entered the room.</b><br/>
+<font size="2">(11:42:00 AM)</font><b> grammoboy [<em>~derick@5ED6A322.cm-7-7c.dynamic.ziggo.nl</em>] entered the room.</b><br/>
+<font size="2">(11:42:17 AM)</font><b> hansfbaier [<em>~jack@36.73.71.48</em>] entered the room.</b><br/>
+<font size="2">(12:26:21 PM)</font><b> dennyabrain left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(12:47:10 PM)</font><b> falktx left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(12:57:58 PM)</font><b> grammoboy left the room (quit: Quit: Ex-Chat).</b><br/>
+<font size="2">(12:58:46 PM)</font><b> hansfbaier left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(01:07:47 PM)</font><b> AndreeeCZ [<em>~AndreeeCZ@88.103.20.84</em>] entered the room.</b><br/>
+<font size="2">(01:11:24 PM)</font><b> AndreeeCZ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:12:51 PM)</font><b> kim_plausible [<em>~kim@ti0015a380-dhcp0307.bb.online.no</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:15:59 PM)</font> <b>fps:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(01:16:08 PM)</font> <b>fps:</b></font> this is pretty OT, but maybe someone has knowledge to share :D<br/>
+<font color="#A82F2F"><font size="2">(01:16:25 PM)</font> <b>fps:</b></font> for a friend of mine i work on controlling DMX lighting from a raspberry pi<br/>
+<font size="2">(01:16:51 PM)</font><b> kim_plausible left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(01:17:00 PM)</font> <b>fps:</b></font> the idea now is to setup a webserver on the device and set parameters for the lighting programs via a html page with e.g. integrated javadscript<br/>
+<font size="2">(01:17:07 PM)</font><b> kim_plausible [<em>~kim@ti0015a380-dhcp0307.bb.online.no</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:17:12 PM)</font> <b>fps:</b></font> soooo<br/>
+<font color="#A82F2F"><font size="2">(01:17:29 PM)</font> <b>fps:</b></font> i wonder what&apos;s the best way to pass parameters for form elements to another process on the machien<br/>
+<font color="#A82F2F"><font size="2">(01:17:32 PM)</font> <b>fps:</b></font> machine<br/>
+<font color="#A82F2F"><font size="2">(01:18:02 PM)</font> <b>fps:</b></font> i suppose the sliders, buttons, etc, could have little js snippets that make new requests to the webserver when a value changes<br/>
+<font color="#A82F2F"><font size="2">(01:18:14 PM)</font> <b>fps:</b></font> on a different URL than the main page..<br/>
+<font color="#A82F2F"><font size="2">(01:18:26 PM)</font> <b>fps:</b></font> then there&apos;s a little CGI script lurking behind those URLs<br/>
+<font color="#A82F2F"><font size="2">(01:19:41 PM)</font> <b>fps:</b></font> i guess i could make the lighting control program listen on a socket, too<br/>
+<font color="#A82F2F"><font size="2">(01:19:57 PM)</font> <b>fps:</b></font> and then the cgi script just fires off some packets with the new state<br/>
+<font color="#A82F2F"><font size="2">(01:20:07 PM)</font> <b>fps:</b></font> this would mean i would have to implement another protocol though<br/>
+<font color="#A82F2F"><font size="2">(01:20:08 PM)</font> <b>fps:</b></font> hmm<br/>
+<font size="2">(01:37:36 PM)</font><b> falktx [<em>~falktx@bl20-53-27.dsl.telepac.pt</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(01:54:28 PM)</font> <b>magnetophon:</b></font> fps: can't really help you, but I AM interested in the topic: what DMX hardware is floss compatible, and do you know of any general purpose dmx software for linux?<br/>
+<font color="#A82F2F"><font size="2">(01:55:13 PM)</font> <b>fps:</b></font> magnetophon: we use the usbdmx interface<br/>
+<font color="#A82F2F"><font size="2">(01:55:23 PM)</font> <b>fps:</b></font> it has an open source library available which works<br/>
+<font color="#A82F2F"><font size="2">(01:55:33 PM)</font> <b>fps:</b></font> albeit feeling a little archaine (C style)<br/>
+<font color="#A82F2F"><font size="2">(01:55:47 PM)</font> <b>fps:</b></font> http://www.usbdmx.com/<br/>
+<font color="#A82F2F"><font size="2">(01:55:54 PM)</font> <b>fps:</b></font> you can build one yourself or order it<br/>
+<font color="#16569E"><font size="2">(01:56:36 PM)</font> <b>magnetophon:</b></font> fps: so no software a normal light-engineer would be able to work with?<br/>
+<font color="#A82F2F"><font size="2">(01:56:39 PM)</font> <b>fps:</b></font> magnetophon: i have developed custom software for it, since the available dmx control software on linux is VERY limited<br/>
+<font color="#A82F2F"><font size="2">(01:57:03 PM)</font> <b>fps:</b></font> magnetophon: there is a qt3 based scene manager thingie, but it was really limited, too<br/>
+<font color="#16569E"><font size="2">(01:57:13 PM)</font> <b>magnetophon:</b></font> fps: got a link? to either?<br/>
+<font color="#A82F2F"><font size="2">(01:57:40 PM)</font> <b>fps:</b></font> our software is not open :D  [it&apos;s just for this guy and his inflatable objects :D]<br/>
+<font color="#A82F2F"><font size="2">(01:57:48 PM)</font> <b>fps:</b></font> i can try and find the link to the latter<br/>
+<font color="#16569E"><font size="2">(01:58:14 PM)</font> <b>magnetophon:</b></font> fps: thanks!<br/>
+<font color="#A82F2F"><font size="2">(01:59:08 PM)</font> <b>fps:</b></font> q light controller<br/>
+<font color="#A82F2F"><font size="2">(01:59:08 PM)</font> <b>fps:</b></font> https://www.youtube.com/watch?v=BfulsW2__yQ<br/>
+<font color="#16569E"><font size="2">(01:59:11 PM)</font> <b>magnetophon:</b></font> fps: by the way, I found out where we met: we've been mailing about dssi_convolve, back before IR.lv2 was availabel.<br/>
+<font color="#A82F2F"><font size="2">(01:59:18 PM)</font> <b>fps:</b></font> magnetophon: aaha :D<br/>
+<font color="#16569E"><font size="2">(01:59:19 PM)</font> <b>magnetophon:</b></font> cool, thanks<br/>
+<font color="#A82F2F"><font size="2">(01:59:25 PM)</font> <b>fps:</b></font> http://qlc.sourceforge.net/<br/>
+<font color="#A82F2F"><font size="2">(01:59:46 PM)</font> <b>fps:</b></font> we&apos;re doing sound to light<br/>
+<font color="#A82F2F"><font size="2">(01:59:57 PM)</font> <b>fps:</b></font> and even in freely available windows software they are quite limited<br/>
+<font color="#A82F2F"><font size="2">(02:00:15 PM)</font> <b>fps:</b></font> [we make different objects pulsate in response to different frequencies in the audio spectrum, etc..]<br/>
+<font color="#A82F2F"><font size="2">(02:00:30 PM)</font> <b>fps:</b></font> also an ad hoc beat detection, which i need to improve significantly :D<br/>
+<font color="#A82F2F"><font size="2">(02:01:16 PM)</font> <b>fps:</b></font> the usb dmx library already minimizes bus usage, so constant values do not get resent, which makes life a little easier<br/>
+<font color="#16569E"><font size="2">(02:01:31 PM)</font> <b>magnetophon:</b></font> fps: the best beat detector i know of is puredata, which might also be a useful framework for your purposes<br/>
+<font color="#16569E"><font size="2">(02:02:01 PM)</font> <b>magnetophon:</b></font> actually, I've been able to significantly improve on the standard pd beat detectors.<br/>
+<font size="2">(02:02:49 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

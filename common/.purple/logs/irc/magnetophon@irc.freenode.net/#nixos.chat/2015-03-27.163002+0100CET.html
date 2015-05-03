@@ -1,0 +1,141 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Fri 27 Mar 2015 04:30:02 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Fri 27 Mar 2015 04:30:02 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:30:02 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(04:30:02 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(04:31:43 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 2 new commits to master: http://git.io/jlXX<br/>
+<font color="#A82F2F"><font size="2">(04:31:43 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c96bc1e Michel Kuhlmann: r-modules: fixing rggobi by adding initial expression for ggobi<br/>
+<font color="#A82F2F"><font size="2">(04:31:43 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 337c662 Peter Simons: Merge pull request #6992 from michelk/rggobi...<br/>
+<font color="#A82F2F"><font size="2">(04:40:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] k0ral opened pull request #7029: percol: 0.0.8 -&gt; 0.1.0 (now supports python 3) (master...percol) http://git.io/jly5<br/>
+<font color="#A82F2F"><font size="2">(04:52:23 PM)</font> <b>hlavaty:</b></font> libstdc++.so.6 =&gt; not found; how do i patchelf that executable?  do i need some dependencies for that package?<br/>
+<font color="#A82F2F"><font size="2">(05:00:27 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] k0ral opened pull request #7030: grc: 1.5 -&gt; 1.7 (master...grc) http://git.io/jlb1<br/>
+<font color="#A82F2F"><font size="2">(05:03:57 PM)</font> <b>hlavaty:</b></font> how to configure network printers on nixos?<br/>
+<font color="#A82F2F"><font size="2">(05:21:33 PM)</font> <b>kmicu:</b></font> With *.cups.* in configuration.nix.<br/>
+<font color="#A82F2F"><font size="2">(05:22:48 PM)</font> <b>schoppenhauer:</b></font> is it possible to tell the nixos package manager to upgrade everything except &quot;...&quot;<br/>
+<font size="2">(05:25:23 PM)</font><b> Dezgeg- is now known as Dezgeg</b><br/>
+<font color="#A82F2F"><font size="2">(05:26:17 PM)</font> <b>goibhniu:</b></font> schoppenhauer: nope, but you could install ... in a user profile instead<br/>
+<font color="#A82F2F"><font size="2">(05:26:48 PM)</font> <b>schoppenhauer:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(05:27:07 PM)</font> <b>schoppenhauer:</b></font> hm. its not that easy actually.<br/>
+<font color="#A82F2F"><font size="2">(05:27:31 PM)</font> <b>kmicu:</b></font> It’s easy, pin that package in your config.<br/>
+<font color="#A82F2F"><font size="2">(05:27:46 PM)</font> <b>schoppenhauer:</b></font> I need coq-8.4pl5, and it wants to install coq-8.5pre-52f51fb3.<br/>
+<font color="#A82F2F"><font size="2">(05:28:02 PM)</font> <b>kmicu:</b></font> Then override coq to always point to that version.<br/>
+<font color="#A82F2F"><font size="2">(05:28:36 PM)</font> <b>schoppenhauer:</b></font> is this described somewhere? (I am not yet through the whole nixos docu)<br/>
+<font color="#A82F2F"><font size="2">(05:29:04 PM)</font> <b>kmicu:</b></font> https://nixos.org/nixos/manual/sec-package-management.html#sec-customising-packages for configuration.nix and …<br/>
+<font color="#A82F2F"><font size="2">(05:30:04 PM)</font> <b>kmicu:</b></font> https://nixos.org/wiki/Howto_keep_multiple_packages_up_to_date_at_once for ~/.nixpkgs/config.nix.<br/>
+<font color="#A82F2F"><font size="2">(05:30:38 PM)</font> <b>kmicu:</b></font> I’m not sure why you are using coq in the global environment though instead of using nix-shell.<br/>
+<font color="#A82F2F"><font size="2">(05:30:55 PM)</font> <b>schoppenhauer:</b></font> because I use it through proofgeneral<br/>
+<font color="#A82F2F"><font size="2">(05:31:20 PM)</font> <b>kmicu:</b></font> You can use proofgeneral from nix-shell.<br/>
+<font color="#A82F2F"><font size="2">(05:32:31 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] cwoac opened pull request #7031: Add MediaTomb service (master...mediatomb) http://git.io/j8Y0<br/>
+<font color="#A82F2F"><font size="2">(05:33:07 PM)</font> <b>kmicu:</b></font> E.g. https://github.com/Chobbes/c495-presentation-2015/blob/52cb9ff8f1b917d414509e07419580bc4e43d828/coq/shell.nix<br/>
+<font color="#A82F2F"><font size="2">(05:35:08 PM)</font> <b>kmicu:</b></font> And another one https://github.com/jwiegley/nix-config/blob/d2c415f0d22760069a52e4e5a8daa35550766e5d/config.nix#L178<br/>
+<font color="#062585"><font size="2">(05:36:27 PM)</font> <b>***kmicu</b></font> knows that initial setup is not easy and docs does not help.<br/>
+<font size="2">(05:49:31 PM)</font><b> boegel is now known as boegel|afk</b><br/>
+<font color="#A82F2F"><font size="2">(05:53:40 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] flosse opened pull request #7032: nixos: prosody service - rename &apos;enabled&apos; to &apos;enable&apos; (master...change-option-names) http://git.io/j8Wa<br/>
+<font size="2">(06:01:55 PM)</font><b> MichaelRaskin [<em>~MichaelRa@195.91.224.161</em>] entered the room.</b><br/>
+<font size="2">(06:07:04 PM)</font><b> bendlas is now known as bendlas|brb</b><br/>
+<font color="#A82F2F"><font size="2">(06:12:08 PM)</font> <b>boxdot:</b></font> Hi<br/>
+<font color="#A82F2F"><font size="2">(06:13:33 PM)</font> <b>boxdot:</b></font> I&apos;ve installed nix package manager on a brand new virtual machine, and installed git with nix-env… Now, I get a strange error: unable to look up current user in the passwd file: no such user, while using git.<br/>
+<font color="#A82F2F"><font size="2">(06:13:52 PM)</font> <b>boxdot:</b></font> It seems to be exactly this problem http://stackoverflow.com/questions/20271926/git-error-unable-to-look-up-current-user-in-the-passwd-file-no-such-user-wh<br/>
+<font size="2">(06:21:04 PM)</font><b> bendlas|brb is now known as bendlas</b><br/>
+<font color="#A82F2F"><font size="2">(06:22:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] gebner opened pull request #7033: Add jabref, an open source bibliography manager. (master...jabref) http://git.io/j8rf<br/>
+<font color="#16569E"><font size="2">(06:26:13 PM)</font> <b>magnetophon:</b></font> I'm still trying to package a crucial program for my migration to nixos; a simple EQ plugin: http://nixpaste.noip.me/RtyME7zK. I get: &quot;not declared in this scope&quot; compile errors, and according to the gcc docs, those can be worked around with the flag I have on line 12 (-fpermissive). I don't know what to do anymore!<br/>
+<font size="2">(06:31:04 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(06:31:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ryantm closed pull request #7000: fix `bind` broken build (master...master) http://git.io/jsqi<br/>
+<font color="#A82F2F"><font size="2">(06:31:46 PM)</font> <b>boxdot:</b></font> I&apos;ve forgot to mention that my user on the machine is not in passwd, it is created over LDAP. libc from the os (ubuntu) is working, but not from nix.<br/>
+<font color="#A82F2F"><font size="2">(06:33:51 PM)</font> <b>Fuuzetsu:</b></font> magnetophon: well, does the flag actually get passed in<br/>
+<font color="#16569E"><font size="2">(06:36:21 PM)</font> <b>magnetophon:</b></font> Fuuzetsu: I've wondered that as well, but don't know how to check<br/>
+<font color="#A82F2F"><font size="2">(06:44:45 PM)</font> <b>qknight:</b></font> viric: what forces me to set allowUnfree = true; for anonymous function at &quot;/root/nixpkgs/pkgs/development/compilers/oraclejdk/jdk6-linux.nix which is not used in the end?<br/>
+<font color="#A82F2F"><font size="2">(06:45:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 3 new commits to master: http://git.io/j8Sl<br/>
+<font color="#A82F2F"><font size="2">(06:45:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7a9e790 William A. Kennington III: kernel: 3.10.72 -&gt; 3.10.73<br/>
+<font color="#A82F2F"><font size="2">(06:45:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master ca12b0b William A. Kennington III: kernel: 3.19.2 -&gt; 3.19.3<br/>
+<font color="#A82F2F"><font size="2">(06:45:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 304b3c0 William A. Kennington III: kernel: 3.14.36 -&gt; 3.14.37<br/>
+<font color="#A82F2F"><font size="2">(06:45:48 PM)</font> <b>qknight:</b></font> viric: i&apos;ve added your minimal configuration from the wiki, reads like: http://nixpaste.noip.me/EXJ662Q-?nix<br/>
+<font size="2">(06:52:05 PM)</font><b> idem-pyon-tent is now known as Guest363</b><br/>
+<font size="2">(06:54:20 PM)</font><b> goibhniu left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(06:56:38 PM)</font> <b>Fuuzetsu:</b></font> how can I check what pulls in a package?<br/>
+<font color="#A82F2F"><font size="2">(06:56:49 PM)</font> <b>Fuuzetsu:</b></font> i.e. something wants to build qt4 but I don&apos;t know what<br/>
+<font size="2">(06:57:07 PM)</font><b> Guest363 is now known as idem-pyon-tent</b><br/>
+<font color="#A82F2F"><font size="2">(07:02:17 PM)</font> <b>Fuuzetsu:</b></font> oh, mumble and virtualbox<br/>
+<font color="#A82F2F"><font size="2">(07:03:39 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] nslqqq opened pull request #7034: Highlight listings in manuals (master...master) http://git.io/j8N9<br/>
+<font color="#A82F2F"><font size="2">(07:16:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 2 new commits to staging: http://git.io/j4ex<br/>
+<font color="#A82F2F"><font size="2">(07:16:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 23c7380 William A. Kennington III: Revert &quot;procps: 3.2.8 -&gt; 3.3.10&quot;...<br/>
+<font color="#A82F2F"><font size="2">(07:16:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging dceff13 William A. Kennington III: procps-ng: Refactor a bit<br/>
+<font color="#A82F2F"><font size="2">(07:28:51 PM)</font> <b>qknight:</b></font> Fuuzetsu: how did you find out?<br/>
+<font color="#A82F2F"><font size="2">(07:31:02 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to staging: http://git.io/j4Ix<br/>
+<font color="#A82F2F"><font size="2">(07:31:02 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 22018c4 William A. Kennington III: cmake: Remove obsolete openssl patch<br/>
+<font color="#A82F2F"><font size="2">(07:31:43 PM)</font> <b>wkennington:</b></font> maybe staging will work now :)<br/>
+<font color="#A82F2F"><font size="2">(07:33:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to staging: http://git.io/j4tI<br/>
+<font color="#A82F2F"><font size="2">(07:33:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 9fc53d9 William A. Kennington III: procps-ng: Fix license<br/>
+<font color="#A82F2F"><font size="2">(07:36:37 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] joachifm opened pull request #7035: Reimplement kona (master...reimplement-kona) http://git.io/j4qp<br/>
+<font color="#A82F2F"><font size="2">(07:39:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/j4OT<br/>
+<font color="#A82F2F"><font size="2">(07:39:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7215167 William A. Kennington III: nss: 3.17.4 -&gt; 3.18<br/>
+<font color="#A82F2F"><font size="2">(07:43:39 PM)</font> <b>Fuuzetsu:</b></font> qknight: -q --referrers on existing paths in the store<br/>
+<font color="#A82F2F"><font size="2">(07:43:55 PM)</font> <b>Fuuzetsu:</b></font> I don&apos;t know how to find out otherwise<br/>
+<font color="#A82F2F"><font size="2">(07:44:00 PM)</font> <b>ttuegel:</b></font> wkennington: uh oh, i removed all the old versions of cmake from staging last week. so, none of them should have been patched. were my staging changes lost?<br/>
+<font color="#A82F2F"><font size="2">(07:44:28 PM)</font> <b>wkennington:</b></font> ttuegel: i merged with master and it brought some stuff back automagically<br/>
+<font color="#A82F2F"><font size="2">(07:44:33 PM)</font> <b>wkennington:</b></font> ttuegel: but it should be done now<br/>
+<font color="#A82F2F"><font size="2">(07:44:40 PM)</font> <b>ttuegel:</b></font> wkennington: oh, ok good :)<br/>
+<font color="#A82F2F"><font size="2">(07:46:06 PM)</font> <b>ttuegel:</b></font> git thinks it&apos;s very clever sometimes<br/>
+<font color="#A82F2F"><font size="2">(07:46:17 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/j4ZR<br/>
+<font color="#A82F2F"><font size="2">(07:46:17 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f0742a4 Peter Simons: cryptol is now available from Hackage,<br/>
+<font color="#A82F2F"><font size="2">(07:55:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] magnetophon opened pull request #7036: add nova-filters: LADSPA plugins based on filters of nova (master...nova-filters-master) http://git.io/j4lQ<br/>
+<font color="#A82F2F"><font size="2">(08:01:21 PM)</font> <b>qknight:</b></font> Fuuzetsu: on gentoo one could generate a graph of dependencies using emerge (IIRC)<br/>
+<font color="#A82F2F"><font size="2">(08:03:15 PM)</font> <b>Fuuzetsu:</b></font> yeah, Gentoo was my distro before NixOS<br/>
+<font color="#A82F2F"><font size="2">(08:06:07 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] gridaphobe pushed 1 new commit to master: http://git.io/j40h<br/>
+<font color="#A82F2F"><font size="2">(08:06:07 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7f0e6b7 Eric Seidel: nano: patch for darwin<br/>
+<font color="#A82F2F"><font size="2">(08:22:32 PM)</font> <b>qknight:</b></font> Fuuzetsu: mine, too. ;-)<br/>
+<font color="#A82F2F"><font size="2">(08:22:38 PM)</font> <b>qknight:</b></font> what is a modDirVersion?<br/>
+<font color="#A82F2F"><font size="2">(08:23:15 PM)</font> <b>qknight:</b></font> can be found in nixpkgs at pkgs/os-specific/linux/kernel/linux-*.nix various kernels and how do i find out which modDirVersion https://github.com/hardkernel/linux.git &lt;- this kernel has?<br/>
+<font color="#A82F2F"><font size="2">(08:24:15 PM)</font> <b>viric:</b></font> qknight: I can&apos;t look at it now<br/>
+<font color="#A82F2F"><font size="2">(08:25:47 PM)</font> <b>qknight:</b></font> viric: sure<br/>
+<font color="#16569E"><font size="2">(08:26:13 PM)</font> <b>magnetophon:</b></font> Does it make sense to do a PR that depends on a PR that hasn't been merged yet, or should I wait?<br/>
+<font size="2">(08:30:13 PM)</font><b> idem-pyon-tent is now known as Guest10134</b><br/>
+<font color="#A82F2F"><font size="2">(08:31:40 PM)</font> <b>qknight:</b></font> magnetophon: thus it depends on the PR, most likely &quot;wait&quot; is a good strategy in this case<br/>
+<font color="#16569E"><font size="2">(08:32:08 PM)</font> <b>magnetophon:</b></font> qknight: OK, thanks.<br/>
+<font color="#A82F2F"><font size="2">(08:58:48 PM)</font> <b>wkennington:</b></font> omg how does the builder unzip sed exression work<br/>
+<font color="#A82F2F"><font size="2">(08:59:00 PM)</font> <b>wkennington:</b></font> dafuq is this: sed -e &apos;s@^\\(\\s\\+[-0-9:]\\+\\)\\{3,3\\}\\s\\+\\([^/]\\+\\)/.*@\\2@&apos; )\&quot;<br/>
+<font size="2">(08:59:52 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#062585"><font size="2">(09:01:58 PM)</font> <b>***ttuegel</b></font> cthulhu fhtagn<br/>
+<font color="#A82F2F"><font size="2">(09:04:32 PM)</font> <b>MichaelRaskin:</b></font> wkennington: I think it lived inside double quotes and suffered because of that<br/>
+<font color="#A82F2F"><font size="2">(09:05:48 PM)</font> <b>MichaelRaskin:</b></font> Three space-separated groups of digits with possible dash or colon in each?<br/>
+<font color="#A82F2F"><font size="2">(09:06:25 PM)</font> <b>MichaelRaskin:</b></font> OK, it does seem intriguing<br/>
+<font color="#A82F2F"><font size="2">(09:06:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti opened pull request #7037: Switch the default Haskell package set to GHC 7.10.1. (master...haskell-updates-ghc7101) http://git.io/j4Np<br/>
+<font color="#A82F2F"><font size="2">(09:06:52 PM)</font> <b>ksf:</b></font> I, too, like to live dangerously.<br/>
+<font color="#A82F2F"><font size="2">(09:07:44 PM)</font> <b>MichaelRaskin:</b></font> Hm, LibreOffice in master has two states: not built by Hydra, and unbuildable<br/>
+<font color="#A82F2F"><font size="2">(09:09:51 PM)</font> <b>benley:</b></font> that regex ... good god, that doesn&apos;t even work in PCRE or as a javascript regex<br/>
+<font color="#A82F2F"><font size="2">(09:10:07 PM)</font> <b>MichaelRaskin:</b></font> Because it is overescaped<br/>
+<font color="#A82F2F"><font size="2">(09:10:09 PM)</font> <b>benley:</b></font> oh wait I copypastad wrong<br/>
+<font color="#A82F2F"><font size="2">(09:10:24 PM)</font> <b>MichaelRaskin:</b></font> And yes, it is a &quot;basic&quot; regex, so it uses \{\} where PCRE uses {}<br/>
+<font color="#A82F2F"><font size="2">(09:10:37 PM)</font> <b>benley:</b></font> aha, that would do it<br/>
+<font color="#A82F2F"><font size="2">(09:10:37 PM)</font> <b>viric:</b></font> wkennington: it looks like your &quot;easy yubikey with luks on boot for nixos&quot; ;)<br/>
+<font color="#A82F2F"><font size="2">(09:10:55 PM)</font> <b>wkennington:</b></font> viric: wait what?<br/>
+<font color="#A82F2F"><font size="2">(09:11:11 PM)</font> <b>benley:</b></font> MichaelRaskin: what&apos;s with the unescaped / after the ([^/]\\+\\)/ group?<br/>
+<font color="#A82F2F"><font size="2">(09:11:27 PM)</font> <b>benley:</b></font> actually nevermind, that&apos;s a sed thing.<br/>
+<font color="#A82F2F"><font size="2">(09:11:32 PM)</font> <b>benley:</b></font> because it&apos;s using @ as the expression separator.<br/>
+<font color="#A82F2F"><font size="2">(09:11:38 PM)</font> <b>viric:</b></font> wkennington: ah! I thought this was yours, sorry: https://nixos.org/wiki/Luks-based_FDE_with_Yubikey_PBA_and_btrfs_on_UEFI_NixOS :)<br/>
+<font color="#A82F2F"><font size="2">(09:12:12 PM)</font> <b>viric:</b></font> its a fun wiki page<br/>
+<font color="#A82F2F"><font size="2">(09:13:37 PM)</font> <b>benley:</b></font> so the actual matching regex is like ^(\s+[-0-9:]+){3,3}\s+([^/]+)\/.* then, which looks downright sane<br/>
+<font color="#A82F2F"><font size="2">(09:13:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga closed pull request #7035: Reimplement kona (master...reimplement-kona) http://git.io/j4qp<br/>
+<font color="#A82F2F"><font size="2">(09:13:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga pushed 3 new commits to master: http://git.io/j4h6<br/>
+<font color="#A82F2F"><font size="2">(09:13:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 52d77f2 Joachim Fasting: kona: reimplement using mkDerivation...<br/>
+<font color="#A82F2F"><font size="2">(09:13:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 933e6cc Joachim Fasting: kona: bump to 3.21...<br/>
+<font color="#A82F2F"><font size="2">(09:13:44 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 91eaf54 Arseniy Seroka: Merge pull request #7035 from joachifm/reimplement-kona...<br/>
+<font color="#A82F2F"><font size="2">(09:13:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga pushed 2 new commits to master: http://git.io/j4hM<br/>
+<font color="#A82F2F"><font size="2">(09:13:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c5aa2e7 koral: grc: 1.5 -&gt; 1.7<br/>
+<font color="#A82F2F"><font size="2">(09:13:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a90a8f6 Arseniy Seroka: Merge pull request #7030 from k0ral/grc...<br/>
+<font color="#A82F2F"><font size="2">(09:14:14 PM)</font> <b>wkennington:</b></font> what am i missing here? http://sprunge.us/bYjS<br/>
+<font color="#A82F2F"><font size="2">(09:14:24 PM)</font> <b>wkennington:</b></font> it&apos;s still saying that it doesn&apos;t understand .rar<br/>
+<font color="#A82F2F"><font size="2">(09:16:41 PM)</font> <b>wkennington:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(09:16:53 PM)</font> <b>wkennington:</b></font> why is this done in multiple places<br/>
+<font color="#A82F2F"><font size="2">(09:17:22 PM)</font> <b>devhell:</b></font> wkennington: don&apos;t you need &apos;unrar x foo&apos;?<br/>
+<font color="#A82F2F"><font size="2">(09:17:35 PM)</font> <b>wkennington:</b></font> yeah, unrar e foo<br/>
+<font color="#A82F2F"><font size="2">(09:17:49 PM)</font> <b>wkennington:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(09:17:50 PM)</font> <b>wkennington:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(09:18:13 PM)</font> <b>devhell:</b></font> it only says unrar &apos;${s}&apos;?<br/>
+<font color="#A82F2F"><font size="2">(09:18:39 PM)</font> <b>wkennington:</b></font> i know<br/>
+<font color="#A82F2F"><font size="2">(09:18:41 PM)</font> <b>wkennington:</b></font> i realize taht<br/>
+<font color="#A82F2F"><font size="2">(09:18:47 PM)</font> <b>devhell:</b></font> k<br/>
+<font color="#A82F2F"><font size="2">(09:26:41 PM)</font> <b>JagaJaga:</b></font> What do we do, when there is no constant link to a source file?<br/>
+<font color="#A82F2F"><font size="2">(09:27:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] avnik opened pull request #7038: Rename ccgo back to gccgo (master...gccgo-wrapper) http://git.io/jBTI<br/>
+<font color="#A82F2F"><font size="2">(09:28:11 PM)</font> <b>avn:</b></font> one more kick-ass fix ;)<br/>
+<font color="#A82F2F"><font size="2">(09:47:58 PM)</font> <b>ktosiek:</b></font> JagaJaga: find one or make a mirror?<br/>
+<font size="2">(10:24:12 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,267 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Fri 17 Apr 2015 04:55:44 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Fri 17 Apr 2015 04:55:44 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:55:44 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(04:55:44 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#16569E"><font size="2">(05:03:07 PM)</font> <b>magnetophon:</b></font> I did nix-collect-garbage, and it's stalling at &quot;deleting unused links&quot; for + 10 min now. It has gradually freed up 300Mb. There is lot's of disk activity, and when I strace nix-daemon from htop (thanks for the tip qknight!), I get lots of of lstat64 and an occasional unlink.  Is that normal? (on a netbook)<br/>
+<font color="#A82F2F"><font size="2">(05:03:34 PM)</font> <b>Lethalman:</b></font> magnetophon, well, it&apos;s deleting a lot of files now<br/>
+<font color="#A82F2F"><font size="2">(05:03:41 PM)</font> <b>Lethalman:</b></font> you&apos;ll see it will probably delete more than 300mb in the end<br/>
+<font color="#A82F2F"><font size="2">(05:04:15 PM)</font> <b>Lethalman:</b></font> magnetophon, perhaps you&apos;ve enabled the auto optimize thing?<br/>
+<font color="#16569E"><font size="2">(05:04:23 PM)</font> <b>magnetophon:</b></font> Lethalman: yes I have<br/>
+<font color="#A82F2F"><font size="2">(05:04:27 PM)</font> <b>Lethalman:</b></font> that&apos;s the problem<br/>
+<font color="#A82F2F"><font size="2">(05:04:30 PM)</font> <b>Lethalman:</b></font> why you enabled it?<br/>
+<font color="#A82F2F"><font size="2">(05:04:34 PM)</font> <b>Lethalman:</b></font> I find it optimization hardly useful<br/>
+<font color="#16569E"><font size="2">(05:04:52 PM)</font> <b>magnetophon:</b></font> On the ML they where asking for testers.<br/>
+<font color="#A82F2F"><font size="2">(05:04:56 PM)</font> <b>Lethalman:</b></font> ah ok<br/>
+<font color="#A82F2F"><font size="2">(05:05:07 PM)</font> <b>Lethalman:</b></font> well, it&apos;s probably scanning a lot of files or something<br/>
+<font color="#16569E"><font size="2">(05:05:26 PM)</font> <b>magnetophon:</b></font> I'll stop it and try again without.  Thanks.<br/>
+<font color="#16569E"><font size="2">(05:12:13 PM)</font> <b>magnetophon:</b></font> hmm, odd: when I stopped it, it claimed to have freed nothing, yet i3 still claims 200Mb...<br/>
+<font color="#16569E"><font size="2">(05:13:20 PM)</font> <b>magnetophon:</b></font> erm 300<br/>
+<font color="#A82F2F"><font size="2">(05:18:40 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lethalman pushed 1 new commit to master: http://git.io/vvS1I<br/>
+<font color="#A82F2F"><font size="2">(05:18:40 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 384abb5 Luca Bruno: Add automake 1.15<br/>
+<font color="#A82F2F"><font size="2">(05:47:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga closed pull request #7417: Added Asterisk telephony server (master...asterisk) http://git.io/vvP6U<br/>
+<font size="2">(06:05:30 PM)</font><b> henrytill left the room (quit: Quit: ZNC - http://znc.in).</b><br/>
+<font size="2">(06:06:11 PM)</font><b> henrytill [<em>~user@unaffiliated/henrytill</em>] entered the room.</b><br/>
+<font size="2">(06:16:30 PM)</font><b> henrytill left the room (quit: Quit: ERC (IRC client for Emacs 24.5.1)).</b><br/>
+<font size="2">(06:17:11 PM)</font><b> henrytill [<em>~user@ur.xngns.net</em>] entered the room.</b><br/>
+<font size="2">(06:18:03 PM)</font><b> henrytill left the room (quit: Changing host).</b><br/>
+<font size="2">(06:18:03 PM)</font><b> henrytill [<em>~user@unaffiliated/henrytill</em>] entered the room.</b><br/>
+<font size="2">(06:36:21 PM)</font><b> Lethalman left the room (quit: Quit: Sto andando via).</b><br/>
+<font color="#A82F2F"><font size="2">(06:39:02 PM)</font> <b>erasmas:</b></font> anyone have network + vpn troubleshooting suggestions for nixos? I started receiving &quot;RTNETLINK answers: Network is down&quot; with openconnect after running nixos updates, but rolling back (or even booting into a generation from february) doesn&apos;t fix it<br/>
+<font color="#A82F2F"><font size="2">(06:39:42 PM)</font> <b>erasmas:</b></font> not sure where to go from here. I can connect to the vpn fine from other OS&apos;s so it seems to be some weird combination of nixos + this particular vpn + possibly some system update or something broken on here...<br/>
+<font color="#A82F2F"><font size="2">(07:00:00 PM)</font> <b>offline:</b></font> any idea aszlig: &quot;error: deepOverride not yet supported for functors&quot; i have this error if deploying with nixops on hetzner<br/>
+<font color="#A82F2F"><font size="2">(07:00:58 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ehmry closed pull request #5644: nixos: mpd: fixes and socket activation (master...mpd) http://git.io/I-0HEA<br/>
+<font color="#A82F2F"><font size="2">(07:02:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ehmry opened pull request #7430: Mpd (master...mpd) http://git.io/vv921<br/>
+<font size="2">(07:13:21 PM)</font><b> henrytill left the room (quit: Quit: ERC (IRC client for Emacs 24.5.1)).</b><br/>
+<font color="#A82F2F"><font size="2">(07:16:05 PM)</font> <b>MagBo:</b></font> Hwow to convert string &quot;&lt;foo&gt;&quot; to path pointer &lt;foo&gt;?<br/>
+<font color="#A82F2F"><font size="2">(07:16:06 PM)</font> <b>enthropy:</b></font> if I have a derivation that fails, are any of those files kept around?<br/>
+<font size="2">(07:16:22 PM)</font><b> henrytill [<em>~user@unaffiliated/henrytill</em>] entered the room.</b><br/>
+<font size="2">(07:16:31 PM)</font><b> goibhniu left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:17:03 PM)</font> <b>kmicu:</b></font> Yes, if you are using --keep-failed.<br/>
+<font color="#A82F2F"><font size="2">(07:17:32 PM)</font> <b>enthropy:</b></font> thanks kmicu<br/>
+<font color="#A82F2F"><font size="2">(07:20:56 PM)</font> <b>Forkk:</b></font> So, I&apos;d like to find a way to package Plex Media Server plugins using Nix. The issue is that Plex&apos;s plugin directory is stored in its data directory in /var/lib, but plugins managed my Nix need to be read-only files in the Nix store. Is there some mechanism I can use to have Nix packages manage files outside of the Nix store, or am I going to have to hack something up myself?<br/>
+<font color="#A82F2F"><font size="2">(07:22:35 PM)</font> <b>Forkk:</b></font> I imagine I&apos;ll have to hack something up<br/>
+<font color="#A82F2F"><font size="2">(07:24:18 PM)</font> <b>nicocbg:</b></font> hi, how do I get the version specified in a cabal file to be installed with nix ? does cabal2nix have an option to generate the solved versions ?<br/>
+<font color="#A82F2F"><font size="2">(07:25:01 PM)</font> <b>nicocbg:</b></font> right now I cabal2nix, no versions are specified, then nix-shell which installs the last versions avaialble on hackage<br/>
+<font color="#A82F2F"><font size="2">(07:25:38 PM)</font> <b>nicocbg:</b></font> (and published on pkgs/development/haskell-modules/hackage-packages.nix)<br/>
+<font color="#A82F2F"><font size="2">(07:26:47 PM)</font> <b>nicocbg:</b></font> that means if I cabal configure, it fails to respect the constraints setup in the cabal file<br/>
+<font color="#A82F2F"><font size="2">(07:27:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga pushed 2 new commits to master: http://git.io/vv9MU<br/>
+<font color="#A82F2F"><font size="2">(07:27:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 079da8c Forkk: plex: init at 0.9.11.16.958...<br/>
+<font color="#A82F2F"><font size="2">(07:27:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3e49fdd Arseniy Seroka: Merge pull request #7418 from Forkk/plex-media-server...<br/>
+<font color="#A82F2F"><font size="2">(07:27:27 PM)</font> <b>Forkk:</b></font> Woohoo! \o/ Plex for Nix :D<br/>
+<font size="2">(07:28:15 PM)</font><b> henrytill left the room (quit: Quit: ERC (IRC client for Emacs 24.5.1)).</b><br/>
+<font size="2">(07:29:09 PM)</font><b> henrytill [<em>~henrytill@unaffiliated/henrytill</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:32:06 PM)</font> <b>Forkk:</b></font> Hmm, so it looks like packaging Plex plugins will be very easy. I can just install them into the Nix store and put a symlink to them in Plex&apos;s plugins dir in /var/lib. The issue is figuring out how to get a package to make a symlink. Perhaps I should use a systemd unit to do it?<br/>
+<font color="#A82F2F"><font size="2">(07:33:33 PM)</font> <b>the-kenny:</b></font> Forkk: I&apos;m not sure if symlinking store contents into /var/lib is endorsed by NixOS<br/>
+<font color="#A82F2F"><font size="2">(07:34:14 PM)</font> <b>the-kenny:</b></font> Forkk: Can&apos;t you tell Plex to search in another directory?<br/>
+<font color="#A82F2F"><font size="2">(07:34:53 PM)</font> <b>the-kenny:</b></font> If you do it with systemd it&apos;s inherently impure. Either you delete everything on start of the systemd unit and symlink declared plugins, or you don&apos;t delete stuff but get outdated/dead/broken symlinks<br/>
+<font color="#A82F2F"><font size="2">(07:35:50 PM)</font> <b>the-kenny:</b></font> The correct (nix-y) way would generating a config file (or patching plex) to search in a different path than /var/lib. You can then point that to some directory in the nix-store or something user-supplied.<br/>
+<font color="#A82F2F"><font size="2">(07:37:52 PM)</font> <b>Forkk:</b></font> the-kenny, the problem is that Plex has several built-in plugins which it manages itself<br/>
+<font color="#A82F2F"><font size="2">(07:38:19 PM)</font> <b>the-kenny:</b></font> and those are copied by plex to /var/lib?<br/>
+<font color="#A82F2F"><font size="2">(07:38:20 PM)</font> <b>Forkk:</b></font> furthermore, there&apos;s are plugins which act as package managers to install other plugins, and I don&apos;t want to break those by making the plugins dir read only<br/>
+<font color="#A82F2F"><font size="2">(07:38:23 PM)</font> <b>Forkk:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(07:38:26 PM)</font> <b>the-kenny:</b></font> ugh<br/>
+<font color="#A82F2F"><font size="2">(07:38:36 PM)</font> <b>Forkk:</b></font> I don&apos;t think there&apos;s a way to add other plugin dirs either<br/>
+<font color="#A82F2F"><font size="2">(07:38:59 PM)</font> <b>the-kenny:</b></font> Please document this uglyness in a big far warning in the module&apos;s documentation then :)<br/>
+<font color="#A82F2F"><font size="2">(07:39:06 PM)</font> <b>Forkk:</b></font> but on the bright side, plugin bundles are never modified (databases and other data are stored separately)<br/>
+<font color="#A82F2F"><font size="2">(07:39:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ttuegel opened pull request #7431: Preview: Emacs enhancements (master...emacs-packages) http://git.io/vv9H6<br/>
+<font color="#A82F2F"><font size="2">(07:39:26 PM)</font> <b>Forkk:</b></font> so all I need to do is install the plugins in the nix store and symlink them into the plugins folder<br/>
+<font color="#A82F2F"><font size="2">(07:39:54 PM)</font> <b>the-kenny:</b></font> yup, but how will you re-link those if plex is rebuilt for some reason/<br/>
+<font color="#A82F2F"><font size="2">(07:40:35 PM)</font> <b>Forkk:</b></font> well, one option is to have the Plex module&apos;s preStart script symlink in all of the plugins on every startup<br/>
+<font color="#A82F2F"><font size="2">(07:40:50 PM)</font> <b>Forkk:</b></font> but then the module has to know about the plugins, which I&apos;m not sure is ideal<br/>
+<font color="#A82F2F"><font size="2">(07:40:55 PM)</font> <b>the-kenny:</b></font> hmm that might work if names don&apos;t change.<br/>
+<font color="#A82F2F"><font size="2">(07:41:09 PM)</font> <b>Forkk:</b></font> I don&apos;t think name changes would break it, would they?<br/>
+<font color="#A82F2F"><font size="2">(07:41:19 PM)</font> <b>the-kenny:</b></font> well. The old symlinks would still be there<br/>
+<font color="#A82F2F"><font size="2">(07:41:28 PM)</font> <b>Forkk:</b></font> yeah I guess<br/>
+<font color="#A82F2F"><font size="2">(07:41:36 PM)</font> <b>the-kenny:</b></font> or do you want to empty the directory on start?<br/>
+<font color="#A82F2F"><font size="2">(07:41:43 PM)</font> <b>Forkk:</b></font> they&apos;d be broken, though, so they&apos;d be ignored hopefully<br/>
+<font color="#A82F2F"><font size="2">(07:41:57 PM)</font> <b>Forkk:</b></font> emptying the directory would break plex, since it would remove core plugins<br/>
+<font color="#A82F2F"><font size="2">(07:42:13 PM)</font> <b>Forkk:</b></font> Maybe UnionFS or something would be an option?<br/>
+<font color="#A82F2F"><font size="2">(07:42:25 PM)</font> <b>the-kenny:</b></font> No, you can&apos;t rely on them being ignored. Nix might keep them as garbage collector root, stopping these from getting garbage collected.<br/>
+<font color="#A82F2F"><font size="2">(07:42:34 PM)</font> <b>Forkk:</b></font> oh right<br/>
+<font color="#A82F2F"><font size="2">(07:42:43 PM)</font> <b>Forkk:</b></font> that would actually be really bad, now that I think about it<br/>
+<font color="#A82F2F"><font size="2">(07:42:44 PM)</font> <b>the-kenny:</b></font> Well. You could record what your preStart symlinked and clean only those on start<br/>
+<font color="#A82F2F"><font size="2">(07:42:54 PM)</font> <b>the-kenny:</b></font> yup, that would definitely be bad :)<br/>
+<font color="#A82F2F"><font size="2">(07:42:57 PM)</font> <b>Forkk:</b></font> since uninstalling a plugin would not uninstall it<br/>
+<font color="#A82F2F"><font size="2">(07:43:16 PM)</font> <b>Forkk:</b></font> Another option is to go through and delete all the symlinks in the directory on startup<br/>
+<font color="#A82F2F"><font size="2">(07:43:30 PM)</font> <b>the-kenny:</b></font> What if some other plugin symlinks stuff? :)<br/>
+<font color="#A82F2F"><font size="2">(07:43:42 PM)</font> <b>Forkk:</b></font> plugins aren&apos;t allowed to write to the filesystem<br/>
+<font color="#A82F2F"><font size="2">(07:43:46 PM)</font> <b>the-kenny:</b></font> Sorry if I&apos;m nagging too much here<br/>
+<font color="#A82F2F"><font size="2">(07:43:52 PM)</font> <b>Forkk:</b></font> no, you&apos;re not<br/>
+<font color="#A82F2F"><font size="2">(07:44:14 PM)</font> <b>Forkk:</b></font> You&apos;re being very helpful. I wouldn&apos;t have thought of the problem with the symlink thing<br/>
+<font color="#A82F2F"><font size="2">(07:45:43 PM)</font> <b>Forkk:</b></font> the-kenny, what about UnionFS?<br/>
+<font color="#A82F2F"><font size="2">(07:46:01 PM)</font> <b>Forkk:</b></font> admittedly, I don&apos;t know enough about it to say whether it will work or not, but it sounds like it might<br/>
+<font color="#A82F2F"><font size="2">(07:46:11 PM)</font> <b>the-kenny:</b></font> that would introduce quite some dependency and modify much of the system just to run plex<br/>
+<font color="#A82F2F"><font size="2">(07:46:26 PM)</font> <b>Forkk:</b></font> ah alright<br/>
+<font color="#A82F2F"><font size="2">(07:46:40 PM)</font> <b>the-kenny:</b></font> at least that&apos;s my suspicion :)<br/>
+<font color="#A82F2F"><font size="2">(07:46:50 PM)</font> <b>the-kenny:</b></font> also keep in mind that many user backup /var/lib<br/>
+<font color="#A82F2F"><font size="2">(07:47:10 PM)</font> <b>the-kenny:</b></font> maybe you even want to copy the declaratively specified plugins there so backup/restore works as expected.<br/>
+<font color="#A82F2F"><font size="2">(07:47:21 PM)</font> <b>Forkk:</b></font> maybe<br/>
+<font color="#A82F2F"><font size="2">(07:47:28 PM)</font> <b>Forkk:</b></font> Would symlinks break the backup?<br/>
+<font color="#A82F2F"><font size="2">(07:47:34 PM)</font> <b>the-kenny:</b></font> not sure<br/>
+<font color="#A82F2F"><font size="2">(07:47:45 PM)</font> <b>nicocbg:</b></font> guys, could you tell me what the recommended way to deal with my cabal file mandating previous versions ? strip of version constraints ?<br/>
+<font color="#A82F2F"><font size="2">(07:47:54 PM)</font> <b>nicocbg:</b></font> (from the cabal file)<br/>
+<font color="#A82F2F"><font size="2">(07:47:55 PM)</font> <b>the-kenny:</b></font> they might point to nothing in a new system - but restarting plex should fix that in the systemd unit<br/>
+<font color="#A82F2F"><font size="2">(07:48:34 PM)</font> <b>Forkk:</b></font> I don&apos;t think they would, since the bacup would either follow them and backup the plugin dirs, or copy the symlinks, which would break them until plex started up<br/>
+<font color="#A82F2F"><font size="2">(07:48:43 PM)</font> <b>Forkk:</b></font> both situations aren&apos;t a problem really<br/>
+<font color="#A82F2F"><font size="2">(07:49:12 PM)</font> <b>Forkk:</b></font> plus, if a plugin is particularly large, copying it into /var on every startup would probably be a bad idea<br/>
+<font color="#A82F2F"><font size="2">(07:49:18 PM)</font> <b>nicocbg:</b></font> ok, there is some info about this here http://lists.science.uu.nl/pipermail/nix-dev/2015-January/015608.html<br/>
+<font color="#A82F2F"><font size="2">(07:49:38 PM)</font> <b>Forkk:</b></font> it could hurt boot times<br/>
+<font color="#A82F2F"><font size="2">(07:49:52 PM)</font> <b>the-kenny:</b></font> Forkk: Yup, I think I prefer the dangling symlinks too<br/>
+<font color="#A82F2F"><font size="2">(07:50:16 PM)</font> <b>Forkk:</b></font> also, I imagine I&apos;ll have to make a sub-package thingy for this (like what haskell and emacs have)<br/>
+<font color="#A82F2F"><font size="2">(07:50:16 PM)</font> <b>the-kenny:</b></font> You just have to figure out how to make keep the declared set of plugins and &apos;real&apos; set of plugins (in /var/lib) in sync<br/>
+<font color="#A82F2F"><font size="2">(07:51:30 PM)</font> <b>Forkk:</b></font> oh shit.. I guess we have a bigger issue of where do we download the plugins from...<br/>
+<font color="#A82F2F"><font size="2">(07:51:40 PM)</font> <b>Forkk:</b></font> Most people just post them as attachments on the forums ._.<br/>
+<font color="#A82F2F"><font size="2">(07:51:54 PM)</font> <b>Forkk:</b></font> and I don&apos;t think you can download them without logging in :|<br/>
+<font color="#A82F2F"><font size="2">(07:52:00 PM)</font> <b>the-kenny:</b></font> Forkk: That&apos;s fine. You can just use local paths in Nix and nix will copy it into the store<br/>
+<font color="#A82F2F"><font size="2">(07:52:29 PM)</font> <b>Forkk:</b></font> what, for downloading them?<br/>
+<font color="#A82F2F"><font size="2">(07:52:39 PM)</font> <b>Forkk:</b></font> Just include the plugin files in the git repo?<br/>
+<font color="#A82F2F"><font size="2">(07:52:41 PM)</font> <b>the-kenny:</b></font> I imagine something like plex.extraPlugins = [ /home/plex/plugins/some-plugin ../some-other-plugin ];<br/>
+<font color="#A82F2F"><font size="2">(07:53:00 PM)</font> <b>the-kenny:</b></font> No, in nix expressions. Instead of fetchurl etc. you can just provide any local path<br/>
+<font color="#A82F2F"><font size="2">(07:53:26 PM)</font> <b>Forkk:</b></font> yeah, but then people using the module have to download plugins manually<br/>
+<font color="#A82F2F"><font size="2">(07:53:41 PM)</font> <b>the-kenny:</b></font> Yup, but that shouldn&apos;t be such a big hassle<br/>
+<font color="#A82F2F"><font size="2">(07:53:41 PM)</font> <b>Forkk:</b></font> in my mind, that defeats part of the purpose of using NixOS<br/>
+<font color="#A82F2F"><font size="2">(07:53:55 PM)</font> <b>the-kenny:</b></font> hm, why&apos;s that?<br/>
+<font color="#A82F2F"><font size="2">(07:54:18 PM)</font> <b>Forkk:</b></font> well, my reason for using nix is that I can set up an entire system by only running some scripts<br/>
+<font color="#A82F2F"><font size="2">(07:54:30 PM)</font> <b>Forkk:</b></font> if I have to download extra things manually, then I can&apos;t do that :|<br/>
+<font color="#A82F2F"><font size="2">(07:54:40 PM)</font> <b>Forkk:</b></font> but if I have to, I&apos;ll just do that<br/>
+<font color="#A82F2F"><font size="2">(07:54:56 PM)</font> <b>the-kenny:</b></font> You can keep those plugins together with the system configuration in a git repository<br/>
+<font color="#A82F2F"><font size="2">(07:55:39 PM)</font> <b>Forkk:</b></font> yeah, that&apos;s true<br/>
+<font color="#A82F2F"><font size="2">(07:55:48 PM)</font> <b>the-kenny:</b></font> Or you take one for the team and download the plugins and put them in public git repositories ;)<br/>
+<font color="#A82F2F"><font size="2">(07:55:56 PM)</font> <b>the-kenny:</b></font> Shaming the people who deploy software in a forum<br/>
+<font color="#A82F2F"><font size="2">(07:56:02 PM)</font> <b>the-kenny:</b></font> s/deploy/publish/<br/>
+<font color="#A82F2F"><font size="2">(07:56:27 PM)</font> <b>MagBo:</b></font> People. what does builtins.toPath do?<br/>
+<font color="#A82F2F"><font size="2">(07:56:28 PM)</font> <b>Forkk:</b></font> I will actually probably end up doing that<br/>
+<font color="#A82F2F"><font size="2">(07:56:48 PM)</font> <b>MagBo:</b></font> I thought its signature is string -&gt; path but it returns string :s<br/>
+<font color="#A82F2F"><font size="2">(07:57:16 PM)</font> <b>MagBo:</b></font> How do I convert &quot;./.vimrc&quot; to ./.vimrc and &quot;&lt;nixpgks&gt;&quot; to &lt;nixpkgs&gt;? :(<br/>
+<font color="#A82F2F"><font size="2">(07:57:48 PM)</font> <b>Forkk:</b></font> MagBo, afaik paths are strings<br/>
+<font color="#A82F2F"><font size="2">(07:58:03 PM)</font> <b>Forkk:</b></font> anyway, I think for now, I&apos;l just implement installing plugins from paths in the filesystem<br/>
+<font size="2">(07:58:18 PM)</font><b> pmahoney left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:58:19 PM)</font> <b>Forkk:</b></font> packages for specific plugins can come later<br/>
+<font color="#A82F2F"><font size="2">(07:58:32 PM)</font> <b>the-kenny:</b></font> Forkk: that&apos;s the most flexible. With that, it doesn&apos;t make a difference if it&apos;s fetched from git or via curl or from the local filesystem<br/>
+<font color="#A82F2F"><font size="2">(07:58:44 PM)</font> <b>Forkk:</b></font> exactly<br/>
+<font color="#A82F2F"><font size="2">(07:59:04 PM)</font> <b>Forkk:</b></font> then, when I add specific ones, I can just plug them into that existing system<br/>
+<font color="#A82F2F"><font size="2">(07:59:08 PM)</font> <b>MagBo:</b></font> Forkk: well, they sure are https://github.com/NixOS/nixpkgs/blob/master/lib/types.nix#L101-L106<br/>
+<font color="#A82F2F"><font size="2">(07:59:22 PM)</font> <b>kmicu:</b></font> MagBo: a string must represent an absolute path (i.e., must start with /).<br/>
+<font color="#A82F2F"><font size="2">(07:59:45 PM)</font> <b>MagBo:</b></font> kmicu: so there is no way to expand a string on nix runtime?<br/>
+<font color="#A82F2F"><font size="2">(07:59:50 PM)</font> <b>MagBo:</b></font> to an absolute path<br/>
+<font color="#A82F2F"><font size="2">(07:59:58 PM)</font> <b>the-kenny:</b></font> why do you need that?<br/>
+<font color="#A82F2F"><font size="2">(08:00:09 PM)</font> <b>the-kenny:</b></font> you can just import &quot;/foo/bar.nix&quot; {}<br/>
+<font color="#A82F2F"><font size="2">(08:00:11 PM)</font> <b>Forkk:</b></font> hmm, I guess I&apos;ll need to figure out how to make options that can be specified multiple times or whatever... I&apos;m still a bit new to this stuff :P<br/>
+<font color="#A82F2F"><font size="2">(08:00:25 PM)</font> <b>the-kenny:</b></font> Forkk: Use a list!<br/>
+<font color="#A82F2F"><font size="2">(08:00:36 PM)</font> <b>MagBo:</b></font> the-kenny: because I provide a config as a hydra input<br/>
+<font color="#A82F2F"><font size="2">(08:00:52 PM)</font> <b>Forkk:</b></font> yeah, but if it&apos;s specified in the config multiple times, does it get overwritten or just concatenated?<br/>
+<font color="#A82F2F"><font size="2">(08:01:03 PM)</font> <b>the-kenny:</b></font> you can specify that. Usually concatenated<br/>
+<font color="#A82F2F"><font size="2">(08:01:20 PM)</font> <b>Forkk:</b></font> that&apos;s what I&apos;m figuring out how to do :P<br/>
+<font color="#A82F2F"><font size="2">(08:01:24 PM)</font> <b>the-kenny:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(08:02:01 PM)</font> <b>Forkk:</b></font> I assume the default behavior is to concat?<br/>
+<font color="#A82F2F"><font size="2">(08:02:12 PM)</font> <b>the-kenny:</b></font> MagBo: Sorry, I still don&apos;t understand your issue ;/<br/>
+<font color="#A82F2F"><font size="2">(08:02:22 PM)</font> <b>the-kenny:</b></font> Forkk: If you specify &apos;list&apos; as type, yes.<br/>
+<font color="#A82F2F"><font size="2">(08:02:31 PM)</font> <b>the-kenny:</b></font> I think it&apos;s defined in types.nix<br/>
+<font color="#A82F2F"><font size="2">(08:02:34 PM)</font> <b>Forkk:</b></font> alright<br/>
+<font color="#A82F2F"><font size="2">(08:02:46 PM)</font> <b>MagBo:</b></font> and a mapper that does something like (x: if config.x.external then overrideDerivation pkgs.&quot;${config.x.pkg}&quot; (x: {src = ??? &quot;&lt;${config.x.nixLabel}&gt;&quot;;}) else pkgs.&quot;${config.x.pkg}&quot;)<br/>
+<font color="#A82F2F"><font size="2">(08:02:49 PM)</font> <b>MagBo:</b></font> the-kenny: ^<br/>
+<font color="#A82F2F"><font size="2">(08:03:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 2 new commits to master: http://git.io/vvHvZ<br/>
+<font color="#A82F2F"><font size="2">(08:03:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f82a287 Peter Simons: R: update to 3.2.0<br/>
+<font color="#A82F2F"><font size="2">(08:03:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9e9b5e6 Peter Simons: r-modules: disable builds that depend on broken gdal library<br/>
+<font color="#A82F2F"><font size="2">(08:04:44 PM)</font> <b>MagBo:</b></font> -- every time I write something complex in Nix I think about writing a code generator in a high-level programming language for it. Probably should start using this weird JS DSL :(<br/>
+<font color="#A82F2F"><font size="2">(08:05:44 PM)</font> <b>MagBo:</b></font> Obviously, overrideDerivation lambda shouldn not shadow &quot;x&quot; from outer scope, should be (y: {src = ??? &quot;&lt;${config.x.nixLabel}&gt;&quot;})<br/>
+<font color="#A82F2F"><font size="2">(08:06:06 PM)</font> <b>Forkk:</b></font> the-kenny, how am I going to store the plugin files in the nix store, though, if they&apos;re not going to be packages?<br/>
+<font color="#A82F2F"><font size="2">(08:07:24 PM)</font> <b>rbino:</b></font> magnetophon, I haven&apos;t installed yet, I will try it soon<br/>
+<font color="#A82F2F"><font size="2">(08:07:27 PM)</font> <b>the-kenny:</b></font> Forkk: Hm, I&apos;m not sure with Hydra, but the stuff in &lt;nixos&gt; etc. is usually just one of the entries in NIX_PATH. You can get that via builtins.nixPath<br/>
+<font size="2">(08:08:33 PM)</font><b> pmahoney [<em>~user@50.57.17.245</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:08:50 PM)</font> <b>Forkk:</b></font> Honestly, Plex doesn&apos;t need to be built by Hydra. It&apos;s installed from a binary package, so I doubt it would gain anything from caching builds.<br/>
+<font color="#A82F2F"><font size="2">(08:09:39 PM)</font> <b>Forkk:</b></font> from what I can tell, systemd units have their own folders in the Nix store, so if I could do something like that, then that&apos;d be perfect<br/>
+<font color="#A82F2F"><font size="2">(08:09:46 PM)</font> <b>the-kenny:</b></font> jWhoops sorry<br/>
+<font color="#A82F2F"><font size="2">(08:09:50 PM)</font> <b>the-kenny:</b></font> that message was for MagBo<br/>
+<font color="#A82F2F"><font size="2">(08:10:06 PM)</font> <b>Forkk:</b></font> oh lol<br/>
+<font color="#A82F2F"><font size="2">(08:10:13 PM)</font> <b>the-kenny:</b></font> that must have been confusing :D<br/>
+<font color="#A82F2F"><font size="2">(08:10:18 PM)</font> <b>Forkk:</b></font> yeah I thought it seemed weird<br/>
+<font color="#A82F2F"><font size="2">(08:10:41 PM)</font> <b>Forkk:</b></font> I was wondering why you were talking about NIX_PATH lol<br/>
+<font size="2">(08:15:43 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:16:51 PM)</font> <b>Forkk:</b></font> ugh, Nix **really** needs some better documentation<br/>
+<font color="#A82F2F"><font size="2">(08:18:55 PM)</font> <b>kmicu:</b></font> Nope, promoting Nix(OS), adding new features, and creating frustrated newcomers is more important. ⸮<br/>
+<font color="#A82F2F"><font size="2">(08:19:44 PM)</font> <b>goibhniu:</b></font> patches are accepted :P<br/>
+<font color="#A82F2F"><font size="2">(08:19:56 PM)</font> <b>Forkk:</b></font> I know :P<br/>
+<font color="#A82F2F"><font size="2">(08:20:07 PM)</font> <b>kmicu:</b></font> Stop adding new features w/o docs.<br/>
+<font color="#A82F2F"><font size="2">(08:20:09 PM)</font> <b>MagBo:</b></font> let frustrated newcomers work<br/>
+<font color="#A82F2F"><font size="2">(08:20:51 PM)</font> <b>Forkk:</b></font> as one of those frustrated newcomers, I can say that I don&apos;t know enough about Nix to write extensive documentation<br/>
+<font color="#A82F2F"><font size="2">(08:21:26 PM)</font> <b>kmicu:</b></font> But you will get ‘contributions are welcome’ as an answer. :)<br/>
+<font color="#A82F2F"><font size="2">(08:22:44 PM)</font> <b>Forkk:</b></font> I know :P<br/>
+<font color="#A82F2F"><font size="2">(08:24:26 PM)</font> <b>Forkk:</b></font> So how do I find where functions like writeTextFile are defined? For the life of me, I can&apos;t find it<br/>
+<font color="#A82F2F"><font size="2">(08:25:42 PM)</font> <b>kmicu:</b></font> In trivial-builders.nix<br/>
+<font color="#A82F2F"><font size="2">(08:25:47 PM)</font> <b>goibhniu:</b></font> https://github.com/NixOS/nixpkgs/blob/ca441636f1a21a68d053e11a815c16f531deba29/pkgs/build-support/trivial-builders.nix#L15<br/>
+<font color="#A82F2F"><font size="2">(08:25:55 PM)</font> <b>Forkk:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(08:27:28 PM)</font> <b>Forkk:</b></font> oh my god, the build-support dir is like a gold mine of finding useful functions<br/>
+<font color="#062585"><font size="2">(08:27:49 PM)</font> <b>***kmicu</b></font> &lt;3 ttuegel https://github.com/NixOS/nixpkgs/pull/7431<br/>
+<font color="#A82F2F"><font size="2">(08:28:46 PM)</font> <b>goibhniu:</b></font> Forkk: you might find https://nixos.org/wiki/NixPkgs_Standard_Environment#Library_Functions useful too<br/>
+<font color="#A82F2F"><font size="2">(08:28:56 PM)</font> <b>Forkk:</b></font> oh my god I want that pull request<br/>
+<font color="#A82F2F"><font size="2">(08:29:04 PM)</font> <b>Forkk:</b></font> emacsWithPackages sounds awesome<br/>
+<font color="#A82F2F"><font size="2">(08:29:17 PM)</font> <b>Forkk:</b></font> thank you goibhniu :D<br/>
+<font color="#A82F2F"><font size="2">(08:29:55 PM)</font> <b>goibhniu:</b></font> wow .. that does look nice<br/>
+<font color="#A82F2F"><font size="2">(08:30:11 PM)</font> <b>goibhniu:</b></font> yw!<br/>
+<font color="#A82F2F"><font size="2">(08:30:52 PM)</font> <b>Forkk:</b></font> So should I just include the plex plugins in Plex&apos;s directory in the Nix store, or should each plugin have its own directory?<br/>
+<font color="#A82F2F"><font size="2">(08:31:09 PM)</font> <b>Forkk:</b></font> I think the latter choice is the better idea, but I have no clue how to implement it<br/>
+<font color="#A82F2F"><font size="2">(08:31:55 PM)</font> <b>the-kenny:</b></font> goibhniu, kmicu: Yeah, that&apos;s quite sick :)<br/>
+<font color="#A82F2F"><font size="2">(08:32:17 PM)</font> <b>goibhniu:</b></font> ttuegel: ++<br/>
+<font color="#A82F2F"><font size="2">(08:33:38 PM)</font> <b>goibhniu:</b></font> Forkk: can plex find plugins using an environment variable?<br/>
+<font color="#A82F2F"><font size="2">(08:34:19 PM)</font> <b>Forkk:</b></font> I don&apos;t think so<br/>
+<font color="#A82F2F"><font size="2">(08:34:20 PM)</font> <b>goibhniu:</b></font> if so, you could use a wrapper, otherwise you could use buildEnv<br/>
+<font color="#A82F2F"><font size="2">(08:35:09 PM)</font> <b>Forkk:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(08:35:50 PM)</font> <b>Forkk:</b></font> Is that what is used for systemd service files?<br/>
+<font color="#A82F2F"><font size="2">(08:36:05 PM)</font> <b>the-kenny:</b></font> ttuegel: Sorry for spamming your PR. It looks great :)<br/>
+<font color="#A82F2F"><font size="2">(08:36:22 PM)</font> <b>goibhniu:</b></font> no idea, unfortunately, I don&apos;t think there is a &quot;standard&quot; way to handle plugins yet<br/>
+<font color="#A82F2F"><font size="2">(08:36:38 PM)</font> <b>kmicu:</b></font> Pure Greatness™<br/>
+<font color="#A82F2F"><font size="2">(08:36:47 PM)</font> <b>Forkk:</b></font> well the way I&apos;m going to have to do this is going to be a bit hacky anyway<br/>
+<font color="#A82F2F"><font size="2">(08:37:22 PM)</font> <b>kmicu:</b></font> ‘… and org-mode ELPA.’ all–inclusive greatness.<br/>
+<font color="#A82F2F"><font size="2">(08:37:57 PM)</font> <b>Forkk:</b></font> I decided I&apos;ll probably just add an &quot;extraPlugins&quot; option to the Plex module which will take a list of paths to plugins and keep a set of symlinks to those plugins in Plex&apos;s plugin dir<br/>
+<font color="#A82F2F"><font size="2">(08:38:21 PM)</font> <b>the-kenny:</b></font> kmicu: if it also allows me to do the holy triade (nix-env, nix-shell, emacsWithPackages) it&apos;s perfect :)<br/>
+<font color="#A82F2F"><font size="2">(08:38:54 PM)</font> <b>goibhniu:</b></font> Forkk: ah, it&apos;s a module ... that sounds like a good way to go<br/>
+<font color="#A82F2F"><font size="2">(08:39:45 PM)</font> <b>Forkk:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(08:46:06 PM)</font> <b>Phiphler:</b></font> ok so I installed nixos on my thinkpad t400 and there were no problems. But I can&apos;t get into a TTY when I boot into NixOS, which I need to make a normal user. I used kde4 and all the suggested default stuff in my configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(08:48:19 PM)</font> <b>goibhniu:</b></font> hi Phiphler, does ctrl-alt-f1 not work?<br/>
+<font color="#A82F2F"><font size="2">(08:49:02 PM)</font> <b>Phiphler:</b></font> goibhniu: I get a blank screen where the TTY login prompt should be. I can switch back to the KDE DM with ctrl-alt-f7<br/>
+<font color="#A82F2F"><font size="2">(08:49:27 PM)</font> <b>goibhniu:</b></font> what video driver are you using?<br/>
+<font color="#A82F2F"><font size="2">(08:50:09 PM)</font> <b>Phiphler:</b></font> hmmm, I didn&apos;t define anything about that in the conf. I assumed it would default to mesa. The laptop has both intel and radeon graphics<br/>
+<font color="#A82F2F"><font size="2">(08:51:07 PM)</font> <b>goibhniu:</b></font> ah, maybe try setting it to intel in the bios<br/>
+<font color="#A82F2F"><font size="2">(08:52:44 PM)</font> <b>Phiphler:</b></font> goibhniu: ok Ill try that<br/>
+<font color="#A82F2F"><font size="2">(08:53:05 PM)</font> <b>Phiphler:</b></font> is this selectable in nixos? the radeon graphics is obviously more powerful<br/>
+<font color="#A82F2F"><font size="2">(08:53:24 PM)</font> <b>goibhniu:</b></font> you can enable both<br/>
+<font color="#A82F2F"><font size="2">(08:53:38 PM)</font> <b>goibhniu:</b></font> I&apos;m not sure about switching between them in a running system TBH<br/>
+<font color="#A82F2F"><font size="2">(08:53:51 PM)</font> <b>goibhniu:</b></font> I&apos;ve only ever switched between them in bios<br/>
+<font color="#A82F2F"><font size="2">(08:54:03 PM)</font> <b>kmicu:</b></font> Is this not related to https://nixos.org/nixos/manual/ch-options.html#opt-hardware.bumblebee.enable ?<br/>
+<font color="#A82F2F"><font size="2">(08:54:18 PM)</font> <b>goibhniu:</b></font> is bumblebee only for nvidia?<br/>
+<font color="#A82F2F"><font size="2">(08:54:46 PM)</font> <b>ktosiek:</b></font> it used to be<br/>
+<font color="#A82F2F"><font size="2">(08:55:02 PM)</font> <b>ktosiek:</b></font> Or rather, I know it was in the past, and probably still is :-)<br/>
+<font color="#A82F2F"><font size="2">(08:56:20 PM)</font> <b>kmicu:</b></font> Yep https://github.com/Bumblebee-Project/Bumblebee/issues/52<br/>
+<font color="#A82F2F"><font size="2">(08:56:31 PM)</font> <b>Phiphler:</b></font> goibhniu: ok tried setting it in bios. Same blank screen so far. Will try forcing discrete graphics instead<br/>
+<font color="#A82F2F"><font size="2">(08:57:13 PM)</font> <b>goibhniu:</b></font> Phiphler: have a look in the generated hardware-configuration.nix too, maybe it picked one or the other<br/>
+<font color="#A82F2F"><font size="2">(08:57:56 PM)</font> <b>kmicu:</b></font> You could also use userspace console services.kmscon, but dunno if that is a valid solution here. I’ve an old X1600.<br/>
+<font color="#A82F2F"><font size="2">(08:58:42 PM)</font> <b>konobi:</b></font> seems like dracut might be a decent option for nixos to use for initramfs/initrd<br/>
+<font color="#A82F2F"><font size="2">(08:59:05 PM)</font> <b>Forkk:</b></font> hmm... should plex fail to start if it can&apos;t find a plugin file?<br/>
+<font color="#A82F2F"><font size="2">(08:59:07 PM)</font> <b>kmicu:</b></font> Or you could also switch to the latest kernel if fix is specific to some latest hardware.<br/>
+<font color="#A82F2F"><font size="2">(09:00:22 PM)</font> <b>kmicu:</b></font> Phiphler: from related things I have    &quot;fbcon&quot; and &quot;radeonfb&quot; in boot.kernelModules<br/>
+<font color="#A82F2F"><font size="2">(09:00:26 PM)</font> <b>Phiphler:</b></font> goibhniu: ok it worked when I forced it to use discrete graphics. User added and logging in. Thank you for your help!<br/>
+<font color="#A82F2F"><font size="2">(09:00:51 PM)</font> <b>goibhniu:</b></font> Phiphler: awesome, congratulations and welcome! :D<br/>
+<font color="#A82F2F"><font size="2">(09:00:59 PM)</font> <b>kmicu:</b></font> \o/<br/>
+<font color="#A82F2F"><font size="2">(09:01:11 PM)</font> <b>konobi:</b></font> boot.vesa = true?<br/>
+<font color="#A82F2F"><font size="2">(09:20:57 PM)</font> <b>konobi:</b></font> what&apos;s the best way to get my own channel setup?<br/>
+<font color="#A82F2F"><font size="2">(09:20:57 PM)</font> <b>konobi:</b></font> (including nixos, that is)<br/>
+<font color="#A82F2F"><font size="2">(09:25:26 PM)</font> <b>Forkk:</b></font> alright, plugin symlinks are working :D<br/>
+<font color="#A82F2F"><font size="2">(09:28:55 PM)</font> <b>goibhniu:</b></font> go Forkk!!<br/>
+<font color="#A82F2F"><font size="2">(09:29:27 PM)</font> <b>Forkk:</b></font> lol<br/>
+<font size="2">(09:36:24 PM)</font><b> pmahoney left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:37:21 PM)</font> <b>seppellll:</b></font> hi, i want to override haskell-ng package with a version of the package that is not on hackage but on my local harddrive.  can somebody give me a pointer to some documentation on to do this or a hint where to start?<br/>
+<font color="#A82F2F"><font size="2">(09:38:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] 4e6 reopened pull request #7206: xdg-utils: http-based fetchgit url (master...xdg-utils/src-http) http://git.io/ve4u3<br/>
+<font color="#A82F2F"><font size="2">(09:39:55 PM)</font> <b>therp:</b></font> seppellll: I am quite a noob myself, but I guess that you would need to make a deviation from your local sources first<br/>
+<font color="#A82F2F"><font size="2">(09:40:41 PM)</font> <b>ajp:</b></font> How can I get nix-env/nix-shell to respect a specific nixpkgs location?<br/>
+<font color="#A82F2F"><font size="2">(09:40:45 PM)</font> <b>therp:</b></font> then you could use pkg overrides somewhere in /etc/nixos to get the package in.<br/>
+<font color="#A82F2F"><font size="2">(09:41:00 PM)</font> <b>ajp:</b></font> I&apos;ve tried the -I flag and setting NIX_PATH, as in this command<br/>
+<font color="#A82F2F"><font size="2">(09:41:03 PM)</font> <b>ajp:</b></font> strace -e open nix-env -qaP &gt;/dev/null<br/>
+<font color="#A82F2F"><font size="2">(09:41:40 PM)</font> <b>ajp:</b></font> but I can see from the strace output that nix-env is still accessing only the global nixpkgs checkout in /nix/store<br/>
+<font color="#A82F2F"><font size="2">(09:42:33 PM)</font> <b>ajp:</b></font> my end goal is to run nix-shell and have it read from my locally modified nixpkgs checkout. Right now it doesn&apos;t see my changes<br/>
+<font size="2">(09:42:36 PM)</font><b> nkar`` is now known as nkar`</b><br/>
+<font size="2">(09:43:24 PM)</font><b> pmahoney [<em>~user@50.56.229.7</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:47:34 PM)</font> <b>Forkk:</b></font> next: package plex home theater<br/>
+<font color="#A82F2F"><font size="2">(09:49:12 PM)</font> <b>seppellll:</b></font> ajp: you could give the nix-expression you want to pass to the shell function as an argument via &quot;nix-shell --arg $ARGNAME &apos;import $PATHTOEXPR {}&apos;&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:52:53 PM)</font> <b>bb010g:</b></font> Is there a way to put files in a directory not in /nix/store but looks like it to an app?<br/>
+<font size="2">(10:12:15 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

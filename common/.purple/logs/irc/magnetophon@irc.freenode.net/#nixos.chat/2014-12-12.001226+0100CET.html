@@ -1,0 +1,147 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Fri 12 Dec 2014 12:12:26 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Fri 12 Dec 2014 12:12:26 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(12:12:27 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(12:12:27 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font size="2">(12:12:56 AM)</font><b> ambro718 left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(12:15:53 AM)</font><b> keeds [<em>~keeds@88-97-1-216.dsl.zen.co.uk</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:16:15 AM)</font> <b>gilligan_:</b></font> any haskell guys around ? I am experiencing some dependency (?) problem and i don&apos;t quite know what to do about it : The error output is here : http://lpaste.net/8961190160611934208<br/>
+<font color="#A82F2F"><font size="2">(12:17:10 AM)</font> <b>johnw:</b></font> gilligan_: hi<br/>
+<font color="#A82F2F"><font size="2">(12:17:28 AM)</font> <b>gilligan_:</b></font> hey<br/>
+<font color="#A82F2F"><font size="2">(12:17:41 AM)</font> <b>johnw:</b></font> show me the full output from ghc -v<br/>
+<font color="#A82F2F"><font size="2">(12:18:30 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ambrop72 opened pull request #5302: virtualbox: Unbreak the nixos module. (master...virtualbox-network-interface) http://git.io/gHoxwg<br/>
+<font color="#A82F2F"><font size="2">(12:18:39 AM)</font> <b>gilligan_:</b></font> johnw, hang on<br/>
+<font color="#A82F2F"><font size="2">(12:19:29 AM)</font> <b>gilligan_:</b></font> johnw, http://lpaste.net/4645571828629110784<br/>
+<font color="#16569E"><font size="2">(12:19:43 AM)</font> <b>magnetophon:</b></font> Could someone have a  look at the package I'm making?  I'm not sure if I did the config file correctly: https://github.com/magnetophon/nixpkgs/compare/rtirq?expand=1#diff-a6602c076380ca3adc32a8e6188744a1R82<br/>
+<font color="#A82F2F"><font size="2">(12:20:10 AM)</font> <b>gilligan_:</b></font> johnw, hm..all those unusable packages don&apos;t look very good<br/>
+<font color="#A82F2F"><font size="2">(12:20:13 AM)</font> <b>johnw:</b></font> gilligan_: you have a lot of package shadowing going on<br/>
+<font color="#A82F2F"><font size="2">(12:20:16 AM)</font> <b>johnw:</b></font> did you rm -fr ~/.ghc?<br/>
+<font color="#A82F2F"><font size="2">(12:20:25 AM)</font> <b>johnw:</b></font> are you in a nix-shell?<br/>
+<font size="2">(12:20:25 AM)</font><b> Lowl3v3l left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(12:20:49 AM)</font> <b>gilligan_:</b></font> johnw, .ghc is empty<br/>
+<font color="#A82F2F"><font size="2">(12:21:43 AM)</font> <b>johnw:</b></font> are you in a nix-shell?<br/>
+<font size="2">(12:21:51 AM)</font><b> med\ left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(12:22:21 AM)</font> <b>gilligan_:</b></font> johnw, that output was not from a nix-shell no.. inside a nix-shell i don&apos;t have any such warnings<br/>
+<font color="#A82F2F"><font size="2">(12:22:31 AM)</font> <b>johnw:</b></font> can you show me the output from nix-env -q?<br/>
+<font color="#A82F2F"><font size="2">(12:22:36 AM)</font> <b>gilligan_:</b></font> (in a pure shell at least)<br/>
+<font size="2">(12:23:16 AM)</font><b> ambro718 [<em>~ambro@gentoo/contributor/ambro718</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:23:45 AM)</font> <b>gilligan_:</b></font> johnw, nix-env -q --&gt; http://lpaste.net/6955180059577548800<br/>
+<font color="#A82F2F"><font size="2">(12:24:19 AM)</font> <b>johnw:</b></font> so, I&apos;d nix-env -e all of those haskell related packages, and then use ghc from within a nix-shell<br/>
+<font color="#A82F2F"><font size="2">(12:24:33 AM)</font> <b>johnw:</b></font> it would seem that some of those packages are installing conflicting versions<br/>
+<font color="#A82F2F"><font size="2">(12:24:41 AM)</font> <b>johnw:</b></font> which is fine from a Nix point of view, but not from a ghc point of view<br/>
+<font color="#A82F2F"><font size="2">(12:25:05 AM)</font> <b>gilligan_:</b></font> johnw, ah..crap<br/>
+<font color="#A82F2F"><font size="2">(12:25:13 AM)</font> <b>johnw:</b></font> that&apos;s just my current guess though<br/>
+<font color="#A82F2F"><font size="2">(12:25:21 AM)</font> <b>johnw:</b></font> I&apos;d start there, and then gradually re-install<br/>
+<font color="#A82F2F"><font size="2">(12:25:28 AM)</font> <b>johnw:</b></font> until you find whatever package is screwing you up<br/>
+<font color="#A82F2F"><font size="2">(12:26:02 AM)</font> <b>johnw:</b></font> if you&apos;re installing all of that stuff for the sake of ghc-mod, then you can start Emacs from within a nix-shell to have the right package visibility<br/>
+<font color="#A82F2F"><font size="2">(12:27:03 AM)</font> <b>gilligan_:</b></font> vim user - but yes..same story<br/>
+<font color="#A82F2F"><font size="2">(12:27:39 AM)</font> <b>gilligan_:</b></font> in the end i&apos;ll probably want to run it inside a nix-shell session<br/>
+<font color="#A82F2F"><font size="2">(12:27:50 AM)</font> <b>johnw:</b></font> that offers the most consistent behavior<br/>
+<font color="#A82F2F"><font size="2">(12:27:56 AM)</font> <b>johnw:</b></font> and gives you the implicit sandboxing that Nix is so great at<br/>
+<font color="#A82F2F"><font size="2">(12:28:07 AM)</font> <b>johnw:</b></font> alternatively, you can use multiple user environments<br/>
+<font size="2">(12:28:19 AM)</font><b> civodul left the room (quit: Quit: ERC Version 5.3 (IRC client for Emacs)).</b><br/>
+<font size="2">(12:29:16 AM)</font><b> elifrey [<em>~elifrey@2601:8:9f00:3b:919:940:8016:8e46</em>] entered the room.</b><br/>
+<font size="2">(12:29:53 AM)</font><b> sigmundv left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:30:48 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker pushed 2 new commits to master: http://git.io/ly4Phw<br/>
+<font color="#A82F2F"><font size="2">(12:30:48 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 65393ca ambrop7@gmail.com: virtualbox: Unbreak the nixos module.<br/>
+<font color="#A82F2F"><font size="2">(12:30:48 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c96df1f Jaka Hudoklin: Merge pull request #5302 from ambrop72/virtualbox-network-interface...<br/>
+<font color="#A82F2F"><font size="2">(12:31:03 AM)</font> <b>gilligan_:</b></font> johnw, so if you are right, then with the right nix package remove those shadowing versions and thus the warnings displayed in `ghc -v` would disappear<br/>
+<font size="2">(12:31:04 AM)</font><b> tsenart [<em>~tsenart@f055147158.adsl.alicedsl.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:31:09 AM)</font> <b>johnw:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(12:31:30 AM)</font> <b>johnw:</b></font> So the way the GHC in Nix works is that it&apos;s actually a wrapper for a script of the same name<br/>
+<font color="#A82F2F"><font size="2">(12:31:47 AM)</font> <b>johnw:</b></font> this script calls the real GHC by passing &quot;-package&quot; options to it<br/>
+<font size="2">(12:32:03 AM)</font><b> JagaJaga [<em>~JagaJaga@178.62.202.50</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:32:16 AM)</font> <b>johnw:</b></font> so if any shadowing is occurring, it&apos;s because multiple versions of the same package are being given to GHC, which is causing the newer one to be chosen and anything which depends on the older one to be excluded<br/>
+<font color="#A82F2F"><font size="2">(12:33:36 AM)</font> <b>gilligan_:</b></font> johnw, seems you were right.. removed Shelly and problem is gone<br/>
+<font size="2">(12:33:41 AM)</font><b> tsenart left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(12:33:44 AM)</font> <b>johnw:</b></font> there you go :-)<br/>
+<font color="#A82F2F"><font size="2">(12:34:06 AM)</font> <b>johnw:</b></font> Nix is extremely straightforward with these sorts of things because of the way that GHC is notified about packages<br/>
+<font color="#A82F2F"><font size="2">(12:34:39 AM)</font> <b>johnw:</b></font> we don&apos;t rely on a package set stored within a database cache file or anything, but just these literal arguments that get passed<br/>
+<font size="2">(12:36:29 AM)</font><b> JagaJaga left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:38:11 AM)</font> <b>gilligan_:</b></font> johnw, hm.. while I have your attention... I just did a `nix-channel --update &amp;&amp; nix-env --upgrade` ; which fails however : http://lpaste.net/4135867491014410240<br/>
+<font size="2">(12:38:26 AM)</font><b> eddyb [<em>~eddyb@unaffiliated/eddyb</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:38:40 AM)</font> <b>gilligan_:</b></font> johnw, just want to know if there is more I am just doing wrong or if something is perhaps broken<br/>
+<font size="2">(12:39:05 AM)</font><b> komarov left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:39:24 AM)</font> <b>johnw:</b></font> which channel are you subscribe to?  nix-channel --list will tell you<br/>
+<font size="2">(12:39:36 AM)</font><b> statusbot left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(12:40:02 AM)</font><b> petar left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:40:25 AM)</font> <b>gilligan_:</b></font> only nixpkgs-unstable<br/>
+<font color="#A82F2F"><font size="2">(12:40:56 AM)</font> <b>johnw:</b></font>  Okay, that&apos;s a lot older than what I&apos;m using so I really have no information for you<br/>
+<font color="#A82F2F"><font size="2">(12:42:05 AM)</font> <b>gilligan_:</b></font> johnw, guess you are using a local copy of the nix repo then<br/>
+<font color="#A82F2F"><font size="2">(12:42:18 AM)</font> <b>gilligan_:</b></font> s/copy/git repo<br/>
+<font color="#A82F2F"><font size="2">(12:42:24 AM)</font> <b>johnw:</b></font>  yes, a clone of an experimental branch that works on Yosemite<br/>
+<font color="#A82F2F"><font size="2">(12:42:40 AM)</font> <b>gilligan_:</b></font> ah ;-)<br/>
+<font color="#A82F2F"><font size="2">(12:54:18 AM)</font> <b>gilligan_:</b></font> johnw, so what are the semantics of the different channels ? is nixpkgs-unstable my safe bet or should I actually consider using something else ?<br/>
+<font color="#A82F2F"><font size="2">(12:56:15 AM)</font> <b>gilligan_:</b></font> johnw, also what I do not quite understand is : I have cabal-install-1.20.0.3 installed - why does `nix-env --upgrade` want to build cabal-install-1.18.0.3 ?<br/>
+<font size="2">(12:58:18 AM)</font><b> keeds left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font size="2">(01:00:04 AM)</font><b> mmmm [<em>~matt@88-106-8-188.dynamic.dsl.as9105.com</em>] entered the room.</b><br/>
+<font size="2">(01:01:57 AM)</font><b> bbarker [<em>~quassel@cpe-24-59-242-150.twcny.res.rr.com</em>] entered the room.</b><br/>
+<font size="2">(01:04:05 AM)</font><b> mattdv left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:04:37 AM)</font><b> mmmm left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font size="2">(01:05:32 AM)</font><b> mattdv [<em>~matt@76-201-62-110.lightspeed.irvnca.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(01:09:24 AM)</font><b> wmertens left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(01:17:37 AM)</font> <b>johnw:</b></font> the different channels have different version sets<br/>
+<font color="#A82F2F"><font size="2">(01:19:29 AM)</font> <b>johnw:</b></font> if it&apos;s installing an older cabal-install, it may be because some package depends on that version<br/>
+<font color="#A82F2F"><font size="2">(01:19:31 AM)</font> <b>gilligan_:</b></font> hm yes of course<br/>
+<font size="2">(01:19:31 AM)</font><b> elifrey left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(01:19:31 AM)</font> <b>gilligan_:</b></font> johnw, starting out i have mostly been following http://www.cse.chalmers.se/~bernardy/nix.html<br/>
+<font color="#A82F2F"><font size="2">(01:19:35 AM)</font> <b>gilligan_:</b></font> johnw, under &quot;per project configuration&quot; he lists a shell.nix template<br/>
+<font size="2">(01:20:08 AM)</font><b> wkennington left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:21:59 AM)</font><b> CandidC left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(01:21:59 AM)</font><b> elifrey [<em>~elifrey@c-50-159-28-215.hsd1.wa.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:21:59 AM)</font> <b>gilligan_:</b></font> johnw, how can I add say vim as dependency to this ?  according to the description by adding it to the array in #2 - that however does not seem to be correct<br/>
+<font color="#A82F2F"><font size="2">(01:21:59 AM)</font> <b>gilligan_:</b></font> johnw, I tried &quot;vim&quot; and &quot;nixpkgs.vim&quot; which are both obviously wrong - i don&apos;t really grok the nix syntax yet. Sorry for asking silly questions<br/>
+<font size="2">(01:22:25 AM)</font><b> CandidC [<em>~Candid@1.178.168.249</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:27:23 AM)</font> <b>gilligan_:</b></font> johnw, never mind. i am stupid.. pkgs.vim of course<br/>
+<font size="2">(01:30:17 AM)</font><b> bbarker left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(01:31:40 AM)</font><b> wkennington [<em>~william@76.77.180.98</em>] entered the room.</b><br/>
+<font size="2">(01:34:05 AM)</font><b> ambro718 left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:34:50 AM)</font> <b>gilligan_:</b></font> uhm.. there is no vim package with python support ? that is weird ? x_X<br/>
+<font size="2">(01:40:32 AM)</font><b> elifrey left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:40:50 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] massimo-zaniboni opened pull request #5303: redmine: use libc libciconv implementation on Linux. (master...submit/redmine) http://git.io/dnS6GA<br/>
+<font size="2">(01:41:10 AM)</font><b> wkennington left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:43:08 AM)</font><b> wkennington [<em>~william@76.77.180.98</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:45:13 AM)</font> <b>seagreen:</b></font> gilligan_: Maybe pkgs.vim_configurable<br/>
+<font color="#A82F2F"><font size="2">(01:45:55 AM)</font> <b>gilligan_:</b></font> seagreen, thanks - just figured<br/>
+<font size="2">(01:46:00 AM)</font><b> elifrey [<em>~elifrey@2601:8:9f00:3b:c58c:1860:7cce:6a6b</em>] entered the room.</b><br/>
+<font size="2">(01:46:05 AM)</font><b> elifrey left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:46:23 AM)</font><b> elifrey [<em>~elifrey@2601:8:9f00:3b:c58c:1860:7cce:6a6b</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:49:10 AM)</font> <b>gilligan_:</b></font> hm, any hints on how I get vim to use my config in ~/.vim like when run outside of a shell ?<br/>
+<font color="#A82F2F"><font size="2">(01:49:23 AM)</font> <b>gilligan_:</b></font> s/shell/nix-shell session<br/>
+<font size="2">(01:52:01 AM)</font><b> FrozenCow [<em>~FrozenCow@dhcp-089-099-057-228.chello.nl</em>] entered the room.</b><br/>
+<font size="2">(01:52:10 AM)</font><b> Shados left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:54:18 AM)</font><b> Shados [<em>~shados@shados.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:55:18 AM)</font> <b>aaronlevin:</b></font> my apoologies if this has already been spoken about, but is anyone having issues building `xz`?<br/>
+<font color="#A82F2F"><font size="2">(01:56:41 AM)</font> <b>aaronlevin:</b></font> I get some weirdness like: `curl: (6) Couldn&apos;t resolve host &apos;tarballs.nixos.org&apos;`<br/>
+<font color="#A82F2F"><font size="2">(01:57:36 AM)</font> <b>aaronlevin:</b></font> then nix attempts to download from `tukaani.org` and fails. If I try to wget the url, the endpoint works.<br/>
+<font color="#A82F2F"><font size="2">(01:58:41 AM)</font> <b>aaronlevin:</b></font> I&apos;m on the nixpkgs-unstable channel and basically doing a fresh build (in a docker container).<br/>
+<font size="2">(01:59:38 AM)</font><b> FrozenCow left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:04:27 AM)</font><b> Havvy left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font size="2">(02:07:52 AM)</font><b> Havvy [<em>Havvy@unaffiliated/havvy</em>] entered the room.</b><br/>
+<font size="2">(02:08:34 AM)</font><b> gilligan_ left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font size="2">(02:10:29 AM)</font><b> wmertens [<em>~wmertens@89-67-218-35.dynamic.chello.pl</em>] entered the room.</b><br/>
+<font size="2">(02:12:40 AM)</font><b> Havvy left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font size="2">(02:15:30 AM)</font><b> wmertens left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(02:22:52 AM)</font><b> CandidC left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font size="2">(02:23:39 AM)</font><b> Hijiri [<em>~oneechan@107-133-196-130.lightspeed.sndgca.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(02:26:24 AM)</font><b> phreedom left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:26:52 AM)</font><b> phreedom [<em>~quassel@gateway/tor-sasl/phreedom</em>] entered the room.</b><br/>
+<font size="2">(02:27:07 AM)</font><b> CandidC [<em>~Candid@1.178.168.249</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(02:28:28 AM)</font> <b>magnetophon:</b></font> aaronlevin: that is weird indeed.  Can't really help you, but now at least you don't feel ignored anymore.... :)<br/>
+<font size="2">(02:31:38 AM)</font><b> peacememories left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(02:35:07 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker closed pull request #5303: redmine: use libc libiconv implementation on Linux. (master...submit/redmine) http://git.io/dnS6GA<br/>
+<font color="#A82F2F"><font size="2">(02:37:30 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker closed pull request #4833: ati_unfree: update to 14.9 (master...pkgs/ati_unfree/update) http://git.io/42LYcQ<br/>
+<font size="2">(02:47:21 AM)</font><b> user1 left the room (&quot;WeeChat 1.0.1&quot;).</b><br/>
+<font size="2">(02:47:32 AM)</font><b> ewemoa [<em>~user@124.49.178.164</em>] entered the room.</b><br/>
+<font size="2">(02:48:13 AM)</font><b> echo_oddly left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(02:55:31 AM)</font><b> elifrey_ [<em>~elifrey@c-50-159-28-215.hsd1.wa.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:55:43 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker pushed 1 new commit to master: http://git.io/zBg9Dw<br/>
+<font color="#A82F2F"><font size="2">(02:55:43 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f2e20fa Jaka Hudoklin: nixos: container profile, update /init symlink on rebuild<br/>
+<font size="2">(02:55:50 AM)</font><b> elifrey left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font size="2">(03:01:10 AM)</font><b> ajhager left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(03:03:45 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] aszlig pushed 1 new commit to master: http://git.io/QqVS7Q<br/>
+<font color="#A82F2F"><font size="2">(03:03:45 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master cf7f15c aszlig: nixos-install: Pass CA cert bundle to chroot....<br/>
+<font color="#A82F2F"><font size="2">(03:06:00 AM)</font> <b>iMatejC:</b></font> aaronlevin: have you tried this: echo &quot;nameserver 8.8.8.8&quot; &gt;&gt; /etc/resolv.conf<br/>
+<font color="#A82F2F"><font size="2">(03:06:46 AM)</font> <b>iMatejC:</b></font> inside docker container I had similar problem, and this solved it, but it is not a permanent solution<br/>
+<font color="#A82F2F"><font size="2">(03:06:49 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] offlinehacker closed pull request #5290: keeping gradle updated (master...gradle221) http://git.io/_sqYpQ<br/>
+<font size="2">(03:07:24 AM)</font><b> bb010g [<em>uid21050@gateway/web/irccloud.com/x-yfwohlssnkobgifq</em>] entered the room.</b><br/>
+<font size="2">(03:10:20 AM)</font><b> jb55_ [<em>~jb55@208.98.200.98</em>] entered the room.</b><br/>
+<font size="2">(03:34:02 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>

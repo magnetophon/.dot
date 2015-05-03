@@ -1,0 +1,155 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Tue 06 Jan 2015 06:52:03 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Tue 06 Jan 2015 06:52:03 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(06:52:03 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(06:52:04 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(06:53:16 PM)</font> <b>offlinehacker:</b></font> http://www.memes.com/m/xHTb<br/>
+<font color="#A82F2F"><font size="2">(06:53:59 PM)</font> <b>barth_:</b></font> Hello ! I&apos;m trying nixos since today and it really looks interesting. But ... where the documentation to configure grub with extra entries can be found ?<br/>
+<font color="#A82F2F"><font size="2">(06:54:11 PM)</font> <b>wkennington:</b></font> Lol<br/>
+<font size="2">(06:54:26 PM)</font><b> deconfigured is now known as athan</b><br/>
+<font color="#A82F2F"><font size="2">(06:56:03 PM)</font> <b>ktosiek:</b></font> barth_: sooo, you want to boot something else? &gt;:-(<br/>
+<font color="#A82F2F"><font size="2">(06:56:22 PM)</font> <b>ikwildrpepper:</b></font> barth_: look in the nixos manual or &apos;man configuration.nix&apos;<br/>
+<font color="#A82F2F"><font size="2">(06:56:22 PM)</font> <b>ikwildrpepper:</b></font> boot.loader.grub.extraEntries<br/>
+<font color="#A82F2F"><font size="2">(06:56:22 PM)</font> <b>ikwildrpepper:</b></font> Any additional entries you want added to the GRUB boot menu.<br/>
+<font color="#A82F2F"><font size="2">(06:56:35 PM)</font> <b>kmicu:</b></font> barth_: http://nixos.org/nixos/manual/ch-options.html#opt-boot.loader.grub.extraEntries<br/>
+<font color="#A82F2F"><font size="2">(07:00:25 PM)</font> <b>zmbmartin:</b></font> kmicu: My font problem is related to vbox and resolutions. Just wanted to give you the FYI.<br/>
+<font color="#A82F2F"><font size="2">(07:00:30 PM)</font> <b>zmbmartin:</b></font> Thanks for your help yesterday.<br/>
+<font color="#A82F2F"><font size="2">(07:05:39 PM)</font> <b>kmicu:</b></font> zmbmartin: Yeah, vbox video handling can be problematic not only with fonts. But it is good that you’ve it all figured out. Good luck with NixOS.<br/>
+<font color="#16569E"><font size="2">(07:08:44 PM)</font> <b>magnetophon:</b></font> Somehow https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/audio/faust/default.nix#L48 creates a link to /nix/store/bzqcs6b5r64xf4v86m2a5pcndhv1lnab-bash-4.3-p30/nix/  which obviously doesn't exist.  It was obviously working when the package was merged into master...   What's going on?<br/>
+<font color="#16569E"><font size="2">(07:09:28 PM)</font> <b>magnetophon:</b></font> goibhniu1: ^^  (I still look at you as my &quot;mentor&quot; for faust, if you don't mind...)<br/>
+<font color="#16569E"><font size="2">(07:10:55 PM)</font> <b>magnetophon:</b></font> tldr: ${bash}/bin/bash points to a non-existing directory<br/>
+<font color="#A82F2F"><font size="2">(07:14:24 PM)</font> <b>pmahoney:</b></font> magnetophon: this doesn&apos;t answer your question, but shouldn&apos;t the standard fixups convert #!/bin/bash already?<br/>
+<font color="#A82F2F"><font size="2">(07:14:55 PM)</font> <b>MichaelRaskin:</b></font> I think there are some mentions not in the first line<br/>
+<font color="#A82F2F"><font size="2">(07:15:10 PM)</font> <b>pmahoney:</b></font> ah, of course<br/>
+<font color="#16569E"><font size="2">(07:17:30 PM)</font> <b>magnetophon:</b></font> pmahoney: I didn't know that.  I did find some other .nix files in master that do similar things.<br/>
+<font color="#16569E"><font size="2">(07:18:42 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: actually there aren't. The line was just in there because of my lack of nix-fu.  I'll go and remove it. <br/>
+<font color="#16569E"><font size="2">(07:19:21 PM)</font> <b>magnetophon:</b></font> But it's still odd that I get a link to a non-existing dir....<br/>
+<font color="#A82F2F"><font size="2">(07:19:44 PM)</font> <b>Ralith:</b></font> I&apos;m new to Nix and having some difficulty working out how to install libuv. It *does* appear to exist in nixpkgs, but I can&apos;t seem to find any selector or path that matches it<br/>
+<font color="#A82F2F"><font size="2">(07:22:42 PM)</font> <b>MichaelRaskin:</b></font> libuvVersions.v_0_10_27<br/>
+<font color="#A82F2F"><font size="2">(07:23:05 PM)</font> <b>MichaelRaskin:</b></font> Oops, without the first underscore<br/>
+<font color="#A82F2F"><font size="2">(07:23:20 PM)</font> <b>ikwildrpepper:</b></font> ah, doesn&apos;t show up in query<br/>
+<font color="#A82F2F"><font size="2">(07:23:51 PM)</font> <b>ikwildrpepper:</b></font> because it doesn&apos;t use recurseIntoAttrs<br/>
+<font color="#A82F2F"><font size="2">(07:24:21 PM)</font> <b>Ralith:</b></font> MichaelRaskin:<br/>
+<font color="#A82F2F"><font size="2">(07:24:22 PM)</font> <b>Ralith:</b></font> % nix-env -i libuvVersions.v0_10_27                                                                               :(<br/>
+<font color="#A82F2F"><font size="2">(07:24:25 PM)</font> <b>Ralith:</b></font> error: selector ‘libuvVersions.v0_10_27’ matches no derivations<br/>
+<font color="#A82F2F"><font size="2">(07:24:27 PM)</font> <b>ikwildrpepper:</b></font> -iA<br/>
+<font color="#A82F2F"><font size="2">(07:24:27 PM)</font> <b>Ralith:</b></font> am I doing something wrong?<br/>
+<font color="#A82F2F"><font size="2">(07:24:48 PM)</font> <b>Ralith:</b></font> error: attribute ‘libuvVersions’ in selection path ‘libuvVersions.v0_10_27’ not found<br/>
+<font color="#A82F2F"><font size="2">(07:25:00 PM)</font> <b>ikwildrpepper:</b></font> depending on your installation, you need to add nixpkgs. before the attribute name<br/>
+<font color="#A82F2F"><font size="2">(07:25:10 PM)</font> <b>Ralith:</b></font> ah, that worked<br/>
+<font color="#A82F2F"><font size="2">(07:25:23 PM)</font> <b>ikwildrpepper:</b></font> ah, you&apos;re using the nixpkgs channel it seems<br/>
+<font color="#A82F2F"><font size="2">(07:25:46 PM)</font> <b>_deepfire:</b></font> replaceChars [&quot;_&quot;] [&quot;.&quot;] (removePrefix &quot;v&quot; name) messing things up?<br/>
+<font color="#A82F2F"><font size="2">(07:26:26 PM)</font> <b>_deepfire:</b></font> Ralith, try libuvVersions.0.10.27 ?<br/>
+<font color="#A82F2F"><font size="2">(07:26:56 PM)</font> <b>Ralith:</b></font> ikwildrpepper: I&apos;m running Nix inside Arch (for now); is that the way things should be?<br/>
+<font color="#A82F2F"><font size="2">(07:26:57 PM)</font> <b>_deepfire:</b></font> ah, I see<br/>
+<font color="#A82F2F"><font size="2">(07:27:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] rbvermaa pushed 1 new commit to master: http://git.io/js6aZg<br/>
+<font color="#A82F2F"><font size="2">(07:27:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master cbdf1ab Rob Vermaas: Use recurseIntoAttrs for libuvVersions<br/>
+<font color="#A82F2F"><font size="2">(07:27:10 PM)</font> <b>ikwildrpepper:</b></font> I pushed a fix to master so people can find libuv via nix-env -q<br/>
+<font color="#A82F2F"><font size="2">(07:27:28 PM)</font> <b>ikwildrpepper:</b></font> Ralith: yeah, that&apos;s fine<br/>
+<font color="#A82F2F"><font size="2">(07:28:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ehmry opened pull request #5609: cjdns: bump to protocol version 13 (master...cjdns) http://git.io/iM_4uQ<br/>
+<font color="#A82F2F"><font size="2">(07:28:57 PM)</font> <b>_deepfire:</b></font> I see, toVersion is used for other reason<br/>
+<font color="#A82F2F"><font size="2">(07:29:58 PM)</font> <b>aristid:</b></font> stdenv update in master lately, perchance?:)<br/>
+<font color="#A82F2F"><font size="2">(07:33:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] sivteck opened pull request #5610: Update haskell machines-io and machines-directory libraries (master...machines) http://git.io/NwnL-g<br/>
+<font color="#16569E"><font size="2">(07:33:26 PM)</font> <b>magnetophon:</b></font> MichaelRaskin, pmahoney: OK, it turns out that if I don't explicitly replace anything, the ocurences of /bin/bash in the normal scrips are replaced, but the ones in the wrapper scripts are not. Is that a bug in NixOS or a fault of mine?<br/>
+<font color="#16569E"><font size="2">(07:34:59 PM)</font> <b>magnetophon:</b></font> An example of the creation of a wrapped script: https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/audio/faust/default.nix#L40-L44 <br/>
+<font color="#A82F2F"><font size="2">(07:35:08 PM)</font> <b>Ralith:</b></font> ikwildrpepper: is there a particular reason libuv is split up like this when most packages are just a single version?<br/>
+<font color="#A82F2F"><font size="2">(07:35:58 PM)</font> <b>pmahoney:</b></font> magnetophon: you&apos;re saying the .faust2alsa-wrapped (or whatever the name) did not get the /bin/bash fixup?<br/>
+<font color="#16569E"><font size="2">(07:36:10 PM)</font> <b>magnetophon:</b></font> pmahoney: exactly<br/>
+<font color="#16569E"><font size="2">(07:36:36 PM)</font> <b>magnetophon:</b></font> pmahoney: /run/current-system/sw/bin/faust2alsa: /nix/store/dxbmbsc7igw481y8zmsh8z4j1fxiy2kq-faust-0.9.67/bin/.faust2alsa-wrapped: /bin/bash: bad interpreter: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(07:37:04 PM)</font> <b>ikwildrpepper:</b></font> Ralith: no idea, never used libuv<br/>
+<font color="#A82F2F"><font size="2">(07:37:36 PM)</font> <b>Ralith:</b></font> ikwildrpepper: libuv is not normally packaged strangely<br/>
+<font color="#A82F2F"><font size="2">(07:37:46 PM)</font> <b>Ralith:</b></font> this appears to be something nixpkgs has done<br/>
+<font color="#16569E"><font size="2">(07:38:03 PM)</font> <b>magnetophon:</b></font> pmahoney: and when I open the script (/nix/store/dxbmbsc7igw481y8zmsh8z4j1fxiy2kq-faust-0.9.67/bin/.faust2alsa-wrapped) in an editor, the first line is actually &quot;#!/bin/bash&quot;<br/>
+<font color="#16569E"><font size="2">(07:38:51 PM)</font> <b>magnetophon:</b></font> pmahoney: looks like a bug in NixOS, doesn't it?<br/>
+<font color="#A82F2F"><font size="2">(07:39:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vlstill opened pull request #5611: perlPackages: Add X11-IdleTime. (release-14.12...14.12-perl-IdleTime) http://git.io/GgVBvQ<br/>
+<font color="#A82F2F"><font size="2">(07:40:21 PM)</font> <b>pmahoney:</b></font> magnetophon: looking over nixpkgs/pkgs/build-support/setup-hooks/patch-shebangs.sh right now...   does the script have the executable bit set?   (i&apos;m working downloading everything to test your faust/default.nix; curious why the original sed script failed)<br/>
+<font color="#A82F2F"><font size="2">(07:44:49 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] shlevy closed pull request #5605: ghc-with-packages: add an optional exposeGhc parameter (was: Second patchset resulting from the Darwin work) (master...second-patchset) http://git.io/Oz5e0g<br/>
+<font color="#16569E"><font size="2">(07:45:13 PM)</font> <b>magnetophon:</b></font> pmahoney: not sure which script you mean. The wrapper or the original one.  But it seems both /run/current-system/sw/bin/faust2alsa and /nix/store/dxbmbsc7igw481y8zmsh8z4j1fxiy2kq-faust-0.9.67/bin/.faust2alsa-wrapped are running, so the executable bits seem fine.  Not sure if I understand the question...<br/>
+<font color="#A82F2F"><font size="2">(07:47:51 PM)</font> <b>Ralith:</b></font> so I&apos;ve got a fork of nixpkgs with a modified package in it. I&apos;m trying to install just that modified package with nix-env -f . -iA &lt;package&gt;, but it pulls in a ton of dependencies like glibc that I already have installed from the channel. Hwo can I avoid this?<br/>
+<font color="#A82F2F"><font size="2">(07:53:39 PM)</font> <b>goibhniu1:</b></font> Ralith: rebase your changes from the revision of nixpkgs your current system is using<br/>
+<font color="#A82F2F"><font size="2">(07:53:59 PM)</font> <b>goibhniu1:</b></font> Ralith: look at the end of `nixos-version` to see the revision<br/>
+<font size="2">(07:54:20 PM)</font><b> goibhniu1 is now known as goibhniu</b><br/>
+<font color="#A82F2F"><font size="2">(07:54:22 PM)</font> <b>Ralith:</b></font> goibhniu1: where do I find that, given that I&apos;m running nix on non-nixos?<br/>
+<font color="#A82F2F"><font size="2">(07:54:34 PM)</font> <b>goibhniu:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(07:55:25 PM)</font> <b>goibhniu:</b></font> Ralith: I think `readlink -f ~/.nix-defexpr/channels/nixpkgs` tells you<br/>
+<font color="#A82F2F"><font size="2">(07:56:06 PM)</font> <b>Ralith:</b></font> yep, thanks<br/>
+<font color="#A82F2F"><font size="2">(07:56:24 PM)</font> <b>goibhniu:</b></font> great!<br/>
+<font color="#16569E"><font size="2">(07:56:34 PM)</font> <b>magnetophon:</b></font> pmahoney: how is your download coming along?  Faust should be in the cache for both 14.12 and master, so no need to build anything, right? <br/>
+<font color="#A82F2F"><font size="2">(07:58:42 PM)</font> <b>pierron:</b></font> goibhniu: I will change the logo to add &quot;NixOS&quot; in the middle of the snow flake.<br/>
+<font color="#A82F2F"><font size="2">(07:59:03 PM)</font> <b>pierron:</b></font> goibhniu: the reason being that, otherwise nobody will know what the logo relates to :/<br/>
+<font color="#A82F2F"><font size="2">(07:59:42 PM)</font> <b>goibhniu:</b></font> pierron: for the stickers?<br/>
+<font color="#A82F2F"><font size="2">(08:00:05 PM)</font> <b>pierron:</b></font> goibhniu: yes.<br/>
+<font color="#16569E"><font size="2">(08:00:14 PM)</font> <b>magnetophon:</b></font> goibhniu: do you have faust installed?  If so,could you have a quick look at the shebang of faust2alsa and faust2alsa-wrapped?<br/>
+<font color="#A82F2F"><font size="2">(08:00:34 PM)</font> <b>pierron:</b></font> goibhniu: at least this is what some coworkers suggested.<br/>
+<font color="#A82F2F"><font size="2">(08:00:41 PM)</font> <b>goibhniu:</b></font> pierron: personally speaking, I&apos;d prefer to have NixOS to the right ... or just the logo<br/>
+<font color="#A82F2F"><font size="2">(08:01:02 PM)</font> <b>pierron:</b></font> goibhniu: in a circular logo?<br/>
+<font color="#A82F2F"><font size="2">(08:01:21 PM)</font> <b>henrytill:</b></font> stephenjudkins: regarding the JDK question...<br/>
+<font color="#A82F2F"><font size="2">(08:01:29 PM)</font> <b>goibhniu:</b></font> is a rectangle an option?<br/>
+<font color="#A82F2F"><font size="2">(08:01:52 PM)</font> <b>stephenjudkins:</b></font> henrytill: yeah?<br/>
+<font color="#A82F2F"><font size="2">(08:01:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 2 new commits to master: http://git.io/ySf3eg<br/>
+<font color="#A82F2F"><font size="2">(08:01:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master f8f5627 Sivaram Balakrishnan: Update haskell machines-io and machines-directory libraries...<br/>
+<font color="#A82F2F"><font size="2">(08:01:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 90f20fa Peter Simons: Merge pull request #5610 from sivteck/machines...<br/>
+<font color="#A82F2F"><font size="2">(08:02:16 PM)</font> <b>henrytill:</b></font> ach, here...<br/>
+<font color="#A82F2F"><font size="2">(08:02:33 PM)</font> <b>kmicu:</b></font> goibhniu: +1 “I&apos;d prefer to have NixOS to the right ... or just the logo”<br/>
+<font color="#A82F2F"><font size="2">(08:02:34 PM)</font> <b>goibhniu:</b></font> magnetophon: I don&apos;t think I have it installed already, I&apos;m afraid I can&apos;t take a look right now either<br/>
+<font color="#A82F2F"><font size="2">(08:02:35 PM)</font> <b>henrytill:</b></font> you want to set it up in ~/.nixpkgs/config.nix<br/>
+<font color="#16569E"><font size="2">(08:02:47 PM)</font> <b>magnetophon:</b></font> goibhniu: OK, np<br/>
+<font color="#A82F2F"><font size="2">(08:02:53 PM)</font> <b>henrytill:</b></font> stephenjudkins: you would put it in your packageOverrides section<br/>
+<font color="#A82F2F"><font size="2">(08:03:09 PM)</font> <b>goibhniu:</b></font> pierron: where are you getting them from? ... is die-cut an option?<br/>
+<font color="#A82F2F"><font size="2">(08:03:40 PM)</font> <b>goibhniu:</b></font> ... a hexagon would also be nice<br/>
+<font color="#A82F2F"><font size="2">(08:03:40 PM)</font> <b>henrytill:</b></font> stephenjudkins: i&apos;ll paste up an example for you...<br/>
+<font color="#A82F2F"><font size="2">(08:04:07 PM)</font> <b>pierron:</b></font> goibhniu: http://imagebin.ca/v/1nEz3RT8nM4p<br/>
+<font color="#A82F2F"><font size="2">(08:04:19 PM)</font> <b>pierron:</b></font> goibhniu: no, just circlular stickers.<br/>
+<font color="#A82F2F"><font size="2">(08:04:41 PM)</font> <b>goibhniu:</b></font> weird, it doesn&apos;t display the image<br/>
+<font color="#A82F2F"><font size="2">(08:04:44 PM)</font> <b>pierron:</b></font> goibhniu: the die-cut is a bit more expensive, and I do not think it brings much value to the sticker<br/>
+<font color="#A82F2F"><font size="2">(08:05:54 PM)</font> <b>goibhniu:</b></font> ah, I think a die-cut sticker is a whole other level ... but I guess that&apos;s a personal fetish :)<br/>
+<font color="#A82F2F"><font size="2">(08:06:23 PM)</font> <b>Twey:</b></font> Hmph, after the recent update I&apos;m having problems with iwlwifi — my network goes really unstable, and sometimes when I try to load the module I get ‘Direct firmware load failed with error -2’<br/>
+<font color="#A82F2F"><font size="2">(08:06:58 PM)</font> <b>Twey:</b></font> Looks like there are issues with a recent version of iwlwifi — there are complaints online from people across a bunch of distros from December<br/>
+<font color="#A82F2F"><font size="2">(08:07:56 PM)</font> <b>pierron:</b></font> goibhniu: http://imagebin.ca/v/1nF0IFQ192qr<br/>
+<font color="#A82F2F"><font size="2">(08:08:40 PM)</font> <b>pierron:</b></font> goibhniu: I think a wider white background looks better, at least for the NixOS logo<br/>
+<font color="#A82F2F"><font size="2">(08:08:57 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric pushed 2 new commits to release-14.12: http://git.io/DwB-vQ<br/>
+<font color="#A82F2F"><font size="2">(08:08:57 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 708b71c Vladimir Still: perlPackages: Add X11-IdleTime.<br/>
+<font color="#A82F2F"><font size="2">(08:08:57 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 8be9ba0 Domen Kožar: Merge pull request #5611 from vlstill/14.12-perl-IdleTime...<br/>
+<font color="#A82F2F"><font size="2">(08:09:38 PM)</font> <b>goibhniu:</b></font> I like it! Of course, the colors are weird .. but we&apos;re gonna talk about that stuff at FOSDEM<br/>
+<font color="#A82F2F"><font size="2">(08:10:41 PM)</font> <b>pmahoney:</b></font> magnetophon: sorry, my darwin machine is a mess, and my linux is very out of date.  compiling the world...<br/>
+<font color="#A82F2F"><font size="2">(08:10:56 PM)</font> <b>pierron:</b></font> goibhniu: I am going to ask them to fix the colors.<br/>
+<font color="#A82F2F"><font size="2">(08:11:06 PM)</font> <b>pierron:</b></font> goibhniu: but I will add a NixOS  in the middle.<br/>
+<font color="#062585"><font size="2">(08:11:11 PM)</font> <b>***goibhniu</b></font> has been staring at the logo now for many hours today ... really love it<br/>
+<font color="#A82F2F"><font size="2">(08:11:19 PM)</font> <b>henrytill:</b></font> stephenjudkins: http://nixpaste.noip.me/YRmyA-C8<br/>
+<font color="#A82F2F"><font size="2">(08:11:32 PM)</font> <b>pierron:</b></font> goibhniu: this way, when somebody will see one of these stickers, they would have an idea of what to google.<br/>
+<font color="#A82F2F"><font size="2">(08:11:35 PM)</font> <b>goibhniu:</b></font> pierron: IMPO adding text to the center would ruin it<br/>
+<font color="#16569E"><font size="2">(08:11:56 PM)</font> <b>magnetophon:</b></font> pmahoney: compiling the world? For me???  You shouldn't have!     But thanks a lot!!!!!   :p<br/>
+<font color="#A82F2F"><font size="2">(08:13:42 PM)</font> <b>stephenjudkins:</b></font> henrytill: cool, thanks<br/>
+<font color="#A82F2F"><font size="2">(08:15:24 PM)</font> <b>stephenjudkins:</b></font> henrytill: so, suppose you want an expression that doesn&apos;t depend on any package that you &quot;override&quot;, and requires that you specify which other expression to use as the JDK. basically, a partially applied function<br/>
+<font color="#A82F2F"><font size="2">(08:15:25 PM)</font> <b>stephenjudkins:</b></font> can nix do that?<br/>
+<font color="#A82F2F"><font size="2">(08:15:26 PM)</font> <b>MichaelRaskin:</b></font> Hm<br/>
+<font color="#A82F2F"><font size="2">(08:15:45 PM)</font> <b>MichaelRaskin:</b></font> magnetophon: maybe the problem is that * doesn&apos;t match .* in shell globbing<br/>
+<font color="#A82F2F"><font size="2">(08:16:05 PM)</font> <b>MichaelRaskin:</b></font> You could try running patchShebangs on $out/bin before generating wrappers<br/>
+<font color="#16569E"><font size="2">(08:16:34 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: thanks, I'll try that<br/>
+<font size="2">(08:17:06 PM)</font><b> icetea is now known as Guest15079</b><br/>
+<font color="#A82F2F"><font size="2">(08:17:17 PM)</font> <b>pmahoney:</b></font> MichaelRaskin: patch-shebangs.sh does: find &quot;$dir&quot; -type f -perm +0100 | while read f; do<br/>
+<font color="#A82F2F"><font size="2">(08:17:25 PM)</font> <b>pmahoney:</b></font> that should find dotfiles i think<br/>
+<font size="2">(08:17:34 PM)</font><b> hugoduncan is now known as hugod</b><br/>
+<font color="#A82F2F"><font size="2">(08:17:47 PM)</font> <b>MichaelRaskin:</b></font> I thing it is overcomplicated<br/>
+<font color="#A82F2F"><font size="2">(08:18:12 PM)</font> <b>henrytill:</b></font> stephenjudkins: not sure i understand the difference<br/>
+<font color="#A82F2F"><font size="2">(08:18:28 PM)</font> <b>MichaelRaskin:</b></font> When we can just run the patching before creating moving some files to hidden names<br/>
+<font color="#A82F2F"><font size="2">(08:19:39 PM)</font> <b>henrytill:</b></font> stephenjudkins: the override is basically specifying a non-default input to an expression<br/>
+<font color="#A82F2F"><font size="2">(08:20:13 PM)</font> <b>stephenjudkins:</b></font> henrytill: in the latter case, it&apos;d be impossible to install ant without explicitly providing an expression for the JDK<br/>
+<font color="#A82F2F"><font size="2">(08:20:41 PM)</font> <b>MichaelRaskin:</b></font> What should faust2alsaconsole actually do?<br/>
+<font color="#A82F2F"><font size="2">(08:21:42 PM)</font> <b>MichaelRaskin:</b></font> Because apparently a simple fix makes it run without complaining or doing anything noticeable<br/>
+<font color="#A82F2F"><font size="2">(08:22:09 PM)</font> <b>henrytill:</b></font> stephenjudkins: the nix way would be to have several different attribute paths which gave different inputs to the package expression<br/>
+<font color="#A82F2F"><font size="2">(08:22:18 PM)</font> <b>henrytill:</b></font> stephenjudkins: have you looked at pkgs/top-level/all-packages.nix?<br/>
+<font color="#A82F2F"><font size="2">(08:22:45 PM)</font> <b>stephenjudkins:</b></font> looking now<br/>
+<font color="#A82F2F"><font size="2">(08:23:39 PM)</font> <b>iElectric:</b></font> fyi<br/>
+<font color="#A82F2F"><font size="2">(08:23:46 PM)</font> <b>iElectric:</b></font> staging now runs patchShebangs<br/>
+<font color="#A82F2F"><font size="2">(08:23:54 PM)</font> <b>iElectric:</b></font> in preConfigurePhases<br/>
+<font color="#16569E"><font size="2">(08:23:57 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: If you create test.dsp containing &quot;process = +;&quot;  (without the quotes) and the do faust2alsa test.dsp, it should compile a program <br/>
+<font color="#16569E"><font size="2">(08:24:56 PM)</font> <b>magnetophon:</b></font> iElectric: sorry, what is staging?<br/>
+<font color="#A82F2F"><font size="2">(08:25:20 PM)</font> <b>iElectric:</b></font> a branch with changes that trigger mass-rebuild<br/>
+<font color="#A82F2F"><font size="2">(08:25:46 PM)</font> <b>pierron:</b></font> goibhniu: http://ibin.co/1nF5fhFTwOcg<br/>
+<font color="#A82F2F"><font size="2">(08:25:58 PM)</font> <b>pierron:</b></font> iElectric: ^ what do you think?<br/>
+<font color="#A82F2F"><font size="2">(08:26:14 PM)</font> <b>stephenjudkins:</b></font> henrytill: so, how apache-maven is written is exactly what i&apos;m talking about<br/>
+<font color="#A82F2F"><font size="2">(08:26:21 PM)</font> <b>kmicu:</b></font> Please don’t.<br/>
+<font color="#A82F2F"><font size="2">(08:26:29 PM)</font> <b>iElectric:</b></font> pierron: is that a sticker?<br/>
+<font color="#16569E"><font size="2">(08:27:40 PM)</font> <b>magnetophon:</b></font> iElectric: right. So basically a version of NixOS even newer then master?  If so, are you saying that what I'm experiencing actually &lt;is&gt; a NixOS bug?  Sorry, you guys are way ahead of me. Trying to keep up...<br/>
+<font color="#16569E"><font size="2">(08:28:58 PM)</font> <b>magnetophon:</b></font> MichaelRaskin: Did that answer your question?  And what was that simple fix you where referring to?<br/>
+<font size="2">(08:33:00 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

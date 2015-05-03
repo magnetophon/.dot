@@ -1,0 +1,224 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Fri 17 Apr 2015 10:31:02 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Fri 17 Apr 2015 10:31:02 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:31:02 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(10:31:02 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(10:31:02 PM)</font> <b>holmes.freenode.net:</b></font> (notice) [freenode-info] channel flooding and no channel staff around to help? Please check with freenode support: http://freenode.net/faq.shtml#gettinghelp<br/>
+<font color="#16569E"><font size="2">(10:41:38 PM)</font> <b>magnetophon:</b></font> I have &quot;patchelf --set-rpath ${zita-alsa-pcmi}/lib/libzita-alsa-pcmi.so &quot;$out/bin/jaaa&quot;&quot; in my installPhase, after copying jaaa to the store, yet still I get a 404 on that lib. Any Ideas?<br/>
+<font color="#A82F2F"><font size="2">(10:42:49 PM)</font> <b>aszlig:</b></font> magnetophon: 404?<br/>
+<font color="#A82F2F"><font size="2">(10:42:58 PM)</font> <b>RchrdB:</b></font> &apos;not found&apos; from ldd?<br/>
+<font color="#A82F2F"><font size="2">(10:43:05 PM)</font> <b>Forkk:</b></font> magnetophon, you don&apos;t have to specify patchelf manually either IIRC<br/>
+<font color="#16569E"><font size="2">(10:43:09 PM)</font> <b>magnetophon:</b></font> aszlig: not found<br/>
+<font color="#A82F2F"><font size="2">(10:43:09 PM)</font> <b>aszlig:</b></font> but apart from that, try stripping the basename off<br/>
+<font color="#A82F2F"><font size="2">(10:43:28 PM)</font> <b>aszlig:</b></font> ${zita-alsa-pcmi}/lib<br/>
+<font color="#A82F2F"><font size="2">(10:44:03 PM)</font> <b>aszlig:</b></font> also, did you patch the interpreter?<br/>
+<font color="#16569E"><font size="2">(10:44:26 PM)</font> <b>magnetophon:</b></font> aszlig: had that already, but will try again.  nope, how?<br/>
+<font color="#A82F2F"><font size="2">(10:44:54 PM)</font> <b>aszlig:</b></font> patchelf --set-interpreter &quot;$(cat $NIX_CC/nix-support/dynamic-linker)&quot; --rpath ...<br/>
+<font color="#16569E"><font size="2">(10:45:03 PM)</font> <b>magnetophon:</b></font> aszlig: thanks<br/>
+<font color="#A82F2F"><font size="2">(10:45:20 PM)</font> <b>aszlig:</b></font> s/rpath/set-&amp;/<br/>
+<font color="#A82F2F"><font size="2">(10:45:50 PM)</font> <b>mbbx6spp:</b></font> anyone here using or involved with nixops? I had a question about backend API design but perhaps the ML is more appropriate.<br/>
+<font color="#16569E"><font size="2">(10:45:58 PM)</font> <b>magnetophon:</b></font> aszlig: heh, learned a new vim trick :)<br/>
+<font color="#16569E"><font size="2">(10:47:23 PM)</font> <b>magnetophon:</b></font> Forkk: yeah normally you don't. idk why it can't find the lib, so I tried this...<br/>
+<font color="#A82F2F"><font size="2">(10:47:29 PM)</font> <b>aszlig:</b></font> mbbx6spp: there are a few people here using nixops, so what do you have in mind?<br/>
+<font color="#16569E"><font size="2">(10:47:54 PM)</font> <b>magnetophon:</b></font> aszlig: hmmm, same...<br/>
+<font color="#A82F2F"><font size="2">(10:48:22 PM)</font> <b>aszlig:</b></font> magnetophon: what do you get when you do a ldd?<br/>
+<font color="#16569E"><font size="2">(10:49:45 PM)</font> <b>magnetophon:</b></font> aszlig: ldd: missing file argument<br/>
+<font color="#A82F2F"><font size="2">(10:49:47 PM)</font> <b>mbbx6spp:</b></font> aszlig: so specifically about supporting usePrivateIpAddress on the ec2 backend (EC2Definition) like suggested in this github issue: https://github.com/NixOS/nixops/issues/221#issuecomment-94062999<br/>
+<font color="#A82F2F"><font size="2">(10:50:04 PM)</font> <b>mbbx6spp:</b></font> sorry that was a link to my comment, but the whole issue request is relevant<br/>
+<font color="#A82F2F"><font size="2">(10:51:01 PM)</font> <b>aszlig:</b></font> mbbx6spp: uh, sorry, no idea about ec2, only doing hetzner- and none-deployments<br/>
+<font color="#A82F2F"><font size="2">(10:51:20 PM)</font> <b>aszlig:</b></font> niksnut, ikwildrpepper: ^<br/>
+<font color="#A82F2F"><font size="2">(10:51:24 PM)</font> <b>mbbx6spp:</b></font> well this generalizes to the backend API<br/>
+<font color="#A82F2F"><font size="2">(10:51:37 PM)</font> <b>mbbx6spp:</b></font> right now get_ssh_name doesn&apos;t require the definition passed to it<br/>
+<font color="#A82F2F"><font size="2">(10:51:45 PM)</font> <b>mbbx6spp:</b></font> which all backends need to support (I think?)<br/>
+<font color="#A82F2F"><font size="2">(10:52:24 PM)</font> <b>mbbx6spp:</b></font> to be able to do stuff like above where we set something in the definition but want to use it in the machine state implementation for the backend, we don&apos;t have the relevant information passed in right now<br/>
+<font color="#A82F2F"><font size="2">(10:52:30 PM)</font> <b>mbbx6spp:</b></font> get_ssh_name is just one example<br/>
+<font color="#A82F2F"><font size="2">(10:52:48 PM)</font> <b>mbbx6spp:</b></font> reboot, etc. are others that may need context of the definition<br/>
+<font color="#A82F2F"><font size="2">(10:53:12 PM)</font> <b>mbbx6spp:</b></font> it seems odd that only some of these methods require the definition passed to it and not others (seems arbitrary).<br/>
+<font color="#A82F2F"><font size="2">(10:53:40 PM)</font> <b>aszlig:</b></font> magnetophon: do you get that with ldd on the resulting file?<br/>
+<font color="#16569E"><font size="2">(10:54:14 PM)</font> <b>magnetophon:</b></font> aszlig: sorry, no. had to google the use of ldd. I get a list of mostly not found. including the lib above<br/>
+<font color="#16569E"><font size="2">(10:54:33 PM)</font> <b>magnetophon:</b></font> do you want the list?<br/>
+<font color="#A82F2F"><font size="2">(10:55:21 PM)</font> <b>aszlig:</b></font> magnetophon: well, you need to patchelf the rpaths to everything that&apos;s missing there<br/>
+<font color="#A82F2F"><font size="2">(10:55:56 PM)</font> <b>aszlig:</b></font> mbbx6spp: err, so essentially allowing to deploy using hosts which are not publicly available?<br/>
+<font color="#16569E"><font size="2">(10:56:19 PM)</font> <b>magnetophon:</b></font> aszlig: right. afaik I have libzita-alsa-pcmi.so patched, but it's not working.<br/>
+<font color="#A82F2F"><font size="2">(10:56:27 PM)</font> <b>aszlig:</b></font> mbbx6spp: er more like nixops -&gt; machineA -&gt; machineB?<br/>
+<font color="#A82F2F"><font size="2">(10:56:44 PM)</font> <b>aszlig:</b></font> while machineA is not reachable from the nixops machine<br/>
+<font color="#A82F2F"><font size="2">(10:57:08 PM)</font> <b>mbbx6spp:</b></font> aszlig: I am connected to a VPN that gives me access to these private IPs in the EC2 VPC<br/>
+<font color="#A82F2F"><font size="2">(10:57:18 PM)</font> <b>mbbx6spp:</b></font> so I can use the private IPs and these servers shouldn&apos;t have public IPs<br/>
+<font color="#A82F2F"><font size="2">(10:57:21 PM)</font> <b>mbbx6spp:</b></font> ever<br/>
+<font color="#A82F2F"><font size="2">(10:57:47 PM)</font> <b>mbbx6spp:</b></font> so I don&apos;t want to associate a public IP and put igw routing on these subnets just for nixops to work<br/>
+<font color="#A82F2F"><font size="2">(10:58:14 PM)</font> <b>aszlig:</b></font> magnetophon: hm, can you pastebin the list?<br/>
+<font color="#A82F2F"><font size="2">(10:58:23 PM)</font> <b>mbbx6spp:</b></font> they should only be internal and I have access to them from the deploy machine I am using (in this case my laptop right now, but eventually a deployer box on the VPC itself)<br/>
+<font color="#A82F2F"><font size="2">(10:59:13 PM)</font> <b>mbbx6spp:</b></font> currently nixops flakes out because the ec2 instance is never assigned a public IP address so it just waits and waits<br/>
+<font color="#A82F2F"><font size="2">(11:00:22 PM)</font> <b>aszlig:</b></font> mbbx6spp: mhm, so essentially a way to pass ssh flags, like for example -L/-R, right?<br/>
+<font color="#A82F2F"><font size="2">(11:00:33 PM)</font> <b>mbbx6spp:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(11:00:45 PM)</font> <b>mbbx6spp:</b></font> the problem is in the design of the backend API for nixops itself<br/>
+<font color="#A82F2F"><font size="2">(11:00:50 PM)</font> <b>mbbx6spp:</b></font> MachineState class<br/>
+<font color="#A82F2F"><font size="2">(11:01:14 PM)</font> <b>mbbx6spp:</b></font> does not get a MachineDefinition instances passed in to (in this case) #get_ssh_name<br/>
+<font color="#A82F2F"><font size="2">(11:01:19 PM)</font> <b>mbbx6spp:</b></font> to be able to know which IP to return<br/>
+<font color="#16569E"><font size="2">(11:01:27 PM)</font> <b>magnetophon:</b></font> aszlig: http://nixpaste.noip.me/NrUJ3oX0<br/>
+<font color="#A82F2F"><font size="2">(11:01:30 PM)</font> <b>mbbx6spp:</b></font> so if usePrivateIpAddress is set for the deployment<br/>
+<font color="#A82F2F"><font size="2">(11:01:35 PM)</font> <b>mbbx6spp:</b></font> in the definition<br/>
+<font color="#A82F2F"><font size="2">(11:01:57 PM)</font> <b>mbbx6spp:</b></font> then the machine state instance will not know whether to return the private IP or public Ip<br/>
+<font color="#A82F2F"><font size="2">(11:02:31 PM)</font> <b>mbbx6spp:</b></font> the hack could simply be if privateIpv4 is set and publicIpv4 is not, then return the former<br/>
+<font color="#A82F2F"><font size="2">(11:02:36 PM)</font> <b>mbbx6spp:</b></font> but that feels dirty<br/>
+<font color="#16569E"><font size="2">(11:02:51 PM)</font> <b>magnetophon:</b></font> aszlig: here's the pkg: http://nixpaste.noip.me/p74BsWVY<br/>
+<font color="#A82F2F"><font size="2">(11:03:30 PM)</font> <b>aszlig:</b></font> magnetophon: you&apos;re missing a few other library paths, but apart from that libzita-alsa-pcmi.so.0 doesn&apos;t seem to be available, right?<br/>
+<font color="#16569E"><font size="2">(11:04:03 PM)</font> <b>magnetophon:</b></font> aszlig: I packaged it. it's in my store, including that file.<br/>
+<font color="#A82F2F"><font size="2">(11:07:58 PM)</font> <b>aszlig:</b></font> mbbx6spp: mhm, so it might make sense to generalize this for all backends, something like connectIP(v6?), which then is set during evaluation of the physical definition of the backend<br/>
+<font color="#16569E"><font size="2">(11:08:39 PM)</font> <b>magnetophon:</b></font> aszlig: hmm, I just noticed: cat: /nix-support/dynamic-linker: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(11:10:18 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] abbradar pushed 7 new commits to master: http://git.io/vvQ2w<br/>
+<font color="#A82F2F"><font size="2">(11:10:19 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 282dfc8 Nikolay Amiantov: haskellngPackages.mueval: fix for GHC 7.10<br/>
+<font color="#A82F2F"><font size="2">(11:10:19 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 125cce5 Nikolay Amiantov: haskellngPackages.dependent-sum-template: fix for GHC 7.10<br/>
+<font color="#A82F2F"><font size="2">(11:10:19 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 2f7bc99 Nikolay Amiantov: haskellngPackages.gnuplot: fix for GHC 7.10<br/>
+<font color="#A82F2F"><font size="2">(11:10:20 PM)</font> <b>aszlig:</b></font> magnetophon: err, wait a minute... why are you using patchelf at all? does it contain binary blobs?<br/>
+<font color="#16569E"><font size="2">(11:10:57 PM)</font> <b>magnetophon:</b></font> aszlig: cause I'm a copy/paste programmer??  sorry!<br/>
+<font color="#062585"><font size="2">(11:11:12 PM)</font> <b>***magnetophon</b></font> doesn&apos;t know what he&apos;s doing...<br/>
+<font color="#A82F2F"><font size="2">(11:11:50 PM)</font> <b>aszlig:</b></font> magnetophon: what is the output of ldd _without_ the patchelf?<br/>
+<font color="#16569E"><font size="2">(11:14:38 PM)</font> <b>magnetophon:</b></font> aszlig: now just libzita-alsa-pcmi.so.0 =&gt; not found, and the rest seems ok<br/>
+<font color="#A82F2F"><font size="2">(11:14:46 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 3 new commits to master: http://git.io/vvQV3<br/>
+<font color="#A82F2F"><font size="2">(11:14:46 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 96ea5d3 William A. Kennington III: nano: 2.4.0 -&gt; 2.4.1<br/>
+<font color="#A82F2F"><font size="2">(11:14:46 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 556c2a9 William A. Kennington III: icedtea: 2.5.4 -&gt; 2.5.5<br/>
+<font color="#A82F2F"><font size="2">(11:14:46 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 93d6ac9 William A. Kennington III: 389-ds-base: 1.3.3.5 -&gt; 1.3.3.9<br/>
+<font color="#16569E"><font size="2">(11:15:11 PM)</font> <b>magnetophon:</b></font> do you still want the list?<br/>
+<font color="#A82F2F"><font size="2">(11:16:06 PM)</font> <b>aszlig:</b></font> magnetophon: so, what are the contents of the store paths of libzita-alsa-pcmi?<br/>
+<font color="#16569E"><font size="2">(11:18:00 PM)</font> <b>magnetophon:</b></font> aszlig: lib/ has libzita-alsa-pcmi.so  and libzita-alsa-pcmi.so.0.2.0<br/>
+<font color="#16569E"><font size="2">(11:18:06 PM)</font> <b>magnetophon:</b></font> one is a link<br/>
+<font color="#A82F2F"><font size="2">(11:18:12 PM)</font> <b>mbbx6spp:</b></font> aszlig: get_ssh_name is the generalized API, that is what I am talking about it just doesn&apos;t get the definition passed to it (it&apos;s on the machine state implemetation)<br/>
+<font color="#A82F2F"><font size="2">(11:19:38 PM)</font> <b>mbbx6spp:</b></font> `grep -r &quot;def get_ssh_name&quot; nixops` in the repo will show the backends implementating it. HTH.<br/>
+<font color="#16569E"><font size="2">(11:19:57 PM)</font> <b>magnetophon:</b></font> aszlig: should I add pkgconfig to the libzita-alsa-pcmi pkg?    (wild guess)<br/>
+<font color="#A82F2F"><font size="2">(11:20:15 PM)</font> <b>mbbx6spp:</b></font> I think i will persue another angle as suggested by @cwp on github just now in the issue itself<br/>
+<font color="#A82F2F"><font size="2">(11:21:24 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga closed pull request #7433: canto-curses: 0.9.1 -&gt; 0.9.3 (master...canto-curses) http://git.io/vvQtb<br/>
+<font color="#A82F2F"><font size="2">(11:21:32 PM)</font> <b>aszlig:</b></font> mbbx6spp: i know, i wrote that generalized mess X-D<br/>
+<font color="#A82F2F"><font size="2">(11:21:48 PM)</font> <b>ajp:</b></font> seppellll: that didn&apos;t quite do it, but I ended up getting it with<br/>
+<font color="#A82F2F"><font size="2">(11:21:53 PM)</font> <b>ajp:</b></font> nix-shell -E &apos;with import /home/anders/devel/nixpkgs { }; runCommand &quot;dummy&quot; { buildInputs = [ pythonPackages.gmusicapi ]; } &quot;&quot;&apos;<br/>
+<font color="#A82F2F"><font size="2">(11:22:08 PM)</font> <b>Xechas:</b></font> Can anyone explain hash mismatches and what causes them?<br/>
+<font color="#16569E"><font size="2">(11:23:40 PM)</font> <b>magnetophon:</b></font> nope, pkgconfig did not help. :(<br/>
+<font color="#A82F2F"><font size="2">(11:24:36 PM)</font> <b>aszlig:</b></font> magnetophon: err, no, actually what&apos;s the output of the linker?<br/>
+<font color="#A82F2F"><font size="2">(11:24:49 PM)</font> <b>aszlig:</b></font> magnetophon: or the full linker call<br/>
+<font color="#A82F2F"><font size="2">(11:25:03 PM)</font> <b>aszlig:</b></font> s/or/and\/&amp;/<br/>
+<font color="#16569E"><font size="2">(11:26:03 PM)</font> <b>magnetophon:</b></font> aszlig: like this? http://nixpaste.noip.me/ez0ntb3g<br/>
+<font color="#16569E"><font size="2">(11:26:33 PM)</font> <b>magnetophon:</b></font> aszlig: thanks for your patience!!!<br/>
+<font color="#A82F2F"><font size="2">(11:26:49 PM)</font> <b>mbbx6spp:</b></font> aszlig: lol, that isn&apos;t what I meant at all. It isn&apos;t a mess, we just need to evolve it but I fear too much change as I am new to NixOps contributions myself.<br/>
+<font color="#A82F2F"><font size="2">(11:27:09 PM)</font> <b>aszlig:</b></font> mbbx6spp: it is a mess :-D<br/>
+<font color="#16569E"><font size="2">(11:28:40 PM)</font> <b>magnetophon:</b></font> aszlig: idk how to get the linker call<br/>
+<font color="#A82F2F"><font size="2">(11:28:57 PM)</font> <b>Forkk:</b></font> oops, forgot to submit the PR for Plex plugins :o<br/>
+<font color="#A82F2F"><font size="2">(11:29:20 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] Forkk opened pull request #7434: plex: add support for managing plugins via Nix (master...plex-media-server) http://git.io/vvQ6f<br/>
+<font color="#A82F2F"><font size="2">(11:29:33 PM)</font> <b>aszlig:</b></font> mbbx6spp: but anyway, i might want to wake up and read that issue again afterwards, because right now i&apos;m not sure whether i can follow<br/>
+<font color="#A82F2F"><font size="2">(11:29:36 PM)</font> <b>auntie_:</b></font> chromium test failed :(<br/>
+<font color="#A82F2F"><font size="2">(11:29:57 PM)</font> <b>auntie_:</b></font> waiting for my patches to pass hydra ;P<br/>
+<font color="#A82F2F"><font size="2">(11:31:08 PM)</font> <b>aszlig:</b></font> auntie_: geeesh... everything at once X-D<br/>
+<font color="#A82F2F"><font size="2">(11:31:27 PM)</font> <b>aszlig:</b></font> i hope noone did an update...<br/>
+<font color="#A82F2F"><font size="2">(11:32:11 PM)</font> <b>aszlig:</b></font> auntie_: chromium patches?<br/>
+<font size="2">(11:32:16 PM)</font><b> mbbx6spp left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:32:44 PM)</font> <b>auntie_:</b></font> aszlig: I don&apos;t see any patches for chromium in the log since the last time it passed<br/>
+<font color="#A82F2F"><font size="2">(11:34:50 PM)</font> <b>devhell:</b></font> JagaJaga: thanks \o/<br/>
+<font color="#A82F2F"><font size="2">(11:35:14 PM)</font> <b>aszlig:</b></font> auntie_: ah, geesh, it&apos;s that window state again...<br/>
+<font color="#A82F2F"><font size="2">(11:36:48 PM)</font> <b>aszlig:</b></font> auntie_: someday i&apos;ll throw tesseract at it, doing screenshots, OCRing it and do the tests based on the OCRed text X-D<br/>
+<font color="#A82F2F"><font size="2">(11:37:21 PM)</font> <b>Forkk:</b></font> btw, auntie_, your PR ended up breaking mine anyway, even though I changed the IDs lol<br/>
+<font color="#A82F2F"><font size="2">(11:37:25 PM)</font> <b>aszlig:</b></font> at least that&apos;s more reliable than how it&apos;s done right now<br/>
+<font color="#A82F2F"><font size="2">(11:37:45 PM)</font> <b>Forkk:</b></font> git saw the changes were right next to each other and decided there was a conflict<br/>
+<font color="#A82F2F"><font size="2">(11:38:13 PM)</font> <b>aszlig:</b></font> magnetophon: i don&apos;t know either, because i don&apos;t know the build process of that software<br/>
+<font color="#A82F2F"><font size="2">(11:38:34 PM)</font> <b>aszlig:</b></font> magnetophon: but you could throw strace at it (with -e trace=process)<br/>
+<font color="#A82F2F"><font size="2">(11:38:43 PM)</font> <b>auntie_:</b></font> aszlig: what does it do now? just check that a window appeared?<br/>
+<font color="#A82F2F"><font size="2">(11:38:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] anderspapitto opened pull request #7435: add gmusicapi python package (master...master) http://git.io/vvQXR<br/>
+<font color="#16569E"><font size="2">(11:39:06 PM)</font> <b>magnetophon:</b></font> aszlig: I just noticed the makefile has LDLIBS += -lzita-alsa-pcmi      Should I make that remove that l from lzita?<br/>
+<font color="#A82F2F"><font size="2">(11:39:34 PM)</font> <b>aszlig:</b></font> auntie_: it uses xlib to detect changes<br/>
+<font color="#A82F2F"><font size="2">(11:40:38 PM)</font> <b>aszlig:</b></font> auntie_: which obviously isn&apos;t enough for the magic land of browser popups<br/>
+<font color="#A82F2F"><font size="2">(11:40:39 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] abbradar pushed 1 new commit to master: http://git.io/vvQ1v<br/>
+<font color="#A82F2F"><font size="2">(11:40:39 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8f1d256 Nikolay Amiantov: agda: use GHC 7.8.4 for building<br/>
+<font color="#16569E"><font size="2">(11:41:08 PM)</font> <b>magnetophon:</b></font> aszlig: full makefile is here: http://nixpaste.noip.me/4d9ujrQX   (that's has the linker call, not?)<br/>
+<font color="#16569E"><font size="2">(11:41:20 PM)</font> <b>magnetophon:</b></font> s/'s//<br/>
+<font color="#A82F2F"><font size="2">(11:44:50 PM)</font> <b>Forkk:</b></font> Has anyone gotten ccache working for building Nix packages?<br/>
+<font color="#A82F2F"><font size="2">(11:45:24 PM)</font> <b>Forkk:</b></font> It&apos;d be nice if I didn&apos;t have to recompile all of XBMC every time I try to get plex-home-theater to build<br/>
+<font color="#A82F2F"><font size="2">(11:45:36 PM)</font> <b>aszlig:</b></font> Forkk: using the stdenv adapter?<br/>
+<font color="#A82F2F"><font size="2">(11:46:59 PM)</font> <b>auntie_:</b></font> mmm... the reproduce script doesn&apos;t work. &quot;don&apos;t know the path to the Nix expression!&quot;<br/>
+<font color="#16569E"><font size="2">(11:47:09 PM)</font> <b>magnetophon:</b></font> ashmm, the l in lzita was not the problem...<br/>
+<font color="#A82F2F"><font size="2">(11:47:14 PM)</font> <b>aszlig:</b></font> Forkk: oh geesh, never mind, i&apos;m not even able to read anymore<br/>
+<font size="2">(11:47:33 PM)</font><b> mbbx6spp is now known as Guest61740</b><br/>
+<font color="#A82F2F"><font size="2">(11:47:33 PM)</font> <b>Forkk:</b></font> aszlig, what do you mean?<br/>
+<font color="#A82F2F"><font size="2">(11:48:01 PM)</font> <b>aszlig:</b></font> Forkk: i read distcc...<br/>
+<font color="#A82F2F"><font size="2">(11:48:11 PM)</font> <b>Forkk:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(11:48:18 PM)</font> <b>Xechas:</b></font> I currently work with a bunch of custom nixpkgs and recently started getting hash mismatches everywhere. I was wondering if anyone could explain in some detail why a hash mismatch occurs in general.<br/>
+<font color="#A82F2F"><font size="2">(11:48:23 PM)</font> <b>Forkk:</b></font> there is a stdenv wrapper for ccache, though<br/>
+<font color="#A82F2F"><font size="2">(11:48:36 PM)</font> <b>aszlig:</b></font> Forkk: oh, so i didn&apos;t misread...<br/>
+<font color="#A82F2F"><font size="2">(11:48:46 PM)</font> <b>Forkk:</b></font> but I&apos;ve forgotten what it was called and last time I used it, it didn&apos;t seem to do anything<br/>
+<font color="#A82F2F"><font size="2">(11:48:48 PM)</font> <b>aszlig:</b></font> or did i... i&apos;m not sure...<br/>
+<font color="#A82F2F"><font size="2">(11:49:06 PM)</font> <b>JagaJaga:</b></font> devhell: what for? :)<br/>
+<font color="#A82F2F"><font size="2">(11:49:07 PM)</font> <b>aszlig:</b></font> okay, i&apos;m out...<br/>
+<font color="#A82F2F"><font size="2">(11:49:11 PM)</font> <b>Forkk:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(11:49:24 PM)</font> <b>devhell:</b></font> JagaJaga: you know for what. :P<br/>
+<font color="#A82F2F"><font size="2">(11:49:31 PM)</font> <b>Forkk:</b></font> aha! found this https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/all-packages.nix#L4945<br/>
+<font color="#16569E"><font size="2">(11:49:34 PM)</font> <b>magnetophon:</b></font> aszlig: Thanks for your time!<br/>
+<font color="#A82F2F"><font size="2">(11:49:40 PM)</font> <b>Forkk:</b></font> instructions buried in all-packages<br/>
+<font color="#A82F2F"><font size="2">(11:49:46 PM)</font> <b>JagaJaga:</b></font> devhell: no :(<br/>
+<font color="#A82F2F"><font size="2">(11:50:03 PM)</font> <b>devhell:</b></font> JagaJaga: merge<br/>
+<font color="#A82F2F"><font size="2">(11:50:09 PM)</font> <b>JagaJaga:</b></font> devhell: yw :)<br/>
+<font color="#A82F2F"><font size="2">(11:50:26 PM)</font> <b>auntie_:</b></font> Xechas: depends on what kind of hash you&apos;re talking about. For tarballs, nix expects a correct hash. if you change a tarball, you must compute the new hash yourself<br/>
+<font color="#A82F2F"><font size="2">(11:51:08 PM)</font> <b>auntie_:</b></font> Xechas: if it&apos;s builds you&apos;re talking about, nix hashes all of the relevant build paramaters. If you change any of those, the hash will change and you will be forced to rebuild<br/>
+<font color="#A82F2F"><font size="2">(11:51:44 PM)</font> <b>scottmilliken:</b></font> Hey all— I&apos;m switching from apt to nix on a bunch of ubuntu machines, and I&apos;m struggling to figure out services/daemons. Should I be using upstart or systemd? Should I be doing this *in* nix configuration or the usual system way?<br/>
+<font color="#A82F2F"><font size="2">(11:52:25 PM)</font> <b>Forkk:</b></font> If you&apos;re switching completely over, I see no reason to keep using Ubuntu<br/>
+<font color="#A82F2F"><font size="2">(11:52:57 PM)</font> <b>auntie_:</b></font> scottmilliken: If you&apos;re just using nix on ubuntu, then you won&apos;t have the benefit of having nix manage your services<br/>
+<font color="#A82F2F"><font size="2">(11:53:18 PM)</font> <b>scottmilliken:</b></font> Forkk: I would agree, except pragmatically it&apos;d be a much bigger project to do a clean switch<br/>
+<font color="#A82F2F"><font size="2">(11:53:26 PM)</font> <b>auntie_:</b></font> scottmilliken: NixOS manages services and the like with nixos &quot;modules&quot; using systemd<br/>
+<font color="#A82F2F"><font size="2">(11:53:35 PM)</font> <b>scottmilliken:</b></font> Forkk: I&apos;d like to ease into that, nixos would be the next step :)<br/>
+<font color="#A82F2F"><font size="2">(11:53:58 PM)</font> <b>Forkk:</b></font> I guess<br/>
+<font color="#A82F2F"><font size="2">(11:54:29 PM)</font> <b>scottmilliken:</b></font> autie_: so should I manage the services myself the plain-old way, and save nix services for when we&apos;re using nixos?<br/>
+<font color="#A82F2F"><font size="2">(11:54:41 PM)</font> <b>Forkk:</b></font> What I did to switch was to replicate my system in VirtualBox and then use the configs from there to install my system<br/>
+<font color="#A82F2F"><font size="2">(11:54:59 PM)</font> <b>auntie_:</b></font> scottmilliken: if you&apos;re managing servers on ubuntu, you&apos;re basically on your own. you *could* write an upstart script for a nix-installed server... but it&apos;s probably easier to use ubuntu servers on ubuntu and nix servers on nixos<br/>
+<font color="#A82F2F"><font size="2">(11:55:29 PM)</font> <b>auntie_:</b></font> scottmilliken: *yes*<br/>
+<font color="#A82F2F"><font size="2">(11:55:37 PM)</font> <b>Forkk:</b></font> basically, without NixOS, you only have a package manager<br/>
+<font color="#A82F2F"><font size="2">(11:55:40 PM)</font> <b>goodwill:</b></font> auntie_: RhodeCode and we do it that way now<br/>
+<font color="#A82F2F"><font size="2">(11:55:45 PM)</font> <b>goodwill:</b></font> it works<br/>
+<font color="#A82F2F"><font size="2">(11:55:53 PM)</font> <b>Forkk:</b></font> you don&apos;t get any of the config management stuff<br/>
+<font color="#A82F2F"><font size="2">(11:56:07 PM)</font> <b>scottmilliken:</b></font> auntie_: Gotcha, that&apos;s the direction I&apos;ve been heading, but it&apos;s been frustrating adapting all the configs to work on nix-installed packages. Was hoping I was missing something..<br/>
+<font color="#A82F2F"><font size="2">(11:56:48 PM)</font> <b>scottmilliken:</b></font> Thanks y&apos;all, that saves me a bunch of time. I&apos;ll just keep using upstart and try to plan out a transition to nixos sometime in the future..<br/>
+<font color="#A82F2F"><font size="2">(11:56:58 PM)</font> <b>Forkk:</b></font> I don&apos;t really understand the point of using Nix outside of NixOS. If anything, it sounds like it might make things harder.<br/>
+<font color="#A82F2F"><font size="2">(11:57:01 PM)</font> <b>auntie_:</b></font> goodwill: I don&apos;t doubt it. still, writing an upstart script is extra work<br/>
+<font size="2">(11:57:18 PM)</font><b> goibhniu left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:57:19 PM)</font> <b>auntie_:</b></font> Forkk: it&apos;s difficult to understand things in the production world<br/>
+<font color="#A82F2F"><font size="2">(11:57:23 PM)</font> <b>Forkk:</b></font> honestly, though, scottmilliken, treat it like programming<br/>
+<font color="#A82F2F"><font size="2">(11:57:31 PM)</font> <b>goodwill:</b></font> auntie_: it is annoying<br/>
+<font color="#A82F2F"><font size="2">(11:57:44 PM)</font> <b>Forkk:</b></font> Nix basically makes your system setup into code<br/>
+<font color="#A82F2F"><font size="2">(11:57:56 PM)</font> <b>auntie_:</b></font> nix works well on any distro with a new enough kernel... and when you&apos;re in a situation being &quot;stuck&quot; with old libraries... nix is pretty great<br/>
+<font color="#A82F2F"><font size="2">(11:58:07 PM)</font> <b>Forkk:</b></font> so treat it like a programming project. Track it with version control, test it, and when it&apos;s ready to go, deploy it.<br/>
+<font color="#A82F2F"><font size="2">(11:58:19 PM)</font> <b>scottmilliken:</b></font> Forkk: Nix is still much simpler better than apt. We can have multiple versions of the same dependency, use one package manager instead of several (every language has its own..), and get better reproducibility<br/>
+<font color="#A82F2F"><font size="2">(11:58:34 PM)</font> <b>Forkk:</b></font> that is a good point<br/>
+<font size="2">(11:58:48 PM)</font><b> pmahoney left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:59:06 PM)</font> <b>Forkk:</b></font> and I guess if your old infrastructure is built on ubuntu, you can still use that<br/>
+<font color="#A82F2F"><font size="2">(12:00:50 AM)</font> <b>ajp:</b></font> given that linux 4.0 has been pushed (e01c96d14c356ec035774d5b5b74c533d1ceaf3e), how can I tell how far that commit is from propagating through the build farm/binary caches?<br/>
+<font color="#A82F2F"><font size="2">(12:00:53 AM)</font> <b>scottmilliken:</b></font> Forkk: It&apos;s difficult to migrate the OS under a cluster of production systems, but I&apos;m hoping the piecemeal approach can get us there for the new machines, at least<br/>
+<font color="#A82F2F"><font size="2">(12:01:35 AM)</font> <b>Forkk:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(12:01:58 AM)</font> <b>Forkk:</b></font> well, good luck :)<br/>
+<font color="#A82F2F"><font size="2">(12:02:04 AM)</font> <b>scottmilliken:</b></font> Thanks, appreciate the help<br/>
+<font color="#A82F2F"><font size="2">(12:03:56 AM)</font> <b>Forkk:</b></font> sure<br/>
+<font color="#A82F2F"><font size="2">(12:04:21 AM)</font> <b>Forkk:</b></font> Has anyone else noticed Nix&apos;s download progress indicator thingy freaking out?<br/>
+<font color="#A82F2F"><font size="2">(12:04:36 AM)</font> <b>Forkk:</b></font> Mine keeps jumping from like 1% to 20% and then back to 5%<br/>
+<font color="#A82F2F"><font size="2">(12:04:44 AM)</font> <b>Forkk:</b></font> just seemingly random numbers<br/>
+<font color="#A82F2F"><font size="2">(12:05:15 AM)</font> <b>ajp:</b></font> Forkk: I think there&apos;s multiple concurrent downloads fighting with each other for the terminal line<br/>
+<font color="#A82F2F"><font size="2">(12:05:51 AM)</font> <b>Forkk:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(12:05:58 AM)</font> <b>Forkk:</b></font> That makes sense<br/>
+<font color="#A82F2F"><font size="2">(12:06:21 AM)</font> <b>Forkk:</b></font> it actually sometimes prints some text to the right of the end of where the download status should be, so that&apos;s probably it<br/>
+<font color="#A82F2F"><font size="2">(12:06:37 AM)</font> <b>auntie_:</b></font> it would be nice if it didn&apos;t do that :P<br/>
+<font color="#A82F2F"><font size="2">(12:07:01 AM)</font> <b>auntie_:</b></font> maybe some sort of socket and a master download manager process<br/>
+<font size="2">(12:07:04 AM)</font><b> oever is now known as vandenoever</b><br/>
+<font color="#A82F2F"><font size="2">(12:07:11 AM)</font> <b>Forkk:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(12:07:55 AM)</font> <b>Forkk:</b></font> so I enabled ccacheStdenv globally and now it seems nix is going to rebuild my whole system. Is that normal?<br/>
+<font color="#A82F2F"><font size="2">(12:08:08 AM)</font> <b>Forkk:</b></font> actually, I see what I&apos;ve done, nevermind<br/>
+<font color="#A82F2F"><font size="2">(12:08:32 AM)</font> <b>Forkk:</b></font> I&apos;ve basically changed the input for every package, so now I don&apos;t have Hydra to back me up I guess<br/>
+<font color="#A82F2F"><font size="2">(12:09:05 AM)</font> <b>mullein:</b></font> magnetophon: did you ever figure out your headers issue?<br/>
+<font color="#16569E"><font size="2">(12:10:04 AM)</font> <b>magnetophon:</b></font> mullein: yup. I just got the program running 10 sec ago!. Thanks<br/>
+<font color="#A82F2F"><font size="2">(12:10:06 AM)</font> <b>Forkk:</b></font> and perl has failed to build<br/>
+<font color="#A82F2F"><font size="2">(12:12:27 AM)</font> <b>Forkk:</b></font> what the hell... ccache: error: Failed to create directory /homeless-shelter/.ccache/tmp:<br/>
+<font color="#A82F2F"><font size="2">(12:15:41 AM)</font> <b>auntie_:</b></font> Forkk: your derivation tried to create some files in $HOME<br/>
+<font color="#16569E"><font size="2">(12:17:18 AM)</font> <b>magnetophon:</b></font> How do I know whether a pkg needs pkgconf? <br/>
+<font color="#16569E"><font size="2">(12:17:21 AM)</font> <b>magnetophon:</b></font> ig<br/>
+<font size="2">(12:18:04 AM)</font><b> dysinger_ is now known as dysinger</b><br/>
+<font color="#16569E"><font size="2">(12:18:10 AM)</font> <b>magnetophon:</b></font> mullein: did you get your IF running on nixos?<br/>
+<font color="#A82F2F"><font size="2">(12:27:16 AM)</font> <b>mullein:</b></font> i haven&apos;t tried yet, have to sort out grub so that i can easily switch between debian and nixos<br/>
+<font color="#A82F2F"><font size="2">(12:27:36 AM)</font> <b>mullein:</b></font> actually going to install nixos on a laptop shortly so that i have more flexibility<br/>
+<font color="#16569E"><font size="2">(12:55:51 AM)</font> <b>magnetophon:</b></font> mullein: https://github.com/magnetophon/nixosConfig/blob/master/configuration.nix#L25<br/>
+<font color="#16569E"><font size="2">(12:57:06 AM)</font> <b>magnetophon:</b></font> mullein: just make a copy of your current grub entries, add it to you nixos config like so ^^, and bob's your uncle!<br/>
+<font color="#A82F2F"><font size="2">(12:58:06 AM)</font> <b>angelic_sedition:</b></font> guix packages aren&apos;t compatible with nix are they?<br/>
+<font color="#A82F2F"><font size="2">(12:58:49 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] magnetophon opened pull request #7436: Add jaaa: JACK and ALSA Audio Analyser (master...jaaa-master) http://git.io/vv7T2<br/>
+<font color="#16569E"><font size="2">(12:59:02 AM)</font> <b>magnetophon:</b></font> aszlig: ^^   :D<br/>
+<font color="#16569E"><font size="2">(01:01:34 AM)</font> <b>magnetophon:</b></font> angelic_sedition: https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/package-management/guix/default.nix<br/>
+<font size="2">(01:21:31 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

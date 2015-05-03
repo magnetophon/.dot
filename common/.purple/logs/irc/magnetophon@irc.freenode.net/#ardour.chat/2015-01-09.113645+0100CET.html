@@ -1,0 +1,102 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Fri 09 Jan 2015 11:36:45 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Fri 09 Jan 2015 11:36:45 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(11:36:45 AM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(11:36:45 AM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(11:41:20 AM)</font> <b>damo22:</b></font> can this bit pattern be simplified somehow? 00 e8 d0 b8 a0 88 70 58 40 28 10 f8 e0 c8 b0 98 80 68 50 38 20 08 f0 d8 c0 a8 90 78 60 48 30 18<br/>
+<font color="#A82F2F"><font size="2">(11:42:31 AM)</font> <b>damo22:</b></font> the second half seems to be the first xored with 0x80<br/>
+<font color="#A82F2F"><font size="2">(11:53:06 AM)</font> <b>nphilipp:</b></font> damo22: do you want to &quot;compress&quot; it algorithmically?<br/>
+<font color="#A82F2F"><font size="2">(11:53:39 AM)</font> <b>damo22:</b></font> nphilipp: i want to find out if there is a pattern that reduces it to a smaller set of bytes that mean something<br/>
+<font color="#A82F2F"><font size="2">(11:54:35 AM)</font> <b>damo22:</b></font> nphilipp: this bit pattern is the key to a .ptf protools file<br/>
+<font color="#A82F2F"><font size="2">(11:55:35 AM)</font> <b>damo22:</b></font> it uses repeated xor cipher<br/>
+<font color="#A82F2F"><font size="2">(11:56:19 AM)</font> <b>nphilipp:</b></font> well, this is every other byte, starting with first: 00 d0 70 40 10 e0 b0 80 50 20 f0 c0 90 60 30<br/>
+<font color="#A82F2F"><font size="2">(11:57:20 AM)</font> <b>nphilipp:</b></font> there&apos;s definitely a pattern: lower nibble is always zero, higher starts with 0 (16 mod 16), then shifts 3 bits to the left: d0, and so forth<br/>
+<font color="#A82F2F"><font size="2">(11:58:10 AM)</font> <b>nphilipp:</b></font> ehh, shifts to the right off course<br/>
+<font color="#A82F2F"><font size="2">(11:58:28 AM)</font> <b>nphilipp:</b></font> same with the rest, lower nibble always 8, then higher starts off with e (14), then shifts right by 3 bits<br/>
+<font size="2">(12:00:36 PM)</font><b> edogawa_ is now known as edogawa</b><br/>
+<font color="#A82F2F"><font size="2">(12:00:47 PM)</font> <b>nphilipp:</b></font> Or for the whole: lower nibble starts with 0, then alternates to 8 and back. Higher nibble starts with 0 (16), then subtracts 2, then 1, then 2, then one and so on<br/>
+<font color="#A82F2F"><font size="2">(12:00:53 PM)</font> <b>nphilipp:</b></font> damo22: ^^<br/>
+<font color="#A82F2F"><font size="2">(12:02:40 PM)</font> <b>damo22:</b></font> nphilipp: do you mean shift right with wrap?<br/>
+<font color="#A82F2F"><font size="2">(12:02:54 PM)</font> <b>nphilipp:</b></font> yep, working in the 16 modulus<br/>
+<font color="#A82F2F"><font size="2">(12:03:02 PM)</font> <b>nphilipp:</b></font> per nibble<br/>
+<font color="#A82F2F"><font size="2">(12:03:17 PM)</font> <b>nphilipp:</b></font> let me wrap this in a function...<br/>
+<font color="#A82F2F"><font size="2">(12:06:47 PM)</font> <b>damo22:</b></font> i cant even do this on paper<br/>
+<font size="2">(12:07:57 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:12:35 PM)</font> <b>nphilipp:</b></font> damo22: here is it in python:<br/>
+<font color="#A82F2F"><font size="2">(12:12:45 PM)</font> <b>nphilipp:</b></font> def key(i):<br/>
+<font color="#A82F2F"><font size="2">(12:12:50 PM)</font> <b>nphilipp:</b></font>     return &quot;{0:02x}&quot;.format((-i -(i+1)/2) % 16 * 16 + 8 * i % 2)<br/>
+<font color="#A82F2F"><font size="2">(12:13:10 PM)</font> <b>nphilipp:</b></font> the interesting piece is in the parens after .format<br/>
+<font color="#A82F2F"><font size="2">(12:13:43 PM)</font> <b>nphilipp:</b></font> 8 * i%2 builds the lower nibble alternating between 0 an d8<br/>
+<font color="#A82F2F"><font size="2">(12:14:45 PM)</font> <b>nphilipp:</b></font> -i - (i+1)/2 starts off with 0, then subtracts one, and for every odd index subtracts one more<br/>
+<font color="#A82F2F"><font size="2">(12:15:13 PM)</font> <b>nphilipp:</b></font> modulo 16 to stay in the modulus, then *16 to left-shift into the higher nibble<br/>
+<font color="#A82F2F"><font size="2">(12:37:02 PM)</font> <b>nphilipp:</b></font> damo22: seen what I wrote? my internet connection just had a hickup<br/>
+<font color="#A82F2F"><font size="2">(12:39:11 PM)</font> <b>SzArAk:</b></font> nphilipp: python code and a bit of comment above is visible.<br/>
+<font color="#A82F2F"><font size="2">(12:39:53 PM)</font> <b>nphilipp:</b></font> SzArAk: the last line I wrote began with &quot;modulo 16 to stay in the mo,dulus&quot;, did that one get through? If not, what was the last line?<br/>
+<font color="#A82F2F"><font size="2">(12:40:07 PM)</font> <b>SzArAk:</b></font> nphilipp: yup, all there.<br/>
+<font color="#A82F2F"><font size="2">(12:40:27 PM)</font> <b>SzArAk:</b></font> you timeout 12 minutes after that.<br/>
+<font color="#A82F2F"><font size="2">(12:40:56 PM)</font> <b>nphilipp:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(12:43:17 PM)</font> <b>SzArAk:</b></font> is there an easy way of installing nightly without destroying ardour from system packages?<br/>
+<font color="#A82F2F"><font size="2">(12:43:51 PM)</font> <b>SzArAk:</b></font> it seems install scripts from nightly put ardour in same dirs as the package<br/>
+<font color="#A82F2F"><font size="2">(12:44:23 PM)</font> <b>SzArAk:</b></font> any easy workarounds, or should I just take care of it manually?<br/>
+<font size="2">(12:56:39 PM)</font><b> HarryHaaren left the room (quit: Quit: HarryHaaren).</b><br/>
+<font color="#A82F2F"><font size="2">(01:36:33 PM)</font> <b>rgareus:</b></font> SzArAk: the nightly will go to /opt/Ardour-&lt;version&gt;/  it won&apos;t conflict with distro packages<br/>
+<font color="#A82F2F"><font size="2">(01:36:57 PM)</font> <b>SzArAk:</b></font> rgareus: oh, that&apos;s sweet. thank you.<br/>
+<font color="#062585"><font size="2">(01:37:48 PM)</font> <b>***SzArAk</b></font> doesn&apos;t want to break his main system ... it takes to much time to fix it afterwards :)<br/>
+<font color="#A82F2F"><font size="2">(01:49:00 PM)</font> <b>oofus:</b></font> rgareus: I see you had some success with LTC<br/>
+<font color="#A82F2F"><font size="2">(01:56:23 PM)</font> <b>rgareus:</b></font> oofus: yeah, I found a workaround for the time being<br/>
+<font color="#A82F2F"><font size="2">(01:57:04 PM)</font> <b>oofus:</b></font> good<br/>
+<font color="#A82F2F"><font size="2">(01:59:26 PM)</font> <b>rgareus:</b></font> oofus: how did you see that I had some success? by looking at a scope or by reading the commit log?<br/>
+<font color="#A82F2F"><font size="2">(01:59:40 PM)</font> <b>oofus:</b></font> rgareus: commit log<br/>
+<font color="#A82F2F"><font size="2">(02:00:07 PM)</font> <b>rgareus:</b></font> ok.<br/>
+<font color="#A82F2F"><font size="2">(02:00:50 PM)</font> <b>oofus:</b></font> rgareus: I&apos;m getting through today’s tasks faster than I thought I might, so I may have time a bit later to take a closer look<br/>
+<font color="#A82F2F"><font size="2">(02:01:26 PM)</font> <b>rgareus:</b></font> oofus: are you still in London?<br/>
+<font color="#A82F2F"><font size="2">(02:01:36 PM)</font> <b>oofus:</b></font> rgareus: no, at home<br/>
+<font color="#A82F2F"><font size="2">(02:01:48 PM)</font> <b>oofus:</b></font> rgareus: that job finished at Christmas<br/>
+<font color="#A82F2F"><font size="2">(02:02:05 PM)</font> <b>oofus:</b></font> rgareus: although there is the threat of a few more days down there mopping things up<br/>
+<font color="#A82F2F"><font size="2">(02:02:12 PM)</font> <b>oofus:</b></font> rgareus: but nothing confirmed yet<br/>
+<font color="#A82F2F"><font size="2">(02:29:21 PM)</font> <b>Jin^eLD:</b></font> is someone actively using ardour3 with drumgizmo who could help me out? I still did not manage to get it to work<br/>
+<font color="#A82F2F"><font size="2">(02:37:16 PM)</font> <b>edogawa:</b></font> Jin^eLD: i have it working, i believe :)<br/>
+<font color="#A82F2F"><font size="2">(02:37:30 PM)</font> <b>edogawa:</b></font> Jin^eLD: what&apos;s your problem?<br/>
+<font color="#A82F2F"><font size="2">(02:37:31 PM)</font> <b>Jin^eLD:</b></font> ok - how? :) it seems all fine but I just get no sound out of it<br/>
+<font color="#A82F2F"><font size="2">(02:37:50 PM)</font> <b>Jin^eLD:</b></font> I have the midi track, I have the busses connected, I have the drumkit loaded, the midimap loaded in DG<br/>
+<font color="#A82F2F"><font size="2">(02:38:35 PM)</font> <b>JL___:</b></font> hi, there seams to be a problem while zooming in : white is coming ( Ardour 3.5.4245 (built from revision 3.5-4245-g0367aa5) ); is that known ?<br/>
+<font color="#A82F2F"><font size="2">(02:40:02 PM)</font> <b>Jin^eLD:</b></font> edogawa: but I do not hear any drum sounds, i am not sure if its a problem with ardour or DG<br/>
+<font color="#A82F2F"><font size="2">(02:40:46 PM)</font> <b>edogawa:</b></font> Jin^eLD: wait a min, i am trying again, but get interrupted by family<br/>
+<font color="#A82F2F"><font size="2">(02:40:56 PM)</font> <b>Jin^eLD:</b></font> np, thanks<br/>
+<font color="#A82F2F"><font size="2">(02:45:03 PM)</font> <b>edogawa:</b></font> Jin^eLD: oh<br/>
+<font color="#A82F2F"><font size="2">(02:45:12 PM)</font> <b>edogawa:</b></font> seems to be an ardour bug<br/>
+<font color="#A82F2F"><font size="2">(02:45:34 PM)</font> <b>edogawa:</b></font> it shows 16 midi out ports, carla shows 16 audio outs<br/>
+<font color="#A82F2F"><font size="2">(02:46:06 PM)</font> <b>Jin^eLD:</b></font> ok.. that explains it then, I am too much of a noob to realize this<br/>
+<font color="#A82F2F"><font size="2">(02:46:12 PM)</font> <b>edogawa:</b></font> Jin^eLD: i don&apos;t think i tried in a3 before, tbh<br/>
+<font color="#A82F2F"><font size="2">(02:46:33 PM)</font> <b>edogawa:</b></font> i had it working within Carla or jalv, i guess<br/>
+<font color="#A82F2F"><font size="2">(02:48:42 PM)</font> <b>Jin^eLD:</b></font> so I&apos;ll submit a but then I guess<br/>
+<font color="#A82F2F"><font size="2">(03:04:05 PM)</font> <b>edogawa:</b></font> yes please<br/>
+<font size="2">(03:09:32 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font size="2">(03:12:34 PM)</font><b> felz is now known as mindlapse</b><br/>
+<font size="2">(03:13:01 PM)</font><b> mindlapse is now known as felz</b><br/>
+<font color="#A82F2F"><font size="2">(03:50:39 PM)</font> <b>oofus:</b></font> ooh, I like the brick red for the track header selection, much nicer than the purple<br/>
+<font size="2">(04:01:07 PM)</font><b> HarryHaaren left the room (quit: Quit: HarryHaaren).</b><br/>
+<font color="#A82F2F"><font size="2">(04:12:24 PM)</font> <b>edogawa:</b></font> oofus: :)<br/>
+<font color="#A82F2F"><font size="2">(04:15:04 PM)</font> <b>edogawa:</b></font> i saw avlinux requested (and got) brighter grid lines yesterday, but i found them to be much too bright for my taste, chose some middle grays for both theme items and now i&apos;m comfortable<br/>
+<font color="#A82F2F"><font size="2">(04:16:13 PM)</font> <b>edogawa:</b></font> (colour 94 for beats, colour 104 for bars)<br/>
+<font color="#A82F2F"><font size="2">(04:19:49 PM)</font> <b>rgareus:</b></font> edogawa: i&apos;m with you there<br/>
+<font color="#A82F2F"><font size="2">(04:21:02 PM)</font> <b>rgareus:</b></font> IMHO they should also be behind regions (not on top)<br/>
+<font color="#A82F2F"><font size="2">(04:23:53 PM)</font> <b>rgareus:</b></font> well, usualardour progress. two  steps forward, one step back :)<br/>
+<font color="#A82F2F"><font size="2">(04:30:18 PM)</font> <b>rgareus:</b></font> edogawa: are you really seeing 16 MIDI outs on DG?<br/>
+<font color="#A82F2F"><font size="2">(04:31:07 PM)</font> <b>Ben_at_Harrison:</b></font> Leatuspenguin,    I am still experimenting with the wording.   drobilla  had the good idea to change the keybinding to the &quot;left&quot; side of a US keyboard, so all the tools are on the left side.  He chose &quot;G&quot; for grab, which is also a term used by ProTools, for example.<br/>
+<font color="#A82F2F"><font size="2">(04:31:16 PM)</font> <b>edogawa:</b></font> rgareus: yes, it&apos;s weird<br/>
+<font color="#A82F2F"><font size="2">(04:31:28 PM)</font> <b>rgareus:</b></font> edogawa: works here. just fine (today&apos;s ardour, drumgizmo git from mid sept)<br/>
+<font color="#A82F2F"><font size="2">(04:31:32 PM)</font> <b>Ben_at_Harrison:</b></font> but of course the code internally still says &quot;Object&quot;,   and there are probably other user-visible cases like the one you found.<br/>
+<font color="#A82F2F"><font size="2">(04:31:40 PM)</font> <b>Ben_at_Harrison:</b></font> Leatuspenguin,    comments are appreciated.<br/>
+<font color="#A82F2F"><font size="2">(04:31:58 PM)</font> <b>rgareus:</b></font> edogawa: I didn&apos;t load a drumkit (too little memory) but he ports show up just fine<br/>
+<font color="#A82F2F"><font size="2">(04:32:18 PM)</font> <b>edogawa:</b></font> rgareus: wait<br/>
+<font color="#A82F2F"><font size="2">(04:32:28 PM)</font> <b>edogawa:</b></font> rgareus: /me idiot<br/>
+<font color="#A82F2F"><font size="2">(04:33:11 PM)</font> <b>edogawa:</b></font> the track was called MIDI 1 so the out ports were MIDI 1 1-16<br/>
+<font color="#A82F2F"><font size="2">(04:33:21 PM)</font> <b>rgareus:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(04:33:22 PM)</font> <b>edogawa:</b></font> but indeed were audio ports<br/>
+<font color="#A82F2F"><font size="2">(04:34:06 PM)</font> <b>edogawa:</b></font> i clicked the out ports button on the midi channel strip, not audio connection manager, maybe that&apos;s what confused me<br/>
+<font color="#A82F2F"><font size="2">(04:34:18 PM)</font> <b>edogawa:</b></font> hm<br/>
+<font color="#A82F2F"><font size="2">(04:35:47 PM)</font> <b>edogawa:</b></font> anyway i loaded sounds, but the track stayed silent, but i can&apos;t seriously go deeper now because of family<br/>
+<font color="#A82F2F"><font size="2">(04:36:44 PM)</font> <b>edogawa:</b></font> Jin^eLD: ^^<br/>
+<font color="#A82F2F"><font size="2">(04:37:27 PM)</font> <b>Leatuspenguin:</b></font> I had a strange issue when using drumgizmo too. I took a screenshot earlier. When i select an audio track in the editor mixer, it shows up the meters from drumgizmo if that was previously selected. The only thing that seems to bring it back to normal is reloading the session - http://imgbin.org/index.php?page=image&amp;id=21720<br/>
+<font color="#A82F2F"><font size="2">(04:37:28 PM)</font> <b>LAbot:</b></font> Title: ImgBin.Org: The #1 site for free, fast image hosting (at imgbin.org)<br/>
+<font size="2">(05:02:38 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

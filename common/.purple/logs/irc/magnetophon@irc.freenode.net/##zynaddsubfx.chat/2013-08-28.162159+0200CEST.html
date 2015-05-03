@@ -1,0 +1,232 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with ##zynaddsubfx at Wed 28 Aug 2013 04:21:59 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with ##zynaddsubfx at Wed 28 Aug 2013 04:21:59 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font color="#16569E"><font size="2">(04:22:25 PM)</font> <b>magnetophon:</b></font> fundamental: sorry, my battery died...<br/>
+<font color="#A82F2F"><font size="2">(04:22:41 PM)</font> <b>fundamental:</b></font> no problem<br/>
+<font color="#A82F2F"><font size="2">(04:22:48 PM)</font> <b>fundamental:</b></font> does cmake complain that anything is missing now?<br/>
+<font color="#16569E"><font size="2">(04:22:57 PM)</font> <b>magnetophon:</b></font> anyway, where you saying default io is a command line option?<br/>
+<font color="#16569E"><font size="2">(04:23:14 PM)</font> <b>magnetophon:</b></font> lemme check<br/>
+<font color="#A82F2F"><font size="2">(04:23:28 PM)</font> <b>fundamental:</b></font> the IO for the program is a command line option<br/>
+<font color="#A82F2F"><font size="2">(04:23:55 PM)</font> <b>fundamental:</b></font> so if I only wanted to quickly check something when my soundcard was in use I could run zynaddsubfx -O null<br/>
+<font color="#16569E"><font size="2">(04:25:11 PM)</font> <b>magnetophon:</b></font> -- Could NOT find FLTK (missing:  FLTK_FLUID_EXECUTABLE) <br/>
+<font color="#16569E"><font size="2">(04:25:11 PM)</font> <b>magnetophon:</b></font> -- Could NOT find CxxTest (missing:  CXXTEST_INCLUDE_DIR CXXTEST_PYTHON_TESTGEN_EXECUTABLE) <br/>
+<font color="#16569E"><font size="2">(04:25:23 PM)</font> <b>magnetophon:</b></font> but I guess that's OK, right?<br/>
+<font color="#A82F2F"><font size="2">(04:25:37 PM)</font> <b>fundamental:</b></font> it should find fluid<br/>
+<font color="#16569E"><font size="2">(04:26:06 PM)</font> <b>magnetophon:</b></font> so i need to install that?<br/>
+<font color="#A82F2F"><font size="2">(04:26:34 PM)</font> <b>fundamental:</b></font> yep<br/>
+<font color="#16569E"><font size="2">(04:26:48 PM)</font> <b>magnetophon:</b></font> and file a bugreport to debian? since i did apt-get build-dep, wich should intall all build dependancies...<br/>
+<font color="#A82F2F"><font size="2">(04:27:19 PM)</font> <b>fundamental:</b></font> technically zynaddsubfx does not need a user interface or any means of output to compile, so they might be in the right :p<br/>
+<font color="#16569E"><font size="2">(04:28:09 PM)</font> <b>magnetophon:</b></font> hmmmmmmm<br/>
+<font color="#16569E"><font size="2">(04:28:32 PM)</font> <b>magnetophon:</b></font> root@WheezyOne:/home/bart# aptitude install fluid<br/>
+<font color="#16569E"><font size="2">(04:28:32 PM)</font> <b>magnetophon:</b></font> No packages will be installed, upgraded, or removed.<br/>
+<font color="#16569E"><font size="2">(04:28:32 PM)</font> <b>magnetophon:</b></font> 0 packages upgraded, 0 newly installed, 0 to remove and 0 not upgraded.<br/>
+<font color="#16569E"><font size="2">(04:28:32 PM)</font> <b>magnetophon:</b></font> Need to get 0 B of archives. After unpacking 0 B will be used.<br/>
+<font color="#16569E"><font size="2">(04:28:32 PM)</font> <b>magnetophon:</b></font>                                          <br/>
+<font color="#16569E"><font size="2">(04:28:32 PM)</font> <b>magnetophon:</b></font> root@WheezyOne:/home/bart# aptitude install fluid-dev<br/>
+<font color="#16569E"><font size="2">(04:28:32 PM)</font> <b>magnetophon:</b></font> Couldn't find any package whose name or description matched &quot;fluid-dev&quot;<br/>
+<font color="#16569E"><font size="2">(04:28:48 PM)</font> <b>magnetophon:</b></font> ideas?<br/>
+<font color="#A82F2F"><font size="2">(04:29:15 PM)</font> <b>fundamental:</b></font> does &apos;fluid&apos; start a gui?<br/>
+<font color="#16569E"><font size="2">(04:29:35 PM)</font> <b>magnetophon:</b></font> yup<br/>
+<font color="#A82F2F"><font size="2">(04:30:44 PM)</font> <b>fundamental:</b></font> did it print &quot;Will build FLTK gui&quot;?<br/>
+<font color="#16569E"><font size="2">(04:30:58 PM)</font> <b>magnetophon:</b></font> I don't know how well you speak debian, but the above is saying fluid is installed already (obviously), and fluid-dev is normally the package that has header files and such.<br/>
+<font color="#16569E"><font size="2">(04:31:02 PM)</font> <b>magnetophon:</b></font> lemme check<br/>
+<font color="#16569E"><font size="2">(04:31:23 PM)</font> <b>magnetophon:</b></font> nope, didn't print anything to the console<br/>
+<font color="#A82F2F"><font size="2">(04:31:36 PM)</font> <b>fundamental:</b></font> there are no headers needed for fluid, it simply translates UI files into c++ files<br/>
+<font color="#A82F2F"><font size="2">(04:31:45 PM)</font> <b>fundamental:</b></font> err did cmake print that string?<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> bart@WheezyOne:ZynAddSubFX-2.4.3/build $ cmake ..<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- Checking Include Path<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- Checking Library Path<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- checking for module 'mxml'<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> --   found mxml, version 2.6<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- Could NOT find OSS (missing:  OSS_INCLUDE_DIR) <br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- ALSA not found<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- checking for module 'portaudio-2.0&gt;=19'<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> --   package 'portaudio-2.0&gt;=19' not found<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- Could NOT find FLTK (missing:  FLTK_FLUID_EXECUTABLE) <br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- Could NOT find CxxTest (missing:  CXXTEST_INCLUDE_DIR CXXTEST_PYTHON_TESTGEN_EXECUTABLE) <br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- checking for one of the modules 'lash-1.0'<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- checking for one of the modules 'dssi&gt;=0.9.0'<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- GUI module defaulting to off<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- Compiling with liblo<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- Building for Release, flags: -O3 -msse -msse2 -mfpmath=sse -ffast-math -fomit-frame-pointer<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- using link directories:     /usr/lib/i386-linux-gnu<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- Link libraries: /usr/lib/i386-linux-gnu/libz.so  mxml;pthread jack;lo;pthread <br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- Configuring done<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- Generating done<br/>
+<font color="#16569E"><font size="2">(04:32:40 PM)</font> <b>magnetophon:</b></font> -- Build files have been written to: /home/bart/source/ZynAddSubFX/ZynAddSubFX-2.4.3/build<br/>
+<font color="#16569E"><font size="2">(04:32:56 PM)</font> <b>magnetophon:</b></font> pasting is ok in an empty room, right?<br/>
+<font color="#16569E"><font size="2">(04:33:18 PM)</font> <b>magnetophon:</b></font> so no, no will build fltk...<br/>
+<font color="#A82F2F"><font size="2">(04:33:28 PM)</font> <b>fundamental:</b></font> yep (assuming that freenode does not have any very restrictive flooding rules)<br/>
+<font color="#16569E"><font size="2">(04:34:12 PM)</font> <b>magnetophon:</b></font> i just saw I'm being throtled, whatever that means...<br/>
+<font color="#A82F2F"><font size="2">(04:34:33 PM)</font> <b>fundamental:</b></font> hm, let me check to see if an old hack was still in the last release<br/>
+<font color="#16569E"><font size="2">(04:35:15 PM)</font> <b>magnetophon:</b></font> fundamental: thanks<br/>
+<font color="#A82F2F"><font size="2">(04:35:34 PM)</font> <b>fundamental:</b></font> it&apos;s getting to be overdue for another release anyhow<br/>
+<font color="#A82F2F"><font size="2">(04:37:38 PM)</font> <b>fundamental:</b></font> bah, it looks like it should work, though giving you the git copy should be faster as you should have ntk installed<br/>
+<font color="#A82F2F"><font size="2">(04:37:56 PM)</font> <b>fundamental:</b></font> git clone git://git.code.sf.net/p/zynaddsubfx/code zynaddsubfx<br/>
+<font color="#16569E"><font size="2">(04:38:05 PM)</font> <b>magnetophon:</b></font> ok<br/>
+<font color="#16569E"><font size="2">(04:38:54 PM)</font> <b>magnetophon:</b></font> I'm on a 64k line atm so be patient...<br/>
+<font color="#16569E"><font size="2">(04:39:42 PM)</font> <b>magnetophon:</b></font> 5%...<br/>
+<font color="#A82F2F"><font size="2">(04:39:47 PM)</font> <b>fundamental:</b></font> the 2.4.3 release relies on scripts present in the cmake distribution which might be somehow wrong on the version you have<br/>
+<font color="#A82F2F"><font size="2">(04:39:51 PM)</font> <b>fundamental:</b></font> 64k, that should be enough to max out the sourceforge servers :p<br/>
+<font color="#16569E"><font size="2">(04:40:03 PM)</font> <b>magnetophon:</b></font> bit, not byte<br/>
+<font color="#16569E"><font size="2">(04:40:15 PM)</font> <b>magnetophon:</b></font> oh right, that was a joke...<br/>
+<font color="#16569E"><font size="2">(04:41:51 PM)</font> <b>magnetophon:</b></font> I was just reading the man page, and there is no mention of the io options. might wanna update that. it was from feb 2004!<br/>
+<font color="#16569E"><font size="2">(04:42:09 PM)</font> <b>magnetophon:</b></font> the -h does mention io options but doesn't explain them<br/>
+<font color="#16569E"><font size="2">(04:42:28 PM)</font> <b>magnetophon:</b></font> Receiving objects:  10% (1423/13423), 1.11 MiB | 4 KiB/s  <br/>
+<font color="#A82F2F"><font size="2">(04:42:31 PM)</font> <b>fundamental:</b></font> I&apos;d bet you that the man page is one of those stupid ones that debian inserted<br/>
+<font color="#16569E"><font size="2">(04:42:54 PM)</font> <b>magnetophon:</b></font> fundamental: don't be dissin my distro! ;)<br/>
+<font color="#A82F2F"><font size="2">(04:43:49 PM)</font> <b>fundamental:</b></font> I be dissing th&apos; fools that be messing with th&apos; upstream yo<br/>
+<font color="#16569E"><font size="2">(04:43:49 PM)</font> <b>magnetophon:</b></font> or where you implying you forgot to include a man page, so I still have the one from the old debian zyn i installed first?<br/>
+<font color="#16569E"><font size="2">(04:43:57 PM)</font> <b>magnetophon:</b></font> :)<br/>
+<font color="#16569E"><font size="2">(04:44:23 PM)</font> <b>magnetophon:</b></font> yo!<br/>
+<font color="#A82F2F"><font size="2">(04:44:51 PM)</font> <b>fundamental:</b></font> there is a basic man page included in the distribution, but it is not compiled by default (IIRC), as I don&apos;t expect many users to have asciidoc installed<br/>
+<font color="#A82F2F"><font size="2">(04:45:19 PM)</font> <b>fundamental:</b></font> or to be more precise a relatively up-to-date non-broken version of asciidoc<br/>
+<font color="#16569E"><font size="2">(04:45:55 PM)</font> <b>magnetophon:</b></font> I'm looking up what asciidoc is...<br/>
+<font color="#A82F2F"><font size="2">(04:46:13 PM)</font> <b>fundamental:</b></font> looking at the debian changelogs they also disable the nice SSE flags that are added by default<br/>
+<font color="#A82F2F"><font size="2">(04:46:26 PM)</font> <b>fundamental:</b></font> *sigh*, if you&apos;re running zynaddsubfx on a machine that is too old to have sse2, you&apos;re going to have a bad time<br/>
+<font color="#16569E"><font size="2">(04:47:08 PM)</font> <b>magnetophon:</b></font> fundamental: though in general it's a nice policy to be open to anyone, right?<br/>
+<font color="#16569E"><font size="2">(04:47:53 PM)</font> <b>magnetophon:</b></font> still waiting for duckduckgo to tell me what asciidoc is....<br/>
+<font color="#16569E"><font size="2">(04:48:10 PM)</font> <b>magnetophon:</b></font> though git is allready at 30% :)<br/>
+<font color="#A82F2F"><font size="2">(04:48:19 PM)</font> <b>fundamental:</b></font> well, if you can&apos;t even have basic compiler flags, then I might as well toss out most of folderol&apos;s patches as they are waaayyyyyyy too expensive if you don&apos;t have good floating point perfomance<br/>
+<font color="#16569E"><font size="2">(04:49:24 PM)</font> <b>magnetophon:</b></font> so I should recompile all of my audio progs, or switch distro's ???<br/>
+<font color="#A82F2F"><font size="2">(04:50:42 PM)</font> <b>fundamental:</b></font> well, if you have a program that will take up an excessive amount of time then just recompile that one<br/>
+<font color="#16569E"><font size="2">(04:51:26 PM)</font> <b>magnetophon:</b></font> i don't know what excessive is, since i don't know how they would perform with the right flags...<br/>
+<font color="#A82F2F"><font size="2">(04:52:10 PM)</font> <b>fundamental:</b></font> I think zyn without any flags takes about 2x the cpu time<br/>
+<font color="#16569E"><font size="2">(04:53:14 PM)</font> <b>magnetophon:</b></font> wich is probably typical for most audio programs<br/>
+<font color="#16569E"><font size="2">(04:53:19 PM)</font> <b>magnetophon:</b></font> right?<br/>
+<font color="#16569E"><font size="2">(04:53:53 PM)</font> <b>magnetophon:</b></font> what distro are you on? (i'm guessing arch!)<br/>
+<font color="#A82F2F"><font size="2">(04:53:57 PM)</font> <b>fundamental:</b></font> it depends<br/>
+<font color="#A82F2F"><font size="2">(04:54:36 PM)</font> <b>fundamental:</b></font> I tried arch, but they started to make dumb decisions on breaking tradition for bad reasons<br/>
+<font color="#A82F2F"><font size="2">(04:55:06 PM)</font> <b>fundamental:</b></font> now I have 3x slackware systems and 1x arch-arm<br/>
+<font color="#16569E"><font size="2">(04:55:53 PM)</font> <b>magnetophon:</b></font> slackware sounds like a lot of work to me.<br/>
+<font color="#A82F2F"><font size="2">(04:56:15 PM)</font> <b>fundamental:</b></font> actually I love it for how little work it usually is<br/>
+<font color="#16569E"><font size="2">(04:56:39 PM)</font> <b>magnetophon:</b></font> once you've got it perfect that is, right?<br/>
+<font color="#A82F2F"><font size="2">(04:56:46 PM)</font> <b>fundamental:</b></font> packages are up-to-date and the update process (excluding security) is on a 6 month-&gt;year cycle<br/>
+<font color="#A82F2F"><font size="2">(04:56:58 PM)</font> <b>fundamental:</b></font> they have some pretty good defaults all in all<br/>
+<font color="#A82F2F"><font size="2">(04:57:37 PM)</font> <b>fundamental:</b></font> for my laptop the only thing I&apos;m thinking of modifying is swapping NetworkManager for wicd and then it should be good (though I did already compile a rt kernel)<br/>
+<font color="#16569E"><font size="2">(04:58:25 PM)</font> <b>magnetophon:</b></font> OK, I'm at 100%, so now i do &quot;mkdir build&quot;, &quot;cmake ..&quot;?<br/>
+<font color="#A82F2F"><font size="2">(04:58:39 PM)</font> <b>fundamental:</b></font> yep<br/>
+<font color="#A82F2F"><font size="2">(04:58:59 PM)</font> <b>fundamental:</b></font> (and cd build)<br/>
+<font color="#A82F2F"><font size="2">(04:59:19 PM)</font> <b>fundamental:</b></font> assuming that tells you it will build a gui, then use &quot;ccmake .&quot; to set the default IO stuff<br/>
+<font color="#16569E"><font size="2">(04:59:39 PM)</font> <b>magnetophon:</b></font> -- Will build FLTK gui<br/>
+<font color="#16569E"><font size="2">(04:59:46 PM)</font> <b>magnetophon:</b></font> now what?<br/>
+<font color="#A82F2F"><font size="2">(05:00:03 PM)</font> <b>fundamental:</b></font> ha, that&apos;s odd considering that they have the same code paths but whatever<br/>
+<font color="#A82F2F"><font size="2">(05:00:14 PM)</font> <b>fundamental:</b></font> &quot;ccmake .&quot; will show you build options<br/>
+<font color="#16569E"><font size="2">(05:00:28 PM)</font> <b>magnetophon:</b></font> gotta install it first. brb<br/>
+<font color="#A82F2F"><font size="2">(05:00:46 PM)</font> <b>fundamental:</b></font> things like that are why debian drives me nuts :p<br/>
+<font color="#16569E"><font size="2">(05:01:30 PM)</font> <b>magnetophon:</b></font> fundamental: you can use programs that you didn't install yet in slackware? wow!<br/>
+<font color="#A82F2F"><font size="2">(05:01:34 PM)</font> <b>fundamental:</b></font> cmake is a collection of things, just like fltk is a collection of things. yesssss, many users won&apos;t need X and Y, but they are small and it saves setup headaches<br/>
+<font color="#16569E"><font size="2">(05:02:52 PM)</font> <b>magnetophon:</b></font> ok, i'm downloading for the next 3 minutes<br/>
+<font color="#A82F2F"><font size="2">(05:03:30 PM)</font> <b>fundamental:</b></font> magnetophon: slackware by default gives you all the necessities to build programs gcc, cmake, git, fftw, autotools, etc etc etc<br/>
+<font color="#16569E"><font size="2">(05:04:36 PM)</font> <b>magnetophon:</b></font> fundamental: ok, that's cool. of course we have a package called build-essentials.<br/>
+<font color="#16569E"><font size="2">(05:04:54 PM)</font> <b>magnetophon:</b></font> and one could say your way is bloat ;)<br/>
+<font color="#A82F2F"><font size="2">(05:06:30 PM)</font> <b>fundamental:</b></font> magnetophon: well, for one version of slackware I can grab a single dvd which contains all packages, all source, and all documentation, so while it may provide some things considered non-essential, I don&apos;t consider it overweight<br/>
+<font color="#16569E"><font size="2">(05:08:39 PM)</font> <b>magnetophon:</b></font> ok, I have ccmake. what options do I want?<br/>
+<font color="#16569E"><font size="2">(05:08:54 PM)</font> <b>magnetophon:</b></font> does alsa exclude jack?<br/>
+<font color="#A82F2F"><font size="2">(05:09:03 PM)</font> <b>fundamental:</b></font> look for DefaultInput and DefaultOutput<br/>
+<font color="#A82F2F"><font size="2">(05:09:26 PM)</font> <b>fundamental:</b></font> from what you said, you want both of them to be &apos;jack&apos;<br/>
+<font color="#A82F2F"><font size="2">(05:09:34 PM)</font> <b>fundamental:</b></font> (without quotes)<br/>
+<font color="#16569E"><font size="2">(05:10:31 PM)</font> <b>magnetophon:</b></font> I cannot change them (with enter), though I can change other settings. odd....<br/>
+<font color="#A82F2F"><font size="2">(05:10:46 PM)</font> <b>fundamental:</b></font> hit enter and type<br/>
+<font color="#A82F2F"><font size="2">(05:11:05 PM)</font> <b>fundamental:</b></font> for some stupid reason they never decided to render a cursor in the UI<br/>
+<font color="#16569E"><font size="2">(05:11:17 PM)</font> <b>magnetophon:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(05:11:19 PM)</font> <b>fundamental:</b></font> (blinking that is)<br/>
+<font color="#16569E"><font size="2">(05:11:49 PM)</font> <b>magnetophon:</b></font> guimodule ntk seems cool. I've seen screenshots. any downsides?<br/>
+<font color="#A82F2F"><font size="2">(05:12:05 PM)</font> <b>fundamental:</b></font> as long as you have ntk installed you should be able to use that option<br/>
+<font color="#16569E"><font size="2">(05:12:37 PM)</font> <b>magnetophon:</b></font> well I compiled non, so...<br/>
+<font color="#A82F2F"><font size="2">(05:12:38 PM)</font> <b>fundamental:</b></font> I&apos;m guessing that you don&apos;t have it fully installed though<br/>
+<font color="#16569E"><font size="2">(05:12:45 PM)</font> <b>magnetophon:</b></font> oh?<br/>
+<font color="#A82F2F"><font size="2">(05:13:04 PM)</font> <b>fundamental:</b></font> hm<br/>
+<font color="#A82F2F"><font size="2">(05:13:15 PM)</font> <b>fundamental:</b></font> nevermind<br/>
+<font color="#16569E"><font size="2">(05:13:16 PM)</font> <b>magnetophon:</b></font> well, I'll leave it to fltk for now, can always come back<br/>
+<font color="#A82F2F"><font size="2">(05:13:24 PM)</font> <b>fundamental:</b></font> I though I had some move clever code there :p<br/>
+<font color="#A82F2F"><font size="2">(05:13:35 PM)</font> <b>fundamental:</b></font> just use &apos;c&apos; to configure<br/>
+<font color="#A82F2F"><font size="2">(05:13:38 PM)</font> <b>fundamental:</b></font> &apos;g&apos; to generate<br/>
+<font color="#16569E"><font size="2">(05:13:40 PM)</font> <b>magnetophon:</b></font> is nsm always enabled?<br/>
+<font color="#16569E"><font size="2">(05:14:33 PM)</font> <b>magnetophon:</b></font> ok, done. so now i do &quot;cmake&quot;?<br/>
+<font color="#A82F2F"><font size="2">(05:14:37 PM)</font> <b>fundamental:</b></font> the nsm enable is equivalent to the liblo enable<br/>
+<font color="#A82F2F"><font size="2">(05:14:41 PM)</font> <b>fundamental:</b></font> just make<br/>
+<font color="#16569E"><font size="2">(05:15:03 PM)</font> <b>magnetophon:</b></font> and we're off!<br/>
+<font color="#16569E"><font size="2">(05:16:14 PM)</font> <b>magnetophon:</b></font> I always love to see jack at 0 xruns while htop shows 100% for all cpu's :)<br/>
+<font color="#A82F2F"><font size="2">(05:17:00 PM)</font> <b>fundamental:</b></font> well, you&apos;ll have to wait until ~2.5.3 for zyn to contribute something like that<br/>
+<font color="#16569E"><font size="2">(05:17:14 PM)</font> <b>magnetophon:</b></font> like what?<br/>
+<font color="#16569E"><font size="2">(05:17:32 PM)</font> <b>magnetophon:</b></font> 100% cpu usage??? <br/>
+<font color="#A82F2F"><font size="2">(05:17:41 PM)</font> <b>fundamental:</b></font> most of 2.5.0 is together at the moment, but that still leave another class of problems<br/>
+<font color="#A82F2F"><font size="2">(05:18:03 PM)</font> <b>fundamental:</b></font> zyn&apos;s cpu usage is rather spikey at the moment compared to what it should be<br/>
+<font color="#A82F2F"><font size="2">(05:18:21 PM)</font> <b>fundamental:</b></font> that limits the maximum cpu usage by a fair bit<br/>
+<font color="#16569E"><font size="2">(05:18:26 PM)</font> <b>magnetophon:</b></font> what did you mean by &quot;well, you'll have to wait until ~2.5.3 for zyn to contribute something like that&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:19:17 PM)</font> <b>fundamental:</b></font> current zyn loading a huge patch can easily result in zombies, 2.5.0 zyn can load random things all day without a single xrun<br/>
+<font color="#16569E"><font size="2">(05:19:45 PM)</font> <b>magnetophon:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(05:20:29 PM)</font> <b>fundamental:</b></font> so you&apos;ll need to wait some to see the land of high cpu usage + no xruns here<br/>
+<font color="#16569E"><font size="2">(05:20:45 PM)</font> <b>magnetophon:</b></font> OK, I just started zyn, but while it uses jack for audio (it allready did) it uses alsa for midi, also like before.... :(<br/>
+<font color="#16569E"><font size="2">(05:21:07 PM)</font> <b>magnetophon:</b></font> oh, right, forgot to install... oops!<br/>
+<font color="#A82F2F"><font size="2">(05:21:55 PM)</font> <b>fundamental:</b></font> as a note you will get some warnings at installation as by default the git repo does not download the instruments (for cases where you might deal with a slow connection)<br/>
+<font color="#16569E"><font size="2">(05:22:13 PM)</font> <b>magnetophon:</b></font> what's the command again?<br/>
+<font color="#A82F2F"><font size="2">(05:22:21 PM)</font> <b>fundamental:</b></font> for installing things?<br/>
+<font color="#16569E"><font size="2">(05:22:25 PM)</font> <b>magnetophon:</b></font> yup<br/>
+<font color="#A82F2F"><font size="2">(05:22:33 PM)</font> <b>fundamental:</b></font> &apos;make install&apos;<br/>
+<font color="#16569E"><font size="2">(05:22:39 PM)</font> <b>magnetophon:</b></font> duh<br/>
+<font color="#A82F2F"><font size="2">(05:22:47 PM)</font> <b>fundamental:</b></font> that does assume you have root privileges<br/>
+<font color="#16569E"><font size="2">(05:24:37 PM)</font> <b>magnetophon:</b></font> I did that, as root, but I'm still getting the old zyn<br/>
+<font color="#A82F2F"><font size="2">(05:24:44 PM)</font> <b>fundamental:</b></font> this version should be much much faster than the last version you were on due to both some hand optimization and the flags<br/>
+<font color="#A82F2F"><font size="2">(05:24:49 PM)</font> <b>fundamental:</b></font> just open a new shell<br/>
+<font color="#A82F2F"><font size="2">(05:25:10 PM)</font> <b>fundamental:</b></font> the new zyn should be installed to /usr/local/bin/ and bash might have missed it<br/>
+<font color="#A82F2F"><font size="2">(05:25:35 PM)</font> <b>fundamental:</b></font> on all the systems I&apos;ve needed to know this, /usr/local/bin has taken precedence over /usr/bin<br/>
+<font color="#16569E"><font size="2">(05:26:05 PM)</font> <b>magnetophon:</b></font> right<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> # cd build/<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> root@WheezyOne:/home/bart/source/ZynAddSubFX/zynaddsubfx/build# make install<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> [ 48%] Built target zynaddsubfx_gui<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> [ 90%] Built target zynaddsubfx_core<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> [100%] Built target zynaddsubfx_nio<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> [100%] Built target zynaddsubfx<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> Install the project...<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> -- Install configuration: &quot;&quot;<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> -- Installing: /usr/local/share/doc/zynaddsubfx/AUTHORS.txt<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> -- Installing: /usr/local/share/doc/zynaddsubfx/COPYING<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> -- Installing: /usr/local/share/doc/zynaddsubfx/FAQ.txt<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> -- Installing: /usr/local/share/doc/zynaddsubfx/HISTORY.txt<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> -- Installing: /usr/local/share/doc/zynaddsubfx/README.txt<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> -- Installing: /usr/local/share/applications/zynaddsubfx-jack.desktop<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> -- Installing: /usr/local/share/applications/zynaddsubfx-alsa.desktop<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> -- Installing: /usr/local/share/pixmaps/zynaddsubfx.svg<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> CMake Error at cmake_install.cmake:57 (FILE):<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font>   file INSTALL cannot find<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font>   &quot;/home/bart/source/ZynAddSubFX/zynaddsubfx/instruments/banks&quot;.<br/>
+<font color="#16569E"><font size="2">(05:27:35 PM)</font> <b>magnetophon:</b></font> make: *** [install] Error 1<br/>
+<font color="#16569E"><font size="2">(05:27:53 PM)</font> <b>magnetophon:</b></font> so no mention where it put the executable<br/>
+<font color="#A82F2F"><font size="2">(05:28:32 PM)</font> <b>fundamental:</b></font> is it in /usr/local/bin ?<br/>
+<font color="#16569E"><font size="2">(05:28:48 PM)</font> <b>magnetophon:</b></font> nope<br/>
+<font color="#16569E"><font size="2">(05:28:57 PM)</font> <b>magnetophon:</b></font> thought the non things are there<br/>
+<font color="#16569E"><font size="2">(05:30:39 PM)</font> <b>magnetophon:</b></font> ccmake says: &quot;CMAKE_INSTALL_PREFIX             /usr/local&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:31:16 PM)</font> <b>fundamental:</b></font> the installation of the binary should be unconditional, but I&apos;ll double check<br/>
+<font color="#A82F2F"><font size="2">(05:31:33 PM)</font> <b>fundamental:</b></font> at the moment it should be located at build/src/zynaddsubfx<br/>
+<font color="#16569E"><font size="2">(05:32:01 PM)</font> <b>magnetophon:</b></font> for what it's worth: I do have a  /usr/local/share/zynaddsubfx<br/>
+<font color="#16569E"><font size="2">(05:33:48 PM)</font> <b>magnetophon:</b></font> ok I have a working compile, with ntk and jack midi!<br/>
+<font color="#16569E"><font size="2">(05:34:00 PM)</font> <b>magnetophon:</b></font> it's just the install that borked...<br/>
+<font color="#A82F2F"><font size="2">(05:34:16 PM)</font> <b>fundamental:</b></font> hm, does it mention zynaddsubfx.svg ?<br/>
+<font color="#A82F2F"><font size="2">(05:35:03 PM)</font> <b>fundamental:</b></font> even if it chokes at the missing banks, it should still have gotten there<br/>
+<font color="#16569E"><font size="2">(05:36:05 PM)</font> <b>magnetophon:</b></font> it == make install? I just pasted that<br/>
+<font color="#16569E"><font size="2">(05:36:17 PM)</font> <b>magnetophon:</b></font> so yes, it does<br/>
+<font color="#A82F2F"><font size="2">(05:36:43 PM)</font> <b>fundamental:</b></font> well, I only got the paste up to HISTORY.txt<br/>
+<font color="#16569E"><font size="2">(05:36:56 PM)</font> <b>magnetophon:</b></font> oh, sorry<br/>
+<font color="#16569E"><font size="2">(05:37:20 PM)</font> <b>magnetophon:</b></font> but yes, it does mention the .svg<br/>
+<font color="#A82F2F"><font size="2">(05:37:28 PM)</font> <b>fundamental:</b></font> ok, then it is working as expected<br/>
+<font color="#16569E"><font size="2">(05:37:59 PM)</font> <b>magnetophon:</b></font> except that there is nothing zyn related in /usr/local/bin/<br/>
+<font color="#A82F2F"><font size="2">(05:37:59 PM)</font> <b>fundamental:</b></font> you can either get the bank&apos;s module which is 12 Mb or you can comment out one line telling the installer about it<br/>
+<font color="#16569E"><font size="2">(05:38:37 PM)</font> <b>magnetophon:</b></font> but afaik the binary is only in the source dir atm<br/>
+<font color="#A82F2F"><font size="2">(05:38:40 PM)</font> <b>fundamental:</b></font> yes, that is because it appears to have ordered the installer rules in a different manner than I expected<br/>
+<font color="#16569E"><font size="2">(05:39:11 PM)</font> <b>magnetophon:</b></font> ok, so which file do I edit? <br/>
+<font color="#A82F2F"><font size="2">(05:39:18 PM)</font> <b>fundamental:</b></font> comment out (in the source dir) CMakeLists.txt:18-19<br/>
+<font color="#A82F2F"><font size="2">(05:39:36 PM)</font> <b>fundamental:</b></font> that will stop it from worrying about the banks and then it will install the binary<br/>
+<font color="#16569E"><font size="2">(05:40:24 PM)</font> <b>magnetophon:</b></font> nu such file<br/>
+<font color="#16569E"><font size="2">(05:40:31 PM)</font> <b>magnetophon:</b></font> nu=no<br/>
+<font color="#16569E"><font size="2">(05:40:41 PM)</font> <b>magnetophon:</b></font> where should it be?<br/>
+<font color="#16569E"><font size="2">(05:40:56 PM)</font> <b>magnetophon:</b></font> I do have CMakeCache.txt<br/>
+<font color="#A82F2F"><font size="2">(05:41:06 PM)</font> <b>fundamental:</b></font> /home/bart/source/ZynAddSubFX/zynaddsubfx/CMakeLists.txt<br/>
+<font color="#16569E"><font size="2">(05:42:11 PM)</font> <b>magnetophon:</b></font> ok, and now #make install?<br/>
+<font color="#16569E"><font size="2">(05:42:57 PM)</font> <b>magnetophon:</b></font> OK, got it!<br/>
+<font color="#16569E"><font size="2">(05:43:08 PM)</font> <b>magnetophon:</b></font> thanks a lot for your help!!!!!<br/>
+<font color="#16569E"><font size="2">(05:44:03 PM)</font> <b>magnetophon:</b></font> I gotta run now, but I'll be back later to finish my review of the spacializer for male, and to file a bugreport for non-sequencer<br/>
+<font color="#A82F2F"><font size="2">(05:44:11 PM)</font> <b>fundamental:</b></font> cool<br/>
+<font color="#16569E"><font size="2">(05:44:21 PM)</font> <b>magnetophon:</b></font> fundamental: THANKS!!!!!! see you later!<br/>
+<font size="2">(02:42:33 AM)</font><b> magnetophon left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(02:42:33 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

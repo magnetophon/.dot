@@ -1,0 +1,191 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Wed 14 Jan 2015 08:52:45 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Wed 14 Jan 2015 08:52:45 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:52:45 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(08:52:45 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(08:52:47 PM)</font> <b>Lethalman:</b></font> which are found in the output<br/>
+<font color="#A82F2F"><font size="2">(08:53:00 PM)</font> <b>Lethalman:</b></font> Sonarpulse, because that&apos;s a &quot;string&quot; and not a &quot;path&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:53:20 PM)</font> <b>Lethalman:</b></font> a path as cstrahan_ said keeps the context, that&apos;s why you can follow build deps when used in strings<br/>
+<font color="#A82F2F"><font size="2">(08:53:20 PM)</font> <b>Sonarpulse:</b></font> Lethalman: but say it was somehow coerced to a path<br/>
+<font color="#A82F2F"><font size="2">(08:53:23 PM)</font> <b>Sonarpulse:</b></font> still no dep i think<br/>
+<font color="#A82F2F"><font size="2">(08:53:26 PM)</font> <b>Sonarpulse:</b></font> in other words<br/>
+<font color="#A82F2F"><font size="2">(08:53:29 PM)</font> <b>Sonarpulse:</b></font> no effect<br/>
+<font color="#A82F2F"><font size="2">(08:53:40 PM)</font> <b>Sonarpulse:</b></font> the path needs to make it intact to the .drv<br/>
+<font color="#A82F2F"><font size="2">(08:53:48 PM)</font> <b>Lethalman:</b></font> the path would be added to the store<br/>
+<font color="#A82F2F"><font size="2">(08:53:56 PM)</font> <b>Lethalman:</b></font> like you would do with ${./foo}<br/>
+<font color="#A82F2F"><font size="2">(08:54:10 PM)</font> <b>Lethalman:</b></font> which is equivalent of doing nix-store --add ./foo<br/>
+<font color="#A82F2F"><font size="2">(08:54:49 PM)</font> <b>Sonarpulse:</b></font> but the path that was substring&apos;d does NOT get added to the store<br/>
+<font color="#A82F2F"><font size="2">(08:55:03 PM)</font> <b>Sonarpulse:</b></font> just the eval&apos;d path<br/>
+<font color="#A82F2F"><font size="2">(08:55:06 PM)</font> <b>Lethalman:</b></font> well no, it&apos;s a string<br/>
+<font color="#A82F2F"><font size="2">(08:55:07 PM)</font> <b>Sonarpulse:</b></font> not intermediate values<br/>
+<font color="#A82F2F"><font size="2">(08:55:12 PM)</font> <b>Lethalman:</b></font> neither that one<br/>
+<font color="#A82F2F"><font size="2">(08:55:16 PM)</font> <b>Lethalman:</b></font> it shouldn&apos;t get built<br/>
+<font color="#A82F2F"><font size="2">(08:55:23 PM)</font> <b>Lethalman:</b></font> you know the out path before building<br/>
+<font color="#A82F2F"><font size="2">(08:55:25 PM)</font> <b>Lethalman:</b></font> so building is not needed<br/>
+<font color="#A82F2F"><font size="2">(08:55:56 PM)</font> <b>Sonarpulse:</b></font> ah, well i am happy to be wrong. nix exceeds my expecations once again!<br/>
+<font color="#A82F2F"><font size="2">(08:56:11 PM)</font> <b>Lethalman:</b></font> should be so, you can try yourself<br/>
+<font color="#A82F2F"><font size="2">(08:56:17 PM)</font> <b>Lethalman:</b></font> nix will build the outermost .drv<br/>
+<font color="#A82F2F"><font size="2">(08:56:22 PM)</font> <b>Lethalman:</b></font> it doesn&apos;t build as long as you evaluate the expr<br/>
+<font color="#A82F2F"><font size="2">(08:56:25 PM)</font> <b>cstrahan_:</b></font> yeah, i just tried it in the nix-repl<br/>
+<font color="#A82F2F"><font size="2">(08:56:33 PM)</font> <b>Lethalman:</b></font> so substring will not add the .drv to the final .drv, hence it will not be built<br/>
+<font color="#A82F2F"><font size="2">(08:56:43 PM)</font> <b>cstrahan_:</b></font> nix-repl&gt; lib.substring 0 10 pkgs.boolstuff<br/>
+<font color="#A82F2F"><font size="2">(08:56:44 PM)</font> <b>cstrahan_:</b></font> &quot;/nix/store&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:56:49 PM)</font> <b>cstrahan_:</b></font> but boolstuff wasn&apos;t built<br/>
+<font color="#A82F2F"><font size="2">(08:57:19 PM)</font> <b>Lethalman:</b></font> the key here is that nix builds &quot;the outermost .drv&quot;, and his build deps<br/>
+<font color="#A82F2F"><font size="2">(08:57:22 PM)</font> <b>Sonarpulse:</b></font> beautiful<br/>
+<font color="#A82F2F"><font size="2">(08:57:27 PM)</font> <b>Sonarpulse:</b></font> yes exactly<br/>
+<font color="#A82F2F"><font size="2">(08:57:36 PM)</font> <b>Sonarpulse:</b></font> i need to go, but thank you both<br/>
+<font color="#A82F2F"><font size="2">(08:59:49 PM)</font> <b>cstrahan_:</b></font> sure thing :)<br/>
+<font size="2">(09:00:27 PM)</font><b> Lethalman left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:13:11 PM)</font> <b>Lethalman:</b></font> cstrahan_, replied to the nm issue, you didn&apos;t get that error in your journalctl?<br/>
+<font color="#A82F2F"><font size="2">(09:13:16 PM)</font> <b>ktosiek:</b></font> Is the KDE network manager plugin available in nixos?<br/>
+<font color="#A82F2F"><font size="2">(09:13:25 PM)</font> <b>ktosiek:</b></font> I only found the gnome one<br/>
+<font color="#A82F2F"><font size="2">(09:13:32 PM)</font> <b>Lethalman:</b></font> ktosiek, should be plasma nm or such<br/>
+<font color="#A82F2F"><font size="2">(09:15:37 PM)</font> <b>ktosiek:</b></font> thanks, it&apos;s kde4.plasma-nm<br/>
+<font color="#A82F2F"><font size="2">(09:26:43 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] matthiasbeyer opened pull request #5773: Add cortex in applications/misc (master...add-cortex) http://git.io/4vmVlA<br/>
+<font color="#A82F2F"><font size="2">(09:28:17 PM)</font> <b>Ralith:</b></font> Lethalman: so has there never been a case of a package storing a path in a way that is invisible to nix (e.g. compressed) and a runtime dependency thereby being missed?<br/>
+<font color="#A82F2F"><font size="2">(09:29:04 PM)</font> <b>Ralith:</b></font> seems like upx, for example, would break that heuristic<br/>
+<font color="#A82F2F"><font size="2">(09:32:16 PM)</font> <b>Lethalman:</b></font> Ralith, compressed files are not a problem, it&apos;s not encrypted<br/>
+<font color="#A82F2F"><font size="2">(09:32:30 PM)</font> <b>Lethalman:</b></font> Ralith, don&apos;t know how upx works<br/>
+<font color="#A82F2F"><font size="2">(09:32:44 PM)</font> <b>ktosiek:</b></font> I&apos;m using KDE, can I make the GTK theme less ugly somehow?<br/>
+<font color="#A82F2F"><font size="2">(09:32:48 PM)</font> <b>Lethalman:</b></font> Ralith, I don&apos;t think there has been any real case where this has been a problem<br/>
+<font color="#A82F2F"><font size="2">(09:33:24 PM)</font> <b>Ralith:</b></font> Lethalman: compressed files are a problem if nix simply searches the output for the path, because the path ≠ the path, compressed<br/>
+<font color="#A82F2F"><font size="2">(09:33:44 PM)</font> <b>goibhniu:</b></font> ktosiek: check out https://nixos.org/wiki/Enable_GTK_themes_in_KDE<br/>
+<font color="#A82F2F"><font size="2">(09:33:49 PM)</font> <b>Lethalman:</b></font> Ralith, it is, instead<br/>
+<font color="#A82F2F"><font size="2">(09:34:06 PM)</font> <b>ktosiek:</b></font> is there some &quot;using nixos on a laptop&quot; checklist? :-D<br/>
+<font color="#A82F2F"><font size="2">(09:34:06 PM)</font> <b>Lethalman:</b></font> Ralith, it&apos;s most of times the case where compressed files store the whole path<br/>
+<font color="#A82F2F"><font size="2">(09:34:22 PM)</font> <b>Ralith:</b></font> upx compresses executables, so things like paths in string constants would be hidden<br/>
+<font color="#A82F2F"><font size="2">(09:34:22 PM)</font> <b>Lethalman:</b></font> I don&apos;t think there has been ever a problem with that<br/>
+<font color="#A82F2F"><font size="2">(09:34:36 PM)</font> <b>goibhniu:</b></font> ktosiek: not that I know of, but if you have a thinkpad you probably want to enable thinkfan<br/>
+<font color="#A82F2F"><font size="2">(09:34:42 PM)</font> <b>Lethalman:</b></font> Ralith, unless it&apos;s encrypted, compression is not a problem in general<br/>
+<font color="#A82F2F"><font size="2">(09:34:55 PM)</font> <b>ktosiek:</b></font> Dell Latitude 3540<br/>
+<font color="#A82F2F"><font size="2">(09:35:31 PM)</font> <b>Ralith:</b></font> it&apos;s a maintenance problem at best, since nix would need to understand what data is compressed and how to decompress it in every case<br/>
+<font color="#A82F2F"><font size="2">(09:35:39 PM)</font> <b>Lethalman:</b></font> Ralith, it doesn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(09:35:49 PM)</font> <b>Lethalman:</b></font> Ralith, just searches the whole serialized output<br/>
+<font color="#A82F2F"><font size="2">(09:35:49 PM)</font> <b>Ralith:</b></font> why not?<br/>
+<font color="#A82F2F"><font size="2">(09:35:59 PM)</font> <b>Lethalman:</b></font> it doesn&apos;t distinguish between compressed or not<br/>
+<font color="#A82F2F"><font size="2">(09:36:07 PM)</font> <b>Ralith:</b></font> that&apos;s the problem, yes<br/>
+<font color="#A82F2F"><font size="2">(09:36:13 PM)</font> <b>Lethalman:</b></font> Ralith, turns out it&apos;s not a real problem<br/>
+<font color="#A82F2F"><font size="2">(09:36:30 PM)</font> <b>Ralith:</b></font> not in currently known cases, clearly<br/>
+<font color="#A82F2F"><font size="2">(09:36:34 PM)</font> <b>Ralith:</b></font> but it could reasonably occur<br/>
+<font color="#A82F2F"><font size="2">(09:36:37 PM)</font> <b>Lethalman:</b></font> sure<br/>
+<font color="#A82F2F"><font size="2">(09:36:44 PM)</font> <b>Lethalman:</b></font> but it&apos;s not a problem then :)<br/>
+<font color="#A82F2F"><font size="2">(09:36:52 PM)</font> <b>Ralith:</b></font> until then, you mean?<br/>
+<font color="#A82F2F"><font size="2">(09:37:12 PM)</font> <b>Lethalman:</b></font> yes, until then<br/>
+<font color="#A82F2F"><font size="2">(09:37:15 PM)</font> <b>Ralith:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(09:37:51 PM)</font> <b>Lethalman:</b></font> I don&apos;t there hasn&apos;t been a case like this since the beginning of nix.... niksnut ?<br/>
+<font color="#A82F2F"><font size="2">(09:37:55 PM)</font> <b>Ralith:</b></font> (and even if such a case does arise, it can&apos;t be too difficult to explicitly handle it)<br/>
+<font color="#A82F2F"><font size="2">(09:44:07 PM)</font> <b>fatlazyc_:</b></font> hi, anyone point me in the right direction to get emacs setup for haskell use with nix-shell - thanks<br/>
+<font color="#A82F2F"><font size="2">(09:46:01 PM)</font> <b>Ralith:</b></font> fatlazyc_: your mode&apos;s documentation should tell you how to specify the haskell executable, which you can then use to insert a wrapper which does the appropriate nix juggling<br/>
+<font color="#A82F2F"><font size="2">(09:46:14 PM)</font> <b>zmbmartin:</b></font> If I need a different version of a app then what nixpkgs provides what is the simplest solution to do that.<br/>
+<font color="#A82F2F"><font size="2">(09:46:27 PM)</font> <b>butyoudonot:</b></font> It looks like there is no skype package in nixpkgs right?<br/>
+<font color="#A82F2F"><font size="2">(09:46:57 PM)</font> <b>MichaelRaskin:</b></font> There is one<br/>
+<font color="#A82F2F"><font size="2">(09:47:06 PM)</font> <b>MichaelRaskin:</b></font> It is unfree, so you have to enable unfree packages<br/>
+<font size="2">(09:47:15 PM)</font><b> fatlazyc_ is now known as fatlazycat</b><br/>
+<font color="#A82F2F"><font size="2">(09:47:24 PM)</font> <b>MichaelRaskin:</b></font> It is skypelinux or something like that<br/>
+<font color="#A82F2F"><font size="2">(09:48:26 PM)</font> <b>SrPx:</b></font> does anyone know why nix-env isn&apos;t listing ghcjs here?<br/>
+<font color="#A82F2F"><font size="2">(09:48:44 PM)</font> <b>fatlazycat:</b></font> Ralith: Yeah I thought for haskell mode you set haskell-process-wrapper-function but cant seem to get it to work<br/>
+<font color="#A82F2F"><font size="2">(09:50:38 PM)</font> <b>Ralith:</b></font> fatlazycat: you might have better luck asking for help with that in #haskell<br/>
+<font color="#A82F2F"><font size="2">(09:51:03 PM)</font> <b>the-kenny:</b></font> butyoudonot: also note that skype needs pulseaudio<br/>
+<font color="#A82F2F"><font size="2">(09:51:09 PM)</font> <b>Ralith:</b></font> SrPx: how are you searching?<br/>
+<font color="#A82F2F"><font size="2">(09:51:14 PM)</font> <b>fatlazycat:</b></font> Ralith: ok thanks<br/>
+<font color="#A82F2F"><font size="2">(09:51:31 PM)</font> <b>SrPx:</b></font> nix-env -qa ghcjs<br/>
+<font color="#A82F2F"><font size="2">(09:51:56 PM)</font> <b>Ralith:</b></font> SrPx: try &apos;.*ghcjs.*&apos;<br/>
+<font color="#A82F2F"><font size="2">(09:52:06 PM)</font> <b>Ralith:</b></font> it&apos;s a regex<br/>
+<font color="#A82F2F"><font size="2">(09:52:22 PM)</font> <b>Ralith:</b></font> &apos;ghcjs&apos; means you are searching for a package with that name *exactly*<br/>
+<font color="#A82F2F"><font size="2">(09:53:04 PM)</font> <b>SrPx:</b></font> ty<br/>
+<font color="#A82F2F"><font size="2">(09:55:05 PM)</font> <b>SrPx:</b></font> I see<br/>
+<font color="#A82F2F"><font size="2">(09:55:21 PM)</font> <b>Ralith:</b></font> SrPx: also, it&apos;s generally prudent to use -qaP, so that you can pass something from the left-hand column of the resulting output to -iA (or stick it in your config file) directly and not force nix to spend the time searching the full list of packages again<br/>
+<font color="#A82F2F"><font size="2">(09:55:57 PM)</font> <b>SrPx:</b></font> -iA ? (A?)<br/>
+<font color="#A82F2F"><font size="2">(09:56:57 PM)</font> <b>viric:</b></font> niksnut: he. Again, I had two nix-env installing in parallel, and the last destroyed the install of the finishing first<br/>
+<font color="#A82F2F"><font size="2">(09:56:59 PM)</font> <b>Ralith:</b></font> as options to nix-env, -i is --install, and -a is --attr<br/>
+<font color="#A82F2F"><font size="2">(09:57:00 PM)</font> <b>viric:</b></font> (nix 1.8)<br/>
+<font color="#A82F2F"><font size="2">(09:57:06 PM)</font> <b>Ralith:</b></font>        ·   If --attr (-A) is specified, the arguments are attribute paths that select attributes from the top-level Nix<br/>
+<font color="#A82F2F"><font size="2">(09:57:09 PM)</font> <b>Ralith:</b></font>            expression. This is faster than using derivation names and unambiguous. To find out the attribute paths of available<br/>
+<font color="#A82F2F"><font size="2">(09:57:12 PM)</font> <b>Ralith:</b></font>            packages, use nix-env -qaP.<br/>
+<font color="#A82F2F"><font size="2">(09:57:14 PM)</font> <b>Ralith:</b></font> whoops, expected irssi to concat that, sorry<br/>
+<font color="#A82F2F"><font size="2">(09:57:20 PM)</font> <b>viric:</b></font> -a is not -A<br/>
+<font color="#A82F2F"><font size="2">(09:57:29 PM)</font> <b>Ralith:</b></font> whoops, that was a typo<br/>
+<font color="#A82F2F"><font size="2">(09:57:36 PM)</font> <b>Ralith:</b></font> SrPx was asking about -A<br/>
+<font color="#A82F2F"><font size="2">(09:58:09 PM)</font> <b>SrPx:</b></font> ah I see<br/>
+<font color="#A82F2F"><font size="2">(09:58:36 PM)</font> <b>Ralith:</b></font> you could think of it as roughly analogous to passing the path to a specific package file to a conventional package manager<br/>
+<font color="#A82F2F"><font size="2">(10:01:41 PM)</font> <b>zmbmartin:</b></font> Is there a problem with myFunEnv I am trying to follow the wiki and when I nix-env -i env-someEnv I get this error: error: cannot coerce a function to a string, at &quot;/nix/store/h35h1vbq30y07b6hq28dfiak41dprczb-nixos-14.12.315.d9de59a/nixos/nixpkgs/pkgs/misc/my-env/default.nix&quot;:71:3<br/>
+<font color="#A82F2F"><font size="2">(10:02:23 PM)</font> <b>niksnut:</b></font> viric: so strange<br/>
+<font color="#A82F2F"><font size="2">(10:02:37 PM)</font> <b>niksnut:</b></font> you are apparently the only person who gets that :-)<br/>
+<font color="#A82F2F"><font size="2">(10:03:51 PM)</font> <b>Ralith:</b></font> zmbmartin: it&apos;s likely that that error arises from an error in your definition of someEnv<br/>
+<font color="#A82F2F"><font size="2">(10:05:16 PM)</font> <b>Ralith:</b></font> nix is presently dynamically typed, so errors can propagate quite far before they explode<br/>
+<font color="#A82F2F"><font size="2">(10:06:54 PM)</font> <b>bdimcheff:</b></font> is there something amiss with cache.nixos.org?  I&apos;m getting a lot of &quot;still waiting&quot; and when I visit the URLs I get access denied, eg: https://cache.nixos.org/7rygnbmrl8d4vqwiyhq65zlgz5j2ynwl.narinfo<br/>
+<font color="#A82F2F"><font size="2">(10:09:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edwtjo pushed 2 new commits to master: http://git.io/rX_sxQ<br/>
+<font color="#A82F2F"><font size="2">(10:09:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a512ddb Edward Tjörnhammar: nylon: fix metas and patch configure to use libevent.so not the absent libevent.a<br/>
+<font color="#A82F2F"><font size="2">(10:09:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 837cfbb Edward Tjörnhammar: nixos: adding nylon service with uid,gid<br/>
+<font color="#A82F2F"><font size="2">(10:09:39 PM)</font> <b>zmbmartin:</b></font> Ralith: ok I am trying to copy `https://github.com/NixOS/nixpkgs/blob/344eafc4b9a85def8286ca45e2876f2f3cb01916/pkgs/development/web/nodejs/default.nix` so I can install a different version.<br/>
+<font color="#A82F2F"><font size="2">(10:10:29 PM)</font> <b>spwhitt:</b></font> wrote a derivation which installs a python script to $out/bin, but the shebang isn&apos;t being automatically patched by the fixup phase. I was under the impression this is supposed to happen, any idea why it might not?<br/>
+<font color="#A82F2F"><font size="2">(10:10:35 PM)</font> <b>zmbmartin:</b></font> I copied that file and pasted it in ~/.nixpkgs/nodejs-0.10.32.nix and am trying to build it but am getting errors. Is there a better way?<br/>
+<font color="#A82F2F"><font size="2">(10:11:28 PM)</font> <b>Ralith:</b></font> zmbmartin: myEnvFun is for creatind and managing development environments, not for building different versions of packages<br/>
+<font color="#A82F2F"><font size="2">(10:12:10 PM)</font> <b>Ralith:</b></font> zmbmartin: I&apos;m still new to this, but what I&apos;ve done so far is create a local copy of nixpkgs, modify it with whatever I need, then use nix-env -f &lt;path to local copy&gt; -iA &lt;modified/new package&gt;<br/>
+<font color="#A82F2F"><font size="2">(10:12:41 PM)</font> <b>zmbmartin:</b></font> Ralith: Two different problems. I want to install this different version but also use it only in that env.<br/>
+<font color="#A82F2F"><font size="2">(10:13:30 PM)</font> <b>Ralith:</b></font> zmbmartin: then you can import your local copy of nixpkgs to the definition of your myEnvFun and reference it in its buildInputs<br/>
+<font color="#A82F2F"><font size="2">(10:13:52 PM)</font> <b>Ralith:</b></font> though, I think you can do something closer to what you&apos;re trying to do<br/>
+<font color="#A82F2F"><font size="2">(10:13:57 PM)</font> <b>Ralith:</b></font> can you paste your config.nix?<br/>
+<font color="#A82F2F"><font size="2">(10:14:37 PM)</font> <b>Ralith:</b></font> I think you could just copy the nodejs default.nix as you did, then do something like &apos;callPackage (import ./nodejs-0.10.32.nix) {};&apos;<br/>
+<font color="#A82F2F"><font size="2">(10:14:48 PM)</font> <b>Ralith:</b></font> er, without the ;<br/>
+<font color="#A82F2F"><font size="2">(10:14:53 PM)</font> <b>Ralith:</b></font> in your buildInputs<br/>
+<font color="#A82F2F"><font size="2">(10:15:27 PM)</font> <b>Lethalman:</b></font> zmbmartin, what error are you getting when building<br/>
+<font color="#A82F2F"><font size="2">(10:17:08 PM)</font> <b>zmbmartin:</b></font> I think I might have it. Testing now. Thanks guys!<br/>
+<font color="#A82F2F"><font size="2">(10:18:35 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/Suug9Q<br/>
+<font color="#A82F2F"><font size="2">(10:18:35 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 57b35f9 William A. Kennington III: ceph: 0.90-pre -&gt; 0.91<br/>
+<font color="#062585"><font size="2">(10:19:03 PM)</font> <b>***Ralith</b></font> should rework his myEnvFuns to take the approach zmbmartin is using<br/>
+<font color="#A82F2F"><font size="2">(10:21:00 PM)</font> <b>zmbmartin:</b></font> Is there a way to unload an env?<br/>
+<font color="#A82F2F"><font size="2">(10:21:14 PM)</font> <b>zmbmartin:</b></font> Like the opposite of load-env-sdl<br/>
+<font color="#A82F2F"><font size="2">(10:21:34 PM)</font> <b>Ralith:</b></font> envs are subprocesses<br/>
+<font color="#A82F2F"><font size="2">(10:21:37 PM)</font> <b>Ralith:</b></font> just &apos;exit&apos;<br/>
+<font color="#A82F2F"><font size="2">(10:21:45 PM)</font> <b>Ralith:</b></font> or otherwise terminate the proces<br/>
+<font color="#A82F2F"><font size="2">(10:21:46 PM)</font> <b>Ralith:</b></font> s<br/>
+<font color="#A82F2F"><font size="2">(10:21:47 PM)</font> <b>zmbmartin:</b></font> Oh ok<br/>
+<font color="#A82F2F"><font size="2">(10:21:49 PM)</font> <b>zmbmartin:</b></font> Thanks!<br/>
+<font color="#A82F2F"><font size="2">(10:22:07 PM)</font> <b>Ralith:</b></font> if you&apos;re using bash, the prompt string is modified to give you a cue about that<br/>
+<font color="#A82F2F"><font size="2">(10:22:50 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wkennington pushed 1 new commit to master: http://git.io/2J3bwg<br/>
+<font color="#A82F2F"><font size="2">(10:22:50 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 26e2753 William A. Kennington III: gperftools: 2.3 -&gt; 2.4<br/>
+<font color="#A82F2F"><font size="2">(10:22:52 PM)</font> <b>zmbmartin:</b></font> Ralith: I see that but my local ~/.bashrc is not used?<br/>
+<font color="#A82F2F"><font size="2">(10:23:24 PM)</font> <b>viric:</b></font> niksnut: yes, no idea why :)<br/>
+<font color="#A82F2F"><font size="2">(10:23:27 PM)</font> <b>Ralith:</b></font> are you asking if your .bashrc is used, or are you asking why it isn&apos;t?<br/>
+<font color="#A82F2F"><font size="2">(10:23:46 PM)</font> <b>zmbmartin:</b></font> Ralith: Why it isn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(10:24:00 PM)</font> <b>zmbmartin:</b></font> Should I do my bashrc config more nix style?<br/>
+<font color="#A82F2F"><font size="2">(10:24:11 PM)</font> <b>zmbmartin:</b></font> I just copied ~/.bashrc from my other machine.<br/>
+<font color="#A82F2F"><font size="2">(10:24:39 PM)</font> <b>Ralith:</b></font> zmbmartin: .bashrc is only executed by bash if it is invoked as a &quot;login shell&quot;, which is only the norm in specific circumstances<br/>
+<font color="#A82F2F"><font size="2">(10:24:54 PM)</font> <b>Ralith:</b></font> I would not expect load-env-* to start a login shell<br/>
+<font color="#A82F2F"><font size="2">(10:25:21 PM)</font> <b>Ralith:</b></font> by contrast, normally X terminals (xterm, urxvt, gnome-terminal, etc) invoke login shells<br/>
+<font color="#A82F2F"><font size="2">(10:25:53 PM)</font> <b>Ralith:</b></font> I&apos;m not sure what&apos;s idiomatic for user dotfiles in NixOS; I use manually-managed dotfiles and it works fine<br/>
+<font color="#A82F2F"><font size="2">(10:25:55 PM)</font> <b>zmbmartin:</b></font> Ralith: OK is there a way I can set this up so my bash config is incorporated?<br/>
+<font color="#A82F2F"><font size="2">(10:26:52 PM)</font> <b>Ralith:</b></font> you could set the &apos;shell&apos; attribute of your env to invoke &apos;bash -l&apos; (not sure if you&apos;ll need to go via a script or not)<br/>
+<font color="#A82F2F"><font size="2">(10:27:11 PM)</font> <b>Ralith:</b></font> there might be a better way<br/>
+<font color="#A82F2F"><font size="2">(10:27:32 PM)</font> <b>Ralith:</b></font> this is an unusual thing to want to do<br/>
+<font color="#A82F2F"><font size="2">(10:27:52 PM)</font> <b>Ralith:</b></font> normally you&apos;re already *in* a login shell, so rerunning .bashrc in the env subprocess is redundant at best<br/>
+<font color="#A82F2F"><font size="2">(10:28:03 PM)</font> <b>zmbmartin:</b></font> Yeah if I source it overwrites the prompt there. I only want this because I have a custom promtp.<br/>
+<font color="#A82F2F"><font size="2">(10:28:05 PM)</font> <b>zmbmartin:</b></font> prompt<br/>
+<font color="#A82F2F"><font size="2">(10:28:26 PM)</font> <b>Ralith:</b></font> ah, that makes sense<br/>
+<font color="#A82F2F"><font size="2">(10:28:51 PM)</font> <b>zmbmartin:</b></font> OK I will investigate. Thanks!<br/>
+<font color="#A82F2F"><font size="2">(10:28:55 PM)</font> <b>Ralith:</b></font> good luck!<br/>
+<font color="#A82F2F"><font size="2">(10:30:15 PM)</font> <b>zmbmartin:</b></font> Thanks!<br/>
+<font color="#A82F2F"><font size="2">(10:34:09 PM)</font> <b>zmbmartin:</b></font> So anyone here use npm(nodejs) with nix? I have this env set now but npm install errors.<br/>
+<font color="#A82F2F"><font size="2">(10:37:21 PM)</font> <b>Ralith:</b></font> I don&apos;t know much about nodejs/npm. Maybe you&apos;re using a version of npm that&apos;s meant for a different version of nodejs than the one in your env?<br/>
+<font color="#A82F2F"><font size="2">(10:37:30 PM)</font> <b>Ralith:</b></font> or ar ethey packaged together?<br/>
+<font color="#A82F2F"><font size="2">(10:38:53 PM)</font> <b>mvc`:</b></font> hey, I think I might be missing something, but how do I generated the hash for users.extraUsers.&lt;name?&gt;.hashedPassword<br/>
+<font color="#A82F2F"><font size="2">(10:39:33 PM)</font> <b>mvc`:</b></font> just sha512?<br/>
+<font color="#A82F2F"><font size="2">(10:45:08 PM)</font> <b>bdimcheff:</b></font> mvc`: can&apos;t you do &quot;passwd &lt;username&gt;&quot; as root?<br/>
+<font color="#A82F2F"><font size="2">(10:45:17 PM)</font> <b>bdimcheff:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(10:45:27 PM)</font> <b>bdimcheff:</b></font> I get it, you want to store it in your config?<br/>
+<font color="#A82F2F"><font size="2">(10:46:36 PM)</font> <b>mvc`:</b></font> bdimcheff: yeah, either the initial one or the permanant one for some servers<br/>
+<font color="#A82F2F"><font size="2">(10:46:47 PM)</font> <b>bdimcheff:</b></font> probably something like this: https://unix.stackexchange.com/questions/81240/manually-generate-password-for-etc-shadow<br/>
+<font color="#A82F2F"><font size="2">(10:48:08 PM)</font> <b>mvc`:</b></font> bdimcheff: ok, do you think its advisable to make a PR putting something like that in the docs?<br/>
+<font color="#A82F2F"><font size="2">(10:49:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/HFvWYQ<br/>
+<font color="#A82F2F"><font size="2">(10:49:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master df76eb1 Peter Simons: ghc: revert &quot;propagate &apos;gmp&apos; and &apos;ncurses&apos; to ensure users can link the &apos;haskeline&apos; library, etc.&quot;...<br/>
+<font size="2">(10:52:18 PM)</font><b> goibhniu left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:54:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 1 new commit to release-14.12: http://git.io/5IJYpQ<br/>
+<font color="#A82F2F"><font size="2">(10:54:03 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 674d33a Vladimír Čunát: firefox: major bump 34.0.5 -&gt; 35.0...<br/>
+<font color="#A82F2F"><font size="2">(10:55:05 PM)</font> <b>spwhitt:</b></font> substitute doesn&apos;t seem to preserve execute permissions, is this intended behavior?<br/>
+<font color="#A82F2F"><font size="2">(10:56:51 PM)</font> <b>MarcWeber:</b></font> I&apos;d like to implement simple resource tracking: http://dpaste.com/2FZGJHM<br/>
+<font color="#A82F2F"><font size="2">(11:01:18 PM)</font> <b>MarcWeber:</b></font> but I&apos;m getting such error: error: The option `resources.tcp-ports.80.allowCollisions&apos; defined in `/etc/nixos/nixpkgs/nixos/modules/misc/resources.nix&apos; does not exist<br/>
+<font color="#A82F2F"><font size="2">(11:01:54 PM)</font> <b>MarcWeber:</b></font> allowCollisions does have a default value, so what am I doing wrong?<br/>
+<font color="#A82F2F"><font size="2">(11:04:19 PM)</font> <b>Ralith:</b></font> mvc`: speaking as another user, I&apos;d certainly like to see stuff like that in the docs.<br/>
+<font color="#A82F2F"><font size="2">(11:05:47 PM)</font> <b>Ralith:</b></font> mvc`: I don&apos;t think that SO post contains very good advice in specific, though<br/>
+<font size="2">(11:25:57 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

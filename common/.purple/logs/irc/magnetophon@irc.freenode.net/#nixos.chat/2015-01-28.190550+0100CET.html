@@ -1,0 +1,27 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Wed 28 Jan 2015 07:05:50 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Wed 28 Jan 2015 07:05:50 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(07:05:50 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(07:05:51 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(07:13:04 PM)</font> <b>fxr:</b></font> hi there<br/>
+<font color="#A82F2F"><font size="2">(07:14:24 PM)</font> <b>fxr:</b></font> is there a way to access my machine&apos;s stage2 shell via a boot time parameter? since I am unable to access my server after a reboot (probably due to firewall issues)?<br/>
+<font color="#A82F2F"><font size="2">(07:18:40 PM)</font> <b>jack_c:</b></font> fxr: do you need to access it through the network?<br/>
+<font color="#A82F2F"><font size="2">(07:19:31 PM)</font> <b>fxr:</b></font> jack_c: nope, in fact i have mutableUsers = false and no password set for any user. I am trying to recover it via ILO<br/>
+<font color="#A82F2F"><font size="2">(07:19:59 PM)</font> <b>jack_c:</b></font> fxr: heh. IPMI has saved my ass many a time.<br/>
+<font color="#A82F2F"><font size="2">(07:20:06 PM)</font> <b>jack_c:</b></font> There is a option, just let me dig it up.<br/>
+<font color="#A82F2F"><font size="2">(07:20:36 PM)</font> <b>fxr:</b></font> I am reading stage-2-init.sh for 14.12<br/>
+<font color="#A82F2F"><font size="2">(07:20:45 PM)</font> <b>jack_c:</b></font> Yeah, it&apos;s in there.<br/>
+<font color="#A82F2F"><font size="2">(07:21:01 PM)</font> <b>fxr:</b></font> but debug2 mode is missing<br/>
+<font color="#A82F2F"><font size="2">(07:21:02 PM)</font> <b>jack_c:</b></font> And they you need to stumble around a bit to get nix running.<br/>
+<font color="#A82F2F"><font size="2">(07:21:45 PM)</font> <b>jack_c:</b></font>  boot.debug1mounts<br/>
+<font color="#A82F2F"><font size="2">(07:21:50 PM)</font> <b>jack_c:</b></font> or init=/bin/bash<br/>
+<font color="#A82F2F"><font size="2">(07:22:04 PM)</font> <b>fxr:</b></font> I am able to use boot.debug1mounts and got stage1 shell<br/>
+<font color="#A82F2F"><font size="2">(07:22:44 PM)</font> <b>jack_c:</b></font> From there you should be able to mount -o remount,rw / and fix configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(07:22:47 PM)</font> <b>fxr:</b></font> but after getting stage1 shell, I am unable to replace pid1 process with a proper stage2<br/>
+<font color="#A82F2F"><font size="2">(07:23:31 PM)</font> <b>jack_c:</b></font> Why do you need to replace pid1? You should be able to fix things with bash as pid1, and then reboot.<br/>
+<font color="#A82F2F"><font size="2">(07:23:33 PM)</font> <b>fxr:</b></font> jack_c: hmm, after modifying configuration.nix, how can I switch to new config?<br/>
+<font color="#A82F2F"><font size="2">(07:23:51 PM)</font> <b>jack_c:</b></font> fxr: you should be able to use nixos-rebuild switch.<br/>
+<font color="#A82F2F"><font size="2">(07:23:57 PM)</font> <b>jack_c:</b></font> You might need to unset NIX_REMOTE.<br/>
+<font color="#A82F2F"><font size="2">(07:24:17 PM)</font> <b>fxr:</b></font> oh this is the best information I have for today, let me try<br/>
+<font color="#A82F2F"><font size="2">(07:33:56 PM)</font> <b>fxr:</b></font> let&apos;s hope that initialRootPassword still exists somewhere...<br/>
+<font color="#A82F2F"><font size="2">(07:34:27 PM)</font> <b>shlevy:</b></font> niksnut: ikwildrpepper: Does http://hydra.nixos.org/build/19050746/nixlog/1/tail-reload mean that we probably have too many concurrent jobs?<br/>
+<font color="#A82F2F"><font size="2">(07:35:06 PM)</font> <b>ikwildrpepper:</b></font> shlevy: not sure<br/>
+<font color="#A82F2F"><font size="2">(07:38:59 PM)</font> <b>fxr:</b></font> jack_c: I haven&apos;t got any nixos-rebuild in stage1 PATH. any ideas?<br/>

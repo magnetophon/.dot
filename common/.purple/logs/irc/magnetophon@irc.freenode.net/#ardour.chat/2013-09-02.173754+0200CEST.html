@@ -1,0 +1,252 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Mon 02 Sep 2013 05:37:54 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Mon 02 Sep 2013 05:37:54 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(05:37:55 PM)</font><b> The topic for #ardour is: ardour 3.3 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font color="#A82F2F"><font size="2">(05:38:05 PM)</font> <b>rgareus:</b></font> las: what are your thoughs on shipping a reasonably simple LV2 synth with ardour?<br/>
+<font size="2">(05:38:57 PM)</font><b> naptastic [<em>~david@99.20.201.27</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:40:19 PM)</font> <b>nphilipp:</b></font> rgareus: out of curiosity: why?<br/>
+<font color="#A82F2F"><font size="2">(05:40:57 PM)</font> <b>rgareus:</b></font> nphilipp: because lots of users come here and complain that they &quot;can&apos;t hear midi&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:41:46 PM)</font> <b>naptastic:</b></font> huehuehuehue<br/>
+<font size="2">(05:42:58 PM)</font><b> karimb left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(05:44:15 PM)</font> <b>nphilipp:</b></font> rgareus: I take it the entertainment value of that wears off quickly?<br/>
+<font color="#A82F2F"><font size="2">(05:45:19 PM)</font> <b>las:</b></font> rgareus: i think its a perfectly good idea. bundling plugins is something that should be part of the plan, both instrument + FX<br/>
+<font color="#A82F2F"><font size="2">(05:45:56 PM)</font> <b>rgareus:</b></font> las: I was rather thinking of including the source with ardour, too<br/>
+<font color="#A82F2F"><font size="2">(05:46:05 PM)</font> <b>rgareus:</b></font> las: at least in this case<br/>
+<font size="2">(05:46:34 PM)</font><b> schiv [<em>~schiv@archlinux/developer/schiv</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:46:44 PM)</font> <b>tom^_:</b></font> las: http://lowres.ch/a3/_patches.tgz is a collection made with git format-patch -k1<br/>
+<font color="#A82F2F"><font size="2">(05:46:54 PM)</font> <b>naptastic:</b></font> the default MIDI plugin should be an OPL-3 emulator, so we can field endless questions of &quot;Why does it sound like a 20-year-old sound card?&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:48:51 PM)</font> <b>tom^_:</b></font> rgareus: including an eq plugin would be good :)<br/>
+<font color="#A82F2F"><font size="2">(05:49:40 PM)</font> <b>tom^_:</b></font> rgareus: to allow the mixer to be more like a standard hardware mixer<br/>
+<font color="#A82F2F"><font size="2">(05:51:29 PM)</font> <b>las:</b></font> rgareus: i meant the same, at least for some <br/>
+<font color="#A82F2F"><font size="2">(05:51:45 PM)</font> <b>las:</b></font> tom^_: i have you repo cloned locally, so i can do the same, thanks<br/>
+<font size="2">(05:52:04 PM)</font><b> phyzix5761 [<em>~phyzix576@c-50-140-54-206.hsd1.fl.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:52:10 PM)</font> <b>tom^_:</b></font> las: i was thinking of that possibility too ...<br/>
+<font color="#A82F2F"><font size="2">(05:52:39 PM)</font> <b>tom^_:</b></font> las: like this you could also check how it is different before picking anything<br/>
+<font size="2">(05:53:22 PM)</font><b> nphilipp left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(05:55:40 PM)</font><b> phyzix5761 left the room (quit: Client Quit).</b><br/>
+<font size="2">(05:56:47 PM)</font><b> hybrid [<em>~R3n4t0@187.23.82.135</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:00:36 PM)</font> <b>rgareus:</b></font> tom^_: I diagree there. There is no &quot;canonical EQ implementation&quot; that we can use.<br/>
+<font color="#A82F2F"><font size="2">(06:01:15 PM)</font> <b>rgareus:</b></font> tom^_: the binary bundle could include various plugins..  but I&apos;d suggest to not add any of those to ardour&apos;s source.<br/>
+<font color="#A82F2F"><font size="2">(06:02:48 PM)</font> <b>rgareus:</b></font> tom^_: a very simple synth however.. + New Midi-track dialog: instrument defaults to _some plugin_.  That will at least nudge users in the right direction.<br/>
+<font color="#A82F2F"><font size="2">(06:04:26 PM)</font> <b>las:</b></font> rgareus: of course, the same argument applies in reverse<br/>
+<font color="#A82F2F"><font size="2">(06:04:37 PM)</font> <b>las:</b></font> &quot;there is no canonical synth implementation&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:04:47 PM)</font> <b>las:</b></font> rgareus: personally i think we should just fork linuxsampler :)<br/>
+<font color="#A82F2F"><font size="2">(06:05:16 PM)</font> <b>rgareus:</b></font> las: that&apos;s why I said &quot;very simple synth&quot; something that makes noise - maybe piano like.<br/>
+<font color="#A82F2F"><font size="2">(06:05:26 PM)</font> <b>rgareus:</b></font> las: linuxsampler requires soundfiles and...<br/>
+<font color="#A82F2F"><font size="2">(06:05:38 PM)</font> <b>rgareus:</b></font> las: well it&apos;s not GPL to start with<br/>
+<font color="#A82F2F"><font size="2">(06:06:11 PM)</font> <b>naptastic:</b></font> Will Ardour load my lv2 plugins that got installed in /home/david/.lv2/?<br/>
+<font color="#A82F2F"><font size="2">(06:06:19 PM)</font> <b>las:</b></font> rgareus: i think the mda lv2 impl may be gpl&apos;ed<br/>
+<font color="#A82F2F"><font size="2">(06:06:23 PM)</font> <b>HarryHaaren:</b></font> Reaper ships with a simple sine-synth IIRC... perhaps a 2 / 3 harmonic additive sine synth would do?<br/>
+<font color="#A82F2F"><font size="2">(06:06:38 PM)</font> <b>las:</b></font> naptastic: all LV2 hosts are supposed to used to same canonical way to discover and load plugins<br/>
+<font color="#A82F2F"><font size="2">(06:06:51 PM)</font> <b>rgareus:</b></font> naptastic: yes, if /home/david/ is $HOME and your LV2_PLUGIN_PATH is set to default.<br/>
+<font color="#A82F2F"><font size="2">(06:07:03 PM)</font> <b>HarryHaaren:</b></font> I&apos;ve coded a (bad) sine-synth for the LV2 eg-plugins, with a little brushing up, I&apos;m pretty sure it could be a candidate..?<br/>
+<font color="#A82F2F"><font size="2">(06:08:12 PM)</font> <b>naptastic:</b></font> rgareus, will it also check /usr/lib/lv2 and /usr/local/lib/lv2 ?<br/>
+<font color="#A82F2F"><font size="2">(06:08:47 PM)</font> <b>HarryHaaren:</b></font> hmmm never mind my suggestion, i think we need a reasonable synth, not just a sinewave.. ;)<br/>
+<font color="#A82F2F"><font size="2">(06:09:03 PM)</font> <b>rgareus:</b></font> naptastic: yes, liblilv (which ardour uses) does that by default (unless told otherwise)<br/>
+<font color="#A82F2F"><font size="2">(06:09:07 PM)</font> <b>naptastic:</b></font> HarryHaaren, well get to work on the LV2 SID emulator ;-)<br/>
+<font color="#A82F2F"><font size="2">(06:09:18 PM)</font> <b>naptastic:</b></font> rgareus, perfect, that&apos;s what I needed to know! :-D<br/>
+<font color="#A82F2F"><font size="2">(06:09:19 PM)</font> <b>rgareus:</b></font> HarryHaaren: sine-waves (overtones) + ADSR<br/>
+<font color="#A82F2F"><font size="2">(06:09:51 PM)</font> <b>naptastic:</b></font> rgareus, Surely there&apos;s already a GPL synth with that feature list? There are sooooo many simple synths...<br/>
+<font color="#A82F2F"><font size="2">(06:09:52 PM)</font> <b>rgareus:</b></font> HarryHaaren: maybe a resonant filter, but maybe not.<br/>
+<font color="#A82F2F"><font size="2">(06:09:58 PM)</font> <b>HarryHaaren:</b></font> naptastic, pgib and ssj71 were talking about it in #lmms at some point too... i&apos;ve already said it aint my battle :D<br/>
+<font color="#A82F2F"><font size="2">(06:10:12 PM)</font> <b>naptastic:</b></font> HarryHaaren, Ah right, ok. I&apos;ll keep bugging them then.<br/>
+<font color="#A82F2F"><font size="2">(06:10:48 PM)</font> <b>HarryHaaren:</b></font> rgareus, I just checked github and saw you created a repo, hence the above pun<br/>
+<font color="#A82F2F"><font size="2">(06:11:23 PM)</font> <b>rgareus:</b></font> HarryHaaren: indeed. way ahead already. not quite there yet, though<br/>
+<font color="#A82F2F"><font size="2">(06:12:03 PM)</font> <b>HarryHaaren:</b></font> rgareus, ping me when you want somebody testing<br/>
+<font color="#A82F2F"><font size="2">(06:12:43 PM)</font> <b>rgareus:</b></font> HarryHaaren: next, I was actually going to check what you use for ADSR in your synths :)<br/>
+<font size="2">(06:13:04 PM)</font><b> MountainX [<em>~computeru@64.22.71.195</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:13:15 PM)</font> <b>rgareus:</b></font> HarryHaaren: I did a quick hack linear fade, but - at least decay + release should be log or power.<br/>
+<font color="#A82F2F"><font size="2">(06:15:40 PM)</font> <b>Tecan:</b></font> is there a doc explaining the midi connections in jack ? like MMC and MTC MIDI CONTROL in<br/>
+<font color="#A82F2F"><font size="2">(06:16:15 PM)</font> <b>rgareus:</b></font> Tecan: jack does not care what midi-data it transports. <br/>
+<font color="#A82F2F"><font size="2">(06:16:33 PM)</font> <b>rgareus:</b></font> Tecan: ardour cares what it receives on a specific midi-port.<br/>
+<font color="#A82F2F"><font size="2">(06:16:45 PM)</font> <b>Tecan:</b></font> is the a midi channel changer somewhere other than jack-keybaord ?<br/>
+<font color="#A82F2F"><font size="2">(06:17:04 PM)</font> <b>Tecan:</b></font> like send a channel change event to the device itself<br/>
+<font color="#A82F2F"><font size="2">(06:18:30 PM)</font> <b>Tecan:</b></font> a couple of my devices do not want to switch samples in linuxsampler<br/>
+<font size="2">(06:20:02 PM)</font><b> aloiece [<em>~Thunderbi@2001:8b0:fbbd:191c:a015:397f:9592:e258</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:20:05 PM)</font> <b>rgareus:</b></font> Tecan: the midi-channel number is a property of every midi-event.   You can change the channel of every note in ardour, or force a midi-track in ardour to only send/recv data on a specific channel.  It&apos;s not a global setting.<br/>
+<font color="#A82F2F"><font size="2">(06:20:38 PM)</font> <b>Tecan:</b></font> i tried that tho, one sec<br/>
+<font size="2">(06:22:42 PM)</font><b> prokoudine_ [<em>~prokoudin@ppp85-141-143-77.pppoe.mtu-net.ru</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:22:51 PM)</font> <b>rgareus:</b></font> HarryHaaren: aah FAUST adsr.<br/>
+<font color="#A82F2F"><font size="2">(06:23:25 PM)</font> <b>HarryHaaren:</b></font> rgareus, Faust in what, where?<br/>
+<font color="#A82F2F"><font size="2">(06:23:45 PM)</font> <b>rgareus:</b></font> HarryHaaren: sorcer&apos;s main.dsp<br/>
+<font size="2">(06:24:01 PM)</font><b> Leatuspenguin [<em>~Leatuspen@188.141.14.110</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:24:25 PM)</font> <b>Ricardus:</b></font> las, central NY<br/>
+<font color="#A82F2F"><font size="2">(06:25:27 PM)</font> <b>HarryHaaren:</b></font> rgareus, oh god... Sorcer bits again. Fabla has a custom C++ one, but its linear fades  https://github.com/harryhaaren/openAV-Fabla/blob/master/dsp/adsr.hxx<br/>
+<font color="#A82F2F"><font size="2">(06:25:33 PM)</font> <b>rgareus:</b></font> HarryHaaren: I considered FAUST for a minute, then rejected it as unreasonable build-dep :)<br/>
+<font color="#A82F2F"><font size="2">(06:26:17 PM)</font> <b>HarryHaaren:</b></font> rgareus, good choice. I&apos;ve removed it from new projects.. <br/>
+<font color="#A82F2F"><font size="2">(06:28:52 PM)</font> <b>rgareus:</b></font> HarryHaaren: I like FAUST, just not for everything.<br/>
+<font color="#A82F2F"><font size="2">(06:32:10 PM)</font> <b>rgareus:</b></font> mmh does fabla catch if I send a note-off while its still in attack or decay. And while the note is then being released, send a note-on again.. that resets ADSR -&gt; click.<br/>
+<font color="#A82F2F"><font size="2">(06:35:17 PM)</font> <b>rgareus:</b></font> HarryHaaren: void release(); directly jumps to release as well..  you should really set  enableSmoothing to true :)<br/>
+<font color="#A82F2F"><font size="2">(06:35:44 PM)</font> <b>rgareus:</b></font> s/set/hardcode/<br/>
+<font color="#A82F2F"><font size="2">(06:35:53 PM)</font> <b>HarryHaaren:</b></font> rgareus, yup you&apos;re right... <br/>
+<font color="#A82F2F"><font size="2">(06:35:59 PM)</font> <b>HarryHaaren:</b></font> I&apos;ll put on the fixme list<br/>
+<font color="#A82F2F"><font size="2">(06:36:00 PM)</font> <b>HarryHaaren:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(06:36:51 PM)</font> <b>rgareus:</b></font> HarryHaaren: that&apos;s very clean code, BTW.<br/>
+<font color="#A82F2F"><font size="2">(06:38:49 PM)</font> <b>rgareus:</b></font> HarryHaaren: mmh, do you do the envelope in steps of nframes?  ie adsr&apos;s process() is called with nframes &gt; 1 ?<br/>
+<font color="#A82F2F"><font size="2">(06:39:14 PM)</font> <b>rgareus:</b></font> HarryHaaren: that&apos;ll also result in a step-wise (click) gain -- unless you smooth it further up.<br/>
+<font color="#A82F2F"><font size="2">(06:39:48 PM)</font> <b>rgareus:</b></font> well maybe not clicks, but overtones or high-freq noise.<br/>
+<font color="#A82F2F"><font size="2">(06:40:03 PM)</font> <b>rgareus:</b></font> (which may be a feature)<br/>
+<font color="#A82F2F"><font size="2">(06:40:20 PM)</font> <b>rgareus:</b></font> ie you get keyclicks for free.<br/>
+<font color="#A82F2F"><font size="2">(06:40:50 PM)</font> <b>HarryHaaren:</b></font> nah i call it per sample.. although that is something that I kinda wonder about.. function-call overhead per sample... sounds bad?<br/>
+<font color="#A82F2F"><font size="2">(06:41:05 PM)</font> <b>rgareus:</b></font> HarryHaaren: same here.<br/>
+<font color="#A82F2F"><font size="2">(06:41:17 PM)</font> <b>rgareus:</b></font> HarryHaaren: make it &apos;inline&apos; :)<br/>
+<font color="#A82F2F"><font size="2">(06:41:34 PM)</font> <b>rgareus:</b></font> HarryHaaren: but still it&apos;d be better to pre-compute and just use a LUT.<br/>
+<font color="#A82F2F"><font size="2">(06:42:10 PM)</font> <b>HarryHaaren:</b></font> the ADSR? hmm interesting idea..<br/>
+<font color="#A82F2F"><font size="2">(06:42:10 PM)</font> <b>rgareus:</b></font> HarryHaaren: that&apos;ll still needs a low-pass filter per sample.. but no if() branches<br/>
+<font color="#A82F2F"><font size="2">(06:43:19 PM)</font> <b>rgareus:</b></font> HarryHaaren: well it&apos;s not quite that straight forward - but it&apos;s far less complex to the wave-table-fu that you do already :)<br/>
+<font color="#A82F2F"><font size="2">(06:44:17 PM)</font> <b>HarryHaaren:</b></font> wave-table-fu? Hah nice.  <br/>
+<font color="#A82F2F"><font size="2">(06:46:51 PM)</font> <b>edogawa:</b></font> Tecan: btw, rgareus wrote a MIDI channel mapper LV2 plugin that should do just what you are looking for<br/>
+<font color="#A82F2F"><font size="2">(06:47:13 PM)</font> <b>Tecan:</b></font> thanks :)<br/>
+<font color="#A82F2F"><font size="2">(06:47:34 PM)</font> <b>Tecan:</b></font> i was just downloading amidimap<br/>
+<font color="#A82F2F"><font size="2">(06:48:05 PM)</font> <b>Tecan:</b></font> the only reason i dont like to use jack-keyboard is latency issues with my drum pad<br/>
+<font color="#A82F2F"><font size="2">(06:48:10 PM)</font> <b>edogawa:</b></font> right but that looks unmaintained, last update from 2011 :/<br/>
+<font color="#A82F2F"><font size="2">(06:49:03 PM)</font> <b>rgareus:</b></font> Tecan: did you try ardour&apos;s keyboard? http://manual.ardour.org/editing-and-arranging/edit-midi/step-entry/<br/>
+<font color="#A82F2F"><font size="2">(06:49:05 PM)</font> <b>edogawa:</b></font> oh, 2008 even<br/>
+<font color="#A82F2F"><font size="2">(06:53:53 PM)</font> <b>Tecan:</b></font> it would be pretty neat to send midi messages from ardour to set things like lights or special codes<br/>
+<font color="#A82F2F"><font size="2">(06:55:29 PM)</font> <b>Tecan:</b></font> plugins :)<br/>
+<font color="#A82F2F"><font size="2">(06:56:55 PM)</font> <b>Tecan:</b></font> how do i get the step entry dialogue ?<br/>
+<font color="#A82F2F"><font size="2">(06:57:59 PM)</font> <b>rgareus:</b></font> Tecan: see the manual. last sentence at http://manual.ardour.org/editing-and-arranging/edit-midi/step-entry/ &quot;The step entry dialog is accessed via a right click context menu on the rec-enable button...&quot;<br/>
+<font size="2">(06:59:27 PM)</font><b> err-or left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:00:22 PM)</font> <b>Tecan:</b></font> awe now thats neat<br/>
+<font color="#A82F2F"><font size="2">(07:00:49 PM)</font> <b>Tecan:</b></font> has a tracker kinda feel to itt<br/>
+<font size="2">(07:03:54 PM)</font><b> naptastic left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(07:09:16 PM)</font> <b>las:</b></font> Tecan: you&apos;re confused :)<br/>
+<font color="#A82F2F"><font size="2">(07:09:21 PM)</font> <b>las:</b></font> Tecan: its just step entry<br/>
+<font color="#A82F2F"><font size="2">(07:09:45 PM)</font> <b>las:</b></font> Ricardus: missed you by a hundred miles or so, we were in binghamton on saturday night<br/>
+<font size="2">(07:12:44 PM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:14:09 PM)</font> <b>Ricardus:</b></font> las, Yeah, I can get to Binghampton in about 90 mins taking 12 south<br/>
+<font color="#A82F2F"><font size="2">(07:14:59 PM)</font> <b>las:</b></font> Ricardus: sad looking town, at least it was on saturday night<br/>
+<font color="#A82F2F"><font size="2">(07:15:43 PM)</font> <b>Ricardus:</b></font> las, I havent been there in many years. It was pretty sad the last time I was there 20 years ago<br/>
+<font color="#A82F2F"><font size="2">(07:15:55 PM)</font> <b>las:</b></font> Tecan: if you&apos;re using the current version of ardour, you can force all outgoing MIDI to be on a certain channel, but not incoming (i think)<br/>
+<font color="#A82F2F"><font size="2">(07:16:30 PM)</font> <b>tom^_:</b></font> rgareus: i was out walking + i agree to not blow up core ardour with plugs<br/>
+<font size="2">(07:17:24 PM)</font><b> ssj72 left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:19:06 PM)</font> <b>tom^_:</b></font> rgareus: for &apos;can&apos;t hear midi&apos; problem, a test-midi plugin that operates with sines would be good enough<br/>
+<font color="#A82F2F"><font size="2">(07:20:13 PM)</font> <b>tom^_:</b></font> las: incorporate a sampler to ardour is a huge task. using the ardour/gui/editor from ardour to manage/modify samples is a nice idea though<br/>
+<font color="#A82F2F"><font size="2">(07:20:26 PM)</font> <b>rgareus:</b></font> tom^_: yes, but IMHO it should be somewhat reasonable NTL. just a simple simple sine will not be heard.<br/>
+<font color="#A82F2F"><font size="2">(07:21:01 PM)</font> <b>tom^_:</b></font> rgareus: why can&apos;t it be heard?<br/>
+<font color="#A82F2F"><font size="2">(07:21:05 PM)</font> <b>rgareus:</b></font> ..anyway time for me to take a short walk.<br/>
+<font color="#A82F2F"><font size="2">(07:21:16 PM)</font> <b>tom^_:</b></font> rgareus: good thing to do :)<br/>
+<font color="#A82F2F"><font size="2">(07:21:35 PM)</font> <b>tom^_:</b></font> rgareus: clear the ear<br/>
+<font color="#A82F2F"><font size="2">(07:21:40 PM)</font> <b>rgareus:</b></font> tom^_: try it.  sines &lt; 400 Hz are very audible compared to ther stuff.<br/>
+<font color="#A82F2F"><font size="2">(07:22:21 PM)</font> <b>rgareus:</b></font> tom^_: jack_midisine<br/>
+<font color="#A82F2F"><font size="2">(07:23:01 PM)</font> <b>tom^_:</b></font> rgareus: yep<br/>
+<font color="#A82F2F"><font size="2">(07:24:15 PM)</font> <b>rgareus:</b></font> s/very audible/ not very audible/ anyway..<br/>
+<font color="#A82F2F"><font size="2">(07:24:44 PM)</font> <b>tom^_:</b></font> got it<br/>
+<font color="#A82F2F"><font size="2">(07:25:25 PM)</font> <b>tom^_:</b></font> rgareus: the midi-test plugin could be just one octave, in a well hearable range<br/>
+<font color="#A82F2F"><font size="2">(07:25:39 PM)</font> <b>tom^_:</b></font> rgareus: after all, it&apos;s not a plugin to actually make reasonable sounds :)<br/>
+<font color="#A82F2F"><font size="2">(07:26:33 PM)</font> <b>rgareus:</b></font> tom^_: quite the opposite. only makes one reasonable and that one only.<br/>
+<font color="#A82F2F"><font size="2">(07:27:06 PM)</font> <b>rgareus:</b></font> tom^_: anyway, later.<br/>
+<font color="#A82F2F"><font size="2">(07:27:23 PM)</font> <b>tom^_:</b></font> rgareus: you have to explain later<br/>
+<font color="#A82F2F"><font size="2">(07:27:28 PM)</font> <b>tom^_:</b></font> ;)<br/>
+<font color="#A82F2F"><font size="2">(07:35:16 PM)</font> <b>tom^_:</b></font> Tecan: i think you were referring to a tracker like that one (midi step-entry): http://www.bitartillkaffet.se/wp-content/uploads/2011/04/protracker-3.15.png<br/>
+<font color="#A82F2F"><font size="2">(07:36:22 PM)</font> <b>tom^_:</b></font> that was the time when one could buy soldered sampler unit to connect to parallel port :)<br/>
+<font color="#A82F2F"><font size="2">(07:37:39 PM)</font> <b>tom^_:</b></font> gosh, that is 20 years away from now!<br/>
+<font size="2">(07:41:33 PM)</font><b> ANero_ [<em>~nero@unaffiliated/anero</em>] entered the room.</b><br/>
+<font size="2">(07:42:51 PM)</font><b> HarryHaaren left the room (quit: Quit: Quittin&apos;).</b><br/>
+<font size="2">(07:52:02 PM)</font><b> Edelwin [<em>~Artemis@wxcafe.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:52:18 PM)</font> <b>Edelwin:</b></font> hi o/<br/>
+<font size="2">(07:56:08 PM)</font><b> Gethiox [<em>~gethiox@199.254.238.251</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:01:06 PM)</font> <b>oofus:</b></font> las: rgareus: repeatable crash in master with some of the meter plugins open, feels like R128 might be the culprit ?           http://pastebin.com/7mzX1ikF<br/>
+<font color="#A82F2F"><font size="2">(08:03:51 PM)</font> <b>rgareus:</b></font> oofus: update libcairo and libpixman. versions prior to early 2013 are not thread safe.<br/>
+<font color="#A82F2F"><font size="2">(08:04:10 PM)</font> <b>oofus:</b></font> rgareus: hmm, ok<br/>
+<font color="#A82F2F"><font size="2">(08:04:12 PM)</font> <b>rgareus:</b></font> oofus: alternatively use the gtk version of the plugin (not the openGL version)<br/>
+<font color="#A82F2F"><font size="2">(08:04:44 PM)</font> <b>oofus:</b></font> rgareus: ok, you&apos;re pretty sure that is the problem ?<br/>
+<font color="#A82F2F"><font size="2">(08:05:17 PM)</font> <b>rgareus:</b></font> tom^_: I&apos;ll eat my words, on what is reasonable...<br/>
+<font color="#A82F2F"><font size="2">(08:05:32 PM)</font> <b>rgareus:</b></font> oofus: pretty much, both thread 29 and 32 are doing stuff in libcairo<br/>
+<font color="#A82F2F"><font size="2">(08:05:40 PM)</font> <b>oofus:</b></font> rgareus: ok<br/>
+<font color="#A82F2F"><font size="2">(08:05:50 PM)</font> <b>rgareus:</b></font> oofus: one&apos;s the Ebur128 the other one the goniometer.<br/>
+<font color="#A82F2F"><font size="2">(08:06:12 PM)</font> <b>rgareus:</b></font> oofus: in this case ebur128 looses the battle.<br/>
+<font size="2">(08:06:21 PM)</font><b> aloiece left the room (quit: Quit: aloiece).</b><br/>
+<font color="#A82F2F"><font size="2">(08:06:43 PM)</font> <b>tom^_:</b></font> rgareus: btw, is curl thread safe? i got a strange crash while using freesound import. no backtrace though<br/>
+<font size="2">(08:06:51 PM)</font><b> aloiece [<em>~Thunderbi@2001:8b0:fbbd:191c:a015:397f:9592:e258</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:07:09 PM)</font> <b>rgareus:</b></font> tom^_: libcurl itself? yes. <br/>
+<font color="#A82F2F"><font size="2">(08:07:25 PM)</font> <b>edogawa:</b></font> i just used goniometer on master and had no crash fwiw (nothing, i know)<br/>
+<font color="#A82F2F"><font size="2">(08:07:39 PM)</font> <b>rgareus:</b></font> edogawa: if you only have one, that&apos;s fine.<br/>
+<font color="#A82F2F"><font size="2">(08:07:41 PM)</font> <b>tom^_:</b></font> rgareus: i had it only once. could be something else<br/>
+<font color="#A82F2F"><font size="2">(08:07:57 PM)</font> <b>rgareus:</b></font> edogawa: besides you&apos;re using the old gtk version. openGL is not yet publically released<br/>
+<font color="#A82F2F"><font size="2">(08:08:04 PM)</font> <b>edogawa:</b></font> rgareus: plus correlation meter plus stereo balance<br/>
+<font color="#A82F2F"><font size="2">(08:08:12 PM)</font> <b>rgareus:</b></font> (because may crash all over the place)<br/>
+<font color="#A82F2F"><font size="2">(08:08:14 PM)</font> <b>edogawa:</b></font> rgareus: ah i c<br/>
+<font color="#A82F2F"><font size="2">(08:08:53 PM)</font> <b>edogawa:</b></font> rgareus: i git pulled, is that what you call publically released? ;)<br/>
+<font color="#A82F2F"><font size="2">(08:09:15 PM)</font> <b>rgareus:</b></font> edogawa: openGL branch is not [yet] on github.<br/>
+<font color="#A82F2F"><font size="2">(08:09:23 PM)</font> <b>edogawa:</b></font> rgareus: oki<br/>
+<font size="2">(08:10:02 PM)</font><b> glasz left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(08:10:19 PM)</font><b> dark_ [<em>42a50885@gateway/web/freenode/ip.66.165.8.133</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:11:28 PM)</font> <b>tom^_:</b></font> rgareus: do you have a screenie of opengl meters at hand?<br/>
+<font color="#A82F2F"><font size="2">(08:11:53 PM)</font> <b>rgareus:</b></font> edogawa: but if you want to live bleeding edge: do a &apos;make uninstall&apos; what you got from github and use http://robin.linuxaudio.org/meters.lv2-0.5pre7.tar.gz instead<br/>
+<font color="#A82F2F"><font size="2">(08:12:11 PM)</font> <b>rgareus:</b></font> tom^_: they&apos;re just the same - well almost<br/>
+<font color="#A82F2F"><font size="2">(08:12:22 PM)</font> <b>rgareus:</b></font> tom^_: no major changes in look/feel.<br/>
+<font color="#A82F2F"><font size="2">(08:12:25 PM)</font> <b>edogawa:</b></font> rgareus: no thanks :)<br/>
+<font color="#A82F2F"><font size="2">(08:12:28 PM)</font> <b>oofus:</b></font> rgareus: is libpixman part of cairo &gt;<br/>
+<font color="#A82F2F"><font size="2">(08:12:30 PM)</font> <b>oofus:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(08:12:30 PM)</font> <b>tom^_:</b></font> rgareus: i see<br/>
+<font color="#A82F2F"><font size="2">(08:12:46 PM)</font> <b>rgareus:</b></font> oofus: it&apos;s part of X and extensively used by cairo<br/>
+<font size="2">(08:12:52 PM)</font><b> glasz [<em>~quassel@216.141.75.86.rev.sfr.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:13:07 PM)</font> <b>oofus:</b></font> rgareus: ok, that could be trickier to update<br/>
+<font color="#A82F2F"><font size="2">(08:13:16 PM)</font> <b>rgareus:</b></font> oofus: mmh I may be wrong on the &quot;part of x&quot; <br/>
+<font color="#A82F2F"><font size="2">(08:13:34 PM)</font> <b>rgareus:</b></font> libpixman: pixel-manipulation library for X and cairo<br/>
+<font color="#062585"><font size="2">(08:13:39 PM)</font> <b>***edogawa</b></font> d/l nevertheless, bitjunkie he is<br/>
+<font color="#A82F2F"><font size="2">(08:14:01 PM)</font> <b>rgareus:</b></font> edogawa: you can always  &apos;sudo make uninstall&apos;<br/>
+<font color="#A82F2F"><font size="2">(08:15:31 PM)</font> <b>rgareus:</b></font> oofus: I&apos;m pondering two &apos;workarounds&apos;. <br/>
+<font color="#A82F2F"><font size="2">(08:16:02 PM)</font> <b>rgareus:</b></font> oofus: (a) statically link the plugins (every instance gets its own cairo)  not sure if that realistic though.<br/>
+<font color="#A82F2F"><font size="2">(08:16:04 PM)</font> <b>oofus:</b></font> rgareus: Cairo is already 1.12.14 which was released 10-02-2013<br/>
+<font color="#A82F2F"><font size="2">(08:16:32 PM)</font> <b>oofus:</b></font> rgareus: is that new enough &gt;<br/>
+<font color="#A82F2F"><font size="2">(08:16:34 PM)</font> <b>oofus:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(08:17:13 PM)</font> <b>rgareus:</b></font> oofus: or (b) make the openGL plugins work only with hosts that support a proper lv2-idle interface (very recent lv2 svn) - single threaded.<br/>
+<font color="#A82F2F"><font size="2">(08:17:23 PM)</font> <b>rgareus:</b></font> oofus: let me check my cairo version<br/>
+<font color="#A82F2F"><font size="2">(08:18:02 PM)</font> <b>oofus:</b></font> rgareus: wouldn&apos;t be the end of the world to require newer LV2<br/>
+<font color="#A82F2F"><font size="2">(08:18:10 PM)</font> <b>rgareus:</b></font> libcairo2  1.2.14-5 (+debian fixes)<br/>
+<font color="#A82F2F"><font size="2">(08:18:36 PM)</font> <b>rgareus:</b></font> oofus: your lv2 version is apparently too old :)<br/>
+<font color="#A82F2F"><font size="2">(08:18:38 PM)</font> <b>oofus:</b></font> rgareus: it&apos;s latest released I think<br/>
+<font color="#A82F2F"><font size="2">(08:18:50 PM)</font> <b>rgareus:</b></font> oofus: yes, too old.<br/>
+<font color="#A82F2F"><font size="2">(08:18:53 PM)</font> <b>oofus:</b></font> rgareus:  :)<br/>
+<font color="#A82F2F"><font size="2">(08:18:54 PM)</font> <b>rgareus:</b></font> oofus: as I said SVN.<br/>
+<font color="#A82F2F"><font size="2">(08:19:08 PM)</font> <b>rgareus:</b></font> oofus: libpixman 0.30.20-1<br/>
+<font color="#A82F2F"><font size="2">(08:19:26 PM)</font> <b>oofus:</b></font> rgareus: libpixman 0.28.2 here<br/>
+<font color="#A82F2F"><font size="2">(08:19:32 PM)</font> <b>rgareus:</b></font> sorry  libpixman 0.30.2-1<br/>
+<font size="2">(08:19:52 PM)</font><b> dark_ left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(08:20:04 PM)</font> <b>rgareus:</b></font> oofus: the crashes here went away after updating both.<br/>
+<font color="#A82F2F"><font size="2">(08:20:05 PM)</font> <b>Edelwin:</b></font> I try to launch ardour on Debian 7, but I cannot choose any interface. how can I fix it ?<br/>
+<font color="#A82F2F"><font size="2">(08:20:52 PM)</font> <b>rgareus:</b></font> Edelwin: &quot;interface&quot; as in sound-card ?<br/>
+<font color="#A82F2F"><font size="2">(08:21:43 PM)</font> <b>las:</b></font> Edelwin: on linux systems you are better off using qjackctl to start/stop/configure JACK<br/>
+<font color="#A82F2F"><font size="2">(08:21:48 PM)</font> <b>rgareus:</b></font> oofus: I&apos;m not sure what is the best solution. For now I just put it back in the drawer until I can think of a solution.<br/>
+<font color="#A82F2F"><font size="2">(08:22:01 PM)</font> <b>las:</b></font> Edelwin: Ardour will only offer you duplex devices (ones that can be used for simiultaneous recording and playback)<br/>
+<font color="#A82F2F"><font size="2">(08:22:47 PM)</font> <b>las:</b></font> rgareus: is there stuff in new cairo, new lv2, new pixman that i should be including in a 3.4 release ?<br/>
+<font color="#A82F2F"><font size="2">(08:23:29 PM)</font> <b>rgareus:</b></font> las: using lastest cairo is always a good idea.<br/>
+<font color="#A82F2F"><font size="2">(08:23:31 PM)</font> <b>Edelwin:</b></font> rgareus: yes<br/>
+<font color="#A82F2F"><font size="2">(08:23:42 PM)</font> <b>rgareus:</b></font> las: lv2, there&apos;s no new release, yet.<br/>
+<font color="#A82F2F"><font size="2">(08:24:24 PM)</font> <b>tom^_:</b></font> edogawa: i agree that the first dialogue when starting ardour could have single click buttons for &quot;create new&quot; and &quot;open existing&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:24:28 PM)</font> <b>rgareus:</b></font> las: the concurrency stuff re cairo &amp; pixman was mostly addressed Dec 2012.  but ardour itself does not make concurrent use of it. Nor do *normal* plugins.<br/>
+<font color="#A82F2F"><font size="2">(08:24:47 PM)</font> <b>las:</b></font> rgareus: so i can just not bother thinking about this for now?<br/>
+<font color="#A82F2F"><font size="2">(08:24:57 PM)</font> <b>rgareus:</b></font> las: yes.<br/>
+<font color="#A82F2F"><font size="2">(08:25:14 PM)</font> <b>rgareus:</b></font> las: but bumping the version numbers in the build-tools script is a good idea NTL.<br/>
+<font color="#A82F2F"><font size="2">(08:25:25 PM)</font> <b>Edelwin:</b></font> las: so, there is no chances to work with a PowerMac G5 ?<br/>
+<font color="#A82F2F"><font size="2">(08:26:14 PM)</font> <b>rgareus:</b></font> las: I think one or two of the libs that the script wants to download is a 404 anyway these days.<br/>
+<font color="#A82F2F"><font size="2">(08:27:00 PM)</font> <b>rgareus:</b></font> Edelwin: use qjackctl as las suggested.<br/>
+<font size="2">(08:27:48 PM)</font><b> edogawa_ [<em>~quassel@62-46-165-117.adsl.highway.telekom.at</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:27:56 PM)</font> <b>rgareus:</b></font> Edelwin: and start jackd before starting ardour<br/>
+<font color="#A82F2F"><font size="2">(08:28:06 PM)</font> <b>las:</b></font> rgareus: mostly just libpng i think<br/>
+<font color="#A82F2F"><font size="2">(08:28:28 PM)</font> <b>las:</b></font> Edelwin: there will no relesaes of ardour3 for OS X on PPC systems<br/>
+<font color="#A82F2F"><font size="2">(08:28:46 PM)</font> <b>las:</b></font> Edelwin: but wait, you are using debian on a PPC system<br/>
+<font color="#A82F2F"><font size="2">(08:28:55 PM)</font> <b>rgareus:</b></font> PowerMac G5 is a intel system<br/>
+<font color="#A82F2F"><font size="2">(08:29:13 PM)</font> <b>las:</b></font> rgareus: no, http://en.wikipedia.org/wiki/Power_Mac_G5<br/>
+<font color="#A82F2F"><font size="2">(08:29:18 PM)</font> <b>las:</b></font> rgareus: it was the last of its line<br/>
+<font color="#A82F2F"><font size="2">(08:29:20 PM)</font> <b>Edelwin:</b></font> =)<br/>
+<font color="#A82F2F"><font size="2">(08:29:27 PM)</font> <b>rgareus:</b></font> mmh.<br/>
+<font color="#A82F2F"><font size="2">(08:29:36 PM)</font> <b>las:</b></font> Edelwin: as i said, on all platforms and all architectures, ardour only offers duplex devices<br/>
+<font color="#A82F2F"><font size="2">(08:29:46 PM)</font> <b>Edelwin:</b></font> okay<br/>
+<font color="#A82F2F"><font size="2">(08:29:53 PM)</font> <b>las:</b></font> Edelwin: &quot;offers&quot; ... displays them in its control panel for JACK<br/>
+<font color="#A82F2F"><font size="2">(08:30:03 PM)</font> <b>las:</b></font> Edelwin: there are many other ways of starting/configuring JACK<br/>
+<font color="#A82F2F"><font size="2">(08:30:23 PM)</font> <b>las:</b></font> Edelwin: which as an ardour user you should probably be aware of anyway, even if you chose not to use them<br/>
+<font size="2">(08:30:48 PM)</font><b> edogawa left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:31:50 PM)</font> <b>edogawa_:</b></font> tom^_: thanks, i would not mind one mouse click but it seems unintuitive, i always choose &quot;exisrting project&quot;, then sit there and wait until i realize that nothing happens before clicking &quot;next&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:32:54 PM)</font> <b>tom^_:</b></font> edogawa_: i use keyboard arrows up/down and enter. but for mouse operation, button would be good<br/>
+<font color="#A82F2F"><font size="2">(08:33:23 PM)</font> <b>tom^_:</b></font> edogawa_: nervous double click also works :)<br/>
+<font color="#A82F2F"><font size="2">(08:33:39 PM)</font> <b>edogawa_:</b></font> tom^_: ah :)<br/>
+<font color="#A82F2F"><font size="2">(08:34:10 PM)</font> <b>oofus:</b></font> rgareus: is it possible to update libpixman independant of X, or is it all or nothing ?<br/>
+<font color="#A82F2F"><font size="2">(08:40:24 PM)</font> <b>las:</b></font> oofus: we build it as part of the ardour dep stack (really, part of the gtk dep stack)<br/>
+<font size="2">(08:40:31 PM)</font><b> prokoudine_ left the room (quit: Quit: Ex-Chat).</b><br/>
+<font size="2">(08:40:39 PM)</font><b> [TR0N] [<em>~tr0n@201.248.74.150</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:41:41 PM)</font> <b>Edelwin:</b></font> thank you, las :)<br/>
+<font color="#A82F2F"><font size="2">(08:41:45 PM)</font> <b>rgareus:</b></font> oofus: here on debian it&apos;s independent. but it pulled it a new release of *mesa* as well.<br/>
+<font size="2">(08:45:46 PM)</font><b> thorwil [<em>~thorwil@p4FFB55F5.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(08:47:56 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,181 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Tue 30 Dec 2014 02:04:57 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Tue 30 Dec 2014 02:04:57 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:04:57 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(02:04:57 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(02:07:54 PM)</font> <b>weez:</b></font> the_CLA_2: That seems to be a good way to do it.<br/>
+<font color="#A82F2F"><font size="2">(02:09:55 PM)</font> <b>las:</b></font> weez: some experiments with git have been done<br/>
+<font color="#A82F2F"><font size="2">(02:10:05 PM)</font> <b>las:</b></font> weez: they do basically work, but they are not integrated into ardour<br/>
+<font color="#A82F2F"><font size="2">(02:10:45 PM)</font> <b>las:</b></font> weez: you just start the session, turn the session folder into a git repository, then continue on. for now, you have to do all the version control stuff outside of ardour<br/>
+<font color="#A82F2F"><font size="2">(02:12:41 PM)</font> <b>las:</b></font> weez: i would like to see us integrate git support into ardour but there is no realistic timeline for this happening unless a new developer showed up who wanted to do it<br/>
+<font color="#A82F2F"><font size="2">(02:13:04 PM)</font> <b>weez:</b></font> las: Ok, I was also wondering if an appropriate .gitignore could make it DAW independent<br/>
+<font color="#A82F2F"><font size="2">(02:14:43 PM)</font> <b>rgareus:</b></font> libgit is pretty cool. I don&apos;t think intgration  - even UI will be the big issue.<br/>
+<font color="#A82F2F"><font size="2">(02:15:05 PM)</font> <b>nphilipp:</b></font> semantics would be the big issue I presume<br/>
+<font color="#A82F2F"><font size="2">(02:15:24 PM)</font> <b>rgareus:</b></font> it&apos;s the way the ardour session is constructed - most notably IDs - which is the real problem<br/>
+<font color="#A82F2F"><font size="2">(02:15:46 PM)</font> <b>nphilipp:</b></font> one party doing X, the other doing Y, both conflict, and how should it be resolved?<br/>
+<font color="#A82F2F"><font size="2">(02:16:06 PM)</font> <b>rgareus:</b></font> I suppose a much better approach would be using transactions. replay operations - not unlike the current undo/redo stack <br/>
+<font color="#A82F2F"><font size="2">(02:17:41 PM)</font> <b>weez:</b></font> I think you would have to elect someone as the collaboration &quot;leader&quot;. They are the one who has the final decision on any merge conflict.<br/>
+<font color="#A82F2F"><font size="2">(02:19:06 PM)</font> <b>nphilipp:</b></font> I like the totally-non-destructive-editing idea that&apos;s floating around for the next major version of GIMP, basically a graph of inputs and operations which describes the whole process from source material to result. That graph could somehow be shoehorned into being version-controlled I guess.<br/>
+<font color="#A82F2F"><font size="2">(02:19:42 PM)</font> <b>SzArAk:</b></font> guys, I&apos;ve connect Korg NanoKontrol2 to ardour3, seems to work fine with one glitch I can&apos;t figure out. Solo, Mute, Record buttons seems to work &quot;while I hold them&quot;, and not act as ON/OFF switches<br/>
+<font color="#A82F2F"><font size="2">(02:20:08 PM)</font> <b>SzArAk:</b></font> anyone knows where to look to change that behaviour?<br/>
+<font color="#A82F2F"><font size="2">(02:20:43 PM)</font> <b>rgareus:</b></font> SzArAk: see the comments in https://github.com/Ardour/ardour/blob/master/midi_maps/Korg_nanoKONTROL2_With_Master.map<br/>
+<font color="#A82F2F"><font size="2">(02:21:08 PM)</font> <b>rgareus:</b></font> SzArAk: in short use the &quot;Korg control editor utility&quot;  and change the button type to &apos;toggle&apos;<br/>
+<font color="#A82F2F"><font size="2">(02:21:36 PM)</font> <b>SzArAk:</b></font> rgareus: thank you, sounds easy!<br/>
+<font color="#A82F2F"><font size="2">(02:21:37 PM)</font> <b>rgareus:</b></font> SzArAk: by default the NanoKontrol use those buttons as &quot;momentary&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:22:03 PM)</font> <b>las:</b></font> nphilipp: that model doesn&apos;t scale<br/>
+<font color="#A82F2F"><font size="2">(02:22:10 PM)</font> <b>las:</b></font> nphilipp: ardour started life like that<br/>
+<font color="#A82F2F"><font size="2">(02:22:19 PM)</font> <b>las:</b></font> nphilipp: the history file was used to rebuild the session<br/>
+<font color="#A82F2F"><font size="2">(02:22:28 PM)</font> <b>las:</b></font> nphilipp: in fact, non sequencer still does this<br/>
+<font color="#A82F2F"><font size="2">(02:22:39 PM)</font> <b>las:</b></font> nphilipp: i don&apos;t believe it scales to large or long lived sessions<br/>
+<font color="#A82F2F"><font size="2">(02:22:48 PM)</font> <b>nphilipp:</b></font> las: oh you need to cache intermediate results heavily for it to fly, yes<br/>
+<font color="#A82F2F"><font size="2">(02:23:00 PM)</font> <b>las:</b></font> nphilipp: the idea is based on the notion that the series of operations are always fast ... they are not<br/>
+<font color="#A82F2F"><font size="2">(02:23:21 PM)</font> <b>las:</b></font> nphilipp: once you start caching intermediates, you are forced to answer the question: why not cache the current state?<br/>
+<font color="#A82F2F"><font size="2">(02:23:34 PM)</font> <b>nphilipp:</b></font> las: that as well<br/>
+<font color="#A82F2F"><font size="2">(02:24:04 PM)</font> <b>nphilipp:</b></font> las: but there&apos;s no way to deal with DAW &quot;states&quot; meaningfully in a VCS<br/>
+<font color="#A82F2F"><font size="2">(02:24:12 PM)</font> <b>las:</b></font> nphilipp: i don&apos;t believe you need to<br/>
+<font color="#A82F2F"><font size="2">(02:24:24 PM)</font> <b>nphilipp:</b></font> unless you want that to mean &quot;the user does nearly everything manually&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:24:37 PM)</font> <b>las:</b></font> nphilipp: other than the ID problem that rgareus referred to, the session file is just text, like any other text, and is easily managed by a VCS<br/>
+<font color="#A82F2F"><font size="2">(02:24:52 PM)</font> <b>las:</b></font> nphilipp: adding data files to the repo is something that the DAW can do<br/>
+<font color="#A82F2F"><font size="2">(02:25:14 PM)</font> <b>rgareus:</b></font> but &apos;git merge&apos; on XML will fail horribly.<br/>
+<font color="#A82F2F"><font size="2">(02:25:15 PM)</font> <b>las:</b></font> nphilipp: any sensible VCS won&apos;t bother to try to track changes to them; sensible DAWs won&apos;t change them anyway<br/>
+<font color="#A82F2F"><font size="2">(02:25:39 PM)</font> <b>nphilipp:</b></font> las: but the text doesn&apos;t reflect concepts like &quot;moved something from here to there&quot; easily -- AIUI it&apos;s XML and some stuff can be at random places with still the same outcome.<br/>
+<font color="#A82F2F"><font size="2">(02:25:40 PM)</font> <b>las:</b></font> rgareus: not clear to me that this is inevitable<br/>
+<font color="#A82F2F"><font size="2">(02:25:49 PM)</font> <b>las:</b></font> nphilipp: no, it isn&apos;t in random places<br/>
+<font color="#A82F2F"><font size="2">(02:25:56 PM)</font> <b>las:</b></font> nphilipp: no more than code, anyway<br/>
+<font color="#A82F2F"><font size="2">(02:26:09 PM)</font> <b>las:</b></font> nphilipp: the generator for the XML is ordered, structured and deterministic<br/>
+<font color="#A82F2F"><font size="2">(02:26:24 PM)</font> <b>rgareus:</b></font> just using git for a history, backup and [easy] sharing.  fine.<br/>
+<font color="#A82F2F"><font size="2">(02:27:09 PM)</font> <b>rgareus:</b></font> but for collaboration: branch/merge  ardour-sessions..  nope.<br/>
+<font color="#A82F2F"><font size="2">(02:27:21 PM)</font> <b>nphilipp:</b></font> las: okay then, but that&apos;s something where ardour session XML is more constrained like the rest of XML users<br/>
+<font color="#A82F2F"><font size="2">(02:28:11 PM)</font> <b>nphilipp:</b></font> I mean just stuff where the HW setup differs between collaborators -- this is something you don&apos;t even want to track in a &quot;collaboration repo&quot; I guess.<br/>
+<font color="#A82F2F"><font size="2">(02:29:22 PM)</font> <b>rgareus:</b></font> nphilipp: aah indeed.  port connection to HW may differ significantly.  good point<br/>
+<font color="#A82F2F"><font size="2">(02:30:33 PM)</font> <b>nphilipp:</b></font> I guess you could get away with making it abstract somehow. Give the ins/outs &quot;labels&quot; and map them to concrete connections elsewhere.<br/>
+<font color="#A82F2F"><font size="2">(02:31:21 PM)</font> <b>weez:</b></font> I would say that a VCS that tracked simply the audio files and track positioning would be useful.<br/>
+<font color="#A82F2F"><font size="2">(02:31:41 PM)</font> <b>weez:</b></font> Then add anything else from there that wont cause a major headache.<br/>
+<font color="#A82F2F"><font size="2">(02:48:15 PM)</font> <b>SzArAk:</b></font> rgareus: It worked, thank you.<br/>
+<font color="#A82F2F"><font size="2">(02:48:44 PM)</font> <b>rgareus:</b></font> SzArAk: good to know.<br/>
+<font color="#A82F2F"><font size="2">(03:56:24 PM)</font> <b>SzArAk:</b></font> is it possible to for instance &quot;jump 10 seconds forward&quot; using control surface? Or use rewind/ffwd?<br/>
+<font color="#A82F2F"><font size="2">(03:57:10 PM)</font> <b>SzArAk:</b></font> Can&apos;t see such option on midi bindings map docs page, tried some different values &quot;by hand&quot; but can&apos;t get anything similar<br/>
+<font color="#A82F2F"><font size="2">(04:00:02 PM)</font> <b>SzArAk:</b></font> tried Editor/nudge-playhead-forward, etc<br/>
+<font color="#A82F2F"><font size="2">(04:10:30 PM)</font> <b>SzArAk:</b></font> ok, I found the issue: those jumps are &quot;actions&quot;, not &quot;functions&quot;. Now I&apos;ve got at least some results.<br/>
+<font color="#A82F2F"><font size="2">(04:13:43 PM)</font> <b>edogawa_:</b></font> i see 2 ports (Scene In/Out) as possible midi tracer display sources, what do they refer to? i don&apos;t see them in MIDI connection manager or anywhere else...<br/>
+<font color="#A82F2F"><font size="2">(04:20:40 PM)</font> <b>las:</b></font> edogawa_: they are for a feature that isn&apos;t really exposed in ardour yet<br/>
+<font color="#A82F2F"><font size="2">(04:20:56 PM)</font> <b>las:</b></font> edogawa_: recording MIDI Program/Bank changes as markers for &quot;scene changes&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:21:18 PM)</font> <b>las:</b></font> edogawa_: ardour will do the recording + marker creation, but you can&apos;t edit them or even see the contents<br/>
+<font color="#A82F2F"><font size="2">(04:21:39 PM)</font> <b>las:</b></font> edogawa_: this was developed for waves&apos; tracks, where i left the guys in kyiv to take care of the GUI for editing/inspection<br/>
+<font color="#A82F2F"><font size="2">(04:21:58 PM)</font> <b>edogawa_:</b></font> las: ah ok, cool<br/>
+<font color="#A82F2F"><font size="2">(04:22:19 PM)</font> <b>rgareus:</b></font> edogawa_: the ports are in the connection manager - just under the wrong tab (hardware IIRC)<br/>
+<font color="#A82F2F"><font size="2">(04:23:54 PM)</font> <b>rgareus:</b></font> avlinux: I forgot to ask last time.. do nightly downloads work for you (again)?<br/>
+<font color="#A82F2F"><font size="2">(04:23:55 PM)</font> <b>edogawa_:</b></font> las: i couldn&apos;t find it anywhere, Hardware lists just one port called Ardour, both for in and out<br/>
+<font color="#A82F2F"><font size="2">(04:24:52 PM)</font> <b>rgareus:</b></font> edogawa_: mmh.   jack_lsp | grep Scene<br/>
+<font color="#A82F2F"><font size="2">(04:27:26 PM)</font> <b>avlinux:</b></font> rgareus, Sorry haven&apos;t got back out to the studio yet, lots of work and trying to spend as much time with the kids as possible while they are on break. I&apos;ll try and sneak out later today..<br/>
+<font color="#A82F2F"><font size="2">(04:27:29 PM)</font> <b>edogawa_:</b></font> rgareus: right, they show up there, but nowhere in MIDI connection manager<br/>
+<font color="#A82F2F"><font size="2">(04:28:28 PM)</font> <b>las:</b></font> edogawa_: bug! :(<br/>
+<font color="#A82F2F"><font size="2">(04:28:30 PM)</font> <b>edogawa_:</b></font> i see them in Catia and anywhere else, i guess the connection manager misnames them<br/>
+<font color="#A82F2F"><font size="2">(04:28:37 PM)</font> <b>las:</b></font> edogawa_: indeed<br/>
+<font color="#A82F2F"><font size="2">(04:28:42 PM)</font> <b>edogawa_:</b></font> i&apos;m fine ;)<br/>
+<font color="#A82F2F"><font size="2">(04:28:51 PM)</font> <b>las:</b></font> edogawa_: the idea is that then ardour replays the scene changes back to external gear<br/>
+<font color="#A82F2F"><font size="2">(04:28:55 PM)</font> <b>rgareus:</b></font> there are still a few oddities with grouping ports properly<br/>
+<font color="#A82F2F"><font size="2">(04:29:03 PM)</font> <b>las:</b></font> edogawa_: the product is called &quot;Tracks Live&quot; for a reason :)<br/>
+<font color="#A82F2F"><font size="2">(04:31:08 PM)</font> <b>edogawa_:</b></font> i saw a crash before and suspected it had to do with these ports but now i see it&apos;s a different thing<br/>
+<font color="#A82F2F"><font size="2">(05:14:34 PM)</font> <b>the_CLA_2:</b></font> drobilla: Was it you who did some mouse cursor changes? It seems somewhat broken in smart edit mode on audio regions (cursor doesn&apos;t change properly - top vs. bottom half). Empty canvas space and midi regions seem fine so far, but I might do some more testing on that.<br/>
+<font color="#A82F2F"><font size="2">(05:20:45 PM)</font> <b>the_CLA_2:</b></font> drobilla: Also Midi regions still don&apos;t use track colors if requested.<br/>
+<font color="#A82F2F"><font size="2">(05:24:00 PM)</font> <b>rgareus:</b></font> drobilla: more fun for you http://tracker.ardour.org/view.php?id=6097<br/>
+<font color="#A82F2F"><font size="2">(05:24:03 PM)</font> <b>LAbot:</b></font> Title: 0006097: Midi CC playback issues - MantisBT (at tracker.ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(05:29:52 PM)</font> <b>the_CLA_2:</b></font> drobilla: Hm, and also still an issue. I manually created some Midi regions, drew some notes, saved and after session reload the regions are empty.<br/>
+<font color="#A82F2F"><font size="2">(05:35:11 PM)</font> <b>drobilla:</b></font> Time to switch back to a real operating system and valgrind this thing<br/>
+<font color="#A82F2F"><font size="2">(05:36:02 PM)</font> <b>the_CLA_2:</b></font> drobilla: And &quot;snap/grid units&quot; are not correctly restored when switching tools.<br/>
+<font color="#A82F2F"><font size="2">(05:37:37 PM)</font> <b>the_CLA_2:</b></font> drobilla: Midi region lenghts are not adjusted on tempo changes.<br/>
+<font color="#A82F2F"><font size="2">(05:37:43 PM)</font> <b>rgareus:</b></font> drobilla: just FTR, valgrind svn works on OSX Yosemite here for the most part.<br/>
+<font color="#A82F2F"><font size="2">(05:39:01 PM)</font> <b>drobilla:</b></font> Most irritating morning ever.<br/>
+<font color="#062585"><font size="2">(05:39:05 PM)</font> <b>***drobilla</b></font> gets coffee<br/>
+<font color="#A82F2F"><font size="2">(05:39:39 PM)</font> <b>rgareus:</b></font> drobilla: good idea.<br/>
+<font color="#062585"><font size="2">(05:39:43 PM)</font> <b>***rgareus</b></font> gets more coffee too<br/>
+<font color="#A82F2F"><font size="2">(05:45:17 PM)</font> <b>JL__:</b></font> sorry for the question: is the backtrace generated in console on os x ?<br/>
+<font color="#062585"><font size="2">(05:48:03 PM)</font> <b>***drobilla</b></font> spends 10 minutes trying to find the damned smart mode code because it&apos;s only called &quot;smart mode&quot; about half the time<br/>
+<font size="2">(05:49:40 PM)</font><b> JL__ left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:49:50 PM)</font> <b>PipeManMusic:</b></font> So, how usable is the windows build?<br/>
+<font color="#A82F2F"><font size="2">(05:49:52 PM)</font> <b>the_CLA_2:</b></font> drobilla: On save: &quot;[WARNING]: Change has no note, using note ID&quot;. This was a region wich still had notes after a reload, but after a save the corresponding midi file now is 0 bytes.<br/>
+<font color="#A82F2F"><font size="2">(05:50:02 PM)</font> <b>PipeManMusic:</b></font> I might do some podcast editing in it if that&apos;s posible.<br/>
+<font color="#A82F2F"><font size="2">(05:50:34 PM)</font> <b>drobilla:</b></font> the_CLA_2: Ah.  Well, until yesterday, that was a crash.  Progress? :)<br/>
+<font color="#A82F2F"><font size="2">(05:50:45 PM)</font> <b>rgareus:</b></font> PipeManMusic: pretty much the same as Linux and OSX. <br/>
+<font color="#A82F2F"><font size="2">(05:50:48 PM)</font> <b>the_CLA_2:</b></font> drobilla: In Ardour itself it still plays the notes, but I guess those will be gone after quit and reload.<br/>
+<font color="#062585"><font size="2">(05:51:14 PM)</font> <b>***PipeManMusic</b></font> just realize he uses LinuxDSP plugins though.<br/>
+<font color="#A82F2F"><font size="2">(05:51:20 PM)</font> <b>drobilla:</b></font> the_CLA_2: Do you know how to reproduce 0 bytes thing?<br/>
+<font color="#A82F2F"><font size="2">(05:51:22 PM)</font> <b>the_CLA_2:</b></font> drobilla: Hm, yeah, maybe that could be kinda sorta called progress. *cough*<br/>
+<font color="#A82F2F"><font size="2">(05:51:41 PM)</font> <b>drobilla:</b></font> That = deadlock (probably) but I thought those were all fixed<br/>
+<font color="#A82F2F"><font size="2">(05:52:22 PM)</font> <b>the_CLA_2:</b></font> drobilla: Not really. It just happens all the time for me. But so far I only created regions and notes manually. So not sure how it would behave on actually recording some Midi for me.<br/>
+<font color="#A82F2F"><font size="2">(05:52:41 PM)</font> <b>PipeManMusic:</b></font> rgareus: Is it possible to use LV2 plugins?<br/>
+<font color="#A82F2F"><font size="2">(05:52:47 PM)</font> <b>rgareus:</b></font> PipeManMusic: yes<br/>
+<font color="#A82F2F"><font size="2">(05:52:54 PM)</font> <b>PipeManMusic:</b></font> Hmmmmmmm.<br/>
+<font color="#A82F2F"><font size="2">(05:53:00 PM)</font> <b>drobilla:</b></font> the_CLA_2: I have been ony doing manual entry of things for over a week, never happens.<br/>
+<font color="#A82F2F"><font size="2">(05:53:01 PM)</font> <b>rgareus:</b></font> PipeManMusic: windows LV2 plugin on windows<br/>
+<font color="#A82F2F"><font size="2">(05:53:07 PM)</font> <b>PipeManMusic:</b></font> rgareus: Right.<br/>
+<font color="#A82F2F"><font size="2">(05:53:09 PM)</font> <b>the_CLA_2:</b></font> drobilla: Hm, interesting: On quitting the file has 99 bytes again - same as before.<br/>
+<font color="#A82F2F"><font size="2">(05:53:38 PM)</font> <b>the_CLA_2:</b></font> drobilla: Maybe watch a file manager for file size changes.<br/>
+<font color="#A82F2F"><font size="2">(05:54:13 PM)</font> <b>rgareus:</b></font> watch -d -n1 find -ls /path/to/session/interchange/<br/>
+<font color="#A82F2F"><font size="2">(05:54:20 PM)</font> <b>drobilla:</b></font> What I need is a backtrace after a save that &apos;wrote&apos; a 0 size file, because it&apos;s probably deadlocked<br/>
+<font color="#A82F2F"><font size="2">(05:54:51 PM)</font> <b>rgareus:</b></font> uhm ^^  find  /path/... -ls<br/>
+<font color="#A82F2F"><font size="2">(05:55:02 PM)</font> <b>the_CLA_2:</b></font> drobilla: Another interesting fact: OTOH (some) files corresponding to emptied regions still have quite some size.<br/>
+<font color="#A82F2F"><font size="2">(05:55:47 PM)</font> <b>the_CLA_2:</b></font> drobilla: So basically save Ctrl+c and then backtrace after the save?<br/>
+<font color="#A82F2F"><font size="2">(05:56:26 PM)</font> <b>drobilla:</b></font> the_CLA_2: Yeah.<br/>
+<font color="#A82F2F"><font size="2">(05:58:07 PM)</font> <b>the_CLA_2:</b></font> drobilla: http://pastebin.com/ZRbfNu99<br/>
+<font color="#A82F2F"><font size="2">(05:58:28 PM)</font> <b>the_CLA_2:</b></font> drobilla: Argh! That&apos;s my optimized build... x.x<br/>
+<font color="#A82F2F"><font size="2">(05:58:55 PM)</font> <b>the_CLA_2:</b></font> drobilla: I guess I got to make a fresh build of my debug version first.<br/>
+<font color="#A82F2F"><font size="2">(05:59:15 PM)</font> <b>rgareus:</b></font> the_CLA_2: thats a known issue. w/o optimized you&apos;ll get an assert (and no zero byte files)<br/>
+<font color="#A82F2F"><font size="2">(05:59:50 PM)</font> <b>drobilla:</b></font> Which one was that again?  Thought it was fixed<br/>
+<font color="#A82F2F"><font size="2">(05:59:56 PM)</font> <b>rgareus:</b></font> #6093<br/>
+<font color="#A82F2F"><font size="2">(06:00:55 PM)</font> <b>drobilla:</b></font> Pretty sure I fixed that but I couldn&apos;t reproduce<br/>
+<font color="#A82F2F"><font size="2">(06:00:57 PM)</font> <b>rgareus:</b></font> drobilla: I have a hunch that it&apos;s related to #6097 but I don&apos;t know for sure<br/>
+<font color="#A82F2F"><font size="2">(06:01:38 PM)</font> <b>drobilla:</b></font> It is quite possibly a symptom of something but the logic in that place a skipped a test that&apos;s in another place, which trips the assert later<br/>
+<font color="#A82F2F"><font size="2">(06:02:03 PM)</font> <b>rgareus:</b></font> and compiler optimization does furter magic that prevents the segfault<br/>
+<font color="#A82F2F"><font size="2">(06:02:23 PM)</font> <b>rgareus:</b></font> optimize the loop or something<br/>
+<font color="#A82F2F"><font size="2">(06:02:50 PM)</font> <b>drobilla:</b></font> Optimized builds of git right now should not bloody well exist, period.<br/>
+<font color="#A82F2F"><font size="2">(06:03:41 PM)</font> <b>rgareus:</b></font> drobilla: we need to practice for the upcoming release :)<br/>
+<font color="#A82F2F"><font size="2">(06:03:53 PM)</font> <b>rgareus:</b></font> unless we want to continue shipping debug builds<br/>
+<font color="#A82F2F"><font size="2">(06:04:13 PM)</font> <b>rgareus:</b></font> but yes. optimized builds are still not a good idea at this point in time<br/>
+<font color="#A82F2F"><font size="2">(06:04:19 PM)</font> <b>drobilla:</b></font> Debatable if asserts should be off even in those.  Most of ours aren&apos;t particularly expensive<br/>
+<font color="#A82F2F"><font size="2">(06:04:52 PM)</font> <b>drobilla:</b></font> Though quite a few are pointless crashes whether they&apos;re on or off<br/>
+<font color="#A82F2F"><font size="2">(06:11:17 PM)</font> <b>drobilla:</b></font> rgareus: Well, at least we can agree it&apos;s getting worse now<br/>
+<font color="#A82F2F"><font size="2">(06:11:53 PM)</font> <b>drobilla:</b></font> Which would be a hell of a lot easier to sort out if I could actually reproduce any of this complete insanity everyone else seems to hit like clockwork<br/>
+<font color="#A82F2F"><font size="2">(06:11:58 PM)</font> <b>drobilla:</b></font> Maybe I&apos;ll have better luck in Linux<br/>
+<font color="#A82F2F"><font size="2">(06:12:08 PM)</font> <b>rgareus:</b></font> drobilla: well, it sometimes has to become worse before it gets better.<br/>
+<font color="#A82F2F"><font size="2">(06:12:34 PM)</font> <b>drobilla:</b></font> Yes, but this is supposed to be the better stage :)<br/>
+<font color="#A82F2F"><font size="2">(06:20:17 PM)</font> <b>JL__:</b></font> sorry, i lost adsl...<br/>
+<font color="#A82F2F"><font size="2">(06:26:05 PM)</font> <b>drobilla:</b></font> The deadlocks totally make sense, replace thread safety violations and their subtle/occasional crashes/data corruption with stricter locking, fix the deadlocks that show up in that process, profit.<br/>
+<font color="#A82F2F"><font size="2">(06:26:17 PM)</font> <b>drobilla:</b></font> Crashes don&apos;t make any sense.  Nothing has changed that should cause that<br/>
+<font color="#A82F2F"><font size="2">(06:28:11 PM)</font> <b>JL__:</b></font> drobilla: hi, if its for me: i cant understand what you write: im not dev<br/>
+<font color="#A82F2F"><font size="2">(06:30:25 PM)</font> <b>drobilla:</b></font> JL__: Not everything written on the internet that you can see is for you<br/>
+<font color="#A82F2F"><font size="2">(06:31:26 PM)</font> <b>drobilla:</b></font> Like, say, things on IRC clearly not related that you can&apos;t understand, or ticket comments clearly about what someone else mentioned ;)<br/>
+<font color="#A82F2F"><font size="2">(06:31:57 PM)</font> <b>JL__:</b></font> drobilla: sorry, i lost connection, and couldnt see the discussion<br/>
+<font color="#A82F2F"><font size="2">(06:32:43 PM)</font> <b>JL__:</b></font> drobilla: please, accept my apologies<br/>
+<font color="#A82F2F"><font size="2">(06:33:52 PM)</font> <b>drobilla:</b></font> JL__: It&apos;s fine.  Just assume wisely :)<br/>
+<font color="#A82F2F"><font size="2">(06:37:11 PM)</font> <b>JL__:</b></font> drobilla: ok thanks, i assume, its better i quit irc<br/>
+<font size="2">(06:38:24 PM)</font><b> JL__ left the room (quit: Quit: Page closed).</b><br/>
+<font color="#062585"><font size="2">(06:39:16 PM)</font> <b>***drobilla</b></font> shrugs<br/>
+<font color="#A82F2F"><font size="2">(06:39:18 PM)</font> <b>drobilla:</b></font> Okay then.<br/>
+<font size="2">(06:43:36 PM)</font><b> daniel is now known as Guest65219</b><br/>
+<font color="#A82F2F"><font size="2">(06:55:00 PM)</font> <b>drobilla:</b></font> the_CLA_2: aha.  the waveview item is the top of the cursor stack =&gt; no change for smart mode.  Fixed.<br/>
+<font color="#A82F2F"><font size="2">(06:57:28 PM)</font> <b>the_CLA_2:</b></font> drobilla: Fix confirmed. :)<br/>
+<font color="#A82F2F"><font size="2">(06:58:18 PM)</font> <b>drobilla:</b></font> Possibly some other minor cursor bugs caused by a similar &quot;choosing cursors for things we don&apos;t actually want to choose a cursor for&quot; issues, but we&apos;ll see<br/>
+<font color="#A82F2F"><font size="2">(07:02:34 PM)</font> <b>the_CLA_2:</b></font> drobilla: Maybe not really related, but... In draw mode on midi regions you can also edit notes. When hoovering over an existing note the cursor changes accordingly, but IMHO that temporary note display for inserting new ones should also disappear.<br/>
+<font color="#A82F2F"><font size="2">(07:04:23 PM)</font> <b>drobilla:</b></font> the_CLA_2: The &quot;ghost note&quot; under the pencil?  Yeah, probably.<br/>
+<font color="#A82F2F"><font size="2">(07:04:34 PM)</font> <b>the_CLA_2:</b></font> Yeah. At least it looks a bit irritating.<br/>
+<font color="#A82F2F"><font size="2">(07:04:46 PM)</font> <b>drobilla:</b></font> Not clear what draw should really do there.  I was thinking perhaps it could do some things different from object, like drag to edit velocity<br/>
+<font color="#A82F2F"><font size="2">(07:05:00 PM)</font> <b>drobilla:</b></font> s/object/edit contents/<br/>
+<font color="#A82F2F"><font size="2">(07:06:33 PM)</font> <b>the_CLA_2:</b></font> drobilla: Hm, not sure. I think it&apos;s actually quite nice that you can edit notes as well, without switching the tool. Hm,.. but OTOH some faster velocity editing would also be nice.<br/>
+<font color="#A82F2F"><font size="2">(07:08:07 PM)</font> <b>the_CLA_2:</b></font> drobilla: Maybe something like shift+drag might work for velocity.<br/>
+<font color="#A82F2F"><font size="2">(07:08:27 PM)</font> <b>the_CLA_2:</b></font> Doesn&apos;t look like it&apos;s currently used for something else.<br/>
+<font color="#A82F2F"><font size="2">(07:09:54 PM)</font> <b>drobilla:</b></font> I generally think getting away from &quot;oh, just Ctrl+Meta+Shift+Middle-drag to do that!  obviously!&quot; would be a good thing, at least as the primary way<br/>
+<font color="#A82F2F"><font size="2">(07:10:08 PM)</font> <b>drobilla:</b></font> Pencil not moving an existing note seems reasonable, anyway<br/>
+<font color="#A82F2F"><font size="2">(07:10:49 PM)</font> <b>drobilla:</b></font> Though I suppose the scroll wheel could be considered the &quot;primary way&quot; but that&apos;s such a continual source of problems I&apos;m seriously considering making editing anything on the canvas with the scroll wheel verboten, period.<br/>
+<font color="#A82F2F"><font size="2">(07:11:07 PM)</font> <b>the_CLA_2:</b></font> drobilla: Then OTOH I&apos;m not sure if we really need separate edit and draw tools.<br/>
+<font color="#A82F2F"><font size="2">(07:11:32 PM)</font> <b>drobilla:</b></font> the_CLA_2: Clearly we do.  You wouldn&apos;t be able to rect select things otherwise.<br/>
+<font color="#A82F2F"><font size="2">(07:11:48 PM)</font> <b>the_CLA_2:</b></font> drobilla: With scroll wheel the problem is that you have to select the note first. Shift+drag would allow some immediate operation.<br/>
+<font color="#A82F2F"><font size="2">(07:12:01 PM)</font> <b>the_CLA_2:</b></font> drobilla: Ah, true.<br/>
+<font color="#A82F2F"><font size="2">(07:12:42 PM)</font> <b>drobilla:</b></font> (I also think, in the long run, that our tool allergy hurts vastly more than it helps, but that would be a more serious rewrking of things)<br/>
+<font color="#A82F2F"><font size="2">(07:13:23 PM)</font> <b>the_CLA_2:</b></font> drobilla: Except we reuse the Ctrl+Alt shortcut for rect select. But that might indeed be quite unintuitive for new users.<br/>
+<font color="#A82F2F"><font size="2">(07:13:35 PM)</font> <b>drobilla:</b></font> e.g. the thing that should edit velocity should be.... the velocity tool.  If holding shift while in content tool should edit velocity, then it should literally switch to the velocity tool momentarily.  No magic hidden funny business of tools stepping on each other&apos;s toes<br/>
+<font color="#A82F2F"><font size="2">(07:14:32 PM)</font> <b>drobilla:</b></font> the_CLA_2: and a pretty huge PITA in general.  Something definitely has to rect select when you drag, so if there was only one tool, it would have to<br/>
+<font color="#A82F2F"><font size="2">(07:14:42 PM)</font> <b>the_CLA_2:</b></font> drobilla: Regarding tool allergy: Had you seen this one, yet? https://www.youtube.com/watch?feature=player_detailpage&amp;v=uKLg2MAD34I#t=61<br/>
+<font color="#A82F2F"><font size="2">(07:14:44 PM)</font> <b>LAbot:</b></font> Title: Pro Tools 10: Editing MIDI data | lynda.com tutorial - YouTube (at www.youtube.com)<br/>
+<font color="#A82F2F"><font size="2">(07:14:48 PM)</font> <b>drobilla:</b></font> the_CLA_2: Alternative then being adding notes with a modifier, which, sure, but then nobody can figure out how to add notes<br/>
+<font size="2">(10:37:18 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

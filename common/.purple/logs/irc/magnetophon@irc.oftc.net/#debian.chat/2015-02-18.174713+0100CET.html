@@ -1,0 +1,181 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Wed 18 Feb 2015 05:47:13 PM CET on magnetophon@irc.oftc.net (irc)</title></head><body><h3>Conversation with #debian at Wed 18 Feb 2015 05:47:13 PM CET on magnetophon@irc.oftc.net (irc)</h3>
+<font size="2">(05:47:13 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next | chanlogs: /msg dpkg irclog | Broken suspend with 7.8? <a href="http://deb.li/5tYG">http://deb.li/5tYG</a></b><br/>
+<font size="2">(05:47:13 PM)</font><b> Topic for #debian set by Maulkin!~maulkin@maulkin.noc.oftc.net at 04:53:46 PM on 01/12/2015</b><br/>
+<font size="2">(05:48:00 PM)</font><b> mode (+l 721) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:48:45 PM)</font> <b>petn-randall:</b></font> !tell mkol_ssn -about anyone<br/>
+<font color="#A82F2F"><font size="2">(05:49:13 PM)</font> <b>petn-randall:</b></font> mkol_ssn: It&apos;s better to ask your actual question.<br/>
+<font color="#A82F2F"><font size="2">(06:23:52 PM)</font> <b>scrivania:</b></font> .xchat2/budus.so<br/>
+<font size="2">(06:24:20 PM)</font><b> but3k4 is now known as electrobald</b><br/>
+<font size="2">(06:24:25 PM)</font><b> scrivania left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(06:54:27 PM)</font> <b>guardian:</b></font> hello, I believe gcc-4.9-base was installed as a dependency of dkms. Then I removed dkms and did apt-get autoremove. gcc is still here<br/>
+<font color="#A82F2F"><font size="2">(06:54:36 PM)</font> <b>guardian:</b></font> how can I know which package still depends on gcc?<br/>
+<font color="#A82F2F"><font size="2">(06:55:02 PM)</font> <b>guardian:</b></font> also, is it possible apt-get autoremove misses packages to uninstall?<br/>
+<font color="#A82F2F"><font size="2">(06:55:38 PM)</font> <b>centrx:</b></font> autoremove will not remove packages if you e.g. manually typed apt-get install gcc one time<br/>
+<font color="#A82F2F"><font size="2">(06:56:23 PM)</font> <b>guardian:</b></font> ok, so if I apt-get install dkms, then apt-get purge dkms --&gt; then apt-get autoremove will let gcc installed<br/>
+<font color="#A82F2F"><font size="2">(06:56:34 PM)</font> <b>guardian:</b></font> but if I do apt-get purge --auto-remove dkms, then gcc will be uninstalled<br/>
+<font color="#A82F2F"><font size="2">(06:56:37 PM)</font> <b>guardian:</b></font> did I get it right?<br/>
+<font color="#A82F2F"><font size="2">(06:57:15 PM)</font> <b>centrx:</b></font> apt-get autoremove should remove gcc in both cases, unless gcc was explicitly marked for installation, or as you said, there may be other dependencies<br/>
+<font color="#A82F2F"><font size="2">(06:57:47 PM)</font> <b>centrx:</b></font> guardian, gcc is actually a Required package apparently, so it won&apos;t be removed naturally probably<br/>
+<font color="#A82F2F"><font size="2">(06:58:32 PM)</font> <b>guardian:</b></font> when I install jessie rc1, without standard tools (tasksel), then I don&apos;t have gcc<br/>
+<font color="#A82F2F"><font size="2">(06:58:34 PM)</font> <b>guardian:</b></font> doesn&apos;t seem to be required<br/>
+<font color="#A82F2F"><font size="2">(06:59:40 PM)</font> <b>jelly:</b></font> centrx: umm... gcc is Priority: optional<br/>
+<font color="#A82F2F"><font size="2">(06:59:54 PM)</font> <b>centrx:</b></font> gcc-4.9-base<br/>
+<font color="#A82F2F"><font size="2">(07:00:12 PM)</font> <b>guardian:</b></font> well got to go, but I experienced the following: built a jessie vagrant box with packer<br/>
+<font color="#A82F2F"><font size="2">(07:00:18 PM)</font> <b>guardian:</b></font> when I vagrant ssh -&gt; I can invoke gcc<br/>
+<font color="#A82F2F"><font size="2">(07:00:27 PM)</font> <b>guardian:</b></font> inside vagrant ssh, apt-get autoremove removes nothing<br/>
+<font color="#A82F2F"><font size="2">(07:00:32 PM)</font> <b>guardian:</b></font> so I did apt-get install dkms<br/>
+<font color="#A82F2F"><font size="2">(07:00:39 PM)</font> <b>guardian:</b></font> then apt-get purge --auto-remove dkms<br/>
+<font color="#A82F2F"><font size="2">(07:00:42 PM)</font> <b>guardian:</b></font> and now gcc is gone<br/>
+<font color="#A82F2F"><font size="2">(07:01:48 PM)</font> <b>jelly:</b></font> guardian: so whatever vagrant does, apparently does not include doing an autoremove pass<br/>
+<font color="#A82F2F"><font size="2">(07:02:12 PM)</font> <b>guardian:</b></font> I&apos;m the one who control this<br/>
+<font color="#A82F2F"><font size="2">(07:02:31 PM)</font> <b>guardian:</b></font> through packer, I do a preseeded jessie install, then I launch provisioning scripts with the help of packer<br/>
+<font color="#A82F2F"><font size="2">(07:03:00 PM)</font> <b>guardian:</b></font> one of the scripts builds vboxguestadditions: do achieve that I do apt-get install linux-headers-$(uname -r) dkms<br/>
+<font color="#A82F2F"><font size="2">(07:03:11 PM)</font> <b>guardian:</b></font> and then the script does apt-get purge -y linux-headers-$(uname -r) dkms<br/>
+<font color="#A82F2F"><font size="2">(07:03:15 PM)</font> <b>guardian:</b></font> this apparently leaves gcc installed<br/>
+<font color="#A82F2F"><font size="2">(07:03:34 PM)</font> <b>guardian:</b></font> I&apos;ll try to reproduce these steps outside of packer automation, to figure out what&apos;s going on exactly<br/>
+<font color="#A82F2F"><font size="2">(07:11:10 PM)</font> <b>IAmMe:</b></font> hi, I&apos;m having problems with an NFS setup. I can&apos;t write on it from the client unless i&apos;m root, i have tried both the no_root_squash and the no_all_squash options already.<br/>
+<font color="#A82F2F"><font size="2">(07:12:17 PM)</font> <b>IAmMe:</b></font> Actually, i can write on it, but only on the lowest mounted directory (/mnt/shared) any subdirectories are not writtable. it does work from another machine though.<br/>
+<font color="#A82F2F"><font size="2">(07:15:23 PM)</font> <b>jelly:</b></font> guardian: that&apos;s expected behaviour.<br/>
+<font color="#A82F2F"><font size="2">(07:17:33 PM)</font> <b>jelly:</b></font> guardian: use --auto-remove with that purge, or run &quot;apt-get autoremove&quot; afterwards as a separate step, or set up APT::Get::AutomaticRemove appropriately<br/>
+<font color="#A82F2F"><font size="2">(07:17:59 PM)</font> <b>jelly:</b></font> or use aptitude :-) which does autoremoval by default<br/>
+<font size="2">(07:19:45 PM)</font><b> knoppix_ is now known as Guest5863</b><br/>
+<font color="#A82F2F"><font size="2">(07:27:57 PM)</font> <b>Guest5863:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(07:33:42 PM)</font> <b>IAmMe:</b></font> OK, this is frustrating i tried restarting nfs-common and nfs-kernel-server and rerun exportfs -rav. add both username and UID to the &quot;nogroup&quot; but still get premission denied when writting.<br/>
+<font color="#A82F2F"><font size="2">(07:38:41 PM)</font> <b>anonymous:</b></font> Was going on World!<br/>
+<font size="2">(07:39:41 PM)</font><b> anonymous left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(07:43:22 PM)</font><b> IAmMe left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:48:00 PM)</font><b> mode (+l 727) by debhelper</b><br/>
+<font size="2">(07:51:58 PM)</font><b> Guest5863 is now known as peter1965</b><br/>
+<font size="2">(07:54:36 PM)</font><b> user is now known as Guest5865</b><br/>
+<font color="#A82F2F"><font size="2">(07:55:20 PM)</font> <b>Guest5865:</b></font> \q<br/>
+<font size="2">(07:55:27 PM)</font><b> Guest5865 left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(08:08:14 PM)</font> <b>jose:</b></font> jnow<br/>
+<font size="2">(08:08:37 PM)</font><b> jose left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(08:14:00 PM)</font> <b>guardian:</b></font> jelly: apt-rdepends gcc-4.9-base doesn&apos;t seem to indicate gcc-4.9-base is a dependence of anything, and apt-get autoremove doesn&apos;t remove it<br/>
+<font color="#A82F2F"><font size="2">(08:14:04 PM)</font> <b>guardian:</b></font> jelly: is there something I didn&apos;t get?<br/>
+<font color="#A82F2F"><font size="2">(08:14:58 PM)</font> <b>jelly:</b></font> guardian: gcc-4.9-base was there all along, there&apos;s no reason (and no simple way) to remove it at all<br/>
+<font color="#A82F2F"><font size="2">(08:15:07 PM)</font> <b>guardian:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(08:16:52 PM)</font> <b>jelly:</b></font> it basically just provides one directory (per architecture)<br/>
+<font color="#A82F2F"><font size="2">(08:19:52 PM)</font> <b>guardian:</b></font> is there an easy way to query which installed packages have make as a dependency?<br/>
+<font color="#A82F2F"><font size="2">(08:21:30 PM)</font> <b>ingit:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(08:22:02 PM)</font> <b>ingit:</b></font> how are you?<br/>
+<font size="2">(08:22:15 PM)</font><b> ingit left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(08:26:08 PM)</font> <b>guardian:</b></font> jelly: so well, gcc was a bad example. but I just tried a jessie install from scratch: make is not installed<br/>
+<font color="#A82F2F"><font size="2">(08:26:40 PM)</font> <b>guardian:</b></font> jelly: when I vagrant ssh, make is available. apt-get autoremove removes nothing. and apt-get purge --auto-remove make only removes make, without removing anything that would depend on make<br/>
+<font color="#A82F2F"><font size="2">(08:27:15 PM)</font> <b>jelly:</b></font> guardian: do you have logs of what exactly &quot;vagrant ssh&quot; does?<br/>
+<font color="#A82F2F"><font size="2">(08:27:27 PM)</font> <b>jelly:</b></font> commands and their outputs?<br/>
+<font size="2">(08:28:00 PM)</font><b> mode (+l 721) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:28:26 PM)</font> <b>jelly:</b></font> guardian: if a package is satisfying a previously unfulfilled Recommends:, auto-remove will skip it<br/>
+<font color="#A82F2F"><font size="2">(08:28:43 PM)</font> <b>jelly:</b></font> guardian: &quot;aptitude why make&quot; may show some clues<br/>
+<font color="#A82F2F"><font size="2">(08:30:25 PM)</font> <b>guardian:</b></font> jelly: http://pastebin.com/GFEyXkNr<br/>
+<font color="#A82F2F"><font size="2">(08:32:10 PM)</font> <b>jelly:</b></font> guardian: um, I asked for &quot;vagrant ssh&quot;.  Or &quot;aptitude why make&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:32:37 PM)</font> <b>guardian:</b></font> vagrant ssh doesn&apos;t do something special beside apt-get update<br/>
+<font color="#A82F2F"><font size="2">(08:32:54 PM)</font> <b>guardian:</b></font> but thanks for aptitude why. I installed aptitude and it tells perl suggests make<br/>
+<font color="#A82F2F"><font size="2">(08:33:12 PM)</font> <b>jelly:</b></font> suggests shouldn&apos;t make auto-remove ignore it<br/>
+<font color="#A82F2F"><font size="2">(08:33:39 PM)</font> <b>jelly:</b></font> surely &quot;vagrant ssh&quot; goes and installs stuff, in addition to that update?<br/>
+<font color="#A82F2F"><font size="2">(08:33:54 PM)</font> <b>guardian:</b></font> http://pastebin.com/LSGpZtPK<br/>
+<font color="#A82F2F"><font size="2">(08:33:55 PM)</font> <b>jelly:</b></font> are you starting from base system?<br/>
+<font color="#A82F2F"><font size="2">(08:34:49 PM)</font> <b>guardian:</b></font> I made the vagrant basebox<br/>
+<font color="#A82F2F"><font size="2">(08:35:09 PM)</font> <b>guardian:</b></font> the preseed jessie install is very slim, I don&apos;t even install tasksel standard packages<br/>
+<font color="#A82F2F"><font size="2">(08:35:50 PM)</font> <b>guardian:</b></font> then I compile virtualbox guest additions: by installing with linux-headers, build-essential, dkms; then building vbox guest additions; then removing just packages just installed<br/>
+<font color="#A82F2F"><font size="2">(08:35:53 PM)</font> <b>blast007:</b></font> &apos;aptitude show make&apos; would show if make was automatically installed or not<br/>
+<font color="#A82F2F"><font size="2">(08:36:19 PM)</font> <b>guardian:</b></font> Automatically installed: yes<br/>
+<font color="#A82F2F"><font size="2">(08:37:18 PM)</font> <b>retrospectacus:</b></font> try removing it<br/>
+<font color="#A82F2F"><font size="2">(08:38:38 PM)</font> <b>guardian:</b></font> retrospectacus: see http://pastebin.com/GFEyXkNr, when I remove it, only make is removed, nothing else<br/>
+<font color="#A82F2F"><font size="2">(08:39:33 PM)</font> <b>retrospectacus:</b></font> you&apos;re just wondering why autoremove didn&apos;t remove it?<br/>
+<font color="#A82F2F"><font size="2">(08:39:38 PM)</font> <b>guardian:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(08:40:32 PM)</font> <b>retrospectacus:</b></font> because perl recommends it<br/>
+<font color="#A82F2F"><font size="2">(08:42:09 PM)</font> <b>blast007:</b></font> retrospectacus: it actually &apos;suggests&apos; make<br/>
+<font color="#A82F2F"><font size="2">(08:42:41 PM)</font> <b>retrospectacus:</b></font> oh yeah<br/>
+<font color="#A82F2F"><font size="2">(08:44:13 PM)</font> <b>guardian:</b></font> so?<br/>
+<font color="#A82F2F"><font size="2">(08:45:25 PM)</font> <b>retrospectacus:</b></font> well, I don&apos;t know. It doesn&apos;t seem like something worth thinking about :)<br/>
+<font size="2">(08:48:03 PM)</font><b> cornerman is now known as Guest5871</b><br/>
+<font color="#A82F2F"><font size="2">(08:53:23 PM)</font> <b>guardian:</b></font> well I&apos;m trying to reduce the footprint of this basebox<br/>
+<font color="#A82F2F"><font size="2">(08:53:45 PM)</font> <b>guardian:</b></font> what I&apos;m asking for make applies for e.g. to cpp-4.9. removing it saves 20M<br/>
+<font color="#A82F2F"><font size="2">(08:54:23 PM)</font> <b>guardian:</b></font> cpp-4.9 was also installed automatically<br/>
+<font size="2">(08:56:11 PM)</font><b> acharles is now known as Guest5872</b><br/>
+<font color="#A82F2F"><font size="2">(08:56:41 PM)</font> <b>retrospectacus:</b></font> did you remove all of dkms&apos;s depends ?<br/>
+<font size="2">(08:58:01 PM)</font><b> mode (+l 728) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:58:12 PM)</font> <b>guardian:</b></font> I did apt-get purge -y dkms build-essential<br/>
+<font color="#A82F2F"><font size="2">(08:58:29 PM)</font> <b>guardian:</b></font> I suspect I should have done apt-get purge -y --auto-remove dkms build-essential<br/>
+<font color="#A82F2F"><font size="2">(08:58:41 PM)</font> <b>guardian:</b></font> otherwise a later pass of apt-get autoremove leaves make, cpp-49, etc behind<br/>
+<font color="#A82F2F"><font size="2">(08:59:03 PM)</font> <b>retrospectacus:</b></font> I&apos;m not sure why that would make a difference<br/>
+<font color="#A82F2F"><font size="2">(08:59:22 PM)</font> <b>guardian:</b></font> so I just tested this on a fresh jessie<br/>
+<font color="#A82F2F"><font size="2">(08:59:27 PM)</font> <b>guardian:</b></font> apt-get install build-essential<br/>
+<font color="#A82F2F"><font size="2">(08:59:32 PM)</font> <b>guardian:</b></font> this installs lots of things<br/>
+<font color="#A82F2F"><font size="2">(08:59:41 PM)</font> <b>guardian:</b></font> apt-get purge -y --auto-remove build-essential -&gt; this removes only the meta package<br/>
+<font color="#A82F2F"><font size="2">(09:01:12 PM)</font> <b>snela:</b></font> where is polish room?<br/>
+<font color="#A82F2F"><font size="2">(09:01:21 PM)</font> <b>retrospectacus:</b></font> let me try that on wheezy<br/>
+<font color="#A82F2F"><font size="2">(09:01:35 PM)</font> <b>AberHatschi:</b></font> and after reboot and again apt-get update &amp;&amp; apt-get upgrade you become the message more than one things not more needed take autoremove<br/>
+<font color="#A82F2F"><font size="2">(09:02:24 PM)</font> <b>retrospectacus:</b></font> snela: it supposed to be #debian.pl on Freenode but no-one is there. You will have to ask here in English.<br/>
+<font color="#A82F2F"><font size="2">(09:02:53 PM)</font> <b>guardian:</b></font> retrospectacus: seems that I want apt-get autoremove --purge<br/>
+<font color="#A82F2F"><font size="2">(09:03:11 PM)</font> <b>snela:</b></font> thanks retro...<br/>
+<font color="#A82F2F"><font size="2">(09:03:38 PM)</font> <b>guardian:</b></font> well no that doesn&apos;t remove everything<br/>
+<font color="#A82F2F"><font size="2">(09:03:49 PM)</font> <b>guardian:</b></font> that doesn&apos;t remove everything installed by the build-essential meta package<br/>
+<font color="#A82F2F"><font size="2">(09:04:23 PM)</font> <b>retrospectacus:</b></font> guardian: yes, it looks like --auto-remove flag on apt-get purge doesn&apos;t do anything<br/>
+<font color="#A82F2F"><font size="2">(09:04:58 PM)</font> <b>retrospectacus:</b></font> and additionally, apt-get autoremove doesn&apos;t remove everything auto-installed by build-essential<br/>
+<font size="2">(09:05:03 PM)</font><b> snela left the room (quit: Quit: Wychodzi).</b><br/>
+<font color="#A82F2F"><font size="2">(09:05:25 PM)</font> <b>AberHatschi:</b></font> why does it for me <br/>
+<font color="#A82F2F"><font size="2">(09:15:03 PM)</font> <b>retrospectacus:</b></font> hmm this is because I have dkms. It depends make | build-essential | dpkg-dev<br/>
+<font color="#A82F2F"><font size="2">(09:15:19 PM)</font> <b>retrospectacus:</b></font> it had make before. Performing this test switched to dpkg-dev<br/>
+<font size="2">(09:18:00 PM)</font><b> mode (+l 722) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:18:15 PM)</font> <b>guardian:</b></font> it doesn&apos;t seem to be any easy way to install meta package -&gt; remove everything that was just installed<br/>
+<font color="#A82F2F"><font size="2">(09:20:44 PM)</font> <b>retrospectacus:</b></font> I guess not. You&apos;d have to parse the list of auto-installed things and remove them.<br/>
+<font color="#A82F2F"><font size="2">(09:21:25 PM)</font> <b>guardian:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(09:27:36 PM)</font> <b>jla:</b></font> peter1138: Do you have lxc-halt working? I get the telinit timeout opening/writing control channel error. If I drop sys_admin cap it shuts down, but /run doesn&apos;t populate so I don&apos;t have networking.<br/>
+<font color="#A82F2F"><font size="2">(09:28:25 PM)</font> <b>peter1138:</b></font> I drop sys_admin cap and set up networking via the container configuration, rather than interfaces<br/>
+<font color="#A82F2F"><font size="2">(09:29:51 PM)</font> <b>jla:</b></font> Are your containers pretty small/specific or do any of them act like virtualized full systems? I loose a lot mroe than just /run/network from /run without sys_admin<br/>
+<font color="#A82F2F"><font size="2">(09:30:58 PM)</font> <b>jla:</b></font> My containers are basically migrated long ago from linux-vserver. LXC has been better on many counts but still some glitches like this. Maybe I should let it ride until Jessie<br/>
+<font color="#A82F2F"><font size="2">(09:31:00 PM)</font> <b>peter1138:</b></font> I have /run/network, but it&apos;s not a tmpfs<br/>
+<font color="#A82F2F"><font size="2">(09:31:18 PM)</font> <b>peter1138:</b></font> (Neither is /run)<br/>
+<font color="#A82F2F"><font size="2">(09:31:29 PM)</font> <b>peter1138:</b></font> So... probably not right :S<br/>
+<font color="#A82F2F"><font size="2">(09:33:30 PM)</font> <b>jla:</b></font> Ah, right. Maybe not using tempfs for /run would be a work-around<br/>
+<font color="#A82F2F"><font size="2">(09:34:35 PM)</font> <b>jla:</b></font> or putting /run in lxc.mount.entry<br/>
+<font color="#A82F2F"><font size="2">(09:35:33 PM)</font> <b>peter1138:</b></font> With vservers in the past I managed to have the whole machine shutdown when a guest was shutdown...<br/>
+<font color="#A82F2F"><font size="2">(09:36:53 PM)</font> <b>jla:</b></font> I think I have done that too. For whatever reason I haven&apos;t done that with LXC, yet. Must be some config I&apos;ve set. I just want lxc-halt to go to init 0 so things have a chance to exit cleanly<br/>
+<font color="#A82F2F"><font size="2">(09:38:04 PM)</font> <b>peter1138:</b></font> Yeah, without sys_admin dropped it didn&apos;t work for me. Maybe there&apos;s something in the guest that needs fiddling with.<br/>
+<font color="#A82F2F"><font size="2">(09:38:29 PM)</font> <b>jla:</b></font> one message I read said linux kernel 3.4+ makes this better, and I hope lxc 1.0 also makes things better.<br/>
+<font color="#A82F2F"><font size="2">(09:39:23 PM)</font> <b>peter1138:</b></font> Hope so :)<br/>
+<font color="#A82F2F"><font size="2">(09:40:18 PM)</font> <b>guardian:</b></font> retrospectacus: I don&apos;t know apt-get or dpkg enough yet. Wish there was a combo that would output a list of packages that would be automatically installed. I would store that in a variable of my shell script for further removal<br/>
+<font color="#A82F2F"><font size="2">(09:42:33 PM)</font> <b>retrospectacus:</b></font> just look it up now and put them specifically in your script<br/>
+<font color="#A82F2F"><font size="2">(09:43:38 PM)</font> <b>AberHatschi:</b></font> guardian, wait a little i have the list in a minute<br/>
+<font color="#A82F2F"><font size="2">(09:47:10 PM)</font> <b>guardian:</b></font> retrospectacus: yeah that&apos;s a solution<br/>
+<font color="#A82F2F"><font size="2">(09:47:37 PM)</font> <b>guardian:</b></font> I also installed localepurge. But when I do sudo localepurge, size of /usr/share remains unchanged<br/>
+<font color="#A82F2F"><font size="2">(09:47:42 PM)</font> <b>smokejohn:</b></font> hello guys. On which channel do you think I should seek for some installtion procedure advice?<br/>
+<font color="#A82F2F"><font size="2">(09:48:35 PM)</font> <b>retrospectacus:</b></font> smokejohn: installation of Debian? Here.<br/>
+<font color="#A82F2F"><font size="2">(09:48:35 PM)</font> <b>AberHatschi:</b></font> guardian, i hope that is wat you need http://paste.debian.net/151745<br/>
+<font size="2">(09:49:35 PM)</font><b> knoppix_ is now known as Guest5882</b><br/>
+<font color="#A82F2F"><font size="2">(09:49:50 PM)</font> <b>guardian:</b></font> well no :) I wanted to know which dpkg or apt command is the best suited to help parsing packages that would be automaticlaly installed upon apt-get install meta-package invocation :)<br/>
+<font color="#A82F2F"><font size="2">(09:50:10 PM)</font> <b>AberHatschi:</b></font> ahh ok<br/>
+<font color="#A82F2F"><font size="2">(09:50:17 PM)</font> <b>smokejohn:</b></font> retrospectacus: Yes. I got a laptop with a non working cdreader. I had a spare usb cdreader which gives me errors. So I cannot boot from a cd. I am checking out the alternatives. Ow and usb booting is not supported on that laptop. HP Compaq 6710s<br/>
+<font color="#A82F2F"><font size="2">(09:52:05 PM)</font> <b>retrospectacus:</b></font> smokejohn: you could look into debootstrap and moving the hard drive around<br/>
+<font color="#A82F2F"><font size="2">(09:54:57 PM)</font> <b>retrospectacus:</b></font> (debootstrap, or the installer again on a machine with working CDrom if you don&apos;t already have linux)<br/>
+<font color="#A82F2F"><font size="2">(09:56:18 PM)</font> <b>smokejohn:</b></font> retrospectacus: the harddrive is totally empty. I bought a new one cause the previous had crashed<br/>
+<font color="#A82F2F"><font size="2">(09:58:05 PM)</font> <b>jla:</b></font> peter1138: I was able to mount tmpfs for /run and /tmp from lxc.mount.entry (I had to give full paths) but doing the same for /run/lock and /run/shm didn&apos;t work since those paths didn&apos;t exist yet. One of those cases where the guest OS plays nicer with hardware or VM than it does with chroot container.<br/>
+<font size="2">(10:05:45 PM)</font><b> Corey84 is now known as Guest5885</b><br/>
+<font color="#A82F2F"><font size="2">(10:05:53 PM)</font> <b>jla:</b></font> This gives me interface control from inside the container. Oddly telinit timeout is back. I think I&apos;m going to revert and throw in the towel for now<br/>
+<font color="#A82F2F"><font size="2">(10:06:56 PM)</font> <b>Mad-hacker:</b></font> hi<br/>
+<font size="2">(10:08:00 PM)</font><b> mode (+l 729) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:09:15 PM)</font> <b>Mad-hacker:</b></font> ???<br/>
+<font size="2">(10:10:06 PM)</font><b> Mad-hacker left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(10:18:00 PM)</font><b> mode (+l 722) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:28:29 PM)</font> <b>Quozl`_:</b></font> what is a tool that can take a script(1) log file and strip out all the progress markers, leaving what would be seen in a terminal scrollback buffer?<br/>
+<font color="#A82F2F"><font size="2">(10:30:07 PM)</font> <b>retrospectacus:</b></font> probably grep<br/>
+<font color="#A82F2F"><font size="2">(10:32:57 PM)</font> <b>Aquarius:</b></font> I can not get Java to work on Debian Wheezy Iceweasel. Tried lots of descriptions on sites, debian java pages, java site itself. Anyone for help?<br/>
+<font color="#A82F2F"><font size="2">(10:35:14 PM)</font> <b>Ypo:</b></font> apt-get install icedtea-plugin<br/>
+<font color="#A82F2F"><font size="2">(10:48:41 PM)</font> <b>guilherme:</b></font> hi, I bougth a wireless headset, it is already paired and I can see it on the multimidia configurations, however I cannot get any sound of it. <br/>
+<font color="#A82F2F"><font size="2">(10:49:11 PM)</font> <b>guilherme:</b></font> I am using the Debian sid and there is no bluez-audio package<br/>
+<font color="#062585"><font size="2">(10:49:29 PM)</font> <b>***SamB_laptop</b></font> waits for https://www.debian.org/security/2015/dsa-3162 exist ...<br/>
+<font color="#A82F2F"><font size="2">(10:49:55 PM)</font> <b>SamB_laptop:</b></font> +to<br/>
+<font color="#A82F2F"><font size="2">(10:52:31 PM)</font> <b>guilherme:</b></font> everytime I try test on the device the sound goes to my main card<br/>
+<font color="#A82F2F"><font size="2">(10:57:09 PM)</font> <b>SamB_laptop:</b></font> guilherme: huh, that&apos;s strange; wheezy has bluez-alsa and bluez-gstreamer but they&apos;ve vanished without a trace in jessie ...<br/>
+<font color="#A82F2F"><font size="2">(10:59:35 PM)</font> <b>guilherme:</b></font> uhm, Is it possible that another package have those features?<br/>
+<font color="#A82F2F"><font size="2">(11:00:21 PM)</font> <b>SamB_laptop:</b></font> it&apos;s possible, yes, but I&apos;d have expected a transitional package<br/>
+<font color="#A82F2F"><font size="2">(11:00:45 PM)</font> <b>guilherme:</b></font> uhm, ok<br/>
+<font color="#A82F2F"><font size="2">(11:02:04 PM)</font> <b>guilherme:</b></font> In my specifc case, what should I do? install the old packages?<br/>
+<font color="#A82F2F"><font size="2">(11:04:34 PM)</font> <b>SamB_laptop:</b></font> well, you&apos;ve installed &quot;bluez&quot; already, right?<br/>
+<font color="#A82F2F"><font size="2">(11:06:05 PM)</font> <b>guilherme:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(11:06:40 PM)</font> <b>guilherme:</b></font> bluez, bluez-obexd, bluez-tools and bluez-firmware<br/>
+<font size="2">(11:08:00 PM)</font><b> mode (+l 712) by debhelper</b><br/>
+<font size="2">(11:40:21 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,53 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Thu 05 Mar 2015 02:43:10 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Thu 05 Mar 2015 02:43:10 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:43:10 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(02:43:10 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(02:43:22 PM)</font> <b>Lethalman:</b></font> Haskellfant, what I said, nix-env -u only doesn&apos;t work you need -f<br/>
+<font color="#A82F2F"><font size="2">(02:43:32 PM)</font> <b>Lethalman:</b></font> Haskellfant, or -f &apos;&lt;nixpkgs&gt;&apos;<br/>
+<font color="#A82F2F"><font size="2">(02:44:06 PM)</font> <b>Haskellfant:</b></font> Lethalman: but why does it work if I change NIX_PATH? (work as in not error, not pick up my git repo)<br/>
+<font color="#A82F2F"><font size="2">(02:46:12 PM)</font> <b>Lethalman:</b></font> Haskellfant, can you --show-trace?<br/>
+<font color="#A82F2F"><font size="2">(02:46:16 PM)</font> <b>dredozubov:</b></font> cstrahan_: Hi! I&apos;m interested in bundix and overall nixos/ruby deployability. I&apos;ll be willing to help with it, if you&apos;ll get me up to speed somehow. I feel like it totally lacks documentation right now.<br/>
+<font color="#16569E"><font size="2">(02:46:46 PM)</font> <b>magnetophon:</b></font> I cannot start X anymore :(    I can boot an older generation just fine, but when I rebuild an older (known good) config, it boots into the cli instead of slim.<br/>
+<font color="#A82F2F"><font size="2">(02:46:50 PM)</font> <b>Lethalman:</b></font> the only explanation being something is referring to &lt;nixpkgs&gt;<br/>
+<font color="#A82F2F"><font size="2">(02:47:37 PM)</font> <b>dabus:</b></font> Hi! Does someone has a link to article of some resources about using Docker and NixOS or using NixOS instead of Docker ? Many thanks<br/>
+<font color="#A82F2F"><font size="2">(02:47:42 PM)</font> <b>dabus:</b></font> have<br/>
+<font color="#A82F2F"><font size="2">(02:48:02 PM)</font> <b>Haskellfant:</b></font> Lethalman: not sure if it&apos;s me being stupid, but that doesn&apos;t have any effect http://pastie.org/10002083<br/>
+<font color="#A82F2F"><font size="2">(02:48:24 PM)</font> <b>Lethalman:</b></font> Haskellfant, uhm, try without the --dry-run<br/>
+<font color="#A82F2F"><font size="2">(02:49:06 PM)</font> <b>Haskellfant:</b></font> Lethalman: that only removes the line that it&apos;s using dry run<br/>
+<font color="#A82F2F"><font size="2">(02:49:17 PM)</font> <b>Lethalman:</b></font> :O<br/>
+<font color="#A82F2F"><font size="2">(02:49:51 PM)</font> <b>Haskellfant:</b></font> maybe it&apos;s my config being broken? http://sprunge.us/Sacj<br/>
+<font color="#A82F2F"><font size="2">(02:50:44 PM)</font> <b>Haskellfant:</b></font> nope just moved that out of the way with no effect<br/>
+<font color="#16569E"><font size="2">(02:51:39 PM)</font> <b>magnetophon:</b></font> So iow: the grub entry of 4 days ago boots into X, and the newer ones don't. When I boot into a good config, and rebuild another good config (older than 4 days), I get the cli. I have no idea how to troubleshoot this further...<br/>
+<font color="#A82F2F"><font size="2">(02:57:33 PM)</font> <b>goibhniu:</b></font> magnetophon: have you rolled back your nixpkgs channel too?<br/>
+<font color="#16569E"><font size="2">(02:58:11 PM)</font> <b>magnetophon:</b></font> goibhniu: idk, so I guess not<br/>
+<font color="#A82F2F"><font size="2">(02:58:11 PM)</font> <b>Fuuzetsu:</b></font> it means your config is good but the channel &amp;c aren&apos;t<br/>
+<font color="#A82F2F"><font size="2">(03:00:37 PM)</font> <b>goibhniu:</b></font> magnetophon: https://nixos.org/wiki/FAQ#I.27ve_updated_my_channel_and_something_is_broken.2C_how_can_I_rollback_to_an_earlier_channel.3F<br/>
+<font color="#A82F2F"><font size="2">(03:01:02 PM)</font> <b>goibhniu:</b></font> magnetophon: BTW, your pd wrapper looks cool!<br/>
+<font color="#16569E"><font size="2">(03:01:21 PM)</font> <b>magnetophon:</b></font> goibhniu: thanks. I was searching for that, but hadn't found it yet.<br/>
+<font color="#16569E"><font size="2">(03:02:06 PM)</font> <b>magnetophon:</b></font> goibhniu: thanks. Lethalman did the thinking on that wrapper :)<br/>
+<font color="#A82F2F"><font size="2">(03:02:40 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] taku0 opened pull request #6673: oraclejdk: bump to 8u40 (master...oraclejdk-8u40) http://git.io/xdzC<br/>
+<font color="#16569E"><font size="2">(03:08:34 PM)</font> <b>magnetophon:</b></font> goibhniu: You are suggesting I do &quot;nix-env --switch-generation $knowngood -p /nix/var/nix/profiles/per-user/root/channels&quot;, right?  I'm looking at the nix-env manual, and as far as I can tell that is the same as choosing $knowngood from grub.  What am I missing?<br/>
+<font color="#A82F2F"><font size="2">(03:09:44 PM)</font> <b>goibhniu:</b></font> magnetophon: if you rollback your nixpkgs channel, you can rebuild from that again ... assuming something in the latest channel is what breaks your system<br/>
+<font color="#16569E"><font size="2">(03:10:54 PM)</font> <b>magnetophon:</b></font> goibhniu: hmm, sorry. I still don't understand the difference. I'd really like to undertand what I'm doing a bit more...<br/>
+<font color="#A82F2F"><font size="2">(03:12:00 PM)</font> <b>goibhniu:</b></font> magnetophon: what is it you want to achieve?<br/>
+<font color="#A82F2F"><font size="2">(03:13:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] fooblahblah opened pull request #6674: Added choqok build (master...choqok) http://git.io/xdVm<br/>
+<font color="#16569E"><font size="2">(03:13:46 PM)</font> <b>magnetophon:</b></font> goibhniu: just get a working X again, and being able to rebuild at will. I think you understood that correct, and your solution will probably work. I just don't understand why it does.<br/>
+<font color="#A82F2F"><font size="2">(03:15:05 PM)</font> <b>goibhniu:</b></font> magnetophon: then you probably want to debug the issue to see why it&apos;s not working on the latest channel<br/>
+<font color="#A82F2F"><font size="2">(03:15:29 PM)</font> <b>goibhniu:</b></font> magnetophon: e.g. I had the same thing recently, because my nvidia card now needs to use a legacy driver<br/>
+<font color="#16569E"><font size="2">(03:17:14 PM)</font> <b>magnetophon:</b></font> goibhniu: the channel is the exact version I'm running, right? (so for example 14.12 at checkout $hash). And the above command would switch me back to the config I had at that time, with the pkg versions in $channel.   Did I understand that correctly so far? So if I reboot and choose $knowngood, how is that different?<br/>
+<font color="#A82F2F"><font size="2">(03:19:13 PM)</font> <b>goibhniu:</b></font> choosing a different system generation won&apos;t affect your channel<br/>
+<font color="#A82F2F"><font size="2">(03:20:01 PM)</font> <b>goibhniu:</b></font> they&apos;re independent<br/>
+<font color="#16569E"><font size="2">(03:23:36 PM)</font> <b>magnetophon:</b></font> goibhniu: ah, OK, so if I reboot into $knowngood a rebuild will use the latest channel again, while if I use the above command, and then rebuild, it uses the channel I had at the time of that generation.    Is that it?<br/>
+<font color="#A82F2F"><font size="2">(03:23:59 PM)</font> <b>goibhniu:</b></font> exactly<br/>
+<font color="#16569E"><font size="2">(03:24:22 PM)</font> <b>magnetophon:</b></font> goibhniu: cool, thanks. I'll go try it out!<br/>
+<font color="#A82F2F"><font size="2">(03:24:27 PM)</font> <b>goibhniu:</b></font> good luck!<br/>
+<font color="#A82F2F"><font size="2">(03:27:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 1 new commit to release-14.12: http://git.io/xdiU<br/>
+<font color="#A82F2F"><font size="2">(03:27:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 ef0b35e Tom: [SECURITY] Update git to 2.1.4...<br/>
+<font color="#A82F2F"><font size="2">(03:31:42 PM)</font> <b>MagBo:</b></font> So... Nixos goes with an iptables settings by default, right?<br/>
+<font color="#A82F2F"><font size="2">(03:32:09 PM)</font> <b>ewemoa:</b></font> goibhniu: i guess i should come up with a minimal example, but my initial test results were: 1. shell.drv of sorts got created via nix-instantiate, BUT 2. nix-shell called with it as an argument gave an error<br/>
+<font color="#A82F2F"><font size="2">(03:37:52 PM)</font> <b>ewemoa:</b></font> avn_: it&apos;s too bad i didn&apos;t hear what you have to say before i got an intel chip recently -- though with years of unexplained problems i think it would have been hard to overcome superstitions that had formed ;)<br/>
+<font color="#A82F2F"><font size="2">(03:40:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] abbradar opened pull request #6675: stage-1: fix hibernation (master...hibernation-fix) http://git.io/xdDO<br/>
+<font color="#A82F2F"><font size="2">(03:40:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] abbradar opened pull request #6676: Smallfixes (master...smallfixes) http://git.io/xdDi<br/>
+<font color="#A82F2F"><font size="2">(03:41:38 PM)</font> <b>ewemoa:</b></font> goibhniu: not sure how helpful it is w/o a ~/.nixpkgs/config.nix, but fwiw, the following is a sort of session log: https://pastee.org/xz739<br/>
+<font color="#A82F2F"><font size="2">(03:43:44 PM)</font> <b>goibhniu:</b></font> sorry ewemoa I can&apos;t look into it at the moment<br/>
+<font color="#A82F2F"><font size="2">(03:44:17 PM)</font> <b>goibhniu:</b></font> ewemoa: if you first figure out how to define custom packages in your ~/.nixpkgs/config.nix and install them ... it should be the same<br/>
+<font color="#A82F2F"><font size="2">(03:45:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] abbradar opened pull request #6677: Add SDDM display manager (master...sddm) http://git.io/xdSF<br/>

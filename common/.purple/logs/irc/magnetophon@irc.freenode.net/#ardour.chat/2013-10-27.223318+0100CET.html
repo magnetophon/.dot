@@ -1,0 +1,391 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Sun 27 Oct 2013 10:33:18 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Sun 27 Oct 2013 10:33:18 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:33:18 PM)</font><b> The topic for #ardour is: ardour 3.5 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font color="#A82F2F"><font size="2">(10:33:19 PM)</font> <b>calvino.freenode.net:</b></font> (notice) [freenode-info] if you&apos;re at a conference and other people are having trouble connecting, please mention it to staff: http://freenode.net/faq.shtml#gettinghelp<br/>
+<font color="#16569E"><font size="2">(10:33:55 PM)</font> <b>magnetophon:</b></font> I got disconnected, did I mis anything?<br/>
+<font color="#16569E"><font size="2">(10:36:59 PM)</font> <b>magnetophon:</b></font> rgareus, las: you got my paste didn't you?<br/>
+<font size="2">(10:37:04 PM)</font><b> zth left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(10:38:47 PM)</font> <b>rgareus:</b></font> magnetophon: yes.    21:23 &lt; las&gt; magnetophon: ok, same case<br/>
+<font color="#16569E"><font size="2">(10:39:18 PM)</font> <b>magnetophon:</b></font> rgareus: thanks, I didn't get that one.<br/>
+<font color="#A82F2F"><font size="2">(10:39:37 PM)</font> <b>_raven_:</b></font> sry it was the device itself it did not pass trough<br/>
+<font color="#A82F2F"><font size="2">(10:40:19 PM)</font> <b>rgareus:</b></font> magnetophon: disconnect - because your 50000 msec timeout ran out<br/>
+<font color="#A82F2F"><font size="2">(10:41:39 PM)</font> <b>las:</b></font> magnetophon: it appears that the backend is never signalling that it is running<br/>
+<font color="#A82F2F"><font size="2">(10:42:03 PM)</font> <b>las:</b></font> magnetophon: so the next check is to replace the ::post_engine() break with a different one<br/>
+<font color="#A82F2F"><font size="2">(10:42:12 PM)</font> <b>las:</b></font> magnetophon: this one will be a bit trickier to set, i need to think<br/>
+<font color="#16569E"><font size="2">(10:42:29 PM)</font> <b>magnetophon:</b></font> las: OK, I'll be here<br/>
+<font color="#A82F2F"><font size="2">(10:43:38 PM)</font> <b>las:</b></font> magnetophon: what JACK backend do you use? ALSA? FFADO? dummy??<br/>
+<font color="#A82F2F"><font size="2">(10:44:07 PM)</font> <b>rgareus:</b></font> las: ^^^  /usr/bin/jackd -r -p128 -t50000 -dalsa -dhw:0 -r44100 -p2048 -n2<br/>
+<font color="#A82F2F"><font size="2">(10:44:25 PM)</font> <b>las:</b></font> rgareus: ah, thanks<br/>
+<font color="#16569E"><font size="2">(10:45:06 PM)</font> <b>magnetophon:</b></font> what he said :)<br/>
+<font color="#16569E"><font size="2">(10:45:30 PM)</font> <b>magnetophon:</b></font> las: though thats jackd2, if it matters<br/>
+<font color="#A82F2F"><font size="2">(10:45:51 PM)</font> <b>las:</b></font> magnetophon: ok, this time the 2nd br is: br &apos;ARDOUR::Session::ensure_engine(    ... hit tab after typing that to complete it<br/>
+<font color="#A82F2F"><font size="2">(10:46:04 PM)</font> <b>las:</b></font> magnetophon: should be something like (uint32_t)&apos;<br/>
+<font color="#16569E"><font size="2">(10:46:20 PM)</font> <b>magnetophon:</b></font> las: ok<br/>
+<font color="#16569E"><font size="2">(10:49:05 PM)</font> <b>magnetophon:</b></font> las: hold on, jack won't start...<br/>
+<font color="#16569E"><font size="2">(10:52:41 PM)</font> <b>magnetophon:</b></font> las: SIGSEGV<br/>
+<font color="#16569E"><font size="2">(10:53:06 PM)</font> <b>magnetophon:</b></font> las: br 'ARDOUR::Session::ensure_engine(unsigned int)'<br/>
+<font color="#16569E"><font size="2">(10:53:24 PM)</font> <b>magnetophon:</b></font> is what the autocomplete did<br/>
+<font color="#16569E"><font size="2">(10:57:43 PM)</font> <b>magnetophon:</b></font> http://pastebin.com/NfGLD9jq<br/>
+<font color="#A82F2F"><font size="2">(10:57:44 PM)</font> <b>_raven_:</b></font> how to do step editing in midi?<br/>
+<font color="#A82F2F"><font size="2">(10:59:16 PM)</font> <b>_raven_:</b></font> i dont find it in the manual<br/>
+<font color="#A82F2F"><font size="2">(11:00:39 PM)</font> <b>rgareus:</b></font> _raven_: http://manual.ardour.org/editing-and-arranging/edit-midi/step-entry/<br/>
+<font color="#A82F2F"><font size="2">(11:01:35 PM)</font> <b>las:</b></font> magnetophon: this is getting more and more perplexing<br/>
+<font color="#A82F2F"><font size="2">(11:01:41 PM)</font> <b>las:</b></font> magnetophon: we step back once again<br/>
+<font color="#A82F2F"><font size="2">(11:02:07 PM)</font> <b>_raven_:</b></font> rgareus,  tnx &quot;entry&quot; was the keyword ;)<br/>
+<font color="#A82F2F"><font size="2">(11:02:08 PM)</font> <b>las:</b></font> magnetophon: this time: br &apos;ARDOUR::Session::Session( ... tab<br/>
+<font color="#16569E"><font size="2">(11:02:17 PM)</font> <b>magnetophon:</b></font> las: ok<br/>
+<font color="#A82F2F"><font size="2">(11:02:36 PM)</font> <b>las:</b></font> magnetophon: there&apos;s no way you cannot be hitting that function :)<br/>
+<font color="#16569E"><font size="2">(11:04:34 PM)</font> <b>magnetophon:</b></font> las: could it be I did something wrong while compiling? (./waf clean, ./waf configure, ./waf)<br/>
+<font size="2">(11:06:33 PM)</font><b> dawiba left the room (quit: Quit: leaving).</b><br/>
+<font color="#16569E"><font size="2">(11:07:39 PM)</font> <b>magnetophon:</b></font> las: SIGSEGV<br/>
+<font color="#16569E"><font size="2">(11:08:58 PM)</font> <b>magnetophon:</b></font> las: afaik i do hit that breakpoint. but then i say continue (or maybe i'm talking out of my ass)<br/>
+<font color="#16569E"><font size="2">(11:09:20 PM)</font> <b>magnetophon:</b></font> las: want a paste?<br/>
+<font size="2">(11:09:48 PM)</font><b> theothertim left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(11:09:49 PM)</font><b> boom1992 [<em>~quassel@BA1222.ballee.wh.tu-darmstadt.de</em>] entered the room.</b><br/>
+<font size="2">(11:11:02 PM)</font><b> Ben_at_Harrison left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font size="2">(11:11:02 PM)</font><b> tnaugle left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:11:30 PM)</font> <b>rgareus:</b></font> magnetophon: when you do hit the breakpoint, don&apos;t continue.<br/>
+<font color="#A82F2F"><font size="2">(11:12:17 PM)</font> <b>rgareus:</b></font> magnetophon: the idea is to inspect the state at that breakpoint and see why it continues without instantiating the editor<br/>
+<font color="#A82F2F"><font size="2">(11:12:19 PM)</font> <b>las:</b></font> magnetophon: what he said ^^^^^<br/>
+<font color="#16569E"><font size="2">(11:12:37 PM)</font> <b>magnetophon:</b></font> rgareus: so we WHERE having a miscommunication?<br/>
+<font color="#A82F2F"><font size="2">(11:12:43 PM)</font> <b>las:</b></font> magnetophon: did you hit the breakpoints before, and then type continue ?<br/>
+<font color="#16569E"><font size="2">(11:12:52 PM)</font> <b>magnetophon:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(11:12:54 PM)</font> <b>las:</b></font> magnetophon: ah<br/>
+<font color="#A82F2F"><font size="2">(11:13:12 PM)</font> <b>las:</b></font> magnetophon: ok, so lets go back to: br &apos;ARDOUR_UI::post_engine()&apos;<br/>
+<font color="#A82F2F"><font size="2">(11:13:23 PM)</font> <b>las:</b></font> magnetophon: when it hits that point, do NOT type continue<br/>
+<font color="#16569E"><font size="2">(11:13:30 PM)</font> <b>magnetophon:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(11:13:39 PM)</font> <b>las:</b></font> magnetophon: instead type<br/>
+<font color="#A82F2F"><font size="2">(11:13:56 PM)</font> <b>las:</b></font> next<br/>
+<font color="#A82F2F"><font size="2">(11:14:13 PM)</font> <b>las:</b></font> magnetophon: until the gdb prompt shows that the next call will be: if (setup_windows()) {<br/>
+<font color="#A82F2F"><font size="2">(11:14:18 PM)</font> <b>las:</b></font> magnetophon: at which point type<br/>
+<font color="#A82F2F"><font size="2">(11:14:19 PM)</font> <b>las:</b></font> step<br/>
+<font color="#A82F2F"><font size="2">(11:15:01 PM)</font> <b>rgareus:</b></font> las: according to http://pastebin.com/NfGLD9jq it did not break at ensure_engine() though<br/>
+<font color="#A82F2F"><font size="2">(11:15:05 PM)</font> <b>las:</b></font> magnetophon: and then type &quot;step&quot; until you are &quot;inside&quot; the function &quot;ARDOUR_UI::create_editor()&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:15:22 PM)</font> <b>las:</b></font> magnetophon: ah<br/>
+<font color="#A82F2F"><font size="2">(11:15:27 PM)</font> <b>las:</b></font> magnetophon: ok<br/>
+<font color="#A82F2F"><font size="2">(11:15:32 PM)</font> <b>las:</b></font> magnetophon: scrap the previous plan :)<br/>
+<font color="#A82F2F"><font size="2">(11:15:48 PM)</font> <b>las:</b></font> magnetophon: back to: br &apos;ARDOUR::Session::Session( ... tab<br/>
+<font color="#A82F2F"><font size="2">(11:16:22 PM)</font> <b>las:</b></font> magnetophon: once gdb stops there, type next<br/>
+<font color="#A82F2F"><font size="2">(11:16:40 PM)</font> <b>las:</b></font> magnetophon: then paste the line that gdb indicates will be the next line of source code to be executed<br/>
+<font color="#16569E"><font size="2">(11:16:46 PM)</font> <b>magnetophon:</b></font> las: 425		load_custom_fonts(); /* needs to happend before any gtk and pango init calls */<br/>
+<font size="2">(11:17:07 PM)</font><b> Stuzz [<em>~Stuzz@58-7-219-24.dyn.iinet.net.au</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:18:16 PM)</font> <b>las:</b></font> magnetophon: you are in the break for main() right now<br/>
+<font color="#A82F2F"><font size="2">(11:18:25 PM)</font> <b>las:</b></font> magnetophon: type continue to get to Session::Session<br/>
+<font color="#A82F2F"><font size="2">(11:18:36 PM)</font> <b>las:</b></font> magnetophon: and then start the &quot;step&quot; stuff<br/>
+<font color="#16569E"><font size="2">(11:20:11 PM)</font> <b>magnetophon:</b></font> las: I did br main, run,  br 'ARDOUR::Session::Session(ARDOUR::AudioEngine&amp;, std::string const&amp;, std::string const&amp;, ARDOUR::BusProfile*, std::string)' <br/>
+<font color="#16569E"><font size="2">(11:20:11 PM)</font> <b>magnetophon:</b></font> Breakpoint 2 at 0xb7bb73bd: file ../libs/ardour/session.cc, line 263.<br/>
+<font color="#16569E"><font size="2">(11:20:11 PM)</font> <b>magnetophon:</b></font> (gdb) next<br/>
+<font color="#16569E"><font size="2">(11:20:11 PM)</font> <b>magnetophon:</b></font> 425		load_custom_fonts(); /* needs to happend before any gtk and pango init calls */<br/>
+<font color="#16569E"><font size="2">(11:20:20 PM)</font> <b>magnetophon:</b></font> continue<br/>
+<font color="#16569E"><font size="2">(11:20:33 PM)</font> <b>magnetophon:</b></font> and got SIGSEGV<br/>
+<font color="#16569E"><font size="2">(11:20:36 PM)</font> <b>magnetophon:</b></font> :(<br/>
+<font color="#16569E"><font size="2">(11:21:27 PM)</font> <b>magnetophon:</b></font> maybe I should pastebin to avoid further confusion?<br/>
+<font color="#A82F2F"><font size="2">(11:21:38 PM)</font> <b>las:</b></font> magnetophon: sure<br/>
+<font color="#16569E"><font size="2">(11:23:03 PM)</font> <b>magnetophon:</b></font> las: http://pastebin.com/CAsZg1zE<br/>
+<font color="#A82F2F"><font size="2">(11:24:16 PM)</font> <b>las:</b></font> magnetophon: basically seems impossible but could be a gdb issue<br/>
+<font color="#A82F2F"><font size="2">(11:24:37 PM)</font> <b>las:</b></font> magnetophon: try this as the 2nd br command: br session.cc:267<br/>
+<font color="#16569E"><font size="2">(11:24:44 PM)</font> <b>magnetophon:</b></font> las: ok<br/>
+<font color="#A82F2F"><font size="2">(11:24:45 PM)</font> <b>las:</b></font> magnetophon: then continue<br/>
+<font size="2">(11:28:16 PM)</font><b> Grottenolm left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#16569E"><font size="2">(11:28:41 PM)</font> <b>magnetophon:</b></font> las: http://pastebin.com/CKPXfHzG<br/>
+<font color="#16569E"><font size="2">(11:29:35 PM)</font> <b>magnetophon:</b></font> las: obviously this was gonna segfault, right?  (or am I misunderstanding the process again?)<br/>
+<font color="#A82F2F"><font size="2">(11:30:17 PM)</font> <b>las:</b></font> magnetophon: absolutely not<br/>
+<font color="#A82F2F"><font size="2">(11:30:24 PM)</font> <b>las:</b></font> magnetophon: you are somehow getting to the point where the editor window is about to be used without even creatinga session<br/>
+<font color="#A82F2F"><font size="2">(11:30:36 PM)</font> <b>las:</b></font> magnetophon: i need to focus on food for about 30 mins, i&apos;ll be back<br/>
+<font color="#16569E"><font size="2">(11:30:50 PM)</font> <b>magnetophon:</b></font> las: enjoy<br/>
+<font color="#16569E"><font size="2">(11:32:29 PM)</font> <b>magnetophon:</b></font> rgareus: are you still following this? could you explain a bit?  (I was somewhat of a programmer 10 years ago, so I'm kinda following, and kinda not...)<br/>
+<font color="#16569E"><font size="2">(11:32:37 PM)</font> <b>magnetophon:</b></font> as i understand it:<br/>
+<font color="#16569E"><font size="2">(11:33:53 PM)</font> <b>magnetophon:</b></font> we are setting a breakpoint at main, then another at &quot;the second br&quot;, and then next takes me to the next line of code, and continue takes me all the way to the segfault. am I right?<br/>
+<font color="#16569E"><font size="2">(11:35:40 PM)</font> <b>magnetophon:</b></font> so &quot;(11:30:17 PM) las: magnetophon: absolutely not&quot; was an answer to my 2nd question, as in: &quot;no, you're not misunderstanding&quot;, right?<br/>
+<font color="#A82F2F"><font size="2">(11:36:03 PM)</font> <b>rgareus:</b></font> magnetophon: the general idea is to single-step though the program  in order to find out how it can end up trying to show an editor-window that was never instantiated.<br/>
+<font color="#A82F2F"><font size="2">(11:36:15 PM)</font> <b>rgareus:</b></font> magnetophon: the first breakpoint in main() is just a technicality. <br/>
+<font color="#16569E"><font size="2">(11:36:48 PM)</font> <b>magnetophon:</b></font> rgareus: right, I followed that part.<br/>
+<font color="#A82F2F"><font size="2">(11:37:09 PM)</font> <b>rgareus:</b></font> magnetophon: only when you reached main() all the shared-libs are loaded, so only then can you set further breakpoints (in libs, eg libardour)<br/>
+<font color="#A82F2F"><font size="2">(11:37:49 PM)</font> <b>rgareus:</b></font> magnetophon: the breakpoints are handy because  you obviously don&apos;t want to step every instruction or function starting from main.<br/>
+<font color="#16569E"><font size="2">(11:38:09 PM)</font> <b>magnetophon:</b></font> rgareus: what I don't get is why i was instructed to &quot;continue&quot; after the 2nd break a few times.<br/>
+<font color="#16569E"><font size="2">(11:38:27 PM)</font> <b>magnetophon:</b></font> that's a guaranteed crash, afaik<br/>
+<font color="#16569E"><font size="2">(11:38:41 PM)</font> <b>magnetophon:</b></font> whit no usefull info<br/>
+<font color="#A82F2F"><font size="2">(11:39:03 PM)</font> <b>rgareus:</b></font> magnetophon: las knows the general flow of what happens after main much better than I do. he&apos;s the man for suggesting good breakpoints between main() .. and goto_editor_window() where the crash happens<br/>
+<font color="#A82F2F"><font size="2">(11:40:09 PM)</font> <b>rgareus:</b></font> magnetophon: aah . I think you were confusing   &quot;setting breakpoints&quot;   and gdb actually breaking on that breakpoint.<br/>
+<font color="#A82F2F"><font size="2">(11:40:16 PM)</font> <b>rgareus:</b></font> magnetophon: can thate be?<br/>
+<font color="#A82F2F"><font size="2">(11:42:05 PM)</font> <b>rgareus:</b></font> magnetophon: the idea:  1) start gdb/ardour. 2) tell it to break in main(); 3) continue; 4) gdb will break in main 5) you set further breakpoints 6) continue  7) gdb breaks at breakpoint set in (5) or segfaults if that breakpoint was not reached<br/>
+<font color="#16569E"><font size="2">(11:42:38 PM)</font> <b>magnetophon:</b></font> rgareus: the instructions I got at (09:36:08 PM) where to continue after reaching the second breakpoint, right?<br/>
+<font size="2">(11:43:11 PM)</font><b> Gethiox3 [<em>~gethiox@actk196.neoplus.adsl.tpnet.pl</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(11:44:04 PM)</font> <b>magnetophon:</b></font> rgareus: I typed that last thing before I saw your last remark. I think I get it now<br/>
+<font color="#16569E"><font size="2">(11:44:41 PM)</font> <b>magnetophon:</b></font> rgareus: let me re-read what we are doing here, and see if I'm really following.<br/>
+<font color="#A82F2F"><font size="2">(11:44:45 PM)</font> <b>rgareus:</b></font> magnetophon: can&apos;t find anything at 21:36 - maybe timezone difference. my IRC client is using UTC, 20:36 comes up empty too<br/>
+<font color="#A82F2F"><font size="2">(11:45:18 PM)</font> <b>rgareus:</b></font> magnetophon: now it&apos;s 22:52 UTC anyway.<br/>
+<font size="2">(11:45:20 PM)</font><b> Gethiox2 left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#16569E"><font size="2">(11:46:23 PM)</font> <b>magnetophon:</b></font> rgareus: (09:36:08 PM) las: magnetophon: please go back into gdb when you can and type the follow commands<br/>
+<font color="#16569E"><font size="2">(11:46:23 PM)</font> <b>magnetophon:</b></font> (09:36:11 PM) las: br main<br/>
+<font color="#16569E"><font size="2">(11:46:23 PM)</font> <b>magnetophon:</b></font> (09:36:12 PM) las: run<br/>
+<font color="#16569E"><font size="2">(11:46:23 PM)</font> <b>magnetophon:</b></font> (09:36:14 PM) las: ...<br/>
+<font color="#16569E"><font size="2">(11:46:23 PM)</font> <b>magnetophon:</b></font> (09:36:14 PM) las: ...<br/>
+<font color="#16569E"><font size="2">(11:46:23 PM)</font> <b>magnetophon:</b></font> (09:36:33 PM) las: gdb) br 'ARDOUR_UI::create_editor()'<br/>
+<font color="#16569E"><font size="2">(11:46:23 PM)</font> <b>magnetophon:</b></font> (09:36:35 PM) ShadowStrider left the room (quit: Read error: Connection reset by peer).<br/>
+<font color="#16569E"><font size="2">(11:46:23 PM)</font> <b>magnetophon:</b></font> (09:36:38 PM) las: gdb) continue<br/>
+<font color="#A82F2F"><font size="2">(11:46:52 PM)</font> <b>rgareus:</b></font> magnetophon: yes, that&apos;s step 1-6 outlined above.<br/>
+<font color="#A82F2F"><font size="2">(11:47:49 PM)</font> <b>rgareus:</b></font> magnetophon:    br &apos;ARDOUR_UI::create_editor()&apos;    is step (5) set further breakpoints while in main().<br/>
+<font color="#A82F2F"><font size="2">(11:48:24 PM)</font> <b>rgareus:</b></font> magnetophon:  after that you continue in main()  step (6)  and should reach   ARDOUR_UI::create_editor() at which point gdb will break.<br/>
+<font color="#A82F2F"><font size="2">(11:48:46 PM)</font> <b>rgareus:</b></font> magnetophon: but for some reason your version of ardour does not   ARDOUR_UI::create_editor()  <br/>
+<font color="#A82F2F"><font size="2">(11:48:56 PM)</font> <b>rgareus:</b></font> magnetophon: so gdb does not break<br/>
+<font color="#A82F2F"><font size="2">(11:49:07 PM)</font> <b>rgareus:</b></font> magnetophon: and since the editor was not created it segfaults later<br/>
+<font size="2">(11:51:14 PM)</font><b> Gethiox3 left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#16569E"><font size="2">(11:51:28 PM)</font> <b>magnetophon:</b></font> rgareus: OK, thanks. now I need to re-read what the miscommunication involving &quot;continue&quot; was, cause afaik I've been following these steps the whole time, just with different second br's<br/>
+<font color="#16569E"><font size="2">(11:51:52 PM)</font> <b>magnetophon:</b></font> rgareus: just trying to learn here... :)<br/>
+<font color="#A82F2F"><font size="2">(11:53:49 PM)</font> <b>rgareus:</b></font> magnetophon: and this is really an interesting mystery...   so we need to find out how  your build can go from    main() to  ARDOUR_UI::goto_editor_window() without first calling  ARDOUR_UI::create_editor()<br/>
+<font size="2">(11:53:49 PM)</font><b> Valvalion left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:54:28 PM)</font> <b>rgareus:</b></font> magnetophon: maybe you have the &quot;Monopoly version of a3&quot;   Go directly to editor_window; Do not pass create_editor, do not collect $200.  :D<br/>
+<font color="#16569E"><font size="2">(11:54:47 PM)</font> <b>magnetophon:</b></font> rgareus: :)<br/>
+<font size="2">(11:56:11 PM)</font><b> ShadowStrider left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:57:19 PM)</font><b> ANero [<em>~nero@unaffiliated/anero</em>] entered the room.</b><br/>
+<font size="2">(11:58:18 PM)</font><b> kermyt left the room (quit: Ping timeout: 268 seconds).</b><br/>
+<font size="2">(11:59:02 PM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font size="2">(11:59:09 PM)</font><b> prokoudine__ left the room (quit: Quit: Ex-Chat).</b><br/>
+<font size="2">(11:59:37 PM)</font><b> kermyt [<em>~kermyt@unaffiliated/kermyt</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(12:00:19 AM)</font> <b>magnetophon:</b></font> rgareus: you mentioned yesterday you where surprised I could compile A3 with stock wheezy libs at all. while installing the libs, I think there was one that wasn't at a high enough version number, but ./waf configure let it pass anyway. 1) could that be? and 2) could that be related?<br/>
+<font color="#A82F2F"><font size="2">(12:03:55 AM)</font> <b>rgareus:</b></font> magnetophon: do you know which lib that was?<br/>
+<font color="#16569E"><font size="2">(12:04:43 AM)</font> <b>magnetophon:</b></font> rgareus: I don't. I was just searching for it. <br/>
+<font color="#A82F2F"><font size="2">(12:06:27 AM)</font> <b>rgareus:</b></font> magnetophon: you can re-do a &apos;./waf configure&apos; and find out  --- if you don&apos;t want to mess with your current build, clone it again in /tmp <br/>
+<font color="#A82F2F"><font size="2">(12:06:55 AM)</font> <b>rgareus:</b></font> magnetophon: cd /tmp;  git clone /path/to/a3/src/folder/on/your/disk/ <br/>
+<font color="#16569E"><font size="2">(12:07:37 AM)</font> <b>magnetophon:</b></font> rgareus: I allready did a ./waf configure, cause I assumed it wouldn't mess with my build. was that bad?<br/>
+<font color="#A82F2F"><font size="2">(12:07:53 AM)</font> <b>rgareus:</b></font> magnetophon: it&apos;s fine. <br/>
+<font color="#A82F2F"><font size="2">(12:08:14 AM)</font> <b>rgareus:</b></font> magnetophon: but a ./waf  will likley completely re-build the whole shebang now<br/>
+<font color="#A82F2F"><font size="2">(12:08:23 AM)</font> <b>rgareus:</b></font> magnetophon: it won&apos;t affect the existing build though<br/>
+<font size="2">(12:09:29 AM)</font><b> pr0ggie left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#16569E"><font size="2">(12:09:39 AM)</font> <b>magnetophon:</b></font> rgareus: but as I said before, I got no errors from configure, but manually looking at the version numbers I think one of them was to low. I'm re-checking them by hand again now. <br/>
+<font size="2">(12:09:55 AM)</font><b> grobda24 left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font size="2">(12:09:58 AM)</font><b> pr0ggie [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font size="2">(12:09:59 AM)</font><b> pdimitrov left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:10:11 AM)</font> <b>rgareus:</b></font> magnetophon: might be a bug in the wscript that it let you configure.<br/>
+<font size="2">(12:10:15 AM)</font><b> pdimitrov [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:10:20 AM)</font> <b>rgareus:</b></font> magnetophon: but some dependencies are optional.<br/>
+<font color="#A82F2F"><font size="2">(12:11:42 AM)</font> <b>rgareus:</b></font> magnetophon: pastebin the complete output of  ./waf configure   -- that should have the relevant info.<br/>
+<font size="2">(12:12:07 AM)</font><b> creatid left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:12:22 AM)</font> <b>_raven_:</b></font> las the settings of a plugin are not stored in session...<br/>
+<font color="#A82F2F"><font size="2">(12:12:37 AM)</font> <b>rgareus:</b></font> _raven_: are you using the &apos;free demo&apos; ?<br/>
+<font color="#A82F2F"><font size="2">(12:13:11 AM)</font> <b>_raven_:</b></font> still yes<br/>
+<font color="#16569E"><font size="2">(12:13:11 AM)</font> <b>magnetophon:</b></font> rgareus: http://pastebin.com/Rbwia6BN<br/>
+<font color="#A82F2F"><font size="2">(12:14:06 AM)</font> <b>rgareus:</b></font> _raven_: the &apos;free demo&apos; does not save plugi settings (see http://ardour.org/download.html )<br/>
+<font color="#A82F2F"><font size="2">(12:14:23 AM)</font> <b>_raven_:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(12:14:50 AM)</font> <b>_raven_:</b></font> but i think i am getting to the stage i can buy for it :)<br/>
+<font color="#A82F2F"><font size="2">(12:15:29 AM)</font> <b>rgareus:</b></font> magnetophon: looks good<br/>
+<font color="#A82F2F"><font size="2">(12:16:11 AM)</font> <b>_raven_:</b></font> how to create a meta-clip of selected single clips to easy duplicate them?<br/>
+<font color="#16569E"><font size="2">(12:16:29 AM)</font> <b>magnetophon:</b></font> rgareus: but if there would be a bug in the script it would also look good, wouldn't it?<br/>
+<font color="#16569E"><font size="2">(12:17:03 AM)</font> <b>magnetophon:</b></font> rgareus: or can't that be?<br/>
+<font color="#A82F2F"><font size="2">(12:18:34 AM)</font> <b>rgareus:</b></font> _raven_: I don&apos;t think you can do that directly from clips.   You can combine selected regions though.  <br/>
+<font color="#A82F2F"><font size="2">(12:18:53 AM)</font> <b>_raven_:</b></font> rgareus, combining sounds good too<br/>
+<font color="#A82F2F"><font size="2">(12:18:56 AM)</font> <b>rgareus:</b></font> _raven_: select two or more regions,  [right-click or menu &gt; region]  &gt;  Edit &gt; Combine<br/>
+<font color="#16569E"><font size="2">(12:19:14 AM)</font> <b>magnetophon:</b></font> rgareus: actually I think I misread libgtkmm-2.4-dev (1:2.24.2-1) as being version 2.2.4 instead of 2.24 <br/>
+<font color="#16569E"><font size="2">(12:19:30 AM)</font> <b>magnetophon:</b></font> rgareus: so false alarm<br/>
+<font color="#A82F2F"><font size="2">(12:19:31 AM)</font> <b>rgareus:</b></font> magnetophon: it could. but waf is using pkg-config so the version checks are usually OK.<br/>
+<font color="#A82F2F"><font size="2">(12:20:36 AM)</font> <b>_raven_:</b></font> rgareus, ok there is a layering problem then. i think i have to edit them first<br/>
+<font size="2">(12:25:07 AM)</font><b> mpage [<em>~mpage@par69-10-88-178-226-226.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(12:29:37 AM)</font><b> mpage left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(12:30:02 AM)</font> <b>rgareus:</b></font> magnetophon: FWIW, here it breaks at ARDOUR_UI::create_editor()<br/>
+<font size="2">(12:30:06 AM)</font><b> edogawa left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(12:30:12 AM)</font> <b>rgareus:</b></font> magnetophon: the whole gdb session looks like this: http://pastebin.com/xfF1zznU<br/>
+<font color="#A82F2F"><font size="2">(12:31:22 AM)</font> <b>rgareus:</b></font> magnetophon: interesting lines are those starting with (gdb)   ln 12, 14, 23, 25<br/>
+<font color="#A82F2F"><font size="2">(12:31:57 AM)</font> <b>rgareus:</b></font> magnetophon: &apos;interesting&apos; in the sense of you doing the same.<br/>
+<font color="#A82F2F"><font size="2">(12:33:11 AM)</font> <b>rgareus:</b></font> magnetophon: I didn&apos;t abbreviate things.  you can use  br  instead of break, and c instead of continue. etc. also simply pressing enter will repeat the last command.<br/>
+<font color="#16569E"><font size="2">(12:34:16 AM)</font> <b>magnetophon:</b></font> rgareus: looks like you're running wheezy too, right? and you though you had to install non-stock libs to be able to compile? which ones?<br/>
+<font color="#A82F2F"><font size="2">(12:34:23 AM)</font> <b>rgareus:</b></font> magnetophon: which may acually be what has happened.  if you had used &apos;continue&apos; and later just press &apos;enter&apos; it will continue again.<br/>
+<font color="#A82F2F"><font size="2">(12:34:40 AM)</font> <b>rgareus:</b></font> magnetophon: I run a mix of wheezy, jessie and sid. <br/>
+<font color="#A82F2F"><font size="2">(12:34:45 AM)</font> <b>_raven_:</b></font> stupid question: what to enter in the seo spam field on the account side<br/>
+<font color="#A82F2F"><font size="2">(12:34:53 AM)</font> <b>_raven_:</b></font> site<br/>
+<font color="#A82F2F"><font size="2">(12:35:09 AM)</font> <b>rgareus:</b></font> _raven_: does it ask for your initials?<br/>
+<font color="#A82F2F"><font size="2">(12:35:28 AM)</font> <b>rgareus:</b></font> _raven_:  initials: first letter of first name, first letter of last name.<br/>
+<font color="#A82F2F"><font size="2">(12:35:56 AM)</font> <b>_raven_:</b></font> thats all? i was looking for a capcha kind ;)<br/>
+<font color="#16569E"><font size="2">(12:36:43 AM)</font> <b>magnetophon:</b></font> rgareus: you mean lines 12, 14, 21, 23, right?<br/>
+<font color="#A82F2F"><font size="2">(12:37:48 AM)</font> <b>rgareus:</b></font> magnetophon: no, line 21 is written by gdb not typed by me<br/>
+<font color="#A82F2F"><font size="2">(12:38:34 AM)</font> <b>rgareus:</b></font> magnetophon: it&apos;s gdb telling me that it hit the breakpoint that i&apos;ve previously set in line 12  via    (gdb) break main<br/>
+<font color="#16569E"><font size="2">(12:38:40 AM)</font> <b>magnetophon:</b></font> rgareus: oops, sorry I was looking at the wrong paste<br/>
+<font size="2">(12:39:08 AM)</font><b> pr0ggie left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font size="2">(12:39:15 AM)</font><b> pr0ggie [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font size="2">(12:39:28 AM)</font><b> pdimitrov left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:39:42 AM)</font> <b>rgareus:</b></font> _raven_: it&apos;s a kind of catpcha --- most bots won&apos;t understand to enter their initials :)<br/>
+<font color="#A82F2F"><font size="2">(12:39:59 AM)</font> <b>_raven_:</b></font> right ;)<br/>
+<font color="#16569E"><font size="2">(12:40:02 AM)</font> <b>magnetophon:</b></font> rgareus: back to the other topic: is it hard to check which libs you have that are not from wheezy?<br/>
+<font color="#A82F2F"><font size="2">(12:40:57 AM)</font> <b>las:</b></font> magnetophon: back, sorry that took longer than expected<br/>
+<font color="#A82F2F"><font size="2">(12:40:58 AM)</font> <b>rgareus:</b></font> magnetophon: good question. <br/>
+<font color="#A82F2F"><font size="2">(12:41:25 AM)</font> <b>rgareus:</b></font> magnetophon: It&apos;s probably easy if you know the right spell for dpkg.<br/>
+<font color="#16569E"><font size="2">(12:41:31 AM)</font> <b>magnetophon:</b></font> las np<br/>
+<font color="#16569E"><font size="2">(12:41:47 AM)</font> <b>magnetophon:</b></font> rgareus: I was hoping you did :)<br/>
+<font color="#16569E"><font size="2">(12:42:17 AM)</font> <b>magnetophon:</b></font> rgareus: I'll ask over in #debian<br/>
+<font color="#A82F2F"><font size="2">(12:42:20 AM)</font> <b>rgareus:</b></font> magnetophon: I use apt-pinning, so by default I get wheezy unless I explicityly ask for newer libs; and apt will then also pull in required dependencies.<br/>
+<font color="#A82F2F"><font size="2">(12:42:25 AM)</font> <b>las:</b></font> magnetophon: ok, so this is going to get a bit harder, but hopefully not much<br/>
+<font size="2">(12:42:28 AM)</font><b> papa [<em>~papa@cpe-75-179-43-51.neo.res.rr.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:43:09 AM)</font> <b>las:</b></font> magnetophon: this time, your second break command is: br &apos;ARDOUR_UI::starting()&apos;<br/>
+<font color="#A82F2F"><font size="2">(12:44:07 AM)</font> <b>las:</b></font> magnetophon: when it stops there, type next repeatedly and give us a small clue what line you&apos;re on<br/>
+<font color="#A82F2F"><font size="2">(12:44:23 AM)</font> <b>las:</b></font> Ricardus: there&apos;s a new angry orchards at chez las ... apple + ginger<br/>
+<font color="#A82F2F"><font size="2">(12:44:35 AM)</font> <b>las:</b></font> Ricardus: alas, mine is 1/2 frozen right now, so i can&apos;t taste it yet<br/>
+<font color="#16569E"><font size="2">(12:46:17 AM)</font> <b>magnetophon:</b></font> las: 425<br/>
+<font color="#16569E"><font size="2">(12:46:34 AM)</font> <b>magnetophon:</b></font> 427<br/>
+<font color="#16569E"><font size="2">(12:46:44 AM)</font> <b>magnetophon:</b></font> 432<br/>
+<font size="2">(12:46:48 AM)</font><b> naptastic left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#16569E"><font size="2">(12:46:52 AM)</font> <b>magnetophon:</b></font> 443<br/>
+<font color="#16569E"><font size="2">(12:47:06 AM)</font> <b>magnetophon:</b></font> 445<br/>
+<font color="#16569E"><font size="2">(12:47:15 AM)</font> <b>magnetophon:</b></font> 450<br/>
+<font color="#A82F2F"><font size="2">(12:47:17 AM)</font> <b>Ricardus:</b></font> las I think I saw that<br/>
+<font color="#16569E"><font size="2">(12:47:25 AM)</font> <b>magnetophon:</b></font> 453<br/>
+<font color="#A82F2F"><font size="2">(12:47:31 AM)</font> <b>Ricardus:</b></font> Actually, I think I had two of them last saturday at out last gluten free meeting<br/>
+<font color="#16569E"><font size="2">(12:47:41 AM)</font> <b>magnetophon:</b></font> 457<br/>
+<font color="#16569E"><font size="2">(12:47:53 AM)</font> <b>magnetophon:</b></font> 458<br/>
+<font color="#16569E"><font size="2">(12:48:07 AM)</font> <b>magnetophon:</b></font> 459<br/>
+<font color="#16569E"><font size="2">(12:48:24 AM)</font> <b>magnetophon:</b></font> 460<br/>
+<font color="#16569E"><font size="2">(12:48:37 AM)</font> <b>magnetophon:</b></font> 468<br/>
+<font color="#16569E"><font size="2">(12:48:52 AM)</font> <b>magnetophon:</b></font> 477<br/>
+<font color="#16569E"><font size="2">(12:49:05 AM)</font> <b>magnetophon:</b></font> 474<br/>
+<font color="#16569E"><font size="2">(12:49:18 AM)</font> <b>magnetophon:</b></font> 472<br/>
+<font color="#16569E"><font size="2">(12:49:28 AM)</font> <b>magnetophon:</b></font> 473<br/>
+<font color="#16569E"><font size="2">(12:49:40 AM)</font> <b>magnetophon:</b></font> 474<br/>
+<font color="#16569E"><font size="2">(12:49:58 AM)</font> <b>magnetophon:</b></font> 475<br/>
+<font color="#16569E"><font size="2">(12:50:12 AM)</font> <b>magnetophon:</b></font> 477<br/>
+<font color="#16569E"><font size="2">(12:50:34 AM)</font> <b>magnetophon:</b></font> i'm repeating.. is that right?<br/>
+<font color="#16569E"><font size="2">(12:50:46 AM)</font> <b>magnetophon:</b></font> 479<br/>
+<font color="#16569E"><font size="2">(12:50:56 AM)</font> <b>magnetophon:</b></font> 480<br/>
+<font size="2">(12:51:01 AM)</font><b> oofus_lt [<em>~chris@oofus-adsl.demon.co.uk</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(12:51:09 AM)</font> <b>magnetophon:</b></font> 482<br/>
+<font color="#16569E"><font size="2">(12:51:19 AM)</font> <b>magnetophon:</b></font> 486<br/>
+<font color="#A82F2F"><font size="2">(12:51:25 AM)</font> <b>las:</b></font> magnetophon: whoa, wait up<br/>
+<font color="#A82F2F"><font size="2">(12:51:45 AM)</font> <b>las:</b></font> magnetophon: ok, you&apos;re inside post_engine()<br/>
+<font color="#A82F2F"><font size="2">(12:52:26 AM)</font> <b>las:</b></font> magnetophon: hmm, sorry, i let you get too far ahead<br/>
+<font color="#A82F2F"><font size="2">(12:52:33 AM)</font> <b>las:</b></font> Ricardus: yummalicious<br/>
+<font size="2">(12:52:34 AM)</font><b> _raven_ left the room (quit: Quit: Verlassend).</b><br/>
+<font size="2">(12:52:43 AM)</font><b> audun_lt [<em>~anonymous@cm-84.215.225.62.getinternet.no</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(12:53:15 AM)</font> <b>magnetophon:</b></font> las: so again from the top?<br/>
+<font color="#A82F2F"><font size="2">(12:53:19 AM)</font> <b>las:</b></font> magnetophon: could you restart? sorry. when you hit line 472, please let me know and do nothing<br/>
+<font color="#A82F2F"><font size="2">(12:53:30 AM)</font> <b>__raven:</b></font> i have 3 identical midi interfaces... any way to name them?<br/>
+<font color="#A82F2F"><font size="2">(12:54:20 AM)</font> <b>las:</b></font> magnetophon: please. so sorry i wasn&apos;t paying attention<br/>
+<font color="#A82F2F"><font size="2">(12:54:28 AM)</font> <b>Ricardus:</b></font> las right now I have 3 different kinds in the fridge<br/>
+<font color="#16569E"><font size="2">(12:54:38 AM)</font> <b>magnetophon:</b></font> las: if you get distracted by talk of icecream, maybe you haven't eaten enough yet :P<br/>
+<font color="#A82F2F"><font size="2">(12:54:49 AM)</font> <b>Ricardus:</b></font> A friend gave me some different Angry Orchards, and I had some Woodchuck<br/>
+<font size="2">(12:55:54 AM)</font><b> pdimitrov [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(12:56:19 AM)</font> <b>magnetophon:</b></font> hmmmm icecream (said in homers voice)<br/>
+<font color="#16569E"><font size="2">(12:58:38 AM)</font> <b>magnetophon:</b></font> las: OK, 472<br/>
+<font color="#A82F2F"><font size="2">(12:59:25 AM)</font> <b>las:</b></font> magnetophon: ok<br/>
+<font color="#A82F2F"><font size="2">(12:59:46 AM)</font> <b>las:</b></font> magnetophon: can you show the text of the line of source just above the gdb) prompt?<br/>
+<font color="#A82F2F"><font size="2">(01:00:01 AM)</font> <b>rgareus:</b></font> magnetophon: I think it was about cider or cidre -- or however you spell apple-wine in Dutch -- not ice-cream<br/>
+<font color="#16569E"><font size="2">(01:00:42 AM)</font> <b>magnetophon:</b></font> las: 472		cout &lt;&lt; PROGRAM_NAME<br/>
+<font color="#16569E"><font size="2">(01:01:09 AM)</font> <b>magnetophon:</b></font> rgareus: we don't freeze our wine in the netherlands :P<br/>
+<font color="#A82F2F"><font size="2">(01:01:22 AM)</font> <b>las:</b></font> magnetophon: hmm. type &quot;bt&quot; and pastebin it<br/>
+<font color="#A82F2F"><font size="2">(01:01:38 AM)</font> <b>las:</b></font> magnetophon: i think you&apos;ve being doing &quot;next&quot; from the first stopping point<br/>
+<font color="#16569E"><font size="2">(01:02:38 AM)</font> <b>magnetophon:</b></font> las: oops, you're right. it's getting late here, sorry<br/>
+<font color="#16569E"><font size="2">(01:02:47 AM)</font> <b>magnetophon:</b></font> las: once more.<br/>
+<font color="#A82F2F"><font size="2">(01:02:48 AM)</font> <b>las:</b></font> magnetophon: no worries. just type &quot;continue&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:03:11 AM)</font> <b>las:</b></font> magnetophon: that will get you to the 2nd break point<br/>
+<font color="#A82F2F"><font size="2">(01:03:15 AM)</font> <b>las:</b></font> (we think! :)<br/>
+<font color="#16569E"><font size="2">(01:03:42 AM)</font> <b>magnetophon:</b></font> las: yup 720<br/>
+<font color="#16569E"><font size="2">(01:04:04 AM)</font> <b>magnetophon:</b></font> so i type next an give you the numbers?<br/>
+<font color="#16569E"><font size="2">(01:04:21 AM)</font> <b>magnetophon:</b></font> 722<br/>
+<font color="#16569E"><font size="2">(01:04:28 AM)</font> <b>magnetophon:</b></font> 724<br/>
+<font color="#16569E"><font size="2">(01:04:37 AM)</font> <b>magnetophon:</b></font> 725<br/>
+<font color="#16569E"><font size="2">(01:04:45 AM)</font> <b>magnetophon:</b></font> 727<br/>
+<font color="#16569E"><font size="2">(01:04:52 AM)</font> <b>magnetophon:</b></font> 728<br/>
+<font color="#16569E"><font size="2">(01:05:08 AM)</font> <b>magnetophon:</b></font> 731<br/>
+<font color="#16569E"><font size="2">(01:05:19 AM)</font> <b>magnetophon:</b></font> 733<br/>
+<font color="#16569E"><font size="2">(01:05:25 AM)</font> <b>magnetophon:</b></font> 735<br/>
+<font color="#16569E"><font size="2">(01:05:36 AM)</font> <b>magnetophon:</b></font> 736<br/>
+<font color="#A82F2F"><font size="2">(01:05:39 AM)</font> <b>las:</b></font> magnetophon:hang on<br/>
+<font color="#A82F2F"><font size="2">(01:06:00 AM)</font> <b>las:</b></font> magnetophon: what source file is this in?<br/>
+<font color="#A82F2F"><font size="2">(01:06:11 AM)</font> <b>las:</b></font> magnetophon: gdb should say<br/>
+<font color="#16569E"><font size="2">(01:06:21 AM)</font> <b>magnetophon:</b></font> Breakpoint 2, ARDOUR_UI::starting (this=0x998dfd0) at ../gtk2_ardour/ardour_ui.cc:720<br/>
+<font color="#16569E"><font size="2">(01:06:43 AM)</font> <b>magnetophon:</b></font> i think<br/>
+<font color="#A82F2F"><font size="2">(01:06:55 AM)</font> <b>las:</b></font> magnetophon: whoa. you&apos;re on line 736. do you use NSM ?<br/>
+<font color="#A82F2F"><font size="2">(01:07:32 AM)</font> <b>las:</b></font> magnetophon: you apparently have NSM_URL set in your environment ....<br/>
+<font color="#16569E"><font size="2">(01:07:36 AM)</font> <b>magnetophon:</b></font> no, you do :)<br/>
+<font color="#16569E"><font size="2">(01:07:49 AM)</font> <b>magnetophon:</b></font> no idea what nsm is...<br/>
+<font color="#16569E"><font size="2">(01:08:08 AM)</font> <b>magnetophon:</b></font> it's in YOUR code :D<br/>
+<font color="#A82F2F"><font size="2">(01:08:23 AM)</font> <b>rgareus:</b></font> magnetophon: NSM aint.<br/>
+<font color="#A82F2F"><font size="2">(01:09:04 AM)</font> <b>rgareus:</b></font> magnetophon: Non Session Manager<br/>
+<font color="#A82F2F"><font size="2">(01:09:11 AM)</font> <b>las:</b></font> magnetophon: at the gdb) prompt, type Ctrl-z<br/>
+<font color="#A82F2F"><font size="2">(01:09:23 AM)</font> <b>las:</b></font> magnetophon: you should be back at a shell prompt<br/>
+<font color="#A82F2F"><font size="2">(01:09:31 AM)</font> <b>las:</b></font> magnetophon: at the shell prompt, type: env | grep NSM<br/>
+<font color="#16569E"><font size="2">(01:09:54 AM)</font> <b>magnetophon:</b></font> rgareus: ah, THAT nsm...   yes I use it<br/>
+<font color="#A82F2F"><font size="2">(01:10:43 AM)</font> <b>las:</b></font> magnetophon: you are trying to start ardour, it appears, with NSM_URL set, but without NSM running<br/>
+<font color="#16569E"><font size="2">(01:10:56 AM)</font> <b>magnetophon:</b></font> las: yea I set that. NSM_URL=osc.udp://WheezyOne.lbb:17552<br/>
+<font color="#A82F2F"><font size="2">(01:11:12 AM)</font> <b>las:</b></font> magnetophon: it would appear that the NSM code is buggy<br/>
+<font color="#16569E"><font size="2">(01:11:13 AM)</font> <b>magnetophon:</b></font> las: now I remember what it's for<br/>
+<font color="#A82F2F"><font size="2">(01:11:21 AM)</font> <b>las:</b></font> magnetophon: ok, lets go back into gdb<br/>
+<font color="#A82F2F"><font size="2">(01:11:28 AM)</font> <b>las:</b></font> magnetophon: type: jobs<br/>
+<font color="#A82F2F"><font size="2">(01:11:39 AM)</font> <b>las:</b></font> magnetophon: then pick out the job number for gdb<br/>
+<font color="#16569E"><font size="2">(01:11:57 AM)</font> <b>magnetophon:</b></font> 1?<br/>
+<font color="#A82F2F"><font size="2">(01:11:58 AM)</font> <b>las:</b></font> magnetophon: and type: fg %N <br/>
+<font color="#A82F2F"><font size="2">(01:12:01 AM)</font> <b>las:</b></font> magnetophon: where N is the number<br/>
+<font color="#A82F2F"><font size="2">(01:12:10 AM)</font> <b>las:</b></font> magnetophon: at the gdb prompt<br/>
+<font color="#A82F2F"><font size="2">(01:12:34 AM)</font> <b>las:</b></font> magnetophon: type: next<br/>
+<font color="#A82F2F"><font size="2">(01:12:41 AM)</font> <b>las:</b></font> magnetophon: then give us the line number<br/>
+<font color="#A82F2F"><font size="2">(01:12:50 AM)</font> <b>las:</b></font> magnetophon: and then to do that another couple of times<br/>
+<font color="#16569E"><font size="2">(01:12:59 AM)</font> <b>magnetophon:</b></font> 738<br/>
+<font color="#A82F2F"><font size="2">(01:13:08 AM)</font> <b>las:</b></font> s/to do/do/<br/>
+<font color="#16569E"><font size="2">(01:13:15 AM)</font> <b>magnetophon:</b></font> 740<br/>
+<font color="#16569E"><font size="2">(01:13:34 AM)</font> <b>magnetophon:</b></font> 742<br/>
+<font color="#16569E"><font size="2">(01:13:41 AM)</font> <b>magnetophon:</b></font> 743<br/>
+<font color="#16569E"><font size="2">(01:13:50 AM)</font> <b>magnetophon:</b></font> 744<br/>
+<font color="#16569E"><font size="2">(01:14:00 AM)</font> <b>magnetophon:</b></font> 745<br/>
+<font color="#16569E"><font size="2">(01:14:13 AM)</font> <b>magnetophon:</b></font> 742<br/>
+<font color="#16569E"><font size="2">(01:14:49 AM)</font> <b>magnetophon:</b></font> no line number but:<br/>
+<font color="#16569E"><font size="2">(01:14:51 AM)</font> <b>magnetophon:</b></font> /home/bart/source/ardour/3.0/build/gtk2_ardour/ardour-3.5(_ZNK4sigc16pointer_functor0IvEclEv+0xd)[0x8fe5335]<br/>
+<font color="#16569E"><font size="2">(01:14:51 AM)</font> <b>magnetophon:</b></font> /home/bart/source/ardour/3.0/build/gtk2_ardour/ardour-3.5743					nsm-&gt;check ();<br/>
+<font color="#16569E"><font size="2">(01:15:12 AM)</font> <b>magnetophon:</b></font> you want another next?<br/>
+<font size="2">(01:15:23 AM)</font><b> jff [<em>4fcaca96@gateway/web/freenode/ip.79.202.202.150</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:16:07 AM)</font> <b>rgareus:</b></font> magnetophon: heh, you&apos;re in a loop to 5000 waiting for NSM to respond ..<br/>
+<font color="#16569E"><font size="2">(01:16:52 AM)</font> <b>magnetophon:</b></font> rgareus: so I need to unst NSM_URL and go bug male?<br/>
+<font color="#A82F2F"><font size="2">(01:16:59 AM)</font> <b>rgareus:</b></font> but the problem seems clear now.  <br/>
+<font color="#16569E"><font size="2">(01:17:00 AM)</font> <b>magnetophon:</b></font> *unset<br/>
+<font color="#A82F2F"><font size="2">(01:17:32 AM)</font> <b>rgareus:</b></font> magnetophon: unset should prevent the crash, but the actual problem is ardour&apos;s behaviour when it fails to connect to NSM<br/>
+<font color="#A82F2F"><font size="2">(01:17:47 AM)</font> <b>las:</b></font> yep<br/>
+<font color="#A82F2F"><font size="2">(01:17:49 AM)</font> <b>rgareus:</b></font> or rather that&apos;s my understanding right now. <br/>
+<font color="#16569E"><font size="2">(01:17:55 AM)</font> <b>magnetophon:</b></font> rgareus: cool!<br/>
+<font color="#16569E"><font size="2">(01:18:05 AM)</font> <b>magnetophon:</b></font> lemme check<br/>
+<font color="#A82F2F"><font size="2">(01:18:40 AM)</font> <b>las:</b></font> ardour checks for NSM 5000 times<br/>
+<font color="#A82F2F"><font size="2">(01:18:41 AM)</font> <b>las:</b></font> it gives up<br/>
+<font color="#A82F2F"><font size="2">(01:18:42 AM)</font> <b>las:</b></font> and then proceeds as if nothing was wrong<br/>
+<font color="#A82F2F"><font size="2">(01:18:45 AM)</font> <b>las:</b></font> strike one for insufficient code review<br/>
+<font color="#16569E"><font size="2">(01:21:40 AM)</font> <b>magnetophon:</b></font> so I ran NSM (cause I didn't know how to unset an env var), ran ./ardev, and got........... another crash :(<br/>
+<font color="#A82F2F"><font size="2">(01:22:07 AM)</font> <b>rgareus:</b></font> magnetophon:  unset NSM_URL<br/>
+<font color="#A82F2F"><font size="2">(01:22:13 AM)</font> <b>rgareus:</b></font> magnetophon: (at least in bash)<br/>
+<font color="#16569E"><font size="2">(01:22:54 AM)</font> <b>magnetophon:</b></font> :)<br/>
+<font color="#16569E"><font size="2">(01:23:05 AM)</font> <b>magnetophon:</b></font> welcome to ardour!<br/>
+<font color="#16569E"><font size="2">(01:23:18 AM)</font> <b>magnetophon:</b></font> thanks guys!<br/>
+<font color="#A82F2F"><font size="2">(01:23:36 AM)</font> <b>rgareus:</b></font> magnetophon: so long story short NSM is currenty b0rked (in multiple ways)<br/>
+<font color="#A82F2F"><font size="2">(01:24:08 AM)</font> <b>rgareus:</b></font> IOW. ardour crashes with and without NSM running if NSM_URL is set.<br/>
+<font color="#A82F2F"><font size="2">(01:25:00 AM)</font> <b>las:</b></font> magnetophon: ready to recompile?<br/>
+<font color="#16569E"><font size="2">(01:25:18 AM)</font> <b>magnetophon:</b></font> las: sure<br/>
+<font color="#A82F2F"><font size="2">(01:25:32 AM)</font> <b>las:</b></font> magnetophon: git pull --rebase &amp;&amp; ./waf<br/>
+<font color="#A82F2F"><font size="2">(01:25:37 AM)</font> <b>las:</b></font> hang on<br/>
+<font color="#A82F2F"><font size="2">(01:25:59 AM)</font> <b>las:</b></font> ok good to go<br/>
+<font color="#A82F2F"><font size="2">(01:26:07 AM)</font> <b>las:</b></font> magnetophon: please reset NSM_URL now<br/>
+<font size="2">(01:26:21 AM)</font><b> pr0ggie left the room (quit: Read error: Operation timed out).</b><br/>
+<font color="#16569E"><font size="2">(01:26:35 AM)</font> <b>magnetophon:</b></font> las: I forgot how...<br/>
+<font color="#A82F2F"><font size="2">(01:26:54 AM)</font> <b>las:</b></font> magnetophon: export NSM_URL=osc.udp://WheezyOne.lbb:17552<br/>
+<font color="#A82F2F"><font size="2">(01:27:33 AM)</font> <b>las:</b></font> magnetophon: i get it stuck during NSM init and then finally: ardour: [ERROR]: NSM server did not announce itself<br/>
+<font color="#A82F2F"><font size="2">(01:27:38 AM)</font> <b>las:</b></font> (after i added my changes)<br/>
+<font color="#16569E"><font size="2">(01:28:00 AM)</font> <b>magnetophon:</b></font> las: huh?<br/>
+<font color="#16569E"><font size="2">(01:29:23 AM)</font> <b>magnetophon:</b></font> las:  and since when do you decide what size my monitor should be?  (This screen is not tall enough to display the mixer window)     :(<br/>
+<font size="2">(01:29:32 AM)</font><b> pdimitrov left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:29:43 AM)</font> <b>las:</b></font> magnetophon: since about 3.1 or so<br/>
+<font size="2">(01:29:49 AM)</font><b> pdimitrov [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:30:04 AM)</font> <b>las:</b></font> magnetophon: i ran ardour on my wife&apos;s netboo<br/>
+<font color="#A82F2F"><font size="2">(01:30:04 AM)</font> <b>las:</b></font> k<br/>
+<font size="2">(01:30:06 AM)</font><b> danni_ [<em>~quassel@pa49-180-115-189.pa.nsw.optusnet.com.au</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(01:30:13 AM)</font> <b>magnetophon:</b></font> las: what I meant was: WHY?????<br/>
+<font color="#A82F2F"><font size="2">(01:30:26 AM)</font> <b>las:</b></font> magnetophon: the experience of having the mixer window open on its tiny screen was just embarrassingly awful<br/>
+<font size="2">(01:30:46 AM)</font><b> danni left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:30:48 AM)</font> <b>las:</b></font> magnetophon: i would rather have people bitch and moan than wonder why the program is so badly designed that it cannot work on that screen size<br/>
+<font size="2">(01:30:57 AM)</font><b> pr0ggie [<em>~p@sd440528e.adsl.online.nl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:31:08 AM)</font> <b>las:</b></font> magnetophon: what i meant was: i set NSM_URL to your value. i ran ardev (i do not have an NSM running)<br/>
+<font size="2">(01:31:17 AM)</font><b> schiv left the room (quit: Ping timeout: 268 seconds).</b><br/>
+<font color="#16569E"><font size="2">(01:31:18 AM)</font> <b>magnetophon:</b></font> las: so now I have NO mixer. how is that better?<br/>
+<font color="#A82F2F"><font size="2">(01:31:24 AM)</font> <b>las:</b></font> magnetophon: rather than crashing as yours was, the current code now prints an error message and exits<br/>
+<font color="#A82F2F"><font size="2">(01:31:49 AM)</font> <b>las:</b></font> magnetophon: if your screen is too small, your screen is too small. the mixer window needs fixing, but i made a gamble<br/>
+<font color="#16569E"><font size="2">(01:32:02 AM)</font> <b>magnetophon:</b></font> :(<br/>
+<font color="#A82F2F"><font size="2">(01:32:03 AM)</font> <b>las:</b></font> magnetophon: both choices are really, really bad<br/>
+<font color="#A82F2F"><font size="2">(01:32:16 AM)</font> <b>las:</b></font> magnetophon: i&apos;ve used it on a tiny screen .. believe me, its really terrible<br/>
+<font color="#A82F2F"><font size="2">(01:32:22 AM)</font> <b>las:</b></font> magnetophon: more or less unusable<br/>
+<font color="#16569E"><font size="2">(01:32:56 AM)</font> <b>magnetophon:</b></font> las: I can live with having to drag around the mixer. but when I run ardour, i want to MIX!!!!!!!!!<br/>
+<font color="#16569E"><font size="2">(01:33:16 AM)</font> <b>magnetophon:</b></font> please?<br/>
+<font color="#16569E"><font size="2">(01:33:52 AM)</font> <b>magnetophon:</b></font> las: can you at least make it a compile option? pretty please?????<br/>
+<font color="#16569E"><font size="2">(01:36:21 AM)</font> <b>magnetophon:</b></font> las: I use this netbook for testing software. I know it's not a great way to actually USE ardour, but to deny me my mixer is just cruel, especially after all we've been trough together :P   (said in very dramatic tone of voice)<br/>
+<font color="#16569E"><font size="2">(01:37:06 AM)</font> <b>magnetophon:</b></font> pretty please with cherries on top?<br/>
+<font size="2">(01:38:10 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

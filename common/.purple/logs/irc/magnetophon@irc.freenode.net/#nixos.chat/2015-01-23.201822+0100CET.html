@@ -1,0 +1,215 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Fri 23 Jan 2015 08:18:22 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Fri 23 Jan 2015 08:18:22 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:18:23 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(08:18:23 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(08:18:25 PM)</font> <b>bennofs:</b></font> Just running nix-store --export /nix/somepath | nix-store --import gets me that error<br/>
+<font color="#A82F2F"><font size="2">(08:20:13 PM)</font> <b>bennofs:</b></font> error: imported archive of ‘/nix/store/4pxkkjjvf4fsbc2c763hlh1gn0jhmaja-bash-4.3-p30’ lacks a signature<br/>
+<font color="#A82F2F"><font size="2">(08:20:18 PM)</font> <b>bennofs:</b></font> Is the full eror<br/>
+<font size="2">(08:21:25 PM)</font><b> Lethalman [<em>~lethal@89.119.188.238</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:21:25 PM)</font> <b>Lethalman:</b></font> o<br/>
+<font color="#A82F2F"><font size="2">(08:21:27 PM)</font> <b>Fuuzetsu:</b></font> I never managed to get that to work<br/>
+<font color="#A82F2F"><font size="2">(08:21:36 PM)</font> <b>Fuuzetsu:</b></font> there is a rumour it works if you run as root on import side<br/>
+<font color="#062585"><font size="2">(08:22:06 PM)</font> <b>***Lethalman</b></font> guesses, are we talking about nix-copy-closures? :)<br/>
+<font color="#A82F2F"><font size="2">(08:22:29 PM)</font> <b>bennofs:</b></font> Lethalman: no, just simple import / export<br/>
+<font color="#A82F2F"><font size="2">(08:22:50 PM)</font> <b>Lethalman:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(08:23:03 PM)</font> <b>bennofs:</b></font> The command is:  nix-store --export /nix/store/4pxkkjjvf4fsbc2c763hlh1gn0jhmaja-bash-4.3-p30 | nix-store --import<br/>
+<font color="#A82F2F"><font size="2">(08:23:17 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 2 new commits to master: http://git.io/6tK3nw<br/>
+<font color="#A82F2F"><font size="2">(08:23:18 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b2dbe7f Aaron Levin: Bump jwt version to 0.5.3...<br/>
+<font color="#A82F2F"><font size="2">(08:23:18 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 40d7ec4 Pascal Wittmann: Merge pull request #5906 from aaronlevin/patch-2...<br/>
+<font color="#A82F2F"><font size="2">(08:23:19 PM)</font> <b>Lethalman:</b></font> what&apos;s the problem?<br/>
+<font color="#A82F2F"><font size="2">(08:23:22 PM)</font> <b>bennofs:</b></font> ah right, it works if i run it as root<br/>
+<font color="#A82F2F"><font size="2">(08:23:28 PM)</font> <b>Lethalman:</b></font> yes needs root<br/>
+<font color="#A82F2F"><font size="2">(08:23:49 PM)</font> <b>bennofs:</b></font> But the error that nix-store --import gives is not very helpful:<br/>
+<font color="#A82F2F"><font size="2">(08:23:55 PM)</font> <b>bennofs:</b></font> error: imported archive of ‘/nix/store/4pxkkjjvf4fsbc2c763hlh1gn0jhmaja-bash-4.3-p30’ lacks a signature<br/>
+<font color="#A82F2F"><font size="2">(08:24:02 PM)</font> <b>bennofs:</b></font> (if you run it as non-root)<br/>
+<font color="#A82F2F"><font size="2">(08:24:11 PM)</font> <b>bennofs:</b></font> Should I open an issue for that?<br/>
+<font color="#A82F2F"><font size="2">(08:24:14 PM)</font> <b>Lethalman:</b></font> bennofs, yeah because as user the archive is supposed to be signed, for safety<br/>
+<font color="#A82F2F"><font size="2">(08:25:38 PM)</font> <b>Lethalman:</b></font> uhm let&apos;s see, is elm packaged? :)<br/>
+<font color="#A82F2F"><font size="2">(08:26:00 PM)</font> <b>RchrdB:</b></font> Lethalman: yes<br/>
+<font color="#A82F2F"><font size="2">(08:26:07 PM)</font> <b>Lethalman:</b></font> I&apos;m a fan of ghcjs, but atm I think elm produces smaller code<br/>
+<font color="#A82F2F"><font size="2">(08:26:18 PM)</font> <b>RchrdB:</b></font> wait uh maybe not<br/>
+<font color="#A82F2F"><font size="2">(08:26:31 PM)</font> <b>Lethalman:</b></font> yeah it&apos;s packaged<br/>
+<font color="#A82F2F"><font size="2">(08:26:32 PM)</font> <b>RchrdB:</b></font> I have elm installed but it looks like I might have done that manually with cabal2nix<br/>
+<font color="#A82F2F"><font size="2">(08:26:37 PM)</font> <b>Lethalman:</b></font> also reactor, nice<br/>
+<font color="#A82F2F"><font size="2">(08:26:45 PM)</font> <b>RchrdB:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(08:27:08 PM)</font> <b>Lethalman:</b></font> I have to see if compilation times are ok<br/>
+<font color="#A82F2F"><font size="2">(08:27:20 PM)</font> <b>Lethalman:</b></font> I would have used go if only it didn&apos;t require recompilation -.-&apos;<br/>
+<font color="#A82F2F"><font size="2">(08:27:23 PM)</font> <b>bennofs:</b></font> RchrdB: there is haskellPackages.elmCompiler and a few other haskellPackages.elm*<br/>
+<font color="#A82F2F"><font size="2">(08:29:20 PM)</font> <b>Nafai:</b></font> Lethalman: In one of your blog posts, you mentioned that installing Nix on Debian Unstable could be problematic.  Is this still true?<br/>
+<font color="#A82F2F"><font size="2">(08:29:43 PM)</font> <b>Lethalman:</b></font> Nafai, using .deb, yes because .deb is not for debian unstable<br/>
+<font color="#A82F2F"><font size="2">(08:30:00 PM)</font> <b>Lethalman:</b></font> Nafai, just use nix binary tarballs or the .sh installer<br/>
+<font color="#A82F2F"><font size="2">(08:30:16 PM)</font> <b>RchrdB:</b></font> bennofs: ta. :)<br/>
+<font color="#A82F2F"><font size="2">(08:30:30 PM)</font> <b>bennofs:</b></font> Is there an easy way to merge two NAR archives generated with nix-store --export?<br/>
+<font color="#A82F2F"><font size="2">(08:30:40 PM)</font> <b>Nafai:</b></font> Lethalman: Ah, okay, I was wondering if that is what you meant.<br/>
+<font color="#A82F2F"><font size="2">(08:30:46 PM)</font> <b>Nafai:</b></font> Lethalman: Thanks!<br/>
+<font color="#A82F2F"><font size="2">(08:32:02 PM)</font> <b>Lethalman:</b></font> bennofs, uhm, unpack, merge dirs, repack? :)<br/>
+<font color="#A82F2F"><font size="2">(08:32:10 PM)</font> <b>Lethalman:</b></font> ah no<br/>
+<font color="#A82F2F"><font size="2">(08:32:21 PM)</font> <b>Lethalman:</b></font> bennofs, I don&apos;t think --export is simply a NAR<br/>
+<font color="#A82F2F"><font size="2">(08:32:30 PM)</font> <b>Lethalman:</b></font> it must also contain some metadata in order to register the paths<br/>
+<font color="#A82F2F"><font size="2">(08:32:56 PM)</font> <b>Lethalman:</b></font> bennofs, what are you trying to achieve?<br/>
+<font color="#A82F2F"><font size="2">(08:34:39 PM)</font> <b>bennofs:</b></font> Just wondering what I would do if I want to --export more paths that the limit for the length of commandline argument allows<br/>
+<font color="#A82F2F"><font size="2">(08:34:54 PM)</font> <b>bennofs:</b></font> (into one archive)<br/>
+<font color="#A82F2F"><font size="2">(08:35:52 PM)</font> <b>Lethalman:</b></font> bennofs, are you trying to export/import a closure?<br/>
+<font color="#A82F2F"><font size="2">(08:37:40 PM)</font> <b>Lethalman:</b></font> it appears that elm has been packaged twice<br/>
+<font color="#A82F2F"><font size="2">(08:38:18 PM)</font> <b>bennofs:</b></font> Lethalman: not really. My problem is this: I run builds on wercker (hosted CI) using nix. I want to cache paths between builds. To do that, I need to copy them to $WERCKER_CACHE_DIR, but because the base build machine image already provides some paths (which are constant for all builds), I don&apos;t want to copy them (only increases cache size)<br/>
+<font color="#A82F2F"><font size="2">(08:39:03 PM)</font> <b>Lethalman:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(08:39:13 PM)</font> <b>bennofs:</b></font> Lethalman: Determining which paths to cache works so far, and because I&apos;m currently not generating so many paths, it would even work if I pass them directly to nix-store --export as arguments. Just wondering if there is a more elegant way<br/>
+<font color="#A82F2F"><font size="2">(08:39:59 PM)</font> <b>Lethalman:</b></font> bennofs, you cannot --export multiple times and --import multiple times&apos; :)<br/>
+<font color="#A82F2F"><font size="2">(08:40:51 PM)</font> <b>bennofs:</b></font> Lethalman: could probably do that. But I think --import fails if dependencies are missing, so they really all need to be in one archive, no?<br/>
+<font color="#A82F2F"><font size="2">(08:41:57 PM)</font> <b>Lethalman:</b></font> bennofs, right<br/>
+<font color="#A82F2F"><font size="2">(08:42:42 PM)</font> <b>Lethalman:</b></font> bennofs, I believe nix-store -qR however lists them in order<br/>
+<font color="#A82F2F"><font size="2">(08:43:26 PM)</font> <b>Lethalman:</b></font> so you could divide that output by chunks and --export, then --import in reverse order<br/>
+<font color="#A82F2F"><font size="2">(08:43:39 PM)</font> <b>bennofs:</b></font> Lethalman: I&apos;m not using nix-store -qR, I&apos;m just exporting what nix-build lists under &quot;Paths to be built&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:44:00 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] Fuuzetsu pushed 8 new commits to master: http://git.io/TDLItg<br/>
+<font color="#A82F2F"><font size="2">(08:44:00 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 75ddffe Mateusz Kowalczyk: tibia: update to version 10.73<br/>
+<font color="#A82F2F"><font size="2">(08:44:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7db3f7a Mateusz Kowalczyk: ffmpeg: update from 2.5.1 to 2.5.3, potentially fixes CVE-2014-9602, CVE-2014-9603, CVE-2014-9604<br/>
+<font color="#A82F2F"><font size="2">(08:44:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c49ddeb Mateusz Kowalczyk: gifsicle: update from 1.86 to 1.87<br/>
+<font color="#A82F2F"><font size="2">(08:44:14 PM)</font> <b>Lethalman:</b></font> bennofs, ah ok<br/>
+<font color="#A82F2F"><font size="2">(08:45:06 PM)</font> <b>RchrdB:</b></font> bennofs: wait, on Linux the maximum length of a commandline argument is 2MB, iirc<br/>
+<font color="#A82F2F"><font size="2">(08:45:11 PM)</font> <b>RchrdB:</b></font> How...?<br/>
+<font color="#A82F2F"><font size="2">(08:46:13 PM)</font> <b>mgregson:</b></font> Is there a way to declare a dependency on a range of versions when writing a package?<br/>
+<font color="#A82F2F"><font size="2">(08:46:46 PM)</font> <b>bennofs:</b></font> RchrdB: yeah, I&apos;m not hitting the bound. I&apos;m just not happy that it *could* fail anytime in future if I hit it :)<br/>
+<font color="#A82F2F"><font size="2">(08:47:31 PM)</font> <b>Lethalman:</b></font> aaaah I see it&apos;s not packaged twice, once for haskellPackages and once for haskellngPackages<br/>
+<font color="#A82F2F"><font size="2">(08:47:35 PM)</font> <b>RchrdB:</b></font> Fair enough.<br/>
+<font color="#A82F2F"><font size="2">(08:47:39 PM)</font> <b>Lethalman:</b></font> well it&apos;s a good excuse for testing haskellngPackages :)<br/>
+<font color="#A82F2F"><font size="2">(08:48:39 PM)</font> <b>Lethalman:</b></font> mgregson, that&apos;s a too broad question for nix :)<br/>
+<font color="#A82F2F"><font size="2">(08:49:05 PM)</font> <b>Lethalman:</b></font> mgregson, describe your real problem, it&apos;s better<br/>
+<font color="#A82F2F"><font size="2">(08:51:16 PM)</font> <b>mgregson:</b></font> Lethalman: I&apos;m trying to figure out how I can write a package definition that specifies a dependency on a library, but it doesn&apos;t build against the latest versions, and doesn&apos;t build against really old versions.<br/>
+<font color="#A82F2F"><font size="2">(08:51:26 PM)</font> <b>Fuuzetsu:</b></font> I wish there was a way for GitHub to notify me when PRs or whatever touch packages I&apos;m listed on<br/>
+<font color="#A82F2F"><font size="2">(08:52:26 PM)</font> <b>ttuegel:</b></font> Fuuzetsu: +10<br/>
+<font color="#A82F2F"><font size="2">(08:53:01 PM)</font> <b>Lethalman:</b></font> I try to cc the maintainer whenever I can<br/>
+<font color="#A82F2F"><font size="2">(08:53:09 PM)</font> <b>Lethalman:</b></font> :(<br/>
+<font color="#A82F2F"><font size="2">(08:54:38 PM)</font> <b>Fuuzetsu:</b></font> yeah as do I but we not everyone does, often people don&apos;t due to trivial update, often new contributor just came to update package they were using, whatever<br/>
+<font color="#A82F2F"><font size="2">(08:54:58 PM)</font> <b>bennofs:</b></font> Fuuzetsu: http://lpaste.net/119082 is a really hacky script that grabs all PRs from github and filters them to only show those where one of the modified files contains your name<br/>
+<font color="#A82F2F"><font size="2">(08:55:13 PM)</font> <b>bennofs:</b></font> Feel free to improve it :)<br/>
+<font color="#A82F2F"><font size="2">(08:55:25 PM)</font> <b>Fuuzetsu:</b></font> o, neat<br/>
+<font color="#A82F2F"><font size="2">(08:55:35 PM)</font> <b>Fuuzetsu:</b></font> if we daemonise and RSSise it, it&apos;d be great<br/>
+<font color="#A82F2F"><font size="2">(08:58:07 PM)</font> <b>bennofs:</b></font> But I think you need to get a github api token or smth for high volume<br/>
+<font color="#A82F2F"><font size="2">(08:58:45 PM)</font> <b>Fuuzetsu:</b></font> you can get those easily IIRC<br/>
+<font color="#A82F2F"><font size="2">(08:58:51 PM)</font> <b>Fuuzetsu:</b></font> wouldn&apos;t be high volume anyway<br/>
+<font color="#A82F2F"><font size="2">(08:59:20 PM)</font> <b>Lethalman:</b></font> I&apos;m no haskeller but isn&apos;t nix-shell nix-shell -p haskellPackages.elmMake haskellPackages.Elm haskellPackages.ghc supposed to le me ghci and import Elm?<br/>
+<font color="#A82F2F"><font size="2">(08:59:48 PM)</font> <b>Fuuzetsu:</b></font> perhaps<br/>
+<font color="#A82F2F"><font size="2">(08:59:52 PM)</font> <b>Fuuzetsu:</b></font> add --pure, always good idea<br/>
+<font color="#A82F2F"><font size="2">(08:59:55 PM)</font> <b>bennofs:</b></font> Fuuzetsu: fetching all of NixOS/nixpkgs PRs already takes a couple of requests :)<br/>
+<font color="#A82F2F"><font size="2">(09:00:15 PM)</font> <b>Fuuzetsu:</b></font> bennofs: daemon can just check PRs as they come, no need to scan past ones<br/>
+<font color="#A82F2F"><font size="2">(09:00:52 PM)</font> <b>Lethalman:</b></font> :S what am I doing wrong?<br/>
+<font color="#A82F2F"><font size="2">(09:00:54 PM)</font> <b>Lethalman:</b></font> mh<br/>
+<font color="#062585"><font size="2">(09:01:14 PM)</font> <b>***Fuuzetsu</b></font> tries<br/>
+<font color="#A82F2F"><font size="2">(09:01:30 PM)</font> <b>Fuuzetsu:</b></font> download-from-binary-cache.pl: still waiting for ‘http://hydra.nixos.org/qncfjjkp0bf6by3alydcgpp8f8lh8ajj.narinfo’ after 5 seconds... – the bane of my existence<br/>
+<font color="#A82F2F"><font size="2">(09:01:47 PM)</font> <b>Lethalman:</b></font> there&apos;s no env variable about GHC<br/>
+<font color="#A82F2F"><font size="2">(09:02:29 PM)</font> <b>bennofs:</b></font> Lethalman: no, use nix-shell -p &apos;(import &lt;nixpkgs&gt; {}).haskellPackages.ghcWithPackages (hs: with hs; [haskellPackages.Elm ....])&apos;<br/>
+<font color="#A82F2F"><font size="2">(09:02:30 PM)</font> <b>Fuuzetsu:</b></font> what kind of env var are you looking for?<br/>
+<font color="#A82F2F"><font size="2">(09:02:38 PM)</font> <b>Lethalman:</b></font> bennofs, ouch<br/>
+<font color="#A82F2F"><font size="2">(09:02:44 PM)</font> <b>Lethalman:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(09:02:48 PM)</font> <b>Fuuzetsu:</b></font> bennofs: shouldn&apos;t old setup work<br/>
+<font color="#A82F2F"><font size="2">(09:02:55 PM)</font> <b>Lethalman:</b></font> haskellng fixes that, right? :P<br/>
+<font color="#A82F2F"><font size="2">(09:03:09 PM)</font> <b>bennofs:</b></font> Lethalman: In haskellng, there is no GHC that looks in the ENV for packages<br/>
+<font color="#A82F2F"><font size="2">(09:03:23 PM)</font> <b>Lethalman:</b></font> and how do you nix-shell with haskellng?<br/>
+<font color="#A82F2F"><font size="2">(09:04:07 PM)</font> <b>bennofs:</b></font> Lethalman: each haskell package has a .env passthrou attribute that builds a ghcWithPackage<br/>
+<font color="#A82F2F"><font size="2">(09:04:57 PM)</font> <b>Lethalman:</b></font> no Elm module yet btw: nix-shell -p &apos;(import &lt;nixpkgs&gt; {}).haskellPackages.ghcWithPackages (hs: with hs; [Elm elmMake ghc])&apos;<br/>
+<font color="#062585"><font size="2">(09:05:25 PM)</font> <b>***Lethalman</b></font> seems like a nix noob, but this thing is 100% unfriendly, sorry to say<br/>
+<font color="#A82F2F"><font size="2">(09:06:50 PM)</font> <b>quidnunc:</b></font> How do I get a list of files installed by a certain package? (What is the equivalent of dpkg -L ?)<br/>
+<font color="#A82F2F"><font size="2">(09:06:57 PM)</font> <b>erasmas:</b></font> Lethalman: why are you trying to import elm in ghci? elm is meant to be used with its own tooling (elmRepl, elmServer, etc)<br/>
+<font color="#A82F2F"><font size="2">(09:07:08 PM)</font> <b>bennofs:</b></font> Lethalman: try --pure<br/>
+<font color="#A82F2F"><font size="2">(09:07:35 PM)</font> <b>Lethalman:</b></font> erasmas, elm-make tells me to download elm-lang/core<br/>
+<font color="#A82F2F"><font size="2">(09:08:07 PM)</font> <b>Lethalman:</b></font> quidnunc, ls /nix/store/.....path-to-package<br/>
+<font color="#A82F2F"><font size="2">(09:08:16 PM)</font> <b>Lethalman:</b></font> bennofs, nothing changes<br/>
+<font color="#A82F2F"><font size="2">(09:08:39 PM)</font> <b>Lethalman:</b></font> erasmas, http://nixpaste.noip.me/xEjX3IsU?nix<br/>
+<font color="#A82F2F"><font size="2">(09:08:39 PM)</font> <b>benley:</b></font> Lethalman: is there a nice direct way to finding the path to a package like that?<br/>
+<font color="#A82F2F"><font size="2">(09:08:55 PM)</font> <b>Lethalman:</b></font> benley, depends<br/>
+<font color="#A82F2F"><font size="2">(09:09:06 PM)</font> <b>benley:</b></font> Lethalman: I usually do something like nix-build -A &lt;whateverpackage&gt; and look at where the result symlink points<br/>
+<font color="#A82F2F"><font size="2">(09:09:20 PM)</font> <b>benley:</b></font> Or if I know a file from that package, look at where that file is which reveals it<br/>
+<font color="#A82F2F"><font size="2">(09:10:02 PM)</font> <b>benley:</b></font> would be great if there was a nix-env --where-the-hell-is packagename or something :)<br/>
+<font color="#A82F2F"><font size="2">(09:10:13 PM)</font> <b>Lethalman:</b></font> benley, sure, there is an option for printing the store path of course<br/>
+<font color="#A82F2F"><font size="2">(09:10:18 PM)</font> <b>Lethalman:</b></font> search the man :)<br/>
+<font size="2">(09:10:56 PM)</font><b> Ankhers` is now known as Ankhers</b><br/>
+<font color="#A82F2F"><font size="2">(09:11:06 PM)</font> <b>Lethalman:</b></font> look into --QUERY<br/>
+<font color="#A82F2F"><font size="2">(09:11:27 PM)</font> <b>erasmas:</b></font> Lethalman: oh, I think it&apos;s different for me since I&apos;m only using 14.12 stable right now. nixos.nixpkgs.haskellPackages.Elm installs the utility &apos;elm&apos; (the elm compiler)<br/>
+<font color="#A82F2F"><font size="2">(09:11:44 PM)</font> <b>Lethalman:</b></font> erasmas, oh you are right<br/>
+<font color="#A82F2F"><font size="2">(09:11:50 PM)</font> <b>Lethalman:</b></font> I thought I had to use elm-make<br/>
+<font color="#A82F2F"><font size="2">(09:12:30 PM)</font> <b>benley:</b></font> Lethalman: aha nix-env -q --out-path<br/>
+<font color="#A82F2F"><font size="2">(09:12:40 PM)</font> <b>benley:</b></font> quidnunc: ^^^ in case that&apos;s helpful to you<br/>
+<font color="#A82F2F"><font size="2">(09:13:02 PM)</font> <b>quidnunc:</b></font> benley: thanks<br/>
+<font color="#A82F2F"><font size="2">(09:13:16 PM)</font> <b>Lethalman:</b></font> erasmas, it&apos;s probably me, but I can only find code in that elm-lang.org site, not a page where it says: &quot;write this to a file, execute elm file&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:13:23 PM)</font> <b>Lethalman:</b></font> I&apos;m missing some important page<br/>
+<font color="#A82F2F"><font size="2">(09:13:27 PM)</font> <b>benley:</b></font> quidnunc: find $(nix-env --query --no-name --out-path &lt;packagename&gt;)<br/>
+<font color="#A82F2F"><font size="2">(09:13:35 PM)</font> <b>benley:</b></font> quidnunc: is the equivalent of dpkg -L :D<br/>
+<font color="#A82F2F"><font size="2">(09:13:53 PM)</font> <b>Lethalman:</b></font> perhaps you know a quick start for dummies starting from the command line? :P<br/>
+<font color="#062585"><font size="2">(09:14:45 PM)</font> <b>***benley</b></font> starts writing a &quot;nix for people who know apt-get and dpkg&quot; thing<br/>
+<font color="#A82F2F"><font size="2">(09:15:33 PM)</font> <b>Lethalman:</b></font> benley, I&apos;m sure you will get a bunch of people complaining most of things won&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(09:15:40 PM)</font> <b>Lethalman:</b></font> like nix-env -i nginx...<br/>
+<font color="#A82F2F"><font size="2">(09:16:07 PM)</font> <b>erasmas:</b></font> Lethalman: I was using elm in a cabal sandbox last time instead of installing via nix... let me see if I can reproduce real quick<br/>
+<font color="#A82F2F"><font size="2">(09:16:10 PM)</font> <b>Lethalman:</b></font> benley, unless you explain all the opposite side compared to apt-get :D<br/>
+<font color="#A82F2F"><font size="2">(09:16:19 PM)</font> <b>benley:</b></font> Lethalman: this is just going to be some command equivalents<br/>
+<font color="#A82F2F"><font size="2">(09:16:26 PM)</font> <b>benley:</b></font> Lethalman: explaining all of nix is wayyyyy out of scope :P<br/>
+<font color="#A82F2F"><font size="2">(09:16:44 PM)</font> <b>Lethalman:</b></font> benley, iirc there is a rosetta for package managers<br/>
+<font color="#A82F2F"><font size="2">(09:16:50 PM)</font> <b>benley:</b></font> probably<br/>
+<font color="#A82F2F"><font size="2">(09:17:09 PM)</font> <b>benley:</b></font> those always seem to be full of weird not-quite-makes-sense errors :/<br/>
+<font color="#A82F2F"><font size="2">(09:17:44 PM)</font> <b>benley:</b></font> https://wiki.archlinux.org/index.php/Pacman_Rosetta<br/>
+<font color="#A82F2F"><font size="2">(09:18:44 PM)</font> <b>quidnunc:</b></font> I&apos;m trying to install racer. It installs fine but it requires source code for rust to work. The rust package (or any other package) doesn&apos;t provide rust source code. Is this intended?<br/>
+<font color="#A82F2F"><font size="2">(09:18:45 PM)</font> <b>benley:</b></font> I might actually try writing a &quot;nix for debian developers&quot; thing at some point.<br/>
+<font color="#A82F2F"><font size="2">(09:19:30 PM)</font> <b>erasmas:</b></font> Lethalman: oh, hm, maybe elm-make is the default utility now and plain Elm (with the &apos;elm&apos; utility) is outdated. probably why the docs don&apos;t line up anymore<br/>
+<font color="#062585"><font size="2">(09:19:44 PM)</font> <b>***Lethalman</b></font> tries elm-reactor :S<br/>
+<font color="#A82F2F"><font size="2">(09:20:07 PM)</font> <b>erasmas:</b></font> Lethalman: so if you just want to start playing around with it in the meantime, I&apos;d nix-env -i elm-server because it has a built in compiler. you can cd to a dir containing .elm files, run elm-server, view them on localhost:8000<br/>
+<font color="#A82F2F"><font size="2">(09:20:20 PM)</font> <b>erasmas:</b></font> I think elm-reactor is extending some of that functionality but I haven&apos;t kept up on it<br/>
+<font color="#A82F2F"><font size="2">(09:20:49 PM)</font> <b>Lethalman:</b></font> ok I got something running :)<br/>
+<font color="#A82F2F"><font size="2">(09:21:05 PM)</font> <b>Lethalman:</b></font> looks nice so far<br/>
+<font color="#A82F2F"><font size="2">(09:22:57 PM)</font> <b>Lethalman:</b></font> mh ok bad experience so far<br/>
+<font color="#A82F2F"><font size="2">(09:23:07 PM)</font> <b>Lethalman:</b></font> writing a .elm file breaks the reactor immediately<br/>
+<font color="#A82F2F"><font size="2">(09:23:14 PM)</font> <b>Lethalman:</b></font> :(<br/>
+<font color="#A82F2F"><font size="2">(09:23:44 PM)</font> <b>Lethalman:</b></font> might be related to outdated elm though: https://github.com/elm-lang/elm-reactor/issues/61<br/>
+<font color="#A82F2F"><font size="2">(09:23:49 PM)</font> <b>erasmas:</b></font> can&apos;t help there unfortunately. would like to get back to my elm projects but I&apos;m out of the loop now<br/>
+<font color="#A82F2F"><font size="2">(09:23:54 PM)</font> <b>Lethalman:</b></font> np<br/>
+<font color="#A82F2F"><font size="2">(09:24:16 PM)</font> <b>Lethalman:</b></font> erasmas, last question, you were really helpful thanks... did you make any site with it? how is the compilation time as a project grows?<br/>
+<font color="#A82F2F"><font size="2">(09:27:06 PM)</font> <b>erasmas:</b></font> Lethalman: I made a small game prototype so it only had a few files. compilation was almost instant. I suspect the biggest example of a full site would be the elm site itself. might be worth cloning https://github.com/elm-lang/elm-lang.org and trying it out if you&apos;re concerned about performance<br/>
+<font color="#A82F2F"><font size="2">(09:27:37 PM)</font> <b>utdemir:</b></font> hey. I&apos;m trying to use haskellngPackages for my new pet project, I was able to<br/>
+<font color="#A82F2F"><font size="2">(09:28:11 PM)</font> <b>utdemir:</b></font> create a working default.nix, it does download and compile dependencies, but in the nix-shell, there is cabal but no ghc<br/>
+<font color="#A82F2F"><font size="2">(09:28:57 PM)</font> <b>utdemir:</b></font> here is the default.nix: https://gist.github.com/utdemir/594f359f019d56b108b1<br/>
+<font color="#A82F2F"><font size="2">(09:29:04 PM)</font> <b>utdemir:</b></font> can anyone help me?<br/>
+<font size="2">(09:30:19 PM)</font><b> carter- is now known as carter</b><br/>
+<font color="#A82F2F"><font size="2">(09:32:57 PM)</font> <b>pmade:</b></font> utdemir: add hs.ghc to your build depends.<br/>
+<font color="#A82F2F"><font size="2">(09:33:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/HoVV9A<br/>
+<font color="#A82F2F"><font size="2">(09:33:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 52f4b0d Peter Simons: hackage-packages.nix: re-generate from Hackage 2015-01-23T19:42:33+0100<br/>
+<font color="#A82F2F"><font size="2">(09:34:46 PM)</font> <b>utdemir:</b></font> pmade: but then there is ghc in shell, but it doesn&apos;t have the depends. probably i could solve it with ghcWithPackages, but then what&apos;s haskellngPackages.mkDerivation doing?<br/>
+<font color="#A82F2F"><font size="2">(09:35:14 PM)</font> <b>pmade:</b></font> Ah.  I haven&apos;t tried using NG yet.<br/>
+<font color="#A82F2F"><font size="2">(09:35:56 PM)</font> <b>utdemir:</b></font> Also, nix-build successfully builds the package, don&apos;t know why?<br/>
+<font color="#A82F2F"><font size="2">(09:38:42 PM)</font> <b>ttuegel:</b></font> utdemir: looks like you&apos;re using a cabal2nix version too old for haskell-ng<br/>
+<font color="#A82F2F"><font size="2">(09:39:06 PM)</font> <b>ttuegel:</b></font> also, for shells, you need the pkg.env<br/>
+<font color="#A82F2F"><font size="2">(09:39:21 PM)</font> <b>utdemir:</b></font> ttuegel: i manually modified this file from an old default.nix<br/>
+<font color="#A82F2F"><font size="2">(09:41:07 PM)</font> <b>ttuegel:</b></font> utdemir: i commented on your gist with the solution. you need separate default.nix and shell.nix with haskell-ng<br/>
+<font color="#A82F2F"><font size="2">(09:41:26 PM)</font> <b>utdemir:</b></font> ttuegel: Oh, thank you very much. Looking to it now.<br/>
+<font color="#A82F2F"><font size="2">(09:42:34 PM)</font> <b>kmicu:</b></font> The latest thing at http://releases.nixos.org/nixos/unstable/ is nixos-15.05pre56530.b89fbb6 from 22-Jan-2015 19:40 but ‘nix-channel --update’ gives me nixos-15.05pre56489.0e8187b from 22-Jan-2015 10:00. I thought they should be the same.<br/>
+<font color="#16569E"><font size="2">(09:42:37 PM)</font> <b>magnetophon:</b></font> Lethalman: I tried to get rid of the hardcoded includes in faust, but I did something wrong. This is a dif between a working version and one without hardcoded includes. https://github.com/magnetophon/nixpkgs/commit/6ebfb736813fea2dcc29709de3534af40dc04715     What am I missing?<br/>
+<font color="#A82F2F"><font size="2">(09:42:40 PM)</font> <b>utdemir:</b></font> ttuegel: Thank you, it worked. Even &quot;cabal haddock&quot; worked, it wasn&apos;t before<br/>
+<font color="#A82F2F"><font size="2">(09:42:46 PM)</font> <b>utdemir:</b></font> ttuegel: Have a nice day.<br/>
+<font color="#A82F2F"><font size="2">(09:46:20 PM)</font> <b>kmicu:</b></font> I see now http://releases.nixos.org/nixos/unstable/ vs https://nixos.org/releases/nixos/unstable/<br/>
+<font color="#A82F2F"><font size="2">(09:46:43 PM)</font> <b>pmade:</b></font> I&apos;m pulling my hair out trying to fix a package for a gtk3 app so it can show its icons.  Right now it uses the generic missing icon for all of the icons.  What&apos;s wrong with this expression: https://github.com/pjones/nixpkgs/blob/pkg/simple-scan/pkgs/applications/graphics/sane/simple-scan.nix<br/>
+<font color="#16569E"><font size="2">(09:51:32 PM)</font> <b>magnetophon:</b></font> goibhniu, henrytill: could you give this a try: https://github.com/magnetophon/nixpkgs/tree/sooperlooper   ?    It crashed on me a couple of times at first, but it seems fine now, and I cannot reproduce my problem anymore.<br/>
+<font color="#16569E"><font size="2">(09:52:08 PM)</font> <b>magnetophon:</b></font> Same of course for any other audio Nixers.  (You need jack)<br/>
+<font color="#A82F2F"><font size="2">(09:53:05 PM)</font> <b>kmicu:</b></font> Manifest is available in nixos-15.05pre56490.b202dcb 23-Jan-2015 19:47 , but manifest is deprecated in favour of ‘set of Nix expressions and a pointer to a binary cache’ and http://releases.nixos.org/nixos/unstable/nixos-15.05pre56489.0e8187b/src-url is probably that pointer. I will check source code to be sure.<br/>
+<font color="#A82F2F"><font size="2">(09:53:17 PM)</font> <b>Digit:</b></font> how safe is it to ctrl-c a nix-env -u ?<br/>
+<font color="#A82F2F"><font size="2">(09:54:22 PM)</font> <b>Lethalman:</b></font> magnetophon, what&apos;s the error?<br/>
+<font color="#16569E"><font size="2">(09:54:58 PM)</font> <b>magnetophon:</b></font> Lethalman: Faust cannot find it's header files.<br/>
+<font color="#A82F2F"><font size="2">(09:55:25 PM)</font> <b>Lethalman:</b></font> magnetophon, I thought you patched faust2lv2 but you didn&apos;t?<br/>
+<font color="#A82F2F"><font size="2">(09:55:47 PM)</font> <b>Lethalman:</b></font> magnetophon, it&apos;s this line you need to patch https://github.com/nlogax/faust/blob/master/tools/faust2appls/faust2lv2#L72<br/>
+<font color="#A82F2F"><font size="2">(09:55:48 PM)</font> <b>Lethalman:</b></font> no?<br/>
+<font color="#A82F2F"><font size="2">(09:55:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/f1tyIQ<br/>
+<font color="#A82F2F"><font size="2">(09:55:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 56c970a Peter Simons: haskell-utf8-string: fix build with ghc-6.12.x<br/>
+<font color="#A82F2F"><font size="2">(09:56:10 PM)</font> <b>Lethalman:</b></font> or it fails before?<br/>
+<font color="#A82F2F"><font size="2">(09:56:59 PM)</font> <b>Lethalman:</b></font> magnetophon, btw that&apos;s the principle, I don&apos;t know if anything else is missing<br/>
+<font color="#A82F2F"><font size="2">(09:57:50 PM)</font> <b>Lethalman:</b></font> have to go now<br/>
+<font size="2">(09:57:52 PM)</font><b> Lethalman left the room (quit: Quit: Leaving).</b><br/>
+<font color="#062585"><font size="2">(09:58:40 PM)</font> <b>***magnetophon</b></font> is left hanging... :(<br/>
+<font color="#A82F2F"><font size="2">(10:06:25 PM)</font> <b>ktosiek:</b></font> Is there a package for android SDK light?<br/>
+<font color="#A82F2F"><font size="2">(10:06:41 PM)</font> <b>ktosiek:</b></font> I mean, just the SDK without google APIs, emulator etc.<br/>
+<font color="#A82F2F"><font size="2">(10:13:37 PM)</font> <b>logand:</b></font> since commit f1151a3373c1df77255cb63a01daf29fd093d690 Tue Jan 6: src/libstore/build.cc:2254:58: error: ‘nix::Path’ has no member named ‘pop_back’<br/>
+<font color="#A82F2F"><font size="2">(10:14:20 PM)</font> <b>logand:</b></font> compiling from nix sources<br/>
+<font color="#A82F2F"><font size="2">(10:14:31 PM)</font> <b>logand:</b></font> i tried also checking out tag 1.8 but that also fails to compile due to some yacc problem<br/>
+<font color="#A82F2F"><font size="2">(10:15:45 PM)</font> <b>ktosiek:</b></font> nvm, just using androidenv needs much less than putting the SDK in dependencies O_o<br/>
+<font color="#A82F2F"><font size="2">(10:26:06 PM)</font> <b>iElectric:</b></font> niksnut: see above<br/>
+<font color="#A82F2F"><font size="2">(10:26:28 PM)</font> <b>quidnunc:</b></font> How do I reference directories in /nix/store outside of nix in a canonical way?<br/>
+<font color="#A82F2F"><font size="2">(10:27:14 PM)</font> <b>pmade:</b></font> I somehow have a hicolor-icon-theme derivation in /nix/store that has no icons in it.  How can I force nixpkgs to reinstall it?<br/>
+<font color="#A82F2F"><font size="2">(10:28:26 PM)</font> <b>pmade:</b></font> Never mind, got it.<br/>
+<font color="#A82F2F"><font size="2">(10:29:52 PM)</font> <b>pmade:</b></font> Wait, maybe it&apos;s not just me.  A fresh install of that package creates empty directories with on files.  What gives?<br/>
+<font color="#A82F2F"><font size="2">(10:31:24 PM)</font> <b>pmade:</b></font> Okay, I&apos;m crazy.  That package doesn&apos;t actually include any icons.  Weird.<br/>
+<font size="2">(10:39:17 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,18 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with ##zynaddsubfx at Sat 26 Oct 2013 02:43:46 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with ##zynaddsubfx at Sat 26 Oct 2013 02:43:46 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:43:46 PM)</font><b> The topic for ##zynaddsubfx is: ZynAddSubFX Open Source Synthesizer - <a href="http://zynaddsubfx.sf.net">http://zynaddsubfx.sf.net</a></b><br/>
+<font color="#A82F2F"><font size="2">(03:27:39 PM)</font> <b>__johannes:</b></font> I think I have an idea now how to make the event loop in Qt...<br/>
+<font color="#A82F2F"><font size="2">(03:27:48 PM)</font> <b>__johannes:</b></font> It does not work that easy in FL...<br/>
+<font color="#A82F2F"><font size="2">(03:30:37 PM)</font> <b>__johannes:</b></font> in FL, you had the tickUI in a while loop, which called Fl::wait(), and Fl::wait() &quot;runs&quot; the UI (for the specified time)<br/>
+<font color="#A82F2F"><font size="2">(03:31:09 PM)</font> <b>__johannes:</b></font> In Qt, there is a processEvents() function, but this one does not seem to work as good as QApplication::exec()<br/>
+<font color="#A82F2F"><font size="2">(03:31:25 PM)</font> <b>__johannes:</b></font> but now, my idea was to just have a timer somewhere...<br/>
+<font color="#A82F2F"><font size="2">(03:32:01 PM)</font> <b>__johannes:</b></font> if it times out, the GUI thread will enter a function which then does all the non-gui stuff<br/>
+<font color="#A82F2F"><font size="2">(03:32:25 PM)</font> <b>__johannes:</b></font> and when it returns, the GUI can work again... I think this solution should be equivalent to the FL solution?<br/>
+<font color="#A82F2F"><font size="2">(03:33:58 PM)</font> <b>__johannes:</b></font> fundamental: with &quot;non gui stuff&quot;, I mean mainly MiddleWare::tick()<br/>
+<font color="#A82F2F"><font size="2">(03:58:36 PM)</font> <b>fundamental:</b></font> that&apos;s fine, I just wanted to use fewer threads<br/>
+<font color="#A82F2F"><font size="2">(04:50:34 PM)</font> <b>__johannes:</b></font> ok, but in with this solution, I think I only use one thread, too?<br/>
+<font color="#A82F2F"><font size="2">(04:53:24 PM)</font> <b>fundamental:</b></font> perhaps, I&apos;m not that familiar with the qt event system<br/>
+<font color="#A82F2F"><font size="2">(04:58:23 PM)</font> <b>__johannes:</b></font> as I read on stackoverflow, Qt uses (in almost all situations) the same thread for all signals/slots, so we should have only the main thread running the GUI, and from time to time jump into Middleware<br/>
+<font color="#A82F2F"><font size="2">(04:58:52 PM)</font> <b>__johannes:</b></font> I&apos;ll try to seperate code in the main.cpp with macros and get it running... we can still change it if we want later, I guess<br/>
+<font color="#A82F2F"><font size="2">(04:59:37 PM)</font> <b>fundamental:</b></font> sure<br/>
+<font size="2">(05:49:41 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

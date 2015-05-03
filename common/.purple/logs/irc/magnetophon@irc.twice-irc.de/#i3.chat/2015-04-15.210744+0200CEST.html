@@ -1,0 +1,33 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #i3 at Wed 15 Apr 2015 09:07:44 PM CEST on magnetophon@irc.twice-irc.de (irc)</title></head><body><h3>Conversation with #i3 at Wed 15 Apr 2015 09:07:44 PM CEST on magnetophon@irc.twice-irc.de (irc)</h3>
+<font size="2">(09:07:44 PM)</font><b> The topic for #i3 is: i3 v4.10.1 released | i3status 2.9 released | i3lock 2.6 released | <a href="http://code.i3wm.org/">http://code.i3wm.org/</a> | <a href="http://i3wm.org/">http://i3wm.org/</a> | <a href="http://faq.i3wm.org/">http://faq.i3wm.org/</a> | <a href="http://build.i3wm.org/download-count.txt">http://build.i3wm.org/download-count.txt</a> | paste at <a href="http://p.nnev.de/">http://p.nnev.de/</a> | file upload at <a href="https://transfer.sh/">https://transfer.sh/</a> </b><br/>
+<font size="2">(09:07:44 PM)</font><b> Topic for #i3 set by sECuRE at 07:14:07 PM on 03/29/2015</b><br/>
+<font color="#A82F2F"><font size="2">(09:32:02 PM)</font> <b>Janusz:</b></font> Hi. I have 3 monitors, 2x 1080p, 1x 1440p, I set in config file workspace 1 output dvi-... for each monitor, and almost always I get third workspace also on my second monitor (1440p). anyone have same problem? it looks like this: http://i.imgur.com/4Ucfwt2.png <br/>
+<font size="2">(09:35:23 PM)</font><b> old is now known as f8l</b><br/>
+<font color="#A82F2F"><font size="2">(09:36:07 PM)</font> <b>f8l:</b></font> Cześć Janusz. I guess the screens are misaligned. Can you show us how they are configured?<br/>
+<font color="#A82F2F"><font size="2">(09:38:05 PM)</font> <b>Janusz:</b></font> f8l: https://bpaste.net/show/86789c30e88b output of xrandr<br/>
+<font color="#A82F2F"><font size="2">(09:38:06 PM)</font> <b>frank:</b></font> [Link Info] show at bpaste<br/>
+<font color="#A82F2F"><font size="2">(09:39:05 PM)</font> <b>Janusz:</b></font> I am setting position of screens when i3 is starting<br/>
+<font color="#A82F2F"><font size="2">(09:39:31 PM)</font> <b>Janusz:</b></font> by exec xrandr --output ... --right-of ...<br/>
+<font color="#A82F2F"><font size="2">(09:39:42 PM)</font> <b>f8l:</b></font> Look at HDMI-0. It’s too far to the right.<br/>
+<font color="#A82F2F"><font size="2">(09:39:53 PM)</font> <b>GitHub:</b></font> (notice) [<span style='color: pink;'>i3</span>] <span style='color: light grey;'>Airblader</span> opened pull request #1662: Allow moving windows to marks (<span style='color: purple;'>next</span>...<span style='color: purple;'>feature-move-to-mark</span>) <span style='color: blue;'><span style='text-decoration: underline;'>http://git.io/vvajQ</span></span><br/>
+<font size="2">(09:39:53 PM)</font><b> GitHub left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:40:42 PM)</font> <b>f8l:</b></font> Or maybe it’s VGA-0.<br/>
+<font color="#A82F2F"><font size="2">(09:40:55 PM)</font> <b>f8l:</b></font> Anyway, these two overlap.<br/>
+<font color="#A82F2F"><font size="2">(09:41:31 PM)</font> <b>Janusz:</b></font> so its problem with: http://pastebin.com/yqPcHYHU this?<br/>
+<font color="#A82F2F"><font size="2">(09:41:32 PM)</font> <b>frank:</b></font> [Link Info] exec sleep 0.5 &amp;&amp; xrandr --output DVI-D-0 --primary exec sleep 0.5 &amp;&amp; xrandr -- - Pastebin.com<br/>
+<font color="#A82F2F"><font size="2">(09:41:58 PM)</font> <b>f8l:</b></font> If you set VGA-0 to 1920x1080+1920+0, it should be better.<br/>
+<font color="#A82F2F"><font size="2">(09:42:38 PM)</font> <b>f8l:</b></font> Yes. Why are you setting them up almost simultaneously?<br/>
+<font color="#A82F2F"><font size="2">(09:44:12 PM)</font> <b>f8l:</b></font> You are not guaranteed to set up VGA-0 after HDMI-0. It can move afterwards.<br/>
+<font color="#A82F2F"><font size="2">(09:44:49 PM)</font> <b>Janusz:</b></font> hmm, so maybe I should setup them in xorg.cond.d<br/>
+<font color="#A82F2F"><font size="2">(09:44:55 PM)</font> <b>f8l:</b></font> Do it sequentially, or even better in a single call.<br/>
+<font color="#A82F2F"><font size="2">(09:45:37 PM)</font> <b>Janusz:</b></font> didn know that I can set up them in single call<br/>
+<font color="#A82F2F"><font size="2">(09:45:58 PM)</font> <b>f8l:</b></font> Like this: ‘xrandr --output DVI-D-0 --primary --output HDMI-0 --right-of DVI-D-0 --output VGA-0 --right-of HDMI-0’.<br/>
+<font color="#A82F2F"><font size="2">(09:46:29 PM)</font> <b>f8l:</b></font> I’m not sure either, but it may be possible.<br/>
+<font color="#A82F2F"><font size="2">(09:47:37 PM)</font> <b>f8l:</b></font> Yes. There is an example in the manual which sets up multiple outputs in a single call.<br/>
+<font color="#A82F2F"><font size="2">(09:49:09 PM)</font> <b>Janusz:</b></font> ok, now its jumping when setting workspaces but now 3 workspace dont go into 2. thanks<br/>
+<font color="#A82F2F"><font size="2">(09:50:49 PM)</font> <b>f8l:</b></font> Jumping?<br/>
+<font color="#A82F2F"><font size="2">(09:52:13 PM)</font> <b>Janusz:</b></font> for the time when its setting, bar with workspace number goes up and down when its set<br/>
+<font color="#A82F2F"><font size="2">(09:52:27 PM)</font> <b>Janusz:</b></font> but its ok, if nothing else happening<br/>
+<font color="#A82F2F"><font size="2">(09:54:16 PM)</font> <b>f8l:</b></font> Strange things may happen when setting up the outputs, but they are usually temporary.<br/>
+<font size="2">(10:10:09 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,744 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Wed 04 Sep 2013 06:34:46 AM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Wed 04 Sep 2013 06:34:46 AM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(06:34:46 AM)</font><b> The topic for #ardour is: ardour 3.4 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(06:46:55 AM)</font><b> hansfbaier [<em>~jack@36.81.23.48</em>] entered the room.</b><br/>
+<font size="2">(07:04:36 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font size="2">(07:05:41 AM)</font><b> naptastic [<em>~david@99-20-201-27.lightspeed.hstntx.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(07:09:58 AM)</font><b> karimb [<em>~kboumedhe@216.200.219.87.dynamic.jazztel.es</em>] entered the room.</b><br/>
+<font size="2">(07:18:01 AM)</font><b> hansfbaier [<em>~jack@36.81.38.144</em>] entered the room.</b><br/>
+<font size="2">(07:27:49 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font size="2">(07:40:14 AM)</font><b> phyzix5761 [<em>~phyzix576@c-50-140-54-206.hsd1.fl.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(07:41:49 AM)</font><b> hansfbaier [<em>~jack@180.254.76.9</em>] entered the room.</b><br/>
+<font size="2">(07:49:36 AM)</font><b> ahellquist|afk left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(07:49:55 AM)</font><b> ahellquist_lt left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font size="2">(07:51:19 AM)</font><b> ioflow [<em>~ioflow@gentoo/developer/nightmorph</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:51:44 AM)</font> <b>ioflow:</b></font> anyone have experience with ardour3 on osx? it&apos;s like a3 refuses to see or use standard coremidi devices<br/>
+<font size="2">(07:52:38 AM)</font><b> ahellquist_lt [<em>~aht@h192n4-aahm-a11.ias.bredband.telia.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:53:09 AM)</font> <b>[lsd]:</b></font> does JACK see them?<br/>
+<font color="#A82F2F"><font size="2">(07:53:22 AM)</font> <b>ioflow:</b></font> JackPilot is a little...hard to read<br/>
+<font size="2">(07:53:30 AM)</font><b> ahellquist|afk [<em>~anhe@h192n4-aahm-a11.ias.bredband.telia.com</em>] entered the room.</b><br/>
+<font size="2">(07:53:40 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:53:58 AM)</font> <b>[lsd]:</b></font> i know ardour on OS X is still very much a work-in-progress, but it should see any MIDI port that JACK can see<br/>
+<font color="#A82F2F"><font size="2">(07:53:58 AM)</font> <b>ioflow:</b></font> qjackctl is available, installed, and running, but it doesn&apos;t list either the onboard KA6 midi nor the Emu 1x1 usb-midi<br/>
+<font color="#A82F2F"><font size="2">(07:54:00 AM)</font> <b>ioflow:</b></font> and these things work fine in renoise<br/>
+<font color="#A82F2F"><font size="2">(07:56:01 AM)</font> <b>ioflow:</b></font> hmmmm<br/>
+<font color="#A82F2F"><font size="2">(07:56:07 AM)</font> <b>ioflow:</b></font> lemme futz with jackpilot...<br/>
+<font color="#A82F2F"><font size="2">(07:56:17 AM)</font> <b>ioflow:</b></font> okay, add new midi track in renoise<br/>
+<font color="#A82F2F"><font size="2">(07:56:20 AM)</font> <b>ioflow:</b></font> THAT shows up in jackpilot<br/>
+<font color="#A82F2F"><font size="2">(07:56:31 AM)</font> <b>ioflow:</b></font> the confusingly named system_midi capture(1 through 3)<br/>
+<font color="#A82F2F"><font size="2">(07:56:46 AM)</font> <b>ioflow:</b></font> if i assign cap1 on the left to a3 midi track 1 on the right<br/>
+<font color="#A82F2F"><font size="2">(07:57:04 AM)</font> <b>ioflow:</b></font> even though it&apos;s named &quot;capture&quot; not &quot;output&quot;, it produces a velocity bar in a3<br/>
+<font color="#A82F2F"><font size="2">(07:57:07 AM)</font> <b>ioflow:</b></font> so i guess it&apos;s connected?<br/>
+<font color="#A82F2F"><font size="2">(07:57:36 AM)</font> <b>[lsd]:</b></font> which is named capture?<br/>
+<font color="#A82F2F"><font size="2">(07:58:08 AM)</font> <b>ioflow:</b></font> ya<br/>
+<font color="#A82F2F"><font size="2">(07:58:15 AM)</font> <b>ioflow:</b></font> shoot, i wish i knew how to take screenshots on osx<br/>
+<font color="#A82F2F"><font size="2">(07:58:21 AM)</font> <b>[lsd]:</b></font> run grab<br/>
+<font color="#A82F2F"><font size="2">(07:58:39 AM)</font> <b>ioflow:</b></font> uhhh<br/>
+<font color="#A82F2F"><font size="2">(07:58:47 AM)</font> <b>ioflow:</b></font> there&apos;s probably a keystroke to do that, but lemme do a terminal...<br/>
+<font color="#A82F2F"><font size="2">(07:58:57 AM)</font> <b>[lsd]:</b></font> use spotlight<br/>
+<font color="#A82F2F"><font size="2">(07:59:05 AM)</font> <b>[lsd]:</b></font> apple space, type &quot;grab&quot;, hit enter<br/>
+<font color="#A82F2F"><font size="2">(07:59:18 AM)</font> <b>[lsd]:</b></font> on a terminal, you&apos;d need to use:<br/>
+<font color="#A82F2F"><font size="2">(07:59:20 AM)</font> <b>[lsd]:</b></font> open -a grab<br/>
+<font color="#A82F2F"><font size="2">(07:59:35 AM)</font> <b>[lsd]:</b></font> *or* there are hotkeys built in to the desktop, which i always forget<br/>
+<font color="#A82F2F"><font size="2">(07:59:42 AM)</font> <b>ioflow:</b></font> ya same<br/>
+<font color="#A82F2F"><font size="2">(07:59:45 AM)</font> <b>[lsd]:</b></font> http://guides.macrumors.com/Taking_Screenshots_in_Mac_OS_X#Shortcuts<br/>
+<font color="#A82F2F"><font size="2">(08:01:10 AM)</font> <b>ioflow:</b></font> thanks, command-shift-4<br/>
+<font color="#A82F2F"><font size="2">(08:01:11 AM)</font> <b>ioflow:</b></font> shweet<br/>
+<font color="#A82F2F"><font size="2">(08:01:58 AM)</font> <b>ioflow:</b></font> https://dl.dropboxusercontent.com/u/38906741/20130903-jackpilot.png<br/>
+<font color="#A82F2F"><font size="2">(08:02:24 AM)</font> <b>ioflow:</b></font> see? see? jackpilot is not nearly as obvious as the sometimes still-frustrating qjackctl<br/>
+<font color="#A82F2F"><font size="2">(08:02:51 AM)</font> <b>[lsd]:</b></font> yeah, the terminology&apos;s confusing<br/>
+<font color="#A82F2F"><font size="2">(08:02:58 AM)</font> <b>ioflow:</b></font> qjackctl also retains the &quot;system&quot; and &quot;capture&quot; designations<br/>
+<font color="#A82F2F"><font size="2">(08:03:02 AM)</font> <b>[lsd]:</b></font> on the left are send ports because they send data<br/>
+<font color="#A82F2F"><font size="2">(08:03:23 AM)</font> <b>ioflow:</b></font> yeah, i expected the same left/right split for i/o<br/>
+<font color="#A82F2F"><font size="2">(08:03:27 AM)</font> <b>ioflow:</b></font> but the terms...weird<br/>
+<font color="#A82F2F"><font size="2">(08:03:46 AM)</font> <b>ioflow:</b></font> okay, hooked up! now to maybe start gettin&apos; some stuff recorded :)<br/>
+<font color="#A82F2F"><font size="2">(08:04:43 AM)</font> <b>ioflow:</b></font> figured i&apos;d record my midi as i improvise, so that the audio gets all the effects (a general reverb wash), which will later be processed through paulstretch. then i can take the original midi file and play it back through my piano, to get the notes layered over a nice pad<br/>
+<font color="#A82F2F"><font size="2">(08:04:53 AM)</font> <b>ioflow:</b></font> thanks, [lsd]<br/>
+<font color="#A82F2F"><font size="2">(08:05:00 AM)</font> <b>[lsd]:</b></font> no problem<br/>
+<font size="2">(08:07:09 AM)</font><b> hansfbaier [<em>~jack@180.254.78.181</em>] entered the room.</b><br/>
+<font size="2">(08:19:50 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(08:31:31 AM)</font><b> ahellquist_lt left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font size="2">(08:37:16 AM)</font><b> hansfbaier [<em>~jack@180.254.66.199</em>] entered the room.</b><br/>
+<font size="2">(08:43:48 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font size="2">(08:45:34 AM)</font><b> hansfbaier [<em>~jack@36.81.23.8</em>] entered the room.</b><br/>
+<font size="2">(08:50:22 AM)</font><b> oget_ left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font size="2">(08:57:06 AM)</font><b> naptastic left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(08:59:01 AM)</font><b> naptastic [<em>~david@99-20-201-27.lightspeed.hstntx.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(09:00:11 AM)</font><b> oget_ [<em>~oget@cpe-72-229-239-251.nyc.res.rr.com</em>] entered the room.</b><br/>
+<font size="2">(09:01:56 AM)</font><b> imeim [<em>~quassel@221.Red-88-18-9.staticIP.rima-tde.net</em>] entered the room.</b><br/>
+<font size="2">(09:05:39 AM)</font><b> Stuzz left the room (quit: Quit: I am so omniscient, if there were to be two omnisciences, I would be both!).</b><br/>
+<font size="2">(09:07:42 AM)</font><b> bellforin [<em>~rpf@unaffiliated/rpf</em>] entered the room.</b><br/>
+<font size="2">(09:13:00 AM)</font><b> zequence-work [<em>~zequence-@ubuntu/member/zequence</em>] entered the room.</b><br/>
+<font size="2">(09:19:25 AM)</font><b> DrCode left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(09:19:47 AM)</font><b> err-or left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(09:20:04 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(09:22:11 AM)</font><b> zequence-work left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font size="2">(09:23:22 AM)</font><b> DrCode [<em>~DrCode@gateway/tor-sasl/drcode</em>] entered the room.</b><br/>
+<font size="2">(09:32:03 AM)</font><b> phyzix5761 left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(09:34:09 AM)</font><b> hansfbaier [<em>~jack@36.73.79.217</em>] entered the room.</b><br/>
+<font size="2">(09:35:08 AM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font size="2">(09:37:36 AM)</font><b> naptastic left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:39:47 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font size="2">(09:40:41 AM)</font><b> hansfbaier [<em>~jack@180.254.90.105</em>] entered the room.</b><br/>
+<font size="2">(09:42:02 AM)</font><b> bellforin left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(09:46:42 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(09:48:19 AM)</font><b> ahellquist_lt [<em>~aht@89.160.61.6</em>] entered the room.</b><br/>
+<font size="2">(09:50:04 AM)</font><b> hansfbaier [<em>~jack@36.81.23.145</em>] entered the room.</b><br/>
+<font size="2">(09:54:24 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(10:08:18 AM)</font><b> schwenke left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(10:09:20 AM)</font><b> hansfbaier [<em>~jack@36.73.67.11</em>] entered the room.</b><br/>
+<font size="2">(10:15:06 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(10:18:30 AM)</font><b> hansfbaier [<em>~jack@180.245.130.127</em>] entered the room.</b><br/>
+<font size="2">(10:33:09 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(10:37:02 AM)</font><b> aloiece [<em>~Thunderbi@2001:8b0:fbbd:191c:898b:9d78:448e:af95</em>] entered the room.</b><br/>
+<font size="2">(10:46:27 AM)</font><b> hansfbaier [<em>~jack@36.81.61.87</em>] entered the room.</b><br/>
+<font size="2">(10:54:47 AM)</font><b> boom1992 [<em>~quassel@BA1222.ballee.wh.tu-darmstadt.de</em>] entered the room.</b><br/>
+<font size="2">(10:57:09 AM)</font><b> corresponder [<em>~walther@p3EE3AAF5.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(10:58:07 AM)</font><b> schwenke [<em>~schwenke@ta-1-193.tip.net.au</em>] entered the room.</b><br/>
+<font size="2">(11:01:27 AM)</font><b> RytmenPinne [<em>~alex@35-51.bob.fi</em>] entered the room.</b><br/>
+<font size="2">(11:16:16 AM)</font><b> imeim_ [<em>~quassel@221.Red-88-18-9.staticIP.rima-tde.net</em>] entered the room.</b><br/>
+<font size="2">(11:17:55 AM)</font><b> imeim left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font size="2">(11:27:40 AM)</font><b> Tecan is now known as Ramziez</b><br/>
+<font size="2">(11:27:52 AM)</font><b> ioflow left the room.</b><br/>
+<font size="2">(11:35:05 AM)</font><b> hansfbaier left the room.</b><br/>
+<font size="2">(11:46:41 AM)</font><b> polosson [<em>~quassel@lns-bzn-31-82-252-228-181.adsl.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(11:47:43 AM)</font><b> quackgyver left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:55:18 AM)</font><b> glasz [<em>~quassel@216.141.75.86.rev.sfr.net</em>] entered the room.</b><br/>
+<font size="2">(11:58:49 AM)</font><b> hansfbaier [<em>~jack@36.81.61.87</em>] entered the room.</b><br/>
+<font size="2">(11:58:58 AM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font size="2">(12:02:33 PM)</font><b> HisaoNakai [<em>~HisaoNaka@14.98.118.93</em>] entered the room.</b><br/>
+<font size="2">(12:02:33 PM)</font><b> HisaoNakai left the room (quit: Changing host).</b><br/>
+<font size="2">(12:02:33 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(12:11:58 PM)</font><b> nphilipp [<em>nils@nat/redhat/x-xmefnqownpungqoy</em>] entered the room.</b><br/>
+<font size="2">(12:12:28 PM)</font><b> edogawa [<em>~quassel@178-191-89-60.adsl.highway.telekom.at</em>] entered the room.</b><br/>
+<font size="2">(12:36:30 PM)</font><b> velho [<em>~velho@89-180-173-220.net.novis.pt</em>] entered the room.</b><br/>
+<font size="2">(12:39:06 PM)</font><b> quackgyver [<em>uid11872@gateway/web/irccloud.com/x-ahyvjhktlsvfxzow</em>] entered the room.</b><br/>
+<font size="2">(12:48:16 PM)</font><b> corresponder left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font size="2">(12:51:29 PM)</font><b> hybrid [<em>~R3n4t0@nebulosa.ifsc.usp.br</em>] entered the room.</b><br/>
+<font size="2">(12:56:44 PM)</font><b> HisaoNakai left the room (quit: Quit: &quot;We will not go quietly into the night!&quot; https://www.prism-break.org).</b><br/>
+<font size="2">(01:03:31 PM)</font><b> corresponder [<em>~walther@p3EE3BB71.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(01:05:40 PM)</font><b> idragosani left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(01:08:34 PM)</font><b> corresponder left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(01:12:33 PM)</font><b> glasz left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:13:07 PM)</font><b> corresponder [<em>~walther@p3EE3ADDF.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(01:17:40 PM)</font><b> corresponder left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(01:20:17 PM)</font><b> idragosani [<em>~idragosan@199.19.192.4</em>] entered the room.</b><br/>
+<font size="2">(01:28:58 PM)</font><b> corresponder [<em>~walther@p3EE39FB9.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(01:31:38 PM)</font><b> zequence-work [<em>~zequence-@ubuntu/member/zequence</em>] entered the room.</b><br/>
+<font size="2">(01:37:14 PM)</font><b> RytmenPinne left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(01:37:19 PM)</font><b> schwenke left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(01:40:50 PM)</font><b> corresponder left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(01:41:57 PM)</font><b> corresponder [<em>~walther@p3EE39115.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(01:41:57 PM)</font><b> polosson left the room (quit: Quit: Bye!).</b><br/>
+<font size="2">(01:46:43 PM)</font><b> corresponder left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font size="2">(01:50:14 PM)</font><b> Ramziez left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:56:05 PM)</font><b> corresponder [<em>~walther@p3EE38986.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:59:49 PM)</font> <b>oofus:</b></font> rgareus: remind me again why we&apos;re not offering a K-12 meter ?<br/>
+<font size="2">(02:19:21 PM)</font><b> oofus_lt [<em>~chris@oofus-adsl.demon.co.uk</em>] entered the room.</b><br/>
+<font size="2">(02:29:50 PM)</font><b> hansfbaier left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:45:32 PM)</font><b> idragosani left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font size="2">(02:49:49 PM)</font><b> corresponder left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(02:51:41 PM)</font><b> corresponder [<em>~walther@p3EE3B9B9.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(02:54:19 PM)</font><b> clark|w [<em>~clark_wil@173-25-43-115.client.mchsi.com</em>] entered the room.</b><br/>
+<font size="2">(02:55:18 PM)</font><b> corresponder_ [<em>~walther@p3EE3AC8D.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(02:57:01 PM)</font><b> corresponder left the room (quit: Ping timeout: 257 seconds).</b><br/>
+<font size="2">(03:08:28 PM)</font><b> HarryHaaren left the room (quit: Quit: Quittin&apos;).</b><br/>
+<font size="2">(03:13:10 PM)</font><b> nphilipp left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(03:19:15 PM)</font><b> idragosani [<em>~bmccoy@199.19.192.4</em>] entered the room.</b><br/>
+<font size="2">(03:36:45 PM)</font><b> polosson [<em>~quassel@lns-bzn-31-82-252-228-181.adsl.proxad.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:41:52 PM)</font> <b>tom^_:</b></font> zth: i&apos;d have some free time this evening - just in case your are ready<br/>
+<font size="2">(03:42:23 PM)</font><b> DrCode left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(03:43:57 PM)</font> <b>zth:</b></font> tom^_, hey! awesome, i&apos;ll look in to it. i gotta dig up the project and set it all up again, so it might be a while, not sureif i can make it to this evening. but you want all stems?<br/>
+<font size="2">(03:47:55 PM)</font><b> velho left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(03:48:07 PM)</font> <b>tom^_:</b></font> zth: yes, just the single audio tracks would be fine<br/>
+<font color="#A82F2F"><font size="2">(03:48:47 PM)</font> <b>tom^_:</b></font> zth: i started to do that for ~ finished songs so i am not dependent on session / daw on possible later work<br/>
+<font size="2">(03:52:35 PM)</font><b> DrCode [<em>~DrCode@gateway/tor-sasl/drcode</em>] entered the room.</b><br/>
+<font color="#062585"><font size="2">(03:53:07 PM)</font> <b>***las</b></font> finds the extra space in a release file name ... curses!<br/>
+<font size="2">(03:56:47 PM)</font><b> dawiba [<em>~dawiba@80.80.186.91</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:03:05 PM)</font> <b>dawiba:</b></font> Can anyone help with metering and exporting questions?<br/>
+<font color="#A82F2F"><font size="2">(04:03:17 PM)</font> <b>zth:</b></font> dawiba, just ask and you&apos;ll find out :)<br/>
+<font color="#A82F2F"><font size="2">(04:03:45 PM)</font> <b>dawiba:</b></font> I tried using the new K-20 meter and everything is fine, but much quieter.<br/>
+<font color="#A82F2F"><font size="2">(04:04:18 PM)</font> <b>dawiba:</b></font> When I come to export, all the options want to normalise the export, which makes everything louder again<br/>
+<font color="#A82F2F"><font size="2">(04:04:30 PM)</font> <b>dawiba:</b></font> Is this fine/normal?<br/>
+<font color="#A82F2F"><font size="2">(04:05:47 PM)</font> <b>dawiba:</b></font> What I mean is if I A/B Ardour and e.g.Audacity playing the exported file, the exported file is louder than the master in Ardour<br/>
+<font color="#A82F2F"><font size="2">(04:06:06 PM)</font> <b>oofus_lt:</b></font> dawiba: the point of using a metering standard is that it is a standard, if you normalise afterwards you have lost the point of complying with a standard<br/>
+<font color="#A82F2F"><font size="2">(04:07:44 PM)</font> <b>dawiba:</b></font> Ahh... in my case then, as I only record for myself, it won&apos;t make any difference. Thanks<br/>
+<font color="#A82F2F"><font size="2">(04:15:04 PM)</font> <b>zth:</b></font> but normalizing only brings the sound up so that the maximum peak is 0dB, right?<br/>
+<font color="#A82F2F"><font size="2">(04:16:25 PM)</font> <b>SaBer:</b></font> dawiba: you can turn off the normalizing if you don&apos;t like it<br/>
+<font color="#A82F2F"><font size="2">(04:16:49 PM)</font> <b>las:</b></font> wait, the meters affect actual volume ? say what?<br/>
+<font color="#A82F2F"><font size="2">(04:16:59 PM)</font> <b>dawiba:</b></font> zth:yes, but that is louder than the output using the k-20 metering in ardour. I just thought it odd that the default export setting would make things louder than the standard.<br/>
+<font color="#A82F2F"><font size="2">(04:17:58 PM)</font> <b>dawiba:</b></font> SaBer:I know. It&apos;s not a problem, it&apos;s just something I guess I didn&apos;t understand fully after reading the Bob Katz article<br/>
+<font color="#A82F2F"><font size="2">(04:18:18 PM)</font> <b>dawiba:</b></font> A little knowledge and all that...<br/>
+<font color="#A82F2F"><font size="2">(04:19:10 PM)</font> <b>dawiba:</b></font> will read over it all again. Thanks for the input<br/>
+<font color="#A82F2F"><font size="2">(04:23:24 PM)</font> <b>zth:</b></font> dawiba, i just found it odd that your track would have no point where it reaches 0dB<br/>
+<font color="#A82F2F"><font size="2">(04:23:32 PM)</font> <b>zth:</b></font> which would make the normalizing affect it<br/>
+<font color="#A82F2F"><font size="2">(04:23:40 PM)</font> <b>dawiba:</b></font> las:no, sorry, that&apos;s not what I meant. I turned various levels down so as to get the meter on the master reading as (I thought) described in the Bob Katz article<br/>
+<font color="#A82F2F"><font size="2">(04:23:40 PM)</font> <b>zth:</b></font> unless i&apos;m misunderstanding how normalizing works<br/>
+<font size="2">(04:26:50 PM)</font><b> zequence-work left the room (quit: Quit: leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(04:29:05 PM)</font> <b>dawiba:</b></font> zth:it&apos;ll be me that doesn&apos;t understand.<br/>
+<font size="2">(04:30:08 PM)</font><b> theothertim [<em>~theothert@h66-222-83-253.lvrgtn.dedicated.static.tds.net</em>] entered the room.</b><br/>
+<font size="2">(04:35:59 PM)</font><b> idragosani1 [<em>~bmccoy@199.19.192.4</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:36:00 PM)</font> <b>dawiba:</b></font> Correct me if I&apos;m wrong, but k-20 shows rms and peak. The idea is to have the rms reading at 0db?<br/>
+<font color="#A82F2F"><font size="2">(04:36:55 PM)</font> <b>zth:</b></font> dawiba, hmm, i think it can/should go over a bit in the most intense parts of the song. but someone knowledgable will answer soon, i&apos;ll stop guessing :)<br/>
+<font size="2">(04:37:26 PM)</font><b> idragosani left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font size="2">(04:38:05 PM)</font><b> idragosani [<em>~bmccoy@199.19.192.4</em>] entered the room.</b><br/>
+<font size="2">(04:38:09 PM)</font><b> idragosani1 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(04:38:19 PM)</font> <b>dawiba:</b></font> zth:that&apos;s pretty much what I read elsewhere and that&apos;s what I&apos;m doing in ardour, sticking to rms at 0db with occasional overs of a couple of db<br/>
+<font color="#A82F2F"><font size="2">(04:38:46 PM)</font> <b>dawiba:</b></font> sorry if I caused any confusion<br/>
+<font size="2">(04:40:40 PM)</font><b> idragosani1 [<em>~bmccoy@199.19.192.4</em>] entered the room.</b><br/>
+<font size="2">(04:42:05 PM)</font><b> idragosani left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(04:49:12 PM)</font> <b>las:</b></font> oofus: what was the problem with MIDI port connections in audioengine branch again? you said that connections were not restored?<br/>
+<font size="2">(04:54:38 PM)</font><b> ahellquist_lt left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(05:12:19 PM)</font><b> boom1992 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(05:12:51 PM)</font><b> drdeviat1on [<em>~drdeviati@198.51.92.230</em>] entered the room.</b><br/>
+<font size="2">(05:14:10 PM)</font><b> hybrid left the room (quit: Ping timeout: 275 seconds).</b><br/>
+<font size="2">(05:16:12 PM)</font><b> HisaoNakai [<em>~HisaoNaka@219.64.186.194</em>] entered the room.</b><br/>
+<font size="2">(05:16:12 PM)</font><b> HisaoNakai left the room (quit: Changing host).</b><br/>
+<font size="2">(05:16:12 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(05:23:04 PM)</font><b> corresponder_ left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(05:27:44 PM)</font><b> corresponder_ [<em>~walther@p3EE38F62.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(05:29:22 PM)</font><b> karimb left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(05:31:09 PM)</font> <b>tom^_:</b></font> rgareus: to indicate the crest-factor on meters was a good idea<br/>
+<font color="#A82F2F"><font size="2">(05:35:52 PM)</font> <b>tom^_:</b></font> oofus_lt: i wonder, when you do the &apos;CD of live concert after 10 minutes&apos; thing, how much headroom do you leave there?<br/>
+<font size="2">(05:36:52 PM)</font><b> idragosani1 left the room (quit: Ping timeout: 268 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:43:20 PM)</font> <b>oofus:</b></font> las: as I remember, if I set the connection from a midi port to the MTC reader input, save the session, close it, reload it, the connection to the MTC port isn&apos;t re-established.<br/>
+<font color="#A82F2F"><font size="2">(05:44:07 PM)</font> <b>las:</b></font> oofus: seems to work here but i&apos;ll check a few more times. <br/>
+<font color="#A82F2F"><font size="2">(05:44:22 PM)</font> <b>oofus:</b></font> las: let me check again<br/>
+<font color="#A82F2F"><font size="2">(05:44:56 PM)</font> <b>las:</b></font> oofus: it could be that the close/open stage is key - i haven&apos;t tried htat<br/>
+<font color="#A82F2F"><font size="2">(05:47:32 PM)</font> <b>oofus:</b></font> las: I think it is<br/>
+<font size="2">(05:48:10 PM)</font><b> ahellquist_lt [<em>~aht@h192n4-aahm-a11.ias.bredband.telia.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:48:13 PM)</font> <b>oofus:</b></font> las: just tried again here and not only is the connection not remade, but it is now impossible to make the connection, the midi matrix just doesn&apos;t make the cross point<br/>
+<font color="#A82F2F"><font size="2">(05:49:49 PM)</font> <b>oofus:</b></font> las: stuff like this in the terminal      http://pastebin.com/kDT6BrGv<br/>
+<font size="2">(05:50:13 PM)</font><b> idragosani [<em>~bmccoy@199.19.192.4</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:50:22 PM)</font> <b>oofus:</b></font> las: actually quiting Ardour and restarting does indeed remake the midi crosspoint<br/>
+<font size="2">(05:59:43 PM)</font><b> DrCode left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(06:08:08 PM)</font><b> grobda24 [<em>~yaaic@silentflame/member/grobda24</em>] entered the room.</b><br/>
+<font size="2">(06:11:04 PM)</font><b> aloiece left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(06:11:21 PM)</font><b> BenLoftis [<em>~harrison@h66-222-83-245.lvrgtn.dedicated.static.tds.net</em>] entered the room.</b><br/>
+<font size="2">(06:14:12 PM)</font><b> corresponder_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(06:14:15 PM)</font><b> Gethiox left the room (quit: Read error: Connection timed out).</b><br/>
+<font size="2">(06:15:24 PM)</font><b> grobda24 left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(06:15:30 PM)</font><b> DrCode [<em>~DrCode@gateway/tor-sasl/drcode</em>] entered the room.</b><br/>
+<font size="2">(06:17:55 PM)</font><b> grobda24 [<em>~yaaic@silentflame/member/grobda24</em>] entered the room.</b><br/>
+<font size="2">(06:22:19 PM)</font><b> grobda24 left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(06:38:12 PM)</font><b> idragosani left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(06:39:16 PM)</font> <b>rgareus:</b></font> las: any idea what would cause http://tracker.ardour.org/view.php?id=5672 ?  my first guess was that hiding SR ports caused this issue..<br/>
+<font size="2">(06:39:24 PM)</font><b> drdeviat1on left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(06:39:34 PM)</font> <b>rgareus:</b></font> las: but the change was after 3.2 and reverted before 3.4. so that does not explain why he can&apos;t move from 3.2. to 3.4<br/>
+<font size="2">(06:41:17 PM)</font><b> grobda24 [<em>~yaaic@silentflame/member/grobda24</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:42:20 PM)</font> <b>rgareus:</b></font> mmn Equalizer12Band.ttl does not use any of the LV2 attributes that ardour filters out.<br/>
+<font color="#A82F2F"><font size="2">(06:42:42 PM)</font> <b>las:</b></font> rgareus: seems very strange<br/>
+<font color="#A82F2F"><font size="2">(06:43:04 PM)</font> <b>las:</b></font> rgareus: unless he has a free version of 3.4 and it simply doesnt&apos; restore plugin settings<br/>
+<font color="#A82F2F"><font size="2">(06:43:16 PM)</font> <b>rgareus:</b></font> las: it&apos;s only the levels that are not restored<br/>
+<font color="#A82F2F"><font size="2">(06:43:30 PM)</font> <b>rgareus:</b></font> uhm no.<br/>
+<font size="2">(06:43:48 PM)</font><b> imeim_ left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(06:44:12 PM)</font> <b>las:</b></font> rgareus: i&apos;ve asked him to attach the config data<br/>
+<font color="#A82F2F"><font size="2">(06:44:14 PM)</font> <b>rgareus:</b></font> las: yes, demo version would indeed explain it.  3.2 was still a full-featured demo was it not?<br/>
+<font color="#A82F2F"><font size="2">(06:44:20 PM)</font> <b>las:</b></font> rgareus: yes<br/>
+<font size="2">(06:46:09 PM)</font><b> HisaoNakai left the room (quit: Quit: &quot;We will not go quietly into the night!&quot; https://www.prism-break.org).</b><br/>
+<font size="2">(06:52:30 PM)</font><b> RytmenPinne [<em>~alex@81.209.35.51</em>] entered the room.</b><br/>
+<font size="2">(06:53:07 PM)</font><b> aalex_ [<em>~aalex@modemcable154.55-37-24.static.videotron.ca</em>] entered the room.</b><br/>
+<font size="2">(06:55:20 PM)</font><b> clark|w is now known as clark|w|afk</b><br/>
+<font size="2">(06:55:40 PM)</font><b> idragosani [<em>~bmccoy@199.19.192.4</em>] entered the room.</b><br/>
+<font size="2">(06:57:24 PM)</font><b> grobda24 left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(07:04:20 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:05:29 PM)</font> <b>oofus:</b></font> las: any progress ?<br/>
+<font size="2">(07:06:48 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:08:01 PM)</font> <b>las:</b></font> oofus: hacking some other state stuff for audioengine<br/>
+<font size="2">(07:11:23 PM)</font><b> hybrid [<em>~R3n4t0@187.23.82.135</em>] entered the room.</b><br/>
+<font size="2">(07:12:51 PM)</font><b> nostar left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(07:15:26 PM)</font> <b>oofus:</b></font> las: ok<br/>
+<font size="2">(07:26:41 PM)</font><b> ANero_ [<em>~nero@unaffiliated/anero</em>] entered the room.</b><br/>
+<font size="2">(07:44:02 PM)</font><b> corresponder [<em>~walther@p3EE38F62.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(07:45:19 PM)</font><b> idragosani left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(07:45:25 PM)</font><b> idragosani1 [<em>~bmccoy@199.19.192.4</em>] entered the room.</b><br/>
+<font size="2">(07:48:05 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font size="2">(07:58:16 PM)</font><b> idragosani [<em>~bmccoy@199.19.192.4</em>] entered the room.</b><br/>
+<font size="2">(08:00:52 PM)</font><b> idragosani1 left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:09:40 PM)</font> <b>rgareus:</b></font> las: #5672. you were spot on. free version.<br/>
+<font size="2">(08:09:41 PM)</font><b> polosson left the room (quit: Quit: Bye!).</b><br/>
+<font color="#A82F2F"><font size="2">(08:09:55 PM)</font> <b>las:</b></font> rgareus: yay for me! my record starts to improve :)<br/>
+<font color="#A82F2F"><font size="2">(08:10:34 PM)</font> <b>rgareus:</b></font> las: easy fix. earns you $5 :)<br/>
+<font color="#A82F2F"><font size="2">(08:11:36 PM)</font> <b>las:</b></font> rgareus: yeah, i&apos;m replying :)<br/>
+<font size="2">(08:14:47 PM)</font><b> corresponder left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font size="2">(08:26:43 PM)</font><b> corresponder [<em>~walther@p3EE3B297.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(08:27:48 PM)</font><b> edogawa_ [<em>~quassel@194-166-243-180.adsl.highway.telekom.at</em>] entered the room.</b><br/>
+<font size="2">(08:28:33 PM)</font><b> thorwil [<em>~thorwil@p4FFB63E0.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(08:31:09 PM)</font><b> edogawa left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(08:36:18 PM)</font><b> corresponder left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(08:39:21 PM)</font><b> corresponder [<em>~walther@p3EE38AFE.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:43:56 PM)</font> <b>zth:</b></font> tom^_, gonna have to get back to you tomorrow with the stems! :( time running out for me<br/>
+<font size="2">(08:49:10 PM)</font><b> clark|w|afk is now known as clark|w</b><br/>
+<font color="#A82F2F"><font size="2">(08:53:07 PM)</font> <b>tom^_:</b></font> zth: yes, :(<br/>
+<font size="2">(09:04:38 PM)</font><b> grobda24 [<em>~yaaic@silentflame/member/grobda24</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:05:20 PM)</font> <b>dawiba:</b></font> When I send midi out to my keyboard and then record the returning audio, it&apos;s always slightly behind and I always end up dragging it (the waveform) to the grid. Is there a way to align this automatically?<br/>
+<font size="2">(09:05:22 PM)</font><b> grobda24 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(09:06:23 PM)</font><b> goibhniu left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:06:26 PM)</font> <b>las:</b></font> dawiba: not particularly. this is a very complex topic.<br/>
+<font size="2">(09:07:49 PM)</font><b> Gethiox [<em>~gethiox@host-2-121.24.net.pl</em>] entered the room.</b><br/>
+<font size="2">(09:08:13 PM)</font><b> Gethiox left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(09:08:24 PM)</font> <b>dawiba:</b></font> las: Ok. Thanks.<br/>
+<font size="2">(09:10:13 PM)</font><b> grobda24 [<em>~yaaic@silentflame/member/grobda24</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:11:57 PM)</font> <b>dawiba:</b></font> las: I&apos;ve found that if I right click on a midi region, go down to &apos;Position&apos; and select &apos;Nudge earlier by capture offset&apos;, the resulting audio is perfectly lined up. This can&apos;t be automated?<br/>
+<font color="#A82F2F"><font size="2">(09:15:12 PM)</font> <b>las:</b></font> dawiba: ardour would have to decide that the MIDI was going to a physical instrument, for a start<br/>
+<font size="2">(09:15:18 PM)</font><b> Gethiox [<em>~gethiox@199.254.238.151</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:15:35 PM)</font> <b>las:</b></font> dawiba: since you could be routing to a software instrument that has zero latency<br/>
+<font color="#A82F2F"><font size="2">(09:15:55 PM)</font> <b>las:</b></font> dawiba: we do this sort of stuff for audio, it is true<br/>
+<font color="#A82F2F"><font size="2">(09:16:07 PM)</font> <b>las:</b></font> dawiba: i suspect it just slipped by the attention net for MIDI<br/>
+<font color="#A82F2F"><font size="2">(09:17:53 PM)</font> <b>dawiba:</b></font> las: Okay. Apart from Hydrogen, I only use my external keyboard for various sounds. Is there a way I can set this up? I&apos;m happy to go and do some reading if you can point me in the right direction :)<br/>
+<font size="2">(09:19:11 PM)</font><b> grobda24 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(09:19:11 PM)</font> <b>las:</b></font> dawiba: there isn&apos;t<br/>
+<font size="2">(09:19:11 PM)</font><b> corresponder left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:19:15 PM)</font> <b>las:</b></font> dawiba: &quot;setting this up&quot; means &quot;modifying the source code&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:19:27 PM)</font> <b>las:</b></font> dawiba: and this has always been a fairly tricky area to get right<br/>
+<font size="2">(09:20:53 PM)</font><b> corresponder [<em>~walther@p3EE3A877.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:21:02 PM)</font> <b>dawiba:</b></font> Ahh...okay. Thanks again<br/>
+<font size="2">(09:22:20 PM)</font><b> grobda24 [<em>~yaaic@silentflame/member/grobda24</em>] entered the room.</b><br/>
+<font size="2">(09:25:10 PM)</font><b> grobda24 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(09:25:48 PM)</font><b> corresponder_ [<em>~walther@p3EE3A670.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(09:25:48 PM)</font><b> corresponder left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:26:20 PM)</font> <b>las:</b></font> dawiba: if you try recording from a JACK software synth, you will hopefull find that it syncs up precisely, thus showing we are not totally soft in the head<br/>
+<font size="2">(09:28:24 PM)</font><b> phyzix5761 [<em>~phyzix576@c-50-140-54-206.hsd1.fl.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(09:29:22 PM)</font><b> idragosani left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(09:30:39 PM)</font><b> grobda24 [<em>~yaaic@silentflame/member/grobda24</em>] entered the room.</b><br/>
+<font size="2">(09:33:01 PM)</font><b> [TR0N] [<em>~tr0n@201.248.74.150</em>] entered the room.</b><br/>
+<font size="2">(09:37:09 PM)</font><b> grobda24 left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(09:49:04 PM)</font><b> prokoudine_ left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font size="2">(09:50:48 PM)</font><b> corresponder_ left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(09:54:46 PM)</font><b> err-or left the room (quit: Quit: err-or).</b><br/>
+<font color="#A82F2F"><font size="2">(09:56:48 PM)</font> <b>dawiba:</b></font> las: Sorry, was away for a bit there. Might try with a softsynth in the future :) Thanks again:)<br/>
+<font size="2">(09:58:25 PM)</font><b> corresponder_ [<em>~walther@p3EE39ED2.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(10:03:20 PM)</font><b> zth left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(10:06:04 PM)</font><b> HisaoNakai left the room (quit: Quit: &quot;We will not go quietly into the night!&quot; https://www.prism-break.org).</b><br/>
+<font color="#A82F2F"><font size="2">(10:08:35 PM)</font> <b>rgareus:</b></font> dawiba: using external synths: midi goes out of your soundcard, audio-comes back in.<br/>
+<font color="#A82F2F"><font size="2">(10:08:40 PM)</font> <b>rgareus:</b></font> To align things perfectly, Ardour needs to compensate for the time this takes.<br/>
+<font size="2">(10:08:42 PM)</font><b> imeim [<em>~quassel@221.Red-88-18-9.staticIP.rima-tde.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:08:55 PM)</font> <b>rgareus:</b></font> To do that, ardour asks JACK for the port-latencies.<br/>
+<font color="#A82F2F"><font size="2">(10:09:11 PM)</font> <b>rgareus:</b></font> While you can measure and configure jack to announce the latency of audio-ports correctly, this is not yet possible for MIDI ports.<br/>
+<font color="#A82F2F"><font size="2">(10:09:13 PM)</font> <b>the_CLA_2:</b></font> las: I guess latency compensation for MIDI in general needs some attention at some point. It might also depend on if the builtin MIDI stuff from Jack is used of if it&apos;s routed via a2jmidid, wich seems to use a faster path. For example I also used an external synth via a2jmidid and recorded the audio, but in contrary to what dawiba saw my audio regions where too early to some degree - but not a whole jack buffer size. So there might ...<br/>
+<font color="#A82F2F"><font size="2">(10:09:19 PM)</font> <b>the_CLA_2:</b></font> ... need to be some manual setting for this. I think there should also be a setting for what is called (Midi) track delay (positive and negative) in other DAWs, IIRC.<br/>
+<font color="#A82F2F"><font size="2">(10:09:50 PM)</font> <b>rgareus:</b></font> the_CLA_2: jackd does not offer options for midi-port latencies (alike -I, -O for audio)<br/>
+<font color="#A82F2F"><font size="2">(10:10:55 PM)</font> <b>the_CLA_2:</b></font> rgareus: Yes, but might be necessary. Maybe it shouldn&apos;t be done in Jack but in Ardour, though.<br/>
+<font color="#A82F2F"><font size="2">(10:11:16 PM)</font> <b>dawiba:</b></font> rgareus: Thanks for the info. I had run jack_delay, but it made no difference whatever latency settings I tried. That explains it. The &apos;nudge&apos; workaround is simple and works and is only needed when recording keyboard output. Thanks again :)<br/>
+<font size="2">(10:12:32 PM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font size="2">(10:13:13 PM)</font><b> hybrid left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(10:14:50 PM)</font><b> thorwil left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:18:06 PM)</font><b> aloiece [<em>~Thunderbi@2001:8b0:fbbd:191c:898b:9d78:448e:af95</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:19:32 PM)</font> <b>the_CLA_2:</b></font> rgareus: BTW you said you are using a mixed Debian system. Which branch do you use as the base? Stable, testing, sid? If not stable how solid is it in your experience? Have there been any serious breakages on updates? I&apos;m planning to install testing soon and am thinking to switch to it completely when I like it. In the last couple of years I&apos;ve been using testing only during a freeze phase.<br/>
+<font size="2">(10:22:46 PM)</font><b> naptastic [<em>~david@2620:0:28a0:2007:ca2a:14ff:fe55:aa5b</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:22:51 PM)</font> <b>naptastic:</b></font> so, wild question<br/>
+<font color="#A82F2F"><font size="2">(10:23:19 PM)</font> <b>naptastic:</b></font> Ardour can now chase SMPTE on an audio input, right?<br/>
+<font color="#A82F2F"><font size="2">(10:24:07 PM)</font> <b>naptastic:</b></font> How robust is it? How fast is it? If I did something crazy like burning a CD of nothing but SMPTE codes, and used my fancy-schmancy DJ CD players to scratch all over it, could Ardour keep up?<br/>
+<font size="2">(10:24:08 PM)</font><b> phyzix5761 left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(10:24:32 PM)</font> <b>naptastic:</b></font> I should play with that when I get home.<br/>
+<font size="2">(10:24:38 PM)</font><b> corresponder_ left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(10:26:40 PM)</font> <b>the_CLA_2:</b></font> naptastic: I doubt that you could use it for scratching. It surely wasn&apos;t made for that. ;)<br/>
+<font color="#A82F2F"><font size="2">(10:26:43 PM)</font> <b>seablade_:</b></font> naptastic, I think that falls into the realm of Ardour getting up and B*slapping you and asking &quot;What the hell are you doing&quot;?<br/>
+<font color="#A82F2F"><font size="2">(10:26:53 PM)</font> <b>naptastic:</b></font> hahahaha okay.<br/>
+<font color="#A82F2F"><font size="2">(10:26:57 PM)</font> <b>naptastic:</b></font> I&apos;m still going to try it.<br/>
+<font color="#A82F2F"><font size="2">(10:27:14 PM)</font> <b>seablade_:</b></font> naptastic, If it works, make sure you get a video:)<br/>
+<font color="#062585"><font size="2">(10:27:34 PM)</font> <b>***seablade_</b></font> wonders if there is an infiinite loop of timecode somewhere in that statement<br/>
+<font color="#A82F2F"><font size="2">(10:27:36 PM)</font> <b>naptastic:</b></font> seablade_, I will try to make a video regardless.<br/>
+<font color="#A82F2F"><font size="2">(10:27:45 PM)</font> <b>naptastic:</b></font> o.O<br/>
+<font size="2">(10:31:50 PM)</font><b> boom1992 [<em>~quassel@BA1222.ballee.wh.tu-darmstadt.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:34:56 PM)</font> <b>seablade_:</b></font> rgareus, ^^^ So ever envision that for a stress test?<br/>
+<font size="2">(10:35:33 PM)</font><b> jrussell [<em>~jrussell@ip98-165-96-64.ph.ph.cox.net</em>] entered the room.</b><br/>
+<font size="2">(10:38:00 PM)</font><b> hybrid [<em>~R3n4t0@187.23.82.135</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:40:35 PM)</font> <b>rgareus:</b></font> the_CLA_2: the 2 main systems here were based on debian/sarge and and debian/etch. (have not reinstalled in &gt; 6 and 9 years resp., but simply copied over and changed architecture). I use apt-pinning and configued it to prefer current-stable.<br/>
+<font color="#A82F2F"><font size="2">(10:40:55 PM)</font> <b>rgareus:</b></font> the_CLA_2: http://jaqque.sbih.org/kplug/apt-pinning.html<br/>
+<font color="#A82F2F"><font size="2">(10:41:40 PM)</font> <b>the_CLA_2:</b></font> rgareus: Ah, ok. So only using selected packages from testing and unstable?<br/>
+<font color="#A82F2F"><font size="2">(10:41:44 PM)</font> <b>rgareus:</b></font> the_CLA_2: never had a real problem. movin from apache1 to apache2 was a bit of work but only becaus of a bug<br/>
+<font color="#A82F2F"><font size="2">(10:42:13 PM)</font> <b>rgareus:</b></font> the_CLA_2: apt-get install -t testing &lt;package&gt; for example<br/>
+<font color="#A82F2F"><font size="2">(10:42:21 PM)</font> <b>rgareus:</b></font> the_CLA_2: but I usually use aptitude<br/>
+<font color="#062585"><font size="2">(10:42:32 PM)</font> <b>***the_CLA_2</b></font> too.<br/>
+<font color="#A82F2F"><font size="2">(10:42:53 PM)</font> <b>the_CLA_2:</b></font> rgareus: I&apos;ve used pinning some years ago - though not currently.<br/>
+<font color="#A82F2F"><font size="2">(10:43:11 PM)</font> <b>rgareus:</b></font> naptastic: ardour can chase LTC. and it&apos;s very robust<br/>
+<font color="#A82F2F"><font size="2">(10:43:57 PM)</font> <b>naptastic:</b></font> rgareus, I was wondering your opinion, since I know you worked a lot on that code.<br/>
+<font color="#A82F2F"><font size="2">(10:44:11 PM)</font> <b>rgareus:</b></font> naptastic: it can varispeed and go backwards, too. but at most a speed-factor of 8. and it approaches the new speed smoothly<br/>
+<font color="#A82F2F"><font size="2">(10:44:30 PM)</font> <b>rgareus:</b></font> naptastic: scratching is probably not going to work.<br/>
+<font color="#A82F2F"><font size="2">(10:44:33 PM)</font> <b>naptastic:</b></font> Okay. So it would probably not adapt well to scratching.<br/>
+<font color="#A82F2F"><font size="2">(10:44:38 PM)</font> <b>naptastic:</b></font> :-)<br/>
+<font color="#A82F2F"><font size="2">(10:45:02 PM)</font> <b>naptastic:</b></font> It will be so cool, though, to have my CD players control Ardour, and be able to seek with the wheel. I&apos;ve wanted that kind of control for a long time.<br/>
+<font color="#A82F2F"><font size="2">(10:45:03 PM)</font> <b>rgareus:</b></font> naptastic: try with the vari-speed dial.. <br/>
+<font color="#A82F2F"><font size="2">(10:45:16 PM)</font> <b>naptastic:</b></font> Yeah, that interface has always felt clunky to me.<br/>
+<font color="#A82F2F"><font size="2">(10:45:30 PM)</font> <b>naptastic:</b></font> Being able to just spin a physical dial will be much nicer.<br/>
+<font size="2">(10:45:48 PM)</font><b> imeim left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(10:46:38 PM)</font> <b>rgareus:</b></font> naptastic: another possible issue: ardour&apos;s vari-speed is done by simple cubic-interpolation. works fine for small changes but not scratching<br/>
+<font color="#A82F2F"><font size="2">(10:48:56 PM)</font> <b>rgareus:</b></font> naptastic: doing proper upsampling for vari-speed would be too expensive. esp if you have - say - a 64 track session.<br/>
+<font color="#A82F2F"><font size="2">(10:49:23 PM)</font> <b>naptastic:</b></font> hehehe yes it would :-)<br/>
+<font color="#A82F2F"><font size="2">(10:50:09 PM)</font> <b>rgareus:</b></font> naptastic: (if not sync-locked) LTC/MTC slaves just modify the playback speed. same effect as you dragging the vari-speed dial.<br/>
+<font size="2">(10:52:03 PM)</font><b> Gethiox2 [<em>~gethiox@host-2-121.24.net.pl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:52:11 PM)</font> <b>naptastic:</b></font> I wanna go home and play with this now.<br/>
+<font color="#A82F2F"><font size="2">(10:52:18 PM)</font> <b>rgareus:</b></font> naptastic: :)<br/>
+<font color="#A82F2F"><font size="2">(10:52:21 PM)</font> <b>naptastic:</b></font> :)<br/>
+<font size="2">(10:56:15 PM)</font><b> Gethiox left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:56:58 PM)</font> <b>rgareus:</b></font> naptastic: you can already use &apos;ltcgen&apos; from https://github.com/x42/ltc-tools to create a .wav and burn it on CD<br/>
+<font size="2">(10:57:05 PM)</font><b> hybrid left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:59:17 PM)</font> <b>rgareus:</b></font> naptastic: ltcgen -f 30 -r 44100 -t 00:00:00:00 -l 01:00:00:00 /tmp/ltc_60mins_30fps_mono.wav<br/>
+<font color="#A82F2F"><font size="2">(11:00:00 PM)</font> <b>naptastic:</b></font> rgareus, thanks. I will use that.<br/>
+<font color="#A82F2F"><font size="2">(11:00:35 PM)</font> <b>naptastic:</b></font> I will also split it into tracks of different length... seeking to different parts of the session using the CD player track selection will be awesome.<br/>
+<font color="#A82F2F"><font size="2">(11:01:43 PM)</font> <b>rgareus:</b></font> naptastic: ltcgen also has a --reverse option, and --volume (default is -18dBFS)<br/>
+<font color="#A82F2F"><font size="2">(11:02:59 PM)</font> <b>rgareus:</b></font> naptastic: if you go digitally (S/Pdif) from the CD player to ardour -18dBFS is perfect.<br/>
+<font color="#A82F2F"><font size="2">(11:03:00 PM)</font> <b>naptastic:</b></font> -18dBFS seems like a sane value. From what I&apos;ve heard, SMPTE bleeds like crazy. (I&apos;ll be using SPDIF to transmit it, thanks be to $DEITY)<br/>
+<font color="#A82F2F"><font size="2">(11:03:36 PM)</font> <b>edogawa_:</b></font> rgareus: not sure if i&apos;ve shown you the link yet, https://dl.dropboxusercontent.com/u/42502696/musik/Ensemble%20D%27Accord/TK%C3%9C_92/index.html - enjoy<br/>
+<font color="#A82F2F"><font size="2">(11:04:25 PM)</font> <b>rgareus:</b></font> naptastic: nitpick. it&apos;s LTC.  SMPTE timecode is one of the possible payloads that can be encoded in LTC. You can just as well encode EBU timecode or whatever.<br/>
+<font color="#A82F2F"><font size="2">(11:04:49 PM)</font> <b>rgareus:</b></font> edogawa_: wooho. new music.<br/>
+<font color="#A82F2F"><font size="2">(11:05:01 PM)</font> <b>edogawa_:</b></font> rgareus: that concert was in &apos;91, actually :)<br/>
+<font color="#A82F2F"><font size="2">(11:05:04 PM)</font> <b>naptastic:</b></font> hah<br/>
+<font color="#A82F2F"><font size="2">(11:05:05 PM)</font> <b>rgareus:</b></font> edogawa_: contents of &quot;TKÃœ_92&quot; ?!<br/>
+<font color="#062585"><font size="2">(11:05:20 PM)</font> <b>***naptastic</b></font> will be recording a church concert on the 22nd, and posting at least a couple of the tracks<br/>
+<font color="#A82F2F"><font size="2">(11:05:30 PM)</font> <b>edogawa_:</b></font> rgareus: TKÜ_92<br/>
+<font color="#A82F2F"><font size="2">(11:05:54 PM)</font> <b>rgareus:</b></font> edogawa_: well dropbox does not get the UTF8 right, then.<br/>
+<font color="#A82F2F"><font size="2">(11:06:28 PM)</font> <b>edogawa_:</b></font> rgareus: oh, i see now<br/>
+<font color="#062585"><font size="2">(11:06:44 PM)</font> <b>***edogawa_</b></font> shrugs<br/>
+<font color="#A82F2F"><font size="2">(11:07:45 PM)</font> <b>rgareus:</b></font> edogawa_: did you recently re-master that in Ardour?<br/>
+<font color="#A82F2F"><font size="2">(11:08:20 PM)</font> <b>edogawa_:</b></font> rgareus: yes, i put a slight bit of reverb<br/>
+<font color="#A82F2F"><font size="2">(11:08:43 PM)</font> <b>edogawa_:</b></font> rgareus: and set the cd track ranges etc.<br/>
+<font size="2">(11:09:37 PM)</font><b> err-or left the room (quit: Quit: No Ping reply in 180 seconds.).</b><br/>
+<font size="2">(11:09:37 PM)</font><b> err-or_ [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:09:43 PM)</font> <b>edogawa_:</b></font> rgareus: i did that just before leaving to holidays, hence i forgot if i posted the url before<br/>
+<font size="2">(11:10:11 PM)</font><b> hybrid [<em>~R3n4t0@187.23.82.135</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:10:52 PM)</font> <b>rgareus:</b></font> edogawa_: just looking at the titles is funny mix of languages.<br/>
+<font color="#A82F2F"><font size="2">(11:11:12 PM)</font> <b>edogawa_:</b></font> hehe<br/>
+<font color="#A82F2F"><font size="2">(11:12:28 PM)</font> <b>rgareus:</b></font> edogawa_: 1992.. wow was this you in the high-school choir?<br/>
+<font color="#A82F2F"><font size="2">(11:13:00 PM)</font> <b>edogawa_:</b></font> you can distinguish my voice in the bass quite often, there were 3 bass singers and the other two were not that secure sometimes<br/>
+<font color="#A82F2F"><font size="2">(11:14:23 PM)</font> <b>edogawa_:</b></font> 1991, and i was at age 29 or so, not high scool, just interested amateurs/semi/full professionals singing in a nice choir<br/>
+<font color="#A82F2F"><font size="2">(11:15:18 PM)</font> <b>edogawa_:</b></font> a student of celibidache had to conduct a choir as part of his education<br/>
+<font color="#A82F2F"><font size="2">(11:16:10 PM)</font> <b>edogawa_:</b></font> he also studied biology and got a job at konrad lorenz institut here near where i live now<br/>
+<font color="#A82F2F"><font size="2">(11:16:54 PM)</font> <b>edogawa_:</b></font> so he founded this choir here, just at the time i got interested in singing again<br/>
+<font color="#A82F2F"><font size="2">(11:17:26 PM)</font> <b>rgareus:</b></font> edogawa_: wow. never knew you were a student of his.<br/>
+<font color="#A82F2F"><font size="2">(11:17:40 PM)</font> <b>edogawa_:</b></font> rgareus: o not me<br/>
+<font color="#A82F2F"><font size="2">(11:17:59 PM)</font> <b>edogawa_:</b></font> the choir leader was the student<br/>
+<font color="#A82F2F"><font size="2">(11:18:15 PM)</font> <b>rgareus:</b></font> edogawa_: aah. <br/>
+<font color="#A82F2F"><font size="2">(11:18:30 PM)</font> <b>edogawa_:</b></font> i&apos;m 100% autodidact since age of 10 :D<br/>
+<font size="2">(11:20:24 PM)</font><b> nox- [<em>noident@freebsd/developer/nox</em>] entered the room.</b><br/>
+<font size="2">(11:20:38 PM)</font><b> aloiece left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:22:39 PM)</font> <b>edogawa_:</b></font> in this concert i sang, i managed to record this, and i hang and programmed the lights, as i was employed in the theater we were singing at<br/>
+<font size="2">(11:22:49 PM)</font><b> RytmenPinne left the room (quit: Ping timeout: 268 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:24:22 PM)</font> <b>rgareus:</b></font> edogawa_: cool &quot;Come Away, Sweet Love&quot; I also sang the bass part of this in a choir begining of the 90s. I completely forgot.<br/>
+<font color="#A82F2F"><font size="2">(11:24:58 PM)</font> <b>rgareus:</b></font> edogawa_: but I was one of the &apos;insecure&apos; bass singers leaning onto someone.<br/>
+<font color="#A82F2F"><font size="2">(11:25:17 PM)</font> <b>edogawa_:</b></font> rgareus: :) oh all that falala :) so much fun<br/>
+<font color="#A82F2F"><font size="2">(11:26:07 PM)</font> <b>edogawa_:</b></font> rgareus: cool, didn&apos;t know you were singing too<br/>
+<font color="#A82F2F"><font size="2">(11:27:03 PM)</font> <b>rgareus:</b></font> edogawa_: not if I can help it.. but it helps playing any instrument. If I can sing something, I can figure out how to play on any instrument.<br/>
+<font color="#A82F2F"><font size="2">(11:27:17 PM)</font> <b>edogawa_:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(11:27:58 PM)</font> <b>rgareus:</b></font> edogawa_: did you even sing Distler&apos;s Feuerreiter? Has a challenging part for the choirs&apos; bass.<br/>
+<font color="#A82F2F"><font size="2">(11:29:10 PM)</font> <b>edogawa_:</b></font> rgareus: never heard of<br/>
+<font color="#A82F2F"><font size="2">(11:30:00 PM)</font> <b>rgareus:</b></font> edogawa_: we (Kammerchor, high-school) won some national price performing it in 92 or 93.<br/>
+<font color="#A82F2F"><font size="2">(11:30:37 PM)</font> <b>edogawa_:</b></font> rgareus: cool<br/>
+<font color="#A82F2F"><font size="2">(11:30:47 PM)</font> <b>rgareus:</b></font> edogawa_: well you should know the Poem at least <br/>
+<font color="#A82F2F"><font size="2">(11:31:25 PM)</font> <b>rgareus:</b></font> (Eduard Moerike classic)  you can&apos;t have graduated high-school without it :)<br/>
+<font color="#A82F2F"><font size="2">(11:31:35 PM)</font> <b>edogawa_:</b></font> rgareus: doesn&apos;t ring a bell<br/>
+<font color="#A82F2F"><font size="2">(11:32:05 PM)</font> <b>edogawa_:</b></font> rgareus: i&apos;ll look it up<br/>
+<font color="#A82F2F"><font size="2">(11:32:14 PM)</font> <b>edogawa_:</b></font> rgareus: anyway, nice to talk once again but i got to go to bed<br/>
+<font color="#A82F2F"><font size="2">(11:32:30 PM)</font> <b>rgareus:</b></font> edogawa_: CU later<br/>
+<font color="#A82F2F"><font size="2">(11:32:39 PM)</font> <b>edogawa_:</b></font> rgareus: same<br/>
+<font size="2">(11:44:07 PM)</font><b> dawiba left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(12:05:11 AM)</font><b> edogawa_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(12:09:57 AM)</font><b> rock808 [<em>~guest@cpe-24-55-1-216.austin.res.rr.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:10:08 AM)</font> <b>rock808:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(12:12:35 AM)</font> <b>rock808:</b></font> Is there someone here who could look in to why my account seems to not show me as a Financial Supporter?<br/>
+<font size="2">(12:13:29 AM)</font><b> Stuzz [<em>~Stuzz@202-173-165-69.dyn.iinet.net.au</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:16:56 AM)</font> <b>rock808:</b></font> I started my subscription over 2 years ago... I see Paypal still taking out $10/mo (last was Aug 17th) ... but the site seems to not see my subscription as I try to DL the new version.<br/>
+<font color="#A82F2F"><font size="2">(12:17:25 AM)</font> <b>rock808:</b></font> Actually... this is probably the first time I&apos;ve tried to DL another new version in the last 2 years.<br/>
+<font color="#A82F2F"><font size="2">(12:18:06 AM)</font> <b>las:</b></font> rock808: i can look into it (i&apos;m the only one who can)<br/>
+<font color="#A82F2F"><font size="2">(12:18:26 AM)</font> <b>rock808:</b></font> great... My name is David Slimp<br/>
+<font color="#A82F2F"><font size="2">(12:18:34 AM)</font> <b>las:</b></font> rock808: as a general remark, paypal&apos;s subscription system leaves a great deal to be desired. about the only thing it generally does well is to get the payment made<br/>
+<font color="#A82F2F"><font size="2">(12:18:39 AM)</font> <b>rock808:</b></font> Not sure what other info you might need?<br/>
+<font color="#A82F2F"><font size="2">(12:18:42 AM)</font> <b>las:</b></font> rock808: what is your ardour.org user ID ?<br/>
+<font color="#A82F2F"><font size="2">(12:18:49 AM)</font> <b>rock808:</b></font> &quot;rock808&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:18:56 AM)</font> <b>las:</b></font> rock808: and what email address do you use with paypal ?<br/>
+<font color="#A82F2F"><font size="2">(12:19:08 AM)</font> <b>rock808:</b></font> paypal@David-Slimp.com<br/>
+<font color="#A82F2F"><font size="2">(12:19:48 AM)</font> <b>las:</b></font> rock808: let me poke around, hang on<br/>
+<font color="#A82F2F"><font size="2">(12:19:52 AM)</font> <b>rock808:</b></font> sure thing<br/>
+<font color="#A82F2F"><font size="2">(12:21:00 AM)</font> <b>las:</b></font> rock808: looks as if you renewed this subscription ?<br/>
+<font color="#A82F2F"><font size="2">(12:21:45 AM)</font> <b>las:</b></font> rock808: ah, it was cancelled on 9/17/2012<br/>
+<font color="#A82F2F"><font size="2">(12:21:55 AM)</font> <b>rock808:</b></font> no... I just clicked &quot;subscribe&quot; a few min ago because it wasn&apos;t letting me DL... so I thought maybe I needed to go to that link and verify something new...<br/>
+<font color="#A82F2F"><font size="2">(12:22:26 AM)</font> <b>las:</b></font> rock808: paypal provides no explanation or proof that *i* cancelled it, but sent me mail on 9/17/12 that it was cancelled<br/>
+<font color="#A82F2F"><font size="2">(12:22:57 AM)</font> <b>rock808:</b></font> Hmm... here is my info from paypal...<br/>
+<font color="#A82F2F"><font size="2">(12:23:01 AM)</font> <b>las:</b></font> rock808: and on the same day a new one was started <br/>
+<font color="#A82F2F"><font size="2">(12:23:21 AM)</font> <b>rock808:</b></font> Date:<br/>
+<font color="#A82F2F"><font size="2">(12:23:21 AM)</font> <b>rock808:</b></font> Aug 17, 2013Time:<br/>
+<font color="#A82F2F"><font size="2">(12:23:21 AM)</font> <b>rock808:</b></font> 06:37:02 CDTStatus: <br/>
+<font color="#A82F2F"><font size="2">(12:23:21 AM)</font> <b>rock808:</b></font> Completed<br/>
+<font color="#A82F2F"><font size="2">(12:23:22 AM)</font> <b>rock808:</b></font> Subject:<br/>
+<font color="#A82F2F"><font size="2">(12:23:22 AM)</font> <b>rock808:</b></font> Linux Audio SystemsFunding Type:<br/>
+<font color="#A82F2F"><font size="2">(12:23:22 AM)</font> <b>rock808:</b></font> PayPal Balance Funding Source:<br/>
+<font color="#A82F2F"><font size="2">(12:23:23 AM)</font> <b>rock808:</b></font> $10.00 USD - PayPal Account<br/>
+<font color="#A82F2F"><font size="2">(12:23:49 AM)</font> <b>rock808:</b></font> Recurring Payment Sent (ID #2N3965647P632052H) View Details<br/>
+<font color="#A82F2F"><font size="2">(12:24:09 AM)</font> <b>las:</b></font> rock808: the key part is the subscription ID, which is I-RDXYD91LA38D<br/>
+<font color="#A82F2F"><font size="2">(12:24:45 AM)</font> <b>las:</b></font> rock808: ardour.org was never notified of this, i suspect because it was created (somehow) entirely on paypal&apos;s system(s)<br/>
+<font color="#A82F2F"><font size="2">(12:25:13 AM)</font> <b>rock808:</b></font> you mean the one starting with 2N3965 ...  ?<br/>
+<font color="#A82F2F"><font size="2">(12:25:29 AM)</font> <b>las:</b></font> rock808: no, that&apos;s just a sngle transaction<br/>
+<font color="#A82F2F"><font size="2">(12:26:05 AM)</font> <b>las:</b></font> rock808: on 9/17 last year, your old subscription (I-PEGLR3W1WTBU) was cancelled, and on the same day a new one (I-RDXYD91LA38D) was created<br/>
+<font color="#A82F2F"><font size="2">(12:26:17 AM)</font> <b>las:</b></font> rock808: ardour.org knew about the old one, but knows nothing about the new one<br/>
+<font color="#A82F2F"><font size="2">(12:26:24 AM)</font> <b>las:</b></font> rock808: i can fix that<br/>
+<font color="#A82F2F"><font size="2">(12:26:35 AM)</font> <b>rock808:</b></font> here&apos;s more info.. <br/>
+<font color="#A82F2F"><font size="2">(12:26:46 AM)</font> <b>rock808:</b></font> Subscription details ActiveMerchant Linux Audio Systems Verified | micropaypal@ardour.orgProfile start date Sep 17, 2012 | Profile ID No. I-RDXYD91LA38D | <br/>
+<font color="#A82F2F"><font size="2">(12:27:32 AM)</font> <b>rock808:</b></font> Thanks<br/>
+<font color="#A82F2F"><font size="2">(12:27:55 AM)</font> <b>las:</b></font> rock808: yeah, i have all that, but i think that this happened entirely on paypal&apos;s systems, not via ardour.org<br/>
+<font color="#A82F2F"><font size="2">(12:28:08 AM)</font> <b>las:</b></font> rock808: you have no recollection of the subscription cancellation/reset last year?<br/>
+<font color="#A82F2F"><font size="2">(12:28:47 AM)</font> <b>las:</b></font> rock808: paypal really doesn&apos;t do a very good of notifying us of new &quot;out of band&quot; subscription status changes, and provides no means to programmatically check subscription status<br/>
+<font color="#A82F2F"><font size="2">(12:28:54 AM)</font> <b>rock808:</b></font> OH!!!  Perhaps the old one might have been me going from one account to a new one... not sure why I&apos;d do that... but if I did stop one and start a new one the same day... that&apos;s all I can think it was<br/>
+<font color="#A82F2F"><font size="2">(12:29:19 AM)</font> <b>las:</b></font> rock808: right, but that stop/start breaks &quot;the chain of information&quot; ...<br/>
+<font color="#A82F2F"><font size="2">(12:29:30 AM)</font> <b>las:</b></font> rock808: anyway, if you check on ardour.org again, you should have a live subscription now<br/>
+<font color="#A82F2F"><font size="2">(12:30:46 AM)</font> <b>rock808:</b></font> right... I can&apos;t remember stopping it myself... I have no idea why I&apos;d do something like that... but if I DID...  the only reason I could think is to change from an old account to a new one in some way.... but, as I said... I can&apos;t remember doing anything like that. *shrug*<br/>
+<font color="#A82F2F"><font size="2">(12:32:14 AM)</font> <b>rock808:</b></font> sounds good... !  I&apos;m eager to check out the new 3.x improvements!  (with MIDI) ... as I&apos;m tired of having to fire up rosegarden in addition.... I&apos;m still on 2.8 at this time... ack<br/>
+<font color="#A82F2F"><font size="2">(12:32:24 AM)</font> <b>rock808:</b></font> Anyway... thanks for your help ! :)<br/>
+<font color="#A82F2F"><font size="2">(12:35:35 AM)</font> <b>las:</b></font> rock808: MIDI is still in rough shape, so i hear<br/>
+<font color="#A82F2F"><font size="2">(12:35:39 AM)</font> <b>las:</b></font> rock808: which is shame<br/>
+<font color="#A82F2F"><font size="2">(12:35:57 AM)</font> <b>las:</b></font> rock808: works for some, but for many workflows, perils ahead<br/>
+<font color="#A82F2F"><font size="2">(12:36:03 AM)</font> <b>las:</b></font> rock808: focus will turn to that &quot;soon&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:36:49 AM)</font> <b>rock808:</b></font> heh... thanks for the head&apos;s up .... hope it goes smooth... but if not, I know it will get worked on at some point.<br/>
+<font color="#A82F2F"><font size="2">(12:42:07 AM)</font> <b>jrussell:</b></font> interesting.. are the &quot;perils&quot; documented somewhere? my use of ardor (admitedly light) is probaly more than 50% midi<br/>
+<font size="2">(12:43:24 AM)</font><b> aloiece [<em>~Thunderbi@2001:8b0:fbbd:191c:898b:9d78:448e:af95</em>] entered the room.</b><br/>
+<font size="2">(12:46:57 AM)</font><b> oofus left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(12:52:05 AM)</font><b> oofus [<em>~chris@oofus-adsl.demon.co.uk</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:53:43 AM)</font> <b>las:</b></font> jrussell: nope<br/>
+<font color="#A82F2F"><font size="2">(12:53:52 AM)</font> <b>las:</b></font> jrussell: feel free to search mantis for &quot;midi&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:01:47 AM)</font> <b>Stuzz:</b></font> Ooh, 3.4!<br/>
+<font color="#A82F2F"><font size="2">(01:07:45 AM)</font> <b>las:</b></font> oofus: the european bank system is amazingly excellent<br/>
+<font color="#A82F2F"><font size="2">(01:08:06 AM)</font> <b>las:</b></font> oofus: you can do bank account =&gt; bank account transfers from just about anywhere, instantaneously, no fee<br/>
+<font color="#A82F2F"><font size="2">(01:08:34 AM)</font> <b>las:</b></font> oofus: the UK one makes the US one look primitive, but the one on the continent goes one step further<br/>
+<font color="#A82F2F"><font size="2">(01:08:42 AM)</font> <b>oofus:</b></font> las: are you referring to my question about German online purchases ?<br/>
+<font color="#A82F2F"><font size="2">(01:08:58 AM)</font> <b>oofus:</b></font> las: It&apos;s getting pretty good here<br/>
+<font color="#A82F2F"><font size="2">(01:09:14 AM)</font> <b>oofus:</b></font> las: I can make bank account to bank account transfers <br/>
+<font color="#A82F2F"><font size="2">(01:09:18 AM)</font> <b>oofus:</b></font> no fee<br/>
+<font color="#A82F2F"><font size="2">(01:09:21 AM)</font> <b>oofus:</b></font> and instantly<br/>
+<font color="#A82F2F"><font size="2">(01:10:01 AM)</font> <b>las:</b></font> oofus: right, but not across national boundaries :)<br/>
+<font color="#A82F2F"><font size="2">(01:10:05 AM)</font> <b>oofus:</b></font> las: I can even do it on my phone, and directly to someone elses mobile phone number, without having to know their bank details<br/>
+<font color="#A82F2F"><font size="2">(01:10:09 AM)</font> <b>las:</b></font> oofus: its the euro really<br/>
+<font color="#A82F2F"><font size="2">(01:10:18 AM)</font> <b>las:</b></font> oofus: yes, i saw my brother do that earlier this year<br/>
+<font color="#A82F2F"><font size="2">(01:11:00 AM)</font> <b>oofus:</b></font> las: um, maybe not international, although I have done that, but I do remember it taking a little longer, but not much<br/>
+<font color="#A82F2F"><font size="2">(01:11:19 AM)</font> <b>las:</b></font> oofus: i guess your real question is &quot;do you guys not buy stuff online?&quot; :)<br/>
+<font color="#A82F2F"><font size="2">(01:11:28 AM)</font> <b>oofus:</b></font> las: exactly<br/>
+<font color="#A82F2F"><font size="2">(01:11:44 AM)</font> <b>oofus:</b></font> las: and if you do, how, if it&apos;s not with a credit card<br/>
+<font color="#A82F2F"><font size="2">(01:12:08 AM)</font> <b>oofus:</b></font> las: I just don&apos;t believe German online shopping is that small a market<br/>
+<font size="2">(01:12:33 AM)</font><b> HarryHaaren left the room (quit: Quit: Quittin&apos;).</b><br/>
+<font color="#A82F2F"><font size="2">(01:12:48 AM)</font> <b>oofus:</b></font> las: ie limited to a small number of people who have got a CC<br/>
+<font color="#A82F2F"><font size="2">(01:13:09 AM)</font> <b>las:</b></font> oofus: i think you pay with your bank account<br/>
+<font color="#A82F2F"><font size="2">(01:13:17 AM)</font> <b>las:</b></font> oofus: or you can, rather<br/>
+<font color="#A82F2F"><font size="2">(01:13:18 AM)</font> <b>oofus:</b></font> las: maybe they are happier using Debit Cards<br/>
+<font color="#A82F2F"><font size="2">(01:13:43 AM)</font> <b>las:</b></font> oofus: yes, could be<br/>
+<font color="#A82F2F"><font size="2">(01:13:44 AM)</font> <b>oofus:</b></font> las: but that is still a card backed by Visa etc, so would still work in this case<br/>
+<font color="#A82F2F"><font size="2">(01:13:58 AM)</font> <b>las:</b></font> oofus: except that they don&apos;t want to give it to paypal<br/>
+<font color="#A82F2F"><font size="2">(01:14:03 AM)</font> <b>the_CLA_2:</b></font> oofus, las: Also pay on delivery.<br/>
+<font color="#A82F2F"><font size="2">(01:14:10 AM)</font> <b>las:</b></font> oofus: what i don&apos;t understand is this: i don&apos;t give PayPal a CC either<br/>
+<font color="#A82F2F"><font size="2">(01:14:12 AM)</font> <b>oofus:</b></font> las: right, that feels like more of the issue<br/>
+<font color="#A82F2F"><font size="2">(01:14:15 AM)</font> <b>las:</b></font> oofus: but i can subscribe<br/>
+<font color="#A82F2F"><font size="2">(01:14:23 AM)</font> <b>las:</b></font> oofus: (which i do, e.g. to somafm.com)<br/>
+<font color="#A82F2F"><font size="2">(01:14:41 AM)</font> <b>las:</b></font> oofus: so if the CC thing is really necessary, *that* is a german-specific thing which is then even more odd<br/>
+<font color="#A82F2F"><font size="2">(01:14:58 AM)</font> <b>oofus:</b></font> las: right<br/>
+<font color="#A82F2F"><font size="2">(01:15:03 AM)</font> <b>las:</b></font> the_CLA_2: oh right, the bundespost has all kinds of payment options<br/>
+<font color="#A82F2F"><font size="2">(01:15:22 AM)</font> <b>las:</b></font> the_CLA_2: my daughter just started German 101 at university today :)<br/>
+<font color="#A82F2F"><font size="2">(01:15:24 AM)</font> <b>oofus:</b></font> las: but the forum post claims that CCs are not used much in Germany, and that he doesn&apos;t have one !<br/>
+<font color="#A82F2F"><font size="2">(01:15:25 AM)</font> <b>the_CLA_2:</b></font> las: Not only the Bundespost, AFAIK.<br/>
+<font color="#A82F2F"><font size="2">(01:16:39 AM)</font> <b>oofus:</b></font> the_CLA_2: so you can order something form Amazon.de and not pay them, and just expect to give some money to someone (somehow) when they knock on the door ?<br/>
+<font color="#A82F2F"><font size="2">(01:18:40 AM)</font> <b>the_CLA_2:</b></font> oofus: You pay to the postman who delivers the package. I usually costs a little extra fee, though.<br/>
+<font color="#A82F2F"><font size="2">(01:18:52 AM)</font> <b>the_CLA_2:</b></font> *It<br/>
+<font color="#A82F2F"><font size="2">(01:18:52 AM)</font> <b>oofus:</b></font> the_CLA_2: with Cash ?<br/>
+<font color="#A82F2F"><font size="2">(01:18:57 AM)</font> <b>the_CLA_2:</b></font> oofus: Yes.<br/>
+<font color="#A82F2F"><font size="2">(01:19:33 AM)</font> <b>oofus:</b></font> the_CLA_2: So poor old Posty is walking around with potentially thousands of Euro&apos;s in his pocket. Ripe for mugging !<br/>
+<font color="#A82F2F"><font size="2">(01:20:48 AM)</font> <b>oofus:</b></font> the_CLA_2: so effectively the POst Office is buying the debt from the company you have ordered something from<br/>
+<font color="#A82F2F"><font size="2">(01:21:45 AM)</font> <b>the_CLA_2:</b></font> oofus: I also was wondering how much they usually carry around at the end of their tour. I&apos;m also not sure if there&apos;s an upper limit for using pay on delivery.<br/>
+<font color="#A82F2F"><font size="2">(01:22:13 AM)</font> <b>oofus:</b></font> the_CLA_2: right<br/>
+<font color="#A82F2F"><font size="2">(01:22:37 AM)</font> <b>oofus:</b></font> the_CLA_2: electronic money (of any sort) just makes this a non-issue<br/>
+<font color="#A82F2F"><font size="2">(01:22:47 AM)</font> <b>oofus:</b></font> the_CLA_2: electronic money (of any sort) just makes that a non-issue<br/>
+<font size="2">(01:29:29 AM)</font><b> polosson [<em>~quassel@lns-bzn-36-82-251-28-180.adsl.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(01:29:37 AM)</font><b> boom1992 left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(01:34:21 AM)</font> <b>rgareus:</b></font> las: wire-transfers accross national European borders must be completed within 24h by law. I do France &lt;-&gt; Netherlands regularly and it usually takes less than 5mins.<br/>
+<font color="#A82F2F"><font size="2">(01:36:59 AM)</font> <b>rgareus:</b></font> and quite right, Debit-cards are much more prominent in germany than credit-cards. but you can link debit-cards on paypal.DE;  In  .nl you must direcly link a bank-account to paypal. Credit-cards are entierly optional.<br/>
+<font color="#A82F2F"><font size="2">(01:38:53 AM)</font> <b>rgareus:</b></font> the_CLA_2: &quot;Per Nachnahme&quot;, does Amazon.de still do that?<br/>
+<font color="#A82F2F"><font size="2">(01:39:49 AM)</font> <b>the_CLA_2:</b></font> rgareus: Not sure. I don&apos;t usually buy at Amazon.<br/>
+<font size="2">(01:39:57 AM)</font><b> schwenke [<em>~schwenke@ta-1-193.tip.net.au</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:46:29 AM)</font> <b>las:</b></font> the_CLA_2: good move ;)<br/>
+<font color="#A82F2F"><font size="2">(01:47:36 AM)</font> <b>rgareus:</b></font> BTW there&apos;s no Bundespost anymore. it was privatized mid 90&apos;s<br/>
+<font color="#A82F2F"><font size="2">(01:48:30 AM)</font> <b>las:</b></font> rgareus: well, whatever that bright yellow place is :)<br/>
+<font color="#A82F2F"><font size="2">(01:48:31 AM)</font> <b>rgareus:</b></font> las: your daughter&apos;s german-book must be way out of date :)<br/>
+<font color="#A82F2F"><font size="2">(01:48:43 AM)</font> <b>las:</b></font> rgareus: at $380, i would hope not<br/>
+<font color="#A82F2F"><font size="2">(01:48:49 AM)</font> <b>las:</b></font> rgareus: not that i&apos;ve seen it<br/>
+<font color="#A82F2F"><font size="2">(01:48:54 AM)</font> <b>rgareus:</b></font> las: if it still mentions &quot;Bundespost&quot;.<br/>
+<font color="#A82F2F"><font size="2">(01:49:07 AM)</font> <b>las:</b></font> rgareus: she no longer lives her, remember ....<br/>
+<font color="#A82F2F"><font size="2">(01:49:11 AM)</font> <b>las:</b></font> s/her/here/<br/>
+<font color="#A82F2F"><font size="2">(01:49:31 AM)</font> <b>rgareus:</b></font> las: but she might visit..?!  I thought you picked up the word from her.<br/>
+<font color="#A82F2F"><font size="2">(01:49:47 AM)</font> <b>rgareus:</b></font> las: menting her just after you mentioned bundespost.<br/>
+<font color="#A82F2F"><font size="2">(01:50:01 AM)</font> <b>rgareus:</b></font> s/menting/mentioning/<br/>
+<font color="#A82F2F"><font size="2">(01:50:19 AM)</font> <b>las:</b></font> rgareus: i was just recalling her plans to be in berlin 2 winters from now<br/>
+<font color="#A82F2F"><font size="2">(01:50:52 AM)</font> <b>rgareus:</b></font> las: winter in berlin is a very bad idea.  <br/>
+<font color="#A82F2F"><font size="2">(01:51:04 AM)</font> <b>rgareus:</b></font> las: spring &amp; summer is the time to go<br/>
+<font size="2">(01:51:37 AM)</font><b> nox- left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(01:51:49 AM)</font> <b>rgareus:</b></font> las: but maybe she needs to find that out the hard way.   brrr it&apos;s always freezing cold in December there<br/>
+<font color="#A82F2F"><font size="2">(01:52:27 AM)</font> <b>rgareus:</b></font> las: How long did you stay in Berlin?  was that just 6months or a whole year?<br/>
+<font size="2">(01:53:23 AM)</font><b> polosson left the room (quit: Quit: Bye!).</b><br/>
+<font color="#A82F2F"><font size="2">(01:57:45 AM)</font> <b>las:</b></font> rgareus: 6 months<br/>
+<font color="#A82F2F"><font size="2">(01:58:10 AM)</font> <b>las:</b></font> rgareus: through december :)<br/>
+<font color="#A82F2F"><font size="2">(01:58:10 AM)</font> <b>las:</b></font> rgareus: and by our standards, berlin wasn&apos;t really that cold<br/>
+<font color="#A82F2F"><font size="2">(01:58:26 AM)</font> <b>las:</b></font> rgareus: phila. was much colder when we came back<br/>
+<font size="2">(02:01:03 AM)</font><b> err-or_ left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:02:15 AM)</font> <b>las:</b></font> rgareus: personally, i am a bit skeptical about it. nostalgia (from 2008) combined with her german/french/american boyfriend ... german 101 + winter session in berlin<br/>
+<font color="#A82F2F"><font size="2">(02:02:39 AM)</font> <b>las:</b></font> rgareus: and who gets to pay for this exercise? let me guess ....<br/>
+<font size="2">(02:03:04 AM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:06:23 AM)</font> <b>rgareus:</b></font> las: 2 years that&apos;s 4 semesters away for her. Loooong time.<br/>
+<font color="#A82F2F"><font size="2">(02:08:12 AM)</font> <b>rgareus:</b></font> las: Over here student-exchange term abroad are usually paid with a univ grant. I didn&apos;t pay for the flights nor any student-fees while at Berkeley. I suppose the US is different.<br/>
+<font color="#A82F2F"><font size="2">(02:10:32 AM)</font> <b>rgareus:</b></font> If so,... let&apos;s start brushing up ardour to get more subscriptions. Only 2 years left to get enough bucks for her trip :)<br/>
+<font color="#A82F2F"><font size="2">(02:10:36 AM)</font> <b>las:</b></font> rgareus: bwahahaha<br/>
+<font color="#A82F2F"><font size="2">(02:10:43 AM)</font> <b>las:</b></font> rgareus: the bucks are there, mostly<br/>
+<font color="#A82F2F"><font size="2">(02:10:50 AM)</font> <b>las:</b></font> rgareus: i put it away when she was 3<br/>
+<font color="#A82F2F"><font size="2">(02:11:06 AM)</font> <b>las:</b></font> rgareus: but it will take every penny<br/>
+<font color="#A82F2F"><font size="2">(02:11:56 AM)</font> <b>las:</b></font> rgareus: now of course, when her mother and her somehow manage to spend nearly $4k on pre-college expenses (including a new laptop), then maybe its not all there :( !!!!<br/>
+<font color="#A82F2F"><font size="2">(02:12:14 AM)</font> <b>las:</b></font> rgareus: but i&apos;ll leave those battles for my off-IRC life<br/>
+<font size="2">(02:12:24 AM)</font><b> schwenke left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:15:46 AM)</font> <b>oofus:</b></font> the other thing about audioengine is that the jack settings aren&apos;t remembered either. But you may know that.<br/>
+<font color="#A82F2F"><font size="2">(02:15:54 AM)</font> <b>oofus:</b></font> las: ^^^^<br/>
+<font color="#A82F2F"><font size="2">(02:17:52 AM)</font> <b>las:</b></font> oofus: which jack settings? you mean the basic ones to get jack started?<br/>
+<font color="#A82F2F"><font size="2">(02:18:07 AM)</font> <b>oofus:</b></font> las: yes, if you let Ardour start jack<br/>
+<font size="2">(02:18:38 AM)</font><b> avlinux [<em>~glen@204.237.47.20</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:19:17 AM)</font> <b>las:</b></font> oofus: i&apos;m still in the midst of working on all that<br/>
+<font color="#A82F2F"><font size="2">(02:19:25 AM)</font> <b>oofus:</b></font> las: ok<br/>
+<font color="#A82F2F"><font size="2">(02:19:50 AM)</font> <b>las:</b></font> oofus: its a bit more complex than before because ardour now saves the settings for every audio interface you might ever use (or have used)<br/>
+<font color="#A82F2F"><font size="2">(02:20:15 AM)</font> <b>las:</b></font> oofus: so when your usb or firewire device reappears, it has the old settings for that too<br/>
+<font color="#A82F2F"><font size="2">(02:20:25 AM)</font> <b>avlinux:</b></font> Hi, In case anyone cares Ardour-VST 3.4 seems to be working well, not sure if you guys get much feedback on that (or want any)... but there it is<br/>
+<font color="#A82F2F"><font size="2">(02:20:31 AM)</font> <b>oofus:</b></font> las: hmm, ok, that&apos;s a good thing I guess.<br/>
+<font color="#A82F2F"><font size="2">(02:20:39 AM)</font> <b>las:</b></font> avlinux: good to hear<br/>
+<font color="#A82F2F"><font size="2">(02:21:07 AM)</font> <b>las:</b></font> oofus: the &quot;JACK&quot; menu item is probably going away, or at least the buffer size options. still debating it ...<br/>
+<font color="#A82F2F"><font size="2">(02:21:29 AM)</font> <b>oofus:</b></font> las: I&apos;ve never really seen the point of that anyway<br/>
+<font color="#A82F2F"><font size="2">(02:22:16 AM)</font> <b>las:</b></font> oofus: its one positive is to make it very fast to switch buffer sizes (e.g. switching from tracking -&gt; editing etc)<br/>
+<font color="#A82F2F"><font size="2">(02:22:33 AM)</font> <b>oofus:</b></font> las: What could be there I suppose is a more generic menu, instead of &apos;Jack&apos;, &apos;Audio Engine&apos; (just plucking a name from the air)<br/>
+<font size="2">(02:22:34 AM)</font><b> err-or left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(02:23:04 AM)</font> <b>las:</b></font> oofus: really, it will just be a way to get back to the audio/midi setup dialog<br/>
+<font color="#A82F2F"><font size="2">(02:23:17 AM)</font> <b>oofus:</b></font> las: that then opens a window with parameters of the chosen backend<br/>
+<font color="#A82F2F"><font size="2">(02:23:20 AM)</font> <b>las:</b></font> oofus: which is either a prefs tab or a window of its own<br/>
+<font color="#A82F2F"><font size="2">(02:23:38 AM)</font> <b>oofus:</b></font> las: either just to check or to change<br/>
+<font color="#A82F2F"><font size="2">(02:24:40 AM)</font> <b>avlinux:</b></font> las: Is any of the new cairo stuff in this release?<br/>
+<font color="#A82F2F"><font size="2">(02:25:02 AM)</font> <b>las:</b></font> avlinux: nope<br/>
+<font size="2">(02:25:07 AM)</font><b> err-or [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:25:15 AM)</font> <b>las:</b></font> avlinux: next up is the audioengine branch, then cairocanvas after that<br/>
+<font color="#A82F2F"><font size="2">(02:26:40 AM)</font> <b>avlinux:</b></font> las: Aaah good stuff! I was pleasantly surprised that 3.4 still builds on AV&apos;s tweaked Debian Squeeze base, kudos and thanks to you *tips hat<br/>
+<font color="#A82F2F"><font size="2">(02:34:55 AM)</font> <b>avlinux:</b></font> las: I&apos;ve been away from IRC for quite a while, what&apos;s happening with the audioengine branch?<br/>
+<font size="2">(02:35:29 AM)</font><b> [TR0N] left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(02:38:08 AM)</font><b> aloiece left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:43:02 AM)</font> <b>oofus:</b></font> avlinux: it&apos;s a separating and abstracting of the reliance on Jack. When done you shouldn&apos;t notice any difference, but it will allow others if they so desire to not use Jack and, for example, go straight to ASIO, or Coreaudio, or even ALSA<br/>
+<font color="#A82F2F"><font size="2">(02:45:57 AM)</font> <b>oofus:</b></font> avlinux: and when I say &apos;allow others&apos; I mean anybody who wants to write the code to allow it to happen<br/>
+<font size="2">(02:49:55 AM)</font><b> phyzix5761 [<em>~phyzix576@c-50-140-54-206.hsd1.fl.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:56:13 AM)</font> <b>rgareus:</b></font> oofus: I found another meters.lv2 openGL issue. moving slowly but steadily there. I&apos;ll probably merge it to master tomorrow.<br/>
+<font size="2">(03:13:45 AM)</font><b> schwenke [<em>~schwenke@ibmaus65.lnk.telstra.net</em>] entered the room.</b><br/>
+<font size="2">(03:16:51 AM)</font><b> idragosani [<em>~idragosan@pool-108-48-80-84.washdc.fios.verizon.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:18:20 AM)</font> <b>oofus_lt:</b></font> rgareus: ok, what was the issue ?<br/>
+<font color="#A82F2F"><font size="2">(03:20:04 AM)</font> <b>rgareus:</b></font> oofus_lt: several small things. but one big: the goniometer called openGL commands outside the X11-openGL context (when the window resizes itself).<br/>
+<font color="#A82F2F"><font size="2">(03:20:25 AM)</font> <b>oofus_lt:</b></font> rgareus: ooh<br/>
+<font color="#A82F2F"><font size="2">(03:21:08 AM)</font> <b>oofus_lt:</b></font> rgareus: that&apos;s not performance related though is it ?<br/>
+<font size="2">(03:21:50 AM)</font><b> clark|w left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(03:22:09 AM)</font> <b>rgareus:</b></font> oofus_lt: not quite sure. behaviour is undefined. it made those calls in the glx context *something* (another plugin for example)<br/>
+<font size="2">(03:22:21 AM)</font><b> schwenke left the room (&quot;nutritious lentils&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(03:23:01 AM)</font> <b>rgareus:</b></font> oofus_lt: but it did that from a different thread.<br/>
+<font color="#A82F2F"><font size="2">(03:23:30 AM)</font> <b>oofus_lt:</b></font> rgareus: ok<br/>
+<font color="#A82F2F"><font size="2">(03:24:03 AM)</font> <b>rgareus:</b></font> oofus_lt: I&apos;ll clean this up, ..and we&apos;ll know when testing :)<br/>
+<font color="#A82F2F"><font size="2">(03:24:10 AM)</font> <b>oofus_lt:</b></font> rgareus: yep<br/>
+<font color="#A82F2F"><font size="2">(03:24:18 AM)</font> <b>oofus_lt:</b></font> rgareus: see you tomorrow<br/>
+<font color="#A82F2F"><font size="2">(03:24:30 AM)</font> <b>rgareus:</b></font> oofus_lt: yeah. &apos;night.<br/>
+<font size="2">(03:24:40 AM)</font><b> oofus_lt left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(03:31:28 AM)</font> <b>idragosani:</b></font> hey congrats on the new Ardour version, everyone!<br/>
+<font color="#A82F2F"><font size="2">(03:33:02 AM)</font> <b>idragosani:</b></font> can anyone recommend a resource that gives an overview of the different metering types... some of them I am familiar with but not all<br/>
+<font size="2">(03:33:52 AM)</font><b> idragosani1 [<em>~idragosan@199.19.192.4</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:34:04 AM)</font> <b>rgareus:</b></font> idragosani: https://en.wikipedia.org/wiki/Peak_programme_meter#Table_of_characteristics is a start<br/>
+<font size="2">(03:35:41 AM)</font><b> phyzix5761 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(03:36:32 AM)</font> <b>rgareus:</b></font> idragosani: http://www.digido.com/how-to-make-better-recordings-part-2.html explains K-meters and has quite a bit of history on other metering types.<br/>
+<font size="2">(03:36:38 AM)</font><b> avlinux left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(03:37:36 AM)</font><b> idragosani left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(03:38:05 AM)</font> <b>idragosani1:</b></font> Ah good, Bob Katz... thanks<br/>
+<font size="2">(03:38:26 AM)</font><b> idragosani1 is now known as idragosani</b><br/>
+<font color="#A82F2F"><font size="2">(03:38:50 AM)</font> <b>rgareus:</b></font> idragosani: oofus would point you to http://www.amazon.co.uk/Audio-Metering-Measurements-Standards-Practice/dp/0240814673/ref=tmm_pap_title_0?ie=UTF8&amp;qid=<br/>
+<font color="#A82F2F"><font size="2">(03:41:05 AM)</font> <b>idragosani:</b></font> that looks like a very handy reference... <br/>
+<font size="2">(03:41:33 AM)</font><b> aalex_ left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(03:41:52 AM)</font> <b>idragosani:</b></font> Kindle version, too...<br/>
+<font color="#A82F2F"><font size="2">(03:42:03 AM)</font> <b>rgareus:</b></font> idragosani: if you don&apos;t produce for broadcast. you don&apos;t need DIN, EBU, Nordic,... meter-types at all.  but RMS-meters (like the K-meter) are handy for mixing/mastering.<br/>
+<font color="#A82F2F"><font size="2">(03:42:04 AM)</font> <b>las:</b></font> rgareus: should we put some links at community.ardour.org and/or in the manual re: metering ?<br/>
+<font color="#A82F2F"><font size="2">(03:43:27 AM)</font> <b>idragosani:</b></font> las: probably a good to have some references, the choices available in 3.4 are overwhelming :-)<br/>
+<font color="#A82F2F"><font size="2">(03:43:29 AM)</font> <b>rgareus:</b></font> las: yes we should.  writing the manual for the new meters and meterbridge is somewhere on the ToDo list. <br/>
+<font size="2">(03:52:18 AM)</font><b> phyzix5761 [<em>~phyzix576@c-50-140-54-206.hsd1.fl.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(03:54:30 AM)</font><b> spillajk [<em>~spillajk@c-71-206-237-72.hsd1.pa.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(03:56:42 AM)</font><b> theothertim2 [<em>~theothert@h66-222-83-253.lvrgtn.dedicated.static.tds.net</em>] entered the room.</b><br/>
+<font size="2">(03:57:56 AM)</font><b> hansfbaier [<em>~jack@36.81.61.87</em>] entered the room.</b><br/>
+<font size="2">(03:58:16 AM)</font><b> theothertim left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font size="2">(04:22:01 AM)</font><b> phyzix5761 left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(04:35:23 AM)</font><b> the_CLA [<em>~the_CLA@p57B9B346.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(04:38:57 AM)</font><b> the_CLA_2 left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(05:08:12 AM)</font><b> idragosani left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(05:24:27 AM)</font><b> idragosani [<em>~idragosan@pool-108-48-80-84.washdc.fios.verizon.net</em>] entered the room.</b><br/>
+<font size="2">(05:47:30 AM)</font><b> MountainX [<em>~computeru@64.22.71.195</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:49:09 AM)</font> <b>MountainX:</b></font> rgareus: hi. I think you told me that Jack is plug &amp; play, right? I&apos;m not seeing that. What am I missing?<br/>
+<font color="#A82F2F"><font size="2">(05:49:55 AM)</font> <b>MountainX:</b></font> rgareus: I have Jack installed now on my laptop. It was working with my Scarlett 2i2 plugged in. When I remove that device, I can&apos;t get sound to work through my system device.<br/>
+<font size="2">(06:06:40 AM)</font><b> spillajk left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(06:17:48 AM)</font><b> naptastic left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(06:18:32 AM)</font><b> las left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(06:36:28 AM)</font><b> ANero_ left the room (quit: Quit: Ex-Chat).</b><br/>
+<font size="2">(06:55:06 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(06:56:20 AM)</font><b> hansfbaier [<em>~jack@36.81.61.87</em>] entered the room.</b><br/>
+<font size="2">(07:29:41 AM)</font><b> las [<em>~paul@pool-71-185-172-173.phlapa.fios.verizon.net</em>] entered the room.</b><br/>
+<font size="2">(07:32:14 AM)</font><b> Valvalion left the room (quit: Quit: Soundscapes, noises and other things to listen : http://www.youtube.com/user/valvalion/).</b><br/>
+<font size="2">(07:43:51 AM)</font><b> c_borss [<em>~rahim@dslb-094-217-007-080.pools.arcor-ip.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:44:10 AM)</font> <b>c_borss:</b></font> Good morning, everybody!<br/>
+<font color="#A82F2F"><font size="2">(07:47:01 AM)</font> <b>c_borss:</b></font> 2 days ago I tried to register on the Ardour website for purchasing the source code and also tried to subscribe to the ardour-dev mailinglist, but I haven&apos;t got any confirmation yet.<br/>
+<font color="#A82F2F"><font size="2">(07:48:05 AM)</font> <b>c_borss:</b></font> Did something go wrong or is it normal that it takes quite some time?<br/>
+<font size="2">(07:48:08 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:49:28 AM)</font> <b>c_borss:</b></font> Would like to submit a patch that enables 3D panning...<br/>
+<font size="2">(07:51:14 AM)</font><b> theothertim2 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(07:52:24 AM)</font><b> theothertim [<em>~theothert@h66-222-83-253.lvrgtn.dedicated.static.tds.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:53:04 AM)</font> <b>Stuzz:</b></font> c_borss: In some hours las should be back and able to answer you<br/>
+<font color="#A82F2F"><font size="2">(07:54:00 AM)</font> <b>c_borss:</b></font> thx<br/>
+<font size="2">(07:58:40 AM)</font><b> edogawa [<em>~quassel@194-166-243-180.adsl.highway.telekom.at</em>] entered the room.</b><br/>
+<font size="2">(08:00:44 AM)</font><b> hansfbaier [<em>~jack@180.245.134.19</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:08:15 AM)</font> <b>Stuzz:</b></font> c_borss: I *think* some is like 5 or 6 :)<br/>
+<font size="2">(08:09:15 AM)</font><b> ahellquist_lt left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(08:21:38 AM)</font><b> naptastic [<em>~david@99-20-201-27.lightspeed.hstntx.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(08:25:36 AM)</font><b> jrussell left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(08:29:25 AM)</font><b> naptastic left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:31:30 AM)</font><b> naptastic [<em>~david@99-20-201-27.lightspeed.hstntx.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(08:32:30 AM)</font><b> hansfbaier left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:36:37 AM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(08:51:05 AM)</font><b> aloiece [<em>~Thunderbi@2001:8b0:fbbd:191c:898b:9d78:448e:af95</em>] entered the room.</b><br/>
+<font size="2">(08:51:29 AM)</font><b> HisaoNakai left the room (quit: Quit: &quot;We will not go quietly into the night!&quot; https://www.prism-break.org).</b><br/>
+<font size="2">(08:54:20 AM)</font><b> ahellquist_lt [<em>~aht@89.160.61.6</em>] entered the room.</b><br/>
+<font size="2">(08:55:24 AM)</font><b> zequence-work [<em>~zequence-@ubuntu/member/zequence</em>] entered the room.</b><br/>
+<font size="2">(08:57:49 AM)</font><b> phyzix5761 [<em>~phyzix576@c-50-140-54-206.hsd1.fl.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(09:00:56 AM)</font><b> Grottenolm [<em>~arnold@ip-95-223-244-62.unitymediagroup.de</em>] entered the room.</b><br/>
+<font size="2">(09:09:10 AM)</font><b> imeim [<em>~quassel@221.Red-88-18-9.staticIP.rima-tde.net</em>] entered the room.</b><br/>
+<font size="2">(09:10:38 AM)</font><b> zequence-work left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(09:16:41 AM)</font><b> qeller left the room (quit: Quit: Page closed).</b><br/>
+<font size="2">(09:16:57 AM)</font><b> aloiece left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:18:07 AM)</font><b> aloiece [<em>~Thunderbi@2001:8b0:fbbd:191c:b59e:a64e:bcce:d046</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:22:27 AM)</font> <b>naptastic:</b></font> I&apos;m guessing that Ardour&apos;s meters are normally pretty responsive (I mean like when system load isn&apos;t &gt; cpus * 3)<br/>
+<font color="#A82F2F"><font size="2">(09:23:26 AM)</font> <b>naptastic:</b></font> ah, it&apos;s down to cpus * 1.2, that&apos;s nice.<br/>
+<font size="2">(09:28:41 AM)</font><b> nostar [<em>~nostar@c-68-43-185-189.hsd1.mi.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(09:29:21 AM)</font><b> karimb [<em>~kboumedhe@216.200.219.87.dynamic.jazztel.es</em>] entered the room.</b><br/>
+<font size="2">(09:36:39 AM)</font><b> naptastic left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:38:08 AM)</font><b> nostar left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:51:06 AM)</font><b> RytmenPinne [<em>~alex@35-51.bob.fi</em>] entered the room.</b><br/>
+<font size="2">(10:10:36 AM)</font><b> colinf1 [<em>~colinf@94-30-95-158.xdsl.murphx.net</em>] entered the room.</b><br/>
+<font size="2">(10:15:24 AM)</font><b> boom1992 [<em>~quassel@BA1222.ballee.wh.tu-darmstadt.de</em>] entered the room.</b><br/>
+<font size="2">(10:16:13 AM)</font><b> nostar [<em>~nostar@c-68-43-185-189.hsd1.mi.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(10:19:48 AM)</font><b> SirFunk left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(10:19:52 AM)</font><b> rodgort left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(10:22:13 AM)</font><b> SirFunk [<em>SirFunk@2600:3c03::f03c:91ff:fe93:11b3</em>] entered the room.</b><br/>
+<font size="2">(10:23:23 AM)</font><b> rodgort [<em>~rodgort@li125-242.members.linode.com</em>] entered the room.</b><br/>
+<font size="2">(10:26:36 AM)</font><b> dtaht left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(10:29:01 AM)</font><b> queller [<em>~grizzly@90-231-233-145-no109.tbcn.telia.com</em>] entered the room.</b><br/>
+<font size="2">(10:37:43 AM)</font><b> dtaht [<em>~dtaht@50-197-142-145-static.hfc.comcastbusiness.net</em>] entered the room.</b><br/>
+<font size="2">(10:38:09 AM)</font><b> ragix left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(10:39:19 AM)</font><b> ragix [<em>~rage@bloodbath.ontogeny.ac.nz</em>] entered the room.</b><br/>
+<font size="2">(10:57:58 AM)</font><b> hansfbaier [<em>~jack@180.245.134.19</em>] entered the room.</b><br/>
+<font size="2">(11:08:33 AM)</font><b> aloiece left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(11:37:34 AM)</font><b> zth [<em>~zth@94-137-118-6.customers.ownit.se</em>] entered the room.</b><br/>
+<font size="2">(11:39:59 AM)</font><b> polosson [<em>~quassel@lns-bzn-36-82-251-28-180.adsl.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(11:43:38 AM)</font><b> fling left the room (quit: Quit: Lost terminal).</b><br/>
+<font color="#A82F2F"><font size="2">(11:43:49 AM)</font> <b>oofus:</b></font> c_borss: You don&apos;t have to register to purchase the source code, this is open-source, the code is one thing that is always freely available. It&apos;s available via GIT, you can just download it.<br/>
+<font size="2">(11:44:38 AM)</font><b> fling [<em>~fling@fsf/member/fling</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:44:50 AM)</font> <b>oofus:</b></font> c_borss: http://ardour.org/building_linux.html<br/>
+<font size="2">(11:51:58 AM)</font><b> zequence-work [<em>~zequence-@ubuntu/member/zequence</em>] entered the room.</b><br/>
+<font size="2">(12:03:00 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font size="2">(12:07:43 PM)</font><b> dbuch [<em>~dbuch@0x3e2c8606.mobile.telia.dk</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:10:08 PM)</font> <b>dbuch:</b></font> Hi fellas, i need abit help here - I have problems with playback, my setup is nothing basiclly i got simple build-in microphone and build-in speakers and thats what i need. No external hardware. I can record and get signal from microphone - i am connected to jack<br/>
+<font color="#A82F2F"><font size="2">(12:11:15 PM)</font> <b>dbuch:</b></font> I guess the solution is pretty simple, but i cant seem to figure out where the problem lies?? Thanks in advance<br/>
+<font color="#A82F2F"><font size="2">(12:12:27 PM)</font> <b>dbuch:</b></font> I can tell i&apos;m on arch linux with gnome environment<br/>
+<font size="2">(12:15:52 PM)</font><b> phyzix5761 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(12:17:31 PM)</font><b> zequence-work left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(12:58:59 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

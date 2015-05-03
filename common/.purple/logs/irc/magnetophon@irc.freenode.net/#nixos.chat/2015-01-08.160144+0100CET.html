@@ -1,0 +1,147 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Thu 08 Jan 2015 04:01:44 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Thu 08 Jan 2015 04:01:44 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:01:44 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(04:01:44 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(04:01:47 PM)</font> <b>Lethalman:</b></font> my employer wants to meet me to talk about nix<br/>
+<font color="#A82F2F"><font size="2">(04:02:01 PM)</font> <b>Lethalman:</b></font> let&apos;s see if I can sell i<br/>
+<font color="#A82F2F"><font size="2">(04:02:04 PM)</font> <b>Lethalman:</b></font> *it<br/>
+<font color="#A82F2F"><font size="2">(04:03:15 PM)</font> <b>musicmatze:</b></font> Lethalman: is &quot;/nix/var/nix/profiles/system&quot; a hard-coded path or (within nix) can I retreive it somehow in the codebase?<br/>
+<font color="#A82F2F"><font size="2">(04:03:43 PM)</font> <b>Lethalman:</b></font> musicmatze, grep profiles `which nixos-rebuild`<br/>
+<font color="#A82F2F"><font size="2">(04:03:58 PM)</font> <b>Lethalman:</b></font> it&apos;s a hardcoded path in nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(04:04:32 PM)</font> <b>musicmatze:</b></font> I mean, for a patch for &quot;nix&quot;, right in the cpp codebase, is there a method to retreive the system profile path (not in bash)<br/>
+<font color="#A82F2F"><font size="2">(04:04:56 PM)</font> <b>shlevy:</b></font> musicmatze: the nix codebase shouldn&apos;t know anything about nixos<br/>
+<font color="#A82F2F"><font size="2">(04:05:04 PM)</font> <b>Lethalman:</b></font> musicmatze, the default profile path is /nix/var/nix/profiles/system<br/>
+<font color="#A82F2F"><font size="2">(04:05:05 PM)</font> <b>qknight:</b></font> musicmatze: i think that /nix/var/nix is respecting the prefix but nix/var/nix/profile is probably hardcoded<br/>
+<font color="#A82F2F"><font size="2">(04:05:07 PM)</font> <b>shlevy:</b></font> what are you trying to do?<br/>
+<font color="#A82F2F"><font size="2">(04:05:49 PM)</font> <b>qknight:</b></font> Lethalman: you want to sell nix to management? well don&apos;t tell them it&apos;s something with &apos;functional&apos; in the name<br/>
+<font color="#A82F2F"><font size="2">(04:06:19 PM)</font> <b>Lethalman:</b></font> qknight, that&apos;s for sure, the other problem is &quot;you probably need to put some effort for some packages&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:06:43 PM)</font> <b>qknight:</b></font> Lethalman: well, often that is also the case for ubuntu, depending on what you want<br/>
+<font color="#A82F2F"><font size="2">(04:06:43 PM)</font> <b>musicmatze:</b></font> shlevy: I&apos;m writing a patch for nix, I want to add a commandline flag &quot;--list-system-generations&quot; which does simply &quot;--list-generations&quot; with the appropriate profile<br/>
+<font color="#A82F2F"><font size="2">(04:06:56 PM)</font> <b>qknight:</b></font> Lethalman: do you have a certain problem you want to solve with nix?<br/>
+<font color="#A82F2F"><font size="2">(04:07:07 PM)</font> <b>Lethalman:</b></font> musicmatze, alias nix-env-system-generations=&quot;...&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:07:20 PM)</font> <b>Lethalman:</b></font> qknight, deploying services... that is<br/>
+<font color="#A82F2F"><font size="2">(04:07:27 PM)</font> <b>Lethalman:</b></font> qknight, on debian<br/>
+<font color="#A82F2F"><font size="2">(04:07:32 PM)</font> <b>shlevy:</b></font> musicmatze: That doesn&apos;t belong in nix. nix is independent of nixos<br/>
+<font color="#A82F2F"><font size="2">(04:07:36 PM)</font> <b>Lethalman:</b></font> I will probably start talking about nixos configuration + nix-rehash or such<br/>
+<font color="#A82F2F"><font size="2">(04:07:42 PM)</font> <b>qknight:</b></font> Lethalman: services as in systemd/dhcpcd/ or webservices?<br/>
+<font color="#A82F2F"><font size="2">(04:07:46 PM)</font> <b>shlevy:</b></font> musicmatze: &quot;system generations&quot; is not a concept that makes sense at that level<br/>
+<font color="#A82F2F"><font size="2">(04:07:51 PM)</font> <b>musicmatze:</b></font> shelvy: jup, I noticed this, too. So, no patch :-)<br/>
+<font color="#A82F2F"><font size="2">(04:07:52 PM)</font> <b>Lethalman:</b></font> qknight, web stacks, yes<br/>
+<font color="#A82F2F"><font size="2">(04:07:58 PM)</font> <b>qknight:</b></font> Lethalman: that is cool stuff!<br/>
+<font color="#A82F2F"><font size="2">(04:08:06 PM)</font> <b>musicmatze:</b></font> sorry for interupting you guys! :-/<br/>
+<font color="#A82F2F"><font size="2">(04:08:08 PM)</font> <b>Lethalman:</b></font> qknight, yes should be quite straightforward with nix<br/>
+<font color="#A82F2F"><font size="2">(04:08:23 PM)</font> <b>Lethalman:</b></font> I did that already using nix-rehash<br/>
+<font color="#A82F2F"><font size="2">(04:08:34 PM)</font> <b>qknight:</b></font> Lethalman: depends on the languages involved<br/>
+<font color="#A82F2F"><font size="2">(04:08:38 PM)</font> <b>Lethalman:</b></font> qknight, php<br/>
+<font color="#A82F2F"><font size="2">(04:08:42 PM)</font> <b>qknight:</b></font> Lethalman: http://blog.lastlog.de/posts/advanced_webservices_on_nixos/ &lt;- here are a few graphics if you need something<br/>
+<font color="#A82F2F"><font size="2">(04:08:46 PM)</font> <b>Lethalman:</b></font> apache+php+mysql<br/>
+<font color="#A82F2F"><font size="2">(04:09:01 PM)</font> <b>qknight:</b></font> Lethalman: http://blog.lastlog.de/posts/advanced_webservices_on_nixos_revisited/<br/>
+<font color="#A82F2F"><font size="2">(04:09:05 PM)</font> <b>Lethalman:</b></font> qknight, I know that eheh :)<br/>
+<font color="#A82F2F"><font size="2">(04:09:14 PM)</font> <b>Lethalman:</b></font> ah didn&apos;t see the revisited<br/>
+<font color="#A82F2F"><font size="2">(04:09:18 PM)</font> <b>Lethalman:</b></font> ah the jpg<br/>
+<font color="#A82F2F"><font size="2">(04:09:40 PM)</font> <b>Lethalman:</b></font> qknight, yeah maybe containers, but I don&apos;t think we&apos;ll ever use nixos containers<br/>
+<font color="#A82F2F"><font size="2">(04:09:41 PM)</font> <b>qknight:</b></font> Lethalman: i think that php/mysql with nix is a very good target without too much effort<br/>
+<font color="#A82F2F"><font size="2">(04:09:44 PM)</font> <b>Lethalman:</b></font> so plain nix-build deployment<br/>
+<font color="#A82F2F"><font size="2">(04:09:53 PM)</font> <b>Lethalman:</b></font> with supervisord services<br/>
+<font color="#A82F2F"><font size="2">(04:10:01 PM)</font> <b>Lethalman:</b></font> would be even more reliable than debian init.d<br/>
+<font color="#A82F2F"><font size="2">(04:10:14 PM)</font> <b>qknight:</b></font> Lethalman: containers was just an experiment, you can go without<br/>
+<font color="#A82F2F"><font size="2">(04:10:19 PM)</font> <b>Lethalman:</b></font> ofc<br/>
+<font color="#A82F2F"><font size="2">(04:10:37 PM)</font> <b>qknight:</b></font> i love what niksnut did with nixos-container, really good work<br/>
+<font color="#A82F2F"><font size="2">(04:11:07 PM)</font> <b>qknight:</b></font> what i love in detail is that every webservice inside the container sees the system as an empty system, so you can allocated port 80 plenty of times and reconnect them using a reverse proxy<br/>
+<font color="#A82F2F"><font size="2">(04:11:19 PM)</font> <b>qknight:</b></font> which i think could be automated with a wrapper pretty nicely<br/>
+<font color="#A82F2F"><font size="2">(04:12:17 PM)</font> <b>qknight:</b></font> Lethalman: oh, and maybe you want to copy a slide from here as well: https://lastlog.de/misc/vortrag/nixcast-2014-08-nixos-introduction/nixcast-2014-08-nixos-introduction.svg<br/>
+<font color="#A82F2F"><font size="2">(04:12:48 PM)</font> <b>Lethalman:</b></font> qknight, ah not going to do slides, just a little talk face to face<br/>
+<font color="#A82F2F"><font size="2">(04:13:01 PM)</font> <b>qknight:</b></font> Lethalman: ok<br/>
+<font color="#A82F2F"><font size="2">(04:13:03 PM)</font> <b>Lethalman:</b></font> but that&apos;s nice, never saw that one<br/>
+<font color="#A82F2F"><font size="2">(04:13:19 PM)</font> <b>qknight:</b></font> it is not final<br/>
+<font color="#A82F2F"><font size="2">(04:13:29 PM)</font> <b>qknight:</b></font> just copied it there, never shown anyone<br/>
+<font color="#A82F2F"><font size="2">(04:13:35 PM)</font> <b>qknight:</b></font> except some folks at #nixos here<br/>
+<font color="#A82F2F"><font size="2">(04:13:54 PM)</font> <b>qknight:</b></font> originally wanted to do a podcast but lost interest<br/>
+<font color="#A82F2F"><font size="2">(04:14:25 PM)</font> <b>qknight:</b></font> but since i invested so many hours in writing the slides i rather put them online than to file&amp;forget them<br/>
+<font color="#16569E"><font size="2">(04:20:42 PM)</font> <b>magnetophon:</b></font> qknight: wauw looks great! How did you make it react to scrolling like that?<br/>
+<font color="#A82F2F"><font size="2">(04:21:19 PM)</font> <b>goibhniu:</b></font> magnetophon: did you find the lv2 thing you were looking for?<br/>
+<font color="#16569E"><font size="2">(04:21:26 PM)</font> <b>magnetophon:</b></font> goibhniu: nope<br/>
+<font color="#A82F2F"><font size="2">(04:22:26 PM)</font> <b>goibhniu:</b></font> magnetophon: oh, are you looking for the store path or the nix expression?<br/>
+<font color="#16569E"><font size="2">(04:23:15 PM)</font> <b>magnetophon:</b></font> I'm looking for the store path<br/>
+<font color="#16569E"><font size="2">(04:27:08 PM)</font> <b>magnetophon:</b></font> goibhniu: ^^<br/>
+<font color="#A82F2F"><font size="2">(04:27:37 PM)</font> <b>goibhniu:</b></font> magnetophon: does either of these help? readlink -f `which lv2specgen.py`, or `ls /nix/store/*-lv2*`<br/>
+<font color="#A82F2F"><font size="2">(04:27:55 PM)</font> <b>qknight:</b></font> manveru: oh, that is pretty eash: just use inkscape+jessyink -&gt; https://www.youtube.com/watch?v=bN1pAGbEo10 karltuxstadt teached me how to use jessyink!<br/>
+<font color="#16569E"><font size="2">(04:31:49 PM)</font> <b>magnetophon:</b></font> goibhniu: Yup, the second one did the trick. Thanks!<br/>
+<font color="#16569E"><font size="2">(04:32:03 PM)</font> <b>magnetophon:</b></font> qknight: Thanks<br/>
+<font color="#A82F2F"><font size="2">(04:32:12 PM)</font> <b>goibhniu:</b></font> magnetophon: super!<br/>
+<font color="#A82F2F"><font size="2">(04:32:15 PM)</font> <b>qknight:</b></font> manveru: if you need further insights, just ask<br/>
+<font color="#A82F2F"><font size="2">(04:32:36 PM)</font> <b>qknight:</b></font> manveru: i&apos;ve even been hacking in the javascript generated by jessyink already<br/>
+<font color="#A82F2F"><font size="2">(04:32:43 PM)</font> <b>manveru:</b></font> qknight: i&apos;m not magnetophon :)<br/>
+<font color="#A82F2F"><font size="2">(04:33:14 PM)</font> <b>qknight:</b></font> manveru: the only feature i&apos;m still missing is fast skipping of slides, say you want to go from slide 20 to 10, there you have to view every slide-anmiation to 10 which can take a lot of time<br/>
+<font color="#16569E"><font size="2">(04:33:25 PM)</font> <b>magnetophon:</b></font> qknight: and I'm not manveru :D<br/>
+<font color="#A82F2F"><font size="2">(04:33:33 PM)</font> <b>qknight:</b></font> i&apos;m sorry<br/>
+<font color="#16569E"><font size="2">(04:33:52 PM)</font> <b>magnetophon:</b></font> qknight: no, you're qknight!!<br/>
+<font color="#062585"><font size="2">(04:34:00 PM)</font> <b>***magnetophon</b></font> is confused....<br/>
+<font color="#16569E"><font size="2">(04:34:11 PM)</font> <b>magnetophon:</b></font> :p<br/>
+<font color="#A82F2F"><font size="2">(04:34:44 PM)</font> <b>goibhniu:</b></font> oh, jessyink sounds awesome!<br/>
+<font color="#062585"><font size="2">(04:34:55 PM)</font> <b>***goibhniu</b></font> thought qknight was doing all the JS stuff by hand :D<br/>
+<font color="#A82F2F"><font size="2">(04:34:58 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nix] danbst opened pull request #436: Fix typo in &quot;allowedRequisites&quot; (master...patch-1) http://git.io/9Q8XpQ<br/>
+<font color="#062585"><font size="2">(04:36:01 PM)</font> <b>***goibhniu</b></font> wonders if the inkscape in nixpkgs is particularly slow to start up<br/>
+<font size="2">(04:41:39 PM)</font><b> roconnor [<em>~roconnor@e120-pool-d89a63c0.brdbnd.voicenetwork.ca</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:45:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nix] edolstra pushed 2 new commits to master: http://git.io/qIVOSw<br/>
+<font color="#A82F2F"><font size="2">(04:45:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nix/master 27b7b94 Eelco Dolstra: Set /nix/store permission to 1737...<br/>
+<font color="#A82F2F"><font size="2">(04:45:21 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nix/master ed56ea9 Данило Глинський (Danylo Hlynskyi): Fix typo (assuming this is a typo)...<br/>
+<font color="#A82F2F"><font size="2">(04:45:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nix] edolstra closed pull request #436: Fix typo in &quot;allowedRequisites&quot; (master...patch-1) http://git.io/9Q8XpQ<br/>
+<font color="#A82F2F"><font size="2">(04:49:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nix] edolstra pushed 1 new commit to master: http://git.io/z_PdRA<br/>
+<font color="#A82F2F"><font size="2">(04:49:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nix/master 57b8225 Eelco Dolstra: Doh<br/>
+<font color="#A82F2F"><font size="2">(04:51:16 PM)</font> <b>qknight:</b></font> goibhniu: i don&apos;t think so, but maybe you have an old version in your personal profile loading a old glibc?<br/>
+<font color="#A82F2F"><font size="2">(04:52:21 PM)</font> <b>goibhniu:</b></font> qknight: it&apos;s not slow to start for you?<br/>
+<font color="#A82F2F"><font size="2">(04:52:39 PM)</font> <b>qknight:</b></font> goibhniu: jessyink is cool as it allows you to use actual svg boxes to be assigned as views in the browser later, so you can dynamically adapt your field of view<br/>
+<font color="#A82F2F"><font size="2">(04:52:58 PM)</font> <b>goibhniu:</b></font> sweet!<br/>
+<font color="#A82F2F"><font size="2">(04:53:14 PM)</font> <b>qknight:</b></font> goibhniu: 3 seconds cold and warmstart<br/>
+<font color="#A82F2F"><font size="2">(04:53:26 PM)</font> <b>goibhniu:</b></font> wow! good to know, thanks!<br/>
+<font color="#A82F2F"><font size="2">(04:53:58 PM)</font> <b>qknight:</b></font> goibhniu: gimp: 5 seconds from start to finish. strangely shutdown of gimp lasts longer than startup!? ;-)<br/>
+<font color="#A82F2F"><font size="2">(04:54:12 PM)</font> <b>qknight:</b></font> goibhniu: but i started inkscape without any document of course<br/>
+<font color="#A82F2F"><font size="2">(04:54:16 PM)</font> <b>qknight:</b></font> same for gimp<br/>
+<font color="#A82F2F"><font size="2">(04:55:23 PM)</font> <b>goibhniu:</b></font> here gimp starts faster than inkscape for me, on my (slower) laptop at home it takes at least 30 seconds to start inkscape<br/>
+<font color="#A82F2F"><font size="2">(04:55:57 PM)</font> <b>qknight:</b></font> goibhniu: try strace, probably something trivial like a .inkscape folder with broken paths to plugins with timeouts<br/>
+<font color="#A82F2F"><font size="2">(04:56:53 PM)</font> <b>goibhniu:</b></font> aha, that&apos;s a great idea, thanks!<br/>
+<font color="#A82F2F"><font size="2">(04:57:26 PM)</font> <b>viric:</b></font> fgrep -R nix/store .inkscape<br/>
+<font color="#A82F2F"><font size="2">(04:58:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti closed pull request #5642: Update hledger, hledger-lib and hledger-web to 0.24 (master...hledger-update) http://git.io/YqFypw<br/>
+<font color="#A82F2F"><font size="2">(04:58:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 1 new commit to release-14.12: http://git.io/HXTKYw<br/>
+<font color="#A82F2F"><font size="2">(04:58:41 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 0667587 Eelco Dolstra: Set stricter permissions on /nix/store...<br/>
+<font color="#A82F2F"><font size="2">(04:58:47 PM)</font> <b>qknight:</b></font> goibhniu: always glad if i can be of help!<br/>
+<font color="#A82F2F"><font size="2">(04:59:49 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nix] edolstra pushed 1 new commit to master: http://git.io/NlWOaA<br/>
+<font color="#A82F2F"><font size="2">(04:59:49 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nix/master 57d64d2 Eelco Dolstra: Doh^2<br/>
+<font color="#A82F2F"><font size="2">(05:04:51 PM)</font> <b>iElectric:</b></font> someone should update openssl for master/14.12/14.04<br/>
+<font color="#A82F2F"><font size="2">(05:05:22 PM)</font> <b>iElectric:</b></font> https://www.openssl.org/news/secadv_20150108.txt<br/>
+<font color="#A82F2F"><font size="2">(05:05:32 PM)</font> <b>iElectric:</b></font> (I can&apos;t right now)<br/>
+<font color="#062585"><font size="2">(05:06:32 PM)</font> <b>***Lethalman</b></font> missed that<br/>
+<font color="#A82F2F"><font size="2">(05:07:33 PM)</font> <b>qknight:</b></font> would someone be interested in replacing openssl by libressl?<br/>
+<font color="#A82F2F"><font size="2">(05:07:57 PM)</font> <b>qknight:</b></font> https://blog.hboeck.de/archives/851-LibreSSL-on-Gentoo.html &lt;- found this posting, maybe we could do the same on nixos<br/>
+<font color="#A82F2F"><font size="2">(05:11:51 PM)</font> <b>Lethalman:</b></font> qknight, we could have a generic libssl package<br/>
+<font color="#A82F2F"><font size="2">(05:12:28 PM)</font> <b>Lethalman:</b></font> qknight, is e.g. libressl or polarssl supposed to also have the same openssl executable interface?<br/>
+<font color="#A82F2F"><font size="2">(05:12:56 PM)</font> <b>qknight:</b></font> Lethalman: not exactly as the posting points out<br/>
+<font color="#A82F2F"><font size="2">(05:13:09 PM)</font> <b>qknight:</b></font> Lethalman: some interfaces are just broken and obslete<br/>
+<font size="2">(05:13:12 PM)</font><b> roconnor left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(05:13:24 PM)</font> <b>qknight:</b></font> Lethalman: just look at the article, there are 2 good examples IIRC<br/>
+<font color="#A82F2F"><font size="2">(05:13:47 PM)</font> <b>qknight:</b></font> Lethalman: but in general having a virtual package for openssl would be epic<br/>
+<font color="#A82F2F"><font size="2">(05:13:57 PM)</font> <b>Lethalman:</b></font> qknight, sure you can have<br/>
+<font color="#A82F2F"><font size="2">(05:14:03 PM)</font> <b>Lethalman:</b></font> I think debian has<br/>
+<font color="#A82F2F"><font size="2">(05:14:09 PM)</font> <b>qknight:</b></font> sure?<br/>
+<font color="#A82F2F"><font size="2">(05:14:12 PM)</font> <b>qknight:</b></font> nice<br/>
+<font color="#A82F2F"><font size="2">(05:14:21 PM)</font> <b>qknight:</b></font> i didn&apos;t know that<br/>
+<font color="#A82F2F"><font size="2">(05:14:23 PM)</font> <b>Lethalman:</b></font> or not<br/>
+<font color="#A82F2F"><font size="2">(05:14:37 PM)</font> <b>Lethalman:</b></font> sorry, it&apos;s called libssl but that&apos;s because it&apos;s the artifact of openssl<br/>
+<font color="#A82F2F"><font size="2">(05:14:42 PM)</font> <b>Lethalman:</b></font> thought it was a virtual package<br/>
+<font color="#A82F2F"><font size="2">(05:14:44 PM)</font> <b>qknight:</b></font> i was under the impression that what hboeck did, was first of its kind<br/>
+<font color="#A82F2F"><font size="2">(05:15:19 PM)</font> <b>Lethalman:</b></font> well I don&apos;t think doing a virtual package for a library is ever impossible<br/>
+<font color="#A82F2F"><font size="2">(05:15:30 PM)</font> <b>Lethalman:</b></font> distros do that often<br/>
+<font color="#A82F2F"><font size="2">(05:15:55 PM)</font> <b>Lethalman:</b></font> for an ssl library is well... probably it&apos;s best to recompile everything instead of having crashes because of any incompatibility :)<br/>
+<font size="2">(05:22:39 PM)</font><b> goibhniu1 [<em>~goibhniu@p5DCBEDAC.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(05:23:09 PM)</font><b> goibhniu left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:41:35 PM)</font> <b>musicmatze:</b></font> I get an segfault in kgpg when clicking on &quot;Configure Kgpg&quot; - I guess this has to be filed upstream, right?<br/>
+<font color="#A82F2F"><font size="2">(05:48:00 PM)</font> <b>qknight:</b></font> musicmatze: depends on the cause of the segfault<br/>
+<font color="#A82F2F"><font size="2">(05:48:54 PM)</font> <b>qknight:</b></font> musicmatze: use strace to find it. kgpg might be missing some paths which are just not there on nixos yet. but a segfault is usually a sign that something is very wrong<br/>
+<font color="#A82F2F"><font size="2">(05:49:42 PM)</font> <b>musicmatze:</b></font> qknight: The cause is clicking on &quot;Configure Kgpg&quot; in the UI.<br/>
+<font color="#A82F2F"><font size="2">(05:50:01 PM)</font> <b>musicmatze:</b></font> unfortunately I cannot start kgpg from the commandline - so I cannot call strace on it<br/>
+<font color="#A82F2F"><font size="2">(05:50:20 PM)</font> <b>musicmatze:</b></font> executing &quot;kgpg --no-daemon&quot; just does not start it,...<br/>
+<font color="#A82F2F"><font size="2">(05:51:15 PM)</font> <b>zmbmartin:</b></font> So I know someone talked to me about this yesterday, but I am trying to understand services. If I install postgres is the service file for systemctl something that is installed with it or do I created the service?<br/>
+<font color="#A82F2F"><font size="2">(05:51:39 PM)</font> <b>karshan:</b></font> Hello everyone, what is the best way to debug a (stdenv) package that is failing to build ?<br/>
+<font color="#A82F2F"><font size="2">(05:52:17 PM)</font> <b>karshan:</b></font> I can use nix-shell to get all the dependencies but now I want the source that is going to be built, and I want to modify it before it builds<br/>
+<font size="2">(06:15:59 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

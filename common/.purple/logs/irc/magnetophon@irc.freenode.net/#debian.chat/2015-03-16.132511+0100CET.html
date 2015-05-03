@@ -1,0 +1,507 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Mon 16 Mar 2015 01:25:11 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Mon 16 Mar 2015 01:25:11 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(01:25:11 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(01:25:11 PM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(01:26:09 PM)</font> <b>atlasloewenherz:</b></font> is there a way to revert &quot;sgdisk -R src dest&quot;-effect if i swapped src and destination &amp; rebooted ?<br/>
+<font color="#A82F2F"><font size="2">(01:29:26 PM)</font> <b>MoonGNatRouth:</b></font> I&apos;ve got damaged  files in some packets, but I don&apos;t know in which one. How can I check integrity of packages?<br/>
+<font color="#A82F2F"><font size="2">(01:31:08 PM)</font> <b>jelly:</b></font> MoonGNatRouth: debsums, but not all packages have checksums<br/>
+<font color="#A82F2F"><font size="2">(01:31:26 PM)</font> <b>MoonGNatRouth:</b></font> jelly: thx for the direction =)<br/>
+<font color="#A82F2F"><font size="2">(01:31:29 PM)</font> <b>DelphiWorld:</b></font> yo all<br/>
+<font color="#A82F2F"><font size="2">(01:31:42 PM)</font> <b>DelphiWorld:</b></font> so in jessy we have network/interface.d?<br/>
+<font color="#A82F2F"><font size="2">(01:31:50 PM)</font> <b>DelphiWorld:</b></font> we can for example define eth0 there?<br/>
+<font size="2">(01:32:02 PM)</font><b> mode (+l 1631) by debhelper</b><br/>
+<font size="2">(02:02:03 PM)</font><b> mode (+l 1637) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(02:02:45 PM)</font> <b>d3lphi:</b></font> I was looking for the package &quot;nemo-share&quot; but I cannot find it on Debian Jessie. On #debian there was no answer. &quot;nemo-share&quot; is the package name of this extension. Nemo offers various extensions, I need only &quot;nemo-share&quot; at the moment. Any clues?<br/>
+<font color="#A82F2F"><font size="2">(02:04:27 PM)</font> <b>optrusty:</b></font> Hi is it possible to open running commands on Debian just like opening a window on windows<br/>
+<font color="#A82F2F"><font size="2">(02:04:35 PM)</font> <b>justinX:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(02:04:41 PM)</font> <b>justinX:</b></font> are there a nice command or something, to find out what package have created a file (or folder) ?<br/>
+<font color="#A82F2F"><font size="2">(02:05:08 PM)</font> <b>centrx:</b></font> justinX, dpkg -S filename<br/>
+<font color="#A82F2F"><font size="2">(02:05:31 PM)</font> <b>justinX:</b></font> so for example see what is responsible for all the empty folders in /usr/local/share<br/>
+<font color="#A82F2F"><font size="2">(02:05:33 PM)</font> <b>justinX:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(02:05:39 PM)</font> <b>centrx:</b></font> optrusty, Open a terminal and have that terminal run the command, there is syntax if you look for e.g. man rxvt<br/>
+<font color="#A82F2F"><font size="2">(02:06:02 PM)</font> <b>optrusty:</b></font> centrx I am using SSH its a vps<br/>
+<font color="#A82F2F"><font size="2">(02:06:29 PM)</font> <b>centrx:</b></font> justinX, /usr/local is not managed by the packaging system. They were probably created by packages installed outside the packaging system<br/>
+<font color="#A82F2F"><font size="2">(02:06:38 PM)</font> <b>justinX:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(02:06:52 PM)</font> <b>Che-Anarch:</b></font> In my /etc/init.d/custom_start  can I do: &quot;aStartFunction on runlevel [2345]&quot;  so as to do a different procedure to when the user does &quot;sudo service custom_start start&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(02:06:57 PM)</font> <b>themill:</b></font> justinX: dpkg -S; although if things are made by scripts rather than being in the package they might not be listed<br/>
+<font color="#A82F2F"><font size="2">(02:07:03 PM)</font> <b>centrx:</b></font> optrusty, I&apos;m not sure what you&apos;re question is then<br/>
+<font color="#A82F2F"><font size="2">(02:07:04 PM)</font> <b>justinX:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(02:07:19 PM)</font> <b>MoonGNatRouth:</b></font> can anyone explain what does avahi-daemon wants from me? Is it fatal? http://fpaste.org/198503/<br/>
+<font color="#A82F2F"><font size="2">(02:07:59 PM)</font> <b>justinX:</b></font> MoonGNatRouth: it wants your soul ;-)<br/>
+<font color="#A82F2F"><font size="2">(02:08:51 PM)</font> <b>themill:</b></font> justinX: the hierarchy in /usr/local is created by the base-files maintainer scripts iirc<br/>
+<font color="#A82F2F"><font size="2">(02:08:53 PM)</font> <b>Che-Anarch:</b></font> MoonGNatRouth,   another machine with same hostname on your network?<br/>
+<font color="#A82F2F"><font size="2">(02:09:13 PM)</font> <b>MoonGNatRouth:</b></font> justinX: ohh.. this linux with its demons and kills....<br/>
+<font color="#A82F2F"><font size="2">(02:09:32 PM)</font> <b>optrusty:</b></font> centrx Here is the story I ssh&apos;ed into my vps and then I was installing Webmin so before it went through the setup I closed my laptop and then when I opened it back up it said &quot;Write Failed: Broken Pipe&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:10:09 PM)</font> <b>justinX:</b></font> MoonGNatRouth: can we reformulate the question to, do you need avahi at all?<br/>
+<font color="#A82F2F"><font size="2">(02:10:18 PM)</font> <b>centrx:</b></font> optrusty, Okay I see, check out &apos;screen&apos;<br/>
+<font color="#A82F2F"><font size="2">(02:10:42 PM)</font> <b>MoonGNatRouth:</b></font> Che-Anarch: I don&apos;t know it. I hadn&apos;t explore the network. I&apos;ve tried to set hostname to &apos;host253&apos;, I dont think, that anyone has the same<br/>
+<font color="#A82F2F"><font size="2">(02:10:42 PM)</font> <b>justinX:</b></font> themill: ok<br/>
+<font color="#A82F2F"><font size="2">(02:10:45 PM)</font> <b>centrx:</b></font> optrusty, You can run a terminal/command inside screen and it will maintain the terminal for you even if it is disconnected/parent dies<br/>
+<font color="#A82F2F"><font size="2">(02:10:52 PM)</font> <b>petn-randall:</b></font> optrusty: That&apos;s because the TCP connection expired, because your laptop was closed longer than a few minutes, or you changed networks.<br/>
+<font color="#A82F2F"><font size="2">(02:11:31 PM)</font> <b>optrusty:</b></font> petn-randall You might be right my laptop disconnects from my Wi-Fi when closed<br/>
+<font color="#A82F2F"><font size="2">(02:11:36 PM)</font> <b>MoonGNatRouth:</b></font> justinX: I don&apos;t know am I need it =)<br/>
+<font color="#A82F2F"><font size="2">(02:12:04 PM)</font> <b>optrusty:</b></font> centrx &quot;-bash: screen: command not found&quot; Do I need to apt-get it or something<br/>
+<font color="#A82F2F"><font size="2">(02:12:24 PM)</font> <b>centrx:</b></font> optrusty, yes apt-get install screen<br/>
+<font size="2">(02:12:33 PM)</font><b> bjorn_ is now known as bjorn`</b><br/>
+<font color="#A82F2F"><font size="2">(02:14:20 PM)</font> <b>MoonGNatRouth:</b></font> I just trying to start apache2, but it fails. I dont know is it somehow connected  with avahi? this is output http://fpaste.org/198508/<br/>
+<font color="#A82F2F"><font size="2">(02:14:22 PM)</font> <b>justinX:</b></font> MoonGNatRouth: if you don&apos;t feel an inner need for &quot;Apple Zeroconf&quot; to let programs publish and discover services and hosts running on a local network, then the chances is that you don&apos;t need it.<br/>
+<font size="2">(02:19:18 PM)</font><b> mode (+o eir) by ChanServ</b><br/>
+<font size="2">(02:19:36 PM)</font><b> mode (-bbo *!*@cha92-14-88-171-192-29.fbx.proxad.net$##not-a-honeypot *!*@105.158.4.130$##not-a-honeypot eir) by eir</b><br/>
+<font color="#A82F2F"><font size="2">(02:19:55 PM)</font> <b>ChrisH:</b></font> MoonGNatRouth: check apaches error.log for more detailed error description.<br/>
+<font color="#A82F2F"><font size="2">(02:21:19 PM)</font> <b>Lirion:</b></font> centrx justinX /usr/local is _usually_ not maintained by the packaging system. but: it&apos;s pretty easy to create a package on the fly which indeed installs files to /usr/local/whatsoever, so dpkg -S is a better option than trusting that everybody doesn&apos;t use this folder - which not everybody does<br/>
+<font color="#A82F2F"><font size="2">(02:22:05 PM)</font> <b>MoonGNatRouth:</b></font> ChrisH: I&apos;ve got something. I&apos;ve just commented &quot;Listen 433&quot; in ports and it works.<br/>
+<font color="#A82F2F"><font size="2">(02:22:21 PM)</font> <b>MoonGNatRouth:</b></font> how can I check what use 443?<br/>
+<font color="#A82F2F"><font size="2">(02:23:44 PM)</font> <b>SynrGy:</b></font> Lirion: only if you install packages from non-debian sources. and in terms of good system hygiene, that&apos;s something we discourage.<br/>
+<font color="#A82F2F"><font size="2">(02:24:17 PM)</font> <b>centrx:</b></font> MoonGNatRouth, It&apos;s a common port search online, you&apos;ll find it&apos;s .....<br/>
+<font color="#A82F2F"><font size="2">(02:24:34 PM)</font> <b>centrx:</b></font> https<br/>
+<font color="#A82F2F"><font size="2">(02:27:23 PM)</font> <b>fraff:</b></font> MoonGNatRouth: netstat -46 -pln | grep 443<br/>
+<font color="#A82F2F"><font size="2">(02:27:34 PM)</font> <b>justinX:</b></font> Lirion: ok.<br/>
+<font color="#A82F2F"><font size="2">(02:27:56 PM)</font> <b>SynrGy:</b></font> Lirion: specifically, debian-policy 9.1.2 https://www.debian.org/doc/debian-policy/ch-opersys.html &quot;As mandated by the FHS, packages must not place any files in /usr/local, either by putting them in the file system archive to be unpacked by dpkg or by manipulating them in their maintainer scripts.&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:28:15 PM)</font> <b>ChrisH:</b></font> MoonGNatRouth: lsof -i tcp:443<br/>
+<font color="#A82F2F"><font size="2">(02:28:16 PM)</font> <b>MoonGNatRouth:</b></font> fraff: thx. I&apos;ve tried it. also lsof -i tcp:443<br/>
+<font color="#A82F2F"><font size="2">(02:28:17 PM)</font> <b>SynrGy:</b></font> even third-party packages should play by the rules or else they&apos;ll end up breaking things<br/>
+<font color="#A82F2F"><font size="2">(02:28:27 PM)</font> <b>MoonGNatRouth:</b></font> But I got nothing<br/>
+<font color="#A82F2F"><font size="2">(02:28:39 PM)</font> <b>SynrGy:</b></font> there is /opt if a third-party package wants to have its own directory to put stuff into<br/>
+<font color="#A82F2F"><font size="2">(02:28:40 PM)</font> <b>MoonGNatRouth:</b></font> nothing use my 443<br/>
+<font color="#A82F2F"><font size="2">(02:29:36 PM)</font> <b>MoonGNatRouth:</b></font> can iptables block 443?<br/>
+<font color="#A82F2F"><font size="2">(02:29:41 PM)</font> <b>ntz:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(02:29:47 PM)</font> <b>justinX:</b></font> I assume the original meaning of  /usr/local/ is stuff you have on you own computer as opposed to the central cerver that gives you everything else (back in time when that was the usual setup for unix, and not a stand alone desktop computer with no server like mine)<br/>
+<font color="#A82F2F"><font size="2">(02:30:00 PM)</font> <b>fraff:</b></font> MoonGNatRouth: it can, but it won&quot;t prevent apache2 to start<br/>
+<font color="#A82F2F"><font size="2">(02:30:49 PM)</font> <b>ChrisH:</b></font> MoonGNatRouth: check the apache log once more and I assume you did missunderstood the error message<br/>
+<font color="#A82F2F"><font size="2">(02:30:54 PM)</font> <b>SynrGy:</b></font> MoonGNatRouth: iptables has nothing to do with whether or not lsof -i would list the port<br/>
+<font color="#A82F2F"><font size="2">(02:31:39 PM)</font> <b>SynrGy:</b></font> !tell justinX about fhs<br/>
+<font color="#A82F2F"><font size="2">(02:31:43 PM)</font> <b>MoonGNatRouth:</b></font> ChrisH: all what is appeared in /var/log/apache2/error.log is : &quot;[Mon Mar 16 09:29:05.384213 2015] [so:warn] [pid 16145:tid 139753820944256] AH01574: module ssl_module is already loaded, skipping<br/>
+<font color="#A82F2F"><font size="2">(02:31:43 PM)</font> <b>MoonGNatRouth:</b></font> &quot;<br/>
+<font size="2">(02:32:03 PM)</font><b> mode (+l 1645) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(02:32:18 PM)</font> <b>ChrisH:</b></font> MoonGNatRouth: thats a warning and nothing to really worry about and not the reason apache did not start!<br/>
+<font color="#A82F2F"><font size="2">(02:32:23 PM)</font> <b>SynrGy:</b></font> justinX: read that. it explains exactly what /usr/local is<br/>
+<font color="#A82F2F"><font size="2">(02:32:29 PM)</font> <b>justinX:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(02:33:10 PM)</font> <b>SynrGy:</b></font> the pathname.com link isn&apos;t responding for me. see the wikipedia article.<br/>
+<font color="#A82F2F"><font size="2">(02:33:27 PM)</font> <b>SynrGy:</b></font> there&apos;s no &quot;original meaning&quot; vs. current meaning<br/>
+<font color="#A82F2F"><font size="2">(02:33:53 PM)</font> <b>SynrGy:</b></font> it is, and always has been for local data specific to a host<br/>
+<font color="#A82F2F"><font size="2">(02:34:30 PM)</font> <b>z4sk4:</b></font> hi all, its posible make a private repo with login for multiple users?<br/>
+<font color="#A82F2F"><font size="2">(02:34:40 PM)</font> <b>z4sk4:</b></font> i am using now aptly<br/>
+<font color="#A82F2F"><font size="2">(02:35:19 PM)</font> <b>SynrGy:</b></font> do you need it to be secure?<br/>
+<font size="2">(02:35:24 PM)</font><b> ntz left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:35:41 PM)</font> <b>MoonGNatRouth:</b></font> ChrisH: here is &quot;journalctl -u apache2 &quot; output http://fpaste.org/198513/<br/>
+<font color="#A82F2F"><font size="2">(02:36:09 PM)</font> <b>MoonGNatRouth:</b></font> ChrisH: I&apos;ve already show /var/log/apache2/error.log -  there is nothing helpfull<br/>
+<font color="#A82F2F"><font size="2">(02:37:02 PM)</font> <b>master:</b></font> how is proprietary driver support in debian?<br/>
+<font color="#A82F2F"><font size="2">(02:37:02 PM)</font> <b>SynrGy:</b></font> z4sk4: if you don&apos;t care about it being secure, you could just use HTTP basic authentication as per: http://paste.debian.net/161519/<br/>
+<font color="#A82F2F"><font size="2">(02:37:03 PM)</font> <b>MoonGNatRouth:</b></font> ChrisH: I already did &quot;apt-get --reinstall install apache2&quot; and it didn&apos;t up the service<br/>
+<font color="#A82F2F"><font size="2">(02:38:22 PM)</font> <b>SynrGy:</b></font> z4sk4: probably a better way is to just make the archive accessible within a VPN the users belong to and have no outside access<br/>
+<font color="#A82F2F"><font size="2">(02:38:25 PM)</font> <b>z4sk4:</b></font> SynrGy: yeh, i read about try with proxy, but must be secure, nobody can sniff it...<br/>
+<font color="#A82F2F"><font size="2">(02:39:06 PM)</font> <b>SynrGy:</b></font> z4sk4: you&apos;re fighting the design of the system here. the whole thrust of apt is to be publicly acessible ...<br/>
+<font color="#A82F2F"><font size="2">(02:39:11 PM)</font> <b>z4sk4:</b></font> there arent any tool to make a private repo, like redhat or Suse?<br/>
+<font color="#A82F2F"><font size="2">(02:39:11 PM)</font> <b>SynrGy:</b></font> accessible*<br/>
+<font color="#A82F2F"><font size="2">(02:39:18 PM)</font> <b>SynrGy:</b></font> what for?<br/>
+<font color="#A82F2F"><font size="2">(02:39:27 PM)</font> <b>SynrGy:</b></font> maybe you need something other than an apt repo<br/>
+<font color="#A82F2F"><font size="2">(02:39:58 PM)</font> <b>SynrGy:</b></font> you seem to have a problem none of the rest of us have.<br/>
+<font color="#A82F2F"><font size="2">(02:40:05 PM)</font> <b>z4sk4:</b></font> because we are making free distro, but we wanan have the repo of alpha private, and with personal tools , etc<br/>
+<font color="#A82F2F"><font size="2">(02:40:48 PM)</font> <b>pythonsnake:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(02:41:02 PM)</font> <b>pythonsnake:</b></font> is it recommendable to install a hidden backdoor on a server just in case someone hacks it?<br/>
+<font color="#A82F2F"><font size="2">(02:41:50 PM)</font> <b>master:</b></font> absolutely not<br/>
+<font color="#A82F2F"><font size="2">(02:41:51 PM)</font> <b>master:</b></font> never<br/>
+<font color="#A82F2F"><font size="2">(02:42:01 PM)</font> <b>master:</b></font> pythonsnake, is this for an enterprise environment?<br/>
+<font color="#A82F2F"><font size="2">(02:42:12 PM)</font> <b>master:</b></font> if it is, do -not- suggest this to your boss.<br/>
+<font color="#A82F2F"><font size="2">(02:42:32 PM)</font> <b>rabbitear_sdf:</b></font> https://www.youtube.com/watch?v=BGP8-oPDkzo<br/>
+<font color="#A82F2F"><font size="2">(02:42:37 PM)</font> <b>z4sk4:</b></font> SynrGy:  is possible put a rpoxys for the repo in https?<br/>
+<font color="#A82F2F"><font size="2">(02:42:52 PM)</font> <b>SynrGy:</b></font> z4sk4: i suppose all things are possible<br/>
+<font color="#A82F2F"><font size="2">(02:43:23 PM)</font> <b>SynrGy:</b></font> z4sk4: why don&apos;t you play with it and see?<br/>
+<font color="#A82F2F"><font size="2">(02:43:42 PM)</font> <b>z4sk4:</b></font> yeah i am doing it right now<br/>
+<font color="#A82F2F"><font size="2">(02:44:37 PM)</font> <b>pythonsnake:</b></font> master: more like a community<br/>
+<font color="#A82F2F"><font size="2">(02:44:55 PM)</font> <b>pythonsnake:</b></font> I fear that something goes wrong and someone gets access to my server<br/>
+<font color="#A82F2F"><font size="2">(02:45:32 PM)</font> <b>master:</b></font> pythonsnake, just even suggesting doing something like that will compromise your image as a systems administrator.  as long as you have physical access to the machine you can get in.<br/>
+<font color="#A82F2F"><font size="2">(02:46:11 PM)</font> <b>pythonsnake:</b></font> master: is it common that hosters are asked to reset passwords or something physically?<br/>
+<font color="#A82F2F"><font size="2">(02:46:24 PM)</font> <b>master:</b></font> depends on what they&apos;re hosting<br/>
+<font color="#A82F2F"><font size="2">(02:46:33 PM)</font> <b>pythonsnake:</b></font> a dedicated, on online.net<br/>
+<font color="#A82F2F"><font size="2">(02:46:48 PM)</font> <b>pythonsnake:</b></font> personal stuff I guess<br/>
+<font color="#A82F2F"><font size="2">(02:47:01 PM)</font> <b>ChrisH:</b></font> MoonGNatRouth: _I_ would stop apache, make sure its really gone using ps and lsof and then start it once more. line 9 shows some issue with your setup. It might be a duplicate definition for port 443 hosts.<br/>
+<font color="#A82F2F"><font size="2">(02:47:02 PM)</font> <b>pythonsnake:</b></font> or you mean the content in itself?<br/>
+<font color="#A82F2F"><font size="2">(02:47:12 PM)</font> <b>pythonsnake:</b></font> http://www.online.net/en/dedicated-server/dedibox-classic<br/>
+<font color="#A82F2F"><font size="2">(02:47:13 PM)</font> <b>master:</b></font> if you&apos;re hosting dedicated servers then you&apos;ll never need to get into a machine.  I would suggest OpenVZ where you can build a new VM/VPS on the fly.<br/>
+<font color="#A82F2F"><font size="2">(02:48:16 PM)</font> <b>pythonsnake:</b></font> master: hm, good idea, but my question is that, if someone ever asks the hoster - online.net - to reset the dedi&apos;s password, would they do it?<br/>
+<font color="#A82F2F"><font size="2">(02:48:35 PM)</font> <b>master:</b></font> In the rare offchance that for whatever reason you do need to get into a machine you can always reset the root password-- as long as you can mount the filesystem in a different boot.<br/>
+<font color="#A82F2F"><font size="2">(02:48:36 PM)</font> <b>pythonsnake:</b></font> but openvz needs extra IPs too<br/>
+<font color="#A82F2F"><font size="2">(02:49:06 PM)</font> <b>master:</b></font> i dont know, depends on how professional they are<br/>
+<font color="#A82F2F"><font size="2">(02:49:09 PM)</font> <b>pythonsnake:</b></font> master: ah, their rescue/netboot thing<br/>
+<font color="#A82F2F"><font size="2">(02:49:12 PM)</font> <b>pythonsnake:</b></font> I see<br/>
+<font color="#A82F2F"><font size="2">(02:49:32 PM)</font> <b>master:</b></font> i wouldn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(02:49:38 PM)</font> <b>pythonsnake:</b></font> master: how about this: is there a way to &quot;lock&quot; the data if the pass gets resetted?<br/>
+<font color="#A82F2F"><font size="2">(02:49:58 PM)</font> <b>hanlon2:</b></font> hi.  I got my servers moved to Debian over the weekend.  They&apos;re up and running.  Have a question about security policy &amp; upgrades in Debian-land.  Specifically re: Openssl.<br/>
+<font color="#A82F2F"><font size="2">(02:49:59 PM)</font> <b>hanlon2:</b></font> On my previous distro, I always built openssl(latest) from source and used it preferentially from under /usr/local -- for both access &amp; add&apos;l build dependencies.  Mainly because the distro was usually behind in releases and the pkg provided was often a &apos;hot mess&apos;.<br/>
+<font color="#A82F2F"><font size="2">(02:50:03 PM)</font> <b>hanlon2:</b></font> So now, in Jessie, I see openssl still on 1.0.1k release -- and 1.0.2 is only in &apos;experimental&apos; (that&apos;s called &quot;sid&quot;?).  I certainly don&apos;t know yet if/how the pkg is a &apos;hot mess&apos; -- I kinda doubt it -- but it IS &apos;behind&apos; the upstream release.  My question is:  now I&apos;m Debian, should I (still) care, and if/when will 1.0.2 be available on Jessie?<br/>
+<font color="#A82F2F"><font size="2">(02:50:08 PM)</font> <b>master:</b></font> pythonsnake, for archive data yes<br/>
+<font color="#A82F2F"><font size="2">(02:50:27 PM)</font> <b>pythonsnake:</b></font> how?<br/>
+<font color="#A82F2F"><font size="2">(02:50:39 PM)</font> <b>master:</b></font> you could create an iso and mount it on an encrypted virtual loopback device in the user&apos;s home folder<br/>
+<font color="#A82F2F"><font size="2">(02:50:49 PM)</font> <b>master:</b></font> and then mount/work/unmount<br/>
+<font color="#A82F2F"><font size="2">(02:51:55 PM)</font> <b>petn-randall:</b></font> hanlon2: Debian tracks and provides security updates for all packages shipped. So there will also be security updates for openssl. If you want to track that by hand, nothing stops you from doing that, but from a sysadmin point of view this has hardly any benefit.<br/>
+<font color="#A82F2F"><font size="2">(02:52:09 PM)</font> <b>pythonsnake:</b></font> master: I see, maybe try openvz + encryption too<br/>
+<font color="#A82F2F"><font size="2">(02:52:13 PM)</font> <b>pythonsnake:</b></font> interesting<br/>
+<font color="#A82F2F"><font size="2">(02:53:05 PM)</font> <b>Che-Anarch:</b></font> How can I distinguish user &amp; system in &quot;/etc/init.d/custom start&quot; ? - just want a way of knowing if user done &quot;service custom start&quot; or if it was excited at boot.<br/>
+<font color="#A82F2F"><font size="2">(02:53:18 PM)</font> <b>pythonsnake:</b></font> master: in an enterprise/production environment, nothing besides openvz gets installed on the root dedi?<br/>
+<font color="#A82F2F"><font size="2">(02:53:30 PM)</font> <b>themill:</b></font> hanlon2: that version will never be in jessie. That&apos;s not to say that the version in jessie is lacking in security updates though<br/>
+<font color="#A82F2F"><font size="2">(02:53:45 PM)</font> <b>SynrG:</b></font> Che-Anarch: i&apos;m not sure why, but i guess you could walk the process tree up to the parent<br/>
+<font color="#A82F2F"><font size="2">(02:53:53 PM)</font> <b>master:</b></font> pythonsnake,  #openvz<br/>
+<font color="#A82F2F"><font size="2">(02:54:16 PM)</font> <b>pythonsnake:</b></font> master: I meant, everything is normally virtualized?<br/>
+<font color="#A82F2F"><font size="2">(02:54:21 PM)</font> <b>Che-Anarch:</b></font> SynrG    how so?<br/>
+<font color="#A82F2F"><font size="2">(02:54:30 PM)</font> <b>master:</b></font> pythonsnake, ##openvz<br/>
+<font color="#A82F2F"><font size="2">(02:54:31 PM)</font> <b>asop:</b></font> hanlon2, bugfixes and security fixes are cherrypicked from upstream and backported into the packages in stable. (and jessie is not stable yet)<br/>
+<font color="#A82F2F"><font size="2">(02:54:57 PM)</font> <b>pythonsnake:</b></font> master: alright, thanks!<br/>
+<font color="#A82F2F"><font size="2">(02:55:00 PM)</font> <b>master:</b></font> np<br/>
+<font color="#A82F2F"><font size="2">(02:55:02 PM)</font> <b>SynrG:</b></font> Che-Anarch: anything started by systemd should be a child of systemd (unless wrapped in a wrapper, in which case the wrapper&apos;s parent will be systemd)<br/>
+<font color="#A82F2F"><font size="2">(02:55:26 PM)</font> <b>SynrG:</b></font> Che-Anarch: anything started by a user will have the user&apos;s shell as a parent<br/>
+<font color="#A82F2F"><font size="2">(02:55:29 PM)</font> <b>hanlon2:</b></font> petn-randall: themill hi.  understood.  From what I&apos;m learning abt Debian, I *think* the answer should be -- use what Debian provides in pkg&apos;ing.  I&apos;m working on changing my mindset from having been repeatedly burned.<br/>
+<font color="#A82F2F"><font size="2">(02:55:46 PM)</font> <b>Che-Anarch:</b></font> SynrG   this is in the context of sysvint - I think that differs from systems<br/>
+<font color="#A82F2F"><font size="2">(02:55:47 PM)</font> <b>hanlon2:</b></font> asop understood re: Jessie stability.  Decided to make THAT &apos;early&apos; leap .<br/>
+<font color="#A82F2F"><font size="2">(02:55:56 PM)</font> <b>SynrG:</b></font> Che-Anarch: doesn&apos;t matter what the init system.<br/>
+<font color="#A82F2F"><font size="2">(02:55:58 PM)</font> <b>master:</b></font> SynrG, so if I really like SystemD I can put a SystemD in my SystemD so I can have SystemD while I work my SystemD?<br/>
+<font color="#A82F2F"><font size="2">(02:55:59 PM)</font> <b>SynrG:</b></font> Che-Anarch: same principle<br/>
+<font color="#A82F2F"><font size="2">(02:56:07 PM)</font> <b>themill:</b></font> hanlon2: that&apos;s right, you really don&apos;t want to be having to maintain your own packages like openssl.<br/>
+<font color="#A82F2F"><font size="2">(02:56:28 PM)</font> <b>SynrG:</b></font> master: not helpful<br/>
+<font color="#A82F2F"><font size="2">(02:56:30 PM)</font> <b>Che-Anarch:</b></font> SynrG  but in my case the user will be doing &quot;sudo service.....&quot; so this will always be root no?<br/>
+<font color="#A82F2F"><font size="2">(02:56:50 PM)</font> <b>SynrG:</b></font> who said anything about process ownership?<br/>
+<font color="#A82F2F"><font size="2">(02:57:00 PM)</font> <b>SynrG:</b></font> i was merely talking about parentage<br/>
+<font color="#A82F2F"><font size="2">(02:57:42 PM)</font> <b>asop:</b></font> AFAIK &apos;&apos;sudo command&apos;&apos; runs the command as you with root perms -- as opposed to &apos;&apos;su -l&apos;&apos; and then command, which runs command as root<br/>
+<font color="#A82F2F"><font size="2">(02:58:00 PM)</font> <b>hanlon2:</b></font> themill: tbh, it&apos;s pretty simple to build/maintain -- especially if NOT a system-wide replacement, but &apos;just&apos; in /usr/local/ as an option.  but, still, work to avoid.  part of what I&apos;m looking at right now is the EC support in 1.0.2 -- which I use extensively -- vs what is/isn&apos;t available in 1.0.1x<br/>
+<font color="#A82F2F"><font size="2">(02:58:20 PM)</font> <b>MoonGNatRouth:</b></font> ChrisH: I&apos;ve got something. I delete from listening 443, keep just 8000. apache starts well, and when I check ports, I&apos;ve saw: &quot;tcp6       0      0 :::443                  :::*                    LISTEN      16423/apache2&quot;. Somewhy it listen on ipv6, isn&apos;t it? I&apos;ll continue to dig...<br/>
+<font color="#A82F2F"><font size="2">(02:58:39 PM)</font> <b>hanlon2:</b></font> trying to keep my focus on the fact that i&apos;m adopting a new DISTRO -- and the reasons I&apos;m doing it.<br/>
+<font color="#A82F2F"><font size="2">(02:58:39 PM)</font> <b>SynrG:</b></font> Che-Anarch: i don&apos;t know, though. i might be wrong about this. if the service command just tells the init system to start a process, the parentage would remain unaffected.<br/>
+<font color="#A82F2F"><font size="2">(02:58:53 PM)</font> <b>master:</b></font> MoonGNatRouth, #apache<br/>
+<font color="#A82F2F"><font size="2">(02:58:54 PM)</font> <b>SynrG:</b></font> Che-Anarch: so that pretty much shoots down my idea. sorry.<br/>
+<font color="#A82F2F"><font size="2">(02:59:15 PM)</font> <b>SynrG:</b></font> in fact, the more i think it through, the more likely this seems.<br/>
+<font color="#A82F2F"><font size="2">(02:59:17 PM)</font> <b>MoonGNatRouth:</b></font> master: thx<br/>
+<font color="#A82F2F"><font size="2">(02:59:27 PM)</font> <b>SynrG:</b></font> parentage doesn&apos;t change just because you upgrade a package, for example<br/>
+<font color="#A82F2F"><font size="2">(02:59:45 PM)</font> <b>asop:</b></font> SynrG, Che-Anarch I&apos;m not sure, might &apos;&apos;id -u&apos;&apos; be useful in this case? (returns the user id)<br/>
+<font color="#A82F2F"><font size="2">(02:59:48 PM)</font> <b>SynrG:</b></font> even though the user uses sudo to run the package manager, which in turn issues a service restart<br/>
+<font color="#A82F2F"><font size="2">(03:00:00 PM)</font> <b>SynrG:</b></font> asop: not in the least. both will run as root<br/>
+<font color="#A82F2F"><font size="2">(03:00:21 PM)</font> <b>petn-randall:</b></font> hanlon2: As a sysadmin (in my case) I&apos;d like to track as little software as possible by hand. You&apos;ll always lag behind, and you&apos;ll have to evaluate every update for security impact, and decide if you roll it out.<br/>
+<font color="#A82F2F"><font size="2">(03:00:37 PM)</font> <b>master:</b></font> i believe service spawns even called that way will still be part of the init process lineage<br/>
+<font color="#A82F2F"><font size="2">(03:00:39 PM)</font> <b>petn-randall:</b></font> And of course with every update you&apos;ll have to check if your software runs fine against it.<br/>
+<font color="#A82F2F"><font size="2">(03:00:55 PM)</font> <b>SynrG:</b></font> Che-Anarch: sorry, out of ideas. why do you think you need this anyway?<br/>
+<font color="#A82F2F"><font size="2">(03:02:01 PM)</font> <b>master:</b></font> petn-randall, that would be a nightmare if you&apos;re in a PCI environment<br/>
+<font size="2">(03:02:02 PM)</font><b> mode (+l 1637) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:02:15 PM)</font> <b>Che-Anarch:</b></font> SynrG  I&apos;m trying to have a slightly different start) case in my /etc/init.d/service  - for user &amp; system level initiation... they differ a little - though they are the same start process.<br/>
+<font color="#A82F2F"><font size="2">(03:02:34 PM)</font> <b>hanlon2:</b></font> petn-randall: yep.  with the old distro, that had become the PITA of just using the distro.  which is the reason I started building my own stack.  that diy-stack was getting VERY large ... and your point re: tracking/testing/admin was becoming a VERY big issue<br/>
+<font color="#A82F2F"><font size="2">(03:02:36 PM)</font> <b>ChrisH:</b></font> MoonGNatRouth: run ls -l /etc/apache2/sites-available/ /etc/apache2/sites-enabled/<br/>
+<font size="2">(03:03:02 PM)</font><b> mode (+o abrotman) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(03:03:22 PM)</font> <b>Che-Anarch:</b></font> SynrG  so user normally does  &quot;service xxx  target start&quot;   or    &quot;service xxx all start&quot;  where as in boot level I want all start without making a separate script.<br/>
+<font size="2">(03:03:28 PM)</font><b> mode (+b *!*@186.82.177.85$##fixyourconnection) by abrotman</b><br/>
+<font size="2">(03:03:31 PM)</font><b> mode (-o abrotman) by abrotman</b><br/>
+<font color="#A82F2F"><font size="2">(03:04:15 PM)</font> <b>SynrG:</b></font> Che-Anarch: then you don&apos;t really want the service start to detect whether it&apos;s run by system or user. you just want a different named action for the user to call<br/>
+<font color="#A82F2F"><font size="2">(03:05:24 PM)</font> <b>Che-Anarch:</b></font> SynrG  - yes I&apos;m thinking this would probably be easier - just to fit all into start) as expected on boot - &amp; user level stuff elsewhere.<br/>
+<font color="#A82F2F"><font size="2">(03:06:11 PM)</font> <b>SynrG:</b></font> Che-Anarch: init scripts can define any actions they want. you just need a different case in the init script to handle the differently named action<br/>
+<font color="#A82F2F"><font size="2">(03:06:21 PM)</font> <b>MoonGNatRouth:</b></font> ChrisH: I am so stupid! =(((. I duplicated &quot;Listen 443&quot; in ports.conf &amp; in config file for site....<br/>
+<font color="#A82F2F"><font size="2">(03:06:49 PM)</font> <b>MoonGNatRouth:</b></font> ChrisH: pluralized config is evil =(<br/>
+<font color="#A82F2F"><font size="2">(03:07:33 PM)</font> <b>SynrG:</b></font> split config is an absolute necessity for policy-compliant packages<br/>
+<font color="#A82F2F"><font size="2">(03:07:48 PM)</font> <b>SynrG:</b></font> packages must not modify other packages&apos; confs<br/>
+<font color="#A82F2F"><font size="2">(03:08:13 PM)</font> <b>SynrG:</b></font> so using a split config allows each package to provide its own conf fragment without violating this policy<br/>
+<font color="#A82F2F"><font size="2">(03:08:30 PM)</font> <b>ChrisH:</b></font> MoonGNatRouth: That&apos;s nearly what I assumed. Some errors can only be found while talking/writing about.<br/>
+<font color="#A82F2F"><font size="2">(03:09:31 PM)</font> <b>SynrG:</b></font> MoonGNatRouth: it does, of course, mean you have to be more careful about searching your configs. but it is in the long run the best debian can do to ensure your packages are all of the highest quality and don&apos;t destroy each other :P<br/>
+<font color="#A82F2F"><font size="2">(03:11:32 PM)</font> <b>hanlon2:</b></font> themill: re: &quot; that version will never be in jessie.&quot;, iiuc debian releases are somewhat spread out in time.  more so than at other distros.  and far longer than delta-between openssl releases (for example).  my (perhaps unfounded) concern is that I end up  with stale *functionality*, even though security issue may be back-patched.<br/>
+<font color="#A82F2F"><font size="2">(03:14:11 PM)</font> <b>petn-randall:</b></font> hanlon2: Newer is not always better. If you really need software upgrades more than every ~2 years, you&apos;ll have to start building your own, or picking a distro with a higher release output.<br/>
+<font color="#A82F2F"><font size="2">(03:14:57 PM)</font> <b>jelly:</b></font> openssl doesn&apos;t move _that_ fast<br/>
+<font color="#A82F2F"><font size="2">(03:15:33 PM)</font> <b>Che-Anarch:</b></font> SynrG  I was hoping I could have something like: &quot;boot_start on runlevel [2345]&quot; I saw similar comments: http://www.debian-administration.org/article/28/Making_scripts_run_at_boot_time_with_Debian<br/>
+<font color="#A82F2F"><font size="2">(03:15:46 PM)</font> <b>Che-Anarch:</b></font> Just not sure how I can do that.<br/>
+<font color="#A82F2F"><font size="2">(03:15:56 PM)</font> <b>SynrG:</b></font> runlevels are pretty much obsolete<br/>
+<font color="#A82F2F"><font size="2">(03:16:18 PM)</font> <b>centrx:</b></font> systemd has laid waste to everything<br/>
+<font color="#A82F2F"><font size="2">(03:16:43 PM)</font> <b>jelly:</b></font> debian&apos;s dealt with them a long time ago before systemd came<br/>
+<font color="#A82F2F"><font size="2">(03:16:48 PM)</font> <b>centrx:</b></font> actually runlevels were kind of obsolete before<br/>
+<font color="#A82F2F"><font size="2">(03:16:49 PM)</font> <b>centrx:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(03:16:52 PM)</font> <b>petn-randall:</b></font> &lt;/systemd_rants_kthx&gt;<br/>
+<font color="#A82F2F"><font size="2">(03:19:16 PM)</font> <b>hanlon2:</b></font> petn-randall: heh, yeah -- never satisfied!  in particular for my Xen server, @ Dom0 I&apos;m heading for as-stock-as-possible Jessie, with Xen 4.5.0 builds from vanilla/upstream sources.  Somewhat depends on what pain -- if any -- the lag between Jessie &amp; upstream kernel will cause for Dom0/DomU capabilities -- particularly w.r.t. PVops &amp; hardware passthrough.  Still unclear for me, atm.  Only way I&apos;ll know for sure, is to test.<br/>
+<font color="#A82F2F"><font size="2">(03:21:41 PM)</font> <b>asop:</b></font> you may want to look for the backports repo, which brings newer versions to stable<br/>
+<font color="#A82F2F"><font size="2">(03:23:44 PM)</font> <b>SynrG:</b></font> asop: not useful in hanlon2&apos;s case. 1.0.2 is only in experimental. nothing goes into backports until it hits testing<br/>
+<font color="#A82F2F"><font size="2">(03:24:17 PM)</font> <b>hanlon2:</b></font> SynrG: there&apos;s not a backports repo for Jessie, yet, either, is there?<br/>
+<font color="#A82F2F"><font size="2">(03:24:20 PM)</font> <b>bababooo:</b></font> hi, I have debian 7.8 wheezy.  how can I install libc6 version 2.14 or higher.  I currently have libc6 2.13<br/>
+<font color="#A82F2F"><font size="2">(03:24:31 PM)</font> <b>SynrG:</b></font> if it&apos;s true that EC is only in 1.0.2 and not going to be in jessie, it seems likely hanlon2 would have to wait until after the stable release before the experimental package is even uploaded to unstable, then migrates to testing before a backport would be made<br/>
+<font color="#A82F2F"><font size="2">(03:24:56 PM)</font> <b>SynrG:</b></font> hanlon2: no. however, you might get away with using the package from experimental. or try a backport of your own, if that&apos;s necessary<br/>
+<font color="#A82F2F"><font size="2">(03:25:01 PM)</font> <b>SynrG:</b></font> !ssb<br/>
+<font color="#A82F2F"><font size="2">(03:25:01 PM)</font> <b>dpkg:</b></font> First, check for a backport on &lt;debian-backports&gt;.  If unavailable: 1) Add a deb-src line for sid (not a deb line!); ask me about &lt;deb-src sid&gt; 2) enable debian-backports (see &lt;bdo&gt;) 3) aptitude update; aptitude install build-essential; aptitude build-dep packagename; apt-get -b source packagename; 4) install the resultant debs.  To change compilation options, see &lt;package recompile&gt;; for versions newer than sid see &lt;uupdate&gt;.<br/>
+<font color="#A82F2F"><font size="2">(03:25:24 PM)</font> <b>SynrG:</b></font> hanlon2: backports wouldn&apos;t start being created until after the jessie release.<br/>
+<font color="#A82F2F"><font size="2">(03:25:32 PM)</font> <b>petn-randall:</b></font> bababooo: What do you need 2.14 or higher for?<br/>
+<font color="#A82F2F"><font size="2">(03:25:58 PM)</font> <b>hanlon2:</b></font> SynrG: that&apos;d overwrite the distro-installed openssl (for example)?<br/>
+<font color="#A82F2F"><font size="2">(03:26:24 PM)</font> <b>SynrG:</b></font> hanlon2: properly made packages upgrade cleanly<br/>
+<font color="#A82F2F"><font size="2">(03:26:34 PM)</font> <b>SynrG:</b></font> hanlon2: what you call &quot;overwrite&quot; is simply an upgrade<br/>
+<font size="2">(03:26:57 PM)</font><b> [willwh] is now known as willwh</b><br/>
+<font color="#A82F2F"><font size="2">(03:27:10 PM)</font> <b>bababooo:</b></font> petn-randall, I am trying to install voice plugin for google call phone and libc 2.14 or higher is a required dependency<br/>
+<font color="#A82F2F"><font size="2">(03:27:16 PM)</font> <b>SynrG:</b></font> there are rules for numbering backports that ensure that when the next release happens, the backports cleanly upgrade to the package in the next release<br/>
+<font color="#A82F2F"><font size="2">(03:27:48 PM)</font> <b>hanlon2:</b></font> SynrG: interesting.  hadn&apos;t grokked that yet.  in previous distro, overwriting &quot;an openssl&quot; -- with the many system-wide deps -- can be, and usually is, a recipe for disaster.<br/>
+<font color="#A82F2F"><font size="2">(03:28:17 PM)</font> <b>SynrG:</b></font> ,v openssl<br/>
+<font color="#A82F2F"><font size="2">(03:28:19 PM)</font> <b>judd:</b></font> Package: openssl on i386 -- squeeze: 0.9.8o-4squeeze14; squeeze-security: 0.9.8o-4squeeze14; squeeze-security-lts: 0.9.8o-4squeeze19; wheezy: 1.0.1e-2+deb7u13; wheezy-security: 1.0.1e-2+deb7u14; wheezy-proposed-updates: 1.0.1e-2+deb7u14; sid: 1.0.1k-1; jessie: 1.0.1k-1; experimental: 1.0.2-1<br/>
+<font color="#A82F2F"><font size="2">(03:28:44 PM)</font> <b>SynrG:</b></font> hanlon2: indeed, the current absence of any openssl backport for any release may indicate that it&apos;s not a good thing to do<br/>
+<font color="#A82F2F"><font size="2">(03:29:13 PM)</font> <b>SynrG:</b></font> hanlon2: while technically anyone may make a backport, making a backport that doesn&apos;t break your system is another matter :p<br/>
+<font color="#A82F2F"><font size="2">(03:29:56 PM)</font> <b>SynrG:</b></font> hanlon2: this is part of what takes debian a while to sort out from one release to the next. switching out a major component for another version is handled in what we call a &quot;transition&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:30:27 PM)</font> <b>SynrG:</b></font> since those transitions imapact on many different packages, they can take time to work out. there are provisions made to try to avoid conflicts ...<br/>
+<font color="#A82F2F"><font size="2">(03:30:46 PM)</font> <b>SynrG:</b></font> but it&apos;s not entirely without hiccups.<br/>
+<font color="#A82F2F"><font size="2">(03:30:54 PM)</font> <b>tx:</b></font> Hey guys, after my wifi interface has been brought up and an IP obtained, there&apos;s still a dhcp client running in the background trying to request an IP (to no avail).<br/>
+<font color="#A82F2F"><font size="2">(03:30:55 PM)</font> <b>petn-randall:</b></font> bababooo: That won&apos;t be possible with wheezy. You can look for an alternative, IIRC google can also be used via SIP clients.<br/>
+<font color="#A82F2F"><font size="2">(03:31:05 PM)</font> <b>tx:</b></font> Anyone have any suggestions as to why?<br/>
+<font color="#A82F2F"><font size="2">(03:31:29 PM)</font> <b>SynrG:</b></font> hanlon2: i can&apos;t say how, historically, openssl transitions have been handled in debian. but that should be a matter of public record and therefore easy for you to investigate.<br/>
+<font size="2">(03:32:02 PM)</font><b> mode (+l 1650) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:32:24 PM)</font> <b>hanlon2:</b></font> SynrG: got it.  one of the things that got me interested in Debian was that these major component transitions are, or at least I perceive them to be, more thoroughly vetted.  i.e., NO &quot;big ass&quot; changes without (a) rollback plans, (b) alternatives, and (c) thorough server-context testing<br/>
+<font color="#A82F2F"><font size="2">(03:32:32 PM)</font> <b>petn-randall:</b></font> tx: the DHCP client runs in the background to retrieve a new lease before the old one runs out. Are you sure it&apos;s actively polling for IPs?<br/>
+<font color="#A82F2F"><font size="2">(03:32:41 PM)</font> <b>petn-randall:</b></font> ... to no avail?<br/>
+<font color="#A82F2F"><font size="2">(03:32:49 PM)</font> <b>SynrG:</b></font> hanlon2: as long as there&apos;s no abi bump (1.0.2 is a *minor* rev ... surely there&apos;s no ABI bump?) it should be trouble free<br/>
+<font color="#A82F2F"><font size="2">(03:32:51 PM)</font> <b>tx:</b></font> I&apos;ll grab some log output.<br/>
+<font color="#A82F2F"><font size="2">(03:33:07 PM)</font> <b>SynrG:</b></font> hanlon2: and debian does make provision for ABI bumps by renaming the package and ensuring they *don&apos;t* conflict<br/>
+<font color="#A82F2F"><font size="2">(03:33:17 PM)</font> <b>hanlon2:</b></font> SynrG: &quot;should be&quot;.  famous last words ... ;-)<br/>
+<font color="#A82F2F"><font size="2">(03:33:21 PM)</font> <b>SynrG:</b></font> hanlon2: so the archive can simultaneously contain applications linked against the old and new<br/>
+<font color="#A82F2F"><font size="2">(03:33:40 PM)</font> <b>SynrG:</b></font> hanlon2: &quot;should be&quot; as in &quot;if it doesn&apos;t work this way, it&apos;s a release critical bug, and we take those very seriously&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:34:35 PM)</font> <b>SynrG:</b></font> given there does not seem to be an ABI bump for the package in experimental, it should be usable as a drop-in replacement for the ones in testing/unstable<br/>
+<font color="#A82F2F"><font size="2">(03:34:45 PM)</font> <b>SynrG:</b></font> that being said, experimental is experimental<br/>
+<font color="#A82F2F"><font size="2">(03:34:55 PM)</font> <b>SynrG:</b></font> and anyone using it should understand what the risks are<br/>
+<font color="#A82F2F"><font size="2">(03:35:59 PM)</font> <b>tx:</b></font> petn-randall:  http://pastie.org/private/e6fab6bhyyiejpwfpexliw<br/>
+<font color="#A82F2F"><font size="2">(03:36:04 PM)</font> <b>hanlon2:</b></font> SynrG: I don&apos;t yet know who &quot;we&quot; are in that.  Though I do hope/believe the &quot;very seriously&quot; is , well, &apos;better&apos; than what I&apos;ve been getting.  To be very frank and probly unkind to others, I&apos;m looking for a distro with &quot;adult supervision&quot; on the server-side. I&apos;m 93.26% certain I&apos;m in the right place here.<br/>
+<font color="#A82F2F"><font size="2">(03:36:12 PM)</font> <b>SynrG:</b></font> hanlon2: i&apos;m a debian developer<br/>
+<font color="#A82F2F"><font size="2">(03:36:31 PM)</font> <b>SynrG:</b></font> hanlon2: i would like to also point you at #debian-next @ irc.oftc.net where we speicfically provide support for testing/unstable<br/>
+<font color="#A82F2F"><font size="2">(03:36:40 PM)</font> <b>hanlon2:</b></font> SynrG: great. &quot;Pleased to meetcha.&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:36:56 PM)</font> <b>tx:</b></font> SynrG:  Thanks for making Debian so awesome. &lt;3<br/>
+<font color="#A82F2F"><font size="2">(03:37:14 PM)</font> <b>tx:</b></font> And any others in here that are active.<br/>
+<font color="#A82F2F"><font size="2">(03:37:16 PM)</font> <b>SynrG:</b></font> well, i have just a small part in that. but thanks taken in proxy for all the others who make it awesome :)<br/>
+<font color="#A82F2F"><font size="2">(03:37:40 PM)</font> <b>SynrG:</b></font> i currently maintain no core components of debian<br/>
+<font color="#A82F2F"><font size="2">(03:38:03 PM)</font> <b>tx:</b></font> But yeah, as shown in the lock, I get an IP and then it just keeps making DHCPREQUEST&apos;s.<br/>
+<font color="#A82F2F"><font size="2">(03:38:05 PM)</font> <b>tx:</b></font> log*<br/>
+<font color="#A82F2F"><font size="2">(03:38:42 PM)</font> <b>bababooo:</b></font> petn-randall,  you can make calls through IIRC google?<br/>
+<font color="#A82F2F"><font size="2">(03:38:56 PM)</font> <b>hanlon2:</b></font> It&apos;s kindof refreshing to not get ranted at for asking questions that reference/compare/contrast &apos;other distro&apos; ways of doing things.  TBH, Debian, Arch &amp; UbuSvr have all been good about that so far.<br/>
+<font color="#A82F2F"><font size="2">(03:39:00 PM)</font> <b>tx:</b></font> Ah wait, renewal in x seconds.<br/>
+<font color="#A82F2F"><font size="2">(03:39:10 PM)</font> <b>tx:</b></font> It&apos;s making those requests after the expiry.<br/>
+<font color="#A82F2F"><font size="2">(03:39:21 PM)</font> <b>tx:</b></font> But it never gets a new IP. :\<br/>
+<font color="#A82F2F"><font size="2">(03:39:56 PM)</font> <b>linux-fox:</b></font> jessie will release in aprl ?<br/>
+<font color="#A82F2F"><font size="2">(03:40:32 PM)</font> <b>centrx:</b></font> linux-fox, It&apos;s a possibility<br/>
+<font color="#A82F2F"><font size="2">(03:40:34 PM)</font> <b>centrx:</b></font> linux-fox, https://lists.debian.org/debian-devel-announce/2015/03/msg00002.html<br/>
+<font color="#A82F2F"><font size="2">(03:40:59 PM)</font> <b>SynrG:</b></font> we&apos;re very bad at predicting though. even the release team won&apos;t know for certain until the end<br/>
+<font color="#A82F2F"><font size="2">(03:41:27 PM)</font> <b>SynrG:</b></font> ultimately, it will release when ready. our guesses get somewhat better towards the end, but that is all.<br/>
+<font size="2">(03:42:03 PM)</font><b> mode (+l 1657) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:42:32 PM)</font> <b>hanlon2:</b></font> If/when a &quot;mere user&quot; finds/reports a production-critical bug in a Debian release that&apos;s not necessarily security related, are those bugs fixed in CURRENT release?  or is the policy, &quot;other than security, fixes in next version  ...&quot;?<br/>
+<font color="#A82F2F"><font size="2">(03:42:50 PM)</font> <b>SynrG:</b></font> hanlon2: it doesn&apos;t matter who finds the bug, for starters.<br/>
+<font color="#A82F2F"><font size="2">(03:43:24 PM)</font> <b>linux-fox:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(03:43:53 PM)</font> <b>tx:</b></font> is there a way to get bug #1? archived perhaps?<br/>
+<font color="#A82F2F"><font size="2">(03:43:57 PM)</font> <b>SynrG:</b></font> hanlon2: and &quot;other than security&quot; is an inaccurate summary<br/>
+<font color="#A82F2F"><font size="2">(03:44:34 PM)</font> <b>hanlon2:</b></font> SynrG: explain?  it my &apos;current experience, elsewhere&apos;  it has been a hug problem.<br/>
+<font color="#A82F2F"><font size="2">(03:44:43 PM)</font> <b>hanlon2:</b></font> s/in my/<br/>
+<font color="#A82F2F"><font size="2">(03:45:02 PM)</font> <b>hanlon2:</b></font> argh. s/huge/<br/>
+<font color="#A82F2F"><font size="2">(03:45:24 PM)</font> <b>SynrG:</b></font> hanlon2: any bug that would render a package partly or wholly useless may be a candidate<br/>
+<font color="#A82F2F"><font size="2">(03:45:32 PM)</font> <b>hanlon2:</b></font> (and, yes, I&apos;m aware I&apos;m likley being over-paranoid)<br/>
+<font color="#A82F2F"><font size="2">(03:45:43 PM)</font> <b>SynrG:</b></font> although if there&apos;s a lot of that sort of thing, a package might simply be removed from the archive<br/>
+<font color="#A82F2F"><font size="2">(03:47:24 PM)</font> <b>hanlon2:</b></font> SynrG: understood.  I&apos;m thinking mostly re: core functionality -- e.g., kernel, networking stack, mdadm, nfs, xen, systemd.  all of which have been / are broken in various scenarios, here.  it&apos;s been a real nightmare.<br/>
+<font color="#A82F2F"><font size="2">(03:47:44 PM)</font> <b>SynrG:</b></font> there have been some notable exceptions to &quot;no new versions, only backport patches&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:47:49 PM)</font> <b>SynrG:</b></font> web browsers, primarily<br/>
+<font color="#A82F2F"><font size="2">(03:47:59 PM)</font> <b>SynrG:</b></font> ,v chromium<br/>
+<font color="#A82F2F"><font size="2">(03:48:00 PM)</font> <b>judd:</b></font> Package: chromium on i386 -- squeeze: 0.9.14.1-2; wheezy: 37.0.2062.120-1~deb7u1; wheezy-security: 37.0.2062.120-1~deb7u1; sid: 41.0.2272.76-2; jessie: 41.0.2272.76-2<br/>
+<font color="#A82F2F"><font size="2">(03:48:11 PM)</font> <b>hanlon2:</b></font> what&apos;s a browser?  headless servers ftw!<br/>
+<font color="#A82F2F"><font size="2">(03:48:21 PM)</font> <b>SynrG:</b></font> yes, well<br/>
+<font color="#A82F2F"><font size="2">(03:48:41 PM)</font> <b>SynrG:</b></font> but the point is that there&apos;s no way a browser such as iceweasel or chromium would still be useful or patchable 2 years later<br/>
+<font color="#A82F2F"><font size="2">(03:50:02 PM)</font> <b>hanlon2:</b></font> sure.  for desktop, often true.  and, for me, I&apos;ll likely consider a different distro with more of a bleeding-edge / thrash, for that.  tacitcal decision, and I understand the consequences.  but, again, for desktop it&apos;s a different story.<br/>
+<font color="#A82F2F"><font size="2">(03:50:10 PM)</font> <b>z4sk4:</b></font> SynrGy:  i did a http login for the apt with nginx, i put the ssl too, but no find info for put the same auth http in https too<br/>
+<font color="#A82F2F"><font size="2">(03:50:31 PM)</font> <b>centrx:</b></font> hanlon2, For desktop you can add backports, for example<br/>
+<font color="#A82F2F"><font size="2">(03:50:35 PM)</font> <b>SynrG:</b></font> hanlon2: as for the kernel, it is common for the latest kernel to be provided through backports<br/>
+<font color="#A82F2F"><font size="2">(03:50:40 PM)</font> <b>SynrG:</b></font> ,kernels<br/>
+<font color="#A82F2F"><font size="2">(03:50:41 PM)</font> <b>judd:</b></font> Available kernel versions are: experimental: 3.19.0-trunk-686-pae (3.19.1-1~exp1); sid: 3.16.0-4-686-pae (3.16.7-ckt7-1); jessie: 3.16.0-4-686-pae (3.16.7-ckt7-1); wheezy-backports: 3.16.0-0.bpo.4-686-pae (3.16.7-ckt4-3~bpo70+1); wheezy: 3.2.0-4-686-pae (3.2.65-1+deb7u2); squeeze-backports: 3.2.0-0.bpo.4-686-pae (3.2.65-1+deb7u2~bpo60+1); squeeze: 2.6.32-5-686 (2.6.32-48squeeze6)<br/>
+<font color="#A82F2F"><font size="2">(03:50:56 PM)</font> <b>SynrG:</b></font> hanlon2: so here, you can see that it&apos;s pretty much tracking what&apos;s in jessie.<br/>
+<font color="#A82F2F"><font size="2">(03:51:05 PM)</font> <b>SynrG:</b></font> for current stable, wheezy.<br/>
+<font color="#A82F2F"><font size="2">(03:51:49 PM)</font> <b>hanlon2:</b></font> SynrG: got it.  but to get 3.19.x in Jessie -- will *its* eventual backports track upstream kernel releases?<br/>
+<font color="#A82F2F"><font size="2">(03:52:03 PM)</font> <b>SynrG:</b></font> z4sk4: don&apos;t know. isn&apos;t the syntax just the same?<br/>
+<font color="#A82F2F"><font size="2">(03:52:27 PM)</font> <b>SynrG:</b></font> hanlon2: it is likely.<br/>
+<font color="#A82F2F"><font size="2">(03:52:59 PM)</font> <b>SynrG:</b></font> hanlon2: jessie we release with 3.16 and that will be patched with backports from upstream stable releases for security fixes and support of new hardware<br/>
+<font color="#A82F2F"><font size="2">(03:53:06 PM)</font> <b>SynrG:</b></font> s/we/will/<br/>
+<font color="#A82F2F"><font size="2">(03:53:27 PM)</font> <b>SynrG:</b></font> hanlon2: additionally, jessie-backports will eventually have a backport of latest upstream stable kernel release.<br/>
+<font color="#A82F2F"><font size="2">(03:53:53 PM)</font> <b>SynrG:</b></font> and that will continue to move forward throughout the next release cycle ...<br/>
+<font color="#A82F2F"><font size="2">(03:54:04 PM)</font> <b>SynrG:</b></font> though of course, without any guarantees as to how quickly.<br/>
+<font color="#A82F2F"><font size="2">(03:54:15 PM)</font> <b>hanlon2:</b></font> SynrG: then that gets interesting.  atm, Xen capabilities are still somewhat closely tied to new Kernel releases -- especially the PVops/PVH &apos;stuff&apos;<br/>
+<font color="#A82F2F"><font size="2">(03:54:18 PM)</font> <b>SynrG:</b></font> that being said, the kernel team seems to be &quot;reasonably responsive&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:57:08 PM)</font> <b>z4sk4:</b></font> SynrGy: it works<br/>
+<font size="2">(04:04:09 PM)</font><b> mode (+o jelly) by ChanServ</b><br/>
+<font size="2">(04:04:10 PM)</font><b> mode (+b *!*@247.5.71.86.rev.sfr.net$##not-a-honeypot) by jelly</b><br/>
+<font size="2">(04:04:10 PM)</font><b> mode (-o jelly) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(04:09:05 PM)</font> <b>Walex:</b></font> as to Xen a few days ago in the #Xen channel one of the lead developers was saying that he is about to start rewriting the hypervisor.<br/>
+<font color="#A82F2F"><font size="2">(04:09:47 PM)</font> <b>hanlon2:</b></font> Walex: as in from-ground-up?<br/>
+<font color="#A82F2F"><font size="2">(04:09:48 PM)</font> <b>centrx:</b></font> rewrite it in node.js?<br/>
+<font color="#A82F2F"><font size="2">(04:13:14 PM)</font> <b>jelly:</b></font> !slap centrx<br/>
+<font color="#062585"><font size="2">(04:13:14 PM)</font> <b>***dpkg</b></font> strikes a resounding *THWAP* across centrx&apos;s face<br/>
+<font size="2">(04:14:57 PM)</font><b> martinst is now known as martins-afk</b><br/>
+<font size="2">(04:26:10 PM)</font><b> mactimes is now known as mactimes_</b><br/>
+<font color="#A82F2F"><font size="2">(04:27:42 PM)</font> <b>Walex:</b></font> hanlon2: yes, that was was said.<br/>
+<font color="#A82F2F"><font size="2">(04:29:00 PM)</font> <b>Walex:</b></font> hanlon2: it was in a discussion relating to various ways various chipsets need to be tweaked to mask off CPU features to achieve uniformity.<br/>
+<font color="#A82F2F"><font size="2">(04:30:02 PM)</font> <b>Walex:</b></font> hanlon2: since that was IIRC Andrew Cooper, there is a good chance of that happening.<br/>
+<font color="#A82F2F"><font size="2">(04:31:46 PM)</font> <b>hanlon2:</b></font> Walex: JUST when it was starting to work reliably ... ;-)<br/>
+<font size="2">(04:32:03 PM)</font><b> mode (+l 1649) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(04:32:37 PM)</font> <b>Walex:</b></font> hanlon2: I think that is meant to be a parallel development, e.g. for version 5.x<br/>
+<font color="#A82F2F"><font size="2">(04:33:05 PM)</font> <b>hanlon2:</b></font> heh, yep.<br/>
+<font color="#A82F2F"><font size="2">(04:35:00 PM)</font> <b>hanlon2:</b></font> SynrG: #debian-next @ irc.oftc.net , not @ freenode?<br/>
+<font color="#A82F2F"><font size="2">(04:35:13 PM)</font> <b>SynrG:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(04:36:25 PM)</font> <b>hanlon2:</b></font> thx ( have to find my asbestos shorts b4 heading over to oftc ... )<br/>
+<font color="#A82F2F"><font size="2">(04:37:19 PM)</font> <b>sstan:</b></font> Good morning<br/>
+<font color="#A82F2F"><font size="2">(04:38:17 PM)</font> <b>kbkw:</b></font> hi together, we are using debuild to create a debian package. what i would like to know: is there a possibility to hand over the package version as an argument to debuild? With package version im talking bout the part behind the minus (3.1.1-2). We need this due to packaging on a build server, and would like to input the release versioning from here. Thx in advance.<br/>
+<font color="#A82F2F"><font size="2">(04:38:18 PM)</font> <b>midow:</b></font> 誰もがdebian本当にもっとを求めますかしたい行dpkgくとしてapt-getも使用することを決めたとしても限りてきた？<br/>
+<font color="#A82F2F"><font size="2">(04:39:35 PM)</font> <b>abrotman:</b></font> midow: english here please<br/>
+<font color="#A82F2F"><font size="2">(04:41:10 PM)</font> <b>sstan:</b></font> Would you recommend Debian for a high-availability Xen Cluster?<br/>
+<font color="#A82F2F"><font size="2">(04:45:14 PM)</font> <b>jelly:</b></font> !jp<br/>
+<font color="#A82F2F"><font size="2">(04:45:14 PM)</font> <b>dpkg:</b></font> Japanese speakers: please use #debianjp on irc.debian.or.jp or speak English here.<br/>
+<font size="2">(04:50:22 PM)</font><b> zz_mbainrot is now known as mbainrot</b><br/>
+<font color="#A82F2F"><font size="2">(04:51:09 PM)</font> <b>Oscilax:</b></font> on a preview installation of jessie i added chromium to the system and selected it as default in the settings menu<br/>
+<font color="#A82F2F"><font size="2">(04:51:41 PM)</font> <b>Oscilax:</b></font> but this time chromium keeps asking me about the default setting. any ideas why?<br/>
+<font color="#A82F2F"><font size="2">(04:52:46 PM)</font> <b>Oscilax:</b></font> !chromium<br/>
+<font color="#A82F2F"><font size="2">(04:52:46 PM)</font> <b>dpkg:</b></font> Chromium is an open source web browser produced by Google, based on WebKit.  Google Chrome is based on Chromium.  https://wiki.debian.org/Chromium  http://www.chromium.org/Home  #chromium-support on irc.freenode.net.  For the game formerly known as Chromium, ask me about &lt;chromium-bsu&gt;.<br/>
+<font color="#A82F2F"><font size="2">(04:53:49 PM)</font> <b>centrx:</b></font> Oscilax, What is it the message chromium gives?<br/>
+<font color="#A82F2F"><font size="2">(04:53:55 PM)</font> <b>plus10:</b></font> is it possible to remove the background that has been set with feh?<br/>
+<font color="#A82F2F"><font size="2">(04:54:24 PM)</font> <b>Oscilax:</b></font> &quot;would you like bla bla default browser bla bla&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:54:42 PM)</font> <b>centrx:</b></font> plus10, See the man page, first paragraph under &quot;BACKGROUND SETTING&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:55:17 PM)</font> <b>centrx:</b></font> Oscilax, Okay it may be a different default, does it go away if you agree or check a box to not ask again?<br/>
+<font color="#A82F2F"><font size="2">(04:56:16 PM)</font> <b>Oscilax:</b></font> well<br/>
+<font color="#A82F2F"><font size="2">(04:56:47 PM)</font> <b>Oscilax:</b></font> as long as the message appears its not the default, right?<br/>
+<font size="2">(04:57:33 PM)</font><b> plus10 left the room (quit: Client Quit).</b><br/>
+<font color="#A82F2F"><font size="2">(04:58:14 PM)</font> <b>Oscilax:</b></font> instead of opening new links in the chromium application that is already running opens a new chromium instance and offers to restore pages<br/>
+<font color="#A82F2F"><font size="2">(04:58:19 PM)</font> <b>centrx:</b></font> Oscilax, There may be a checkbox in the dialog to have it not ask the question again<br/>
+<font color="#A82F2F"><font size="2">(04:58:37 PM)</font> <b>centrx:</b></font> Oscilax, Is it possible you have two chrome/chromium installations on your machine?<br/>
+<font color="#A82F2F"><font size="2">(04:58:44 PM)</font> <b>Oscilax:</b></font> nope<br/>
+<font color="#A82F2F"><font size="2">(04:59:14 PM)</font> <b>Oscilax:</b></font> but i had a crash lately. hmmm, i just remember that i had to killall chromium<br/>
+<font color="#A82F2F"><font size="2">(05:00:58 PM)</font> <b>Oscilax:</b></font> lets see if i delete the config directory<br/>
+<font color="#A82F2F"><font size="2">(05:03:20 PM)</font> <b>z4sk4:</b></font> how can i put a a command in the /etc/apt/apt.conf?? like name=`whoami` o i need use a comand to get the name in the conf<br/>
+<font color="#A82F2F"><font size="2">(05:03:24 PM)</font> <b>Oscilax:</b></font> that seems to fix it<br/>
+<font color="#A82F2F"><font size="2">(05:03:37 PM)</font> <b>Oscilax:</b></font> ^ centrx<br/>
+<font color="#A82F2F"><font size="2">(05:09:39 PM)</font> <b>jhutchins:</b></font> z4sk4: Why would you need a name in apt.conf?<br/>
+<font color="#A82F2F"><font size="2">(05:10:12 PM)</font> <b>z4sk4:</b></font> jhutchins: experiments, but i need to run a script to put a user-agent to apt<br/>
+<font color="#A82F2F"><font size="2">(05:10:22 PM)</font> <b>z4sk4:</b></font> only runing the apt<br/>
+<font color="#A82F2F"><font size="2">(05:11:47 PM)</font> <b>jelly:</b></font> z4sk4: you can&apos;t do that.  Generate a file in /etc/apt/conf.d/ with your setting(s) before running apt<br/>
+<font color="#A82F2F"><font size="2">(05:12:14 PM)</font> <b>jelly:</b></font> make that /etc/apt/apt.conf.d sorry<br/>
+<font size="2">(05:18:21 PM)</font><b> noahfx_ is now known as noahfx</b><br/>
+<font size="2">(05:19:45 PM)</font><b> willwh is now known as [willwh]</b><br/>
+<font size="2">(05:22:02 PM)</font><b> mode (+l 1661) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:22:34 PM)</font> <b>naftilos76:</b></font> Hi i want to find a process that the executable/script&apos;s name contains a certain string. I know how to do it with ps aux | grep &quot;string&quot; . I do not like this way because it returns itself as well. Is there another way?<br/>
+<font color="#A82F2F"><font size="2">(05:22:53 PM)</font> <b>ChrisH:</b></font> naftilos76: man pgrep<br/>
+<font color="#A82F2F"><font size="2">(05:23:01 PM)</font> <b>naftilos76:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(05:23:26 PM)</font> <b>Adalid_Negro:</b></font> good day, someone has been stuck with mysql-apt-config like I am?<br/>
+<font color="#A82F2F"><font size="2">(05:24:06 PM)</font> <b>Adalid_Negro:</b></font> It shows me tree options of server files, but nothing happens when I choose anyone-...<br/>
+<font color="#A82F2F"><font size="2">(05:24:33 PM)</font> <b>Adalid_Negro:</b></font> My apt is stuck and I don&apos;t know what suppose that i must do<br/>
+<font size="2">(05:25:07 PM)</font><b> chandan_ is now known as Guest47125</b><br/>
+<font color="#A82F2F"><font size="2">(05:28:14 PM)</font> <b>Oscilax:</b></font> Adalid_Negro: stuck how? what is the status or error message?<br/>
+<font color="#A82F2F"><font size="2">(05:31:34 PM)</font> <b>Adalid_Negro:</b></font> no error message<br/>
+<font color="#A82F2F"><font size="2">(05:31:54 PM)</font> <b>Adalid_Negro:</b></font> just a configuration box where is asking me:<br/>
+<font color="#A82F2F"><font size="2">(05:32:49 PM)</font> <b>Adalid_Negro:</b></font> which server version do you wish to receive<br/>
+<font color="#A82F2F"><font size="2">(05:33:22 PM)</font> <b>Adalid_Negro:</b></font> and tree options, but when I choose just show the same box<br/>
+<font color="#A82F2F"><font size="2">(05:33:29 PM)</font> <b>Oscilax:</b></font> Adalid_Negro: i am not sure if i fully understand. you are trying to make a choice which debian version is going to be installed?<br/>
+<font color="#A82F2F"><font size="2">(05:33:31 PM)</font> <b>Adalid_Negro:</b></font> do you want that i do a screenshoot?<br/>
+<font color="#A82F2F"><font size="2">(05:33:50 PM)</font> <b>Adalid_Negro:</b></font> No, I was upgrading my system<br/>
+<font color="#A82F2F"><font size="2">(05:34:18 PM)</font> <b>Oscilax:</b></font> how did you upgrade?<br/>
+<font color="#A82F2F"><font size="2">(05:34:29 PM)</font> <b>Adalid_Negro:</b></font> and into the upgrade was a package called &quot;mysql-apt-config&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:34:43 PM)</font> <b>Adalid_Negro:</b></font> apt-get update &amp;&amp; apt-get-upgrade<br/>
+<font color="#A82F2F"><font size="2">(05:34:45 PM)</font> <b>Adalid_Negro:</b></font> just as ususal<br/>
+<font color="#A82F2F"><font size="2">(05:34:46 PM)</font> <b>SKlogo:</b></font> Hi, I&apos;m currently running Debian 7.8, will I break anything if i stop python from listening on tcp port 4966 O_o<br/>
+<font color="#A82F2F"><font size="2">(05:34:56 PM)</font> <b>Oscilax:</b></font> ah! now we are one step further. let me see<br/>
+<font color="#A82F2F"><font size="2">(05:35:34 PM)</font> <b>centrx:</b></font> SKlogo, You should find out what program is listening, Python is just a programming language/interpreter<br/>
+<font color="#A82F2F"><font size="2">(05:35:48 PM)</font> <b>SKlogo:</b></font> centrx: How would I go about that? O_o<br/>
+<font size="2">(05:35:56 PM)</font><b> [willwh] is now known as willwh</b><br/>
+<font color="#A82F2F"><font size="2">(05:35:56 PM)</font> <b>jelly:</b></font> SKlogo: figure out what that process is doing and what started it, before killing it<br/>
+<font color="#A82F2F"><font size="2">(05:36:31 PM)</font> <b>centrx:</b></font> SKlogo, lsof |grep 4966 ?<br/>
+<font color="#A82F2F"><font size="2">(05:36:44 PM)</font> <b>SKlogo:</b></font> centrx: Okay :)<br/>
+<font color="#A82F2F"><font size="2">(05:37:06 PM)</font> <b>centrx:</b></font> SKlogo, Also Google search suggests it could be &quot;PlayOnLinux&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:37:33 PM)</font> <b>jelly:</b></font> SKlogo: start by looking at its command line: &quot;ps -o command -p PIDHERE&quot; and its open files: &quot;lsof -np PIDHERE&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:37:42 PM)</font> <b>Oscilax:</b></font> Adalid_Negro: on the web i only see the solution to remove the mysql related packages and re-install it. but maybe somebody else knows a better wa<br/>
+<font color="#A82F2F"><font size="2">(05:37:46 PM)</font> <b>Oscilax:</b></font> way<br/>
+<font color="#A82F2F"><font size="2">(05:38:31 PM)</font> <b>SKlogo:</b></font> jelly: It&apos;s keepnote O_o<br/>
+<font color="#A82F2F"><font size="2">(05:39:14 PM)</font> <b>SKlogo:</b></font> that&apos;s really strange<br/>
+<font color="#A82F2F"><font size="2">(05:39:19 PM)</font> <b>Adalid_Negro:</b></font>  yes, I also was reading the same solution, however I have a lot of projects in that mysql, is not so easy for me<br/>
+<font color="#A82F2F"><font size="2">(05:39:43 PM)</font> <b>Adalid_Negro:</b></font> And in fact apt is lock and is not a trivial thing to uninnstall just in that moment<br/>
+<font color="#A82F2F"><font size="2">(05:42:34 PM)</font> <b>Oscilax:</b></font> Adalid_Negro: i would abort with CTRL+C, run dpkg-reconfigure mysql-apt-config and see how that goes<br/>
+<font color="#A82F2F"><font size="2">(05:43:02 PM)</font> <b>Oscilax:</b></font> or was exactly that the question, hmmm<br/>
+<font color="#A82F2F"><font size="2">(05:44:27 PM)</font> <b>Adalid_Negro:</b></font> is exactly the same<br/>
+<font color="#A82F2F"><font size="2">(05:44:30 PM)</font> <b>Adalid_Negro:</b></font> i did it<br/>
+<font color="#A82F2F"><font size="2">(05:44:59 PM)</font> <b>Oscilax:</b></font> that means you need help with the choice which major mysql release should be installed by apt?<br/>
+<font color="#A82F2F"><font size="2">(05:46:28 PM)</font> <b>Adalid_Negro:</b></font> no, it is not important, just that it works in anyway<br/>
+<font color="#A82F2F"><font size="2">(05:48:29 PM)</font> <b>Adalid_Negro:</b></font> the package * is broken or not totally installed<br/>
+<font color="#A82F2F"><font size="2">(05:50:27 PM)</font> <b>Oscilax:</b></font> Adalid_Negro: you can try &quot;apt-get -f install&quot; to go on with the install<br/>
+<font color="#A82F2F"><font size="2">(05:51:42 PM)</font> <b>Oscilax:</b></font> and for mysql server i would choose version 5.5<br/>
+<font color="#A82F2F"><font size="2">(05:51:44 PM)</font> <b>Adalid_Negro:</b></font> I&apos;ll try<br/>
+<font size="2">(05:52:02 PM)</font><b> mode (+l 1654) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:52:15 PM)</font> <b>Adalid_Negro:</b></font> system command me do dpkg --configure -a<br/>
+<font color="#A82F2F"><font size="2">(05:53:04 PM)</font> <b>Oscilax:</b></font> yeah, right. because that mysql-apt-config part is not fully configured<br/>
+<font color="#A82F2F"><font size="2">(05:54:03 PM)</font> <b>hanlon2:</b></font> found my fist (maybe)gotcha.  jessie ships kernel 3.16.  for Xen Dom0, to boot from UEFI bios, needs CONFIG_XEN_EFI=y set in kernel config.  THAT is only, apparently, available ins kernel v&gt;= 3.17.  I.e., unless it&apos;s been backported (not sure where to look for that info yet), and iiuc, that suggest jessie can&apos;t be used to boot as Xen Dom0 on a UEFI mobo.<br/>
+<font color="#A82F2F"><font size="2">(05:54:24 PM)</font> <b>jelly:</b></font> wtf is mysql-apt-config anyway?<br/>
+<font color="#A82F2F"><font size="2">(05:54:49 PM)</font> <b>jelly:</b></font> ,v mysql-apt-config<br/>
+<font color="#A82F2F"><font size="2">(05:54:50 PM)</font> <b>judd:</b></font> No package named &apos;mysql-apt-config&apos; was found in i386.<br/>
+<font color="#A82F2F"><font size="2">(05:54:51 PM)</font> <b>Adalid_Negro:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(05:55:30 PM)</font> <b>Adalid_Negro:</b></font> jelly: do you know something about this error?<br/>
+<font color="#A82F2F"><font size="2">(05:55:46 PM)</font> <b>Adalid_Negro:</b></font> judd: I&apos;m in a 64 bit SO<br/>
+<font color="#A82F2F"><font size="2">(05:56:17 PM)</font> <b>jelly:</b></font> Adalid_Negro: I do not, where did you get that package from?  It does not seem to exist in Debian.<br/>
+<font color="#A82F2F"><font size="2">(05:56:33 PM)</font> <b>jelly:</b></font> !bat<br/>
+<font color="#A82F2F"><font size="2">(05:56:33 PM)</font> <b>dpkg:</b></font> In order for us to troubleshoot your problem with apt-get, aptitude or dselect we need the following information: The complete output of your apt-get/aptitude/dselect run (including the command you used); the output from apt-cache policy PKG1 PKG2...; for the relevant packages and &quot;apt-cache policy&quot;.  Use http://paste.debian.net/ to provide us with this information.  Also ask me about &lt;localized errors&gt;.<br/>
+<font color="#A82F2F"><font size="2">(05:56:53 PM)</font> <b>Adalid_Negro:</b></font> debian 8 common repo for 64 bits<br/>
+<font color="#A82F2F"><font size="2">(05:57:44 PM)</font> <b>jelly:</b></font> Adalid_Negro: that package is not present in Debian 8.<br/>
+<font color="#A82F2F"><font size="2">(05:57:53 PM)</font> <b>Oscilax:</b></font> the mysql.org website offers it, right?<br/>
+<font color="#A82F2F"><font size="2">(05:58:37 PM)</font> <b>jelly:</b></font> Adalid_Negro: please put all the info dpkg asked above into a pastebin.<br/>
+<font color="#A82F2F"><font size="2">(06:00:27 PM)</font> <b>Adalid_Negro:</b></font> the issue is that, when I do &quot;dpkg --configure -a&quot; it shows me a box<br/>
+<font color="#A82F2F"><font size="2">(06:00:45 PM)</font> <b>Adalid_Negro:</b></font> I stuck in that dialog box and i cann&apos;t read the console at that time<br/>
+<font size="2">(06:01:50 PM)</font><b> tcpman is now known as Guest26396</b><br/>
+<font color="#A82F2F"><font size="2">(06:01:57 PM)</font> <b>jelly:</b></font> Adalid_Negro: you could make a screenshot of that box, exit it using Ctrl-C or kill it from outside, and pastebin all the other information<br/>
+<font color="#A82F2F"><font size="2">(06:02:47 PM)</font> <b>jelly:</b></font> (or maybe you can&apos;t ^C it any more because apt developers decided to ignore that signal)<br/>
+<font color="#A82F2F"><font size="2">(06:02:55 PM)</font> <b>Adalid_Negro:</b></font> ok I send a screenshot, however ctrl-c is not working, i needed to perform a kill -9<br/>
+<font color="#A82F2F"><font size="2">(06:03:03 PM)</font> <b>jelly:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(06:03:18 PM)</font> <b>jelly:</b></font> don&apos;t forget all the other information that dpkg asked forl.<br/>
+<font size="2">(06:03:45 PM)</font><b> fraff is now known as fraff_</b><br/>
+<font color="#A82F2F"><font size="2">(06:04:25 PM)</font> <b>Adalid_Negro:</b></font> http://imgur.com/hDHlVNZ<br/>
+<font color="#A82F2F"><font size="2">(06:04:40 PM)</font> <b>Adalid_Negro:</b></font> is the left side of the screen<br/>
+<font color="#A82F2F"><font size="2">(06:04:47 PM)</font> <b>Oscilax:</b></font> jelly: thanks for picking it up<br/>
+<font color="#A82F2F"><font size="2">(06:05:47 PM)</font> <b>jelly:</b></font> !localized errors<br/>
+<font color="#A82F2F"><font size="2">(06:05:47 PM)</font> <b>dpkg:</b></font> Rather than hoping that we recognise what has gone wrong from the error messages in your native language, please provide any error messages in English.  You can do this by setting your locale to an English one (e.g. C) prior to running the command, e.g. «LC_ALL=C apt-get -f install»<br/>
+<font color="#A82F2F"><font size="2">(06:06:22 PM)</font> <b>jelly:</b></font> Adalid_Negro: and output of &quot;LC_ALL=C apt-cache policy mysql-apt-config&quot; and &quot;LC_ALL=C apt-cache policy&quot;<br/>
+<font size="2">(06:10:18 PM)</font><b> mode (+o eir) by ChanServ</b><br/>
+<font size="2">(06:10:35 PM)</font><b> mode (-bo *!*@247.5.71.86.rev.sfr.net$##not-a-honeypot eir) by eir</b><br/>
+<font color="#A82F2F"><font size="2">(06:12:11 PM)</font> <b>Adalid_Negro:</b></font> http://paste.debian.net/161577/<br/>
+<font color="#A82F2F"><font size="2">(06:13:24 PM)</font> <b>zirra:</b></font> hey all<br/>
+<font color="#A82F2F"><font size="2">(06:13:34 PM)</font> <b>jelly:</b></font> Adalid_Negro: so it&apos;s a custom package you got from somewhere.  Do you need it?<br/>
+<font color="#A82F2F"><font size="2">(06:13:46 PM)</font> <b>zirra:</b></font> i need debian with gnome<br/>
+<font color="#A82F2F"><font size="2">(06:14:08 PM)</font> <b>zirra:</b></font> ive downd the dvd1 isnt there an other image<br/>
+<font color="#A82F2F"><font size="2">(06:14:20 PM)</font> <b>Adalid_Negro:</b></font> mmm maybe it was installed when I installed mysql workbench...<br/>
+<font color="#A82F2F"><font size="2">(06:14:25 PM)</font> <b>zirra:</b></font> i dont like the gui very much<br/>
+<font color="#A82F2F"><font size="2">(06:14:47 PM)</font> <b>mtn:</b></font> zirra: there is a netinstall and the basic installer chooses gnome by default<br/>
+<font color="#A82F2F"><font size="2">(06:15:26 PM)</font> <b>zirra:</b></font> yes isnt there an image that looks more like kali or so<br/>
+<font color="#A82F2F"><font size="2">(06:15:55 PM)</font> <b>mtn:</b></font> zirra: no idea what you are looking for. the debian installer looks like the debian installer. there is only one debian installer.<br/>
+<font color="#A82F2F"><font size="2">(06:16:01 PM)</font> <b>SynrGy:</b></font> we support debian. we don&apos;t know what kali looks like. can you be specific about your needs?<br/>
+<font color="#A82F2F"><font size="2">(06:17:02 PM)</font> <b>SynrGy:</b></font> maybe kali is gnome2-based? or mate-based? i have no idea.<br/>
+<font color="#A82F2F"><font size="2">(06:17:03 PM)</font> <b>zirra:</b></font> the gui looks like bullshit im normally use lxde but must change cause of some programms dont work there<br/>
+<font color="#A82F2F"><font size="2">(06:17:22 PM)</font> <b>SynrGy:</b></font> thanks for crapping on debian. i think i&apos;m not interested in supporting you today.<br/>
+<font color="#A82F2F"><font size="2">(06:17:32 PM)</font> <b>SynrGy:</b></font> maybe some others here are<br/>
+<font color="#A82F2F"><font size="2">(06:17:56 PM)</font> <b>zirra:</b></font> not on debian just on the gui but ok<br/>
+<font color="#A82F2F"><font size="2">(06:18:16 PM)</font> <b>mtn:</b></font> zirra: what gui? what are you talking about?<br/>
+<font color="#A82F2F"><font size="2">(06:18:29 PM)</font> <b>abrotman:</b></font> He didn&apos;t even say which version of Debian he&apos;s using<br/>
+<font color="#A82F2F"><font size="2">(06:18:37 PM)</font> <b>zirra:</b></font> the newest<br/>
+<font color="#A82F2F"><font size="2">(06:18:44 PM)</font> <b>zirra:</b></font> 7.8 or so<br/>
+<font color="#A82F2F"><font size="2">(06:18:59 PM)</font> <b>mtn:</b></font> newest what? installed or just the installer? what are you talking about?<br/>
+<font color="#A82F2F"><font size="2">(06:19:38 PM)</font> <b>abrotman:</b></font> zirra: Debian has probably 50 WMs and DEs packaged .. choose the one you want to use, don&apos;t just whine<br/>
+<font color="#A82F2F"><font size="2">(06:20:02 PM)</font> <b>zirra:</b></font> ok im confused about many os use gnome but everywhere it looks diff<br/>
+<font color="#062585"><font size="2">(06:20:45 PM)</font> <b>***petn-randall</b></font> shrugs.<br/>
+<font color="#A82F2F"><font size="2">(06:20:51 PM)</font> <b>jelly:</b></font> I heard Gnome had themes.<br/>
+<font color="#A82F2F"><font size="2">(06:20:59 PM)</font> <b>petn-randall:</b></font> zirra: They come with different themes by default?<br/>
+<font color="#A82F2F"><font size="2">(06:21:28 PM)</font> <b>abrotman:</b></font> Or they use different releases of Gnome ..<br/>
+<font color="#A82F2F"><font size="2">(06:22:00 PM)</font> <b>zirra:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(06:22:12 PM)</font> <b>zirra:</b></font> i make some research nd came back<br/>
+<font color="#A82F2F"><font size="2">(06:23:05 PM)</font> <b>zirra:</b></font> ps ive never wanna be &quot;crapping &quot; on debian then im werent here<br/>
+<font size="2">(06:23:15 PM)</font><b> zirra left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:26:21 PM)</font> <b>MarkMorse:</b></font> hello<br/>
+<font size="2">(06:28:32 PM)</font><b> mactimes_ is now known as mactimes</b><br/>
+<font size="2">(06:32:03 PM)</font><b> mode (+l 1644) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(06:38:18 PM)</font> <b>hotwings:</b></font> just installed systemd on debian and it had a problem: http://pastie.org/10030919<br/>
+<font color="#A82F2F"><font size="2">(06:40:27 PM)</font> <b>jelly:</b></font> hotwings: what does &quot;uname -a&quot; say?<br/>
+<font color="#A82F2F"><font size="2">(06:40:59 PM)</font> <b>Bremsstrahlung:</b></font> I was given a tar.bz2 file and I was told to use the package manager to install the program -- how would I do this?<br/>
+<font color="#A82F2F"><font size="2">(06:41:02 PM)</font> <b>hotwings:</b></font> Linux ZOTAC 3.19.1.build.20150315.1 #1 SMP PREEMPT Sun Mar 15 18:57:27 PDT 2015 i686 GNU/Linux<br/>
+<font color="#A82F2F"><font size="2">(06:41:33 PM)</font> <b>jelly:</b></font> hotwings: you custom kernel might be missing Linux capabilities support, like in eg. https://bugs.debian.org/742229<br/>
+<font color="#A82F2F"><font size="2">(06:41:36 PM)</font> <b>jelly:</b></font> your*<br/>
+<font size="2">(06:42:06 PM)</font><b> willwh is now known as [willwh]</b><br/>
+<font size="2">(06:42:34 PM)</font><b> [willwh] is now known as willwh</b><br/>
+<font color="#A82F2F"><font size="2">(06:43:21 PM)</font> <b>jelly:</b></font> Bremsstrahlung: are the contents of said tar.bz2 one or more .deb files perhaps?<br/>
+<font size="2">(06:43:30 PM)</font><b> Lingo_ is now known as optrusty</b><br/>
+<font color="#A82F2F"><font size="2">(06:43:42 PM)</font> <b>Bremsstrahlung:</b></font> jelly, two folders, &apos;bin&apos; and &apos;share&apos;.<br/>
+<font color="#A82F2F"><font size="2">(06:43:44 PM)</font> <b>jelly:</b></font> Bremsstrahlung: if not, what&apos;s in there and who told you that?<br/>
+<font color="#A82F2F"><font size="2">(06:43:54 PM)</font> <b>Bremsstrahlung:</b></font> jelly, with of course, more files in said folders.<br/>
+<font color="#A82F2F"><font size="2">(06:44:12 PM)</font> <b>hotwings:</b></font> i dont mind recompiling the kernel but i didnt see anything in that url about what could be missing<br/>
+<font size="2">(06:44:35 PM)</font><b> ikarus_ is now known as Ikarus</b><br/>
+<font color="#A82F2F"><font size="2">(06:44:44 PM)</font> <b>jelly:</b></font> Bremsstrahlung: in that case the instructions do not seem to apply for debian&apos;s packaging system<br/>
+<font color="#A82F2F"><font size="2">(06:45:12 PM)</font> <b>Bremsstrahlung:</b></font> jelly: Huh? Let me show you the web page.<br/>
+<font color="#A82F2F"><font size="2">(06:46:37 PM)</font> <b>Bremsstrahlung:</b></font> jelly: https://filezilla-project.org/download.php?show_all=1 &quot;Built for Debian 7.0 (Wheezy). It is highly recommended to use the package management system of your distribution or to manually compile FileZilla if you are running a different flavour of Linux.&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:49:09 PM)</font> <b>petn-randall:</b></font> !tell hotwings -about crosspost<br/>
+<font color="#A82F2F"><font size="2">(06:49:11 PM)</font> <b>jelly:</b></font> Bremsstrahlung: I&apos;m reading &quot;use the packaged filezilla from your distro if you can, but if you cannot, use these files, that were built in a Debian 7.0 system and are compatible with it&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:50:00 PM)</font> <b>Bremsstrahlung:</b></font> jelly: Debian wheezy has an older version; this is a trend I am noticing with Debian, the stable repos always have some old version.<br/>
+<font color="#A82F2F"><font size="2">(06:50:12 PM)</font> <b>Bremsstrahlung:</b></font> I wanted to use the latest stable version of FileZilla.<br/>
+<font color="#A82F2F"><font size="2">(06:52:22 PM)</font> <b>jelly:</b></font> Bremsstrahlung: then go unpack it someplace and use it, then<br/>
+<font color="#A82F2F"><font size="2">(06:52:39 PM)</font> <b>jelly:</b></font> redundant word is redundant<br/>
+<font size="2">(06:52:50 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

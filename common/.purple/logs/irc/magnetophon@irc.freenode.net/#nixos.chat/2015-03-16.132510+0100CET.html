@@ -1,0 +1,271 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Mon 16 Mar 2015 01:25:10 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Mon 16 Mar 2015 01:25:10 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(01:25:10 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(01:25:10 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(01:25:22 PM)</font> <b>aszlig:</b></font> although let ... in is also similar to with { ... };<br/>
+<font color="#A82F2F"><font size="2">(01:25:35 PM)</font> <b>aszlig:</b></font> so it boils down to attributes as well<br/>
+<font color="#A82F2F"><font size="2">(01:25:56 PM)</font> <b>kirelagin:</b></font> Lethalman: ok, let’s call them variables, no problem<br/>
+<font color="#A82F2F"><font size="2">(01:26:06 PM)</font> <b>kirelagin:</b></font> Lethalman: but “assignment” is a wrong word. “Binding” is a good one.<br/>
+<font color="#A82F2F"><font size="2">(01:26:35 PM)</font> <b>aszlig:</b></font> also related: https://wiki.haskell.org/Variable<br/>
+<font color="#A82F2F"><font size="2">(01:29:24 PM)</font> <b>kirelagin:</b></font> ok, again, it all started with `description = …` an there are definitely no variables there, even in the sense of this haskell wiki article<br/>
+<font color="#A82F2F"><font size="2">(01:29:38 PM)</font> <b>kirelagin:</b></font> It’s like saying that default function arguments in C++ is a variable assignment<br/>
+<font color="#A82F2F"><font size="2">(01:30:37 PM)</font> <b>aszlig:</b></font> description = ?<br/>
+<font color="#A82F2F"><font size="2">(01:30:53 PM)</font> <b>aszlig:</b></font> ah, never mind<br/>
+<font color="#A82F2F"><font size="2">(01:31:50 PM)</font> <b>aszlig:</b></font> in nix it&apos;s more or less &quot;everything is an attrset&quot;, so you only have attributes but no variables<br/>
+<font color="#A82F2F"><font size="2">(01:32:20 PM)</font> <b>aszlig:</b></font> (or better: &quot;almost everything&quot;)<br/>
+<font color="#A82F2F"><font size="2">(01:33:44 PM)</font> <b>aszlig:</b></font> at least when i think about it, i can&apos;t remember having seen a &quot;variable&quot; which is not really an attribute in nix<br/>
+<font color="#A82F2F"><font size="2">(01:34:09 PM)</font> <b>Lethalman:</b></font> aszlig, let bindings are similar concept to recursive attrsets<br/>
+<font color="#A82F2F"><font size="2">(01:34:18 PM)</font> <b>Lethalman:</b></font> but still they are not the same<br/>
+<font color="#A82F2F"><font size="2">(01:34:38 PM)</font> <b>aszlig:</b></font> Lethalman: yeah, so you have attributes again<br/>
+<font color="#A82F2F"><font size="2">(01:34:51 PM)</font> <b>Lethalman:</b></font> aszlig, just they are not attributes :P<br/>
+<font color="#A82F2F"><font size="2">(01:34:56 PM)</font> <b>Lethalman:</b></font> similar, but guys it&apos;s just different<br/>
+<font color="#A82F2F"><font size="2">(01:34:58 PM)</font> <b>aszlig:</b></font> Lethalman: it&apos;s more like &quot;with rec { ... };&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:35:08 PM)</font> <b>Lethalman:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(01:35:48 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] gebner opened pull request #6829: Patch gnome-control-center not to override VPN plugin paths. (master...gnome-control-center-vpn-sopath) http://git.io/hURB<br/>
+<font color="#A82F2F"><font size="2">(01:36:47 PM)</font> <b>aszlig:</b></font> Lethalman: https://github.com/NixOS/nix/blob/master/src/libexpr/nixexpr.cc#L334-L346<br/>
+<font color="#A82F2F"><font size="2">(01:36:50 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra pushed 2 new commits to master: http://git.io/hURP<br/>
+<font color="#A82F2F"><font size="2">(01:36:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master eee31a2 Nicolas Pouillard: Update sqlite to 3.8.8.3<br/>
+<font color="#A82F2F"><font size="2">(01:36:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3e6fb38 Eelco Dolstra: Merge pull request #6823 from np/sqlite...<br/>
+<font color="#A82F2F"><font size="2">(01:37:10 PM)</font> <b>aszlig:</b></font> https://github.com/NixOS/nix/blob/master/src/libexpr/nixexpr.cc#L140-L150<br/>
+<font color="#A82F2F"><font size="2">(01:40:06 PM)</font> <b>aszlig:</b></font> so &quot;binding&quot; is more appropriate as kirelagin said<br/>
+<font color="#A82F2F"><font size="2">(01:41:13 PM)</font> <b>Lethalman:</b></font> note bindVars<br/>
+<font color="#A82F2F"><font size="2">(01:41:15 PM)</font> <b>Lethalman:</b></font> you bind variables<br/>
+<font color="#A82F2F"><font size="2">(01:41:27 PM)</font> <b>Lethalman:</b></font> or assign once<br/>
+<font color="#A82F2F"><font size="2">(01:41:42 PM)</font> <b>aszlig:</b></font> Lethalman: this one is better: https://github.com/NixOS/nix/blob/17c71334e16f6c65a549d95312d3f03e3c51ed98/src/libexpr/eval.cc#L734-L749<br/>
+<font color="#A82F2F"><font size="2">(01:41:44 PM)</font> <b>Lethalman:</b></font> quite the same in this context, perhaps binding is preferable yes<br/>
+<font color="#A82F2F"><font size="2">(01:42:16 PM)</font> <b>aszlig:</b></font> so it boils down to an attribute set again<br/>
+<font color="#A82F2F"><font size="2">(01:42:45 PM)</font> <b>Lethalman:</b></font> it&apos;s just the same data structure<br/>
+<font color="#A82F2F"><font size="2">(01:42:50 PM)</font> <b>Lethalman:</b></font> it&apos;s not one being the other<br/>
+<font color="#A82F2F"><font size="2">(01:43:03 PM)</font> <b>Lethalman:</b></font> I can also say it boils down to let expression, again :)<br/>
+<font color="#A82F2F"><font size="2">(01:43:33 PM)</font> <b>Lethalman:</b></font> they serve different purposes, an attrset is an attrset<br/>
+<font color="#A82F2F"><font size="2">(01:43:44 PM)</font> <b>Lethalman:</b></font> with rec { }; is similar to let, but yet you are adding something else<br/>
+<font color="#A82F2F"><font size="2">(01:44:05 PM)</font> <b>Lethalman:</b></font> it&apos;s not something I would write formally<br/>
+<font color="#A82F2F"><font size="2">(01:44:11 PM)</font> <b>Lethalman:</b></font> there&apos;s let expression, and there&apos;s attrsets<br/>
+<font color="#A82F2F"><font size="2">(01:44:14 PM)</font> <b>Lethalman:</b></font> and that&apos;s it<br/>
+<font color="#A82F2F"><font size="2">(01:44:15 PM)</font> <b>aszlig:</b></font> what else are you adding?<br/>
+<font color="#A82F2F"><font size="2">(01:44:56 PM)</font> <b>Lethalman:</b></font> aszlig, how would you define a let expression in terms of attrsets? then you&apos;d have to give that a name, and tell the differences<br/>
+<font color="#A82F2F"><font size="2">(01:45:07 PM)</font> <b>Lethalman:</b></font> I don&apos;t get your point :)<br/>
+<font color="#A82F2F"><font size="2">(01:45:40 PM)</font> <b>Lethalman:</b></font> so you have the javascript scope with variables<br/>
+<font color="#A82F2F"><font size="2">(01:45:44 PM)</font> <b>Lethalman:</b></font> and you have objects<br/>
+<font color="#A82F2F"><font size="2">(01:46:03 PM)</font> <b>Lethalman:</b></font> as you say aszlig , you could do a for() with an eval() and get those attributes in the scope :)<br/>
+<font color="#A82F2F"><font size="2">(01:46:09 PM)</font> <b>Lethalman:</b></font> I wouldn&apos;t say those are the same<br/>
+<font color="#A82F2F"><font size="2">(01:46:14 PM)</font> <b>aszlig:</b></font> compare &quot;let foo = 3; bar = 4 in foo + bar&quot; with &quot;with { foo = 3; bar = 4; }; foo + bar&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:46:23 PM)</font> <b>Lethalman:</b></font> sigh<br/>
+<font color="#A82F2F"><font size="2">(01:46:26 PM)</font> <b>aszlig:</b></font> (optionally with rec)<br/>
+<font color="#A82F2F"><font size="2">(01:46:55 PM)</font> <b>Lethalman:</b></font> that&apos;s not an attrset, that&apos;s an attrset with with and rec<br/>
+<font color="#A82F2F"><font size="2">(01:48:04 PM)</font> <b>aszlig:</b></font> which is the same internally<br/>
+<font color="#A82F2F"><font size="2">(01:50:38 PM)</font> <b>kirelagin:</b></font> oh guys<br/>
+<font color="#A82F2F"><font size="2">(01:50:51 PM)</font> <b>kirelagin:</b></font> Variable is a syntactic category, not semanticall one<br/>
+<font color="#A82F2F"><font size="2">(01:51:01 PM)</font> <b>aszlig:</b></font> kirelagin: yep, i know, we&apos;re bikeshedding X-D<br/>
+<font color="#A82F2F"><font size="2">(01:51:10 PM)</font> <b>kirelagin:</b></font> I mean it’s the same as saying that there are no variables in Python because everything is a dictionary<br/>
+<font color="#A82F2F"><font size="2">(01:51:39 PM)</font> <b>kirelagin:</b></font> So even if `let`s are implemented _internally_ with attrsets that doesn’t mean they are not adding variables<br/>
+<font color="#A82F2F"><font size="2">(01:51:55 PM)</font> <b>kirelagin:</b></font> (or whatever one wants to call those nifty names in the scope)<br/>
+<font color="#A82F2F"><font size="2">(01:52:50 PM)</font> <b>aszlig:</b></font> kirelagin: but coming back to the topic of documentation, especially for new users, wouldn&apos;t it be better for new users to think of it in terms of attributes than in some other abstract &quot;thing&quot;?<br/>
+<font color="#A82F2F"><font size="2">(01:53:38 PM)</font> <b>kirelagin:</b></font> aszlig: I think, for new users, both acquainted and not acquainted with FP nowing that there are no variables is beneficial (especially for those who are not acquainted with FP)<br/>
+<font color="#A82F2F"><font size="2">(01:53:41 PM)</font> <b>aszlig:</b></font> kirelagin: i mean, even with python it helps a lot in understanding when you think about modules in terms of objects<br/>
+<font color="#A82F2F"><font size="2">(01:54:02 PM)</font> <b>kirelagin:</b></font> aszlig: And thinking of let expressions as just adding a shorter name to a large thing is the easiest way<br/>
+<font color="#A82F2F"><font size="2">(01:54:41 PM)</font> <b>kirelagin:</b></font> aszlig: uhm, no, it doesn’t help me at all, to be honest =)<br/>
+<font color="#A82F2F"><font size="2">(01:55:17 PM)</font> <b>kirelagin:</b></font> aszlig: I constantly get surprised when I do `import foo` and than get an error when I try to access `import foo.bar.a` because I have to `import foo.bar` first<br/>
+<font color="#A82F2F"><font size="2">(01:55:27 PM)</font> <b>kirelagin:</b></font> aszlig: so, no. for me thinking of modules as objects screw things up =)<br/>
+<font color="#A82F2F"><font size="2">(01:55:41 PM)</font> <b>aszlig:</b></font> kirelagin: why? i mean, it helps understanding what &quot;import ...&quot; really does and why you need that &quot;if __name__ == &apos;__main__&apos;&quot; and other &quot;seemingly weird&quot; stuff<br/>
+<font color="#A82F2F"><font size="2">(01:55:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga pushed 5 new commits to master: http://git.io/hU2s<br/>
+<font color="#A82F2F"><font size="2">(01:55:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 511f95f Antoine R. Dumont: Add deferred derivation<br/>
+<font color="#A82F2F"><font size="2">(01:55:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master d7bda5c Antoine R. Dumont: Add request derivation<br/>
+<font color="#A82F2F"><font size="2">(01:55:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c3f4894 Antoine R. Dumont: Add request-deferred derivation<br/>
+<font color="#A82F2F"><font size="2">(01:56:14 PM)</font> <b>kirelagin:</b></font> aszlig: sure, but what does it have to do with objects? It’s fine to think about `import` as `#include`<br/>
+<font color="#A82F2F"><font size="2">(01:56:46 PM)</font> <b>kirelagin:</b></font> (`#include` with `#pragma once`, obiously =)<br/>
+<font color="#A82F2F"><font size="2">(01:57:02 PM)</font> <b>aszlig:</b></font> kirelagin: #include is not the same as import, the latter does evaluate the whole module into an &quot;object&quot; (or call it attrset)<br/>
+<font color="#A82F2F"><font size="2">(01:57:41 PM)</font> <b>aszlig:</b></font> kirelagin: which is why you can&apos;t do import foo.bar.a in your example<br/>
+<font color="#A82F2F"><font size="2">(01:57:59 PM)</font> <b>aszlig:</b></font> because a only becomes available after evaluation<br/>
+<font color="#A82F2F"><font size="2">(01:58:43 PM)</font> <b>kirelagin:</b></font> Thinking that module is an object and an object is just a bunch of dicts is not cool, IMO<br/>
+<font color="#A82F2F"><font size="2">(01:58:58 PM)</font> <b>kirelagin:</b></font> there should always be a place for a little bit of mystery in the language<br/>
+<font color="#A82F2F"><font size="2">(01:59:17 PM)</font> <b>kirelagin:</b></font> like, I prefer to think that modules work with magic<br/>
+<font color="#A82F2F"><font size="2">(01:59:23 PM)</font> <b>kirelagin:</b></font> you import it and pooof!<br/>
+<font color="#A82F2F"><font size="2">(01:59:27 PM)</font> <b>aszlig:</b></font> err...<br/>
+<font color="#A82F2F"><font size="2">(01:59:51 PM)</font> <b>aszlig:</b></font> ... poof - you&apos;re screwed :-D<br/>
+<font color="#A82F2F"><font size="2">(02:00:18 PM)</font> <b>kirelagin:</b></font> Ok, let’s take racket or lisp or a similar language. Everything is just a recursive closure, including all kinds of let expression<br/>
+<font color="#A82F2F"><font size="2">(02:00:23 PM)</font> <b>kirelagin:</b></font> But that doesn’t help at all…<br/>
+<font color="#A82F2F"><font size="2">(02:00:50 PM)</font> <b>kirelagin:</b></font> I mean, no, programming is about abstraction, so hiding as much as possible helps<br/>
+<font color="#A82F2F"><font size="2">(02:00:50 PM)</font> <b>aszlig:</b></font> it does, especially for lisp and in understanding macros<br/>
+<font color="#A82F2F"><font size="2">(02:01:52 PM)</font> <b>kirelagin:</b></font> I don’t want to know how let-expressions are implemented in Nix, even if I _suspect_ that once you’ve got attrsets it might be a good idea to implement scopes as attrsets and lets as updating the attrsets<br/>
+<font color="#A82F2F"><font size="2">(02:02:18 PM)</font> <b>samuel:</b></font> bleh, addin the default configuration.nix from a imperative container to a declarative one yields &quot;error: The unique option `containers.test.security.initialRootPassword&apos; is defined multiple times, in `&lt;unknown-file&gt;&apos; and `&lt;unknown-file&gt;&apos;.&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:02:20 PM)</font> <b>kirelagin:</b></font> `let` is just an alias for a long expression. POOF!<br/>
+<font color="#A82F2F"><font size="2">(02:02:46 PM)</font> <b>aszlig:</b></font> samuel: use mkForce or mkOverride &lt;prio&gt; on the value<br/>
+<font color="#A82F2F"><font size="2">(02:03:30 PM)</font> <b>samuel:</b></font> aszlig, thanks i&apos;ll try that<br/>
+<font color="#A82F2F"><font size="2">(02:03:40 PM)</font> <b>aszlig:</b></font> kirelagin: hm, i still disagree with the whole magic thing and i don&apos;t think it helps newcomers any more if you throw magic at them<br/>
+<font color="#A82F2F"><font size="2">(02:04:14 PM)</font> <b>kirelagin:</b></font> aszlig: not exactly magic, but there has to be a level of abstraction. It doesn’t help newcomers to know all the implementation details.<br/>
+<font color="#A82F2F"><font size="2">(02:04:27 PM)</font> <b>aszlig:</b></font> i think it&apos;s more beneficial if a newcomer realizes &quot;hey, there is REALLY no magic involved&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:04:54 PM)</font> <b>kirelagin:</b></font> aszlig: There are common, widely-known and recognised things like let-expression, so there is no need to care how exactly they work<br/>
+<font color="#A82F2F"><font size="2">(02:05:26 PM)</font> <b>qknight:</b></font> i&apos;m now more confused about nix than ever before<br/>
+<font color="#A82F2F"><font size="2">(02:06:37 PM)</font> <b>qknight:</b></font> my conclustion is now: description = &quot;&quot;; is an attribute declaration (and not a variable declaration)<br/>
+<font color="#A82F2F"><font size="2">(02:06:51 PM)</font> <b>qknight:</b></font> s/declaration/definition<br/>
+<font color="#A82F2F"><font size="2">(02:07:17 PM)</font> <b>samuel:</b></font> the documentation for declarative containers looks like it might be wrong. I&apos;m unable to get the part &quot;If you run nixos-rebuild switch, the container will be built and started&quot; to work<br/>
+<font color="#A82F2F"><font size="2">(02:07:49 PM)</font> <b>aszlig:</b></font> qknight: whoops, sorry X-/<br/>
+<font color="#A82F2F"><font size="2">(02:07:52 PM)</font> <b>samuel:</b></font> or i am just doing something wrong<br/>
+<font color="#A82F2F"><font size="2">(02:08:02 PM)</font> <b>kirelagin:</b></font> qknight: hm, why don’t you just think about attrsets as dictionaries in, say, Python?<br/>
+<font color="#A82F2F"><font size="2">(02:08:10 PM)</font> <b>aszlig:</b></font> qknight: yep<br/>
+<font color="#A82F2F"><font size="2">(02:08:20 PM)</font> <b>qknight:</b></font> guys, don&apos;t be sorry. i love this discussion and i think i&apos;ve learned quite a bit about programming languages and how ppl like you think about it<br/>
+<font color="#A82F2F"><font size="2">(02:08:20 PM)</font> <b>aszlig:</b></font> kirelagin: now you&apos;re exxagerating<br/>
+<font color="#A82F2F"><font size="2">(02:08:41 PM)</font> <b>kirelagin:</b></font> qknight: {a= &quot;foo&quot;; b=&quot;bar&quot;} is just a dictionary with a bunch of keys and values<br/>
+<font color="#A82F2F"><font size="2">(02:08:45 PM)</font> <b>kirelagin:</b></font> aszlig: hm?<br/>
+<font color="#A82F2F"><font size="2">(02:08:58 PM)</font> <b>kirelagin:</b></font> aszlig: attrsets _are_ dictionaries<br/>
+<font color="#A82F2F"><font size="2">(02:09:20 PM)</font> <b>qknight:</b></font> aszlig: i&apos;m not a python programmer so this analogy doesn&apos;t help me much altough i don&apos;t think it is a bad idea<br/>
+<font color="#A82F2F"><font size="2">(02:09:20 PM)</font> <b>kirelagin:</b></font> (dictionary is a name of an interface for this purpose)<br/>
+<font color="#A82F2F"><font size="2">(02:09:20 PM)</font> <b>aszlig:</b></font> kirelagin: s/xx/x/;s/g/gg/<br/>
+<font color="#A82F2F"><font size="2">(02:09:36 PM)</font> <b>goibhniu:</b></font> samuel: in `man configuration.nix` it looks as if containers.&lt;name&gt;.autoStart only starts containers on boot ... not sure if that&apos;s what you expect or not<br/>
+<font color="#A82F2F"><font size="2">(02:10:01 PM)</font> <b>aszlig:</b></font> kirelagin: yeah, they&apos;re similar to python&apos;s dict, perl hashes, js objects, okay...<br/>
+<font color="#A82F2F"><font size="2">(02:10:12 PM)</font> <b>qknight:</b></font> goibhniu: oh, didn&apos;t know that but that explains so much (.autoStart only starts containers on boot)<br/>
+<font color="#A82F2F"><font size="2">(02:10:40 PM)</font> <b>samuel:</b></font> goibhniu, that might be good enough, i&apos;ll see if i can find that. i was currently looking at http://nixos.org/nixos/manual/ch-containers.html<br/>
+<font color="#A82F2F"><font size="2">(02:12:12 PM)</font> <b>goibhniu:</b></font> I don&apos;t use declarative containers myself. But I doubt that &quot;If you run nixos-rebuild switch, the container will be built and started. If the container was already running, it will be updated in place, without rebooting.&quot; is true<br/>
+<font color="#A82F2F"><font size="2">(02:13:00 PM)</font> <b>goibhniu:</b></font> although it would be great if it is!<br/>
+<font color="#A82F2F"><font size="2">(02:13:14 PM)</font> <b>samuel:</b></font> goibhniu: Wow, i tried `man configuration.nix`and all i got was a bunch of lines with errors :S<br/>
+<font color="#A82F2F"><font size="2">(02:13:31 PM)</font> <b>aszlig:</b></font> kirelagin: i think it helps newcomers to draw an analogy to famimiliar languages, so it&apos;s not a bad idea to state that in the docs<br/>
+<font color="#A82F2F"><font size="2">(02:13:43 PM)</font> <b>goibhniu:</b></font> samuel: is it &quot;fixed&quot; by resizing your terminal?<br/>
+<font color="#A82F2F"><font size="2">(02:13:54 PM)</font> <b>kirelagin:</b></font> aszlig: everyone has a different set of “familiar languages” =)<br/>
+<font color="#A82F2F"><font size="2">(02:14:37 PM)</font> <b>kirelagin:</b></font> aszlig: I beliebe it is only safe to assume that english is a “familiar language” for anyone reading our docs =)<br/>
+<font color="#A82F2F"><font size="2">(02:14:51 PM)</font> <b>aszlig:</b></font> kirelagin: but also, if the person is coming from imperative languages, people might assume things that are not the case, like for example mutability<br/>
+<font color="#A82F2F"><font size="2">(02:15:23 PM)</font> <b>samuel:</b></font> goibhniu: yeh looks like it resolved it self after a short while<br/>
+<font color="#A82F2F"><font size="2">(02:16:32 PM)</font> <b>samuel:</b></font> hmm, doesn&apos;t look like containers.&lt;name&gt;.autoStart is available<br/>
+<font color="#A82F2F"><font size="2">(02:16:56 PM)</font> <b>samuel:</b></font> can&apos;t find it here either http://nixos.org/nixos/options.html<br/>
+<font color="#A82F2F"><font size="2">(02:17:09 PM)</font> <b>samuel:</b></font> has it been depricated?<br/>
+<font color="#A82F2F"><font size="2">(02:17:32 PM)</font> <b>qknight:</b></font> aszlig, kirelagin, Lethalman: what do you think about this change: https://github.com/NixOS/nix/compare/master...qknight:variable_assiment_rephrased<br/>
+<font color="#A82F2F"><font size="2">(02:17:40 PM)</font> <b>aszlig:</b></font> samuel: it&apos;s just not in release 14.12<br/>
+<font color="#A82F2F"><font size="2">(02:17:55 PM)</font> <b>kirelagin:</b></font> aszlig: of course, but we can’t include a tutorial on pure lazy functional languages in the manual. Starting the manual with “Go read Learn You A Haskell”first and get back” is also not a great idea<br/>
+<font color="#A82F2F"><font size="2">(02:18:18 PM)</font> <b>kirelagin:</b></font> aszlig: So we have to rely on person’s understading that Nix is _different_ probably in surprising ways<br/>
+<font color="#A82F2F"><font size="2">(02:19:15 PM)</font> <b>samuel:</b></font> aszlig: i see, thanks<br/>
+<font color="#A82F2F"><font size="2">(02:20:03 PM)</font> <b>samuel:</b></font> kirelagin: the manual is enough confusing already xD<br/>
+<font color="#A82F2F"><font size="2">(02:20:25 PM)</font> <b>aszlig:</b></font> hm...<br/>
+<font color="#A82F2F"><font size="2">(02:20:38 PM)</font> <b>kirelagin:</b></font> samuel: To be honest, I never actually read it =)<br/>
+<font color="#A82F2F"><font size="2">(02:21:06 PM)</font> <b>aszlig:</b></font> kirelagin: maybe we shouldn&apos;t have this discussion, it should probably be discussed by newcomers<br/>
+<font color="#A82F2F"><font size="2">(02:21:40 PM)</font> <b>samuel:</b></font> newcomer here, let me know if you would like some input<br/>
+<font color="#A82F2F"><font size="2">(02:22:02 PM)</font> <b>kirelagin:</b></font> aszlig: Let’s capture one of them and never let him go until he tells us about everything that confuses him ;)<br/>
+<font color="#A82F2F"><font size="2">(02:22:12 PM)</font> <b>samuel:</b></font> oh crap<br/>
+<font color="#A82F2F"><font size="2">(02:22:17 PM)</font> <b>aszlig:</b></font> kirelagin: actually...<br/>
+<font color="#A82F2F"><font size="2">(02:22:21 PM)</font> <b>kirelagin:</b></font> samek: Too late<br/>
+<font color="#A82F2F"><font size="2">(02:22:27 PM)</font> <b>kirelagin:</b></font> oops<br/>
+<font color="#A82F2F"><font size="2">(02:22:30 PM)</font> <b>kirelagin:</b></font> samuel: Too late<br/>
+<font color="#A82F2F"><font size="2">(02:22:43 PM)</font> <b>aszlig:</b></font> kirelagin: we have a nix(os) talk at LIT and i&apos;m working on a game that should explain nix(os)...<br/>
+<font color="#A82F2F"><font size="2">(02:22:52 PM)</font> <b>kirelagin:</b></font> astsmtl: o_0<br/>
+<font color="#A82F2F"><font size="2">(02:22:55 PM)</font> <b>kirelagin:</b></font> crap<br/>
+<font color="#A82F2F"><font size="2">(02:22:55 PM)</font> <b>qknight:</b></font> aszlig, kirelagin, Lethalman: so what do you think about my change then?<br/>
+<font color="#A82F2F"><font size="2">(02:22:58 PM)</font> <b>kirelagin:</b></font> aszlig: o_0<br/>
+<font color="#A82F2F"><font size="2">(02:23:02 PM)</font> <b>kirelagin:</b></font> aszlig: game?<br/>
+<font color="#A82F2F"><font size="2">(02:23:04 PM)</font> <b>aszlig:</b></font> maybe it should make sonse to test it on newcomers<br/>
+<font color="#A82F2F"><font size="2">(02:23:13 PM)</font> <b>aszlig:</b></font> s/sons/sens/<br/>
+<font color="#A82F2F"><font size="2">(02:23:23 PM)</font> <b>kirelagin:</b></font> qknight: It’s better but I still doubt it is really needed<br/>
+<font color="#A82F2F"><font size="2">(02:23:39 PM)</font> <b>ikwildrpepper:</b></font> aszlig: what&apos;s LIT?<br/>
+<font color="#A82F2F"><font size="2">(02:23:45 PM)</font> <b>aszlig:</b></font> kirelagin: yep, the game is the presentation ;-)<br/>
+<font color="#A82F2F"><font size="2">(02:23:53 PM)</font> <b>aszlig:</b></font> ikwildrpepper: linux info tag in augsburg<br/>
+<font color="#062585"><font size="2">(02:24:02 PM)</font> <b>***qknight</b></font> gives up<br/>
+<font color="#A82F2F"><font size="2">(02:24:24 PM)</font> <b>kmicu:</b></font> Ugh…newcomers—what a bunch of bastards. (j/k)<br/>
+<font color="#A82F2F"><font size="2">(02:24:25 PM)</font> <b>aszlig:</b></font> ikwildrpepper: goibhniu and i have a table and a talk over there<br/>
+<font color="#A82F2F"><font size="2">(02:24:35 PM)</font> <b>ikwildrpepper:</b></font> aszlig: ah, nice :)<br/>
+<font color="#A82F2F"><font size="2">(02:24:38 PM)</font> <b>qknight:</b></font> but thanks for the 300 lines of talk about that variable thing anyway<br/>
+<font color="#A82F2F"><font size="2">(02:25:27 PM)</font> <b>aszlig:</b></font> qknight: lgtm, but i&apos;d write &quot;attribute set&quot; instead of attrset<br/>
+<font color="#A82F2F"><font size="2">(02:25:38 PM)</font> <b>kirelagin:</b></font> It might help to add more _links_ in the very beginning of the nix manual, where an interested reader with no background in functional languages can read more<br/>
+<font color="#A82F2F"><font size="2">(02:25:50 PM)</font> <b>kirelagin:</b></font> Like, you know, a link to SICP, at least<br/>
+<font color="#A82F2F"><font size="2">(02:27:11 PM)</font> <b>kmicu:</b></font> ‘Hello newcomer, before reading this manual go and read following books…’<br/>
+<font color="#A82F2F"><font size="2">(02:27:26 PM)</font> <b>qknight:</b></font> kmicu: lol<br/>
+<font color="#A82F2F"><font size="2">(02:27:27 PM)</font> <b>aszlig:</b></font> qknight: while it may not be pedantically correct, it at least sounds like a good compromise between magic and nitpicking =)<br/>
+<font color="#A82F2F"><font size="2">(02:32:44 PM)</font> <b>kirelagin:</b></font> kmicu: “read the following books and take the following courses”<br/>
+<font color="#A82F2F"><font size="2">(02:33:00 PM)</font> <b>kirelagin:</b></font> E.g. the Coursera course on programming languages was awesome<br/>
+<font color="#A82F2F"><font size="2">(02:33:21 PM)</font> <b>kirelagin:</b></font> it features ML, Racket and Ruby for comparison and that’s really a great demonstration of PL concepts<br/>
+<font color="#A82F2F"><font size="2">(02:34:23 PM)</font> <b>kmicu:</b></font> Yes, that is exactly what people want when they try to package a ‘mpdscribble’. ⸮<br/>
+<font color="#062585"><font size="2">(02:36:10 PM)</font> <b>***kmicu</b></font> should read backlog, b/c maybe that discussion is not about manuals, but making a Nix course at edX|Coursera.<br/>
+<font color="#A82F2F"><font size="2">(02:40:08 PM)</font> <b>kirelagin:</b></font> Well, I’ll just point out that there are three manuals (nix, nixpkgs, nixos)<br/>
+<font color="#A82F2F"><font size="2">(02:40:58 PM)</font> <b>kirelagin:</b></font> Ceating a simple package doesn’t actually require any knowledge of the nix language<br/>
+<font color="#062585"><font size="2">(02:51:23 PM)</font> <b>***kmicu</b></font> mumbling something incomprehensible about texlive-ng and goes back to work.<br/>
+<font color="#A82F2F"><font size="2">(03:00:11 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ashalkhakov opened pull request #6831: Bump to ATS-0.2.12 (master...anairiats-updates) http://git.io/hUNx<br/>
+<font color="#16569E"><font size="2">(03:10:53 PM)</font> <b>magnetophon:</b></font> I'm preparing a couple of PRs for a wrapper and some plugins, so the plugins depend on the wrapper. Should the plugin PRs have the wrapper code? Maybe it's easier for everybody if I put everything in one PR?  Ideas<br/>
+<font color="#16569E"><font size="2">(03:11:22 PM)</font> <b>magnetophon:</b></font> *?<br/>
+<font color="#A82F2F"><font size="2">(03:12:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] k0ral opened pull request #6832: Added icecast module (master...icecast) http://git.io/hTeq<br/>
+<font color="#A82F2F"><font size="2">(03:14:13 PM)</font> <b>Lethalman:</b></font> magnetophon, 1 PR is fine<br/>
+<font color="#16569E"><font size="2">(03:14:35 PM)</font> <b>magnetophon:</b></font> Lethalman: Cool, thanks.<br/>
+<font color="#A82F2F"><font size="2">(03:16:38 PM)</font> <b>hlavaty:</b></font> hi all, is there a way to come to the berlin meeting without all the web2 stuff?  e.g. where do you guys meet?  i gathered that the date hasn&apos;t been decided yet<br/>
+<font color="#A82F2F"><font size="2">(03:49:46 PM)</font> <b>ragge:</b></font> If I&apos;m currently on nixos-14.12 channel but want to transition to unstable, can I just add unstable channel and update?<br/>
+<font color="#A82F2F"><font size="2">(03:49:59 PM)</font> <b>ragge:</b></font> and should I remove nixos-14.12 channel?<br/>
+<font color="#A82F2F"><font size="2">(03:51:20 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vbgl pushed 1 new commit to master: http://git.io/hTs8<br/>
+<font color="#A82F2F"><font size="2">(03:51:20 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 82ee506 Artyom Shalkhakov: Bump to ATS-0.2.12<br/>
+<font color="#A82F2F"><font size="2">(03:51:45 PM)</font> <b>Lethalman:</b></font> ragge, http://nixos.org/nixos/manual/sec-upgrading.html<br/>
+<font color="#A82F2F"><font size="2">(03:51:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vbgl closed pull request #6831: Bump to ATS-0.2.12 (master...anairiats-updates) http://git.io/hUNx<br/>
+<font color="#A82F2F"><font size="2">(03:52:09 PM)</font> <b>viric:</b></font> anyone wants to update release-14.12 syncthing?<br/>
+<font color="#A82F2F"><font size="2">(03:52:13 PM)</font> <b>ragge:</b></font> Lethalman: Thanks, should&apos;ve found that myself...<br/>
+<font color="#A82F2F"><font size="2">(03:53:01 PM)</font> <b>nslqqq2:</b></font> Should nixos-rebuild switch work as non root?<br/>
+<font color="#A82F2F"><font size="2">(03:53:17 PM)</font> <b>iElectric:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(03:54:04 PM)</font> <b>Lethalman:</b></font> magnetophon, should you cc someone in your PR or I can merge?<br/>
+<font color="#16569E"><font size="2">(03:54:27 PM)</font> <b>magnetophon:</b></font> Lethalman: cc?<br/>
+<font color="#16569E"><font size="2">(03:54:37 PM)</font> <b>magnetophon:</b></font> notify someone? wwhy?<br/>
+<font color="#A82F2F"><font size="2">(03:54:40 PM)</font> <b>Lethalman:</b></font> no idea<br/>
+<font color="#A82F2F"><font size="2">(03:54:46 PM)</font> <b>Lethalman:</b></font> just asking :)<br/>
+<font color="#A82F2F"><font size="2">(03:54:51 PM)</font> <b>Lethalman:</b></font> e.g. the puredata maintainer<br/>
+<font color="#16569E"><font size="2">(03:55:00 PM)</font> <b>magnetophon:</b></font> I talked to him<br/>
+<font color="#A82F2F"><font size="2">(03:55:16 PM)</font> <b>Lethalman:</b></font> he can merge then<br/>
+<font color="#16569E"><font size="2">(03:55:48 PM)</font> <b>magnetophon:</b></font> ah, he entered the room. goibhniu^^<br/>
+<font color="#A82F2F"><font size="2">(03:56:17 PM)</font> <b>viric:</b></font> is it normal that fetchgit says:<br/>
+<font color="#A82F2F"><font size="2">(03:56:17 PM)</font> <b>viric:</b></font> fatal: Couldn&apos;t find remote ref refs/tags/v0.10.27<br/>
+<font color="#A82F2F"><font size="2">(03:58:41 PM)</font> <b>oblo:</b></font> i have a problem after nix-channel --update<br/>
+<font color="#A82F2F"><font size="2">(03:59:05 PM)</font> <b>oblo:</b></font> my monitor turns off uhm<br/>
+<font color="#A82F2F"><font size="2">(04:00:47 PM)</font> <b>Lethalman:</b></font> nix-channel --update doesn&apos;t upgrade your software<br/>
+<font color="#A82F2F"><font size="2">(04:01:01 PM)</font> <b>oblo:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(04:01:43 PM)</font> <b>oblo:</b></font> i&apos;m trying to use nix on lfs.. i built from source<br/>
+<font color="#A82F2F"><font size="2">(04:01:55 PM)</font> <b>yorick:</b></font> oh god &apos;tar&apos; is out of date.<br/>
+<font color="#A82F2F"><font size="2">(04:02:31 PM)</font> <b>oblo:</b></font> the problem can be the old package?<br/>
+<font color="#A82F2F"><font size="2">(04:03:02 PM)</font> <b>oblo:</b></font> i&apos;m using nix 1.8<br/>
+<font size="2">(04:06:49 PM)</font><b> pmahoney [<em>~user@50.56.229.7</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(04:08:43 PM)</font> <b>magnetophon:</b></font> pmahoney: I used your pkg in the installer for my entry in the faust competition: https://github.com/magnetophon/SynthSinger   Thanks!<br/>
+<font color="#16569E"><font size="2">(04:09:12 PM)</font> <b>magnetophon:</b></font> Come to think of it: your name isn't even in the code yet. Sorry!<br/>
+<font color="#A82F2F"><font size="2">(04:09:22 PM)</font> <b>pmahoney:</b></font> magnetophon: nice! sorry, didn&apos;t get a chance to to a PR yet<br/>
+<font color="#A82F2F"><font size="2">(04:10:03 PM)</font> <b>pmahoney:</b></font> did try to reproduce the &quot;qtmake4 not found&quot; problem with no success, bit of a head scratcher<br/>
+<font color="#16569E"><font size="2">(04:10:29 PM)</font> <b>magnetophon:</b></font> np. I just did my PR for puredata-with-plugins, so I needed to learn about local pkg management anyway. :)<br/>
+<font color="#16569E"><font size="2">(04:10:51 PM)</font> <b>magnetophon:</b></font> as in: the installer needs both<br/>
+<font color="#16569E"><font size="2">(04:11:41 PM)</font> <b>magnetophon:</b></font> re: qt: hmmm. Ill try to reproduce it again too.<br/>
+<font color="#16569E"><font size="2">(04:13:08 PM)</font> <b>magnetophon:</b></font> pmahoney: yup, still there. I'm on 14.12. You?<br/>
+<font size="2">(04:13:44 PM)</font><b> goibhniu1 [<em>~goibhniu@p5DCBC8FD.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(04:14:16 PM)</font> <b>magnetophon:</b></font> goibhniu1: ^^ puredata PR :)<br/>
+<font size="2">(04:15:31 PM)</font><b> goibhniu left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:27:18 PM)</font> <b>ttuegel:</b></font> pmahoney: qtmake4 == qmake?<br/>
+<font color="#A82F2F"><font size="2">(04:32:05 PM)</font> <b>pmahoney:</b></font> ttuegel: yes, couldn&apos;t think of the right name   qmake-qt4<br/>
+<font color="#A82F2F"><font size="2">(04:33:08 PM)</font> <b>ttuegel:</b></font> pmahoney: no, i mean it&apos;s supposed to be just qmake. some distros rename it, which may be why the package is looking for it.<br/>
+<font color="#A82F2F"><font size="2">(04:35:38 PM)</font> <b>Lethalman:</b></font> magnetophon, the PR is ok for me, see if goibhniu1 has something to say otherwise I can merge<br/>
+<font color="#A82F2F"><font size="2">(04:36:47 PM)</font> <b>iElectric:</b></font> offlinehacker: ping<br/>
+<font color="#16569E"><font size="2">(04:36:52 PM)</font> <b>magnetophon:</b></font> Lethalman: cool. I do want to mention that I can only test on 14.12. My netbook lacks the power to do much compiling.<br/>
+<font color="#A82F2F"><font size="2">(04:37:05 PM)</font> <b>Lethalman:</b></font> magnetophon, travis did it for you<br/>
+<font color="#A82F2F"><font size="2">(04:37:13 PM)</font> <b>ikwildrpepper:</b></font> goodwill, iElectric: got the shirts, thanks!<br/>
+<font color="#16569E"><font size="2">(04:37:16 PM)</font> <b>magnetophon:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(04:37:40 PM)</font> <b>iElectric:</b></font> ikwildrpepper: yay<br/>
+<font size="2">(05:09:12 PM)</font><b> roconnor [<em>roconnor@nat/google/x-amdmyjhyhoyfdbph</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:17:14 PM)</font> <b>warbo:</b></font> I&apos;ve packaged a script which plugs together various tools; I&apos;ve got a project which depends on this script; how can I make those tools available to that project&apos;s nix-shell?<br/>
+<font color="#A82F2F"><font size="2">(05:17:40 PM)</font> <b>warbo:</b></font> I thought that&apos;s what propagatedBuildInputs is for, but I&apos;m getting &quot;command not found&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:17:57 PM)</font> <b>Lethalman:</b></font> warbo, paste your nix stuff<br/>
+<font color="#A82F2F"><font size="2">(05:18:08 PM)</font> <b>warbo:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(05:22:32 PM)</font> <b>warbo:</b></font> http://pastebin.com/YntUGrkN<br/>
+<font color="#A82F2F"><font size="2">(05:24:31 PM)</font> <b>Lethalman:</b></font> warbo, propagated<br/>
+<font color="#A82F2F"><font size="2">(05:24:52 PM)</font> <b>Lethalman:</b></font> you did a typo<br/>
+<font color="#A82F2F"><font size="2">(05:25:39 PM)</font> <b>warbo:</b></font> Gah!<br/>
+<font color="#A82F2F"><font size="2">(05:25:45 PM)</font> <b>warbo:</b></font> thanks Lethalman<br/>
+<font color="#A82F2F"><font size="2">(05:25:48 PM)</font> <b>warbo:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(05:27:12 PM)</font> <b>warbo:</b></font> works fine now<br/>
+<font color="#A82F2F"><font size="2">(05:27:30 PM)</font> <b>warbo:</b></font> I thought I&apos;d misunderstood what propagatedBuildInputs was for, since that&apos;s the first time I&apos;ve used it<br/>
+<font color="#A82F2F"><font size="2">(05:30:55 PM)</font> <b>modafinil_:</b></font> hey, strange question, not sure how nixos related it is (other than it happens on nixos) -- but my keyboard repeat rate constantly resets, i&apos;ll run xset, and then 5 minutes later it will be reset again<br/>
+<font color="#A82F2F"><font size="2">(05:30:57 PM)</font> <b>modafinil_:</b></font> any ideas?<br/>
+<font color="#A82F2F"><font size="2">(05:32:43 PM)</font> <b>modafinil_:</b></font> (i did at some point install xfce environment, but i got rid of it, just run xmonad + trappings, no &apos;real&apos; DE)<br/>
+<font size="2">(05:43:57 PM)</font><b> boegel is now known as boegel|afk</b><br/>
+<font color="#A82F2F"><font size="2">(05:51:14 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bencef opened pull request #6835: Add alsa-firmware package (master...alsa_firmware) http://git.io/hkqo<br/>
+<font color="#A82F2F"><font size="2">(05:53:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] magnetophon opened pull request #6836: add mutt-kz: a fork of mutt with sidebar and notmuch support. (master...mutt-kz-new-dir) http://git.io/hkYk<br/>
+<font color="#A82F2F"><font size="2">(05:55:46 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] magnetophon closed pull request #6435: add mutt-kz; a fork of mutt that supports notmuch (master...mutt-kz-new) http://git.io/AfKk<br/>
+<font color="#A82F2F"><font size="2">(05:58:45 PM)</font> <b>sternenseemann:</b></font> aszlig: how does aliasing work?<br/>
+<font color="#A82F2F"><font size="2">(05:59:04 PM)</font> <b>sternenseemann:</b></font> aszlig: because i&apos;ve now got the problem that nix is missing cabal<br/>
+<font color="#A82F2F"><font size="2">(05:59:51 PM)</font> <b>sternenseemann:</b></font> aszlig: attribute ‘cabal’ missing, at &quot;/nix/store/…/nixpkgs/pkgs/top-level/all-packages.nix&quot;:10169:102<br/>
+<font size="2">(06:20:17 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(06:24:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] gridaphobe pushed 1 new commit to master: http://git.io/hkii<br/>
+<font color="#A82F2F"><font size="2">(06:24:12 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master c843ceb Eric Seidel: emacs-packages: add two themes<br/>
+<font color="#A82F2F"><font size="2">(06:39:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub pushed 1 new commit to master: http://git.io/hkHL<br/>
+<font color="#A82F2F"><font size="2">(06:39:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 30ec369 Pascal Wittmann: xine-ui: update from 0.99.7 to 0.99.9<br/>
+<font color="#A82F2F"><font size="2">(06:46:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 3 new commits to master: http://git.io/hkd9<br/>
+<font color="#A82F2F"><font size="2">(06:46:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e9cd877 Joachim Fasting: nixos: resolve uid/gid conflicts...<br/>
+<font color="#A82F2F"><font size="2">(06:46:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 3518b76 Joachim Fasting: TCSD: use tss user/group instead of nginx...<br/>
+<font color="#A82F2F"><font size="2">(06:46:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 56bb114 Peter Simons: Merge pull request #6722 from joachifm/fix-id-mismatches...<br/>
+<font color="#A82F2F"><font size="2">(06:47:38 PM)</font> <b>sellout:</b></font> So, playing around with a new NixOS instance … I disabled mutableUsers, but I have created a user in the wheel group with an authorized key … how do I sudo now?<br/>
+<font color="#A82F2F"><font size="2">(06:48:00 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub closed pull request #6778: Update oraclejdk8 package to use patch 40 (latest) (master...update-oraclejdk8) http://git.io/pSOe<br/>
+<font size="2">(06:50:22 PM)</font><b> suvash_away is now known as suvash</b><br/>
+<font size="2">(06:52:50 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

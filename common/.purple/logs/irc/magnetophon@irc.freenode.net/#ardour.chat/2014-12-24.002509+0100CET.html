@@ -1,0 +1,289 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Wed 24 Dec 2014 12:25:09 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Wed 24 Dec 2014 12:25:09 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(12:25:10 AM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(12:25:10 AM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(12:29:53 AM)</font> <b>the_CLA_2:</b></font> rgareus, las: Turning of LED meter style is broken.<br/>
+<font color="#A82F2F"><font size="2">(12:31:40 AM)</font> <b>mrgwillickers:</b></font> everytime I export my file, it exports silence, the same length as the file?  help?<br/>
+<font color="#A82F2F"><font size="2">(12:33:09 AM)</font> <b>rgareus:</b></font> mrgwillickers: by default ardour export the &apos;master bus&apos; - are all your tracks routed there?<br/>
+<font color="#A82F2F"><font size="2">(12:33:27 AM)</font> <b>the_CLA_2:</b></font> rgareus, las: Well actually it still works, but now only after switching the meter type. So not updated immediately anymore. Same goes for meter line up level scale.<br/>
+<font color="#A82F2F"><font size="2">(12:34:08 AM)</font> <b>rgareus:</b></font> mrgwillickers: also check the &apos;channels&apos; to export. there&apos;s a tab in the export dialog. maybe you unselected the master bus accidentally<br/>
+<font color="#A82F2F"><font size="2">(12:34:58 AM)</font> <b>rgareus:</b></font> the_CLA_2: I suppose that&apos;s work-in-progress and not unexpected las is migrating the UIConfiguration out of gtk2_ardour codebase and that&apos;s not done, yet.<br/>
+<font color="#A82F2F"><font size="2">(12:35:22 AM)</font> <b>rgareus:</b></font> the_CLA_2: but he may also have missed it. dunno. <br/>
+<font color="#A82F2F"><font size="2">(12:35:23 AM)</font> <b>mrgwillickers:</b></font> rgareus: I defintely have the channels selected and as far as I can tell they are going through the master bus.  When they play it plays and shows sound.<br/>
+<font color="#A82F2F"><font size="2">(12:35:25 AM)</font> <b>the_CLA_2:</b></font> rgareus: Ah, ok. <br/>
+<font color="#A82F2F"><font size="2">(12:36:08 AM)</font> <b>the_CLA_2:</b></font> Anyway... bedtime for me. Good night. :)<br/>
+<font color="#A82F2F"><font size="2">(12:42:40 AM)</font> <b>rgareus:</b></font> mrgwillickers: no idea, then. It should work.<br/>
+<font color="#A82F2F"><font size="2">(12:42:53 AM)</font> <b>rgareus:</b></font> mrgwillickers: which version or ardour is that?  which file-format are you exporting?<br/>
+<font color="#A82F2F"><font size="2">(12:43:01 AM)</font> <b>mrgwillickers:</b></font> That&apos;s what I thought  :(<br/>
+<font color="#A82F2F"><font size="2">(12:43:27 AM)</font> <b>rgareus:</b></font> mrgwillickers: can you run   sndfile-info /path/to/exported_audio.wav   # and pastebin the output?<br/>
+<font color="#A82F2F"><font size="2">(12:44:35 AM)</font> <b>rgareus:</b></font> mrgwillickers: maybe the file is good, but you&apos;re exporting a 32bit float wav and play it a player that does not support it... or the the player is not a jack-application and hence you don&apos;t hear anything (while ardour/jack is still running)<br/>
+<font color="#A82F2F"><font size="2">(12:45:41 AM)</font> <b>rgareus:</b></font> anyway  sndfile-info  should tell if it&apos;s all silent or not.<br/>
+<font color="#A82F2F"><font size="2">(12:49:36 AM)</font> <b>mrgwillickers:</b></font> File : /home/brite/ss1/export/ss8.wav Length : 3191210618 RIFF : 3191210610 WAVE fmt  : 16   Format        : 0x1 =&gt; WAVE_FORMAT_PCM   Channels      : 2   Sample Rate   : 44100   Block Align   : 6   Bit Width     : 24   Bytes/sec     : 264600 data : 3191210574 End  ---------------------------------------- Sample Rate : 44100 Frames      : 531868429 Channels    : 2 Format      : 0x00010003 Sections    : 1 Seekable    : TRUE Durat<br/>
+<font color="#A82F2F"><font size="2">(12:49:47 AM)</font> <b>mrgwillickers:</b></font> also I closed Jack to no result<br/>
+<font color="#A82F2F"><font size="2">(12:50:42 AM)</font> <b>rgareus:</b></font> please don&apos;t paste here use a paste site like pastebin.com or similar in the future.<br/>
+<font color="#A82F2F"><font size="2">(12:50:57 AM)</font> <b>rgareus:</b></font> it was cut off after &quot;Seekable    : TRUE Durat&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:51:21 AM)</font> <b>rgareus:</b></font> the &apos;peak level&apos; is after that<br/>
+<font color="#A82F2F"><font size="2">(12:51:58 AM)</font> <b>rgareus:</b></font> mrgwillickers: is &quot;Signal Max&quot; at 0 (-inf dB)<br/>
+<font color="#A82F2F"><font size="2">(12:52:43 AM)</font> <b>rgareus:</b></font> otherwise it looks good so far.<br/>
+<font color="#A82F2F"><font size="2">(12:53:33 AM)</font> <b>rgareus:</b></font> except 24bit wav  - not all players can handle that.   try 16bit<br/>
+<font color="#A82F2F"><font size="2">(12:54:24 AM)</font> <b>rgareus:</b></font> for a final master on export 16bit are more than sufficient.  see also http://xiph.org/~xiphmont/demo/neil-young.html<br/>
+<font color="#A82F2F"><font size="2">(12:54:25 AM)</font> <b>LAbot:</b></font> Title: 24/192 Music Downloads are Very Silly Indeed (at xiph.org)<br/>
+<font color="#A82F2F"><font size="2">(12:54:56 AM)</font> <b>mrgwillickers:</b></font> 24 bit was  the latest try <br/>
+<font color="#A82F2F"><font size="2">(12:55:03 AM)</font> <b>mrgwillickers:</b></font> sorry about the pastebin thing btw<br/>
+<font color="#A82F2F"><font size="2">(12:55:13 AM)</font> <b>rgareus:</b></font> no problem<br/>
+<font color="#A82F2F"><font size="2">(12:55:35 AM)</font> <b>rgareus:</b></font> just paste the URL to the pastebin paste here in the chat.<br/>
+<font color="#A82F2F"><font size="2">(12:56:41 AM)</font> <b>mrgwillickers:</b></font> but yeah that was the end in sndfile info anyways<br/>
+<font color="#A82F2F"><font size="2">(12:57:28 AM)</font> <b>rgareus:</b></font> mrgwillickers:  the line was too long and cut off. <br/>
+<font color="#A82F2F"><font size="2">(12:57:44 AM)</font> <b>rgareus:</b></font> mrgwillickers: last I saw was &quot;Durat&quot; &lt;END&gt;<br/>
+<font color="#A82F2F"><font size="2">(12:58:23 AM)</font> <b>rgareus:</b></font> the /intersting/ part is the &quot;Signal Max&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:59:05 AM)</font> <b>mrgwillickers:</b></font> yeah it doesn&apos;t have that<br/>
+<font color="#A82F2F"><font size="2">(12:59:33 AM)</font> <b>rgareus:</b></font> odd<br/>
+<font color="#A82F2F"><font size="2">(01:00:16 AM)</font> <b>mrgwillickers:</b></font> http://pastebin.com/aUq5RraN<br/>
+<font color="#A82F2F"><font size="2">(01:01:41 AM)</font> <b>rgareus:</b></font> maybe an old version of sndfile-info.   here it looks like  http://pastebin.com/DtQ7bTwC <br/>
+<font color="#A82F2F"><font size="2">(01:02:30 AM)</font> <b>rgareus:</b></font> mrgwillickers: ok. when you re-import the file into ardour, is it also silent?<br/>
+<font color="#A82F2F"><font size="2">(01:02:47 AM)</font> <b>rgareus:</b></font> mrgwillickers: or just browse to it in the   session &gt; import  and audition there<br/>
+<font color="#A82F2F"><font size="2">(01:05:21 AM)</font> <b>mrgwillickers:</b></font> WHOA! it sounds like Jabba the hutt when I do that.  Really slow and low and weird<br/>
+<font color="#A82F2F"><font size="2">(01:06:16 AM)</font> <b>rgareus:</b></font> mrgwillickers: which version or ardour is that?<br/>
+<font color="#A82F2F"><font size="2">(01:07:02 AM)</font> <b>rgareus:</b></font> menu &gt; help &gt; about<br/>
+<font color="#A82F2F"><font size="2">(01:07:32 AM)</font> <b>mrgwillickers:</b></font> ardour 2.8.16<br/>
+<font color="#A82F2F"><font size="2">(01:07:43 AM)</font> <b>rgareus:</b></font> aah. that&apos;s ancient<br/>
+<font color="#A82F2F"><font size="2">(01:07:53 AM)</font> <b>rgareus:</b></font> resampling during auditioning was added in 3.3 or 3.4<br/>
+<font color="#A82F2F"><font size="2">(01:08:22 AM)</font> <b>mrgwillickers:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(01:08:30 AM)</font> <b>rgareus:</b></font> latest version is 3.5.403<br/>
+<font color="#A82F2F"><font size="2">(01:09:04 AM)</font> <b>rgareus:</b></font> and available on many distributions as &apos;ardour3&apos;  or from http://ardour.org/download<br/>
+<font color="#A82F2F"><font size="2">(01:10:08 AM)</font> <b>rgareus:</b></font> either way.  it basically means the file works  (and the original session is not 44.1K)<br/>
+<font color="#A82F2F"><font size="2">(01:10:37 AM)</font> <b>rgareus:</b></font> and whatever &apos;other player&apos; does not understand 24bit wav.<br/>
+<font color="#A82F2F"><font size="2">(01:10:59 AM)</font> <b>rgareus:</b></font> mplayer -ao jack /home/brite/ss1/export/ss8.wav    # should play it<br/>
+<font color="#A82F2F"><font size="2">(01:12:09 AM)</font> <b>mrgwillickers:</b></font> you know I have ardour 3 but I just realized that for some reason I&apos;m running the old version.  Oversight I guess.<br/>
+<font color="#A82F2F"><font size="2">(01:14:50 AM)</font> <b>mrgwillickers:</b></font> Also that mplayer worked.  Thank you very much for your help<br/>
+<font color="#A82F2F"><font size="2">(01:16:57 AM)</font> <b>rgareus:</b></font> ok, so it&apos;s either 24bit or some jack/non-jack player app issue<br/>
+<font color="#A82F2F"><font size="2">(01:19:01 AM)</font> <b>mrgwillickers:</b></font> it&apos;s jack, I just tried it in another player that uses alsa or jack and it works in jack not alsa.<br/>
+<font color="#A82F2F"><font size="2">(01:20:36 AM)</font> <b>rgareus:</b></font> well, maybe the soundcard cannot do 24 natively. and said player does not support changing bitrates.<br/>
+<font color="#A82F2F"><font size="2">(01:20:42 AM)</font> <b>rgareus:</b></font> (mplayer can)<br/>
+<font color="#A82F2F"><font size="2">(01:21:12 AM)</font> <b>rgareus:</b></font> mplayer -ao alsa file.wav   # alsa should be the default, though maybe no longer these days with pulseaudio around.<br/>
+<font color="#A82F2F"><font size="2">(01:21:43 AM)</font> <b>rgareus:</b></font> anyway.<br/>
+<font color="#A82F2F"><font size="2">(01:23:13 AM)</font> <b>mrgwillickers:</b></font> exporting as 16 bit hsould be done in about 30 seconds and I&apos;ll know for sure<br/>
+<font color="#A82F2F"><font size="2">(01:23:48 AM)</font> <b>mrgwillickers:</b></font> because -ao alsa freaked out<br/>
+<font color="#A82F2F"><font size="2">(01:24:59 AM)</font> <b>rgareus:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(01:27:58 AM)</font> <b>mrgwillickers:</b></font> 16 bit has the same problem.  Weird I thought vlc was uing jack, guess not.  Anywas thanks again for all your help<br/>
+<font size="2">(01:28:33 AM)</font><b> mrgwillickers left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(01:30:27 AM)</font> <b>rgareus:</b></font> vlc can be configured to use jack<br/>
+<font color="#A82F2F"><font size="2">(01:30:32 AM)</font> <b>rgareus:</b></font> there&apos;s a preference somewhere<br/>
+<font color="#A82F2F"><font size="2">(01:30:57 AM)</font> <b>rgareus:</b></font> (or maybe it needs an add-on, I don&apos;t remember. but here it plays just fine with jack)<br/>
+<font color="#A82F2F"><font size="2">(01:31:50 AM)</font> <b>rgareus:</b></font> anyway, not an ardour problem after all.  phew :)<br/>
+<font color="#A82F2F"><font size="2">(01:49:35 AM)</font> <b>rgareus:</b></font> a huge package just arrived.<br/>
+<font color="#062585"><font size="2">(01:49:41 AM)</font> <b>***rgareus</b></font> shakes it<br/>
+<font color="#A82F2F"><font size="2">(01:49:50 AM)</font> <b>rgareus:</b></font> rattles like ardour-4.0<br/>
+<font color="#062585"><font size="2">(01:49:59 AM)</font> <b>***rgareus</b></font> can&apos;t wait until tomorrow night :)<br/>
+<font color="#A82F2F"><font size="2">(02:22:20 AM)</font> <b>Ricardus:</b></font> YOU TOO LAS!<br/>
+<font color="#A82F2F"><font size="2">(02:41:13 AM)</font> <b>naught101:</b></font> rgareus: *where* does it save? To the file? What if I accidentally delete a track and then do enough things to run it out of undo history?<br/>
+<font color="#A82F2F"><font size="2">(02:41:27 AM)</font> <b>naught101:</b></font> (sorry for the slow response :D)<br/>
+<font color="#A82F2F"><font size="2">(02:48:46 AM)</font> <b>rgareus:</b></font> naught101: periodic saves are just like regular saves. and yes if you run out of undo history.. then you&apos;re out of luck<br/>
+<font color="#A82F2F"><font size="2">(02:48:59 AM)</font> <b>naught101:</b></font> blegh<br/>
+<font color="#A82F2F"><font size="2">(02:48:59 AM)</font> <b>rgareus:</b></font> naught101: you can disable the periodic saves if you wish<br/>
+<font color="#A82F2F"><font size="2">(02:49:39 AM)</font> <b>rgareus:</b></font> naught101: most users do want them (particularly when recording live or working in a stressfull studio situation)<br/>
+<font color="#A82F2F"><font size="2">(02:49:48 AM)</font> <b>naught101:</b></font> would be good to make periodic saves go to blah.ardour.auto or something<br/>
+<font color="#A82F2F"><font size="2">(02:49:50 AM)</font> <b>rgareus:</b></font> naught101: but we understand that others don&apos;t. hence the preference<br/>
+<font color="#A82F2F"><font size="2">(02:50:03 AM)</font> <b>naught101:</b></font> and then move that to blah.ardour on a manual save<br/>
+<font color="#A82F2F"><font size="2">(02:50:45 AM)</font> <b>rgareus:</b></font> something like this happens when toggling record-enable. <br/>
+<font color="#A82F2F"><font size="2">(02:51:08 AM)</font> <b>rgareus:</b></font> anyway, file a feature request. <br/>
+<font color="#A82F2F"><font size="2">(02:55:06 AM)</font> <b>rgareus:</b></font> ideally ardour would keep a git-like history of the session.  but with huge audio-files that never change (non-destructive) git does not lend itself too well.<br/>
+<font color="#A82F2F"><font size="2">(03:10:09 AM)</font> <b>naught101:</b></font> rgareus: Yeah, automatic git might be overkill :) You can always stick the project in a git repo and manage that yourself.<br/>
+<font color="#A82F2F"><font size="2">(03:12:45 AM)</font> <b>FlorianBd:</b></font> rgareus: what? A4 is for Xmas?<br/>
+<font color="#A82F2F"><font size="2">(03:14:48 AM)</font> <b>rgareus:</b></font> FlorianBd: I wish<br/>
+<font color="#A82F2F"><font size="2">(03:32:43 AM)</font> <b>naught101:</b></font> rgareus: done: http://tracker.ardour.org/view.php?id=6084<br/>
+<font color="#A82F2F"><font size="2">(03:32:45 AM)</font> <b>LAbot:</b></font> Title: 0006084: Autosave/periodic backups overwrites project file, doesn&apos;t save often enough. - MantisBT (at tracker.ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(03:39:12 AM)</font> <b>FlorianBd:</b></font> naught101: added a little note to #6084<br/>
+<font color="#A82F2F"><font size="2">(03:39:59 AM)</font> <b>naught101:</b></font> FlorianBd: painful. What other actions take multiple steps to undo?<br/>
+<font color="#A82F2F"><font size="2">(03:40:33 AM)</font> <b>naught101:</b></font> FlorianBd: http://tracker.ardour.org/view.php?id=5608 would probably fix that problem.<br/>
+<font color="#A82F2F"><font size="2">(03:40:34 AM)</font> <b>LAbot:</b></font> Title: 0005608: Velocity track idea - MantisBT (at tracker.ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(03:40:49 AM)</font> <b>FlorianBd:</b></font> naught101: most of them in the midi editings I use to do. Need to study that to figure out some examples.<br/>
+<font color="#A82F2F"><font size="2">(03:41:43 AM)</font> <b>rgareus:</b></font> naught101: thanks<br/>
+<font color="#A82F2F"><font size="2">(03:41:46 AM)</font> <b>naught101:</b></font> How do you add relationships in the issue tracer?<br/>
+<font color="#A82F2F"><font size="2">(03:41:50 AM)</font> <b>naught101:</b></font> tracker*<br/>
+<font color="#A82F2F"><font size="2">(03:42:02 AM)</font> <b>FlorianBd:</b></font> naught101: love this idea! I love it mostly for another reason: it helps seeing the timing of the notes<br/>
+<font color="#A82F2F"><font size="2">(03:42:25 AM)</font> <b>rgareus:</b></font> naught101: IIRC the default period is 5 minutes. A while ago there was some discussion about auto-save (depending on operation, not time) but it went nowhere.<br/>
+<font color="#A82F2F"><font size="2">(03:42:54 AM)</font> <b>naught101:</b></font> rgareus: ah, ok. It&apos;s odd that that project I mentioned didn&apos;t auto-save then...<br/>
+<font color="#A82F2F"><font size="2">(03:44:01 AM)</font> <b>rgareus:</b></font> there is no *auto* save.<br/>
+<font color="#A82F2F"><font size="2">(03:45:02 AM)</font> <b>rgareus:</b></font> naught101: can you check Edit &gt; Preferences &gt; Misc &gt; Make Periodic backups of session file<br/>
+<font color="#A82F2F"><font size="2">(03:45:44 AM)</font> <b>naught101:</b></font> rgareus: I&apos;m not sure what the practical difference is. That option was on for that session.<br/>
+<font color="#A82F2F"><font size="2">(03:52:15 AM)</font> <b>FlorianBd:</b></font> naught101: added a note to #5608<br/>
+<font color="#A82F2F"><font size="2">(03:53:07 AM)</font> <b>naught101:</b></font> good points.<br/>
+<font color="#A82F2F"><font size="2">(03:54:29 AM)</font> <b>naught101:</b></font> I&apos;ve been bagging Ardour&apos;s midi editor UI for a while, but I actually think that that issue would solve most major problems. There are some niggling little bugs that are hard to pin-point, but they&apos;ll all get ironed out eventually.<br/>
+<font color="#A82F2F"><font size="2">(03:54:42 AM)</font> <b>naught101:</b></font> FlorianBd: you make electronic music with ardour?<br/>
+<font color="#A82F2F"><font size="2">(03:54:53 AM)</font> <b>FlorianBd:</b></font> naught101: orchestra<br/>
+<font color="#A82F2F"><font size="2">(03:54:58 AM)</font> <b>naught101:</b></font> ah, ok<br/>
+<font color="#A82F2F"><font size="2">(03:55:21 AM)</font> <b>naught101:</b></font> FlorianBd: All MIDI programmed, or just partly?<br/>
+<font color="#A82F2F"><font size="2">(03:57:18 AM)</font> <b>FlorianBd:</b></font> naught101: heavy setup. MIDI sent directly from tracks out to LinuxSampler on another machine via netjack. It comes back in Audio into plenty of tracks in ardour. Then I only use volume/pan in ardour, the rest is analog insert. So I don&apos;t use any plugin in the end.<br/>
+<font color="#A82F2F"><font size="2">(03:57:49 AM)</font> <b>naught101:</b></font> Wow, cool. That sounds like it could be painful sometimes :D<br/>
+<font color="#A82F2F"><font size="2">(03:59:32 AM)</font> <b>FlorianBd:</b></font> naught101: I&apos;m not done with the setup because expensive. I miss mostly some analog gears right now. But in a couple months I should be ok. I simply enable the insert on a track when I&apos;m ready to EQ/comp it, and that midi becomes audio. Track by track.<br/>
+<font color="#A82F2F"><font size="2">(04:01:04 AM)</font> <b>FlorianBd:</b></font> naught101: I also use a Mackie Control because so much handier... and I plan to get 5 extenders :)<br/>
+<font color="#A82F2F"><font size="2">(04:01:14 AM)</font> <b>naught101:</b></font> o_O<br/>
+<font color="#A82F2F"><font size="2">(04:06:07 AM)</font> <b>FlorianBd:</b></font> naught101: http://dl.florianbador.com/20141223-ardour-screenshot.png<br/>
+<font color="#A82F2F"><font size="2">(04:14:00 AM)</font> <b>naught101:</b></font> timbyr: responded to your comment :)<br/>
+<font color="#A82F2F"><font size="2">(04:16:48 AM)</font> <b>timbyr:</b></font> naught101, but that functionality isn&apos;t really related to autosave is it? you just want Ardour to open the last session automatically after a crash right?<br/>
+<font color="#A82F2F"><font size="2">(04:18:30 AM)</font> <b>naught101:</b></font> timbyr: yep, that&apos;s true. It&apos;s kind of LibreOffice type crash behaviour - if there&apos;s a crashed session, it should ideally be fixed as soon as possible, even if it just means recovering the session, checking it&apos;s ok, and saving and closing.<br/>
+<font color="#A82F2F"><font size="2">(04:21:18 AM)</font> <b>timbyr:</b></font> naught101, sounds like a good idea to me.<br/>
+<font color="#A82F2F"><font size="2">(04:21:51 AM)</font> <b>naught101:</b></font> This would also be a killer MIDI editing feature: http://tracker.ardour.org/view.php?id=5328<br/>
+<font color="#A82F2F"><font size="2">(04:21:53 AM)</font> <b>LAbot:</b></font> Title: 0005328: new checkbox &quot;change track height to largest when midi edit mode is engaged for a selected track/region&quot; - MantisBT (at tracker.ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(04:26:58 AM)</font> <b>rgareus:</b></font> naught101: just press &apos;f&apos;<br/>
+<font color="#A82F2F"><font size="2">(04:27:49 AM)</font> <b>rgareus:</b></font> there&apos;s a also branch for a visual-undo (separate undo stack)<br/>
+<font color="#A82F2F"><font size="2">(04:27:53 AM)</font> <b>naught101:</b></font> rgareus: alt+z is better, but it doesn&apos;t go back to what it was when editing mode is exited<br/>
+<font color="#A82F2F"><font size="2">(04:29:00 AM)</font> <b>rgareus:</b></font> but yes the a preference to auto-maximize when starting to edit (and restore after) make sense<br/>
+<font color="#062585"><font size="2">(04:29:08 AM)</font> <b>***timbyr</b></font> imagines an automatic zoom to selection option where you select a few tracks/regions/etc and after a configured delay zoom is automatic<br/>
+<font color="#A82F2F"><font size="2">(04:29:21 AM)</font> <b>rgareus:</b></font> or a modifier  shift+click when entering edit mode or something.<br/>
+<font color="#A82F2F"><font size="2">(04:30:00 AM)</font> <b>rgareus:</b></font> timbyr: not sure if i&apos;d want that.<br/>
+<font color="#A82F2F"><font size="2">(04:30:27 AM)</font> <b>timbyr:</b></font> rgareus, me neither. not much work to do it explicitly. might be good for touch based UI<br/>
+<font color="#A82F2F"><font size="2">(04:30:44 AM)</font> <b>rgareus:</b></font> timbyr: ie select for cut/move.  auto-zoom will get in the way<br/>
+<font color="#A82F2F"><font size="2">(04:37:04 AM)</font> <b>naught101:</b></font> as a vim user, I want ESC to map to &quot;zoom to session, fit all tracks&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:37:11 AM)</font> <b>naught101:</b></font> is there a way to do that currently?<br/>
+<font color="#A82F2F"><font size="2">(08:06:47 AM)</font> <b>naught101:</b></font> rgareus: just going through your meter plugins in bitwig, via carla. Some nice stuff there.<br/>
+<font color="#A82F2F"><font size="2">(08:07:17 AM)</font> <b>naught101:</b></font> rgareus: do you think it would be difficult to make something like https://www.kfs.oeaw.ac.at/img/STx/STx-RTA_1.png in the same framework?<br/>
+<font color="#A82F2F"><font size="2">(08:44:00 AM)</font> <b>scary_hallo:</b></font> Hi, is anyone here who can help me<br/>
+<font color="#A82F2F"><font size="2">(08:44:02 AM)</font> <b>scary_hallo:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(08:49:01 AM)</font> <b>scary_hallo:</b></font>  OK. Solved it myself<br/>
+<font color="#A82F2F"><font size="2">(08:49:04 AM)</font> <b>scary_hallo:</b></font> Bye<br/>
+<font size="2">(08:49:15 AM)</font><b> scary_hallo left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(09:20:35 AM)</font> <b>pop:</b></font> where I can find a level meter that detects intersample peaks and mastering limiter that uses upsampling to reduce aliasing and intersample clipping?<br/>
+<font color="#A82F2F"><font size="2">(09:20:39 AM)</font> <b>pop:</b></font> thanks<br/>
+<font color="#A82F2F"><font size="2">(10:33:29 AM)</font> <b>rgareus:</b></font> pop: ttps://github.com/x42/meters.lv2#meterslv2---audio-level-meters (comes with the x42-plugins pack on most distros) has true-peak meters<br/>
+<font color="#A82F2F"><font size="2">(10:34:45 AM)</font> <b>rgareus:</b></font> pop: mastering-limitited, don&apos;t trust any upsampling ones. just ues the fast-lookahead-limiter and set it to -1dB. or -2dB. then normalize the export afterward<br/>
+<font color="#A82F2F"><font size="2">(10:36:25 AM)</font> <b>rgareus:</b></font> naught101: not too hard, there&apos;s a prototype for a spectrum analyzer but it&apos;s not ready. just use &apos;japa&apos;, or &apos;jaaa&apos;. those tools are unbeatable and the reason there likley won&apos;t ever be one in the meters.lv2<br/>
+<font color="#A82F2F"><font size="2">(10:36:59 AM)</font> <b>naught101:</b></font> rgareus: ok, haven&apos;t come across them yet...<br/>
+<font color="#A82F2F"><font size="2">(10:40:07 AM)</font> <b>naught101:</b></font> rgareus: ahh, because they&apos;re not LV2... not really suited to my work-flow<br/>
+<font color="#A82F2F"><font size="2">(10:41:39 AM)</font> <b>rgareus:</b></font> true they&apos;re jack applications.<br/>
+<font color="#A82F2F"><font size="2">(10:44:42 AM)</font> <b>rgareus:</b></font> naught101: the STx-RTA_1.png also seems to be a standalone application.<br/>
+<font color="#A82F2F"><font size="2">(11:23:14 AM)</font> <b>pop:</b></font> rgareus: normalize after conv.in 44.1/16bit? I looking for safe step to come closer to 0dB<br/>
+<font color="#A82F2F"><font size="2">(11:27:38 AM)</font> <b>rgareus:</b></font> pop: yes re-sampling will screw up things again anyway.<br/>
+<font color="#A82F2F"><font size="2">(11:28:46 AM)</font> <b>rgareus:</b></font> pop: unless your export is at the same sample-rate as the session, using a true-peak based limited is useless. and even if the SR is the same you just want to cut them.<br/>
+<font color="#A82F2F"><font size="2">(11:29:28 AM)</font> <b>rgareus:</b></font> s/limited/limite*R*/ <br/>
+<font color="#A82F2F"><font size="2">(11:29:58 AM)</font> <b>rgareus:</b></font> rrrrrrr that the 2nd time in a row my finger slipped from r to d.<br/>
+<font color="#A82F2F"><font size="2">(11:31:13 AM)</font> <b>rgareus:</b></font> pop: if you really want to squeeze out the last dB.. you&apos;re better of with  http://harrisonconsoles.com/site/xtmc.html or a similar multi-band compressor.<br/>
+<font color="#A82F2F"><font size="2">(11:31:14 AM)</font> <b>LAbot:</b></font> Title: Harrison Consoles: XT-MC Multi-Band Compressor (at harrisonconsoles.com)<br/>
+<font color="#A82F2F"><font size="2">(11:33:35 AM)</font> <b>rgareus:</b></font> these days most playback devices do have replay-gain. and besides the last dBFS is is usually just lost in the gain-dial of consumer devices.<br/>
+<font color="#A82F2F"><font size="2">(11:34:22 AM)</font> <b>rgareus:</b></font> try lowering the master-bus by 1dB. and see how much you need to increase the amp&apos;s gain dial to compensate.<br/>
+<font color="#A82F2F"><font size="2">(11:36:54 AM)</font> <b>pop:</b></font> rgareus: Yes, I now do. But looking for a better way. :)<br/>
+<font color="#A82F2F"><font size="2">(11:37:06 AM)</font> <b>pop:</b></font> rgareus: is there good idea to make mastering in 44.1/24bit -&gt; Dither -&gt; 44.1/16bit ?<br/>
+<font color="#A82F2F"><font size="2">(11:37:07 AM)</font> <b>rgareus:</b></font> for broatcast the &apos;new&apos; European standard is an average of -23LU (approx -23 dBFS RMS).  Let the user turn up the gain dial again :)<br/>
+<font color="#A82F2F"><font size="2">(11:37:30 AM)</font> <b>rgareus:</b></font> EBU R128 is already 10 years old, though but is only recently being enforced.<br/>
+<font color="#A82F2F"><font size="2">(11:38:21 AM)</font> <b>rgareus:</b></font> pop: Unless you do classical music there&apos;s no reason for dithering.<br/>
+<font color="#A82F2F"><font size="2">(11:38:43 AM)</font> <b>rgareus:</b></font> well classical music with &gt; 60dB dynamic range<br/>
+<font color="#A82F2F"><font size="2">(11:38:44 AM)</font> <b>rgareus:</b></font> or so<br/>
+<font color="#A82F2F"><font size="2">(11:39:05 AM)</font> <b>pop:</b></font> faders?<br/>
+<font color="#A82F2F"><font size="2">(11:39:28 AM)</font> <b>rgareus:</b></font> faders?<br/>
+<font color="#A82F2F"><font size="2">(11:40:02 AM)</font> <b>pop:</b></font> digital faders upcome from -inf dB<br/>
+<font color="#A82F2F"><font size="2">(11:40:13 AM)</font> <b>rgareus:</b></font> a really good explanation of Dither (and its application) is  https://wiki.xiph.org/Videos/Digital_Show_and_Tell <br/>
+<font color="#A82F2F"><font size="2">(11:40:15 AM)</font> <b>LAbot:</b></font> Title: Videos/Digital Show and Tell - XiphWiki (at wiki.xiph.org)<br/>
+<font color="#A82F2F"><font size="2">(11:40:51 AM)</font> <b>rgareus:</b></font> pop: you dither the final mix.  (not individual tracks)<br/>
+<font color="#A82F2F"><font size="2">(11:41:45 AM)</font> <b>rgareus:</b></font> most pop/rock music these days has a dynamic range of less than 3dB.  Dither won&apos;t make any difference.<br/>
+<font color="#A82F2F"><font size="2">(11:42:35 AM)</font> <b>rgareus:</b></font> it addresses the noise-floor below -96dB (in the final mix) and no ear can tell the difference.<br/>
+<font color="#A82F2F"><font size="2">(11:44:13 AM)</font> <b>pop:</b></font> it&apos;s true, but in this case dither make no harm<br/>
+<font color="#A82F2F"><font size="2">(11:46:09 AM)</font> <b>rgareus:</b></font> I like the quote from the monty&apos;s video:  &quot;It&apos;s reasonable to treat dither as an insurance policy that gives several extra decibels of dynamic range just in case. That said no one ever ruined a great recording by not dithering the final master.&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:46:58 AM)</font> <b>rgareus:</b></font> still, the effect it&apos;s 100dBFS down.   might be relevant for some crazy Beethoven.<br/>
+<font color="#A82F2F"><font size="2">(11:48:58 AM)</font> <b>rgareus:</b></font> it was important back in the day with analog tapes, though.<br/>
+<font color="#A82F2F"><font size="2">(11:52:31 AM)</font> <b>pop:</b></font> rgareus: thanks for the argumentsin many respects agree with you. I will do &quot;2-pass&quot; export. :-)<br/>
+<font color="#A82F2F"><font size="2">(11:53:31 AM)</font> <b>rgareus:</b></font> pop: you&apos;re welcome<br/>
+<font color="#A82F2F"><font size="2">(11:54:58 AM)</font> <b>rgareus:</b></font> naught101: you commented on http://tracker.ardour.org/view.php?id=4367  - were you able to parse it?  I don&apos;t see any reference to midi-velocity in the original post.<br/>
+<font color="#A82F2F"><font size="2">(11:55:00 AM)</font> <b>LAbot:</b></font> Title: 0004367: editor audio midi + mixer - MantisBT (at tracker.ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(11:57:36 AM)</font> <b>naught101:</b></font> rgareus: it&apos;s asking for a separate midi-editor window/pane, like qtractor or similar. That&apos;s what my bug (5832) was also asking for. However, one of the biggest reasons for my bug was the lack of midi velovity editor. I had not considered the idea of a velocity editor in an automation-like track<br/>
+<font color="#A82F2F"><font size="2">(11:58:31 AM)</font> <b>naught101:</b></font> rgareus: For me, I think both of those bugs could be closed, if http://tracker.ardour.org/view.php?id=5608 happens<br/>
+<font color="#A82F2F"><font size="2">(11:58:32 AM)</font> <b>LAbot:</b></font> Title: 0005608: Velocity track idea - MantisBT (at tracker.ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(11:59:58 AM)</font> <b>naught101:</b></font> rgareus: does that make sense to you?<br/>
+<font color="#A82F2F"><font size="2">(12:04:32 PM)</font> <b>rgareus:</b></font> naught101: truth be told, after reading it 3 times, I still I have no idea what #4367 is talking about :)  even the summary is a wash: &quot;editor audio midi + mixer&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:05:05 PM)</font> <b>rgareus:</b></font> ardour is not an editor to begin with.   and  audio midi + mixer.  hell yeah.<br/>
+<font color="#A82F2F"><font size="2">(12:06:05 PM)</font> <b>naught101:</b></font> rgareus: Ardour has a built in MIDI editor already...<br/>
+<font color="#A82F2F"><font size="2">(12:06:25 PM)</font> <b>rgareus:</b></font> aah true.<br/>
+<font color="#A82F2F"><font size="2">(12:06:38 PM)</font> <b>naught101:</b></font> it&apos;s just *in* the sequencer view, as opposed to in a separate window, as with other DAWs.<br/>
+<font color="#A82F2F"><font size="2">(12:07:14 PM)</font> <b>naught101:</b></font> rgareus: Also, is there really much that you can do in audacity with audio that you can&apos;t do with Ardour?<br/>
+<font color="#A82F2F"><font size="2">(12:07:27 PM)</font> <b>naught101:</b></font> it has a lot of editing capabilities...<br/>
+<font color="#A82F2F"><font size="2">(12:07:44 PM)</font> <b>rgareus:</b></font> didn&apos;t someone here recently mention some other DAW[s?] that change to the &apos;ardour way&apos; of inline on-canvas midi-editing?<br/>
+<font color="#A82F2F"><font size="2">(12:08:08 PM)</font> <b>naught101:</b></font> no idea...<br/>
+<font color="#A82F2F"><font size="2">(12:08:19 PM)</font> <b>rgareus:</b></font> naught101: yeah audacity is a soundfile editor. Ardour is a non-destructive DAW. <br/>
+<font color="#A82F2F"><font size="2">(12:08:45 PM)</font> <b>naught101:</b></font> rgareus: right, until you press bounce ;)<br/>
+<font color="#A82F2F"><font size="2">(12:08:46 PM)</font> <b>rgareus:</b></font> there&apos;s a lot of things that you can do with a wrench that you can&apos;t do with a screwdriver, too :)<br/>
+<font color="#A82F2F"><font size="2">(12:09:21 PM)</font> <b>naught101:</b></font> The metaphor is too simplistic<br/>
+<font color="#A82F2F"><font size="2">(12:09:36 PM)</font> <b>rgareus:</b></font> bounce just creates new files, it does not destroy anything.<br/>
+<font color="#A82F2F"><font size="2">(12:09:54 PM)</font> <b>naught101:</b></font> yeah, I know :)<br/>
+<font color="#A82F2F"><font size="2">(12:11:12 PM)</font> <b>naught101:</b></font> But in the end, for me, as someone who wants to make music/screw with loops/apply effects, etc. there&apos;s not really much reason to use audacity first and then import into ardour: ardour already can do 95% of what I want that audacity could do, and way, way more.<br/>
+<font color="#A82F2F"><font size="2">(12:11:18 PM)</font> <b>rgareus:</b></font> adding (copy on write/edit ie non-destructive) audio sample-editing may or may not happen at some point.<br/>
+<font color="#062585"><font size="2">(12:11:42 PM)</font> <b>***tom-</b></font> wonders if ardour will be given an outline-midi editor ever<br/>
+<font color="#A82F2F"><font size="2">(12:11:44 PM)</font> <b>naught101:</b></font> I couldn&apos;t be bothered learning two complex tools. It&apos;s like driving a bulldozer vs. driving a truck.<br/>
+<font color="#A82F2F"><font size="2">(12:12:06 PM)</font> <b>naught101:</b></font> tom-: that&apos;s what those bugs are for. Check 5608 though - it&apos;s a good alternative.<br/>
+<font color="#A82F2F"><font size="2">(12:12:56 PM)</font> <b>rgareus:</b></font> naught101: midi velocity tracks will happen.<br/>
+<font color="#A82F2F"><font size="2">(12:14:14 PM)</font> <b>tom-:</b></font> naught101: the mockup looks interesting!<br/>
+<font color="#A82F2F"><font size="2">(12:15:39 PM)</font> <b>rgareus:</b></font> yeah there are some very good ideas there.<br/>
+<font color="#062585"><font size="2">(12:15:53 PM)</font> <b>***tom-</b></font> imagines on one screen the editor canvas with all audio and midi regions, on the other screen one or more midi editor windows and possibly the mixer on a third screen<br/>
+<font color="#A82F2F"><font size="2">(12:16:20 PM)</font> <b>rgareus:</b></font> tom-: imagine away.   it won&apos;t happen.<br/>
+<font color="#A82F2F"><font size="2">(12:16:40 PM)</font> <b>tom-:</b></font> inline editing midi breaks the use of the canvas for arrangement and navigation, somehow<br/>
+<font color="#A82F2F"><font size="2">(12:17:09 PM)</font> <b>tom-:</b></font> rgareus: i know i know ..<br/>
+<font color="#A82F2F"><font size="2">(12:17:11 PM)</font> <b>rgareus:</b></font> http://manual.ardour.org/editing-and-arranging/edit-midi/fundamental-concepts/  are well thought of.<br/>
+<font color="#A82F2F"><font size="2">(12:18:32 PM)</font> <b>rgareus:</b></font> the &quot;problem&quot; that many people have  is similar fundamental. A DAW is not [always] the right tool for loop-based music.<br/>
+<font color="#A82F2F"><font size="2">(12:19:04 PM)</font> <b>tom-:</b></font> rgareus: loops are fundamentals in composition<br/>
+<font color="#A82F2F"><font size="2">(12:19:27 PM)</font> <b>tom-:</b></font> rgareus: may it be while composing or even in the final outcome<br/>
+<font color="#A82F2F"><font size="2">(12:19:35 PM)</font> <b>rgareus:</b></font> since when?<br/>
+<font color="#A82F2F"><font size="2">(12:19:59 PM)</font> <b>tom-:</b></font> rgareus: since there are artefacts that show repetitions in musical notation<br/>
+<font color="#A82F2F"><font size="2">(12:20:06 PM)</font> <b>rgareus:</b></font> or rather [citation needed] :D<br/>
+<font color="#A82F2F"><font size="2">(12:21:28 PM)</font> <b>tom-:</b></font> rgareus: every (so-and-so old) tribe does repetitions on their drums<br/>
+<font color="#A82F2F"><font size="2">(12:21:44 PM)</font> <b>tom-:</b></font> rgareus: the great piano composers did it (and still do)<br/>
+<font color="#A82F2F"><font size="2">(12:22:02 PM)</font> <b>tom-:</b></font> rgareus: rehearsing a part -&gt; just repeptition<br/>
+<font color="#A82F2F"><font size="2">(12:22:10 PM)</font> <b>tom-:</b></font> rgareus: it&apos;s full of loops<br/>
+<font color="#A82F2F"><font size="2">(12:22:11 PM)</font> <b>rgareus:</b></font> Dal Segno al coda. - there. loop that :)<br/>
+<font color="#A82F2F"><font size="2">(12:22:56 PM)</font> <b>rgareus:</b></font> tom-: that&apos;s just a &apos;rewind&apos;.<br/>
+<font color="#A82F2F"><font size="2">(12:23:18 PM)</font> <b>rgareus:</b></font> anyway.<br/>
+<font color="#A82F2F"><font size="2">(12:24:13 PM)</font> <b>tom-:</b></font> rgareus: the song without any repeptition has yet to be invented :)<br/>
+<font color="#A82F2F"><font size="2">(12:24:15 PM)</font> <b>rgareus:</b></font> but yeaah, a lot of &apos;recent&apos; music is loop-based.<br/>
+<font color="#A82F2F"><font size="2">(12:24:34 PM)</font> <b>tom-:</b></font> rgareus: the point being, it&apos;s not limited to &quot;recent&quot; :)<br/>
+<font color="#A82F2F"><font size="2">(12:25:14 PM)</font> <b>nick_m:</b></font> tom-, http://www.synthtopia.com/content/2010/10/15/karlheinz-stockhausens-electronic-music-tips-for-aphex-twin-plastikman-others/<br/>
+<font color="#A82F2F"><font size="2">(12:25:38 PM)</font> <b>tom-:</b></font> nick_m: i like aphex-twin, he is the same guy as &quot;polygon window&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:25:47 PM)</font> <b>tom-:</b></font> let&apos; see ..<br/>
+<font color="#A82F2F"><font size="2">(12:25:59 PM)</font> <b>nick_m:</b></font> tom-, i like stockhausen as well<br/>
+<font color="#A82F2F"><font size="2">(12:30:59 PM)</font> <b>naught101:</b></font> Tom: songs with repetition-without-variation are boring as hell though..<br/>
+<font color="#A82F2F"><font size="2">(12:32:44 PM)</font> <b>naught101:</b></font> rgareus: If you&apos;re sure that midi velocity tracks will happen, then I&apos;d suggest closing those other two issues in favour of the velocity track one. I haven&apos;t figured out how to add relationships between issues though...<br/>
+<font color="#A82F2F"><font size="2">(12:36:41 PM)</font> <b>rgareus:</b></font> naught101: mmh I thought &quot;New relationship&quot; is available to all users of the tracker.<br/>
+<font color="#A82F2F"><font size="2">(12:36:44 PM)</font> <b>naught101:</b></font> nick_m: Anyone who says &quot;One shouldn’t do that&quot; in relation to music (or any art) is a wanker.<br/>
+<font color="#A82F2F"><font size="2">(12:37:15 PM)</font> <b>naught101:</b></font> rgareus: apparently not - I can&apos;t see it anywhere (I tried searching the page too)<br/>
+<font color="#A82F2F"><font size="2">(12:38:17 PM)</font> <b>nick_m:</b></font> naught101, anyone who thinks they have a more innovative vision than stockhausen is pretty bold :)<br/>
+<font color="#A82F2F"><font size="2">(12:38:20 PM)</font> <b>rgareus:</b></font> the question here is &quot;should ardour do it&quot; - or rather should arodur facilitate loop-based music and compromise on other aspects<br/>
+<font color="#A82F2F"><font size="2">(12:38:39 PM)</font> <b>naught101:</b></font> nick_m: I certainly didn&apos;t say that :P<br/>
+<font color="#A82F2F"><font size="2">(12:39:12 PM)</font> <b>naught101:</b></font> rgareus: No. Ardour should facilitate electronic music to the extent that no compromises are required for it&apos;s core audience.<br/>
+<font color="#A82F2F"><font size="2">(12:40:07 PM)</font> <b>nick_m:</b></font> naught101, anyway, my worthless opinion is that it would be nice to be able to do anything on a DAW - repetitive or otherwise.<br/>
+<font color="#A82F2F"><font size="2">(12:40:11 PM)</font> <b>rgareus:</b></font> Abelton live is on the other end. clearly loop-based striving to become a DAW but not a DAW [yet].<br/>
+<font color="#A82F2F"><font size="2">(12:40:16 PM)</font> <b>naught101:</b></font> nick_m: absolutely :)<br/>
+<font color="#A82F2F"><font size="2">(12:40:34 PM)</font> <b>naught101:</b></font> rgareus: are you kidding? it is absolutely a fully featured DAW.<br/>
+<font color="#A82F2F"><font size="2">(12:40:43 PM)</font> <b>tom-:</b></font> stockhausen seemed to loop too, but in other ways<br/>
+<font color="#A82F2F"><font size="2">(12:40:53 PM)</font> <b>tom-:</b></font> http://www.udk-berlin.de/sites/kportal/content/e216296/e216307/e244633/e246294/infoboxContent246295/sprick1_ger.png<br/>
+<font color="#A82F2F"><font size="2">(12:41:17 PM)</font> <b>naught101:</b></font> rgareus: http://www.superdownloads.com.br/imagens/screenshots/4/6/46514,O.jpg<br/>
+<font color="#A82F2F"><font size="2">(12:42:00 PM)</font> <b>tom-:</b></font> anyway, loop is nothing just &quot;for the kids&quot;. it should be catered by any DAW<br/>
+<font color="#A82F2F"><font size="2">(12:42:02 PM)</font> <b>naught101:</b></font> nick_m: note that &quot;wanker&quot; is orthogonal to &quot;brilliant artist&quot; :D<br/>
+<font color="#A82F2F"><font size="2">(12:42:37 PM)</font> <b>naught101:</b></font> Looping in ardour is already doable: Import loop, duplicate.<br/>
+<font color="#A82F2F"><font size="2">(12:42:52 PM)</font> <b>naught101:</b></font> Nothing more is *needed*, although it might make it easier.<br/>
+<font color="#A82F2F"><font size="2">(12:44:39 PM)</font> <b>tom-:</b></font> we came from midi to the loop topic<br/>
+<font color="#A82F2F"><font size="2">(12:44:49 PM)</font> <b>tom-:</b></font> it has only a weak relationship<br/>
+<font color="#A82F2F"><font size="2">(12:45:40 PM)</font> <b>tom-:</b></font> sounded a tiny bit like &quot;our midi editor is cumbersome because it&apos;s not made for loop music&quot;. hm.<br/>
+<font color="#A82F2F"><font size="2">(12:45:50 PM)</font> <b>tom-:</b></font> with a grain of salt :)<br/>
+<font color="#A82F2F"><font size="2">(12:46:07 PM)</font> <b>naught101:</b></font> nick_m: from that article, it&apos;s clear that  Stockhausen had a fair bit of self-obsession going on<br/>
+<font color="#A82F2F"><font size="2">(12:48:28 PM)</font> <b>naught101:</b></font> nick_m: http://titleofmagazine.com/2010/06/23/song-of-a-weakling-child-dispute-between-aphex-twin-and-stockhausen-is-over/ :D<br/>
+<font color="#A82F2F"><font size="2">(12:48:31 PM)</font> <b>LAbot:</b></font> Title: Song of a Weakling Child: The Dispute Between Aphex Twin and Stockhausen is over (at titleofmagazine.com)<br/>
+<font color="#A82F2F"><font size="2">(12:55:36 PM)</font> <b>tom-:</b></font> &quot;Ein Motiv hat die Kraft zur Verselbstständigung: Es kann im weiteren Verlauf der Komposition wiederholt, auf andere Tonstufen versetzt, verändert oder mit anderen Motiven verbunden werden. Darum ist das Motiv im Unterschied zu einer Begleitfigur oder Verzierung als melodische Keimzelle einer musikalischen Entwicklung in einem Werk anzusehen.&quot; &lt;- basically a varied loop<br/>
+<font color="#A82F2F"><font size="2">(12:56:19 PM)</font> <b>tom-:</b></font> &quot;a melodic gamete of a musical development&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:58:35 PM)</font> <b>tom-:</b></font> &quot;Ludwig van Beethoven setzte die Verwandlung und Kombination von Motiven als elementares formbildendes Element ein. Fast alle auf ihn folgenden Komponisten wie Schubert, Brahms, Tschaikowski, Bruckner und Mahler setzen diese Tradition fort&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:04:42 PM)</font> <b>tom-:</b></font> btw, stockhausen tried to prevent any themes or motives. does that make beethoven et al worse compositors?<br/>
+<font color="#A82F2F"><font size="2">(01:05:43 PM)</font> <b>tom-:</b></font> s/motiv/motif<br/>
+<font color="#A82F2F"><font size="2">(01:06:57 PM)</font> <b>nick_m:</b></font> tom-, perhaps his motivation was to work completely away from those structures simply because they had taken that thing pretty far.<br/>
+<font color="#A82F2F"><font size="2">(01:07:42 PM)</font> <b>tom-:</b></font> nick_m: probably, yes<br/>
+<font color="#A82F2F"><font size="2">(01:07:48 PM)</font> <b>nick_m:</b></font> tom-, we stil get a bazillion versions of the song form per year for instance.<br/>
+<font color="#A82F2F"><font size="2">(01:08:23 PM)</font> <b>tom-:</b></font> nick_m: his compositions doesn&apos;t have *no* structure, just different / more hidden ones<br/>
+<font color="#A82F2F"><font size="2">(01:09:00 PM)</font> <b>tom-:</b></font> nick_m: for the distinguished intellectual hearer and all the studs that have to break their heads around it :)<br/>
+<font color="#A82F2F"><font size="2">(01:09:20 PM)</font> <b>nick_m:</b></font> tom-, no - i&apos;m talking about the standard forms: concerto, song etc.<br/>
+<font color="#A82F2F"><font size="2">(01:09:46 PM)</font> <b>tom-:</b></font> nick_m: i have no clue about these things, unfortunately<br/>
+<font color="#A82F2F"><font size="2">(01:12:22 PM)</font> <b>tom-:</b></font> i&apos;m sure many dead composers would have used tools for composition if they&apos;d had it at the time<br/>
+<font color="#062585"><font size="2">(01:14:19 PM)</font> <b>***tom-</b></font> perparing a few gifts, bbl<br/>
+<font color="#A82F2F"><font size="2">(02:33:20 PM)</font> <b>tom-:</b></font> a short amendment to loop to prevent any misunderstanding. i don&apos;t think ardour should be in any way like ableton or similar. a singleton timeline and loop facility is good enough (like as is). if loop as a transportmode would fully work and arrangement space can be operated at any time (even when editing midi), this would make it even more useful<br/>
+<font color="#A82F2F"><font size="2">(02:38:36 PM)</font> <b>naught101:</b></font> This is the best argument I&apos;ve seen for a session-view: http://youtu.be/_ebZ6xizRTk?t=19m40s &lt;- you can loop a section of all tracks *except* the track you&apos;re recording on, and you can record an infinite-length region on that track<br/>
+<font color="#A82F2F"><font size="2">(02:38:37 PM)</font> <b>LAbot:</b></font> Title: 20 Workflow Tips for Production with Ableton Live 9: UNIVERSAL - YouTube (at youtu.be)<br/>
+<font color="#A82F2F"><font size="2">(02:39:17 PM)</font> <b>naught101:</b></font> Wonder if there&apos;s another way to do that?<br/>
+<font color="#A82F2F"><font size="2">(02:42:33 PM)</font> <b>tom-:</b></font> interesting to see that ableton has the ~ track headers on the right side<br/>
+<font color="#A82F2F"><font size="2">(02:46:02 PM)</font> <b>tom-:</b></font> while the playhead is rolling (i.e. in a loop), creating a recording and &quot;finishing&quot; it while still rolling to use immediately as a region would be wishful but possibly out of reach<br/>
+<font color="#A82F2F"><font size="2">(02:47:15 PM)</font> <b>tom-:</b></font> it would allow workflows where a whole song is developed without ever stopping to roll<br/>
+<font size="2">(04:50:14 PM)</font><b> kmunkki_ is now known as kmunkki</b><br/>
+<font size="2">(05:06:12 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

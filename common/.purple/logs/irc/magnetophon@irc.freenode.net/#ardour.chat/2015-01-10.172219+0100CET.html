@@ -1,0 +1,44 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Sat 10 Jan 2015 05:22:19 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Sat 10 Jan 2015 05:22:19 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(05:22:19 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(05:22:19 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(05:38:35 PM)</font> <b>ManDay:</b></font> Out of curiousity, possible relevance: Assume the computer and HW is too slow to synth and process a lot of instruments and filters/plugins in realtime. Is there any way to render it non-realtime in either ardour or by some sort of Jack plugin?<br/>
+<font color="#A82F2F"><font size="2">(05:39:05 PM)</font> <b>holstein:</b></font> ManDay: i just relax my latency settings<br/>
+<font color="#A82F2F"><font size="2">(05:41:38 PM)</font> <b>Joeboy:</b></font> ManDay: Do you not want to just export it?<br/>
+<font color="#A82F2F"><font size="2">(05:42:03 PM)</font> <b>ManDay:</b></font> hm. not sure I understand. If the computer can&apos;t process X amount of data in Y time but can only process Z amount of data in Y time. How does it help if you increase latency? If I actually need X data in Y time, then the computer will be behind schedule by (Z-X)/Y*T   after T time<br/>
+<font color="#A82F2F"><font size="2">(05:42:18 PM)</font> <b>ManDay:</b></font> Joeboy: &quot;Render it to an audio file&quot;; yes<br/>
+<font color="#A82F2F"><font size="2">(05:42:33 PM)</font> <b>Joeboy:</b></font> ManDay: So, session-&gt;export ?<br/>
+<font color="#A82F2F"><font size="2">(05:42:36 PM)</font> <b>holstein:</b></font> ManDay: its helps me, because, it can decrease the load on the machine, and allow more to be done<br/>
+<font color="#A82F2F"><font size="2">(05:42:56 PM)</font> <b>Joeboy:</b></font> Well, there&apos;s two kinds of &quot;not fast enough&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:43:00 PM)</font> <b>ManDay:</b></font> Joeboy: The assumption is that it doesn&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(05:43:03 PM)</font> <b>holstein:</b></font> ManDay: but, i agree, if you are not actively trying to mix, just export, and you should get the session rendered<br/>
+<font color="#A82F2F"><font size="2">(05:43:13 PM)</font> <b>ManDay:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(05:43:15 PM)</font> <b>holstein:</b></font> ManDay: so, export doenst work?<br/>
+<font color="#A82F2F"><font size="2">(05:43:19 PM)</font> <b>Joeboy:</b></font> There&apos;s &quot;really not fast enough for the throughput&quot; and &quot;not fast enough to avoid xruns&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:43:34 PM)</font> <b>ManDay:</b></font> I may not understand - doesn&apos;t export just send it through the pipeline?<br/>
+<font color="#A82F2F"><font size="2">(05:44:07 PM)</font> <b>holstein:</b></font> ManDay: have you tried to export the session? i&apos;ll typically choose a smaller chunk of the session, export, and audition it before doing a larger &quot;job&quot;<br/>
+<font color="#A82F2F"><font size="2">(05:44:30 PM)</font> <b>ManDay:</b></font> holstein: I guess I should come back with the question when I actually practically have that problem ^^<br/>
+<font color="#A82F2F"><font size="2">(05:44:34 PM)</font> <b>ManDay:</b></font> so far it was just theory<br/>
+<font color="#A82F2F"><font size="2">(05:44:43 PM)</font> <b>Joeboy:</b></font> ManDay: Not sure I understand you. Export will run your audio / midi through your synths / audio plugins and save the result to a file.<br/>
+<font color="#A82F2F"><font size="2">(05:45:16 PM)</font> <b>Joeboy:</b></font> ManDay: Although it won&apos;t necessarily include the output of jack apps, unless you plug their output into the master bus<br/>
+<font color="#A82F2F"><font size="2">(05:45:58 PM)</font> <b>holstein:</b></font> if i need &quot;Reatlime&quot;, or lowlatency, for the 2 reasons that one needs it, realtime effects processing of live instruments, or realtime playing of a software instrument, i will have my JACK settings to facilitate a lower latency.. if not, i just relax my settings, which, allows me more resources to mix<br/>
+<font color="#A82F2F"><font size="2">(05:47:02 PM)</font> <b>holstein:</b></font> the export process should just &quot;render&quot; the project, and not be using the audio like that, anyway<br/>
+<font color="#A82F2F"><font size="2">(05:47:11 PM)</font> <b>holstein:</b></font> you wont hear the audio playing while exporting..<br/>
+<font color="#A82F2F"><font size="2">(05:47:44 PM)</font> <b>holstein:</b></font> you wouldnt get an xrun during export, for example..i think if you had a problem, it would look more like overheating, or just a lockup of the hardware<br/>
+<font color="#A82F2F"><font size="2">(05:48:01 PM)</font> <b>holstein:</b></font> ive personally never pushed the machine that hard, during mixing<br/>
+<font color="#A82F2F"><font size="2">(05:48:07 PM)</font> <b>holstein:</b></font> mixing/export..<br/>
+<font color="#A82F2F"><font size="2">(05:53:16 PM)</font> <b>tom-:</b></font> ManDay: non-realtime rendering is possible, sure<br/>
+<font color="#A82F2F"><font size="2">(05:53:49 PM)</font> <b>tom-:</b></font> ManDay: when JACK is in &quot;freewheeling&quot; mode, it&apos;s not bound to the audio interface clock and can run faster or slower than real-time<br/>
+<font color="#A82F2F"><font size="2">(05:54:15 PM)</font> <b>holstein:</b></font> &quot;export&quot; is not in any time ;)<br/>
+<font color="#062585"><font size="2">(05:55:31 PM)</font> <b>***tom-</b></font> wonders if it would be possiblle to hear &quot;non-realtime&quot; wheeling<br/>
+<font color="#A82F2F"><font size="2">(05:58:45 PM)</font> <b>ManDay:</b></font> ah ok  i didnt know that<br/>
+<font size="2">(05:59:56 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:00:12 PM)</font> <b>tom-:</b></font> ManDay: you will remember next time you export  ^^<br/>
+<font color="#A82F2F"><font size="2">(06:01:07 PM)</font> <b>rgareus:</b></font> ManDay: for modern CPUs there is no such linear relationship  X amount of data in Y time. modern CPU are great at processing data in blocks (called SIMD - single instruction multimple data). and increasing the blocksize (increasing latency) can make a huge difference<br/>
+<font size="2">(06:01:26 PM)</font><b> Jin|away is now known as Jin^eLD</b><br/>
+<font color="#A82F2F"><font size="2">(06:03:40 PM)</font> <b>ManDay:</b></font> rgareus: Yes, it was meant approximately<br/>
+<font color="#A82F2F"><font size="2">(06:03:55 PM)</font> <b>ManDay:</b></font> anyway, I understand it&apos;s not a problem even in theory<br/>
+<font color="#A82F2F"><font size="2">(06:09:16 PM)</font> <b>rgareus:</b></font> ManDay: There&apos;s also &quot;bounce with processing&quot; in ardour.<br/>
+<font color="#A82F2F"><font size="2">(06:10:32 PM)</font> <b>rgareus:</b></font> ManDay:  ie &quot;apply effect to a region,  the bypass the effects&quot; - can save CPU power in the long run<br/>
+<font color="#A82F2F"><font size="2">(06:14:25 PM)</font> <b>Joeboy:</b></font> Is there also &quot;freeze track&quot;? There used to be but I haven&apos;t looked recently.<br/>
+<font color="#A82F2F"><font size="2">(06:15:32 PM)</font> <b>rgareus:</b></font> Joeboy: there is. but you need a recent version (it&apos;s broken in 3.5.403)<br/>
+<font size="2">(06:33:44 PM)</font><b> HarryHaaren left the room (quit: Quit: HarryHaaren).</b><br/>

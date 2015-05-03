@@ -1,0 +1,40 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Thu 19 Feb 2015 05:31:48 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Thu 19 Feb 2015 05:31:48 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(05:31:48 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(05:31:48 PM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(05:31:49 PM)</font> <b>weber.freenode.net:</b></font> (notice) [freenode-info] channel trolls and no channel staff around to help? please check with freenode support: http://freenode.net/faq.shtml#gettinghelp<br/>
+<font color="#A82F2F"><font size="2">(05:33:29 PM)</font> <b>miskatonic:</b></font> sea<br/>
+<font color="#A82F2F"><font size="2">(05:33:45 PM)</font> <b>miskatonic:</b></font> oops typo<br/>
+<font size="2">(05:39:43 PM)</font><b> miskatonic left the room (quit: Quit: miskatonic).</b><br/>
+<font color="#A82F2F"><font size="2">(05:48:31 PM)</font> <b>kim_bruning:</b></font> on debian stable   service asterisk start does not seem to read my configuration files,  does not open port 5060 .... what&apos;s going on? is it a permissions issue maybe?<br/>
+<font color="#A82F2F"><font size="2">(05:51:23 PM)</font> <b>la_maquina:</b></font> kim_bruning: I assume that you viewed the README.Debian file for asterisk<br/>
+<font color="#A82F2F"><font size="2">(05:55:28 PM)</font> <b>kim_bruning:</b></font> la_maquina, not yet... also it was my fault since the dir permissions for the /etc dir were borked... likely by me ;-)<br/>
+<font color="#A82F2F"><font size="2">(05:56:18 PM)</font> <b>petn-randall:</b></font> kim_bruning: Usually the first way to debug is to run the app in the foreground with any debug parameters, and see where it complains.<br/>
+<font color="#A82F2F"><font size="2">(05:56:59 PM)</font> <b>kim_bruning:</b></font> petn-randall, in my case when I ran it in the foreground it actually ran fine!<br/>
+<font color="#A82F2F"><font size="2">(05:57:17 PM)</font> <b>kim_bruning:</b></font> petn-randall, then I figured it was running as user asterisk, and didn&apos;t have access to /etc/asterisk :-P<br/>
+<font color="#A82F2F"><font size="2">(05:57:23 PM)</font> <b>petn-randall:</b></font> kim_bruning: Apparently not the way the init script does, then :)<br/>
+<font color="#A82F2F"><font size="2">(05:57:52 PM)</font> <b>kim_bruning:</b></font> petn-randall, zigzacktly. init ran it as it&apos;s own user. chowning the /etc subdir fixed it<br/>
+<font color="#A82F2F"><font size="2">(05:58:39 PM)</font> <b>MadTBone:</b></font> if anyone remembers back this far, was there a point where Linux passwords were inherently limited to a maximum of 8 characters?  Perhaps because of a hash algorithm limitation?<br/>
+<font color="#A82F2F"><font size="2">(05:58:39 PM)</font> <b>webmind:</b></font> ohai<br/>
+<font color="#A82F2F"><font size="2">(05:59:16 PM)</font> <b>webmind:</b></font> I&apos;m looking into reprinting debian shirts and wondering if the classic swirl is best on it&apos;s own or best with &apos;debian&apos; under it.<br/>
+<font size="2">(05:59:34 PM)</font><b> kim_bruning left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(06:00:06 PM)</font> <b>petemc:</b></font> MadTBone: think it was crypt<br/>
+<font color="#A82F2F"><font size="2">(06:04:20 PM)</font> <b>MadTBone:</b></font> petemc:  I seem to remember that... do you think that was still around in 2.4.x?  or did it mostly go away after 2.2.x?   From my very foggy memory, I seem to think 2.4 kernel based distros had no issue with limits (or at least not only 8 characters...)<br/>
+<font color="#A82F2F"><font size="2">(06:05:19 PM)</font> <b>frostschutz:</b></font> there was some kind of hash that simply ignored everything beyond the 8th letter, not sure if it was used for linux passwords specifically, but it was common<br/>
+<font color="#A82F2F"><font size="2">(06:06:10 PM)</font> <b>frostschutz:</b></font> in a manner of speaking that problem still exists today, luks has length limits too<br/>
+<font color="#A82F2F"><font size="2">(06:06:47 PM)</font> <b>Pegasus_RPG:</b></font> Hello. I&apos;m seeing a slowdown of Web applications that use my SQL server after a recent upgrade of libpq5. How can I find out why? I&apos;ve tried enabling Xdebug&apos;s PHP profiler but no logs are being written to the output dir. How can I troubleshoot /that/?<br/>
+<font color="#A82F2F"><font size="2">(06:07:44 PM)</font> <b>MadTBone:</b></font> of course, every hash or crypto algorithm will have limits.  But 8 characters seems absurdly easy to brute force, even by ten+ year old standards...<br/>
+<font color="#A82F2F"><font size="2">(06:08:46 PM)</font> <b>frostschutz:</b></font> MadTBone, if you use luks with sha-1 and a, I dunno, 64 byte? or longer keyfile, you&apos;re really just using a 20 byte keyfile. something like that<br/>
+<font color="#A82F2F"><font size="2">(06:10:05 PM)</font> <b>frostschutz:</b></font> the 20 byte being the hash of your longer phrase or key<br/>
+<font color="#A82F2F"><font size="2">(06:14:55 PM)</font> <b>MadTBone:</b></font> frostschutz: can you link to more info?<br/>
+<font color="#A82F2F"><font size="2">(06:15:48 PM)</font> <b>c-c:</b></font> Pegasus_RPG: #PHP? or #apache? or such<br/>
+<font color="#A82F2F"><font size="2">(06:16:54 PM)</font> <b>Pegasus_RPG:</b></font> c-c: okay thanks<br/>
+<font color="#A82F2F"><font size="2">(06:18:36 PM)</font> <b>c-c:</b></font> Pegasus_RPG: whats libpq5 anyway?<br/>
+<font color="#A82F2F"><font size="2">(06:18:55 PM)</font> <b>Pegasus_RPG:</b></font> PostgreSQL connection library<br/>
+<font color="#A82F2F"><font size="2">(06:19:22 PM)</font> <b>c-c:</b></font> so, why debug the conn, why not debug the base<br/>
+<font color="#A82F2F"><font size="2">(06:19:31 PM)</font> <b>c-c:</b></font> iow #postgre or similar chan<br/>
+<font color="#A82F2F"><font size="2">(06:20:17 PM)</font> <b>frostschutz:</b></font> MadTBone, https://mathiasbynens.be/notes/pbkdf2-hmac<br/>
+<font color="#A82F2F"><font size="2">(06:20:24 PM)</font> <b>NoImNotNineVolt:</b></font> is &quot;iow&quot; the new &quot;i.e.&quot;?<br/>
+<font color="#A82F2F"><font size="2">(06:20:38 PM)</font> <b>Pegasus_RPG:</b></font> c-c: because the problem started after the debian package update<br/>
+<font color="#A82F2F"><font size="2">(06:22:03 PM)</font> <b>MadTBone:</b></font> frostschutz: thanks. this is a good read.<br/>
+<font size="2">(06:41:53 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

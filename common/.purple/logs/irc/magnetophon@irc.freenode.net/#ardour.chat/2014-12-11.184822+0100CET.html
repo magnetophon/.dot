@@ -1,0 +1,305 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Thu 11 Dec 2014 06:48:22 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Thu 11 Dec 2014 06:48:22 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(06:48:22 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(06:48:22 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font size="2">(06:54:00 PM)</font><b> bengan [<em>quasselcor@ivan.widell.net</em>] entered the room.</b><br/>
+<font size="2">(06:55:16 PM)</font><b> dh64 [<em>~dh64@174-21-134-40.tukw.qwest.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:58:31 PM)</font> <b>tom-:</b></font> FlorianBd: a string that tells the exact build or release version of ardour in the session is not the worst idea when thinking again<br/>
+<font color="#A82F2F"><font size="2">(06:59:43 PM)</font> <b>tom-:</b></font> FlorianBd: maybe not in the session file to keep session versioning intact. but i.e. a separate file in the session directory<br/>
+<font color="#A82F2F"><font size="2">(07:02:18 PM)</font> <b>FlorianBd:</b></font> tom-: I&apos;m thinking about it more as a metadata string like Created = &quot;Saved with Ardour 3.5.1234 on 2014-12-11 15:59:59 - user@machine&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:03:17 PM)</font> <b>FlorianBd:</b></font> tom-: that would be VERY useful because something like the timestamp e.g. can be messed up when manipulating backups<br/>
+<font color="#A82F2F"><font size="2">(07:03:17 PM)</font> <b>tom-:</b></font> FlorianBd: i agree that makes sense (to store and know later on)<br/>
+<font color="#A82F2F"><font size="2">(07:03:17 PM)</font> <b>FlorianBd:</b></font> tom-: I will do my own scripts anyway it&apos;s ok<br/>
+<font color="#A82F2F"><font size="2">(07:04:01 PM)</font> <b>tom-:</b></font> FlorianBd: the workflow needs to be understood .. archiving / retrieval / reproducability are important aspects<br/>
+<font size="2">(07:04:18 PM)</font><b> clark|w|afk is now known as clark|w</b><br/>
+<font size="2">(07:05:31 PM)</font><b> timh left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:05:31 PM)</font> <b>tom-:</b></font> FlorianBd: if you can do scripts, you can do (almost) anything :)<br/>
+<font color="#A82F2F"><font size="2">(07:06:51 PM)</font> <b>FlorianBd:</b></font> tom-: I already did these 2 that are pretty useful:  https://community.ardour.org/node/8516   https://community.ardour.org/node/8514<br/>
+<font size="2">(07:06:51 PM)</font><b> harrison__ left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font size="2">(07:06:51 PM)</font><b> tnaugle left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font size="2">(07:07:05 PM)</font><b> Ben_at_Harrison left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:07:16 PM)</font> <b>tom-:</b></font> FlorianBd: if the metadata would be written to the wave files (i think they support metadata to some degree) automatically without user interaction or annoying dialogues, it would be another, more generic way to have this metadata <br/>
+<font size="2">(07:07:40 PM)</font><b> colinf left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:08:21 PM)</font> <b>tom-:</b></font> FlorianBd: although this would be limited to audio and since it&apos;s not touched it would not follow / update with newer versions it will be opened with<br/>
+<font color="#A82F2F"><font size="2">(07:08:42 PM)</font> <b>tom-:</b></font> FlorianBd: so it boils to something inside the session directory<br/>
+<font color="#A82F2F"><font size="2">(07:10:11 PM)</font> <b>tom-:</b></font> FlorianBd: nice scripts :)<br/>
+<font size="2">(07:12:08 PM)</font><b> nick_m left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font size="2">(07:12:57 PM)</font><b> corresponder left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(07:12:59 PM)</font> <b>the_CLA:</b></font> FlorianBd, las tom-: Just read the backlog. I also would find such Metadata (in the session file) useful. Especially as there are now other softwares that use ardour files. For example it would be practical for looking at the file and see if it was created/saved with Mixbus, as loading (and saving) it in Ardour would loose all the internal DSP settings of Mixbus.<br/>
+<font color="#A82F2F"><font size="2">(07:13:00 PM)</font> <b>rgareus:</b></font> session file versioning would not be affected by adding a few comments intended to be read by the user only. eg. &quot;Session created by &lt;User&gt; on &lt;Host&gt; with &lt;Product&gt;-&lt;Version&gt; on &lt;Date&gt;&quot; and  &quot;Last Modified by ..&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:13:03 PM)</font> <b>tom-:</b></font> FlorianBd: if you&apos;d have a session format, one important thing is to clone one intance, right? :) ardourcp<br/>
+<font size="2">(07:14:27 PM)</font><b> timh [<em>~wm_Tim@h66-222-83-245.lvrgtn.dedicated.static.tds.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:14:44 PM)</font> <b>tom-:</b></font> rgareus: another, elegant way. just include as &lt;!-- --&gt; comment. but discarded possibly<br/>
+<font size="2">(07:14:46 PM)</font><b> tnaugle [<em>~tnaugle@h66-222-83-250.lvrgtn.dedicated.static.tds.net</em>] entered the room.</b><br/>
+<font size="2">(07:14:49 PM)</font><b> harrison__ [<em>~harrison@h66-222-83-245.lvrgtn.dedicated.static.tds.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:15:10 PM)</font> <b>FlorianBd:</b></font> tom-: right, commented is good<br/>
+<font color="#A82F2F"><font size="2">(07:15:32 PM)</font> <b>tom-:</b></font> i&apos;m sure there is any field inside the ardour session format to put comments<br/>
+<font color="#A82F2F"><font size="2">(07:15:50 PM)</font> <b>tom-:</b></font> tags! maybe<br/>
+<font color="#A82F2F"><font size="2">(07:15:54 PM)</font> <b>FlorianBd:</b></font> tom-: there&apos;s a metadata section<br/>
+<font size="2">(07:16:18 PM)</font><b> Ben_at_Harrison [<em>~harrison@h66-222-83-245.lvrgtn.dedicated.static.tds.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:16:19 PM)</font> <b>FlorianBd:</b></font> tom-: but always empty in my case<br/>
+<font color="#A82F2F"><font size="2">(07:16:26 PM)</font> <b>tom-:</b></font> FlorianBd: it should have some standardish auto-filled fields<br/>
+<font color="#A82F2F"><font size="2">(07:16:34 PM)</font> <b>tom-:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(07:17:03 PM)</font> <b>FlorianBd:</b></font> FlorianBd: it should have whatever makes sense :) I&apos;m not an Ardour developer<br/>
+<font color="#A82F2F"><font size="2">(07:17:36 PM)</font> <b>tom-:</b></font> FlorianBd: it should also makes sense for users, so it&apos;s good to know their senses ;)<br/>
+<font color="#A82F2F"><font size="2">(07:17:48 PM)</font> <b>FlorianBd:</b></font> tom-: AMEN<br/>
+<font color="#A82F2F"><font size="2">(07:17:58 PM)</font> <b>FlorianBd:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(07:18:06 PM)</font> <b>tom-:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(07:19:14 PM)</font> <b>tom-:</b></font> comments is the way<br/>
+<font color="#A82F2F"><font size="2">(07:19:45 PM)</font> <b>rgareus:</b></font> tom-: comments are only useful for people reading the raw xml file<br/>
+<font color="#A82F2F"><font size="2">(07:19:54 PM)</font> <b>the_CLA:</b></font> FlorianBd: You get some metadata there if you edit it via Session -&gt; Metadata -&gt; Edit Metadata...<br/>
+<font color="#A82F2F"><font size="2">(07:20:21 PM)</font> <b>tom-:</b></font> rgareus: not xml comments, session comments / tags / fields that can hold any metadata<br/>
+<font color="#A82F2F"><font size="2">(07:20:36 PM)</font> <b>FlorianBd:</b></font> the_CLA: ah ok :)<br/>
+<font color="#A82F2F"><font size="2">(07:20:48 PM)</font> <b>FlorianBd:</b></font> rgareus: but that&apos;s the whole point<br/>
+<font color="#A82F2F"><font size="2">(07:21:44 PM)</font> <b>FlorianBd:</b></font> rgareus: my original idea wasn&apos;t to change ardour&apos;s format, but to simply provide some information to someone opening an old project backup. Basically, when, where, and with which ardour was this project created.<br/>
+<font color="#A82F2F"><font size="2">(07:22:01 PM)</font> <b>tom-:</b></font> rgareus: i wasn0t clear, xml comments are not feasable (discarded on save iiuc)<br/>
+<font color="#A82F2F"><font size="2">(07:22:15 PM)</font> <b>the_CLA:</b></font> rgareus: If I dig out an (very) old session, I might actually take a look at the raw XML file to deliberate what could go wrong.<br/>
+<font color="#A82F2F"><font size="2">(07:22:56 PM)</font> <b>tom-:</b></font> the_CLA: that&apos;s different to get information without having an issue<br/>
+<font color="#A82F2F"><font size="2">(07:22:57 PM)</font> <b>rgareus:</b></font> FlorianBd: ardour won&apos;t be able to display them.  &quot;Created by/on/with&quot;, &quot;Last Modified by/on/with&quot; could easily be optional information that ardour prints if present in a session<br/>
+<font color="#A82F2F"><font size="2">(07:23:25 PM)</font> <b>tom-:</b></font> the_CLA: i open without issue and see, ahh.. i created that with ardour 6.5. now we have 7.9, it still works<br/>
+<font color="#A82F2F"><font size="2">(07:23:40 PM)</font> <b>FlorianBd:</b></font> rgareus: doesn&apos;t matter, just open the xml file<br/>
+<font color="#A82F2F"><font size="2">(07:23:53 PM)</font> <b>rgareus:</b></font> FlorianBd: for you, yes<br/>
+<font color="#A82F2F"><font size="2">(07:24:26 PM)</font> <b>rgareus:</b></font> the average windows or OSX user won&apos;t be so lucky.<br/>
+<font size="2">(07:24:40 PM)</font><b> nick_m [<em>~nick_m@CPE-121-216-52-173.lnse1.ken.bigpond.net.au</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:24:42 PM)</font> <b>FlorianBd:</b></font> rgareus: ok then let&apos;s just consider it as an &quot;Automatic Meta Data&quot; (prefilled by ardour: version, date, user@machine)<br/>
+<font color="#A82F2F"><font size="2">(07:24:43 PM)</font> <b>the_CLA:</b></font> tom-: Well, when I loaded my first meaningfull ardour session it wasn&apos;t flawless at all. Quite some hassle to finaly get it running in Mixbus. That one was from 2004 - created in a version pre-2.0<br/>
+<font color="#A82F2F"><font size="2">(07:24:49 PM)</font> <b>tom-:</b></font> the_CLA: or, oh, i know i cant do this and that, since 7.9 in relation to older versions behaves like this that and this etc<br/>
+<font color="#A82F2F"><font size="2">(07:25:11 PM)</font> <b>FlorianBd:</b></font> rgareus: (every time you save the project)<br/>
+<font color="#A82F2F"><font size="2">(07:26:09 PM)</font> <b>FlorianBd:</b></font> rgareus: the user (and machine) in particular are very useful in a multi user environnement. A recording studio, who took care of this project? On which machine... and we lost the time stamp by copying the files, when was it<br/>
+<font color="#A82F2F"><font size="2">(07:27:09 PM)</font> <b>tom-:</b></font> maybe an edit history?<br/>
+<font size="2">(07:27:22 PM)</font><b> HarryHaaren left the room (quit: Quit: HarryHaaren).</b><br/>
+<font color="#A82F2F"><font size="2">(07:27:26 PM)</font> <b>tom-:</b></font> in the session dir. created with .. edited with .. incl. dates<br/>
+<font color="#A82F2F"><font size="2">(07:27:40 PM)</font> <b>FlorianBd:</b></font> tom-: well you go into more development then... and I&apos;m not sure it&apos;s a priority right now :)<br/>
+<font color="#A82F2F"><font size="2">(07:28:03 PM)</font> <b>tom-:</b></font> FlorianBd: you&apos;d have all info you need<br/>
+<font color="#A82F2F"><font size="2">(07:28:10 PM)</font> <b>FlorianBd:</b></font> tom-: I was talking more about a 10min tweak :)<br/>
+<font color="#A82F2F"><font size="2">(07:28:11 PM)</font> <b>rgareus:</b></font> tom-: with auto-save every 5 minutes and users saving regularly that&apos;ll just be noise<br/>
+<font color="#A82F2F"><font size="2">(07:28:20 PM)</font> <b>tom-:</b></font> FlorianBd: it&apos;s a generic problem<br/>
+<font color="#A82F2F"><font size="2">(07:28:42 PM)</font> <b>the_CLA:</b></font> Supper! BBL...<br/>
+<font color="#A82F2F"><font size="2">(07:28:55 PM)</font> <b>tom-:</b></font> rgareus: the auto-save is dangerous anyway<br/>
+<font color="#A82F2F"><font size="2">(07:29:21 PM)</font> <b>FlorianBd:</b></font> tom-: definitely, that&apos;s the first thing I disabled :)  But some users may like it...<br/>
+<font color="#062585"><font size="2">(07:29:32 PM)</font> <b>***tom-</b></font> checks if enabled<br/>
+<font color="#A82F2F"><font size="2">(07:29:53 PM)</font> <b>FlorianBd:</b></font> tom-: e.g. people who record voice talents<br/>
+<font color="#A82F2F"><font size="2">(07:29:59 PM)</font> <b>rgareus:</b></font> tom-: very workflow dependent.  <br/>
+<font color="#A82F2F"><font size="2">(07:30:24 PM)</font> <b>rgareus:</b></font> tom-: if you&apos;re a live sound engineer under pressure, you really want auto-safe.<br/>
+<font color="#A82F2F"><font size="2">(07:30:26 PM)</font> <b>tom-:</b></font> it needs something &quot;auto&quot; save, sure<br/>
+<font color="#A82F2F"><font size="2">(07:30:38 PM)</font> <b>tom-:</b></font> as for recovery, you would like to have somethign quite current<br/>
+<font color="#A82F2F"><font size="2">(07:30:47 PM)</font> <b>rgareus:</b></font> tom-: if you&apos;re editing in a home-studio, you probably don&apos;t want it.<br/>
+<font size="2">(07:30:47 PM)</font><b> oofus_N5_1 left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:31:29 PM)</font> <b>rgareus:</b></font> s/auto-safe/auto-save/   though either works :)<br/>
+<font color="#A82F2F"><font size="2">(07:31:46 PM)</font> <b>tom-:</b></font> rgareus: this is a personal preference, i like to explicitely save but keep the convenience of any auto-save to save my work on crash<br/>
+<font color="#A82F2F"><font size="2">(07:32:08 PM)</font> <b>tom-:</b></font> rgareus: yep :)<br/>
+<font size="2">(07:32:40 PM)</font><b> oofus_N5 [<em>~AndChat14@213.205.252.19</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:32:40 PM)</font> <b>tom-:</b></font> a real-autosave wouldn&apos;t even ask when you quit. it would auto-save ;)<br/>
+<font color="#A82F2F"><font size="2">(07:33:39 PM)</font> <b>FlorianBd:</b></font> rgareus: how annoying is it to modify the Save function to automatically put/overwrite a Metadata field and set &quot;Date, Version, user@machine&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(07:33:41 PM)</font> <b>rgareus:</b></font> tom-: that&apos;s why the preference is called &quot;perodic save&quot; and not &quot;auto save&quot;<br/>
+<font size="2">(07:33:53 PM)</font><b> FlorianBd left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:34:17 PM)</font><b> FlorianBd [<em>~FlorianBd@florianbador.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:34:34 PM)</font> <b>FlorianBd:</b></font> last thing I saw:  (10:30:47 AM) rgareus: tom-: if you&apos;re editing in ....<br/>
+<font color="#A82F2F"><font size="2">(07:34:39 PM)</font> <b>tom-:</b></font> rgareus: that&apos;s indeed an important distinction<br/>
+<font color="#A82F2F"><font size="2">(07:34:45 PM)</font> <b>FlorianBd:</b></font> rgareus: how annoying is it to modify the Save function to automatically put/overwrite a Metadata field and set &quot;Date, Version, user@machine&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(07:35:16 PM)</font> <b>rgareus:</b></font> FlorianBd: I cannot answer the question.<br/>
+<font color="#A82F2F"><font size="2">(07:35:38 PM)</font> <b>FlorianBd:</b></font> rgareus: ok<br/>
+<font color="#A82F2F"><font size="2">(07:35:42 PM)</font> <b>rgareus:</b></font> FlorianBd: annoying is very personal<br/>
+<font color="#A82F2F"><font size="2">(07:35:45 PM)</font> <b>tom-:</b></font> rgareus: how does that feature relate to recovery? does it at all? is the session saved independently of that setting so one has a current state on recovery?<br/>
+<font color="#A82F2F"><font size="2">(07:36:13 PM)</font> <b>rgareus:</b></font> FlorianBd: three or four simple lines of code to write it. <br/>
+<font color="#A82F2F"><font size="2">(07:36:24 PM)</font> <b>FlorianBd:</b></font> rgareus: ok ....<br/>
+<font color="#A82F2F"><font size="2">(07:36:47 PM)</font> <b>tom-:</b></font> FlorianBd: you&apos;ll have a stack of patches :)<br/>
+<font color="#A82F2F"><font size="2">(07:37:53 PM)</font> <b>tom-:</b></font> FlorianBd: the good thing, you keep on using and improving it (to your needs which might be congruent to other&apos;s)<br/>
+<font color="#A82F2F"><font size="2">(07:38:54 PM)</font> <b>tom-:</b></font> as for ardourcp. this should be a --copy-session option of ./&lt;ardour binary&gt;<br/>
+<font color="#A82F2F"><font size="2">(07:39:39 PM)</font> <b>FlorianBd:</b></font> tom-: &quot;l a s&quot;  already mentioned that in the topic.<br/>
+<font color="#A82F2F"><font size="2">(07:39:43 PM)</font> <b>tom-:</b></font> or --clone-session, maybe<br/>
+<font color="#A82F2F"><font size="2">(07:39:58 PM)</font> <b>tom-:</b></font> oh, good :)<br/>
+<font color="#A82F2F"><font size="2">(07:40:55 PM)</font> <b>tom-:</b></font> apropos clone, track clone would rock. create new track with the same in/out connections, mute/solo/rec settings, playlists, plugins<br/>
+<font size="2">(07:41:35 PM)</font><b> falktx left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:42:13 PM)</font> <b>FlorianBd:</b></font> tom-: then create a ticket ;)<br/>
+<font color="#A82F2F"><font size="2">(07:42:50 PM)</font> <b>tom-:</b></font> uhm whazzdat.. ?<br/>
+<font color="#A82F2F"><font size="2">(07:43:14 PM)</font> <b>FlorianBd:</b></font> tom-:  http://tracker.ardour.org/bug_report_page.php<br/>
+<font color="#A82F2F"><font size="2">(07:43:17 PM)</font> <b>LAbot`:</b></font> Title: Select Project - MantisBT (at tracker.ardour.org)<br/>
+<font size="2">(07:43:45 PM)</font><b> nick_m left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:45:36 PM)</font> <b>tom-:</b></font> FlorianBd: that, i see<br/>
+<font color="#A82F2F"><font size="2">(07:45:47 PM)</font> <b>FlorianBd:</b></font> rgareus: if you ever do this Automatic MetaData thing upon save, please consider  #6064  in the same time  ;)<br/>
+<font size="2">(07:47:39 PM)</font><b> oofus_N5 left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:47:47 PM)</font> <b>rgareus:</b></font> FlorianBd: there&apos;s no relationship<br/>
+<font size="2">(07:48:00 PM)</font><b> reen1 left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:48:13 PM)</font> <b>FlorianBd:</b></font> rgareus: no but .... another quick thing that&apos;s very handy<br/>
+<font color="#A82F2F"><font size="2">(07:50:57 PM)</font> <b>las:</b></font> ok, the point about different applications usng the same format .... that&apos;s more compelling<br/>
+<font size="2">(07:50:57 PM)</font><b> lerni [<em>~lerni@202-245.104-92.cust.bluewin.ch</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:51:26 PM)</font> <b>tom-:</b></font> focus on your own<br/>
+<font color="#A82F2F"><font size="2">(07:51:33 PM)</font> <b>tom-:</b></font> that&apos;s complex enough :)<br/>
+<font color="#A82F2F"><font size="2">(07:52:36 PM)</font> <b>tom-:</b></font> las: as for &quot;cheap&quot; and &quot;talented&quot;: there is no linear relationship. monetary input can be 0 but output is greater 0<br/>
+<font color="#A82F2F"><font size="2">(07:53:39 PM)</font> <b>tom-:</b></font> that ratio can&apos;t be beaten<br/>
+<font color="#A82F2F"><font size="2">(07:54:19 PM)</font> <b>tom-:</b></font> (as in needed &quot;cap&quot; monetary input)<br/>
+<font color="#A82F2F"><font size="2">(07:55:37 PM)</font> <b>FlorianBd:</b></font> tom-: he meant for putting a software/version string<br/>
+<font color="#A82F2F"><font size="2">(07:56:35 PM)</font> <b>tom-:</b></font> it&apos;s good to have translators :o)<br/>
+<font size="2">(07:57:28 PM)</font><b> nick_m [<em>~nick_m@CPE-121-216-200-213.lnse3.ken.bigpond.net.au</em>] entered the room.</b><br/>
+<font size="2">(08:02:00 PM)</font><b> oofus_7 [<em>~oofus@oofus1-adsl.demon.co.uk</em>] entered the room.</b><br/>
+<font size="2">(08:03:33 PM)</font><b> oofus [<em>~chris@oofus1-adsl.demon.co.uk</em>] entered the room.</b><br/>
+<font size="2">(08:09:03 PM)</font><b> Lex_NewtoN left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:14:01 PM)</font><b> eddrog [<em>~eddrog@ipservice-092-211-072-034.092.211.pools.vodafone-ip.de</em>] entered the room.</b><br/>
+<font size="2">(08:19:48 PM)</font><b> Leatuspenguin [<em>~Leatuspen@79.97.10.192</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:19:54 PM)</font> <b>tom-:</b></font> the smart button is a property of Object Mode &quot;hand&quot; tool. if the hand tool is looked as &quot;one&quot;, the smart button should toggle along with the tool<br/>
+<font color="#A82F2F"><font size="2">(08:20:39 PM)</font> <b>tom-:</b></font> i.e. there should be no situation where smart is lit but has no effect on the current tool<br/>
+<font size="2">(08:21:55 PM)</font><b> melhiors [<em>~melhiors@89.201.83.27</em>] entered the room.</b><br/>
+<font color="#062585"><font size="2">(08:28:50 PM)</font> <b>***FlorianBd</b></font> compiles ardour in 13m with 64 audio tracks of netjack running at 96KHz (have to try without)<br/>
+<font color="#A82F2F"><font size="2">(08:29:32 PM)</font> <b>zagabar:</b></font> Anyone knows a good set of plugins to use with ardour to get a good chiptune sound? NES style preferrably.<br/>
+<font color="#A82F2F"><font size="2">(08:29:41 PM)</font> <b>FlorianBd:</b></font> s/tracks/channels/<br/>
+<font color="#A82F2F"><font size="2">(08:32:29 PM)</font> <b>rgareus:</b></font> zagabar: not a plugin (but standalone jack client): http://bristol.sourceforge.net/sidney.shtml<br/>
+<font color="#A82F2F"><font size="2">(08:32:31 PM)</font> <b>LAbot`:</b></font> Title: Bristol SID Emulation (at bristol.sourceforge.net)<br/>
+<font color="#A82F2F"><font size="2">(08:33:50 PM)</font> <b>zagabar:</b></font> Thanks :)<br/>
+<font color="#A82F2F"><font size="2">(08:33:52 PM)</font> <b>rgareus:</b></font> zagabar: other than that swh has some decimate (bit reduce &amp; downsample) plugins.<br/>
+<font color="#A82F2F"><font size="2">(08:34:07 PM)</font> <b>zagabar:</b></font> Right.<br/>
+<font color="#A82F2F"><font size="2">(08:34:14 PM)</font> <b>zagabar:</b></font> I&apos;ll have a look at them as well.<br/>
+<font color="#A82F2F"><font size="2">(08:34:46 PM)</font> <b>FlorianBd:</b></font> las, rgareus, drobilla: for info, it seems that big clock is very small in current git :)<br/>
+<font color="#A82F2F"><font size="2">(08:35:05 PM)</font> <b>rgareus:</b></font> zagabar: if you&apos;ll eventually have some cool chiptunes to share, I&apos;m all ears :)<br/>
+<font color="#A82F2F"><font size="2">(08:35:20 PM)</font> <b>rgareus:</b></font> zagabar: I don&apos;t think there are many people doing chiptunes with a DAW.<br/>
+<font color="#A82F2F"><font size="2">(08:35:31 PM)</font> <b>tom-:</b></font> reduce to zero bit and you&apos;re fine <br/>
+<font color="#A82F2F"><font size="2">(08:35:45 PM)</font> <b>FlorianBd:</b></font> OMG the blue of the mixer faders is ..... hilarious :) I guess it&apos;s temporary?<br/>
+<font color="#A82F2F"><font size="2">(08:36:09 PM)</font> <b>las:</b></font> FlorianBd: everything is up for grabs<br/>
+<font color="#A82F2F"><font size="2">(08:36:13 PM)</font> <b>tom-:</b></font> FlorianBd: selected text in dialogues, i hope are changing as well :)<br/>
+<font color="#A82F2F"><font size="2">(08:36:24 PM)</font> <b>rgareus:</b></font> zagabar: I&apos;ve heard some cool compositions (at LAC&apos;12) but in that case the chiptunes were done externally and Ardour was used only for the final mix and arrangement.<br/>
+<font color="#A82F2F"><font size="2">(08:37:22 PM)</font> <b>FlorianBd:</b></font> las: &quot;up for grabs&quot; sorry don&apos;t understand that<br/>
+<font color="#062585"><font size="2">(08:39:15 PM)</font> <b>***drobilla</b></font> wonders if anyone has LV2&apos;d any of the SID emulators yet<br/>
+<font color="#A82F2F"><font size="2">(08:39:21 PM)</font> <b>tom-:</b></font> FlorianBd: possibly means &quot;awaiting your customized theme&quot; (/me translator)<br/>
+<font color="#A82F2F"><font size="2">(08:40:04 PM)</font> <b>rgareus:</b></font> drobilla: I&apos;m not aware of any LV2-sid projects<br/>
+<font color="#A82F2F"><font size="2">(08:40:18 PM)</font> <b>FlorianBd:</b></font> las: hmm all channel colors are gone from regions, is it expected at this stage?<br/>
+<font color="#062585"><font size="2">(08:41:30 PM)</font> <b>***drobilla</b></font> is more nostalgically partial to the NES though<br/>
+<font color="#A82F2F"><font size="2">(08:41:30 PM)</font> <b>las:</b></font> FlorianBd: haven&apos;t tested it<br/>
+<font color="#A82F2F"><font size="2">(08:41:45 PM)</font> <b>tom-:</b></font> if the ui colors would be built based on contrast, the actual colors wouldn&apos;t matter, ideally<br/>
+<font color="#A82F2F"><font size="2">(08:42:09 PM)</font> <b>FlorianBd:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(08:42:09 PM)</font> <b>las:</b></font> FlorianBd: seems to work here<br/>
+<font color="#A82F2F"><font size="2">(08:42:09 PM)</font> <b>las:</b></font> FlorianBd: its an option<br/>
+<font color="#A82F2F"><font size="2">(08:42:09 PM)</font> <b>drobilla:</b></font> rgareus: Many are libraries, would probably be pretty easy to get something working, except for the massive amount of controls<br/>
+<font color="#A82F2F"><font size="2">(08:42:18 PM)</font> <b>FlorianBd:</b></font> las: hmm, my regions are all gray when I open a project<br/>
+<font color="#A82F2F"><font size="2">(08:42:20 PM)</font> <b>las:</b></font> FlorianBd: in the theme manager<br/>
+<font color="#A82F2F"><font size="2">(08:42:32 PM)</font> <b>las:</b></font> FlorianBd: &quot;color regions using their track&apos;s color&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:42:46 PM)</font> <b>oofus:</b></font> FlorianBd: the big clock has been broken for ages (you should find a mantis report about it). The text in it always reverts to default small size when re-opening Ardour, even though the window size is remembered.<br/>
+<font color="#A82F2F"><font size="2">(08:44:04 PM)</font> <b>FlorianBd:</b></font> las: I seem to have a performance issue also, it takes forever to open/close the palette/color choices, and even the Theme manager<br/>
+<font color="#A82F2F"><font size="2">(08:44:16 PM)</font> <b>tom-:</b></font> oofus: was that.. big ben? :)<br/>
+<font color="#A82F2F"><font size="2">(08:44:27 PM)</font> <b>oofus:</b></font> FlorianBd: to fix it, open Ardour, resize the big clock to as small as it will go, save the session, quit Ardour, re-start it. Now the Window and the text match in size and you can make it all bigger again.<br/>
+<font color="#A82F2F"><font size="2">(08:44:58 PM)</font> <b>FlorianBd:</b></font> oofus: no, a few gits ago big clock was fine<br/>
+<font color="#A82F2F"><font size="2">(08:45:43 PM)</font> <b>oofus:</b></font> FlorianBd: It has been broken for almost a year and has never been fixed. I think you are mistaken.<br/>
+<font color="#A82F2F"><font size="2">(08:45:45 PM)</font> <b>zagabar:</b></font> rgareus: Yeah, many seem to use trackers. But sure, I&apos;ll let you know if I get something cool sounding :D<br/>
+<font color="#A82F2F"><font size="2">(08:46:15 PM)</font> <b>FlorianBd:</b></font> oofus: well then I went around the problem without ever meeting it :)<br/>
+<font color="#A82F2F"><font size="2">(08:46:27 PM)</font> <b>oofus:</b></font> FlorianBd: quite possibly<br/>
+<font size="2">(08:46:43 PM)</font><b> zth left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(08:46:52 PM)</font> <b>las:</b></font> oofus: btw, i had a new idea for the big clock when i was in tel aviv<br/>
+<font color="#A82F2F"><font size="2">(08:47:18 PM)</font> <b>las:</b></font> oofus: since the rendering is all cairo, instead of actually resizing the font specification, just cairo-scale it. i&apos;ll have to try it<br/>
+<font color="#A82F2F"><font size="2">(08:47:30 PM)</font> <b>las:</b></font> oofus: the current implementation works HORRENDOUSLY on OS X<br/>
+<font size="2">(08:48:01 PM)</font><b> melhiors left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(08:49:38 PM)</font><b> falktx [<em>~falktx@89-181-100-36.net.novis.pt</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:50:56 PM)</font> <b>FlorianBd:</b></font> las: if option &quot;regions use track color&quot; is saved in ~/.config/ then it is not compatible with previous version<br/>
+<font color="#A82F2F"><font size="2">(08:51:23 PM)</font> <b>drobilla:</b></font> I am off to work, but parting thoughts on tool toggling: everyone seemed to dislike the idea of an explicit &quot;switch to previous tool&quot;, but re-using the tool keys so that they do so means &quot;r&quot; doesn&apos;t always switch to range (etc), as the_CLA pointed out<br/>
+<font color="#062585"><font size="2">(08:51:40 PM)</font> <b>***tom-</b></font> adds &quot;versioning&quot; to list of &quot;naming, cache invalidation&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:51:54 PM)</font> <b>drobilla:</b></font> These are the only two ways of having some kind of toggle thing I can think of, though<br/>
+<font color="#A82F2F"><font size="2">(08:52:39 PM)</font> <b>rgareus:</b></font> tom-: http://semver.org/<br/>
+<font color="#A82F2F"><font size="2">(08:52:40 PM)</font> <b>LAbot`:</b></font> Title: Semantic Versioning 2.0.0 (at semver.org)<br/>
+<font color="#A82F2F"><font size="2">(08:52:49 PM)</font> <b>tom-:</b></font> drobilla: if tools have a &quot;binary&quot; relation, i.e. there are just two tools, toggle *and* explicit tool selection would be welcome<br/>
+<font size="2">(08:53:03 PM)</font><b> melhiors [<em>~melhiors@89.201.83.27</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:53:16 PM)</font> <b>tom-:</b></font> rgareus: you have shown me that already. interesting read<br/>
+<font color="#A82F2F"><font size="2">(08:53:46 PM)</font> <b>rgareus:</b></font> tom-: in that case you should not have implied that &quot;versioning&quot; is hard<br/>
+<font color="#A82F2F"><font size="2">(08:54:28 PM)</font> <b>tom-:</b></font> rgareus: i think it is, when considering different versioned apps and different versioned format files ..<br/>
+<font color="#062585"><font size="2">(08:54:53 PM)</font> <b>***rgareus</b></font> gives up<br/>
+<font color="#A82F2F"><font size="2">(08:55:32 PM)</font> <b>tom-:</b></font> rgareus: incrementing the number itself is not difficult, agreed. i meant the surrounding things the version implies<br/>
+<font color="#A82F2F"><font size="2">(08:56:49 PM)</font> <b>rgareus:</b></font> for ardour itself, a numbers makes little sense (except that a user can easiy tell 4 is newer than 3). I&apos;m all for naming releases.<br/>
+<font color="#A82F2F"><font size="2">(08:57:06 PM)</font> <b>rgareus:</b></font> *easily tell<br/>
+<font color="#A82F2F"><font size="2">(08:57:07 PM)</font> <b>tom-:</b></font> see what an addition of a new xml element in the session format would imply for ardour<br/>
+<font color="#A82F2F"><font size="2">(08:57:18 PM)</font> <b>rgareus:</b></font> nothing<br/>
+<font color="#A82F2F"><font size="2">(08:57:24 PM)</font> <b>las:</b></font> FlorianBd: the config files have not changed<br/>
+<font color="#A82F2F"><font size="2">(08:57:48 PM)</font> <b>las:</b></font> FlorianBd: the names of the config files compared to 3.5.403 and earlier git have changed<br/>
+<font color="#A82F2F"><font size="2">(08:57:48 PM)</font> <b>FlorianBd:</b></font> las: well, when I opened from a previous version, the option was unchecked<br/>
+<font color="#A82F2F"><font size="2">(08:58:03 PM)</font> <b>las:</b></font> FlorianBd: they are &quot;product neutral&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:58:19 PM)</font> <b>las:</b></font> FlorianBd: e.g. $CONFIG/ardour3/config rather than $CONFIG/ardour3/ardour.rc<br/>
+<font color="#A82F2F"><font size="2">(08:58:38 PM)</font> <b>las:</b></font> FlorianBd: there&apos;s no plan yet for what we will do at release time<br/>
+<font color="#A82F2F"><font size="2">(08:59:12 PM)</font> <b>FlorianBd:</b></font> las: I don&apos;t know the details but all I can tell is that  3.5-3876  had option checked, then I run  3.5-3913  and option was unchecked.<br/>
+<font color="#062585"><font size="2">(09:00:01 PM)</font> <b>***FlorianBd</b></font> is just saying in case that reveals a larger issue<br/>
+<font color="#A82F2F"><font size="2">(09:00:49 PM)</font> <b>rgareus:</b></font> FlorianBd: some of this stuff is still on the list for the next release. (read/migrate old file)<br/>
+<font color="#A82F2F"><font size="2">(09:01:01 PM)</font> <b>rgareus:</b></font> FlorianBd: the format is the same. the name changed.<br/>
+<font color="#A82F2F"><font size="2">(09:01:13 PM)</font> <b>las:</b></font> FlorianBd: sure, sounds entirely expected<br/>
+<font color="#A82F2F"><font size="2">(09:01:28 PM)</font> <b>las:</b></font> FlorianBd: as i just said, we&apos;ve renamed all the config files even though their contents are unchanged<br/>
+<font size="2">(09:01:30 PM)</font><b> JL__ [<em>52e3be7c@gateway/web/freenode/ip.82.227.190.124</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:01:48 PM)</font> <b>las:</b></font> FlorianBd: we haven&apos;t released yet, so we don&apos;t expect old configurations to &quot;just work&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:01:56 PM)</font> <b>las:</b></font> FlorianBd: that&apos;s why they call it git<br/>
+<font size="2">(09:03:00 PM)</font><b> slyrus [<em>~chatzilla@107.200.10.75</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:05:46 PM)</font> <b>FlorianBd:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(09:05:48 PM)</font> <b>FlorianBd:</b></font> ok<br/>
+<font size="2">(09:07:03 PM)</font><b> JL__ left the room (quit: Quit: Page closed).</b><br/>
+<font color="#062585"><font size="2">(09:07:23 PM)</font> <b>***tom-</b></font> thinks guet gits git<br/>
+<font size="2">(09:07:25 PM)</font><b> EamonnTobin left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(09:08:19 PM)</font><b> seanz left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:09:40 PM)</font><b> seanz [<em>~seanz@2605:a601:812:6601:6c3f:6c2a:6286:b412</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:16:39 PM)</font> <b>tom-:</b></font> drobilla: please tell me when you have enough headroom for some midi-related ardour things<br/>
+<font color="#A82F2F"><font size="2">(09:24:12 PM)</font> <b>oofus:</b></font> las: sounds like a sensible idea (big clock)<br/>
+<font size="2">(09:26:31 PM)</font><b> Arnvidr left the room (quit: Quit: leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(09:29:52 PM)</font> <b>FlorianBd:</b></font> rgareus: plugin &gt; by creator &gt; Robin Gareus :))) Ah! never saw them, cool!<br/>
+<font color="#A82F2F"><font size="2">(09:30:08 PM)</font> <b>john_minetest:</b></font> Is there a possibility to choose one instrument for seve<br/>
+<font color="#A82F2F"><font size="2">(09:30:13 PM)</font> <b>john_minetest:</b></font> ral midi layers?<br/>
+<font color="#A82F2F"><font size="2">(09:33:26 PM)</font> <b>FlorianBd:</b></font> john_minetest: layers of regions? but without forcing it on the whole track?<br/>
+<font color="#A82F2F"><font size="2">(09:34:29 PM)</font> <b>john_minetest:</b></font> I want to use the same synth plugin instrument for several midi track layers without having to configure the synth for every single one.<br/>
+<font size="2">(09:35:16 PM)</font><b> Arnvidr_ left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:36:17 PM)</font> <b>rgareus:</b></font> john_minetest: create a midi-track add the synth to it.  set it to always monitor &quot;In&quot;put.  don&apos;t add notes to that track itself, route all other midi-tracks to it<br/>
+<font color="#A82F2F"><font size="2">(09:36:41 PM)</font> <b>rgareus:</b></font> john_minetest: ie use it a &quot;Midi Bus&quot; (currently ardour has not explicit Midi busses)<br/>
+<font color="#A82F2F"><font size="2">(09:42:05 PM)</font> <b>john_minetest:</b></font> thx<br/>
+<font size="2">(09:46:57 PM)</font><b> slyrus left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font size="2">(09:49:27 PM)</font><b> slyrus [<em>~chatzilla@107.200.10.75</em>] entered the room.</b><br/>
+<font size="2">(09:53:13 PM)</font><b> grobda24 left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:54:50 PM)</font><b> orl [<em>~orl@lns-bzn-48f-81-56-240-95.adsl.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(10:01:15 PM)</font><b> ove_n left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:12:07 PM)</font><b> JL__ [<em>52e3be7c@gateway/web/freenode/ip.82.227.190.124</em>] entered the room.</b><br/>
+<font size="2">(10:12:43 PM)</font><b> eddrog left the room (quit: Quit: Verlassend).</b><br/>
+<font size="2">(10:15:45 PM)</font><b> lerni left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:19:10 PM)</font><b> lerni_ [<em>~lerni@202-245.104-92.cust.bluewin.ch</em>] entered the room.</b><br/>
+<font size="2">(10:20:04 PM)</font><b> JL__ left the room (quit: Quit: Page closed).</b><br/>
+<font size="2">(10:31:18 PM)</font><b> oofus left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(10:32:30 PM)</font><b> ManDay [<em>~ManDay@unaffiliated/manday</em>] entered the room.</b><br/>
+<font size="2">(10:32:30 PM)</font><b> regebro [<em>~regebro@aatj194.neoplus.adsl.tpnet.pl</em>] entered the room.</b><br/>
+<font size="2">(10:32:47 PM)</font><b> falktx left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:33:11 PM)</font> <b>regebro:</b></font> Hi! Just started Ardour. I can&apos;t find any place for options. Primarily font size and save location.<br/>
+<font color="#A82F2F"><font size="2">(10:33:58 PM)</font> <b>ManDay:</b></font> Hey guys sorry to bother you, hope you don&apos;t mind. But do you know why it is that when I start qsampler I see no LS LV2 channels anywhere?<br/>
+<font color="#A82F2F"><font size="2">(10:34:22 PM)</font> <b>ManDay:</b></font> Actually, the darn thing just doesn&apos;t respond.<br/>
+<font color="#A82F2F"><font size="2">(10:34:50 PM)</font> <b>tnaugle:</b></font> regebro, assuming you are using ardour 3, go to the Edit menu then preferences<br/>
+<font color="#A82F2F"><font size="2">(10:35:13 PM)</font> <b>ManDay:</b></font> I think it has something to do with a similar problem I have: It appears not to be possible to start a linuxsampler process and *then* add LV2 plugins. I have to add the LV2 plugins which then &quot;create&quot; a linuxsampler process - but not the other way around. Can anyone perhaps shed some light on this?<br/>
+<font color="#A82F2F"><font size="2">(10:36:18 PM)</font> <b>john_minetest:</b></font> regebro: For font size, go to &quot;View&quot;, chose the bottom-most item, &quot;Show more UI preferences&quot; and fiddle with the &quot;font scaling&quot; slider there.<br/>
+<font color="#A82F2F"><font size="2">(10:37:26 PM)</font> <b>las:</b></font> regebro: you should also have been asked about the default session location when you first used the program<br/>
+<font color="#A82F2F"><font size="2">(10:37:35 PM)</font> <b>las:</b></font> regebro: the location of sessions is defined when you create a new session<br/>
+<font color="#A82F2F"><font size="2">(10:37:46 PM)</font> <b>las:</b></font> regebro: there is no &quot;Save As&quot; that will save them to a different location<br/>
+<font color="#A82F2F"><font size="2">(10:38:49 PM)</font> <b>regebro:</b></font> john_minetest: Hm. There is no &quot;Show more UI preferences&quot; option.<br/>
+<font color="#A82F2F"><font size="2">(10:39:09 PM)</font> <b>regebro:</b></font> las: Right, and I want to change the default location.<br/>
+<font color="#A82F2F"><font size="2">(10:39:17 PM)</font> <b>las:</b></font> regebro: that is in preferences<br/>
+<font color="#A82F2F"><font size="2">(10:39:32 PM)</font> <b>las:</b></font> regebro: all global preferences are in Edit &gt; Preferences in various tabs<br/>
+<font color="#A82F2F"><font size="2">(10:39:43 PM)</font> <b>las:</b></font> regebro: all per-session properties are in Session &gt; Properties<br/>
+<font color="#A82F2F"><font size="2">(10:40:09 PM)</font> <b>john_minetest:</b></font> regebro: It should be the bottom-most item in the &quot;View&quot; tab. Alternatively go to Edit &gt; Preferences &gt; GUI<br/>
+<font color="#A82F2F"><font size="2">(10:40:17 PM)</font> <b>regebro:</b></font> las: Ah! There&apos;s Edit -&gt; Preferences. Why didn&apos;t I see it before? Probably this small font. :)<br/>
+<font color="#A82F2F"><font size="2">(10:41:08 PM)</font> <b>john_minetest:</b></font> regebro: Oops, it might not be in the &quot;view&quot; tab since I am using the latest git version. But it should be accessible in the GUI tab of the Edit &gt; Preferences menu.<br/>
+<font color="#A82F2F"><font size="2">(10:41:27 PM)</font> <b>regebro:</b></font> john_minetest: Thanks, found it!<br/>
+<font color="#A82F2F"><font size="2">(10:41:51 PM)</font> <b>las:</b></font> john_minetest: it has neer been in the &quot;View&quot; menu tab :)<br/>
+<font size="2">(10:42:13 PM)</font><b> Arnvidr [<em>~arve@197.79-160-47.customer.lyse.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:43:19 PM)</font> <b>john_minetest:</b></font> las: I am using ardour in the git version, and here you can get to the GUI preferences through the &quot;View&quot; tab.<br/>
+<font color="#A82F2F"><font size="2">(10:48:35 PM)</font> <b>ManDay:</b></font> also i have some weird buzzing from time to time in linuxsampler, any idea why?<br/>
+<font size="2">(10:50:58 PM)</font><b> felz left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(10:53:15 PM)</font><b> regebro left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(10:53:37 PM)</font> <b>las:</b></font> john_minetest: that&apos;s a mistake<br/>
+<font color="#A82F2F"><font size="2">(10:55:02 PM)</font> <b>las:</b></font> Ben_at_home: e062629c ... this is a mistake<br/>
+<font color="#A82F2F"><font size="2">(10:55:17 PM)</font> <b>las:</b></font> Ben_at_home: toggle-rc-options-editor already existed and is used inside ardour.menus.in<br/>
+<font color="#A82F2F"><font size="2">(10:55:47 PM)</font> <b>Ben_at_Harrison:</b></font> rgareus, las:  regarding colors:  in the interim,  I&apos;m going to reset some of the wilder colors back to something closer to the old ones, OK ?<br/>
+<font color="#A82F2F"><font size="2">(10:57:39 PM)</font> <b>Ben_at_Harrison:</b></font> las:   eh?  It&apos;s just a redundant way to find some additional UI preferences   ( i.e.  it takes you directly to the UI prefs tab,  from the View menu )<br/>
+<font color="#A82F2F"><font size="2">(10:58:06 PM)</font> <b>las:</b></font> Ben_at_Harrison: seems absurd<br/>
+<font color="#A82F2F"><font size="2">(10:58:22 PM)</font> <b>las:</b></font> Ben_at_Harrison: &quot;more&quot; compared to what?<br/>
+<font color="#A82F2F"><font size="2">(10:58:25 PM)</font> <b>Ben_at_Harrison:</b></font> las:  perhaps so;   it solved a problem for me:  &quot; I remember I could turn those widgets on and off somehow.... was it in the view menu?&quot;<br/>
+<font color="#A82F2F"><font size="2">(10:58:26 PM)</font> <b>las:</b></font> Ben_at_Harrison: yes, please do reset them<br/>
+<font color="#A82F2F"><font size="2">(10:58:38 PM)</font> <b>las:</b></font> Ben_at_Harrison: i&apos;m just doing the generic button fill thing<br/>
+<font size="2">(10:58:58 PM)</font><b> nox- [<em>noident@freebsd/developer/nox</em>] entered the room.</b><br/>
+<font size="2">(11:05:23 PM)</font><b> oofus_7 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(11:05:28 PM)</font><b> oofus_7_ [<em>~oofus@oofus1-adsl.demon.co.uk</em>] entered the room.</b><br/>
+<font size="2">(11:10:17 PM)</font><b> ManDay left the room (quit: Quit: WeeChat 0.4.3).</b><br/>
+<font size="2">(11:11:37 PM)</font><b> melhiors left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(11:12:56 PM)</font><b> slyrus left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font size="2">(11:15:48 PM)</font><b> slyrus [<em>~chatzilla@107.200.10.75</em>] entered the room.</b><br/>
+<font size="2">(11:15:52 PM)</font><b> Stuzz [<em>~Stuzz@124.148.26.231</em>] entered the room.</b><br/>
+<font size="2">(11:18:30 PM)</font><b> lerni_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:25:45 PM)</font><b> john_minetest left the room (quit: Quit: Trees can see into your soul.).</b><br/>
+<font size="2">(11:28:55 PM)</font><b> john_minetest [<em>~john@unaffiliated/john-minetest/x-5335115</em>] entered the room.</b><br/>
+<font size="2">(11:43:34 PM)</font><b> slyrus left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(11:43:42 PM)</font><b> edogawa [<em>~quassel@188-22-173-223.adsl.highway.telekom.at</em>] entered the room.</b><br/>
+<font size="2">(11:46:48 PM)</font><b> ANero [<em>~nero@unaffiliated/anero</em>] entered the room.</b><br/>
+<font size="2">(11:49:44 PM)</font><b> slyrus [<em>~chatzilla@107.200.10.75</em>] entered the room.</b><br/>
+<font size="2">(12:03:16 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

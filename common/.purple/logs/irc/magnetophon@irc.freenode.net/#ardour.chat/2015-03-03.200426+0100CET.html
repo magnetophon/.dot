@@ -1,0 +1,141 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Tue 03 Mar 2015 08:04:26 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Tue 03 Mar 2015 08:04:26 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:04:26 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(08:04:26 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(08:04:27 PM)</font> <b>ManDay:</b></font> drobilla: hey, you there? I&apos;m trying to use jalv with calf plugins, installed in ~/local/lib/lv2, so I run  LV2_PATH=/home/manday/local/lib/lv2 jalv.gtk3 &lt;equalizer&gt;, on CLI I get &quot;No appropriate UI found&quot; and I only get generic knobs and sliders<br/>
+<font color="#A82F2F"><font size="2">(08:07:19 PM)</font> <b>ManDay:</b></font> (if I plug the plugin into, say, qtractor, I get the calf UI as expected)<br/>
+<font color="#A82F2F"><font size="2">(08:08:08 PM)</font> <b>SzArAk:</b></font> how can I copy a midi region and edit it separately? Without altering the original?<br/>
+<font color="#A82F2F"><font size="2">(08:22:48 PM)</font> <b>drobilla:</b></font> ManDay: jalv.gtk3 doesn&apos;t support gtk2 interfaces<br/>
+<font color="#A82F2F"><font size="2">(08:22:55 PM)</font> <b>drobilla:</b></font> ManDay: nor can it.  use jalv.gtk2<br/>
+<font color="#A82F2F"><font size="2">(08:23:27 PM)</font> <b>ManDay:</b></font> drobilla: ah, okay. that explains it. as badosy suggested on #opensourcemusicians I&apos;m using the qt4 one now (I don&apos;t have gtk2)<br/>
+<font color="#A82F2F"><font size="2">(08:23:47 PM)</font> <b>ManDay:</b></font> drobilla: I don&apos;t understand what the &quot;nice&quot; calf UI has to do with &quot;gtk2&quot;, though<br/>
+<font color="#A82F2F"><font size="2">(08:24:25 PM)</font> <b>ManDay:</b></font> is calf rendering this using gtk2? so when it works with qt, it renders it using qt?<br/>
+<font color="#A82F2F"><font size="2">(08:25:23 PM)</font> <b>drobilla:</b></font> ManDay: They are implemented in Gtk2.  If you have calf UIs, you have Gtk2.<br/>
+<font color="#A82F2F"><font size="2">(08:25:46 PM)</font> <b>ManDay:</b></font> Huh, that would be extraordinarly suprising<br/>
+<font color="#A82F2F"><font size="2">(08:26:00 PM)</font> <b>ManDay:</b></font> I think I know what&apos;s on my system, and there is no gtk2<br/>
+<font color="#062585"><font size="2">(08:26:04 PM)</font> <b>***ManDay</b></font> checks<br/>
+<font color="#A82F2F"><font size="2">(08:27:36 PM)</font> <b>drobilla:</b></font> and... presumably, given the channel, you use Ardour, which is also Gtk2...<br/>
+<font color="#A82F2F"><font size="2">(08:29:04 PM)</font> <b>badosu:</b></font> drobilla: he compiled jalv, so since he does not have the gtk2 headers he doesnt have the jalv.gtk binary<br/>
+<font color="#A82F2F"><font size="2">(08:29:21 PM)</font> <b>ManDay:</b></font> wait, maybe I do have gtk2, didn&apos;t check yet<br/>
+<font color="#A82F2F"><font size="2">(08:29:26 PM)</font> <b>ManDay:</b></font> If I do have it, I&apos;m an idiot.<br/>
+<font color="#A82F2F"><font size="2">(08:29:34 PM)</font> <b>ManDay:</b></font> (for not knowing it, alone)<br/>
+<font color="#A82F2F"><font size="2">(08:29:57 PM)</font> <b>badosu:</b></font> ManDay: having the gtk runtime and gtk headers are different things<br/>
+<font color="#A82F2F"><font size="2">(08:30:10 PM)</font> <b>ManDay:</b></font> badosu: I know that. I&apos;m a dev<br/>
+<font color="#A82F2F"><font size="2">(08:30:22 PM)</font> <b>ManDay:</b></font> A dev with Gtk-2.0 which I didn&apos;t know off<br/>
+<font color="#A82F2F"><font size="2">(08:30:32 PM)</font> <b>badosu:</b></font> ManDay: sorry if I sounded obvious, this is a recurrent problem with me :-)<br/>
+<font color="#A82F2F"><font size="2">(08:38:26 PM)</font> <b>ManDay:</b></font> drobilla: so, just... when I run jalv.qt and get a CALF gui, is QT actually involved there?<br/>
+<font color="#A82F2F"><font size="2">(08:39:24 PM)</font> <b>rgareus:</b></font> libsuil&apos;s  gtk2_in_qt4 wrapper<br/>
+<font color="#A82F2F"><font size="2">(08:40:24 PM)</font> <b>ManDay:</b></font> so jalv only uses libsuil and does not depend on qt nor gtk directly?<br/>
+<font color="#A82F2F"><font size="2">(08:40:36 PM)</font> <b>ManDay:</b></font> heh, i dont get it. why do we have different binaries then<br/>
+<font color="#A82F2F"><font size="2">(08:40:41 PM)</font> <b>rgareus:</b></font> jalv.qt4 depends on qt<br/>
+<font color="#A82F2F"><font size="2">(08:40:52 PM)</font> <b>rgareus:</b></font> but not on gtk<br/>
+<font color="#A82F2F"><font size="2">(08:41:06 PM)</font> <b>falktx:</b></font> there are different binaries so it&apos;s easier to test different things<br/>
+<font color="#A82F2F"><font size="2">(08:41:15 PM)</font> <b>rgareus:</b></font> jalv.gtk2 depends on gtk2   but can ask libsuil to present a QT gui as gtk2<br/>
+<font color="#A82F2F"><font size="2">(08:42:54 PM)</font> <b>rgareus:</b></font> falktx: are there? I&apos;m under the impression they mostly serve as examples to write minimal hosts<br/>
+<font color="#A82F2F"><font size="2">(08:43:10 PM)</font> <b>falktx:</b></font> I think it&apos;s also for quick testing too<br/>
+<font color="#A82F2F"><font size="2">(08:43:16 PM)</font> <b>rgareus:</b></font> since jalv uses libsuil it will wrap whatever compination is possible<br/>
+<font color="#A82F2F"><font size="2">(08:43:18 PM)</font> <b>falktx:</b></font> ie, does a x11 ui work properly on qt?<br/>
+<font color="#A82F2F"><font size="2">(08:43:22 PM)</font> <b>falktx:</b></font> answer: no<br/>
+<font color="#A82F2F"><font size="2">(08:43:36 PM)</font> <b>ManDay:</b></font> rgareus: Hrm, I&apos;m not entirely convinced I understand, but well. As long as it works I&apos;m happy :)<br/>
+<font color="#A82F2F"><font size="2">(08:44:00 PM)</font> <b>rgareus:</b></font> falktx: yep, because noone really bothered to write a proper x11_in_qt suil wrapper :)<br/>
+<font color="#A82F2F"><font size="2">(08:44:58 PM)</font> <b>falktx:</b></font> rgareus: I don&apos;t agree with some of the design choices on suil<br/>
+<font color="#A82F2F"><font size="2">(08:45:05 PM)</font> <b>badosu:</b></font> falktx: why does sorcer work on jalv.qt, isnt it X11UI?<br/>
+<font color="#A82F2F"><font size="2">(08:45:12 PM)</font> <b>falktx:</b></font> it does?<br/>
+<font color="#A82F2F"><font size="2">(08:45:16 PM)</font> <b>falktx:</b></font> does it work well?<br/>
+<font color="#A82F2F"><font size="2">(08:45:22 PM)</font> <b>badosu:</b></font> the resize command not<br/>
+<font color="#A82F2F"><font size="2">(08:45:27 PM)</font> <b>badosu:</b></font> but it works<br/>
+<font color="#A82F2F"><font size="2">(08:45:40 PM)</font> <b>falktx:</b></font> the distrho ports also work, but they appear on a separate window<br/>
+<font color="#A82F2F"><font size="2">(08:45:43 PM)</font> <b>falktx:</b></font> so there&apos;s that :P<br/>
+<font color="#A82F2F"><font size="2">(08:47:18 PM)</font> <b>falktx:</b></font> I might be able to fix that, so I&apos;ll try soon<br/>
+<font color="#A82F2F"><font size="2">(08:47:25 PM)</font> <b>drobilla:</b></font> what &quot;design choices&quot;?<br/>
+<font color="#A82F2F"><font size="2">(08:47:38 PM)</font> <b>falktx:</b></font> having the plugin UI doing the reparenting<br/>
+<font color="#A82F2F"><font size="2">(08:47:42 PM)</font> <b>falktx:</b></font> instead of the host<br/>
+<font color="#A82F2F"><font size="2">(08:48:01 PM)</font> <b>drobilla:</b></font> The plugin UI doesn&apos;t do any reparenting<br/>
+<font color="#A82F2F"><font size="2">(08:48:12 PM)</font> <b>falktx:</b></font> gtk2 uis do, on qt4<br/>
+<font color="#A82F2F"><font size="2">(08:48:20 PM)</font> <b>drobilla:</b></font> and, as I have already explained, creating a window with the correct parent and NOT reparenting works better.<br/>
+<font color="#A82F2F"><font size="2">(08:48:29 PM)</font> <b>falktx:</b></font> qt4 is not the one that creates the container where a gtk2 widget will go<br/>
+<font color="#A82F2F"><font size="2">(08:48:41 PM)</font> <b>drobilla:</b></font> You&apos;re clinging to an ideal I tried 4 years ago.  It doesn&apos;t work.<br/>
+<font color="#A82F2F"><font size="2">(08:48:43 PM)</font> <b>falktx:</b></font> the gtk2 ui takes the host qt4 widget and embeds into it<br/>
+<font color="#A82F2F"><font size="2">(08:48:52 PM)</font> <b>drobilla:</b></font> Reparenting whatsoever is best avoided at all costs.<br/>
+<font color="#A82F2F"><font size="2">(08:49:09 PM)</font> <b>falktx:</b></font> well, I do know this is not possible on gtk2 due to winId not being valid until expose happens<br/>
+<font color="#A82F2F"><font size="2">(08:49:46 PM)</font> <b>rgareus:</b></font> you&apos;re confusing map &amp; expose?<br/>
+<font color="#A82F2F"><font size="2">(08:49:49 PM)</font> <b>drobilla:</b></font> Well, it is the wrapper&apos;s responsibility to create the thing to embed into, yes.  That&apos;s the point.<br/>
+<font color="#A82F2F"><font size="2">(08:49:59 PM)</font> <b>drobilla:</b></font> &quot;having the plugin UI doing the reparenting&quot; doesn&apos;t make sense.<br/>
+<font color="#A82F2F"><font size="2">(08:50:12 PM)</font> <b>falktx:</b></font> I don&apos;t know how to say it other way... :S<br/>
+<font color="#A82F2F"><font size="2">(08:50:30 PM)</font> <b>falktx:</b></font> rgareus: doens&apos;t gtk2 have an expose event?<br/>
+<font color="#A82F2F"><font size="2">(08:50:56 PM)</font> <b>rgareus:</b></font> it does<br/>
+<font color="#A82F2F"><font size="2">(08:50:56 PM)</font> <b>falktx:</b></font> rgareus: the x11 window is only valid when that happens<br/>
+<font color="#A82F2F"><font size="2">(08:51:11 PM)</font> <b>drobilla:</b></font> Whether the implementation of that particular wrapper is ideal is another question.  It&apos;s probably not.<br/>
+<font color="#A82F2F"><font size="2">(08:51:22 PM)</font> <b>falktx:</b></font> if you try to get the x11 window before expose is called, you get null<br/>
+<font color="#A82F2F"><font size="2">(08:51:42 PM)</font> <b>rgareus:</b></font> falktx: it&apos;s valid after the window is mapped<br/>
+<font color="#A82F2F"><font size="2">(08:51:54 PM)</font> <b>drobilla:</b></font> It&apos;ll take more than a 5 minute aborted effort to find out ;)<br/>
+<font color="#A82F2F"><font size="2">(08:51:57 PM)</font> <b>rgareus:</b></font> structurenotify<br/>
+<font color="#A82F2F"><font size="2">(08:52:08 PM)</font> <b>falktx:</b></font> which happens on gtk2-expose<br/>
+<font color="#A82F2F"><font size="2">(08:52:30 PM)</font> <b>falktx:</b></font> rgareus: qt4 can return a valid x11 window even when the widget is still invisible<br/>
+<font color="#A82F2F"><font size="2">(08:52:34 PM)</font> <b>rgareus:</b></font> expose happens after<br/>
+<font color="#A82F2F"><font size="2">(08:52:46 PM)</font> <b>falktx:</b></font> I wish gtk2 could too<br/>
+<font color="#A82F2F"><font size="2">(08:52:47 PM)</font> <b>SzArAk:</b></font> Can you help me on how can I copy a midi region and edit it separately? Without altering the original? I&apos;m trying to edit drums, but every time I try to copy/duplicate a region the copy is connected with original. How could I copy chuncks of midi notes between regions?<br/>
+<font color="#A82F2F"><font size="2">(08:52:57 PM)</font> <b>rgareus:</b></font> falktx: it can<br/>
+<font color="#A82F2F"><font size="2">(08:52:58 PM)</font> <b>drobilla:</b></font> but WFM AFAICT.  e.g. sisko gtk in jalv.qt<br/>
+<font color="#A82F2F"><font size="2">(08:53:26 PM)</font> <b>rgareus:</b></font> drobilla: you&apos;ve been watching too much DS9<br/>
+<font color="#A82F2F"><font size="2">(08:53:29 PM)</font> <b>falktx:</b></font> rgareus: tell me how please<br/>
+<font color="#A82F2F"><font size="2">(08:53:43 PM)</font> <b>drobilla:</b></font> rgareus: maybe. :)<br/>
+<font color="#A82F2F"><font size="2">(08:57:16 PM)</font> <b>rgareus:</b></font> falktx: GDK_DRAWABLE_XID<br/>
+<font color="#A82F2F"><font size="2">(08:57:28 PM)</font> <b>falktx:</b></font> rgareus: hehe, except it doesn&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(08:57:41 PM)</font> <b>rgareus:</b></font> falktx: ut a GtkPlug, or GtkSocket will work just fine as well<br/>
+<font color="#A82F2F"><font size="2">(08:58:14 PM)</font> <b>drobilla:</b></font> SzArAk: you need to unlike the copy.  it&apos;s in the context menu<br/>
+<font color="#A82F2F"><font size="2">(08:58:16 PM)</font> <b>SzArAk:</b></font> OK, found it. right mouse click-&gt;midi-&gt;unlink :)<br/>
+<font color="#A82F2F"><font size="2">(08:58:21 PM)</font> <b>drobilla:</b></font> unlink*<br/>
+<font color="#A82F2F"><font size="2">(08:58:32 PM)</font> <b>falktx:</b></font> rgareus: I think it will only work for GtkPlug/Socket (if it even does)<br/>
+<font color="#A82F2F"><font size="2">(08:58:42 PM)</font> <b>SzArAk:</b></font> drobilla: thanks! :)<br/>
+<font color="#A82F2F"><font size="2">(08:58:58 PM)</font> <b>falktx:</b></font> rgareus: I&apos;m using this https://github.com/falkTX/Carla/blob/master/source/bridges-ui/CarlaBridgeToolkitGtk.cpp#L224 called on gtk2-realize event<br/>
+<font color="#A82F2F"><font size="2">(08:59:06 PM)</font> <b>falktx:</b></font> rgareus: the winId is still 0 at this point<br/>
+<font color="#A82F2F"><font size="2">(09:00:16 PM)</font> <b>rgareus:</b></font> falktx: you can call ensure_style (); to realize the window<br/>
+<font color="#A82F2F"><font size="2">(09:02:05 PM)</font> <b>rgareus:</b></font> or just realize()<br/>
+<font color="#A82F2F"><font size="2">(09:02:26 PM)</font> <b>rgareus:</b></font> but yes if Window is NULL, you obviously can&apos;t get a window reference<br/>
+<font color="#A82F2F"><font size="2">(09:02:49 PM)</font> <b>rgareus:</b></font> but saying that you can&apos;t get  window reference without showing the window is not correct<br/>
+<font color="#A82F2F"><font size="2">(09:03:11 PM)</font> <b>falktx:</b></font> but I have called window-show already<br/>
+<font color="#A82F2F"><font size="2">(09:03:27 PM)</font> <b>falktx:</b></font> that&apos;s why the widget is about to appear (realize)<br/>
+<font color="#A82F2F"><font size="2">(09:04:09 PM)</font> <b>Ben_a3:</b></font> las, rgareus, drobilla :  is it intentional that all the backends add &quot;None&quot; as the default MIDI backend.  I&apos;m watching over tester&apos;s shoulders, and a very common problem is that they don&apos;t select a midi backend, then can&apos;t figure out why midi doesn&apos;t work.<br/>
+<font color="#A82F2F"><font size="2">(09:04:18 PM)</font> <b>rgareus:</b></font> it&apos;s pretty much like new pugl API  first create an &apos;object&apos;.. then set params..  then realize it.<br/>
+<font color="#A82F2F"><font size="2">(09:05:05 PM)</font> <b>rgareus:</b></font> Ben_a3: no idea.<br/>
+<font color="#A82F2F"><font size="2">(09:05:07 PM)</font> <b>Ben_a3:</b></font> I&apos;d like to swap the order so that the default (first) item returned is a working midi backend.  thereby requiring them to choose &quot;None&quot; if they really don&apos;t want one.<br/>
+<font color="#A82F2F"><font size="2">(09:05:49 PM)</font> <b>rgareus:</b></font> Ben_a3: well ideally, they&apos;d consciously choose a backend and callibrate the latency first :)<br/>
+<font color="#A82F2F"><font size="2">(09:06:18 PM)</font> <b>rgareus:</b></font> Ben_a3: but I think we&apos;re far off from that<br/>
+<font color="#A82F2F"><font size="2">(09:06:25 PM)</font> <b>Ben_a3:</b></font> rgareus,    heh<br/>
+<font color="#A82F2F"><font size="2">(09:07:17 PM)</font> <b>rgareus:</b></font> Ben_a3: I think we should choose one good default for every backend - not simply select the &apos;first&apos;<br/>
+<font color="#A82F2F"><font size="2">(09:07:31 PM)</font> <b>rgareus:</b></font> because as you said, most users just press OK.<br/>
+<font color="#A82F2F"><font size="2">(09:08:37 PM)</font> <b>rgareus:</b></font> falktx: in different news, I just enabled recursive VST scanning.<br/>
+<font color="#062585"><font size="2">(09:08:52 PM)</font> <b>***rgareus</b></font> hopes it does not blow up with dup plugins (due  to .fsi)<br/>
+<font color="#A82F2F"><font size="2">(09:09:16 PM)</font> <b>falktx:</b></font> so ardour3 will now find carla-vst<br/>
+<font color="#A82F2F"><font size="2">(09:09:30 PM)</font> <b>rgareus:</b></font> dunno.<br/>
+<font color="#A82F2F"><font size="2">(09:09:41 PM)</font> <b>rgareus:</b></font> depends where carla-vst installs itself to<br/>
+<font size="2">(09:09:53 PM)</font><b> ousado is now known as runtime</b><br/>
+<font color="#A82F2F"><font size="2">(09:09:58 PM)</font> <b>rgareus:</b></font> and if that path is below the user-configured VST scan path<br/>
+<font color="#A82F2F"><font size="2">(09:09:59 PM)</font> <b>falktx:</b></font>  /usr/lib/vst/carla.vst/<br/>
+<font color="#A82F2F"><font size="2">(09:10:22 PM)</font> <b>falktx:</b></font> carla needs some extra files to work, something vst doesn&apos;t take into account<br/>
+<font color="#A82F2F"><font size="2">(09:10:27 PM)</font> <b>Ben_a3:</b></font> rgareus:   sure, each backend can order them in priority, it&apos;s just a list as far as I can tell.  although the waves backend has some hardcoded checks for the [0]th item that will need tweaking<br/>
+<font color="#A82F2F"><font size="2">(09:10:29 PM)</font> <b>falktx:</b></font> but lv2 does :)<br/>
+<font color="#A82F2F"><font size="2">(09:10:32 PM)</font> <b>falktx:</b></font> lv2 ftw!<br/>
+<font size="2">(09:10:54 PM)</font><b> runtime is now known as ousado</b><br/>
+<font color="#A82F2F"><font size="2">(09:11:31 PM)</font> <b>rgareus:</b></font> falktx: yes the default path at first run includes /usr/lib/vst/<br/>
+<font color="#A82F2F"><font size="2">(09:12:00 PM)</font> <b>falktx:</b></font> bbl<br/>
+<font color="#A82F2F"><font size="2">(10:13:32 PM)</font> <b>Ben_a3:</b></font> rgareus,  for the alsa backend, &quot;alsa sequencer&quot; should be preferable to alsa raw, right?<br/>
+<font color="#A82F2F"><font size="2">(10:14:49 PM)</font> <b>rgareus:</b></font> Ben_a3: I get less jitter with raw<br/>
+<font color="#A82F2F"><font size="2">(10:14:58 PM)</font> <b>rgareus:</b></font> Ben_a3: and also use alsarawmidi with jack<br/>
+<font color="#A82F2F"><font size="2">(10:15:31 PM)</font> <b>Ben_a3:</b></font> ok, cool.<br/>
+<font color="#A82F2F"><font size="2">(10:15:31 PM)</font> <b>rgareus:</b></font> Ben_a3: measurements http://gareus.org/wiki/midilatency<br/>
+<font color="#A82F2F"><font size="2">(10:15:33 PM)</font> <b>LAbot:</b></font> Title: wiki:midilatency [Robin Gareus] (at gareus.org)<br/>
+<font color="#A82F2F"><font size="2">(10:15:42 PM)</font> <b>rgareus:</b></font> Ben_a3: the problemis that raw requires exclusive access<br/>
+<font color="#A82F2F"><font size="2">(10:15:56 PM)</font> <b>Ben_a3:</b></font> downside is that if you connect with raw, you can&apos;t connect other software into it, right?<br/>
+<font color="#A82F2F"><font size="2">(10:15:56 PM)</font> <b>Ben_a3:</b></font> yeah exactly<br/>
+<font color="#A82F2F"><font size="2">(10:16:15 PM)</font> <b>Ben_a3:</b></font> oh well, it&apos;s mostly a non-issue.  I would expect nearly any linux user to use jack anyway.<br/>
+<font color="#A82F2F"><font size="2">(10:16:36 PM)</font> <b>Ben_a3:</b></font> well, that&apos;s not true;  _i_ usually use alsa  :)<br/>
+<font color="#A82F2F"><font size="2">(10:16:52 PM)</font> <b>rgareus:</b></font> Ben_a3: Ardour&apos;s ALSA backend? <br/>
+<font color="#A82F2F"><font size="2">(10:17:05 PM)</font> <b>Ben_a3:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(10:17:08 PM)</font> <b>rgareus:</b></font> Ben_a3: oofus does, too.<br/>
+<font color="#A82F2F"><font size="2">(10:17:58 PM)</font> <b>rgareus:</b></font> even though I wrote it, I use jack for the most part, so there&apos;s that.<br/>
+<font color="#A82F2F"><font size="2">(10:18:31 PM)</font> <b>rgareus:</b></font> the only use case I have for it is MTC slave + accurate sync.<br/>
+<font color="#A82F2F"><font size="2">(10:19:00 PM)</font> <b>rgareus:</b></font> jack does not have an option for additional midi latency<br/>
+<font color="#A82F2F"><font size="2">(10:20:46 PM)</font> <b>Ben_a3:</b></font> ah.<br/>
+<font size="2">(11:00:55 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,255 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Thu 19 Mar 2015 05:24:34 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Thu 19 Mar 2015 05:24:34 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(05:24:34 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(05:24:34 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(05:24:57 PM)</font> <b>eddyb:</b></font> oh, right, I previously fixed this by toggling compositioning, thanks!<br/>
+<font color="#A82F2F"><font size="2">(05:25:10 PM)</font> <b>eddyb:</b></font> ttuegel: it&apos;s fine most of the time. and yes, it&apos;s mesa<br/>
+<font color="#A82F2F"><font size="2">(05:25:51 PM)</font> <b>eddyb:</b></font> ttuegel: I think konsole reliably breaks (only a few rows update while scrolling) when switching screens... but that seems related to the kscreen issue<br/>
+<font color="#A82F2F"><font size="2">(05:26:13 PM)</font> <b>eddyb:</b></font> I re-enabled compositioning and it&apos;s fine<br/>
+<font color="#A82F2F"><font size="2">(05:26:27 PM)</font> <b>eddyb:</b></font> ttuegel: I guess OpenGL state gets corrupted at some point<br/>
+<font color="#A82F2F"><font size="2">(05:27:02 PM)</font> <b>eddyb:</b></font> (the IRC client is fine, I don&apos;t have any konsoles that were broken atm)<br/>
+<font color="#A82F2F"><font size="2">(05:27:02 PM)</font> <b>ttuegel:</b></font> eddyb: probably. you can try changing the opengl version. i have mesa, and i get good results from opengl 3 + egl, but ymmv. i think you have to log out for the change to fully take effect, though<br/>
+<font color="#A82F2F"><font size="2">(05:27:16 PM)</font> <b>eddyb:</b></font> ttuegel: that&apos;s what I&apos;m on IIRC<br/>
+<font color="#A82F2F"><font size="2">(05:27:17 PM)</font> <b>ttuegel:</b></font> it could also be some kind of vsync thing<br/>
+<font color="#A82F2F"><font size="2">(05:27:36 PM)</font> <b>eddyb:</b></font> nah, I can trigger it by simply clicking another window<br/>
+<font color="#A82F2F"><font size="2">(05:27:56 PM)</font> <b>eddyb:</b></font> although... I don&apos;t have anything which obviously shows it&apos;s not vsync<br/>
+<font color="#A82F2F"><font size="2">(05:29:54 PM)</font> <b>ttuegel:</b></font> eddyb: i think you can turn vsync off entirely, that would confirm or rule it out<br/>
+<font color="#A82F2F"><font size="2">(05:32:17 PM)</font> <b>berdario:</b></font> Lethalman: this seems bad... I cannot easily use nix-env if I try to use my package list in packages.nix :/<br/>
+<font color="#A82F2F"><font size="2">(05:32:54 PM)</font> <b>Lethalman:</b></font> mh right, isn&apos;t there a way to ignore collisions with nix-env niksnut ?<br/>
+<font color="#A82F2F"><font size="2">(05:34:10 PM)</font> <b>JagaJaga:</b></font> Still getting `error: derivation ‘user-environment.drv’ has ‘__noChroot’ set, but that&apos;s not allowed when ‘build-use-chroot’ is ‘true’`. What&apos;s that?<br/>
+<font color="#A82F2F"><font size="2">(05:34:28 PM)</font> <b>berdario:</b></font> I suppose that specifying the nixos_root contained in .nix-defexpr might fix it<br/>
+<font color="#A82F2F"><font size="2">(05:34:30 PM)</font> <b>Lethalman:</b></font> JagaJaga, where&apos;s that __noChroot?<br/>
+<font color="#A82F2F"><font size="2">(05:34:31 PM)</font> <b>JagaJaga:</b></font> Using no pkgs with __noChroot = true option<br/>
+<font color="#A82F2F"><font size="2">(05:34:39 PM)</font> <b>Lethalman:</b></font> berdario, mh?<br/>
+<font color="#A82F2F"><font size="2">(05:34:47 PM)</font> <b>Lethalman:</b></font> JagaJaga, no pkgs?<br/>
+<font color="#A82F2F"><font size="2">(05:35:12 PM)</font> <b>Lethalman:</b></font> that error is weird anyway<br/>
+<font color="#A82F2F"><font size="2">(05:35:22 PM)</font> <b>JagaJaga:</b></font> Lethalman: just building this https://github.com/jagajaga/my_configs/blob/master/.nixpkgs/common.nix<br/>
+<font color="#A82F2F"><font size="2">(05:35:34 PM)</font> <b>Lethalman:</b></font> and....<br/>
+<font color="#A82F2F"><font size="2">(05:35:41 PM)</font> <b>Lethalman:</b></font> how am I supposed to know where is __noChroot in there :)<br/>
+<font color="#A82F2F"><font size="2">(05:35:42 PM)</font> <b>JagaJaga:</b></font> Like nix-env -i base-env haskell-env... etc<br/>
+<font color="#A82F2F"><font size="2">(05:35:57 PM)</font> <b>JagaJaga:</b></font> As I said, there are no pkgs with this option<br/>
+<font color="#A82F2F"><font size="2">(05:36:10 PM)</font> <b>berdario:</b></font> no, I was wrong<br/>
+<font color="#A82F2F"><font size="2">(05:36:15 PM)</font> <b>JagaJaga:</b></font> Using this cfg for months<br/>
+<font color="#A82F2F"><font size="2">(05:36:21 PM)</font> <b>JagaJaga:</b></font> First time this wierd error<br/>
+<font color="#A82F2F"><font size="2">(05:37:12 PM)</font> <b>JagaJaga:</b></font> Looked into user-environment.drv and there is `[&quot;-w&quot;,&quot;/nix/store/                      jjgyvh88yw37gg5ad5lj1z0qdv31d7jy-buildenv.pl&quot;],[(&quot;__noChroot&quot;,&quot;1&quot;)`<br/>
+<font color="#A82F2F"><font size="2">(05:37:38 PM)</font> <b>Lethalman:</b></font> huh<br/>
+<font color="#A82F2F"><font size="2">(05:37:39 PM)</font> <b>berdario:</b></font> Lethalman: nix-env supposedly uses .nix-defexpr, in that there&apos;s just the nixos channel at /home/dario/.nix-defexpr/channels_root/nixos/default.nix ... I tried to add that directly as an import source inside my packages.nix, but when I install git (for example) from both my packages.nix and bare nix-env, I end up getting 2 derivations, and thus a collision<br/>
+<font color="#A82F2F"><font size="2">(05:37:46 PM)</font> <b>JagaJaga:</b></font> What the....<br/>
+<font color="#A82F2F"><font size="2">(05:37:53 PM)</font> <b>Lethalman:</b></font> JagaJaga, there&apos;s no __noChroot in the whole nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(05:38:40 PM)</font> <b>JagaJaga:</b></font> Lethalman: yes!<br/>
+<font color="#A82F2F"><font size="2">(05:38:46 PM)</font> <b>JagaJaga:</b></font> That&apos;s too wierd<br/>
+<font color="#A82F2F"><font size="2">(05:38:50 PM)</font> <b>Lethalman:</b></font> indeed<br/>
+<font color="#A82F2F"><font size="2">(05:39:12 PM)</font> <b>JagaJaga:</b></font> Lethalman: http://pastie.org/10039021<br/>
+<font color="#A82F2F"><font size="2">(05:39:31 PM)</font> <b>JagaJaga:</b></font> that&apos;s user-environmet.drv<br/>
+<font color="#A82F2F"><font size="2">(05:39:54 PM)</font> <b>Lethalman:</b></font> JagaJaga, http://lxr.devzen.net/source/xref/nix/corepkgs/buildenv.nix<br/>
+<font color="#A82F2F"><font size="2">(05:40:08 PM)</font> <b>Lethalman:</b></font> it&apos;s the nix-env command that adds it<br/>
+<font color="#A82F2F"><font size="2">(05:40:27 PM)</font> <b>Lethalman:</b></font> but e.g. I don&apos;t have it in my manifest.nix<br/>
+<font color="#A82F2F"><font size="2">(05:40:34 PM)</font> <b>JagaJaga:</b></font> O_O<br/>
+<font color="#A82F2F"><font size="2">(05:40:43 PM)</font> <b>Lethalman:</b></font> JagaJaga, is that nix-env<br/>
+<font color="#A82F2F"><font size="2">(05:40:44 PM)</font> <b>Lethalman:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(05:41:03 PM)</font> <b>JagaJaga:</b></font> What do you mean?<br/>
+<font color="#A82F2F"><font size="2">(05:41:09 PM)</font> <b>Lethalman:</b></font> are you using nix-env?<br/>
+<font color="#A82F2F"><font size="2">(05:41:27 PM)</font> <b>JagaJaga:</b></font> Yes<br/>
+<font color="#A82F2F"><font size="2">(05:41:38 PM)</font> <b>Lethalman:</b></font> JagaJaga, ah wait sorry<br/>
+<font color="#A82F2F"><font size="2">(05:41:42 PM)</font> <b>Lethalman:</b></font> I have noChroot 1 too<br/>
+<font color="#A82F2F"><font size="2">(05:41:50 PM)</font> <b>Lethalman:</b></font> in the deriver of my env<br/>
+<font color="#A82F2F"><font size="2">(05:42:00 PM)</font> <b>Lethalman:</b></font> JagaJaga, you don&apos;t have build-use-chroot ?<br/>
+<font color="#A82F2F"><font size="2">(05:42:12 PM)</font> <b>JagaJaga:</b></font> I have useChroot in my configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(05:42:35 PM)</font> <b>JagaJaga:</b></font> nix.useChroot = true;<br/>
+<font color="#A82F2F"><font size="2">(05:42:43 PM)</font> <b>Lethalman:</b></font> JagaJaga, ok so I can tell you<br/>
+<font color="#A82F2F"><font size="2">(05:42:53 PM)</font> <b>Lethalman:</b></font> JagaJaga, 1) you are using nixUnstable 2) that throw has been added on feb 23 2015<br/>
+<font color="#A82F2F"><font size="2">(05:43:36 PM)</font> <b>JagaJaga:</b></font> Lethalman: I&apos;m trying to  build againt master (commit from 16th march indeed)<br/>
+<font size="2">(05:43:37 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(05:43:42 PM)</font> <b>Lethalman:</b></font> niksnut, ^^ perhaps that commit broke all the nix-env usage?<br/>
+<font color="#A82F2F"><font size="2">(05:44:04 PM)</font> <b>JagaJaga:</b></font> nixos-rebuild switch from that date worked succesfuly<br/>
+<font color="#A82F2F"><font size="2">(05:44:12 PM)</font> <b>JagaJaga:</b></font> but nix-env doesn&apos;t work..<br/>
+<font color="#A82F2F"><font size="2">(05:44:24 PM)</font> <b>JagaJaga:</b></font> commit 82ee506f43eb641bdca2a68ad1fa1bcc23d93ded but that doesn&apos;t matter<br/>
+<font color="#A82F2F"><font size="2">(05:44:27 PM)</font> <b>Lethalman:</b></font> niksnut, this one https://github.com/NixOS/nix/commit/99897f6979aa21339b80904db1717c65a9202110<br/>
+<font color="#A82F2F"><font size="2">(05:45:00 PM)</font> <b>Lethalman:</b></font> niksnut, but http://lxr.devzen.net/source/xref/nix/corepkgs/buildenv.nix uses __noChroot<br/>
+<font color="#A82F2F"><font size="2">(05:45:06 PM)</font> <b>Lethalman:</b></font> hence all nix-env usage is broken?<br/>
+<font color="#A82F2F"><font size="2">(05:45:47 PM)</font> <b>teoma:</b></font> I&apos;m not trying to use tuxonice but happened to notice that linuxPackages_3_10_tuxonice is defined in all-packages.nix but its definition refers to linux_3_10_tuxonice, which is not defined; is that a bug?<br/>
+<font color="#A82F2F"><font size="2">(05:46:19 PM)</font> <b>JagaJaga:</b></font> Lethalman: can&apos;t install anything :((<br/>
+<font color="#A82F2F"><font size="2">(05:46:26 PM)</font> <b>Lethalman:</b></font> JagaJaga, well, use nix stable then<br/>
+<font color="#A82F2F"><font size="2">(05:46:28 PM)</font> <b>Lethalman:</b></font> instead of unstable<br/>
+<font color="#A82F2F"><font size="2">(05:46:32 PM)</font> <b>JagaJaga:</b></font> Lethalman: seems to..<br/>
+<font color="#A82F2F"><font size="2">(05:46:36 PM)</font> <b>JagaJaga:</b></font> Create issue?<br/>
+<font color="#A82F2F"><font size="2">(05:46:45 PM)</font> <b>Lethalman:</b></font> JagaJaga, I just commented here: https://github.com/NixOS/nix/commit/99897f6979aa21339b80904db1717c65a9202110<br/>
+<font color="#A82F2F"><font size="2">(05:47:01 PM)</font> <b>Lethalman:</b></font> JagaJaga, perhaps comment there with the actual error<br/>
+<font color="#A82F2F"><font size="2">(05:49:01 PM)</font> <b>JagaJaga:</b></font> Lethalman: done<br/>
+<font color="#A82F2F"><font size="2">(05:52:21 PM)</font> <b>niksnut:</b></font> Lethalman: yeah, I ran into that a few days ago<br/>
+<font color="#A82F2F"><font size="2">(05:53:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga pushed 3 new commits to master: http://git.io/huDl<br/>
+<font color="#A82F2F"><font size="2">(05:53:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master fa843cd Joachim Fasting: lxc: use AppArmor 2.9<br/>
+<font color="#A82F2F"><font size="2">(05:53:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 0e52c56 Joachim Fasting: RAppArmor: use AppArmor 2.9<br/>
+<font color="#A82F2F"><font size="2">(05:53:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 48e0678 Arseniy Seroka: Merge pull request #6897 from joachifm/apparmor-revdeps...<br/>
+<font color="#A82F2F"><font size="2">(05:56:00 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/huy0<br/>
+<font color="#A82F2F"><font size="2">(05:56:00 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master afb0874 Peter Simons: hackage-packages.nix: re-generate from Hackage 2015-03-19T13:39:37+0100<br/>
+<font color="#A82F2F"><font size="2">(06:13:43 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] k0ral opened pull request #6900: New python package: clf (master...clf) http://git.io/huAm<br/>
+<font color="#A82F2F"><font size="2">(06:15:54 PM)</font> <b>dbe:</b></font> Is there any correlation between the file structure of nixpkgs and it&apos;s &quot;attribute path&quot;? A package I&apos;m interested in is in pkgs/applications/version-management/gitlab/gemset.nix, and I can&apos;t nix-env -i package<br/>
+<font color="#A82F2F"><font size="2">(06:17:05 PM)</font> <b>pmade:</b></font> dbe: Sometimes, but not always.  Look in pkgs/top-level/all-packages.nix to find the name to use with -A<br/>
+<font color="#A82F2F"><font size="2">(06:17:58 PM)</font> <b>pmade:</b></font> Or use the package search tool on nixos.org or use nix-env -qaP<br/>
+<font color="#A82F2F"><font size="2">(06:18:45 PM)</font> <b>Lethalman:</b></font> dbe, file structure and attribute path, no correlation<br/>
+<font color="#A82F2F"><font size="2">(06:19:27 PM)</font> <b>dbe:</b></font> pmade: package is not in any of those<br/>
+<font color="#A82F2F"><font size="2">(06:19:37 PM)</font> <b>dbe:</b></font> pmade: it&apos;s the github nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(06:20:52 PM)</font> <b>pmade:</b></font> dbe: I believe this would work: nix-env -iA gitlab<br/>
+<font color="#A82F2F"><font size="2">(06:21:15 PM)</font> <b>pmade:</b></font> The gemset.nix file just defines which Ruby gems need to be installed for gitlab to work.<br/>
+<font color="#A82F2F"><font size="2">(06:21:29 PM)</font> <b>pmade:</b></font> And how to install them.<br/>
+<font color="#A82F2F"><font size="2">(06:22:32 PM)</font> <b>dbe:</b></font> pmade: Oh! Okay. My bad. I made bad assumptions from the output of idutils then.<br/>
+<font color="#A82F2F"><font size="2">(06:22:35 PM)</font> <b>dbe:</b></font> pmade: Thank you.<br/>
+<font color="#A82F2F"><font size="2">(06:26:44 PM)</font> <b>pmade:</b></font> dbe: Sure thing.<br/>
+<font color="#A82F2F"><font size="2">(06:40:04 PM)</font> <b>gridaphobe:</b></font> hrm, `nix-env -q` shows &apos;gtk+-2.xx&apos;, but `nix-env -e gtk+` won&apos;t remove it. any thoughts?<br/>
+<font color="#A82F2F"><font size="2">(06:40:24 PM)</font> <b>gridaphobe:</b></font> including the full version number doesn&apos;t help<br/>
+<font color="#A82F2F"><font size="2">(06:49:19 PM)</font> <b>Fuuzetsu:</b></font> use the attribute name with -A<br/>
+<font color="#A82F2F"><font size="2">(06:50:14 PM)</font> <b>Lethalman:</b></font> Fuuzetsu, nix-env is able to remove software by using -A?<br/>
+<font color="#A82F2F"><font size="2">(06:50:25 PM)</font> <b>Fuuzetsu:</b></font> I don&apos;t know, hopefully<br/>
+<font color="#A82F2F"><font size="2">(06:50:52 PM)</font> <b>Fuuzetsu:</b></font> don&apos;t see why not<br/>
+<font color="#A82F2F"><font size="2">(06:52:51 PM)</font> <b>gridaphobe:</b></font> nix-env -e doesn&apos;t accept -A unfortunately<br/>
+<font color="#A82F2F"><font size="2">(06:57:44 PM)</font> <b>JagaJaga:</b></font> I have default.nix for my project as http://pastie.org/10039646. When I&apos;m doing nix-shell and start editing, my completion engine can&apos;t find #include &lt;boost&gt;. How to do it properly?<br/>
+<font color="#A82F2F"><font size="2">(07:01:46 PM)</font> <b>Haskellfant:</b></font> JagaJaga: are you starting your complete engine from within nix-sehll?<br/>
+<font color="#A82F2F"><font size="2">(07:01:49 PM)</font> <b>Haskellfant:</b></font> *shell<br/>
+<font size="2">(07:01:56 PM)</font><b> Lethalman left the room (quit: Quit: Sto andando via).</b><br/>
+<font color="#A82F2F"><font size="2">(07:02:38 PM)</font> <b>JagaJaga:</b></font> Haskellfant: I&apos;m starting vim + YCM in this nix-shell (based on my default.nix)<br/>
+<font color="#A82F2F"><font size="2">(07:03:20 PM)</font> <b>Haskellfant:</b></font> hm no idea then<br/>
+<font color="#A82F2F"><font size="2">(07:03:32 PM)</font> <b>Haskellfant:</b></font> maybe your completion engine is hardcoding include paths or something like that<br/>
+<font color="#A82F2F"><font size="2">(07:06:04 PM)</font> <b>JagaJaga:</b></font> Haskellfant: how do you do development? (c++ one)<br/>
+<font color="#A82F2F"><font size="2">(07:07:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga pushed 5 new commits to master: http://git.io/hzRf<br/>
+<font color="#A82F2F"><font size="2">(07:07:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 7ce77b5 Arseniy Seroka: slurm: add pkg<br/>
+<font color="#A82F2F"><font size="2">(07:07:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 69e59e9 Arseniy Seroka: munge: add service<br/>
+<font color="#A82F2F"><font size="2">(07:07:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 0b1cc3c Arseniy Seroka: slurm: impl simple service<br/>
+<font color="#A82F2F"><font size="2">(07:07:10 PM)</font> <b>Haskellfant:</b></font> I don&apos;t :)<br/>
+<font color="#A82F2F"><font size="2">(07:11:02 PM)</font> <b>qknight:</b></font> how to automatically update the user environments? i&apos;m using: &apos;nix-env -u --keep-going -Q&apos; manually for every user<br/>
+<font color="#A82F2F"><font size="2">(07:17:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vbgl pushed 3 new commits to master: http://git.io/hzgP<br/>
+<font color="#A82F2F"><font size="2">(07:17:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e4c0225 Vincent Laporte: tuareg-mode: update from 2.0.6 to 2.0.9<br/>
+<font color="#A82F2F"><font size="2">(07:17:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master d52b6f1 Vincent Laporte: ocaml-re: update from 1.3.0 to 1.3.1<br/>
+<font color="#A82F2F"><font size="2">(07:17:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 20b150b Vincent Laporte: Adds ocaml-dolog-1.0...<br/>
+<font color="#A82F2F"><font size="2">(07:18:58 PM)</font> <b>iElectric:</b></font> shlevy: feel free to bump openssl upon staging merge<br/>
+<font color="#A82F2F"><font size="2">(07:27:06 PM)</font> <b>qknight:</b></font> iElectric: when will the openssl update hit the unstable channel?<br/>
+<font color="#A82F2F"><font size="2">(07:27:26 PM)</font> <b>iElectric:</b></font> first someone has to commit it<br/>
+<font color="#A82F2F"><font size="2">(07:27:34 PM)</font> <b>iElectric:</b></font> then we need to fix unstable nixos channel<br/>
+<font color="#A82F2F"><font size="2">(07:27:37 PM)</font> <b>iElectric:</b></font> then .. :)<br/>
+<font color="#A82F2F"><font size="2">(07:27:50 PM)</font> <b>niksnut:</b></font> iElectric: I committed the openssl update to staging<br/>
+<font color="#A82F2F"><font size="2">(07:29:28 PM)</font> <b>qknight:</b></font> niksnut: cool<br/>
+<font color="#A82F2F"><font size="2">(07:31:26 PM)</font> <b>iElectric:</b></font> k<br/>
+<font size="2">(07:34:29 PM)</font><b> npcomp is now known as roboghost</b><br/>
+<font color="#A82F2F"><font size="2">(07:38:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] wizeman pushed 1 new commit to master: http://git.io/hz1o<br/>
+<font color="#A82F2F"><font size="2">(07:38:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 4d2317e Ricardo M. Correia: nixos/zfs: Don&apos;t default to git version for kernels &gt;= 3.19...<br/>
+<font size="2">(07:42:25 PM)</font><b> pmahoney left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font size="2">(07:42:45 PM)</font><b> goibhniu1 left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:45:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] fmap opened pull request #6901: openssl: 1.0.1l -&gt; 1.0.1m (master...openssl-1.0.1m) http://git.io/hz9W<br/>
+<font color="#A82F2F"><font size="2">(07:50:00 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vandenoever opened pull request #6902: Update davmail to 2.6.1. (master...davmail) http://git.io/hz7s<br/>
+<font color="#A82F2F"><font size="2">(07:57:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] fmap closed pull request #6901: openssl: 1.0.1l -&gt; 1.0.1m (master...openssl-1.0.1m) http://git.io/hz9W<br/>
+<font color="#A82F2F"><font size="2">(08:13:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] 7c6f434c pushed 1 new commit to master: http://git.io/hgJ4<br/>
+<font color="#A82F2F"><font size="2">(08:13:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 14fc740 Michael Raskin: Update Conkeror. Works now<br/>
+<font color="#A82F2F"><font size="2">(08:13:59 PM)</font> <b>MichaelRaskin:</b></font> sellout: Conkeror seems fixed now<br/>
+<font color="#A82F2F"><font size="2">(08:15:21 PM)</font> <b>sellout:</b></font> MichaelRaskin: Awesome. Thanks for the quick update :)<br/>
+<font color="#A82F2F"><font size="2">(08:16:08 PM)</font> <b>iElectric:</b></font> is anyone using btrfs over ecryptfs?<br/>
+<font color="#A82F2F"><font size="2">(08:16:23 PM)</font> <b>iElectric:</b></font> and running 14.12 stable?<br/>
+<font color="#A82F2F"><font size="2">(08:18:14 PM)</font> <b>viric:</b></font> it&apos;d be ecryptfs over btrfs, wouldn&apos;t it?<br/>
+<font color="#A82F2F"><font size="2">(08:19:05 PM)</font> <b>MichaelRaskin:</b></font> I have some btrfs, can try ecryptfs on top of it… But I am not running strictly NixOS<br/>
+<font color="#A82F2F"><font size="2">(08:20:28 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nix] edolstra pushed 3 new commits to master: http://git.io/hgIv<br/>
+<font color="#A82F2F"><font size="2">(08:20:28 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nix/master da6b704 Eelco Dolstra: Check return values from malloc/strdup<br/>
+<font color="#A82F2F"><font size="2">(08:20:28 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nix/master 726f7f7 Eelco Dolstra: Fix Boehm API violation...<br/>
+<font color="#A82F2F"><font size="2">(08:20:28 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nix/master b005e63 Eelco Dolstra: Disable scanning for interior pointers...<br/>
+<font color="#A82F2F"><font size="2">(08:20:58 PM)</font> <b>MichaelRaskin:</b></font> By the way, I remember that previously Nix bootstrap during OS installation required didn&apos;t work in any way except --register-validity<br/>
+<font color="#A82F2F"><font size="2">(08:21:09 PM)</font> <b>MichaelRaskin:</b></font> Now there is another way, although it has some overhead<br/>
+<font color="#A82F2F"><font size="2">(08:22:14 PM)</font> <b>JagaJaga:</b></font> what is staging?<br/>
+<font color="#A82F2F"><font size="2">(08:22:24 PM)</font> <b>bennofs:</b></font> JagaJaga: branch for mass rebuilds<br/>
+<font color="#A82F2F"><font size="2">(08:22:30 PM)</font> <b>JagaJaga:</b></font> bennofs: ty<br/>
+<font color="#A82F2F"><font size="2">(08:22:45 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat opened pull request #6903: openssl: security update (high severity) (master...p/openssl) http://git.io/hgLU<br/>
+<font color="#A82F2F"><font size="2">(08:23:43 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] edolstra closed pull request #6903: openssl: security update (high severity) (master...p/openssl) http://git.io/hgLU<br/>
+<font color="#A82F2F"><font size="2">(08:24:28 PM)</font> <b>MichaelRaskin:</b></font> Master still doesn&apos;t always have a built LibreOffice and Firefox (even on Hydra), though<br/>
+<font color="#A82F2F"><font size="2">(08:25:30 PM)</font> <b>bennofs:</b></font> Does anyone know what to do about https://github.com/NixOS/nixpkgs/pull/6272 ? I don&apos;t feel qualified to merge myself, since changing the type of systemPackages could have a large impact?<br/>
+<font color="#A82F2F"><font size="2">(08:31:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to staging: http://git.io/hgYv<br/>
+<font color="#A82F2F"><font size="2">(08:31:13 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging cd97c58 Vladimír Čunát: openssl_1_0_1j: fix after updating the main version<br/>
+<font color="#A82F2F"><font size="2">(08:34:17 PM)</font> <b>BenceF:</b></font> can anyone help me with https://github.com/NixOS/nixpkgs/issues/6860 ?<br/>
+<font color="#A82F2F"><font size="2">(08:35:41 PM)</font> <b>BenceF:</b></font> alsa-lib has a configure flag --with-plugindir, but don&apos;t know how could i pass ${alsaPlugins}/lib/alsa-lib to it, because alsa-plugins depends on alsa-lib<br/>
+<font color="#A82F2F"><font size="2">(08:41:45 PM)</font> <b>BenceF:</b></font> ohh. and alsa-lib puts smixer into ALSA_PLUGIN_DIR<br/>
+<font color="#A82F2F"><font size="2">(08:41:59 PM)</font> <b>BenceF:</b></font> which makes this even more complicated<br/>
+<font color="#A82F2F"><font size="2">(08:50:08 PM)</font> <b>kongobongo:</b></font> NIX_OTHER_STORES does not work for me and also &apos;nix-store --restore /mnt/PEN/nix/store/spphn3100fwc474y0iz77lkiw0jf693f-waf-1.8.5&apos; hangs :) Any ideas how to add store entry from local filesystem?<br/>
+<font color="#A82F2F"><font size="2">(08:51:49 PM)</font> <b>kongobongo:</b></font> &apos;NIX_OTHER_STORES=/mnt/PEN/nix nix-env -iA all&apos; fails to find it.<br/>
+<font color="#A82F2F"><font size="2">(08:53:35 PM)</font> <b>kongobongo:</b></font> Export|Import facilities from nix-store man page assume existing store, but I have only a dumb store copy on pendrive.<br/>
+<font color="#A82F2F"><font size="2">(09:08:03 PM)</font> <b>kongobongo:</b></font> Could someone at least share waf 1.8.5, because &apos;http://ftp.waf.io/pub/release/waf-1.8.5 connection refused&apos; and I cannot install mpv.<br/>
+<font color="#A82F2F"><font size="2">(09:08:41 PM)</font> <b>kaictl-work:</b></font> Is there a way to set &apos;-f&apos; for nix-env without having to do it on the command line every time?<br/>
+<font color="#A82F2F"><font size="2">(09:09:16 PM)</font> <b>kongobongo:</b></font> waf 1.8.5 from official mirror has different hash and I have no idea how to override that in mpv derivation.<br/>
+<font color="#A82F2F"><font size="2">(09:09:45 PM)</font> <b>kongobongo:</b></font> kaictl-work: you can modify ~/.nix-defexpr or create an shell alias :)<br/>
+<font color="#A82F2F"><font size="2">(09:10:19 PM)</font> <b>lsix:</b></font> Hi all. I&apos;m trying to add few packages to nixpkgs, and I&apos;m getting error I do not know how to debug<br/>
+<font color="#A82F2F"><font size="2">(09:10:31 PM)</font> <b>lsix:</b></font> A log of the error can be seen here : http://lpaste.net/128013<br/>
+<font color="#A82F2F"><font size="2">(09:11:12 PM)</font> <b>lsix:</b></font> The problem comes before it gets to build my own package, I got it by trying to build pythonPackages.numpy (I depend in in buildInputs)<br/>
+<font color="#A82F2F"><font size="2">(09:11:20 PM)</font> <b>kongobongo:</b></font> ${waf} is defined in &apos;let&apos; expression (in mpv definition). How can I override this?<br/>
+<font color="#A82F2F"><font size="2">(09:12:33 PM)</font> <b>kongobongo:</b></font> Time for copypasta magic and fix and dirty fix.<br/>
+<font color="#A82F2F"><font size="2">(09:12:40 PM)</font> <b>lsix:</b></font> this is the kind of error I got when I mess up with my `/etc/nixos/configuration.nix` file and can usually figure out the problem by rolling back the file<br/>
+<font color="#A82F2F"><font size="2">(09:16:56 PM)</font> <b>kaictl-work:</b></font> kongobongo: so just throw a link to the git repo in there? Is there something you can do with nix-channel --add?<br/>
+<font color="#A82F2F"><font size="2">(09:45:02 PM)</font> <b>kongobongo:</b></font> &apos;SyntaxError: Non-UTF-8 code starting with &apos;\x9e&apos; in file /nix/store/ib63hzgqv51fkkjlm9ijzk8n420lbhnp-waf-1.8.5.tar.bz2 on line 1&apos; ... madness. No mpv users here? :)<br/>
+<font color="#A82F2F"><font size="2">(09:47:32 PM)</font> <b>iElectric:</b></font> https://twitter.com/_sinn3r/status/578475555311370240<br/>
+<font color="#A82F2F"><font size="2">(09:47:35 PM)</font> <b>viric:</b></font> I use mpv<br/>
+<font color="#A82F2F"><font size="2">(09:47:45 PM)</font> <b>viric:</b></font> but I don&apos;t build it since some time ago<br/>
+<font color="#A82F2F"><font size="2">(09:49:50 PM)</font> <b>kongobongo:</b></font> Ok, recipe expected path to binary url = http://www.freehackers.org/~tnagy/release/waf-1.8.7;, compiled.<br/>
+<font color="#062585"><font size="2">(09:50:15 PM)</font> <b>***kongobongo</b></font> will not give high five to maintainers = with stdenv.lib.maintainers; [ AndersonTorres fuuzetsu ];<br/>
+<font size="2">(09:53:08 PM)</font><b> kongobongo left the room (quit: Quit: http://www.kiwiirc.com/ - A hand crafted IRC client).</b><br/>
+<font color="#A82F2F"><font size="2">(09:53:38 PM)</font> <b>Fuuzetsu:</b></font> hello<br/>
+<font color="#A82F2F"><font size="2">(09:53:57 PM)</font> <b>viric:</b></font> do you mean mpv doesn&apos;t build?<br/>
+<font color="#A82F2F"><font size="2">(10:01:48 PM)</font> <b>Fuuzetsu:</b></font> I also use mpv though not tested the most recent version<br/>
+<font size="2">(10:07:36 PM)</font><b> MichaelRaskin left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:33:18 PM)</font> <b>JagaJaga:</b></font> iElectric: what&apos;s that? (link to twitter)<br/>
+<font color="#A82F2F"><font size="2">(10:54:24 PM)</font> <b>the-kenny:</b></font> Any idea why Chrome isn&apos;t picking up certificates defined in security.pki.certificateFiles?<br/>
+<font color="#A82F2F"><font size="2">(10:57:20 PM)</font> <b>the-kenny:</b></font> I suppose it&apos;s because NixOS doesn&apos;t seem to generate a nss-db automatically<br/>
+<font color="#A82F2F"><font size="2">(10:57:30 PM)</font> <b>the-kenny:</b></font> and chrome&amp;firefox refuse to use /etc/ssl/ca-bundles.crt<br/>
+<font color="#A82F2F"><font size="2">(10:58:04 PM)</font> <b>viric:</b></font> firefox on android also doesn&apos;t use the system certificates database.<br/>
+<font color="#A82F2F"><font size="2">(11:00:25 PM)</font> <b>the-kenny:</b></font> until someone explains me why something overengineered like a sql db for certificates is necessary it looks like a classical https://xkcd.com/927/ for me.<br/>
+<font color="#A82F2F"><font size="2">(11:00:48 PM)</font> <b>the-kenny:</b></font> it isn&apos;t even possible to generate a nssdb from a given certificate list without pain<br/>
+<font color="#A82F2F"><font size="2">(11:00:51 PM)</font> <b>the-kenny:</b></font> at least it looks like that to me<br/>
+<font color="#A82F2F"><font size="2">(11:03:01 PM)</font> <b>the-kenny:</b></font> the other way around is done by pkgs.cacert. In order to be able to use the stuff we declare in security.pki.certificateFiles we need to do it the other way around :(<br/>
+<font color="#A82F2F"><font size="2">(11:03:40 PM)</font> <b>the-kenny:</b></font> it can&apos;t be that painful. There must be an easier way<br/>
+<font color="#A82F2F"><font size="2">(11:03:56 PM)</font> <b>the-kenny:</b></font> I just want to trust a self-signed cert system wide, including firefox and chrome<br/>
+<font color="#A82F2F"><font size="2">(11:19:55 PM)</font> <b>intothemountains:</b></font> <br/>
+<font color="#A82F2F"><font size="2">(11:19:55 PM)</font> <b>intothemountains:</b></font> sad<br/>
+<font color="#A82F2F"><font size="2">(11:33:27 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ambrop72 opened pull request #6904: Avoid using multiple KDE4 kdelibs versions at the same time. (master...kde4-kdelibs-fix) http://git.io/h2Bq<br/>
+<font color="#A82F2F"><font size="2">(11:46:47 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] thoughtpolice pushed 1 new commit to master: http://git.io/h2uP<br/>
+<font color="#A82F2F"><font size="2">(11:46:47 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9b41cf0 Austin Seipp: nixpkgs: arcanist 20150118 -&gt; 20150318...<br/>
+<font size="2">(11:51:25 PM)</font><b> chrisdotcode_ is now known as chrisdotcode</b><br/>
+<font size="2">(12:23:45 AM)</font><b> pmahoney [<em>~user@50.57.17.245</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:22:21 AM)</font> <b>yorick:</b></font> hydra stalled again. why did it do that?<br/>
+<font color="#A82F2F"><font size="2">(01:29:53 AM)</font> <b>avn:</b></font> yorick: for heating our rooms with mass rebuild ;)<br/>
+<font color="#A82F2F"><font size="2">(01:30:33 AM)</font> <b>yorick:</b></font> oh, I see, because there&apos;s nothing non-darwin in the queue<br/>
+<font color="#A82F2F"><font size="2">(01:30:49 AM)</font> <b>yorick:</b></font> why is there nothing non-darwin in the queue?<br/>
+<font color="#A82F2F"><font size="2">(01:49:51 AM)</font> <b>lhvwb:</b></font> ^ I&apos;m also interested in the answer to this question. Hydra is building darwin packages that were queued up a week ago. :(<br/>
+<font color="#A82F2F"><font size="2">(01:53:53 AM)</font> <b>yorick:</b></font> maybe we should march over to the bug tracker and report it<br/>
+<font color="#A82F2F"><font size="2">(02:47:13 AM)</font> <b>auntie:</b></font> huh. why does the nixos.pkgs.eject attribute has a package name of util-linux-2.25.2?<br/>
+<font color="#A82F2F"><font size="2">(02:47:36 AM)</font> <b>auntie:</b></font> there&apos;s also nixos.pkgs.utillinuxCurses<br/>
+<font color="#A82F2F"><font size="2">(02:48:35 AM)</font> <b>auntie:</b></font> nixos.pkgs.eject satisfied my uuid dependency all right<br/>
+<font color="#A82F2F"><font size="2">(02:48:52 AM)</font> <b>auntie:</b></font> something isn&apos;t right there<br/>
+<font color="#A82F2F"><font size="2">(02:59:38 AM)</font> <b>avn:</b></font> auntie: how you hit this?<br/>
+<font color="#A82F2F"><font size="2">(03:02:20 AM)</font> <b>auntie:</b></font> avn: nix-env -qaP --description | grep -i util-linux<br/>
+<font color="#A82F2F"><font size="2">(03:02:54 AM)</font> <b>auntie:</b></font> I&apos;m not sure that it matters<br/>
+<font color="#A82F2F"><font size="2">(03:02:58 AM)</font> <b>auntie:</b></font> but it... should matter<br/>
+<font color="#A82F2F"><font size="2">(03:04:02 AM)</font> <b>avn:</b></font> hmm. confirmed<br/>
+<font color="#A82F2F"><font size="2">(03:04:13 AM)</font> <b>avn:</b></font> hydra still doesn&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(03:04:33 AM)</font> <b>avn:</b></font> rebuild world, or not -- this is the question<br/>
+<font color="#A82F2F"><font size="2">(03:05:10 AM)</font> <b>auntie:</b></font> haha<br/>
+<font color="#A82F2F"><font size="2">(03:05:28 AM)</font> <b>auntie:</b></font> I need to set up my own hydra server<br/>
+<font color="#A82F2F"><font size="2">(03:05:39 AM)</font> <b>auntie:</b></font> (I have direct access to my uni&apos;s compute resources xD)<br/>
+<font color="#A82F2F"><font size="2">(03:05:51 AM)</font> <b>auntie:</b></font> I should set up an eternal background job<br/>
+<font color="#A82F2F"><font size="2">(03:06:25 AM)</font> <b>auntie:</b></font> https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/all-packages.nix#L8742<br/>
+<font color="#A82F2F"><font size="2">(03:06:28 AM)</font> <b>auntie:</b></font> WHY?!<br/>
+<font color="#A82F2F"><font size="2">(03:06:31 AM)</font> <b>auntie:</b></font> xD<br/>
+<font color="#A82F2F"><font size="2">(03:09:44 AM)</font> <b>avn:</b></font> haven&apos;t any idea<br/>
+<font color="#A82F2F"><font size="2">(03:10:00 AM)</font> <b>avn:</b></font> Also haven&apos;t any ideas, how samba and ceph infiltrate my system<br/>
+<font color="#A82F2F"><font size="2">(03:10:11 AM)</font> <b>avn:</b></font> (I am nfs oldfag)<br/>
+<font color="#A82F2F"><font size="2">(03:27:19 AM)</font> <b>auntie:</b></font> avn: I have been lamenting recently over the lack of failover support in the nfs protocol :/<br/>
+<font color="#A82F2F"><font size="2">(03:27:26 AM)</font> <b>auntie:</b></font> for some of the systems at work<br/>
+<font color="#A82F2F"><font size="2">(03:27:34 AM)</font> <b>auntie:</b></font> (hard to do no-downtime upgrades)<br/>
+<font color="#A82F2F"><font size="2">(03:36:25 AM)</font> <b>avn:</b></font> auntie: I have only 3 (sometimes 4) linux machines in my network, where one (my own) share raid storage and video archive to others. I think nfs fit fine to this<br/>
+<font color="#A82F2F"><font size="2">(03:37:55 AM)</font> <b>auntie:</b></font> at work we have clusters of several dozen computers each. some of the jobs can run for months, and since they have NFS root filesystems I can&apos;t upgrade the NFS servers regularly<br/>
+<font color="#A82F2F"><font size="2">(03:49:05 AM)</font> <b>avn:</b></font> I see, that can be a problem<br/>
+<font color="#A82F2F"><font size="2">(03:49:34 AM)</font> <b>avn:</b></font> But for regular home usage in unix-only environment, nfs is enoughtm just because it just works<br/>
+<font color="#A82F2F"><font size="2">(03:50:02 AM)</font> <b>avn:</b></font> (and not require long rebuild as ceph+samba+other unneeded stuff)<br/>
+<font size="2">(03:57:47 AM)</font><b> pmahoney left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(06:03:09 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] paraseba opened pull request #6906: openssl: upgrade to 1.0.1m (master...master) http://git.io/haFO<br/>
+<font size="2">(06:12:45 AM)</font><b> Havvy[Hex] is now known as Havvy</b><br/>
+<font color="#A82F2F"><font size="2">(06:30:20 AM)</font> <b>kaictl_work:</b></font> Okay, so something is weird. Using nix-env -q to search the &apos;unstable&apos; channel, and I can see &apos;ffmpeg-0.10.15&apos;, however when I search in the git repository, I can only see gst-ffmpeg, which is not at all what I&apos;m looking for. This is on osx, what could cause this to not show up in nix-env -q from the git repo?<br/>
+<font color="#A82F2F"><font size="2">(06:41:34 AM)</font> <b>kirelagin:</b></font> Does anyone know what’s up with haskellNG binary cache?<br/>
+<font color="#A82F2F"><font size="2">(06:42:02 AM)</font> <b>kirelagin:</b></font> I updated the channel for the first time in quite some time and it wants to build a ton of haskell packages<br/>
+<font color="#A82F2F"><font size="2">(06:47:49 AM)</font> <b>kaictl_work:</b></font> Has anyone built ffmpeg on OSX before?<br/>
+<font color="#A82F2F"><font size="2">(06:49:43 AM)</font> <b>ecraven:</b></font> a quick question, how do I set an authorized key for root? I tried users.extraUsers.root.openssh.authorizedKeys.keys = [ &quot;ssh-rsa .... user@host&quot; ];  but no .ssh/authorized_keys is generated on nixos-rebuild switch in root&apos;s home directory<br/>
+<font color="#A82F2F"><font size="2">(06:52:55 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jb55 opened pull request #6907: add: spectrwm window manager (master...spectrwm-patch) http://git.io/hajw<br/>
+<font color="#A82F2F"><font size="2">(06:58:09 AM)</font> <b>benley:</b></font> auntie: NFS root filesystems? haven&apos;t seen that for a while. What&apos;s the use case?<br/>
+<font color="#A82F2F"><font size="2">(06:59:20 AM)</font> <b>kaictl_work:</b></font> and it seems as if libtheora is not working right...it&apos;s got dependencies on libogg, but it&apos;s not pulling them in.<br/>
+<font color="#A82F2F"><font size="2">(07:06:44 AM)</font> <b>kaictl_work:</b></font> When I try to build libtheora on osx: http://ix.io/gZn<br/>

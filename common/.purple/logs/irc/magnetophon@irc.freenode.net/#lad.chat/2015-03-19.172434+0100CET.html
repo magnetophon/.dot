@@ -1,0 +1,73 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Thu 19 Mar 2015 05:24:34 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Thu 19 Mar 2015 05:24:34 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(05:24:34 PM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font size="2">(05:24:34 PM)</font><b> Topic for #lad set by tapas!~tapas@static.231.2.63.178.clients.your-server.de at 10:37:26 AM on 05/13/2013</b><br/>
+<font color="#A82F2F"><font size="2">(05:25:05 PM)</font> <b>rgareus:</b></font> damo22: Mbox adat out -&gt; 003 adat in ?<br/>
+<font color="#A82F2F"><font size="2">(05:25:28 PM)</font> <b>damo22:</b></font> rgareus: mbox spdif out -&gt; 003 spdif in<br/>
+<font color="#A82F2F"><font size="2">(05:26:53 PM)</font> <b>damo22:</b></font> mbox has no adat<br/>
+<font color="#A82F2F"><font size="2">(05:33:57 PM)</font> <b>damo22:</b></font> rgareus: so im trying to sync to spdif and play a spdif stream from mbox to 003, and then internally route spdif channels to 1+2 on headphone output on the 003<br/>
+<font color="#A82F2F"><font size="2">(05:34:30 PM)</font> <b>damo22:</b></font> so far i have it synced and playing but the mixer matrix is currently b0rked<br/>
+<font color="#A82F2F"><font size="2">(05:40:06 PM)</font> <b>damo22:</b></font> $ jack_connect system:capture_10 system:playback_2 &lt;--- i get audio in right headphone<br/>
+<font size="2">(06:07:19 PM)</font><b> HarryHaaren left the room (quit: Quit: HarryHaaren).</b><br/>
+<font color="#A82F2F"><font size="2">(07:03:05 PM)</font> <b>tjingboem:</b></font> i&apos;m looking for an article about the difference between Raw Midi and Midi Sequencer<br/>
+<font color="#A82F2F"><font size="2">(07:03:45 PM)</font> <b>tjingboem:</b></font> Can someone point me to such a site?<br/>
+<font color="#A82F2F"><font size="2">(07:13:13 PM)</font> <b>edogawa_:</b></font> tjingboem: hi there<br/>
+<font color="#A82F2F"><font size="2">(07:13:45 PM)</font> <b>edogawa_:</b></font> tjingboem: not directly a comparison but a good overview of alsa architecture http://www.alsa-project.org/~tiwai/lk2k/lk2k.html<br/>
+<font color="#A82F2F"><font size="2">(07:14:29 PM)</font> <b>tjingboem:</b></font> hi edogawa - to the rescue as always<br/>
+<font color="#A82F2F"><font size="2">(07:15:12 PM)</font> <b>edogawa_:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(07:15:22 PM)</font> <b>tjingboem:</b></font> looks like a good and basic site, thanks<br/>
+<font color="#A82F2F"><font size="2">(07:18:31 PM)</font> <b>tjingboem:</b></font> yes- that will do<br/>
+<font size="2">(08:28:16 PM)</font><b> D-HUND is now known as debdog</b><br/>
+<font color="#A82F2F"><font size="2">(10:08:28 PM)</font> <b>kfoltman:</b></font> calf-0.0.60pre5 is available, might need some bug reports<br/>
+<font color="#A82F2F"><font size="2">(10:13:56 PM)</font> <b>Smilex:</b></font> My new sound card shows up in the Alsa tab in qjackctl, I want to connect it to ardour. How can I do this?<br/>
+<font color="#A82F2F"><font size="2">(10:59:28 PM)</font> <b>rgareus:</b></font> Smilex: http://manual.ardour.org/setting-up-your-system/setting-up-midi/midi-on-linux/<br/>
+<font color="#A82F2F"><font size="2">(11:07:57 PM)</font> <b>Smilex:</b></font> rgareus: But I&apos;m trying to record my guitar and that&apos;s not MIDI, right?<br/>
+<font color="#A82F2F"><font size="2">(11:08:42 PM)</font> <b>rgareus:</b></font> Smilex: the &quot;ALSA tab&quot; in qjactctl is midi only<br/>
+<font color="#A82F2F"><font size="2">(11:09:25 PM)</font> <b>rgareus:</b></font> Smilex: JACK can only use one soundcard (the one under &quot;AUDIO&quot;)<br/>
+<font color="#A82F2F"><font size="2">(11:09:35 PM)</font> <b>rgareus:</b></font> Smilex: but it can use multiple MIDI I/Os<br/>
+<font color="#A82F2F"><font size="2">(11:10:19 PM)</font> <b>rgareus:</b></font> Smilex: So I guess that:  jack is still using your internal soundcard, but /your new soundcard/ also has midi  and that&apos;s picked up<br/>
+<font color="#A82F2F"><font size="2">(11:11:01 PM)</font> <b>rgareus:</b></font> Smilex: qjactctl &gt; Setup &gt; Settings  .  Choose your new soundcard  in &quot;Interface&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:11:01 PM)</font> <b>Smilex:</b></font> rgareus: I did set input and output to my sound card in qjackctl&apos;s setup. Is it then System in the Audio tab?<br/>
+<font color="#A82F2F"><font size="2">(11:11:59 PM)</font> <b>rgareus:</b></font> Smilex: don&apos;t set input &amp; output separately  leave them as &quot;(default)&quot; and only select &quot;Interface&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:12:24 PM)</font> <b>Smilex:</b></font> ok did that<br/>
+<font color="#A82F2F"><font size="2">(11:12:26 PM)</font> <b>rgareus:</b></font> (qjactctl should really put those under &quot;advanced&quot;)<br/>
+<font color="#A82F2F"><font size="2">(11:12:33 PM)</font> <b>rgareus:</b></font> Smilex: [re]start jack<br/>
+<font color="#A82F2F"><font size="2">(11:13:44 PM)</font> <b>Smilex:</b></font> ok I&apos;m getting sound now<br/>
+<font color="#A82F2F"><font size="2">(11:13:50 PM)</font> <b>rgareus:</b></font> cool.<br/>
+<font color="#A82F2F"><font size="2">(11:13:52 PM)</font> <b>Smilex:</b></font> directly through the sound card<br/>
+<font color="#A82F2F"><font size="2">(11:14:04 PM)</font> <b>rgareus:</b></font> for future reference http://libremusicproduction.com/articles/demystifying-jack-%E2%80%93-beginners-guide-getting-started-jack<br/>
+<font color="#A82F2F"><font size="2">(11:14:06 PM)</font> <b>LAbot:</b></font> Title: Demystifying JACK – A Beginners Guide to Getting Started with JACK | Libre Music Production (at libremusicproduction.com)<br/>
+<font color="#A82F2F"><font size="2">(11:14:26 PM)</font> <b>rgareus:</b></font> qjactcl should really only display the boxes outlined in &apos;red&apos; at http://libremusicproduction.com/sites/default/files/articles/Qjackctl%20step%203.png<br/>
+<font color="#A82F2F"><font size="2">(11:14:51 PM)</font> <b>Smilex:</b></font> Is Ardour a good choice for someone starting out? I mostly just want to play with different guitar effects<br/>
+<font color="#A82F2F"><font size="2">(11:15:08 PM)</font> <b>Smilex:</b></font> rgareus: I read that link. Didn&apos;t demystify it for me<br/>
+<font color="#A82F2F"><font size="2">(11:16:57 PM)</font> <b>rgareus:</b></font> Smilex: maybe just  guitarix directly<br/>
+<font color="#A82F2F"><font size="2">(11:17:17 PM)</font> <b>rgareus:</b></font> Smilex: ardour being a fully fledged DAW has a steep learning curve.<br/>
+<font color="#A82F2F"><font size="2">(11:20:04 PM)</font> <b>Smilex:</b></font> rgareus: I can&apos;t even get it to record audio<br/>
+<font color="#A82F2F"><font size="2">(11:21:41 PM)</font> <b>rgareus:</b></font> Smilex: can you be more specific?<br/>
+<font color="#A82F2F"><font size="2">(11:21:48 PM)</font> <b>rgareus:</b></font> Smilex: &apos;it&apos; begin ardour?<br/>
+<font color="#A82F2F"><font size="2">(11:22:28 PM)</font> <b>Smilex:</b></font> rgareus: yes. I have connected capture_1 to my audio track, but it doesn&apos;t record anything<br/>
+<font color="#A82F2F"><font size="2">(11:22:43 PM)</font> <b>rgareus:</b></font> Smilex: New Session, Add Track or Bus, Add a mono track  (by default it should auto-connect to the first input). record-enable the track (the red button on the track itself)<br/>
+<font color="#A82F2F"><font size="2">(11:23:07 PM)</font> <b>rgareus:</b></font> Smilex: the meter should should input at this point.   Global Record Enable and press play.<br/>
+<font color="#A82F2F"><font size="2">(11:23:25 PM)</font> <b>Smilex:</b></font> rgareus: yeah, I get nothing<br/>
+<font color="#A82F2F"><font size="2">(11:23:57 PM)</font> <b>rgareus:</b></font> nothing or silence?<br/>
+<font color="#A82F2F"><font size="2">(11:24:11 PM)</font> <b>rgareus:</b></font> ie a region is created but it&apos;s silent -- also the meter does not move.<br/>
+<font color="#A82F2F"><font size="2">(11:24:42 PM)</font> <b>Smilex:</b></font> rgareus: exactly<br/>
+<font color="#A82F2F"><font size="2">(11:24:56 PM)</font> <b>Smilex:</b></font> I have a feeling I&apos;m not getting any sound with Jack<br/>
+<font color="#A82F2F"><font size="2">(11:25:18 PM)</font> <b>Smilex:</b></font> I should note that I did manage to get this to work with Reaper, but I ran that with Wine<br/>
+<font color="#A82F2F"><font size="2">(11:25:32 PM)</font> <b>Smilex:</b></font> I didn&apos;t use Jack for that<br/>
+<font color="#A82F2F"><font size="2">(11:27:35 PM)</font> <b>nedko:</b></font> maybe you need to select the alsa capture source<br/>
+<font color="#A82F2F"><font size="2">(11:29:14 PM)</font> <b>Smilex:</b></font> nedko: how?<br/>
+<font color="#A82F2F"><font size="2">(11:29:49 PM)</font> <b>Smilex:</b></font> Also, both guitarix and arduor complain about not being able to allocate memory<br/>
+<font color="#A82F2F"><font size="2">(11:33:48 PM)</font> <b>nedko:</b></font> i do it with alsamixer, but there may be more user-friendly way to do it<br/>
+<font color="#A82F2F"><font size="2">(11:34:37 PM)</font> <b>nedko:</b></font> F4 to select the capture screen<br/>
+<font color="#A82F2F"><font size="2">(11:34:54 PM)</font> <b>nedko:</b></font> then left/right arrows to navigate the inputs<br/>
+<font color="#A82F2F"><font size="2">(11:35:03 PM)</font> <b>nedko:</b></font> and then space bar to select the capture source<br/>
+<font color="#A82F2F"><font size="2">(11:35:46 PM)</font> <b>nedko:</b></font> there is indicator about currently selected capture source - a red text CAPTURE<br/>
+<font color="#A82F2F"><font size="2">(11:36:52 PM)</font> <b>Smilex:</b></font> nedko: I have no choice for my sound card<br/>
+<font color="#A82F2F"><font size="2">(11:38:40 PM)</font> <b>nedko:</b></font> Smilex: do you have only one soundcard?<br/>
+<font color="#A82F2F"><font size="2">(11:39:04 PM)</font> <b>Smilex:</b></font> nedko: one external and one that came with the computer<br/>
+<font color="#A82F2F"><font size="2">(11:40:00 PM)</font> <b>nedko:</b></font> Smilex: F6 should allow you to select the soundcard<br/>
+<font color="#A82F2F"><font size="2">(11:40:28 PM)</font> <b>nedko:</b></font> you should see the currently selected one in the upper left corner of the screen<br/>
+<font color="#A82F2F"><font size="2">(11:41:24 PM)</font> <b>Smilex:</b></font> nedko: my usb card has no options<br/>
+<font color="#A82F2F"><font size="2">(11:42:06 PM)</font> <b>nedko:</b></font> Smilex: no idea then<br/>
+<font color="#A82F2F"><font size="2">(11:49:14 PM)</font> <b>Smilex:</b></font> Got it to work. Needed to set the channels to 2<br/>
+<font size="2">(02:54:40 AM)</font><b> chaot4_ is now known as chaot4</b><br/>

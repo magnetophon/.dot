@@ -1,0 +1,727 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Sat 14 Mar 2015 09:19:50 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Sat 14 Mar 2015 09:19:50 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(09:19:50 AM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(09:19:50 AM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(09:25:32 AM)</font> <b>ch077179:</b></font> valdyn: I did that too, it didn&apos;t affect sudo crontab -e though<br/>
+<font color="#A82F2F"><font size="2">(09:27:40 AM)</font> <b>anonnumberanon:</b></font> Is tracker-miner-fs installed by default during a Debian Xfce installation with version Wheezy?<br/>
+<font color="#A82F2F"><font size="2">(09:27:58 AM)</font> <b>anonnumberanon:</b></font> It&apos;s led my computer to overload twice in a few weeks.<br/>
+<font color="#A82F2F"><font size="2">(09:28:21 AM)</font> <b>anonnumberanon:</b></font> Steals all of the ram and all of the swap hard drive allocation.<br/>
+<font size="2">(09:32:03 AM)</font><b> mode (+l 1542) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:33:21 AM)</font> <b>anonnumberanon:</b></font> It may be useful, I disabled the Downloads directory to see if that fixes it since I download so much stuff, this might be the culprit.<br/>
+<font color="#A82F2F"><font size="2">(09:34:09 AM)</font> <b>jelly:</b></font> anonnumberanon: looks like a gnome component<br/>
+<font color="#A82F2F"><font size="2">(09:38:25 AM)</font> <b>panamark:</b></font> Has anyone mount hubic using webdav?<br/>
+<font color="#A82F2F"><font size="2">(09:38:41 AM)</font> <b>Oscilax:</b></font> where do the group names at https://packages.debian.org/testing/ come from and why are there much less groups used in /var/lib/dpkg/available?<br/>
+<font color="#A82F2F"><font size="2">(09:40:45 AM)</font> <b>Oscilax:</b></font> i think i run into this topic every 1-2 years. and i always gave up<br/>
+<font size="2">(09:52:02 AM)</font><b> mode (+l 1548) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:57:29 AM)</font> <b>valdyn:</b></font> Oscilax: of course the groups on the website dont directly correspond to the &quot;section&quot; in available<br/>
+<font color="#A82F2F"><font size="2">(09:58:41 AM)</font> <b>valdyn:</b></font> !debtags<br/>
+<font color="#A82F2F"><font size="2">(09:58:42 AM)</font> <b>dpkg:</b></font> i heard debtags is a way of categorising packages with tags (facets) that describe how a package can be used, what data it can read/write, what interfaces it has etc.  This adds another dimension to package searching.  Install the debtags package, then search either using &quot;debtags&quot; or &quot;aptitude&quot;.  Search (or add new tags) at http://debtags.debian.net/ .  See also http://wiki.debian.org/Debtags or ask me about &lt;aptitude search&gt;.<br/>
+<font color="#A82F2F"><font size="2">(09:59:01 AM)</font> <b>Stijn_:</b></font> happy pi day!<br/>
+<font color="#A82F2F"><font size="2">(09:59:56 AM)</font> <b>Oscilax:</b></font> debtags is a different approach. a very smart one<br/>
+<font color="#A82F2F"><font size="2">(10:03:32 AM)</font> <b>Oscilax:</b></font> my gosh, the news and DSA and all that are hand knitted wml files?<br/>
+<font color="#A82F2F"><font size="2">(10:04:17 AM)</font> <b>Oscilax:</b></font> in all kinds of languages<br/>
+<font color="#A82F2F"><font size="2">(10:07:54 AM)</font> <b>valdyn:</b></font> Oscilax: ok, i got it (i think)<br/>
+<font color="#A82F2F"><font size="2">(10:08:14 AM)</font> <b>valdyn:</b></font> Oscilax: sections map directly, the available file only lists installed or uninstalled packages<br/>
+<font color="#A82F2F"><font size="2">(10:08:27 AM)</font> <b>valdyn:</b></font> Oscilax: purged packages and packages that were never installed are not listed<br/>
+<font color="#A82F2F"><font size="2">(10:09:54 AM)</font> <b>Oscilax:</b></font> hmmm<br/>
+<font color="#A82F2F"><font size="2">(10:10:13 AM)</font> <b>valdyn:</b></font> Oscilax: but beside that, the available file is (no longer) used on my system<br/>
+<font color="#A82F2F"><font size="2">(10:10:37 AM)</font> <b>valdyn:</b></font> -rw-r--r-- 1 root root  139724 Oct 26 12:52 available &lt;- mind the date<br/>
+<font color="#A82F2F"><font size="2">(10:11:28 AM)</font> <b>Oscilax:</b></font> the install date :(<br/>
+<font color="#A82F2F"><font size="2">(10:12:03 AM)</font> <b>Oscilax:</b></font> the one to work with is &quot;status&quot; then?<br/>
+<font color="#A82F2F"><font size="2">(10:12:36 AM)</font> <b>valdyn:</b></font> Oscilax: yea<br/>
+<font color="#A82F2F"><font size="2">(10:13:44 AM)</font> <b>panamark:</b></font> Is it possible to setup a RAID1 over folders?<br/>
+<font color="#A82F2F"><font size="2">(10:13:57 AM)</font> <b>panamark:</b></font> network mounts<br/>
+<font color="#A82F2F"><font size="2">(10:14:11 AM)</font> <b>BW^-:</b></font> This is slightly OT but the other channels are asleep - it&apos;s about bash:<br/>
+<font color="#A82F2F"><font size="2">(10:14:15 AM)</font> <b>BW^-:</b></font> double-tapping the TAB key to get a directory listing or filename completion works always for me in bash, *except* for for the command &quot;sqlite3&quot; for the directory name &quot;db&quot;. Why???? How can I fix?<br/>
+<font color="#A82F2F"><font size="2">(10:14:32 AM)</font> <b>valdyn:</b></font> Oscilax: the available file is (only) used be dselect<br/>
+<font color="#A82F2F"><font size="2">(10:15:59 AM)</font> <b>Oscilax:</b></font> thanks a lot for clearing that<br/>
+<font size="2">(10:28:16 AM)</font><b> chalcedny is now known as chalcedony</b><br/>
+<font color="#A82F2F"><font size="2">(10:31:08 AM)</font> <b>BW^-:</b></font> anyone?<br/>
+<font color="#A82F2F"><font size="2">(10:31:15 AM)</font> <b>Oscilax:</b></font> plenty<br/>
+<font color="#A82F2F"><font size="2">(10:36:20 AM)</font> <b>BW^-:</b></font> oscilax: how fix?<br/>
+<font color="#A82F2F"><font size="2">(10:38:55 AM)</font> <b>Oscilax:</b></font> BW^-: i am not even sure if i understand your problem<br/>
+<font color="#A82F2F"><font size="2">(10:39:28 AM)</font> <b>Oscilax:</b></font> when you tab complete sqlite in bash it turns into db?<br/>
+<font size="2">(10:41:39 AM)</font><b> fran` is now known as fran</b><br/>
+<font size="2">(10:48:18 AM)</font><b> k-t is now known as kati</b><br/>
+<font size="2">(10:49:01 AM)</font><b> crowleyman is now known as crwlymn</b><br/>
+<font size="2">(10:53:02 AM)</font><b> FreezingAlt is now known as FreezingCold</b><br/>
+<font size="2">(11:07:19 AM)</font><b> tcpman is now known as Guest29756</b><br/>
+<font color="#A82F2F"><font size="2">(11:13:31 AM)</font> <b>hashworks:</b></font> Hi! Sooo, I just fucked up my server. I had 1 root partition which was followed by an extended partition which contained partitions for /var, /var/log and /home. I wanted to unite them into one partition, and in my stupid believe that this could go right I removed them all by fdisk and recreated a new one. Now I think the partition table of the extended partition is los and /var and /home are empty - ideas?<br/>
+<font color="#A82F2F"><font size="2">(11:15:22 AM)</font> <b>ohithere:</b></font> hashworks: I&apos;d say it&apos;s time to restore the contents of your /home partition from backups.<br/>
+<font color="#A82F2F"><font size="2">(11:16:18 AM)</font> <b>hashworks:</b></font> yup, home is partly save on other devices, /var trough...<br/>
+<font color="#A82F2F"><font size="2">(11:16:41 AM)</font> <b>Oscilax:</b></font> hang on<br/>
+<font color="#A82F2F"><font size="2">(11:16:57 AM)</font> <b>digdilem:</b></font> yes. I agree. Coming back from that is going to be hard if not impossible.<br/>
+<font color="#A82F2F"><font size="2">(11:17:10 AM)</font> <b>Oscilax:</b></font> if you did not write to the system that was changed you can maybe restore the partition table with tools like testdisk<br/>
+<font color="#A82F2F"><font size="2">(11:17:30 AM)</font> <b>hashworks:</b></font> I&apos;ll try that.<br/>
+<font color="#A82F2F"><font size="2">(11:17:57 AM)</font> <b>digdilem:</b></font> good luck :)<br/>
+<font color="#A82F2F"><font size="2">(11:22:58 AM)</font> <b>hashworks:</b></font> Ok, I think testdisk sucessfully restored the old partition table, rebooting<br/>
+<font color="#A82F2F"><font size="2">(11:28:46 AM)</font> <b>mekeor:</b></font> i want to mount a vfat-filesystem such that it&apos;s writeable. i tried &quot;mount -t vfat /dev/sdb /media/usb0 -o rw,uid=1000,gid=1000&quot; but it&apos;s still not writeable. can you help me?<br/>
+<font color="#A82F2F"><font size="2">(11:29:14 AM)</font> <b>mekeor:</b></font> when i type &quot;mount&quot; in the command-line, i get &quot;/dev/sdb on /media/usb0 type vfat (ro,relatime,uid=1000,gid=1000,fmask=0022,dmask=0022,codepage=437,iocharset=utf8,shortname=mixed,errors=remount-ro)&quot;.<br/>
+<font color="#A82F2F"><font size="2">(11:30:58 AM)</font> <b>Oscilax:</b></font> mekeor: what if you create and use /mnt/vfat instead of /media/usb0?<br/>
+<font color="#A82F2F"><font size="2">(11:31:34 AM)</font> <b>hashworks:</b></font> Ok, everything well now. What are your advices to bring those safely together? http://i.imgur.com/TI48jCT.png<br/>
+<font color="#A82F2F"><font size="2">(11:33:20 AM)</font> <b>mekeor:</b></font> Oscilax: doesn&apos;t help.<br/>
+<font color="#A82F2F"><font size="2">(11:34:27 AM)</font> <b>Oscilax:</b></font> mekeor: what about: mount -t vfat /dev/sdb /media/usb0 -o rw,uid=1000,gid=1000,user<br/>
+<font color="#A82F2F"><font size="2">(11:34:40 AM)</font> <b>Oscilax:</b></font> given that your IDs are correct<br/>
+<font color="#A82F2F"><font size="2">(11:35:21 AM)</font> <b>mekeor:</b></font> my IDs are correct, yes :)<br/>
+<font color="#A82F2F"><font size="2">(11:36:21 AM)</font> <b>Oscilax:</b></font> if the last bit &quot;,user&quot; does not help maybe setting the umask=000<br/>
+<font color="#A82F2F"><font size="2">(11:37:46 AM)</font> <b>mekeor:</b></font> Oscilax: it still doesn&apos;t work…<br/>
+<font color="#A82F2F"><font size="2">(11:37:48 AM)</font> <b>mekeor:</b></font> hmmm.<br/>
+<font color="#A82F2F"><font size="2">(11:38:36 AM)</font> <b>mekeor:</b></font> okay, so let&apos;s debug.<br/>
+<font size="2">(11:39:09 AM)</font><b> `hypermist` is now known as sleepypc</b><br/>
+<font color="#A82F2F"><font size="2">(11:39:14 AM)</font> <b>mekeor:</b></font> first of all, i check my UID and GID with &quot;user -u mekeor&quot; and &quot;user -g mekeor&quot;. the results are both &quot;1000&quot;.<br/>
+<font color="#A82F2F"><font size="2">(11:41:05 AM)</font> <b>mekeor:</b></font> i unmount the extern filesystem, then i remount it using &quot;sudo mount /dev/sdb /media/usb0&quot; and then i check the filesystem type of the extern filesystem using &quot;df -T&quot;. there i can read that it&apos;s a vfat type.<br/>
+<font color="#A82F2F"><font size="2">(11:42:12 AM)</font> <b>JyZyXEL:</b></font> how do you resize a VG to take up all the space on the PVs?<br/>
+<font color="#A82F2F"><font size="2">(11:42:35 AM)</font> <b>Oscilax:</b></font> mekeor: so far so good<br/>
+<font color="#A82F2F"><font size="2">(11:43:20 AM)</font> <b>Oscilax:</b></font> my idea with the other mountpoint was that something overrides the settings<br/>
+<font color="#A82F2F"><font size="2">(11:45:20 AM)</font> <b>JyZyXEL:</b></font> nvm, only needed lvextend<br/>
+<font color="#A82F2F"><font size="2">(11:49:35 AM)</font> <b>mekeor:</b></font> any ideas?<br/>
+<font size="2">(11:52:02 AM)</font><b> mode (+l 1556) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:55:41 AM)</font> <b>sbeex:</b></font> hi guys<br/>
+<font color="#A82F2F"><font size="2">(12:01:11 PM)</font> <b>xecycle:</b></font> Hi, what is the user proxy:x:13:13:... used for?<br/>
+<font color="#A82F2F"><font size="2">(12:05:32 PM)</font> <b>jelly:</b></font> xecycle: https://wiki.debian.org/SystemGroups<br/>
+<font color="#A82F2F"><font size="2">(12:06:12 PM)</font> <b>xecycle:</b></font> jelly: thanks<br/>
+<font size="2">(12:12:02 PM)</font><b> mode (+l 1562) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:16:48 PM)</font> <b>mekeor:</b></font> just for the record, i guess my problem was that the filesystem i wanted to mount was corrupted. that&apos;s why linux automatically mounted it read-only. so i had to fix the filesystem errors using &quot;sudo dosfsck -w -r -l -a -v -t /dev/sdb&quot;.<br/>
+<font size="2">(12:17:12 PM)</font><b> kill_-9_1 is now known as MY123</b><br/>
+<font size="2">(12:19:59 PM)</font><b> mekeor left the room (quit: Quit: buy buy, produce produce).</b><br/>
+<font size="2">(12:21:47 PM)</font><b> crwlymn is now known as crowleyman</b><br/>
+<font size="2">(12:22:02 PM)</font><b> mode (+l 1568) by debhelper</b><br/>
+<font size="2">(12:48:19 PM)</font><b> crowleyman is now known as crwlymn</b><br/>
+<font size="2">(12:48:48 PM)</font><b> hassoon is now known as nouveau_nab</b><br/>
+<font size="2">(12:50:23 PM)</font><b> nouveau_nab is now known as t`es_ma_chose</b><br/>
+<font size="2">(01:22:02 PM)</font><b> mode (+l 1559) by debhelper</b><br/>
+<font size="2">(01:25:17 PM)</font><b> technec_ is now known as technec</b><br/>
+<font size="2">(01:31:13 PM)</font><b> crwlymn is now known as crowleyman</b><br/>
+<font color="#A82F2F"><font size="2">(01:33:47 PM)</font> <b>JyZyXEL:</b></font> is it ok to partition some empty unused space while the system is running?<br/>
+<font color="#A82F2F"><font size="2">(01:35:56 PM)</font> <b>xand:</b></font> JyZyXEL: yes<br/>
+<font color="#A82F2F"><font size="2">(01:36:16 PM)</font> <b>xand:</b></font> but sometimes the kernel won&apos;t notice the changes without a reboot<br/>
+<font color="#A82F2F"><font size="2">(01:36:21 PM)</font> <b>JyZyXEL:</b></font> well thats ok<br/>
+<font color="#A82F2F"><font size="2">(01:36:58 PM)</font> <b>JyZyXEL:</b></font> i just want to avoid booting a live-cd for something so trivial<br/>
+<font color="#A82F2F"><font size="2">(01:37:16 PM)</font> <b>xand:</b></font> yes it&apos;s fine<br/>
+<font color="#A82F2F"><font size="2">(01:37:34 PM)</font> <b>xand:</b></font> you can resize the root partition while it&apos;s in use if necessary<br/>
+<font size="2">(01:42:02 PM)</font><b> mode (+l 1552) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(01:43:05 PM)</font> <b>nice92:</b></font> re<br/>
+<font size="2">(02:00:26 PM)</font><b> t`es_ma_chose is now known as hassoon</b><br/>
+<font size="2">(02:02:03 PM)</font><b> mode (+l 1559) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(02:08:06 PM)</font> <b>JyZyXEL:</b></font> are interactively given LUKS password cached so that for containers that share the same password, you don&apos;t have to type in the password twice?<br/>
+<font color="#A82F2F"><font size="2">(02:08:26 PM)</font> <b>JyZyXEL:</b></font> talking of initramfs and crypttab behaviour<br/>
+<font color="#A82F2F"><font size="2">(02:14:53 PM)</font> <b>knosys:</b></font> guys... i cant understand the dpkg message when I ask it about jessie freeze. This version will be droped ?<br/>
+<font color="#A82F2F"><font size="2">(02:15:27 PM)</font> <b>knosys:</b></font> sorry about my english, its not very good..<br/>
+<font color="#A82F2F"><font size="2">(02:15:40 PM)</font> <b>jalcine:</b></font> click the first link in the message<br/>
+<font color="#A82F2F"><font size="2">(02:15:44 PM)</font> <b>jalcine:</b></font> that has more info<br/>
+<font color="#A82F2F"><font size="2">(02:18:50 PM)</font> <b>knosys:</b></font> thanks I did.. I think i need to know much more things before understamding that information also<br/>
+<font color="#A82F2F"><font size="2">(02:19:03 PM)</font> <b>knosys:</b></font> i still dont understand &quot;freeze&quot; meaning in this context<br/>
+<font color="#A82F2F"><font size="2">(02:19:39 PM)</font> <b>knosys:</b></font> I am debian user, not developer<br/>
+<font color="#A82F2F"><font size="2">(02:20:45 PM)</font> <b>starbuck:</b></font> hi, i installed one .deb from testing version, now i want to go back to the stable release, how can i do that?<br/>
+<font color="#A82F2F"><font size="2">(02:21:41 PM)</font> <b>starbuck:</b></font> i did install the testing packet by adding testing repository to sources.list and did an upgrade just for that packet<br/>
+<font color="#A82F2F"><font size="2">(02:21:47 PM)</font> <b>starbuck:</b></font> package<br/>
+<font size="2">(02:22:02 PM)</font><b> mode (+l 1566) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(02:26:03 PM)</font> <b>knosys:</b></font> I think someone may like to talk a bit about debian releases ? I am using jessie, maybe i should switch to a newer testing platform ? Or just use wheezy? sid ? A few ago i got a bit information reading that wheezy was stable release for production, jessie is testing, and sid was experimental version (more inestable than testing) . Is that so different now?<br/>
+<font color="#A82F2F"><font size="2">(02:26:52 PM)</font> <b>knosys:</b></font> starbuck, is purge and installing again those packages a viable option? :P<br/>
+<font color="#A82F2F"><font size="2">(02:27:18 PM)</font> <b>knosys:</b></font> changing sources.list before that to the stable release again?<br/>
+<font color="#A82F2F"><font size="2">(02:27:53 PM)</font> <b>starbuck:</b></font> knosys: it&apos;s not an option because it was for package libc6...<br/>
+<font color="#A82F2F"><font size="2">(02:28:24 PM)</font> <b>starbuck:</b></font> i already changed back the sources.list<br/>
+<font color="#A82F2F"><font size="2">(02:28:25 PM)</font> <b>knosys:</b></font> i dont know what is it about exactly, but i have noticed its installed one of those first , base packages<br/>
+<font color="#A82F2F"><font size="2">(02:28:38 PM)</font> <b>knosys:</b></font> and what if install --reinstall?<br/>
+<font color="#A82F2F"><font size="2">(02:28:48 PM)</font> <b>starbuck:</b></font> yes, everything in the system depends on that package<br/>
+<font color="#A82F2F"><font size="2">(02:29:16 PM)</font> <b>starbuck:</b></font> doesn&apos;t work with --reinstall<br/>
+<font color="#A82F2F"><font size="2">(02:29:21 PM)</font> <b>knosys:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(02:29:35 PM)</font> <b>knosys:</b></font> sorry then... I guess its all i know<br/>
+<font color="#A82F2F"><font size="2">(02:30:07 PM)</font> <b>starbuck:</b></font> thnx anyway<br/>
+<font color="#A82F2F"><font size="2">(02:30:21 PM)</font> <b>knosys:</b></font> what about this? apt-get -t=&lt;target release&gt; install &lt;package-name&gt;<br/>
+<font color="#A82F2F"><font size="2">(02:32:57 PM)</font> <b>starbuck:</b></font> no: libc6 is already the newest version<br/>
+<font color="#A82F2F"><font size="2">(02:34:42 PM)</font> <b>knosys:</b></font> what is the version you have, and what is the version you want to downgrade to?<br/>
+<font color="#A82F2F"><font size="2">(02:35:29 PM)</font> <b>knosys:</b></font> I am a totally noob mate, but if you dont mind to try things... :P I can trying to help you and enjoying learning this way xD<br/>
+<font color="#A82F2F"><font size="2">(02:35:40 PM)</font> <b>knosys:</b></font> I have readed that sudo apt-get install pkg_name=version  , could do the job<br/>
+<font color="#A82F2F"><font size="2">(02:35:55 PM)</font> <b>knosys:</b></font> to downgrade a package<br/>
+<font color="#A82F2F"><font size="2">(02:35:58 PM)</font> <b>starbuck:</b></font> yes, just found that via google myself<br/>
+<font color="#A82F2F"><font size="2">(02:36:06 PM)</font> <b>knosys:</b></font> ok nice<br/>
+<font color="#A82F2F"><font size="2">(02:36:07 PM)</font> <b>starbuck:</b></font> but unfortunately it doesn_t work as well<br/>
+<font color="#A82F2F"><font size="2">(02:36:13 PM)</font> <b>knosys:</b></font> ouch<br/>
+<font size="2">(02:36:16 PM)</font><b> JmZ_ is now known as JmZ</b><br/>
+<font color="#A82F2F"><font size="2">(02:36:20 PM)</font> <b>starbuck:</b></font> because of unmet dependencies<br/>
+<font color="#A82F2F"><font size="2">(02:36:27 PM)</font> <b>knosys:</b></font> mmm -f?<br/>
+<font color="#A82F2F"><font size="2">(02:38:18 PM)</font> <b>starbuck:</b></font> i totally fucked it<br/>
+<font color="#A82F2F"><font size="2">(02:38:21 PM)</font> <b>starbuck:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(02:38:56 PM)</font> <b>Oscilax:</b></font> it said &quot;do you really wanna do this even tho its bad?&quot; and you agreed? :D<br/>
+<font color="#A82F2F"><font size="2">(02:40:08 PM)</font> <b>starbuck:</b></font> yes, i just gave up. it was a new installation and i tried something, i will just reinstall the system<br/>
+<font color="#A82F2F"><font size="2">(02:40:34 PM)</font> <b>knosys:</b></font> ouch, well it could be worst :D<br/>
+<font size="2">(02:58:23 PM)</font><b> mactimes_ is now known as mactimes</b><br/>
+<font color="#A82F2F"><font size="2">(03:06:58 PM)</font> <b>crised:</b></font> How do I download a minimal iso? no network install?<br/>
+<font color="#A82F2F"><font size="2">(03:09:38 PM)</font> <b>crised:</b></font> Which is the most stable Debian Version, for a server?<br/>
+<font color="#A82F2F"><font size="2">(03:09:44 PM)</font> <b>crised:</b></font> is it 7.8.0?<br/>
+<font color="#A82F2F"><font size="2">(03:09:47 PM)</font> <b>jhuebner:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(03:10:19 PM)</font> <b>crised:</b></font> jhuebner: I don&apos;t want cutting edge, or anything like that...<br/>
+<font color="#A82F2F"><font size="2">(03:10:33 PM)</font> <b>jhuebner:</b></font> yes, go fo wheezy, it&apos;s the current stable release<br/>
+<font color="#A82F2F"><font size="2">(03:10:44 PM)</font> <b>jhuebner:</b></font> *for<br/>
+<font color="#A82F2F"><font size="2">(03:10:55 PM)</font> <b>crised:</b></font> Is debian primarily meant for servers? Is it a substitute for CentOS??<br/>
+<font color="#A82F2F"><font size="2">(03:11:41 PM)</font> <b>jhuebner:</b></font> i wouldn&apos;t say so - it&apos;s for being used for whatever you need it to do<br/>
+<font color="#A82F2F"><font size="2">(03:12:04 PM)</font> <b>mtn:</b></font> crised: it is excellent for servers, or for desktops<br/>
+<font color="#A82F2F"><font size="2">(03:12:19 PM)</font> <b>crised:</b></font> mtn:  ok, cool<br/>
+<font color="#A82F2F"><font size="2">(03:12:28 PM)</font> <b>crised:</b></font> which kernel does 7.8 have?<br/>
+<font color="#A82F2F"><font size="2">(03:12:46 PM)</font> <b>mtn:</b></font> crised: http://packages.debian.org<br/>
+<font color="#A82F2F"><font size="2">(03:13:10 PM)</font> <b>jhuebner:</b></font> 3.2 - see: https://wiki.debian.org/DebianWheezy<br/>
+<font color="#A82F2F"><font size="2">(03:13:29 PM)</font> <b>crised:</b></font> thank guys<br/>
+<font color="#A82F2F"><font size="2">(03:13:54 PM)</font> <b>jhuebner:</b></font> please mind that jessie is close to being released (like in maybe two months)<br/>
+<font color="#A82F2F"><font size="2">(03:13:56 PM)</font> <b>SAKUJ0:</b></font> hey there, using jessie. i have /mnt/games mounted via NFS. things go bad if i suspend (sometimes i believe). i get a &quot;stale file handle&quot; when i cd /mnt<br/>
+<font color="#A82F2F"><font size="2">(03:16:19 PM)</font> <b>crised:</b></font> jhuebner: thanks<br/>
+<font color="#A82F2F"><font size="2">(03:17:10 PM)</font> <b>crised:</b></font> I mounted the net iso into USB -&gt; This is not a bootable disk.  Please insert a bootable floppy and<br/>
+<font color="#A82F2F"><font size="2">(03:17:17 PM)</font> <b>crised:</b></font> it&apos;s a board with no VGA in it<br/>
+<font color="#A82F2F"><font size="2">(03:17:45 PM)</font> <b>mtn:</b></font> crised: how did you burn the iso to usb?<br/>
+<font color="#A82F2F"><font size="2">(03:17:58 PM)</font> <b>crised:</b></font> mtn: in arch likethis: # dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx &amp;&amp; sync<br/>
+<font color="#A82F2F"><font size="2">(03:18:31 PM)</font> <b>mtn:</b></font> crised: not doing arch, are you? how did you do the debian iso?<br/>
+<font color="#A82F2F"><font size="2">(03:19:24 PM)</font> <b>crised:</b></font> mtn: my main pc is arch, from arch I typed exactly this:       sudo dd bs=4M if=~/Downloads/debian-7.8.0-amd64-netinst.iso of=/dev/sdb &amp;&amp; sync<br/>
+<font color="#A82F2F"><font size="2">(03:19:24 PM)</font> <b>crised:</b></font>    <br/>
+<font color="#A82F2F"><font size="2">(03:20:14 PM)</font> <b>mtn:</b></font> crised: ok, good. the error you got leads me to think something went wrong with putting the iso on the usb, or you aren&apos;t booting the usb<br/>
+<font color="#A82F2F"><font size="2">(03:21:20 PM)</font> <b>crised:</b></font> mtn: well at least the USB name says DEbian 7.8.0 amd 64 1<br/>
+<font color="#A82F2F"><font size="2">(03:21:33 PM)</font> <b>mtn:</b></font> crised: but it won&apos;t boot, right?<br/>
+<font color="#A82F2F"><font size="2">(03:21:56 PM)</font> <b>crised:</b></font> mtn: correct, but my board has no display at all<br/>
+<font color="#A82F2F"><font size="2">(03:22:34 PM)</font> <b>crised:</b></font> mtn: Will I need to do a net install?<br/>
+<font color="#A82F2F"><font size="2">(03:23:35 PM)</font> <b>mtn:</b></font> crised: net install? as opposed to what?<br/>
+<font color="#A82F2F"><font size="2">(03:24:02 PM)</font> <b>crised:</b></font> mtn: sorry, PxE I think it&apos;s the term, boot on network or something like that<br/>
+<font color="#A82F2F"><font size="2">(03:24:05 PM)</font> <b>crised:</b></font> I think this helps: https://github.com/ssinyagin/pcengines-apu-debian-cd<br/>
+<font color="#A82F2F"><font size="2">(03:24:12 PM)</font> <b>duckey:</b></font> Will debian support i686?<br/>
+<font color="#A82F2F"><font size="2">(03:24:21 PM)</font> <b>mtn:</b></font> crised: ah, I see. sorry, no experience with that<br/>
+<font color="#A82F2F"><font size="2">(03:24:37 PM)</font> <b>mtn:</b></font> duckey: sure, it does<br/>
+<font color="#A82F2F"><font size="2">(03:25:22 PM)</font> <b>duckey:</b></font> mtn last time I used this on i686 x wouldn&apos;t load. I love debian though<br/>
+<font color="#A82F2F"><font size="2">(03:25:47 PM)</font> <b>dign0se:</b></font> Hi all, anyone running debian on a phone?  What&apos;s the latest and greatest best practice?<br/>
+<font color="#A82F2F"><font size="2">(03:27:15 PM)</font> <b>duckey:</b></font> What architecture should I use?<br/>
+<font color="#A82F2F"><font size="2">(03:27:34 PM)</font> <b>mtn:</b></font> duckey: the one that matches your cpu<br/>
+<font color="#A82F2F"><font size="2">(03:27:49 PM)</font> <b>duckey:</b></font> I have i686<br/>
+<font color="#A82F2F"><font size="2">(03:27:57 PM)</font> <b>duckey:</b></font> so......<br/>
+<font color="#A82F2F"><font size="2">(03:28:49 PM)</font> <b>duckey:</b></font> mtn i386?<br/>
+<font color="#A82F2F"><font size="2">(03:29:13 PM)</font> <b>duckey:</b></font> or amd64<br/>
+<font color="#A82F2F"><font size="2">(03:29:55 PM)</font> <b>mtn:</b></font> duckey: depends, do you have 64bit cpu?<br/>
+<font color="#A82F2F"><font size="2">(03:30:11 PM)</font> <b>mtn:</b></font> duckey: https://www.debian.org/releases/stable/installmanual<br/>
+<font color="#A82F2F"><font size="2">(03:30:12 PM)</font> <b>duckey:</b></font> I think so<br/>
+<font color="#A82F2F"><font size="2">(03:30:28 PM)</font> <b>mtn:</b></font> duckey: then I would use amd64<br/>
+<font color="#A82F2F"><font size="2">(03:30:48 PM)</font> <b>duckey:</b></font> I still like x86 just in case<br/>
+<font color="#A82F2F"><font size="2">(03:31:02 PM)</font> <b>mtn:</b></font> duckey: then go ahead and use that ;)<br/>
+<font color="#A82F2F"><font size="2">(03:31:13 PM)</font> <b>duckey:</b></font> okay<br/>
+<font color="#A82F2F"><font size="2">(03:32:27 PM)</font> <b>duckey:</b></font> I love me some debian<br/>
+<font color="#A82F2F"><font size="2">(03:32:56 PM)</font> <b>dign0se:</b></font> I&apos;m planning to buy a phone de novo, a cheap LTE or Huawei Android, and installing Debian natively.  Am I forced to go the ADB route under emulation?<br/>
+<font color="#A82F2F"><font size="2">(03:33:28 PM)</font> <b>duckey:</b></font> dign0se, sounds fun<br/>
+<font color="#A82F2F"><font size="2">(03:33:39 PM)</font> <b>dign0se:</b></font> Or has someone figured out a better way?<br/>
+<font size="2">(03:35:00 PM)</font><b> duckey left the room (quit: Quit: http://www.kiwiirc.com/ - A hand crafted IRC client).</b><br/>
+<font size="2">(03:39:04 PM)</font><b> dign0se left the room (quit: Quit: Lost terminal).</b><br/>
+<font color="#A82F2F"><font size="2">(03:44:12 PM)</font> <b>humbot:</b></font> i&apos;d like to know the answer to that too<br/>
+<font size="2">(03:44:19 PM)</font><b> mode (+o jelly) by ChanServ</b><br/>
+<font size="2">(03:44:46 PM)</font><b> mode (+b *!*@AClermont-Ferrand-654-1-649-169.w90-9.abo.wanadoo.fr$##not-a-honeypot) by jelly</b><br/>
+<font size="2">(03:46:11 PM)</font><b> mode (+b *!*@AClermont-Ferrand-652-1-307-88.w86-194.abo.wanadoo.fr$##not-a-honeypot) by jelly</b><br/>
+<font size="2">(03:46:32 PM)</font><b> mode (+b *!*@217.79.193.13$##not-a-honeypot) by jelly</b><br/>
+<font size="2">(03:46:37 PM)</font><b> mode (-o jelly) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(03:46:58 PM)</font> <b>XF:</b></font> hello i need help<br/>
+<font color="#A82F2F"><font size="2">(03:47:09 PM)</font> <b>XF:</b></font> how can i upload a php file in my debian vps??<br/>
+<font color="#A82F2F"><font size="2">(03:47:19 PM)</font> <b>crised:</b></font> How do I change the iso for a system with no display?<br/>
+<font size="2">(03:48:52 PM)</font><b> XF left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(03:49:31 PM)</font><b> XF [<em>~Devil@175.110.67.249</em>] entered the room.</b><br/>
+<font size="2">(03:49:31 PM)</font><b> XF left the room (quit: Changing host).</b><br/>
+<font size="2">(03:49:31 PM)</font><b> XF [<em>~Devil@unaffiliated/xfisthebest</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:49:39 PM)</font> <b>crised:</b></font> How do I boot a system with no display? just serial console with Debian?<br/>
+<font color="#A82F2F"><font size="2">(03:49:56 PM)</font> <b>crised:</b></font> This has relevant info, but really don&apos;t understand it https://github.com/ssinyagin/pcengines-apu-debian-cd<br/>
+<font size="2">(03:52:02 PM)</font><b> mode (+l 1577) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(03:52:04 PM)</font> <b>valdyn:</b></font> crised: to install via serial console the kernel takes a parameter: console=/dev/ttyS0 or similar.<br/>
+<font color="#A82F2F"><font size="2">(03:54:02 PM)</font> <b>crised:</b></font> valdyn: how do I do that?<br/>
+<font size="2">(03:54:05 PM)</font><b> XF left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(03:54:21 PM)</font> <b>valdyn:</b></font> crised: depends on the boot manager<br/>
+<font color="#A82F2F"><font size="2">(03:54:22 PM)</font> <b>crised:</b></font> I get a boot error while booting<br/>
+<font color="#A82F2F"><font size="2">(03:54:28 PM)</font> <b>valdyn:</b></font> crised: we cant know....<br/>
+<font color="#A82F2F"><font size="2">(03:54:57 PM)</font> <b>crised:</b></font> valdyn: http://pcengines.ch/apu1d.htm<br/>
+<font color="#A82F2F"><font size="2">(03:55:01 PM)</font> <b>crised:</b></font> that&apos;s my unit<br/>
+<font size="2">(03:55:12 PM)</font><b> XF [<em>~Devil@175.110.67.249</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:55:41 PM)</font> <b>crised:</b></font> valdyn: this is what I get Booting from 0000:7c00 This is not a bootable disk.  Please insert a bootable floppy and press any key to try again ...<br/>
+<font color="#A82F2F"><font size="2">(03:56:17 PM)</font> <b>XF:</b></font> huh some one answer please<br/>
+<font color="#A82F2F"><font size="2">(03:56:54 PM)</font> <b>crised:</b></font> valdyn: can I modify the iso from the usb pen drive with that kernel param?<br/>
+<font color="#A82F2F"><font size="2">(03:57:06 PM)</font> <b>XF:</b></font> and run it on browser? means i do my.vps.ip/xx.php on browser<br/>
+<font color="#A82F2F"><font size="2">(03:57:11 PM)</font> <b>XF:</b></font> how can i upload a php file in my debian vps??<br/>
+<font color="#A82F2F"><font size="2">(03:57:11 PM)</font> <b>XF:</b></font> and run it on browser? means i do my.vps.ip/xx.php on browser<br/>
+<font color="#A82F2F"><font size="2">(03:57:21 PM)</font> <b>valdyn:</b></font> XF: scp &lt;file&gt; &lt;user&gt;@&lt;ip&gt;:<br/>
+<font color="#A82F2F"><font size="2">(03:57:32 PM)</font> <b>XF:</b></font> valdyn what?<br/>
+<font color="#A82F2F"><font size="2">(03:57:58 PM)</font> <b>valdyn:</b></font> XF: which part of that simple command is hard to understand?<br/>
+<font color="#A82F2F"><font size="2">(03:58:16 PM)</font> <b>XF:</b></font> valdyn the scp<br/>
+<font color="#A82F2F"><font size="2">(03:58:25 PM)</font> <b>valdyn:</b></font> !scpü<br/>
+<font color="#A82F2F"><font size="2">(03:58:26 PM)</font> <b>valdyn:</b></font> !scp<br/>
+<font color="#A82F2F"><font size="2">(03:58:28 PM)</font> <b>XF:</b></font> means sftP?<br/>
+<font color="#A82F2F"><font size="2">(03:58:33 PM)</font> <b>valdyn:</b></font> XF: man scp<br/>
+<font color="#A82F2F"><font size="2">(03:58:38 PM)</font> <b>valdyn:</b></font> XF: no it does not<br/>
+<font color="#A82F2F"><font size="2">(03:58:55 PM)</font> <b>XF:</b></font> i think there is a var/www like that thing<br/>
+<font color="#A82F2F"><font size="2">(03:59:03 PM)</font> <b>jelly:</b></font> XF: scp and sftp are similar and are both ways to copy a file to a remote machine.<br/>
+<font color="#A82F2F"><font size="2">(03:59:46 PM)</font> <b>XF:</b></font> i tried them i tried to upload on root and other user but unable to open on link<br/>
+<font color="#A82F2F"><font size="2">(04:00:04 PM)</font> <b>XF:</b></font> i got to know that i need to put it in or what ever something with var/www like thing<br/>
+<font color="#A82F2F"><font size="2">(04:00:27 PM)</font> <b>valdyn:</b></font> XF: try to make an effort to help us understand you, this is hardly intelligible<br/>
+<font color="#A82F2F"><font size="2">(04:00:34 PM)</font> <b>XF:</b></font> ummm<br/>
+<font color="#A82F2F"><font size="2">(04:00:56 PM)</font> <b>XF:</b></font> when i uploaded the php file to remote section it was successful<br/>
+<font color="#A82F2F"><font size="2">(04:01:14 PM)</font> <b>XF:</b></font> but when i tried to open it up on browser it didn&apos;t open<br/>
+<font color="#A82F2F"><font size="2">(04:01:56 PM)</font> <b>valdyn:</b></font> crised: you did something wrong when following the instructions to create an installer for your system<br/>
+<font color="#A82F2F"><font size="2">(04:01:56 PM)</font> <b>jelly:</b></font> XF: how did it fail exactly?<br/>
+<font color="#A82F2F"><font size="2">(04:02:24 PM)</font> <b>valdyn:</b></font> crised: We cant know what it is.<br/>
+<font color="#A82F2F"><font size="2">(04:03:07 PM)</font> <b>jelly:</b></font> XF: did you install a web server and php, and enable php in that web server, and put the file in the right place (somewhere inside the DocumentRoot)<br/>
+<font color="#A82F2F"><font size="2">(04:03:31 PM)</font> <b>XF:</b></font> how can i install webserver and php in my server?<br/>
+<font color="#A82F2F"><font size="2">(04:04:18 PM)</font> <b>valdyn:</b></font> !grounding<br/>
+<font color="#A82F2F"><font size="2">(04:04:19 PM)</font> <b>dpkg:</b></font> Before asking in here or on the &lt;debian-user&gt; mailing list, you should read the Installation Guide, or if you already have Debian installed, the Debian Reference.  The Debian Administrator&apos;s Handbook is also good.  Ask me about &lt;ig&gt;, &lt;overview&gt;, &lt;reference&gt;, &lt;refcard&gt;, &lt;docs&gt;, &lt;manuals&gt;, &lt;fundamentals&gt;, &lt;newbiedoc&gt;, &lt;faq&gt;, &lt;unix lessons&gt;, &lt;general cli tutorial&gt;, &lt;debian-handbook&gt; (e.g. in your IRC client, type /msg dpkg reference).<br/>
+<font color="#A82F2F"><font size="2">(04:06:11 PM)</font> <b>jelly:</b></font> XF: type &quot;/msg dpkg lamp&quot; in your irc client and read what the bot tells you.  Then read the &quot;/msg dpkg install apache&quot; and &quot;/msg dpkg install php&quot; as well.<br/>
+<font color="#A82F2F"><font size="2">(04:07:32 PM)</font> <b>crised:</b></font> valdyn: nope, I don&apos;t think so<br/>
+<font color="#A82F2F"><font size="2">(04:10:29 PM)</font> <b>m4rshall:</b></font> i am using &apos;daemon --name=name /etc/command&apos; which runs fine, but when doing a &apos;daemon --name=name --running&apos; nothing shows up, any ideas why?<br/>
+<font color="#A82F2F"><font size="2">(04:10:47 PM)</font> <b>trysten:</b></font> is /proc deprecated?<br/>
+<font color="#A82F2F"><font size="2">(04:11:17 PM)</font> <b>jelly:</b></font> trysten: no, why?<br/>
+<font color="#A82F2F"><font size="2">(04:11:54 PM)</font> <b>valdyn:</b></font> trysten: its more and more superseded by /sys.<br/>
+<font size="2">(04:12:02 PM)</font><b> mode (+l 1583) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(04:13:24 PM)</font> <b>crised:</b></font> Hows this possible??<br/>
+<font color="#A82F2F"><font size="2">(04:13:25 PM)</font> <b>crised:</b></font> Debian CD and DVD images can now be written directly a USB stick, which is a very easy way to make a bootable USB stick<br/>
+<font color="#A82F2F"><font size="2">(04:13:40 PM)</font> <b>crised:</b></font> iso image directly to usb drive??<br/>
+<font color="#A82F2F"><font size="2">(04:13:44 PM)</font> <b>crised:</b></font> what about dd?<br/>
+<font color="#A82F2F"><font size="2">(04:14:18 PM)</font> <b>valdyn:</b></font> crised: dd is a program that can write an image to a usb stick.<br/>
+<font color="#A82F2F"><font size="2">(04:14:36 PM)</font> <b>crised:</b></font> valdyn: that&apos;s the part I don&apos;t understand...<br/>
+<font color="#A82F2F"><font size="2">(04:14:38 PM)</font> <b>valdyn:</b></font> crised: so what about it?<br/>
+<font color="#A82F2F"><font size="2">(04:14:40 PM)</font> <b>crised:</b></font> Should I use dd or not?<br/>
+<font color="#A82F2F"><font size="2">(04:14:48 PM)</font> <b>sbeex:</b></font> hello :)<br/>
+<font color="#A82F2F"><font size="2">(04:15:03 PM)</font> <b>valdyn:</b></font> crised: theres at least a dozen programs that can do this - dd is one, feel free to use it<br/>
+<font color="#A82F2F"><font size="2">(04:15:27 PM)</font> <b>crised:</b></font> valdyn: https://www.debian.org/releases/stable/amd64/ch04s03.html.en#usb-copy-isohybrid<br/>
+<font color="#A82F2F"><font size="2">(04:15:52 PM)</font> <b>crised:</b></font> valdyn: oh... now I understand<br/>
+<font color="#A82F2F"><font size="2">(04:16:01 PM)</font> <b>crised:</b></font> directly does not mean to copy the iso file to the pen stick<br/>
+<font color="#A82F2F"><font size="2">(04:16:04 PM)</font> <b>valdyn:</b></font> crised: that page uses cp<br/>
+<font color="#A82F2F"><font size="2">(04:16:13 PM)</font> <b>valdyn:</b></font> crised: the result is absoluetely identical<br/>
+<font color="#A82F2F"><font size="2">(04:16:15 PM)</font> <b>crised:</b></font> valdyn: cp, then tar<br/>
+<font color="#A82F2F"><font size="2">(04:16:24 PM)</font> <b>crised:</b></font> valdyn: tar is needed<br/>
+<font color="#A82F2F"><font size="2">(04:16:30 PM)</font> <b>valdyn:</b></font> crised: tar is used for something else.....<br/>
+<font color="#A82F2F"><font size="2">(04:16:41 PM)</font> <b>crised:</b></font> valdyn: sighs, I don&apos;t get it<br/>
+<font color="#A82F2F"><font size="2">(04:16:52 PM)</font> <b>crised:</b></font> How my pen drive should look like?<br/>
+<font color="#A82F2F"><font size="2">(04:16:57 PM)</font> <b>valdyn:</b></font> crised: tar extracts files in that case<br/>
+<font color="#A82F2F"><font size="2">(04:16:59 PM)</font> <b>crised:</b></font> Like 1 big iso file, or like many files?<br/>
+<font color="#A82F2F"><font size="2">(04:17:19 PM)</font> <b>valdyn:</b></font> crised: many files<br/>
+<font color="#A82F2F"><font size="2">(04:17:31 PM)</font> <b>crised:</b></font> valdyn: it&apos;s like this, and it does not boot<br/>
+<font color="#A82F2F"><font size="2">(04:17:44 PM)</font> <b>sbeex:</b></font> I try to do this : User deploy:deploy create some files in /var/www/virtual/website.com and I need that the created files are owned by user vu2011:vu2011 (So I thought chown-R ... ) BUT if I do a chown -R then deploy user have nomore access to the files. How can I do to allow deploy to edit files owned by vu2011:vu2011 ?<br/>
+<font color="#A82F2F"><font size="2">(04:17:45 PM)</font> <b>trysten:</b></font> jelly: just wondering about proc vs sysfs and bash scripting.<br/>
+<font color="#A82F2F"><font size="2">(04:17:45 PM)</font> <b>valdyn:</b></font> crised: what did you write the image to *exactly* ?<br/>
+<font color="#A82F2F"><font size="2">(04:17:58 PM)</font> <b>crised:</b></font> I installed openbsd before... and it let me add the serial params at boot, debian does not even boot<br/>
+<font color="#A82F2F"><font size="2">(04:18:29 PM)</font> <b>trysten:</b></font> sbeex: just put vu2011 in deploys supplemental groups?<br/>
+<font color="#A82F2F"><font size="2">(04:18:41 PM)</font> <b>crised:</b></font> valdyn: many folders and files: boot, csss, debian, dists, doc, efi, firmware, install, install.amd<br/>
+<font color="#A82F2F"><font size="2">(04:19:02 PM)</font> <b>valdyn:</b></font> crised: well, i dont see where you were supposed to do that<br/>
+<font color="#A82F2F"><font size="2">(04:19:15 PM)</font> <b>valdyn:</b></font> crised: youre supposed to write one iso file to the stick<br/>
+<font color="#A82F2F"><font size="2">(04:19:15 PM)</font> <b>sbeex:</b></font> trysten: do you have a link talking about that ?<br/>
+<font color="#A82F2F"><font size="2">(04:19:40 PM)</font> <b>crised:</b></font> valdyn: really???<br/>
+<font color="#A82F2F"><font size="2">(04:19:43 PM)</font> <b>sbeex:</b></font> trysten : this way ? useradd -G {group-name} username<br/>
+<font color="#A82F2F"><font size="2">(04:19:48 PM)</font> <b>crised:</b></font> other DISTROS are NOT like that at all<br/>
+<font color="#A82F2F"><font size="2">(04:20:07 PM)</font> <b>crised:</b></font> valdyn: for example centos is like this: dd if=CentOS-6.5-x86_64-bin-DVD1.iso of=/dev/sdb<br/>
+<font color="#A82F2F"><font size="2">(04:20:19 PM)</font> <b>valdyn:</b></font> crised: great, same as debian<br/>
+<font color="#A82F2F"><font size="2">(04:20:37 PM)</font> <b>valdyn:</b></font> crised: &quot;cp debian.iso /dev/sdX&quot; &lt;- do you see the analogy ?<br/>
+<font color="#A82F2F"><font size="2">(04:20:48 PM)</font> <b>crised:</b></font> valdyn: not at all<br/>
+<font color="#A82F2F"><font size="2">(04:21:05 PM)</font> <b>crised:</b></font> cp will copy 1 compressed iso file, dd will extract iso file and partition the usb<br/>
+<font color="#A82F2F"><font size="2">(04:21:16 PM)</font> <b>valdyn:</b></font> crised: no, thats bullshit<br/>
+<font color="#A82F2F"><font size="2">(04:21:37 PM)</font> <b>valdyn:</b></font> crised: *both* write a filesystem image (an iso) to a block device (/dev/sdb)<br/>
+<font color="#A82F2F"><font size="2">(04:22:04 PM)</font> <b>crised:</b></font> valdyn: so cp will automatically extract all the files?<br/>
+<font color="#A82F2F"><font size="2">(04:22:14 PM)</font> <b>valdyn:</b></font> crised: no!<br/>
+<font color="#A82F2F"><font size="2">(04:22:28 PM)</font> <b>valdyn:</b></font> crised: it does *Exactly* the same as &quot;dd&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:22:38 PM)</font> <b>XF:</b></font> jelly there?<br/>
+<font color="#A82F2F"><font size="2">(04:22:45 PM)</font> <b>crised:</b></font> valdyn: dd extract files<br/>
+<font color="#A82F2F"><font size="2">(04:22:52 PM)</font> <b>valdyn:</b></font> crised: no<br/>
+<font color="#A82F2F"><font size="2">(04:23:06 PM)</font> <b>valdyn:</b></font> crised: dd has a manpage<br/>
+<font color="#A82F2F"><font size="2">(04:23:28 PM)</font> <b>valdyn:</b></font> crised: anyway, whereever the debian install guid uses &quot;cp&quot; to write a filesystem or disk image, you can use &quot;dd&quot; if you want<br/>
+<font color="#A82F2F"><font size="2">(04:23:47 PM)</font> <b>crised:</b></font> valdyn: see this, is the contents of my usb stick, right or wrong? http://i.imgur.com/xW0IrmW.png<br/>
+<font color="#A82F2F"><font size="2">(04:24:03 PM)</font> <b>valdyn:</b></font> crised: when I close my eyes, can you see me?<br/>
+<font color="#A82F2F"><font size="2">(04:24:08 PM)</font> <b>crised:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(04:24:16 PM)</font> <b>crised:</b></font> valdyn: so I did it wrong?<br/>
+<font color="#A82F2F"><font size="2">(04:24:22 PM)</font> <b>crised:</b></font> that image is wrong?<br/>
+<font color="#A82F2F"><font size="2">(04:24:36 PM)</font> <b>crised:</b></font> Is that usb stick setup wrong?<br/>
+<font color="#A82F2F"><font size="2">(04:24:47 PM)</font> <b>XF:</b></font> valdyn my server is having php installed but still its giving me not found thing when i visit on webpage<br/>
+<font color="#A82F2F"><font size="2">(04:24:51 PM)</font> <b>trysten:</b></font> sbeex: yes, that&apos;s what i&apos;m talking about. then the group permissions (chmod g+{rxw} *) will apply<br/>
+<font color="#A82F2F"><font size="2">(04:24:54 PM)</font> <b>valdyn:</b></font> crised: a long time ago I asked you how *Exactly* you write the debian.iso so your stick. But you did not reply.<br/>
+<font color="#A82F2F"><font size="2">(04:25:00 PM)</font> <b>valdyn:</b></font> crised: please reply now<br/>
+<font color="#A82F2F"><font size="2">(04:25:22 PM)</font> <b>crised:</b></font> [crised@arch Downloads]$ sudo dd bs=4M if=~/Downloads/debian-7.8.0-amd64-netinst.iso of=/dev/sdb &amp;&amp; sync<br/>
+<font color="#A82F2F"><font size="2">(04:25:30 PM)</font> <b>XF:</b></font> its having a case with /var/www idk how can i install on that<br/>
+<font color="#A82F2F"><font size="2">(04:25:35 PM)</font> <b>valdyn:</b></font> crised: that would be ok<br/>
+<font color="#A82F2F"><font size="2">(04:25:39 PM)</font> <b>crised:</b></font> valdyn: ok<br/>
+<font color="#A82F2F"><font size="2">(04:25:48 PM)</font> <b>crised:</b></font> still does not boot<br/>
+<font color="#A82F2F"><font size="2">(04:25:50 PM)</font> <b>crised:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(04:25:54 PM)</font> <b>trysten:</b></font> lol crised. i was just reading this: http://mywiki.wooledge.org/NetEtiquette and it was talking about being vauge<br/>
+<font color="#A82F2F"><font size="2">(04:26:01 PM)</font> <b>jelly:</b></font> XF: &quot;not found&quot; implies you put your .php files in the wrong place<br/>
+<font color="#A82F2F"><font size="2">(04:26:16 PM)</font> <b>trysten:</b></font> crised: then you were vauge. hahaha<br/>
+<font color="#A82F2F"><font size="2">(04:26:31 PM)</font> <b>crised:</b></font> :-D<br/>
+<font color="#A82F2F"><font size="2">(04:26:40 PM)</font> <b>XF:</b></font> jelly where to put then?<br/>
+<font color="#A82F2F"><font size="2">(04:26:48 PM)</font> <b>frankf:</b></font> in .bashrc i have HISTSIZE=100000000000000000000000000000 and HISTFILESIZE=200000000000000000000000000 , yet when i run cat .bash_history|wc -l it says 639 lines.. how can i get my bash history to never clear and indefinitely continue to save?<br/>
+<font color="#A82F2F"><font size="2">(04:26:52 PM)</font> <b>crised:</b></font> valdyn: so how can I tell the kernel to use serial console?<br/>
+<font color="#A82F2F"><font size="2">(04:27:03 PM)</font> <b>valdyn:</b></font> crised: you said it doesnt boot<br/>
+<font color="#A82F2F"><font size="2">(04:27:20 PM)</font> <b>jelly:</b></font> XF: where did you put them?  Look at the web server access.log and error.log and see what it tries to read.<br/>
+<font color="#A82F2F"><font size="2">(04:27:27 PM)</font> <b>pipl:</b></font> frankf: #bash<br/>
+<font color="#A82F2F"><font size="2">(04:27:49 PM)</font> <b>valdyn:</b></font> crised: thats an error that happens before you could even set a serial console<br/>
+<font color="#A82F2F"><font size="2">(04:27:55 PM)</font> <b>jelly:</b></font> XF: /var/log/apache2/ on debian 7 and apache<br/>
+<font color="#A82F2F"><font size="2">(04:27:57 PM)</font> <b>crised:</b></font> valdyn: yes :(<br/>
+<font color="#A82F2F"><font size="2">(04:28:18 PM)</font> <b>crised:</b></font>    Konsole output     Booting from Hard Disk... Booting from 0000:7c00 This is not a bootable disk.  Please insert a bootable floppy and press any key to try again ...<br/>
+<font color="#A82F2F"><font size="2">(04:28:18 PM)</font> <b>crised:</b></font>    <br/>
+<font color="#A82F2F"><font size="2">(04:28:26 PM)</font> <b>crised:</b></font> valdyn: openbsd gave me an option to deal with this<br/>
+<font color="#A82F2F"><font size="2">(04:28:30 PM)</font> <b>XF:</b></font> jelly pm please<br/>
+<font color="#A82F2F"><font size="2">(04:29:02 PM)</font> <b>crised:</b></font> valdyn: it had a boot console, does debian has a boot console?<br/>
+<font color="#A82F2F"><font size="2">(04:29:15 PM)</font> <b>jelly:</b></font> XF: I don&apos;t give private help for free, sorry.  Ask in here so other people are able to see what&apos;s happening and try to help.<br/>
+<font color="#A82F2F"><font size="2">(04:29:29 PM)</font> <b>XF:</b></font> jelly ok no private<br/>
+<font color="#A82F2F"><font size="2">(04:29:29 PM)</font> <b>valdyn:</b></font> crised: yea<br/>
+<font size="2">(04:29:33 PM)</font><b> frankf left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:29:43 PM)</font> <b>XF:</b></font> where are the access.log and error.log file?<br/>
+<font color="#A82F2F"><font size="2">(04:29:45 PM)</font> <b>vmassuchetto:</b></font> Stupid question: I accidentally dd&apos;ed a disk image to /dev/sdX where sdX is my system drive. How can I know if any harm was done? Well, the system is still working so did the command was executed at all?<br/>
+<font color="#A82F2F"><font size="2">(04:29:47 PM)</font> <b>crised:</b></font> valdyn: did you see the github guy work?<br/>
+<font color="#A82F2F"><font size="2">(04:30:01 PM)</font> <b>valdyn:</b></font> crised: yea, he just uses dd like you did<br/>
+<font color="#A82F2F"><font size="2">(04:30:15 PM)</font> <b>crised:</b></font> valdyn: this is exactly my case: V<br/>
+<font color="#A82F2F"><font size="2">(04:30:17 PM)</font> <b>crised:</b></font> https://github.com/ssinyagin/pcengines-apu-debian-cd<br/>
+<font color="#A82F2F"><font size="2">(04:30:25 PM)</font> <b>jelly:</b></font> XF: in the /var/log/apache2/ directory, on debian 7 with apache<br/>
+<font color="#A82F2F"><font size="2">(04:30:32 PM)</font> <b>valdyn:</b></font> Upon booting the board, wait for F12<br/>
+<font color="#A82F2F"><font size="2">(04:30:39 PM)</font> <b>valdyn:</b></font> etc.<br/>
+<font color="#A82F2F"><font size="2">(04:30:40 PM)</font> <b>XF:</b></font> how can i go there?<br/>
+<font color="#A82F2F"><font size="2">(04:30:43 PM)</font> <b>XF:</b></font> @jelly<br/>
+<font color="#A82F2F"><font size="2">(04:30:50 PM)</font> <b>crised:</b></font> valdyn: I do that<br/>
+<font color="#A82F2F"><font size="2">(04:31:20 PM)</font> <b>valdyn:</b></font> crised: can you run &quot;file debian.iso&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(04:31:36 PM)</font> <b>vmassuchetto:</b></font> crised, so it&apos;s done, then?<br/>
+<font color="#A82F2F"><font size="2">(04:31:42 PM)</font> <b>crised:</b></font> valdyn: from where?<br/>
+<font color="#A82F2F"><font size="2">(04:31:47 PM)</font> <b>jelly:</b></font> XF: &quot;cd /var/log/apache2&quot;.  You probably want to read some basic instructions on linux and unix and shell.<br/>
+<font color="#A82F2F"><font size="2">(04:31:48 PM)</font> <b>crised:</b></font> vmassuchetto: ?<br/>
+<font color="#A82F2F"><font size="2">(04:31:50 PM)</font> <b>vmassuchetto:</b></font> crised, the system is damaged?<br/>
+<font color="#A82F2F"><font size="2">(04:31:50 PM)</font> <b>valdyn:</b></font> crised: wherever you iso image is<br/>
+<font color="#A82F2F"><font size="2">(04:31:59 PM)</font> <b>crised:</b></font> vmassuchetto: not at all, works fine with openbsd<br/>
+<font size="2">(04:32:02 PM)</font><b> mode (+l 1590) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(04:32:09 PM)</font> <b>vmassuchetto:</b></font> crised, ... ?<br/>
+<font color="#A82F2F"><font size="2">(04:32:27 PM)</font> <b>crised:</b></font> valdyn: I have 2 computers, this one from where I&apos;m chatting, and the APU board<br/>
+<font color="#A82F2F"><font size="2">(04:32:34 PM)</font> <b>XF:</b></font> jelly now what after that command?<br/>
+<font color="#A82F2F"><font size="2">(04:32:36 PM)</font> <b>valdyn:</b></font> vmassuchetto: he successfully wrote an openbsd image to his usb stick and booted it, he fails to do the same with debian<br/>
+<font color="#A82F2F"><font size="2">(04:32:53 PM)</font> <b>vmassuchetto:</b></font> valdyn, thanks, but that&apos;s not my case<br/>
+<font color="#A82F2F"><font size="2">(04:33:04 PM)</font> <b>crised:</b></font> I dd the debian image from this computer, plugged the usb and it does not boot, did exactly the same with obsd and workwed<br/>
+<font color="#A82F2F"><font size="2">(04:33:11 PM)</font> <b>crised:</b></font> vmassuchetto: what&apos;s your case<br/>
+<font color="#A82F2F"><font size="2">(04:33:11 PM)</font> <b>valdyn:</b></font> crised: yea, do it from your debian system<br/>
+<font color="#A82F2F"><font size="2">(04:33:47 PM)</font> <b>jelly:</b></font> XF: use the ls command to list directory contents.  Use less to look at text files (like logs).<br/>
+<font color="#A82F2F"><font size="2">(04:33:48 PM)</font> <b>vmassuchetto:</b></font> valdyn, crised well, i accidentally ran dd to the boot drive!<br/>
+<font color="#A82F2F"><font size="2">(04:33:51 PM)</font> <b>crised:</b></font> valdyn: should I setup a debian system?<br/>
+<font color="#A82F2F"><font size="2">(04:33:59 PM)</font> <b>crised:</b></font> vmassuchetto: shit sorry !!<br/>
+<font color="#A82F2F"><font size="2">(04:34:01 PM)</font> <b>pipl:</b></font> often a iso must be a &quot;hybrid&quot; iso to work on both cd and usb.<br/>
+<font color="#A82F2F"><font size="2">(04:34:04 PM)</font> <b>valdyn:</b></font> vmassuchetto: the beginning of your harddisk is now broken, that includes the partition table, so if you reboot your system wont start<br/>
+<font color="#A82F2F"><font size="2">(04:34:04 PM)</font> <b>vmassuchetto:</b></font> valdyn, crised i want to know if i&apos;ll be able to boot again if i restart my computer...<br/>
+<font color="#A82F2F"><font size="2">(04:34:11 PM)</font> <b>crised:</b></font> vmassuchetto: you won&apos;t<br/>
+<font color="#A82F2F"><font size="2">(04:34:12 PM)</font> <b>vmassuchetto:</b></font> valdyn, oh well...<br/>
+<font color="#A82F2F"><font size="2">(04:34:47 PM)</font> <b>jelly:</b></font> !tell XF about general cli tutorial<br/>
+<font color="#A82F2F"><font size="2">(04:34:51 PM)</font> <b>valdyn:</b></font> vmassuchetto: if you only overwrite the swap partition, this could be recoverable. But if you have data there, its defenitely lost<br/>
+<font color="#A82F2F"><font size="2">(04:35:15 PM)</font> <b>valdyn:</b></font> crised: so why dont you run &quot;file&quot; on that iso image?<br/>
+<font size="2">(04:35:57 PM)</font><b> XF left the room (quit: Disconnected by services).</b><br/>
+<font size="2">(04:35:59 PM)</font><b> Devil is now known as XF</b><br/>
+<font size="2">(04:36:05 PM)</font><b> XF left the room (quit: Changing host).</b><br/>
+<font size="2">(04:36:05 PM)</font><b> XF [<em>~Devil@unaffiliated/xfisthebest</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:36:20 PM)</font> <b>XF:</b></font> so jelly what next command?<br/>
+<font color="#A82F2F"><font size="2">(04:36:36 PM)</font> <b>vmassuchetto:</b></font> valdyn, well... I&apos;ll the back up and so<br/>
+<font color="#A82F2F"><font size="2">(04:36:49 PM)</font> <b>crised:</b></font> valdyn:    Konsole output     [crised@arch Downloads]$ file debian-7.8.0-amd64-netinst.iso  debian-7.8.0-amd64-netinst.iso: DOS/MBR boot sector ISO 9660 CD-ROM filesystem data &apos;Debian 7.8.0 amd64 1&apos; (bootable); partition 2 : ID=0xef, start-CHS (0x3ff,254,63), end-CHS (0x3ff,254,63), startsector 3440, 896 sectors<br/>
+<font color="#A82F2F"><font size="2">(04:36:49 PM)</font> <b>crised:</b></font>    <br/>
+<font color="#A82F2F"><font size="2">(04:36:57 PM)</font> <b>crised:</b></font> valdyn: that&apos;s from my download directory<br/>
+<font color="#A82F2F"><font size="2">(04:37:13 PM)</font> <b>crised:</b></font> do you want me to run file on the usb stick?<br/>
+<font color="#A82F2F"><font size="2">(04:37:24 PM)</font> <b>valdyn:</b></font> crised: nah, that looks ok<br/>
+<font color="#A82F2F"><font size="2">(04:37:42 PM)</font> <b>crised:</b></font> valdyn: yes<br/>
+<font color="#A82F2F"><font size="2">(04:37:59 PM)</font> <b>jelly:</b></font> XF: please read about some command line basics.<br/>
+<font color="#A82F2F"><font size="2">(04:37:59 PM)</font> <b>crised:</b></font> This guy got it correctlu<br/>
+<font color="#A82F2F"><font size="2">(04:38:01 PM)</font> <b>crised:</b></font> https://github.com/ssinyagin/pcengines-apu-debian-cd<br/>
+<font color="#A82F2F"><font size="2">(04:38:04 PM)</font> <b>crised:</b></font> gtg, brb<br/>
+<font color="#A82F2F"><font size="2">(04:38:06 PM)</font> <b>XF:</b></font> jelly please<br/>
+<font color="#A82F2F"><font size="2">(04:39:12 PM)</font> <b>pipl:</b></font> XF: you need to read coreutils docs. Enter &quot;info coreutils&quot;. Next is &quot;man sh&quot;.<br/>
+<font color="#A82F2F"><font size="2">(04:40:15 PM)</font> <b>jelly:</b></font> XF: sorry, I don&apos;t think this is the right place to tell you how to use &quot;ls&quot; and &quot;less&quot;.  Try starting at http://www.tuxarena.com/intro/intro.php<br/>
+<font size="2">(04:42:02 PM)</font><b> mode (+l 1597) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(04:43:05 PM)</font> <b>deicide34:</b></font> Hello<br/>
+<font color="#A82F2F"><font size="2">(04:43:28 PM)</font> <b>deicide34:</b></font> should i backport newer kernel for debian, or stick to the stable 3.2?<br/>
+<font color="#A82F2F"><font size="2">(04:43:46 PM)</font> <b>Vroomfon1el:</b></font> do you need the newer kernel?<br/>
+<font color="#A82F2F"><font size="2">(04:43:50 PM)</font> <b>XF:</b></font> how can i upload a php file in my debian vps??<br/>
+<font color="#A82F2F"><font size="2">(04:43:50 PM)</font> <b>XF:</b></font>  and run it on browser? means i do my.vps.ip/xx.php on browser<br/>
+<font color="#A82F2F"><font size="2">(04:43:52 PM)</font> <b>deicide34:</b></font> I have no issues with stable kernel<br/>
+<font color="#A82F2F"><font size="2">(04:44:11 PM)</font> <b>Vroomfon1el:</b></font> XF: install a web server and configure it to execute PHP<br/>
+<font color="#A82F2F"><font size="2">(04:44:12 PM)</font> <b>jelly:</b></font> deicide34: then you don&apos;t have a technical reason to get a newer one<br/>
+<font color="#A82F2F"><font size="2">(04:44:17 PM)</font> <b>Vroomfon1el:</b></font> deicide34: then stick with it<br/>
+<font color="#A82F2F"><font size="2">(04:44:35 PM)</font> <b>XF:</b></font> vroomfon1el can i pm u?<br/>
+<font color="#A82F2F"><font size="2">(04:44:49 PM)</font> <b>Vroomfon1el:</b></font> no, please chat in the channel so that everyone can see &amp; join in<br/>
+<font color="#A82F2F"><font size="2">(04:45:27 PM)</font> <b>XF:</b></font> vroomfon1el ok<br/>
+<font color="#A82F2F"><font size="2">(04:45:34 PM)</font> <b>XF:</b></font> how can i install webserver?<br/>
+<font color="#A82F2F"><font size="2">(04:45:39 PM)</font> <b>XF:</b></font> i have installed apache<br/>
+<font color="#A82F2F"><font size="2">(04:45:45 PM)</font> <b>XF:</b></font> and php<br/>
+<font color="#A82F2F"><font size="2">(04:46:07 PM)</font> <b>jhutchins:</b></font> XF: You need to understand a lot more about web services and operating systems.  This isn&apos;t just a point-and-click project.<br/>
+<font color="#A82F2F"><font size="2">(04:46:14 PM)</font> <b>jhutchins:</b></font> xf The Linux System Administrator&apos;s Guide is an excellent general resource: http://www.tldp.org/LDP/sag/html/index.html<br/>
+<font color="#A82F2F"><font size="2">(04:46:59 PM)</font> <b>jhutchins:</b></font> XF:  http://wiki.debian.org/Apache  http://wiki.apache.org/httpd/FAQ  http://httpd.apache.org/<br/>
+<font color="#A82F2F"><font size="2">(04:47:10 PM)</font> <b>deicide34:</b></font> jelly: My only (minor) problem is that sometimes text goes blank for a second. When i write in LibreOffice Writer and press space, for example, a line goes blank.<br/>
+<font color="#A82F2F"><font size="2">(04:47:25 PM)</font> <b>XF:</b></font> jhutchins sorry i dont have time for reading all those things so please tell me the commands to do<br/>
+<font color="#A82F2F"><font size="2">(04:47:27 PM)</font> <b>Vroomfon1el:</b></font> XF: what you are trying to do is commonly referred to as &quot;building a LAMP stack&quot;. The best thing to do is to search the web for something like &quot;debian lamp tutorial&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:47:51 PM)</font> <b>XF:</b></font> vroomfon1el i want to load a php file on my vps<br/>
+<font color="#A82F2F"><font size="2">(04:47:53 PM)</font> <b>jhutchins:</b></font> XF: Then you don&apos;t have time to build a web server.<br/>
+<font color="#A82F2F"><font size="2">(04:48:15 PM)</font> <b>jhutchins:</b></font> XF: You need to read the documentation and understand what the risks involved are.<br/>
+<font color="#A82F2F"><font size="2">(04:48:15 PM)</font> <b>XF:</b></font> jhutchins plz..<br/>
+<font color="#A82F2F"><font size="2">(04:48:15 PM)</font> <b>jelly:</b></font> Vroomfon1el: that&apos;s not really the &quot;best&quot; thing to do to get good advice for a debian system<br/>
+<font color="#A82F2F"><font size="2">(04:48:28 PM)</font> <b>jhutchins:</b></font> XF: It doesn&apos;t work that way.<br/>
+<font color="#A82F2F"><font size="2">(04:48:34 PM)</font> <b>Vroomfon1el:</b></font> jelly: depends which tutorial you end up with, surely ;)<br/>
+<font color="#A82F2F"><font size="2">(04:48:37 PM)</font> <b>jelly:</b></font> Vroomfon1el: and XF is not at a level to discern good from bad results<br/>
+<font color="#A82F2F"><font size="2">(04:48:48 PM)</font> <b>r00t__:</b></font> Where do you guys work and why do you use debian<br/>
+<font color="#A82F2F"><font size="2">(04:48:52 PM)</font> <b>r00t__:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(04:48:58 PM)</font> <b>jhutchins:</b></font> !lamp<br/>
+<font color="#A82F2F"><font size="2">(04:48:58 PM)</font> <b>dpkg:</b></font> LAMP: Linux, Apache, MySQL, {PHP,Perl,Python} server.  Ask me about &lt;install debian&gt;&lt;install apache&gt;&lt;install mysql&gt;&lt;install php&gt;. (Hmm... doesn&apos;t that make it a DAMP stack?), or &quot;aptitude install libapache2-mod-php5 mysql-server php5-mysql&quot;.  http://wiki.debian.org/LaMp, or http://geek-and-poke.com/geekandpoke/2013/6/15/the-geekpoke-old-chestnut-of-the-week<br/>
+<font color="#A82F2F"><font size="2">(04:49:00 PM)</font> <b>jelly:</b></font> !why debian<br/>
+<font color="#A82F2F"><font size="2">(04:49:03 PM)</font> <b>Vroomfon1el:</b></font> jelly: well... yeah, fair point<br/>
+<font color="#A82F2F"><font size="2">(04:49:24 PM)</font> <b>r00t__:</b></font> !why raped<br/>
+<font color="#A82F2F"><font size="2">(04:49:34 PM)</font> <b>r00t__:</b></font> :(<br/>
+<font color="#A82F2F"><font size="2">(04:49:35 PM)</font> <b>jelly:</b></font> !why debian<br/>
+<font color="#A82F2F"><font size="2">(04:49:36 PM)</font> <b>dpkg:</b></font> Debian strives to maintain your freedom whilst also paying close attention to the technical aspects of making a great OS.  Debian is stable, upgradable and well tested.  See also http://www.debian.org/intro/free  http://www.debian.org/intro/why_debian  http://people.debian.org/~srivasta/talks/why_debian/  http://www.aboutdebian.com/ .  As an added bonus, you get to ask questions in #debian.<br/>
+<font color="#A82F2F"><font size="2">(04:49:47 PM)</font> <b>jelly:</b></font> r00t__: is that better.<br/>
+<font color="#A82F2F"><font size="2">(04:50:04 PM)</font> <b>r00t__:</b></font> did you mention insecure with government backdoor<br/>
+<font color="#A82F2F"><font size="2">(04:50:14 PM)</font> <b>jelly:</b></font> sigh<br/>
+<font color="#A82F2F"><font size="2">(04:50:22 PM)</font> <b>r00t__:</b></font> what motivates you<br/>
+<font size="2">(04:50:24 PM)</font><b> mode (+o jelly) by ChanServ</b><br/>
+<font size="2">(04:50:25 PM)</font><b> r00t__ left the room (requested by jelly (Goodbye)).</b><br/>
+<font size="2">(04:50:26 PM)</font><b> mode (+b *!*@silenceisdefeat.com) by jelly</b><br/>
+<font size="2">(04:50:27 PM)</font><b> mode (-o jelly) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(04:50:29 PM)</font> <b>deicide34:</b></font> r00t__: I used it for it&apos;s stability. I am now using Lubuntu 14.04 LTS,but want to revert back to Debian 7.<br/>
+<font color="#062585"><font size="2">(04:50:48 PM)</font> <b>***jelly</b></font> is not in the mood for games today<br/>
+<font color="#A82F2F"><font size="2">(04:51:05 PM)</font> <b>pipl:</b></font> :-)<br/>
+<font color="#A82F2F"><font size="2">(04:51:53 PM)</font> <b>deicide34:</b></font> r00t: Too much bloat on other OS is the main reason to install Debian<br/>
+<font size="2">(04:52:02 PM)</font><b> mode (+l 1591) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(04:52:36 PM)</font> <b>trysten:</b></font> hear hear!<br/>
+<font color="#A82F2F"><font size="2">(04:53:30 PM)</font> <b>deicide34:</b></font> When will you release Debian 8? How bug fixing of systemd is going?<br/>
+<font color="#A82F2F"><font size="2">(04:54:36 PM)</font> <b>jelly:</b></font> &quot;when it&apos;s ready&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:55:33 PM)</font> <b>jelly:</b></font> deicide34: but maybe you can compare its progress and general buginess with two previous releases, and try to guess yourself<br/>
+<font color="#A82F2F"><font size="2">(04:55:40 PM)</font> <b>jelly:</b></font> !richihwwjr<br/>
+<font color="#A82F2F"><font size="2">(04:55:40 PM)</font> <b>dpkg:</b></font> When _might_ jessie release?  Read the latest blog at http://richardhartmann.de/tags/tech/floss/debian/rc-stats/8.0-jessie/ and guess yourself!<br/>
+<font color="#A82F2F"><font size="2">(04:56:17 PM)</font> <b>sbeex:</b></font> Could someone explain me why as ROOT when I try to create a symlink in a folder it tell me &quot;Permission not allowed&quot; ? WTF<br/>
+<font color="#A82F2F"><font size="2">(04:56:36 PM)</font> <b>deicide34:</b></font> jelly: Ok. Thx<br/>
+<font color="#A82F2F"><font size="2">(04:56:41 PM)</font> <b>wh0isthis:</b></font> logger -t mysqld -p daemon.error<br/>
+<font color="#A82F2F"><font size="2">(04:56:43 PM)</font> <b>wh0isthis:</b></font> what is this?<br/>
+<font color="#A82F2F"><font size="2">(04:56:59 PM)</font> <b>SAKUJ0:</b></font> is debian even still considered minimal?<br/>
+<font color="#A82F2F"><font size="2">(04:57:01 PM)</font> <b>SAKUJ0:</b></font> i would not agree with people calling debian bloated, but being minimal is not one of the main selling points is it?<br/>
+<font color="#A82F2F"><font size="2">(04:58:54 PM)</font> <b>valdyn:</b></font> SAKUJ0: and never was<br/>
+<font color="#A82F2F"><font size="2">(04:59:06 PM)</font> <b>jelly:</b></font> SAKUJ0: it never really was &quot;minimal&quot; compared to other, esp. embedded-targeting distros, but there&apos;s a minimal debian installation.<br/>
+<font color="#A82F2F"><font size="2">(04:59:54 PM)</font> <b>jelly:</b></font> wh0isthis: logger is a command line tool to send messages to syslog<br/>
+<font color="#A82F2F"><font size="2">(05:00:19 PM)</font> <b>deicide34:</b></font> SAKUJ0: Minimal install is possible. Install just core system. Then just add openbox/LXDE and you have yourself a &apos;&apos;minimal&apos;&apos; system.<br/>
+<font color="#A82F2F"><font size="2">(05:01:26 PM)</font> <b>SAKUJ0:</b></font> jelly, i was not suggesting it was, just decide34 mentioned he prefers debian over others to get rid of the bloat<br/>
+<font color="#A82F2F"><font size="2">(05:01:48 PM)</font> <b>deicide34:</b></font> SAKUJ0: In the end, it&apos;s FAR less bloated then *buntu distros.<br/>
+<font color="#A82F2F"><font size="2">(05:01:49 PM)</font> <b>SAKUJ0:</b></font> i suppose getting rid of the bloat does work very well with debian but yeah i never saw it strive to be minimal<br/>
+<font color="#A82F2F"><font size="2">(05:02:19 PM)</font> <b>SAKUJ0:</b></font> oh yeah you compared to ubuntu i suppose :p<br/>
+<font color="#A82F2F"><font size="2">(05:02:23 PM)</font> <b>SAKUJ0:</b></font> that makes far more sense<br/>
+<font color="#A82F2F"><font size="2">(05:02:40 PM)</font> <b>deicide34:</b></font> SAKUJ0: Yeah, i did just that :D<br/>
+<font color="#A82F2F"><font size="2">(05:02:58 PM)</font> <b>pipl:</b></font> on some packages, maintainers try to enable all configure flags (more dependencies), and it is not minimal in that sense.<br/>
+<font size="2">(05:03:46 PM)</font><b> deicide34 left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(05:03:48 PM)</font> <b>SAKUJ0:</b></font> it should be far more important making sure that pretty much all non-exotic hw works out of the box<br/>
+<font color="#A82F2F"><font size="2">(05:03:56 PM)</font> <b>SAKUJ0:</b></font> on a standard distro<br/>
+<font color="#A82F2F"><font size="2">(05:04:06 PM)</font> <b>SAKUJ0:</b></font> well or by installing firmware etc<br/>
+<font color="#A82F2F"><font size="2">(05:04:18 PM)</font> <b>SAKUJ0:</b></font> by out of the box i mean without recompiling sth pretty much<br/>
+<font color="#A82F2F"><font size="2">(05:04:42 PM)</font> <b>m4rshall:</b></font> any ideas why &apos;daemon --name=thename --running&apos; is not showing the process i start as a daemon (using daemon --name=thename /etc/the/command) ??<br/>
+<font color="#A82F2F"><font size="2">(05:04:48 PM)</font> <b>leszek:</b></font> I am trying to backport vlc-2.2 from testing to wheezy. It somehow fails depsite all the dependencies are installed. Can someone help me figuring out what is missing. Here is the config.log: https://paste.kde.org/p3wjnmqu3<br/>
+<font color="#A82F2F"><font size="2">(05:05:09 PM)</font> <b>jelly:</b></font> SAKUJ0: debian&apos;s prirorities are free software and its users... sometimes those priorities work against each other, so focus on &quot;free software&quot; means you don&apos;t get firmware by default.<br/>
+<font color="#A82F2F"><font size="2">(05:05:38 PM)</font> <b>SAKUJ0:</b></font> oh don&apos;t get me wrong, i love the debian philosophy and not necessarily supplying the firmware<br/>
+<font color="#A82F2F"><font size="2">(05:05:42 PM)</font> <b>SAKUJ0:</b></font> out of the box was poor wording<br/>
+<font color="#A82F2F"><font size="2">(05:07:07 PM)</font> <b>valdyn:</b></font> leszek: that does not look like a backport to me, more like you are compiling upstream<br/>
+<font color="#A82F2F"><font size="2">(05:07:36 PM)</font> <b>valdyn:</b></font> leszek: show the whole log...<br/>
+<font color="#A82F2F"><font size="2">(05:07:58 PM)</font> <b>SAKUJ0:</b></font> how do i link leszek the dpkg bot info for backporting?<br/>
+<font color="#A82F2F"><font size="2">(05:08:13 PM)</font> <b>leszek:</b></font> valdyn: that is the config.log that basically fails. There is nothing more.<br/>
+<font color="#A82F2F"><font size="2">(05:08:18 PM)</font> <b>SAKUJ0:</b></font> i remember googling didn&apos;t even help me but dpkg bot helped me do a backport within 2 minutes<br/>
+<font color="#A82F2F"><font size="2">(05:08:28 PM)</font> <b>leszek:</b></font> SAKUJ0: sry don&apos;t know<br/>
+<font color="#A82F2F"><font size="2">(05:08:40 PM)</font> <b>Agiofws:</b></font> Hi whats the latest version of debian?<br/>
+<font color="#A82F2F"><font size="2">(05:08:48 PM)</font> <b>valdyn:</b></font> leszek: ok, the config like fails because of reasons that happened *before* anyway<br/>
+<font color="#A82F2F"><font size="2">(05:08:51 PM)</font> <b>leszek:</b></font> Agiofws: stable ? Wheezy 7.0<br/>
+<font color="#A82F2F"><font size="2">(05:09:30 PM)</font> <b>valdyn:</b></font> configure:5441: gcc -V &gt;&amp;5<br/>
+<font color="#A82F2F"><font size="2">(05:09:51 PM)</font> <b>valdyn:</b></font> leszek: see ^^ gcc has no -V option, not ever<br/>
+<font color="#A82F2F"><font size="2">(05:09:53 PM)</font> <b>leszek:</b></font> valdyn: before. hmm... I don&apos;t have a log for before and it does not fail before<br/>
+<font color="#A82F2F"><font size="2">(05:09:55 PM)</font> <b>Agiofws:</b></font> If i have a net install for squeeze can i upgrade to wheezy 7 leszek<br/>
+<font color="#A82F2F"><font size="2">(05:10:03 PM)</font> <b>valdyn:</b></font> leszek: so create it<br/>
+<font color="#A82F2F"><font size="2">(05:10:15 PM)</font> <b>valdyn:</b></font> judd: versions vlc<br/>
+<font color="#A82F2F"><font size="2">(05:10:16 PM)</font> <b>judd:</b></font> Package: vlc on i386 -- squeeze-security: 1.1.3-1squeeze6; squeeze: 1.1.3-1squeeze6; squeeze-backports: 2.0.3-5~bpo60+2; wheezy: 2.0.3-5+deb7u1; wheezy-security: 2.0.3-5+deb7u2+b1; wheezy-proposed-updates: 2.0.3-5+deb7u2+b1; squeeze-backports-sloppy: 2.0.5-1~bpo60+1; wheezy-backports: 2.1.5-1~bpo70+1; sid: 2.2.0~rc2-2; jessie: 2.2.0~rc2-2; wheezy-multimedia: 1:2.0.6-dmo3; jessie-multimedia:<br/>
+<font color="#A82F2F"><font size="2">(05:10:18 PM)</font> <b>judd:</b></font> 1:2.2.0-dmo1; sid-multimedia: 1:2.2.0-dmo1<br/>
+<font color="#A82F2F"><font size="2">(05:10:19 PM)</font> <b>Agiofws:</b></font> Cd<br/>
+<font color="#A82F2F"><font size="2">(05:10:57 PM)</font> <b>pipl:</b></font> Agiofws: read the release notes of debian wheezy on debian homepage.<br/>
+<font color="#A82F2F"><font size="2">(05:11:02 PM)</font> <b>leszek:</b></font> valdyn: I downloaded the vlc sources from testing with dget&apos;ting the .dsc file<br/>
+<font color="#A82F2F"><font size="2">(05:11:16 PM)</font> <b>leszek:</b></font> valdyn: how to create it ?<br/>
+<font size="2">(05:12:02 PM)</font><b> mode (+l 1598) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:12:14 PM)</font> <b>jelly:</b></font> leszek: did you run apt-get build-dep vlc?<br/>
+<font color="#A82F2F"><font size="2">(05:12:28 PM)</font> <b>jelly:</b></font> (with jessie deb-src in place)<br/>
+<font color="#A82F2F"><font size="2">(05:13:21 PM)</font> <b>Agiofws:</b></font> Pipl is there an unstable ot beta version of debian. I&apos;m just asking so i won&apos;t have to make a wheezy net install cd pipl<br/>
+<font color="#A82F2F"><font size="2">(05:13:23 PM)</font> <b>leszek:</b></font> I run it but only with wheezy deb-src in place. But anyways I ran debuild which checks the dependencies in any way. And like I said before all those dependencies were met<br/>
+<font color="#A82F2F"><font size="2">(05:14:28 PM)</font> <b>leszek:</b></font> So I fear the dependencies in the control file aren&apos;t complete as it does not seem to build and I fear because of something is missing or some dependency need to be in a specific version<br/>
+<font color="#A82F2F"><font size="2">(05:14:53 PM)</font> <b>leszek:</b></font> but I can&apos;t seem to figure out from this config.log<br/>
+<font size="2">(05:15:29 PM)</font><b> mode (+o jelly) by ChanServ</b><br/>
+<font size="2">(05:15:39 PM)</font><b> mode (+b $a:r00t__) by jelly</b><br/>
+<font size="2">(05:15:46 PM)</font><b> mode (-b *!*@silenceisdefeat.com) by jelly</b><br/>
+<font color="#A82F2F"><font size="2">(05:15:49 PM)</font> <b>pipl:</b></font> Agiofws: www.debian.org/releases .<br/>
+<font size="2">(05:16:02 PM)</font><b> mode (-o jelly) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(05:16:18 PM)</font> <b>Agiofws:</b></font> Ok...<br/>
+<font size="2">(05:17:00 PM)</font><b> Agiofws left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(05:17:59 PM)</font> <b>wh0isthis:</b></font> how do i check my harddrive space?<br/>
+<font color="#A82F2F"><font size="2">(05:18:19 PM)</font> <b>pipl:</b></font> df<br/>
+<font color="#A82F2F"><font size="2">(05:18:47 PM)</font> <b>pipl:</b></font> man df<br/>
+<font color="#A82F2F"><font size="2">(05:19:40 PM)</font> <b>leszek:</b></font> jelly: btw. I managed to compile chromium 41 for wheezy :P<br/>
+<font color="#A82F2F"><font size="2">(05:19:51 PM)</font> <b>leszek:</b></font> sslv3 finally fixed :)<br/>
+<font color="#A82F2F"><font size="2">(05:20:27 PM)</font> <b>pipl:</b></font> leszek: disable sslv3 in chromium ?<br/>
+<font color="#A82F2F"><font size="2">(05:21:06 PM)</font> <b>leszek:</b></font> pipl: yep<br/>
+<font color="#A82F2F"><font size="2">(05:21:44 PM)</font> <b>leszek:</b></font> the version in wheezy has sslv3 enabled by default and is vulnerable to poodle<br/>
+<font color="#A82F2F"><font size="2">(05:23:06 PM)</font> <b>pipl:</b></font> leszek: nice catch.<br/>
+<font color="#A82F2F"><font size="2">(05:23:37 PM)</font> <b>jelly:</b></font> !win leszek<br/>
+<font color="#A82F2F"><font size="2">(05:23:37 PM)</font> <b>dpkg:</b></font> Congratulations, leszek!  You have won second prize in a beauty contest!<br/>
+<font color="#A82F2F"><font size="2">(05:24:01 PM)</font> <b>leszek:</b></font> the only thing that does not work is tls 1.2 still. I guess it needs some libraries to be updated aswell<br/>
+<font color="#A82F2F"><font size="2">(05:24:56 PM)</font> <b>leszek:</b></font> and now I want vlc 2.2 on wheezy. Hmm... let me try taking a look at the ubuntu version. Maybe it has more dependencies and also the missing listed<br/>
+<font color="#A82F2F"><font size="2">(05:25:13 PM)</font> <b>jelly:</b></font> leszek: did you backport anything else huge like v8 to make it build?<br/>
+<font color="#A82F2F"><font size="2">(05:25:50 PM)</font> <b>leszek:</b></font> jelly: gcc-4.8 and clang 3.5 were the huger things I can still remember<br/>
+<font color="#A82F2F"><font size="2">(05:25:51 PM)</font> <b>jelly:</b></font> leszek: 2.1.5 from wheezy-backports not shiny enough for you?<br/>
+<font color="#A82F2F"><font size="2">(05:25:59 PM)</font> <b>jelly:</b></font> eugh<br/>
+<font color="#A82F2F"><font size="2">(05:26:59 PM)</font> <b>leszek:</b></font> jelly: yeah 2.1.5 is fine but not shiny enough. VLC 2.2 has too many important bugfixes in my opinion. Generally handling play/pause, transformations and plugins is improved a lot in this new version<br/>
+<font color="#A82F2F"><font size="2">(05:27:06 PM)</font> <b>jelly:</b></font> yeah, a whole new gcc is not likely to plop into wheezy just to make chromium build<br/>
+<font color="#A82F2F"><font size="2">(05:28:31 PM)</font> <b>leszek:</b></font> jelly: hmm... it does not need to replace any existing gcc in wheezy. Its just a matter of adding a package. As gcc-4.8 isn&apos;t used by default in jessie I think but gcc-4.9 is the default there and gcc-4.8 a seperate package there anyways<br/>
+<font size="2">(05:28:32 PM)</font><b> pipl left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(05:29:10 PM)</font><b> pipl [<em>~pipl@14.169.218.223</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:29:21 PM)</font> <b>leszek:</b></font> and for runtime stuff you only need gcc-4.8-base and libstdc++ from gcc-4.8<br/>
+<font color="#A82F2F"><font size="2">(05:31:30 PM)</font> <b>pipl:</b></font> last time i checked chromium needed about 8 gb ram just to be built.<br/>
+<font color="#A82F2F"><font size="2">(05:32:14 PM)</font> <b>leszek:</b></font> pipl: yeah thats about true. I had it first running on a 2 gb ram system with 4 gb swap and it was not enough. The compiling itself works but the linking is the ram expensive task<br/>
+<font color="#A82F2F"><font size="2">(05:32:40 PM)</font> <b>leszek:</b></font> so replugged the drive into another 8 GB RAM machine and started the linking process there<br/>
+<font color="#A82F2F"><font size="2">(05:33:26 PM)</font> <b>pipl:</b></font> leszek: Ah I see. The evil linker.<br/>
+<font color="#A82F2F"><font size="2">(05:37:59 PM)</font> <b>leszek:</b></font> ok now I see that vlc has the normal configure output like checking for .... : true  and so on. Sadly this isn&apos;t logged in the config.log . Lets log it with tee and see whats missing<br/>
+<font color="#A82F2F"><font size="2">(05:38:59 PM)</font> <b>jelly:</b></font> leszek: replacing libstdc++6 is the problematic part that is not likely to happen<br/>
+<font color="#A82F2F"><font size="2">(05:39:49 PM)</font> <b>jelly:</b></font> I wonder how google chrome is linked<br/>
+<font color="#A82F2F"><font size="2">(05:40:33 PM)</font> <b>leszek:</b></font> jelly: ah ok. I guess chrome ships its own libstdc++6<br/>
+<font size="2">(05:41:17 PM)</font><b> mode (+o eir) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(05:41:17 PM)</font> <b>jelly:</b></font> nope, /opt/google/chrome/chrome links against wheezy&apos;s   libstdc++.so.6 =&gt; /usr/lib/i386-linux-gnu/libstdc++.so.6 (0xf0d03000)<br/>
+<font color="#A82F2F"><font size="2">(05:41:22 PM)</font> <b>jelly:</b></font> weird<br/>
+<font size="2">(05:41:35 PM)</font><b> mode (-bo *!*@AStrasbourg-552-1-34-99.w90-26.abo.wanadoo.fr$##not-a-honeypot eir) by eir</b><br/>
+<font size="2">(05:42:02 PM)</font><b> mode (+l 1604) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:42:50 PM)</font> <b>leszek:</b></font> ah vlc is missing smbclient. Though it is installed. Maybe it needs version 4.1 from wheezy-backports instead of 3.x<br/>
+<font size="2">(05:43:25 PM)</font><b> kill_-9_1 is now known as MY123</b><br/>
+<font color="#A82F2F"><font size="2">(05:47:41 PM)</font> <b>jhutchins:</b></font> ,v smbclient<br/>
+<font color="#A82F2F"><font size="2">(05:47:42 PM)</font> <b>judd:</b></font> Package: smbclient on i386 -- squeeze: 2:3.5.6~dfsg-3squeeze11; squeeze-security: 2:3.5.6~dfsg-3squeeze11; squeeze-security-lts: 2:3.5.6~dfsg-3squeeze12; wheezy: 2:3.6.6-6+deb7u4; squeeze-backports: 2:3.6.6-6+deb7u5~bpo60+1; wheezy-proposed-updates: 2:3.6.6-6+deb7u5; wheezy-security: 2:3.6.6-6+deb7u5; wheezy-backports: 2:4.1.17+dfsg-1~bpo70+1; sid: 2:4.1.17+dfsg-2; jessie: 2:4.1.17+dfsg-2<br/>
+<font color="#A82F2F"><font size="2">(05:47:46 PM)</font> <b>pipl:</b></font> leszek: I guess you have to regenerate the configure script for it to detect the wheezy versions of dependencies ?<br/>
+<font color="#A82F2F"><font size="2">(05:48:38 PM)</font> <b>crised:</b></font> Simple-CDD lets you create customized debianinstaller<br/>
+<font color="#A82F2F"><font size="2">(05:50:03 PM)</font> <b>leszek:</b></font> nope pipl it explicetly asked for smbclient 4.x<br/>
+<font color="#A82F2F"><font size="2">(05:50:13 PM)</font> <b>leszek:</b></font> and also newe vdpau version<br/>
+<font color="#A82F2F"><font size="2">(05:50:26 PM)</font> <b>leszek:</b></font> its building now after I compiled vdpau from experimental<br/>
+<font color="#A82F2F"><font size="2">(05:50:37 PM)</font> <b>leszek:</b></font> and installed smbclient 4.x from wheezy-backports<br/>
+<font color="#A82F2F"><font size="2">(05:50:45 PM)</font> <b>crised:</b></font> Isn&apos;t out there already customized image with serial console ready?<br/>
+<font color="#A82F2F"><font size="2">(05:50:49 PM)</font> <b>leszek:</b></font> the control file needs to be updated to include that version dependencies<br/>
+<font color="#A82F2F"><font size="2">(05:51:19 PM)</font> <b>jelly:</b></font> leszek: I was there about 6 months ago, gave up and went jessie<br/>
+<font color="#A82F2F"><font size="2">(05:51:20 PM)</font> <b>leszek:</b></font> and btw. I updated the sources to 2.2.0 final<br/>
+<font color="#A82F2F"><font size="2">(05:52:34 PM)</font> <b>leszek:</b></font> jelly: yeah you can go that route. I am maintaining a debian wheezy based distro rolling release (stable base and rolling user space apps basically) and need to compile that packages as users (yeah way smaller userbase than debian but doesn&apos;t matter) request them<br/>
+<font color="#A82F2F"><font size="2">(05:54:25 PM)</font> <b>nmschulte:</b></font> fdisk shows that my disk is formatted with 512B sectors, but my disk has i/o size of 4096.<br/>
+<font color="#A82F2F"><font size="2">(05:54:36 PM)</font> <b>nmschulte:</b></font> am I experiencing a performance hit becuase of this setup?<br/>
+<font color="#A82F2F"><font size="2">(05:55:00 PM)</font> <b>littlebit:</b></font> hi people, I wanted to know if someone can tell me what usb-wlan stick can be recommended creating a wlan-to-ethernet bridge.<br/>
+<font color="#A82F2F"><font size="2">(05:55:18 PM)</font> <b>aphorise:</b></font> can I set certian &quot;export&quot; globally for all users?<br/>
+<font color="#A82F2F"><font size="2">(05:55:37 PM)</font> <b>jelly:</b></font> nmschulte: how do you see that &quot;disk is formatted with 512B sectors&quot;?<br/>
+<font color="#A82F2F"><font size="2">(05:55:48 PM)</font> <b>d3lphi:</b></font> hey there. Which archive tool do you guys suggest which has a nice guy and can add a context integration when I right-click on a file? The default archive tool in Debian cannot extract lots of .rar files I have. I had to use the command line tool &quot;unrar e filename.rar&quot; to get this solved. But I would like to have a GUI therefore and not run a console command each time I want to extract a compressed file.<br/>
+<font color="#A82F2F"><font size="2">(05:55:59 PM)</font> <b>d3lphi:</b></font> s/guy/gui<br/>
+<font color="#A82F2F"><font size="2">(05:56:32 PM)</font> <b>nmschulte:</b></font> jelly: fdisk lists it<br/>
+<font color="#A82F2F"><font size="2">(05:56:40 PM)</font> <b>verri:</b></font> d3lphi: you probably want to use &quot;unrar x filename&quot; though<br/>
+<font color="#A82F2F"><font size="2">(05:57:13 PM)</font> <b>jelly:</b></font> dpkg, tell aphorise about environment<br/>
+<font color="#A82F2F"><font size="2">(05:57:58 PM)</font> <b>nmschulte:</b></font> sector size: (logical/physical) 512/4096 -- i/o size: (minimum/optimal) 4096/4096<br/>
+<font color="#A82F2F"><font size="2">(05:58:39 PM)</font> <b>jelly:</b></font> nmschulte: I&apos;m not sure you&apos;re interpreting the output correctly.  The logical size isn&apos;t really important, and it&apos;s predefined in the device firmware<br/>
+<font color="#A82F2F"><font size="2">(05:58:47 PM)</font> <b>d3lphi:</b></font> verri: as I explained, I am looking for an archive tool which works in X and on my desktop environment (Cinnamon at the moment). I don&apos;t want to run &quot;unrar e ...&quot; shell commands each time I want to decompress files. And the tool should be capable of processing various formats, like .7z, .zip, and so on ...<br/>
+<font color="#A82F2F"><font size="2">(05:59:11 PM)</font> <b>jelly:</b></font> nmschulte: the only thing you need to worry about is that partitions start at 4096B-aligned positions<br/>
+<font color="#A82F2F"><font size="2">(05:59:27 PM)</font> <b>jelly:</b></font> nmschulte: which is what tools in debian 7 do correctly by default<br/>
+<font color="#A82F2F"><font size="2">(05:59:42 PM)</font> <b>d3lphi:</b></font> I want to right-click on the compressed archive from my file manager and choose in context menu &quot;Uncompress here...&quot; or &quot;Uncompress in folder xyz...&quot; and so on.<br/>
+<font size="2">(06:01:23 PM)</font><b> littlebit left the room (quit: Quit: ChatZilla 0.9.91.1 [Firefox 36.0.1/20150306140238]).</b><br/>
+<font color="#A82F2F"><font size="2">(06:04:41 PM)</font> <b>pipl:</b></font> d3lphi: a quick googling comes up with natilus-actions. I haven&apos;t tried that yet. But the idea is to create an item in the menu with a shell command &quot;unrar x ...&quot; .<br/>
+<font size="2">(06:05:48 PM)</font><b> ExCePt is now known as Guest65009</b><br/>
+<font color="#A82F2F"><font size="2">(06:08:28 PM)</font> <b>deicide34:</b></font> Can i install Minitube to Wheezy?<br/>
+<font color="#A82F2F"><font size="2">(06:08:36 PM)</font> <b>crised:</b></font> If the latest stable kernel is 3.19.1 how Wheezy has 3.2?<br/>
+<font color="#A82F2F"><font size="2">(06:09:59 PM)</font> <b>pipl:</b></font> deicide34: !dpkg minitube<br/>
+<font color="#A82F2F"><font size="2">(06:10:20 PM)</font> <b>d3lphi:</b></font> anyone?<br/>
+<font color="#A82F2F"><font size="2">(06:10:38 PM)</font> <b>deicide34:</b></font> crised: It&apos;s the most stable kernel that supports Debian 7 packages<br/>
+<font color="#A82F2F"><font size="2">(06:11:24 PM)</font> <b>crised:</b></font> deicide34: should I be afraid by the &quot;most stable&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:11:51 PM)</font> <b>crised:</b></font> Why don&apos;t they use 3.19? Which debian version uses the really stable 3.19 kernel?<br/>
+<font color="#A82F2F"><font size="2">(06:11:56 PM)</font> <b>Cpuroast:</b></font> crised: because debian uses 1 single kernel branch per version<br/>
+<font color="#A82F2F"><font size="2">(06:12:02 PM)</font> <b>Cpuroast:</b></font> crised: it&apos;s how it&apos;s always worked<br/>
+<font size="2">(06:12:02 PM)</font><b> mode (+l 1597) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(06:12:23 PM)</font> <b>Cpuroast:</b></font> crised: Debian will use 3.16<br/>
+<font color="#A82F2F"><font size="2">(06:12:32 PM)</font> <b>crised:</b></font> Cpuroast: the new one?<br/>
+<font color="#A82F2F"><font size="2">(06:12:37 PM)</font> <b>Cpuroast:</b></font> Debian 8<br/>
+<font color="#A82F2F"><font size="2">(06:12:38 PM)</font> <b>Cpuroast:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(06:12:41 PM)</font> <b>deicide34:</b></font> crised: No, you should be encouraged by that :)<br/>
+<font color="#A82F2F"><font size="2">(06:13:00 PM)</font> <b>crised:</b></font> Should I worry about uptime or something like that?<br/>
+<font color="#A82F2F"><font size="2">(06:13:08 PM)</font> <b>crised:</b></font> What does it mean that the kernel is not stable?<br/>
+<font color="#A82F2F"><font size="2">(06:14:19 PM)</font> <b>deicide34:</b></font> crised: It simply mean that it&apos;s the most tested version of the kernel to run on Wheezy<br/>
+<font color="#A82F2F"><font size="2">(06:14:27 PM)</font> <b>deicide34:</b></font> means*<br/>
+<font size="2">(06:14:42 PM)</font><b> newbie is now known as Guest29607</b><br/>
+<font color="#A82F2F"><font size="2">(06:15:02 PM)</font> <b>Cpuroast:</b></font> crised: Squeeze uses 2.6.32, Wheezy uses 3.2, Jessie uses 3.16<br/>
+<font color="#A82F2F"><font size="2">(06:15:06 PM)</font> <b>Cpuroast:</b></font> it&apos;s simply how it works<br/>
+<font color="#A82F2F"><font size="2">(06:15:13 PM)</font> <b>crised:</b></font> Cpuroast: ok<br/>
+<font color="#A82F2F"><font size="2">(06:15:49 PM)</font> <b>Cpuroast:</b></font> they want to maintain 1 kernel branch<br/>
+<font color="#A82F2F"><font size="2">(06:15:54 PM)</font> <b>Cpuroast:</b></font> during the life of a Debian version<br/>
+<font color="#A82F2F"><font size="2">(06:16:26 PM)</font> <b>Cpuroast:</b></font> Debian 8 will be released sometime this year<br/>
+<font color="#A82F2F"><font size="2">(06:16:35 PM)</font> <b>Cpuroast:</b></font> so you&apos;ll get 3.16<br/>
+<font color="#A82F2F"><font size="2">(06:16:35 PM)</font> <b>jhutchins:</b></font> ,kernels<br/>
+<font color="#A82F2F"><font size="2">(06:16:36 PM)</font> <b>judd:</b></font> Available kernel versions are: experimental: 3.19.0-trunk-686-pae (3.19.1-1~exp1); sid: 3.16.0-4-686-pae (3.16.7-ckt7-1); jessie: 3.16.0-4-686-pae (3.16.7-ckt7-1); wheezy-backports: 3.16.0-0.bpo.4-686-pae (3.16.7-ckt4-3~bpo70+1); wheezy: 3.2.0-4-686-pae (3.2.65-1+deb7u2); squeeze-backports: 3.2.0-0.bpo.4-686-pae (3.2.65-1+deb7u2~bpo60+1); squeeze: 2.6.32-5-686 (2.6.32-48squeeze6)<br/>
+<font color="#A82F2F"><font size="2">(06:16:40 PM)</font> <b>Cpuroast:</b></font> and better hardware support<br/>
+<font color="#A82F2F"><font size="2">(06:16:45 PM)</font> <b>jelly:</b></font> crised: new kernel releases introduce new features and new bugs.  A distro release simply cannot allow new bugs to happen to their users, so they track a single version of kernel during the whole life of a release<br/>
+<font color="#A82F2F"><font size="2">(06:16:57 PM)</font> <b>crised:</b></font> jelly ok<br/>
+<font color="#A82F2F"><font size="2">(06:17:02 PM)</font> <b>crised:</b></font> thank guys<br/>
+<font color="#A82F2F"><font size="2">(06:17:09 PM)</font> <b>jhutchins:</b></font> crised: Remember that the debian kernel is not the same as the unpatched kernel.org kernel of the same version number.<br/>
+<font color="#A82F2F"><font size="2">(06:17:21 PM)</font> <b>deicide34:</b></font> pipl: Thank you for the answer regarding minitube<br/>
+<font color="#A82F2F"><font size="2">(06:19:20 PM)</font> <b>crised:</b></font> jhutchins: that makes a whole lot of sense<br/>
+<font color="#A82F2F"><font size="2">(06:23:32 PM)</font> <b>crised:</b></font> simplecdd will build a cd iso image based on the pakages on the actual host machine? else will it build just a minimal installation?<br/>
+<font color="#A82F2F"><font size="2">(06:33:14 PM)</font> <b>G66k:</b></font> hello everyone<br/>
+<font color="#A82F2F"><font size="2">(06:33:16 PM)</font> <b>G66k:</b></font> im new user to debain wheezy<br/>
+<font color="#A82F2F"><font size="2">(06:33:16 PM)</font> <b>G66k:</b></font> trying to set ulimit -c nolimit<br/>
+<font color="#A82F2F"><font size="2">(06:33:16 PM)</font> <b>G66k:</b></font> giving me this bash: ulimit: -C: invalid option<br/>
+<font color="#A82F2F"><font size="2">(06:33:16 PM)</font> <b>G66k:</b></font>  error<br/>
+<font color="#A82F2F"><font size="2">(06:33:16 PM)</font> <b>G66k:</b></font> any idea ?<br/>
+<font color="#A82F2F"><font size="2">(06:33:43 PM)</font> <b>centrx:</b></font> G66k, It&apos;s case-sensitive<br/>
+<font color="#A82F2F"><font size="2">(06:34:17 PM)</font> <b>G66k:</b></font> same error<br/>
+<font color="#A82F2F"><font size="2">(06:34:32 PM)</font> <b>G66k:</b></font> lowcase or uppercase doesnt function<br/>
+<font color="#A82F2F"><font size="2">(06:35:10 PM)</font> <b>centrx:</b></font> when I do ulimit -c nolimit I get bash: ulimit: nolimit: invalid number<br/>
+<font color="#A82F2F"><font size="2">(06:35:20 PM)</font> <b>deicide34:</b></font> G66k: Have you gone into root privileges, before trying that command? Maybe you need that<br/>
+<font color="#A82F2F"><font size="2">(06:35:20 PM)</font> <b>pipl:</b></font> ulimit is a bash built-in command.<br/>
+<font color="#A82F2F"><font size="2">(06:36:16 PM)</font> <b>pipl:</b></font> not a bash option<br/>
+<font size="2">(06:36:19 PM)</font><b> pipl left the room (quit: Quit: Reconnecting).</b><br/>
+<font size="2">(06:36:40 PM)</font><b> pipl [<em>~pipl@14.169.218.223</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:36:42 PM)</font> <b>G66k:</b></font> deicide34, yes im runing command as root<br/>
+<font color="#A82F2F"><font size="2">(06:39:14 PM)</font> <b>jelly:</b></font> centrx: think it&apos;s ulimit -c none<br/>
+<font color="#A82F2F"><font size="2">(06:39:56 PM)</font> <b>G66k:</b></font> same problem here i just solve it<br/>
+<font color="#A82F2F"><font size="2">(06:40:16 PM)</font> <b>G66k:</b></font> centrx,  ulimit -c unlimited<br/>
+<font color="#A82F2F"><font size="2">(06:40:21 PM)</font> <b>jelly:</b></font> centrx: nope, sorry, ulimit -c unlimited<br/>
+<font color="#A82F2F"><font size="2">(06:40:25 PM)</font> <b>jelly:</b></font> ha<br/>
+<font color="#A82F2F"><font size="2">(06:40:56 PM)</font> <b>G66k:</b></font> ulimit -c nolimit work on ubuntu<br/>
+<font color="#A82F2F"><font size="2">(06:41:04 PM)</font> <b>G66k:</b></font> debian seems to be different<br/>
+<font color="#A82F2F"><font size="2">(06:41:33 PM)</font> <b>thomas_d:</b></font> what&apos;s the best working/up-to-date NX server solution for debian?<br/>
+<font size="2">(06:41:43 PM)</font><b> pipl left the room (quit: Changing host).</b><br/>
+<font size="2">(06:41:43 PM)</font><b> pipl [<em>~pipl@unaffiliated/pipl</em>] entered the room.</b><br/>
+<font size="2">(06:42:02 PM)</font><b> mode (+l 1605) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(06:42:12 PM)</font> <b>thomas_d:</b></font> I&apos;m looking at this freenx-server currently, and I&apos;m having a hard time finding working sources... found some website where it seems the freenx team have uploaded packages and everything is like 4 years old<br/>
+<font color="#A82F2F"><font size="2">(06:43:10 PM)</font> <b>shentino:</b></font> Question:  When I log in on a vt, how come /dev/vcsa# isn&apos;t changed along with the tty device?<br/>
+<font color="#A82F2F"><font size="2">(06:44:22 PM)</font> <b>jhutchins:</b></font> ,v freenx<br/>
+<font color="#A82F2F"><font size="2">(06:44:23 PM)</font> <b>judd:</b></font> No package named &apos;freenx&apos; was found in i386.<br/>
+<font color="#A82F2F"><font size="2">(06:44:50 PM)</font> <b>jhutchins:</b></font> thomas_d: Does it have to be nx specific or are you looking for any desktop sharing system?<br/>
+<font color="#A82F2F"><font size="2">(06:45:19 PM)</font> <b>thomas_d:</b></font> well I tried X11 over SSH which worked fine over LAN<br/>
+<font color="#A82F2F"><font size="2">(06:45:31 PM)</font> <b>thomas_d:</b></font> but I&apos;m looking for an across-WAN solution really (from workplace to home)<br/>
+<font size="2">(06:45:41 PM)</font><b> pipl left the room (quit: Quit: Reconnecting).</b><br/>
+<font color="#A82F2F"><font size="2">(06:46:03 PM)</font> <b>thomas_d:</b></font> I&apos;m happy to try VNC as well... I just read from my googles that NX was the best?<br/>
+<font color="#A82F2F"><font size="2">(06:46:18 PM)</font> <b>thomas_d:</b></font> in this situation (across WAN)<br/>
+<font color="#A82F2F"><font size="2">(06:46:21 PM)</font> <b>jhutchins:</b></font> !vnc<br/>
+<font color="#A82F2F"><font size="2">(06:46:21 PM)</font> <b>dpkg:</b></font> Virtual Network Computing (VNC) is a platform-independent graphical desktop sharing system (i.e. provides GUI remote access).  Server packages in Debian include &lt;tightvncserver&gt;, &lt;vnc4server&gt; and &lt;x11vnc&gt;; &quot;apt-cache search vnc&quot; will list other servers and clients.  Ask me about &lt;vnc setup&gt;, see also &lt;x-not-vnc&gt; for an alternative.  http://wiki.debian.org/VNCviewer<br/>
+<font color="#A82F2F"><font size="2">(06:46:25 PM)</font> <b>jelly:</b></font> thomas_d: I use x11vnc (ssh tunneled)<br/>
+<font color="#A82F2F"><font size="2">(06:46:38 PM)</font> <b>jhutchins:</b></font> !rdp<br/>
+<font color="#A82F2F"><font size="2">(06:46:38 PM)</font> <b>dpkg:</b></font> The proprietary Remote Desktop Protocol (RDP) is used to connect to systems running Microsoft Remote Desktop Services (formerly Terminal Services), providing features similar to &lt;VNC&gt;.  RDP clients packaged for Debian include &lt;freerdp&gt;, &lt;rdesktop&gt;, &lt;remmina&gt; and &lt;tsclient&gt;.  For a RDP server, ask me about &lt;xrdp&gt;.<br/>
+<font color="#A82F2F"><font size="2">(06:46:46 PM)</font> <b>jelly:</b></font> nx is supposedly very nice but not really open<br/>
+<font color="#A82F2F"><font size="2">(06:47:44 PM)</font> <b>jhutchins:</b></font> thomas_d: http://wiki.x2go.org/doku.php<br/>
+<font color="#A82F2F"><font size="2">(06:48:13 PM)</font> <b>pipl:</b></font> just for daily tasks, web-browsing, file management, ... , is vnc really slower than rdp ?<br/>
+<font color="#A82F2F"><font size="2">(06:48:39 PM)</font> <b>jelly:</b></font> pipl: yes, vnc is horrible<br/>
+<font color="#A82F2F"><font size="2">(06:49:14 PM)</font> <b>valdyn:</b></font> of course why would anyone want to do web browsing over wan<br/>
+<font color="#A82F2F"><font size="2">(06:49:16 PM)</font> <b>jelly:</b></font> I have no idea how xrdp fares, but rdp to windows machines is a lot less painful<br/>
+<font color="#A82F2F"><font size="2">(06:49:27 PM)</font> <b>jhutchins:</b></font> pipl: I don&apos;t think there&apos;s a significant difference between the two.<br/>
+<font color="#A82F2F"><font size="2">(06:50:14 PM)</font> <b>crised:</b></font> Trying to build an image with simple-cdd, but I get: ERROR: missing required packages from profile apu64:  ntp firmware-realtek firmware-brcm80211 firmware-atheros firmware-ralink wireless-tools wpasupplicant iw hdparm smartmontools<br/>
+<font color="#A82F2F"><font size="2">(06:51:03 PM)</font> <b>jelly:</b></font> pipl: for me, vnc is usable only with significant bandwidth available and not many households have 2+ Mbps upload in these parts<br/>
+<font color="#A82F2F"><font size="2">(06:51:13 PM)</font> <b>crised:</b></font> You need a Debian mirror with the doc directory!<br/>
+<font color="#A82F2F"><font size="2">(06:51:44 PM)</font> <b>valdyn:</b></font> crised: debian mirrors dont have a doc directory<br/>
+<font color="#A82F2F"><font size="2">(06:52:10 PM)</font> <b>pipl:</b></font> in tersm of rdp, having graphics operations intergrated into the kernel is at least one bright aspect of wind*ws.<br/>
+<font color="#A82F2F"><font size="2">(06:52:14 PM)</font> <b>crised:</b></font> valdyn: https://gist.github.com/crised/8e45319e434f59743249<br/>
+<font color="#A82F2F"><font size="2">(06:52:46 PM)</font> <b>basic6_:</b></font> configuring exim as send-only mta, why am  i getting &quot;sender address rejected&quot; / &quot;no route to host&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(06:53:52 PM)</font> <b>valdyn:</b></font> crised: youre right, ftp.debian.org has that directory.<br/>
+<font size="2">(06:54:49 PM)</font><b> Xena is now known as Xe</b><br/>
+<font color="#A82F2F"><font size="2">(06:54:53 PM)</font> <b>valdyn:</b></font> basic6_: who is the sender?<br/>
+<font color="#A82F2F"><font size="2">(06:55:05 PM)</font> <b>thomas_d:</b></font> thanks jhutchins and jelly - just installing xrdp now,  had no idea linux boxes could be RDP session hosts, that&apos;s dope!!<br/>
+<font color="#A82F2F"><font size="2">(06:57:15 PM)</font> <b>pipl:</b></font> jelly: 2+mbps upload is a extravagance for a civilian ADSL...<br/>
+<font color="#A82F2F"><font size="2">(06:57:34 PM)</font> <b>valdyn:</b></font> crised: youre not using a mirror, youre using cdrom as package source<br/>
+<font color="#A82F2F"><font size="2">(06:57:49 PM)</font> <b>pipl:</b></font> an*<br/>
+<font color="#A82F2F"><font size="2">(06:57:49 PM)</font> <b>jelly:</b></font> pipl: in my country, yes<br/>
+<font color="#A82F2F"><font size="2">(06:58:26 PM)</font> <b>crised:</b></font> valdyn: build-simple-cdd --conf profiles/apu64.conf --dist wheezy --force-root<br/>
+<font color="#A82F2F"><font size="2">(06:59:17 PM)</font> <b>basic6_:</b></font> valdyn: i am the sender, i want my local system to be able to send (not receive) mails<br/>
+<font color="#A82F2F"><font size="2">(06:59:18 PM)</font> <b>thomas_d:</b></font> bloody hell it works... great :)<br/>
+<font color="#A82F2F"><font size="2">(06:59:55 PM)</font> <b>valdyn:</b></font> basic6_: the actual sender address, not the person<br/>
+<font color="#A82F2F"><font size="2">(07:02:29 PM)</font> <b>valdyn:</b></font> basic6_: does &apos;echo &quot;sometext&quot; | mails -s &quot;subject&quot; root@localhost&apos; send mail successfully?<br/>
+<font color="#A82F2F"><font size="2">(07:03:52 PM)</font> <b>valdyn:</b></font> basic6_: your error cant be debugged without you telling us which sender is actually rejected. Of course exim does not relay random senders.<br/>
+<font color="#A82F2F"><font size="2">(07:04:22 PM)</font> <b>folivora:</b></font> Hi, I am trying to mount my ext4 disk, but it doest not mount it. Seems that I could be hitting into this &quot;BUG&quot;: https://lists.debian.org/debian-kernel/2015/02/msg00074.html<br/>
+<font color="#A82F2F"><font size="2">(07:04:32 PM)</font> <b>folivora:</b></font> How I can load ext4 module ?<br/>
+<font color="#A82F2F"><font size="2">(07:04:43 PM)</font> <b>valdyn:</b></font> folivora: tell us the actual error<br/>
+<font color="#A82F2F"><font size="2">(07:04:58 PM)</font> <b>folivora:</b></font> valdyn: [Sat Mar 14 20:00:45 2015] ext4: Unknown symbol pagecache_get_page_fixed (err 0)<br/>
+<font color="#A82F2F"><font size="2">(07:05:05 PM)</font> <b>valdyn:</b></font> folivora: reboot<br/>
+<font color="#A82F2F"><font size="2">(07:05:22 PM)</font> <b>basic6_:</b></font> valdyn: sorry about the delay... i&apos;m behind a nat router with a dynamic ipv4 address, so i have set up exim to use an fqdn myhost.something.com as &apos;mail name&apos;, which points to my current ip<br/>
+<font color="#A82F2F"><font size="2">(07:05:25 PM)</font> <b>folivora:</b></font> &quot;Never under estimate the power of reboot?<br/>
+<font color="#A82F2F"><font size="2">(07:05:27 PM)</font> <b>folivora:</b></font> valdyn: how come ?<br/>
+<font color="#A82F2F"><font size="2">(07:05:39 PM)</font> <b>jelly:</b></font> folivora: never forget to reboot after upgrading the kernel package<br/>
+<font color="#A82F2F"><font size="2">(07:05:43 PM)</font> <b>basic6_:</b></font> valdyn: interestingly when i mail to root@localhost i get the following error<br/>
+<font color="#A82F2F"><font size="2">(07:07:49 PM)</font> <b>folivora:</b></font> jelly: how you can see the error from that msg? :)<br/>
+<font size="2">(07:16:21 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

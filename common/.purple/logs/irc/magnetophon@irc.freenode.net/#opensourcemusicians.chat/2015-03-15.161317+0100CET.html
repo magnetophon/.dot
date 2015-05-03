@@ -1,0 +1,113 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #opensourcemusicians at Sun 15 Mar 2015 04:13:17 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #opensourcemusicians at Sun 15 Mar 2015 04:13:17 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(04:13:17 PM)</font><b> The topic for #opensourcemusicians is: Welcome to the companion chat room to the OSM Podcast | Episode #70 is out! | wiki <a href="http://opensourcemusician.com">http://opensourcemusician.com</a></b><br/>
+<font size="2">(04:13:17 PM)</font><b> Topic for #opensourcemusicians set by PipeManMusic!~PipeManMu@web75.webfaction.com at 03:56:51 PM on 09/17/2014</b><br/>
+<font size="2">(05:20:42 PM)</font><b> HarryHaaren left the room (quit: Quit: HarryHaaren).</b><br/>
+<font size="2">(06:39:01 PM)</font><b> goibhniu1 [<em>~goibhniu@e181023013.adsl.alicedsl.de</em>] entered the room.</b><br/>
+<font size="2">(06:41:10 PM)</font><b> goibhniu left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font size="2">(07:19:33 PM)</font><b> goibhniu1 is now known as goibhniu</b><br/>
+<font color="#A82F2F"><font size="2">(07:30:44 PM)</font> <b>contrapunctus:</b></font> o/<br/>
+<font color="#A82F2F"><font size="2">(07:31:54 PM)</font> <b>bluebell:</b></font> o/<br/>
+<font color="#A82F2F"><font size="2">(07:33:31 PM)</font> <b>contrapunctus:</b></font> Hey, bluebell<br/>
+<font color="#A82F2F"><font size="2">(07:33:34 PM)</font> <b>contrapunctus:</b></font> What goes?<br/>
+<font color="#A82F2F"><font size="2">(07:33:53 PM)</font> <b>bluebell:</b></font> I discovered jack.plumbing<br/>
+<font color="#A82F2F"><font size="2">(07:34:34 PM)</font> <b>bluebell:</b></font> solved a problem for me<br/>
+<font color="#A82F2F"><font size="2">(07:36:32 PM)</font> <b>contrapunctus:</b></font> oh, wow. I always wanted to make something like that.<br/>
+<font color="#A82F2F"><font size="2">(07:37:11 PM)</font> <b>bluebell:</b></font> I have an USB interface without HW mixer, so I need a software mixer like jack_mixer<br/>
+<font color="#A82F2F"><font size="2">(07:37:58 PM)</font> <b>bluebell:</b></font> All the clients, especially ALSA-clients that are redirected to jack via .asoundrc connect to system. But I need to connect them to jack_mixer&apos;s input<br/>
+<font color="#A82F2F"><font size="2">(07:38:21 PM)</font> <b>bluebell:</b></font> jack.plumbing does that for me autamatically<br/>
+<font color="#A82F2F"><font size="2">(07:39:05 PM)</font> <b>contrapunctus:</b></font> nice<br/>
+<font color="#A82F2F"><font size="2">(07:39:10 PM)</font> <b>bluebell:</b></font> the rules look like ...<br/>
+<font color="#A82F2F"><font size="2">(07:39:24 PM)</font> <b>bluebell:</b></font> (connect    &quot;alsa-jack.jackP..*:out_000&quot; &quot;jack_mixer:ALSA L&quot;)<br/>
+<font color="#A82F2F"><font size="2">(07:39:30 PM)</font> <b>bluebell:</b></font> (disconnect &quot;alsa-jack.jackP..*:out_000&quot; &quot;system:playback_1&quot;)<br/>
+<font color="#A82F2F"><font size="2">(07:39:36 PM)</font> <b>bluebell:</b></font> to get the idea<br/>
+<font color="#A82F2F"><font size="2">(07:40:01 PM)</font> <b>bluebell:</b></font> I can use regular expressions, very nice<br/>
+<font color="#A82F2F"><font size="2">(07:40:09 PM)</font> <b>contrapunctus:</b></font> ...<br/>
+<font color="#A82F2F"><font size="2">(07:40:14 PM)</font> <b>contrapunctus:</b></font> ...Lisp?!<br/>
+<font color="#A82F2F"><font size="2">(07:40:30 PM)</font> <b>bluebell:</b></font> regular expressions are common in unix utilities, perl, ...<br/>
+<font color="#A82F2F"><font size="2">(07:40:49 PM)</font> <b>contrapunctus:</b></font> I know what regular expressions are :\<br/>
+<font color="#A82F2F"><font size="2">(07:40:50 PM)</font> <b>bluebell:</b></font> The rules&apos; syntax? No idea<br/>
+<font color="#A82F2F"><font size="2">(07:41:02 PM)</font> <b>bluebell:</b></font> They have to be surrounded by ()<br/>
+<font color="#A82F2F"><font size="2">(07:41:22 PM)</font> <b>bluebell:</b></font> Got the syntax from jack-plumbing&apos;s man page<br/>
+<font color="#A82F2F"><font size="2">(07:42:05 PM)</font> <b>bluebell:</b></font> I would have used: connect(&quot;alsa-jack.jackP..*:out_000&quot;,&quot;jack_mixer:ALSA L&quot;);<br/>
+<font color="#A82F2F"><font size="2">(07:42:17 PM)</font> <b>bluebell:</b></font> And you would have used:<br/>
+<font color="#A82F2F"><font size="2">(07:42:39 PM)</font> <b>bluebell:</b></font> (connect((alsa-jack.jackP..*:out_000),(jack_mixer:ALSA L)))<br/>
+<font color="#A82F2F"><font size="2">(07:42:43 PM)</font> <b>bluebell:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(07:42:47 PM)</font> <b>contrapunctus:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(07:43:00 PM)</font> <b>contrapunctus:</b></font> what you pasted earlier looks pretty much like Lisp ;)<br/>
+<font color="#A82F2F"><font size="2">(07:43:02 PM)</font> <b>contrapunctus:</b></font> (as well)<br/>
+<font color="#A82F2F"><font size="2">(07:43:32 PM)</font> <b>contrapunctus:</b></font> (function arg1 arg2 ...)<br/>
+<font color="#A82F2F"><font size="2">(07:43:41 PM)</font> <b>chaot4:</b></font> http://xkcd.com/208/ scnr<br/>
+<font color="#A82F2F"><font size="2">(07:43:43 PM)</font> <b>nobody:</b></font> Title: xkcd: Regular Expressions (at xkcd.com)<br/>
+<font color="#A82F2F"><font size="2">(07:44:07 PM)</font> <b>contrapunctus:</b></font> chaot4: ha!<br/>
+<font color="#A82F2F"><font size="2">(07:45:33 PM)</font> <b>bluebell:</b></font> hehehe<br/>
+<font color="#A82F2F"><font size="2">(07:47:57 PM)</font> <b>contrapunctus:</b></font> http://xkcd.com/312/<br/>
+<font color="#A82F2F"><font size="2">(07:48:00 PM)</font> <b>nobody:</b></font> Title: xkcd: With Apologies to Robert Frost (at xkcd.com)<br/>
+<font color="#A82F2F"><font size="2">(07:48:01 PM)</font> <b>contrapunctus:</b></font> my bit.<br/>
+<font color="#A82F2F"><font size="2">(07:50:33 PM)</font> <b>bluebell:</b></font> Robert Frost? &quot;Whose woods these are I think I know.&quot;<br/>
+<font color="#062585"><font size="2">(08:13:26 PM)</font> <b>***contrapunctus</b></font> is having fun with markdown.<br/>
+<font color="#A82F2F"><font size="2">(08:15:38 PM)</font> <b>bluebell:</b></font> nice<br/>
+<font size="2">(09:59:44 PM)</font><b> goibhniu left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(10:04:33 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font size="2">(10:06:55 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:10:57 PM)</font> <b>contrapunctus:</b></font> http://permalink.gmane.org/gmane.lisp.scheme.srfi.announce/116<br/>
+<font color="#A82F2F"><font size="2">(10:11:00 PM)</font> <b>nobody:</b></font> Title: Retiring SRFI (at permalink.gmane.org)<br/>
+<font size="2">(10:38:12 PM)</font><b> goibhniu left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(10:44:11 PM)</font> <b>Ploppz:</b></font> I have had the problem that when I opened a new project, I would stall at creating the very first sound.. I would have too little knowledge of sound design to know how to produce a sound that I would have in mind for a musical piece. So right now I&apos;m going to focus on sound design. But how do you build knowledge around this field?<br/>
+<font color="#A82F2F"><font size="2">(10:44:58 PM)</font> <b>Ploppz:</b></font> I just set up jack and carla so that I could play with VSTs if maybe that helps. Anyone know a good VST for experimenting and developing this knowledge? I know some basics.<br/>
+<font color="#A82F2F"><font size="2">(10:48:40 PM)</font> <b>Ploppz:</b></font> Is this the right place to ask?<br/>
+<font color="#A82F2F"><font size="2">(10:48:41 PM)</font> <b>HarryHaaren:</b></font> Ploppz, what genre are you interested in?<br/>
+<font color="#A82F2F"><font size="2">(10:48:42 PM)</font> <b>HarryHaaren:</b></font> yup<br/>
+<font color="#A82F2F"><font size="2">(10:49:06 PM)</font> <b>HarryHaaren:</b></font> sound design is a pretty huge field - specifiy what it is you&apos;d like to learn, and it&apos;ll be easier to help you :)<br/>
+<font color="#A82F2F"><font size="2">(10:49:12 PM)</font> <b>wrl:</b></font> Ploppz do you want to learn like...sound design with synthesizers?<br/>
+<font color="#A82F2F"><font size="2">(10:49:38 PM)</font> <b>Ploppz:</b></font> I&apos;m honestly not really sure, I&apos;m just interested in expressing in some way. But well, I have been making electronic music.. if that even halps<br/>
+<font color="#A82F2F"><font size="2">(10:49:40 PM)</font> <b>Ploppz:</b></font> helps*<br/>
+<font color="#A82F2F"><font size="2">(10:50:40 PM)</font> <b>Ploppz:</b></font> wrl: sound design with synthesizers? If that means through VSTs then sure<br/>
+<font color="#A82F2F"><font size="2">(10:50:55 PM)</font> <b>wrl:</b></font> do you have any vsts in particular you are interested in using?<br/>
+<font color="#A82F2F"><font size="2">(10:51:21 PM)</font> <b>Ploppz:</b></font> No.. I see that this is a rather vague case. I&apos;m not even sure what I have in mind<br/>
+<font color="#A82F2F"><font size="2">(10:51:55 PM)</font> <b>Ploppz:</b></font> I just want assets that can help me sit down and make music whenever I want<br/>
+<font color="#A82F2F"><font size="2">(10:52:02 PM)</font> <b>Ploppz:</b></font> assets being knowledge and software etc<br/>
+<font size="2">(10:52:03 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:52:19 PM)</font> <b>Ploppz:</b></font> so I don&apos;t really know where to start with this<br/>
+<font color="#A82F2F"><font size="2">(10:52:34 PM)</font> <b>wrl:</b></font> what kind of music do you want to make?<br/>
+<font color="#A82F2F"><font size="2">(10:53:30 PM)</font> <b>Ploppz:</b></font> If it helps, this is something I made 2 years ago https://soundcloud.com/aelen-hofstad-langseth/wip-8-rehtgrsjyjktdkutyf . And what I always found frustrating is the process of making this: browse through assets/samples  in some VST until you find something that might fit. I don&apos;t like being bound to a finite set of possibly expensive samples.<br/>
+<font color="#A82F2F"><font size="2">(10:53:32 PM)</font> <b>nobody:</b></font> Title: &quot;WIP #8 (Rehtgrsjyjktdkutyf) by Ælen Hofstad Langseth - Hear the world’s sounds&quot; (at soundcloud.com)<br/>
+<font color="#A82F2F"><font size="2">(10:54:11 PM)</font> <b>Ploppz:</b></font> and for example this https://soundcloud.com/aelen-hofstad-langseth/current-wip-3<br/>
+<font color="#A82F2F"><font size="2">(10:54:14 PM)</font> <b>nobody:</b></font> Title: &quot;Current WIP #3 by Ælen Hofstad Langseth - Hear the world’s sounds&quot; (at soundcloud.com)<br/>
+<font color="#A82F2F"><font size="2">(10:54:34 PM)</font> <b>HarryHaaren:</b></font> something between dubstep and ambient i guess?<br/>
+<font color="#A82F2F"><font size="2">(10:54:48 PM)</font> <b>Ploppz:</b></font> possibly, but not really a fan of dubstep<br/>
+<font color="#A82F2F"><font size="2">(10:55:04 PM)</font> <b>HarryHaaren:</b></font> Ploppz, i&apos;d look at the LMMS project if you&apos;ve used FL studio before - its the most similar thing<br/>
+<font color="#A82F2F"><font size="2">(10:55:19 PM)</font> <b>HarryHaaren:</b></font> apart from that, they have a &quot;triple oscillator&quot; plugin, its a good place to start dabbling with sound design<br/>
+<font size="2">(10:55:34 PM)</font><b> contrapunctus is now known as macrodog</b><br/>
+<font color="#A82F2F"><font size="2">(10:55:40 PM)</font> <b>Ploppz:</b></font> Hm, I will take a look at that, thanks<br/>
+<font color="#A82F2F"><font size="2">(10:55:46 PM)</font> <b>HarryHaaren:</b></font> read up on FM, AM, and load the presets, play with them<br/>
+<font color="#A82F2F"><font size="2">(10:56:06 PM)</font> <b>Ploppz:</b></font> Okay, will note it down<br/>
+<font color="#A82F2F"><font size="2">(10:56:10 PM)</font> <b>HarryHaaren:</b></font> its a &quot;simple&quot; synth in some sense, that you can see all parameters at the same time<br/>
+<font color="#A82F2F"><font size="2">(10:59:31 PM)</font> <b>Ploppz:</b></font> More pointers.. I love this piece https://www.youtube.com/watch?v=TgoAgYR4584<br/>
+<font color="#A82F2F"><font size="2">(10:59:33 PM)</font> <b>nobody:</b></font> Title: The Flashbulb - Undiscovered Colors (Official Video) - YouTube (at www.youtube.com)<br/>
+<font color="#A82F2F"><font size="2">(11:03:47 PM)</font> <b>wrl:</b></font> yeah the flashbulb is heavy<br/>
+<font color="#A82F2F"><font size="2">(11:03:47 PM)</font> <b>wrl:</b></font> have you heard this one? http://theflashbulb.bandcamp.com/track/kirlian-shores<br/>
+<font color="#A82F2F"><font size="2">(11:03:47 PM)</font> <b>nobody:</b></font> Title: Kirlian Shores | The Flashbulb (at theflashbulb.bandcamp.com)<br/>
+<font color="#A82F2F"><font size="2">(11:03:48 PM)</font> <b>Ploppz:</b></font> Nice. Haven&apos;t heard it.<br/>
+<font color="#A82F2F"><font size="2">(11:03:49 PM)</font> <b>Ploppz:</b></font> I&apos;m also wondering about string sounds and other more real-life sounds. For example the background violin - are they always prerecorded, or can you generate them in some way? Don&apos;t have a violin.. And if you were not to record them yourself, would you have to search for samples that would fit your needs?<br/>
+<font color="#A82F2F"><font size="2">(11:03:49 PM)</font> <b>Ploppz:</b></font> Digital music and sound design is such a broad field, so it&apos;s hard to get a direction<br/>
+<font color="#A82F2F"><font size="2">(11:03:49 PM)</font> <b>wrl:</b></font> depends on what your goal is<br/>
+<font color="#A82F2F"><font size="2">(11:03:49 PM)</font> <b>wrl:</b></font> the flashbulb does a lot with real instrumentation<br/>
+<font color="#A82F2F"><font size="2">(11:03:49 PM)</font> <b>wrl:</b></font> i&apos;d be surprised if those violins weren&apos;t real<br/>
+<font color="#A82F2F"><font size="2">(11:03:49 PM)</font> <b>Ploppz:</b></font> Yeah.<br/>
+<font color="#A82F2F"><font size="2">(11:03:49 PM)</font> <b>Ploppz:</b></font> You hear some vague variations in each tone as well<br/>
+<font color="#A82F2F"><font size="2">(11:03:58 PM)</font> <b>Ploppz:</b></font> I somehow have always been a bit afraid of relying on discrete sound samples. It just appears limiting (without me really knowing anything about it)<br/>
+<font color="#A82F2F"><font size="2">(11:04:38 PM)</font> <b>wrl:</b></font> it&apos;s only as limiting as you make it<br/>
+<font color="#A82F2F"><font size="2">(11:04:51 PM)</font> <b>wrl:</b></font> there aren&apos;t really many rules to music production<br/>
+<font color="#A82F2F"><font size="2">(11:04:58 PM)</font> <b>wrl:</b></font> just do what sounds good and pick up techniques from wherever<br/>
+<font size="2">(11:05:09 PM)</font><b> macrodog is now known as macrophant</b><br/>
+<font color="#A82F2F"><font size="2">(11:05:31 PM)</font> <b>Ploppz:</b></font> Hm<br/>
+<font color="#A82F2F"><font size="2">(11:07:17 PM)</font> <b>goibhniu:</b></font> Ploppz: There are some great videos from Computer Music where producers break down the techniques they use<br/>
+<font color="#A82F2F"><font size="2">(11:07:55 PM)</font> <b>goibhniu:</b></font> every producer I&apos;ve watched has a very different workflow :)<br/>
+<font color="#A82F2F"><font size="2">(11:08:15 PM)</font> <b>Ploppz:</b></font> Ah, would like to see. Where can I find it?<br/>
+<font color="#A82F2F"><font size="2">(11:08:33 PM)</font> <b>goibhniu:</b></font> youtube<br/>
+<font color="#A82F2F"><font size="2">(11:09:35 PM)</font> <b>goibhniu:</b></font> I know you said you&apos;re not into dubstep, but I really loved Rusko&apos;s one: https://www.youtube.com/watch?v=ZCfn8P2kBXM<br/>
+<font color="#A82F2F"><font size="2">(11:09:37 PM)</font> <b>nobody:</b></font> Title: Rusko - Producer Masterclass - Computer Music magazine 2008 - YouTube (at www.youtube.com)<br/>
+<font color="#A82F2F"><font size="2">(11:14:22 PM)</font> <b>Haskellfant:</b></font> that guy looks so high<br/>
+<font size="2">(11:15:32 PM)</font><b> macrophant is now known as contrapunctus</b><br/>
+<font size="2">(11:25:39 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

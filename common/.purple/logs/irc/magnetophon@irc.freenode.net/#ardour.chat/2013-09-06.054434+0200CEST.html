@@ -1,0 +1,482 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Fri 06 Sep 2013 05:44:34 AM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Fri 06 Sep 2013 05:44:34 AM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(05:44:34 AM)</font><b> The topic for #ardour is: ardour 3.4 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(06:04:49 AM)</font><b> Gethiox left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(06:07:01 AM)</font><b> Gethiox [<em>~gethiox@host-2-121.24.net.pl</em>] entered the room.</b><br/>
+<font size="2">(06:11:29 AM)</font><b> naptastic left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(06:42:09 AM)</font><b> hybrid [<em>~R3n4t0@187.23.82.135</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:16:26 AM)</font> <b>SaBer:</b></font> dbolton, rgareus: normalization is done just before dithering and sample format conversion, which are the last steps in the process.<br/>
+<font size="2">(07:17:55 AM)</font><b> Gethiox left the room (quit: Read error: Connection timed out).</b><br/>
+<font size="2">(07:20:40 AM)</font><b> Gethiox [<em>~gethiox@host-2-121.24.net.pl</em>] entered the room.</b><br/>
+<font size="2">(07:31:46 AM)</font><b> edogawa left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:35:56 AM)</font><b> naptastic [<em>~david@99-20-201-27.lightspeed.hstntx.sbcglobal.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:40:36 AM)</font> <b>naptastic:</b></font> rgareus, so I&apos;ve tested it a bit, and the answer is, it&apos;s really, REALLY not good in the way I thought it was going to be.<br/>
+<font color="#A82F2F"><font size="2">(07:40:54 AM)</font> <b>naptastic:</b></font> rgareus, it is really good at starting up from a surprising location.<br/>
+<font color="#A82F2F"><font size="2">(07:41:14 AM)</font> <b>naptastic:</b></font> It is really not good at stopping. It also really, really assumes that it&apos;s going to only run at 100% speed.<br/>
+<font color="#A82F2F"><font size="2">(07:41:27 AM)</font> <b>naptastic:</b></font> It does not handle varispeeding at all.<br/>
+<font color="#A82F2F"><font size="2">(07:42:37 AM)</font> <b>rgareus:</b></font> naptastic: did you disable the sync-locked checkbox in  preferences &gt; Transport<br/>
+<font color="#A82F2F"><font size="2">(07:42:39 AM)</font> <b>rgareus:</b></font> naptastic: otherwise ardour won&apos;t vari-speed<br/>
+<font color="#A82F2F"><font size="2">(07:42:42 AM)</font> <b>naptastic:</b></font> And if the source is running faster, Ardour will run at 100% until the discrepancy becomes too large, and then just jump.<br/>
+<font color="#A82F2F"><font size="2">(07:42:51 AM)</font> <b>naptastic:</b></font> rgareus, I didn&apos;t, let me try that.<br/>
+<font color="#A82F2F"><font size="2">(07:43:30 AM)</font> <b>naptastic:</b></font> rgareus, okay, it is checked.<br/>
+<font color="#A82F2F"><font size="2">(07:43:44 AM)</font> <b>rgareus:</b></font> naptastic: un-check. <br/>
+<font color="#A82F2F"><font size="2">(07:43:55 AM)</font> <b>rgareus:</b></font> naptastic: if it is checked -&gt; no varispeed.<br/>
+<font color="#A82F2F"><font size="2">(07:44:26 AM)</font> <b>naptastic:</b></font> oh hey! Wow! That makes a world of difference!<br/>
+<font color="#A82F2F"><font size="2">(07:44:32 AM)</font> <b>rgareus:</b></font> naptastic: as for stopping. Ardour&apos;s LTC slave fly-wheels ~1 second after the external timecode stops and tries to resync if timecode reappears during that time.<br/>
+<font color="#A82F2F"><font size="2">(07:44:33 AM)</font> <b>naptastic:</b></font> rgareus, lemme play with this a bit more...<br/>
+<font color="#A82F2F"><font size="2">(07:45:06 AM)</font> <b>naptastic:</b></font> rgareus, so if the source wants Ardour to stop, it should continue sending the same position, rather than falling silent.<br/>
+<font color="#A82F2F"><font size="2">(07:45:24 AM)</font> <b>rgareus:</b></font> naptastic: correct.<br/>
+<font size="2">(07:45:52 AM)</font><b> orl [<em>~orl@lns-bzn-48f-81-56-240-95.adsl.proxad.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:45:52 AM)</font> <b>rgareus:</b></font> naptastic: or hack the source.<br/>
+<font color="#A82F2F"><font size="2">(07:46:24 AM)</font> <b>naptastic:</b></font> rgareus, the way it&apos;s behaving right now, Ardour also falls silent for a long time if the speed changes at all.<br/>
+<font color="#A82F2F"><font size="2">(07:46:33 AM)</font> <b>naptastic:</b></font> I&apos;m not sure how best to describe that...<br/>
+<font color="#A82F2F"><font size="2">(07:46:42 AM)</font> <b>rgareus:</b></font> naptastic: this was never intended for LTC-scratching :)<br/>
+<font color="#A82F2F"><font size="2">(07:47:08 AM)</font> <b>naptastic:</b></font> rgareus, sure... just wondering if I can use my CD-players for lazy fast-forward, rewing, loop, stuff like that.<br/>
+<font color="#A82F2F"><font size="2">(07:47:20 AM)</font> <b>naptastic:</b></font> (What program do I want if I want to do LTC scratching?<br/>
+<font color="#A82F2F"><font size="2">(07:48:35 AM)</font> <b>rgareus:</b></font> naptastic: what speed-changes do you do? does the the CD player act alike a record player (speed up -&gt; higher pitch)?  speed up faster than &gt; 4x or 8x?<br/>
+<font color="#A82F2F"><font size="2">(07:49:20 AM)</font> <b>rgareus:</b></font> naptastic: LTC? mmh probably none. <br/>
+<font color="#A82F2F"><font size="2">(07:50:39 AM)</font> <b>rgareus:</b></font> naptastic: 1 ltc-frame is 80 bit long and usually takes ~2000 audio-samples.<br/>
+<font color="#A82F2F"><font size="2">(07:51:00 AM)</font> <b>naptastic:</b></font> rgareus, I&apos;m staying within 25%, and the changes are pretty gradual.<br/>
+<font color="#A82F2F"><font size="2">(07:51:02 AM)</font> <b>rgareus:</b></font> naptastic: in the same time you can probably scratch a record forth and back twice :)<br/>
+<font size="2">(07:52:09 AM)</font><b> Gethiox left the room (quit: Read error: Operation timed out).</b><br/>
+<font color="#A82F2F"><font size="2">(07:54:07 AM)</font> <b>rgareus:</b></font> naptastic: LTC cannot represent fast speed changes. nor can&apos;t MTC.<br/>
+<font color="#A82F2F"><font size="2">(07:54:32 AM)</font> <b>rgareus:</b></font> naptastic: MidiClk is a bit better suited towards that.<br/>
+<font color="#A82F2F"><font size="2">(07:54:49 AM)</font> <b>rgareus:</b></font> s/fast speed changes/quick speed changes/<br/>
+<font color="#A82F2F"><font size="2">(07:55:08 AM)</font> <b>naptastic:</b></font> rgareus, understood; however, when I&apos;m playing with the speed on my CD player, I can see the changes almost immediately in the sprung indicator. Ardour just falls silent rather than playing back at the different rate.<br/>
+<font color="#A82F2F"><font size="2">(07:55:28 AM)</font> <b>naptastic:</b></font> I was just expecting that it would react as well as if I had grabbed the sprung widget with my mouse...<br/>
+<font size="2">(07:55:38 AM)</font><b> Gethiox [<em>~gethiox@host-2-121.24.net.pl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:56:01 AM)</font> <b>rgareus:</b></font> naptastic: aah. I think there&apos;s an option to decrease the volume if the speed is &gt;= 2.0 or 4.0<br/>
+<font color="#A82F2F"><font size="2">(07:56:36 AM)</font> <b>rgareus:</b></font> naptastic: is it really &quot;silent&quot;? <br/>
+<font color="#A82F2F"><font size="2">(07:56:47 AM)</font> <b>naptastic:</b></font> rgareus, it is really silent, and the -12dB option is un-checked.<br/>
+<font color="#A82F2F"><font size="2">(07:56:58 AM)</font> <b>rgareus:</b></font> naptastic: anything in the terminal? <br/>
+<font color="#A82F2F"><font size="2">(07:57:15 AM)</font> <b>naptastic:</b></font> hmm, lemme restart from a terminal.<br/>
+<font color="#A82F2F"><font size="2">(07:57:15 AM)</font> <b>rgareus:</b></font> naptastic: how large is the delta in the clock?<br/>
+<font color="#A82F2F"><font size="2">(07:57:31 AM)</font> <b>naptastic:</b></font> rgareus, what do you mean by delta? Delta between what?<br/>
+<font color="#A82F2F"><font size="2">(07:58:01 AM)</font> <b>rgareus:</b></font> naptastic: if your clock is set to Timecode, it displays a delta T to the external timecode<br/>
+<font color="#A82F2F"><font size="2">(07:58:17 AM)</font> <b>rgareus:</b></font> naptastic: just below ardour&apos;s timecode<br/>
+<font color="#A82F2F"><font size="2">(07:58:27 AM)</font> <b>naptastic:</b></font> rgareus, ah, okay, moment...<br/>
+<font color="#A82F2F"><font size="2">(07:58:41 AM)</font> <b>rgareus:</b></font> naptastic: right-click on the clock...<br/>
+<font color="#A82F2F"><font size="2">(07:59:34 AM)</font> <b>naptastic:</b></font> rgareus, I see it.<br/>
+<font color="#A82F2F"><font size="2">(08:00:01 AM)</font> <b>naptastic:</b></font> rgareus, as I change the tempo, it gets a large +/- value, then converges on 0. But unless it&apos;s *EXACTLY* at 0, there&apos;s no sound.<br/>
+<font color="#A82F2F"><font size="2">(08:00:16 AM)</font> <b>rgareus:</b></font> naptastic: ardour may do &apos;silent rolls&apos; if the detla is too large.<br/>
+<font color="#A82F2F"><font size="2">(08:01:01 AM)</font> <b>naptastic:</b></font> rgareus, is the threshold adjustable? Because it seems like &apos;too large&apos; is anything other than 0.<br/>
+<font color="#A82F2F"><font size="2">(08:01:08 AM)</font> <b>rgareus:</b></font> naptastic: i think it should not be silend if the detla is &lt;=  +-1920 (audio-samples per video frame at 25fps, 48)<br/>
+<font color="#A82F2F"><font size="2">(08:01:18 AM)</font> <b>rgareus:</b></font> naptastic: The threshold is hardcoded.<br/>
+<font color="#A82F2F"><font size="2">(08:01:25 AM)</font> <b>naptastic:</b></font> rgareus, it also feels like I&apos;m seeing a truncated FP number, as it sometimes shows 0, and sometimes +/-0.<br/>
+<font color="#A82F2F"><font size="2">(08:01:40 AM)</font> <b>naptastic:</b></font> well, I&apos;m definitely not seeing 1920 :-) I think I&apos;ve maxed it out around 300.<br/>
+<font color="#A82F2F"><font size="2">(08:01:49 AM)</font> <b>rgareus:</b></font> naptastic: let me check it&apos;s somewhere in libs/ardour/ltc_slave.cc<br/>
+<font color="#A82F2F"><font size="2">(08:03:30 AM)</font> <b>rgareus:</b></font> naptastic: do you get messages like &quot;average slave delta greater than slave resolution (NUMBER) going to silent motion.<br/>
+<font color="#A82F2F"><font size="2">(08:03:33 AM)</font> <b>rgareus:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(08:03:47 AM)</font> <b>naptastic:</b></font> average slave delta greater than slave resolution (44), going to silent motion<br/>
+<font color="#A82F2F"><font size="2">(08:03:50 AM)</font> <b>naptastic:</b></font> yes, quite a bit actually.<br/>
+<font color="#A82F2F"><font size="2">(08:04:05 AM)</font> <b>rgareus:</b></font> naptastic: 44 audio-samples then<br/>
+<font color="#A82F2F"><font size="2">(08:04:19 AM)</font> <b>naptastic:</b></font> rgareus, that&apos;s pretty narrow :-/<br/>
+<font color="#A82F2F"><font size="2">(08:04:25 AM)</font> <b>rgareus:</b></font> naptastic:  LTC_Slave::resolution in libs/ardour/ltc_slave.cc line 107<br/>
+<font color="#A82F2F"><font size="2">(08:04:29 AM)</font> <b>naptastic:</b></font> that&apos;s 1ms<br/>
+<font color="#A82F2F"><font size="2">(08:04:41 AM)</font> <b>rgareus:</b></font> naptastic: yes ltc is supposed to be sample accurate :)<br/>
+<font color="#A82F2F"><font size="2">(08:05:02 AM)</font> <b>naptastic:</b></font> But--but--but--the data points are 2000 samples wide!<br/>
+<font color="#A82F2F"><font size="2">(08:05:11 AM)</font> <b>naptastic:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(08:05:54 AM)</font> <b>rgareus:</b></font> naptastic: but there are ~ 160 transitions in those 2000 samples that allows to sync accurately<br/>
+<font color="#A82F2F"><font size="2">(08:06:36 AM)</font> <b>naptastic:</b></font> rgareus, ah, I see... well then... how evil would it be if I edited ltc_slave.cc to increase the threshold so it will play while out of sync?<br/>
+<font color="#A82F2F"><font size="2">(08:06:46 AM)</font> <b>naptastic:</b></font> what unintended consequences might I reap?<br/>
+<font color="#A82F2F"><font size="2">(08:06:55 AM)</font> <b>rgareus:</b></font> naptastic: not evil, just do it :)<br/>
+<font color="#062585"><font size="2">(08:07:00 AM)</font> <b>***naptastic</b></font> nods<br/>
+<font color="#A82F2F"><font size="2">(08:07:01 AM)</font> <b>rgareus:</b></font> naptastic: it may or may not work.<br/>
+<font color="#A82F2F"><font size="2">(08:07:08 AM)</font> <b>naptastic:</b></font> rgareus, I&apos;m going to try it right now.<br/>
+<font color="#A82F2F"><font size="2">(08:07:36 AM)</font> <b>naptastic:</b></font> If it explodes, I have only myself to blame!!!<br/>
+<font color="#A82F2F"><font size="2">(08:07:44 AM)</font> <b>rgareus:</b></font> naptastic: you may hit another limit (in libs/ardour/session_process.cc) later.<br/>
+<font color="#A82F2F"><font size="2">(08:07:56 AM)</font> <b>naptastic:</b></font> rgareus, what limit is that?<br/>
+<font color="#A82F2F"><font size="2">(08:08:19 AM)</font> <b>rgareus:</b></font> naptastic: yeah this software is provides &apos;as-is&apos;.. WITHOUT ANY WARRANTY .. :)<br/>
+<font color="#A82F2F"><font size="2">(08:08:33 AM)</font> <b>naptastic:</b></font> hah yes :-D<br/>
+<font color="#062585"><font size="2">(08:09:21 AM)</font> <b>***naptastic</b></font> compiles again...<br/>
+<font size="2">(08:09:37 AM)</font><b> Gethiox left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(08:11:30 AM)</font><b> donatien_alphons left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font size="2">(08:15:18 AM)</font><b> err-or_ [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font size="2">(08:15:22 AM)</font><b> err-or left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(08:21:19 AM)</font><b> zequence-work [<em>~zequence-@ubuntu/member/zequence</em>] entered the room.</b><br/>
+<font size="2">(08:21:29 AM)</font><b> phyzix5761 [<em>~phyzix576@50.140.54.206</em>] entered the room.</b><br/>
+<font size="2">(08:21:51 AM)</font><b> phyzix5761 left the room (quit: Client Quit).</b><br/>
+<font size="2">(08:22:49 AM)</font><b> corresponder [<em>~walther@p3EE3A0AD.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:22:58 AM)</font> <b>rgareus:</b></font> naptastic: better?<br/>
+<font color="#A82F2F"><font size="2">(08:23:04 AM)</font> <b>naptastic:</b></font> rgareus, still compiling.<br/>
+<font size="2">(08:23:07 AM)</font><b> robbyc [<em>62c7c7bd@gateway/web/freenode/ip.98.199.199.189</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:23:08 AM)</font> <b>naptastic:</b></font> I am not good at this. ;-)<br/>
+<font color="#A82F2F"><font size="2">(08:24:31 AM)</font> <b>rgareus:</b></font> just a  ./waf    after changing the file should do and only recompile the changed file + relink libardour<br/>
+<font color="#A82F2F"><font size="2">(08:24:44 AM)</font> <b>rgareus:</b></font> naptastic: usually takes 10 seconds<br/>
+<font color="#A82F2F"><font size="2">(08:24:55 AM)</font> <b>naptastic:</b></font> rgareus, ah, that&apos;s the part I&apos;m not good at ;-) Lesson learned.<br/>
+<font color="#A82F2F"><font size="2">(08:25:05 AM)</font> <b>rgareus:</b></font> naptastic: did you do a ./waf clean ? <br/>
+<font color="#A82F2F"><font size="2">(08:25:11 AM)</font> <b>rgareus:</b></font> naptastic: or ./waf configure .. ?<br/>
+<font color="#A82F2F"><font size="2">(08:25:16 AM)</font> <b>naptastic:</b></font> rgareus, it made no difference. I changed the value to samplerate/1000 to samplerate/20<br/>
+<font color="#A82F2F"><font size="2">(08:25:17 AM)</font> <b>oofus:</b></font> rgareus: still up !<br/>
+<font color="#A82F2F"><font size="2">(08:25:27 AM)</font> <b>naptastic:</b></font> rgareus, I did ./waf clean, then ./waf configure, then ./waf<br/>
+<font color="#A82F2F"><font size="2">(08:25:32 AM)</font> <b>naptastic:</b></font> ...I just wanted to be sure...<br/>
+<font color="#A82F2F"><font size="2">(08:25:39 AM)</font> <b>rgareus:</b></font> naptastic: aah those do trigger a complete re-compile<br/>
+<font color="#A82F2F"><font size="2">(08:25:46 AM)</font> <b>rgareus:</b></font> oofus: up again.<br/>
+<font color="#A82F2F"><font size="2">(08:25:47 AM)</font> <b>tom^_:</b></font> he you early morning birds<br/>
+<font color="#A82F2F"><font size="2">(08:25:58 AM)</font> <b>rgareus:</b></font> oofus: short night<br/>
+<font size="2">(08:25:59 AM)</font><b> Gethiox [<em>~gethiox@host-2-121.24.net.pl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:26:06 AM)</font> <b>oofus:</b></font> rgareus: good, you have had some sleep then<br/>
+<font color="#A82F2F"><font size="2">(08:26:13 AM)</font> <b>oofus:</b></font> rgareus: same here for some reason<br/>
+<font color="#A82F2F"><font size="2">(08:26:23 AM)</font> <b>tom^_:</b></font> some iconic overdose here: https://raw.github.com/7890/ardour/cvnc/screenshots/2013-09-06_082729_scrot.png<br/>
+<font color="#A82F2F"><font size="2">(08:26:28 AM)</font> <b>tom^_:</b></font> :o)<br/>
+<font color="#A82F2F"><font size="2">(08:26:37 AM)</font> <b>naptastic:</b></font> rgareus, it goes to silent play without necessarily warning now.<br/>
+<font color="#A82F2F"><font size="2">(08:26:51 AM)</font> <b>naptastic:</b></font> tom^_, wat did you do<br/>
+<font color="#A82F2F"><font size="2">(08:27:06 AM)</font> <b>robbyc:</b></font> hello guys!  ardour is freakin awesome... anywho I&apos;m messing around with a behringer bcf2000 and I have the interface setup according to the manual page.  I have ardour set up to connect to mackie control and I&apos;m using the bcf2000 bindings.  the thing is I cant seem to control the master fader.  am I missing a step?<br/>
+<font color="#A82F2F"><font size="2">(08:27:08 AM)</font> <b>rgareus:</b></font> tom^_: you need to sleep :)<br/>
+<font color="#A82F2F"><font size="2">(08:27:15 AM)</font> <b>oofus:</b></font> tom^_: what&apos;s with the giant playhead ?<br/>
+<font color="#A82F2F"><font size="2">(08:27:20 AM)</font> <b>tom^_:</b></font> yes! yes!<br/>
+<font size="2">(08:27:28 AM)</font><b> DrCode left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(08:27:42 AM)</font> <b>tom^_:</b></font> rgareus: i wonder if you can guess what the icons are saying<br/>
+<font color="#A82F2F"><font size="2">(08:28:10 AM)</font> <b>rgareus:</b></font> tom^_: ardour for visually-impaired.<br/>
+<font color="#A82F2F"><font size="2">(08:28:59 AM)</font> <b>tom^_:</b></font> rgareus: not exactly - well they playhead handle at the bottom is maybe too big, but just a bit<br/>
+<font color="#A82F2F"><font size="2">(08:29:20 AM)</font> <b>rgareus:</b></font> tom^_: I don&apos;t really understand the new zoom icons.<br/>
+<font color="#A82F2F"><font size="2">(08:29:26 AM)</font> <b>tom^_:</b></font> that&apos;s nothing new, just easy to grab. but the icons.. very pracitcal<br/>
+<font color="#A82F2F"><font size="2">(08:29:41 AM)</font> <b>tom^_:</b></font> rgareus: on the full left side?<br/>
+<font color="#A82F2F"><font size="2">(08:29:46 AM)</font> <b>rgareus:</b></font> tom^_: the two on the left with + and something that looks like a waveform?<br/>
+<font color="#A82F2F"><font size="2">(08:29:55 AM)</font> <b>tom^_:</b></font> rgareus: plus mono track, plus stereo track<br/>
+<font color="#A82F2F"><font size="2">(08:30:11 AM)</font> <b>rgareus:</b></font> tom^_: mmh.<br/>
+<font color="#A82F2F"><font size="2">(08:30:15 AM)</font> <b>tom^_:</b></font> rgareus: was difficult to group.. belongs to tracks ops<br/>
+<font color="#A82F2F"><font size="2">(08:31:04 AM)</font> <b>rgareus:</b></font> tom^_: I don&apos;t think the operation justifies a button at all.<br/>
+<font color="#A82F2F"><font size="2">(08:31:31 AM)</font> <b>tom^_:</b></font> rgareus: ok :)<br/>
+<font color="#A82F2F"><font size="2">(08:31:35 AM)</font> <b>rgareus:</b></font> tom^_: you only do this 64 or maybe 128 times during a session.<br/>
+<font color="#A82F2F"><font size="2">(08:31:47 AM)</font> <b>oofus:</b></font> rgareus: agreed. I thought the point was a key command<br/>
+<font color="#A82F2F"><font size="2">(08:31:55 AM)</font> <b>rgareus:</b></font> tom^_: other buttons are clicked a lot more..<br/>
+<font color="#A82F2F"><font size="2">(08:32:16 AM)</font> <b>tom^_:</b></font> rgareus: sure, like the undo :)<br/>
+<font color="#A82F2F"><font size="2">(08:33:09 AM)</font> <b>oofus:</b></font> tom^_: undo, redo, delete, splt, trim, region gain up and down, are the ones that I get straight away. The others .......... ?<br/>
+<font color="#A82F2F"><font size="2">(08:33:34 AM)</font> <b>tom^_:</b></font> oofus: cool.. align are also among them<br/>
+<font color="#A82F2F"><font size="2">(08:33:54 AM)</font> <b>oofus:</b></font> tom^_: yeah, ok, I see that<br/>
+<font color="#A82F2F"><font size="2">(08:34:08 AM)</font> <b>tom^_:</b></font> L: set loop from region or range<br/>
+<font color="#A82F2F"><font size="2">(08:34:14 AM)</font> <b>tom^_:</b></font> P: set punch from region or range<br/>
+<font color="#A82F2F"><font size="2">(08:34:18 AM)</font> <b>tom^_:</b></font> M: toggle region mute<br/>
+<font color="#062585"><font size="2">(08:34:51 AM)</font> <b>***naptastic</b></font> --&gt; bed<br/>
+<font color="#A82F2F"><font size="2">(08:35:04 AM)</font> <b>tom^_:</b></font> and the &apos;fence&apos; is sequence regions<br/>
+<font color="#A82F2F"><font size="2">(08:35:26 AM)</font> <b>oofus:</b></font> tom^_: what function is that ?<br/>
+<font color="#A82F2F"><font size="2">(08:35:39 AM)</font> <b>rgareus:</b></font> oofus: he added a few new ones<br/>
+<font color="#A82F2F"><font size="2">(08:35:40 AM)</font> <b>oofus:</b></font> tom^_: That&apos;s from within import isn&apos;t it ?<br/>
+<font color="#A82F2F"><font size="2">(08:36:00 AM)</font> <b>tom^_:</b></font> oofus: you can do that from import, yes<br/>
+<font color="#A82F2F"><font size="2">(08:36:09 AM)</font> <b>tom^_:</b></font> oofus: or on a region selection<br/>
+<font color="#A82F2F"><font size="2">(08:36:41 AM)</font> <b>oofus:</b></font> tom^_: Yes, I know you can do it from import, It was my idea. But how would that work otherwise.<br/>
+<font color="#A82F2F"><font size="2">(08:36:57 AM)</font> <b>oofus:</b></font> tom^_: Select some regions, click that button.............what happens<br/>
+<font color="#A82F2F"><font size="2">(08:37:04 AM)</font> <b>tom^_:</b></font> oofus: i think it works from import with a small mod _only_<br/>
+<font color="#A82F2F"><font size="2">(08:37:34 AM)</font> <b>tom^_:</b></font> oofus: the regions get sequenced, one by one, no gaps, first region first, last is last<br/>
+<font color="#A82F2F"><font size="2">(08:37:51 AM)</font> <b>tom^_:</b></font> oofus: the stay on the tracks<br/>
+<font size="2">(08:38:01 AM)</font><b> DrCode [<em>~DrCode@gateway/tor-sasl/drcode</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:38:14 AM)</font> <b>oofus:</b></font> tom^_: ok<br/>
+<font color="#A82F2F"><font size="2">(08:38:15 AM)</font> <b>tom^_:</b></font> N will be set nudge clock from region or selection<br/>
+<font color="#A82F2F"><font size="2">(08:38:32 AM)</font> <b>oofus:</b></font> tom^_: What&apos;s the use case ?<br/>
+<font color="#A82F2F"><font size="2">(08:38:54 AM)</font> <b>oofus:</b></font> tom^_: fo sequence, that is<br/>
+<font color="#A82F2F"><font size="2">(08:39:47 AM)</font> <b>tom^_:</b></font> oofus: for every need, there are many ways to proceed. if you have cut out stuff of a large region, you would select all on track, then sequence<br/>
+<font color="#A82F2F"><font size="2">(08:41:32 AM)</font> <b>tom^_:</b></font> oofus: alternatively, you could cut out time instead<br/>
+<font color="#A82F2F"><font size="2">(08:42:13 AM)</font> <b>oofus:</b></font> tom^_: maybe, but that feels like it&apos;s going part way to being what a proper implementation of splice mode is intended for.<br/>
+<font size="2">(08:43:12 AM)</font><b> gabrbedd left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:43:17 AM)</font> <b>oofus:</b></font> tom^_: And time removal is the reciprocal of time insertion, which is a separate function, which can act across all tracks<br/>
+<font color="#A82F2F"><font size="2">(08:43:18 AM)</font> <b>tom^_:</b></font> oofus: you can not directly compare with splice. splice would be something other<br/>
+<font color="#A82F2F"><font size="2">(08:43:33 AM)</font> <b>oofus:</b></font> tom^_: that&apos;s your opinion<br/>
+<font color="#A82F2F"><font size="2">(08:44:06 AM)</font> <b>tom^_:</b></font> oofus: splice *is* something other. especially when moving regions<br/>
+<font color="#A82F2F"><font size="2">(08:44:34 AM)</font> <b>tom^_:</b></font> oofus: time insertion and removal take place on the selected tracks, so you can well do that on all<br/>
+<font color="#A82F2F"><font size="2">(08:44:59 AM)</font> <b>tom^_:</b></font> oofus: but for more control, the dialogue is more useful (it need negative time though)<br/>
+<font size="2">(08:46:40 AM)</font><b> naptastic left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(08:48:26 AM)</font> <b>tom^_:</b></font> oofus: on another note, when you make CDs of the recorded live concerts, how much do you level them, i.e. are limiters/compressors used, how much headroom do you have there?<br/>
+<font color="#A82F2F"><font size="2">(08:48:47 AM)</font> <b>tom^_:</b></font> oofus: the ones you push out 10 minutes after the concert<br/>
+<font color="#A82F2F"><font size="2">(08:50:21 AM)</font> <b>rgareus:</b></font> tom^_: http://www.oofus.co.uk/ardour/LV2Meters.png is one example :)<br/>
+<font color="#A82F2F"><font size="2">(08:51:18 AM)</font> <b>rgareus:</b></font> tom^_: individual tracks aroud -18dBFS, master to the max :)<br/>
+<font color="#A82F2F"><font size="2">(08:51:57 AM)</font> <b>rgareus:</b></font> tom^_: you&apos;re recorded on track 06. <br/>
+<font color="#A82F2F"><font size="2">(08:51:58 AM)</font> <b>oofus:</b></font> tom^_: compressors on every channel, it&apos;s a proper desk ! There is a TC finalizer on the output with is a brilliant mastering compressor.<br/>
+<font color="#A82F2F"><font size="2">(08:51:59 AM)</font> <b>tom^_:</b></font> rgareus: that image looks really slick<br/>
+<font color="#A82F2F"><font size="2">(08:52:22 AM)</font> <b>tom^_:</b></font> rgareus: ;)<br/>
+<font color="#A82F2F"><font size="2">(08:52:38 AM)</font> <b>tom^_:</b></font> oofus: so that goes to CD?<br/>
+<font color="#A82F2F"><font size="2">(08:52:53 AM)</font> <b>oofus:</b></font> tom^_: Unfortunately no headroom at all, it&apos;s compressed to within an inch of its life and as close to 0dBFS as possible<br/>
+<font color="#A82F2F"><font size="2">(08:53:20 AM)</font> <b>oofus:</b></font> tom^_: But that is because of expectations rather than technical excellence<br/>
+<font color="#A82F2F"><font size="2">(08:53:41 AM)</font> <b>tom^_:</b></font> oofus: i understand<br/>
+<font color="#A82F2F"><font size="2">(08:53:52 AM)</font> <b>tom^_:</b></font> oofus: is this TC finalizer a plugin? i can&apos;t see<br/>
+<font color="#A82F2F"><font size="2">(08:54:03 AM)</font> <b>oofus:</b></font> tom^_: no, it&apos;s a piece of hardware<br/>
+<font size="2">(08:54:14 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:54:23 AM)</font> <b>tom^_:</b></font> oofus: what does it do? destroy all the headroom again? :)<br/>
+<font color="#A82F2F"><font size="2">(08:55:05 AM)</font> <b>tom^_:</b></font> oofus: what happens if BBC would want to play that CD in their programme?<br/>
+<font color="#A82F2F"><font size="2">(08:55:21 AM)</font> <b>oofus:</b></font> tom^_: that screen shot doesn&apos;t show a session that actually produced any material. It&apos;s the opening of existing material for experimentation with remixing.<br/>
+<font color="#A82F2F"><font size="2">(08:55:30 AM)</font> <b>oofus:</b></font> tom^_: they turn it down !<br/>
+<font color="#A82F2F"><font size="2">(08:56:00 AM)</font> <b>rgareus:</b></font> http://plugin.org.uk/ladspa-swh/docs/ladspa-swh.html#tth_sEc2.87 to the rescue.<br/>
+<font color="#A82F2F"><font size="2">(08:56:05 AM)</font> <b>tom^_:</b></font> oofus: in the digital domain?<br/>
+<font color="#A82F2F"><font size="2">(08:56:06 AM)</font> <b>oofus:</b></font> tom^_:     http://www.tcelectronic.com/finalizer-96k/<br/>
+<font color="#A82F2F"><font size="2">(08:56:17 AM)</font> <b>oofus:</b></font> tom^_: it doesn&apos;t matter<br/>
+<font color="#A82F2F"><font size="2">(08:56:58 AM)</font> <b>tom^_:</b></font> oofus: nice device<br/>
+<font color="#A82F2F"><font size="2">(08:57:13 AM)</font> <b>oofus:</b></font> tom^_: yes it is, like most things TC make<br/>
+<font color="#A82F2F"><font size="2">(09:01:55 AM)</font> <b>tom^_:</b></font> oofus: so you have the luxury to experimentally remix these great bands, wow<br/>
+<font color="#062585"><font size="2">(09:08:08 AM)</font> <b>***tom^_</b></font> wishes an ardour feature that secretly sucks these sessions from oofus&apos; hd and ul to a server<br/>
+<font color="#A82F2F"><font size="2">(09:10:18 AM)</font> <b>rgareus:</b></font> tom^_: the &apos;audioengine&apos; branch does that. all that &quot;no-jack&quot; talk is just a cover up story :)<br/>
+<font size="2">(09:10:51 AM)</font><b> karimb [<em>~kboumedhe@216.200.219.87.dynamic.jazztel.es</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:10:56 AM)</font> <b>tom^_:</b></font> rgareus: i knew!<br/>
+<font color="#A82F2F"><font size="2">(09:11:20 AM)</font> <b>tom^_:</b></font> rgareus: more fun than tapping transatlantic fibres anyway :)<br/>
+<font size="2">(09:11:40 AM)</font><b> boom1992 [<em>~quassel@BA1222.ballee.wh.tu-darmstadt.de</em>] entered the room.</b><br/>
+<font size="2">(09:13:04 AM)</font><b> hansfbaier [<em>~jack@118.96.159.141</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:14:57 AM)</font> <b>tom^_:</b></font> rgareus: can you understand why las doesn&apos;t find jack very good any more?<br/>
+<font color="#A82F2F"><font size="2">(09:17:44 AM)</font> <b>tom^_:</b></font> i thinks it&apos;s a cornerstone for linux audio, no matter if jack1 or 2<br/>
+<font color="#A82F2F"><font size="2">(09:17:45 AM)</font> <b>rgareus:</b></font> tom^_: it&apos;s not &quot;any more&quot;. I think his take on this is that jack was/is just a stop-gap solution because no one could agree on a plugin API.<br/>
+<font color="#A82F2F"><font size="2">(09:17:54 AM)</font> <b>rgareus:</b></font> tom^_: but just ask him himself.<br/>
+<font size="2">(09:18:05 AM)</font><b> robbyc left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(09:18:42 AM)</font> <b>rgareus:</b></font> tom^_: jack complicates quite a few things inside ardour. most notably latency comensation.<br/>
+<font color="#A82F2F"><font size="2">(09:19:22 AM)</font> <b>tom^_:</b></font> rgareus: but afaik it&apos;s the only to allow inter-application routing audio<br/>
+<font color="#A82F2F"><font size="2">(09:20:34 AM)</font> <b>rgareus:</b></font> tom^_: yeah, but if you had a good plugin API, you won&apos;t need inter-application communication and could implement everything as a plugin.<br/>
+<font color="#A82F2F"><font size="2">(09:22:00 AM)</font> <b>rgareus:</b></font> tom^_: it&apos;d be the same really... instead of jackd, you could have an ALSA plugin host and all current jack-apps would be plugins.<br/>
+<font color="#A82F2F"><font size="2">(09:22:12 AM)</font> <b>rgareus:</b></font> tom^_: falktx&apos; Cadence is going that way<br/>
+<font color="#A82F2F"><font size="2">(09:22:32 AM)</font> <b>tom^_:</b></font> rgareus: i think jack doesn&apos;t vanish quickly. it should be maintained. not doing so would be a mistake imho<br/>
+<font color="#A82F2F"><font size="2">(09:22:54 AM)</font> <b>tom^_:</b></font> rgareus: still the only to support firewire as only one aspect<br/>
+<font color="#A82F2F"><font size="2">(09:23:15 AM)</font> <b>rgareus:</b></font> (well cadence is using jack, but tries to hide it and just swallow any external app a &quot;plugin&quot;.)<br/>
+<font color="#A82F2F"><font size="2">(09:23:31 AM)</font> <b>rgareus:</b></font> tom^_: it won&apos;t vanish.<br/>
+<font color="#A82F2F"><font size="2">(09:23:47 AM)</font> <b>rgareus:</b></font> ..anytime sooon<br/>
+<font color="#A82F2F"><font size="2">(09:23:49 AM)</font> <b>tom^_:</b></font> rgareus: yes<br/>
+<font color="#A82F2F"><font size="2">(09:24:02 AM)</font> <b>tom^_:</b></font> rgareus: uff.. :)<br/>
+<font color="#A82F2F"><font size="2">(09:25:17 AM)</font> <b>tom^_:</b></font> rgareus: have you tried cadence, how is it?<br/>
+<font color="#A82F2F"><font size="2">(09:25:24 AM)</font> <b>oofus:</b></font> rgareus: tom^_: I think the problem with Jack (or one of them) is that it hasn&apos;t really been developed recently, it&apos;s kind of stagnated. Jack1 and Jack2 (and Tchack etc) don&apos;t help with user perceptions, and the whole pulse fiasco is just the last straw.<br/>
+<font color="#A82F2F"><font size="2">(09:25:56 AM)</font> <b>tom^_:</b></font> oofus: that&apos;s very weak arguemnts (pulse fiasco)<br/>
+<font color="#A82F2F"><font size="2">(09:26:17 AM)</font> <b>oofus:</b></font> tom^_: ok, explain<br/>
+<font color="#A82F2F"><font size="2">(09:26:21 AM)</font> <b>rgareus:</b></font> tom^_: it&apos;s not an argument. it&apos;s how things are<br/>
+<font color="#A82F2F"><font size="2">(09:26:39 AM)</font> <b>tom^_:</b></font> oofus: and, if it does what it should, no need to constantly change the api. a constant api is actually something wishful<br/>
+<font color="#A82F2F"><font size="2">(09:27:07 AM)</font> <b>oofus:</b></font> tom^_: if everything was a lot slicker, we wouldn&apos;t need to even think about it .<br/>
+<font color="#A82F2F"><font size="2">(09:27:09 AM)</font> <b>tom^_:</b></font> well, i don&apos;t trash my car just because the other parking slot is too small<br/>
+<font color="#A82F2F"><font size="2">(09:27:38 AM)</font> <b>tom^_:</b></font> the pulse / startup issues are all on the surface and solvable<br/>
+<font color="#A82F2F"><font size="2">(09:27:43 AM)</font> <b>oofus:</b></font> tom^_: Pulse on many distributions actively gets in the way of Jackd usage<br/>
+<font color="#A82F2F"><font size="2">(09:27:48 AM)</font> <b>rgareus:</b></font> tom^_: many people on #lad would like to see a generic-data port (ie &quot;jack-midi done right&quot;) to jack. which may or may not break the ABI<br/>
+<font color="#A82F2F"><font size="2">(09:28:05 AM)</font> <b>oofus:</b></font> tom^_: but they haven&apos;t been solved, in the 5 years of its existance<br/>
+<font color="#A82F2F"><font size="2">(09:28:50 AM)</font> <b>tom^_:</b></font> oofus: i feel it&apos;s less a problem on irc lately<br/>
+<font color="#A82F2F"><font size="2">(09:29:21 AM)</font> <b>tom^_:</b></font> oofus: might be because zequence&apos;s efforts to make cooperate better<br/>
+<font color="#A82F2F"><font size="2">(09:29:46 AM)</font> <b>rgareus:</b></font> tom^_: it&apos;s not about jack &lt;&gt; pule interoperability.<br/>
+<font color="#A82F2F"><font size="2">(09:29:46 AM)</font> <b>oofus:</b></font> tom^_: I have issues now on Kubuntu 13.04 where pulse (as useful as it is fr day to day audio) stops things from working when I come to use jack, and on my laptop actually causes disk storms for which I have to reset the machine<br/>
+<font color="#A82F2F"><font size="2">(09:30:05 AM)</font> <b>rgareus:</b></font> tom^_: it&apos;s about user experience with both.<br/>
+<font color="#A82F2F"><font size="2">(09:31:12 AM)</font> <b>oofus:</b></font> tom^_: pulse, like jack, demands full and sole access to the audio hardware, when I start jack, I want pulse to get out of the way. It doesn&apos;t always, unless I stand on one leg, in a northerly wind, on a day with R in its name !<br/>
+<font color="#A82F2F"><font size="2">(09:31:16 AM)</font> <b>tom^_:</b></font> rgareus: if it&apos;s just a problem with jack + pulse, that should not turn down jack. it&apos;s really solvable. easier than any hard-to-code stuff in ardour<br/>
+<font color="#A82F2F"><font size="2">(09:31:51 AM)</font> <b>oofus:</b></font> tom^_: but no-one has done it<br/>
+<font color="#A82F2F"><font size="2">(09:32:30 AM)</font> <b>tom^_:</b></font> oofus: it has been done, there are many aproaches<br/>
+<font color="#A82F2F"><font size="2">(09:32:37 AM)</font> <b>oofus:</b></font> tom^_: the user experience doesn&apos;t care that it might be an easy engineering solution (which I don&apos;t think it is), they just know that it&apos;s way easier on Mac or Windows<br/>
+<font color="#A82F2F"><font size="2">(09:32:44 AM)</font> <b>tom^_:</b></font> (many aproaches, maybe part of the confusion)<br/>
+<font color="#A82F2F"><font size="2">(09:32:46 AM)</font> <b>oofus:</b></font> tom^_: Linux is a pain on the arse<br/>
+<font color="#A82F2F"><font size="2">(09:34:35 AM)</font> <b>tom^_:</b></font> isn&apos;t jackdbus handling all that now? talking to pulse, asking to relase card, or using jack-sink/source<br/>
+<font color="#A82F2F"><font size="2">(09:34:35 AM)</font> <b>rgareus:</b></font> oofus, tom^_: do you guys read LAU? <br/>
+<font color="#A82F2F"><font size="2">(09:34:35 AM)</font> <b>rgareus:</b></font> http://linuxaudio.org/mailarchive/lau/2013/9/5/201702 <br/>
+<font size="2">(09:34:36 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:34:36 AM)</font> <b>tom^_:</b></font> i mean, if jackdbus can&apos;t handle it, it a problem of jackdbus, not jackd<br/>
+<font color="#A82F2F"><font size="2">(09:34:38 AM)</font> <b>oofus:</b></font> rgareus: no, not really<br/>
+<font size="2">(09:35:20 AM)</font><b> Stuzz left the room (quit: Quit: I am so omniscient, if there were to be two omnisciences, I would be both!).</b><br/>
+<font size="2">(09:35:23 AM)</font><b> Gethiox left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:35:45 AM)</font> <b>oofus:</b></font> rgareus: interesting, we use a Pro2 in one of our smaller setups. It was what we did the Robbie Williams stuff on.<br/>
+<font color="#A82F2F"><font size="2">(09:35:52 AM)</font> <b>rgareus:</b></font> ..speaking of &apos;linux user experience&apos;  or  &quot;what it has linux inside?&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:37:27 AM)</font> <b>tom^_:</b></font> rgareus: interesting<br/>
+<font size="2">(09:37:41 AM)</font><b> Gethiox [<em>~gethiox@host-2-121.24.net.pl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:37:57 AM)</font> <b>tom^_:</b></font> rgareus: i joined lad to get hopefully a pointer for my alsa problems. no luck so far :)<br/>
+<font color="#A82F2F"><font size="2">(09:38:03 AM)</font> <b>oofus:</b></font> rgareus: but something like the Pro2 isn&apos;t using pulse or jack :)<br/>
+<font color="#A82F2F"><font size="2">(09:38:23 AM)</font> <b>rgareus:</b></font> oofus: certainly not pulseaudio<br/>
+<font color="#A82F2F"><font size="2">(09:38:42 AM)</font> <b>rgareus:</b></font> oofus: no idea what they use. open the box and have a look :)<br/>
+<font color="#A82F2F"><font size="2">(09:38:51 AM)</font> <b>tom^_:</b></font> the only area where jack could be optimized strongly is the mess with net-ish stuff<br/>
+<font color="#A82F2F"><font size="2">(09:39:04 AM)</font> <b>oofus:</b></font> rgareus: their own DSP and audio system<br/>
+<font size="2">(09:39:14 AM)</font><b> zequence-work left the room (quit: Ping timeout: 276 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:40:07 AM)</font> <b>prokoudine_:</b></font> rgareus, do you think we are going to see a replacement for jack any time soon? :)<br/>
+<font color="#A82F2F"><font size="2">(09:40:24 AM)</font> <b>rgareus:</b></font> prokoudine_: nope<br/>
+<font color="#A82F2F"><font size="2">(09:40:37 AM)</font> <b>oofus:</b></font> tom^_: AVB is the solution there, when it&apos;s stabilised. If Jack could gain a backend to that .......<br/>
+<font color="#A82F2F"><font size="2">(09:40:44 AM)</font> <b>rgareus:</b></font> prokoudine_: too late for that. I think jack will stay around..<br/>
+<font color="#A82F2F"><font size="2">(09:41:03 AM)</font> <b>rgareus:</b></font> oofus: there&apos;s some work on an AVB backend for jack<br/>
+<font color="#A82F2F"><font size="2">(09:41:21 AM)</font> <b>oofus:</b></font> rgareus: is there, tha&apos;s good<br/>
+<font color="#A82F2F"><font size="2">(09:41:25 AM)</font> <b>rgareus:</b></font> oofus: https://lists.sourceforge.net/lists/listinfo/open-avb-devel <br/>
+<font color="#A82F2F"><font size="2">(09:41:52 AM)</font> <b>oofus:</b></font> rgareus: I am actually subscribed to the open-avb mailing list<br/>
+<font color="#A82F2F"><font size="2">(09:42:03 AM)</font> <b>oofus:</b></font> rgareus: but hadn&apos;t noticed talk of jack backends<br/>
+<font color="#A82F2F"><font size="2">(09:42:17 AM)</font> <b>rgareus:</b></font> oofus: ask adi_  here.<br/>
+<font color="#A82F2F"><font size="2">(09:42:23 AM)</font> <b>oofus:</b></font> rgareus: ok<br/>
+<font color="#A82F2F"><font size="2">(09:42:47 AM)</font> <b>tom^_:</b></font> if anything new pops up, jack will eat it (support that backend)<br/>
+<font color="#A82F2F"><font size="2">(09:43:02 AM)</font> <b>rgareus:</b></font> tom^_: you wish<br/>
+<font color="#A82F2F"><font size="2">(09:43:02 AM)</font> <b>oofus:</b></font> tom^_: who will write the code ?<br/>
+<font color="#A82F2F"><font size="2">(09:43:23 AM)</font> <b>oofus:</b></font> tom^_: one of the biggest problems has been lots of talk, no writing of code<br/>
+<font color="#A82F2F"><font size="2">(09:44:16 AM)</font> <b>oofus:</b></font> tom^_: las is too busy with Ardour to spend any amount of time (the amount required to do it properly), and nobody else has stepped up as the main jack guy<br/>
+<font color="#A82F2F"><font size="2">(09:44:18 AM)</font> <b>tom^_:</b></font> hm.. why would audioengine make sense if you think nobody will do the needed code part to actually make use of it for other apis?<br/>
+<font color="#A82F2F"><font size="2">(09:44:50 AM)</font> <b>oofus:</b></font> tom^_: because there are other commercial ventures that have requested it<br/>
+<font color="#A82F2F"><font size="2">(09:45:21 AM)</font> <b>tom^_:</b></font> oofus: i&apos;m just sayin&apos;, jack is a hub, and if anything pops up it _can_ be integrated<br/>
+<font color="#A82F2F"><font size="2">(09:45:57 AM)</font> <b>oofus:</b></font> tom^_: can and will are two very different things<br/>
+<font color="#A82F2F"><font size="2">(09:46:13 AM)</font> <b>tom^_:</b></font> audioengine is a bit like the other way around<br/>
+<font color="#A82F2F"><font size="2">(09:46:23 AM)</font> <b>oofus:</b></font> tom^_: ?<br/>
+<font color="#A82F2F"><font size="2">(09:47:53 AM)</font> <b>tom^_:</b></font> oofus: bypassing jack&apos;s brilliance<br/>
+<font color="#A82F2F"><font size="2">(09:48:25 AM)</font> <b>tom^_:</b></font> oofus: yes, can and will are indeed differently. one can go to the moon, but will he?<br/>
+<font color="#A82F2F"><font size="2">(09:49:26 AM)</font> <b>tom^_:</b></font> oofus: but alone that there&apos;s the possibility is something to recognize<br/>
+<font color="#A82F2F"><font size="2">(09:49:27 AM)</font> <b>tom^_:</b></font> oofus: generally speaking<br/>
+<font size="2">(09:50:05 AM)</font><b> hansfbaier [<em>~jack@36.73.49.220</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:50:21 AM)</font> <b>rgareus:</b></font> tom^_: did you consider that the who wrote this &apos;brilliant software&apos; might now better?<br/>
+<font color="#A82F2F"><font size="2">(09:52:21 AM)</font> <b>oofus:</b></font> now=know ?<br/>
+<font color="#A82F2F"><font size="2">(09:54:05 AM)</font> <b>rgareus:</b></font> s/that the who/that the one who/<br/>
+<font color="#A82F2F"><font size="2">(09:54:32 AM)</font> <b>tom^_:</b></font> i can&apos;t understand the trend towards critisizing jack with given arguments<br/>
+<font color="#A82F2F"><font size="2">(09:55:15 AM)</font> <b>tom^_:</b></font> i can&apos;t speak of other&apos;s opinions<br/>
+<font color="#A82F2F"><font size="2">(09:55:33 AM)</font> <b>oofus:</b></font> tom^_: it&apos;s not really criticism of jack on it&apos;s own. It&apos;s a more realistic opinion of the whole story/picture.<br/>
+<font color="#A82F2F"><font size="2">(09:56:30 AM)</font> <b>tom^_:</b></font> oofus: yeah, it needs some patience and stamina sure<br/>
+<font color="#A82F2F"><font size="2">(09:56:54 AM)</font> <b>tom^_:</b></font> oofus: but not turning back when you are almost at the top<br/>
+<font color="#A82F2F"><font size="2">(09:57:09 AM)</font> <b>oofus:</b></font> tom^_: top of what ?<br/>
+<font color="#A82F2F"><font size="2">(09:57:29 AM)</font> <b>tom^_:</b></font> the right track is to bring jack to all os&apos; and make the networking work<br/>
+<font color="#A82F2F"><font size="2">(09:59:01 AM)</font> <b>tom^_:</b></font> anyway, i will listen for arguments why/what should/will be easier in other scenarios<br/>
+<font color="#A82F2F"><font size="2">(10:00:02 AM)</font> <b>rgareus:</b></font> bwahahaha<br/>
+<font color="#A82F2F"><font size="2">(10:01:41 AM)</font> <b>rgareus:</b></font> tom^_: the number of ASIO and coreaudio deployments dwarf jack by orders o magnitude.<br/>
+<font color="#A82F2F"><font size="2">(10:01:47 AM)</font> <b>rgareus:</b></font> tom^_: top?<br/>
+<font color="#A82F2F"><font size="2">(10:03:34 AM)</font> <b>tom^_:</b></font> top of the pop<br/>
+<font color="#A82F2F"><font size="2">(10:03:57 AM)</font> <b>tom^_:</b></font> okie, i will stop<br/>
+<font color="#A82F2F"><font size="2">(10:05:02 AM)</font> <b>tom^_:</b></font> let&apos;s see when there&apos;s the next jack startup case in here<br/>
+<font size="2">(10:06:24 AM)</font><b> rock808 left the room (quit: Read error: Connection timed out).</b><br/>
+<font size="2">(10:07:47 AM)</font><b> rock808 [<em>~guest@cpe-24-55-1-216.austin.res.rr.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:14:02 AM)</font> <b>tom^_:</b></font> time for croissants :)<br/>
+<font size="2">(10:22:51 AM)</font><b> DrNI [<em>~no@HSI-KBW-085-216-069-214.hsi.kabelbw.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:22:53 AM)</font> <b>DrNI:</b></font> hi there<br/>
+<font color="#A82F2F"><font size="2">(10:22:55 AM)</font> <b>DrNI:</b></font> stupid question<br/>
+<font color="#A82F2F"><font size="2">(10:23:03 AM)</font> <b>DrNI:</b></font> is the JACK latency displayed in ardour roundtrip?<br/>
+<font size="2">(10:23:04 AM)</font><b> RytmenPinne [<em>~alex@35-51.bob.fi</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:23:22 AM)</font> <b>DrNI:</b></font> (or: what jack things roundtrip is. I know about measuring rountrip and setting up jack accordingly.)<br/>
+<font size="2">(10:24:29 AM)</font><b> Stuzz [<em>~Stuzz@d110-32-36-230.rdl801.qld.optusnet.com.au</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:25:46 AM)</font> <b>rgareus:</b></font> DrNI: where in ardour is this displayed?<br/>
+<font color="#A82F2F"><font size="2">(10:26:16 AM)</font> <b>rgareus:</b></font> DrNI: it&apos;s usually the nominal latency  ie    (1 + nperiods) * frames-per-period  / sample-rate<br/>
+<font color="#A82F2F"><font size="2">(10:27:23 AM)</font> <b>DrNI:</b></font> status bar top right<br/>
+<font color="#A82F2F"><font size="2">(10:27:52 AM)</font> <b>DrNI:</b></font> hm I&apos;m afraid I don&apos;t get what this means<br/>
+<font color="#A82F2F"><font size="2">(10:28:14 AM)</font> <b>DrNI:</b></font> so does it mean the time between ardour sending things to jack, and the things coming out of the soundcard, roughly?<br/>
+<font color="#A82F2F"><font size="2">(10:29:15 AM)</font> <b>rgareus:</b></font> DrNI: have a look at Figure 1 at http://manual.ardour.org/synchronization/latency-and-latency-compensation/<br/>
+<font color="#A82F2F"><font size="2">(10:30:08 AM)</font> <b>rgareus:</b></font> DrNI: the nominal latency is the the time it takes to pass though the inner most box (labeled JACK there).<br/>
+<font size="2">(10:30:25 AM)</font><b> hansfbaier left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:31:16 AM)</font> <b>DrNI:</b></font> mh ok<br/>
+<font color="#A82F2F"><font size="2">(10:31:35 AM)</font> <b>DrNI:</b></font> good to know<br/>
+<font color="#A82F2F"><font size="2">(10:32:00 AM)</font> <b>DrNI:</b></font> I noticed that in busses and tracks in ardour, I can set a latency value<br/>
+<font color="#A82F2F"><font size="2">(10:32:12 AM)</font> <b>DrNI:</b></font> I don&apos;t exactly understand, what this option is doing?<br/>
+<font color="#A82F2F"><font size="2">(10:32:42 AM)</font> <b>DrNI:</b></font> so thing is, I&apos;m using outboard reverbs, and figured that I need larger latency because some plugins eat lotsa CPU power<br/>
+<font color="#A82F2F"><font size="2">(10:32:56 AM)</font> <b>DrNI:</b></font> but if I have huge latency, then I get larger and larger pre-delays for the reverb, of course<br/>
+<font color="#A82F2F"><font size="2">(10:33:55 AM)</font> <b>rgareus:</b></font> you can compensate for the latency.<br/>
+<font color="#A82F2F"><font size="2">(10:34:37 AM)</font> <b>DrNI:</b></font> so this option says &quot;oh by the this bus has N msecs latency, so play back all the rest N msecs later&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(10:34:56 AM)</font> <b>rgareus:</b></font> if jack &quot;knows&quot; how long it takes to go a complete loop.  jack can tell ardour and ardour will realign incoming audio accordingly<br/>
+<font color="#A82F2F"><font size="2">(10:34:59 AM)</font> <b>DrNI:</b></font> i set it to 1000msec and couldn&apos;t hear a difference 8-)<br/>
+<font color="#A82F2F"><font size="2">(10:35:22 AM)</font> <b>DrNI:</b></font> I know, rgareus, I did that and it works perfectly for recording/overdubbing<br/>
+<font color="#A82F2F"><font size="2">(10:36:36 AM)</font> <b>DrNI:</b></font> so does this miracly of latency compensation also happen for busses that I route from outside into the ardour mixer? <br/>
+<font color="#A82F2F"><font size="2">(10:37:39 AM)</font> <b>rgareus:</b></font> DrNI: it should. ardour honors the latency of jack ports.  check with   &apos;jack_lsp -l&apos; <br/>
+<font color="#A82F2F"><font size="2">(10:38:05 AM)</font> <b>DrNI:</b></font> I&apos;m just figuring, that with my current setup there&apos;s now issue... because I currently mix reverb returns and ardour main in the DDX3216 console and record from the main-outs there (digitally)<br/>
+<font color="#A82F2F"><font size="2">(10:38:08 AM)</font> <b>rgareus:</b></font> DrNI: but only if you route them to a track.  busses in ardour don&apos;t do any latency-compensation, yet<br/>
+<font color="#A82F2F"><font size="2">(10:38:24 AM)</font> <b>DrNI:</b></font> so the output latency of the reverb sends naturally is the same than that of main out<br/>
+<font color="#A82F2F"><font size="2">(10:38:37 AM)</font> <b>DrNI:</b></font> so actually the pre-delay does not change, since everybody is late the same amount of time<br/>
+<font color="#A82F2F"><font size="2">(10:38:48 AM)</font> <b>DrNI:</b></font> so it only applies when routing the reverb returns back into the ardour mixer<br/>
+<font color="#A82F2F"><font size="2">(10:39:14 AM)</font> <b>DrNI:</b></font> (and I should check my spellink for homophones, argl... &quot;no issue&quot; I meant)<br/>
+<font color="#A82F2F"><font size="2">(10:40:32 AM)</font> <b>rgareus:</b></font> DrNI: yes, when the signal comes back from the external mixer, it will be late.<br/>
+<font color="#A82F2F"><font size="2">(10:40:52 AM)</font> <b>DrNI:</b></font> and of course, ardour can&apos;t know what happened to it outside the computer and how late it is *g*<br/>
+<font color="#A82F2F"><font size="2">(10:41:07 AM)</font> <b>rgareus:</b></font> DrNI: if you record it however on a track, it should be recorded at the right time.<br/>
+<font color="#A82F2F"><font size="2">(10:41:45 AM)</font> <b>DrNI:</b></font> I guess I&apos;ll stick to my old solution of recording from the DDX3216&apos;s main out, because then reverb return and dry mix sit together right on the spot<br/>
+<font color="#A82F2F"><font size="2">(10:42:18 AM)</font> <b>rgareus:</b></font> DrNI: well, it can know. if (A) jack-port where the signal comes in again has a &apos;correct&apos; latency sessing and/or (B) you enter the addidional latency that the device itself has<br/>
+<font color="#A82F2F"><font size="2">(10:42:48 AM)</font> <b>DrNI:</b></font> true, so this is what the latency option in channels is for, for (B) ?<br/>
+<font color="#A82F2F"><font size="2">(10:43:39 AM)</font> <b>rgareus:</b></font> DrNI: for some mixes from disk you&apos;d rather want to send out early audio (read-ahead) so that when the audio comes back it aligns just right<br/>
+<font color="#A82F2F"><font size="2">(10:44:37 AM)</font> <b>DrNI:</b></font> mh ok, but for busses due to the lack of the time machine, there is no read-ahead<br/>
+<font color="#A82F2F"><font size="2">(10:44:54 AM)</font> <b>rgareus:</b></font> DrNI: ardour can read-ahead already.<br/>
+<font color="#A82F2F"><font size="2">(10:45:23 AM)</font> <b>DrNI:</b></font> but reading ahead an extenal input? *g* ... <br/>
+<font color="#A82F2F"><font size="2">(10:45:32 AM)</font> <b>rgareus:</b></font> DrNI: what it cannot yet do is buffer (artificial delay) audio internally.<br/>
+<font color="#A82F2F"><font size="2">(10:45:54 AM)</font> <b>rgareus:</b></font> DrNI: right. it can only read-ahead the file from disk<br/>
+<font size="2">(10:46:04 AM)</font><b> hansfbaier [<em>~jack@36.73.56.200</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:46:19 AM)</font> <b>rgareus:</b></font> DrNI: ...but it could delay all other audio. until the data from the input is there.<br/>
+<font color="#A82F2F"><font size="2">(10:46:19 AM)</font> <b>DrNI:</b></font> rgareus: well, it could in theory delay everything else<br/>
+<font color="#A82F2F"><font size="2">(10:46:22 AM)</font> <b>DrNI:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(10:46:56 AM)</font> <b>rgareus:</b></font> DrNI: that&apos;s what it will be doing when the bus-latency-compensation branch is finished and merged.<br/>
+<font color="#A82F2F"><font size="2">(10:47:27 AM)</font> <b>DrNI:</b></font> good to know<br/>
+<font color="#A82F2F"><font size="2">(10:47:46 AM)</font> <b>rgareus:</b></font> DrNI: larger total latency due to delaylines to align _everything_ to the master bus.<br/>
+<font color="#A82F2F"><font size="2">(10:48:01 AM)</font> <b>DrNI:</b></font> I think I need to get rich and buy a mac in order to have all the plugins for ardour... since I don&apos;t want to do without ardour ;)<br/>
+<font size="2">(10:48:13 AM)</font><b> corresponder_ [<em>~walther@p3EE39487.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:48:13 AM)</font> <b>DrNI:</b></font> yesterday I asked Voxengo again to port to LinuxVST, I guess they will still deny.<br/>
+<font size="2">(10:48:21 AM)</font><b> corresponder left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:48:28 AM)</font> <b>DrNI:</b></font> (I&apos;m one of these weirdos still using WindowsVSTs)<br/>
+<font color="#A82F2F"><font size="2">(10:48:32 AM)</font> <b>rgareus:</b></font> DrNI: ? <br/>
+<font color="#A82F2F"><font size="2">(10:48:35 AM)</font> <b>rgareus:</b></font> DrNI: aah.<br/>
+<font color="#A82F2F"><font size="2">(10:49:05 AM)</font> <b>DrNI:</b></font> this is my current issue, I really love their Elephant plugin, so I bought it, but it isn&apos;t stable once you use more than one of them in a project<br/>
+<font color="#A82F2F"><font size="2">(10:49:18 AM)</font> <b>DrNI:</b></font> except for when I turn up latencyx<br/>
+<font color="#A82F2F"><font size="2">(10:49:52 AM)</font> <b>rgareus:</b></font> DrNI: keep pushing the. It can&apos;t be too hard for them to make a LinuxVST if they already have AU and winVST.<br/>
+<font color="#A82F2F"><font size="2">(10:50:04 AM)</font> <b>DrNI:</b></font> previously I had used sc4, which did a good job, with Elephant abused as a channel compressor, it sounds just really great at the turn of two knobs<br/>
+<font color="#A82F2F"><font size="2">(10:50:37 AM)</font> <b>DrNI:</b></font> since I&apos;m going more and more into recording natural things (drums, voices, accoustic guitars), this becomes more and more important<br/>
+<font size="2">(10:51:10 AM)</font><b> danni [<em>~quassel@60-241-223-29.static.tpgi.com.au</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:51:28 AM)</font> <b>DrNI:</b></font> rgareus: I already had asked them in april, now I asked again and told them that neither LinuxDSP nor Loomer could compete with the Voxengo Plugin suite - which is what I really think<br/>
+<font color="#A82F2F"><font size="2">(10:51:37 AM)</font> <b>DrNI:</b></font> rgareus: so they would basically have the marked on their own<br/>
+<font color="#A82F2F"><font size="2">(10:51:42 AM)</font> <b>DrNI:</b></font> market<br/>
+<font color="#A82F2F"><font size="2">(10:52:07 AM)</font> <b>rgareus:</b></font> DrNI: I expect there will be some GUI details to be sorted out -- and that takes developer time.<br/>
+<font color="#A82F2F"><font size="2">(10:52:56 AM)</font> <b>rgareus:</b></font> DrNI: maybe one of http://www.harrisonconsoles.com/joomla/index.php?option=com_content&amp;task=view&amp;id=38&amp;Itemid=54 fits your bill<br/>
+<font color="#A82F2F"><font size="2">(10:52:57 AM)</font> <b>DrNI:</b></font> that&apos;s what I&apos;m thinking, too. probably they didn&apos;t make a wise choice when going for their GUI library<br/>
+<font color="#A82F2F"><font size="2">(10:53:49 AM)</font> <b>rgareus:</b></font> DrNI: there are _only_ unwise choices for UI toolkits :)<br/>
+<font color="#A82F2F"><font size="2">(10:54:02 AM)</font> <b>DrNI:</b></font> hehe<br/>
+<font color="#A82F2F"><font size="2">(10:54:22 AM)</font> <b>DrNI:</b></font> I&apos;m a java programmer (apart from other things), so I don&apos;t bother. ;-)<br/>
+<font color="#A82F2F"><font size="2">(10:54:46 AM)</font> <b>DrNI:</b></font> but of course I see that java doesn&apos;t save all of the world and would be a pain in the neck for great many things<br/>
+<font color="#A82F2F"><font size="2">(10:54:54 AM)</font> <b>DrNI:</b></font> so one day I&apos;ll really learn C++<br/>
+<font color="#A82F2F"><font size="2">(10:54:56 AM)</font> <b>DrNI:</b></font> *g*<br/>
+<font color="#A82F2F"><font size="2">(10:55:32 AM)</font> <b>rgareus:</b></font> DrNI: and the week after that C and the month after that assembly. :)<br/>
+<font color="#A82F2F"><font size="2">(10:55:51 AM)</font> <b>DrNI:</b></font> I had one semester of RISC assembler, that was enough for the decision to avoid it<br/>
+<font color="#A82F2F"><font size="2">(10:55:53 AM)</font> <b>DrNI:</b></font> *ggg*<br/>
+<font color="#A82F2F"><font size="2">(10:56:04 AM)</font> <b>DrNI:</b></font> do those harrison things really run on linux?<br/>
+<font color="#A82F2F"><font size="2">(10:56:16 AM)</font> <b>DrNI:</b></font> http://www.voxengo.com/product/elephant/ &lt;- well this is dead simple and sounds great and can even do k-metering<br/>
+<font color="#A82F2F"><font size="2">(10:56:31 AM)</font> <b>rgareus:</b></font> DrNI: I think they do work on win, osx and Linux.<br/>
+<font color="#A82F2F"><font size="2">(10:56:53 AM)</font> <b>rgareus:</b></font> DrNI: ardour can do k-metering, too :)<br/>
+<font color="#A82F2F"><font size="2">(10:57:01 AM)</font> <b>DrNI:</b></font> meanwhile, yeah. good thing.<br/>
+<font color="#A82F2F"><font size="2">(10:58:23 AM)</font> <b>rgareus:</b></font> DrNI: following up a discussion from earlier today, you should get http://www.tcelectronic.com/finalizer-96k/ instead<br/>
+<font color="#A82F2F"><font size="2">(10:59:26 AM)</font> <b>DrNI:</b></font> I know<br/>
+<font color="#A82F2F"><font size="2">(10:59:29 AM)</font> <b>DrNI:</b></font> a friend of mine has it<br/>
+<font color="#A82F2F"><font size="2">(10:59:51 AM)</font> <b>DrNI:</b></font> just yesterday I wrote in the ardour forum that I&apos;d buy it if budget were unlimited<br/>
+<font color="#A82F2F"><font size="2">(11:00:22 AM)</font> <b>DrNI:</b></font> http://theinvisibleminds.drni.de/?page=YoungAndAngry&amp;lang=en &lt;- we used it for this recording (all in Logic, though, this friend of mine has some money to spend)<br/>
+<font color="#A82F2F"><font size="2">(11:00:25 AM)</font> <b>rgareus:</b></font> DrNI: aah, I don&apos;t follow the forum.<br/>
+<font size="2">(11:00:50 AM)</font><b> Gethiox left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:00:56 AM)</font> <b>DrNI:</b></font> my dream is to have RME preamps/converters, 2 of the professional TC  reverbs and the finalizer<br/>
+<font size="2">(11:01:20 AM)</font><b> Gethiox [<em>~gethiox@host-2-121.24.net.pl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:01:30 AM)</font> <b>DrNI:</b></font> so far I made it to the TC M-One XL and a DDX2316 and a very old but very good RME Digi card *g*<br/>
+<font size="2">(11:05:04 AM)</font><b> boom1992 left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(11:05:32 AM)</font> <b>tom^_:</b></font> rgareus: some of the plugins on the tc electronic site look like the goniometer :)<br/>
+<font color="#A82F2F"><font size="2">(11:05:51 AM)</font> <b>DrNI:</b></font> the TC plugins are for protools only, I think<br/>
+<font color="#A82F2F"><font size="2">(11:05:53 AM)</font> <b>DrNI:</b></font> sad enough<br/>
+<font color="#A82F2F"><font size="2">(11:05:55 AM)</font> <b>DrNI:</b></font> *g*<br/>
+<font color="#A82F2F"><font size="2">(11:06:07 AM)</font> <b>DrNI:</b></font> I guess I don&apos;t need to ask them for LV2 versions ;)<br/>
+<font color="#062585"><font size="2">(11:08:18 AM)</font> <b>***tom^_</b></font> prefers rgareus&apos; lv2<br/>
+<font color="#A82F2F"><font size="2">(11:10:42 AM)</font> <b>rgareus:</b></font> tom^_: TC was inspiration for the ebur128 meter<br/>
+<font color="#A82F2F"><font size="2">(11:10:50 AM)</font> <b>rgareus:</b></font> tom^_: the goniometer is modelled after DK<br/>
+<font color="#A82F2F"><font size="2">(11:11:30 AM)</font> <b>rgareus:</b></font> tom^_: ie https://www.youtube.com/watch?v=-hOOZN6rYLg<br/>
+<font color="#A82F2F"><font size="2">(11:11:33 AM)</font> <b>tom^_:</b></font> &quot;touch monitor - next generation loudness metering&quot; what a marketing blubber. take a usb screen, put two goniometers, voila :)<br/>
+<font color="#A82F2F"><font size="2">(11:12:29 AM)</font> <b>rgareus:</b></font> tom^_: &quot;Loudness Authority&quot; is may favorite marketing catchphrase :)<br/>
+<font color="#A82F2F"><font size="2">(11:12:49 AM)</font> <b>tom^_:</b></font> rgareus: very nice :)<br/>
+<font color="#A82F2F"><font size="2">(11:14:00 AM)</font> <b>rgareus:</b></font> DrNI: no need to ask them. https://github.com/x42/meters.lv2 should satisfy all your needs and more :)<br/>
+<font color="#A82F2F"><font size="2">(11:14:35 AM)</font> <b>DrNI:</b></font> good to know<br/>
+<font color="#A82F2F"><font size="2">(11:15:18 AM)</font> <b>rgareus:</b></font> DrNI: except there&apos;s a 5.1 or surroud jelly-fish display in meters.lv2, yet<br/>
+<font color="#A82F2F"><font size="2">(11:15:22 AM)</font> <b>DrNI:</b></font> not surprisingly, I&apos;m currently using Voxengo SPAN mainly<br/>
+<font color="#A82F2F"><font size="2">(11:15:39 AM)</font> <b>DrNI:</b></font> well, I was able to afford only 2 monitor speakers anyways ;)<br/>
+<font color="#A82F2F"><font size="2">(11:15:40 AM)</font> <b>rgareus:</b></font> uhm ..there&apos;s *no* 5.1..<br/>
+<font color="#A82F2F"><font size="2">(11:16:35 AM)</font> <b>tom^_:</b></font> rgareus: &quot;beyond loudness metering: go with the highly awarded &quot;loudnes authority&quot; series with worldclass DSP ..blblbl<br/>
+<font color="#A82F2F"><font size="2">(11:17:46 AM)</font> <b>tom^_:</b></font> rgareus: actually a lot of plugins would be quite fancy on small, dedicated touch screens<br/>
+<font color="#A82F2F"><font size="2">(11:17:48 AM)</font> <b>rgareus:</b></font> DrNI: I find a discete N-band spectrum analyzer much easier to read than a continuous display<br/>
+<font color="#A82F2F"><font size="2">(11:18:37 AM)</font> <b>DrNI:</b></font> mh I got used to it<br/>
+<font color="#A82F2F"><font size="2">(11:18:51 AM)</font> <b>rgareus:</b></font> DrNI: yeah a lot of these thing are habits<br/>
+<font color="#A82F2F"><font size="2">(11:19:03 AM)</font> <b>DrNI:</b></font> I think really a lot is in user interfaces<br/>
+<font color="#A82F2F"><font size="2">(11:19:23 AM)</font> <b>DrNI:</b></font> e.g., I&apos;m well aware that there are plugins that could sound like Voxengo Elephant<br/>
+<font color="#A82F2F"><font size="2">(11:19:35 AM)</font> <b>DrNI:</b></font> but Elephant does it a the turn of a knob and I don&apos;t want to bother with the details<br/>
+<font size="2">(11:19:40 AM)</font><b> Gethiox left the room (quit: Quit: WeeChat 0.4.1).</b><br/>
+<font color="#A82F2F"><font size="2">(11:19:46 AM)</font> <b>DrNI:</b></font> I need stuff that doesn&apos;t keep me from getting things done<br/>
+<font color="#A82F2F"><font size="2">(11:21:49 AM)</font> <b>DrNI:</b></font> which is another point, I need to get some work done now, need to pay the rent. ;-)<br/>
+<font color="#A82F2F"><font size="2">(11:21:59 AM)</font> <b>DrNI:</b></font> thanks for your time and ideas, keep on keepin on<br/>
+<font color="#A82F2F"><font size="2">(11:22:01 AM)</font> <b>DrNI:</b></font> bye<br/>
+<font color="#A82F2F"><font size="2">(11:22:05 AM)</font> <b>rgareus:</b></font> ciao<br/>
+<font size="2">(11:22:11 AM)</font><b> DrNI left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(11:26:48 AM)</font><b> camerin left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:29:17 AM)</font> <b>tom^_:</b></font> rgareus: do you maybe consider a future lv2 plugin that is based on the look-ahead limiter and has some info like the elephant (clipping incidents, crest-factor, nice knobs + meter) ?<br/>
+<font color="#A82F2F"><font size="2">(11:30:00 AM)</font> <b>rgareus:</b></font> tom^_: I did not have a need for it, yet.<br/>
+<font color="#A82F2F"><font size="2">(11:30:15 AM)</font> <b>tom^_:</b></font> rgareus: i know that - <br/>
+<font color="#A82F2F"><font size="2">(11:32:18 AM)</font> <b>rgareus:</b></font> tom^_: I think Harry is working on something like that, though<br/>
+<font color="#A82F2F"><font size="2">(11:32:28 AM)</font> <b>tom^_:</b></font> rgareus: would be a nice companion to the stereo balance<br/>
+<font color="#A82F2F"><font size="2">(11:32:50 AM)</font> <b>rgareus:</b></font> tom^_: some http://openavproductions.com/ LV2 in the making<br/>
+<font size="2">(11:33:47 AM)</font><b> camerin [<em>hoax@elite.bshellz.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:36:18 AM)</font> <b>rgareus:</b></font> tom^_: though now that I think of it, harry mentioned a side-chain compressor (not limiter) called ducka<br/>
+<font color="#A82F2F"><font size="2">(11:37:20 AM)</font> <b>tom^_:</b></font> rgareus: yep that&apos;s somehting else (isn&apos;t there sc3) but i imagine he will make it simpler to setup<br/>
+<font color="#A82F2F"><font size="2">(11:37:38 AM)</font> <b>tom^_:</b></font> rgareus: what are the steps to make a gui for an existing plugin that now uses a generic ui?<br/>
+<font color="#A82F2F"><font size="2">(11:38:37 AM)</font> <b>rgareus:</b></font> tom^_: there&apos;s no single answer to that.<br/>
+<font color="#A82F2F"><font size="2">(11:38:53 AM)</font> <b>rgareus:</b></font> tom^_: and not an easy one to answer, either.<br/>
+<font color="#A82F2F"><font size="2">(11:39:33 AM)</font> <b>tom^_:</b></font> rgareus: how would you do it?<br/>
+<font color="#A82F2F"><font size="2">(11:40:19 AM)</font> <b>tom^_:</b></font> rgareus: and, can you easily use the same meters styles as in ardour inside an lv2 plugin?<br/>
+<font color="#A82F2F"><font size="2">(11:41:45 AM)</font> <b>tom^_:</b></font> if not, stereobalance already has a good meter with paramters that runs as lv2<br/>
+<font color="#A82F2F"><font size="2">(11:42:09 AM)</font> <b>rgareus:</b></font> tom^_: meters.lv2 as well as ardour&apos;s meters are both based on jmeters DSP code<br/>
+<font color="#A82F2F"><font size="2">(11:42:34 AM)</font> <b>tom^_:</b></font> rgareus: good thing<br/>
+<font color="#A82F2F"><font size="2">(11:45:30 AM)</font> <b>rgareus:</b></font> tom^_: in the case of SC3 a custom gui would be no different than the generic UI (all settings and display-data are control-port floats)<br/>
+<font color="#A82F2F"><font size="2">(11:45:40 AM)</font> <b>rgareus:</b></font> tom^_: the GUI can be completely decoupled.<br/>
+<font color="#A82F2F"><font size="2">(11:46:52 AM)</font> <b>tom^_:</b></font> rgareus: the &apos;finalizer&apos; could have the same basic idea of the balance.lv2, left side meter input, right side meter output. and then some knobs and information fields in the middle<br/>
+<font color="#A82F2F"><font size="2">(11:48:39 AM)</font> <b>tom^_:</b></font> rgareus: left side on screen: balance.lv2, right side: finalizer.lv2<br/>
+<font color="#A82F2F"><font size="2">(11:48:41 AM)</font> <b>tom^_:</b></font> rgareus: same outter &apos;dimension&apos; &amp; handling / buttons / knobs but different layout in the centre<br/>
+<font size="2">(11:50:29 AM)</font><b> Gethiox [<em>~gethiox@199.254.238.218</em>] entered the room.</b><br/>
+<font size="2">(11:50:37 AM)</font><b> danni left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(11:50:54 AM)</font><b> zequence-work [<em>~zequence-@ubuntu/member/zequence</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:52:08 AM)</font> <b>rgareus:</b></font> tom^_: some day. maybe. not high on my priority list.<br/>
+<font color="#A82F2F"><font size="2">(11:56:00 AM)</font> <b>tom^_:</b></font> rgareus: yes<br/>
+<font size="2">(11:57:23 AM)</font><b> zequence-work left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(12:06:01 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font size="2">(12:11:44 PM)</font><b> Leatuspenguin [<em>~Leatuspen@79.97.10.192</em>] entered the room.</b><br/>
+<font size="2">(12:13:16 PM)</font><b> Stuzz left the room (quit: Quit: WeeChat 0.4.1).</b><br/>
+<font size="2">(12:16:46 PM)</font><b> Stuzz [<em>~Stuzz@d110-32-36-230.rdl801.qld.optusnet.com.au</em>] entered the room.</b><br/>
+<font size="2">(12:39:29 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

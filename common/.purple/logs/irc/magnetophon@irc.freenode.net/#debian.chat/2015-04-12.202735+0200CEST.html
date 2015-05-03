@@ -1,0 +1,262 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Sun 12 Apr 2015 08:27:35 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Sun 12 Apr 2015 08:27:35 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:27:35 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(08:27:35 PM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font size="2">(08:28:00 PM)</font><b> mode (+l 1661) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:28:03 PM)</font> <b>eugenmayer:</b></font> jelly: not sure how to answer your question, thats my squid configuration http://pastie.org/private/qgm1hv1bse7dcvpk2ch1ra<br/>
+<font color="#A82F2F"><font size="2">(08:28:21 PM)</font> <b>mac-user:</b></font> shay_shay: no I&apos;m not using any of those ugly boot loaders. good idea that installing them might help<br/>
+<font color="#A82F2F"><font size="2">(08:28:22 PM)</font> <b>jelly:</b></font> eugenmayer: http_port 3128<br/>
+<font color="#A82F2F"><font size="2">(08:28:39 PM)</font> <b>shay_shay:</b></font> mac-user: I like to boot on my macs like this (without any of those ugly bootloaders) http://glandium.org/blog/?p=2830<br/>
+<font color="#A82F2F"><font size="2">(08:30:04 PM)</font> <b>eugenmayer:</b></font> jelly: iam not sure i can follow you, but iam trying :)<br/>
+<font color="#A82F2F"><font size="2">(08:30:19 PM)</font> <b>damiox_:</b></font> shay_shay, so after reading this...  I believe I understand the following: in theory if I put that config into lvm.conf  my SSD would be OK<br/>
+<font color="#A82F2F"><font size="2">(08:31:57 PM)</font> <b>jelly:</b></font> eugenmayer: squid is configured to take http requests on port 3128.<br/>
+<font color="#A82F2F"><font size="2">(08:32:32 PM)</font> <b>eugenmayer:</b></font> jelly: yes. But iam not sure about what you are implicating now (just confused). Maybe you could explain?<br/>
+<font color="#A82F2F"><font size="2">(08:33:03 PM)</font> <b>jelly:</b></font> eugenmayer: means export https_proxy=https://10.66.0.1:3128 is not correct, use https_proxy=http://10.66.0.1:3128<br/>
+<font color="#A82F2F"><font size="2">(08:33:52 PM)</font> <b>eugenmayer:</b></font> jelly: using this, wget works for https://pecl.php.net .. but $fp = fsockopen(&quot;ssl://pecl.php.net&quot;, &quot;443&quot;, $errno, $errstr, 15); still fails with connection refused<br/>
+<font color="#A82F2F"><font size="2">(08:34:34 PM)</font> <b>jelly:</b></font> eugenmayer: so your proxy works.  I know very little about php and can&apos;t help with that.<br/>
+<font color="#A82F2F"><font size="2">(08:35:06 PM)</font> <b>abrotman:</b></font> eugenmayer: if you use wget from the command line, same issue?<br/>
+<font color="#A82F2F"><font size="2">(08:35:11 PM)</font> <b>eugenmayer:</b></font> jelly: iam not sure if that is just a different access, socket rather maybe. Just got confused<br/>
+<font color="#A82F2F"><font size="2">(08:35:30 PM)</font> <b>eugenmayer:</b></font> abrotman: no, iam able to access https://pecl.php.net<br/>
+<font color="#A82F2F"><font size="2">(08:35:42 PM)</font> <b>abrotman:</b></font> eugenmayer: seems like maybe you&apos;d want to ask ##php then<br/>
+<font color="#A82F2F"><font size="2">(08:36:05 PM)</font> <b>shay_shay:</b></font> damiox_: yes, the only thing I am not sure of is if manual fstrim will work through it. I like to use a cron job of fstrim instead of discard because discard reduces performance when deleting<br/>
+<font color="#A82F2F"><font size="2">(08:36:40 PM)</font> <b>jelly:</b></font> eugenmayer: using a http proxy to reach https:// URLs requires a completely different connection approach from the application.  It sounds as if your app does not every try to use the proxy at all<br/>
+<font color="#A82F2F"><font size="2">(08:36:49 PM)</font> <b>jelly:</b></font> not even* try<br/>
+<font color="#A82F2F"><font size="2">(08:36:57 PM)</font> <b>eugenmayer:</b></font> abrotman: well, i dont want to missuse the channel, iam in there also. Just if i dont use a proxy, it works. And the code for this fsocketopen in PEAR/REST.PHP did not change since 2005 .. iam not sure wheather this issue came up with a PHP update ( recent ) or when i ported from squeeze to wheeze and upgraded squid3<br/>
+<font size="2">(08:37:10 PM)</font><b> zz_AlphaTech is now known as AlphaTech</b><br/>
+<font color="#A82F2F"><font size="2">(08:37:15 PM)</font> <b>damiox_:</b></font> shay_shay, don&apos;t you use LVM in your SSD install?<br/>
+<font color="#A82F2F"><font size="2">(08:37:28 PM)</font> <b>shay_shay:</b></font> i use btrfs<br/>
+<font color="#A82F2F"><font size="2">(08:37:35 PM)</font> <b>eugenmayer:</b></font> jelly: its not an app at all, its a tool to install PHP modules in the server, like cpan<br/>
+<font size="2">(08:37:48 PM)</font><b> Urso is now known as Guest18777</b><br/>
+<font color="#A82F2F"><font size="2">(08:37:55 PM)</font> <b>jelly:</b></font> eugenmayer: tool, app, semantics<br/>
+<font size="2">(08:38:30 PM)</font><b> mode (+o jelly) by ChanServ</b><br/>
+<font size="2">(08:38:31 PM)</font><b> mode (+b *!*@ARennes-656-1-407-192.w90-32.abo.wanadoo.fr$##not-a-honeypot) by jelly</b><br/>
+<font size="2">(08:38:32 PM)</font><b> mode (-o jelly) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(08:38:58 PM)</font> <b>eugenmayer:</b></font> jelly: abrotman the question is, what changed. PHP upgrade ( fsockopen bug? ), squid3 server missconfiguration due to an upgrade or even, pecl.php.net moved from http to https recently. when i use fsockopen with ssl:// it will work flawlessly..<br/>
+<font size="2">(08:39:07 PM)</font><b> fran` is now known as fran</b><br/>
+<font size="2">(08:39:12 PM)</font><b> Doctor-Pabst is now known as dbrown</b><br/>
+<font color="#A82F2F"><font size="2">(08:39:15 PM)</font> <b>jelly:</b></font> eugenmayer: if wget works with it, the proxy is fine<br/>
+<font color="#A82F2F"><font size="2">(08:39:25 PM)</font> <b>eugenmayer:</b></font> jelly: i just wanted to state its not some custom code. just to clarify<br/>
+<font color="#A82F2F"><font size="2">(08:39:38 PM)</font> <b>eugenmayer:</b></font> jelly: i understand<br/>
+<font color="#A82F2F"><font size="2">(08:40:13 PM)</font> <b>jelly:</b></font> I bet it&apos;s php. :-)<br/>
+<font color="#A82F2F"><font size="2">(08:40:56 PM)</font> <b>jelly:</b></font> (either you&apos;re not telling it to use the proxy correctly, or this verision is buggy)<br/>
+<font color="#A82F2F"><font size="2">(08:42:06 PM)</font> <b>eugenmayer:</b></font> jelly: well its using the proxy, but to even simplify that, iam just … $fp = fsockopen(&quot;ssl://10.66.0.1&quot;, &quot;3128&quot;, $errno, $errstr, 15);<br/>
+<font color="#A82F2F"><font size="2">(08:42:08 PM)</font> <b>eugenmayer:</b></font> this fails.<br/>
+<font color="#A82F2F"><font size="2">(08:42:48 PM)</font> <b>eugenmayer:</b></font> If its a PHP issue, iam searching there for sure, not going to waste time. I was just trying to get an idea. SO you suggest rather php then squid3 missconfiguration?<br/>
+<font color="#A82F2F"><font size="2">(08:44:20 PM)</font> <b>damiox_:</b></font> shay_shay, if I don&apos;t use LVM, ssd should work out-of-the-box , correct?<br/>
+<font color="#A82F2F"><font size="2">(08:46:31 PM)</font> <b>shay_shay:</b></font> damiox_: it depends, most SSDs these days have built in over provisioning and garbage collection, and can be used just like normal disks. that doesnt mean you cant optimize it a little but it does mean you dont *have* to. I would at least set &quot;vm.swappiness = 10&quot; in /etc/sysctl.conf (no quotes)<br/>
+<font color="#A82F2F"><font size="2">(08:46:34 PM)</font> <b>jelly:</b></font> eugenmayer: of course it fails<br/>
+<font color="#A82F2F"><font size="2">(08:46:57 PM)</font> <b>eugenmayer:</b></font> jelly: of course?<br/>
+<font color="#A82F2F"><font size="2">(08:47:13 PM)</font> <b>jelly:</b></font> eugenmayer: it looks as if you&apos;re trying to open an SSL connection to your proxy, instead of USING the proxy to open an SSL connection to somwhere else<br/>
+<font color="#A82F2F"><font size="2">(08:47:25 PM)</font> <b>shay_shay:</b></font> damiox_: that changes the behavior of linux kernel so it only uses swap when ram is 90% full<br/>
+<font color="#A82F2F"><font size="2">(08:48:20 PM)</font> <b>damiox_:</b></font> shay_shay, got it. Sorry to ask you this but... do you think it&apos;s worth it to have only SSD+LVM ?<br/>
+<font color="#A82F2F"><font size="2">(08:48:28 PM)</font> <b>eugenmayer:</b></font> jelly: i get you, but then, this https://github.com/pear/pear-core/blob/stable/PEAR/REST.php#L358 is just stupid. They use ssl://proxy if the dest URL uses https://<br/>
+<font color="#A82F2F"><font size="2">(08:48:46 PM)</font> <b>jelly:</b></font> eugenmayer: I can&apos;t comment on php code.<br/>
+<font color="#A82F2F"><font size="2">(08:49:06 PM)</font> <b>shay_shay:</b></font> damiox_: i&apos;m the wrong person to ask because I don&apos;t use LVM at all :P I use btrfs which is a filesystem and a volume manager combined<br/>
+<font color="#A82F2F"><font size="2">(08:49:52 PM)</font> <b>damiox_:</b></font> I&apos;m so noob that it&apos;s the first time I heard about btrfs<br/>
+<font color="#A82F2F"><font size="2">(08:49:57 PM)</font> <b>jelly:</b></font> eugenmayer: it&apos;s possible the code assumes you&apos;ll be using a proxy accessible _via_ https to connect to https sites, which is silly<br/>
+<font color="#A82F2F"><font size="2">(08:50:18 PM)</font> <b>eugenmayer:</b></font> jelly: just what there is is, if destination URL ( PECL channel, like apt-repo ) is https://, use ssl://proxy, otherwise use proxy… combining what you said is, that it is not needed to talk ssl to the proxy, to proxy a https requests .. its only neeed if the connection to the proxy server itself needs to get encrypted<br/>
+<font color="#A82F2F"><font size="2">(08:50:32 PM)</font> <b>jelly:</b></font> eugenmayer: indeed.<br/>
+<font color="#A82F2F"><font size="2">(08:51:24 PM)</font> <b>eugenmayer:</b></font> jelly: ok now i got you and now i see what happen. Fixing that shitty code on all my severs could be harder. Is there a simple qway to get ssl<br/>
+<font color="#A82F2F"><font size="2">(08:51:33 PM)</font> <b>jelly:</b></font> talking to a proxy is done via http.  Using it to access https:// sites is done via http CONNECT command, which is pretty much like &quot;telnet&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:51:33 PM)</font> <b>eugenmayer:</b></font> working on squid3, or is even harder?<br/>
+<font color="#A82F2F"><font size="2">(08:52:06 PM)</font> <b>jelly:</b></font> eugenmayer: it looks your squid proxy might be configured to accept https://...:3130/<br/>
+<font color="#A82F2F"><font size="2">(08:52:47 PM)</font> <b>eugenmayer:</b></font> well i tried that yesterday..but the request takes ages and explodes in the end, with a big fat warning / and or a server outage ( OOM )<br/>
+<font size="2">(08:52:47 PM)</font><b> Neffi_ is now known as Neffi</b><br/>
+<font color="#A82F2F"><font size="2">(08:55:14 PM)</font> <b>jelly:</b></font> eugenmayer: then fix your tool to actually use CONNECT like all the normal apps have used http proxies to do ssl http://en.wikipedia.org/wiki/HTTP_tunnel#HTTP_CONNECT_tunneling<br/>
+<font color="#A82F2F"><font size="2">(08:55:31 PM)</font> <b>AvocetVIS:</b></font> http://serverbear.com/benchmark/2015/04/12/7sSkItsM01tmKCIW   bleh, kinda expected a little more from my $28 a month lol<br/>
+<font color="#A82F2F"><font size="2">(08:55:51 PM)</font> <b>marus:</b></font> hello, ifconfig return only ipv6 address<br/>
+<font color="#A82F2F"><font size="2">(08:55:58 PM)</font> <b>marus:</b></font> how can i see my ipv4 address<br/>
+<font color="#A82F2F"><font size="2">(08:56:00 PM)</font> <b>eugenmayer:</b></font> jelly: so basically, fixing that PEAR code. i guess i would rebuild the package then for now. apt-get source php-pear // patch and so forth, i guess<br/>
+<font color="#A82F2F"><font size="2">(08:56:15 PM)</font> <b>shay_shay:</b></font> damiox_: but if your filesystem supports trim and it is on bare metal (not separated from the SSD by lvm) then you can use a fstrim cron job, once or twice a week is fine. the longer you go between trims the longer it will take. your computer might hang a little while its happening so the idea is to schedule it when you are likely to not be sitting at it<br/>
+<font color="#A82F2F"><font size="2">(08:56:31 PM)</font> <b>abrotman:</b></font> marus: ifconfig<br/>
+<font color="#A82F2F"><font size="2">(08:56:50 PM)</font> <b>jelly:</b></font> eugenmayer: or file a bug report (after checking it&apos;s not already there)<br/>
+<font color="#A82F2F"><font size="2">(08:57:07 PM)</font> <b>frostschutz:</b></font> shay_shay, trim works fine through lvm<br/>
+<font color="#A82F2F"><font size="2">(08:57:11 PM)</font> <b>eugenmayer:</b></font> jelly: its not there, checked before even asking here. I found this a long before we talked<br/>
+<font color="#A82F2F"><font size="2">(08:57:49 PM)</font> <b>marus:</b></font> abrotman: read the question befor answer<br/>
+<font color="#A82F2F"><font size="2">(08:57:51 PM)</font> <b>jelly:</b></font> eugenmayer: hard to believe noone is accessing https:// sites from php via a normal http proxy<br/>
+<font color="#A82F2F"><font size="2">(08:57:59 PM)</font> <b>damiox_:</b></font> frostschutz, does fstrim work on lvm ?<br/>
+<font color="#A82F2F"><font size="2">(08:58:42 PM)</font> <b>abrotman:</b></font> marus: I did, it&apos;s still the correct answer<br/>
+<font color="#A82F2F"><font size="2">(08:58:56 PM)</font> <b>abrotman:</b></font> marus: Perhaps you&apos;d like to ask why you don&apos;t have an IPv4 address configured?<br/>
+<font color="#A82F2F"><font size="2">(08:58:59 PM)</font> <b>eugenmayer:</b></font> jelly: now you have to differ. The code we looked at is PEAR, which is used to fetch php extensions and compile them, like PECL extensions. The logic with if https then ssl is inside there…and it might just be that pecl.php.net switched to https just recently, and this code just kicks in now<br/>
+<font color="#A82F2F"><font size="2">(08:59:08 PM)</font> <b>shay_shay:</b></font> damiox_: it appears it does, frostschutz is correct<br/>
+<font color="#A82F2F"><font size="2">(08:59:10 PM)</font> <b>frostschutz:</b></font> damiox_, pretty much all layers support trim by now. with crypt/luks you have to explicetely enable it<br/>
+<font color="#A82F2F"><font size="2">(08:59:23 PM)</font> <b>eugenmayer:</b></font> jelly: and, in addition, its an proxy-config issue only. Only people with proxies will run into this<br/>
+<font color="#A82F2F"><font size="2">(08:59:45 PM)</font> <b>damiox_:</b></font> thank you both guys , I will give it a try then with SSD+LVM<br/>
+<font color="#A82F2F"><font size="2">(09:00:01 PM)</font> <b>marus:</b></font> abrotman: thanks but you anwser doesn&apos;t help<br/>
+<font color="#A82F2F"><font size="2">(09:00:02 PM)</font> <b>marus:</b></font> have a nice day<br/>
+<font color="#A82F2F"><font size="2">(09:00:44 PM)</font> <b>abrotman:</b></font> marus: you show your IPv4 and IPv6 address with ifconfig *if* they are configured correctly.<br/>
+<font color="#A82F2F"><font size="2">(09:01:32 PM)</font> <b>abrotman:</b></font> marus: you can also use &apos;ip addr show&apos;, which will also show IPv4 and IPv6 addresses *if* they are configured correctly<br/>
+<font size="2">(09:03:12 PM)</font><b> Tach[Away] is now known as Tachyon`</b><br/>
+<font color="#A82F2F"><font size="2">(09:09:27 PM)</font> <b>Dagger2:</b></font> ifconfig will only show one v4 address per interface, mind<br/>
+<font color="#A82F2F"><font size="2">(09:09:59 PM)</font> <b>Dagger2:</b></font> (unless you&apos;ve given the addresses labels, in which case they&apos;ll show up as virtual interfaces)<br/>
+<font color="#A82F2F"><font size="2">(09:13:14 PM)</font> <b>asterismo:</b></font> hi, testing repos shpould say &quot;testing&quot; everywhere instead of wheezy? or jessie instead of wheezy?<br/>
+<font color="#A82F2F"><font size="2">(09:15:50 PM)</font> <b>jelly:</b></font> asterismo: use &quot;jessie&quot; so that you don&apos;t be surprised when new testing is introduced<br/>
+<font size="2">(09:25:01 PM)</font><b> Lingo is now known as optrusty</b><br/>
+<font color="#A82F2F"><font size="2">(09:25:03 PM)</font> <b>abnegate:</b></font> can anyone recommend a program that will monitor my clipboard and if it sees a youtube URL in it, it&apos;ll automatically download it using youtubedl to a directory of my choice?<br/>
+<font color="#A82F2F"><font size="2">(09:26:24 PM)</font> <b>teraflop:</b></font> abnegate: not a program, just do a little script i do that with xclip<br/>
+<font color="#A82F2F"><font size="2">(09:27:57 PM)</font> <b>abnegate:</b></font> yeah, i could write a script<br/>
+<font size="2">(09:28:00 PM)</font><b> mode (+l 1655) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:28:07 PM)</font> <b>abnegate:</b></font> don&apos;t want to fork a process every second, though<br/>
+<font color="#A82F2F"><font size="2">(09:28:19 PM)</font> <b>abnegate:</b></font> thought there might be a more elegant solution already written out there somewhere<br/>
+<font color="#A82F2F"><font size="2">(09:28:46 PM)</font> <b>teraflop:</b></font> abnegate: it&apos;s so simple `URL=$(xclip -o); mpv $URL` something like that<br/>
+<font color="#A82F2F"><font size="2">(09:29:36 PM)</font> <b>abnegate:</b></font> i know it&apos;s simple (though i also want to grep for https://youtube.com in there first)<br/>
+<font color="#A82F2F"><font size="2">(09:29:43 PM)</font> <b>abnegate:</b></font> but that&apos;s not the issue<br/>
+<font color="#A82F2F"><font size="2">(09:30:09 PM)</font> <b>abnegate:</b></font> like i said, i don&apos;t want to fork a process every second just to monitor my clipboard<br/>
+<font color="#A82F2F"><font size="2">(09:30:16 PM)</font> <b>teraflop:</b></font> abnegate: you do not need to parsy anyting if you use mpv + youtube-dl<br/>
+<font color="#A82F2F"><font size="2">(09:30:42 PM)</font> <b>teraflop:</b></font> since mpv has a yt-dl hook<br/>
+<font color="#A82F2F"><font size="2">(09:31:06 PM)</font> <b>teraflop:</b></font> sorry the typos im on the phone<br/>
+<font color="#A82F2F"><font size="2">(09:31:14 PM)</font> <b>abnegate:</b></font> thanks for the suggestion<br/>
+<font color="#A82F2F"><font size="2">(09:31:21 PM)</font> <b>lonelybyte:</b></font> where extre-cmake-modules in debian?<br/>
+<font color="#A82F2F"><font size="2">(09:31:55 PM)</font> <b>teraflop:</b></font> abnegate: just mpv http:\\youtube.com?whatever works<br/>
+<font color="#A82F2F"><font size="2">(09:32:22 PM)</font> <b>teraflop:</b></font> abnegate: not only youtube urls by the way<br/>
+<font size="2">(09:38:00 PM)</font><b> mode (+l 1662) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:53:05 PM)</font> <b>dalo:</b></font> Anyone know of a good blogging utility that basically won&apos;t install KDE or GNOME along the way?<br/>
+<font color="#A82F2F"><font size="2">(09:53:14 PM)</font> <b>dalo:</b></font> (I use Xfce and want to keep it that way)<br/>
+<font color="#A82F2F"><font size="2">(09:53:15 PM)</font> <b>piklu:</b></font> blogging as if?<br/>
+<font color="#A82F2F"><font size="2">(09:53:52 PM)</font> <b>Roberth1990:</b></font> dalo: a web browser?<br/>
+<font color="#A82F2F"><font size="2">(09:54:00 PM)</font> <b>piklu:</b></font> Wordpress<br/>
+<font color="#A82F2F"><font size="2">(09:54:48 PM)</font> <b>Roberth1990:</b></font> piklu: isnt that package wordpress as the site itself?<br/>
+<font color="#A82F2F"><font size="2">(09:54:59 PM)</font> <b>dalo:</b></font> Roberth1990, nah. I&apos;m looking for a standalone program. UI if you like.<br/>
+<font color="#A82F2F"><font size="2">(09:55:33 PM)</font> <b>dalo:</b></font> Think Windows Live Writer, not that I wanted to write that.<br/>
+<font color="#A82F2F"><font size="2">(09:55:47 PM)</font> <b>piklu:</b></font> dalo : You can blog from VIM + Python<br/>
+<font color="#A82F2F"><font size="2">(09:55:50 PM)</font> <b>Roberth1990:</b></font> I have never been bloggin so...<br/>
+<font size="2">(09:56:04 PM)</font><b> FLHerne_ is now known as FLHerne</b><br/>
+<font color="#A82F2F"><font size="2">(09:56:06 PM)</font> <b>Roberth1990:</b></font> piklu: he probably wants a graphical one<br/>
+<font color="#A82F2F"><font size="2">(09:56:08 PM)</font> <b>dalo:</b></font> piklu, cool :)<br/>
+<font color="#A82F2F"><font size="2">(09:56:12 PM)</font> <b>dalo:</b></font> Yeah, a graphical one.<br/>
+<font color="#A82F2F"><font size="2">(09:56:27 PM)</font> <b>piklu:</b></font> than add some UI in python<br/>
+<font color="#A82F2F"><font size="2">(09:56:33 PM)</font> <b>piklu:</b></font> and let it posts blogs to the server<br/>
+<font color="#A82F2F"><font size="2">(09:56:41 PM)</font> <b>dalo:</b></font> Sure I&apos;ve seen that there are terminal blogging utilities online. And sure they&apos;re cool but would I really use them? No.<br/>
+<font color="#A82F2F"><font size="2">(09:56:46 PM)</font> <b>Roberth1990:</b></font> dalo: http://www.techradar.com/news/internet/best-linux-blogging-software-8-clients-tested-924012<br/>
+<font color="#A82F2F"><font size="2">(09:56:51 PM)</font> <b>dalo:</b></font> piklu, exactly right.<br/>
+<font size="2">(09:58:00 PM)</font><b> mode (+l 1655) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:59:19 PM)</font> <b>dalo:</b></font> Hmm I might give Drivel a shot.<br/>
+<font color="#A82F2F"><font size="2">(10:02:22 PM)</font> <b>dalo:</b></font> Nope :( Won&apos;t accept my Blogger account.<br/>
+<font color="#A82F2F"><font size="2">(10:02:57 PM)</font> <b>dalo:</b></font> Or this software is too old. Sometimes I wonder why I run Debian Stable<br/>
+<font color="#A82F2F"><font size="2">(10:04:59 PM)</font> <b>Roberth1990:</b></font> dalo: update to testing, its about to be released, its pretty stable<br/>
+<font color="#A82F2F"><font size="2">(10:05:09 PM)</font> <b>piklu:</b></font> dalo - why dnt u make a server based api<br/>
+<font color="#A82F2F"><font size="2">(10:05:17 PM)</font> <b>piklu:</b></font> where people can tweet and blog from command line<br/>
+<font color="#A82F2F"><font size="2">(10:05:31 PM)</font> <b>piklu:</b></font> like &gt;&gt; tweet Blahh Blahh :)<br/>
+<font color="#A82F2F"><font size="2">(10:05:43 PM)</font> <b>dalo:</b></font> Roberth1990, newer versions of stuff, huh?<br/>
+<font color="#A82F2F"><font size="2">(10:05:59 PM)</font> <b>Roberth1990:</b></font> dalo: yes<br/>
+<font size="2">(10:19:08 PM)</font><b> mode (+l 1649) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:21:58 PM)</font> <b>g00se:</b></font> Got a curious TCP port (9999) open, despite the fact that the process that opened it (java) was killed days ago. It&apos;s now opened by inetd, which is mysterious<br/>
+<font color="#A82F2F"><font size="2">(10:23:21 PM)</font> <b>petn-randall:</b></font> g00se: That&apos;s probably how it was configured. inetd is a service that will spawn the configured process upon connection to that port.<br/>
+<font color="#A82F2F"><font size="2">(10:25:15 PM)</font> <b>g00se:</b></font> When you say &apos;configured&apos;, how would it know what i&apos;m doing with java in the terminal? There&apos;d be nothing configured as such<br/>
+<font color="#A82F2F"><font size="2">(10:27:30 PM)</font> <b>g00se:</b></font> petn-randall: BUT, the only thing that IS configured is a port forwarding in my router. Is there some way that could be involved?<br/>
+<font color="#A82F2F"><font size="2">(10:28:32 PM)</font> <b>petn-randall:</b></font> g00se: Ok, what do you get when you run &apos;netstat -npl | grep 9999&apos;?<br/>
+<font color="#A82F2F"><font size="2">(10:28:55 PM)</font> <b>g00se:</b></font> tcp        0      0 0.0.0.0:9999            0.0.0.0:*               LISTEN      -<br/>
+<font color="#A82F2F"><font size="2">(10:29:03 PM)</font> <b>petn-randall:</b></font> g00se: Run that as root.<br/>
+<font color="#A82F2F"><font size="2">(10:29:38 PM)</font> <b>g00se:</b></font> 1689/inetd<br/>
+<font color="#A82F2F"><font size="2">(10:30:19 PM)</font> <b>petn-randall:</b></font> g00se: Check /etc/inetd.conf, it&apos;s configured to listen to that port.<br/>
+<font color="#A82F2F"><font size="2">(10:30:50 PM)</font> <b>g00se:</b></font> OK. Maybe i did something in the past that i forgot about :;<br/>
+<font size="2">(10:31:28 PM)</font><b> meaneye is now known as MeanEYE</b><br/>
+<font color="#A82F2F"><font size="2">(10:32:53 PM)</font> <b>g00se:</b></font> Gah! It&apos;s being used by approx - can&apos;t even remember doing that ...<br/>
+<font color="#A82F2F"><font size="2">(10:33:13 PM)</font> <b>g00se:</b></font> Thanks. Mystery solved<br/>
+<font size="2">(10:38:00 PM)</font><b> mode (+l 1642) by debhelper</b><br/>
+<font size="2">(10:41:17 PM)</font><b> mode (+o eir) by ChanServ</b><br/>
+<font size="2">(10:41:41 PM)</font><b> mode (-bo *!*@ARennes-656-1-407-192.w90-32.abo.wanadoo.fr$##not-a-honeypot eir) by eir</b><br/>
+<font color="#A82F2F"><font size="2">(10:41:57 PM)</font> <b>dalo:</b></font> Night folks.<br/>
+<font size="2">(10:42:18 PM)</font><b> dalo left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(10:48:00 PM)</font><b> mode (+l 1634) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(10:56:59 PM)</font> <b>AvocetVIS:</b></font> I&apos;m lost, I cannot start/restart apache because it seems to already be binding to port 80 on ipv6?? and/or ntp is using port 80 ??  &gt;&gt; http://paste.roguecoders.com/p/93a884466dacf4948f59d397a1ac386f.txt<br/>
+<font size="2">(10:57:32 PM)</font><b> feurd_ is now known as cyphix</b><br/>
+<font color="#A82F2F"><font size="2">(10:58:46 PM)</font> <b>abrotman:</b></font> AvocetVIS: fuser -n tcp 80<br/>
+<font color="#A82F2F"><font size="2">(10:59:34 PM)</font> <b>abrotman:</b></font> AvocetVIS: are yo usure it&apos;s shutting down correctly?<br/>
+<font color="#A82F2F"><font size="2">(11:00:18 PM)</font> <b>AvocetVIS:</b></font> seems to be, nothing in /var/log/apache* to indicate otherwise<br/>
+<font color="#A82F2F"><font size="2">(11:00:19 PM)</font> <b>petn-randall:</b></font> AvocetVIS: Where do you see ntp?<br/>
+<font color="#A82F2F"><font size="2">(11:01:32 PM)</font> <b>Devastator:</b></font> is there a &quot;debian right way&quot; to install java EE and glassfish server?<br/>
+<font color="#A82F2F"><font size="2">(11:01:33 PM)</font> <b>AvocetVIS:</b></font> http://paste.roguecoders.com/p/c48ddd7d1fb9244cf92621953d470a33.txt  -- but when I try to access from the web end, it just waits<br/>
+<font color="#A82F2F"><font size="2">(11:02:43 PM)</font> <b>AvocetVIS:</b></font> status says it&apos;s not running..<br/>
+<font color="#A82F2F"><font size="2">(11:03:02 PM)</font> <b>Brigo:</b></font> Devastator, there are packages, at least in jessie.<br/>
+<font color="#A82F2F"><font size="2">(11:03:19 PM)</font> <b>Devastator:</b></font> Brigo glassfish-javaee?<br/>
+<font color="#A82F2F"><font size="2">(11:03:48 PM)</font> <b>Brigo:</b></font> Devastator, for example, there are some more.<br/>
+<font color="#A82F2F"><font size="2">(11:04:04 PM)</font> <b>Devastator:</b></font> Brigo kind of outdated :(<br/>
+<font color="#A82F2F"><font size="2">(11:04:04 PM)</font> <b>Brigo:</b></font> I have never used it,do not know what is.<br/>
+<font color="#A82F2F"><font size="2">(11:04:15 PM)</font> <b>Brigo:</b></font> ,v glassfish-javaee<br/>
+<font color="#A82F2F"><font size="2">(11:04:16 PM)</font> <b>judd:</b></font> Package: glassfish-javaee on i386 -- squeeze: 1:2.1.1-b31-2; wheezy: 1:2.1.1-b31g-3; jessie: 1:2.1.1-b31g+dfsg1-2; sid: 1:2.1.1-b31g+dfsg1-2<br/>
+<font color="#A82F2F"><font size="2">(11:04:54 PM)</font> <b>Brigo:</b></font> same version in squeezy and jessie, weired :)<br/>
+<font color="#A82F2F"><font size="2">(11:05:34 PM)</font> <b>abrotman:</b></font> AvocetVIS: when it&apos;s shut down, try the fuser command<br/>
+<font color="#A82F2F"><font size="2">(11:06:06 PM)</font> <b>AvocetVIS:</b></font> abrotman, I figured it out, there was a formatting issue in one of the site files, thank you<br/>
+<font color="#A82F2F"><font size="2">(11:06:12 PM)</font> <b>Devastator:</b></font> yes, seems like this package is not being maintained<br/>
+<font color="#A82F2F"><font size="2">(11:08:27 PM)</font> <b>abrotman:</b></font> AvocetVIS: I didn&apos;t help a bit :)<br/>
+<font size="2">(11:10:46 PM)</font><b> mode (+o jelly) by ChanServ</b><br/>
+<font size="2">(11:10:47 PM)</font><b> mode (+b *!*@ARennes-656-1-407-192.w90-32.abo.wanadoo.fr$##not-a-honeypot) by jelly</b><br/>
+<font size="2">(11:10:47 PM)</font><b> mode (-o jelly) by ChanServ</b><br/>
+<font size="2">(11:15:07 PM)</font><b> mode (+o jelly) by ChanServ</b><br/>
+<font size="2">(11:15:08 PM)</font><b> mode (+b *!*@cha92-14-88-171-192-29.fbx.proxad.net$##not-a-honeypot) by jelly</b><br/>
+<font size="2">(11:15:10 PM)</font><b> mode (-o jelly) by ChanServ</b><br/>
+<font color="#A82F2F"><font size="2">(11:15:16 PM)</font> <b>jasabella:</b></font> what&apos;s the difference between the rescue and standard live images?<br/>
+<font color="#A82F2F"><font size="2">(11:15:33 PM)</font> <b>abrotman:</b></font> what rescue image?<br/>
+<font color="#A82F2F"><font size="2">(11:16:01 PM)</font> <b>Devastator:</b></font> there is a image with -rescue tag<br/>
+<font color="#A82F2F"><font size="2">(11:16:10 PM)</font> <b>abrotman:</b></font> a live image? or regular image?<br/>
+<font color="#A82F2F"><font size="2">(11:16:21 PM)</font> <b>Devastator:</b></font> regular<br/>
+<font color="#A82F2F"><font size="2">(11:16:28 PM)</font> <b>abrotman:</b></font> oh, he said live .. duh<br/>
+<font color="#A82F2F"><font size="2">(11:17:17 PM)</font> <b>Devastator:</b></font> actually live<br/>
+<font color="#A82F2F"><font size="2">(11:17:25 PM)</font> <b>jasabella:</b></font> . o o ( mental note: dont do dist-upgrade on a live usb stick )<br/>
+<font color="#A82F2F"><font size="2">(11:18:40 PM)</font> <b>Devastator:</b></font> I&apos;m gonna ask this again as I don&apos;t want to screw with package management, is there a &quot;debian method&quot; to install java EE and glassfish server or downloading and extracting the zips is fine?<br/>
+<font color="#A82F2F"><font size="2">(11:18:46 PM)</font> <b>petn-randall:</b></font> jasabella: The live images usually have a full blown DE on them, whereas the rescue images usually have maintenance tools on them to fix up the system.<br/>
+<font color="#A82F2F"><font size="2">(11:19:32 PM)</font> <b>centrx:</b></font> Devastator, Use the package manager...<br/>
+<font color="#A82F2F"><font size="2">(11:19:47 PM)</font> <b>jasabella:</b></font> i dont want a DE :)<br/>
+<font color="#A82F2F"><font size="2">(11:20:00 PM)</font> <b>Devastator:</b></font> centrx sure, but the packages doesn&apos;t seem available<br/>
+<font color="#A82F2F"><font size="2">(11:20:03 PM)</font> <b>jasabella:</b></font> i&apos;ll installmy own WM after boot<br/>
+<font color="#A82F2F"><font size="2">(11:20:22 PM)</font> <b>centrx:</b></font> Devastator, https://packages.debian.org/search?keywords=glassfish<br/>
+<font color="#A82F2F"><font size="2">(11:21:03 PM)</font> <b>Devastator:</b></font> centrx it&apos;s outdated and doesn&apos;t contain the sdk<br/>
+<font color="#A82F2F"><font size="2">(11:22:02 PM)</font> <b>SynrGy:</b></font> jasabella: standard has roughtly what you would have if you only selected the &apos;standard&apos; task during a debian install. that is, a base system with packages of &apos;important&apos; or &apos;standard&apos; priority.<br/>
+<font color="#A82F2F"><font size="2">(11:22:18 PM)</font> <b>SynrGy:</b></font> jasabella: rescue contains a number of tools used to rescue broken systems, do forensics, that sort of thing<br/>
+<font color="#A82F2F"><font size="2">(11:22:49 PM)</font> <b>sailcat:</b></font> jasabella, if you don&apos;t want a de, i&apos;ve found that the -standard iso is perfect. you might want to use ethernet rather than wifi when installing, so network is working after the install.<br/>
+<font color="#A82F2F"><font size="2">(11:22:51 PM)</font> <b>Devastator:</b></font> here: This package ships only the Java EE 5 Reference Implementation components of GlassFish.<br/>
+<font color="#A82F2F"><font size="2">(11:23:06 PM)</font> <b>SynrGy:</b></font> roughly*<br/>
+<font color="#A82F2F"><font size="2">(11:27:21 PM)</font> <b>Devastator:</b></font> I guess I will receive the same answer in oftc.. hehe<br/>
+<font color="#A82F2F"><font size="2">(11:35:55 PM)</font> <b>jasabella:</b></font> now to decide between compiz and enlightenment :)<br/>
+<font color="#A82F2F"><font size="2">(11:36:13 PM)</font> <b>abrotman:</b></font> compiz is dead upstream<br/>
+<font color="#A82F2F"><font size="2">(11:36:17 PM)</font> <b>teraflop:</b></font> ^<br/>
+<font color="#A82F2F"><font size="2">(11:37:24 PM)</font> <b>Roberth1990:</b></font> kwinmasterrace<br/>
+<font color="#A82F2F"><font size="2">(11:37:33 PM)</font> <b>jasabella:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(11:37:54 PM)</font> <b>jasabella:</b></font> openbox too right?<br/>
+<font color="#A82F2F"><font size="2">(11:38:17 PM)</font> <b>Roberth1990:</b></font> jasabella: he wants more than just shadows<br/>
+<font color="#A82F2F"><font size="2">(11:44:27 PM)</font> <b>jasabella:</b></font> maybe i should have deleted the partitions on my usb stick first hmmm<br/>
+<font color="#A82F2F"><font size="2">(11:45:27 PM)</font> <b>Roberth1990:</b></font> jasabella: to do what?<br/>
+<font color="#A82F2F"><font size="2">(11:46:09 PM)</font> <b>jasabella:</b></font> writing the live iso onto a usb tick using win32 image writr<br/>
+<font color="#A82F2F"><font size="2">(11:46:33 PM)</font> <b>dvs:</b></font> jasabella: win32diskimager will overwrite everything on the stick<br/>
+<font color="#A82F2F"><font size="2">(11:47:26 PM)</font> <b>jasabella:</b></font> but then again you cant delete partitions if you&apos;re booted off one :D<br/>
+<font color="#A82F2F"><font size="2">(11:47:43 PM)</font> <b>jasabella:</b></font> dvs... the whole stick of just the partition that windows can see?<br/>
+<font color="#A82F2F"><font size="2">(11:47:53 PM)</font> <b>jasabella:</b></font> or just*<br/>
+<font size="2">(11:48:00 PM)</font><b> mode (+l 1628) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:48:03 PM)</font> <b>dvs:</b></font> the whole stick<br/>
+<font color="#A82F2F"><font size="2">(11:48:12 PM)</font> <b>jasabella:</b></font> the partition that windows can see is mounted as a drive<br/>
+<font color="#A82F2F"><font size="2">(11:48:13 PM)</font> <b>jasabella:</b></font> hmmm<br/>
+<font color="#A82F2F"><font size="2">(11:48:32 PM)</font> <b>jasabella:</b></font> and im writing to that drive<br/>
+<font color="#A82F2F"><font size="2">(11:48:33 PM)</font> <b>jasabella:</b></font> but ok<br/>
+<font color="#A82F2F"><font size="2">(11:48:47 PM)</font> <b>SynrG:</b></font> then you&apos;re doing it wrong<br/>
+<font color="#A82F2F"><font size="2">(11:48:53 PM)</font> <b>iWaldo_:</b></font> i&apos;ve --extract&apos;ed the .run for the latest amd drivers to /fglrx, and the only directories listed in /fglrx/packages/Debian/dists are /etch, /experimental, /lenny, and /sid<br/>
+<font color="#A82F2F"><font size="2">(11:48:55 PM)</font> <b>dvs:</b></font> ^<br/>
+<font color="#A82F2F"><font size="2">(11:49:00 PM)</font> <b>iWaldo_:</b></font> i&apos;m running jessie<br/>
+<font color="#A82F2F"><font size="2">(11:49:05 PM)</font> <b>iWaldo_:</b></font> any advice?<br/>
+<font color="#A82F2F"><font size="2">(11:49:47 PM)</font> <b>SynrG:</b></font> iWaldo_: yeah, don&apos;t use that<br/>
+<font color="#A82F2F"><font size="2">(11:49:54 PM)</font> <b>SynrG:</b></font> ,v fglrx-driver<br/>
+<font color="#A82F2F"><font size="2">(11:49:56 PM)</font> <b>judd:</b></font> Package: fglrx-driver on i386 -- squeeze/non-free: 1:10-9-3squeeze1; wheezy/non-free: 1:12-6+point-3; wheezy-backports/non-free: 1:14.9+ga14.201-2~bpo70+1; jessie/non-free: 1:14.9+ga14.201-2; sid/non-free: 1:14.9+ga14.201-2; experimental/non-free: 1:14.12-1<br/>
+<font color="#A82F2F"><font size="2">(11:50:12 PM)</font> <b>SynrG:</b></font> iWaldo_: if your goal is to install a more recent fglrx on wheezy, use wheezy-backports version<br/>
+<font color="#A82F2F"><font size="2">(11:50:13 PM)</font> <b>iWaldo_:</b></font> synrG: i want to use the lastest version as i&apos;m trying to install it on a headless server to use openCL without X<br/>
+<font color="#A82F2F"><font size="2">(11:50:26 PM)</font> <b>iWaldo_:</b></font> 14.12 dropped X as a dependency<br/>
+<font color="#A82F2F"><font size="2">(11:50:41 PM)</font> <b>SynrG:</b></font> then backport your own<br/>
+<font color="#A82F2F"><font size="2">(11:50:50 PM)</font> <b>iWaldo_:</b></font> ooh, how do i learn to do that?<br/>
+<font color="#A82F2F"><font size="2">(11:50:54 PM)</font> <b>SynrG:</b></font> !ssb<br/>
+<font color="#A82F2F"><font size="2">(11:50:54 PM)</font> <b>dpkg:</b></font> First, check for a backport on &lt;debian-backports&gt;.  If unavailable: 1) Add a deb-src line for sid (not a deb line!); ask me about &lt;deb-src sid&gt; 2) enable debian-backports (see &lt;bdo&gt;) 3) aptitude update; aptitude install build-essential; aptitude build-dep packagename; apt-get -b source packagename; 4) install the resultant debs.  To change compilation options, see &lt;package recompile&gt;; for versions newer than sid see &lt;uupdate&gt;.<br/>
+<font color="#A82F2F"><font size="2">(11:51:06 PM)</font> <b>SynrG:</b></font> only of course, use the version in experimental<br/>
+<font color="#A82F2F"><font size="2">(11:51:44 PM)</font> <b>iWaldo_:</b></font> i&apos;m not an absolute novice, but i&apos;ve never done this sort of thing before.  i&apos;ll see what i can dig up on my own, but i&apos;ll come back if i get stuck<br/>
+<font color="#A82F2F"><font size="2">(11:51:46 PM)</font> <b>iWaldo_:</b></font> thanks m8<br/>
+<font color="#A82F2F"><font size="2">(11:52:35 PM)</font> <b>m8:</b></font> iWaldo_, :)<br/>
+<font color="#A82F2F"><font size="2">(11:52:43 PM)</font> <b>iWaldo_:</b></font> err... well played!<br/>
+<font color="#A82F2F"><font size="2">(11:57:44 PM)</font> <b>SynrGy:</b></font> iWaldo_: experimental stuff may have dependencies in sid<br/>
+<font color="#A82F2F"><font size="2">(11:58:01 PM)</font> <b>SynrGy:</b></font> ,checkbackport fglrx-driver<br/>
+<font color="#A82F2F"><font size="2">(11:58:02 PM)</font> <b>judd:</b></font> Backporting package fglrx-driver in sid→wheezy/i386: all build-dependencies satisfied using wheezy.<br/>
+<font color="#A82F2F"><font size="2">(11:58:11 PM)</font> <b>SynrGy:</b></font> nice. in this case, not<br/>
+<font color="#A82F2F"><font size="2">(11:58:54 PM)</font> <b>iWaldo_:</b></font> is jessie considered sid at this point?  thought it was testing<br/>
+<font size="2">(11:59:00 PM)</font><b> Fusselkater_ is now known as Fusselkater</b><br/>
+<font color="#A82F2F"><font size="2">(11:59:51 PM)</font> <b>Roberth1990:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(12:00:51 AM)</font> <b>SynrGy:</b></font> sid is never released and as always unstable.<br/>
+<font color="#A82F2F"><font size="2">(12:00:54 AM)</font> <b>SynrGy:</b></font> is*<br/>
+<font color="#A82F2F"><font size="2">(12:01:07 AM)</font> <b>SynrGy:</b></font> jessie is testing. wheezy is stable.<br/>
+<font size="2">(12:18:00 AM)</font><b> mode (+l 1619) by debhelper</b><br/>
+<font size="2">(12:38:00 AM)</font><b> mode (+l 1611) by debhelper</b><br/>
+<font size="2">(12:55:43 AM)</font><b> _ixti_ is now known as ixti</b><br/>

@@ -1,0 +1,130 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Thu 11 Dec 2014 12:53:34 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Thu 11 Dec 2014 12:53:34 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(12:53:34 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(12:53:34 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font size="2">(01:00:17 PM)</font><b> hrubi left the room (quit: Read error: No route to host).</b><br/>
+<font size="2">(01:01:07 PM)</font><b> hrubi [<em>~hrubi@2a02:e98:c001:100:ba27:ebff:fe24:4091</em>] entered the room.</b><br/>
+<font size="2">(01:09:10 PM)</font><b> las left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(01:10:29 PM)</font><b> oofus_lt_ [<em>~quassel@143.252.1.30</em>] entered the room.</b><br/>
+<font size="2">(01:11:48 PM)</font><b> ahellquist left the room (quit: Quit: Ex-Chat).</b><br/>
+<font size="2">(01:13:12 PM)</font><b> oofus_lt left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font size="2">(01:17:23 PM)</font><b> lerni_ [<em>~lerni@122-134.60-188.cust.bluewin.ch</em>] entered the room.</b><br/>
+<font size="2">(01:18:35 PM)</font><b> vekoon [<em>~vekoon@95.237.50.1</em>] entered the room.</b><br/>
+<font size="2">(01:19:12 PM)</font><b> las [<em>~paul@pool-98-114-22-28.phlapa.fios.verizon.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:24:31 PM)</font> <b>the_CLA:</b></font> las: All commit mails arrived now - just quite a bit delayed.<br/>
+<font size="2">(01:25:39 PM)</font><b> EamonnTobin left the room (quit: Quit: No Ping reply in 180 seconds.).</b><br/>
+<font size="2">(01:27:07 PM)</font><b> EamonnTobin [<em>~quassel@2a02:2788:74:c11:390a:475:9758:8fae</em>] entered the room.</b><br/>
+<font size="2">(01:27:29 PM)</font><b> nick_m left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:31:33 PM)</font> <b>las:</b></font> the_CLA: glad to hear it made it through<br/>
+<font size="2">(01:34:56 PM)</font><b> reen1 [<em>~reen@h31n6-t-a11.ias.bredband.telia.com</em>] entered the room.</b><br/>
+<font size="2">(01:40:08 PM)</font><b> nick_m [<em>~nick_m@101.161.39.159</em>] entered the room.</b><br/>
+<font size="2">(01:44:33 PM)</font><b> ahellquist [<em>~aht@109-124-147-131.customer.t3.se</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:45:54 PM)</font> <b>the_CLA:</b></font> las: Oh, good news! Seems as if your nofilemanager merge also fixed the increased disk reads during the fades! :)<br/>
+<font color="#A82F2F"><font size="2">(01:48:26 PM)</font> <b>the_CLA:</b></font> las: Not entirely. I still get some underruns in a debug enabled version, but not as quickly as before.<br/>
+<font color="#A82F2F"><font size="2">(01:50:06 PM)</font> <b>the_CLA:</b></font> las: Optimized build seems fine now, though.<br/>
+<font color="#A82F2F"><font size="2">(01:55:31 PM)</font> <b>las:</b></font> the_CLA: what does ulimit -n say for you?<br/>
+<font color="#A82F2F"><font size="2">(01:56:47 PM)</font> <b>the_CLA:</b></font> las: 100000<br/>
+<font color="#A82F2F"><font size="2">(01:58:37 PM)</font> <b>las:</b></font> the_CLA: odd<br/>
+<font color="#A82F2F"><font size="2">(01:58:52 PM)</font> <b>las:</b></font> the_CLA: the file manager code really didn&apos;t do anything notable with high open file limits<br/>
+<font color="#A82F2F"><font size="2">(02:00:13 PM)</font> <b>the_CLA:</b></font> las: At least on the debug enabled build, when getting the underruns, the disk doesn&apos;t seem to do that much anymore. So maybe some memory transfers are too slow with the debug version?<br/>
+<font size="2">(02:01:37 PM)</font><b> guguseli left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:02:10 PM)</font> <b>las:</b></font> the_CLA: unlikely<br/>
+<font color="#A82F2F"><font size="2">(02:02:28 PM)</font> <b>las:</b></font> the_CLA: there&apos;s a soundfile i/o testing utility now in tools/<br/>
+<font color="#A82F2F"><font size="2">(02:02:43 PM)</font> <b>las:</b></font> the_CLA: nothing builds it by default, but the compile command is in the first line<br/>
+<font color="#A82F2F"><font size="2">(02:03:08 PM)</font> <b>las:</b></font> the_CLA: it shows actual throughput when writing to N different sndfiles in various formats<br/>
+<font color="#A82F2F"><font size="2">(02:03:16 PM)</font> <b>las:</b></font> the_CLA: it doesn&apos;t currently do duplex<br/>
+<font color="#A82F2F"><font size="2">(02:03:32 PM)</font> <b>the_CLA:</b></font> las: As it only happens during non-linear region fades I guess it wouldn&apos;t be much of help.<br/>
+<font size="2">(02:03:43 PM)</font><b> timh [<em>~wm_Tim@h66-222-83-245.lvrgtn.dedicated.static.tds.net</em>] entered the room.</b><br/>
+<font size="2">(02:03:43 PM)</font><b> tnaugle [<em>~tnaugle@h66-222-83-250.lvrgtn.dedicated.static.tds.net</em>] entered the room.</b><br/>
+<font size="2">(02:03:48 PM)</font><b> Ben_at_Harrison [<em>~harrison@h66-222-83-245.lvrgtn.dedicated.static.tds.net</em>] entered the room.</b><br/>
+<font size="2">(02:03:51 PM)</font><b> harrison__ [<em>~harrison@h66-222-83-245.lvrgtn.dedicated.static.tds.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:04:37 PM)</font> <b>the_CLA:</b></font> las: But previously also the disk LED would go red all the time. This isn&apos;t the case anymore at all.<br/>
+<font color="#A82F2F"><font size="2">(02:24:16 PM)</font> <b>Ben_at_home:</b></font> the_CLA,    that sounds like good news.<br/>
+<font size="2">(02:25:08 PM)</font><b> ze left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font size="2">(02:26:59 PM)</font><b> chickensk left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(02:39:09 PM)</font><b> Lex_NewtoN [<em>~quassel@nat4.academ.org</em>] entered the room.</b><br/>
+<font size="2">(02:39:09 PM)</font><b> falktx left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font size="2">(02:59:33 PM)</font><b> melhiors left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(03:00:22 PM)</font><b> ove_n [<em>~ove@a91-153-73-222.elisa-laajakaista.fi</em>] entered the room.</b><br/>
+<font size="2">(03:06:38 PM)</font><b> takuan left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font size="2">(03:07:35 PM)</font><b> grobda24 [<em>~grobda24-@host81-158-119-128.range81-158.btcentralplus.com</em>] entered the room.</b><br/>
+<font size="2">(03:07:45 PM)</font><b> grobda24 left the room (quit: Changing host).</b><br/>
+<font size="2">(03:07:45 PM)</font><b> grobda24 [<em>~grobda24-@silentflame/member/grobda24</em>] entered the room.</b><br/>
+<font size="2">(03:08:18 PM)</font><b> scherbi left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(03:08:59 PM)</font><b> Freejack left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(03:10:42 PM)</font><b> nick_m left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(03:14:29 PM)</font><b> Freejack [<em>~Freejack@68-190-10-237.dhcp.dctr.al.charter.com</em>] entered the room.</b><br/>
+<font size="2">(03:15:01 PM)</font><b> ahellquist left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(03:15:21 PM)</font><b> ahellquist [<em>~aht@109-124-147-131.customer.t3.se</em>] entered the room.</b><br/>
+<font size="2">(03:17:40 PM)</font><b> felz left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(03:18:38 PM)</font><b> felz [<em>~felz@adsl-149.109.242.246.tellas.gr</em>] entered the room.</b><br/>
+<font size="2">(03:22:50 PM)</font><b> john_minetest [<em>~john@unaffiliated/john-minetest/x-5335115</em>] entered the room.</b><br/>
+<font size="2">(03:23:00 PM)</font><b> tartina [<em>5961b108@gateway/web/freenode/ip.89.97.177.8</em>] entered the room.</b><br/>
+<font size="2">(03:23:47 PM)</font><b> nick_m [<em>~nick_m@101.174.168.72</em>] entered the room.</b><br/>
+<font size="2">(03:25:50 PM)</font><b> wargreen [<em>~wargreen@ip-26.net-82-216-164.joinville2.rev.numericable.fr</em>] entered the room.</b><br/>
+<font size="2">(03:29:13 PM)</font><b> KL___ [<em>52e3be7c@gateway/web/freenode/ip.82.227.190.124</em>] entered the room.</b><br/>
+<font size="2">(03:32:10 PM)</font><b> KL___ left the room (quit: Client Quit).</b><br/>
+<font size="2">(03:35:53 PM)</font><b> zybi1 [<em>~zybil@ip1f105bb8.dynamic.kabel-deutschland.de</em>] entered the room.</b><br/>
+<font size="2">(03:37:24 PM)</font><b> JL__ [<em>52e3be7c@gateway/web/freenode/ip.82.227.190.124</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:38:19 PM)</font> <b>JL__:</b></font> las: hi Paul, could you see :  http://tracker.ardour.org/view.php?id=6071<br/>
+<font color="#A82F2F"><font size="2">(03:38:29 PM)</font> <b>LAbot`:</b></font> Title: 0006071: different warnings and MIDI regions lost - MantisBT (at tracker.ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(03:38:56 PM)</font> <b>las:</b></font> JL__: sorry, not looking at bugs at this time<br/>
+<font color="#A82F2F"><font size="2">(03:39:32 PM)</font> <b>JL__:</b></font> las: ok, thanks<br/>
+<font size="2">(03:40:55 PM)</font><b> JL__ left the room (quit: Client Quit).</b><br/>
+<font size="2">(03:43:59 PM)</font><b> jpbouza [<em>~jpbouza@201.255.229.77</em>] entered the room.</b><br/>
+<font size="2">(03:45:12 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:46:46 PM)</font> <b>FlorianBd:</b></font> Hi guys, I think the .ardour file show contain somewhere the exact Ardour version it was saved with. That&apos;s useful for many, many things.<br/>
+<font color="#A82F2F"><font size="2">(03:46:55 PM)</font> <b>FlorianBd:</b></font> should<br/>
+<font size="2">(03:47:00 PM)</font><b> clark|w [<em>clark_will@nat/redhat/x-vxdqemocsesprtur</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:47:07 PM)</font> <b>las:</b></font> FlorianBd: not true<br/>
+<font color="#A82F2F"><font size="2">(03:47:21 PM)</font> <b>las:</b></font> FlorianBd: the .ardour file is a format<br/>
+<font color="#A82F2F"><font size="2">(03:47:30 PM)</font> <b>las:</b></font> FlorianBd: the version of the file is the version of the format<br/>
+<font color="#A82F2F"><font size="2">(03:47:39 PM)</font> <b>las:</b></font> FlorianBd: not the version it was created with<br/>
+<font color="#A82F2F"><font size="2">(03:47:48 PM)</font> <b>las:</b></font> FlorianBd: there are ways to make .ardour files without ardour, even<br/>
+<font color="#A82F2F"><font size="2">(03:48:24 PM)</font> <b>FlorianBd:</b></font> las: I&apos;m talking about a simple information field, the a conceptual idea to define a .ardour file<br/>
+<font color="#A82F2F"><font size="2">(03:48:42 PM)</font> <b>las:</b></font> FlorianBd: the format is *not* defined<br/>
+<font color="#A82F2F"><font size="2">(03:48:50 PM)</font> <b>las:</b></font> FlorianBd: largely on purpose<br/>
+<font color="#A82F2F"><font size="2">(03:49:01 PM)</font> <b>las:</b></font> FlorianBd: and there is a version number in the file, related to the file format already<br/>
+<font size="2">(03:49:13 PM)</font><b> tom- [<em>~srv@84-74-158-93.dclient.hispeed.ch</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:49:37 PM)</font> <b>FlorianBd:</b></font> las: so putting the software version in addition to that would harm a particular purpose?<br/>
+<font color="#A82F2F"><font size="2">(03:51:48 PM)</font> <b>las:</b></font> FlorianBd: it has no relationship to the file contents at all<br/>
+<font color="#A82F2F"><font size="2">(03:52:51 PM)</font> <b>FlorianBd:</b></font> las: If you look at most formats, whether is wav, mp3, odt, doc, html, most softwares include this information because it can be really useful, and it has not relationship with the content. So Ardour would be one of the rare softwares to hide itself?<br/>
+<font color="#A82F2F"><font size="2">(03:54:21 PM)</font> <b>las:</b></font> FlorianBd: that isn&apos;t true at all<br/>
+<font color="#A82F2F"><font size="2">(03:54:23 PM)</font> <b>FlorianBd:</b></font> e.g. a wav file created with soundforge does not mean it is not a standard wav file. But there&apos;s an information field that tells me if I want to know, which is always useful information.<br/>
+<font color="#A82F2F"><font size="2">(03:54:33 PM)</font> <b>las:</b></font> WAV almost never contains this data<br/>
+<font color="#A82F2F"><font size="2">(03:54:41 PM)</font> <b>las:</b></font> there are millions of HTML files out there without this data<br/>
+<font color="#A82F2F"><font size="2">(03:55:00 PM)</font> <b>FlorianBd:</b></font> las: save an htrml file with a browser and you&apos;ll see<br/>
+<font color="#A82F2F"><font size="2">(03:55:01 PM)</font> <b>las:</b></font> most of the time this information is advertising<br/>
+<font color="#A82F2F"><font size="2">(03:55:12 PM)</font> <b>las:</b></font> FlorianBd: i look at HTML files *A LOT*<br/>
+<font color="#A82F2F"><font size="2">(03:55:18 PM)</font> <b>las:</b></font> FlorianBd: what you&apos;re saying just isn&apos;t true<br/>
+<font color="#A82F2F"><font size="2">(03:55:34 PM)</font> <b>las:</b></font> FlorianBd: it is true that there are many &quot;web page creator applications&quot; that stick their name  + version in there<br/>
+<font color="#A82F2F"><font size="2">(03:55:37 PM)</font> <b>FlorianBd:</b></font> las: well, when the html file is man made... indeed there&apos;s nothing :)<br/>
+<font color="#A82F2F"><font size="2">(03:55:53 PM)</font> <b>las:</b></font> FlorianBd: but there are many HTML generation systems that do not include this information<br/>
+<font color="#A82F2F"><font size="2">(03:56:06 PM)</font> <b>las:</b></font> FlorianBd: creator information in PCM audio files is also rare<br/>
+<font color="#A82F2F"><font size="2">(03:56:31 PM)</font> <b>FlorianBd:</b></font> las: what would be the harm, what are you afraid of?<br/>
+<font color="#A82F2F"><font size="2">(03:56:51 PM)</font> <b>las:</b></font> FlorianBd: it is irrelevant<br/>
+<font color="#A82F2F"><font size="2">(03:57:04 PM)</font> <b>las:</b></font> FlorianBd: we put a format version in the file, and that is relevant<br/>
+<font color="#A82F2F"><font size="2">(03:57:10 PM)</font> <b>las:</b></font> FlorianBd: creator information is just fluff<br/>
+<font color="#062585"><font size="2">(03:57:24 PM)</font> <b>***tom-</b></font> wonders if metadata in the WAV format is used at all<br/>
+<font color="#A82F2F"><font size="2">(03:57:34 PM)</font> <b>FlorianBd:</b></font> las: ok so you think concept and not usefulness ?<br/>
+<font color="#A82F2F"><font size="2">(03:57:42 PM)</font> <b>tom-:</b></font> audacity had this annoying dialog to enter some ..<br/>
+<font color="#A82F2F"><font size="2">(03:58:06 PM)</font> <b>las:</b></font> FlorianBd: i don&apos;t think it is useful. what could you possibly do with this information?<br/>
+<font color="#A82F2F"><font size="2">(03:59:19 PM)</font> <b>FlorianBd:</b></font> las: what created a file is IMO extremely important. Unless you consider that every single version of Ardour has always been perfect, that in that case there&apos;s no need for developing it further :)<br/>
+<font color="#A82F2F"><font size="2">(03:59:39 PM)</font> <b>las:</b></font> FlorianBd: sorry, that&apos;s ridiculous. what can you do with this information?<br/>
+<font color="#A82F2F"><font size="2">(03:59:55 PM)</font> <b>las:</b></font> FlorianBd: there hasn&apos;t been a bug in a .ardour file for nearly a decade<br/>
+<font color="#A82F2F"><font size="2">(04:00:24 PM)</font> <b>las:</b></font> FlorianBd: there are many bugs in ardour; these don&apos;t show up in the .ardour file and if they did, nobody could do anything about them outside of ardour itself<br/>
+<font color="#A82F2F"><font size="2">(04:01:35 PM)</font> <b>FlorianBd:</b></font> las: e.g. I have a backup that I know sounded perfect with all midi/audio/automations, etc.  If I open it with a particular version, my automation may be messed up because some linerar/discreet info was not saved properly. I can know which ardour use to re-open it years later.<br/>
+<font color="#A82F2F"><font size="2">(04:02:15 PM)</font> <b>FlorianBd:</b></font> anyway, I will simply save a text file in the ardour folder with the version inside, period. Thanks.<br/>
+<font color="#A82F2F"><font size="2">(04:02:26 PM)</font> <b>las:</b></font> FlorianBd: that isn&apos;t how we do things in ardour<br/>
+<font color="#A82F2F"><font size="2">(04:02:32 PM)</font> <b>tom-:</b></font> FlorianBd: that&apos;s a point. but plugins would be a bigger issue, so the best archive is a stem export possibly <br/>
+<font color="#A82F2F"><font size="2">(04:02:54 PM)</font> <b>las:</b></font> FlorianBd: when we discover bugs in the way we wrote data in .ardour files, we fix ardour to be able to load the broken AND the correct version<br/>
+<font size="2">(04:03:05 PM)</font><b> zybi1 left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(04:03:13 PM)</font> <b>las:</b></font> FlorianBd: unless it relates to a non-released version<br/>
+<font color="#A82F2F"><font size="2">(04:03:19 PM)</font> <b>las:</b></font> FlorianBd: and there ... you are on your own<br/>
+<font color="#A82F2F"><font size="2">(04:03:50 PM)</font> <b>las:</b></font> FlorianBd: we already have two complete sets of loading code already, one for file formats 2XXX and one for file formats 3XXX<br/>
+<font color="#A82F2F"><font size="2">(04:04:13 PM)</font> <b>FlorianBd:</b></font> las: you cannot be sure that in 5 years ALL FILES of ardour (including midi, etc) will always be 100% compatible in every single feature. Then in 5 years you&apos;re in trouble because you wanted to save 50 bytes of data in a .ardour file.<br/>
+<font color="#A82F2F"><font size="2">(04:04:25 PM)</font> <b>las:</b></font> FlorianBd: i certainly can be sure of that<br/>
+<font color="#062585"><font size="2">(04:04:38 PM)</font> <b>***FlorianBd</b></font> cannot see in the future<br/>
+<font color="#A82F2F"><font size="2">(04:04:44 PM)</font> <b>las:</b></font> FlorianBd: i don&apos;t need to see the future<br/>
+<font color="#A82F2F"><font size="2">(04:04:47 PM)</font> <b>las:</b></font> FlorianBd: i can see code<br/>
+<font size="2">(04:23:47 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

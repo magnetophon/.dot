@@ -1,0 +1,315 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Mon 02 Sep 2013 05:39:03 PM CEST on magnetophon@irc.oftc.net (irc)</title></head><body><h3>Conversation with #debian at Mon 02 Sep 2013 05:39:03 PM CEST on magnetophon@irc.oftc.net (irc)</h3>
+<font size="2">(05:39:08 PM)</font><b> The topic for #debian is: wheezy (7.1) released: /msg dpkg squeeze-&gt;wheezy | /msg dpkg 7.1 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | FAQ: <a href="http://deb.li/IRCFAQ">http://deb.li/IRCFAQ</a></b><br/>
+<font size="2">(05:40:25 PM)</font><b> somazero left the room (quit: ).</b><br/>
+<font size="2">(05:41:35 PM)</font><b> paul [<em>~paul@2.218.183.227</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:41:46 PM)</font> <b>paul:</b></font> hi<br/>
+<font size="2">(05:41:58 PM)</font><b> paul is now known as Guest5241</b><br/>
+<font size="2">(05:42:16 PM)</font><b> Guest5241 left the room (quit: ).</b><br/>
+<font size="2">(05:42:20 PM)</font><b> daniel-s__ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(05:42:41 PM)</font><b> andipermadi left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(05:42:41 PM)</font><b> daniel-s__ [<em>~daniel-s@2001:388:608c:4c40:a8da:af4:db0a:e6ab</em>] entered the room.</b><br/>
+<font size="2">(05:43:20 PM)</font><b> wardhan [<em>~wardhan@1.23.71.70</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:43:40 PM)</font> <b>cousin_luigi:</b></font> wompa: net.ipv6.conf.all.forwarding=1 and net.ipv6.conf.default.forwarding=1<br/>
+<font size="2">(05:44:09 PM)</font><b> wardhan left the room (quit: ).</b><br/>
+<font size="2">(05:44:14 PM)</font><b> AbsintheSyringe left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(05:45:01 PM)</font><b> LtL [<em>~irssi@0001a4d6.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(05:45:01 PM)</font><b> orangensaft17 [<em>~orangensa@2a02:908:f441:3180:ca60:ff:fe5a:f3b7</em>] entered the room.</b><br/>
+<font size="2">(05:45:44 PM)</font><b> UCC [<em>~unknown@109.96.47.216</em>] entered the room.</b><br/>
+<font size="2">(05:45:54 PM)</font><b> bafu left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:46:32 PM)</font> <b>wompa:</b></font> cousin_luigi, try to run &quot;sysctl --system&quot;, it should mimic what happens at boot<br/>
+<font color="#A82F2F"><font size="2">(05:47:59 PM)</font> <b>wompa:</b></font> cousin_luigi, if it doesn&apos;t work I suspect it might be ip6table rules not allowing forwarding<br/>
+<font size="2">(05:47:59 PM)</font><b> piper_ left the room (quit: Quit: Leaving...).</b><br/>
+<font size="2">(05:48:17 PM)</font><b> project2501a left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(05:48:27 PM)</font><b> wolfpack [<em>~quassel@c-69-247-161-158.hsd1.mo.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(05:48:52 PM)</font><b> project2501a [<em>~kot@109.171.130.210</em>] entered the room.</b><br/>
+<font size="2">(05:48:53 PM)</font><b> hele_ [<em>~hele@212-149-213-33.bb.dnainternet.fi</em>] entered the room.</b><br/>
+<font size="2">(05:49:35 PM)</font><b> Natureshadow left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(05:50:07 PM)</font><b> zerick [<em>~eocrospom@190.187.21.53</em>] entered the room.</b><br/>
+<font size="2">(05:50:29 PM)</font><b> whirli [<em>~whirli@a88-113-159-160.elisa-laajakaista.fi</em>] entered the room.</b><br/>
+<font size="2">(05:51:07 PM)</font><b> ecc [<em>~ecc@0001b877.user.oftc.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:51:21 PM)</font> <b>wompa:</b></font> cousin_luigi, you are trying to make it to an ipv6 router for other computers on your local network?<br/>
+<font size="2">(05:51:36 PM)</font><b> dvs left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(05:51:51 PM)</font> <b>cousin_luigi:</b></font> wompa: yes, and everything works as long as I set those variables by hand and start the required daemons<br/>
+<font color="#A82F2F"><font size="2">(05:53:35 PM)</font> <b>wompa:</b></font> what daemons?<br/>
+<font color="#A82F2F"><font size="2">(05:53:43 PM)</font> <b>cousin_luigi:</b></font> radvd and isc-dhcp-server<br/>
+<font color="#A82F2F"><font size="2">(05:54:14 PM)</font> <b>wompa:</b></font> those should start at boot<br/>
+<font color="#A82F2F"><font size="2">(05:54:54 PM)</font> <b>wompa:</b></font> radvd might not start if your network interfaces are not properly configured in /etc/network/interfaces<br/>
+<font size="2">(05:54:54 PM)</font><b> wolfpack_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:55:02 PM)</font> <b>wompa:</b></font> or radvd.conf<br/>
+<font size="2">(05:58:00 PM)</font><b> Stummi left the room (quit: Quit: Verlassend).</b><br/>
+<font size="2">(05:58:00 PM)</font><b> lOOza left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(05:58:47 PM)</font><b> bluewater left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(05:59:15 PM)</font><b> vladuke [<em>~vladuke@178.130.42.7</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:00:32 PM)</font> <b>cousin_luigi:</b></font> wompa: radvd won&apos;t start without that variable being set<br/>
+<font size="2">(06:01:20 PM)</font><b> ken [<em>~ken@89.100.76.126</em>] entered the room.</b><br/>
+<font size="2">(06:01:43 PM)</font><b> fernandopso left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(06:01:48 PM)</font><b> fernandopso [<em>~fernandop@189.26.236.27.static.gvt.net.br</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:02:03 PM)</font> <b>ken:</b></font> hi<br/>
+<font size="2">(06:03:00 PM)</font><b> ken left the room (quit: ).</b><br/>
+<font size="2">(06:03:25 PM)</font><b> Calinou left the room (quit: Quit: Excess Flood).</b><br/>
+<font size="2">(06:03:42 PM)</font><b> _aeris_ is now known as [_aeris_]</b><br/>
+<font size="2">(06:04:29 PM)</font><b> jackyf [<em>~jackyf@a91-152-218-179.elisa-laajakaista.fi</em>] entered the room.</b><br/>
+<font size="2">(06:04:36 PM)</font><b> gudjon [<em>~quassel@h161n5-g-kt-d2.ias.bredband.telia.com</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:06:02 PM)</font> <b>wompa:</b></font> cousin_luigi, oh I see. You could try to comment those two lines in sysctl.conf and make a new file with those lines (not commented) and put the file in /etc/sysctl.d/ipv6forwarding.conf (or some other filename in that folder with a .conf at the end of the filename)<br/>
+<font size="2">(06:06:11 PM)</font><b> TheRealBobi left the room (quit: Quit: Lost terminal).</b><br/>
+<font size="2">(06:08:38 PM)</font><b> wintellect left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(06:11:07 PM)</font><b> AbsintheSyringe2 [<em>~havoc@sd440645e.adsl.online.nl</em>] entered the room.</b><br/>
+<font size="2">(06:11:24 PM)</font><b> hfp left the room (quit: Quit: hfp).</b><br/>
+<font size="2">(06:11:43 PM)</font><b> gudjon left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(06:12:03 PM)</font><b> lOOza [<em>~lOOza@12.175-201-80.adsl-dyn.isp.belgacom.be</em>] entered the room.</b><br/>
+<font size="2">(06:12:48 PM)</font><b> nightsh left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(06:13:24 PM)</font><b> f8l [<em>~f8l@83.238.59.68</em>] entered the room.</b><br/>
+<font size="2">(06:14:28 PM)</font><b> ribe [<em>~ribe@c83-255-131-198.bredband.comhem.se</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:14:43 PM)</font> <b>cousin_luigi:</b></font> wompa: no dice<br/>
+<font size="2">(06:15:25 PM)</font><b> skylark [<em>~skylark@115.248.130.148</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:16:09 PM)</font> <b>cousin_luigi:</b></font> wompa: is procps supposed to be only inside /etc/rcS.d ?<br/>
+<font size="2">(06:16:14 PM)</font><b> qwertyuiop [<em>~qwertyuio@71-223-32-158.phnx.qwest.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:16:28 PM)</font> <b>wompa:</b></font> idk<br/>
+<font size="2">(06:16:29 PM)</font><b> nightsh [<em>~nightsh@5-12-104-160.residential.rdsnet.ro</em>] entered the room.</b><br/>
+<font size="2">(06:17:01 PM)</font><b> qwertyuiop left the room (quit: ).</b><br/>
+<font size="2">(06:21:05 PM)</font><b> orangensaft171 [<em>~orangensa@2a02:908:f441:3180:ca60:ff:fe5a:f3b7</em>] entered the room.</b><br/>
+<font size="2">(06:21:08 PM)</font><b> phdeswer left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(06:21:20 PM)</font><b> orangensaft17 left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(06:22:37 PM)</font> <b>wompa:</b></font> cousin_luigi, did you really try to just check, and not set it, what the value was right after boot?<br/>
+<font size="2">(06:22:39 PM)</font><b> skylark left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(06:22:54 PM)</font><b> daniel-s__ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(06:23:15 PM)</font><b> daniel-s__ [<em>~daniel-s@2001:388:608c:4c40:a8da:af4:db0a:e6ab</em>] entered the room.</b><br/>
+<font size="2">(06:23:48 PM)</font><b> fernandopso left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(06:23:49 PM)</font><b> ac [<em>~ac@2001:910:113f:1:ca0a:a9ff:fe73:fc0b</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:24:06 PM)</font> <b>cousin_luigi:</b></font> wompa: I let radvd test it for me<br/>
+<font size="2">(06:25:30 PM)</font><b> athul [<em>~athul@117.216.84.163</em>] entered the room.</b><br/>
+<font size="2">(06:26:20 PM)</font><b> swo [<em>~swo@84.118.179.170</em>] entered the room.</b><br/>
+<font size="2">(06:26:20 PM)</font><b> Dentych [<em>~Dentych@563413a0.rev.stofanet.dk</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:26:25 PM)</font> <b>cousin_luigi:</b></font> could it be some module not being loaded at the right moment?<br/>
+<font size="2">(06:26:29 PM)</font><b> brightstone left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(06:26:31 PM)</font> <b>wompa:</b></font> I&apos;d check it manually to see if we can trust radvd though<br/>
+<font color="#A82F2F"><font size="2">(06:27:04 PM)</font> <b>cousin_luigi:</b></font> ...<br/>
+<font color="#A82F2F"><font size="2">(06:27:05 PM)</font> <b>Dentych:</b></font> Hey. Should questions about debian software be in #debian-offtopic??<br/>
+<font color="#A82F2F"><font size="2">(06:27:27 PM)</font> <b>wompa:</b></font> Dentych, if you need help with the software this is the place for it<br/>
+<font color="#A82F2F"><font size="2">(06:27:42 PM)</font> <b>cousin_luigi:</b></font> wompa: <span style='text-decoration: underline;'>every</span> <span style='text-decoration: underline;'>single</span> <span style='text-decoration: underline;'>time</span> I checked after radvd complained the variable wasn&apos;t there<br/>
+<font color="#A82F2F"><font size="2">(06:28:14 PM)</font> <b>wompa:</b></font> cousin_luigi, I thought you said you let radvd test it for you?<br/>
+<font size="2">(06:28:28 PM)</font><b> mbaragiola left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(06:28:29 PM)</font><b> brightstone [<em>~oftc@2a00:1630:2:f00::3715:4159</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:28:47 PM)</font> <b>Dentych:</b></font> wompa, it&apos;s more of a software-finding kind of situtation. I&apos;m looking into some software to use for retailing. So I just wanted to hear various opinions on different kinds of softwares<br/>
+<font color="#A82F2F"><font size="2">(06:29:07 PM)</font> <b>athul:</b></font> hello<br/>
+<font size="2">(06:29:42 PM)</font><b> Greg left the room (quit: Quit: Ex-Chat).</b><br/>
+<font color="#A82F2F"><font size="2">(06:30:11 PM)</font> <b>wompa:</b></font> Dentych, if you need help to find applications you should tell us here some criterias on what you want to do, opinions about software would be -offtopic<br/>
+<font size="2">(06:30:38 PM)</font><b> toggy [<em>~toggy@79.135.34.98</em>] entered the room.</b><br/>
+<font size="2">(06:31:12 PM)</font><b> arand [<em>~arand@194.150.18.52</em>] entered the room.</b><br/>
+<font size="2">(06:31:17 PM)</font><b> toggy left the room (quit: ).</b><br/>
+<font size="2">(06:32:40 PM)</font><b> lzzluca left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(06:32:45 PM)</font><b> athul left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(06:33:03 PM)</font><b> athul [<em>~athul@117.216.84.163</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:33:18 PM)</font> <b>cousin_luigi:</b></font> wompa: that&apos;s what I&apos;ve been doing for the last 5 reboots or so<br/>
+<font size="2">(06:33:28 PM)</font><b> Dentych_ [<em>~Dentych@563413a0.rev.stofanet.dk</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:33:30 PM)</font> <b>wompa:</b></font> okay..<br/>
+<font size="2">(06:33:51 PM)</font><b> xiaokucha left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(06:33:54 PM)</font> <b>Dentych_:</b></font> wompa: Sorry, my computer just gave me BSoD.. If you replied, could you write it again please?<br/>
+<font color="#A82F2F"><font size="2">(06:34:02 PM)</font> <b>wompa:</b></font> Dentych, if you need help to find applications you should tell us here some criterias on what you want to do, opinions about software would be -offtopic<br/>
+<font size="2">(06:34:04 PM)</font><b> athul left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:34:08 PM)</font> <b>cousin_luigi:</b></font> I tried adding sysctl -p to /etc/rc.local but it didn&apos;t work<br/>
+<font size="2">(06:34:36 PM)</font><b> jmux left the room (quit: ).</b><br/>
+<font size="2">(06:34:38 PM)</font><b> lzzluca [<em>~lzzluca@62.30.95.161</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:35:12 PM)</font> <b>Dentych_:</b></font> wompa: Alright then. Well, I&apos;m looking for software to act as stock management as well as an upfront cash register application. Do you guys know of any software that does this on linux?<br/>
+<font color="#A82F2F"><font size="2">(06:35:15 PM)</font> <b>wompa:</b></font> cousin_luigi, what is the output of radvd when it doesn&apos;t start?<br/>
+<font color="#A82F2F"><font size="2">(06:35:24 PM)</font> <b>Dentych_:</b></font> Preferably not a web application<br/>
+<font size="2">(06:35:59 PM)</font><b> rahul_ [<em>~rahul@117.239.152.146</em>] entered the room.</b><br/>
+<font size="2">(06:36:34 PM)</font><b> trendynick [<em>~trendynic@5-12-9-56.residential.rdsnet.ro</em>] entered the room.</b><br/>
+<font size="2">(06:36:48 PM)</font><b> Dentych left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(06:37:48 PM)</font><b> octal left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(06:37:48 PM)</font> <b>cousin_luigi:</b></font> wompa: http://pastebin.com/3etpdeTu<br/>
+<font size="2">(06:37:52 PM)</font><b> broucarie left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(06:37:58 PM)</font><b> patwotrik left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(06:38:36 PM)</font><b> paranoiko_koalaki [<em>~paranoiko@77.49.216.124.dsl.dyn.forthnet.gr</em>] entered the room.</b><br/>
+<font size="2">(06:41:19 PM)</font><b> brightstone left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(06:41:55 PM)</font><b> lzzluca left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(06:42:15 PM)</font><b> otherflow [<em>~otherflow@0001b16c.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(06:43:13 PM)</font><b> olspookishmagus left the room (quit: Quit: All for nothing).</b><br/>
+<font size="2">(06:43:54 PM)</font><b> paranoiko_koalaki left the room (quit: Quit: Αποχώρησε).</b><br/>
+<font size="2">(06:44:13 PM)</font><b> arand left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(06:44:25 PM)</font><b> Gromit left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(06:44:27 PM)</font><b> lzzluca [<em>~lzzluca@62.30.95.161</em>] entered the room.</b><br/>
+<font size="2">(06:45:50 PM)</font><b> dtcrshr [<em>~datacrush@2801:88:f7a:100:240:a7ff:fe13:bf7</em>] entered the room.</b><br/>
+<font size="2">(06:47:02 PM)</font><b> CruX- [<em>~crux@190.176.183.246</em>] entered the room.</b><br/>
+<font size="2">(06:48:54 PM)</font><b> EZmoney [<em>~EZmoney@c-98-215-109-129.hsd1.il.comcast.net</em>] entered the room.</b><br/>
+<font size="2">(06:49:14 PM)</font><b> weather-god [<em>~oftc-webi@14.194.191.10</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:49:26 PM)</font> <b>weather-god:</b></font> O/<br/>
+<font size="2">(06:51:03 PM)</font><b> [_aeris_] is now known as _aeris_</b><br/>
+<font size="2">(06:52:06 PM)</font><b> arand [<em>~arand@nl116-226-21.student.uu.se</em>] entered the room.</b><br/>
+<font size="2">(06:52:31 PM)</font><b> brightstone [<em>~oftc@2a00:1630:2:f00::3715:4159</em>] entered the room.</b><br/>
+<font size="2">(06:52:32 PM)</font><b> ddf left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(06:54:14 PM)</font><b> Calinou [<em>~Calinou@106.209.118.80.rev.sfr.net</em>] entered the room.</b><br/>
+<font size="2">(06:56:03 PM)</font><b> ddf [<em>fdd@00015d15.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(06:56:21 PM)</font><b> flavio [<em>~flavio@host68-185-dynamic.20-87-r.retail.telecomitalia.it</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:56:39 PM)</font> <b>flavio:</b></font> ciao a tutti<br/>
+<font color="#A82F2F"><font size="2">(06:56:50 PM)</font> <b>cousin_luigi:</b></font> ok, sysctl problem solved<br/>
+<font size="2">(06:56:53 PM)</font><b> amphi_ [<em>~amphi@39.Red-83-35-150.dynamicIP.rima-tde.net</em>] entered the room.</b><br/>
+<font size="2">(06:57:28 PM)</font><b> flavio left the room (quit: ).</b><br/>
+<font size="2">(06:57:48 PM)</font><b> jrklein left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(06:57:53 PM)</font><b> jrklein [<em>~osx@proxy.dnihost.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:58:22 PM)</font> <b>wompa:</b></font> cousin_luigi, cool, what did you do?<br/>
+<font color="#A82F2F"><font size="2">(06:58:40 PM)</font> <b>cousin_luigi:</b></font> wompa: added /sbin/sysctl -p /etc/sysctl.conf to /etc/rc.local as suggested<br/>
+<font size="2">(06:58:45 PM)</font><b> amphi left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(06:58:55 PM)</font> <b>cousin_luigi:</b></font> still, radvd won&apos;t start automatically at boot<br/>
+<font size="2">(06:59:00 PM)</font><b> flavio [<em>~flavio@host68-185-dynamic.20-87-r.retail.telecomitalia.it</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:59:19 PM)</font> <b>flavio:</b></font> ciaoooo<br/>
+<font color="#A82F2F"><font size="2">(06:59:34 PM)</font> <b>wompa:</b></font> It doesn&apos;t seem to output very much, there might be more info in /var/log/syslog<br/>
+<font color="#A82F2F"><font size="2">(06:59:42 PM)</font> <b>weather-god:</b></font> Okay<br/>
+<font color="#A82F2F"><font size="2">(06:59:42 PM)</font> <b>weather-god:</b></font> Ciao<br/>
+<font color="#A82F2F"><font size="2">(07:00:07 PM)</font> <b>cousin_luigi:</b></font> wompa: couldn&apos;t find anything<br/>
+<font color="#A82F2F"><font size="2">(07:00:16 PM)</font> <b>wompa:</b></font> ok<br/>
+<font size="2">(07:00:33 PM)</font><b> flavio left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(07:00:40 PM)</font> <b>cousin_luigi:</b></font> I suspect it won&apos;t start because rc.local is executed later<br/>
+<font size="2">(07:01:05 PM)</font><b> pamaury_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:01:35 PM)</font> <b>wompa:</b></font> cousin_luigi, you can try to add &quot;IgnoreIfMissing on&quot; to proper interface in radvd.conf<br/>
+<font color="#A82F2F"><font size="2">(07:02:14 PM)</font> <b>cousin_luigi:</b></font> wompa: trying<br/>
+<font size="2">(07:02:35 PM)</font><b> patwotrik [<em>~patwotrik@nl118-171-98.student.uu.se</em>] entered the room.</b><br/>
+<font size="2">(07:04:23 PM)</font><b> vladuke left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:06:59 PM)</font> <b>Dentych_:</b></font> Does anyone know if LemonPOS is still active?<br/>
+<font size="2">(07:08:36 PM)</font><b> wallzero left the room (quit: Quit: ZNC - http://znc.in).</b><br/>
+<font color="#A82F2F"><font size="2">(07:09:08 PM)</font> <b>bhuddah:</b></font> Dentych_: sourceforge says there was a recent update to the testing version of it<br/>
+<font size="2">(07:09:22 PM)</font><b> mfseeker left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:09:36 PM)</font><b> mfseeker_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:09:40 PM)</font><b> oiaw [<em>~aiu@24-246-51-209.cable.teksavvy.com</em>] entered the room.</b><br/>
+<font size="2">(07:09:53 PM)</font><b> wallzero [<em>~webmaster@37.235.50.13</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:09:53 PM)</font> <b>Dentych_:</b></font> bhuddah: Yeah, I saw that too. But the website seems completely abandoned<br/>
+<font color="#A82F2F"><font size="2">(07:10:26 PM)</font> <b>oiaw:</b></font> can Debian install microsoft office with wine, or does it only work with Ubuntu?<br/>
+<font color="#A82F2F"><font size="2">(07:11:17 PM)</font> <b>sney:</b></font> wine is wine<br/>
+<font color="#A82F2F"><font size="2">(07:11:18 PM)</font> <b>bhuddah:</b></font> Dentych_: i wouldn&apos;t trust it to build a shop around it. i must say. but pos systems are really a mess. openbravopos was nice, until it was replaced with a non-opensource pos<br/>
+<font color="#A82F2F"><font size="2">(07:11:19 PM)</font> <b>SynrG:</b></font> that would depend on the version of wine. i believe winehq&apos;s database is where to figure that out<br/>
+<font color="#A82F2F"><font size="2">(07:11:22 PM)</font> <b>cousin_luigi:</b></font> wompa: nothing to do, I wonder if there&apos;s a debug switch somewhere<br/>
+<font color="#A82F2F"><font size="2">(07:11:27 PM)</font> <b>SynrG:</b></font> !wine<br/>
+<font color="#A82F2F"><font size="2">(07:11:28 PM)</font> <b>dpkg:</b></font> Wine (Wine Is Not an Emulator) is an application intended to allow execution of Microsoft Windows programs on Unix-like operating systems.  Application compatibility database: http://appdb.winehq.org/ .  http://wiki.winehq.org/HowTo  http://wiki.winehq.org/FAQ  #winehq on irc.freenode.net.  See &lt;mmap_min_addr&gt; regarding use of Win16 binaries.  See also &lt;newer wine&gt;.<br/>
+<font size="2">(07:11:43 PM)</font><b> mfseeker [<em>~mfseeker@142.68.26.3</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:12:06 PM)</font> <b>Dentych_:</b></font> bhuddah: You don&apos;t think lemonPOS seems good enough? If openbravopos is no longer open source, do you know of any good ones out there that is?<br/>
+<font color="#A82F2F"><font size="2">(07:12:34 PM)</font> <b>bhuddah:</b></font> Dentych_: do you plan to use it for retail or for what?<br/>
+<font color="#A82F2F"><font size="2">(07:12:43 PM)</font> <b>sney:</b></font> believe me, the last thing you want is an unmaintained mess managing your sales and inventory<br/>
+<font size="2">(07:12:50 PM)</font><b> Powersoul [<em>~chris@66.211.49.88</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:13:12 PM)</font> <b>Dentych_:</b></font> sney: Yeah, that is true. That&apos;s why lemonPOS&apos;s website concerns me.<br/>
+<font color="#A82F2F"><font size="2">(07:13:23 PM)</font> <b>bhuddah:</b></font> Dentych_: unicentapos is based on the old java openbravopos. and pretty much alive, afaik.<br/>
+<font color="#A82F2F"><font size="2">(07:13:26 PM)</font> <b>Dentych_:</b></font> bhuddah: I&apos;d like to look into both retailing systems and restaurant systems<br/>
+<font size="2">(07:13:38 PM)</font><b> Powersoul left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(07:13:52 PM)</font> <b>bhuddah:</b></font> Dentych_: for restaurants there is nothing which works. i have surveyed the market quite a bit about a year ago<br/>
+<font color="#A82F2F"><font size="2">(07:14:07 PM)</font> <b>Dentych_:</b></font> bhuddah: The POS doesn&apos;t have to be the same for retail and the resturant part, but I would like to be able to set up POS&apos;s for both types of stores.<br/>
+<font size="2">(07:14:13 PM)</font><b> unknown_ [<em>~unknown@109.96.47.216</em>] entered the room.</b><br/>
+<font size="2">(07:14:14 PM)</font><b> fernandopso [<em>~fernandop@189.26.236.27.static.gvt.net.br</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:14:22 PM)</font> <b>Dentych_:</b></font> bhuddah: Okay, shame. Let&apos;s keep it at retailing then<br/>
+<font size="2">(07:14:26 PM)</font><b> unknown_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:14:26 PM)</font><b> UCC left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(07:14:30 PM)</font><b> fernandopso left the room (quit: ).</b><br/>
+<font size="2">(07:14:43 PM)</font><b> UCC [<em>~unknown@109.96.47.216</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:15:13 PM)</font> <b>bhuddah:</b></font> Dentych_: then unicentapos. i had a customer for which i build a system around openbravopos and afaik it still runs fine.<br/>
+<font color="#A82F2F"><font size="2">(07:15:23 PM)</font> <b>wompa:</b></font> cousin_luigi, I don&apos;t know about debug switch. Do you have a /var/log/radvd.log ?<br/>
+<font color="#A82F2F"><font size="2">(07:15:31 PM)</font> <b>bhuddah:</b></font> and it is customizable as long as you know some java<br/>
+<font size="2">(07:18:04 PM)</font><b> fr33k [<em>~fvb@546B3A3F.cm-12-4a.dynamic.ziggo.nl</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:18:16 PM)</font> <b>wompa:</b></font> http://sourceforge.net/mailarchive/forum.php?forum_name=lemonpos-general mailing list seems a bit active, a question about its activity at the bottom too<br/>
+<font color="#A82F2F"><font size="2">(07:20:02 PM)</font> <b>Dentych_:</b></font> bhuddah: Alright. So.. Java.. Is unicentaPOS stable, good, fast, smooth, etc? I have my precautions when it comes to java :)<br/>
+<font color="#A82F2F"><font size="2">(07:20:25 PM)</font> <b>oiaw:</b></font> ubuntu seems to be better tested on wine than Debian<br/>
+<font size="2">(07:20:37 PM)</font><b> REalm [<em>~REalm@ip-77-221-67-132.kava.lt</em>] entered the room.</b><br/>
+<font size="2">(07:21:45 PM)</font><b> EZmoney left the room (Left the channel--&gt;).</b><br/>
+<font color="#A82F2F"><font size="2">(07:22:01 PM)</font> <b>bhuddah:</b></font> Dentych_: i would certainly try it. my experience with the predecessor are good.<br/>
+<font color="#A82F2F"><font size="2">(07:22:44 PM)</font> <b>bhuddah:</b></font> Dentych_: only problem i had (which was solvable) was some minor rounding issues concerning the calculation of VAT with the respective brutto and netto values<br/>
+<font size="2">(07:22:52 PM)</font><b> weather-god left the room (quit: ).</b><br/>
+<font size="2">(07:22:59 PM)</font><b> gusnan left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(07:24:22 PM)</font> <b>cousin_luigi:</b></font> wompa: I customised its location, but it doesn&apos;t work when launched on boot<br/>
+<font color="#A82F2F"><font size="2">(07:24:28 PM)</font> <b>wompa:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(07:24:34 PM)</font> <b>cousin_luigi:</b></font> this is bizarre<br/>
+<font size="2">(07:27:45 PM)</font><b> REalm left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(07:28:12 PM)</font><b> harobed left the room (quit: Quit: My MacBook Pro has gone to sleep. ZZZzzz…).</b><br/>
+<font color="#A82F2F"><font size="2">(07:29:00 PM)</font> <b>Dentych_:</b></font> bhuddah: I&apos;ll give it a try<br/>
+<font color="#A82F2F"><font size="2">(07:29:32 PM)</font> <b>bhuddah:</b></font> Dentych_: good luck. if you have further questions, you can try to contact me :)<br/>
+<font size="2">(07:29:41 PM)</font><b> Dentych_ is now known as Dentych</b><br/>
+<font color="#A82F2F"><font size="2">(07:30:26 PM)</font> <b>Dentych:</b></font> bhuddah: Alright, thank you a lot :)<br/>
+<font color="#A82F2F"><font size="2">(07:31:05 PM)</font> <b>Dentych:</b></font> brb<br/>
+<font size="2">(07:31:07 PM)</font><b> Dentych left the room (quit: ).</b><br/>
+<font size="2">(07:31:42 PM)</font><b> TheRealBobi [<em>~TheRealBo@ks3098765.kimsufi.com</em>] entered the room.</b><br/>
+<font size="2">(07:34:10 PM)</font><b> Dentych [<em>~Dentych@563413a0.rev.stofanet.dk</em>] entered the room.</b><br/>
+<font size="2">(07:34:48 PM)</font><b> EZmoney [<em>~EZmoney@c-98-215-109-129.hsd1.il.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:37:55 PM)</font> <b>roughnecks:</b></font> cousin_luigi: i have a similar setup, IPv6 from sixxs, radvd and net.ipv6.conf.all.forwarding=1 set in /etc/sysctl.conf, since squeeze was stable. Here all is working as expected, though. Don&apos;t know if i can help you someway<br/>
+<font size="2">(07:38:03 PM)</font><b> wolfpack__ [<em>~quassel@c-69-247-161-158.hsd1.mo.comcast.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:38:58 PM)</font> <b>roughnecks:</b></font> Also, i didn&apos;t read the entire conversation<br/>
+<font size="2">(07:38:58 PM)</font><b> byonk left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:39:05 PM)</font><b> patwotrik left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:39:11 PM)</font><b> wardhan [<em>~wardhan@1.23.71.70</em>] entered the room.</b><br/>
+<font size="2">(07:41:10 PM)</font><b> wardhan left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(07:41:22 PM)</font> <b>Dentych:</b></font> bhuddah: Just a quick noob question, can unicentaPOS use mysql?<br/>
+<font color="#A82F2F"><font size="2">(07:41:51 PM)</font> <b>Dentych:</b></font> And does it support a admin server and then multiple POS&apos;s?<br/>
+<font size="2">(07:42:23 PM)</font><b> DemonJester left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:42:29 PM)</font><b> DemonJester [<em>~DemonJest@000131d2.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(07:43:30 PM)</font><b> idk [<em>~idk@h-208-6.a197.priv.bahnhof.se</em>] entered the room.</b><br/>
+<font size="2">(07:43:46 PM)</font><b> wolfpack left the room (quit: Read error: Operation timed out).</b><br/>
+<font color="#A82F2F"><font size="2">(07:45:39 PM)</font> <b>cousin_luigi:</b></font> roughnecks: the sysctl variable was only the first part of the problem and it has been solved. Now radvd starts regularly when invoked but not at boot and there isn&apos;t even a line of log.<br/>
+<font size="2">(07:45:44 PM)</font><b> rahul_ left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:46:57 PM)</font> <b>retroj:</b></font> in a default install, what provides usb drive automounting?  gvfs?<br/>
+<font size="2">(07:47:33 PM)</font><b> patwotrik [<em>~patwotrik@nl118-171-98.student.uu.se</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:48:12 PM)</font> <b>babilen:</b></font> retroj: My answer would be &quot;Nothing&quot;, but in Gnome it is handled by nautilus.<br/>
+<font color="#A82F2F"><font size="2">(07:48:38 PM)</font> <b>babilen:</b></font> retroj: gvfs is involved, but the functionality that was in gnome-automount-daemon before has been merged into nautilus<br/>
+<font color="#A82F2F"><font size="2">(07:49:46 PM)</font> <b>retroj:</b></font> thanks<br/>
+<font size="2">(07:49:56 PM)</font><b> llimeht left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:50:20 PM)</font><b> llimeht [<em>~stuart@themill.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(07:52:41 PM)</font><b> DemonJester left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:52:47 PM)</font><b> DemonJester [<em>~DemonJest@000131d2.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(07:53:09 PM)</font><b> f3y3n00rd [<em>~apofis@93-34-200-200.ip51.fastwebnet.it</em>] entered the room.</b><br/>
+<font size="2">(07:53:10 PM)</font><b> vrkalak left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(07:53:57 PM)</font><b> crose [<em>~John@116-66-190-109.dsl.ovh.fr</em>] entered the room.</b><br/>
+<font size="2">(07:54:39 PM)</font><b> faw [<em>~faw@faw.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(07:57:21 PM)</font><b> fae [<em>~fabrice@lec67-3-82-242-207-169.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(08:00:13 PM)</font><b> k4m0s3 [<em>~apofis@93-34-200-200.ip51.fastwebnet.it</em>] entered the room.</b><br/>
+<font size="2">(08:00:15 PM)</font><b> idk left the room (quit: Quit: WeeChat 0.3.8).</b><br/>
+<font size="2">(08:01:19 PM)</font><b> faw left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(08:02:19 PM)</font><b> faw [<em>~faw@faw.user.oftc.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:02:23 PM)</font> <b>retroj:</b></font> my setting of FS_MOUNTOPTIONS in /etc/usbmount/usbmount.conf is not being respected, and i don&apos;t understand why.  nautilus is not running (i&apos;m not in X), so the problem is something with usbmount<br/>
+<font size="2">(08:02:31 PM)</font><b> grammoboy [<em>~derick@5ED6A322.cm-7-7c.dynamic.ziggo.nl</em>] entered the room.</b><br/>
+<font size="2">(08:02:31 PM)</font><b> patwotrik left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(08:04:06 PM)</font><b> piper [<em>~piper@00012f3a.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(08:05:30 PM)</font><b> cesco [<em>~cesco@host165-255-dynamic.16-87-r.retail.telecomitalia.it</em>] entered the room.</b><br/>
+<font size="2">(08:05:45 PM)</font><b> cesco left the room (quit: ).</b><br/>
+<font size="2">(08:06:12 PM)</font><b> Black_Prince [<em>~Krejzi@00018ec1.user.oftc.net</em>] entered the room.</b><br/>
+<font size="2">(08:07:27 PM)</font><b> f3y3n00rd left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:08:05 PM)</font> <b>mshuler:</b></font> I only have one pure wheezy machine to look at - could someone running linux-image-3.2.0-4-686-pae_3.2.46-1+deb7u1 verify for me that uname returns &quot;3.2.46-1&quot; (without +deb7u1) - I was fidling with digitalocean&apos;s kernel config and kexec&apos;ing local kernel<br/>
+<font color="#A82F2F"><font size="2">(08:08:58 PM)</font> <b>Dentych:</b></font> bhuddah: Hmmmm... unicenta seems a little clumsy to me. It gives me &quot;Exception in thread &apos;AWT-EventQueue-0&apos; java.lang.NullPointerException&quot;..<br/>
+<font size="2">(08:09:09 PM)</font><b> f3y3n00rd [<em>~apofis@93-34-200-200.ip51.fastwebnet.it</em>] entered the room.</b><br/>
+<font size="2">(08:09:56 PM)</font><b> freex left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(08:10:17 PM)</font><b> Calinou left the room (quit: Quit: Excess Flood).</b><br/>
+<font size="2">(08:11:20 PM)</font><b> daniel-s__ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:11:45 PM)</font><b> daniel-s__ [<em>~daniel-s@2001:388:608c:4c40:a8da:af4:db0a:e6ab</em>] entered the room.</b><br/>
+<font size="2">(08:12:11 PM)</font><b> giles [<em>~giles@host81-139-179-121.in-addr.btopenworld.com</em>] entered the room.</b><br/>
+<font size="2">(08:13:22 PM)</font><b> giles left the room (quit: ).</b><br/>
+<font size="2">(08:14:25 PM)</font><b> jkf left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:14:25 PM)</font><b> grammoboy left the room (quit: Quit: Ex-Chat).</b><br/>
+<font size="2">(08:14:33 PM)</font><b> project2501a left the room (quit: Quit: Leaving...).</b><br/>
+<font size="2">(08:15:01 PM)</font><b> vrkalak [<em>~vrkalak@173.5.211.177</em>] entered the room.</b><br/>
+<font size="2">(08:15:18 PM)</font><b> mindauxxx [<em>~mindauxxx@cpe-184-59-49-159.wi.res.rr.com</em>] entered the room.</b><br/>
+<font size="2">(08:15:27 PM)</font><b> k4m0s3 left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:16:00 PM)</font><b> crose left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(08:16:16 PM)</font><b> k4m0s3 [<em>~apofis@93-34-200-200.ip51.fastwebnet.it</em>] entered the room.</b><br/>
+<font size="2">(08:16:47 PM)</font><b> mindauxxx left the room (quit: ).</b><br/>
+<font size="2">(08:20:07 PM)</font><b> fr33k left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:20:44 PM)</font><b> vladuke [<em>~vladuke@178.130.42.7</em>] entered the room.</b><br/>
+<font size="2">(08:21:19 PM)</font><b> skyegg left the room (quit: Quit: Ex-Chat).</b><br/>
+<font size="2">(08:21:43 PM)</font><b> hele_ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(08:21:55 PM)</font><b> hele_ [<em>~hele@212-149-213-33.bb.dnainternet.fi</em>] entered the room.</b><br/>
+<font size="2">(08:23:28 PM)</font><b> f3y3n00rd left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:23:48 PM)</font><b> f3y3n00rd [<em>~apofis@93-34-200-200.ip51.fastwebnet.it</em>] entered the room.</b><br/>
+<font size="2">(08:24:06 PM)</font><b> k4m0s3 left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(08:24:26 PM)</font><b> lOOza left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:24:52 PM)</font><b> jalalsfs [<em>~jalal@183.83.138.58</em>] entered the room.</b><br/>
+<font size="2">(08:27:25 PM)</font><b> [UP]Crystal [<em>~crystal@195.222.93.219</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:30:04 PM)</font> <b>mshuler:</b></font> never mind.. looks like DO is booting linux-image-3.2.0-4-686-pae_3.2.46-1_i386.deb and my kexec didn&apos;t work correctly<br/>
+<font size="2">(08:31:06 PM)</font><b> grammoboy [<em>~derick@5ED6A322.cm-7-7c.dynamic.ziggo.nl</em>] entered the room.</b><br/>
+<font size="2">(08:32:47 PM)</font><b> k4m0s3 [<em>~apofis@93-34-200-200.ip51.fastwebnet.it</em>] entered the room.</b><br/>
+<font size="2">(08:35:02 PM)</font><b> towo` left the room (quit: Quit: so, nu isser wech).</b><br/>
+<font size="2">(08:36:53 PM)</font><b> birch [<em>~reca@dhcp-187-32.gjk.dk</em>] entered the room.</b><br/>
+<font size="2">(08:39:47 PM)</font><b> harobed [<em>~stephane@sab57-2-82-236-241-203.fbx.proxad.net</em>] entered the room.</b><br/>
+<font size="2">(08:39:58 PM)</font><b> f3y3n00rd left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:40:27 PM)</font> <b>retroj:</b></font> aha.. might have found the problem<br/>
+<font size="2">(08:40:29 PM)</font><b> f3y3n00rd [<em>~apofis@93-34-200-200.ip51.fastwebnet.it</em>] entered the room.</b><br/>
+<font size="2">(08:42:42 PM)</font><b> Pitxyoki [<em>~PT-SC-257@a95-92-225-44.cpe.netcabo.pt</em>] entered the room.</b><br/>
+<font size="2">(08:43:18 PM)</font><b> cads left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:43:28 PM)</font><b> cads2 left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:43:37 PM)</font> <b>retroj:</b></font> yes.  there were entries in /etc/fstab for /dev/sdb1, /dev/sdb2, and /dev/sdc1, so usbmount was delegating to /etc/fstab instead of mounting the drive itself<br/>
+<font size="2">(08:43:57 PM)</font><b> calisto left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(08:44:24 PM)</font><b> hub [<em>~smuxi@grm-studby-128-39-149-158.studby.uia.no</em>] entered the room.</b><br/>
+<font size="2">(08:44:56 PM)</font><b> k4m0s3 left the room (quit: Ping timeout: 480 seconds).</b><br/>
+<font size="2">(08:48:02 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

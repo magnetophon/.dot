@@ -1,0 +1,332 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Fri 02 Jan 2015 09:24:12 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Fri 02 Jan 2015 09:24:12 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(09:24:12 AM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(09:24:12 AM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(10:14:32 AM)</font> <b>petern_:</b></font> I can&apos;t translate arabish :(<br/>
+<font color="#A82F2F"><font size="2">(10:15:32 AM)</font> <b>petern_:</b></font> (Or maybe it was just junk)<br/>
+<font color="#A82F2F"><font size="2">(10:19:47 AM)</font> <b>memesys:</b></font> wow first troll i am see here.<br/>
+<font color="#A82F2F"><font size="2">(01:59:27 PM)</font> <b>las:</b></font> xhoch3: you still to be suggesting that there is &quot;a solution&quot; to be found that avoids loading plugin DSP code into the host. <br/>
+<font color="#A82F2F"><font size="2">(01:59:33 PM)</font> <b>las:</b></font> s/still/still seem/<br/>
+<font color="#A82F2F"><font size="2">(02:01:19 PM)</font> <b>xhoch3:</b></font> yes, but as you already said this is non-trivial<br/>
+<font color="#A82F2F"><font size="2">(02:01:48 PM)</font> <b>xhoch3:</b></font> las, in fact, I think the current solution is more a hack to make it work rather than nice design<br/>
+<font color="#A82F2F"><font size="2">(02:02:14 PM)</font> <b>xhoch3:</b></font> but as it works and have no better idea, what can I say<br/>
+<font color="#A82F2F"><font size="2">(02:02:48 PM)</font> <b>xhoch3:</b></font> I just grabbed qjackctl and I am refactoring it now heavily<br/>
+<font color="#A82F2F"><font size="2">(02:03:31 PM)</font> <b>xhoch3:</b></font> probably I will ask Rui if I can take over the project if he doesn&apos;t want to maintain it anymore<br/>
+<font color="#A82F2F"><font size="2">(02:04:43 PM)</font> <b>las:</b></font> xhoch3: it isn&apos;t non-trivial, it is impossible in the general case<br/>
+<font color="#A82F2F"><font size="2">(02:04:49 PM)</font> <b>las:</b></font> xhoch3: i thought i explained that<br/>
+<font color="#A82F2F"><font size="2">(02:05:37 PM)</font> <b>las:</b></font> xhoch3: loading the plugin DSP code into the same address space isn&apos;t a hack, it is a nice design that works around virtual memory in modern operating systems<br/>
+<font color="#A82F2F"><font size="2">(02:06:12 PM)</font> <b>xhoch3:</b></font> las, you know the difference between an artist and a painter?<br/>
+<font color="#A82F2F"><font size="2">(02:06:17 PM)</font> <b>las:</b></font> xhoch3: if you want to speculate about what would be possible in a world with a single address space across the entire system, then be my guest<br/>
+<font color="#A82F2F"><font size="2">(02:06:31 PM)</font> <b>las:</b></font> xhoch3: but those systems are not available to the people who use DAWs<br/>
+<font color="#A82F2F"><font size="2">(02:07:06 PM)</font> <b>las:</b></font> xhoch3: i have a feeling that whatever your definition of the difference is, it is likely to be mildly insulting to one of them<br/>
+<font color="#A82F2F"><font size="2">(02:07:42 PM)</font> <b>xhoch3:</b></font> the artist sells what he wants to paint, the painter paints what he wants to sell<br/>
+<font color="#A82F2F"><font size="2">(02:08:25 PM)</font> <b>xhoch3:</b></font> I really like to think the artist way, I have something that I want and I am trying to get it<br/>
+<font color="#A82F2F"><font size="2">(02:08:33 PM)</font> <b>las:</b></font> xhoch3: to me, a design that has to be described in the following terms - &quot;well, it works as long you have &lt;some criteria here&gt;&quot; - is the hack<br/>
+<font color="#A82F2F"><font size="2">(02:09:01 PM)</font> <b>las:</b></font> xhoch3: and given the reality of modern computers and operating systems, any out-of-process solution for the DSP is necessarily going to have to be described in that way<br/>
+<font color="#A82F2F"><font size="2">(02:09:42 PM)</font> <b>las:</b></font> xhoch3: instead, what we have now is &quot;it works as long as you don&apos;t use crappy plugins&quot; which is still a limitation but one based on issues that would exist no matter what sort of design was in play<br/>
+<font color="#A82F2F"><font size="2">(02:10:10 PM)</font> <b>las:</b></font> xhoch3: sure, the broken plugin wouldn&apos;t taken down the DAW but it would still crash<br/>
+<font color="#A82F2F"><font size="2">(02:11:02 PM)</font> <b>las:</b></font> xhoch3: we paint upon the canvas offered us by the canvas makers<br/>
+<font color="#A82F2F"><font size="2">(02:11:14 PM)</font> <b>las:</b></font> xhoch3: we don&apos;t get to pick the properties of the canvas<br/>
+<font color="#A82F2F"><font size="2">(02:11:44 PM)</font> <b>las:</b></font> xhoch3: we can use various tricks to deal with some issues (such as coating it with gesso first to make it smoother and whiter)<br/>
+<font color="#A82F2F"><font size="2">(02:12:00 PM)</font> <b>las:</b></font> xhoch3: but fundamentally the CPU and the OS provide us with the substrate on which we do our work<br/>
+<font color="#A82F2F"><font size="2">(02:12:08 PM)</font> <b>nphilipp:</b></font> BTW: Happy new year everyone!<br/>
+<font color="#A82F2F"><font size="2">(02:12:52 PM)</font> <b>las:</b></font> xhoch3: i don&apos;t find it very productive to keep beating against whatever limitations they create, because i&apos;m more interested, to use your metaphor, in getting some paint down, somehow.<br/>
+<font color="#A82F2F"><font size="2">(02:13:36 PM)</font> <b>xhoch3:</b></font> oh, Picasso said that :P<br/>
+<font color="#A82F2F"><font size="2">(02:13:42 PM)</font> <b>xhoch3:</b></font> It is not my metaphor<br/>
+<font color="#A82F2F"><font size="2">(02:15:34 PM)</font> <b>xhoch3:</b></font> you don&apos;t know me personally much, but I do not think that opinion must be productive or not, that doesn&apos;t justify anything<br/>
+<font color="#A82F2F"><font size="2">(02:15:54 PM)</font> <b>xhoch3:</b></font> don&apos;t get me wrong, I didn&apos;t mean to be rude or something<br/>
+<font color="#A82F2F"><font size="2">(02:16:53 PM)</font> <b>xhoch3:</b></font> it&apos;s just my opinion that doesn&apos;t weigh in much anyways, given that I am the one that put the least amount of work into that problem here<br/>
+<font color="#A82F2F"><font size="2">(02:17:26 PM)</font> <b>las:</b></font> xhoch3: i just don&apos;t think that an opinion which is based on a fantasy operating system is really worth considering very much unless said operating system is close to become a non-fantasy<br/>
+<font color="#A82F2F"><font size="2">(02:18:12 PM)</font> <b>las:</b></font> xhoch3: it is equivalent to spending time discussing whether the right or left spiral in a unicorn&apos;s horn is more pleasing to the eye<br/>
+<font color="#A82F2F"><font size="2">(02:19:47 PM)</font> <b>xhoch3:</b></font> to be honest, I don&apos;t care about the OS, I just thought that loading effect plugins in the same process space is more awkward than having them separated and connected them through the audio systems&apos; router, and that to me, it feels better to have it separated. Not more or less.<br/>
+<font color="#A82F2F"><font size="2">(02:19:50 PM)</font> <b>las:</b></font> xhoch3: as long as we have operating systems which use virtual memory, then the cost of switching from one address space to another will continue to be non-trivial in the general case<br/>
+<font color="#A82F2F"><font size="2">(02:20:24 PM)</font> <b>las:</b></font> xhoch3: and since realtime low latency audio is a scenario in which costs like that matter, then this design limitation is an important one<br/>
+<font color="#A82F2F"><font size="2">(02:20:46 PM)</font> <b>xhoch3:</b></font> yes, you are going in technically and you are absolutely right<br/>
+<font color="#A82F2F"><font size="2">(02:20:56 PM)</font> <b>xhoch3:</b></font> I didn&apos;t dive that deep<br/>
+<font color="#A82F2F"><font size="2">(02:20:57 PM)</font> <b>las:</b></font> xhoch3: this isn&apos;t an application niche where you can get away with things like &quot;i don&apos;t care about the OS&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:21:23 PM)</font> <b>las:</b></font> xhoch3: i mean, the overwhelming majority of ardour&apos;s code doesn&apos;t care about the OS, obviously<br/>
+<font color="#A82F2F"><font size="2">(02:21:41 PM)</font> <b>las:</b></font> xhoch3: but details like this really do matter a lot if we want to avoid the &quot;it was working until i did X&quot; scenario<br/>
+<font color="#A82F2F"><font size="2">(02:22:01 PM)</font> <b>las:</b></font> (or perhaps more accurately, minimize the occurence of such scenarios)<br/>
+<font color="#A82F2F"><font size="2">(02:23:50 PM)</font> <b>xhoch3:</b></font> look, I explain to you my intention. What I said was based on an abstract feeling, for example as if I said that I prefer that Ardours interface is dark gray rather than bright pink. Just that. If for some technical reason the interface HAD to be bright pink, well then what can I say. But in the end I still don&apos;t like it.<br/>
+<font color="#A82F2F"><font size="2">(02:24:18 PM)</font> <b>xhoch3:</b></font> Same here with the plugins.<br/>
+<font color="#A82F2F"><font size="2">(02:24:33 PM)</font> <b>las:</b></font> xhoch3: i am not a religious person, but i always liked this line:<br/>
+<font color="#A82F2F"><font size="2">(02:25:25 PM)</font> <b>las:</b></font> xhoch3: God grant me the serenity to accept the things I cannot change, the courage to change the things I can, and the wisdom to know the difference. (Reinhold Neibuhr)<br/>
+<font color="#A82F2F"><font size="2">(02:26:19 PM)</font> <b>xhoch3:</b></font> Yeah, I am an atheist, and I think this line sounds nice but it is.. well you know what :P<br/>
+<font color="#A82F2F"><font size="2">(02:26:46 PM)</font> <b>xhoch3:</b></font> Still I didn&apos;t criticise your decision.<br/>
+<font color="#A82F2F"><font size="2">(02:26:53 PM)</font> <b>las:</b></font> xhoch3: i know<br/>
+<font color="#A82F2F"><font size="2">(02:27:14 PM)</font> <b>las:</b></font> xhoch3: i&apos;m just encouraging you to (a) know the difference (b) accept the things you cannot change :)<br/>
+<font color="#A82F2F"><font size="2">(02:27:50 PM)</font> <b>xhoch3:</b></font> oh I do! :) I would have gone mad otherwise<br/>
+<font color="#A82F2F"><font size="2">(02:29:00 PM)</font> <b>xhoch3:</b></font> there are so many imperfections I can see that my time is not enough to correct them. Still I am not blind.<br/>
+<font color="#A82F2F"><font size="2">(02:29:14 PM)</font> <b>las:</b></font> xhoch3: actually, when i think about another comparison (with my brother, a programmer crazed with the desire for better programming languages), i think actually that my view is somewhat different<br/>
+<font color="#A82F2F"><font size="2">(02:29:50 PM)</font> <b>las:</b></font> xhoch3: the world needs people who will push on with &quot;crazy&quot; ideas and make things better<br/>
+<font color="#A82F2F"><font size="2">(02:30:33 PM)</font> <b>las:</b></font> xhoch3: but sometimes it helps if the other people offer a little guidance to point out the true target of their desires<br/>
+<font color="#A82F2F"><font size="2">(02:31:08 PM)</font> <b>las:</b></font> xhoch3: when i worked at the university of washington CS department, i thought that what they were doing with the Opal operating system was amazing and fascinating. <br/>
+<font color="#A82F2F"><font size="2">(02:32:09 PM)</font> <b>las:</b></font> xhoch3: but i don&apos;t work on amazing and fascinating operating systems. if you really want to create a world in which we avoid what you see as an ugly hack, then i think you need to work on them. that is, the target for fixing this particular problem isn&apos;t a DAW or some related application or library layer, but operating systems themselves<br/>
+<font color="#A82F2F"><font size="2">(02:32:26 PM)</font> <b>las:</b></font> xhoch3: and lord knows they could use some crazy new ideas to make them better<br/>
+<font color="#A82F2F"><font size="2">(02:32:46 PM)</font> <b>las:</b></font> xhoch3: at least, crazy new ideas that actually made it out into the world<br/>
+<font color="#A82F2F"><font size="2">(02:33:28 PM)</font> <b>xhoch3:</b></font> oh, I am working full-time on mobile app development on all platforms, Qt in my spare time and to some playing around with the &quot;internet of things&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:33:37 PM)</font> <b>xhoch3:</b></font> I don&apos;t have big ideas<br/>
+<font color="#A82F2F"><font size="2">(02:34:43 PM)</font> <b>xhoch3:</b></font> there is so much to do and learn that I prefer focussing on a small subset of what I think might be important in the future<br/>
+<font color="#A82F2F"><font size="2">(02:35:01 PM)</font> <b>xhoch3:</b></font> I have no crazy ideas<br/>
+<font color="#A82F2F"><font size="2">(02:36:01 PM)</font> <b>xhoch3:</b></font> plus I am a musician, 27 years old and knowing that for most people, I have passed almost half of my life<br/>
+<font color="#A82F2F"><font size="2">(02:36:26 PM)</font> <b>las:</b></font> xhoch3: your math seems a little off<br/>
+<font color="#A82F2F"><font size="2">(02:36:44 PM)</font> <b>las:</b></font> xhoch3: i&apos;m almost twice your age and still imagine that i have a fairly large chunk of my life left :)<br/>
+<font color="#A82F2F"><font size="2">(02:38:41 PM)</font> <b>xhoch3:</b></font> at work I have a colleague who constantly having big ideas<br/>
+<font color="#A82F2F"><font size="2">(02:38:53 PM)</font> <b>xhoch3:</b></font> at the end of the day, he is not able to finish them<br/>
+<font color="#A82F2F"><font size="2">(02:39:17 PM)</font> <b>xhoch3:</b></font> and if he does, nobody is interested in his work<br/>
+<font color="#A82F2F"><font size="2">(02:39:54 PM)</font> <b>xhoch3:</b></font> sometimes I think leaning back and constantly making small efforts works a lot better<br/>
+<font color="#A82F2F"><font size="2">(03:16:57 PM)</font> <b>damo22:</b></font> the header of every protools .ptf file i have here is the same, it consists of a few ascii bytes that represent a bit pattern, im trying different xor patterns based on this bitfield but so far came up blank<br/>
+<font color="#A82F2F"><font size="2">(03:18:21 PM)</font> <b>damo22:</b></font> im expecting that the rest of the file is ascii encoded with a simple xor pattern<br/>
+<font color="#A82F2F"><font size="2">(03:19:29 PM)</font> <b>xhoch3:</b></font> las, do you use qjackctl?<br/>
+<font color="#A82F2F"><font size="2">(03:20:52 PM)</font> <b>xhoch3:</b></font> damo22, you are working on importing protools files?<br/>
+<font color="#A82F2F"><font size="2">(03:20:58 PM)</font> <b>xhoch3:</b></font> scratching a personal itch?<br/>
+<font color="#A82F2F"><font size="2">(03:21:02 PM)</font> <b>damo22:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(03:22:12 PM)</font> <b>damo22:</b></font> trying to give something back to ardour<br/>
+<font color="#A82F2F"><font size="2">(03:22:18 PM)</font> <b>xhoch3:</b></font> can you upload such a ptf file somewhere?<br/>
+<font color="#A82F2F"><font size="2">(03:22:29 PM)</font> <b>damo22:</b></font> sure<br/>
+<font color="#A82F2F"><font size="2">(03:22:32 PM)</font> <b>xhoch3:</b></font> probably it helps if more people have a look at it<br/>
+<font color="#A82F2F"><font size="2">(03:24:07 PM)</font> <b>damo22:</b></font> xhoch3: www.zamaudio.com/mbox2/ruffkharma.ptf<br/>
+<font color="#A82F2F"><font size="2">(03:26:17 PM)</font> <b>damo22:</b></font> xhoch3: the first byte is a 0x03, then there are 16 bytes that are ascii for &quot;0010111100101011&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:26:46 PM)</font> <b>damo22:</b></font> this is always the same<br/>
+<font color="#A82F2F"><font size="2">(03:27:08 PM)</font> <b>las:</b></font> xhoch3: i do use qjackctl most of the time<br/>
+<font color="#A82F2F"><font size="2">(03:27:42 PM)</font> <b>las:</b></font> xhoch3: i even hack on it from time to time<br/>
+<font color="#A82F2F"><font size="2">(03:27:44 PM)</font> <b>xhoch3:</b></font> oh ok, I am asking because I will make changes on the user interface<br/>
+<font color="#A82F2F"><font size="2">(03:27:59 PM)</font> <b>las:</b></font> xhoch3: the BIG thing that it needs is separation of parameters into basic and advanced<br/>
+<font color="#A82F2F"><font size="2">(03:28:14 PM)</font> <b>las:</b></font> xhoch3: we regularly get people in here who have messed up their setup by trying to use the setup dialog<br/>
+<font color="#A82F2F"><font size="2">(03:28:22 PM)</font> <b>xhoch3:</b></font> well, I am on known ground with qjackctl<br/>
+<font color="#A82F2F"><font size="2">(03:28:37 PM)</font> <b>las:</b></font> xhoch3: the current setup dialog is actually a risk for most new users<br/>
+<font color="#A82F2F"><font size="2">(03:29:12 PM)</font> <b>xhoch3:</b></font> if you could precisely specify which settings are dangerous and which not, I could easily do that<br/>
+<font color="#A82F2F"><font size="2">(03:29:38 PM)</font> <b>xhoch3:</b></font> probably just make screenshot and mark everthing that should go in advanced or vice versa<br/>
+<font color="#A82F2F"><font size="2">(03:31:01 PM)</font> <b>damo22:</b></font> im guessing it&apos;s some combination of XOR operator and three consecutive bytes<br/>
+<font color="#A82F2F"><font size="2">(03:31:25 PM)</font> <b>damo22:</b></font> with that 16 bit pattern<br/>
+<font color="#A82F2F"><font size="2">(03:33:39 PM)</font> <b>las:</b></font> xhoch3: http://community.ardour.org/files/qjackclean.png<br/>
+<font color="#A82F2F"><font size="2">(03:33:55 PM)</font> <b>las:</b></font> xhoch3: everything outlined in red should be moved to another &quot;Advanced&quot; tab<br/>
+<font color="#A82F2F"><font size="2">(03:34:20 PM)</font> <b>las:</b></font> hang on<br/>
+<font color="#A82F2F"><font size="2">(03:35:00 PM)</font> <b>las:</b></font> xhoch3: ok, there we go<br/>
+<font color="#A82F2F"><font size="2">(03:37:02 PM)</font> <b>xhoch3:</b></font> las, thx, got it<br/>
+<font color="#A82F2F"><font size="2">(03:37:50 PM)</font> <b>las:</b></font> xhoch3: oops, the &quot;MIDI Driver&quot; dropdown should not have been outlined<br/>
+<font color="#A82F2F"><font size="2">(03:38:08 PM)</font> <b>las:</b></font> xhoch3: and the &quot;Name&quot; dropdown should possibly be dropped entirely<br/>
+<font color="#A82F2F"><font size="2">(03:39:03 PM)</font> <b>xhoch3:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(03:39:36 PM)</font> <b>xhoch3:</b></font> still refactoring<br/>
+<font color="#A82F2F"><font size="2">(03:39:43 PM)</font> <b>las:</b></font> damo22: if i was a betting man, i&apos;d guess that the .ptf file is binary, not ascii<br/>
+<font color="#A82F2F"><font size="2">(03:40:03 PM)</font> <b>las:</b></font> damo22: and contains actual dumps from data structures in the program<br/>
+<font color="#A82F2F"><font size="2">(03:40:09 PM)</font> <b>las:</b></font> damo22: but i&apos;m not a betting man<br/>
+<font color="#A82F2F"><font size="2">(03:41:15 PM)</font> <b>damo22:</b></font> las: but i think it is trivially xor encoded<br/>
+<font color="#A82F2F"><font size="2">(03:41:16 PM)</font> <b>damo22:</b></font> and there are repetitive strings in it<br/>
+<font color="#A82F2F"><font size="2">(03:42:06 PM)</font> <b>damo22:</b></font> such as track names i reckon<br/>
+<font color="#A82F2F"><font size="2">(03:42:54 PM)</font> <b>damo22:</b></font> i just havent figured it out yet<br/>
+<font color="#A82F2F"><font size="2">(03:44:02 PM)</font> <b>xhoch3:</b></font> you know what SIEMENS did with PLC code files?<br/>
+<font color="#A82F2F"><font size="2">(03:44:12 PM)</font> <b>xhoch3:</b></font> they saved the source as databases<br/>
+<font color="#A82F2F"><font size="2">(03:44:22 PM)</font> <b>xhoch3:</b></font> and they still do<br/>
+<font color="#A82F2F"><font size="2">(03:44:50 PM)</font> <b>xhoch3:</b></font> which made it impossible to do version control on them<br/>
+<font color="#A82F2F"><font size="2">(03:45:41 PM)</font> <b>xhoch3:</b></font> it was the most ugly and most awkward IDE I worked with<br/>
+<font color="#A82F2F"><font size="2">(03:46:24 PM)</font> <b>xhoch3:</b></font> and I am pretty sure they violated free software licences<br/>
+<font color="#A82F2F"><font size="2">(03:46:30 PM)</font> <b>xhoch3:</b></font> I can&apos;t prove it though<br/>
+<font color="#A82F2F"><font size="2">(03:47:42 PM)</font> <b>xhoch3:</b></font> but during the install process I am sure I clicked away GPL licenses for their proprietary product<br/>
+<font color="#A82F2F"><font size="2">(04:18:34 PM)</font> <b>damo22:</b></font> las: i think the header is ascii and the rest is binary<br/>
+<font color="#A82F2F"><font size="2">(04:20:04 PM)</font> <b>damo22:</b></font> but the binary part has some trivial encoding scheme<br/>
+<font color="#A82F2F"><font size="2">(04:20:42 PM)</font> <b>damo22:</b></font> just to prevent the strings from being readable<br/>
+<font color="#A82F2F"><font size="2">(04:21:21 PM)</font> <b>tom-:</b></font> reverse engineering closed file formats is reserved as a riddle for the skilled. /me thumbs up<br/>
+<font color="#A82F2F"><font size="2">(04:26:59 PM)</font> <b>damo22:</b></font> well im guessing once i unlock the track names, and file handles, the rest will just be timestamps for the offsets etc<br/>
+<font color="#A82F2F"><font size="2">(04:28:03 PM)</font> <b>damo22:</b></font> hopefully in some sane number format<br/>
+<font color="#A82F2F"><font size="2">(04:29:12 PM)</font> <b>damo22:</b></font> id just want to be able to generate a list of wavs and offsets from 0<br/>
+<font color="#A82F2F"><font size="2">(04:29:13 PM)</font> <b>tom-:</b></font> damo22: some time ago i &quot;unlocked&quot; the touchosc editor. it sends a chunk of xml to the device, with labels encoded as base64. that was more easy :)<br/>
+<font color="#A82F2F"><font size="2">(04:29:47 PM)</font> <b>las:</b></font> damo22: IIRC, PT puts region data *into* wav files in a chunk<br/>
+<font color="#A82F2F"><font size="2">(04:29:55 PM)</font> <b>tom-:</b></font> i guess that was to overcome any encoding oddity and solve it ~end to end (editor to interface &quot;player&quot;)<br/>
+<font color="#A82F2F"><font size="2">(04:30:29 PM)</font> <b>damo22:</b></font> las: err you mean it shoves the timestamps into the actual wav data?<br/>
+<font color="#A82F2F"><font size="2">(04:30:53 PM)</font> <b>damo22:</b></font> wav headers<br/>
+<font color="#A82F2F"><font size="2">(04:31:43 PM)</font> <b>las:</b></font> damo22: yes<br/>
+<font color="#A82F2F"><font size="2">(04:31:53 PM)</font> <b>las:</b></font> damo22: they may also be in the ptf file as well<br/>
+<font color="#A82F2F"><font size="2">(04:32:10 PM)</font> <b>damo22:</b></font> well thats annoying, but im guessing they are also in the ptf file<br/>
+<font color="#A82F2F"><font size="2">(04:32:12 PM)</font> <b>las:</b></font> damo22: use sndfile-info on a PT-created wav, you&apos;ll see signs of what i mean<br/>
+<font color="#A82F2F"><font size="2">(04:33:56 PM)</font> <b>damo22:</b></font> if i can write a translator for ptf2ardour with basic region matching that would make me happy<br/>
+<font color="#062585"><font size="2">(04:40:27 PM)</font> <b>***tom-</b></font> wonders if unpublished binary file formats are mainly here to a) hide oddities of the format b) make it &quot;secret&quot; so nobody can read, c) parse it quicker or d) make it non-transferable by all means<br/>
+<font color="#A82F2F"><font size="2">(04:45:54 PM)</font> <b>damo22:</b></font> the number 0x3 could represent the 3rd generation of protools file formats<br/>
+<font color="#A82F2F"><font size="2">(04:46:01 PM)</font> <b>damo22:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(04:46:58 PM)</font> <b>damo22:</b></font> and then the 16 ascii digits could be the xor pattern<br/>
+<font color="#A82F2F"><font size="2">(04:50:46 PM)</font> <b>tom-:</b></font> damo22: that is applied to all following data?<br/>
+<font color="#A82F2F"><font size="2">(04:51:49 PM)</font> <b>damo22:</b></font> yeah something like that<br/>
+<font color="#A82F2F"><font size="2">(04:52:03 PM)</font> <b>damo22:</b></font> i wrote a c program that does it but no cigar<br/>
+<font color="#A82F2F"><font size="2">(04:52:04 PM)</font> <b>tom-:</b></font> damo22: will you even find an embedded license key? heh ;)<br/>
+<font color="#A82F2F"><font size="2">(04:53:04 PM)</font> <b>damo22:</b></font> im expecting to find some readable strings when the xor pattern is found<br/>
+<font color="#A82F2F"><font size="2">(04:53:10 PM)</font> <b>xhoch3:</b></font> damo22, drop avid a mail<br/>
+<font color="#A82F2F"><font size="2">(04:53:13 PM)</font> <b>xhoch3:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(04:53:48 PM)</font> <b>damo22:</b></font> haha<br/>
+<font color="#A82F2F"><font size="2">(05:06:22 PM)</font> <b>Joeboy:</b></font> damo22: Or drop the aatranslator guy a mail?<br/>
+<font color="#A82F2F"><font size="2">(05:07:39 PM)</font> <b>damo22:</b></font> could do<br/>
+<font color="#A82F2F"><font size="2">(05:16:06 PM)</font> <b>the_CLA:</b></font> las: Hm, looking at your screenshot... Maybe &quot;Latency I/O&quot; might be somewhat &quot;advanced&quot; but absolutely necessary to get accurate alignment. So IMHO that shouldn&apos;t go into an &quot;advanced&quot; tab. Also not sure about the &quot;Timeout&quot;, as at some point tended to get zombies without increasing the default.<br/>
+<font color="#A82F2F"><font size="2">(05:20:13 PM)</font> <b>xhoch3:</b></font> I think I will break the &quot;panel with a lot of buttons&quot; paradigm of QJackCtl<br/>
+<font color="#A82F2F"><font size="2">(05:20:24 PM)</font> <b>xhoch3:</b></font> instead I make it a regular windows with a menu<br/>
+<font color="#A82F2F"><font size="2">(05:20:29 PM)</font> <b>xhoch3:</b></font> window*<br/>
+<font color="#A82F2F"><font size="2">(05:50:31 PM)</font> <b>las:</b></font> the_CLA: the idea is to remove things that are not needed for initial setup<br/>
+<font color="#A82F2F"><font size="2">(05:50:44 PM)</font> <b>las:</b></font> the_CLA: to present a very simplified view of the parameters for first time users<br/>
+<font color="#A82F2F"><font size="2">(05:50:55 PM)</font> <b>las:</b></font> the_CLA: while still providing easy access to (almost) all others<br/>
+<font color="#A82F2F"><font size="2">(05:51:01 PM)</font> <b>las:</b></font> the_CLA: the server name thing needs to die, though<br/>
+<font color="#A82F2F"><font size="2">(06:57:08 PM)</font> <b>damo22:</b></font> yep its a mostly ascii encoded format check this out after i applied some xor scheme: http://pastebin.com/raw.php?i=6UyDrNuV<br/>
+<font color="#A82F2F"><font size="2">(07:02:13 PM)</font> <b>damo22:</b></font> the key i used isnt quite right which is why there are missing characters in the strings<br/>
+<font size="2">(08:08:17 PM)</font><b> kmunkki_ is now known as kmunkki</b><br/>
+<font color="#A82F2F"><font size="2">(08:46:44 PM)</font> <b>Cayden:</b></font> Hi. None of the articles have helped me on entering notes. This is very unintuitive software.<br/>
+<font size="2">(08:55:13 PM)</font><b> Cayden left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(09:13:04 PM)</font> <b>Miao:</b></font> do I understand right? the next official release of ardour will be the latest of the 3 version?<br/>
+<font color="#A82F2F"><font size="2">(09:13:44 PM)</font> <b>Miao:</b></font> I mean, after the next release in 3.*<br/>
+<font color="#A82F2F"><font size="2">(09:13:47 PM)</font> <b>rgareus:</b></font> Miao: as things are now it&apos;ll be the first of the 4.x version<br/>
+<font color="#A82F2F"><font size="2">(09:13:55 PM)</font> <b>Miao:</b></font> ops, sorry<br/>
+<font size="2">(09:13:57 PM)</font><b> Miao is now known as MaurizioB</b><br/>
+<font color="#A82F2F"><font size="2">(09:14:27 PM)</font> <b>MaurizioB:</b></font> rgareus: ah, so there will not be another 3.*?<br/>
+<font color="#A82F2F"><font size="2">(09:15:41 PM)</font> <b>rgareus:</b></font> personally I don&apos;t care. in Ardour&apos;s case the version it&apos;s just a number.<br/>
+<font color="#A82F2F"><font size="2">(09:15:57 PM)</font> <b>MaurizioB:</b></font> good point<br/>
+<font color="#A82F2F"><font size="2">(09:16:13 PM)</font> <b>rgareus:</b></font> there is/was the idea to just name releases (after Eno Albums) and the next Ardour release would be called &apos;no pussyfooting&apos;<br/>
+<font color="#A82F2F"><font size="2">(09:16:32 PM)</font> <b>MaurizioB:</b></font> I like that :)<br/>
+<font color="#A82F2F"><font size="2">(09:17:23 PM)</font> <b>MaurizioB:</b></font> so, they would be named following the chronology of Eno&apos;s discography, I suppose<br/>
+<font color="#A82F2F"><font size="2">(09:17:40 PM)</font> <b>rgareus:</b></font> there are two issues. find out if a version is newer/later and paying subscribers vs one-time downloaders (see ardour.org/download). The major version *number* is useful<br/>
+<font color="#A82F2F"><font size="2">(09:20:09 PM)</font> <b>edogawa_:</b></font> haha<br/>
+<font color="#A82F2F"><font size="2">(09:20:24 PM)</font> <b>MaurizioB:</b></font> Well, for the first one, looking for discography would be enough, for the second one, maybe there could be another way to think about subscriptions<br/>
+<font color="#A82F2F"><font size="2">(09:20:40 PM)</font> <b>rgareus:</b></font> MaurizioB: but yes Eno discogaphy incl. collaborations<br/>
+<font color="#A82F2F"><font size="2">(09:21:14 PM)</font> <b>MaurizioB:</b></font> rgareus: that is a very long list of ardour versions ;)<br/>
+<font color="#A82F2F"><font size="2">(09:21:31 PM)</font> <b>rgareus:</b></font> MaurizioB: distro&apos;s will have a field time patching &apos;sort --version-sort&apos; to include Eno ablums :)<br/>
+<font color="#A82F2F"><font size="2">(09:21:50 PM)</font> <b>rgareus:</b></font> MaurizioB: we hope Eno can keep up :D<br/>
+<font color="#A82F2F"><font size="2">(09:21:54 PM)</font> <b>MaurizioB:</b></font> that would be great<br/>
+<font color="#A82F2F"><font size="2">(09:21:55 PM)</font> <b>MaurizioB:</b></font> haaghha<br/>
+<font color="#A82F2F"><font size="2">(10:12:22 PM)</font> <b>h2mster:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(10:30:55 PM)</font> <b>h2mster:</b></font> do you know if harrison mixbus supports rewire?<br/>
+<font color="#A82F2F"><font size="2">(10:31:49 PM)</font> <b>rgareus:</b></font> h2mster: not directly. it uses jack<br/>
+<font color="#A82F2F"><font size="2">(10:32:23 PM)</font> <b>rgareus:</b></font> h2mster: I don&apos;t know if you can bridge jack&lt;&gt;rewire somehow.  in any case jack is very similar to rewire<br/>
+<font color="#A82F2F"><font size="2">(10:36:03 PM)</font> <b>h2mster:</b></font> mainly i need reason to run via jack    cant find a clear positive on that<br/>
+<font color="#A82F2F"><font size="2">(10:36:40 PM)</font> <b>rgareus:</b></font> h2mster: which OS?<br/>
+<font color="#A82F2F"><font size="2">(10:37:07 PM)</font> <b>rgareus:</b></font> h2mster: windows or OSX?<br/>
+<font color="#A82F2F"><font size="2">(10:38:51 PM)</font> <b>h2mster:</b></font> windows  this is why i asked for the mixbus<br/>
+<font color="#A82F2F"><font size="2">(10:44:31 PM)</font> <b>rgareus:</b></font> h2mster: I have no experiese there, I&apos;m sorry. Maybe someone else does.<br/>
+<font color="#A82F2F"><font size="2">(10:44:31 PM)</font> <b>las:</b></font> h2mster: you can run reason via JACK<br/>
+<font color="#A82F2F"><font size="2">(10:44:31 PM)</font> <b>las:</b></font> h2mster: JACK appears as an alternate ASIO device for reason to use<br/>
+<font color="#A82F2F"><font size="2">(10:44:31 PM)</font> <b>rgareus:</b></font> h2mster: FWIW, ardour does run on windows, as well: http://nightly.ardour.org/  - it&apos;s not a mixbus replacement though.<br/>
+<font color="#A82F2F"><font size="2">(10:44:31 PM)</font> <b>LAbot:</b></font> Title: Ardour - Nightly Builds (at nightly.ardour.org)<br/>
+<font color="#A82F2F"><font size="2">(10:49:15 PM)</font> <b>h2mster:</b></font> thx LAbot<br/>
+<font color="#A82F2F"><font size="2">(10:50:14 PM)</font> <b>damo22:</b></font> rgareus: i&apos;ve nearly figured out the protools format, there is a small riddle i need to solve that is similar to the 003 riddle<br/>
+<font color="#A82F2F"><font size="2">(10:51:11 PM)</font> <b>h2mster:</b></font> so  what i do in mixbus cant be done by people running ardour on linux?  but if i chosse to use the nightly build can be used anywhere?<br/>
+<font color="#A82F2F"><font size="2">(10:52:35 PM)</font> <b>rgareus:</b></font> h2mster: there&apos;s also a mixbus version for GNU/Linux.  the main differences Ardour&lt;&gt;Mixbus are: Mibux offers commercial support and has build-in DSP (EQ,compression etc) on the mix-busses<br/>
+<font color="#A82F2F"><font size="2">(10:53:33 PM)</font> <b>h2mster:</b></font> ok  for what is the 29$ ardour import plug-in there ?<br/>
+<font color="#A82F2F"><font size="2">(10:55:33 PM)</font> <b>rgareus:</b></font> damo22: what&apos;s the riddle?<br/>
+<font color="#A82F2F"><font size="2">(10:56:01 PM)</font> <b>damo22:</b></font> rgareus: the ptf files are encoded with a simple XOR pattern<br/>
+<font color="#A82F2F"><font size="2">(10:56:22 PM)</font> <b>damo22:</b></font> i found one of the keys that decrypt a particular ptf file<br/>
+<font color="#A82F2F"><font size="2">(10:56:44 PM)</font> <b>damo22:</b></font> but i cant figure out how to get the key<br/>
+<font color="#A82F2F"><font size="2">(10:57:38 PM)</font> <b>rgareus:</b></font> h2mster: can you provide an URL or a bit more context? 29$ plugin where?<br/>
+<font color="#A82F2F"><font size="2">(10:59:28 PM)</font> <b>damo22:</b></font> the key for my ptf file is: 00 e8 d0 b8 a0 88 70 58 40 28 10 f8 e0 c8 b0 98 80 68 50 38 20 08 f0 d8 c0 a8 90 78 60 48 30 18<br/>
+<font color="#A82F2F"><font size="2">(10:59:41 PM)</font> <b>rgareus:</b></font> damo22: did you try 12345 as master key :D<br/>
+<font color="#A82F2F"><font size="2">(11:00:10 PM)</font> <b>damo22:</b></font> when i xor the first half of the key with the second half i get a regular pattern<br/>
+<font color="#16569E"><font size="2">(11:00:16 PM)</font> <b>magnetophon:</b></font> rgareus: I have that exact combination on my lugage!!!   :D<br/>
+<font color="#A82F2F"><font size="2">(11:01:02 PM)</font> <b>rgareus:</b></font> damo22: that&apos;s quite a long key<br/>
+<font color="#A82F2F"><font size="2">(11:01:15 PM)</font> <b>rgareus:</b></font> for simple xor<br/>
+<font color="#A82F2F"><font size="2">(11:01:26 PM)</font> <b>damo22:</b></font> yes, but it decrypts perfectly i think<br/>
+<font color="#A82F2F"><font size="2">(11:01:31 PM)</font> <b>h2mster:</b></font> http://creativepost.co.uk/   i guess i dont need this to import ardour projects but to import others   the webside left clues there<br/>
+<font color="#A82F2F"><font size="2">(11:01:33 PM)</font> <b>LAbot:</b></font> Title: AVToolKit (at creativepost.co.uk)<br/>
+<font color="#A82F2F"><font size="2">(11:01:37 PM)</font> <b>las:</b></font> h2mster: that is a separate application that handles AAF<br/>
+<font color="#A82F2F"><font size="2">(11:01:52 PM)</font> <b>las:</b></font> h2mster: it is a windows application not developed by the core ardour team<br/>
+<font color="#A82F2F"><font size="2">(11:02:02 PM)</font> <b>h2mster:</b></font> what ptf file?<br/>
+<font color="#A82F2F"><font size="2">(11:02:08 PM)</font> <b>las:</b></font> h2mster: some people definitely find it useful, but we don&apos;t really have any comments on it<br/>
+<font color="#A82F2F"><font size="2">(11:02:19 PM)</font> <b>las:</b></font> h2mster: the discussion about PTF is not addressed to you :)<br/>
+<font color="#A82F2F"><font size="2">(11:05:25 PM)</font> <b>h2mster:</b></font> k  i guess i get the mixbus  reminds me a lot of my fav mixer samplitude   does your project get funds by that buy?  <br/>
+<font color="#A82F2F"><font size="2">(11:06:36 PM)</font> <b>rgareus:</b></font> damo22: I started at the numbers for 3mins. I don&apos;t see an  obvious pattern yet.<br/>
+<font color="#A82F2F"><font size="2">(11:07:03 PM)</font> <b>h2mster:</b></font> did you try: http://blog.didierstevens.com/programs/xorsearch/   <br/>
+<font color="#A82F2F"><font size="2">(11:07:04 PM)</font> <b>LAbot:</b></font> Title: XORSearch &amp; XORStrings | Didier Stevens (at blog.didierstevens.com)<br/>
+<font color="#A82F2F"><font size="2">(11:07:11 PM)</font> <b>h2mster:</b></font> lo<br/>
+<font color="#A82F2F"><font size="2">(11:07:35 PM)</font> <b>damo22:</b></font> key[i] ^ key[i+16] = 0x80<br/>
+<font color="#A82F2F"><font size="2">(11:07:38 PM)</font> <b>h2mster:</b></font> magic ;))<br/>
+<font color="#A82F2F"><font size="2">(11:07:56 PM)</font> <b>las:</b></font> h2mster: each purchase of mixbus does help ardour development<br/>
+<font color="#A82F2F"><font size="2">(11:08:11 PM)</font> <b>h2mster:</b></font> perfect  so i buy this  thx<br/>
+<font color="#A82F2F"><font size="2">(11:08:39 PM)</font> <b>rgareus:</b></font> damo22: how many files do you have?  if you load/save the same file in protools again. is the key identical after save?<br/>
+<font color="#A82F2F"><font size="2">(11:09:10 PM)</font> <b>damo22:</b></font> i dont have protools installed anywhere anymore, just a few ptf files laying around<br/>
+<font color="#A82F2F"><font size="2">(11:10:09 PM)</font> <b>rgareus:</b></font> damo22: too bad. I suppose it would be much easier to start with a bit brute-force.  10 sessions all just one track with a fancy name.<br/>
+<font color="#A82F2F"><font size="2">(11:10:52 PM)</font> <b>damo22:</b></font> i have one decoded<br/>
+<font color="#A82F2F"><font size="2">(11:11:03 PM)</font> <b>rgareus:</b></font> then look for that &quot;fancy name&quot; in _all_ 10 sessions<br/>
+<font color="#A82F2F"><font size="2">(11:11:24 PM)</font> <b>rgareus:</b></font> damo22: I saw the hexdump earlier.<br/>
+<font color="#A82F2F"><font size="2">(11:11:53 PM)</font> <b>damo22:</b></font> i mean, i have a complete one<br/>
+<font color="#A82F2F"><font size="2">(11:12:05 PM)</font> <b>damo22:</b></font> not that mess earlier<br/>
+<font color="#A82F2F"><font size="2">(11:12:36 PM)</font> <b>rgareus:</b></font> damo22: is it meaningful ascii (XML or something)?<br/>
+<font color="#A82F2F"><font size="2">(11:14:29 PM)</font> <b>h2mster:</b></font> there are neat toll in kali linux   if you arent to lazy to install a vm    you can even run it as a docker-app<br/>
+<font color="#A82F2F"><font size="2">(11:14:46 PM)</font> <b>h2mster:</b></font> xor kali linux   brings up the up to date tools<br/>
+<font color="#A82F2F"><font size="2">(11:15:17 PM)</font> <b>damo22:</b></font> rgareus: http://pastebin.com/raw.php?i=z5HRsejT<br/>
+<font color="#A82F2F"><font size="2">(11:17:32 PM)</font> <b>rgareus:</b></font> damo22: that looks indeed like the xor part worked<br/>
+<font color="#A82F2F"><font size="2">(11:17:50 PM)</font> <b>damo22:</b></font> i know right?<br/>
+<font color="#A82F2F"><font size="2">(11:18:37 PM)</font> <b>rgareus:</b></font> damo22: and you say the xor-key is different for every file.<br/>
+<font color="#A82F2F"><font size="2">(11:18:55 PM)</font> <b>damo22:</b></font> yeah, every file i have tried has a different key<br/>
+<font color="#A82F2F"><font size="2">(11:18:56 PM)</font> <b>rgareus:</b></font> damo22: in that case, I hazard a guess that some part in the header or footer of the file is a &apos;seed&apos; that defines the xor pattern.<br/>
+<font color="#A82F2F"><font size="2">(11:19:16 PM)</font> <b>h2mster:</b></font> is ardour in any way related to audacity?<br/>
+<font color="#A82F2F"><font size="2">(11:19:24 PM)</font> <b>h2mster:</b></font> or vs<br/>
+<font color="#A82F2F"><font size="2">(11:19:49 PM)</font> <b>rgareus:</b></font> h2mster: Ardour is a Digital Audio Workstation (non destructive).   Audacity is a soundfile editor<br/>
+<font color="#A82F2F"><font size="2">(11:20:10 PM)</font> <b>damo22:</b></font> rgareus: maybe the timestamp on the file sets the key?<br/>
+<font color="#A82F2F"><font size="2">(11:20:19 PM)</font> <b>rgareus:</b></font> h2mster: there&apos;s some overlap in functionality, but the workflow approach is different.<br/>
+<font color="#A82F2F"><font size="2">(11:22:02 PM)</font> <b>rgareus:</b></font> damo22: unlikley. just copying a session would void the key.<br/>
+<font color="#A82F2F"><font size="2">(11:22:32 PM)</font> <b>damo22:</b></font> rgareus: what about the filename (stored in the session)<br/>
+<font color="#A82F2F"><font size="2">(11:22:51 PM)</font> <b>damo22:</b></font> its in the header<br/>
+<font color="#A82F2F"><font size="2">(11:23:15 PM)</font> <b>rgareus:</b></font> damo22: not sure. I suppose there are users who just rename it also FAT case-sensitivity would make that fragile<br/>
+<font color="#A82F2F"><font size="2">(11:23:53 PM)</font> <b>damo22:</b></font> yeah, but the key could be related to the original filename given to the session which is stored in the header itself, not read by the filesystem i mean<br/>
+<font color="#A82F2F"><font size="2">(11:23:56 PM)</font> <b>rgareus:</b></font> damo22: given that they used simple XOR, I suppose it&apos;s in the header<br/>
+<font color="#A82F2F"><font size="2">(11:24:18 PM)</font> <b>h2mster:</b></font> as i study informatics  i am still keen on what is to be decrypted... <br/>
+<font color="#A82F2F"><font size="2">(11:25:06 PM)</font> <b>rgareus:</b></font> damo22: I&apos;m pretty sure you can copy a ProTool Sesion to CD (iso) and then use that on a different platform.<br/>
+<font color="#A82F2F"><font size="2">(11:25:55 PM)</font> <b>rgareus:</b></font> damo22: as for the initial seed. no idea. I can only guess.  but if I were to do it, I didn&apos;t use the session-name or file-name.<br/>
+<font color="#A82F2F"><font size="2">(11:26:23 PM)</font> <b>damo22:</b></font> yea i know, i mean, the key used to seed the xor could be related to the original filename given to the session, which is read by the program in the header each time<br/>
+<font color="#A82F2F"><font size="2">(11:26:54 PM)</font> <b>rgareus:</b></font> they might have a small LUT though.  like 4bytes &apos;seed&apos; -&gt; 16byte XOR table.<br/>
+<font color="#A82F2F"><font size="2">(11:26:58 PM)</font> <b>damo22:</b></font> that would explain why the seed is different for each file i have<br/>
+<font color="#A82F2F"><font size="2">(11:27:11 PM)</font> <b>damo22:</b></font> s/seed/key<br/>
+<font color="#A82F2F"><font size="2">(11:27:50 PM)</font> <b>damo22:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(11:27:51 PM)</font> <b>rgareus:</b></font> aah. OK. Now I understand why you mentioned the name.<br/>
+<font color="#A82F2F"><font size="2">(11:29:36 PM)</font> <b>damo22:</b></font> 00000150  00 72 75 66 66 6b 68 61  72 6d 61 2e 70 74 66 00  |.ruffkharma.ptf.|<br/>
+<font color="#A82F2F"><font size="2">(11:29:36 PM)</font> <b>damo22:</b></font> 00000160  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|<br/>
+<font color="#A82F2F"><font size="2">(11:29:52 PM)</font> <b>rgareus:</b></font> ruffkharma ?  LOL<br/>
+<font color="#A82F2F"><font size="2">(11:30:30 PM)</font> <b>damo22:</b></font> theres a row of zeroes after the name, it might spill the beans on the xor pattern<br/>
+<font color="#A82F2F"><font size="2">(11:30:42 PM)</font> <b>rgareus:</b></font> padding?<br/>
+<font color="#A82F2F"><font size="2">(11:31:16 PM)</font> <b>damo22:</b></font> maybe<br/>
+<font color="#A82F2F"><font size="2">(11:32:12 PM)</font> <b>damo22:</b></font> at offset 0xe0 its more interesting<br/>
+<font color="#A82F2F"><font size="2">(11:32:40 PM)</font> <b>damo22:</b></font> to have a row of zeroes before any variable length strings<br/>
+<font color="#A82F2F"><font size="2">(11:33:21 PM)</font> <b>damo22:</b></font> that must be it<br/>
+<font color="#A82F2F"><font size="2">(11:34:19 PM)</font> <b>h2mster:</b></font> what is it?  is the project lost and the optical device is all that&apos;s left?<br/>
+<font color="#A82F2F"><font size="2">(11:36:14 PM)</font> <b>h2mster:</b></font> or is it you saved it somewhere @se and want to open it on maudio protools?<br/>
+<font color="#A82F2F"><font size="2">(11:36:48 PM)</font> <b>damo22:</b></font> i want to give Ardour the ability to open .ptf files<br/>
+<font color="#A82F2F"><font size="2">(11:37:12 PM)</font> <b>xhoch3:</b></font> las, I am refactoring some code and noticed a lot of duplication in QJackCtl and QJackAudio that I wrote<br/>
+<font color="#A82F2F"><font size="2">(11:37:16 PM)</font> <b>rgareus:</b></font> h2mster: damo&apos;s reverse engineering the pro-tools file format<br/>
+<font color="#A82F2F"><font size="2">(11:37:47 PM)</font> <b>xhoch3:</b></font> there are a few bits missing, since I didn&apos;t have the use cases before, but now I need to get a full list of JACK clients connected to the server<br/>
+<font color="#A82F2F"><font size="2">(11:40:59 PM)</font> <b>rgareus:</b></font> xhoch3: you query all ports (and infer clients from that)<br/>
+<font color="#A82F2F"><font size="2">(11:41:43 PM)</font> <b>rgareus:</b></font> xhoch3: jack_get_ports() http://jackaudio.org/api/group__PortSearching.html <br/>
+<font color="#A82F2F"><font size="2">(11:41:43 PM)</font> <b>LAbot:</b></font> Title: JACK-AUDIO-CONNECTION-KIT: Looking up ports (at jackaudio.org)<br/>
+<font color="#A82F2F"><font size="2">(11:46:36 PM)</font> <b>h2mster:</b></font> bought it   thx for the support<br/>
+<font color="#A82F2F"><font size="2">(11:46:37 PM)</font> <b>xhoch3:</b></font> rgareus, ah ok, I was confused because it expects a jack_client<br/>
+<font color="#A82F2F"><font size="2">(11:47:30 PM)</font> <b>xhoch3:</b></font> so what do I pass for the jack_client_t* ? NULL?<br/>
+<font color="#A82F2F"><font size="2">(11:47:50 PM)</font> <b>rgareus:</b></font> xhoch3: no. you use your client&apos;s ID<br/>
+<font color="#A82F2F"><font size="2">(11:48:27 PM)</font> <b>xhoch3:</b></font> oh I thought I just get the ports related to my client then<br/>
+<font color="#A82F2F"><font size="2">(11:48:43 PM)</font> <b>rgareus:</b></font> xhoch3: no. you get all of them.<br/>
+<font color="#A82F2F"><font size="2">(11:48:51 PM)</font> <b>xhoch3:</b></font> thanks, that helped<br/>
+<font color="#A82F2F"><font size="2">(11:49:52 PM)</font> <b>rgareus:</b></font> xhoch3: https://github.com/jackaudio/tools/blob/master/lsp.c  (jack_lsp source, just lists all ports)<br/>
+<font color="#A82F2F"><font size="2">(11:50:13 PM)</font> <b>rgareus:</b></font> xhoch3: see line 152..<br/>
+<font color="#A82F2F"><font size="2">(11:50:21 PM)</font> <b>h2mster:</b></font> like this one? http://www.aatranslator.com.au/<br/>
+<font color="#A82F2F"><font size="2">(11:50:23 PM)</font> <b>LAbot:</b></font> Title: AATranslator - Home Page (at www.aatranslator.com.au)<br/>
+<font color="#A82F2F"><font size="2">(11:51:04 PM)</font> <b>rgareus:</b></font> h2mster: yep. except AATranslator is not free software.<br/>
+<font color="#A82F2F"><font size="2">(11:51:21 PM)</font> <b>rgareus:</b></font> h2mster: we (or rather damo22) would like to have source<br/>
+<font color="#A82F2F"><font size="2">(11:52:08 PM)</font> <b>xhoch3:</b></font> rgareus, holy mother<br/>
+<font color="#A82F2F"><font size="2">(11:52:46 PM)</font> <b>rgareus:</b></font> xhoch3: ?<br/>
+<font color="#A82F2F"><font size="2">(11:53:01 PM)</font> <b>rgareus:</b></font> xhoch3: did you saye ealier you&apos;re an atheist :D<br/>
+<font color="#A82F2F"><font size="2">(11:53:15 PM)</font> <b>xhoch3:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(11:53:21 PM)</font> <b>xhoch3:</b></font> you need jack_get_clients<br/>
+<font color="#A82F2F"><font size="2">(11:53:31 PM)</font> <b>xhoch3:</b></font> you want it, really<br/>
+<font color="#A82F2F"><font size="2">(11:53:37 PM)</font> <b>xhoch3:</b></font> I&apos;m sure you do<br/>
+<font color="#A82F2F"><font size="2">(11:54:20 PM)</font> <b>rgareus:</b></font> xhoch3: I&apos;m not aware of that API.<br/>
+<font color="#A82F2F"><font size="2">(11:54:48 PM)</font> <b>xhoch3:</b></font> yeah, I am asking to add it<br/>
+<font color="#A82F2F"><font size="2">(11:58:01 PM)</font> <b>rgareus:</b></font> xhoch3: -&gt; #jack  but I&apos;m pretty sure it won&apos;t be added for various reasons. The two main issues are: backwards compat; and also client management is server internal. it&apos;s not the business of other clients<br/>
+<font color="#A82F2F"><font size="2">(11:58:36 PM)</font> <b>rgareus:</b></font> xhoch3: there can be clients that are short lived (like jack_lsp) or some that don&apos;t have ports and are not active.<br/>
+<font color="#A82F2F"><font size="2">(11:59:15 PM)</font> <b>xhoch3:</b></font> ok, probably I am wrong, but at which line do you defer the client from a port?<br/>
+<font color="#A82F2F"><font size="2">(11:59:16 PM)</font> <b>rgareus:</b></font> (ie jack_cpu_load or jack_transport)<br/>
+<font color="#A82F2F"><font size="2">(11:59:36 PM)</font> <b>xhoch3:</b></font> I went through the code a couple times, but can&apos;t find what I am looking for<br/>
+<font color="#A82F2F"><font size="2">(11:59:46 PM)</font> <b>rgareus:</b></font> xhoch3:  client-name colon port-name<br/>
+<font color="#A82F2F"><font size="2">(12:00:15 AM)</font> <b>xhoch3:</b></font> ok, so that&apos;s &quot;encoded&quot; in the port name<br/>
+<font color="#A82F2F"><font size="2">(12:00:22 AM)</font> <b>rgareus:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(12:04:44 AM)</font> <b>h2mster:</b></font> what do u use for reverse engeneering?  http://www.solid-state-logic.com/music/pro-convert/index.asp  ?<br/>
+<font color="#A82F2F"><font size="2">(12:04:45 AM)</font> <b>LAbot:</b></font> Title: Solid State Logic | Music (at www.solid-state-logic.com)<br/>
+<font color="#A82F2F"><font size="2">(12:08:22 AM)</font> <b>h2mster:</b></font> na its too old<br/>
+<font color="#A82F2F"><font size="2">(12:13:20 AM)</font> <b>xhoch3:</b></font> rgareus, ah nice, ok it works. the cool thing is it does not list client with no ports<br/>
+<font color="#A82F2F"><font size="2">(12:13:34 AM)</font> <b>xhoch3:</b></font> so also my control app does not appear in the list<br/>
+<font color="#A82F2F"><font size="2">(12:13:46 AM)</font> <b>xhoch3:</b></font> I already wondered how qjackctl does that magic<br/>
+<font color="#A82F2F"><font size="2">(12:22:57 AM)</font> <b>h2mster:</b></font> it&apos;s c++  do u use  boomerang or recstudio?<br/>
+<font size="2">(12:27:59 AM)</font><b> h2mster left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:42:35 AM)</font> <b>naptastic:</b></font> How good/bad is the ebuild for Ardour on Gentoo?<br/>
+<font color="#A82F2F"><font size="2">(12:51:16 AM)</font> <b>tom-:</b></font> damo22: funky. hacking half - 1 day and you have it deciphered. quite amazing :)<br/>
+<font color="#A82F2F"><font size="2">(12:52:33 AM)</font> <b>tom-:</b></font> damo22: is this XOR foo just for obfuscation or does it have technical benefits (like check numbers or so)?<br/>
+<font size="2">(01:44:52 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

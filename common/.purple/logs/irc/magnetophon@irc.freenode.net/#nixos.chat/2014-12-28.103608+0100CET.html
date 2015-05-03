@@ -1,0 +1,70 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sun 28 Dec 2014 10:36:08 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sun 28 Dec 2014 10:36:08 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:36:08 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(10:36:08 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(10:44:55 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] luke-clifton opened pull request #5487: btsync groups (master...lc-btsync-group) http://git.io/9hQSDw<br/>
+<font color="#A82F2F"><font size="2">(10:45:45 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/0r7B2Q<br/>
+<font color="#A82F2F"><font size="2">(10:45:45 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 61d9f06 Vladimír Čunát: fix a typo from 2627198b0c<br/>
+<font color="#A82F2F"><font size="2">(11:21:21 AM)</font> <b>solatis_:</b></font> grmbl, i&apos;m performing benchmark testing using criterion, which executes some IO functions with a high payload (64MB bytestrings) $many times, and it appears that the garbage isn&apos;t getting collected and my workstation freezes<br/>
+<font size="2">(11:30:04 AM)</font><b> solatis_ left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:33:37 AM)</font> <b>nkar:</b></font> vcunat: I tried again and grub didn&apos;t complain<br/>
+<font color="#A82F2F"><font size="2">(11:33:45 AM)</font> <b>nkar:</b></font> however, I still cannot boot<br/>
+<font color="#A82F2F"><font size="2">(11:34:21 AM)</font> <b>vcunat:</b></font> nkar: where does it stop?<br/>
+<font color="#A82F2F"><font size="2">(11:35:08 AM)</font> <b>nkar:</b></font> I did everything as the guide says, but on step 7 I simply copied /media/iso/boot/grub/grub.cfg to /media/NIXBOOT/boot/grub/grub.cfg and edited the label<br/>
+<font color="#A82F2F"><font size="2">(11:35:31 AM)</font> <b>nkar:</b></font> when it boots, I see the grub menu<br/>
+<font color="#A82F2F"><font size="2">(11:36:29 AM)</font> <b>nkar:</b></font> in the prompt, ls return (hd0) (hd0,msdos1) (hd1).  and ls (hd0,msdos1)/ shows iso/ and boot/<br/>
+<font color="#A82F2F"><font size="2">(11:36:54 AM)</font> <b>nkar:</b></font> so bzImage and initrd are located under iso/<br/>
+<font color="#A82F2F"><font size="2">(11:37:12 AM)</font> <b>nkar:</b></font> which I manually prepended by hitting &apos;e&apos;<br/>
+<font color="#A82F2F"><font size="2">(11:37:28 AM)</font> <b>nkar:</b></font> however, it fails to boot after the first stage<br/>
+<font color="#A82F2F"><font size="2">(11:37:43 AM)</font> <b>nkar:</b></font> let me try again, so I could tell you the exact error<br/>
+<font color="#A82F2F"><font size="2">(11:38:10 AM)</font> <b>nkar:</b></font> it seems it cannot find /nix/store/...<br/>
+<font color="#A82F2F"><font size="2">(11:38:15 AM)</font> <b>nkar:</b></font> because I didn&apos;t touch that part<br/>
+<font color="#A82F2F"><font size="2">(11:38:23 AM)</font> <b>nkar:</b></font> since I don&apos;t see it on disk<br/>
+<font color="#A82F2F"><font size="2">(11:38:46 AM)</font> <b>vcunat:</b></font> hmm, I think there were some recent changes to iso boot, so maybe the wiki article no longer holds<br/>
+<font color="#A82F2F"><font size="2">(11:39:11 AM)</font> <b>vcunat:</b></font> I even think it should now be possible to just dd the iso to the USB drive<br/>
+<font color="#A82F2F"><font size="2">(11:39:47 AM)</font> <b>nkar:</b></font> you mean like this? dd if=iso of=/mnt/nixos<br/>
+<font color="#A82F2F"><font size="2">(11:41:31 AM)</font> <b>vcunat:</b></font> yes, I think so<br/>
+<font color="#A82F2F"><font size="2">(11:41:45 AM)</font> <b>vcunat:</b></font> it should be the same as most distros that allow this<br/>
+<font color="#A82F2F"><font size="2">(11:42:04 AM)</font> <b>vcunat:</b></font> nkar: ah, not what you wrote<br/>
+<font color="#A82F2F"><font size="2">(11:42:31 AM)</font> <b>nkar:</b></font> the error I get: File descriptor 3 (/nix/store/...-initrd-fsinfo) leaked on lvm invocation. Parent PID 1: /nix/store/x0r.. No volume groups found mounting /mnt-root/iso/nix-store.squashfs on /nix/.ro-store... mount: mounting /mnt-root/iso/nix-store.squashfs on /mnt-root/nix/.ro-store failed: No such file or directory an error occurred in stage 1 of the boot process, which must mount the root filesystem on &apos;/mnt-root&apos; and then start<br/>
+<font color="#A82F2F"><font size="2">(11:42:31 AM)</font> <b>nkar:</b></font> stage 2. Press one of the following keys: ...<br/>
+<font color="#A82F2F"><font size="2">(11:42:33 AM)</font> <b>vcunat:</b></font> nkar: see https://wiki.archlinux.org/index.php/USB_flash_installation_media#In_GNU.2FLinux<br/>
+<font color="#A82F2F"><font size="2">(11:43:53 AM)</font> <b>vcunat:</b></font> hmm, or maybe that functionality hasn&apos;t been fully merged yet https://github.com/NixOS/nixpkgs/pull/4678<br/>
+<font color="#A82F2F"><font size="2">(11:44:36 AM)</font> <b>vcunat:</b></font> nkar: I&apos;m not sure (in past I used unetbootin anyway, as it just worked)<br/>
+<font size="2">(11:45:27 AM)</font><b> vcunat left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(11:56:39 AM)</font> <b>nkar:</b></font> dd didn&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(11:56:50 AM)</font> <b>nkar:</b></font> will try unetbootin<br/>
+<font color="#A82F2F"><font size="2">(11:58:31 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/ffP_gg<br/>
+<font color="#A82F2F"><font size="2">(11:58:31 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 40397be Vladimír Čunát: e19: enableParallelBuilding of some larger components...<br/>
+<font size="2">(12:04:02 PM)</font><b> vcunat [<em>~admin@nat-34.starnet.cz</em>] entered the room.</b><br/>
+<font size="2">(12:20:15 PM)</font><b> Lethalman [<em>~lethal@176.200.188.154</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:38:59 PM)</font> <b>anty:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(12:41:39 PM)</font> <b>anty:</b></font> so I still have the problem from yesterday<br/>
+<font color="#A82F2F"><font size="2">(12:42:10 PM)</font> <b>anty:</b></font> after switching to 14.12 channel when trying to rebuild i get: error: attribute ‘haskellPlatform’ missing, at &quot;/etc/nixos/configuration.nix&quot;:58:5<br/>
+<font color="#A82F2F"><font size="2">(12:42:54 PM)</font> <b>anty:</b></font> line 58 has:  58     haskellPackages.haskellPlatform<br/>
+<font color="#A82F2F"><font size="2">(12:45:51 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bennofs pushed 1 new commit to release-14.12: http://git.io/x-qvmw<br/>
+<font color="#A82F2F"><font size="2">(12:45:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 1d32153 Benno Fünfstück: firefox-wrapper: more gstreamer plugins...<br/>
+<font color="#A82F2F"><font size="2">(12:53:18 PM)</font> <b>viric:</b></font> ehh<br/>
+<font color="#A82F2F"><font size="2">(12:53:25 PM)</font> <b>viric:</b></font> post the file<br/>
+<font color="#A82F2F"><font size="2">(12:53:35 PM)</font> <b>nkar:</b></font> vcunat: following up...  dd doesn&apos;t work and syslinux just shows a blinking cursor<br/>
+<font color="#A82F2F"><font size="2">(12:53:54 PM)</font> <b>nkar:</b></font> I&apos;d rather not use unetbootin if possible because it requires a ton of deps<br/>
+<font color="#A82F2F"><font size="2">(12:54:28 PM)</font> <b>anty:</b></font> viric, the whole config?<br/>
+<font color="#A82F2F"><font size="2">(12:55:37 PM)</font> <b>bennofs:</b></font> viric, anty: the problem is that there seems to be no haskellPlatform in release-14.12<br/>
+<font color="#A82F2F"><font size="2">(12:57:46 PM)</font> <b>bennofs:</b></font> The problem is probably https://github.com/NixOS/nixpkgs/pull/4894<br/>
+<font color="#A82F2F"><font size="2">(12:57:47 PM)</font> <b>Lethalman:</b></font> anty, haskell platform has been dropped from nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(12:58:01 PM)</font> <b>Lethalman:</b></font> because not considered useful in nix, rather painful<br/>
+<font color="#A82F2F"><font size="2">(12:58:23 PM)</font> <b>anty:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(12:58:48 PM)</font> <b>anty:</b></font> so what do I do then? just haskellPackages.ghc?<br/>
+<font color="#A82F2F"><font size="2">(12:58:55 PM)</font> <b>Lethalman:</b></font> anty, use the libraries you need<br/>
+<font color="#A82F2F"><font size="2">(12:59:08 PM)</font> <b>Lethalman:</b></font> anty, I wouldn&apos;t install ghc honestly<br/>
+<font color="#A82F2F"><font size="2">(12:59:10 PM)</font> <b>Lethalman:</b></font> use nix-shell<br/>
+<font color="#A82F2F"><font size="2">(12:59:13 PM)</font> <b>Lethalman:</b></font> nor libraries<br/>
+<font color="#A82F2F"><font size="2">(12:59:30 PM)</font> <b>bennofs:</b></font> ghc-wrapper is soon to be dropped too<br/>
+<font color="#A82F2F"><font size="2">(12:59:34 PM)</font> <b>Lethalman:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(12:59:49 PM)</font> <b>Lethalman:</b></font> just use nix-shell<br/>
+<font color="#A82F2F"><font size="2">(12:59:55 PM)</font> <b>Lethalman:</b></font> anty, e.g. nix-shell -p haskellPackages.ghc<br/>
+<font color="#A82F2F"><font size="2">(01:01:16 PM)</font> <b>anty:</b></font> thanks ill follow up on this later<br/>
+<font color="#A82F2F"><font size="2">(01:01:21 PM)</font> <b>anty:</b></font> gots to go now :)<br/>
+<font size="2">(01:01:38 PM)</font><b> anty left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:44:18 PM)</font><b> henrytill [<em>~henrytill@unaffiliated/henrytill</em>] entered the room.</b><br/>
+<font size="2">(02:32:11 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

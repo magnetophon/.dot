@@ -1,0 +1,505 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #opensourcemusicians at Wed 15 Apr 2015 02:28:01 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #opensourcemusicians at Wed 15 Apr 2015 02:28:01 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:28:01 PM)</font><b> The topic for #opensourcemusicians is: Welcome to the companion chat room to the OSM Podcast | Episode #70 is out! | wiki <a href="http://opensourcemusician.com">http://opensourcemusician.com</a></b><br/>
+<font size="2">(02:28:02 PM)</font><b> Topic for #opensourcemusicians set by PipeManMusic!~PipeManMu@web75.webfaction.com at 03:56:51 PM on 09/17/2014</b><br/>
+<font color="#16569E"><font size="2">(02:29:18 PM)</font> <b>magnetophon:</b></font> hey nilsge, how's it going with your nix experiments?<br/>
+<font color="#16569E"><font size="2">(02:37:04 PM)</font> <b>magnetophon:</b></font> ah, and HarryHaaren &amp; falktx: how about yours?<br/>
+<font color="#A82F2F"><font size="2">(02:37:46 PM)</font> <b>falktx:</b></font> fails on linuxsampler-svn<br/>
+<font color="#A82F2F"><font size="2">(02:37:56 PM)</font> <b>falktx:</b></font> Searching for a parser generator...Error: You need yacc (or bison) to generate the LSCP parser !<br/>
+<font color="#A82F2F"><font size="2">(02:37:58 PM)</font> <b>falktx:</b></font> scripts/generate_lscp_parser.sh: 18: exit: Illegal number: -1<br/>
+<font color="#A82F2F"><font size="2">(02:37:59 PM)</font> <b>falktx:</b></font> Makefile.cvs:8: recipe for target &apos;configure&apos; failed<br/>
+<font color="#A82F2F"><font size="2">(02:38:13 PM)</font> <b>falktx:</b></font> seems like it&apos;s missing the bison dependency<br/>
+<font color="#16569E"><font size="2">(02:38:42 PM)</font> <b>magnetophon:</b></font> falktx: huh? mine builds fine, it just doesn's install due to some odd problem <br/>
+<font color="#A82F2F"><font size="2">(02:39:32 PM)</font> <b>HarryHaaren:</b></font> hey magnetophon - i&apos;m only just home, currently at work. No NixOS fun for me yet<br/>
+<font color="#062585"><font size="2">(02:39:43 PM)</font> <b>***HarryHaaren</b></font> wants to clone myself - not enough time, too much to do :)<br/>
+<font color="#A82F2F"><font size="2">(02:39:49 PM)</font> <b>rncbc_jolla:</b></font> falktx: yes, bison is one u.t<br/>
+<font color="#A82F2F"><font size="2">(02:40:01 PM)</font> <b>falktx:</b></font> bison and flex<br/>
+<font color="#A82F2F"><font size="2">(02:40:11 PM)</font> <b>falktx:</b></font> and I think there&apos;s one more...<br/>
+<font color="#A82F2F"><font size="2">(02:40:18 PM)</font> <b>rncbc_jolla:</b></font> untold depedency<br/>
+<font color="#16569E"><font size="2">(02:40:18 PM)</font> <b>magnetophon:</b></font> for the people that didn't catch the begiining of the discussion: falktx and me are making an uoddated LS package. The one in the distro just works (TM)<br/>
+<font color="#16569E"><font size="2">(02:41:19 PM)</font> <b>magnetophon:</b></font> flex is in the pkg already, isn't it?<br/>
+<font color="#062585"><font size="2">(02:41:30 PM)</font> <b>***magnetophon</b></font> goes look it up...<br/>
+<font color="#16569E"><font size="2">(02:42:28 PM)</font> <b>magnetophon:</b></font> yup, flex is in there<br/>
+<font color="#16569E"><font size="2">(02:43:38 PM)</font> <b>magnetophon:</b></font> falktx: is it not in yours? I thought my LS was done when you cloned it...<br/>
+<font color="#16569E"><font size="2">(02:43:57 PM)</font> <b>magnetophon:</b></font> except for the install issue... <br/>
+<font color="#A82F2F"><font size="2">(02:44:00 PM)</font> <b>falktx:</b></font> the one missing is bison<br/>
+<font color="#A82F2F"><font size="2">(02:44:11 PM)</font> <b>HarryHaaren:</b></font> rncbc_jolla, tanks for the pics - OpenAV post has a selection integrated (with a PS &quot;thanks to Rui for the photos&quot; of course :)<br/>
+<font color="#062585"><font size="2">(02:44:15 PM)</font> <b>***HarryHaaren</b></font> gotta go, laters all<br/>
+<font size="2">(02:45:10 PM)</font><b> HarryHaaren left the room (quit: Quit: HarryHaaren).</b><br/>
+<font color="#16569E"><font size="2">(02:45:11 PM)</font> <b>magnetophon:</b></font> falktx: no idea if it's related, but did you build the new libgig first?<br/>
+<font color="#A82F2F"><font size="2">(02:45:33 PM)</font> <b>falktx:</b></font> no, I just tried installing carla right away<br/>
+<font color="#A82F2F"><font size="2">(02:46:08 PM)</font> <b>goibhniu:</b></font> hi magnetophon, falktx is building from my version ... but I built LS without problems<br/>
+<font color="#16569E"><font size="2">(02:48:14 PM)</font> <b>magnetophon:</b></font> goibhniu: OK, thanks. did you need to manually build libgig first? (actually I'd expect dependencies to automatically use the new version if I specify a source tree while bbuilding) <br/>
+<font color="#A82F2F"><font size="2">(02:48:58 PM)</font> <b>goibhniu:</b></font> right, that shouldn&apos;t matter at all<br/>
+<font color="#A82F2F"><font size="2">(02:49:05 PM)</font> <b>goibhniu:</b></font> .. and I didn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(02:49:20 PM)</font> <b>goibhniu:</b></font> I can try again from this machine<br/>
+<font color="#A82F2F"><font size="2">(02:50:44 PM)</font> <b>goibhniu:</b></font> at least this machine is nice and fast :D<br/>
+<font color="#16569E"><font size="2">(02:51:04 PM)</font> <b>magnetophon:</b></font> falktx, goibhniu: on second look: bison is in my version too. wasn't in there when you cloned? <br/>
+<font color="#A82F2F"><font size="2">(02:51:31 PM)</font> <b>falktx:</b></font> I don&apos;t know<br/>
+<font color="#A82F2F"><font size="2">(02:51:45 PM)</font> <b>goibhniu:</b></font> falktx: are you using nix-build?<br/>
+<font color="#A82F2F"><font size="2">(02:52:11 PM)</font> <b>falktx:</b></font> I&apos;m using this:<br/>
+<font color="#A82F2F"><font size="2">(02:52:11 PM)</font> <b>goibhniu:</b></font> ... or building it inside a nix-shell environment .. or something like that<br/>
+<font color="#A82F2F"><font size="2">(02:52:12 PM)</font> <b>falktx:</b></font> nix-build $(pwd) -A carla<br/>
+<font color="#A82F2F"><font size="2">(02:52:20 PM)</font> <b>goibhniu:</b></font> kk<br/>
+<font color="#062585"><font size="2">(02:52:26 PM)</font> <b>***falktx</b></font> is a nix noob<br/>
+<font color="#A82F2F"><font size="2">(02:52:36 PM)</font> <b>goibhniu:</b></font> and you&apos;re on the carla-channel branch, I assume<br/>
+<font color="#16569E"><font size="2">(02:53:22 PM)</font> <b>magnetophon:</b></font> falktx is modest and seems to understand nix already better then I do...   :)<br/>
+<font color="#A82F2F"><font size="2">(02:57:19 PM)</font> <b>falktx:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(02:58:46 PM)</font> <b>goibhniu:</b></font> hrm .. LS has compiled for me here<br/>
+<font color="#A82F2F"><font size="2">(03:03:04 PM)</font> <b>goibhniu:</b></font> and carla has built ...<br/>
+<font color="#A82F2F"><font size="2">(03:03:17 PM)</font> <b>goibhniu:</b></font> I wonder if enabling chroot builds would help<br/>
+<font color="#16569E"><font size="2">(03:03:30 PM)</font> <b>magnetophon:</b></font> falktx: what makes you think bison is the problem? I just checked, and it was in there already when goibhniu's pkg of the old version; https://github.com/NixOS/nixpkgs/compare/master...cillianderoiste:carla-channel#diff-bd9e43e3d6ed5cc7a451dfbef11608daL1<br/>
+<font color="#A82F2F"><font size="2">(03:03:32 PM)</font> <b>nobody:</b></font> Title: Comparing NixOS:master...cillianderoiste:carla-channel · NixOS/nixpkgs · GitHub (at github.com)<br/>
+<font color="#A82F2F"><font size="2">(03:03:50 PM)</font> <b>goibhniu:</b></font> build-use-chroot = true ... in /etc/nix/nix.conf<br/>
+<font color="#16569E"><font size="2">(03:04:20 PM)</font> <b>magnetophon:</b></font> goibhniu: I have chroot builds on, and it's off by default (so for falktx), so that could be it.<br/>
+<font color="#16569E"><font size="2">(03:06:20 PM)</font> <b>magnetophon:</b></font> goibhniu: just for my learning process: what difference would chroot make in this case?  And does carla run?<br/>
+<font color="#A82F2F"><font size="2">(03:07:53 PM)</font> <b>goibhniu:</b></font> magnetophon: it&apos;s what hydra (the build farm) uses, it&apos;s used to ensure a clean environment, but it&apos;s also a little slower<br/>
+<font color="#16569E"><font size="2">(03:08:30 PM)</font> <b>magnetophon:</b></font> goibhniu: and how would it affect this situation?<br/>
+<font color="#A82F2F"><font size="2">(03:09:23 PM)</font> <b>goibhniu:</b></font> magnetophon: I&apos;m only guessing to be honest<br/>
+<font color="#16569E"><font size="2">(03:09:54 PM)</font> <b>magnetophon:</b></font> goibhniu: ok. and how about carla? running?<br/>
+<font color="#A82F2F"><font size="2">(03:10:23 PM)</font> <b>goibhniu:</b></font> nope, didn&apos;t try<br/>
+<font color="#A82F2F"><font size="2">(03:10:29 PM)</font> <b>goibhniu:</b></font> I have to do some work now though<br/>
+<font color="#A82F2F"><font size="2">(03:11:15 PM)</font> <b>falktx:</b></font> I&apos;ll edit carla to not depend on LS<br/>
+<font color="#16569E"><font size="2">(03:11:20 PM)</font> <b>magnetophon:</b></font> goibhniu: ok<br/>
+<font color="#16569E"><font size="2">(03:11:36 PM)</font> <b>magnetophon:</b></font> falktx: cool, thanks.<br/>
+<font color="#A82F2F"><font size="2">(03:12:11 PM)</font> <b>goibhniu:</b></font> falktx: garbas is based in berlin and can pop over for a chat<br/>
+<font color="#A82F2F"><font size="2">(03:12:14 PM)</font> <b>garbas:</b></font> falktx: hey! goibhniu poked me on #nixos channel that you&apos;re looking for some help on packaging<br/>
+<font color="#A82F2F"><font size="2">(03:12:15 PM)</font> <b>goibhniu:</b></font> hi garbas! :D<br/>
+<font color="#16569E"><font size="2">(03:12:31 PM)</font> <b>magnetophon:</b></font> falktx: what is the benefit of integrating a sampler versus using it as a plugin in the first place?<br/>
+<font color="#A82F2F"><font size="2">(03:12:33 PM)</font> <b>garbas:</b></font> goibhniu: heya!<br/>
+<font color="#A82F2F"><font size="2">(03:12:43 PM)</font> <b>falktx:</b></font> well, I think they&apos;re the ones needing help :P<br/>
+<font color="#A82F2F"><font size="2">(03:12:44 PM)</font> <b>goibhniu:</b></font> garbas: you should check out the stuff these guys are working on too ... you&apos;ll want one :D<br/>
+<font color="#A82F2F"><font size="2">(03:12:48 PM)</font> <b>falktx:</b></font> I just want to test things<br/>
+<font color="#A82F2F"><font size="2">(03:13:26 PM)</font> <b>goibhniu:</b></font> IIUC falktx is considering using nix for packaging plugins for the MOD (guitar pedal type thing)<br/>
+<font color="#16569E"><font size="2">(03:13:46 PM)</font> <b>magnetophon:</b></font> garbas: I'm working on a carla pkg, and goibhniuand falktx joined in.<br/>
+<font color="#A82F2F"><font size="2">(03:14:04 PM)</font> <b>goibhniu:</b></font> garbas: we&apos;ve been struggling to package one of falktx&apos;s many audio packages :D<br/>
+<font color="#16569E"><font size="2">(03:14:43 PM)</font> <b>magnetophon:</b></font> garbas: here's what we have now: https://github.com/NixOS/nixpkgs/compare/master...cillianderoiste:carla-channel#diff-bd9e43e3d6ed5cc7a451dfbef11608daL1<br/>
+<font color="#A82F2F"><font size="2">(03:14:44 PM)</font> <b>falktx:</b></font> the issue is not carla, it&apos;s linuxsampler<br/>
+<font color="#A82F2F"><font size="2">(03:14:46 PM)</font> <b>nobody:</b></font> Title: Comparing NixOS:master...cillianderoiste:carla-channel · NixOS/nixpkgs · GitHub (at github.com)<br/>
+<font color="#A82F2F"><font size="2">(03:14:59 PM)</font> <b>goibhniu:</b></font> falktx: did I get that right about chatting with garbas?<br/>
+<font color="#A82F2F"><font size="2">(03:15:43 PM)</font> <b>falktx:</b></font> I need to do some testing first<br/>
+<font color="#A82F2F"><font size="2">(03:15:53 PM)</font> <b>falktx:</b></font> the first impression is not good for plugins<br/>
+<font color="#A82F2F"><font size="2">(03:16:38 PM)</font> <b>falktx:</b></font> without linuxsampler, carla is finally building<br/>
+<font color="#A82F2F"><font size="2">(03:16:41 PM)</font> <b>goibhniu:</b></font> yeah, I suspect garbas would be able to clear some things up about that, if you have questions<br/>
+<font color="#A82F2F"><font size="2">(03:17:03 PM)</font> <b>goibhniu:</b></font> but if you would prefer to test things out a bit more first, that&apos;s cool<br/>
+<font color="#A82F2F"><font size="2">(03:17:15 PM)</font> <b>falktx:</b></font> garbas: there&apos;s an issue of nix apps needing access to the *system* jack library<br/>
+<font color="#A82F2F"><font size="2">(03:17:26 PM)</font> <b>falktx:</b></font> there can only be one jack library, and it has to be the system one<br/>
+<font color="#A82F2F"><font size="2">(03:17:46 PM)</font> <b>falktx:</b></font> if there&apos;s more than one there will be conflicts and apps will refuse to work<br/>
+<font color="#A82F2F"><font size="2">(03:18:15 PM)</font> <b>falktx:</b></font> goibhniu: the carla build command finished. what&apos;s next? how do I install it?<br/>
+<font color="#A82F2F"><font size="2">(03:18:56 PM)</font> <b>garbas:</b></font> falktx: if you did nix-build ... then build ended up in result/ in current folder<br/>
+<font color="#A82F2F"><font size="2">(03:19:42 PM)</font> <b>goibhniu:</b></font> falktx: is there an environment variable we can use to tell packages where to find the jack library to use?<br/>
+<font color="#A82F2F"><font size="2">(03:19:54 PM)</font> <b>falktx:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(03:20:07 PM)</font> <b>falktx:</b></font> they need to be linked against the system one, always<br/>
+<font color="#A82F2F"><font size="2">(03:20:10 PM)</font> <b>goibhniu:</b></font> is it in the rpath?<br/>
+<font color="#A82F2F"><font size="2">(03:20:31 PM)</font> <b>falktx:</b></font> rpath is not used for jack afaik<br/>
+<font color="#A82F2F"><font size="2">(03:20:33 PM)</font> <b>goibhniu:</b></font> i.e. determined at build time<br/>
+<font color="#A82F2F"><font size="2">(03:21:00 PM)</font> <b>falktx:</b></font> garbas: so I just copy the contents to /nix ?<br/>
+<font color="#A82F2F"><font size="2">(03:21:18 PM)</font> <b>garbas:</b></font> nix-copy-closure command can help you with that<br/>
+<font color="#A82F2F"><font size="2">(03:21:29 PM)</font> <b>garbas:</b></font> because you also need to copy all of the deps<br/>
+<font color="#A82F2F"><font size="2">(03:21:34 PM)</font> <b>goibhniu:</b></font> and you&apos;re really talking about the jack .so file ... if two jack applications use different versions, we&apos;re in trouble (and not the jackdbus process)<br/>
+<font color="#A82F2F"><font size="2">(03:21:52 PM)</font> <b>goibhniu:</b></font> falktx: I don&apos;t think carla does anything yet<br/>
+<font color="#A82F2F"><font size="2">(03:21:55 PM)</font> <b>goibhniu:</b></font> the package<br/>
+<font color="#A82F2F"><font size="2">(03:22:13 PM)</font> <b>falktx:</b></font> in theory it should be fine to link against any jack version. but when running it needs to use the system one<br/>
+<font color="#A82F2F"><font size="2">(03:22:31 PM)</font> <b>goibhniu:</b></font> how can we test that?<br/>
+<font color="#A82F2F"><font size="2">(03:22:36 PM)</font> <b>falktx:</b></font> so I guess the solution is to keep libjack.so for linking, but remove the libjack.so.0 for running<br/>
+<font color="#A82F2F"><font size="2">(03:22:58 PM)</font> <b>falktx:</b></font> just try to run any jack apps via nix-env, with an already running jack<br/>
+<font color="#A82F2F"><font size="2">(03:23:01 PM)</font> <b>falktx:</b></font> it won&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(03:23:13 PM)</font> <b>goibhniu:</b></font> I must set up a KXStudio machine and test this out<br/>
+<font color="#A82F2F"><font size="2">(03:23:23 PM)</font> <b>falktx:</b></font> you dont have jack running?<br/>
+<font color="#A82F2F"><font size="2">(03:23:25 PM)</font> <b>goibhniu:</b></font> what happens ... does it crash, or not connect?<br/>
+<font color="#A82F2F"><font size="2">(03:23:48 PM)</font> <b>goibhniu:</b></font> I use JACK on NixOS, that&apos;s no problem<br/>
+<font color="#A82F2F"><font size="2">(03:24:07 PM)</font> <b>goibhniu:</b></font> IIUC it&apos;s a problem when using jack apps from nixpkgs on another distro<br/>
+<font color="#A82F2F"><font size="2">(03:24:11 PM)</font> <b>goibhniu:</b></font> I&apos;ve never tried that myself<br/>
+<font color="#A82F2F"><font size="2">(03:31:12 PM)</font> <b>garbas:</b></font> goibhniu: i guess on non-nixos we would have to introduce the impurity<br/>
+<font color="#A82F2F"><font size="2">(03:31:34 PM)</font> <b>garbas:</b></font> but it is weird you can not define runtime dependency via variable<br/>
+<font color="#A82F2F"><font size="2">(03:31:34 PM)</font> <b>falktx:</b></font> what do I do to install this carla package? totally blind here<br/>
+<font color="#A82F2F"><font size="2">(03:32:04 PM)</font> <b>goibhniu:</b></font> falktx: nix-env -f /path/to/nixpkgs -iA carla<br/>
+<font color="#A82F2F"><font size="2">(03:34:20 PM)</font> <b>falktx:</b></font> ok. but &quot;which carla&quot; still returns &quot;/usr/bin/carla&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:34:36 PM)</font> <b>goibhniu:</b></font> garbas: aye, IIUC it&apos;s because we could have plugins in the same process as plugin hosts ... and they need to be linked against the same .so<br/>
+<font color="#A82F2F"><font size="2">(03:34:47 PM)</font> <b>goibhniu:</b></font> falktx: did you source the nix.sh file?<br/>
+<font color="#A82F2F"><font size="2">(03:35:05 PM)</font> <b>falktx:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(03:35:10 PM)</font> <b>goibhniu:</b></font> it should add ~/.nix-profile/bin to your PATH<br/>
+<font color="#A82F2F"><font size="2">(03:35:19 PM)</font> <b>goibhniu:</b></font> so carla should be in ~/.nix-profile/bin<br/>
+<font color="#A82F2F"><font size="2">(03:35:32 PM)</font> <b>falktx:</b></font> for jalv.gtk and qtractor, running &quot;which&quot; gets the right file<br/>
+<font color="#A82F2F"><font size="2">(03:35:46 PM)</font> <b>goibhniu:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(03:35:49 PM)</font> <b>goibhniu:</b></font> but of course<br/>
+<font color="#A82F2F"><font size="2">(03:36:04 PM)</font> <b>goibhniu:</b></font> the carla package doesn&apos;t install anything in /bin .. it doesn&apos;t work yet :D<br/>
+<font color="#A82F2F"><font size="2">(03:36:10 PM)</font> <b>goibhniu:</b></font> the installPhase is still broken<br/>
+<font color="#A82F2F"><font size="2">(03:36:50 PM)</font> <b>goibhniu:</b></font> if you look in ./result you&apos;ll only see lib and nix directories<br/>
+<font color="#A82F2F"><font size="2">(03:37:01 PM)</font> <b>goibhniu:</b></font> there should also be a bin directory there with the executables<br/>
+<font color="#A82F2F"><font size="2">(03:37:30 PM)</font> <b>falktx:</b></font> then we need to fix this :)<br/>
+<font color="#A82F2F"><font size="2">(03:37:38 PM)</font> <b>falktx:</b></font> what&apos;s wrong with the installPhase?<br/>
+<font color="#A82F2F"><font size="2">(03:37:50 PM)</font> <b>goibhniu:</b></font> if you put `exit 1` into the installPhase to kill the build and use --keep-failed you&apos;ll see the binaries are there<br/>
+<font color="#A82F2F"><font size="2">(03:38:06 PM)</font> <b>goibhniu:</b></font> I don&apos;t know why PREFIX isn&apos;t working<br/>
+<font color="#A82F2F"><font size="2">(03:38:41 PM)</font> <b>falktx:</b></font> make DESTDIR=&quot;$out/&quot; PREFIX=$out install looks wrong<br/>
+<font color="#A82F2F"><font size="2">(03:38:48 PM)</font> <b>falktx:</b></font> what is $out ?<br/>
+<font color="#A82F2F"><font size="2">(03:39:05 PM)</font> <b>goibhniu:</b></font> yeah, other examples in nixpkgs set one of them to / and the other to $out<br/>
+<font color="#16569E"><font size="2">(03:39:05 PM)</font> <b>magnetophon:</b></font> falktx: the path in the store <br/>
+<font color="#A82F2F"><font size="2">(03:39:25 PM)</font> <b>goibhniu:</b></font> but I tried that too, without success<br/>
+<font color="#16569E"><font size="2">(03:39:47 PM)</font> <b>magnetophon:</b></font> falktx: so /nix/store/$hash-carla/<br/>
+<font color="#A82F2F"><font size="2">(03:40:07 PM)</font> <b>falktx:</b></font> that should be the destdir I guess<br/>
+<font color="#A82F2F"><font size="2">(03:40:13 PM)</font> <b>falktx:</b></font> and prefix /usr<br/>
+<font color="#A82F2F"><font size="2">(03:40:42 PM)</font> <b>goibhniu:</b></font> or should prefix be /?<br/>
+<font color="#A82F2F"><font size="2">(03:40:53 PM)</font> <b>goibhniu:</b></font> should one of them end in /bin ?<br/>
+<font color="#A82F2F"><font size="2">(03:41:11 PM)</font> <b>falktx:</b></font> there&apos;s no /nix/.../usr dir ?<br/>
+<font color="#A82F2F"><font size="2">(03:41:17 PM)</font> <b>goibhniu:</b></font> or are bin, lib, etc appended to them?<br/>
+<font color="#A82F2F"><font size="2">(03:41:19 PM)</font> <b>goibhniu:</b></font> nope<br/>
+<font color="#A82F2F"><font size="2">(03:41:38 PM)</font> <b>falktx:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(03:41:54 PM)</font> <b>falktx:</b></font> make DESTDIR=&quot;$out&quot; PREFIX=/ install  then?<br/>
+<font color="#A82F2F"><font size="2">(03:42:09 PM)</font> <b>goibhniu:</b></font> sounds good to me<br/>
+<font color="#A82F2F"><font size="2">(03:42:14 PM)</font> <b>Haskellfant:</b></font> nix uses only prefix not destdir usually<br/>
+<font color="#A82F2F"><font size="2">(03:42:48 PM)</font> <b>falktx:</b></font> well, let&apos;s see how it works<br/>
+<font color="#A82F2F"><font size="2">(03:43:01 PM)</font> <b>goibhniu:</b></font> I don&apos;t think we need the quotes around $out, do we?<br/>
+<font color="#A82F2F"><font size="2">(03:43:12 PM)</font> <b>Haskellfant:</b></font> you do because spaces<br/>
+<font color="#A82F2F"><font size="2">(03:43:18 PM)</font> <b>goibhniu:</b></font> ah, thanks<br/>
+<font color="#16569E"><font size="2">(03:43:44 PM)</font> <b>magnetophon:</b></font> Haskellfant: you mean nix automatically sets the prefix but not the destdir, right? It'll use whatever you tell it to, not?<br/>
+<font color="#A82F2F"><font size="2">(03:45:59 PM)</font> <b>falktx:</b></font> ah, Haskellfant is right. destdir should be ignored and only prefix used<br/>
+<font color="#A82F2F"><font size="2">(03:46:01 PM)</font> <b>Haskellfant:</b></font> magnetophon: destdir is normally used for packaging stuff so that you can put everything in one folder. then create a package and let the package manager strip the destdirprefix and put the contents of that folder in /. nix doesn&apos;t need this because it doesn&apos;t install anything directly in / so you just install directly in $out. programs refer to the path in prefix not in destdir. so using destdir<br/>
+<font color="#A82F2F"><font size="2">(03:46:03 PM)</font> <b>Haskellfant:</b></font> is actually wrong<br/>
+<font size="2">(03:46:09 PM)</font><b> edogawa left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(03:47:16 PM)</font> <b>falktx:</b></font> garbas: can we have &quot;make -j 4&quot; or similar by default?<br/>
+<font color="#16569E"><font size="2">(03:47:16 PM)</font> <b>magnetophon:</b></font> Haskellfant: ah, thanks.<br/>
+<font color="#A82F2F"><font size="2">(03:47:33 PM)</font> <b>falktx:</b></font> it takes quite a while to compile apps using a single core<br/>
+<font color="#16569E"><font size="2">(03:47:52 PM)</font> <b>magnetophon:</b></font> falktx: yes. i'll look up the syntax<br/>
+<font color="#062585"><font size="2">(03:48:11 PM)</font> <b>***falktx</b></font> is trying make PREFIX=&quot;$out&quot; install<br/>
+<font color="#A82F2F"><font size="2">(03:49:17 PM)</font> <b>Haskellfant:</b></font> that should work<br/>
+<font color="#A82F2F"><font size="2">(03:49:26 PM)</font> <b>Haskellfant:</b></font> ™<br/>
+<font color="#A82F2F"><font size="2">(03:49:27 PM)</font> <b>falktx:</b></font> it builds! and...<br/>
+<font color="#A82F2F"><font size="2">(03:49:29 PM)</font> <b>falktx:</b></font> Segmentation fault<br/>
+<font color="#A82F2F"><font size="2">(03:49:38 PM)</font> <b>falktx:</b></font> progress! :D<br/>
+<font color="#A82F2F"><font size="2">(03:49:51 PM)</font> <b>Haskellfant:</b></font> https://iliketoast.net/uploads/images/scaled_full_6583c4ccc058f493bb26.jpg<br/>
+<font color="#A82F2F"><font size="2">(03:51:00 PM)</font> <b>goibhniu:</b></font> \o/<br/>
+<font color="#A82F2F"><font size="2">(03:51:49 PM)</font> <b>goibhniu:</b></font> I think you can use -j with nix-build ... or --max-cores<br/>
+<font color="#A82F2F"><font size="2">(03:51:58 PM)</font> <b>Haskellfant:</b></font> damnit, I hate it when wolframalpha is too stupid to calculate stuff and I actually need to do it myself<br/>
+<font color="#A82F2F"><font size="2">(03:52:11 PM)</font> <b>Haskellfant:</b></font> --burn-my-fucking-cpu<br/>
+<font color="#A82F2F"><font size="2">(03:52:47 PM)</font> <b>goibhniu:</b></font> or, hrm .. is it actually --cores you need<br/>
+<font color="#A82F2F"><font size="2">(03:53:08 PM)</font> <b>goibhniu:</b></font> and enableParallelBuilding  = true; in the pkg<br/>
+<font color="#16569E"><font size="2">(03:53:39 PM)</font> <b>magnetophon:</b></font> falktx: http://nixos.org/nix/manual/#conf-build-max-jobs<br/>
+<font color="#A82F2F"><font size="2">(03:53:43 PM)</font> <b>nobody:</b></font> Title: Nix manual (at nixos.org)<br/>
+<font color="#062585"><font size="2">(03:53:44 PM)</font> <b>***goibhniu</b></font> is great at reading `man nix-build` :D<br/>
+<font color="#A82F2F"><font size="2">(03:54:03 PM)</font> <b>garbas:</b></font> was just about to point to enableParallelBuilding<br/>
+<font color="#A82F2F"><font size="2">(03:54:23 PM)</font> <b>garbas:</b></font> but i always forget how to spell parallell :D<br/>
+<font color="#A82F2F"><font size="2">(03:54:56 PM)</font> <b>Haskellfant:</b></font> parrrrrrrrallllllelllllll<br/>
+<font color="#A82F2F"><font size="2">(03:55:00 PM)</font> <b>falktx:</b></font> I think the crash might be due to jack<br/>
+<font color="#A82F2F"><font size="2">(03:55:15 PM)</font> <b>goibhniu:</b></font> falktx: ah, that&apos;s a nice test case!<br/>
+<font color="#16569E"><font size="2">(03:55:28 PM)</font> <b>magnetophon:</b></font> falktx: you tried with the system jack?<br/>
+<font color="#A82F2F"><font size="2">(03:55:41 PM)</font> <b>falktx:</b></font> yep, confirmed because of jack<br/>
+<font color="#A82F2F"><font size="2">(03:55:54 PM)</font> <b>falktx:</b></font> if I set the driver to alsa via /usr/bin/carla, the nix carla now works<br/>
+<font color="#A82F2F"><font size="2">(03:56:05 PM)</font> <b>garbas:</b></font> falktx: i hear you&apos;re in berlin, we&apos;re having nix meetup&apos;s once in a month if you want to stop by<br/>
+<font color="#A82F2F"><font size="2">(03:56:07 PM)</font> <b>goibhniu:</b></font> does setting LD_LIBRARY_PATH help?<br/>
+<font color="#16569E"><font size="2">(03:56:17 PM)</font> <b>magnetophon:</b></font> falktx: great!<br/>
+<font color="#A82F2F"><font size="2">(03:57:18 PM)</font> <b>falktx:</b></font> carla makes sound<br/>
+<font color="#A82F2F"><font size="2">(03:57:25 PM)</font> <b>falktx:</b></font> let&apos;s see that jack thing...<br/>
+<font color="#062585"><font size="2">(03:57:49 PM)</font> <b>***magnetophon</b></font> is looking forward to having falktx, nilsge and HarryHaaren in #nixos.  Wold domination is in sight!!!  :D<br/>
+<font color="#16569E"><font size="2">(03:58:19 PM)</font> <b>magnetophon:</b></font> s/Wold/World/<br/>
+<font color="#A82F2F"><font size="2">(03:58:36 PM)</font> <b>falktx:</b></font> goibhniu: yes, no more crashes with:<br/>
+<font color="#A82F2F"><font size="2">(03:58:38 PM)</font> <b>falktx:</b></font> env LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/ carla<br/>
+<font color="#A82F2F"><font size="2">(03:58:57 PM)</font> <b>goibhniu:</b></font> is that where your jack .so is?<br/>
+<font color="#A82F2F"><font size="2">(03:59:02 PM)</font> <b>falktx:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(03:59:07 PM)</font> <b>falktx:</b></font> libjack.so.0<br/>
+<font color="#A82F2F"><font size="2">(03:59:18 PM)</font> <b>goibhniu:</b></font> super<br/>
+<font color="#16569E"><font size="2">(03:59:54 PM)</font> <b>magnetophon:</b></font> falktx: so you have carla running with the system jack now? as in: actually working (except for LS)?<br/>
+<font color="#A82F2F"><font size="2">(04:00:00 PM)</font> <b>falktx:</b></font> yes<br/>
+<font color="#16569E"><font size="2">(04:00:13 PM)</font> <b>magnetophon:</b></font> wow. mind=blown<br/>
+<font color="#A82F2F"><font size="2">(04:00:23 PM)</font> <b>goibhniu:</b></font> hrm ... I wonder how do we make jack packages which can either use the system jack or the nix jack<br/>
+<font color="#A82F2F"><font size="2">(04:00:27 PM)</font> <b>falktx:</b></font> http://kxstudio.sourceforge.net/Paste/repo/stm6M<br/>
+<font color="#16569E"><font size="2">(04:00:55 PM)</font> <b>magnetophon:</b></font> thanks!<br/>
+<font color="#A82F2F"><font size="2">(04:01:20 PM)</font> <b>Haskellfant:</b></font> goibhniu: slightly related I ran into problems with pulseaudio that were quite similar, so I don&apos;t think it&apos;s specific to jack.<br/>
+<font color="#16569E"><font size="2">(04:01:21 PM)</font> <b>magnetophon:</b></font> ah, I thought that was the pkg...<br/>
+<font color="#A82F2F"><font size="2">(04:01:51 PM)</font> <b>goibhniu:</b></font> Haskellfant: hrm ... yeah, system PA vs. nix PA<br/>
+<font color="#A82F2F"><font size="2">(04:01:58 PM)</font> <b>Haskellfant:</b></font> exactly<br/>
+<font color="#A82F2F"><font size="2">(04:02:12 PM)</font> <b>goibhniu:</b></font> if a user has jack installed from nix, that should take precedence IMO<br/>
+<font color="#A82F2F"><font size="2">(04:02:38 PM)</font> <b>falktx:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(04:02:46 PM)</font> <b>garbas:</b></font> i think it should always take system one<br/>
+<font color="#A82F2F"><font size="2">(04:02:54 PM)</font> <b>garbas:</b></font> right?<br/>
+<font color="#A82F2F"><font size="2">(04:02:55 PM)</font> <b>falktx:</b></font> the system jack must have priority<br/>
+<font color="#A82F2F"><font size="2">(04:03:03 PM)</font> <b>falktx:</b></font> same for pulseaudio libs<br/>
+<font color="#A82F2F"><font size="2">(04:03:32 PM)</font> <b>goibhniu:</b></font> ah ok, but how can we know if the user has jack in e.g. /usr/lib/x86_64-linux-gnu/ ?<br/>
+<font color="#A82F2F"><font size="2">(04:03:55 PM)</font> <b>falktx:</b></font> you don&apos;t. the solution is to only ship the libs needed for linking<br/>
+<font size="2">(04:04:07 PM)</font><b> edogawa [<em>~quassel@178-191-99-124.adsl.highway.telekom.at</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(04:04:17 PM)</font> <b>garbas:</b></font> you could wrap carla binary with some shell script which does the checks and sets LD_LIBRARY_PATH<br/>
+<font color="#A82F2F"><font size="2">(04:04:18 PM)</font> <b>falktx:</b></font> ship with libjack.so but not with libjack.so.0 and libjack.so.0.0<br/>
+<font color="#A82F2F"><font size="2">(04:04:34 PM)</font> <b>goibhniu:</b></font> aha! is that all we need to do?<br/>
+<font color="#A82F2F"><font size="2">(04:04:39 PM)</font> <b>falktx:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(04:04:49 PM)</font> <b>goibhniu:</b></font> \o/<br/>
+<font color="#A82F2F"><font size="2">(04:04:56 PM)</font> <b>falktx:</b></font> same for libpulse.so and libpulse-simple.so<br/>
+<font color="#A82F2F"><font size="2">(04:05:04 PM)</font> <b>falktx:</b></font> let me do a test of this<br/>
+<font color="#A82F2F"><font size="2">(04:05:22 PM)</font> <b>falktx:</b></font> 1. system carla working fine<br/>
+<font color="#A82F2F"><font size="2">(04:05:46 PM)</font> <b>falktx:</b></font> 2. source nix.sh, running carla now segfaults<br/>
+<font color="#A82F2F"><font size="2">(04:06:12 PM)</font> <b>falktx:</b></font> looking for libjack.so...<br/>
+<font color="#A82F2F"><font size="2">(04:07:00 PM)</font> <b>falktx:</b></font> 3. delete shared jack libs, like this:<br/>
+<font color="#A82F2F"><font size="2">(04:07:07 PM)</font> <b>falktx:</b></font> sudo rm /nix/store/vc1c7yprxfcgnvnivmg0q3ndhvlxhiqg-jack2-1.9.10/lib/libjack.so.*<br/>
+<font color="#A82F2F"><font size="2">(04:07:16 PM)</font> <b>falktx:</b></font> sudo rm /nix/store/6rn97j3mf3g0j1rnkqkfdgzagnqzrpzb-jack2-1.9.10/lib/libjack.so.*<br/>
+<font color="#A82F2F"><font size="2">(04:07:21 PM)</font> <b>falktx:</b></font> carla now runs! :D<br/>
+<font color="#A82F2F"><font size="2">(04:07:54 PM)</font> <b>garbas:</b></font> nooooooooooooooo dont touch the store :)<br/>
+<font color="#A82F2F"><font size="2">(04:08:16 PM)</font> <b>goibhniu:</b></font> hehe .. I&apos;m not sure how you deleted those files ... but ... that sounds awesome!<br/>
+<font color="#A82F2F"><font size="2">(04:08:28 PM)</font> <b>goibhniu:</b></font> now, we just need to check that stuff works on nixos :D<br/>
+<font color="#A82F2F"><font size="2">(04:08:30 PM)</font> <b>falktx:</b></font> goibhniu: libjack.so is usually a symlink though so we need to be careful<br/>
+<font color="#A82F2F"><font size="2">(04:08:53 PM)</font> <b>falktx:</b></font> rm libjack.so; cp libjack.so.0.0 libjack.so; rm libjack.so.*<br/>
+<font color="#A82F2F"><font size="2">(04:09:06 PM)</font> <b>falktx:</b></font> do it like that^<br/>
+<font color="#A82F2F"><font size="2">(04:09:18 PM)</font> <b>goibhniu:</b></font> awesome<br/>
+<font color="#A82F2F"><font size="2">(04:09:23 PM)</font> <b>garbas:</b></font> postInstall = &quot;rm libjack.so; cp libjack.so.0.0 libjack.so; rm libjack.so.*&quot;;<br/>
+<font color="#A82F2F"><font size="2">(04:09:25 PM)</font> <b>garbas:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(04:10:31 PM)</font> <b>goibhniu:</b></font> so then nixos should just use libjack.so and not worry that we don&apos;t have libjack.so.* ... is that the trick?<br/>
+<font color="#A82F2F"><font size="2">(04:11:30 PM)</font> <b>goibhniu:</b></font> .. or we could use a stripped version of jack when it&apos;s a dependency<br/>
+<font color="#A82F2F"><font size="2">(04:11:39 PM)</font> <b>goibhniu:</b></font> and the user could install a full version<br/>
+<font color="#16569E"><font size="2">(04:13:10 PM)</font> <b>magnetophon:</b></font> goibhniu: that would also make it possible to easily choose between jack1 and jack2 in nixos, iiuc. right?<br/>
+<font color="#A82F2F"><font size="2">(04:13:28 PM)</font> <b>goibhniu:</b></font> magnetophon: can&apos;t you do that already?<br/>
+<font color="#062585"><font size="2">(04:13:36 PM)</font> <b>***goibhniu</b></font> never tried jack1<br/>
+<font color="#16569E"><font size="2">(04:13:48 PM)</font> <b>magnetophon:</b></font> i thought not, never looked into it actually<br/>
+<font color="#A82F2F"><font size="2">(04:13:59 PM)</font> <b>goibhniu:</b></font> maybe that&apos;s why peti wanted to remove jack1 :D<br/>
+<font color="#16569E"><font size="2">(04:14:25 PM)</font> <b>magnetophon:</b></font> it's just that now pkgs have a hardcoded dep on jack2.<br/>
+<font color="#16569E"><font size="2">(04:14:30 PM)</font> <b>magnetophon:</b></font> peti?<br/>
+<font color="#A82F2F"><font size="2">(04:14:44 PM)</font> <b>goibhniu:</b></font> I think it doesn&apos;t matter which version you compile a package with<br/>
+<font color="#16569E"><font size="2">(04:14:59 PM)</font> <b>magnetophon:</b></font> ah, ok. nm<br/>
+<font color="#A82F2F"><font size="2">(04:15:12 PM)</font> <b>goibhniu:</b></font> and jack2 has dbus support ... so I thought that might enable extra features in some cases ... that was the theory anyway<br/>
+<font color="#A82F2F"><font size="2">(04:15:39 PM)</font> <b>goibhniu:</b></font> but I assumed you could still use them with jack1<br/>
+<font color="#A82F2F"><font size="2">(04:16:39 PM)</font> <b>goibhniu:</b></font> magnetophon: peti is a nix dev (also in berlin IIRC)<br/>
+<font color="#A82F2F"><font size="2">(04:18:44 PM)</font> <b>falktx:</b></font> it&apos;s easy, just provide jack2 and jack2-full<br/>
+<font color="#A82F2F"><font size="2">(04:18:54 PM)</font> <b>falktx:</b></font> and make it by default not have that file<br/>
+<font color="#A82F2F"><font size="2">(04:19:08 PM)</font> <b>falktx:</b></font> also, do the same for libjackserver.so.*<br/>
+<font color="#A82F2F"><font size="2">(04:20:19 PM)</font> <b>goibhniu:</b></font> lovely ... that&apos;s an elegant solution<br/>
+<font color="#062585"><font size="2">(04:20:42 PM)</font> <b>***garbas</b></font> has a feeling we&apos;ll be working on jack support in nix/OS at next #nixos meetup :)<br/>
+<font color="#A82F2F"><font size="2">(04:21:38 PM)</font> <b>goibhniu:</b></font> well, I guess this will fix it ... hrm ... it would be nice to add tests for this<br/>
+<font color="#A82F2F"><font size="2">(04:23:09 PM)</font> <b>goibhniu:</b></font> falktx: if you have time... it would be interesting to see if enabling chroot builds for nix fixes your build issue for LS<br/>
+<font color="#062585"><font size="2">(04:23:19 PM)</font> <b>***goibhniu</b></font> can also check this later<br/>
+<font color="#A82F2F"><font size="2">(04:24:43 PM)</font> <b>falktx:</b></font> better you check this later<br/>
+<font color="#A82F2F"><font size="2">(04:25:29 PM)</font> <b>goibhniu:</b></font> sure<br/>
+<font color="#16569E"><font size="2">(04:25:30 PM)</font> <b>magnetophon:</b></font> i'll check it. just disable chroot and see if it breaks the LS build, right?<br/>
+<font color="#A82F2F"><font size="2">(04:25:45 PM)</font> <b>goibhniu:</b></font> magnetophon: ideally from a KXStudio box<br/>
+<font color="#A82F2F"><font size="2">(04:25:53 PM)</font> <b>falktx:</b></font> haha, found an issue<br/>
+<font color="#A82F2F"><font size="2">(04:26:07 PM)</font> <b>falktx:</b></font> eq10q fails to load<br/>
+<font color="#A82F2F"><font size="2">(04:26:09 PM)</font> <b>falktx:</b></font> Inconsistency detected by ld.so: dl-open.c: 680: _dl_open: Assertion `_dl_debug_initialize (0, args.nsid)-&gt;r_state == RT_CONSISTENT&apos; failed!<br/>
+<font color="#A82F2F"><font size="2">(04:26:26 PM)</font> <b>goibhniu:</b></font> magnetophon: it could be that there something in falktx environment which upsets it ... or maybe it&apos;s more general<br/>
+<font color="#16569E"><font size="2">(04:27:13 PM)</font> <b>magnetophon:</b></font> goibhniu: I'll try in nixos first and then if that doesn't break, on debian. <br/>
+<font color="#A82F2F"><font size="2">(04:27:24 PM)</font> <b>goibhniu:</b></font> magnetophon: great!<br/>
+<font color="#16569E"><font size="2">(04:30:41 PM)</font> <b>magnetophon:</b></font> goibhniu: nix-build just gave me the store path, so iiuc it doesn't think the outcome would be different.<br/>
+<font color="#A82F2F"><font size="2">(04:31:34 PM)</font> <b>goibhniu:</b></font> magnetophon: ah yeah, I think --check gets it to rebuild<br/>
+<font color="#A82F2F"><font size="2">(04:31:54 PM)</font> <b>mullein:</b></font> to revisit my os question from yesterday, is nixos a good choice for up to date audio stuff in your opinions?<br/>
+<font color="#16569E"><font size="2">(04:32:26 PM)</font> <b>magnetophon:</b></font> goibhniu: error: repairing or checking is not supported when building through the Nix daemon<br/>
+<font color="#16569E"><font size="2">(04:33:18 PM)</font> <b>magnetophon:</b></font> mullein: if the nix troubles with pkging didn't scare you of: YES!  :D <br/>
+<font color="#16569E"><font size="2">(04:33:52 PM)</font> <b>magnetophon:</b></font> mullein: as in: nixos sometimes makes life a bit harder, but it gives back a lot. <br/>
+<font color="#A82F2F"><font size="2">(04:34:32 PM)</font> <b>goibhniu:</b></font> magnetophon: ah yes, you need to disable the daemon, there&apos;s some env var for that<br/>
+<font color="#16569E"><font size="2">(04:34:45 PM)</font> <b>magnetophon:</b></font> goibhniu: ok, thanks<br/>
+<font color="#16569E"><font size="2">(04:36:03 PM)</font> <b>magnetophon:</b></font> mullein: there's a nice rt-audio config you can just import at https://github.com/musnix/musnix<br/>
+<font color="#A82F2F"><font size="2">(04:36:05 PM)</font> <b>nobody:</b></font> Title: musnix/musnix · GitHub (at github.com)<br/>
+<font color="#A82F2F"><font size="2">(04:36:06 PM)</font> <b>mullein:</b></font> magnetophon: thanks, i&apos;ll check it out as its goals sound interesting<br/>
+<font color="#16569E"><font size="2">(04:38:28 PM)</font> <b>magnetophon:</b></font> mullein: here are the available audio pkgs: https://github.com/NixOS/nixpkgs/tree/master/pkgs/applications/audio<br/>
+<font color="#A82F2F"><font size="2">(04:38:30 PM)</font> <b>nobody:</b></font> Title: nixpkgs/pkgs/applications/audio at master · NixOS/nixpkgs · GitHub (at github.com)<br/>
+<font color="#A82F2F"><font size="2">(04:43:47 PM)</font> <b>mullein:</b></font> cool, seems to have everything i&apos;ve used in the past except rosegarden<br/>
+<font color="#A82F2F"><font size="2">(04:44:12 PM)</font> <b>mullein:</b></font> though i doubt that would be hard for me to build<br/>
+<font color="#16569E"><font size="2">(04:46:20 PM)</font> <b>magnetophon:</b></font> mullein: great!<br/>
+<font color="#16569E"><font size="2">(04:47:25 PM)</font> <b>magnetophon:</b></font> goibhniu: hmm, tried &quot;export NIX_REMOTE= &quot; from root, as suggested here: http://lists.science.uu.nl/pipermail/nix-dev/2011-August/006531.html   same error<br/>
+<font color="#A82F2F"><font size="2">(04:47:27 PM)</font> <b>nobody:</b></font> Title: [Nix-dev] Disable build-use-chroot on command line (at lists.science.uu.nl)<br/>
+<font color="#A82F2F"><font size="2">(04:48:00 PM)</font> <b>goibhniu:</b></font> magnetophon: and you ran nix-build as root, right?<br/>
+<font color="#16569E"><font size="2">(04:48:10 PM)</font> <b>magnetophon:</b></font> goibhniu: ah, no<br/>
+<font color="#16569E"><font size="2">(04:51:05 PM)</font> <b>magnetophon:</b></font> goibhniu: yes, that builds. (after setting { allowUnfree = true; })<br/>
+<font color="#A82F2F"><font size="2">(04:55:15 PM)</font> <b>l33o:</b></font> hellö<br/>
+<font color="#A82F2F"><font size="2">(04:55:46 PM)</font> <b>l33o:</b></font> wow, this shuriken slicer was a great much appreciated hint i got from you here, yesterday<br/>
+<font color="#A82F2F"><font size="2">(04:56:01 PM)</font> <b>l33o:</b></font> played with it the whole night and had much, much fun<br/>
+<font color="#A82F2F"><font size="2">(04:56:40 PM)</font> <b>l33o:</b></font> sfz export didnt worked for me, but maybe i should readt some basics about software before using it+<br/>
+<font color="#16569E"><font size="2">(05:28:28 PM)</font> <b>magnetophon:</b></font> goibhniu: error: derivation ‘/nix/store/7lfll9y773x94ng2wz8p6xgh24by506v-linuxsampler-svn-2729.drv’ may not be deterministic: hash mismatch in output ‘/nix/store/cvb0jkdhz19s31ibz8d3mvg630bndlqx-linuxsampler-svn-2729’<br/>
+<font color="#A82F2F"><font size="2">(05:29:37 PM)</font> <b>goibhniu:</b></font> magnetophon: I&apos;ve never seen that before<br/>
+<font color="#A82F2F"><font size="2">(05:31:58 PM)</font> <b>l33o:</b></font> mmm...hash<br/>
+<font color="#A82F2F"><font size="2">(05:32:03 PM)</font> <b>l33o:</b></font> c u later<br/>
+<font size="2">(05:32:08 PM)</font><b> l33o left the room (quit: Quit: http://www.kiwiirc.com/ - A hand crafted IRC client).</b><br/>
+<font color="#16569E"><font size="2">(05:33:33 PM)</font> <b>magnetophon:</b></font> goibhniu: I think it just means the pkg is nit fully deterministic. (or it actually changed) http://nixos.org/releases/nix/nix-1.7/manual/#ssec-relnotes-1.7<br/>
+<font color="#A82F2F"><font size="2">(05:33:35 PM)</font> <b>nobody:</b></font> Title: Nix User&apos;s Guide (at nixos.org)<br/>
+<font color="#16569E"><font size="2">(05:33:52 PM)</font> <b>magnetophon:</b></font> s/nit/not/<br/>
+<font color="#16569E"><font size="2">(05:38:14 PM)</font> <b>magnetophon:</b></font> goibhniu: anyway it runs, so I'll go check on debian.<br/>
+<font color="#A82F2F"><font size="2">(05:40:46 PM)</font> <b>goibhniu:</b></font> magnetophon: ah, good!<br/>
+<font color="#16569E"><font size="2">(05:57:34 PM)</font> <b>magnetophon:</b></font> goibhniu: how do I get my source tree in sync with my current version (since there is no nixos-version in nix)<br/>
+<font color="#16569E"><font size="2">(06:23:59 PM)</font> <b>magnetophon:</b></font> falktx, goibhniu: on debian, I get the bison error, just like falktx. I'll try with chroot now.<br/>
+<font color="#A82F2F"><font size="2">(06:24:35 PM)</font> <b>goibhniu:</b></font> magnetophon, excellent!<br/>
+<font color="#16569E"><font size="2">(06:29:18 PM)</font> <b>magnetophon:</b></font> goibhniu: hmm, same error. what's the nix equivalent of nixos-option?<br/>
+<font color="#A82F2F"><font size="2">(06:31:27 PM)</font> <b>goibhniu:</b></font> magnetophon no idea ... did you pass an option to nix-build or configure it in /etc/nix/nix.conf ?<br/>
+<font color="#16569E"><font size="2">(06:34:36 PM)</font> <b>magnetophon:</b></font> goibhniu: I tried to do it in ~/.nixpkgs/config.nix  that seems to get ignored, cause when I put a typo in there it doesn't complain. It gets used for unfee though...<br/>
+<font color="#A82F2F"><font size="2">(06:35:07 PM)</font> <b>goibhniu:</b></font> ah yeah, you don&apos;t configure nix there ... that&apos;s just for user specific nixpkgs config<br/>
+<font color="#062585"><font size="2">(06:35:27 PM)</font> <b>***magnetophon</b></font> = noob :)<br/>
+<font color="#A82F2F"><font size="2">(06:35:32 PM)</font> <b>goibhniu:</b></font> or you can pass it as an option<br/>
+<font color="#A82F2F"><font size="2">(06:35:53 PM)</font> <b>goibhniu:</b></font> (I think)<br/>
+<font color="#A82F2F"><font size="2">(06:36:01 PM)</font> <b>goibhniu:</b></font> I set it in /etc/nix/nix.conf anyway<br/>
+<font color="#16569E"><font size="2">(06:36:14 PM)</font> <b>magnetophon:</b></font> there is no chroot in man nix-build<br/>
+<font color="#A82F2F"><font size="2">(06:36:34 PM)</font> <b>goibhniu:</b></font> `man nix.conf`<br/>
+<font color="#A82F2F"><font size="2">(06:40:09 PM)</font> <b>falktx:</b></font> $(man nixconf)<br/>
+<font color="#A82F2F"><font size="2">(06:40:41 PM)</font> <b>falktx:</b></font> do not actually run that^<br/>
+<font color="#A82F2F"><font size="2">(06:45:40 PM)</font> <b>magnetophon1:</b></font> goibhniu: error: while setting up the build environment: setting up private namespaces: Operation not permitted<br/>
+<font color="#A82F2F"><font size="2">(06:45:52 PM)</font> <b>magnetophon1:</b></font> it seems to use chroot now<br/>
+<font color="#A82F2F"><font size="2">(06:46:20 PM)</font> <b>goibhniu:</b></font> did you try as root?<br/>
+<font color="#A82F2F"><font size="2">(06:46:36 PM)</font> <b>magnetophon1:</b></font> goibhniu: duh, no...<br/>
+<font color="#A82F2F"><font size="2">(06:57:57 PM)</font> <b>contrapunctus:</b></font> o/<br/>
+<font color="#16569E"><font size="2">(06:58:09 PM)</font> <b>magnetophon:</b></font> goibhniu: OK, after setting up unfree and build users, it is building!  :)<br/>
+<font color="#A82F2F"><font size="2">(06:59:02 PM)</font> <b>goibhniu:</b></font> oh, you needed to set up build users too? ... so chroot helps ... I guess that&apos;s gonna be tricky to fix<br/>
+<font color="#A82F2F"><font size="2">(06:59:30 PM)</font> <b>goibhniu:</b></font> personally, I&apos;d add an issue with the details and hope some legend steps up to fix it :)<br/>
+<font color="#16569E"><font size="2">(06:59:32 PM)</font> <b>magnetophon:</b></font> falktx: so it seems the (temporary) solution to your LS build problem is: nix.useChroot = true<br/>
+<font color="#A82F2F"><font size="2">(06:59:49 PM)</font> <b>goibhniu:</b></font> great work magnetophon!<br/>
+<font color="#16569E"><font size="2">(07:00:19 PM)</font> <b>magnetophon:</b></font> goibhniu: will do. and you did the thinking in this. I just did the typing... :)  thanks!<br/>
+<font color="#16569E"><font size="2">(07:01:25 PM)</font> <b>magnetophon:</b></font> and it runs!<br/>
+<font color="#16569E"><font size="2">(07:02:16 PM)</font> <b>magnetophon:</b></font> falktx: could you share your carla pkg, so I can test it?  (or is it just the one line changed in the installPhase?)<br/>
+<font color="#A82F2F"><font size="2">(07:02:28 PM)</font> <b>falktx:</b></font> magnetophon: I just changed that line<br/>
+<font color="#16569E"><font size="2">(07:02:42 PM)</font> <b>magnetophon:</b></font> falktx: cool, thanks<br/>
+<font color="#A82F2F"><font size="2">(07:02:47 PM)</font> <b>falktx:</b></font> set prefix to $out and remove destdir<br/>
+<font color="#A82F2F"><font size="2">(07:06:37 PM)</font> <b>magnetophon1:</b></font> goibhniu: $ nix-build ~/source/nixpkgs-goibhniu -A carla error: opening lock file ‘/nix/store/qjmh5s8r4s08xhhp2sw5dzcmkrn3di88-speex-1.2rc1.tar.gz.drv.lock’: Permission denied (use ‘--show-trace’ to show detailed location information<br/>
+<font color="#A82F2F"><font size="2">(07:06:46 PM)</font> <b>magnetophon1:</b></font> it&apos;s now building as root<br/>
+<font color="#A82F2F"><font size="2">(07:07:58 PM)</font> <b>goibhniu:</b></font> I only ever used nix as root on other distros ... seemed fair enough to me :D<br/>
+<font color="#A82F2F"><font size="2">(07:08:27 PM)</font> <b>contrapunctus:</b></font> goibhniu: wasn&apos;t it supposed to install on a per-user basis? o.O<br/>
+<font color="#16569E"><font size="2">(07:08:29 PM)</font> <b>magnetophon:</b></font> heh<br/>
+<font color="#16569E"><font size="2">(07:09:00 PM)</font> <b>magnetophon:</b></font> contrapunctus: : it does, except when it doesn't :D<br/>
+<font color="#A82F2F"><font size="2">(07:09:15 PM)</font> <b>contrapunctus:</b></font> magnetophon: haw haw haw x)<br/>
+<font color="#A82F2F"><font size="2">(07:10:05 PM)</font> <b>goibhniu:</b></font> it works like that out of the box on NixOS, but you have to configure a daemon on other distros .. I haven&apos;t ever bothered with that<br/>
+<font color="#A82F2F"><font size="2">(07:10:34 PM)</font> <b>goibhniu:</b></font> (or any particular user could own /nix/store)<br/>
+<font color="#A82F2F"><font size="2">(07:10:55 PM)</font> <b>contrapunctus:</b></font> cool<br/>
+<font color="#16569E"><font size="2">(07:11:34 PM)</font> <b>magnetophon:</b></font> goibhniu, contrapunctus: well, I first installed nix in debian as user, and it just worked (tm) untill now...<br/>
+<font color="#A82F2F"><font size="2">(07:14:59 PM)</font> <b>contrapunctus:</b></font> o.o<br/>
+<font color="#A82F2F"><font size="2">(07:15:14 PM)</font> <b>edogawa:</b></font> \o contrapunctus<br/>
+<font color="#A82F2F"><font size="2">(07:15:28 PM)</font> <b>contrapunctus:</b></font> Yo, edogawa<br/>
+<font color="#A82F2F"><font size="2">(07:16:17 PM)</font> <b>contrapunctus:</b></font> edogawa: What goes?<br/>
+<font color="#A82F2F"><font size="2">(07:17:13 PM)</font> <b>edogawa:</b></font> several things ;)<br/>
+<font color="#A82F2F"><font size="2">(07:18:31 PM)</font> <b>edogawa:</b></font> i&apos;m preparing to build a fence for a friend, today i bought 120 m of reed mats, and a friend drove to the sawmill to get like 400 m of wood<br/>
+<font color="#A82F2F"><font size="2">(07:18:48 PM)</font> <b>contrapunctus:</b></font> o_o<br/>
+<font color="#A82F2F"><font size="2">(07:18:48 PM)</font> <b>edogawa:</b></font> tomorrow morning we start building it<br/>
+<font color="#A82F2F"><font size="2">(07:19:55 PM)</font> <b>edogawa:</b></font> just that friend (a carpener) had a mysterious severe bike accident last weekend, was 2 days in hospital with braun concussion and lots of wounds in his face<br/>
+<font color="#A82F2F"><font size="2">(07:20:17 PM)</font> <b>edogawa:</b></font> he doesn&apos;t remember how it happened, noone else was involved<br/>
+<font color="#A82F2F"><font size="2">(07:20:28 PM)</font> <b>contrapunctus:</b></font> wut o_o<br/>
+<font color="#A82F2F"><font size="2">(07:20:43 PM)</font> <b>edogawa:</b></font> when he woke up after 15 mins the ambulance was there already<br/>
+<font color="#A82F2F"><font size="2">(07:21:38 PM)</font> <b>edogawa:</b></font> but today he obviously was fit enough again to drive to the sawmill<br/>
+<font color="#A82F2F"><font size="2">(07:22:22 PM)</font> <b>edogawa:</b></font> so he&apos;ll help a bit but he won&apos;t swing the big hammer to drive these logs in the floor<br/>
+<font color="#A82F2F"><font size="2">(07:22:26 PM)</font> <b>contrapunctus:</b></font> That sucks. I mean, accident and all, but to not even be able to remember it... :(<br/>
+<font size="2">(07:22:33 PM)</font><b> gianMOD left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(07:22:34 PM)</font> <b>edogawa:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(07:22:58 PM)</font> <b>goibhniu:</b></font> eek<br/>
+<font color="#A82F2F"><font size="2">(07:23:42 PM)</font> <b>edogawa:</b></font> my young son got really scared when he saw him yesterday evening, he looks like a clochard or drunkard from under the bridge<br/>
+<font color="#A82F2F"><font size="2">(07:24:38 PM)</font> <b>edogawa:</b></font> but he feels no pain and is well again, in general, also they checked him thoroughly and didn&apos;t find a thing<br/>
+<font color="#A82F2F"><font size="2">(07:24:58 PM)</font> <b>contrapunctus:</b></font> wow. freaking mysterious.<br/>
+<font color="#A82F2F"><font size="2">(07:25:05 PM)</font> <b>edogawa:</b></font> heart, lungs, nerves etc., you know<br/>
+<font color="#A82F2F"><font size="2">(07:25:21 PM)</font> <b>contrapunctus:</b></font> edogawa: none of those car/bike/bicycle cam thingies?<br/>
+<font color="#A82F2F"><font size="2">(07:25:32 PM)</font> <b>edogawa:</b></font> nah<br/>
+<font color="#A82F2F"><font size="2">(07:26:07 PM)</font> <b>contrapunctus:</b></font> x-P<br/>
+<font color="#A82F2F"><font size="2">(07:26:46 PM)</font> <b>edogawa:</b></font> contrapunctus: and you?<br/>
+<font color="#A82F2F"><font size="2">(07:27:10 PM)</font> <b>contrapunctus:</b></font> loafing around, writing my program.<br/>
+<font color="#A82F2F"><font size="2">(07:27:53 PM)</font> <b>edogawa:</b></font> contrapunctus: you quit so quickly yesterday, i wanted to tell more fun stuf about that weiss piece<br/>
+<font color="#A82F2F"><font size="2">(07:28:26 PM)</font> <b>contrapunctus:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(07:28:57 PM)</font> <b>edogawa:</b></font> i made my own re-intabulation from the gp5 file, by comparing it to the facsimile<br/>
+<font color="#A82F2F"><font size="2">(07:29:10 PM)</font> <b>edogawa:</b></font> before i found the Duo 4<br/>
+<font color="#A82F2F"><font size="2">(07:29:13 PM)</font> <b>magnetophon1:</b></font> falktx, goibhniu: carla gives me ImportError: No module named PyQt4.QtCore  :(<br/>
+<font color="#A82F2F"><font size="2">(07:30:28 PM)</font> <b>l33_:</b></font> build well every one<br/>
+<font color="#A82F2F"><font size="2">(07:30:41 PM)</font> <b>contrapunctus:</b></font> edogawa: o.o<br/>
+<font color="#A82F2F"><font size="2">(07:30:47 PM)</font> <b>falktx:</b></font> o.O<br/>
+<font color="#A82F2F"><font size="2">(07:30:48 PM)</font> <b>contrapunctus:</b></font> l33_: ???<br/>
+<font color="#A82F2F"><font size="2">(07:31:05 PM)</font> <b>l33_:</b></font> thought that could be a good greeting for opensourcemusicians<br/>
+<font color="#A82F2F"><font size="2">(07:32:00 PM)</font> <b>contrapunctus:</b></font> l33_: it suits a Gentoo room more.<br/>
+<font color="#A82F2F"><font size="2">(07:32:21 PM)</font> <b>contrapunctus:</b></font> or, some build system room ;)<br/>
+<font color="#A82F2F"><font size="2">(07:32:56 PM)</font> <b>l33_:</b></font> hehehe<br/>
+<font color="#A82F2F"><font size="2">(07:33:13 PM)</font> <b>contrapunctus:</b></font> l33_: what goes with you?<br/>
+<font color="#A82F2F"><font size="2">(07:33:14 PM)</font> <b>magnetophon1:</b></font> goibhniu: do I need to change/add anything here: https://github.com/NixOS/nix/issues/513<br/>
+<font color="#A82F2F"><font size="2">(07:33:18 PM)</font> <b>contrapunctus:</b></font> edogawa: how was it?<br/>
+<font color="#A82F2F"><font size="2">(07:33:19 PM)</font> <b>nobody:</b></font> Title: a pkg that needs useChroot to build · Issue #513 · NixOS/nix · GitHub (at github.com)<br/>
+<font color="#A82F2F"><font size="2">(07:34:02 PM)</font> <b>l33_:</b></font> i have once crazy thought, getting the IR out of some nice plugins, only as a proof of concept<br/>
+<font color="#A82F2F"><font size="2">(07:34:02 PM)</font> <b>edogawa:</b></font> contrapunctus: intabulating?<br/>
+<font color="#A82F2F"><font size="2">(07:34:25 PM)</font> <b>contrapunctus:</b></font> edogawa: that, and the result.<br/>
+<font color="#A82F2F"><font size="2">(07:34:53 PM)</font> <b>goibhniu:</b></font> magnetophon1 ok, we need to wrap it with PYTHONPATH which has pyqt4<br/>
+<font color="#A82F2F"><font size="2">(07:35:35 PM)</font> <b>edogawa:</b></font> contrapunctus: i wrote a small program long ago that can generate cripps tab code for baroque lute from midifiles, at leas something to work from and saving hours of manual typing<br/>
+<font color="#A82F2F"><font size="2">(07:35:57 PM)</font> <b>contrapunctus:</b></font> edogawa: nice.<br/>
+<font color="#A82F2F"><font size="2">(07:36:00 PM)</font> <b>goibhniu:</b></font> magnetophon1 you also get this install problem on debian with the chroot build?<br/>
+<font color="#A82F2F"><font size="2">(07:36:10 PM)</font> <b>contrapunctus:</b></font> edogawa: I&apos;ve often contemplated making a pre-compiler for Lilypond.<br/>
+<font color="#A82F2F"><font size="2">(07:36:14 PM)</font> <b>edogawa:</b></font> so that was the easy part, comparing and correcting took like 4 hours but the result is just great<br/>
+<font color="#A82F2F"><font size="2">(07:36:29 PM)</font> <b>contrapunctus:</b></font> (with some syntactic sugar I&apos;d like to see)<br/>
+<font color="#A82F2F"><font size="2">(07:36:40 PM)</font> <b>contrapunctus:</b></font> edogawa: ho boy, four hours :p<br/>
+<font color="#A82F2F"><font size="2">(07:36:41 PM)</font> <b>goibhniu:</b></font> magnetophon1 I guess that should be a different ticket, and probably bears mentioning that it&apos;s on a 32bit system ... I don&apos;t have that problem<br/>
+<font color="#A82F2F"><font size="2">(07:36:46 PM)</font> <b>edogawa:</b></font> more faithful to the original than the Duo4 version<br/>
+<font color="#A82F2F"><font size="2">(07:37:02 PM)</font> <b>edogawa:</b></font> (stroke signs etc.)<br/>
+<font color="#A82F2F"><font size="2">(07:37:10 PM)</font> <b>contrapunctus:</b></font> o.o<br/>
+<font color="#A82F2F"><font size="2">(07:37:20 PM)</font> <b>goibhniu:</b></font> magnetophon1 maybe you can add some more of the error traceback too<br/>
+<font color="#16569E"><font size="2">(07:37:48 PM)</font> <b>magnetophon:</b></font> goibhniu: OK, will do<br/>
+<font color="#A82F2F"><font size="2">(07:37:48 PM)</font> <b>edogawa:</b></font> contrapunctus: sorry gotta go cook dinner, talk to you later hopefully<br/>
+<font color="#A82F2F"><font size="2">(07:37:56 PM)</font> <b>contrapunctus:</b></font> edogawa: okay, later :)<br/>
+<font color="#A82F2F"><font size="2">(07:38:30 PM)</font> <b>goibhniu:</b></font> magnetophon I guess you will also be able to produce the LS non-chroot build error on debian with the current version of nixpkgs ... no need to refer to the branch<br/>
+<font color="#A82F2F"><font size="2">(07:38:43 PM)</font> <b>goibhniu:</b></font> (it will make it easier for someone to test)<br/>
+<font color="#A82F2F"><font size="2">(07:39:21 PM)</font> <b>goibhniu:</b></font> magnetophon the issue should be in nixpkgs, rather than nix<br/>
+<font color="#A82F2F"><font size="2">(07:40:06 PM)</font> <b>goibhniu:</b></font> LS probably finds something in the FHS which is uses instead of in the build environment<br/>
+<font color="#16569E"><font size="2">(07:41:15 PM)</font> <b>magnetophon:</b></font> goibhniu: I'll try the default LS<br/>
+<font color="#A82F2F"><font size="2">(07:41:24 PM)</font> <b>goibhniu:</b></font> super!<br/>
+<font color="#A82F2F"><font size="2">(07:46:06 PM)</font> <b>magnetophon1:</b></font> goibhniu: https://github.com/NixOS/nixpkgs/issues/7397<br/>
+<font color="#A82F2F"><font size="2">(07:46:10 PM)</font> <b>nobody:</b></font> Title: a pkg that needs useChroot to build · Issue #7397 · NixOS/nixpkgs · GitHub (at github.com)<br/>
+<font color="#A82F2F"><font size="2">(07:47:25 PM)</font> <b>goibhniu:</b></font> magnetophon1 cool, did you try to install it on the debian box? ... (I&apos;d leave that out of this issue, or at least mention the 32bit thing)<br/>
+<font color="#A82F2F"><font size="2">(07:50:26 PM)</font> <b>magnetophon1:</b></font> goibhniu: yeah, this is all on debian, I mentioned that now in the issue, as it works on nixos<br/>
+<font color="#A82F2F"><font size="2">(07:51:15 PM)</font> <b>magnetophon1:</b></font> goibhniu: error: some outputs of ‘/nix/store/354g2kwnliz2jvq4ddcv3dyrbrzb0854-linuxsampler-svn-2340.drv’ are not valid, so checking is not possible<br/>
+<font color="#A82F2F"><font size="2">(07:51:28 PM)</font> <b>magnetophon1:</b></font> that&apos;s the default LS<br/>
+<font color="#A82F2F"><font size="2">(07:51:47 PM)</font> <b>magnetophon1:</b></font> google doesn&apos;t know that error...<br/>
+<font color="#A82F2F"><font size="2">(07:52:26 PM)</font> <b>goibhniu:</b></font> so installation fails on debian too?<br/>
+<font color="#A82F2F"><font size="2">(07:52:36 PM)</font> <b>goibhniu:</b></font> and it&apos;s also a 32bit system?<br/>
+<font color="#A82F2F"><font size="2">(07:52:41 PM)</font> <b>magnetophon1:</b></font> goibhniu: no, sorry, build<br/>
+<font color="#A82F2F"><font size="2">(07:52:45 PM)</font> <b>magnetophon1:</b></font> 32bit<br/>
+<font color="#A82F2F"><font size="2">(07:52:51 PM)</font> <b>goibhniu:</b></font> installation works?<br/>
+<font color="#A82F2F"><font size="2">(07:53:10 PM)</font> <b>magnetophon1:</b></font> from cache? lemme check.<br/>
+<font color="#A82F2F"><font size="2">(07:53:23 PM)</font> <b>goibhniu:</b></font> nope, from the build<br/>
+<font color="#A82F2F"><font size="2">(07:53:31 PM)</font> <b>goibhniu:</b></font> it&apos;s not available as a binary<br/>
+<font color="#A82F2F"><font size="2">(07:54:34 PM)</font> <b>magnetophon1:</b></font> ah, you mean the new one?<br/>
+<font color="#A82F2F"><font size="2">(07:54:40 PM)</font> <b>goibhniu:</b></font> from the chroot build<br/>
+<font color="#A82F2F"><font size="2">(07:55:25 PM)</font> <b>goibhniu:</b></font> you could build it on 32bit nixos, but not install it. In this ticket you talk about not being able to build it on debian ... can you install it on debian?<br/>
+<font color="#A82F2F"><font size="2">(07:55:26 PM)</font> <b>magnetophon1:</b></font> I didn&apos;t try building the old with chroot. I&apos;ll try and install both.<br/>
+<font color="#A82F2F"><font size="2">(07:55:48 PM)</font> <b>goibhniu:</b></font> it&apos;s just that it&apos;s probably mixing unrelated issues<br/>
+<font color="#A82F2F"><font size="2">(07:56:29 PM)</font> <b>goibhniu:</b></font> the easier it is for someone else to test this, the better chance we have that they will try to fix it<br/>
+<font color="#A82F2F"><font size="2">(07:57:38 PM)</font> <b>goibhniu:</b></font> my guess is that it picks up some autotools stuff from debian, which it shouldn&apos;t ... we can probably set or clear some env vars to prevent that<br/>
+<font color="#A82F2F"><font size="2">(07:57:44 PM)</font> <b>l33_:</b></font> mmm, first time that qtractor escaped from my evil usage: tried to open mp3 in qtractor...mmm<br/>
+<font color="#A82F2F"><font size="2">(07:58:24 PM)</font> <b>goibhniu:</b></font> magnetophon1 it would be good to mention the distro and version too<br/>
+<font color="#A82F2F"><font size="2">(07:58:37 PM)</font> <b>l33_:</b></font> mmm, maybe wrong usage i tried to import audio file before qtractor was connected to jack<br/>
+<font color="#A82F2F"><font size="2">(07:59:19 PM)</font> <b>goibhniu:</b></font> magnetophon1, It would be great to try it without the patch too ... if you have the energy :D<br/>
+<font color="#A82F2F"><font size="2">(08:04:56 PM)</font> <b>magnetophon1:</b></font> goibhniu: https://github.com/NixOS/nixpkgs/issues/7397<br/>
+<font color="#A82F2F"><font size="2">(08:04:59 PM)</font> <b>nobody:</b></font> Title: a pkg that needs useChroot to build · Issue #7397 · NixOS/nixpkgs · GitHub (at github.com)<br/>
+<font color="#A82F2F"><font size="2">(08:05:46 PM)</font> <b>magnetophon1:</b></font> goibhniu: you mean the new ver but without falktx&apos;s patch? I presume the old ver has a patch for a reason, no?<br/>
+<font color="#A82F2F"><font size="2">(08:06:03 PM)</font> <b>goibhniu:</b></font> magnetophon1 awesome, is that also for LS in current nixpkgs?<br/>
+<font color="#A82F2F"><font size="2">(08:06:16 PM)</font> <b>magnetophon1:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(08:06:44 PM)</font> <b>goibhniu:</b></font> but the traceback mentions falktx&apos;s patch :)<br/>
+<font color="#A82F2F"><font size="2">(08:07:06 PM)</font> <b>magnetophon1:</b></font> i aws asking wether you want me to build it without<br/>
+<font color="#A82F2F"><font size="2">(08:07:20 PM)</font> <b>magnetophon1:</b></font> s/typos//<br/>
+<font color="#A82F2F"><font size="2">(08:07:37 PM)</font> <b>goibhniu:</b></font> the idea is to make it easier for someone to reproduce ... they can&apos;t reproduce this traceback at the moment<br/>
+<font color="#A82F2F"><font size="2">(08:08:11 PM)</font> <b>goibhniu:</b></font> if we only get this error with the newer version of LS, then that should be mentioned<br/>
+<font color="#A82F2F"><font size="2">(08:08:21 PM)</font> <b>magnetophon1:</b></font> goibhniu: ah, right, wrong TB<br/>
+<font color="#A82F2F"><font size="2">(08:08:45 PM)</font> <b>magnetophon1:</b></font> no it&apos;s in both, so i removed the mention of the repo<br/>
+<font color="#A82F2F"><font size="2">(08:08:46 PM)</font> <b>goibhniu:</b></font> if we also get this error with the version of LS currently in nixpkgs, then that makes it much easier .<br/>
+<font color="#A82F2F"><font size="2">(08:09:07 PM)</font> <b>goibhniu:</b></font> ah cool, so it was just a copy-paste mistake<br/>
+<font color="#062585"><font size="2">(08:10:45 PM)</font> <b>***goibhniu</b></font> -&gt; home ... o/<br/>
+<font size="2">(08:15:14 PM)</font><b> goibhniu left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font size="2">(08:18:12 PM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(08:18:26 PM)</font> <b>magnetophon:</b></font> hi HarryHaaren!<br/>
+<font color="#A82F2F"><font size="2">(08:18:34 PM)</font> <b>contrapunctus:</b></font> hi HarryHaaren!<br/>
+<font color="#A82F2F"><font size="2">(08:18:42 PM)</font> <b>HarryHaaren:</b></font> sup guys howdy all doin?<br/>
+<font color="#A82F2F"><font size="2">(08:19:18 PM)</font> <b>contrapunctus:</b></font> programming x-P<br/>
+<font color="#16569E"><font size="2">(08:20:00 PM)</font> <b>magnetophon:</b></font> packaging carla, with testing/troubleshooting on nix by falktx  :D<br/>
+<font color="#16569E"><font size="2">(08:23:30 PM)</font> <b>magnetophon:</b></font> and simultaneously integrating the code I got from Yann Orlarey into my limiter...  I'm one lucky fellow! :D <br/>
+<font color="#16569E"><font size="2">(08:24:49 PM)</font> <b>magnetophon:</b></font> If I keep this up Linus will be compiling my new kernel soon... :p<br/>
+<font color="#16569E"><font size="2">(08:26:26 PM)</font> <b>magnetophon:</b></font> HarryHaaren: and you? had any time to play with anything yet?<br/>
+<font color="#A82F2F"><font size="2">(08:26:35 PM)</font> <b>HarryHaaren:</b></font> hahah nice :)<br/>
+<font color="#A82F2F"><font size="2">(08:26:48 PM)</font> <b>HarryHaaren:</b></font> not much - just back home from work today, and sent a few emails<br/>
+<font color="#A82F2F"><font size="2">(08:26:57 PM)</font> <b>HarryHaaren:</b></font> most of the &quot;fun&quot; is yet to start :)<br/>
+<font color="#16569E"><font size="2">(08:27:23 PM)</font> <b>magnetophon:</b></font> did you see my MBdistortion?<br/>
+<font color="#A82F2F"><font size="2">(08:32:15 PM)</font> <b>HarryHaaren:</b></font> nope not yet - on your github?<br/>
+<font color="#062585"><font size="2">(08:32:32 PM)</font> <b>***HarryHaaren</b></font> cooking, on IRC, doing tech support + more in my  head, excuse any distractedness..<br/>
+<font size="2">(08:33:26 PM)</font><b> gianMOD [<em>~gianMOD@dslb-188-103-075-063.188.103.pools.vodafone-ip.de</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(08:33:40 PM)</font> <b>magnetophon:</b></font> HarryHaaren: in your mail<br/>
+<font size="2">(08:37:53 PM)</font><b> gianMOD left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:38:12 PM)</font> <b>HarryHaaren:</b></font> magnetophon, my inbox? No mail from you... yet?<br/>
+<font color="#16569E"><font size="2">(08:38:52 PM)</font> <b>magnetophon:</b></font> was sent a yesterday. I'll send it again.<br/>
+<font color="#A82F2F"><font size="2">(08:46:42 PM)</font> <b>HarryHaaren:</b></font> magnetophon, yep got it now<br/>
+<font color="#16569E"><font size="2">(08:47:04 PM)</font> <b>magnetophon:</b></font> that was quick! :)<br/>
+<font color="#062585"><font size="2">(08:47:21 PM)</font> <b>***HarryHaaren</b></font> was just clicking refresh for the last 10 mins ;)<br/>
+<font color="#16569E"><font size="2">(08:47:29 PM)</font> <b>magnetophon:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(08:47:56 PM)</font> <b>HarryHaaren:</b></font> i&apos;ll try check it out before the weekend, but I have lots of catchin up to do with things here<br/>
+<font color="#062585"><font size="2">(08:48:08 PM)</font> <b>***magnetophon</b></font> now understands why HarryHaaren never has time...  :p<br/>
+<font color="#A82F2F"><font size="2">(08:48:15 PM)</font> <b>HarryHaaren:</b></font> I do wanna do an AVTK LV2 ui real soon - so why not a MB-distort<br/>
+<font color="#A82F2F"><font size="2">(08:48:17 PM)</font> <b>HarryHaaren:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(08:48:29 PM)</font> <b>HarryHaaren:</b></font> any ideas for a 5 letter, ending in &quot;A&quot; name? (Aka ArtyFX naming)<br/>
+<font color="#A82F2F"><font size="2">(08:48:31 PM)</font> <b>HarryHaaren:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(08:48:55 PM)</font> <b>contrapunctus:</b></font> HarryHaaren: thema?<br/>
+<font color="#16569E"><font size="2">(08:48:59 PM)</font> <b>magnetophon:</b></font> MBdista is too long?<br/>
+<font color="#A82F2F"><font size="2">(08:49:31 PM)</font> <b>HarryHaaren:</b></font> yep, 5 letters :/<br/>
+<font color="#062585"><font size="2">(08:50:19 PM)</font> <b>***magnetophon</b></font> is bad with names, and has his github to prove it!<br/>
+<font color="#A82F2F"><font size="2">(08:51:04 PM)</font> <b>contrapunctus:</b></font> the closest one could get is &apos;torta&apos; for &apos;distorter&apos;, but that&apos;s a bit of a stretch.<br/>
+<font color="#16569E"><font size="2">(08:53:01 PM)</font> <b>magnetophon:</b></font> msmba? (midsidemultibanddistorta)    OK, I'll get my coat...<br/>
+<font color="#A82F2F"><font size="2">(08:53:36 PM)</font> <b>contrapunctus:</b></font> ...simba.<br/>
+<font color="#16569E"><font size="2">(08:54:04 PM)</font> <b>magnetophon:</b></font> i like that<br/>
+<font color="#A82F2F"><font size="2">(08:54:33 PM)</font> <b>contrapunctus:</b></font> it&apos;s your doing ;)<br/>
+<font color="#A82F2F"><font size="2">(08:55:02 PM)</font> <b>HarryHaaren:</b></font> i&apos;ll brain storm it - laters<br/>
+<font color="#062585"><font size="2">(08:55:06 PM)</font> <b>***HarryHaaren</b></font> for food<br/>
+<font size="2">(09:06:19 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

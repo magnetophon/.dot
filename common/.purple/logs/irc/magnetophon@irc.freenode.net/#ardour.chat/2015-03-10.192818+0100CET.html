@@ -1,0 +1,66 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Tue 10 Mar 2015 07:28:18 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Tue 10 Mar 2015 07:28:18 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(07:28:18 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(07:28:18 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(07:28:19 PM)</font> <b>weber.freenode.net:</b></font> (notice) [freenode-info] channel trolls and no channel staff around to help? please check with freenode support: http://freenode.net/faq.shtml#gettinghelp<br/>
+<font color="#A82F2F"><font size="2">(07:28:34 PM)</font> <b>rgareus:</b></font> the_CLA_2: should be fixed now<br/>
+<font color="#A82F2F"><font size="2">(07:29:31 PM)</font> <b>the_CLA_2:</b></font> falktx: And now let&apos;s see if the new beta of EQ10Q also produces CURIE errors. They had been gone after your patches had been applied, but then reappeard in some SVN version. Didn&apos;t test the final beta7, yet. ;)<br/>
+<font color="#A82F2F"><font size="2">(07:30:56 PM)</font> <b>tom-:</b></font> the_CLA_2: did you mean curry errors, ? :)<br/>
+<font color="#A82F2F"><font size="2">(07:31:43 PM)</font> <b>the_CLA_2:</b></font> rgareus: Confirmed. :)<br/>
+<font color="#A82F2F"><font size="2">(07:32:05 PM)</font> <b>the_CLA_2:</b></font> tom-: Stop that! I&apos;m getting hungry! o.o<br/>
+<font color="#A82F2F"><font size="2">(07:32:31 PM)</font> <b>tom-:</b></font> the_CLA_2: i don&apos;t know the word, but &quot;fenchel&quot; with some curry dip is very hot<br/>
+<font color="#A82F2F"><font size="2">(07:32:56 PM)</font> <b>tom-:</b></font> mayo + ketchup + curry + fenchel. lowend-ish<br/>
+<font color="#A82F2F"><font size="2">(07:35:37 PM)</font> <b>tom-:</b></font> some 4. is in the air, isnt0t it<br/>
+<font color="#A82F2F"><font size="2">(08:06:33 PM)</font> <b>Ben_a3:</b></font> the_CLA_2, tom-, rgareus, oofus :  I&apos;ve noticed something with groups.  in the past, we had mixer groups and edit groups.  to maintain that difference, we create the groups differently depending on whether you instantiate them from the mixer or the editor.  for example if you make a group from the mixer, the tracks won&apos;t select together from the editor.  but I find this confusing.  from the editor, you can&apos;t tell where the<br/>
+<font color="#A82F2F"><font size="2">(08:06:35 PM)</font> <b>Ben_a3:</b></font>  group got created.  So I think all groups should be created equally, and then let the user disable specific group features if they really know what they are doing.<br/>
+<font color="#A82F2F"><font size="2">(08:06:59 PM)</font> <b>las:</b></font> Ben_a3: i wouldn&apos;t expect it to be otherwise<br/>
+<font color="#A82F2F"><font size="2">(08:07:56 PM)</font> <b>tom-:</b></font> las was missing in the &quot;to&quot; indeed<br/>
+<font color="#A82F2F"><font size="2">(08:07:58 PM)</font> <b>Ben_a3:</b></font> las;   currently it creates the properties differently to &quot;simulate&quot; the old mixer vs editor groups.  I think I was a proponent of that.  but in practice it is confusing to users<br/>
+<font color="#A82F2F"><font size="2">(08:08:21 PM)</font> <b>tom-:</b></font> Ben_a3: i&apos;ve not recognized these were different .. <br/>
+<font color="#A82F2F"><font size="2">(08:09:01 PM)</font> <b>tom-:</b></font> Ben_a3: it seems confusing at a first sight, but might have it&apos;s merit when the mixer is seen as a separate entity with it&apos;s own grouping logic. dunno<br/>
+<font color="#A82F2F"><font size="2">(08:10:43 PM)</font> <b>tom-:</b></font> Ben_a3, las for simplicity, common groups could make sense however<br/>
+<font color="#A82F2F"><font size="2">(08:10:56 PM)</font> <b>Ben_a3:</b></font> las, tom-  :  OK, I&apos;m going to change it so they are both created equally, because that&apos;s what users seem to expect.<br/>
+<font color="#A82F2F"><font size="2">(08:11:12 PM)</font> <b>Ben_a3:</b></font> I&apos;ll wait a few minutes, first, to see if anyone complains  :)<br/>
+<font color="#A82F2F"><font size="2">(08:12:44 PM)</font> <b>las:</b></font> Ben_a3: the nice touch would be to make each new group use the same settings as are currently in effect for the last created group<br/>
+<font color="#A82F2F"><font size="2">(08:13:01 PM)</font> <b>las:</b></font> Ben_a3: aka What Would Apple Do? (with hundreds of programmers)<br/>
+<font color="#A82F2F"><font size="2">(08:13:23 PM)</font> <b>colinf:</b></font> Ben_a3: seems reasonable.<br/>
+<font color="#A82F2F"><font size="2">(08:13:40 PM)</font> <b>tom-:</b></font> more like &quot;clone props of group x&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:13:55 PM)</font> <b>colinf:</b></font> las: I thought it already did use the same settings as the last group created when creating a new group, but maybe I imagined it.<br/>
+<font color="#A82F2F"><font size="2">(08:14:33 PM)</font> <b>colinf:</b></font> las: no, I imagined it :(<br/>
+<font color="#A82F2F"><font size="2">(08:14:51 PM)</font> <b>colinf:</b></font> las: but yes, I&apos;d like it if it did do that.<br/>
+<font color="#A82F2F"><font size="2">(08:15:21 PM)</font> <b>rgareus:</b></font> las: apple would buy a company that already did it :)<br/>
+<font color="#A82F2F"><font size="2">(08:15:35 PM)</font> <b>tom-:</b></font> that sounds more like google ;)<br/>
+<font color="#A82F2F"><font size="2">(08:15:59 PM)</font> <b>tom-:</b></font> or both anyhow<br/>
+<font color="#A82F2F"><font size="2">(08:17:40 PM)</font> <b>tom-:</b></font> one of the nicest ui/fx/xy tricks of ardour is to create the groups of neighouring tracks with a darg<br/>
+<font color="#A82F2F"><font size="2">(08:18:03 PM)</font> <b>tom-:</b></font> drag<br/>
+<font color="#A82F2F"><font size="2">(08:19:07 PM)</font> <b>Ben_a3:</b></font> las:  seems easy enough to do,  as long as it&apos;s not necessary to be persistent across application quit/restart.<br/>
+<font color="#A82F2F"><font size="2">(08:20:50 PM)</font> <b>colinf:</b></font> Ben_a3: yes, that&apos;d do for me, too.<br/>
+<font color="#A82F2F"><font size="2">(08:22:16 PM)</font> <b>tom-:</b></font> what says oofus to that change, our pro mixing engineer?<br/>
+<font color="#A82F2F"><font size="2">(08:22:57 PM)</font> <b>tom-:</b></font> does the mixer need a separate grouping logic or is it more confusing than helping is the question<br/>
+<font color="#A82F2F"><font size="2">(08:23:12 PM)</font> <b>the_CLA_2:</b></font> Ben_a3: I think I also would prefer if they were created equally.<br/>
+<font color="#A82F2F"><font size="2">(08:23:15 PM)</font> <b>tom-:</b></font> oofus: ^^^<br/>
+<font size="2">(08:28:46 PM)</font><b> colinf left the room (quit: Ping timeout: 255 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:34:52 PM)</font> <b>drobilla:</b></font> Holy crap it&apos;s +8 outside<br/>
+<font color="#A82F2F"><font size="2">(08:34:59 PM)</font> <b>drobilla:</b></font> &lt;/anyAndAllProductivity&gt;<br/>
+<font color="#A82F2F"><font size="2">(08:36:27 PM)</font> <b>oofus:</b></font> Ben_a3: I hadn&apos;t noticed that groups were created differently dependant on where they were made.<br/>
+<font color="#A82F2F"><font size="2">(08:36:47 PM)</font> <b>oofus:</b></font> Ben_a3: Feels like a bad idea. More detail, more confusion.<br/>
+<font color="#A82F2F"><font size="2">(08:37:23 PM)</font> <b>oofus:</b></font> Ben_a3: i&apos;d go with changing t to make them equal<br/>
+<font color="#A82F2F"><font size="2">(08:38:57 PM)</font> <b>oofus:</b></font> Ben_a3: as for new group configured the way the last one was, I&apos;m 50/50 on that. I could imagine either way being both convenient or annoying depending on what&apos;s really needed at that point in time.<br/>
+<font color="#062585"><font size="2">(08:44:47 PM)</font> <b>***tom-</b></font> hears unisono singleton groups<br/>
+<font size="2">(08:51:51 PM)</font><b> edogawa_ is now known as edogawa</b><br/>
+<font size="2">(09:21:50 PM)</font><b> nath__ is now known as nath</b><br/>
+<font color="#A82F2F"><font size="2">(09:48:27 PM)</font> <b>tom-:</b></font> enjoy this snippet of femen: www.trellis.ch/lowres/misc/Femen snipet.mp3 (aka calculating the greatest)<br/>
+<font color="#A82F2F"><font size="2">(10:00:26 PM)</font> <b>Xzu:</b></font> [ERROR]: could not reconstitute StatefulDiffCommand from XMLNode. object type = ARDOUR::AudioRegion id = 90851<br/>
+<font color="#A82F2F"><font size="2">(10:00:47 PM)</font> <b>Xzu:</b></font> Is this log important? (with git)<br/>
+<font color="#A82F2F"><font size="2">(10:13:59 PM)</font> <b>rgareus:</b></font> Xzu: ignore it. just some invalid Undo-data.<br/>
+<font color="#A82F2F"><font size="2">(10:14:41 PM)</font> <b>rgareus:</b></font> it&apos;s a known bug. Some operations are not undo-able.  but the state-file on disk still remembers them<br/>
+<font color="#A82F2F"><font size="2">(10:15:22 PM)</font> <b>rgareus:</b></font> IIRC Session &gt; Cleanup is such a case for example.<br/>
+<font color="#A82F2F"><font size="2">(10:36:03 PM)</font> <b>Xzu:</b></font> http://www.zimagez.com/zimage/capturedcran-10032015-223522.php<br/>
+<font color="#A82F2F"><font size="2">(10:36:39 PM)</font> <b>Xzu:</b></font> Now I got this when I try to quit.<br/>
+<font color="#A82F2F"><font size="2">(10:37:18 PM)</font> <b>Xzu:</b></font> (quit, not &quot;close&quot;)<br/>
+<font color="#A82F2F"><font size="2">(10:38:09 PM)</font> <b>rgareus:</b></font> Xzu: that bug was already fixed yesterday<br/>
+<font color="#A82F2F"><font size="2">(10:39:55 PM)</font> <b>rgareus:</b></font> that bug only existed for 5 hours  c12b7bc -&gt; 63c4f8a (march 9 1am -&gt; 6am UTC)<br/>
+<font color="#A82F2F"><font size="2">(10:41:07 PM)</font> <b>rgareus:</b></font> uhm I take that back. 6pm.    1h -&gt; 18h  makes 17h<br/>
+<font color="#A82F2F"><font size="2">(10:42:30 PM)</font> <b>Xzu:</b></font> ow.. well, good job! :D<br/>
+<font color="#A82F2F"><font size="2">(10:46:07 PM)</font> <b>Xzu:</b></font> today, I also got a crash, after &quot;save as&quot; and delete all region (I often do this). But no problem after &quot;recover&quot;. Not reproducible, of course. Ear something like that?<br/>
+<font size="2">(11:48:28 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,43 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Mon 23 Mar 2015 10:53:18 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Mon 23 Mar 2015 10:53:18 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:53:18 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(10:53:18 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(10:55:27 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lethalman pushed 2 new commits to master: http://git.io/h5a6<br/>
+<font color="#A82F2F"><font size="2">(10:55:27 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 2aa9da5 Bence Fabian: mplayer: Remove --enable-jack...<br/>
+<font color="#A82F2F"><font size="2">(10:55:27 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master fc7511f lethalman: Merge pull request #6863 from bencef/jack2mplayer...<br/>
+<font color="#A82F2F"><font size="2">(11:00:05 AM)</font> <b>JagaJaga:</b></font> I&apos;m creating custom image vie editing installation-cd-minimal.nix. What&apos;s the way to add to image ALL the pkgs and the dependencies I need? I&apos;ve added all needed pkgs to environment.systemPackages but when I do nixos-install - it still can&apos;t get some of the deps.<br/>
+<font color="#A82F2F"><font size="2">(11:00:43 AM)</font> <b>ewemoa:</b></font> Lethalman: nix installed ok :)  then did nix-env -i mrxvt -- when i started mrxvt i see a window, but nothing much inside, and text in the starting terminal &quot;can&apos;t open pseudo-tty&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:01:05 AM)</font> <b>Lethalman:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(11:02:11 AM)</font> <b>Lethalman:</b></font> there must be something tricky with containers and pts<br/>
+<font color="#A82F2F"><font size="2">(11:02:16 AM)</font> <b>Lethalman:</b></font> let me see<br/>
+<font color="#A82F2F"><font size="2">(11:02:31 AM)</font> <b>JagaJaga:</b></font> Now it&apos;s failing that it can&apos;t download bootstrap-tools :/<br/>
+<font color="#A82F2F"><font size="2">(11:02:39 AM)</font> <b>JagaJaga:</b></font> (I need offline installation)<br/>
+<font color="#A82F2F"><font size="2">(11:03:19 AM)</font> <b>Lethalman:</b></font> viric, well pitivi doesn&apos;t depend on any icon them<br/>
+<font color="#A82F2F"><font size="2">(11:03:28 AM)</font> <b>Lethalman:</b></font> they are in the function inputs, but not in buildInputs :S<br/>
+<font color="#A82F2F"><font size="2">(11:03:51 AM)</font> <b>Lethalman:</b></font> also that \$XDG_ICON_DIRS is wrong<br/>
+<font color="#A82F2F"><font size="2">(11:03:57 AM)</font> <b>Lethalman:</b></font> must remove that backslash<br/>
+<font color="#A82F2F"><font size="2">(11:04:18 AM)</font> <b>Lethalman:</b></font> I&apos;ll try to fix it locally<br/>
+<font color="#A82F2F"><font size="2">(11:05:32 AM)</font> <b>JagaJaga:</b></font> Oh, I needed `isoImage.includeSystemBuildDependencies = true;`<br/>
+<font color="#A82F2F"><font size="2">(11:08:09 AM)</font> <b>viric:</b></font> Lethalman: great!<br/>
+<font color="#A82F2F"><font size="2">(11:08:44 AM)</font> <b>viric:</b></font> Lethalman: containers and pts... I thought you were talking about video.<br/>
+<font color="#A82F2F"><font size="2">(11:09:01 AM)</font> <b>Lethalman:</b></font> viric, was talking to ewemoa :)<br/>
+<font color="#A82F2F"><font size="2">(11:10:48 AM)</font> <b>viric:</b></font> yes, I noticed, because I thought &quot;how can the icons problem be related to the video container or pts&quot;?<br/>
+<font color="#A82F2F"><font size="2">(11:11:03 AM)</font> <b>viric:</b></font> fun, how the terms matched in the other context :)<br/>
+<font color="#A82F2F"><font size="2">(11:13:11 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga pushed 2 new commits to master: http://git.io/h5Kr<br/>
+<font color="#A82F2F"><font size="2">(11:13:11 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master de9e7bc j-keck: sbt: bump to 0.13.8<br/>
+<font color="#A82F2F"><font size="2">(11:13:11 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 268a90a Arseniy Seroka: Merge pull request #6938 from j-keck/sbt...<br/>
+<font color="#16569E"><font size="2">(11:13:13 AM)</font> <b>magnetophon:</b></font> Lethalman: Any idea why https://github.com/NixOS/nixpkgs/pull/6836 cannot be merged cleanly?<br/>
+<font color="#A82F2F"><font size="2">(11:13:30 AM)</font> <b>Lethalman:</b></font> magnetophon, don&apos;t know, will try manually<br/>
+<font color="#A82F2F"><font size="2">(11:13:50 AM)</font> <b>iElectric:</b></font> error: while querying the derivation named ‘ccache-links-wrapper’:<br/>
+<font color="#A82F2F"><font size="2">(11:13:52 AM)</font> <b>iElectric:</b></font> while evaluating the attribute ‘buildCommand’ of the derivation ‘ccache-links-wrapper’ at &quot;/tmp/nix-build-nixpkgs-tarball-15.05pre59639.a11078a.drv-0/git-export/pkgs/build-support/cc-wrapper/default.nix&quot;:32:3:<br/>
+<font color="#A82F2F"><font size="2">(11:13:54 AM)</font> <b>iElectric:</b></font> attribute ‘gcc’ missing, at &quot;/tmp/nix-build-nixpkgs-tarball-15.05pre59639.a11078a.drv-0/git-export/pkgs/build-support/cc-wrapper/default.nix&quot;:174:38<br/>
+<font color="#A82F2F"><font size="2">(11:15:31 AM)</font> <b>arianvp:</b></font> Hey there.<br/>
+<font color="#A82F2F"><font size="2">(11:15:51 AM)</font> <b>arianvp:</b></font> For my job I need to have full disk encryption. But I want to try out NixOS<br/>
+<font color="#16569E"><font size="2">(11:15:51 AM)</font> <b>magnetophon:</b></font> Lethalman: cool, thanks.<br/>
+<font color="#A82F2F"><font size="2">(11:16:03 AM)</font> <b>arianvp:</b></font> Does anybody know how to set this up  with LUKS+LVM?<br/>
+<font color="#16569E"><font size="2">(11:16:28 AM)</font> <b>magnetophon:</b></font> arianvp: iirc it's in the wiki<br/>
+<font color="#A82F2F"><font size="2">(11:16:29 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga pushed 2 new commits to master: http://git.io/h56R<br/>
+<font color="#A82F2F"><font size="2">(11:16:29 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master b841e8a Jos van den Oever: Update davmail to 2.6.1....<br/>
+<font color="#A82F2F"><font size="2">(11:16:29 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master a8b9351 Arseniy Seroka: Merge pull request #6902 from vandenoever/davmail...<br/>
+<font color="#A82F2F"><font size="2">(11:16:59 AM)</font> <b>arianvp:</b></font> https://nixos.org/wiki/Luks-based_FDE_with_Yubikey_PBA_and_btrfs_on_UEFI_NixOS this sounds good<br/>
+<font color="#A82F2F"><font size="2">(11:17:03 AM)</font> <b>arianvp:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(11:17:57 AM)</font> <b>hyper_ch:</b></font> what&apos;s yubikey?<br/>

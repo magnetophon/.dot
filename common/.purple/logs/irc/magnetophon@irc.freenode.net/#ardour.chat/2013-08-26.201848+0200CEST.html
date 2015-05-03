@@ -1,0 +1,491 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Mon 26 Aug 2013 08:18:48 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Mon 26 Aug 2013 08:18:48 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:18:48 PM)</font><b> The topic for #ardour is: ardour 3.3 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font color="#A82F2F"><font size="2">(08:29:14 PM)</font> <b>b-rock:</b></font> hello ardour devs. I&apos;m using a distro packaged a3.3 build (3.2-269-g003492c).  I&apos;m having is issue with moving and cut/copy/paste with regions.  It was working previously but has suddenly stopped.  I opened a ticket with description 5666. do I need to attach a session file or can this be reproduced without it?<br/>
+<font color="#A82F2F"><font size="2">(08:29:14 PM)</font> <b>las:</b></font> b-rock: i don&apos;t support distro packaged versions of ardour<br/>
+<font color="#A82F2F"><font size="2">(08:29:20 PM)</font> <b>las:</b></font> b-rock: i would be suprised if this behaviour is reproducible<br/>
+<font size="2">(08:29:20 PM)</font><b> Ricardus [<em>~rich@pool-74-106-194-129.syrcny.east.verizon.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:31:10 PM)</font> <b>b-rock:</b></font> ok. thanks las.  I&apos;ll build from the source since I want the same features as I&apos;ve currently got.  I&apos;ll follow up to the ticket if I find the same behavior<br/>
+<font color="#A82F2F"><font size="2">(08:35:43 PM)</font> <b>b-rock:</b></font> hi las.  Is the 3.0-SG branch the one I should build from to get whats in the release or do I need to build the master branch?<br/>
+<font size="2">(08:36:51 PM)</font><b> RytmenPinne [<em>~alex@35-51.bob.fi</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(08:37:22 PM)</font> <b>las:</b></font> b-rock: master is the only branch anyone who is not actively developing or testing new code should be using<br/>
+<font color="#A82F2F"><font size="2">(08:37:34 PM)</font> <b>b-rock:</b></font> ok thanks.<br/>
+<font size="2">(08:38:59 PM)</font><b> boom1992 [<em>~quassel@ba1222.ballee.wh.tu-darmstadt.de</em>] entered the room.</b><br/>
+<font size="2">(08:39:25 PM)</font><b> kermyt left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(08:39:48 PM)</font><b> Arnvidr_ left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(08:45:00 PM)</font><b> kermyt [<em>~kermyt@unaffiliated/kermyt</em>] entered the room.</b><br/>
+<font size="2">(08:45:49 PM)</font><b> Arnvidr [<em>~arve@197.79-160-47.customer.lyse.net</em>] entered the room.</b><br/>
+<font size="2">(08:48:35 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:02:37 PM)</font> <b>b-rock:</b></font> hello again las.  I&quot;m getting the same symptoms in my ticket 5666 from this version built from source 3.3-180-g1d972d0  . Is there some kind of debug mode I can go into to add some details?  <br/>
+<font color="#A82F2F"><font size="2">(09:04:34 PM)</font> <b>las:</b></font> b-rock: not for that particular issue, no<br/>
+<font size="2">(09:05:24 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:05:37 PM)</font> <b>las:</b></font> b-rock: one thing to check is whether you have the grid/snap enabled and which grid setting you are using<br/>
+<font size="2">(09:05:51 PM)</font><b> HisaoNakai left the room (quit: Quit: &quot;We will not go quietly into the night!&quot; https://www.prism-break.org).</b><br/>
+<font size="2">(09:06:21 PM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:08:46 PM)</font> <b>BenLoftis:</b></font> rgareus,  the_CLA_2 :   IIRC,  drobilla and I decided that a plugin shouldn&apos;t be destroyed ( with suil_instance_free ) when the window is closed.  A plugin could potentially have a very heavy UI that shouldn&apos;t be deleted every show/hide.<br/>
+<font color="#A82F2F"><font size="2">(09:11:31 PM)</font> <b>b-rock:</b></font> ok I&apos;ve got &quot;Grid&quot; and &quot;Beats/128&quot; set.  I tried changing those around a but I&apos;m not seeing a change in results.  <br/>
+<font color="#A82F2F"><font size="2">(09:12:01 PM)</font> <b>rgareus:</b></font> BenLoftis: that works if the plugin uses suil, but not if it&apos;s an externalui or external-ui, ardour did not support that.<br/>
+<font color="#A82F2F"><font size="2">(09:12:22 PM)</font> <b>rgareus:</b></font> BenLoftis: ardour always re-instantiates the plugin UI (as defined by the external_ui spec)<br/>
+<font color="#A82F2F"><font size="2">(09:13:00 PM)</font> <b>rgareus:</b></font> BenLoftis: if your plugins use suil they should not be affected by the change I made<br/>
+<font color="#A82F2F"><font size="2">(09:18:20 PM)</font> <b>BenLoftis:</b></font> rgareus,   no, they are external.   but it looks like there&apos;s a suil_instance_free that wasn&apos;t there in the past.  Unfortunately I don&apos;t have bandwidth to investigate this fully right now.    When you guys are done I will investigate how to fix the plugins with A3, and make A2/Mixbus match.<br/>
+<font color="#A82F2F"><font size="2">(09:18:57 PM)</font> <b>BenLoftis:</b></font> rgareus, las:    what I&apos;d really like to re-investigate,  is why can&apos;t we just embed a window into the host window, like VST does?  I&apos;ve never understood why this is so hard.<br/>
+<font color="#A82F2F"><font size="2">(09:19:13 PM)</font> <b>BenLoftis:</b></font> (this==LV2 ui )<br/>
+<font color="#A82F2F"><font size="2">(09:19:28 PM)</font> <b>rgareus:</b></font> BenLoftis: to clarify: they *do* use externalui extension, right?<br/>
+<font color="#A82F2F"><font size="2">(09:20:18 PM)</font> <b>BenLoftis:</b></font> rgareus,   yes<br/>
+<font color="#A82F2F"><font size="2">(09:21:01 PM)</font> <b>rgareus:</b></font> BenLoftis: ardour will free the instance in 2 cases only: (1) ardour exits,  and (2) the plugin calls ui_closed()<br/>
+<font color="#A82F2F"><font size="2">(09:21:38 PM)</font> <b>rgareus:</b></font> BenLoftis: and now take 20 seconds and read the doc on ui_closed() at https://github.com/Ardour/ardour/blob/master/gtk2_ardour/lv2_external_ui.h#L101<br/>
+<font color="#A82F2F"><font size="2">(09:22:03 PM)</font> <b>rgareus:</b></font> BenLoftis: &quot;Host must call LV2UI_Descriptor::cleanup()&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:22:39 PM)</font> <b>las:</b></font> BenLoftis: &quot;just embed a window&quot; ... what does that even mean on various window systems?<br/>
+<font color="#A82F2F"><font size="2">(09:22:49 PM)</font> <b>las:</b></font> BenLoftis: X has no concept of &quot;embedding&quot; windows<br/>
+<font color="#A82F2F"><font size="2">(09:22:56 PM)</font> <b>las:</b></font> BenLoftis: and neither does Cocoa<br/>
+<font color="#A82F2F"><font size="2">(09:23:02 PM)</font> <b>rgareus:</b></font> BenLoftis: the new revision of this document at http://kxstudio.sf.net/ns/lv2ext/external-ui# also includes that<br/>
+<font color="#A82F2F"><font size="2">(09:23:21 PM)</font> <b>las:</b></font> BenLoftis: in Cocoa, you can embed an NSView inside another NSView, which is precisely what we do for AU support<br/>
+<font color="#A82F2F"><font size="2">(09:23:36 PM)</font> <b>las:</b></font> BenLoftis: in X, you can make one window a child of another window<br/>
+<font color="#A82F2F"><font size="2">(09:23:53 PM)</font> <b>BenLoftis:</b></font> las:  how do VST plugin guis  (native ones) work in linux?<br/>
+<font color="#A82F2F"><font size="2">(09:24:06 PM)</font> <b>BenLoftis:</b></font> or are there any?<br/>
+<font color="#A82F2F"><font size="2">(09:24:13 PM)</font> <b>las:</b></font> BenLoftis: X window reparenting IIRC<br/>
+<font color="#A82F2F"><font size="2">(09:24:27 PM)</font> <b>las:</b></font> BenLoftis: the problem here is picking the correct abstraction to work with<br/>
+<font color="#A82F2F"><font size="2">(09:24:40 PM)</font> <b>BenLoftis:</b></font> I think it should be a native window on each type<br/>
+<font color="#A82F2F"><font size="2">(09:24:48 PM)</font> <b>las:</b></font> BenLoftis: &quot;native windowing system window&quot; is one - that doesn&apos;t work for OS X because windows are not embeddable<br/>
+<font color="#A82F2F"><font size="2">(09:24:55 PM)</font> <b>las:</b></font> BenLoftis: only &quot;views&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:25:14 PM)</font> <b>las:</b></font> BenLoftis: so one can ask, &quot;ok, what is the corresponding entity as a &quot;view&quot; on other window systems?&quot;<br/>
+<font color="#A82F2F"><font size="2">(09:25:23 PM)</font> <b>las:</b></font> BenLoftis: and the answer to that is not clear on X <br/>
+<font color="#A82F2F"><font size="2">(09:25:30 PM)</font> <b>BenLoftis:</b></font> las:  presumably other hosts can re-parent a vst window in their osx host<br/>
+<font color="#A82F2F"><font size="2">(09:25:38 PM)</font> <b>BenLoftis:</b></font> or whatever.<br/>
+<font color="#A82F2F"><font size="2">(09:25:41 PM)</font> <b>las:</b></font> BenLoftis: they use the same carbon hack crap that we do<br/>
+<font color="#A82F2F"><font size="2">(09:25:55 PM)</font> <b>las:</b></font> BenLoftis: no reparenting<br/>
+<font color="#A82F2F"><font size="2">(09:26:16 PM)</font> <b>las:</b></font> BenLoftis: with windows, HWIND or whatever it is called is embeddable<br/>
+<font color="#A82F2F"><font size="2">(09:26:34 PM)</font> <b>BenLoftis:</b></font> right .. <br/>
+<font color="#A82F2F"><font size="2">(09:26:42 PM)</font> <b>rgareus:</b></font> BenLoftis: I agree that the current externalui spec is not ideal - (free heavy windows on every re-display)<br/>
+<font size="2">(09:26:55 PM)</font><b> naptastic [<em>~david@99-20-201-27.lightspeed.hstntx.sbcglobal.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:27:11 PM)</font> <b>las:</b></font> BenLoftis: anyway, VST doesn&apos;t really work that way IIRC<br/>
+<font color="#A82F2F"><font size="2">(09:27:27 PM)</font> <b>las:</b></font> BenLoftis: the host gives the plugin the window (and rect) to draw into<br/>
+<font color="#A82F2F"><font size="2">(09:27:50 PM)</font> <b>las:</b></font> BenLoftis: this is an approach that a Well Known Plugin Company has found to be the most portable<br/>
+<font color="#A82F2F"><font size="2">(09:28:09 PM)</font> <b>las:</b></font> BenLoftis: of course, it is the opposite of how AudioUnits work<br/>
+<font color="#A82F2F"><font size="2">(09:28:30 PM)</font> <b>rgareus:</b></font> las: LV2&apos;s ui-parent&apos; feature can do that, too.<br/>
+<font color="#A82F2F"><font size="2">(09:28:40 PM)</font> <b>las:</b></font> BenLoftis: and hence SUIL: plugin hands over &lt;whatever&gt;, host asks for &lt;other-whatever&gt;, SUIL converts &lt;whatever&gt; into an &lt;other-whatever&gt;<br/>
+<font color="#A82F2F"><font size="2">(09:29:35 PM)</font> <b>rgareus:</b></font> las: a lv2 plugin GUI must to give a window-handle to the host -- but that can be one that the host provided in the first place.<br/>
+<font color="#A82F2F"><font size="2">(09:31:03 PM)</font> <b>BenLoftis:</b></font> las, rgareus :  one of the upper items on my list is to stop using external and switch to suil, anyway.    hopefully it&apos;s evolved enough now that I can figure it out<br/>
+<font size="2">(09:32:17 PM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(09:32:56 PM)</font> <b>rgareus:</b></font> las: realistically the host can currently only ask for gtk :(  qt4 is broken and qt5 won&apos;t even allow this anyore. xcb and wayland. suil will need a major update<br/>
+<font color="#A82F2F"><font size="2">(09:33:50 PM)</font> <b>las:</b></font> BenLoftis: the idea behind SUIL is precisely that the plugin does nothing<br/>
+<font color="#A82F2F"><font size="2">(09:34:14 PM)</font> <b>las:</b></font> BenLoftis: SUIL is intended as &quot;universal adapter kit&quot; between plugins with GUIs implemented using &lt;foo&gt; and used in hosts implemented using &lt;bar&gt;<br/>
+<font size="2">(09:34:26 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(09:34:46 PM)</font> <b>rgareus:</b></font> las: though in the case of &quot;puGL&quot; the plugin does it all anyway.<br/>
+<font color="#A82F2F"><font size="2">(09:35:46 PM)</font> <b>rgareus:</b></font> las: pugl itself includes platform specific openGL window and event handling.<br/>
+<font color="#A82F2F"><font size="2">(09:35:54 PM)</font> <b>BenLoftis:</b></font> rgareus,     sort-of<br/>
+<font color="#A82F2F"><font size="2">(09:35:55 PM)</font> <b>rgareus:</b></font> las: suil is mostly in the way of this<br/>
+<font size="2">(09:36:35 PM)</font><b> idragosani left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(09:36:52 PM)</font> <b>BenLoftis:</b></font> rgareus,    I had a lot of problems with the event handling, as I recall.   Oh man, I hate to get into this again.  sigh.<br/>
+<font color="#A82F2F"><font size="2">(09:37:18 PM)</font> <b>rgareus:</b></font> BenLoftis: on which platform?<br/>
+<font color="#A82F2F"><font size="2">(09:37:22 PM)</font> <b>BenLoftis:</b></font> I really can&apos;t think about htis right now.  But within a couple of weeks I will be ready to get into it.<br/>
+<font color="#A82F2F"><font size="2">(09:37:46 PM)</font> <b>rgareus:</b></font> BenLoftis: ok. get your console shipped first.<br/>
+<font size="2">(09:50:17 PM)</font><b> AndreeeCZ [<em>~AndreeeCZ@88.103.20.84</em>] entered the room.</b><br/>
+<font size="2">(09:50:49 PM)</font><b> naptastic left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(09:53:49 PM)</font><b> naptastic [<em>~david@99-20-201-27.lightspeed.hstntx.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(09:59:07 PM)</font><b> DrCode left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:01:23 PM)</font><b> DrCode [<em>~DrCode@gateway/tor-sasl/drcode</em>] entered the room.</b><br/>
+<font size="2">(10:02:25 PM)</font><b> corresponder_ left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(10:03:06 PM)</font><b> glasz left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:15:14 PM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:15:47 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font size="2">(10:21:46 PM)</font><b> b-rock left the room (quit: Quit: Page closed).</b><br/>
+<font size="2">(10:27:37 PM)</font><b> pr0ggie left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(10:27:38 PM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:28:04 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font size="2">(10:32:38 PM)</font><b> imeim_ left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:35:26 PM)</font><b> ssj71 left the room (quit: Quit: http://www.kiwiirc.com/ - A hand crafted IRC client).</b><br/>
+<font size="2">(10:36:44 PM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(10:37:19 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font size="2">(10:37:54 PM)</font><b> dawiba [<em>~dawiba@80.80.186.91</em>] entered the room.</b><br/>
+<font size="2">(10:39:06 PM)</font><b> AndreeeCZ left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(10:41:21 PM)</font> <b>dawiba:</b></font> Is it possible to have transport controls/clocks visible in mixer view?<br/>
+<font color="#A82F2F"><font size="2">(10:42:15 PM)</font> <b>las:</b></font> dawiba: you can tearoff the transport bar from the editor window<br/>
+<font size="2">(10:42:19 PM)</font><b> Valvalion [<em>~valvalion@91.179.44.126</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:42:20 PM)</font> <b>las:</b></font> dawiba: and place it wherever you want<br/>
+<font color="#A82F2F"><font size="2">(10:42:38 PM)</font> <b>las:</b></font> dawiba: find the small down-arrow near the upper right corner of the transport bar<br/>
+<font color="#A82F2F"><font size="2">(10:43:36 PM)</font> <b>dawiba:</b></font> las: perfect! thank you!<br/>
+<font color="#A82F2F"><font size="2">(10:43:41 PM)</font> <b>las:</b></font> dawiba: some window managers/desktops mess it up a bit<br/>
+<font color="#A82F2F"><font size="2">(10:44:58 PM)</font> <b>dawiba:</b></font> las: fwiw, I&apos;m using Crunchbang/Openbox and it just worked perfectly here. Thanks again.<br/>
+<font color="#A82F2F"><font size="2">(10:45:29 PM)</font> <b>c4t3l:</b></font> howdy everybody!<br/>
+<font size="2">(10:45:34 PM)</font><b> prokoudine [<em>~prokoudin@ppp85-141-136-201.pppoe.mtu-net.ru</em>] entered the room.</b><br/>
+<font size="2">(10:46:18 PM)</font><b> zth left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(10:46:53 PM)</font> <b>las:</b></font> rgareus: i guess i had to just terminate my amazon instance, launch a new one and suddenly all my payment code works where it was failing before<br/>
+<font size="2">(10:48:04 PM)</font><b> phyzix5761 left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(10:49:16 PM)</font> <b>prokoudine:</b></font> did you do it with ctrl+alt+del? :)<br/>
+<font size="2">(10:50:31 PM)</font><b> ze left the room (quit: Ping timeout: 268 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:51:36 PM)</font> <b>las:</b></font> prokoudine: not quite<br/>
+<font size="2">(10:58:53 PM)</font><b> nox- [<em>noident@freebsd/developer/nox</em>] entered the room.</b><br/>
+<font size="2">(11:00:05 PM)</font><b> Ricardus left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(11:02:08 PM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:02:40 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font size="2">(11:02:45 PM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:04:26 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font size="2">(11:06:34 PM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:07:16 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font size="2">(11:15:21 PM)</font><b> glasz [<em>~quassel@216.141.75.86.rev.sfr.net</em>] entered the room.</b><br/>
+<font size="2">(11:17:24 PM)</font><b> ze [<em>ze@unaffiliated/ze</em>] entered the room.</b><br/>
+<font size="2">(11:22:09 PM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:22:38 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font size="2">(11:23:29 PM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:23:59 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font size="2">(11:24:54 PM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:25:36 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font size="2">(11:25:50 PM)</font><b> RytmenPinne left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font size="2">(11:26:04 PM)</font><b> RytmenPinne [<em>~alex@35-51.bob.fi</em>] entered the room.</b><br/>
+<font size="2">(11:26:57 PM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:32:42 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font size="2">(11:32:52 PM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:34:04 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font size="2">(11:37:23 PM)</font><b> ze left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(11:38:04 PM)</font><b> HisaoNakai_ [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(11:42:02 PM)</font><b> HisaoNakai left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(11:46:20 PM)</font><b> HisaoNakai_ is now known as HisaoNakai</b><br/>
+<font size="2">(11:50:48 PM)</font><b> vihcs left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(11:54:15 PM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(11:55:30 PM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font size="2">(12:00:34 AM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(12:01:07 AM)</font><b> clark|w left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(12:01:16 AM)</font><b> jablo [<em>~jablo@188-183-238-182-static.dk.customer.tdc.net</em>] entered the room.</b><br/>
+<font size="2">(12:01:39 AM)</font><b> kermyt left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(12:04:43 AM)</font><b> jablo left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(12:08:19 AM)</font><b> kermyt [<em>~kermyt@unaffiliated/kermyt</em>] entered the room.</b><br/>
+<font size="2">(12:09:59 AM)</font><b> glasz left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(12:13:28 AM)</font><b> Stuzz [<em>~Stuzz@124-170-78-183.dyn.iinet.net.au</em>] entered the room.</b><br/>
+<font size="2">(12:14:15 AM)</font><b> idragosani [<em>~idragosan@pool-108-48-80-84.washdc.fios.verizon.net</em>] entered the room.</b><br/>
+<font size="2">(12:20:05 AM)</font><b> Ricardus [<em>~rich@cpe-67-249-144-25.twcny.res.rr.com</em>] entered the room.</b><br/>
+<font size="2">(12:21:03 AM)</font><b> HisaoNakai left the room (quit: Quit: &quot;We will not go quietly into the night!&quot; https://www.prism-break.org).</b><br/>
+<font size="2">(12:26:15 AM)</font><b> HarryHaaren left the room (quit: Quit: Quittin&apos;).</b><br/>
+<font size="2">(12:26:23 AM)</font><b> RytmenPinne left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(12:30:43 AM)</font><b> dawiba left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(12:37:52 AM)</font><b> MountainX [<em>~computeru@64.22.71.195</em>] entered the room.</b><br/>
+<font size="2">(12:43:43 AM)</font><b> ze [<em>ze@unaffiliated/ze</em>] entered the room.</b><br/>
+<font size="2">(12:46:50 AM)</font><b> boom1992 left the room (quit: Read error: Connection reset by peer).</b><br/>
+<font color="#A82F2F"><font size="2">(12:51:24 AM)</font> <b>MountainX:</b></font> newbie here. I want to record interviews using a SIP softphone. I have a Scarlette 2i2 usb interface to my XLR mic. Audacity can only record one side of the conversation (either mine normally, or the other side using the 2i2&apos;s monitor source). Will Ardour let me record both sides simultaneously and in sync? (And is this the right place to ask?) Thx<br/>
+<font color="#A82F2F"><font size="2">(12:52:42 AM)</font> <b>naptastic:</b></font> MountainX, It should. What&apos;s the limitation that prevents you from recording both things at once?<br/>
+<font color="#A82F2F"><font size="2">(12:53:35 AM)</font> <b>naptastic:</b></font> MountainX, I take it that the USB interface and the SIP phone are two separate audio devices?<br/>
+<font color="#A82F2F"><font size="2">(12:54:16 AM)</font> <b>MountainX:</b></font> thx. It seems Audacity just can&apos;t do it. I asked on their forum. Seems most software won&apos;t record from two sources (unless using something like Jack, which Ardour uses). I&apos;m just trying to figure this stuff out myself.<br/>
+<font color="#A82F2F"><font size="2">(12:54:38 AM)</font> <b>las:</b></font> MountainX: it can be more complex than you know<br/>
+<font color="#A82F2F"><font size="2">(12:54:54 AM)</font> <b>MountainX:</b></font> yes, it does seem complex!<br/>
+<font color="#A82F2F"><font size="2">(12:54:58 AM)</font> <b>las:</b></font> MountainX: but i have to cook dinner now, will be back in 30mins if you want to get into it<br/>
+<font color="#A82F2F"><font size="2">(12:55:39 AM)</font> <b>MountainX:</b></font> thanks. If you think Ardour is the right tool for me  I&apos;ll start experimenting now and see how far I can get.<br/>
+<font color="#A82F2F"><font size="2">(12:56:18 AM)</font> <b>MountainX:</b></font> btw, my USB interface just sends audio from my mic to the usb port. the SIP phone is software (Twinkle).<br/>
+<font size="2">(12:56:40 AM)</font><b> goibhniu left the room (quit: Ping timeout: 246 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:56:57 AM)</font> <b>MountainX:</b></font> and my first comment had it backwards. I can record my voice using the monitor source of this device. the other side is the normal source.<br/>
+<font size="2">(01:01:56 AM)</font><b> TheGrey left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(01:10:00 AM)</font><b> Diskrepa left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:24:25 AM)</font> <b>naptastic:</b></font> MountainX, (sorry, just got off the phone)<br/>
+<font color="#A82F2F"><font size="2">(01:24:55 AM)</font> <b>naptastic:</b></font> MountainX, if I&apos;m understanding you correctly, the issue you&apos;re going to face is that you need your phone and USB interface to connect with JACK at the same time<br/>
+<font color="#A82F2F"><font size="2">(01:25:14 AM)</font> <b>naptastic:</b></font> Unless your USB interface goes through the SIP phone?<br/>
+<font color="#A82F2F"><font size="2">(01:44:53 AM)</font> <b>las:</b></font> MountainX: back if you want to talk more<br/>
+<font size="2">(01:45:55 AM)</font><b> DrCode left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(01:46:36 AM)</font><b> DrCode [<em>~DrCode@gateway/tor-sasl/drcode</em>] entered the room.</b><br/>
+<font size="2">(01:51:59 AM)</font><b> HarryHaaren [<em>~Harry@89.18.71.207</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:55:12 AM)</font> <b>MountainX:</b></font> this info might explain what I&apos;m trying to do. My Scarlette 2i2 has these two sources (will paste next). The monitor source is my voice and the normal source is the other voice.<br/>
+<font color="#A82F2F"><font size="2">(01:55:22 AM)</font> <b>MountainX:</b></font> alsa_output.usb-Focusrite_Scarlett_2i2_USB-00-USB.analog-stereo.monitor/#2: Monitor of Scarlett 2i2 USB Analog Stereo<br/>
+<font color="#A82F2F"><font size="2">(01:55:30 AM)</font> <b>MountainX:</b></font> alsa_input.usb-Focusrite_Scarlett_2i2_USB-00-USB.analog-stereo/#3: Scarlett 2i2 USB Analog Stereo<br/>
+<font color="#A82F2F"><font size="2">(01:56:13 AM)</font> <b>MountainX:</b></font> It would be great is one of those could be the left channel and the other the right channel of a single audio recording. Is that possible?<br/>
+<font color="#A82F2F"><font size="2">(01:57:00 AM)</font> <b>MountainX:</b></font> and to give the complete picture, here is the one sink listed for that device:<br/>
+<font color="#A82F2F"><font size="2">(01:57:00 AM)</font> <b>MountainX:</b></font> alsa_output.usb-Focusrite_Scarlett_2i2_USB-00-USB.analog-stereo/#1: Scarlett 2i2 USB Analog Stereo<br/>
+<font size="2">(02:04:04 AM)</font><b> l4sh [<em>~l4sh@unaffiliated/l4sh</em>] entered the room.</b><br/>
+<font size="2">(02:06:56 AM)</font><b> prokoudine left the room (quit: Ping timeout: 260 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:11:02 AM)</font> <b>las:</b></font> MountainX: in a Terminal window, run this command: aplay -l<br/>
+<font color="#A82F2F"><font size="2">(02:11:15 AM)</font> <b>las:</b></font> MountainX: paste the output to pastebin.com and give us the URL you get there<br/>
+<font color="#A82F2F"><font size="2">(02:15:06 AM)</font> <b>MountainX:</b></font> how&apos;s this: card 1: USB [Scarlett 2i2 USB], device 0: USB Audio [USB Audio] Subdevices: 1/1 Subdevice #0: subdevice #0<br/>
+<font color="#A82F2F"><font size="2">(02:16:30 AM)</font> <b>MountainX:</b></font> more info at bottom of this post: http://unix.stackexchange.com/q/88067/15010<br/>
+<font color="#A82F2F"><font size="2">(02:16:47 AM)</font> <b>MountainX:</b></font> is that enough info?<br/>
+<font color="#A82F2F"><font size="2">(02:17:09 AM)</font> <b>las:</b></font> MountainX: ok, so you if you want to use a program like Ardour for this, then Ardour itself is not the important part<br/>
+<font color="#A82F2F"><font size="2">(02:17:29 AM)</font> <b>las:</b></font> MountainX: Ardour does all audio I/O via JACK<br/>
+<font color="#A82F2F"><font size="2">(02:17:59 AM)</font> <b>las:</b></font> MountainX: and if you want to use &gt;1 device with JACK, the JACK FAQ has more: http://jackaudio.org/multiple_devices<br/>
+<font color="#A82F2F"><font size="2">(02:18:23 AM)</font> <b>MountainX:</b></font> yes, I was reading that and I have Jack installed. But I&apos;m just figuring out how to disable pulseaudio now...<br/>
+<font color="#A82F2F"><font size="2">(02:19:14 AM)</font> <b>las:</b></font> MountainX: note that although the FAQ doesn&apos;t mention it, the Zita versions of alsa_in and alsa_out are better in most ways (zita_a2j and zita_j2a)<br/>
+<font color="#A82F2F"><font size="2">(02:19:47 AM)</font> <b>las:</b></font> MountainX: note that as the FAQ says, using multiple digital audio devices that do not share a sample clock is not the right way to work, ever<br/>
+<font color="#A82F2F"><font size="2">(02:20:03 AM)</font> <b>las:</b></font> MountainX: but as usual, people think it should work, and so other people hack up software to make it work &quot;well enough&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:20:30 AM)</font> <b>MountainX:</b></font> according to http://jackaudio.org/device_naming my device would be hw:USB. But I need both the normal source and the monitor source of that device. That&apos;s the issue I have not been able to find an answer for.<br/>
+<font color="#A82F2F"><font size="2">(02:20:54 AM)</font> <b>MountainX:</b></font> in this case, my two sources come from the same device. so maybe I won&apos;t have sync issues?<br/>
+<font color="#A82F2F"><font size="2">(02:20:54 AM)</font> <b>las:</b></font> MountainX: that is a totally different question and relates 100% to the internal hardware mixer of your device<br/>
+<font color="#A82F2F"><font size="2">(02:21:24 AM)</font> <b>MountainX:</b></font> I know so little that I don&apos;t even know how to ask the question. ;-). <br/>
+<font color="#A82F2F"><font size="2">(02:21:35 AM)</font> <b>las:</b></font> MountainX: there is probably a way to control that using an app like alsamixer (or its gui equivalents gamix or qamix) but precisely how to set up its internal routing is a totally device specific question<br/>
+<font color="#A82F2F"><font size="2">(02:22:04 AM)</font> <b>MountainX:</b></font> I don&apos;t think I&apos;m trying to set up internal routing.<br/>
+<font color="#A82F2F"><font size="2">(02:22:06 AM)</font> <b>las:</b></font> MountainX: you are<br/>
+<font size="2">(02:22:17 AM)</font><b> naptastic left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(02:22:26 AM)</font> <b>las:</b></font> MountainX: you want the signal that is presented to the CPU to contain various combinations of the signal being delivered to the 2i2<br/>
+<font color="#A82F2F"><font size="2">(02:22:35 AM)</font> <b>las:</b></font> MountainX: that is done by the internal h/w mixer of the 2i2<br/>
+<font color="#A82F2F"><font size="2">(02:22:53 AM)</font> <b>las:</b></font> MountainX: (if it can be done at all, which i have no comment on)<br/>
+<font color="#A82F2F"><font size="2">(02:22:59 AM)</font> <b>MountainX:</b></font> that doesn&apos;t sound like what I&apos;m trying to do...<br/>
+<font color="#A82F2F"><font size="2">(02:23:30 AM)</font> <b>las:</b></font> MountainX: but similar equivalent operations exist for other non-USB devices (e.g. my builtin Intel can be configured to deliver the mic + output stream to the capture stream)<br/>
+<font color="#A82F2F"><font size="2">(02:23:58 AM)</font> <b>las:</b></font> MountainX: as i understand it, you have 2 signal streams: (1) your mouth -&gt; mic -&gt; cable -&gt; mic input of 2i2<br/>
+<font color="#A82F2F"><font size="2">(02:24:10 AM)</font> <b>las:</b></font> MountainX: (2) a SIP data stream -&gt; playback channels of 2i2<br/>
+<font color="#A82F2F"><font size="2">(02:24:22 AM)</font> <b>las:</b></font> MountainX: you want to record the summed combination of (1) + (2)<br/>
+<font color="#A82F2F"><font size="2">(02:24:27 AM)</font> <b>las:</b></font> MountainX: correct ?<br/>
+<font size="2">(02:24:34 AM)</font><b> Maureen_ [<em>~Maureen@216-26-214-131.dynamic.tbaytel.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:26:01 AM)</font> <b>MountainX:</b></font> I would like to record them as separate channels in a single audio file if possible. and...<br/>
+<font color="#A82F2F"><font size="2">(02:26:10 AM)</font> <b>MountainX:</b></font> right now I am recording in Audacity (with audio host listed as alsa). I can record one side of the conversation or the other (switching the capture from my 2i2 to &quot;monitor of 2i2&quot; via pulse audio volume control).<br/>
+<font color="#A82F2F"><font size="2">(02:26:23 AM)</font> <b>MountainX:</b></font> but I cannot record both at the same time.<br/>
+<font color="#A82F2F"><font size="2">(02:27:06 AM)</font> <b>las:</b></font> MountainX: then your only option is to capture from the SIP stream *before* it hits the audio interface<br/>
+<font color="#A82F2F"><font size="2">(02:27:26 AM)</font> <b>MountainX:</b></font> I think your (1) and (2) are correct, but I&apos;m not entirely sure<br/>
+<font color="#A82F2F"><font size="2">(02:27:42 AM)</font> <b>las:</b></font> MountainX: because i&apos;m fairly certain that the 2i2 will not provide you anyway to separate things out<br/>
+<font color="#A82F2F"><font size="2">(02:28:01 AM)</font> <b>las:</b></font> MountainX: and that is possible but unless you find a JACK-native SIP solution (there are not many) then it will be a PITA<br/>
+<font color="#A82F2F"><font size="2">(02:28:18 AM)</font> <b>las:</b></font> MountainX: on the other hand, *with* a JACK-native SIP solution, it is very, very easy<br/>
+<font color="#A82F2F"><font size="2">(02:29:07 AM)</font> <b>MountainX:</b></font> do you know any Jack-native SIP client?<br/>
+<font color="#A82F2F"><font size="2">(02:29:28 AM)</font> <b>las:</b></font> MountainX: i don&apos;t follow SIP software at all, i&apos;m afraid<br/>
+<font color="#A82F2F"><font size="2">(02:30:05 AM)</font> <b>las:</b></font> MountainX: note also: no other software will make this much easier, because what you are looking for is inter-application (SIP-&gt;recorder) audio streaming<br/>
+<font color="#A82F2F"><font size="2">(02:30:35 AM)</font> <b>las:</b></font> MountainX: on Linux, this is a niche basically owned by JACK, so whether you use audacity or ardour or anything else, JACK is going to show up somehow, probably<br/>
+<font color="#A82F2F"><font size="2">(02:30:56 AM)</font> <b>MountainX:</b></font> OK, I will study Jack. That helps.<br/>
+<font color="#A82F2F"><font size="2">(02:31:33 AM)</font> <b>MountainX:</b></font> But I don&apos;t understand why avconv wouldn&apos;t solve this. The 2i2 sources seem to be separate now. I have two completely separate audio streams related to the 2i2 and I can already record either one.<br/>
+<font color="#A82F2F"><font size="2">(02:31:54 AM)</font> <b>MountainX:</b></font> One is just called &quot;2i2&quot; and the other is called &quot;monitor of 2i2&quot;. Both are related to the same device. Each includes one side of the conversation. Seems that avconv could combine them if I knew how. <br/>
+<font color="#A82F2F"><font size="2">(02:32:12 AM)</font> <b>MountainX:</b></font> I can use Jack, but that means disabling PulseAudio...<br/>
+<font size="2">(02:32:13 AM)</font><b> hybrid left the room (quit: Ping timeout: 254 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:32:49 AM)</font> <b>las:</b></font> MountainX: yes, in general pulse and JACK do not get along terribly well<br/>
+<font color="#A82F2F"><font size="2">(02:33:01 AM)</font> <b>las:</b></font> MountainX: on properly configured distros, pulse will &quot;get out of the way&quot; when jACK starts<br/>
+<font color="#A82F2F"><font size="2">(02:33:11 AM)</font> <b>las:</b></font> MountainX: but properly configured distros are still too rare<br/>
+<font color="#A82F2F"><font size="2">(02:33:27 AM)</font> <b>MountainX:</b></font> I&apos;m on Kubuntu 12.04<br/>
+<font color="#A82F2F"><font size="2">(02:33:45 AM)</font> <b>las:</b></font> MountainX: how are you seeing these audio streams? where do those names show up?<br/>
+<font color="#A82F2F"><font size="2">(02:34:34 AM)</font> <b>MountainX:</b></font> they show up in pavucontrol<br/>
+<font color="#A82F2F"><font size="2">(02:36:32 AM)</font> <b>las:</b></font> MountainX: not interesting ...<br/>
+<font color="#A82F2F"><font size="2">(02:36:41 AM)</font> <b>las:</b></font> MountainX: i wonder how pulse is identifying them<br/>
+<font color="#A82F2F"><font size="2">(02:37:11 AM)</font> <b>MountainX:</b></font> from my side they are clearly identified by this command: pacmd info<br/>
+<font color="#A82F2F"><font size="2">(02:37:19 AM)</font> <b>MountainX:</b></font> I don&apos;t know what happens behind the scenes<br/>
+<font color="#A82F2F"><font size="2">(02:37:30 AM)</font> <b>las:</b></font> MountainX: i do :)<br/>
+<font color="#A82F2F"><font size="2">(02:38:52 AM)</font> <b>las:</b></font> MountainX: 95% sure that the &quot;monitor&quot; stream is just a service that pulse provides, mirroring what *it* delivers to the 2i2<br/>
+<font color="#A82F2F"><font size="2">(02:39:40 AM)</font> <b>MountainX:</b></font> pavucontrol shows one as &quot;Monitor of Scarlette 2i2 Analog Stereo&quot; and the other as &quot;Scarlette 2i2 Analog Stereo&quot;.  There is a hardware switch on the 2i2 that turns on the monitor. I&apos;ll turn that switch off and see if the monitor source disappears...<br/>
+<font size="2">(02:39:49 AM)</font><b> Maureen_ is now known as tmg1|Ostrich</b><br/>
+<font color="#A82F2F"><font size="2">(02:40:04 AM)</font> <b>tmg1|Ostrich:</b></font> is it possible to donate bitcoin to ardour?<br/>
+<font color="#A82F2F"><font size="2">(02:40:12 AM)</font> <b>las:</b></font> tmg1|Ostrich: nope<br/>
+<font color="#A82F2F"><font size="2">(02:40:25 AM)</font> <b>las:</b></font> tmg1|Ostrich: not interested in supporting another payment mechanism at this time<br/>
+<font color="#A82F2F"><font size="2">(02:40:41 AM)</font> <b>las:</b></font> tmg1|Ostrich: particular one subject to pretty substantial exchange fluctuations<br/>
+<font color="#A82F2F"><font size="2">(02:41:05 AM)</font> <b>las:</b></font> MountainX: well, it might have been helpful to mention the h/w switch .....<br/>
+<font color="#A82F2F"><font size="2">(02:41:27 AM)</font> <b>MountainX:</b></font> that monitor switch on the 2i2 only affects the output. pavucontrol still shows both sources regardless of switch position.<br/>
+<font color="#A82F2F"><font size="2">(02:41:28 AM)</font> <b>las:</b></font> MountainX: oh wait, i didn&apos;t ask you to run arecord -l .... please do that <br/>
+<font color="#A82F2F"><font size="2">(02:42:09 AM)</font> <b>MountainX:</b></font> both aplay -l and arecord -l are shown at bottom of http://unix.stackexchange.com/q/88067/15010<br/>
+<font size="2">(02:42:39 AM)</font><b> Joschiii left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(02:43:13 AM)</font> <b>las:</b></font> MountainX: ok, so pulse has some metadata<br/>
+<font color="#A82F2F"><font size="2">(02:43:22 AM)</font> <b>las:</b></font> MountainX: have you actually tried just starting JACK ?<br/>
+<font size="2">(02:43:44 AM)</font><b> Joschiii [<em>~joschii@89.204.139.86</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:43:55 AM)</font> <b>las:</b></font> MountainX: jackd -r -d alsa -d hw:USB -r 48000 -p 1024 -n 3<br/>
+<font color="#A82F2F"><font size="2">(02:44:01 AM)</font> <b>las:</b></font> MountainX: should get it started<br/>
+<font color="#A82F2F"><font size="2">(02:44:07 AM)</font> <b>las:</b></font> MountainX: then run: jack_lsp<br/>
+<font color="#A82F2F"><font size="2">(02:45:11 AM)</font> <b>MountainX:</b></font> In my first try Jack messed my whole system up so nothing would work until reboot. But I will try it again now using the commands you listed. Should I close/stop anything before I run the commands?<br/>
+<font size="2">(02:45:42 AM)</font><b> hybrid [<em>~R3n4t0@177.34.168.18</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(02:46:46 AM)</font> <b>las:</b></font> MountainX: on a correctly configured system there should be no need to do so<br/>
+<font color="#A82F2F"><font size="2">(02:47:04 AM)</font> <b>MountainX:</b></font> jack_lsp<br/>
+<font color="#A82F2F"><font size="2">(02:47:04 AM)</font> <b>MountainX:</b></font> Cannot lock down 82246176 byte memory area (Cannot allocate memory)<br/>
+<font color="#A82F2F"><font size="2">(02:47:39 AM)</font> <b>MountainX:</b></font> is that important?<br/>
+<font size="2">(02:48:09 AM)</font><b> tmg1|Ostrich left the room (&quot;had to try&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(02:48:41 AM)</font> <b>las:</b></font> MountainX: it means your system is not correctly configured to run JACK in the right way, but for now it isn&apos;t that critical<br/>
+<font color="#A82F2F"><font size="2">(02:48:52 AM)</font> <b>las:</b></font> MountainX: do you get output from jack_lsp ?<br/>
+<font color="#A82F2F"><font size="2">(02:49:04 AM)</font> <b>las:</b></font> (other than this error) ?<br/>
+<font color="#A82F2F"><font size="2">(02:49:57 AM)</font> <b>MountainX:</b></font> yes: system:capture_1 system:capture_2 system:playback_1 system:playback_2<br/>
+<font color="#A82F2F"><font size="2">(02:50:26 AM)</font> <b>las:</b></font> MountainX: ok, the device claims to have only 2 channels for recording<br/>
+<font color="#A82F2F"><font size="2">(02:50:35 AM)</font> <b>rgareus:</b></font> las, MountainX: sorry to butt in -- the goal is to &quot;jackify&quot; some SIP application, right?  <br/>
+<font color="#A82F2F"><font size="2">(02:50:42 AM)</font> <b>las:</b></font> rgareus: not yet :)<br/>
+<font color="#A82F2F"><font size="2">(02:50:50 AM)</font> <b>las:</b></font> we don&apos;t even understand the data flow ....<br/>
+<font color="#A82F2F"><font size="2">(02:50:51 AM)</font> <b>rgareus:</b></font> las: ok, keep going<br/>
+<font color="#A82F2F"><font size="2">(02:51:23 AM)</font> <b>rgareus:</b></font> las: I was going to suggest  aloopback device + alsa_in/alsa_out if the SIP app can use ALSA<br/>
+<font color="#A82F2F"><font size="2">(02:53:38 AM)</font> <b>MountainX:</b></font> after starting Jack, Audacity is crashing and my SIP client is too.<br/>
+<font color="#A82F2F"><font size="2">(02:54:50 AM)</font> <b>MountainX:</b></font> Does Jack usually work well with Kubuntu 12.04? If so, I&apos;ll try a different computer.<br/>
+<font color="#A82F2F"><font size="2">(02:54:57 AM)</font> <b>las:</b></font> MountainX: audacity and JACK are not happy with each other. i have no idea about your SIP client<br/>
+<font color="#A82F2F"><font size="2">(02:55:02 AM)</font> <b>las:</b></font> MountainX: i wasn&apos;t expecting them to work<br/>
+<font color="#A82F2F"><font size="2">(02:55:08 AM)</font> <b>MountainX:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(02:55:14 AM)</font> <b>las:</b></font> MountainX: the point is to identify how many channels the device claims to have<br/>
+<font color="#A82F2F"><font size="2">(02:55:18 AM)</font> <b>las:</b></font> MountainX: the answer is just two<br/>
+<font color="#A82F2F"><font size="2">(02:55:28 AM)</font> <b>rgareus:</b></font> MountainX: they crash?  or just don&apos;t open because jack is using the audio-device and it&apos;s not available to them?<br/>
+<font color="#A82F2F"><font size="2">(02:55:48 AM)</font> <b>las:</b></font> MountainX: given that it probably has stereo (physical) input, i find it unlikely that there is any separate stream of &quot;monitor&quot; signal<br/>
+<font color="#A82F2F"><font size="2">(02:55:56 AM)</font> <b>MountainX:</b></font> rgareus: Audacity was open but crash. The SIP client locked up.<br/>
+<font color="#A82F2F"><font size="2">(02:56:08 AM)</font> <b>las:</b></font> MountainX: i suspect that pulse&apos;s presentation of this &quot;stream&quot; is semi-erroneous<br/>
+<font color="#A82F2F"><font size="2">(02:56:13 AM)</font> <b>rgareus:</b></font> MountainX: Ok that is expected behaviour<br/>
+<font color="#A82F2F"><font size="2">(02:56:20 AM)</font> <b>rgareus:</b></font> MountainX: at this stage<br/>
+<font color="#A82F2F"><font size="2">(02:56:27 AM)</font> <b>MountainX:</b></font> las: OK<br/>
+<font color="#A82F2F"><font size="2">(02:56:32 AM)</font> <b>MountainX:</b></font> rgareus: OK<br/>
+<font color="#A82F2F"><font size="2">(02:57:40 AM)</font> <b>rgareus:</b></font> MountainX: the next step is to check if jack &quot;sees&quot; all channels of the 2i2; and if it does make the SIP app run with jack<br/>
+<font color="#A82F2F"><font size="2">(02:58:11 AM)</font> <b>MountainX:</b></font> ok. I&apos;m ready if you want me to run some commands :-)<br/>
+<font color="#A82F2F"><font size="2">(02:58:38 AM)</font> <b>rgareus:</b></font> las: how would you check jack? <br/>
+<font color="#A82F2F"><font size="2">(02:59:10 AM)</font> <b>rgareus:</b></font> MountainX: you can try      meterbridge -t dpm system:capture_1 system:capture_2<br/>
+<font color="#A82F2F"><font size="2">(02:59:33 AM)</font> <b>rgareus:</b></font> MountainX: that&apos;ll display a small jack-peak meter and display the input audio<br/>
+<font color="#A82F2F"><font size="2">(02:59:49 AM)</font> <b>rgareus:</b></font> (if you have meterbridge installed, that is)<br/>
+<font color="#A82F2F"><font size="2">(03:00:01 AM)</font> <b>MountainX:</b></font> yes, it is installed and that command is running now.<br/>
+<font color="#A82F2F"><font size="2">(03:00:16 AM)</font> <b>rgareus:</b></font> MountainX: do you see a signal on the inputs?<br/>
+<font color="#A82F2F"><font size="2">(03:00:25 AM)</font> <b>MountainX:</b></font> yes, one channels shows a response from my mic<br/>
+<font color="#A82F2F"><font size="2">(03:00:26 AM)</font> <b>rgareus:</b></font> MountainX: left + right indepently?<br/>
+<font color="#A82F2F"><font size="2">(03:00:41 AM)</font> <b>MountainX:</b></font> yes, just one channel responds to my mic<br/>
+<font color="#A82F2F"><font size="2">(03:01:01 AM)</font> <b>MountainX:</b></font> I guess I&apos;d have to fire up a SIP client or something to test the other channel. Any suggestions?<br/>
+<font color="#A82F2F"><font size="2">(03:01:22 AM)</font> <b>rgareus:</b></font> MountainX: how do you start jack?<br/>
+<font color="#A82F2F"><font size="2">(03:01:42 AM)</font> <b>las:</b></font> rgareus: the comamnd from aove<br/>
+<font color="#A82F2F"><font size="2">(03:01:50 AM)</font> <b>las:</b></font> jackd -r -d alsa -d hw:USB -r 48000 -p 1024 -n 3<br/>
+<font color="#A82F2F"><font size="2">(03:01:57 AM)</font> <b>MountainX:</b></font> yes: jackd -r -d alsa -d hw:USB -r 48000 -p 1024 -n 3<br/>
+<font color="#A82F2F"><font size="2">(03:02:05 AM)</font> <b>rgareus:</b></font> aah so no qjackctl, I was going to suggest to have a look at the connection-window<br/>
+<font color="#A82F2F"><font size="2">(03:02:14 AM)</font> <b>las:</b></font> MountainX: use jack_metro to generate an outbound signal<br/>
+<font color="#A82F2F"><font size="2">(03:02:28 AM)</font> <b>rgareus:</b></font> MountainX: the SIP app runs on the same computer right?<br/>
+<font color="#A82F2F"><font size="2">(03:02:32 AM)</font> <b>las:</b></font> MountainX: you will need a patchbay to do that, or use jack_connect on the command line<br/>
+<font color="#A82F2F"><font size="2">(03:02:41 AM)</font> <b>las:</b></font> MountainX: because jack_metro does not connect to anything automatically<br/>
+<font color="#A82F2F"><font size="2">(03:02:42 AM)</font> <b>MountainX:</b></font> rgareus: yes<br/>
+<font color="#A82F2F"><font size="2">(03:02:48 AM)</font> <b>rgareus:</b></font> MountainX: so you don&apos;t have to go out of the computer and back in through the 2nd input<br/>
+<font color="#A82F2F"><font size="2">(03:02:55 AM)</font> <b>las:</b></font> MountainX: jack_metro -b 60 &amp;<br/>
+<font color="#A82F2F"><font size="2">(03:03:33 AM)</font> <b>las:</b></font> MountainX: if you stay on the command line, use jack_lsp to get port names, then .. jack_connect &lt;METRO PORT&gt; system:playback_1<br/>
+<font color="#A82F2F"><font size="2">(03:04:01 AM)</font> <b>las:</b></font> MountainX: which should make the once-per-second beep appear from the left channel. then jack_connect &lt;METRO PORT&gt; system:playback_2<br/>
+<font color="#A82F2F"><font size="2">(03:04:08 AM)</font> <b>las:</b></font> MountainX: which should make it also appear from the right<br/>
+<font color="#A82F2F"><font size="2">(03:04:14 AM)</font> <b>MountainX:</b></font> ok. I would prefer to stay on command line, so let me try that...<br/>
+<font color="#A82F2F"><font size="2">(03:04:15 AM)</font> <b>las:</b></font> MountainX: then take a look at the meter<br/>
+<font color="#A82F2F"><font size="2">(03:06:07 AM)</font> <b>MountainX:</b></font> is &lt;METRO PORT&gt; called just &quot;metro&quot;? That&apos;s what I see from jack_lsp<br/>
+<font color="#A82F2F"><font size="2">(03:07:16 AM)</font> <b>MountainX:</b></font> it lists it as: metro:60_bpm<br/>
+<font color="#A82F2F"><font size="2">(03:07:45 AM)</font> <b>las:</b></font> MountainX: yep, that will do nicely<br/>
+<font color="#A82F2F"><font size="2">(03:07:52 AM)</font> <b>MountainX:</b></font> ok that works: $ jack_connect metro:60_bpm system:playback_2<br/>
+<font color="#A82F2F"><font size="2">(03:07:54 AM)</font> <b>las:</b></font> MountainX: theoretically you could have multiple metro clients<br/>
+<font color="#A82F2F"><font size="2">(03:09:00 AM)</font> <b>MountainX:</b></font> the metronome sound is playing from the 2i2&apos;s monitor jack (into my headphones).<br/>
+<font color="#A82F2F"><font size="2">(03:09:32 AM)</font> <b>rgareus:</b></font> MountainX: on both channels?<br/>
+<font color="#A82F2F"><font size="2">(03:09:49 AM)</font> <b>rgareus:</b></font> MountainX: try  jack_disconnect metro:60_bpm system:playback_1<br/>
+<font color="#A82F2F"><font size="2">(03:10:12 AM)</font> <b>MountainX:</b></font> I only did system:playback_2 so far. I will to disconnect it and do the other next.<br/>
+<font color="#A82F2F"><font size="2">(03:10:14 AM)</font> <b>rgareus:</b></font> MountainX: that should mute the left channel     and then jack_disconnect metro:60_bpm system:playback_2<br/>
+<font color="#A82F2F"><font size="2">(03:11:27 AM)</font> <b>MountainX:</b></font> OK, both sounds work correctly as far as what I hear in my headphones via the 2i2&apos;s monitor port. But...<br/>
+<font color="#A82F2F"><font size="2">(03:11:46 AM)</font> <b>MountainX:</b></font> I did not see the sounds reflected at all in the signal of the meter<br/>
+<font color="#A82F2F"><font size="2">(03:11:59 AM)</font> <b>rgareus:</b></font> that&apos;s perfect<br/>
+<font color="#A82F2F"><font size="2">(03:12:06 AM)</font> <b>MountainX:</b></font> the meter only reflects the sounds from my mic<br/>
+<font color="#A82F2F"><font size="2">(03:12:21 AM)</font> <b>rgareus:</b></font> MountainX: with jack, you can directly connect the SIP app&apos;s output to both:  the recording app&apos;s input AND your speakers/headphon<br/>
+<font color="#A82F2F"><font size="2">(03:12:21 AM)</font> <b>MountainX:</b></font> OK, glad you guys understand what&apos;s happening ;-)<br/>
+<font color="#A82F2F"><font size="2">(03:12:47 AM)</font> <b>rgareus:</b></font> MountainX: it may help to visualize the connections.<br/>
+<font color="#A82F2F"><font size="2">(03:13:22 AM)</font> <b>rgareus:</b></font> MountainX: e.g.  http://drobilla.net/blog/wp-content/uploads/2008/09/patchage_osx.png  (a tool to make and display jack connections)<br/>
+<font color="#A82F2F"><font size="2">(03:13:51 AM)</font> <b>MountainX:</b></font> rgareus: thanks<br/>
+<font color="#A82F2F"><font size="2">(03:13:52 AM)</font> <b>las:</b></font> MountainX: this assumes you will be using a SIP app that is JACK-aware<br/>
+<font color="#A82F2F"><font size="2">(03:13:52 AM)</font> <b>las:</b></font> MountainX: some are, some are not<br/>
+<font color="#A82F2F"><font size="2">(03:14:15 AM)</font> <b>MountainX:</b></font> I didn&apos;t find any Jack aware SIP apps for Linux in a search I did just now<br/>
+<font color="#A82F2F"><font size="2">(03:14:40 AM)</font> <b>las:</b></font> MountainX: if they use gstreamer they are JACK aware<br/>
+<font color="#A82F2F"><font size="2">(03:14:51 AM)</font> <b>rgareus:</b></font> MountainX: so now we need to &quot;jackify&quot; the SIP app.    Then make connections (pull cables) from jack&apos;s system:capture_1  to both the SIP app AND the recording app, and.. <br/>
+<font color="#A82F2F"><font size="2">(03:15:07 AM)</font> <b>MountainX:</b></font> las: thx - good info about gstreamer<br/>
+<font color="#A82F2F"><font size="2">(03:15:35 AM)</font> <b>rgareus:</b></font> MountainX: ..connections from the SIP-app&apos;s output to both: the recording and headphone.<br/>
+<font color="#A82F2F"><font size="2">(03:15:55 AM)</font> <b>rgareus:</b></font> what&apos;s the SIP app that you use, again?<br/>
+<font color="#A82F2F"><font size="2">(03:16:06 AM)</font> <b>MountainX:</b></font> I would like my mic&apos;s output to be recorded as directly as possible to keep high audio quality.<br/>
+<font color="#A82F2F"><font size="2">(03:16:16 AM)</font> <b>MountainX:</b></font> I&apos;m using Twinkle as my SIP client<br/>
+<font color="#A82F2F"><font size="2">(03:16:30 AM)</font> <b>rgareus:</b></font> your mic will be recorded as-is.<br/>
+<font color="#A82F2F"><font size="2">(03:16:38 AM)</font> <b>MountainX:</b></font> rgareus: OK, good<br/>
+<font color="#A82F2F"><font size="2">(03:16:48 AM)</font> <b>rgareus:</b></font> if the SIP application uses pulse-audio, I have no idea how, but PA can sit on top of jack... problem solved<br/>
+<font color="#A82F2F"><font size="2">(03:16:58 AM)</font> <b>rgareus:</b></font> if the SIP app can use ALSA -&gt; aloopback device + alsa_in/alsa_out.. -&gt; jack problem solved.<br/>
+<font color="#A82F2F"><font size="2">(03:17:10 AM)</font> <b>rgareus:</b></font> I have [and old ALSA version of] skype working this way here (using a aloop).<br/>
+<font color="#062585"><font size="2">(03:17:21 AM)</font> <b>***rgareus</b></font> googles Twinkle<br/>
+<font color="#A82F2F"><font size="2">(03:17:47 AM)</font> <b>MountainX:</b></font> a search returns this: Twinkle supports the following audio drivers:<br/>
+<font color="#A82F2F"><font size="2">(03:17:52 AM)</font> <b>MountainX:</b></font> Open Sound System (OSS)<br/>
+<font color="#A82F2F"><font size="2">(03:17:54 AM)</font> <b>rgareus:</b></font> it uses ALSA according to http://mfnboer.home.xs4all.nl/twinkle/<br/>
+<font color="#A82F2F"><font size="2">(03:17:58 AM)</font> <b>MountainX:</b></font> Advanced Linux Sound Architecture (ALSA)<br/>
+<font color="#A82F2F"><font size="2">(03:18:07 AM)</font> <b>MountainX:</b></font> Yes, it uses alsa<br/>
+<font color="#A82F2F"><font size="2">(03:18:42 AM)</font> <b>MountainX:</b></font> OK, so next step? :-)<br/>
+<font color="#A82F2F"><font size="2">(03:18:46 AM)</font> <b>rgareus:</b></font> MountainX: http://alsa.opensrc.org/Jack_and_Loopback_device_as_Alsa-to-Jack_bridge (the story there is very long, though the actual thing to do is quick)<br/>
+<font color="#A82F2F"><font size="2">(03:19:15 AM)</font> <b>MountainX:</b></font> rgareus: OK, should I read that now?<br/>
+<font color="#A82F2F"><font size="2">(03:19:43 AM)</font> <b>rgareus:</b></font> MountainX: depends if you just want to get it working: No ;;  or want to understand how it works: then yes :)<br/>
+<font color="#A82F2F"><font size="2">(03:20:04 AM)</font> <b>rgareus:</b></font> MountainX: sudo modprobe snd-aloop;<br/>
+<font color="#A82F2F"><font size="2">(03:20:34 AM)</font> <b>MountainX:</b></font> looks very interesting... I will read it. I can also try to get it working now if you want to step me through it. That&apos;s up to you.<br/>
+<font color="#A82F2F"><font size="2">(03:20:54 AM)</font> <b>las:</b></font> MountainX: that is the &quot;PITA&quot; i was referring to :)<br/>
+<font color="#A82F2F"><font size="2">(03:21:34 AM)</font> <b>rgareus:</b></font> it&apos;s actually not. <br/>
+<font color="#A82F2F"><font size="2">(03:21:45 AM)</font> <b>MountainX:</b></font> why is the modprobe a PITA? Causes some problems? Or does the article explain that?<br/>
+<font color="#A82F2F"><font size="2">(03:22:06 AM)</font> <b>rgareus:</b></font> MountainX: step 1 is to load the kernel-module. next you create a ~/.asoundrc  (make all ALSA app use the fake soundcard)<br/>
+<font color="#A82F2F"><font size="2">(03:22:37 AM)</font> <b>MountainX:</b></font> can I make just my SIP client use the fake soundcard?<br/>
+<font color="#A82F2F"><font size="2">(03:22:39 AM)</font> <b>rgareus:</b></font> MountainX: and then you start two JACK-applications that will read/write from the fake alsa-device and forward data to/from jack<br/>
+<font color="#A82F2F"><font size="2">(03:22:55 AM)</font> <b>rgareus:</b></font> MountainX: depends on the SIP client. probably yes<br/>
+<font color="#A82F2F"><font size="2">(03:23:11 AM)</font> <b>MountainX:</b></font> rgareus: sounds very interesting...<br/>
+<font color="#A82F2F"><font size="2">(03:23:47 AM)</font> <b>rgareus:</b></font> MountainX: you may still need a ~/.asoundrc <br/>
+<font color="#A82F2F"><font size="2">(03:23:59 AM)</font> <b>rgareus:</b></font> MountainX: eg  http://pastebin.com/JJyA1jyz  <br/>
+<font color="#A82F2F"><font size="2">(03:24:44 AM)</font> <b>MountainX:</b></font> OK, that .asoundrc example will help. Thanks<br/>
+<font color="#A82F2F"><font size="2">(03:24:45 AM)</font> <b>MountainX:</b></font> Once I have the steps worked out, can I just put it all into a bash script and run the script when needed?<br/>
+<font color="#A82F2F"><font size="2">(03:25:00 AM)</font> <b>rgareus:</b></font> MountainX: last thing is alsa_out -j ploop -dploop<br/>
+<font color="#A82F2F"><font size="2">(03:25:15 AM)</font> <b>rgareus:</b></font> MountainX: and   alsa_in -j  cloop -dcloop  <br/>
+<font color="#A82F2F"><font size="2">(03:25:40 AM)</font> <b>rgareus:</b></font> MountainX: (the cloop/ploop names with the pastebin&apos;ed asoundrc).  this bridges the fake-alsa device with jack<br/>
+<font color="#A82F2F"><font size="2">(03:26:03 AM)</font> <b>rgareus:</b></font> MountainX: and yes, you can put it all in a script.  <br/>
+<font color="#A82F2F"><font size="2">(03:26:42 AM)</font> <b>MountainX:</b></font> excellent. I like this.  I think I will read the blog post and then try it. when are you two (rgareus and las) usually on here?<br/>
+<font color="#A82F2F"><font size="2">(03:26:44 AM)</font> <b>rgareus:</b></font> MountainX: but instead of    sudo  modprobe snd-aloop;  you&apos;ll want to simply add  snd-aloop to  /etc/modules<br/>
+<font color="#A82F2F"><font size="2">(03:27:07 AM)</font> <b>rgareus:</b></font> MountainX: we&apos;re always here :)<br/>
+<font color="#A82F2F"><font size="2">(03:27:18 AM)</font> <b>MountainX:</b></font> yes, no problem regarding /etc/modules<br/>
+<font color="#A82F2F"><font size="2">(03:27:42 AM)</font> <b>MountainX:</b></font> thank you! :-)<br/>
+<font color="#A82F2F"><font size="2">(03:27:49 AM)</font> <b>rgareus:</b></font> MountainX: good luck<br/>
+<font color="#A82F2F"><font size="2">(03:28:53 AM)</font> <b>las:</b></font> MountainX: i live in US eastern time, rgareus lives in no timezone known to man<br/>
+<font size="2">(03:29:20 AM)</font><b> habys [<em>~luke@arikui.org</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:29:40 AM)</font> <b>habys:</b></font> hi all<br/>
+<font color="#A82F2F"><font size="2">(03:30:02 AM)</font> <b>MountainX:</b></font> I&apos;m in eastern US time zone too<br/>
+<font color="#A82F2F"><font size="2">(03:30:57 AM)</font> <b>habys:</b></font> is there any interest in being able to export stems for a part of a session?<br/>
+<font color="#A82F2F"><font size="2">(03:31:45 AM)</font> <b>las:</b></font> habys: stems by definition are the entire session length right now<br/>
+<font color="#A82F2F"><font size="2">(03:31:56 AM)</font> <b>las:</b></font> habys: if someone cooks up a patch, fine<br/>
+<font color="#A82F2F"><font size="2">(03:32:09 AM)</font> <b>las:</b></font> habys: meanwhile, just move the session start+end markers<br/>
+<font color="#A82F2F"><font size="2">(03:32:32 AM)</font> <b>habys:</b></font> that works perfectly, much obliged<br/>
+<font color="#A82F2F"><font size="2">(03:32:46 AM)</font> <b>rgareus:</b></font> habys: you can select-region; then export region.<br/>
+<font color="#A82F2F"><font size="2">(03:33:00 AM)</font> <b>rgareus:</b></font> region*s* even<br/>
+<font color="#A82F2F"><font size="2">(03:33:00 AM)</font> <b>habys:</b></font> if I&apos;m not mistaken, the export region on a selection is only at most stereo?<br/>
+<font color="#A82F2F"><font size="2">(03:33:43 AM)</font> <b>rgareus:</b></font> habys: mmh. I don&apos;t think it is.  it uses the default export dialog, does it not?<br/>
+<font color="#A82F2F"><font size="2">(03:34:13 AM)</font> <b>rgareus:</b></font> habys: but it would export a single file (with all individual tracks)<br/>
+<font color="#A82F2F"><font size="2">(03:34:44 AM)</font> <b>rgareus:</b></font> habys: which version of ardour is that?<br/>
+<font color="#A82F2F"><font size="2">(03:34:48 AM)</font> <b>habys:</b></font> let me see<br/>
+<font color="#A82F2F"><font size="2">(03:35:09 AM)</font> <b>habys:</b></font> Ardour 3.3<br/>
+<font color="#A82F2F"><font size="2">(03:35:09 AM)</font> <b>habys:</b></font> (built from revision 3.2-269-g003492c)<br/>
+<font color="#A82F2F"><font size="2">(03:35:38 AM)</font> <b>rgareus:</b></font> habys: Ardour3 has a &quot;split to mono files&quot; in the export dialog (see the &quot;time span and channel options&quot; at the bottom<br/>
+<font color="#A82F2F"><font size="2">(03:35:38 AM)</font> <b>rgareus:</b></font> habys: .. of the export dialog.<br/>
+<font color="#A82F2F"><font size="2">(03:37:29 AM)</font> <b>habys:</b></font> anything I see from the Session -&gt; export selections has a time span I can not modify (based on selection)<br/>
+<font color="#A82F2F"><font size="2">(03:37:49 AM)</font> <b>las:</b></font> habys: because a selection defines its own time range<br/>
+<font color="#A82F2F"><font size="2">(03:38:08 AM)</font> <b>habys:</b></font> but really, with changing the start and end markers then exporting looks perfect<br/>
+<font color="#A82F2F"><font size="2">(03:38:10 AM)</font> <b>las:</b></font> habys: the term is often confusing because it can refer to object selection(s) (e.g. regions) or (as in this case) time range selections<br/>
+<font color="#A82F2F"><font size="2">(03:38:21 AM)</font> <b>habys:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(03:38:53 AM)</font> <b>habys:</b></font> dispite the selection, I see only times that match the start and end markers -- but this is sufficient!<br/>
+<font color="#A82F2F"><font size="2">(03:38:54 AM)</font> <b>rgareus:</b></font> I right-cliced on a range spaning multiple tracks,  context-menu &gt; Export Range ..<br/>
+<font color="#A82F2F"><font size="2">(03:39:59 AM)</font> <b>rgareus:</b></font> ..can split to mono files and export N channels. But it takes quite a bit of clicking though the Channel assignment though :)<br/>
+<font color="#A82F2F"><font size="2">(03:40:54 AM)</font> <b>rgareus:</b></font> las: what does the new &quot;Butler drops pool trash&quot; message indicate?<br/>
+<font color="#A82F2F"><font size="2">(03:41:28 AM)</font> <b>MountainX:</b></font> rgareus: I&apos;m back again. Regarding this solution, will I be able to record the caller&apos;s voice on one channel and my voice (from my mic) on the other channel?<br/>
+<font color="#A82F2F"><font size="2">(03:41:38 AM)</font> <b>rgareus:</b></font> MountainX: yes<br/>
+<font color="#A82F2F"><font size="2">(03:41:54 AM)</font> <b>MountainX:</b></font> rgareus: thanks! that&apos;s great<br/>
+<font color="#A82F2F"><font size="2">(03:41:54 AM)</font> <b>rgareus:</b></font> MountainX: you can even have multiple tracks in ardour<br/>
+<font color="#A82F2F"><font size="2">(03:42:08 AM)</font> <b>MountainX:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(03:42:08 AM)</font> <b>rgareus:</b></font> MountainX: each track will get data from one jack-port<br/>
+<font color="#A82F2F"><font size="2">(03:42:08 AM)</font> <b>las:</b></font> rgareus: i was tracking a bug that showed up after some ::init() changes from timbyr landed<br/>
+<font color="#A82F2F"><font size="2">(03:42:22 AM)</font> <b>las:</b></font> rgareus: i *think* that i fixed the bug, but i may still have been in progress<br/>
+<font color="#A82F2F"><font size="2">(03:42:47 AM)</font> <b>rgareus:</b></font> las: ok I was just curious. <br/>
+<font color="#A82F2F"><font size="2">(03:43:01 AM)</font> <b>las:</b></font> rgareus: the ordering of cleanup had gone wrong, and things broke<br/>
+<font color="#A82F2F"><font size="2">(03:45:16 AM)</font> <b>rgareus:</b></font> las: so the buttler was trashing full bottles while the pool-party was still going on... that&apos;d certainly weak havoc: &quot;Buttler was killed at pool-part with segfault.&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:45:38 AM)</font> <b>rgareus:</b></font> or did the butler kill the party?<br/>
+<font color="#A82F2F"><font size="2">(03:46:26 AM)</font> <b>las:</b></font> rgareus: the butler dropped the bottles in the pool<br/>
+<font color="#A82F2F"><font size="2">(03:46:46 AM)</font> <b>las:</b></font> rgareus: segmenting some of the guests<br/>
+<font size="2">(04:15:11 AM)</font><b> dissected left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(04:29:53 AM)</font><b> naptastic [<em>~david@99-20-201-27.lightspeed.hstntx.sbcglobal.net</em>] entered the room.</b><br/>
+<font size="2">(04:36:23 AM)</font><b> HarryHaaren left the room (quit: Quit: Quittin&apos;).</b><br/>
+<font size="2">(04:37:50 AM)</font><b> the_CLA [<em>~the_CLA@p57B9B749.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(04:38:05 AM)</font><b> nox- left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(04:41:00 AM)</font><b> the_CLA_2 left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(04:47:34 AM)</font><b> MountainX left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font size="2">(04:49:50 AM)</font><b> err-or_ [<em>~err-or@gateway/tor-sasl/err-or</em>] entered the room.</b><br/>
+<font size="2">(04:53:33 AM)</font><b> err-or left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(05:32:53 AM)</font><b> l4sh left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(06:10:12 AM)</font><b> naptastic left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(06:13:43 AM)</font><b> infinitux [<em>~infinitux@50.98.223.34</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:13:44 AM)</font> <b>infinitux:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(06:13:55 AM)</font> <b>infinitux:</b></font> i suck! lol have no idea where to begin<br/>
+<font size="2">(06:16:06 AM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(06:17:40 AM)</font> <b>infinitux:</b></font> I need a clue...<br/>
+<font size="2">(06:54:14 AM)</font><b> infinitux left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(07:05:46 AM)</font><b> ANero left the room (quit: Quit: Ex-Chat).</b><br/>
+<font size="2">(07:20:50 AM)</font><b> hansfbaier [<em>~jack@36.81.45.230</em>] entered the room.</b><br/>
+<font size="2">(07:40:54 AM)</font><b> Diskrepa [<em>~Diskrepa@81-234-86-4-no27.tbcn.telia.com</em>] entered the room.</b><br/>
+<font size="2">(07:41:52 AM)</font><b> zth [<em>~zth@94-137-118-6.customers.ownit.se</em>] entered the room.</b><br/>
+<font size="2">(07:59:18 AM)</font><b> Valvalion left the room (quit: Remote host closed the connection).</b><br/>
+<font size="2">(08:25:30 AM)</font><b> ahellquist_lt left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(08:27:49 AM)</font><b> hansfbaier left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(08:45:33 AM)</font><b> prokoudine [<em>~prokoudin@ppp85-141-138-182.pppoe.mtu-net.ru</em>] entered the room.</b><br/>
+<font size="2">(08:45:56 AM)</font><b> zequence-work [<em>~zequence-@ubuntu/member/zequence</em>] entered the room.</b><br/>
+<font size="2">(09:00:03 AM)</font><b> HisaoNakai left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(09:00:47 AM)</font><b> Stuzz left the room (quit: Quit: I am so omniscient, if there were to be two omnisciences, I would be both!).</b><br/>
+<font size="2">(09:07:00 AM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(09:09:09 AM)</font><b> imeim [<em>~quassel@18.Red-88-18-10.staticIP.rima-tde.net</em>] entered the room.</b><br/>
+<font size="2">(09:14:27 AM)</font><b> zequence-work left the room (quit: Quit: Lost terminal).</b><br/>
+<font size="2">(09:17:46 AM)</font><b> hansfbaier [<em>~jack@36.81.45.230</em>] entered the room.</b><br/>
+<font size="2">(09:26:26 AM)</font><b> zequence-work [<em>~zequence-@ubuntu/member/zequence</em>] entered the room.</b><br/>
+<font size="2">(09:27:38 AM)</font><b> RytmenPinne [<em>~alex@35-51.bob.fi</em>] entered the room.</b><br/>
+<font size="2">(09:38:35 AM)</font><b> HisaoNakai left the room (quit: Ping timeout: 248 seconds).</b><br/>
+<font size="2">(09:40:12 AM)</font><b> HisaoNakai [<em>~HisaoNaka@unaffiliated/contrapunctus</em>] entered the room.</b><br/>
+<font size="2">(09:45:38 AM)</font><b> kermyt left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(09:45:50 AM)</font><b> kermyt [<em>~kermyt@unaffiliated/kermyt</em>] entered the room.</b><br/>
+<font size="2">(10:01:38 AM)</font><b> zequence-work left the room (quit: Read error: Operation timed out).</b><br/>
+<font size="2">(10:08:40 AM)</font><b> ahellquist_lt [<em>~aht@89.160.61.6</em>] entered the room.</b><br/>
+<font size="2">(10:09:42 AM)</font><b> nphilipp [<em>nils@nat/redhat/x-perlksuzweylnjku</em>] entered the room.</b><br/>
+<font size="2">(10:35:58 AM)</font><b> RytmenPinne left the room (quit: Ping timeout: 268 seconds).</b><br/>
+<font size="2">(10:43:08 AM)</font><b> avaruus_ left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font size="2">(10:43:31 AM)</font><b> avaruus [<em>apelkone@melkki.cs.helsinki.fi</em>] entered the room.</b><br/>
+<font size="2">(10:55:54 AM)</font><b> corresponder [<em>~walther@p3EE3BD45.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font size="2">(11:05:15 AM)</font><b> boom1992 [<em>~quassel@BA1222.ballee.wh.tu-darmstadt.de</em>] entered the room.</b><br/>
+<font size="2">(11:08:44 AM)</font><b> Stuzz [<em>~Stuzz@d58-106-7-124.rdl801.qld.optusnet.com.au</em>] entered the room.</b><br/>
+<font color="#16569E"><font size="2">(11:08:45 AM)</font> <b>magnetophon:</b></font> rgareus: Is jackfreqd still under development, is it 'done', can you recommend using it?<br/>
+<font color="#16569E"><font size="2">(11:14:07 AM)</font> <b>magnetophon:</b></font> Anyone else using jackfreqd?<br/>
+<font size="2">(11:15:27 AM)</font><b> prokoudine left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(11:18:24 AM)</font><b> vihcs [<em>~schiv@archlinux/developer/schiv</em>] entered the room.</b><br/>
+<font size="2">(11:28:16 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

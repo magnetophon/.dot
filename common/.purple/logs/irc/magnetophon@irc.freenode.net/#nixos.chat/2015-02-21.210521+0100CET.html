@@ -1,0 +1,344 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sat 21 Feb 2015 09:05:21 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sat 21 Feb 2015 09:05:21 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(09:05:21 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(09:05:21 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(09:07:42 PM)</font> <b>the-kenny:</b></font> gds: you can build just the android-env from git<br/>
+<font color="#A82F2F"><font size="2">(09:08:03 PM)</font> <b>the-kenny:</b></font> no need to rebuild your whole system just for a single package<br/>
+<font color="#A82F2F"><font size="2">(09:08:07 PM)</font> <b>gds:</b></font> Yeah.<br/>
+<font color="#A82F2F"><font size="2">(09:08:23 PM)</font> <b>gds:</b></font> It&apos;d just be nicer to stick the config in git is all :S<br/>
+<font color="#A82F2F"><font size="2">(09:08:30 PM)</font> <b>the-kenny:</b></font> gds: sorry that this is broken for some reason. I&apos;ll try to recreate :/<br/>
+<font color="#A82F2F"><font size="2">(09:08:37 PM)</font> <b>gds:</b></font> Cheers.<br/>
+<font color="#062585"><font size="2">(09:09:14 PM)</font> <b>***gds</b></font> does nix-channel --add https://nixos.org/channels/nixos-14.12 <br/>
+<font color="#A82F2F"><font size="2">(09:09:48 PM)</font> <b>ewemoa:</b></font> gds: fwiw, i switched to stable -- and i think i have a relatively up-to-date set of android dev packages -- i do it by using stacked git<br/>
+<font color="#A82F2F"><font size="2">(09:10:01 PM)</font> <b>gds:</b></font> ...and then has nixos-14.12 along side unstable<br/>
+<font color="#062585"><font size="2">(09:10:12 PM)</font> <b>***gds</b></font> does nix-channel --remove nixos<br/>
+<font color="#A82F2F"><font size="2">(09:10:18 PM)</font> <b>gds:</b></font> (so that I just have 14.12)<br/>
+<font color="#A82F2F"><font size="2">(09:10:33 PM)</font> <b>gds:</b></font> then nixos-rebuild switch<br/>
+<font color="#A82F2F"><font size="2">(09:10:54 PM)</font> <b>gds:</b></font> error: file ‘nixpkgs/nixos’ was not found in the Nix search path<br/>
+<font color="#A82F2F"><font size="2">(09:11:18 PM)</font> <b>gds:</b></font> Ok, I think I need to rename the channel nixos-14.12 to nixos?<br/>
+<font color="#A82F2F"><font size="2">(09:13:11 PM)</font> <b>the-kenny:</b></font> yeah<br/>
+<font color="#062585"><font size="2">(09:13:33 PM)</font> <b>***gds</b></font> does a remove, then a qualified add.<br/>
+<font color="#A82F2F"><font size="2">(09:14:32 PM)</font> <b>gds:</b></font> And now I&apos;m back in a sane state :)<br/>
+<font color="#A82F2F"><font size="2">(09:14:57 PM)</font> <b>gds:</b></font> ewemoa: What did you do? Did you blog it, or can I read about stacked packages somewhere?<br/>
+<font color="#A82F2F"><font size="2">(09:15:10 PM)</font> <b>gds:</b></font> *stacked git sorry<br/>
+<font color="#A82F2F"><font size="2">(09:15:33 PM)</font> <b>ewemoa:</b></font> gds: it&apos;s just standard use of stgit<br/>
+<font color="#A82F2F"><font size="2">(09:15:46 PM)</font> <b>gds:</b></font> the-kenny: Thanks for the help -- it&apos;s good to know when it&apos;s not my fault :)<br/>
+<font size="2">(09:15:55 PM)</font><b> c74d is now known as Guest12652</b><br/>
+<font color="#A82F2F"><font size="2">(09:17:53 PM)</font> <b>gds:</b></font> ewemoa: the only mention of stgit I can find on the nixos site is the page for topgit: https://nixos.org/w/index.php?search=stgit&amp;title=Special%3ASearch&amp;go=Go<br/>
+<font color="#A82F2F"><font size="2">(09:18:02 PM)</font> <b>ewemoa:</b></font> gds: fwiw, there are some tutorials around -- here&apos;s one i consulted while learning basics: http://procode.org/stgit/doc/tutorial.html<br/>
+<font color="#A82F2F"><font size="2">(09:18:09 PM)</font> <b>gds:</b></font> Thanks!<br/>
+<font color="#A82F2F"><font size="2">(09:18:26 PM)</font> <b>ewemoa:</b></font> fwiw, there&apos;s a pretty decent emacs mode too<br/>
+<font color="#A82F2F"><font size="2">(09:19:28 PM)</font> <b>gds:</b></font> Thanks :)<br/>
+<font color="#A82F2F"><font size="2">(09:20:02 PM)</font> <b>ewemoa:</b></font> good luck!<br/>
+<font color="#A82F2F"><font size="2">(09:20:13 PM)</font> <b>gds:</b></font> Thanks -- I&apos;m currently a bit confused...<br/>
+<font color="#A82F2F"><font size="2">(09:20:35 PM)</font> <b>gds:</b></font> since it looks to me like stgit is a tool for managing a dev workflow -- keping track of one&apos;s patches<br/>
+<font color="#A82F2F"><font size="2">(09:20:45 PM)</font> <b>gds:</b></font> while all I&apos;m trying to do is install a package<br/>
+<font color="#A82F2F"><font size="2">(09:21:10 PM)</font> <b>ewemoa:</b></font> gds: ok, so i was on master for some months but found the rebuilding to be too much<br/>
+<font color="#A82F2F"><font size="2">(09:21:22 PM)</font> <b>ewemoa:</b></font> so i switched to stable<br/>
+<font color="#A82F2F"><font size="2">(09:21:30 PM)</font> <b>ewemoa:</b></font> but then some things i needed were not yet available<br/>
+<font color="#A82F2F"><font size="2">(09:21:44 PM)</font> <b>ewemoa:</b></font> so i maintain those bits as patches off of stable using stacked git<br/>
+<font color="#A82F2F"><font size="2">(09:21:46 PM)</font> <b>gds:</b></font> I see, so you used stgit to pull them back for you.<br/>
+<font color="#A82F2F"><font size="2">(09:21:47 PM)</font> <b>ewemoa:</b></font> does that make sense?<br/>
+<font color="#A82F2F"><font size="2">(09:21:52 PM)</font> <b>gds:</b></font> Yeah, that makes sense.<br/>
+<font color="#A82F2F"><font size="2">(09:21:52 PM)</font> <b>ewemoa:</b></font> more or less<br/>
+<font color="#A82F2F"><font size="2">(09:21:54 PM)</font> <b>gds:</b></font> Thanks<br/>
+<font color="#A82F2F"><font size="2">(09:21:58 PM)</font> <b>gds:</b></font> it&apos;s not what I&apos;m after though :)<br/>
+<font color="#A82F2F"><font size="2">(09:22:02 PM)</font> <b>ewemoa:</b></font> i understand<br/>
+<font color="#A82F2F"><font size="2">(09:22:17 PM)</font> <b>ewemoa:</b></font> it turns out though that while waiting for things to get merged, it&apos;s handy<br/>
+<font color="#A82F2F"><font size="2">(09:22:19 PM)</font> <b>gds:</b></font> I want a recent version of androidsdk -- so I can install in my home dir from a tarball if needs be.<br/>
+<font color="#A82F2F"><font size="2">(09:22:43 PM)</font> <b>gds:</b></font> My problem is that nixos doesn&apos;t package that new version by default.<br/>
+<font color="#A82F2F"><font size="2">(09:23:02 PM)</font> <b>ewemoa:</b></font> hmm...i think it&apos;s there -- just not available so conveniently<br/>
+<font color="#A82F2F"><font size="2">(09:23:06 PM)</font> <b>ewemoa:</b></font> let me check again<br/>
+<font color="#A82F2F"><font size="2">(09:23:07 PM)</font> <b>gds:</b></font> So I considered switching to nixos-unstable, for the package -- not for the code in the package, if you see what I mean.<br/>
+<font color="#A82F2F"><font size="2">(09:23:50 PM)</font> <b>gds:</b></font> So, the expression &quot;androidenv.androidsdk_5_0_1&quot; doesn&apos;t work in 14.12<br/>
+<font color="#A82F2F"><font size="2">(09:24:07 PM)</font> <b>gds:</b></font> the expressions &quot;androidenv.androidsdk_4_4&quot; and &quot;androidenv.androidsdk_4_3&quot; do.<br/>
+<font color="#A82F2F"><font size="2">(09:24:16 PM)</font> <b>ewemoa:</b></font> gds: you&apos;re right -- it didn&apos;t make it into 14.12<br/>
+<font color="#A82F2F"><font size="2">(09:24:22 PM)</font> <b>ewemoa:</b></font> i have a patch for it in my stack it appears :)<br/>
+<font color="#A82F2F"><font size="2">(09:24:27 PM)</font> <b>gds:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(09:24:39 PM)</font> <b>ewemoa:</b></font> along with other android bits<br/>
+<font color="#A82F2F"><font size="2">(09:24:50 PM)</font> <b>gds:</b></font> I see what you mean now :)<br/>
+<font size="2">(09:24:54 PM)</font><b> boegel is now known as boegel|afk</b><br/>
+<font color="#A82F2F"><font size="2">(09:43:52 PM)</font> <b>gds:</b></font> Oh -- also -- has anyone succeeded in tweeking the emacs variable &quot;tramp-methods&quot; so they can use tramp to access custom dev environments?<br/>
+<font color="#A82F2F"><font size="2">(09:44:25 PM)</font> <b>gds:</b></font> I made some headway doing that earlier today, but emacs takes its path from getconf, which reports the system path rather than the custom env one.<br/>
+<font color="#A82F2F"><font size="2">(09:51:02 PM)</font> <b>ewemoa:</b></font> gds: haven&apos;t tried that -- interesting idea -- when you say &apos;custom dev environment&apos; do you mean myEnvFun related things?<br/>
+<font color="#A82F2F"><font size="2">(09:58:28 PM)</font> <b>gds:</b></font> yup<br/>
+<font color="#A82F2F"><font size="2">(10:03:54 PM)</font> <b>codygman:</b></font> haskellng doesn&apos;t solve the problem of need specific versions of haskell libraries? How do other Haskellers using nix get around this? Override the version in the derivation?<br/>
+<font color="#A82F2F"><font size="2">(10:04:48 PM)</font> <b>bennofs:</b></font> codygman: most libraries I use compile with the latest of everything (the remaining cases can often be solved with jailbreaking)<br/>
+<font color="#A82F2F"><font size="2">(10:05:39 PM)</font> <b>bennofs:</b></font> codygman: didn&apos;t need a haskell lib that requires non-trivial fixes to use later lib versions yet<br/>
+<font color="#A82F2F"><font size="2">(10:06:42 PM)</font> <b>ttuegel:</b></font> codygman: if you need a specific version, you best option is to use cabal2nix to generate the expression you need and keep it in your source repo with your project<br/>
+<font color="#A82F2F"><font size="2">(10:10:05 PM)</font> <b>codygman:</b></font> bennofs: Lucky, Frames for instance (not on hackage or nixpkgs yet) requires readable 2.* and default in nix right now is 3. something.<br/>
+<font color="#A82F2F"><font size="2">(10:10:21 PM)</font> <b>codygman:</b></font> ttuegel: Hm, I belive I remember how to do that... been a while though. Thanks!<br/>
+<font color="#A82F2F"><font size="2">(10:11:41 PM)</font> <b>the-kenny:</b></font> dependency hell :)<br/>
+<font color="#A82F2F"><font size="2">(10:11:49 PM)</font> <b>kaidelong:</b></font> I need an email client for KDE<br/>
+<font color="#A82F2F"><font size="2">(10:12:02 PM)</font> <b>kaidelong:</b></font> which one is supported by nixos/nixpkgs?<br/>
+<font color="#A82F2F"><font size="2">(10:12:20 PM)</font> <b>ttuegel:</b></font> codygman: to automate this process there is https://github.com/acowley/cabbage<br/>
+<font color="#A82F2F"><font size="2">(10:12:22 PM)</font> <b>kaidelong:</b></font> kmail does not appear to be in nixpkgs<br/>
+<font size="2">(10:13:15 PM)</font><b> iMatejC left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(10:13:57 PM)</font> <b>ttuegel:</b></font> kaidelong: are there any besides kmail?<br/>
+<font color="#A82F2F"><font size="2">(10:14:13 PM)</font> <b>kaidelong:</b></font> is there a way to search by package description?<br/>
+<font color="#A82F2F"><font size="2">(10:14:22 PM)</font> <b>kaidelong:</b></font> thunderbird is in the repos<br/>
+<font size="2">(10:14:24 PM)</font><b> iMatejC [<em>~MatejC@v22014062232018793.yourvserver.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:14:47 PM)</font> <b>kaidelong:</b></font> but it&apos;s not built on telepathy or kontact AFAIK<br/>
+<font color="#A82F2F"><font size="2">(10:14:55 PM)</font> <b>kaidelong:</b></font> so might not be the best match for a KDE desktop<br/>
+<font color="#A82F2F"><font size="2">(10:15:00 PM)</font> <b>ttuegel:</b></font> kaidelong: fastest way to search descriptions (that i know of) is to search on GitHub https://github.com/NixOS/nixpkgs<br/>
+<font color="#A82F2F"><font size="2">(10:15:33 PM)</font> <b>ttuegel:</b></font> kaidelong: as the part-time kde maintainer, i very much doubt telepathy or kontact work (well or at all) on nixos<br/>
+<font color="#A82F2F"><font size="2">(10:16:18 PM)</font> <b>kaidelong:</b></font> oh, that&apos;s a shame<br/>
+<font color="#A82F2F"><font size="2">(10:16:25 PM)</font> <b>kaidelong:</b></font> perhaps KDE is not the best choice for nixos then?<br/>
+<font color="#A82F2F"><font size="2">(10:16:31 PM)</font> <b>kaidelong:</b></font> although gnome also uses telepathy<br/>
+<font color="#A82F2F"><font size="2">(10:16:46 PM)</font> <b>ttuegel:</b></font> sorry, telepathy may be fine, kde-telepathy is probably dodgy<br/>
+<font color="#A82F2F"><font size="2">(10:17:03 PM)</font> <b>ttuegel:</b></font> and nixos is not the best choice if you want a desktop environment, tbh<br/>
+<font color="#A82F2F"><font size="2">(10:17:29 PM)</font> <b>kaidelong:</b></font> well, the only other thing I can really tolerate is slackware in terms of being able to recover from errors<br/>
+<font color="#A82F2F"><font size="2">(10:17:42 PM)</font> <b>kaidelong:</b></font> ubuntu/arch/gentoo have burned me too frequently<br/>
+<font color="#A82F2F"><font size="2">(10:18:06 PM)</font> <b>kaidelong:</b></font> so I&apos;m okay putting up with that<br/>
+<font color="#A82F2F"><font size="2">(10:18:41 PM)</font> <b>ttuegel:</b></font> well, things get packaged on an as-needed basis, which is why we have about 75%? of gnome<br/>
+<font color="#A82F2F"><font size="2">(10:18:44 PM)</font> <b>_ris:</b></font> ok, so, writing one of my first packages, package says it needs to be compiled with gcc &gt;= 4.8 - how would i encode this requirement? an assert?<br/>
+<font size="2">(10:18:47 PM)</font><b> _ris is now known as ris</b><br/>
+<font color="#A82F2F"><font size="2">(10:18:59 PM)</font> <b>kaidelong:</b></font> lazy evaluation!<br/>
+<font color="#A82F2F"><font size="2">(10:19:05 PM)</font> <b>ttuegel:</b></font> when there&apos;s a kde5 kmail/telepathy/kontact, i&apos;ll package it, but i&apos;m not touching any more kde4 stuff<br/>
+<font color="#A82F2F"><font size="2">(10:19:20 PM)</font> <b>kaidelong:</b></font> that&apos;s understandable<br/>
+<font color="#A82F2F"><font size="2">(10:19:28 PM)</font> <b>kaidelong:</b></font> when is nixos-stable expected to go KDE5?<br/>
+<font color="#A82F2F"><font size="2">(10:19:54 PM)</font> <b>ttuegel:</b></font> nixos-stable only upgrades every 6 months, so nixos-stable-14.12 never will<br/>
+<font color="#A82F2F"><font size="2">(10:20:11 PM)</font> <b>ttuegel:</b></font> it will be nixos-15.04 or whatever month it gets released in<br/>
+<font color="#A82F2F"><font size="2">(10:21:30 PM)</font> <b>kaidelong:</b></font> speaking of which, I would like to help out as a package maintainer, where do I go to learn the nix expression language and best practices and so forth?<br/>
+<font color="#A82F2F"><font size="2">(10:21:43 PM)</font> <b>viric:</b></font> lazy evaluation, that&apos;s about the PRs, right?<br/>
+<font color="#A82F2F"><font size="2">(10:22:15 PM)</font> <b>ttuegel:</b></font> kaidelong: there is a section in the nix manual about the nix language: http://nixos.org/nix/manual/#chap-writing-nix-expressions<br/>
+<font color="#A82F2F"><font size="2">(10:22:37 PM)</font> <b>kaidelong:</b></font> oh this is better than I remember it<br/>
+<font color="#A82F2F"><font size="2">(10:22:40 PM)</font> <b>codygman:</b></font> ttuegel: Does cabbage just use cabal and not nix? I don&apos;t see what&apos;s doing for nix... does it automatically create versioned derivations?<br/>
+<font color="#A82F2F"><font size="2">(10:22:50 PM)</font> <b>ttuegel:</b></font> kaidelong: there is also a &quot;nix pills&quot; blog series http://lethalman.blogspot.com/feeds/posts/default/-/nixpills (not just about the language)<br/>
+<font color="#A82F2F"><font size="2">(10:23:09 PM)</font> <b>kaidelong:</b></font> out of curiousity<br/>
+<font color="#A82F2F"><font size="2">(10:23:22 PM)</font> <b>ttuegel:</b></font> codygman: it uses cabal and nix. it does not created versioned anything, it just creates local expressions for all your current project&apos;s dependencies<br/>
+<font color="#A82F2F"><font size="2">(10:23:25 PM)</font> <b>kaidelong:</b></font> is there anything fundamental that stops NixOS from being a great desktop environment for end users?<br/>
+<font color="#A82F2F"><font size="2">(10:23:31 PM)</font> <b>kaidelong:</b></font> or is it just a matter of package support?<br/>
+<font color="#A82F2F"><font size="2">(10:24:11 PM)</font> <b>ttuegel:</b></font> kaidelong: mostly package support. if you want to get much done, you probably have to learn the nix language, so that&apos;s a barrier<br/>
+<font color="#A82F2F"><font size="2">(10:24:32 PM)</font> <b>kaidelong:</b></font> mmm well I can think of two ways to mitigate that<br/>
+<font color="#A82F2F"><font size="2">(10:24:51 PM)</font> <b>kaidelong:</b></font> gui tools that generate nix expressions and a nix expression that includes a complete desktop environment<br/>
+<font color="#A82F2F"><font size="2">(10:25:30 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga closed pull request #6464: Add Mosquitto MQTT server package (master...add-mosquitto-broker) http://git.io/A3hm<br/>
+<font size="2">(10:25:37 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(10:25:41 PM)</font> <b>codygman:</b></font> ttuegel: Okay, thank you. Do you have any idea why the command `nix-shell --run &apos;sh $setup&apos;` wouldn&apos;t work? Am I supposed to fill in the $setup part?<br/>
+<font color="#A82F2F"><font size="2">(10:26:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga pushed 2 new commits to master: http://git.io/A0xm<br/>
+<font color="#A82F2F"><font size="2">(10:26:10 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 61b8aa2 Siarhei Zirukin: openal-soft 1.15.1 -&gt; 1.16.0<br/>
+<font color="#A82F2F"><font size="2">(10:26:10 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8887ad8 Arseniy Seroka: Merge pull request #6487 from ftrvxmtrx/openal-soft-1.16.0...<br/>
+<font color="#A82F2F"><font size="2">(10:26:35 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga closed pull request #6489: New package: mesos-dns (master...mesos-dns) http://git.io/A8rt<br/>
+<font color="#A82F2F"><font size="2">(10:28:26 PM)</font> <b>codygman:</b></font> ttuegel: just running nix-shell --pure after running `cabbage` seemd to &quot;just work&quot;<br/>
+<font color="#A82F2F"><font size="2">(10:29:32 PM)</font> <b>ttuegel:</b></font> codygman: no, i think you&apos;re supposed to enter that command as written. not sure why it wouldn&apos;t work. (disclaimer: i don&apos;t use cabbage myself)<br/>
+<font color="#A82F2F"><font size="2">(10:30:26 PM)</font> <b>ttuegel:</b></font> viric: lazy evaluation is about our strategy for packaging new things :)<br/>
+<font color="#A82F2F"><font size="2">(10:30:27 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jagajaga pushed 2 new commits to master: http://git.io/A0pm<br/>
+<font color="#A82F2F"><font size="2">(10:30:27 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master db50ddd zimbatm: direnv: update to v2.6.0<br/>
+<font color="#A82F2F"><font size="2">(10:30:27 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 890b4e4 Arseniy Seroka: Merge pull request #6501 from zimbatm/direnv-2.6.0...<br/>
+<font color="#A82F2F"><font size="2">(10:30:47 PM)</font> <b>codygman:</b></font> ttuegel: Oh, well thanks for pointing me in that direction. Sorry if I&apos;m asking a lot of questions, I&apos;m just having quite a bit of trouble in the case of &quot;this isn&apos;t packaged yet&quot;<br/>
+<font color="#A82F2F"><font size="2">(10:31:24 PM)</font> <b>ttuegel:</b></font> codygman: is it just Frames that&apos;s the problem? everything on hackage should be packaged<br/>
+<font color="#A82F2F"><font size="2">(10:31:24 PM)</font> <b>viric:</b></font> ttuegel: exactly :)<br/>
+<font color="#A82F2F"><font size="2">(10:32:59 PM)</font> <b>codygman:</b></font> ttuegel: The other problem is that Frames depends on a readable == 0.2.* and on nixpkgs readable == 0.3.*<br/>
+<font color="#A82F2F"><font size="2">(10:38:08 PM)</font> <b>offlinehacker:</b></font> does nix has support for ignoring failed builds if they are optional<br/>
+<font color="#A82F2F"><font size="2">(10:38:26 PM)</font> <b>offlinehacker:</b></font> something like tryEval, but for builds<br/>
+<font color="#A82F2F"><font size="2">(10:38:50 PM)</font> <b>ttuegel:</b></font> offlinehacker: nix doesn&apos;t have a concept of optional dependencies<br/>
+<font color="#A82F2F"><font size="2">(10:39:21 PM)</font> <b>offlinehacker:</b></font> ttuegel: yeah, you can enable/disable them with flags<br/>
+<font color="#A82F2F"><font size="2">(10:39:30 PM)</font> <b>offlinehacker:</b></font> but i guess my idea would break determinism<br/>
+<font color="#A82F2F"><font size="2">(10:39:58 PM)</font> <b>ttuegel:</b></font> offlinehacker: right, that&apos;s what i mean. you can enable and disable them... but then their presence or absence becomes requisite<br/>
+<font color="#A82F2F"><font size="2">(10:40:22 PM)</font> <b>ambro718:</b></font> viric: regarding that suggestion to pass vmalloc=128M... don&apos;t :)<br/>
+<font color="#A82F2F"><font size="2">(10:40:33 PM)</font> <b>viric:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(10:40:33 PM)</font> <b>ambro718:</b></font> it doesn&apos;t boot<br/>
+<font color="#A82F2F"><font size="2">(10:40:39 PM)</font> <b>viric:</b></font> good :)<br/>
+<font color="#A82F2F"><font size="2">(10:40:49 PM)</font> <b>viric:</b></font> The kernel builds fine with dtbs<br/>
+<font color="#A82F2F"><font size="2">(10:41:07 PM)</font> <b>ambro718:</b></font> viric: tried booting it?<br/>
+<font color="#A82F2F"><font size="2">(10:41:18 PM)</font> <b>viric:</b></font> of course not<br/>
+<font color="#A82F2F"><font size="2">(10:41:32 PM)</font> <b>viric:</b></font> you will try it<br/>
+<font color="#A82F2F"><font size="2">(10:41:32 PM)</font> <b>viric:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(10:41:39 PM)</font> <b>viric:</b></font> it can&apos;t go wrong.<br/>
+<font color="#A82F2F"><font size="2">(10:41:40 PM)</font> <b>ambro718:</b></font> viric: have you pushed?<br/>
+<font color="#A82F2F"><font size="2">(10:41:45 PM)</font> <b>viric:</b></font> to my branch, eys<br/>
+<font color="#A82F2F"><font size="2">(10:41:45 PM)</font> <b>viric:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(10:41:50 PM)</font> <b>ambro718:</b></font> cool, I will :)<br/>
+<font color="#A82F2F"><font size="2">(10:41:54 PM)</font> <b>viric:</b></font> you could crossbuild it I guess<br/>
+<font color="#A82F2F"><font size="2">(10:42:24 PM)</font> <b>viric:</b></font> but it&apos;s nixos style, meant for an initrd.<br/>
+<font color="#A82F2F"><font size="2">(10:42:35 PM)</font> <b>viric:</b></font> I don&apos;t know even if it has ext4 built in<br/>
+<font color="#A82F2F"><font size="2">(10:42:41 PM)</font> <b>ambro718:</b></font> maybe I should just build the whole nixos<br/>
+<font color="#A82F2F"><font size="2">(10:42:52 PM)</font> <b>viric:</b></font> that&apos;s what I&apos;m trying with my poor SD space.<br/>
+<font color="#A82F2F"><font size="2">(10:43:05 PM)</font> <b>viric:</b></font> how is your nbd doing?<br/>
+<font color="#A82F2F"><font size="2">(10:43:20 PM)</font> <b>ambro718:</b></font> just set up all the 3 boards with nbd :)<br/>
+<font color="#A82F2F"><font size="2">(10:43:32 PM)</font> <b>ambro718:</b></font> needed some hacking in systemd and udev...<br/>
+<font color="#A82F2F"><font size="2">(10:44:01 PM)</font> <b>viric:</b></font> good<br/>
+<font color="#A82F2F"><font size="2">(10:44:03 PM)</font> <b>ambro718:</b></font> it&apos;s a shame my boards don&apos;t have GbE though<br/>
+<font color="#A82F2F"><font size="2">(10:44:12 PM)</font> <b>viric:</b></font> it&apos;s ethernet through usb<br/>
+<font color="#A82F2F"><font size="2">(10:44:19 PM)</font> <b>viric:</b></font> 100mbit<br/>
+<font color="#A82F2F"><font size="2">(10:45:46 PM)</font> <b>offlinehacker:</b></font> is hnix still in development, what&apos;s the current status?<br/>
+<font color="#A82F2F"><font size="2">(10:46:18 PM)</font> <b>ambro718:</b></font> the RPi2 chip has GbE ethernet, they&apos;d just need a GbE PHY instead of that usb chip<br/>
+<font color="#A82F2F"><font size="2">(10:46:50 PM)</font> <b>ambro718:</b></font> I read they decided to keep the usb stuff for &quot;compatibility reasons&quot; but that doesn&apos;t sound sensible to me...<br/>
+<font color="#A82F2F"><font size="2">(10:46:58 PM)</font> <b>viric:</b></font> I can&apos;t tell<br/>
+<font color="#A82F2F"><font size="2">(10:55:00 PM)</font> <b>ambro718:</b></font> for distributed building, how do I specify whether the local machine is used, and its speed factor?<br/>
+<font color="#A82F2F"><font size="2">(10:57:48 PM)</font> <b>kaidelong:</b></font> looks like the problem was that the chroot didn&apos;t have an /etc/machine-id<br/>
+<font color="#A82F2F"><font size="2">(10:58:14 PM)</font> <b>kaidelong:</b></font> copying it to ~ and then into the chroot makes steam able to talk to pulseaudio<br/>
+<font color="#062585"><font size="2">(10:58:27 PM)</font> <b>***dav</b></font> finally made the leap and got a working install on my old laptop :)<br/>
+<font color="#A82F2F"><font size="2">(11:01:22 PM)</font> <b>dav:</b></font> how can i get the list of valid values for services.xserver.videoDrivers ?<br/>
+<font size="2">(11:01:33 PM)</font><b> vcunat left the room (quit: Quit: Leaving.).</b><br/>
+<font color="#A82F2F"><font size="2">(11:02:24 PM)</font> <b>kaidelong:</b></font> nixos-option<br/>
+<font color="#A82F2F"><font size="2">(11:02:38 PM)</font> <b>kaidelong:</b></font> e.g. nixos-option services.xserver.videoDrivers<br/>
+<font color="#A82F2F"><font size="2">(11:02:40 PM)</font> <b>kaidelong:</b></font> (dav)<br/>
+<font color="#A82F2F"><font size="2">(11:04:46 PM)</font> <b>kaidelong:</b></font> you could also look at<br/>
+<font color="#A82F2F"><font size="2">(11:04:52 PM)</font> <b>dav:</b></font> thanks kaidelong. looks like it&apos;s already using the intel driver..<br/>
+<font color="#A82F2F"><font size="2">(11:05:04 PM)</font> <b>dav:</b></font> however it&apos;s uber slow to even type things in a terminal and certainly to scroll. any ideas?<br/>
+<font color="#A82F2F"><font size="2">(11:05:15 PM)</font> <b>viric:</b></font> ambro718: I queued a build of nixos<br/>
+<font color="#A82F2F"><font size="2">(11:05:16 PM)</font> <b>kaidelong:</b></font> if you have an intel HD device you should install umm<br/>
+<font color="#A82F2F"><font size="2">(11:05:22 PM)</font> <b>kaidelong:</b></font> xf86-video-intell<br/>
+<font color="#A82F2F"><font size="2">(11:05:24 PM)</font> <b>kaidelong:</b></font> system wide<br/>
+<font color="#A82F2F"><font size="2">(11:05:27 PM)</font> <b>kaidelong:</b></font> in your configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(11:05:38 PM)</font> <b>kaidelong:</b></font> xf86-video-intel<br/>
+<font color="#A82F2F"><font size="2">(11:05:40 PM)</font> <b>kaidelong:</b></font> I meant<br/>
+<font color="#A82F2F"><font size="2">(11:05:41 PM)</font> <b>viric:</b></font> ambro718: To do:    update the raspberrypi firmware files, and allow the bootloader to set up the pi2 boot files (kernel7.img, ...)<br/>
+<font color="#A82F2F"><font size="2">(11:06:17 PM)</font> <b>viric:</b></font> kaidelong: xserver.videoDriver = &quot;intel&quot;   I use<br/>
+<font color="#A82F2F"><font size="2">(11:06:22 PM)</font> <b>ambro718:</b></font> viric: do we have anything currently for booting the nixos on pi1?<br/>
+<font color="#A82F2F"><font size="2">(11:06:28 PM)</font> <b>viric:</b></font> ambro718: yes<br/>
+<font color="#A82F2F"><font size="2">(11:06:48 PM)</font> <b>viric:</b></font> boot.loader.grub.enable = false;<br/>
+<font color="#A82F2F"><font size="2">(11:06:54 PM)</font> <b>viric:</b></font> boot.loader.raspberryPi.enable = true;<br/>
+<font color="#A82F2F"><font size="2">(11:06:59 PM)</font> <b>dav:</b></font> let me try that<br/>
+<font color="#A82F2F"><font size="2">(11:07:09 PM)</font> <b>viric:</b></font> but it doesn&apos;t do initrd I think<br/>
+<font color="#A82F2F"><font size="2">(11:07:09 PM)</font> <b>ambro718:</b></font> cool<br/>
+<font color="#A82F2F"><font size="2">(11:07:18 PM)</font> <b>viric:</b></font> I don&apos;t remember<br/>
+<font color="#A82F2F"><font size="2">(11:07:27 PM)</font> <b>ambro718:</b></font> viric: you mean it boots directly? That&apos;s fine I guess.<br/>
+<font color="#A82F2F"><font size="2">(11:07:39 PM)</font> <b>viric:</b></font> ambro718: it depends. nixos is tuned for initrd.<br/>
+<font color="#A82F2F"><font size="2">(11:07:46 PM)</font> <b>viric:</b></font> (nixos kernel)<br/>
+<font color="#A82F2F"><font size="2">(11:07:47 PM)</font> <b>ambro718:</b></font> though I don&apos;t see how an initrd would be too platform dependant.<br/>
+<font color="#A82F2F"><font size="2">(11:07:56 PM)</font> <b>viric:</b></font> ambro718: the bootloader has to load it<br/>
+<font color="#A82F2F"><font size="2">(11:08:13 PM)</font> <b>kaidelong:</b></font> viric: you should still install the appropriate drivers IIRC<br/>
+<font color="#A82F2F"><font size="2">(11:08:29 PM)</font> <b>kaidelong:</b></font> which one it is depends on what kind of intel graphics you have<br/>
+<font color="#A82F2F"><font size="2">(11:08:43 PM)</font> <b>viric:</b></font> I wanted to add a kernel option to include an initrd in it, but that&apos;d mean build the kernel twice, as the initrd has to contain modules :)<br/>
+<font color="#A82F2F"><font size="2">(11:08:53 PM)</font> <b>viric:</b></font> kaidelong: install drivers? This is nixos.<br/>
+<font color="#A82F2F"><font size="2">(11:09:14 PM)</font> <b>kaidelong:</b></font> I added xf86-video-intel to my system packages<br/>
+<font color="#A82F2F"><font size="2">(11:09:30 PM)</font> <b>kaidelong:</b></font> apparently hardware autodetect did not spot this<br/>
+<font color="#A82F2F"><font size="2">(11:09:54 PM)</font> <b>viric:</b></font> I can&apos;t believe it<br/>
+<font color="#A82F2F"><font size="2">(11:09:56 PM)</font> <b>kaidelong:</b></font> maybe something strange is happening here though<br/>
+<font color="#A82F2F"><font size="2">(11:10:08 PM)</font> <b>viric:</b></font> that&apos;s not how X finds the drivers<br/>
+<font color="#A82F2F"><font size="2">(11:10:56 PM)</font> <b>kaidelong:</b></font> the X11 driver is something else<br/>
+<font color="#A82F2F"><font size="2">(11:11:10 PM)</font> <b>kaidelong:</b></font> if you&apos;re using intel HD graphics it&apos;s supposed to be mesa<br/>
+<font color="#A82F2F"><font size="2">(11:11:22 PM)</font> <b>kaidelong:</b></font> but it should find that automatically<br/>
+<font color="#A82F2F"><font size="2">(11:13:30 PM)</font> <b>dav:</b></font> kaidelong: looks like xf86-video-intel is already my my store<br/>
+<font color="#A82F2F"><font size="2">(11:13:51 PM)</font> <b>dav:</b></font> I also see that the driver used in X.0.log is &apos;intel&apos;<br/>
+<font color="#A82F2F"><font size="2">(11:13:55 PM)</font> <b>viric:</b></font> kaidelong: you are saying strange things about nixos.<br/>
+<font color="#A82F2F"><font size="2">(11:14:55 PM)</font> <b>kaidelong:</b></font> viric: I do suspect something is deeply wrong with this computer<br/>
+<font color="#A82F2F"><font size="2">(11:15:21 PM)</font> <b>kaidelong:</b></font> so it might just be me<br/>
+<font color="#A82F2F"><font size="2">(11:16:52 PM)</font> <b>ambro718:</b></font> Arhg my distributed builds are failing on the beaglebone with Illegal instruction crashes<br/>
+<font color="#A82F2F"><font size="2">(11:17:52 PM)</font> <b>7GHAAX3P1:</b></font> (notice) [nixpkgs] jagajaga pushed 2 new commits to master: http://git.io/AEOI<br/>
+<font color="#A82F2F"><font size="2">(11:17:52 PM)</font> <b>7GHAAX3P1:</b></font> (notice) nixpkgs/master 142a5ce Emery Hemingway: makebootfat: initial package at version 1.4...<br/>
+<font color="#A82F2F"><font size="2">(11:17:52 PM)</font> <b>7GHAAX3P1:</b></font> (notice) nixpkgs/master c71f19f Arseniy Seroka: Merge pull request #6502 from ehmry/makebootfat...<br/>
+<font color="#A82F2F"><font size="2">(11:17:52 PM)</font> <b>5EXAAKA9T:</b></font> (notice) [nixpkgs] jagajaga closed pull request #6502: makebootfat: initial package at version 1.4 (master...makebootfat) http://git.io/A0Cm<br/>
+<font color="#A82F2F"><font size="2">(11:19:29 PM)</font> <b>ambro718:</b></font> viric: surely it&apos;s because bbb only has vfpv3 but we gave vfpv4 in platforms.nix for pri2...<br/>
+<font color="#A82F2F"><font size="2">(11:19:59 PM)</font> <b>ambro718:</b></font> honesly I would prefer if we cut down on the flags so that we don&apos;t need to build on the exact same machine<br/>
+<font color="#A82F2F"><font size="2">(11:21:26 PM)</font> <b>viric:</b></font> ok then let&apos;s do vfpv3<br/>
+<font color="#A82F2F"><font size="2">(11:21:42 PM)</font> <b>viric:</b></font> try it and if it works, fine<br/>
+<font color="#A82F2F"><font size="2">(11:25:33 PM)</font> <b>dav:</b></font> When I do nix-channel --list, there is nothing.  So what am I using?<br/>
+<font color="#A82F2F"><font size="2">(11:26:36 PM)</font> <b>ambro718:</b></font> I&apos;ll try with the same that I defined for beaglebone. There are used in Arch so we shouldn&apos;t see any surprises.<br/>
+<font color="#A82F2F"><font size="2">(11:27:04 PM)</font> <b>viric:</b></font> the same what?<br/>
+<font color="#A82F2F"><font size="2">(11:27:13 PM)</font> <b>ambro718:</b></font> gcc flags in platforms.nix<br/>
+<font color="#A82F2F"><font size="2">(11:27:25 PM)</font> <b>viric:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(11:28:14 PM)</font> <b>ambro718:</b></font> I think the long term goal should be to get up a compile farm and have armv7 stuff in nix, then it makes sense to concentrate on a generally supported configuration<br/>
+<font color="#A82F2F"><font size="2">(11:28:21 PM)</font> <b>ambro718:</b></font> * in cache<br/>
+<font color="#A82F2F"><font size="2">(11:28:47 PM)</font> <b>ambro718:</b></font> with different flags for each platform that becomes harder to achieve<br/>
+<font color="#A82F2F"><font size="2">(11:30:48 PM)</font> <b>dav:</b></font> Q #3 - is there a reason that syslogd is not installed by default?<br/>
+<font color="#A82F2F"><font size="2">(11:31:25 PM)</font> <b>viric:</b></font> systemd<br/>
+<font color="#A82F2F"><font size="2">(11:32:12 PM)</font> <b>viric:</b></font> ambro718: I think I&apos;m almost alone using nixos on arm.. if you join, at least be all us happy with our arms :)<br/>
+<font color="#A82F2F"><font size="2">(11:33:01 PM)</font> <b>viric:</b></font> I also wouldn&apos;t like the sheevaplug abandoned, but I lived years without any build farm.<br/>
+<font color="#A82F2F"><font size="2">(11:33:43 PM)</font> <b>viric:</b></font> ikwildrpepper bought one or two rpi2. Maybe he can find a 5V supply in hydra.<br/>
+<font color="#A82F2F"><font size="2">(11:34:18 PM)</font> <b>zmo:</b></font> beaglebone &gt; * ;-)<br/>
+<font color="#A82F2F"><font size="2">(11:34:32 PM)</font> <b>viric:</b></font> zmo: make nixos run in it<br/>
+<font color="#A82F2F"><font size="2">(11:34:39 PM)</font> <b>zmo:</b></font> the cubieboard is nice too, though<br/>
+<font color="#A82F2F"><font size="2">(11:34:40 PM)</font> <b>ambro718:</b></font> viric: but we need to accept that without a binary cache this it useless for most people<br/>
+<font color="#A82F2F"><font size="2">(11:34:55 PM)</font> <b>zmo:</b></font> viric - I use to run angstrom on it, as I sadly did not know about nixos at the time<br/>
+<font color="#A82F2F"><font size="2">(11:34:59 PM)</font> <b>dav:</b></font> viric: thxz<br/>
+<font color="#A82F2F"><font size="2">(11:35:17 PM)</font> <b>ambro718:</b></font> and a documented way to set it up on the most common platforms<br/>
+<font color="#A82F2F"><font size="2">(11:35:35 PM)</font> <b>viric:</b></font> zmo: you still have time<br/>
+<font color="#A82F2F"><font size="2">(11:35:46 PM)</font> <b>zmo:</b></font> well, time is not something I have a lot :-/<br/>
+<font color="#A82F2F"><font size="2">(11:35:47 PM)</font> <b>viric:</b></font> ambro718: sure.<br/>
+<font color="#A82F2F"><font size="2">(11:36:30 PM)</font> <b>ambro718:</b></font> Picture of my new ARM build farm: http://www.pasteall.org/pic/show.php?id=84333 :)<br/>
+<font color="#A82F2F"><font size="2">(11:36:39 PM)</font> <b>zmo:</b></font> anyway, I&apos;m trying to update the avr-gcc-libc derivation<br/>
+<font color="#A82F2F"><font size="2">(11:37:16 PM)</font> <b>viric:</b></font> ambro718: not any bad! Are you using the serial port of the rpi2?<br/>
+<font color="#A82F2F"><font size="2">(11:37:18 PM)</font> <b>zmo:</b></font> and when I do nix-build /path/to/nixpkgs/ -A avrgcclibc after my updates<br/>
+<font color="#A82F2F"><font size="2">(11:37:22 PM)</font> <b>dav:</b></font> Q #2 - how do I know which channel I&apos;m using? nix-channel --list =&gt; empty<br/>
+<font color="#A82F2F"><font size="2">(11:37:43 PM)</font> <b>ambro718:</b></font> viric: yes that&apos;s a hand wired MAX232 that I made years ago :)<br/>
+<font color="#A82F2F"><font size="2">(11:37:48 PM)</font> <b>viric:</b></font> dav: do you run that as root?<br/>
+<font color="#A82F2F"><font size="2">(11:37:50 PM)</font> <b>zmo:</b></font> ambro718 - my favorite on the right :-)<br/>
+<font color="#A82F2F"><font size="2">(11:38:07 PM)</font> <b>dav:</b></font> viric: oops :)<br/>
+<font color="#A82F2F"><font size="2">(11:38:13 PM)</font> <b>zmo:</b></font> and I get a build failed<br/>
+<font color="#A82F2F"><font size="2">(11:38:31 PM)</font> <b>zmo:</b></font> when I try to do it in the nix-shell, I don&apos;t get a failure at the same stage<br/>
+<font color="#A82F2F"><font size="2">(11:38:35 PM)</font> <b>viric:</b></font> ambro718: great.<br/>
+<font color="#A82F2F"><font size="2">(11:38:50 PM)</font> <b>zmo:</b></font> how can I correctly debug builds?<br/>
+<font color="#A82F2F"><font size="2">(11:39:07 PM)</font> <b>the-kenny:</b></font> Anyone know the status of raspberry pi 2 and/or bananapi?<br/>
+<font color="#A82F2F"><font size="2">(11:39:30 PM)</font> <b>ambro718:</b></font> the-kenny: me and viric are working on rpi2 right now. It&apos;s not supported yet.<br/>
+<font size="2">(11:39:43 PM)</font><b> roconnor [<em>~roconnor@e120-pool-d89a67c6.brdbnd.voicenetwork.ca</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:39:54 PM)</font> <b>the-kenny:</b></font> ambro718: And any progress in terms of binary cache or similar?<br/>
+<font color="#A82F2F"><font size="2">(11:39:57 PM)</font> <b>ambro718:</b></font> you can send me some boards to add to my setup to make it faster :)<br/>
+<font color="#A82F2F"><font size="2">(11:39:58 PM)</font> <b>Haskellfant:</b></font> hm ghcWithPackages seems to ignore the overrides I&apos;ve done before<br/>
+<font color="#A82F2F"><font size="2">(11:40:02 PM)</font> <b>Haskellfant:</b></font> is this expected?<br/>
+<font color="#A82F2F"><font size="2">(11:40:30 PM)</font> <b>the-kenny:</b></font> Haskellfant: how are you doing the overrides?<br/>
+<font color="#A82F2F"><font size="2">(11:40:38 PM)</font> <b>ambro718:</b></font> the-kenny: that&apos;s the long-term plan, but now we&apos;re working on just getting the base system running<br/>
+<font color="#A82F2F"><font size="2">(11:40:47 PM)</font> <b>the-kenny:</b></font> ambro718: Rpi2 build farm? ;)<br/>
+<font color="#A82F2F"><font size="2">(11:41:00 PM)</font> <b>Haskellfant:</b></font> the-kenny: http://sprunge.us/PRHK?l<br/>
+<font color="#A82F2F"><font size="2">(11:41:07 PM)</font> <b>ambro718:</b></font> yes see my picture<br/>
+<font color="#A82F2F"><font size="2">(11:41:12 PM)</font> <b>Haskellfant:</b></font> hindent does not contain the lisp files after doing tha<br/>
+<font color="#A82F2F"><font size="2">(11:41:13 PM)</font> <b>Haskellfant:</b></font> t<br/>
+<font color="#A82F2F"><font size="2">(11:43:37 PM)</font> <b>Haskellfant:</b></font> the-kenny: if I install haskellngPackages.hindent it contains the elisp files<br/>
+<font color="#A82F2F"><font size="2">(11:44:40 PM)</font> <b>Haskellfant:</b></font> I tried renaming haskellngPackages to make sure that the overwritten one is used at the bottom with no effect<br/>
+<font color="#A82F2F"><font size="2">(11:44:54 PM)</font> <b>the-kenny:</b></font> Haskellfant: just access the &apos;local&apos; haskellngPackages for ghci-ng instead of pkgs.haskellngPackages<br/>
+<font color="#A82F2F"><font size="2">(11:45:11 PM)</font> <b>Haskellfant:</b></font> the-kenny: ghci-ng works just fine, what doesn&apos;t work is hindent<br/>
+<font color="#A82F2F"><font size="2">(11:45:17 PM)</font> <b>Haskellfant:</b></font> I already use the local ghci-ng<br/>
+<font color="#A82F2F"><font size="2">(11:45:31 PM)</font> <b>Haskellfant:</b></font> so that means I need to extract hindent as well?<br/>
+<font color="#A82F2F"><font size="2">(11:45:56 PM)</font> <b>McEnroe:</b></font> How do express this in nix: if package has setting, it&apos;s dependency has to have the same setting?<br/>
+<font color="#A82F2F"><font size="2">(11:46:33 PM)</font> <b>Haskellfant:</b></font> that obviously works, but I kinda feel like overriding should work as well<br/>
+<font color="#A82F2F"><font size="2">(11:50:42 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] ambrop72 opened pull request #6503: gcc-arm-embedded: Update to 4.9-2014q4. (master...gccarm-update) http://git.io/AElU<br/>
+<font color="#A82F2F"><font size="2">(11:50:50 PM)</font> <b>dav:</b></font> looks like I&apos;m experiencing a peculiar bug in gnome-terminal: when I type fast, letters appear by groups of two.  if I type a single letter, it shows up either once I type a second letter, or if a wait for 1+ second.<br/>
+<font color="#A82F2F"><font size="2">(11:51:27 PM)</font> <b>the-kenny:</b></font> Haskellfant: well, you&apos;re referencing the &apos;original&apos; haskellngPackages. If you couldn&apos;t you&apos;d get infinite recursion<br/>
+<font color="#A82F2F"><font size="2">(11:52:09 PM)</font> <b>Haskellfant:</b></font> the-kenny: why do I get a recursion if I first override it and then call ghcWithPackages on the overridden packageset?<br/>
+<font color="#A82F2F"><font size="2">(11:52:19 PM)</font> <b>Haskellfant:</b></font> I don&apos;t see how that would cause problems<br/>
+<font color="#A82F2F"><font size="2">(11:53:13 PM)</font> <b>bennofs:</b></font> Haskellfant: I didn&apos;t read the full backlog, but the style of your overrides seems weird<br/>
+<font color="#A82F2F"><font size="2">(11:53:30 PM)</font> <b>reinhardt:</b></font> Hi folks, I&apos;m writing a nix expression for hamster; it installs a python script in bin/ and some modules in lib/. Now how do I make sure the script can find the modules? I keep getting an ImportError when running the script<br/>
+<font color="#A82F2F"><font size="2">(11:53:39 PM)</font> <b>Haskellfant:</b></font> bennofs: how should this be done instead?<br/>
+<font color="#A82F2F"><font size="2">(11:54:01 PM)</font> <b>Haskellfant:</b></font> bennofs: the problem is that in hsEnv it seems to refer to the old hindent<br/>
+<font color="#A82F2F"><font size="2">(11:55:20 PM)</font> <b>the-kenny:</b></font> Haskellfant: how would you differentiate between foo and pkgs.foo in { foo = pkgs.foo.override ...; } if you make it the same?<br/>
+<font color="#A82F2F"><font size="2">(11:55:34 PM)</font> <b>bennofs:</b></font> Haskellfant: instead of using packageOverrides, you should use haskellPackageOverrides for haskell<br/>
+<font color="#A82F2F"><font size="2">(11:55:42 PM)</font> <b>bennofs:</b></font> afaik<br/>
+<font color="#A82F2F"><font size="2">(11:55:58 PM)</font> <b>bennofs:</b></font> Haskellfant: haskellPackageOverrides = self: super: { ... }<br/>
+<font color="#A82F2F"><font size="2">(11:56:36 PM)</font> <b>the-kenny:</b></font> (ugh, why is haskell such a behemoth here?)<br/>
+<font color="#A82F2F"><font size="2">(11:56:36 PM)</font> <b>Haskellfant:</b></font> the-kenny: I don&apos;t want to make pkgs.foo the same, I am not referring to pkgs.hindent but p.hindent. I expect that at this point p refers to the updated version as I am calling ghcWithPackages on the updated haskellngPackages.<br/>
+<font color="#A82F2F"><font size="2">(11:56:48 PM)</font> <b>bennofs:</b></font> Haskellfant: just using // to override packages generally doesn&apos;t work well in Nix, since callPackage then still uses the old scope<br/>
+<font color="#A82F2F"><font size="2">(11:57:40 PM)</font> <b>Haskellfant:</b></font> bennofs: ah ok<br/>
+<font color="#A82F2F"><font size="2">(11:57:53 PM)</font> <b>bennofs:</b></font> the-kenny: because it&apos;s build as a fixpoint, allowing different overrides for different GHC packages, .... and there is a haskellngPackages.callPackage, which you somehow also need to override to take into account the new scope<br/>
+<font color="#A82F2F"><font size="2">(11:58:08 PM)</font> <b>bennofs:</b></font> the-kenny: are the other language set packages different?<br/>
+<font color="#A82F2F"><font size="2">(11:58:34 PM)</font> <b>zmo:</b></font> ahah<br/>
+<font color="#A82F2F"><font size="2">(11:58:41 PM)</font> <b>the-kenny:</b></font> bennofs: this was just some general complaint. I&apos;m sure there are reasons for it.<br/>
+<font color="#A82F2F"><font size="2">(11:59:01 PM)</font> <b>zmo:</b></font> ambro718 - I was wondering for a moment why your nick was ringing a bell, but now I just connected (damn, I&apos;m so awful with names)<br/>
+<font color="#A82F2F"><font size="2">(11:59:49 PM)</font> <b>zmo:</b></font> ambro718 - I&apos;ve seen that you moved aprinter to nix, which is a nice idea, better than my scripts ;-)<br/>
+<font color="#A82F2F"><font size="2">(12:00:20 AM)</font> <b>zmo:</b></font> which is fun, because I&apos;ve seen that just as a friend told me about nix, which I weirdly haven&apos;t heard until recently<br/>
+<font color="#A82F2F"><font size="2">(12:00:23 AM)</font> <b>ambro718:</b></font> zmo: well the truth is that your scripts are still partially used for the build :)<br/>
+<font color="#A82F2F"><font size="2">(12:00:45 AM)</font> <b>zmo:</b></font> oh, you&apos;re flattering me :-)<br/>
+<font color="#A82F2F"><font size="2">(12:01:00 AM)</font> <b>ambro718:</b></font> zmo: you should seriously look at my compilation/configuration service for aprinter. It&apos;s triviall to build and run with Nix.<br/>
+<font color="#A82F2F"><font size="2">(12:01:05 AM)</font> <b>ambro718:</b></font> see bottom of the readme<br/>
+<font color="#A82F2F"><font size="2">(12:01:31 AM)</font> <b>ambro718:</b></font> I&apos;ll try to deploy it on EC2 so folks wouldn&apos;t even need Linux/Nix :)<br/>
+<font color="#A82F2F"><font size="2">(12:01:36 AM)</font> <b>zmo:</b></font> yup, I followed :-)<br/>
+<font color="#A82F2F"><font size="2">(12:04:25 AM)</font> <b>Haskellfant:</b></font> bennofs: hm I tried to change it to use haskellPackageOverrides, but it doesn&apos;t seem to work<br/>
+<font color="#A82F2F"><font size="2">(12:04:28 AM)</font> <b>Haskellfant:</b></font> http://sprunge.us/eIPS<br/>
+<font color="#A82F2F"><font size="2">(12:10:29 AM)</font> <b>Haskellfant:</b></font> yet another try, but it still doesn&apos;t work<br/>
+<font color="#A82F2F"><font size="2">(12:10:49 AM)</font> <b>dav:</b></font> Q #4 - is there a way to search a package by the names of the files it contains? (like apt-file)<br/>
+<font color="#A82F2F"><font size="2">(12:10:58 AM)</font> <b>viric:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(12:11:25 AM)</font> <b>dav:</b></font> ok, thx. Q #4.b - anyone knows which package contains gsettings?<br/>
+<font color="#A82F2F"><font size="2">(12:11:48 AM)</font> <b>viric:</b></font> gnome settings?<br/>
+<font color="#A82F2F"><font size="2">(12:11:49 AM)</font> <b>ambro718:</b></font> I think the closest thing is command-not-fount when using channels<br/>
+<font color="#A82F2F"><font size="2">(12:11:52 AM)</font> <b>Haskellfant:</b></font> dav: on my arch box it&apos;s glib2 so probably something similar on nix<br/>
+<font color="#A82F2F"><font size="2">(12:12:17 AM)</font> <b>dav:</b></font> viric: yes<br/>
+<font color="#A82F2F"><font size="2">(12:12:40 AM)</font> <b>viric:</b></font> gnome settings<br/>
+<font color="#A82F2F"><font size="2">(12:13:11 AM)</font> <b>dav:</b></font> Haskellfant: yes in ubuntu it&apos;s libglib2.0-bin<br/>
+<font color="#A82F2F"><font size="2">(12:14:19 AM)</font> <b>dav:</b></font> viric: I don&apos;t see such a package in nix-env -qaP<br/>
+<font color="#A82F2F"><font size="2">(12:15:13 AM)</font> <b>ambro718:</b></font> I just recently noticed the nixos logo is just lambdas.. so sneaky :)<br/>
+<font color="#A82F2F"><font size="2">(12:15:43 AM)</font> <b>the-kenny:</b></font> ambro718: After using NixOS for 1.5 years I noticed this a month ago when I saw the pictures of the single acryl lambdas for the logo at fosdem :D<br/>
+<font color="#A82F2F"><font size="2">(12:16:33 AM)</font> <b>viric:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(12:16:59 AM)</font> <b>ambro718:</b></font> yeah, then it&apos;s even colored so they are distinguished :)<br/>
+<font color="#A82F2F"><font size="2">(12:17:13 AM)</font> <b>viric:</b></font> dav: is &apos;gsettings&apos; a program?<br/>
+<font size="2">(12:18:41 AM)</font><b> kmicu left the room (quit: Ping timeout: 252 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(12:19:15 AM)</font> <b>dav:</b></font> viric: yes, /usr/bin/gsettings is part of libglib2.0-bin in Ubuntu<br/>
+<font color="#A82F2F"><font size="2">(12:19:31 AM)</font> <b>viric:</b></font> then glib<br/>
+<font color="#A82F2F"><font size="2">(12:19:32 AM)</font> <b>Haskellfant:</b></font> wtf now it works and I have no idea why<br/>
+<font size="2">(12:21:14 AM)</font><b> kmicu [<em>~kmicu@176.56.237.191</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:21:40 AM)</font> <b>dav:</b></font> hmmm actually looks like the gsettings binary is in /nix/store/*-glib-*/bin, but not in my path<br/>
+<font color="#A82F2F"><font size="2">(12:23:16 AM)</font> <b>viric:</b></font> you need to add it to systemPackages to get it on your PATH<br/>
+<font color="#A82F2F"><font size="2">(12:23:18 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bjornfor pushed 1 new commit to master: http://git.io/AEu2<br/>
+<font color="#A82F2F"><font size="2">(12:23:18 AM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 11fce52 Ambroz Bizjak: gcc-arm-embedded: Update to 4.9-2014q4.<br/>
+<font color="#A82F2F"><font size="2">(12:23:25 AM)</font> <b>viric:</b></font> the store has lots of things required for your system to work, but not in your PATH<br/>
+<font size="2">(12:42:56 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,246 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Fri 02 Jan 2015 02:32:47 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Fri 02 Jan 2015 02:32:47 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:32:47 AM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(02:32:47 AM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(02:32:50 AM)</font> <b>las:</b></font> falktx: JUCE did not exist when I started work on Ardour<br/>
+<font color="#A82F2F"><font size="2">(02:33:16 AM)</font> <b>falktx:</b></font> yeah, well, ardour is pretty old<br/>
+<font color="#A82F2F"><font size="2">(02:33:21 AM)</font> <b>las:</b></font> falktx: and Qt couldn&apos;t even see how to use templates to avoid the moc pre-processor, and had its own string class, both of which shouted loudly in my general direction &quot;stay away&quot;<br/>
+<font color="#A82F2F"><font size="2">(02:33:58 AM)</font> <b>falktx:</b></font> Qt still has a custom string class. all frameworks that I know have them<br/>
+<font color="#A82F2F"><font size="2">(02:34:00 AM)</font> <b>las:</b></font> falktx: if i was to start again, i&apos;d almost certainly use a tiny subset of openGL and/or use GDK+glib+cairo<br/>
+<font color="#A82F2F"><font size="2">(02:34:14 AM)</font> <b>las:</b></font> falktx: not in 1999<br/>
+<font color="#A82F2F"><font size="2">(02:34:23 AM)</font> <b>las:</b></font> falktx: they had it because they claimed that std::string wasn&apos;t usable<br/>
+<font color="#A82F2F"><font size="2">(02:34:39 AM)</font> <b>rgareus:</b></font> las: that sounds perfect. let&apos;s start over soon :D<br/>
+<font color="#A82F2F"><font size="2">(02:34:42 AM)</font> <b>las:</b></font> falktx: but in reality, they actually didn&apos;t really know anything then about libstdc++<br/>
+<font color="#A82F2F"><font size="2">(02:34:42 AM)</font> <b>falktx:</b></font> I didn&apos;t even had a computer in 1999<br/>
+<font color="#A82F2F"><font size="2">(02:34:54 AM)</font> <b>xhoch3:</b></font> las, to be honest, QString is lightyears ahead of std::string<br/>
+<font color="#A82F2F"><font size="2">(02:34:55 AM)</font> <b>las:</b></font> falktx: i bought my first one in 1998 :)<br/>
+<font color="#A82F2F"><font size="2">(02:35:03 AM)</font> <b>las:</b></font> xhoch3: depends on your purpose<br/>
+<font color="#A82F2F"><font size="2">(02:35:21 AM)</font> <b>las:</b></font> xhoch3: gtkmm has Glib::ustring, which offers proper UTF8-aware iterators<br/>
+<font color="#A82F2F"><font size="2">(02:35:27 AM)</font> <b>falktx:</b></font> the Juce string class is nice too, but could use some optimizations<br/>
+<font color="#A82F2F"><font size="2">(02:35:48 AM)</font> <b>las:</b></font> xhoch3: but the gtkmm guys (and us) realized that there is almost nowhere that you actually want to be UTF8 aware<br/>
+<font color="#A82F2F"><font size="2">(02:35:50 AM)</font> <b>falktx:</b></font> I have to use std::string for big replacements<br/>
+<font color="#A82F2F"><font size="2">(02:35:53 AM)</font> <b>rgareus:</b></font> you&apos;re all spiled prats. char and wchar is all one really needs :)<br/>
+<font color="#A82F2F"><font size="2">(02:36:06 AM)</font> <b>rgareus:</b></font> s/spiled/spoiled/<br/>
+<font color="#A82F2F"><font size="2">(02:36:19 AM)</font> <b>las:</b></font> xhoch3: i think we have just 3 places in the entire code base where we have to pay attention to the fact that a sequence of bytes (i.e. std::string) might contain UTF8<br/>
+<font color="#A82F2F"><font size="2">(02:36:20 AM)</font> <b>falktx:</b></font> rgareus: my CarlaString class only works with char :)<br/>
+<font color="#A82F2F"><font size="2">(02:36:41 AM)</font> <b>las:</b></font> rgareus: wchar32 please<br/>
+<font color="#A82F2F"><font size="2">(02:36:59 AM)</font> <b>xhoch3:</b></font> las, Qt dinstinguishes between a string (QString) and a sequence of bytes (QByteArray) properly<br/>
+<font color="#A82F2F"><font size="2">(02:37:14 AM)</font> <b>las:</b></font> xhoch3: so does libstdc++<br/>
+<font color="#A82F2F"><font size="2">(02:37:18 AM)</font> <b>tom-:</b></font> las: 1998, huh?<br/>
+<font color="#A82F2F"><font size="2">(02:37:29 AM)</font> <b>las:</b></font> xhoch3: std::string and vector&lt;uint8t&gt;<br/>
+<font color="#A82F2F"><font size="2">(02:37:44 AM)</font> <b>falktx:</b></font> Qt has a lot of specific classes for string codecs<br/>
+<font color="#A82F2F"><font size="2">(02:37:51 AM)</font> <b>falktx:</b></font> QLatin1String, etc etc<br/>
+<font color="#A82F2F"><font size="2">(02:38:00 AM)</font> <b>las:</b></font> tom-: i avoided having a computer at home for the first 15 years of my computing career<br/>
+<font color="#A82F2F"><font size="2">(02:38:09 AM)</font> <b>tom-:</b></font> las: here it comes. :)<br/>
+<font color="#A82F2F"><font size="2">(02:38:16 AM)</font> <b>xhoch3:</b></font> las, how to you get the UTF8 version of a std::string?<br/>
+<font color="#A82F2F"><font size="2">(02:38:31 AM)</font> <b>las:</b></font> xhoch3: Glib::ustring utf = some_std_string;<br/>
+<font color="#A82F2F"><font size="2">(02:38:35 AM)</font> <b>las:</b></font> xhoch3: done.<br/>
+<font color="#A82F2F"><font size="2">(02:38:46 AM)</font> <b>falktx:</b></font> ugly<br/>
+<font color="#A82F2F"><font size="2">(02:38:49 AM)</font> <b>las:</b></font> xhoch3: but as i said, we do this almost *nowhere*<br/>
+<font color="#A82F2F"><font size="2">(02:38:55 AM)</font> <b>falktx:</b></font> QString s(&quot;hello&quot;);<br/>
+<font color="#A82F2F"><font size="2">(02:38:57 AM)</font> <b>las:</b></font> falktx: ugly? how is that ugly ?<br/>
+<font color="#A82F2F"><font size="2">(02:39:03 AM)</font> <b>xhoch3:</b></font> s.toUtf8()<br/>
+<font color="#A82F2F"><font size="2">(02:39:09 AM)</font> <b>falktx:</b></font> using this = that in c++ is ugly<br/>
+<font color="#A82F2F"><font size="2">(02:39:16 AM)</font> <b>las:</b></font> falktx: nonsense<br/>
+<font color="#A82F2F"><font size="2">(02:39:24 AM)</font> <b>las:</b></font> xhoch3: there is no need for toUtf8<br/>
+<font color="#A82F2F"><font size="2">(02:39:26 AM)</font> <b>falktx:</b></font> Glib::ustring utf(&quot;test&quot;);<br/>
+<font color="#A82F2F"><font size="2">(02:39:32 AM)</font> <b>falktx:</b></font> ^that looks much nicer<br/>
+<font color="#A82F2F"><font size="2">(02:39:33 AM)</font> <b>las:</b></font> xhoch3: the sequence of bytes is identical<br/>
+<font color="#A82F2F"><font size="2">(02:39:39 AM)</font> <b>las:</b></font> falktx: sure, that works too<br/>
+<font color="#A82F2F"><font size="2">(02:39:39 AM)</font> <b>tom-:</b></font> it&apos;s always the gui. it&apos;s always the string ops &amp; lists. from what i see<br/>
+<font color="#A82F2F"><font size="2">(02:39:43 AM)</font> <b>las:</b></font> falktx: he asked about conversion<br/>
+<font color="#A82F2F"><font size="2">(02:39:56 AM)</font> <b>las:</b></font> xhoch3: what matters is what iterators do<br/>
+<font color="#A82F2F"><font size="2">(02:40:20 AM)</font> <b>las:</b></font> xhoch3: if you iterate over std::string or do substr or search or len etc. it is all in bytes<br/>
+<font color="#A82F2F"><font size="2">(02:40:34 AM)</font> <b>xhoch3:</b></font> las, how to convert a std::string to the encoding typical for the OS you&apos;re on?<br/>
+<font color="#A82F2F"><font size="2">(02:40:43 AM)</font> <b>las:</b></font> xhoch3: if you iterate over Glib::ustring or do substr or search or len etc, it is all in UTF8 characters<br/>
+<font color="#A82F2F"><font size="2">(02:40:49 AM)</font> <b>xhoch3:</b></font> Qt: s.toLocal8Bit()<br/>
+<font color="#A82F2F"><font size="2">(02:41:04 AM)</font> <b>las:</b></font> xhoch3: the typical encoding for the runtimes we target is UTF8<br/>
+<font color="#A82F2F"><font size="2">(02:41:22 AM)</font> <b>las:</b></font> xhoch3: we don&apos;t attempt to cater to anything else, because there is no need<br/>
+<font color="#A82F2F"><font size="2">(02:41:46 AM)</font> <b>falktx:</b></font> screw encodings. utf8 ftw<br/>
+<font color="#A82F2F"><font size="2">(02:41:52 AM)</font> <b>xhoch3:</b></font> well, in most cases, there is a need<br/>
+<font color="#A82F2F"><font size="2">(02:42:09 AM)</font> <b>xhoch3:</b></font> and then you&apos;re glad you can<br/>
+<font color="#A82F2F"><font size="2">(02:42:55 AM)</font> <b>las:</b></font> xhoch3: we have no need<br/>
+<font color="#A82F2F"><font size="2">(02:43:18 AM)</font> <b>las:</b></font> xhoch3: if we had such a need, i&apos;d use glib&apos;s wrapping of iconv or native platform provided equivalent<br/>
+<font color="#A82F2F"><font size="2">(02:44:08 AM)</font> <b>las:</b></font> Glib::convert (txt, &quot;ISO-8859-1&quot;, &quot;UTF-8&quot;);<br/>
+<font color="#A82F2F"><font size="2">(02:44:53 AM)</font> <b>tom-:</b></font> keeping all in utf-8 is probably a good idea<br/>
+<font color="#A82F2F"><font size="2">(02:45:18 AM)</font> <b>las:</b></font> tom-: it isn&apos;t just a good idea, its the law :)<br/>
+<font color="#A82F2F"><font size="2">(02:45:37 AM)</font> <b>rgareus:</b></font> las: speaking of strings. was there an outcome of the stream-objects thread safety issue?<br/>
+<font color="#A82F2F"><font size="2">(02:45:43 AM)</font> <b>tom-:</b></font> las: de facto :)<br/>
+<font color="#A82F2F"><font size="2">(02:45:49 AM)</font> <b>las:</b></font> rgareus: i just avoided it <br/>
+<font color="#A82F2F"><font size="2">(02:47:30 AM)</font> <b>tom-:</b></font> a ringbuffer is a totally underestimated datastructure<br/>
+<font color="#A82F2F"><font size="2">(02:47:47 AM)</font> <b>tom-:</b></font> a lockfree one i should add<br/>
+<font color="#A82F2F"><font size="2">(02:47:56 AM)</font> <b>las:</b></font> this is wierd. i completely remember doing a UTF8 conversion commit while in tel aviv. now i can&apos;t find it<br/>
+<font color="#A82F2F"><font size="2">(02:49:12 AM)</font> <b>las:</b></font> ah, it wasn&apos;t tel aviv<br/>
+<font color="#A82F2F"><font size="2">(02:49:20 AM)</font> <b>las:</b></font> it was the mackie code and was pretty recent<br/>
+<font color="#A82F2F"><font size="2">(02:49:51 AM)</font> <b>las:</b></font> xhoch3: there&apos;s one example of where we do need to convert, but i think it is the only one so far:<br/>
+<font color="#A82F2F"><font size="2">(02:49:54 AM)</font> <b>las:</b></font> string ascii = Glib::convert_with_fallback (line, &quot;UTF-8&quot;, &quot;ISO-8859-1&quot;, &quot;_&quot;);<br/>
+<font color="#A82F2F"><font size="2">(02:50:05 AM)</font> <b>xhoch3:</b></font> beautiful..<br/>
+<font color="#A82F2F"><font size="2">(02:50:07 AM)</font> <b>las:</b></font> xhoch3: we do this when sending track/bus names to a Mackie Control surface<br/>
+<font color="#A82F2F"><font size="2">(02:50:21 AM)</font> <b>las:</b></font> xhoch3: turns out they accept only ASCII characters<br/>
+<font color="#A82F2F"><font size="2">(02:50:53 AM)</font> <b>xhoch3:</b></font> and now try to convince this is more readable than toUtf8() :D<br/>
+<font color="#A82F2F"><font size="2">(02:50:54 AM)</font> <b>las:</b></font> xhoch3: or rather more precisely, MIDI only allows ASCII characters because the 8th bit is special in MIDI<br/>
+<font color="#A82F2F"><font size="2">(02:51:03 AM)</font> <b>las:</b></font> xhoch3: that didn&apos;t convert to UTF8<br/>
+<font color="#A82F2F"><font size="2">(02:51:18 AM)</font> <b>xhoch3:</b></font> ..<br/>
+<font color="#A82F2F"><font size="2">(02:51:18 AM)</font> <b>las:</b></font> xhoch3: and it had to explicitly include a fallback for characters that cannot be converted<br/>
+<font color="#A82F2F"><font size="2">(02:51:49 AM)</font> <b>xhoch3:</b></font> I have no idea what it does because I know have to grab the docs and look it up<br/>
+<font color="#A82F2F"><font size="2">(02:51:56 AM)</font> <b>las:</b></font> xhoch3: how hard can it be?<br/>
+<font color="#A82F2F"><font size="2">(02:52:02 AM)</font> <b>las:</b></font> xhoch3: you seriously can&apos;t read that?<br/>
+<font color="#A82F2F"><font size="2">(02:52:06 AM)</font> <b>xhoch3:</b></font> it&apos;s an extra step<br/>
+<font color="#A82F2F"><font size="2">(02:52:16 AM)</font> <b>las:</b></font> xhoch3: extra step? its a syntax issue<br/>
+<font color="#A82F2F"><font size="2">(02:52:37 AM)</font> <b>xhoch3:</b></font> I mean there are four parameters<br/>
+<font color="#A82F2F"><font size="2">(02:52:56 AM)</font> <b>las:</b></font> xhoch3: as well as semantics one unless toUtf8 (ooh camel case for an acronym) has a default fallback parameter<br/>
+<font color="#A82F2F"><font size="2">(02:53:09 AM)</font> <b>las:</b></font> xhoch3: toUtf8 requires knowledge of the initial encoding<br/>
+<font color="#A82F2F"><font size="2">(02:53:14 AM)</font> <b>las:</b></font> xhoch3: which is left implicit<br/>
+<font color="#A82F2F"><font size="2">(02:53:30 AM)</font> <b>xhoch3:</b></font> what is wrong with that?<br/>
+<font color="#A82F2F"><font size="2">(02:53:35 AM)</font> <b>las:</b></font> xhoch3: the example above makes the encoding explicit, which i prefer<br/>
+<font color="#A82F2F"><font size="2">(02:53:43 AM)</font> <b>tom-:</b></font> it&apos;s a large topic. you can break your head about encodings and charsets and keymaps, and ...<br/>
+<font color="#A82F2F"><font size="2">(02:53:44 AM)</font> <b>rgareus:</b></font> I guess it converts from UTF-8 to ISO-8859-1 and turn non ASCII/mutibyte chars into underscores.<br/>
+<font color="#062585"><font size="2">(02:53:52 AM)</font> <b>***rgareus</b></font> has not read the doc, either<br/>
+<font color="#A82F2F"><font size="2">(02:53:56 AM)</font> <b>las:</b></font> rgareus: ding ding ding! we have a winner!!<br/>
+<font color="#A82F2F"><font size="2">(02:54:16 AM)</font> <b>las:</b></font> tom-: which is we overwhelmingly avoid them<br/>
+<font color="#A82F2F"><font size="2">(02:54:33 AM)</font> <b>las:</b></font> tom-: except where we rub up against some externally controlled protocol or specification which requires us to tackle them<br/>
+<font color="#A82F2F"><font size="2">(02:54:41 AM)</font> <b>las:</b></font> tom-: and using UTF8 for everything else makes life simple<br/>
+<font color="#A82F2F"><font size="2">(02:54:53 AM)</font> <b>tom-:</b></font> las: absolutely<br/>
+<font color="#A82F2F"><font size="2">(02:54:54 AM)</font> <b>las:</b></font> tom-: as does assuming a UTF8-capable filesystem<br/>
+<font color="#A82F2F"><font size="2">(02:55:06 AM)</font> <b>xhoch3:</b></font> I mean, what is the advantage of explicitly specifying the current encoding. How much sense does it make to specify the wrong encoding..<br/>
+<font color="#A82F2F"><font size="2">(02:55:16 AM)</font> <b>xhoch3:</b></font> none to me<br/>
+<font color="#A82F2F"><font size="2">(02:55:20 AM)</font> <b>las:</b></font> xhoch3: current encoding? there is no explicit current encoding<br/>
+<font color="#A82F2F"><font size="2">(02:55:25 AM)</font> <b>xhoch3:</b></font> yes I know<br/>
+<font color="#A82F2F"><font size="2">(02:55:32 AM)</font> <b>xhoch3:</b></font> but the encoding it is supposed to have<br/>
+<font color="#A82F2F"><font size="2">(02:55:39 AM)</font> <b>las:</b></font> xhoch3: says what?<br/>
+<font color="#A82F2F"><font size="2">(02:55:49 AM)</font> <b>xhoch3:</b></font> a string has an encoding<br/>
+<font color="#A82F2F"><font size="2">(02:55:54 AM)</font> <b>las:</b></font> xhoch3: no it doesn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(02:55:55 AM)</font> <b>xhoch3:</b></font> a byte array has none<br/>
+<font color="#A82F2F"><font size="2">(02:56:10 AM)</font> <b>las:</b></font> xhoch3: maybe the strings classes you prefer to use have an encoding<br/>
+<font color="#A82F2F"><font size="2">(02:56:22 AM)</font> <b>las:</b></font> xhoch3: a string is a sequence of bytes that can interpreted in different ways<br/>
+<font color="#A82F2F"><font size="2">(02:56:22 AM)</font> <b>xhoch3:</b></font> which is the only thing that makes sense<br/>
+<font color="#A82F2F"><font size="2">(02:56:26 AM)</font> <b>las:</b></font> xhoch3: no it isn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(02:56:43 AM)</font> <b>xhoch3:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(02:56:50 AM)</font> <b>xhoch3:</b></font> how can you say that<br/>
+<font color="#A82F2F"><font size="2">(02:57:06 AM)</font> <b>xhoch3:</b></font> don&apos;t type before thinking :P<br/>
+<font color="#A82F2F"><font size="2">(02:57:12 AM)</font> <b>las:</b></font> xhoch3: suppose that ardour, for some insane reason, decided to revert to IS0-8859-1 as the default encoding<br/>
+<font color="#A82F2F"><font size="2">(02:57:18 AM)</font> <b>las:</b></font> xhoch3: what would we have to do ?<br/>
+<font color="#A82F2F"><font size="2">(02:57:22 AM)</font> <b>las:</b></font> xhoch3: almost nothing<br/>
+<font color="#A82F2F"><font size="2">(02:57:31 AM)</font> <b>las:</b></font> xhoch3: because our strings don&apos;t all have any encoding set<br/>
+<font color="#A82F2F"><font size="2">(02:57:58 AM)</font> <b>las:</b></font> xhoch3: we don&apos;t specify any encoding anywhere except in the few places where we need to, and then we are explicit about all the encodings involved in the tranform<br/>
+<font color="#A82F2F"><font size="2">(02:58:08 AM)</font> <b>xhoch3:</b></font> you are mentioning the encoding the strings are supposed to have explicitly everywhere<br/>
+<font color="#A82F2F"><font size="2">(02:58:20 AM)</font> <b>xhoch3:</b></font> so would have to change everything<br/>
+<font color="#A82F2F"><font size="2">(02:58:29 AM)</font> <b>las:</b></font> xhoch3: my point is that this is an assumption<br/>
+<font color="#A82F2F"><font size="2">(02:58:35 AM)</font> <b>tom-:</b></font> las: source files *could* have an encoding, thus every string in it<br/>
+<font color="#A82F2F"><font size="2">(02:58:40 AM)</font> <b>xhoch3:</b></font> well, I am playing your game<br/>
+<font color="#A82F2F"><font size="2">(02:58:41 AM)</font> <b>tom-:</b></font> las: from my understanding<br/>
+<font color="#A82F2F"><font size="2">(02:58:42 AM)</font> <b>las:</b></font> xhoch3: it doesn&apos;t need to be represented by very much code at all<br/>
+<font color="#A82F2F"><font size="2">(02:58:52 AM)</font> <b>tom-:</b></font> las: but it doesn&apos;t matter since the encoding is utf-8<br/>
+<font color="#A82F2F"><font size="2">(02:58:56 AM)</font> <b>las:</b></font> xhoch3: i.e. just the places where we explicitly switch to a known encoding<br/>
+<font color="#A82F2F"><font size="2">(02:58:57 AM)</font> <b>xhoch3:</b></font> right, by any code at best<br/>
+<font color="#A82F2F"><font size="2">(02:59:06 AM)</font> <b>tom-:</b></font> or ascii, which is even more easy 0-127 or 255<br/>
+<font color="#A82F2F"><font size="2">(02:59:10 AM)</font> <b>las:</b></font> xhoch3: no, we hardly do ANY encoding transforms<br/>
+<font color="#A82F2F"><font size="2">(02:59:26 AM)</font> <b>las:</b></font> xhoch3: 98% of the code just treats string data as-is<br/>
+<font color="#A82F2F"><font size="2">(02:59:48 AM)</font> <b>xhoch3:</b></font> the same would happen with toUtf8()<br/>
+<font color="#A82F2F"><font size="2">(02:59:55 AM)</font> <b>las:</b></font> xhoch3: and when we need a specific encoding, that is the only place where we need to state what we think the source encoding is<br/>
+<font color="#A82F2F"><font size="2">(03:00:59 AM)</font> <b>tom-:</b></font> isn&apos;t source encoding always utf-8?<br/>
+<font color="#A82F2F"><font size="2">(03:01:08 AM)</font> <b>las:</b></font> tom-: that is our working assumption<br/>
+<font color="#A82F2F"><font size="2">(03:01:25 AM)</font> <b>las:</b></font> tom-: it may not be<br/>
+<font color="#A82F2F"><font size="2">(03:01:40 AM)</font> <b>las:</b></font> tom-: e.g. crazy russians injecting odd slavic encodings into session names<br/>
+<font color="#A82F2F"><font size="2">(03:01:45 AM)</font> <b>las:</b></font> tom-: yes, i&apos;ve seen it :)<br/>
+<font color="#A82F2F"><font size="2">(03:01:52 AM)</font> <b>tom-:</b></font> las: that can be utf-8 :)<br/>
+<font color="#A82F2F"><font size="2">(03:01:56 AM)</font> <b>las:</b></font> tom-: yes, it can<br/>
+<font color="#A82F2F"><font size="2">(03:02:03 AM)</font> <b>las:</b></font> tom-: but they had their system set up to use some other encoding<br/>
+<font color="#A82F2F"><font size="2">(03:02:14 AM)</font> <b>tom-:</b></font> las: the detection of used encoding from a series of bytes is not trivial<br/>
+<font color="#A82F2F"><font size="2">(03:02:35 AM)</font> <b>las:</b></font> tom-: i believe that a deterministic and correct answer is theoretically impossible<br/>
+<font color="#A82F2F"><font size="2">(03:02:46 AM)</font> <b>las:</b></font> tom-: the only approach is a heuristic which works in most cases<br/>
+<font color="#A82F2F"><font size="2">(03:02:46 AM)</font> <b>xhoch3:</b></font> tom-, it is impossible to perform safely<br/>
+<font color="#A82F2F"><font size="2">(03:02:50 AM)</font> <b>tom-:</b></font> las: my assumption too<br/>
+<font color="#A82F2F"><font size="2">(03:03:24 AM)</font> <b>tom-:</b></font> xhoch3: okie<br/>
+<font color="#A82F2F"><font size="2">(03:04:46 AM)</font> <b>tom-:</b></font> for ongoing audio streams without metadata, it&apos;s possible to retrieve the format, #of channels etc i think. less variants<br/>
+<font color="#A82F2F"><font size="2">(03:06:04 AM)</font> <b>xhoch3:</b></font> btw, Qt has a QTextCodec::setCodecForCStrings to handle the crazy russians use case :P, las<br/>
+<font color="#A82F2F"><font size="2">(03:06:31 AM)</font> <b>xhoch3:</b></font> but you would need to ask them before :P<br/>
+<font color="#A82F2F"><font size="2">(03:08:32 AM)</font> <b>las:</b></font> xhoch3: i like Qt very much<br/>
+<font color="#A82F2F"><font size="2">(03:08:45 AM)</font> <b>las:</b></font> xhoch3: but it continues to have a basic problem that bothers me<br/>
+<font color="#A82F2F"><font size="2">(03:08:58 AM)</font> <b>las:</b></font> xhoch3: and is a problem i alluded up a little while ago<br/>
+<font color="#A82F2F"><font size="2">(03:09:09 AM)</font> <b>xhoch3:</b></font> it&apos;s not in Ardour :D<br/>
+<font color="#A82F2F"><font size="2">(03:09:14 AM)</font> <b>xhoch3:</b></font> wrong guess?<br/>
+<font color="#A82F2F"><font size="2">(03:09:15 AM)</font> <b>xhoch3:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(03:09:17 AM)</font> <b>xhoch3:</b></font> ;D<br/>
+<font color="#A82F2F"><font size="2">(03:09:28 AM)</font> <b>las:</b></font> xhoch3: despite being a C++ toolkit, i find it to be designed and implemented by people who don&apos;t know C++ very well<br/>
+<font color="#A82F2F"><font size="2">(03:09:43 AM)</font> <b>xhoch3:</b></font> yeah, it feels like Java<br/>
+<font color="#A82F2F"><font size="2">(03:09:50 AM)</font> <b>las:</b></font> xhoch3: this is particularly true of the whole moc thing, which was unnecessary in the beginning and is unnecessary now<br/>
+<font color="#A82F2F"><font size="2">(03:09:59 AM)</font> <b>las:</b></font> xhoch3: but it extends into other aspects of their API<br/>
+<font color="#A82F2F"><font size="2">(03:10:18 AM)</font> <b>las:</b></font> xhoch3: i&apos;m also a bit troubled by the &quot;framework&quot; idea<br/>
+<font color="#A82F2F"><font size="2">(03:10:29 AM)</font> <b>las:</b></font> xhoch3: GUI toolkits i can sign off on<br/>
+<font color="#A82F2F"><font size="2">(03:10:33 AM)</font> <b>xhoch3:</b></font> well, it&apos;s not a GUI toolkit<br/>
+<font color="#A82F2F"><font size="2">(03:10:36 AM)</font> <b>xhoch3:</b></font> and it never was<br/>
+<font color="#A82F2F"><font size="2">(03:10:41 AM)</font> <b>las:</b></font> xhoch3: but i really don&apos;t want a single library that tries to be an entire &quot;framework&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:10:58 AM)</font> <b>las:</b></font> xhoch3: i want to be free to use other 3rd party libraries for things<br/>
+<font color="#A82F2F"><font size="2">(03:11:20 AM)</font> <b>las:</b></font> xhoch3: either because of their design, or implementation, or both<br/>
+<font color="#A82F2F"><font size="2">(03:11:24 AM)</font> <b>xhoch3:</b></font> afaik, Qt is modular, so it only uses the modules you specify<br/>
+<font color="#A82F2F"><font size="2">(03:11:39 AM)</font> <b>las:</b></font> xhoch3: well, it became easier when they adopted glib :)<br/>
+<font color="#A82F2F"><font size="2">(03:11:43 AM)</font> <b>tom-:</b></font> gui toolkits start as side-effect of small apps, then grow to monsters then to problems that need special attention to still use<br/>
+<font color="#A82F2F"><font size="2">(03:12:00 AM)</font> <b>las:</b></font> xhoch3: now that Qt and Glib both use the same event loop, connecting different things into the basic event loops has become more sensible<br/>
+<font color="#A82F2F"><font size="2">(03:12:01 AM)</font> <b>xhoch3:</b></font> they have raised granularity with 5<br/>
+<font color="#A82F2F"><font size="2">(03:13:15 AM)</font> <b>las:</b></font> xhoch3: and then there is the problem that rgareus described while i was out ... really, we don&apos;t want *any* of these toolkits because they make integration with plugin GUIs more difficult<br/>
+<font color="#A82F2F"><font size="2">(03:13:45 AM)</font> <b>las:</b></font> xhoch3: particularly when plugin developers are &quot;silly&quot; enough to think that GTK or Qt or whatever is appropriate for what they are doing<br/>
+<font color="#A82F2F"><font size="2">(03:15:35 AM)</font> <b>falktx:</b></font> las: on some contexts they are perferct. qtractor + drumk/sampl/synthv1 is the perfect combo :)<br/>
+<font color="#A82F2F"><font size="2">(03:16:17 AM)</font> <b>falktx:</b></font> both Qt, both by the same author, the look&amp;feel of them is very similar<br/>
+<font color="#A82F2F"><font size="2">(03:17:59 AM)</font> <b>las:</b></font> falktx: and yet .. the wrong Qt in the host and boom<br/>
+<font color="#A82F2F"><font size="2">(03:18:13 AM)</font> <b>falktx:</b></font> &quot;blame the packager&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:18:13 AM)</font> <b>las:</b></font> falktx: or vice versa<br/>
+<font color="#A82F2F"><font size="2">(03:18:33 AM)</font> <b>las:</b></font> falktx: as rgareus noted, these big toolkits really were not designed for the scenario that audio plugins create<br/>
+<font color="#A82F2F"><font size="2">(03:18:40 AM)</font> <b>falktx:</b></font> I agree<br/>
+<font color="#A82F2F"><font size="2">(03:18:41 AM)</font> <b>las:</b></font> falktx: at least not on X Window <br/>
+<font color="#A82F2F"><font size="2">(03:19:06 AM)</font> <b>las:</b></font> falktx: but the version problem(s) exist on all platforms<br/>
+<font color="#A82F2F"><font size="2">(03:19:35 AM)</font> <b>falktx:</b></font> at least x11 works inter-process. we can have x11 embed and all that nice stuff even if the UI is in another process<br/>
+<font color="#A82F2F"><font size="2">(03:20:23 AM)</font> <b>las:</b></font> falktx: isn&apos;t x11 embed deprecated somehow?<br/>
+<font color="#A82F2F"><font size="2">(03:20:25 AM)</font> <b>xhoch3:</b></font> las, probably having a plugin embedded into another app is the wrong thinking in itself<br/>
+<font color="#A82F2F"><font size="2">(03:20:28 AM)</font> <b>las:</b></font> falktx: and as wayland arrives ...<br/>
+<font color="#A82F2F"><font size="2">(03:20:39 AM)</font> <b>las:</b></font> xhoch3: well, that&apos;s an entirely separate conversation<br/>
+<font color="#A82F2F"><font size="2">(03:20:54 AM)</font> <b>las:</b></font> xhoch3: basically, the DSP part has to be done that way; the GUI part not so much<br/>
+<font color="#A82F2F"><font size="2">(03:21:11 AM)</font> <b>falktx:</b></font> las: I don&apos;t know about deprecated. it&apos;s never going away afaik<br/>
+<font color="#A82F2F"><font size="2">(03:21:29 AM)</font> <b>xhoch3:</b></font> imagine plugins as JACK clients<br/>
+<font color="#A82F2F"><font size="2">(03:21:32 AM)</font> <b>las:</b></font> falktx: maybe it was some GTK specific variant of it that i&apos;m thinking of<br/>
+<font color="#A82F2F"><font size="2">(03:21:45 AM)</font> <b>las:</b></font> xhoch3: given that i wrote JACK too, do you think i haven&apos;t considered this?<br/>
+<font color="#A82F2F"><font size="2">(03:21:49 AM)</font> <b>las:</b></font> xhoch3: it doesn&apos;t scale<br/>
+<font color="#A82F2F"><font size="2">(03:21:58 AM)</font> <b>las:</b></font> xhoch3: it works for small numbers of plugins<br/>
+<font color="#A82F2F"><font size="2">(03:22:06 AM)</font> <b>las:</b></font> xhoch3: it doesn&apos;t work for large systems/sessions<br/>
+<font color="#A82F2F"><font size="2">(03:22:16 AM)</font> <b>las:</b></font> xhoch3: the context switch overhead is too great<br/>
+<font color="#A82F2F"><font size="2">(03:22:20 AM)</font> <b>xhoch3:</b></font> what were the reasons?<br/>
+<font color="#A82F2F"><font size="2">(03:22:27 AM)</font> <b>las:</b></font> xhoch3: just said<br/>
+<font color="#A82F2F"><font size="2">(03:22:35 AM)</font> <b>xhoch3:</b></font> yeah, I typed after you wrote<br/>
+<font color="#A82F2F"><font size="2">(03:23:22 AM)</font> <b>las:</b></font> xhoch3: context switching consists of two costs; register save+restore which gets cheaper with faster cpus, and the cost of flushing the translation lookaside buffer used for virtual memory management<br/>
+<font color="#A82F2F"><font size="2">(03:23:25 AM)</font> <b>xhoch3:</b></font> but still, I think it might be worth taking a second look at that, as this would be the logically correct solution<br/>
+<font color="#A82F2F"><font size="2">(03:23:36 AM)</font> <b>las:</b></font> xhoch3: the register save+restore is a fixed cost per context switch<br/>
+<font color="#A82F2F"><font size="2">(03:23:51 AM)</font> <b>las:</b></font> xhoch3: the TLB flush cost depends on the working set size of the switched-to task<br/>
+<font color="#A82F2F"><font size="2">(03:24:06 AM)</font> <b>las:</b></font> xhoch3: if the switched-to task touches very little memory, the cost is very low<br/>
+<font color="#A82F2F"><font size="2">(03:24:07 AM)</font> <b>xhoch3:</b></font> I don&apos;t know anything about the internal workings of JACK<br/>
+<font color="#A82F2F"><font size="2">(03:24:30 AM)</font> <b>las:</b></font> xhoch3: if it touches a lot of memory (e.g. a big sample-based instrument), then the cost is very high (relatively speaking)<br/>
+<font color="#A82F2F"><font size="2">(03:24:34 AM)</font> <b>las:</b></font> xhoch3: you can&apos;<br/>
+<font color="#A82F2F"><font size="2">(03:24:49 AM)</font> <b>las:</b></font> t avoid this on all contemporary easily available operating systems<br/>
+<font color="#A82F2F"><font size="2">(03:25:30 AM)</font> <b>las:</b></font> xhoch3: there are designs that avoid it - primarily by having a single 64 bit address space and using hardware for memory protection - but these are experimental things that have never been part of any widely used system<br/>
+<font color="#A82F2F"><font size="2">(03:26:09 AM)</font> <b>las:</b></font> xhoch3: so sure, run a couple of short delay plugins, or better a couple of gain plugins and the cost is basically just the context switch which is on the order of 10 microseconds or so<br/>
+<font color="#A82F2F"><font size="2">(03:26:42 AM)</font> <b>las:</b></font> xhoch3: but now throw in some samplers, some reverb units, something else that uses big tables of data, and the cost rises up into the range of 5-50% of the period processing time<br/>
+<font color="#A82F2F"><font size="2">(03:27:08 AM)</font> <b>xhoch3:</b></font> I see<br/>
+<font color="#A82F2F"><font size="2">(03:27:10 AM)</font> <b>las:</b></font> xhoch3: and now add these things on many channels of a 128 track session and you have something that cannot possibly be run in realtime, certainly not with low latency settings<br/>
+<font color="#A82F2F"><font size="2">(03:27:16 AM)</font> <b>las:</b></font> xhoch3: and this won&apos;t get better with faster cpus<br/>
+<font color="#A82F2F"><font size="2">(03:28:12 AM)</font> <b>xhoch3:</b></font> but this is all because every plugin would run its own process<br/>
+<font color="#A82F2F"><font size="2">(03:28:32 AM)</font> <b>las:</b></font> xhoch3: you could reduce it just a little by clever chaining<br/>
+<font color="#A82F2F"><font size="2">(03:28:50 AM)</font> <b>xhoch3:</b></font> ok, right, we have to have sep processes to avoid the dynamic linking problems<br/>
+<font color="#A82F2F"><font size="2">(03:28:53 AM)</font> <b>las:</b></font> xhoch3: but ultimately in the general case, you going to switch back and forth between the host and some other task for everything<br/>
+<font color="#A82F2F"><font size="2">(03:29:29 AM)</font> <b>las:</b></font> xhoch3: just as a trivial case, consider the gain fader in ardour; you can put various processing before and after it<br/>
+<font color="#A82F2F"><font size="2">(03:29:37 AM)</font> <b>las:</b></font> xhoch3: you can also add aux sends at any point<br/>
+<font color="#A82F2F"><font size="2">(03:29:48 AM)</font> <b>las:</b></font> xhoch3: these processing stages are always going to be in the host<br/>
+<font color="#A82F2F"><font size="2">(03:30:02 AM)</font> <b>las:</b></font> xhoch3: so if you put plugins in there, you have to context switch back and forth<br/>
+<font color="#A82F2F"><font size="2">(03:30:27 AM)</font> <b>las:</b></font> xhoch3: sure, if there are two plugins in a row, you can be clever and not go back and forth (this is a trick JACK uses)<br/>
+<font color="#A82F2F"><font size="2">(03:30:40 AM)</font> <b>las:</b></font> xhoch3: but this isn&apos;t a general plan for making this scale<br/>
+<font color="#A82F2F"><font size="2">(03:32:15 AM)</font> <b>tom-:</b></font> the gui alone could be in it&apos;s own process. but that alone wouldn&apos;t improve stability if the plugin dsp blob does bad memory/other things to the host<br/>
+<font color="#062585"><font size="2">(03:32:38 AM)</font> <b>***las</b></font> heads inside for the night<br/>
+<font color="#A82F2F"><font size="2">(03:32:48 AM)</font> <b>tom-:</b></font> las: i hope that&apos;s roughly correct<br/>
+<font color="#A82F2F"><font size="2">(03:33:10 AM)</font> <b>tom-:</b></font> yep, good idea<br/>
+<font color="#A82F2F"><font size="2">(03:34:22 AM)</font> <b>xhoch3:</b></font> so, dynamically linking everything into one process and living with the consequences is less pain than finding a solution<br/>
+<font color="#A82F2F"><font size="2">(03:35:08 AM)</font> <b>tom-:</b></font> xhoch3: let&apos;s find one, just theoretically<br/>
+<font color="#A82F2F"><font size="2">(03:35:09 AM)</font> <b>xhoch3:</b></font> I might have to think about that, but it sounds tricky<br/>
+<font color="#A82F2F"><font size="2">(03:35:30 AM)</font> <b>xhoch3:</b></font> at least I can now understand why it has been done that way<br/>
+<font color="#A82F2F"><font size="2">(03:36:18 AM)</font> <b>tom-:</b></font> if you&apos;d had unlimited cores, you could dedicate one core to each plugin. <br/>
+<font color="#A82F2F"><font size="2">(03:37:28 AM)</font> <b>falktx:</b></font> but you don&apos;t have unlimited plugins ;P<br/>
+<font color="#A82F2F"><font size="2">(03:37:44 AM)</font> <b>tom-:</b></font> falktx: lol :)<br/>
+<font color="#A82F2F"><font size="2">(03:39:45 AM)</font> <b>tom-:</b></font> programmable dsp cores that have good memory and audio interface access on a hardware level<br/>
+<font size="2">(05:29:23 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

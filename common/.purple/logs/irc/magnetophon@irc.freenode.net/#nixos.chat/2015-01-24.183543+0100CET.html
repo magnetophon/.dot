@@ -1,0 +1,52 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sat 24 Jan 2015 06:35:43 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sat 24 Jan 2015 06:35:43 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(06:35:44 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(06:35:44 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(06:36:12 PM)</font> <b>henrytill:</b></font> Atlanis: not that I know of...<br/>
+<font color="#A82F2F"><font size="2">(06:36:51 PM)</font> <b>henrytill:</b></font> avn: as in &quot;misc-fixed&quot;?<br/>
+<font color="#A82F2F"><font size="2">(06:36:59 PM)</font> <b>avn:</b></font> yep<br/>
+<font color="#A82F2F"><font size="2">(06:37:25 PM)</font> <b>avn:</b></font> fontcronyxcyrillic exactly ;)<br/>
+<font color="#A82F2F"><font size="2">(06:37:49 PM)</font> <b>henrytill:</b></font> avn: i didn&apos;t need to list the stock x11 fonts in my configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(06:38:17 PM)</font> <b>henrytill:</b></font> avn: i just used the normal .Xresources stuff to use them<br/>
+<font color="#A82F2F"><font size="2">(06:38:31 PM)</font> <b>henrytill:</b></font> avn: you could check with fc-list to see if they are there for you<br/>
+<font color="#A82F2F"><font size="2">(06:38:41 PM)</font> <b>avn:</b></font> I want to stick with my fonts, where they was applied<br/>
+<font color="#A82F2F"><font size="2">(06:39:46 PM)</font> <b>henrytill:</b></font> avn: otherwise fonts are usually: fonts.fonts = with pkgs; [ dejavu_fonts liberation_ttf terminus_font ];<br/>
+<font color="#A82F2F"><font size="2">(06:39:50 PM)</font> <b>henrytill:</b></font> avn: etc etc<br/>
+<font color="#A82F2F"><font size="2">(06:41:20 PM)</font> <b>henrytill:</b></font> avn: and you can also put fonts in ~/.local/share/fonts<br/>
+<font color="#A82F2F"><font size="2">(06:42:01 PM)</font> <b>avn:</b></font> well, this font exist in nixpkgs tree, I just need to add in in proper variable I believe<br/>
+<font color="#A82F2F"><font size="2">(06:42:41 PM)</font> <b>henrytill:</b></font> so it would go inside the brackets in the statement above ^^<br/>
+<font color="#A82F2F"><font size="2">(06:42:52 PM)</font> <b>henrytill:</b></font> which font in nixpkgs is it?<br/>
+<font color="#A82F2F"><font size="2">(06:43:16 PM)</font> <b>avn:</b></font> fontcronyxcyrillic<br/>
+<font color="#A82F2F"><font size="2">(06:43:51 PM)</font> <b>avn:</b></font> adding xorg.fontcronyxcyrillic install them, but not add to Xorg font search paths<br/>
+<font color="#A82F2F"><font size="2">(06:47:05 PM)</font> <b>henrytill:</b></font> avn: right, so did you try putting fonts.fonts = with pkgs; [ xlibs.fontcronyxcyrillic ... ];<br/>
+<font color="#A82F2F"><font size="2">(06:47:21 PM)</font> <b>avn:</b></font> doing this just right now<br/>
+<font color="#A82F2F"><font size="2">(06:49:11 PM)</font> <b>Atlanis:</b></font> henrytill: this seems to work: buildInputs = with pkgs; stdenv.drvAttrs.defaultNativeBuildInputs ++ [ ... ];<br/>
+<font color="#A82F2F"><font size="2">(06:50:12 PM)</font> <b>henrytill:</b></font> Atlanis: excellent, good to know...<br/>
+<font color="#A82F2F"><font size="2">(06:50:15 PM)</font> <b>Atlanis:</b></font> better still: ... stdenv.defaultNativeBuildInputs<br/>
+<font color="#A82F2F"><font size="2">(06:51:11 PM)</font> <b>henrytill:</b></font> Atlanis: my experience with NixOS is often that where there&apos;s a will, there&apos;s a way...<br/>
+<font color="#A82F2F"><font size="2">(06:52:27 PM)</font> <b>avn:</b></font> well, reboot and relog, let&apos;s look on it ;)<br/>
+<font size="2">(06:52:36 PM)</font><b> avn left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(07:04:39 PM)</font> <b>MoreTea:</b></font> Hi there. I&apos;m installing NixOS at the moment and I&apos;m following the ZFS instructions<br/>
+<font color="#A82F2F"><font size="2">(07:04:51 PM)</font> <b>MoreTea:</b></font> However, the &apos;nixos-generate-config&apos; command is not present<br/>
+<font color="#A82F2F"><font size="2">(07:06:21 PM)</font> <b>MoreTea:</b></font> Nevermind, typo ;)<br/>
+<font color="#A82F2F"><font size="2">(07:06:51 PM)</font> <b>Atlanis:</b></font> don&apos;t you love it when that happens?<br/>
+<font color="#A82F2F"><font size="2">(07:07:04 PM)</font> <b>MoreTea:</b></font> Yeah.<br/>
+<font color="#A82F2F"><font size="2">(07:07:08 PM)</font> <b>Atlanis:</b></font> im pretty sure that 95% of the time I ask something on IRC, it&apos;s a typo/forgot an import/etc<br/>
+<font color="#A82F2F"><font size="2">(07:07:13 PM)</font> <b>MoreTea:</b></font> I tried nix-generate-config<br/>
+<font color="#A82F2F"><font size="2">(07:07:18 PM)</font> <b>MoreTea:</b></font> ;)<br/>
+<font color="#A82F2F"><font size="2">(07:08:08 PM)</font> <b>Hakisho:</b></font> Yeah, I&apos;ve also learned some nix syntax by trial and error.<br/>
+<font color="#A82F2F"><font size="2">(07:16:48 PM)</font> <b>MoreTea:</b></font> I&apos;m quite exited to finally install nixos on a real machine.<br/>
+<font color="#A82F2F"><font size="2">(07:16:52 PM)</font> <b>MoreTea:</b></font> In my case, a home server.<br/>
+<font color="#A82F2F"><font size="2">(07:16:55 PM)</font> <b>Ralith:</b></font> When I depend on gcc (or clang) in a myEnvFun, Nix wants to rebuild glibc and binutils and a few other deps, though never the compilers themselves. Oddly, depending on stdenv doesn&apos;t cause this, but depending on clangStdenv does. Can anyone help me work out why this is happening?<br/>
+<font color="#A82F2F"><font size="2">(07:17:20 PM)</font> <b>Ralith:</b></font> to be clear, I already have both gcc and clang built and installed on the system globally<br/>
+<font color="#A82F2F"><font size="2">(07:17:30 PM)</font> <b>Ralith:</b></font> so it *should* just be a matter of setting up the symlinks<br/>
+<font color="#A82F2F"><font size="2">(07:17:42 PM)</font> <b>ttuegel:</b></font> Ralith: no, glibc etc. have to be rebuild with clang<br/>
+<font color="#A82F2F"><font size="2">(07:18:05 PM)</font> <b>Ralith:</b></font> ttuegel: I don&apos;t think that&apos;s true, but regardless, I already *have* clang<br/>
+<font color="#A82F2F"><font size="2">(07:18:19 PM)</font> <b>ttuegel:</b></font> Ralith: you have clang, and a glibc built by gcc<br/>
+<font color="#A82F2F"><font size="2">(07:18:31 PM)</font> <b>ttuegel:</b></font> iiuc, the clangStdenv uses *only* clang<br/>
+<font color="#A82F2F"><font size="2">(07:19:06 PM)</font> <b>Ralith:</b></font> that&apos;s beside the point<br/>
+<font color="#A82F2F"><font size="2">(07:19:12 PM)</font> <b>Ralith:</b></font> I already have a fully functional clang installed on the system<br/>
+<font color="#A82F2F"><font size="2">(07:19:30 PM)</font> <b>Ralith:</b></font> the binaries for *whatever* clang needs already exist in the nix store<br/>
+<font color="#A82F2F"><font size="2">(07:20:25 PM)</font> <b>Ralith:</b></font> furthermore, even listing gcc as a dependency causes nix to try to compile glibc, binutils, and so forth *from source*<br/>
+<font color="#A82F2F"><font size="2">(07:20:50 PM)</font> <b>Ralith:</b></font> given that I&apos;m on the stable channel, and not messing with the packages in question, this shouldn&apos;t happen, right?<br/>
+<font size="2">(07:40:16 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

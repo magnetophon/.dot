@@ -1,0 +1,292 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Sat 14 Mar 2015 09:19:50 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Sat 14 Mar 2015 09:19:50 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(09:19:50 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(09:19:50 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(10:26:52 AM)</font> <b>vandenoever:</b></font> somehow when i run &apos;bash&apos; in nixos, i get a bash session where arrow up/ arrow down etc do not work<br/>
+<font color="#A82F2F"><font size="2">(10:27:35 AM)</font> <b>vandenoever:</b></font> i&apos;ve been trying to find out what env setting or cmdline argument is missing, but so far no luck<br/>
+<font color="#A82F2F"><font size="2">(10:33:04 AM)</font> <b>vandenoever:</b></font> it&apos;s quite strange because the bash in konsole and xterm is fine, but just running &apos;bash&apos; in there gives me a broken bash<br/>
+<font color="#A82F2F"><font size="2">(10:34:58 AM)</font> <b>vandenoever:</b></font> ah difference between /run/current-system/sw/bin/bash and $HOME/.nix-profile/bin/bash<br/>
+<font color="#16569E"><font size="2">(10:53:42 AM)</font> <b>magnetophon:</b></font> How do I make a pkg that depends on an override? When I put &quot;puredata-with-plugins.override { plugins = [ helmholtz mrpeach ]; }&quot; in the inputs, nixos complains about the &quot;.&quot;<br/>
+<font size="2">(11:05:05 AM)</font><b> sadcat_ is now known as straycat</b><br/>
+<font color="#16569E"><font size="2">(11:29:27 AM)</font> <b>magnetophon:</b></font> how do I use fetchgit to get submodules? I've found the switch &quot;--fetch-submodules&quot;, but how do I use that from a pkg?<br/>
+<font color="#A82F2F"><font size="2">(11:40:59 AM)</font> <b>qknight:</b></font> magnetophon: here is what i&apos;m using:<br/>
+<font color="#A82F2F"><font size="2">(11:41:02 AM)</font> <b>qknight:</b></font>   nixpkgs.config = {<br/>
+<font color="#A82F2F"><font size="2">(11:41:02 AM)</font> <b>qknight:</b></font>     allowUnfree = true;<br/>
+<font color="#A82F2F"><font size="2">(11:41:02 AM)</font> <b>qknight:</b></font>     packageOverrides = pkgs: with pkgs; {<br/>
+<font color="#A82F2F"><font size="2">(11:41:02 AM)</font> <b>qknight:</b></font>       pidgin-with-plugins = pkgs.pidgin-with-plugins.override {<br/>
+<font color="#A82F2F"><font size="2">(11:41:02 AM)</font> <b>qknight:</b></font>         plugins = [ pidginotr ];<br/>
+<font color="#A82F2F"><font size="2">(11:41:04 AM)</font> <b>qknight:</b></font>       };<br/>
+<font color="#A82F2F"><font size="2">(11:41:06 AM)</font> <b>qknight:</b></font>     };<br/>
+<font color="#A82F2F"><font size="2">(11:41:09 AM)</font> <b>qknight:</b></font>   };<br/>
+<font color="#16569E"><font size="2">(11:42:40 AM)</font> <b>magnetophon:</b></font> qknight: Thanks. I have something like that in my config too, but I want to do it from inside a package/default.nix  if possible.<br/>
+<font color="#A82F2F"><font size="2">(11:44:32 AM)</font> <b>Haskellfant:</b></font> magnetophon: have you tried wrapping it in parentheses?<br/>
+<font color="#A82F2F"><font size="2">(11:44:55 AM)</font> <b>Haskellfant:</b></font> or maybe let bind it and then put that in the inputs<br/>
+<font color="#A82F2F"><font size="2">(11:45:06 AM)</font> <b>romildo:</b></font> In which category should ocamleditor (http://ocamleditor.forge.ocamlcore.org/) be placed? It is an IDE for development in the OCaml language. applications/editors, development/tools/ocaml, or any other?<br/>
+<font color="#16569E"><font size="2">(11:46:25 AM)</font> <b>magnetophon:</b></font> Haskellfant: Thanks. Parenthesis give me an error too. I'm now looking up how to bind anything...<br/>
+<font size="2">(11:46:52 AM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:48:21 AM)</font> <b>Haskellfant:</b></font> magnetophon: just do something like let overriddenPackage = lalala in buildInputs = [overriddenPackage];<br/>
+<font color="#A82F2F"><font size="2">(11:49:01 AM)</font> <b>Haskellfant:</b></font> sorry, missed a semicolon after lalala<br/>
+<font color="#16569E"><font size="2">(11:50:53 AM)</font> <b>magnetophon:</b></font> Haskellfant: sorry, I don't get you. I should put this: &quot;let overriddenPackage = lalala; in buildInputs = [overriddenPackage];&quot; where?<br/>
+<font size="2">(11:52:25 AM)</font><b> goibhniu1 [<em>~goibhniu@e181013031.adsl.alicedsl.de</em>] entered the room.</b><br/>
+<font size="2">(11:53:22 AM)</font><b> goibhniu left the room (quit: Ping timeout: 244 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:53:40 AM)</font> <b>Haskellfant:</b></font> magnetophon: could you post the derivation you currently have? I think this might make it easier to explain<br/>
+<font color="#16569E"><font size="2">(11:54:11 AM)</font> <b>magnetophon:</b></font> Haskellfant: sure, coming up.<br/>
+<font color="#16569E"><font size="2">(11:56:28 AM)</font> <b>magnetophon:</b></font> Haskellfant: http://nixpaste.noip.me/XV07fvlZ<br/>
+<font color="#16569E"><font size="2">(11:56:57 AM)</font> <b>magnetophon:</b></font> that one works, but depends on my nixos config<br/>
+<font color="#A82F2F"><font size="2">(11:57:17 AM)</font> <b>Haskellfant:</b></font> so what do you want to override?<br/>
+<font color="#A82F2F"><font size="2">(11:58:28 AM)</font> <b>Haskellfant:</b></font> oh sorry you have written it at the top<br/>
+<font color="#16569E"><font size="2">(11:58:41 AM)</font> <b>magnetophon:</b></font> cool<br/>
+<font color="#A82F2F"><font size="2">(12:00:06 PM)</font> <b>shlevy:</b></font> Ralith: glad it helped :)<br/>
+<font size="2">(12:00:07 PM)</font><b> vcunat [<em>~admin@vetr-0455.koleje.cuni.cz</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:00:23 PM)</font> <b>Haskellfant:</b></font> magnetophon: something like this http://sprunge.us/KZhB (haven&apos;t tested it)<br/>
+<font color="#A82F2F"><font size="2">(12:00:36 PM)</font> <b>Haskellfant:</b></font> so just bind everything special you need in a let binding at the beginning<br/>
+<font color="#16569E"><font size="2">(12:00:48 PM)</font> <b>magnetophon:</b></font> Haskellfant: cool, thanks. will try it out now<br/>
+<font color="#A82F2F"><font size="2">(12:01:10 PM)</font> <b>Haskellfant:</b></font> you don&apos;t seem to be using PitchTracker in your derivation so I&apos;m not sure why you are passing that in this case<br/>
+<font color="#16569E"><font size="2">(12:03:39 PM)</font> <b>magnetophon:</b></font> Haskellfant: it's used at runtime<br/>
+<font color="#16569E"><font size="2">(12:06:01 PM)</font> <b>magnetophon:</b></font> Haskellfant: looks like your last line was a typo? When I remove it, I get:   &quot;undefined variable ‘pkgs’&quot; <br/>
+<font color="#A82F2F"><font size="2">(12:06:29 PM)</font> <b>Haskellfant:</b></font> oh sorry yeah that was me being too stupid to copy and paste<br/>
+<font color="#A82F2F"><font size="2">(12:06:44 PM)</font> <b>Haskellfant:</b></font> pass in puredata-with-plugins and remove pkgs<br/>
+<font color="#16569E"><font size="2">(12:07:25 PM)</font> <b>magnetophon:</b></font> Haskellfant: tried that, it doesn't know puredata-with-plugins anymore then<br/>
+<font color="#A82F2F"><font size="2">(12:07:47 PM)</font> <b>Haskellfant:</b></font> post your derivation and the error messages<br/>
+<font color="#16569E"><font size="2">(12:08:46 PM)</font> <b>magnetophon:</b></font> The deriv is yours, with this line changed: &quot;  PitchTracker = (puredata-with-plugins.override { plugins = [ helmholtz mrpeach ]; });&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:08:53 PM)</font> <b>Haskellfant:</b></font> also I don&apos;t know much about runtime deps but afaik passing them as arguments doesn&apos;t do anything as long as you don&apos;t use them in the derivation, so I doubt what you are trying to do will work<br/>
+<font color="#A82F2F"><font size="2">(12:09:17 PM)</font> <b>Haskellfant:</b></font> you need to pass in puredata-with-plugins as an argument<br/>
+<font color="#16569E"><font size="2">(12:09:45 PM)</font> <b>magnetophon:</b></font> and the error is undefined variable ‘puredata-with-plugins’<br/>
+<font color="#A82F2F"><font size="2">(12:09:57 PM)</font> <b>Haskellfant:</b></font> again: pass that in as an argument as I said<br/>
+<font color="#16569E"><font size="2">(12:11:28 PM)</font> <b>magnetophon:</b></font> Haskellfant: Ah, now I see what you mean. Thanks!<br/>
+<font color="#16569E"><font size="2">(12:23:29 PM)</font> <b>magnetophon:</b></font> Haskellfant: hmm, you where right about the runtime dependencies... :(<br/>
+<font color="#A82F2F"><font size="2">(01:09:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] Fuuzetsu pushed 2 new commits to master: http://git.io/pb2K<br/>
+<font color="#A82F2F"><font size="2">(01:09:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 628594f Thomas Strobel: Fix URL for emacs evil package<br/>
+<font color="#A82F2F"><font size="2">(01:09:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master e09c725 Mateusz Kowalczyk: Merge pull request #6790 from ts468/evil...<br/>
+<font color="#A82F2F"><font size="2">(01:11:45 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] k0ral opened pull request #6803: Fix mpd configuration (enclosing quotes needed). (master...mpd) http://git.io/pbaY<br/>
+<font color="#A82F2F"><font size="2">(01:18:47 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] Fuuzetsu pushed 1 new commit to master: http://git.io/pbwv<br/>
+<font color="#A82F2F"><font size="2">(01:18:47 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9c4cbaa koral: Fix mpd configuration (enclosing quotes needed).<br/>
+<font color="#A82F2F"><font size="2">(01:19:02 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] Fuuzetsu closed pull request #6803: Fix mpd configuration (enclosing quotes needed). (master...mpd) http://git.io/pbaY<br/>
+<font color="#A82F2F"><font size="2">(01:19:07 PM)</font> <b>giogadi:</b></font> howdy! are there guides to nix expressions syntax besides the Nix Manual? I don&apos;t see any explanations in the manual about &quot;self&quot; and &quot;super&quot;<br/>
+<font color="#A82F2F"><font size="2">(01:20:21 PM)</font> <b>goibhniu1:</b></font> hi giogadi, http://lethalman.blogspot.it/search/label/nixpills is great<br/>
+<font size="2">(01:20:27 PM)</font><b> goibhniu1 is now known as goibhniu</b><br/>
+<font color="#A82F2F"><font size="2">(01:20:42 PM)</font> <b>Fuuzetsu:</b></font> neither self nor super or keywords or anything, it&apos;s just a naming convention<br/>
+<font color="#A82F2F"><font size="2">(01:20:46 PM)</font> <b>Fuuzetsu:</b></font> are keywords*<br/>
+<font color="#A82F2F"><font size="2">(01:20:55 PM)</font> <b>giogadi:</b></font> goibhniu1: great! thanks!<br/>
+<font color="#A82F2F"><font size="2">(01:21:06 PM)</font> <b>giogadi:</b></font> Fuuzetsu: ah really? well that makes things simpler<br/>
+<font color="#A82F2F"><font size="2">(01:21:45 PM)</font> <b>Fuuzetsu:</b></font> you can rename them to ‘x’ and ‘y’ if you wish :)<br/>
+<font color="#A82F2F"><font size="2">(01:21:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] matthiasbeyer opened pull request #6804: Add package: mpdscribble (master...add-mpdscribble) http://git.io/pbw6<br/>
+<font color="#A82F2F"><font size="2">(01:24:54 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] Fuuzetsu pushed 1 new commit to master: http://git.io/pbr4<br/>
+<font color="#A82F2F"><font size="2">(01:24:55 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 5078d49 Matthias Beyer: Add package: mpdscribble<br/>
+<font color="#A82F2F"><font size="2">(01:26:17 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] Fuuzetsu closed pull request #6804: Add package: mpdscribble (master...add-mpdscribble) http://git.io/pbw6<br/>
+<font color="#A82F2F"><font size="2">(01:31:18 PM)</font> <b>Shados:</b></font> Hmm, is there still a single-page version of the NixOS manual up somewhere? Not so easy to search when it&apos;s broken up across multiple pages =/.<br/>
+<font color="#A82F2F"><font size="2">(01:32:34 PM)</font> <b>utdemir:</b></font> Hey. I got the issue on https://github.com/NixOS/nixpkgs/issues/6306 . How can I disable tests on coreutils?<br/>
+<font color="#A82F2F"><font size="2">(01:33:07 PM)</font> <b>Fuuzetsu:</b></font> Shados: thought there was but can&apos;t find it… there is for nix though…<br/>
+<font color="#A82F2F"><font size="2">(01:33:20 PM)</font> <b>Fuuzetsu:</b></font> you could probably build yourself the manual with the options you want though<br/>
+<font color="#A82F2F"><font size="2">(01:33:59 PM)</font> <b>Fuuzetsu:</b></font> utdemir: that sounds like a serious test to disable<br/>
+<font color="#A82F2F"><font size="2">(01:34:02 PM)</font> <b>Shados:</b></font> That&apos;s not so convenient in general though, half the time I&apos;m randomly looking stuff up on my phone ._.<br/>
+<font color="#A82F2F"><font size="2">(01:34:34 PM)</font> <b>Fuuzetsu:</b></font> right<br/>
+<font color="#A82F2F"><font size="2">(01:36:27 PM)</font> <b>utdemir:</b></font> Fuuzetsu: Well, do I have another choice?<br/>
+<font color="#A82F2F"><font size="2">(01:38:09 PM)</font> <b>bennofs:</b></font> :O hydra 90k build queue, but 0 builds running. Why is that?<br/>
+<font color="#A82F2F"><font size="2">(01:42:04 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat closed pull request #6053: libraries/bullet: Bump version 2.80 -&gt; 2.82 (master...bullet) http://git.io/Fwv0<br/>
+<font color="#A82F2F"><font size="2">(01:42:41 PM)</font> <b>vcunat:</b></font> bennofs: I wonder the same, as sometimes I see it<br/>
+<font color="#A82F2F"><font size="2">(01:42:57 PM)</font> <b>bennofs:</b></font> Most machines are idle for 15h, even<br/>
+<font color="#A82F2F"><font size="2">(01:43:15 PM)</font> <b>vcunat:</b></font> ah, so it will most likely need manual intervention<br/>
+<font color="#A82F2F"><font size="2">(01:43:37 PM)</font> <b>vcunat:</b></font> niksnut: ^^<br/>
+<font color="#A82F2F"><font size="2">(01:44:30 PM)</font> <b>vcunat:</b></font> And the main nixos job hasn&apos;t been even evaluated for weeks...<br/>
+<font color="#A82F2F"><font size="2">(01:44:30 PM)</font> <b>vcunat:</b></font> http://hydra.nixos.org/jobset/nixos/trunk-combined<br/>
+<font color="#A82F2F"><font size="2">(01:44:37 PM)</font> <b>vcunat:</b></font> s/job/jobset/<br/>
+<font color="#A82F2F"><font size="2">(01:44:44 PM)</font> <b>bennofs:</b></font> vcunat: that&apos;s because OOM errors IIRC<br/>
+<font color="#A82F2F"><font size="2">(01:45:33 PM)</font> <b>vcunat:</b></font> yes, it claims so; eval also timeouts often during the last few months<br/>
+<font color="#A82F2F"><font size="2">(01:48:35 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lancelotsix opened pull request #6805: Change current version of uncrustify from 0.60 to 0.61 (master...upate_uncrustify) http://git.io/pbMQ<br/>
+<font size="2">(01:58:39 PM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#A82F2F"><font size="2">(02:04:22 PM)</font> <b>musicmatze:</b></font> What is the best way for specifying a service if this service needs a password from the user?(I&apos;m writing a module for mpdscribble atm, which requires a last.fm password, for example)<br/>
+<font color="#A82F2F"><font size="2">(02:04:50 PM)</font> <b>musicmatze:</b></font> I&apos;m currently writing it with the possibility to insert the password in the service specification, but ... I guess this is not the best way, is it?<br/>
+<font color="#16569E"><font size="2">(02:07:11 PM)</font> <b>magnetophon:</b></font> I have a working nix pkg of a program I wrote, but currently it depends on some pkgs that are not in NixOS yet. How do I include those? Here is the pkg, with a bit more explanation: http://nixpaste.noip.me/-6Ke3Vpd <br/>
+<font color="#A82F2F"><font size="2">(02:07:14 PM)</font> <b>goibhniu:</b></font> musicmatze: hmm .. how about reading it from a file e.g. in the user&apos;s $HOME/.config ?<br/>
+<font color="#A82F2F"><font size="2">(02:07:36 PM)</font> <b>musicmatze:</b></font> it ends up in the nix store anyways, right?<br/>
+<font color="#A82F2F"><font size="2">(02:09:42 PM)</font> <b>goibhniu:</b></font> musicmatze: unless you read it from the file when the service starts<br/>
+<font color="#A82F2F"><font size="2">(02:09:53 PM)</font> <b>musicmatze:</b></font> good idea,...<br/>
+<font color="#A82F2F"><font size="2">(02:10:11 PM)</font> <b>musicmatze:</b></font> Lets see how it works... :-)<br/>
+<font color="#A82F2F"><font size="2">(02:14:24 PM)</font> <b>musicmatze:</b></font> goibhniu: Can you show me an example how to do this?<br/>
+<font color="#A82F2F"><font size="2">(02:14:26 PM)</font> <b>goibhniu:</b></font> magnetophon: I bet you can just import them, I&apos;ll try it out in a bit<br/>
+<font color="#A82F2F"><font size="2">(02:14:55 PM)</font> <b>goibhniu:</b></font> magnetophon: where&apos;s your repo/branch with all the packages?<br/>
+<font color="#062585"><font size="2">(02:15:09 PM)</font> <b>***goibhniu</b></font> will be back in ~20<br/>
+<font color="#16569E"><font size="2">(02:24:38 PM)</font> <b>magnetophon:</b></font> goibhniu: It was on two trees. Now it's all here: https://github.com/magnetophon/nixpkgs/tree/faust%2Bpuredata<br/>
+<font color="#062585"><font size="2">(02:25:32 PM)</font> <b>***magnetophon</b></font> makes a mental note: no + signs in branchnames...<br/>
+<font color="#A82F2F"><font size="2">(02:29:31 PM)</font> <b>yorick:</b></font> can I make a bootable installation USB using just dd?<br/>
+<font color="#16569E"><font size="2">(02:29:45 PM)</font> <b>magnetophon:</b></font> yorick: nope, not yet<br/>
+<font color="#A82F2F"><font size="2">(02:29:53 PM)</font> <b>kmicu:</b></font> Yes, but use unofficial image.<br/>
+<font color="#A82F2F"><font size="2">(02:29:54 PM)</font> <b>vcunat:</b></font> yorick: not yet, but it&apos;s about to be merged<br/>
+<font color="#16569E"><font size="2">(02:30:03 PM)</font> <b>magnetophon:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(02:30:11 PM)</font> <b>vcunat:</b></font> https://github.com/NixOS/nixpkgs/pull/4678<br/>
+<font color="#A82F2F"><font size="2">(02:30:17 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] matthiasbeyer opened pull request #6806: [WIP] Add service: mpdscribble (master...add-mpdscribble-service) http://git.io/pbAn<br/>
+<font color="#A82F2F"><font size="2">(02:31:00 PM)</font> <b>yorick:</b></font> thanks! :)<br/>
+<font color="#A82F2F"><font size="2">(02:31:00 PM)</font> <b>avn:</b></font> Hmm, guys -- how to add xmonad with contrib/extra to systemEnvironment? (but w/o enabling via nixos modules, I still want run it via .xsession). Any examples?<br/>
+<font color="#A82F2F"><font size="2">(02:31:35 PM)</font> <b>jimstutt:</b></font>  /names<br/>
+<font color="#A82F2F"><font size="2">(02:31:49 PM)</font> <b>jimstutt:</b></font> \names<br/>
+<font color="#A82F2F"><font size="2">(02:31:53 PM)</font> <b>vcunat:</b></font> :-)<br/>
+<font color="#062585"><font size="2">(02:32:37 PM)</font> <b>***avn</b></font> decide to make first steps with xmonad today<br/>
+<font color="#A82F2F"><font size="2">(02:33:45 PM)</font> <b>kmicu:</b></font> Don’t use module and install xmonad(-contrib) in your ‘systemEnvironment’.<br/>
+<font color="#A82F2F"><font size="2">(02:37:22 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] 1126 opened pull request #6807: torbrowser: bump version to 4.0.4 (master...master) http://git.io/pbh2<br/>
+<font color="#A82F2F"><font size="2">(02:56:02 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/pNJp<br/>
+<font color="#A82F2F"><font size="2">(02:56:02 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9ba7027 Peter Simons: pkgs/development/libraries/kde-frameworks-5.7: fix evaluation<br/>
+<font color="#A82F2F"><font size="2">(02:56:59 PM)</font> <b>avn:</b></font> kmicu: haskellngPackages.xmonad?<br/>
+<font color="#A82F2F"><font size="2">(02:58:33 PM)</font> <b>kmicu:</b></font> That will make ‘xmonad’ exec available in environment.<br/>
+<font color="#A82F2F"><font size="2">(02:59:47 PM)</font> <b>avn:</b></font> haskellngPackages.xmonad haskellngPackages.xmonad-contrib haskellngPackages.xmonad-extras at least pass dry-run, will try to rebuild<br/>
+<font color="#A82F2F"><font size="2">(03:00:16 PM)</font> <b>kmicu:</b></font> Don’t install extras.<br/>
+<font color="#A82F2F"><font size="2">(03:00:23 PM)</font> <b>avn:</b></font> why?<br/>
+<font color="#A82F2F"><font size="2">(03:00:34 PM)</font> <b>avn:</b></font> they deprecated?<br/>
+<font color="#A82F2F"><font size="2">(03:00:46 PM)</font> <b>kmicu:</b></font> (or install it if you really know what is in extras and you want that)<br/>
+<font color="#A82F2F"><font size="2">(03:01:32 PM)</font> <b>kmicu:</b></font> (things in extras are not portable (BSD vs Linxu) or are not in contrib for other reasons)<br/>
+<font color="#A82F2F"><font size="2">(03:02:59 PM)</font> <b>avn:</b></font> well, comment it out if it breaks rebuild (just already run rebuild)<br/>
+<font color="#A82F2F"><font size="2">(03:03:46 PM)</font> <b>kmicu:</b></font> Why you are building it?<br/>
+<font color="#A82F2F"><font size="2">(03:04:45 PM)</font> <b>kmicu:</b></font> Substitutes should be available at http://hydra.nixos.org/ http://hydra.cryp.to/<br/>
+<font color="#A82F2F"><font size="2">(03:05:20 PM)</font> <b>avn:</b></font> kmicu: I mean `nixos-rebuild switch`<br/>
+<font color="#A82F2F"><font size="2">(03:05:31 PM)</font> <b>kmicu:</b></font> (but if not it will not last very long)<br/>
+<font color="#A82F2F"><font size="2">(03:05:36 PM)</font> <b>kmicu:</b></font> Oki doky.<br/>
+<font color="#A82F2F"><font size="2">(03:06:02 PM)</font> <b>avn:</b></font> I am not updated more than week, so it take a time<br/>
+<font color="#A82F2F"><font size="2">(03:06:23 PM)</font> <b>kmicu:</b></font> After installation you can join #haskell for quality help. ;)<br/>
+<font color="#A82F2F"><font size="2">(03:06:29 PM)</font> <b>avn:</b></font> (I should learn how to use kvm with vagrant,  virtualbox is annoying)<br/>
+<font color="#A82F2F"><font size="2">(03:06:33 PM)</font> <b>kmicu:</b></font> s/#haskell/#xmonad<br/>
+<font color="#A82F2F"><font size="2">(03:06:44 PM)</font> <b>avn:</b></font> I think I need both ;)<br/>
+<font color="#A82F2F"><font size="2">(03:07:21 PM)</font> <b>kmicu:</b></font> For haskell help we have better channels than #haskell :)<br/>
+<font color="#A82F2F"><font size="2">(03:07:39 PM)</font> <b>avn:</b></font> Suggestions of cool configs suitable to newbies also welcome ;)<br/>
+<font color="#A82F2F"><font size="2">(03:07:42 PM)</font> <b>avn:</b></font> which one?<br/>
+<font color="#A82F2F"><font size="2">(03:08:18 PM)</font> <b>kmicu:</b></font> #haskell-beginners, #nothaskell<br/>
+<font color="#A82F2F"><font size="2">(03:09:06 PM)</font> <b>pierron:</b></font> qknight: Re-making httpd service is huge.  I think this is needed, but last time I tried I hit some limitation to the module system.  Similar limitations as Lethalman is seeing with the mkMultiInstance.  As there is more need, I think we should look on how making the mkMultiInstance work properly first without introducing too many hacks this time.<br/>
+<font color="#A82F2F"><font size="2">(03:09:43 PM)</font> <b>kmicu:</b></font> It’s hard to define ‘cool’ config. We start from scratch, you will tell what you want, and we will help with that at #xmonad.<br/>
+<font color="#A82F2F"><font size="2">(03:09:49 PM)</font> <b>pierron:</b></font> qknight: Last time I tried, the hacks were too ugly to be something that we want to expose in NixOS.<br/>
+<font color="#A82F2F"><font size="2">(03:10:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/pNIS<br/>
+<font color="#A82F2F"><font size="2">(03:10:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master d54c94c Peter Simons: pkgs/development/haskell-modules/configuration-common.nix: cosmetic<br/>
+<font color="#A82F2F"><font size="2">(03:10:40 PM)</font> <b>avn:</b></font> kmicu: well, I never used tiled WMs before. I am migrating from fvwm. Thats all what I can tell for now ;)<br/>
+<font color="#A82F2F"><font size="2">(03:11:36 PM)</font> <b>pierron:</b></font> qknight: NixOS modules should be straight forward, and should not require deeper understanding as what can be seen at the top of the rename.nix module.<br/>
+<font color="#A82F2F"><font size="2">(03:13:33 PM)</font> <b>kmicu:</b></font> avn: You can search ‘xmonad’ at deviantart or youtube to check what is available and we will recreate it (or check https://wiki.haskell.org/Xmonad/Config_archive )<br/>
+<font color="#A82F2F"><font size="2">(03:15:21 PM)</font> <b>Fuuzetsu:</b></font> kmicu: are you one of those #haskell haters<br/>
+<font color="#A82F2F"><font size="2">(03:15:37 PM)</font> <b>kmicu:</b></font> Nope.<br/>
+<font color="#A82F2F"><font size="2">(03:16:38 PM)</font> <b>Fuuzetsu:</b></font> regarding cool configs, someone told me mine was overkill when I asked about something few months ago…<br/>
+<font color="#A82F2F"><font size="2">(03:17:50 PM)</font> <b>avn:</b></font> Well, all advices will be taken in notice, and all links will be read<br/>
+<font color="#062585"><font size="2">(03:21:44 PM)</font> <b>***kmicu</b></font> tells Fuuzetsu — your config is not overkill, it’s a perfect fit for your workflow. Good work.<br/>
+<font color="#A82F2F"><font size="2">(03:22:17 PM)</font> <b>Fuuzetsu:</b></font> (Y)<br/>
+<font color="#A82F2F"><font size="2">(03:22:41 PM)</font> <b>Fuuzetsu:</b></font> it&apos;s actually small and basic anyway<br/>
+<font color="#A82F2F"><font size="2">(03:22:58 PM)</font> <b>Fuuzetsu:</b></font> it&apos;s just a different small and basic to what it was when I copied it off a friend years ago<br/>
+<font color="#062585"><font size="2">(03:27:06 PM)</font> <b>***kmicu</b></font> dreams about DHT based decentralized distribution network for Nix substitutions… b/c building browsers and not sharing that is a waste and we all see how centralized Hydra ‘works’ recently.<br/>
+<font color="#A82F2F"><font size="2">(03:27:38 PM)</font> <b>Fuuzetsu:</b></font> the problem is turning dreams into code…<br/>
+<font color="#062585"><font size="2">(03:28:34 PM)</font> <b>***kmicu</b></font> still has bigger problems with nixpkgs. Hydra is not ASAP issue.<br/>
+<font color="#A82F2F"><font size="2">(03:31:55 PM)</font> <b>bennofs:</b></font> kmicu: you should first get bit-perfect reproducible builds working :D<br/>
+<font color="#A82F2F"><font size="2">(03:32:18 PM)</font> <b>alanz:</b></font> kmicu: Have you seen http://joearms.github.io/2015/03/12/The_web_of_names.html<br/>
+<font color="#A82F2F"><font size="2">(03:33:30 PM)</font> <b>kmicu:</b></font> bennofs: How often a browser (or any package) built by my machine will have different hash then yours?<br/>
+<font color="#A82F2F"><font size="2">(03:34:26 PM)</font> <b>Fuuzetsu:</b></font> often enough<br/>
+<font color="#A82F2F"><font size="2">(03:34:46 PM)</font> <b>bennofs:</b></font> kmicu: I don&apos;t know, but it&apos;s not so uncommon for two builds of the same package to have different hashes currently (even built if on same machine)<br/>
+<font color="#A82F2F"><font size="2">(03:35:01 PM)</font> <b>Fuuzetsu:</b></font> there are tickets for this stuff<br/>
+<font color="#A82F2F"><font size="2">(03:36:07 PM)</font> <b>kmicu:</b></font> Well, even with ‘10%’ of substitutions acquired from other users it would be useful (at least for me).<br/>
+<font color="#062585"><font size="2">(03:36:27 PM)</font> <b>***bennofs</b></font> tries to build rust for over 24 hours now :|<br/>
+<font color="#A82F2F"><font size="2">(03:37:28 PM)</font> <b>bennofs:</b></font> kmicu: well, but there is a problem with security. You need to trust that those people don&apos;t include any backdoors in the executables<br/>
+<font color="#A82F2F"><font size="2">(03:38:49 PM)</font> <b>kmicu:</b></font> You need to generate the same hash with different content (with payload) and also we could sign packages. (Enough for me)<br/>
+<font color="#A82F2F"><font size="2">(03:39:14 PM)</font> <b>bennofs:</b></font> kmicu: how do you know the hash before building it?<br/>
+<font color="#A82F2F"><font size="2">(03:40:23 PM)</font> <b>Fuuzetsu:</b></font> you don&apos;t ;P<br/>
+<font color="#A82F2F"><font size="2">(03:40:36 PM)</font> <b>Fuuzetsu:</b></font> pretty sure we had mailing list threads on this too<br/>
+<font color="#A82F2F"><font size="2">(03:40:40 PM)</font> <b>kmicu:</b></font> I must missing something about how nix works then.<br/>
+<font color="#A82F2F"><font size="2">(03:40:59 PM)</font> <b>kmicu:</b></font> Or we are talking about different hashes.<br/>
+<font color="#A82F2F"><font size="2">(03:41:07 PM)</font> <b>bennofs:</b></font> kmicu: probably :)<br/>
+<font color="#A82F2F"><font size="2">(03:41:19 PM)</font> <b>Fuuzetsu:</b></font> store path hashes here are irrelevant<br/>
+<font color="#A82F2F"><font size="2">(03:41:20 PM)</font> <b>Haskellfant:</b></font> if they are deterministic couldn&apos;t the hash just be an extra field of the derivation building that package? ofc then you still need to distribute the derivations securily but that is already a problem now<br/>
+<font color="#A82F2F"><font size="2">(03:41:47 PM)</font> <b>Fuuzetsu:</b></font> Haskellfant: ?<br/>
+<font color="#062585"><font size="2">(03:41:52 PM)</font> <b>***kmicu</b></font> will check how that works at Guix side.<br/>
+<font color="#A82F2F"><font size="2">(03:42:13 PM)</font> <b>Fuuzetsu:</b></font> oh<br/>
+<font color="#A82F2F"><font size="2">(03:42:22 PM)</font> <b>Haskellfant:</b></font> Fuuzetsu: add a sha256 or whatever hash you want to use to each .nix file and when building assert that the output is equal to that<br/>
+<font color="#A82F2F"><font size="2">(03:42:23 PM)</font> <b>bennofs:</b></font> kmicu: currently, in Nix, store hashes only depend on the derivation and the inputs to that derivation. The actual build result doesn&apos;t influence the store path<br/>
+<font color="#A82F2F"><font size="2">(03:42:45 PM)</font> <b>bennofs:</b></font> Haskellfant: you still need somebody trusted to verify that<br/>
+<font color="#A82F2F"><font size="2">(03:42:56 PM)</font> <b>Haskellfant:</b></font> bennofs: sure but right now I also need to trust the git repo<br/>
+<font color="#A82F2F"><font size="2">(03:43:05 PM)</font> <b>Fuuzetsu:</b></font> Haskellfant: but I think if we&apos;re trusting someone to send us the right derivations we might as well skip that step and get the binaries<br/>
+<font color="#A82F2F"><font size="2">(03:43:36 PM)</font> <b>bennofs:</b></font> Haskellfant: but you can view the source, and it&apos;s easier to convince yourself that the source is correct than that some binary blob is correct<br/>
+<font color="#A82F2F"><font size="2">(03:43:36 PM)</font> <b>Haskellfant:</b></font> Fuuzetsu: well distributing .nix files securely and fast doesn&apos;t require the computing power that distributing binaries does<br/>
+<font color="#A82F2F"><font size="2">(03:43:51 PM)</font> <b>Haskellfant:</b></font> bennofs: hm right, I didn&apos;t think about that. good point<br/>
+<font color="#A82F2F"><font size="2">(03:43:53 PM)</font> <b>Fuuzetsu:</b></font> sure but you&apos;ll be distributing nix files AND binaries<br/>
+<font color="#A82F2F"><font size="2">(03:44:27 PM)</font> <b>Fuuzetsu:</b></font> so you trust that a nix expression has the right hash in it then you blindly get the binary with that hash… just get the binary to begin with<br/>
+<font color="#A82F2F"><font size="2">(03:44:48 PM)</font> <b>Haskellfant:</b></font> hm yeah<br/>
+<font color="#A82F2F"><font size="2">(03:44:53 PM)</font> <b>Fuuzetsu:</b></font> unless you have many binary distributors to pick from then it could make sense<br/>
+<font color="#A82F2F"><font size="2">(03:45:30 PM)</font> <b>Fuuzetsu:</b></font> though you more or less do this already with trustedBinaryCaches<br/>
+<font color="#A82F2F"><font size="2">(03:47:33 PM)</font> <b>bennofs:</b></font> Maybe binary-caches could be improved to fetch different parts of the same file from different binary caches<br/>
+<font color="#A82F2F"><font size="2">(03:48:09 PM)</font> <b>bennofs:</b></font> Right now, if it picks a slow cache for the 1G texlive package, you&apos;re stuck with that AFAIK<br/>
+<font color="#A82F2F"><font size="2">(03:50:19 PM)</font> <b>Fuuzetsu:</b></font> yes, I love downloading texlive at 100k/s<br/>
+<font color="#A82F2F"><font size="2">(03:50:59 PM)</font> <b>bennofs:</b></font> kmicu: does hydra.cryp.to work for you? it recently returned 410 gone for me<br/>
+<font color="#A82F2F"><font size="2">(03:51:26 PM)</font> <b>Fuuzetsu:</b></font> peti most likely garbage collected<br/>
+<font color="#A82F2F"><font size="2">(03:52:46 PM)</font> <b>bennofs:</b></font> Probably a bug in Nix then that it doesn&apos;t try to build from source in that case, but errors out<br/>
+<font color="#A82F2F"><font size="2">(03:53:49 PM)</font> <b>Fuuzetsu:</b></font> there&apos;s a flag to fallback<br/>
+<font color="#A82F2F"><font size="2">(03:53:57 PM)</font> <b>bennofs:</b></font> didn&apos;t change anything<br/>
+<font color="#A82F2F"><font size="2">(03:54:02 PM)</font> <b>Fuuzetsu:</b></font> but it&apos;s there!<br/>
+<font color="#A82F2F"><font size="2">(03:54:25 PM)</font> <b>kmicu:</b></font> Yes, fixing Tex is a bigger problem.<br/>
+<font color="#A82F2F"><font size="2">(03:54:48 PM)</font> <b>kmicu:</b></font> texlive-ng to the rescue.<br/>
+<font color="#A82F2F"><font size="2">(03:54:57 PM)</font> <b>bennofs:</b></font> does that exist?<br/>
+<font color="#A82F2F"><font size="2">(03:55:20 PM)</font> <b>kmicu:</b></font> Locally :)<br/>
+<font color="#A82F2F"><font size="2">(03:58:25 PM)</font> <b>kmicu:</b></font> Could sbd explain that https://hydra.nixos.org/jobset/nixos/trunk-combined/evals ?<br/>
+<font color="#A82F2F"><font size="2">(03:59:16 PM)</font> <b>kmicu:</b></font> and that https://hydra.nixos.org/jobset/nixpkgs/trunk<br/>
+<font color="#A82F2F"><font size="2">(04:00:13 PM)</font> <b>Haskellfant:</b></font> wtf hydra has no running builds?<br/>
+<font color="#A82F2F"><font size="2">(04:00:50 PM)</font> <b>kmicu:</b></font> I only ask about some *status* info.<br/>
+<font color="#A82F2F"><font size="2">(04:03:17 PM)</font> <b>avn:</b></font> just curious, why  hydra haven&apos;t  chromium/firefox built with pulse support<br/>
+<font color="#A82F2F"><font size="2">(04:03:45 PM)</font> <b>kmicu:</b></font> Why we are building trees which are 4h apart, but the last fully evaluated tree was 10 days ago.<br/>
+<font color="#A82F2F"><font size="2">(04:04:02 PM)</font> <b>kmicu:</b></font> Is that by design? Is this helpful for someone?<br/>
+<font color="#A82F2F"><font size="2">(04:08:55 PM)</font> <b>bennofs:</b></font> kmicu: probably coming from nixpkgs eval<br/>
+<font color="#A82F2F"><font size="2">(04:09:17 PM)</font> <b>bennofs:</b></font> oh, nixpkgs also didn&apos;t eval?<br/>
+<font color="#A82F2F"><font size="2">(04:11:03 PM)</font> <b>ts468:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(04:11:22 PM)</font> <b>ts468:</b></font> is there a way to include a custom xkb configuration in nixos?<br/>
+<font color="#A82F2F"><font size="2">(04:11:41 PM)</font> <b>viric:</b></font> how much custom?<br/>
+<font color="#A82F2F"><font size="2">(04:12:10 PM)</font> <b>ts468:</b></font> like defining a custom layout<br/>
+<font color="#A82F2F"><font size="2">(04:12:50 PM)</font> <b>avn:</b></font> ts468: just xkbcomp  it.xkb $DISPLAY<br/>
+<font color="#A82F2F"><font size="2">(04:13:20 PM)</font> <b>ts468:</b></font> ok, thanks<br/>
+<font color="#A82F2F"><font size="2">(04:13:27 PM)</font> <b>avn:</b></font> I fixed xkbcomp few weeks ago<br/>
+<font color="#A82F2F"><font size="2">(04:13:36 PM)</font> <b>avn:</b></font> so it now possible<br/>
+<font color="#A82F2F"><font size="2">(04:13:50 PM)</font> <b>ts468:</b></font> but is there a way to change the stuff in /etc/X11/xkb ?<br/>
+<font size="2">(04:14:01 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(04:15:50 PM)</font> <b>ts468:</b></font> or, as far as I could see, the configuration for xkb is taken from /etc/X11/xkb in NixOS?<br/>
+<font color="#062585"><font size="2">(04:16:16 PM)</font> <b>***kmicu</b></font> http://i.imgur.com/zQZzeVg.png<br/>
+<font color="#A82F2F"><font size="2">(04:17:10 PM)</font> <b>bennofs:</b></font> Seems like I&apos;m building KDE now ...<br/>
+<font color="#A82F2F"><font size="2">(04:17:10 PM)</font> <b>ts468:</b></font> my idea was to have my changes somehow in /etc/nixos/configuration.nix<br/>
+<font color="#16569E"><font size="2">(04:38:12 PM)</font> <b>magnetophon:</b></font> I've got a launcher script that ends with &quot;kill -- -$$&quot;, to kill everything it started at some point. It works, except when I install it as a pkg and patch the paths in it. What is the proper way to kill everything you started? Here is the script, as patched by my installer: http://nixpaste.noip.me/sCS_Ogw6<br/>
+<font color="#A82F2F"><font size="2">(04:45:19 PM)</font> <b>m0rphism:</b></font> is it possible to let nix-env use a cache of some sort? &quot;nix-env -i&quot; takes sometimes up to 20 seconds. At the moment I&apos;m using the following workaround in my .bashrc, which requires manual cache updates:<br/>
+<font color="#A82F2F"><font size="2">(04:45:19 PM)</font> <b>m0rphism:</b></font>   function nix-search-update {<br/>
+<font color="#A82F2F"><font size="2">(04:45:19 PM)</font> <b>m0rphism:</b></font>     nix-env -qaP --description &gt; ~/.nixpkgsSearchCache<br/>
+<font color="#A82F2F"><font size="2">(04:45:19 PM)</font> <b>m0rphism:</b></font>   }<br/>
+<font color="#A82F2F"><font size="2">(04:45:19 PM)</font> <b>m0rphism:</b></font>   function nix-search-vim {<br/>
+<font color="#A82F2F"><font size="2">(04:45:19 PM)</font> <b>m0rphism:</b></font>     cat ~/.nixpkgsSearchCache | grep -i &quot;$@&quot; | qvim -c &quot;set nowrap&quot; -<br/>
+<font color="#A82F2F"><font size="2">(04:45:20 PM)</font> <b>m0rphism:</b></font>   }<br/>
+<font color="#A82F2F"><font size="2">(04:45:20 PM)</font> <b>m0rphism:</b></font> here nix-search-vim finishes immediately in contrast of directly calling nix-env.<br/>
+<font size="2">(04:48:53 PM)</font><b> goibhniu left the room (quit: Ping timeout: 240 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(04:51:50 PM)</font> <b>Fuuzetsu:</b></font> nox can apparently help<br/>
+<font color="#A82F2F"><font size="2">(04:51:53 PM)</font> <b>Fuuzetsu:</b></font> you should just use -iA though<br/>
+<font color="#A82F2F"><font size="2">(04:52:56 PM)</font> <b>m0rphism:</b></font> ahh, sry i wanted to say -qa, I&apos;m already using -iA through a wrapper which prepends &quot;-A nixos.pkgs.&quot; to each argument<br/>
+<font color="#A82F2F"><font size="2">(04:53:02 PM)</font> <b>m0rphism:</b></font> I will have a look at nox, thanks!<br/>
+<font color="#A82F2F"><font size="2">(04:53:40 PM)</font> <b>kmicu:</b></font> ‘nox’ has many meanings (especially ‘no X’), but https://github.com/madjar/nox is clear for everyone.<br/>
+<font color="#A82F2F"><font size="2">(04:54:20 PM)</font> <b>m0rphism:</b></font> kmicu: Thanks for the disambiguation :&gt;<br/>
+<font color="#A82F2F"><font size="2">(05:06:18 PM)</font> <b>m0rphism:</b></font> nox seems nice. With an up-to-date cache it takes ~1 second to filter the package database. I&apos;m not sure whether I like the interactive mode though: one the one hand it is a common workflow to first search a package and then install it; on the other hand if the query yielded multiple 100 results there is no possibility to search as for example with less or vim, and if I already know a package name the interactivity is an unnecessar<br/>
+<font color="#A82F2F"><font size="2">(05:07:07 PM)</font> <b>m0rphism:</b></font> I think I will use it for some time, and see how it affects my workflow. Thanks again for the hint :)<br/>
+<font color="#A82F2F"><font size="2">(05:09:47 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] gridaphobe pushed 2 new commits to master: http://git.io/pNye<br/>
+<font color="#A82F2F"><font size="2">(05:09:47 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 4835813 Eric Seidel: judy: clang doesnt know -fno-aggressive-loop-optimizations<br/>
+<font color="#A82F2F"><font size="2">(05:09:47 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master d3f69cd Eric Seidel: mariadb: oqgraph fails to build on darwin<br/>
+<font color="#16569E"><font size="2">(06:01:00 PM)</font> <b>magnetophon:</b></font> Anyone in here that wants to try out a synthesizer that you control with your voice? It's the main reason why I've been working on nix pkgs for faust and the puredata wrapper.  https://github.com/magnetophon/SynthSinger<br/>
+<font color="#A82F2F"><font size="2">(06:01:28 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to release-14.12: http://git.io/pAfB<br/>
+<font color="#A82F2F"><font size="2">(06:01:28 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/release-14.12 abed7e7 Nikita Karetnikov: pcmcia-utils: update to 017...<br/>
+<font color="#16569E"><font size="2">(06:04:56 PM)</font> <b>magnetophon:</b></font> I'm especially interested in people testing it on other unixes via the nix pkg manager, as I will be submitting this too a competition for faust programs. Maybe that'll get some more good functional programmers from the faust world in here ;)<br/>
+<font color="#A82F2F"><font size="2">(06:07:30 PM)</font> <b>m0rphism:</b></font> magnetophon: That sounds like a fun idea :D Too bad I have no microphone here... Still: what is the project called? Does it use fourier analysis to extract notes and then plays the synthesizer with them? :3<br/>
+<font color="#A82F2F"><font size="2">(06:08:31 PM)</font> <b>m0rphism:</b></font> oh sry, missed the link<br/>
+<font color="#16569E"><font size="2">(06:08:51 PM)</font> <b>magnetophon:</b></font> m0rphism: it's loads of fun! Yes, it does pitchtracking.<br/>
+<font color="#16569E"><font size="2">(06:09:34 PM)</font> <b>magnetophon:</b></font> it folows the melody and timbre of your voice, but turns it into many different synths.<br/>
+<font color="#A82F2F"><font size="2">(06:12:13 PM)</font> <b>dav:</b></font> So my NixOS machines are rapidly multiplying..<br/>
+<font color="#A82F2F"><font size="2">(06:12:58 PM)</font> <b>dav:</b></font> Question: if I have ubuntu on a secondary partition, how can I boot it from the grub setup in NixOS? extraEntries?<br/>
+<font color="#A82F2F"><font size="2">(06:14:57 PM)</font> <b>m0rphism:</b></font> magnetophon: Sounds awesome! I&apos;ve bookmarked it and will give it a try when I finished my exams in two weeks. A friend of mine has a lot of audio hardware and also works with puredata, I&apos;m sure he wants to try this, too. :)<br/>
+<font color="#16569E"><font size="2">(06:15:51 PM)</font> <b>magnetophon:</b></font> m0rphism: cool. I'd love to hear your feedback<br/>
+<font color="#A82F2F"><font size="2">(06:17:55 PM)</font> <b>avn:</b></font> dav: add ubuntu&apos;s loader as chainload, or just load their menu.cfg<br/>
+<font color="#A82F2F"><font size="2">(06:24:07 PM)</font> <b>m0rphism:</b></font> magnetophon: mwahaha, just found a picture of your studio linked on github. I just love those surrealistic looking plank construction! :3<br/>
+<font color="#16569E"><font size="2">(06:24:40 PM)</font> <b>magnetophon:</b></font> m0rphism: thanks! :)<br/>
+<font color="#16569E"><font size="2">(06:26:42 PM)</font> <b>magnetophon:</b></font> m0rphism: you can see and hear more at magnetophon.nl<br/>
+<font color="#A82F2F"><font size="2">(06:26:59 PM)</font> <b>m0rphism:</b></font> magnetophon: already there ;)<br/>
+<font color="#16569E"><font size="2">(06:27:09 PM)</font> <b>magnetophon:</b></font> m0rphism: lol<br/>
+<font color="#A82F2F"><font size="2">(06:34:43 PM)</font> <b>therp:</b></font> when is the next release of nix unstable due?<br/>
+<font color="#A82F2F"><font size="2">(06:35:20 PM)</font> <b>therp:</b></font> is there any rule of thumb/official schedule?<br/>
+<font color="#A82F2F"><font size="2">(06:36:52 PM)</font> <b>m0rphism:</b></font> therp: afaik when the hydra build problems are fixed.<br/>
+<font color="#A82F2F"><font size="2">(06:37:21 PM)</font> <b>m0rphism:</b></font> therp: thats for nixpkgs-unstable, not sure if you were referring to nixos unstable instead<br/>
+<font color="#A82F2F"><font size="2">(06:37:27 PM)</font> <b>bennofs:</b></font> therp: do you mean of nix (the package manager), nixpkgs (the channel if you&apos;re not on NixOS) or nixos channel?<br/>
+<font color="#A82F2F"><font size="2">(06:37:49 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] pSub closed pull request #6807: torbrowser: bump version to 4.0.4 (master...master) http://git.io/pbh2<br/>
+<font color="#A82F2F"><font size="2">(06:40:29 PM)</font> <b>m0rphism:</b></font> bennofs: ohh, didn&apos;t even think of the nixUnstable package. Time to get some rest ;)<br/>
+<font color="#A82F2F"><font size="2">(06:43:54 PM)</font> <b>dav:</b></font> avn: trying.<br/>
+<font color="#A82F2F"><font size="2">(06:44:26 PM)</font> <b>therp:</b></font> m0rphism &amp; bennofs: yes unstable nixpkgs I was talking about, thank you guys<br/>
+<font size="2">(06:47:13 PM)</font><b> dav left the room (quit: Quit: leaving).</b><br/>
+<font size="2">(06:52:07 PM)</font><b> goibhniu [<em>~goibhniu@pdpc/supporter/active/goibhniu</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:02:25 PM)</font> <b>avn:</b></font> suuurprise,   hydra miss for qt4.8, boooo<br/>
+<font size="2">(07:16:26 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

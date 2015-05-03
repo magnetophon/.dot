@@ -1,0 +1,32 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Thu 26 Mar 2015 10:55:17 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Thu 26 Mar 2015 10:55:17 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:55:17 AM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font size="2">(10:55:17 AM)</font><b> Topic for #lad set by tapas!~tapas@static.231.2.63.178.clients.your-server.de at 10:37:26 AM on 05/13/2013</b><br/>
+<font color="#A82F2F"><font size="2">(01:34:58 PM)</font> <b>rgareus:</b></font> caoliver: you can speficy the font at compile-time. if you don&apos;t have Vera. maybe  make FONTFILE=/usr/share/fonts/ComicSans.ttf  :D<br/>
+<font color="#A82F2F"><font size="2">(01:35:54 PM)</font> <b>rgareus:</b></font> caoliver: if that does not work please let me know or file an issue https://github.com/pantherb/setBfree/issues<br/>
+<font color="#A82F2F"><font size="2">(01:39:10 PM)</font> <b>rgareus:</b></font> the other alternative is to run x-lnx-buildstack. the script will download FTGL, patch is so that it allows to load fonts from RAM (see https://github.com/pantherb/setBfree/blob/master/x-lnx-buildstack.sh#L140) ... then create a c-header from the included Vera.ttf and link against it.    ALl in a one stop script.<br/>
+<font color="#A82F2F"><font size="2">(01:41:25 PM)</font> <b>bofh__:</b></font> man, someone needs to make monospace comic sans<br/>
+<font color="#A82F2F"><font size="2">(01:52:40 PM)</font> <b>domohawk:</b></font> rgareus: i put a minimal robtk plugin example on github. was just a little exercise to feel out if i wanted to use robtk for something more substantial<br/>
+<font color="#A82F2F"><font size="2">(03:23:30 PM)</font> <b>falkTX:</b></font> can an application prevent the creation of new pipes?<br/>
+<font color="#16569E"><font size="2">(03:27:08 PM)</font> <b>magnetophon:</b></font> I'm trying to package the wonderful nova-ladspa filters for NixOS (a distro that uses non-standard paths). Somehow scons doesn't find the boost headers, even when I explicitly do &quot;scons -I /path/to/headers/&quot;  How do I debug this?<br/>
+<font color="#A82F2F"><font size="2">(03:28:17 PM)</font> <b>falkTX:</b></font> you can add &quot;-I/path/&quot; in CFLAGS<br/>
+<font color="#A82F2F"><font size="2">(03:28:23 PM)</font> <b>falkTX:</b></font> that should work around that<br/>
+<font color="#16569E"><font size="2">(03:29:44 PM)</font> <b>magnetophon:</b></font> falkTX: thanks! I'll try<br/>
+<font color="#16569E"><font size="2">(03:38:03 PM)</font> <b>magnetophon:</b></font> falkTX: woohoo, it works! Thank you! :)<br/>
+<font color="#A82F2F"><font size="2">(03:38:32 PM)</font> <b>nilsge:</b></font> quick tip for a portable usb sound device for my laptop?<br/>
+<font color="#A82F2F"><font size="2">(03:38:59 PM)</font> <b>nilsge:</b></font> The only reason right now is to do the playback for my LAC talk<br/>
+<font color="#A82F2F"><font size="2">(03:39:01 PM)</font> <b>falkTX:</b></font> uca202? it&apos;s been working finr for me<br/>
+<font color="#A82F2F"><font size="2">(03:39:08 PM)</font> <b>falkTX:</b></font> *fine<br/>
+<font color="#A82F2F"><font size="2">(03:39:35 PM)</font> <b>nilsge:</b></font> uca222 or 202 ?<br/>
+<font color="#A82F2F"><font size="2">(03:39:53 PM)</font> <b>falkTX:</b></font> 202<br/>
+<font color="#A82F2F"><font size="2">(03:40:08 PM)</font> <b>falkTX:</b></font> 222 has something extra. 202 works fine for playback<br/>
+<font color="#A82F2F"><font size="2">(03:40:20 PM)</font> <b>falkTX:</b></font> -r 44100 -p 512 -n 3<br/>
+<font color="#A82F2F"><font size="2">(03:40:35 PM)</font> <b>falkTX:</b></font> nilsge: I can take it to lac if you need<br/>
+<font color="#A82F2F"><font size="2">(03:40:55 PM)</font> <b>nilsge:</b></font> because they cost exactly the same on amazon. 29 euro each<br/>
+<font color="#A82F2F"><font size="2">(03:42:41 PM)</font> <b>nilsge:</b></font> color and software seems to be the only difference<br/>
+<font color="#A82F2F"><font size="2">(03:44:34 PM)</font> <b>nilsge:</b></font> falkTX: thanks for the help. I just ordered one so I can test it out before the lac. that is the whole point. that reminds of a question to ask in another channel<br/>
+<font color="#A82F2F"><font size="2">(03:51:50 PM)</font> <b>caoliver:</b></font> rgareus: I wound up copying the bundled font to a place in user local, and then patching Makefile.<br/>
+<font color="#A82F2F"><font size="2">(03:53:01 PM)</font> <b>caoliver:</b></font> It&apos;s more an FTBFS issue from some machines that don&apos;t have the font in an expected place.  There is a need to patch, but that doesn&apos;t seem documented.<br/>
+<font color="#16569E"><font size="2">(04:58:17 PM)</font> <b>magnetophon:</b></font> falkTX: I got it to compile further, but now I keep getting &quot;error: 'check' was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]&quot; even when I set &quot;CXXFLAGS=-fpermissive&quot;<br/>
+<font color="#16569E"><font size="2">(04:58:40 PM)</font> <b>magnetophon:</b></font> the full error is here: http://nixpaste.noip.me/4yA-hWWF <br/>
+<font size="2">(05:29:28 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,158 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Tue 13 Jan 2015 06:45:06 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Tue 13 Jan 2015 06:45:06 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(06:45:06 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(06:45:07 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(06:45:38 PM)</font> <b>carter_cloud:</b></font> hey all<br/>
+<font color="#A82F2F"><font size="2">(06:46:05 PM)</font> <b>carter_cloud:</b></font> i&apos;ve gotten nix running a PRoot under RHEL 6.2, and i&apos;d like some help debugging something<br/>
+<font color="#A82F2F"><font size="2">(06:46:31 PM)</font> <b>carter_cloud:</b></font> i did  nix-channel --add http://nixos.org/channels/nixpkgs-unstable<br/>
+<font color="#A82F2F"><font size="2">(06:46:36 PM)</font> <b>carter_cloud:</b></font> etc to get it up to current stuff<br/>
+<font color="#A82F2F"><font size="2">(06:46:43 PM)</font> <b>carter_cloud:</b></font> then i  did<br/>
+<font color="#A82F2F"><font size="2">(06:46:56 PM)</font> <b>carter_cloud:</b></font>  nix-env -iA nixpkgs.haskellPackages.ghc<br/>
+<font color="#A82F2F"><font size="2">(06:47:01 PM)</font> <b>carter_cloud:</b></font> to get ghc installed<br/>
+<font color="#A82F2F"><font size="2">(06:47:20 PM)</font> <b>carter_cloud:</b></font> but then when i typed ghci in the resulting sytem<br/>
+<font color="#A82F2F"><font size="2">(06:47:22 PM)</font> <b>carter_cloud:</b></font> i get<br/>
+<font color="#A82F2F"><font size="2">(06:47:44 PM)</font> <b>carter_cloud:</b></font>  /nix/store/7nhcrjkv2sp3xxv09gl20gdm91ag2bmd-ghc-7.8.4/lib/ghc-7.8.4/bin/ghc: error while loading shared libraries: libHShaskeline-0.7.1.2-ghc7.8.4.so: cannot open shared object file: No such file or directory<br/>
+<font color="#A82F2F"><font size="2">(06:50:12 PM)</font> <b>carter_cloud:</b></font> i mean centos 6.5<br/>
+<font color="#A82F2F"><font size="2">(06:50:19 PM)</font> <b>carter_cloud:</b></font> ttuegel:  johnw  any ideas?<br/>
+<font size="2">(06:51:14 PM)</font><b> Matrixiumn is now known as CaveJohnson</b><br/>
+<font color="#A82F2F"><font size="2">(06:53:08 PM)</font> <b>ttuegel:</b></font> carter_cloud: what does ldd on that ghc executable say?<br/>
+<font color="#A82F2F"><font size="2">(06:54:02 PM)</font> <b>carter_cloud:</b></font> -ghc-7.8.4/bin/ghc<br/>
+<font color="#A82F2F"><font size="2">(06:54:02 PM)</font> <b>carter_cloud:</b></font>         not a dynamic executable<br/>
+<font color="#A82F2F"><font size="2">(06:54:12 PM)</font> <b>carter_cloud:</b></font> how do I add the dyn way?<br/>
+<font color="#A82F2F"><font size="2">(06:54:25 PM)</font> <b>ttuegel:</b></font> that file is probably a shell script wrapper<br/>
+<font color="#A82F2F"><font size="2">(06:55:06 PM)</font> <b>ttuegel:</b></font> you probably need to cat it to find the real exe<br/>
+<font color="#A82F2F"><font size="2">(06:55:14 PM)</font> <b>carter_cloud:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(06:55:15 PM)</font> <b>carter_cloud:</b></font> working on that<br/>
+<font color="#A82F2F"><font size="2">(06:56:20 PM)</font> <b>carter_cloud:</b></font> https://www.irccloud.com/pastebin/3Yu6wbMN<br/>
+<font color="#A82F2F"><font size="2">(06:56:32 PM)</font> <b>carter_cloud:</b></font> ttuegel:  patesbined<br/>
+<font color="#A82F2F"><font size="2">(06:57:37 PM)</font> <b>ttuegel:</b></font> hmm, ldd has no trouble finding that .so<br/>
+<font color="#A82F2F"><font size="2">(06:58:20 PM)</font> <b>ttuegel:</b></font> is the shell script wrapper invoking anything else that could fail?<br/>
+<font color="#A82F2F"><font size="2">(06:59:59 PM)</font> <b>carter_cloud:</b></font> https://www.irccloud.com/pastebin/S4uAdLX2<br/>
+<font color="#A82F2F"><font size="2">(07:00:02 PM)</font> <b>carter_cloud:</b></font> which then invokes<br/>
+<font color="#A82F2F"><font size="2">(07:00:31 PM)</font> <b>carter_cloud:</b></font> https://www.irccloud.com/pastebin/7a1O8YLC<br/>
+<font color="#A82F2F"><font size="2">(07:00:59 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to staging: http://git.io/mb17NA<br/>
+<font color="#A82F2F"><font size="2">(07:00:59 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/staging 1575bc6 Vladimír Čunát: Merge branch &apos;master&apos; into staging...<br/>
+<font color="#A82F2F"><font size="2">(07:01:29 PM)</font> <b>carter_cloud:</b></font> does the fact that i did  nix-channel --add http://nixos.org/channels/nixpkgs-unstable<br/>
+<font color="#A82F2F"><font size="2">(07:01:29 PM)</font> <b>carter_cloud:</b></font> and then nix-channel --update<br/>
+<font color="#A82F2F"><font size="2">(07:01:29 PM)</font> <b>carter_cloud:</b></font>  help at all?<br/>
+<font color="#A82F2F"><font size="2">(07:01:37 PM)</font> <b>carter_cloud:</b></font> g2g eat some lunch<br/>
+<font color="#A82F2F"><font size="2">(07:01:41 PM)</font> <b>carter_cloud:</b></font> i&apos;ll be back in a we bit<br/>
+<font color="#A82F2F"><font size="2">(07:01:51 PM)</font> <b>ttuegel:</b></font> carter_cloud: ok, i&apos;ll think about this some more<br/>
+<font color="#A82F2F"><font size="2">(07:02:31 PM)</font> <b>carter_cloud:</b></font> thanks!<br/>
+<font color="#A82F2F"><font size="2">(07:03:01 PM)</font> <b>carter_cloud:</b></font> alsoit could be a bad state somehow<br/>
+<font color="#A82F2F"><font size="2">(07:03:29 PM)</font> <b>ttuegel:</b></font> are you using haskell-ng, or haskellPackages?<br/>
+<font color="#A82F2F"><font size="2">(07:03:34 PM)</font> <b>carter_cloud:</b></font> latter<br/>
+<font color="#A82F2F"><font size="2">(07:03:46 PM)</font> <b>ttuegel:</b></font> ok, good, i haven&apos;t tested ng yet myself<br/>
+<font color="#A82F2F"><font size="2">(07:04:03 PM)</font> <b>carter_cloud:</b></font> i&apos;m cargo cult adapting the directions from the blog posted linked on nix-darwin<br/>
+<font color="#A82F2F"><font size="2">(07:04:13 PM)</font> <b>carter_cloud:</b></font> because i&apos;ve never used nix prior to saturday<br/>
+<font color="#A82F2F"><font size="2">(07:04:18 PM)</font> <b>carter_cloud:</b></font> ok, food<br/>
+<font color="#A82F2F"><font size="2">(07:04:20 PM)</font> <b>carter_cloud:</b></font> bbl<br/>
+<font color="#A82F2F"><font size="2">(07:04:22 PM)</font> <b>ttuegel:</b></font> cya<br/>
+<font color="#A82F2F"><font size="2">(07:07:30 PM)</font> <b>woffs:</b></font> Hi. I&apos;m struggling to get a nixos-installer booted via PXE. Apparently the bzImage on the CD does not support NFSROOT.<br/>
+<font color="#A82F2F"><font size="2">(07:18:08 PM)</font> <b>woffs:</b></font> although stage-1-init.sh does mention &quot;NFS path&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:19:03 PM)</font> <b>goibhniu1:</b></font> Hi woffs, have you seen: https://github.com/NixOS/nixpkgs/issues/2100#issuecomment-66155966 ?<br/>
+<font size="2">(07:19:06 PM)</font><b> goibhniu1 is now known as goibhniu</b><br/>
+<font color="#A82F2F"><font size="2">(07:20:47 PM)</font> <b>woffs:</b></font> goibhniu: I have seen it, but not recognized yet ;-)<br/>
+<font color="#A82F2F"><font size="2">(07:22:40 PM)</font> <b>woffs:</b></font> and I am very new to NixOS and do not know what steps can take me there. Yet.<br/>
+<font color="#A82F2F"><font size="2">(07:25:14 PM)</font> <b>carter:</b></font> ttuegel: i&apos;m totally game to reset the env i&apos;m in however you want<br/>
+<font color="#A82F2F"><font size="2">(07:25:38 PM)</font> <b>ttuegel:</b></font> carter: i doubt that would help<br/>
+<font color="#A82F2F"><font size="2">(07:26:07 PM)</font> <b>carter_cloud:</b></font> ttuegel:  it may... somehow the  nixpkgs.haskellPackages.haskeline is for a different version than what GHC wants<br/>
+<font color="#A82F2F"><font size="2">(07:26:12 PM)</font> <b>carter_cloud:</b></font> which concerns me<br/>
+<font color="#A82F2F"><font size="2">(07:26:16 PM)</font> <b>ttuegel:</b></font> can you check that the haskeline .so that ldd resolves actually exists? just  &apos;stat&apos; the filename<br/>
+<font color="#A82F2F"><font size="2">(07:26:29 PM)</font> <b>carter_cloud:</b></font> eli5 plz<br/>
+<font color="#A82F2F"><font size="2">(07:26:39 PM)</font> <b>ttuegel:</b></font> ok, in that output from ldd that you pasted?<br/>
+<font color="#A82F2F"><font size="2">(07:27:09 PM)</font> <b>ttuegel:</b></font> run &apos;stat&apos; on the filename for libHShaskeline-0.7.1.2-ghc7.8.4.so<br/>
+<font color="#A82F2F"><font size="2">(07:28:45 PM)</font> <b>carter_cloud:</b></font> https://www.irccloud.com/pastebin/eCKUCJaJ<br/>
+<font color="#A82F2F"><font size="2">(07:30:06 PM)</font> <b>carter_cloud:</b></font> when i nix install haskelline, it installs a difeent version though<br/>
+<font color="#A82F2F"><font size="2">(07:30:47 PM)</font> <b>ttuegel:</b></font> carter_cloud: that&apos;s ok<br/>
+<font color="#A82F2F"><font size="2">(07:31:04 PM)</font> <b>ttuegel:</b></font> ok, good, stat shows that file actually existst<br/>
+<font color="#A82F2F"><font size="2">(07:32:19 PM)</font> <b>ttuegel:</b></font> carter_cloud: do you have LD_LIBRARY_PATH set to anything?<br/>
+<font color="#A82F2F"><font size="2">(07:33:07 PM)</font> <b>carter_cloud:</b></font> ttuegel:  nope<br/>
+<font color="#A82F2F"><font size="2">(07:33:51 PM)</font> <b>ttuegel:</b></font> carter_cloud: ok, good, that would mess things up real quick<br/>
+<font color="#A82F2F"><font size="2">(07:35:17 PM)</font> <b>ttuegel:</b></font> ok, can you run ldd on the .so i just had you &apos;stat&apos;?<br/>
+<font color="#A82F2F"><font size="2">(07:35:52 PM)</font> <b>carter_cloud:</b></font> https://www.irccloud.com/pastebin/1ROJCVKd<br/>
+<font color="#A82F2F"><font size="2">(07:38:15 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] teh opened pull request #5747: a few haskellng fixes (master...master) http://git.io/19KwZg<br/>
+<font color="#A82F2F"><font size="2">(07:38:33 PM)</font> <b>johnw:</b></font> carter_cloud: can you do &quot;which ghci&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:38:36 PM)</font> <b>johnw:</b></font> and also, do you have a &apos;dist&apos; folder, or ~/.ghc, which might be interfering?<br/>
+<font size="2">(07:39:25 PM)</font><b> goibhniu left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(07:44:20 PM)</font> <b>carter_cloud:</b></font> its living in /home/v645736/.nix-profile/bin/ghci<br/>
+<font color="#A82F2F"><font size="2">(07:44:38 PM)</font> <b>carter_cloud:</b></font> and  ls ~<br/>
+<font color="#A82F2F"><font size="2">(07:44:39 PM)</font> <b>carter_cloud:</b></font> index.html  nix-boot  opt<br/>
+<font color="#A82F2F"><font size="2">(07:45:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/maPsKw<br/>
+<font color="#A82F2F"><font size="2">(07:45:53 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 77d66ed Vladimír Čunát: fetchgit: improve name detection, discard nix-1.8 check...<br/>
+<font color="#A82F2F"><font size="2">(07:46:04 PM)</font> <b>carter_cloud:</b></font> johnw:  ttuegel  this is using a prooted nix<br/>
+<font color="#A82F2F"><font size="2">(07:47:40 PM)</font> <b>ttuegel:</b></font> carter_cloud: can you try invoking ghc directly? not through the wrapper? it won&apos;t find any packages, but it will let us know if the wrapper is messing up linking somehow<br/>
+<font color="#A82F2F"><font size="2">(07:48:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/IBOk1A<br/>
+<font color="#A82F2F"><font size="2">(07:48:56 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 38d4ef3 Vladimír Čunát: liferea: minor update<br/>
+<font color="#A82F2F"><font size="2">(07:58:14 PM)</font> <b>carter_cloud:</b></font> https://www.irccloud.com/pastebin/sxT1rNBj<br/>
+<font color="#A82F2F"><font size="2">(07:58:25 PM)</font> <b>carter_cloud:</b></font> no dice ttuegel<br/>
+<font color="#A82F2F"><font size="2">(07:59:23 PM)</font> <b>ttuegel:</b></font> carter_cloud: ok, that&apos;s something, because ldd can find that thing&apos;s libraries!<br/>
+<font color="#A82F2F"><font size="2">(07:59:50 PM)</font> <b>carter_cloud:</b></font> ttuegel:  it might be easy to repro this locally with the proot thing on your side<br/>
+<font color="#A82F2F"><font size="2">(08:00:32 PM)</font> <b>carter_cloud:</b></font> could i use my slightly busted nix to build the stuff needed to do the bootstrap nix in $HOME/nix prefix?<br/>
+<font color="#A82F2F"><font size="2">(08:02:00 PM)</font> <b>ttuegel:</b></font> carter_cloud: hmm... i doubt it, even when you build the bootstrap nix, it still has to use the $HOME/nix prefix. i can&apos;t think of a way to get that out of your slightly-busted install<br/>
+<font color="#A82F2F"><font size="2">(08:02:42 PM)</font> <b>carter_cloud:</b></font> why cant&apos; i use this nix to build the other one<br/>
+<font color="#A82F2F"><font size="2">(08:02:48 PM)</font> <b>carter_cloud:</b></font> then unproot<br/>
+<font color="#A82F2F"><font size="2">(08:02:50 PM)</font> <b>carter_cloud:</b></font> and then know sanity<br/>
+<font color="#A82F2F"><font size="2">(08:03:00 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/8jNdHg<br/>
+<font color="#A82F2F"><font size="2">(08:03:00 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 1072635 Vladimír Čunát: firefox: major bump 34.0.5 -&gt; 35.0<br/>
+<font color="#A82F2F"><font size="2">(08:05:02 PM)</font> <b>ttuegel:</b></font> carter_cloud: because the newly-built nix&apos;s prefix would be *in* the proot<br/>
+<font color="#A82F2F"><font size="2">(08:05:28 PM)</font> <b>carter_cloud:</b></font> idont think so :)<br/>
+<font color="#A82F2F"><font size="2">(08:05:51 PM)</font> <b>carter_cloud:</b></font>  ~/opt/bin/proot-x86_64 -b ~/opt/nix-mnt/nix-1.7-x86_64-linux/:/nix bash<br/>
+<font color="#A82F2F"><font size="2">(08:06:06 PM)</font> <b>carter_cloud:</b></font> that seems to mean &quot;rewrite ~/opt/nix-mnt ... as /nix&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:07:23 PM)</font> <b>ttuegel:</b></font> ok, so if you build nix in the proot, where does it go?<br/>
+<font color="#A82F2F"><font size="2">(08:07:52 PM)</font> <b>ttuegel:</b></font> into that directory, which it thinks is /nix<br/>
+<font color="#A82F2F"><font size="2">(08:08:09 PM)</font> <b>ttuegel:</b></font> so then you get out of the proot and you want to use nix... and it can&apos;t find anything because /nix is no more<br/>
+<font color="#A82F2F"><font size="2">(08:10:03 PM)</font> <b>carter_cloud:</b></font> fff<br/>
+<font color="#A82F2F"><font size="2">(08:11:36 PM)</font> <b>ttuegel:</b></font> carter_cloud: $HOME is unchanged in the proot, right?<br/>
+<font color="#A82F2F"><font size="2">(08:12:20 PM)</font> <b>ttuegel:</b></font> carter_cloud: maybe we can make a custom expr for nix that you build in the proot and sets up nix in $HOME<br/>
+<font color="#A82F2F"><font size="2">(08:12:51 PM)</font> <b>carter:</b></font> ttuegel: yeah,<br/>
+<font color="#A82F2F"><font size="2">(08:13:02 PM)</font> <b>carter:</b></font> its just rewrting ~/nix-mnt/...<br/>
+<font color="#A82F2F"><font size="2">(08:13:15 PM)</font> <b>ttuegel:</b></font> so it would go: proot nix -&gt; bootstrap nix into $HOME -&gt; rebuild nix into $HOME -&gt; exit proot<br/>
+<font color="#A82F2F"><font size="2">(08:13:23 PM)</font> <b>carter:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(08:13:30 PM)</font> <b>ttuegel:</b></font> probably rebuild nix again after to be sure<br/>
+<font color="#A82F2F"><font size="2">(08:13:33 PM)</font> <b>carter:</b></font> that would be A OK<br/>
+<font color="#A82F2F"><font size="2">(08:13:41 PM)</font> <b>carter:</b></font> i just migt need to be spoon fed how to do that<br/>
+<font color="#A82F2F"><font size="2">(08:14:00 PM)</font> <b>ttuegel:</b></font> yeah, gimme a second to think how that expr would have to be...<br/>
+<font color="#A82F2F"><font size="2">(08:15:08 PM)</font> <b>ttuegel:</b></font> carter: ok, follow the instructions in this section: https://nixos.org/wiki/How_to_install_nix_in_home_(on_another_distribution)#Installing_Nix<br/>
+<font color="#A82F2F"><font size="2">(08:15:16 PM)</font> <b>ttuegel:</b></font> do that in the proot<br/>
+<font color="#A82F2F"><font size="2">(08:15:26 PM)</font> <b>ttuegel:</b></font> you already set up a channel, probably skip that<br/>
+<font color="#A82F2F"><font size="2">(08:15:36 PM)</font> <b>ttuegel:</b></font> but set up $HOME/.nixpkgs/config.nix as shown there<br/>
+<font color="#A82F2F"><font size="2">(08:15:48 PM)</font> <b>ttuegel:</b></font> and run &apos;nix-env -iA nix&apos;<br/>
+<font color="#A82F2F"><font size="2">(08:16:09 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti closed pull request #5747: a few haskellng fixes (master...master) http://git.io/19KwZg<br/>
+<font color="#A82F2F"><font size="2">(08:19:32 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vbgl closed pull request #5671: Bump version of vinyl to 0.5 (master...patch-1) http://git.io/HiurDw<br/>
+<font color="#A82F2F"><font size="2">(08:19:55 PM)</font> <b>carter_cloud:</b></font> ttuegel:  ok<br/>
+<font color="#A82F2F"><font size="2">(08:19:59 PM)</font> <b>carter_cloud:</b></font> i&apos;ll try that in a few mintues<br/>
+<font color="#A82F2F"><font size="2">(08:20:47 PM)</font> <b>ttuegel:</b></font> carter_cloud: ok, just ping me when you&apos;ve done that and then we&apos;ll check to make sure the nix installed in $HOME/nix is really all in that prefix<br/>
+<font size="2">(08:22:05 PM)</font><b> Atlanis_ is now known as emallson</b><br/>
+<font color="#A82F2F"><font size="2">(08:22:38 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/S8iZnw<br/>
+<font color="#A82F2F"><font size="2">(08:22:39 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9da7482 Peter Simons: haskell-configuration-common: minor cosmetic<br/>
+<font color="#A82F2F"><font size="2">(08:23:03 PM)</font> <b>emallson:</b></font> hullo all, im trying to setup nixos and having problems with iwlwifi not loading. this is a fresh install<br/>
+<font color="#A82F2F"><font size="2">(08:23:41 PM)</font> <b>emallson:</b></font> dmesg gives this error: iwlwifi 0000:03:00.0: request for firmware file &apos;iwlwifi-6000g2a-5.ucode&apos; failed.<br/>
+<font color="#A82F2F"><font size="2">(08:24:01 PM)</font> <b>carter_cloud:</b></font> ttuegel:  huh, do i need to do the hand installed parts with my setup?<br/>
+<font color="#A82F2F"><font size="2">(08:24:04 PM)</font> <b>emallson:</b></font> running `ip link` only prints the loopback interface<br/>
+<font color="#A82F2F"><font size="2">(08:24:08 PM)</font> <b>carter_cloud:</b></font> or just that one thing<br/>
+<font color="#A82F2F"><font size="2">(08:24:58 PM)</font> <b>vcunat:</b></font> emmanueloga: set hardware.enableAllFirmware = true; in your configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(08:25:19 PM)</font> <b>vcunat:</b></font> (slightly a sledge-hammer, but probably the easiest way)<br/>
+<font color="#A82F2F"><font size="2">(08:25:28 PM)</font> <b>emallson:</b></font> k, trying that<br/>
+<font color="#A82F2F"><font size="2">(08:26:37 PM)</font> <b>ttuegel:</b></font> carter_cloud: if you have the proot install, you *should* be able to use that to pre-bootstrap<br/>
+<font color="#A82F2F"><font size="2">(08:27:00 PM)</font> <b>emallson:</b></font> wait, that wasn&apos;t a response to me<br/>
+<font color="#A82F2F"><font size="2">(08:27:34 PM)</font> <b>vcunat:</b></font> emmanueloga, emallson: sorry, I confused you<br/>
+<font color="#A82F2F"><font size="2">(08:27:39 PM)</font> <b>ttuegel:</b></font> carter_cloud: but that will still give you nix living in the proot that uses $HOME/nix for its DB<br/>
+<font color="#A82F2F"><font size="2">(08:27:40 PM)</font> <b>emallson:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(08:27:48 PM)</font> <b>ttuegel:</b></font> carter_cloud: so you will have to build nix 1 more time :)<br/>
+<font color="#A82F2F"><font size="2">(08:28:02 PM)</font> <b>carter_cloud:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(08:28:14 PM)</font> <b>carter_cloud:</b></font> wait, so where do i put that .nix file for the phase 0?<br/>
+<font color="#A82F2F"><font size="2">(08:28:57 PM)</font> <b>carter_cloud:</b></font>  $HOME/.nixpkgs/config.nix rogjt<br/>
+<font color="#A82F2F"><font size="2">(08:28:57 PM)</font> <b>carter_cloud:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(08:29:38 PM)</font> <b>carter_cloud:</b></font> i dont see a ~/.nixpkgs alrady there, so i&apos;m creating it?<br/>
+<font color="#A82F2F"><font size="2">(08:31:12 PM)</font> <b>ttuegel:</b></font> carter_cloud: yes<br/>
+<font color="#A82F2F"><font size="2">(08:33:20 PM)</font> <b>carter_cloud:</b></font> nix-env -iA nix<br/>
+<font color="#A82F2F"><font size="2">(08:33:20 PM)</font> <b>carter_cloud:</b></font> error: attribute ânixâ in selection path ânixâ not found<br/>
+<font color="#A82F2F"><font size="2">(08:33:27 PM)</font> <b>carter_cloud:</b></font> ignore the funny formativing<br/>
+<font color="#A82F2F"><font size="2">(08:34:28 PM)</font> <b>ttuegel:</b></font> sorry, nix-env -iA nixpkgs.nix<br/>
+<font color="#A82F2F"><font size="2">(08:34:52 PM)</font> <b>carter_cloud:</b></font> stuff is happening!<br/>
+<font color="#A82F2F"><font size="2">(08:42:52 PM)</font> <b>emallson:</b></font> vcunat: that worked! thanks!<br/>
+<font color="#A82F2F"><font size="2">(08:42:52 PM)</font> <b>vcunat:</b></font> :-)<br/>
+<font color="#A82F2F"><font size="2">(08:43:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/SmHp9g<br/>
+<font color="#A82F2F"><font size="2">(08:43:52 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master d6ed341 Peter Simons: haskell-configuration-common: fix reference to optparse-applicative_0_10_0<br/>
+<font size="2">(09:13:39 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

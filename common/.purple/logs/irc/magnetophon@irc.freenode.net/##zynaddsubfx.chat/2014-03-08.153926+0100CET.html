@@ -1,0 +1,51 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with ##zynaddsubfx at Sat 08 Mar 2014 03:39:26 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with ##zynaddsubfx at Sat 08 Mar 2014 03:39:26 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(03:39:26 PM)</font><b> The topic for ##zynaddsubfx is: ZynAddSubFX - open source musical synthesizer <a href="http://zynaddsubfx.sf.net/">http://zynaddsubfx.sf.net/</a></b><br/>
+<font size="2">(03:39:26 PM)</font><b> Topic for ##zynaddsubfx set by fundamental!~fundament@c-50-180-48-70.hsd1.ga.comcast.net at 04:02:12 PM on 02/05/2014</b><br/>
+<font color="#A82F2F"><font size="2">(05:55:02 PM)</font> <b>__johannes__:</b></font> fundamental, do you have a few minutes to talk about moving the Qt UI into another thread?<br/>
+<font color="#A82F2F"><font size="2">(05:55:57 PM)</font> <b>__johannes__:</b></font> What I have right now is that the UI is still in the same thread as the Middleware<br/>
+<font color="#A82F2F"><font size="2">(05:56:33 PM)</font> <b>fundamental:</b></font> sure<br/>
+<font color="#A82F2F"><font size="2">(05:56:35 PM)</font> <b>__johannes__:</b></font> it accesses the MiddleWare simply with calls of rtosc_vmessage, followed by FlOscInterface::writeRaw()<br/>
+<font color="#A82F2F"><font size="2">(05:57:04 PM)</font> <b>__johannes__:</b></font> now, at that point, as I understand, UI and middleware just communicate in the same thread<br/>
+<font color="#A82F2F"><font size="2">(05:57:16 PM)</font> <b>__johannes__:</b></font> because Middleware directly redirects its calls to the Master<br/>
+<font color="#A82F2F"><font size="2">(05:57:48 PM)</font> <b>fundamental:</b></font> middleware&apos;s job is the shove all events that it can over to the realtime side and to handle the edge cases<br/>
+<font color="#A82F2F"><font size="2">(05:58:15 PM)</font> <b>fundamental:</b></font> the edge cases do end up blocking for a little bit, but otherwise this is fairly quick<br/>
+<font color="#A82F2F"><font size="2">(05:58:27 PM)</font> <b>fundamental:</b></font> to remove the UI from that thread, some extra ringbuffers need to be added<br/>
+<font color="#A82F2F"><font size="2">(05:58:41 PM)</font> <b>__johannes__:</b></font> yes, I looked into rtosc&apos;S ThreadLink<br/>
+<font color="#A82F2F"><font size="2">(05:58:51 PM)</font> <b>__johannes__:</b></font> I think that would be exactly what I need<br/>
+<font color="#A82F2F"><font size="2">(05:59:08 PM)</font> <b>fundamental:</b></font> yep, a pair to form a bidirectional link between the UI and the middleware<br/>
+<font color="#A82F2F"><font size="2">(05:59:45 PM)</font> <b>fundamental:</b></font> the hairiest logic is the extra /echo messages which define who is currently communicating with the backend<br/>
+<font color="#A82F2F"><font size="2">(06:00:16 PM)</font> <b>fundamental:</b></font> that should be handled in a fairly easily extendable way in MiddleWare.cpp<br/>
+<font color="#A82F2F"><font size="2">(06:00:46 PM)</font> <b>__johannes__:</b></font> I could replace rtosc_vmessage() + FlOscInterface::writeRaw() by ThreadLink::write(), read that in the other thread and pass it as it is to FlOscInterface::writeRaw()<br/>
+<font color="#A82F2F"><font size="2">(06:01:14 PM)</font> <b>fundamental:</b></font> as long as the UI callback is set right, that should work<br/>
+<font color="#A82F2F"><font size="2">(06:02:14 PM)</font> <b>__johannes__:</b></font> so the joke is that the communication UI&lt;-&gt;MW has the same format as the one of MW&lt;-&gt;RT?<br/>
+<font color="#A82F2F"><font size="2">(06:02:25 PM)</font> <b>__johannes__:</b></font> or better: is a subset of all possible messages<br/>
+<font color="#A82F2F"><font size="2">(06:03:08 PM)</font> <b>fundamental:</b></font> there&apos;s no strict subset here<br/>
+<font color="#A82F2F"><font size="2">(06:03:30 PM)</font> <b>fundamental:</b></font> all pointer operations should be strictly MW&lt;-&gt;RT for instance<br/>
+<font color="#A82F2F"><font size="2">(06:04:06 PM)</font> <b>__johannes__:</b></font> ah ok, actually, I do not need to define a grammar<br/>
+<font color="#A82F2F"><font size="2">(06:04:16 PM)</font> <b>__johannes__:</b></font> I&apos;ll just pass the strings I need<br/>
+<font color="#A82F2F"><font size="2">(06:04:28 PM)</font> <b>__johannes__:</b></font> What do you mean with the /echo msgs in MiddleWare.cpp? Do I need to extend anything?<br/>
+<font color="#A82F2F"><font size="2">(06:04:45 PM)</font> <b>fundamental:</b></font> well, not strings per say, as osc messages continue past the first &apos;\0&apos;<br/>
+<font color="#A82F2F"><font size="2">(06:05:25 PM)</font> <b>fundamental:</b></font> essentially a response from a port can either be a reply or a broadcast as to eliminate some extra traffic<br/>
+<font color="#A82F2F"><font size="2">(06:06:08 PM)</font> <b>fundamental:</b></font> middleware keeps track of who should be the active receiver(s) via a couple of extra messages<br/>
+<font color="#A82F2F"><font size="2">(06:07:45 PM)</font> <b>fundamental:</b></font> so if there is a sequence of &apos;/foo&apos; &apos;/bar&apos; &apos;/baz&apos; from the UI and &apos;/blam&apos; &apos;/bax&apos; from another interface, all replies will be routed to the one who made the request unless it is general information broadcast out<br/>
+<font color="#A82F2F"><font size="2">(06:08:28 PM)</font> <b>__johannes__:</b></font> you mean the UI might get 5 messages?<br/>
+<font color="#A82F2F"><font size="2">(06:08:31 PM)</font> <b>fundamental:</b></font> this is done by inserting an echo message currently which simply echos what is put into it and as this is a strictly in order system, it can be used to deliminate things<br/>
+<font color="#A82F2F"><font size="2">(06:08:45 PM)</font> <b>__johannes__:</b></font> ah<br/>
+<font color="#A82F2F"><font size="2">(06:08:58 PM)</font> <b>fundamental:</b></font> the UI could send 3 and the other 2 could be sent from some OSC sequencer or something<br/>
+<font color="#A82F2F"><font size="2">(06:09:36 PM)</font> <b>__johannes__:</b></font> so I might need to insert echo messages manually<br/>
+<font color="#A82F2F"><font size="2">(06:10:04 PM)</font> <b>fundamental:</b></font> I know the code is there in the abs branch, but I also know you had to do some considerable hacking to middlewrae<br/>
+<font color="#A82F2F"><font size="2">(06:11:40 PM)</font> <b>__johannes__:</b></font> can I not simply do &quot;rtosc::ThreadLink *uToUI = new rtosc::ThreadLink(4096*2,1024);&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(06:12:01 PM)</font> <b>__johannes__:</b></font> If the MiddleWare has two ThreadLinks, than the origin of a message should be clear?<br/>
+<font color="#A82F2F"><font size="2">(06:13:51 PM)</font> <b>fundamental:</b></font> oh, the origin is clear, but I&apos;m not sure if the way you have things routed gets that information propagated. I think it would but it has been a while since I looked at that code<br/>
+<font color="#A82F2F"><font size="2">(06:14:18 PM)</font> <b>fundamental:</b></font> as per the threadlinks, that&apos;s fine, though you might want to consider having somewhat smaller ones<br/>
+<font color="#A82F2F"><font size="2">(06:14:24 PM)</font> <b>fundamental:</b></font> that size seems somewhat excessive<br/>
+<font color="#A82F2F"><font size="2">(06:16:25 PM)</font> <b>fundamental:</b></font> the only one that really needs a big size is the bToU link as there is no way to really recover from it being full in that case<br/>
+<font color="#A82F2F"><font size="2">(06:18:09 PM)</font> <b>__johannes__:</b></font> the whole thing looks a big ugly, because it adds a new thread link to the MiddleWare, though some UIs do not need this thread link<br/>
+<font color="#A82F2F"><font size="2">(06:18:43 PM)</font> <b>fundamental:</b></font> &quot;though some UIs do not need this thread link&quot;?<br/>
+<font color="#A82F2F"><font size="2">(06:18:53 PM)</font> <b>__johannes__:</b></font> FL does not<br/>
+<font color="#A82F2F"><font size="2">(06:18:56 PM)</font> <b>__johannes__:</b></font> FLTK<br/>
+<font color="#A82F2F"><font size="2">(06:19:03 PM)</font> <b>fundamental:</b></font> Qt doesn&apos;t either<br/>
+<font color="#A82F2F"><font size="2">(06:19:07 PM)</font> <b>__johannes__:</b></font> not yet ;)<br/>
+<font color="#A82F2F"><font size="2">(06:19:52 PM)</font> <b>fundamental:</b></font> is your end goal out-of-process stuff here or just running stuff in an independent thread?<br/>
+<font color="#A82F2F"><font size="2">(06:20:40 PM)</font> <b>__johannes__:</b></font> I have not decided yet, but I guess that an independent thread should suffice...<br/>
+<font color="#A82F2F"><font size="2">(06:21:33 PM)</font> <b>__johannes__:</b></font> maybe the ThreadLink should be added to a subclass of Fl_Osc_Interface? That would keep the MW clean<br/>

@@ -1,0 +1,644 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #debian at Tue 10 Feb 2015 10:41:08 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #debian at Tue 10 Feb 2015 10:41:08 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:41:08 PM)</font><b> The topic for #debian is: Jessie frozen: /msg dpkg jessie freeze | wheezy released: /msg dpkg squeeze-&gt;wheezy | current point release: /msg dpkg 7.8 | NO FLOOD: /msg dpkg paste | /msg bots NOT people | offtopic: #debian-offtopic | testing/unstable: #debian-next (irc.oftc.net) | chanlogs: /msg dpkg irclog</b><br/>
+<font size="2">(10:41:08 PM)</font><b> Topic for #debian set by abrotman!~abrotman@pdpc/supporter/active/abrotman at 02:21:31 PM on 01/12/2015</b><br/>
+<font color="#A82F2F"><font size="2">(10:43:42 PM)</font> <b>r00tk1d:</b></font> Hi. I&apos;m trying to compile a second PHP installation (5.6) next to my default installed by apt-get install php5 (5.4)... question: Do I need to download and compile all of its modules, or can I &quot;reuse&quot; the ones from the apt packages for php 5.4 ?<br/>
+<font color="#A82F2F"><font size="2">(10:44:05 PM)</font> <b>cafuego:</b></font> r00tk1d: You cannot reuse them.<br/>
+<font color="#A82F2F"><font size="2">(10:44:43 PM)</font> <b>cafuego:</b></font> r00tk1d: However, they&apos;re bundled in the php tarball, so you should be able to compile them without separate downloads<br/>
+<font color="#A82F2F"><font size="2">(10:45:00 PM)</font> <b>r00tk1d:</b></font> cafuego: nice to hear! Do I just have to include the .so files in the new php.ini ?<br/>
+<font color="#A82F2F"><font size="2">(10:45:18 PM)</font> <b>r00tk1d:</b></font> cafuego: most of them do not complain, but those do: configure: WARNING: unrecognized options: --enable-mcrypt, --enable-memcached, --enable-curl, --enable-gd, --enable-mhash, --enable-mongo, --enable-mysql, --enable-mysqli, --enable-openssl, --enable-pdo_mysql, --enable-xdebug, --enable-zlib<br/>
+<font color="#A82F2F"><font size="2">(10:45:38 PM)</font> <b>cafuego:</b></font> r00tk1d: ./configure --help<br/>
+<font color="#A82F2F"><font size="2">(10:45:43 PM)</font> <b>cafuego:</b></font> r00tk1d: see what&apos;s in there<br/>
+<font color="#A82F2F"><font size="2">(10:47:21 PM)</font> <b>r00tk1d:</b></font> cafuego: very helpful!! when it sais --with-curl=DIR, DIR == /usr/bin/curl ?<br/>
+<font color="#A82F2F"><font size="2">(10:47:57 PM)</font> <b>cafuego:</b></font> r00tk1d: No, that should point at the libcurl installation path (ususally /usr) so it can find DIR/lib and DIR/include<br/>
+<font color="#A82F2F"><font size="2">(10:57:35 PM)</font> <b>r00tk1d:</b></font> cafuego: I have mcrypt for example in my apt php, now the new sais &quot;configure: error: mcrypt.h not found. Please reinstall libmcrypt.&quot;, and &quot;find / -name mcrypt.h&quot; has no results. Seems like I simply should download the missing modules from source and paste em in a new dir?<br/>
+<font color="#A82F2F"><font size="2">(10:57:52 PM)</font> <b>cafuego:</b></font> r00tk1d: No, no, no...<br/>
+<font color="#A82F2F"><font size="2">(10:58:02 PM)</font> <b>cafuego:</b></font> r00tk1d: Have you ever compiled software from source before?<br/>
+<font color="#A82F2F"><font size="2">(11:00:42 PM)</font> <b>r00tk1d:</b></font> cafuego: not really. PHP compiles well when I don&apos;t enable any modules lol apt-get install makes it way easier but in this case I need a special php-cli version<br/>
+<font color="#A82F2F"><font size="2">(11:01:06 PM)</font> <b>cafuego:</b></font> r00tk1d: Well, you picked a hell of a first package to try this on :-P<br/>
+<font color="#A82F2F"><font size="2">(11:01:33 PM)</font> <b>cafuego:</b></font> r00tk1d: 1) make sure to specify --prefix=/usr/local/php56 or something, or you will end up overwriting the packaged php.<br/>
+<font size="2">(11:02:02 PM)</font><b> mode (+l 1557) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:02:35 PM)</font> <b>r00tk1d:</b></font> cafuego: go big or die trying :D all I want is pthreads :( I specified --prefix=/usr/local/php-5.6.5, it finds most of the standard modules in ext/<br/>
+<font color="#A82F2F"><font size="2">(11:02:50 PM)</font> <b>cafuego:</b></font> 2) Each of the php modules (mcrypt, gd, mysql) requires a library (libmcrypt, libgd2, libmysqlclient) *and* header files (mcrypt.h, hd2.h, mysql.h) to be able to compile successfully.<br/>
+<font color="#A82F2F"><font size="2">(11:03:20 PM)</font> <b>cafuego:</b></font> r00tk1d: the libraries will be installed already because they are dependencies for the packaged version of php.<br/>
+<font color="#A82F2F"><font size="2">(11:03:47 PM)</font> <b>cafuego:</b></font> r00tk1d: You&apos;ll be missing the headers, though. They are provided by the FOOBAR-dev package for the FOOBAR library, usually.<br/>
+<font color="#A82F2F"><font size="2">(11:04:20 PM)</font> <b>cafuego:</b></font> r00tk1d: The easiest way to get them all for php is to make apt install all libraries and headers needed to compile the *packaged* php.<br/>
+<font color="#A82F2F"><font size="2">(11:04:38 PM)</font> <b>cafuego:</b></font> they&apos;ll be the same headers and libraries as the ones you need for your self-compiled one.<br/>
+<font color="#A82F2F"><font size="2">(11:04:44 PM)</font> <b>ddd1:</b></font>  Hello, i just installed upstart and that removed libvirt-bin as a dependency of systemd, the question is how to keep libvirt?<br/>
+<font color="#A82F2F"><font size="2">(11:04:46 PM)</font> <b>cafuego:</b></font> r00tk1d: apt-get build-dep php5<br/>
+<font color="#A82F2F"><font size="2">(11:05:46 PM)</font> <b>cafuego:</b></font> ddd1: install it and live without upstart.<br/>
+<font color="#A82F2F"><font size="2">(11:06:56 PM)</font> <b>r00tk1d:</b></font> cafuego: such valuable information for me. ok now I can find the header files in /usr let me see how far I get now<br/>
+<font color="#A82F2F"><font size="2">(11:07:41 PM)</font> <b>cafuego:</b></font> r00tk1d: you shouldn&apos;t need to specify the directories for header files under /usr, ./configure should find those automagically.<br/>
+<font color="#A82F2F"><font size="2">(11:07:50 PM)</font> <b>ddd1:</b></font> cafuego,maybe we should live with systemd after all<br/>
+<font color="#A82F2F"><font size="2">(11:07:58 PM)</font> <b>r00tk1d:</b></font> I love automagic<br/>
+<font color="#A82F2F"><font size="2">(11:10:30 PM)</font> <b>wiggl3:</b></font> i love openbsd<br/>
+<font color="#A82F2F"><font size="2">(11:10:56 PM)</font> <b>Vroomfondel:</b></font> I love my BRICK<br/>
+<font color="#A82F2F"><font size="2">(11:11:46 PM)</font> <b>wiggl3:</b></font> Vroomfondel: those old desktop pcs?<br/>
+<font color="#A82F2F"><font size="2">(11:11:51 PM)</font> <b>wiggl3:</b></font> i remember those :)<br/>
+<font color="#A82F2F"><font size="2">(11:12:13 PM)</font> <b>Vroomfondel:</b></font> I was thinking more of Father Jack, but yes, old PCs are usually fun too.<br/>
+<font color="#A82F2F"><font size="2">(11:12:26 PM)</font> <b>wiggl3:</b></font> father jack?<br/>
+<font color="#A82F2F"><font size="2">(11:13:07 PM)</font> <b>Vroomfondel:</b></font> there was an Irish sitcom called Father Ted, which featured a character called Father Jack. It was popular in Ireland and also the UK. He loved his brick.<br/>
+<font color="#A82F2F"><font size="2">(11:22:01 PM)</font> <b>Kobaz:</b></font> anyone using a fairly modern ati card with a new (3.18) kernel?  (I&apos;m trying to get a firepro 4100 working).. the Radeon driver doesn&apos;t seem to support it, and xfree core dumps when using fglrx<br/>
+<font size="2">(11:22:03 PM)</font><b> mode (+l 1544) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:22:19 PM)</font> <b>andril:</b></font> whats the best updated Debian distro<br/>
+<font size="2">(11:22:28 PM)</font><b> Smuckerz is now known as RandomJamOfJar</b><br/>
+<font color="#A82F2F"><font size="2">(11:23:27 PM)</font> <b>rgr:</b></font> debian<br/>
+<font color="#A82F2F"><font size="2">(11:23:36 PM)</font> <b>abrotman:</b></font> Kobaz: probably ask #ati<br/>
+<font color="#A82F2F"><font size="2">(11:23:46 PM)</font> <b>abrotman:</b></font> andril: this channel supports Debian<br/>
+<font color="#A82F2F"><font size="2">(11:23:46 PM)</font> <b>evangeline_:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(11:23:51 PM)</font> <b>Kobaz:</b></font> abrotman: mm, sounds good<br/>
+<font color="#A82F2F"><font size="2">(11:24:09 PM)</font> <b>evangeline_:</b></font> how can I disable dhclient from listening on port 68 ... I guess I would like to use a different DHCP client or possibly configure dhclient to disable the listen mode ?<br/>
+<font color="#A82F2F"><font size="2">(11:24:18 PM)</font> <b>abrotman:</b></font> listening?<br/>
+<font color="#A82F2F"><font size="2">(11:24:24 PM)</font> <b>rgr:</b></font> Kobaz: heh. you reckon. You&apos;ll hear an echo there. Get an nvidia card and save yourself a lot of pain.<br/>
+<font color="#A82F2F"><font size="2">(11:24:28 PM)</font> <b>abrotman:</b></font> evangeline_: can you show us the line from netstat?<br/>
+<font color="#062585"><font size="2">(11:25:00 PM)</font> <b>***abrotman</b></font> wouldn&apos;t get anywhere near nvidia or radeon <br/>
+<font color="#A82F2F"><font size="2">(11:25:05 PM)</font> <b>andril:</b></font> abrotman, thanks<br/>
+<font color="#A82F2F"><font size="2">(11:25:06 PM)</font> <b>evangeline_:</b></font> abrotman, udp        0      0 0.0.0.0:68              0.0.0.0:*                           2167/dhclient<br/>
+<font color="#A82F2F"><font size="2">(11:25:20 PM)</font> <b>evangeline_:</b></font> abrotman, I&apos;ve done it in the past, but I don&apos;t remember how<br/>
+<font color="#A82F2F"><font size="2">(11:25:54 PM)</font> <b>viccuad:</b></font> Hey guys, isn&apos;t this wiki page with an errata? for jessie, it should be install nvidia-kernel-dkms from jessie, not wheezy backports: https://wiki.debian.org/NvidiaGraphicsDrivers#Debian_8_.22Jessie.22<br/>
+<font color="#A82F2F"><font size="2">(11:28:18 PM)</font> <b>Kobaz:</b></font> rgr: haha<br/>
+<font color="#A82F2F"><font size="2">(11:28:51 PM)</font> <b>Kobaz:</b></font> rgr: weeeeeeel, i have an nvidia card, i have an amazing quad dvi quadro, but it&apos;s only supported in the legagy nvidia driver, which does not build on new kernels<br/>
+<font color="#A82F2F"><font size="2">(11:29:09 PM)</font> <b>Kobaz:</b></font> and i need to use a new kernel, since i&apos;m gonna be running on btrfs<br/>
+<font color="#A82F2F"><font size="2">(11:30:05 PM)</font> <b>Kobaz:</b></font> so i bought this ati card upon recommendation, because the mainline ati drivers are apparently coming along well<br/>
+<font color="#A82F2F"><font size="2">(11:32:20 PM)</font> <b>l1ght_:</b></font> Jessie is capable, I mean it<br/>
+<font color="#A82F2F"><font size="2">(11:33:52 PM)</font> <b>abrotman:</b></font> Kobaz: yes, the radeon driver generally works well, though they don&apos;t support your card yet<br/>
+<font color="#A82F2F"><font size="2">(11:33:59 PM)</font> <b>Kobaz:</b></font> i&apos;ve noticed that<br/>
+<font color="#A82F2F"><font size="2">(11:33:59 PM)</font> <b>Kobaz:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(11:34:06 PM)</font> <b>Kobaz:</b></font> i should have done more research before buying it<br/>
+<font color="#A82F2F"><font size="2">(11:34:10 PM)</font> <b>abrotman:</b></font> hence why I suggested asking #ati<br/>
+<font color="#A82F2F"><font size="2">(11:34:18 PM)</font> <b>Kobaz:</b></font> abrotman: yeap. i did<br/>
+<font color="#A82F2F"><font size="2">(11:34:22 PM)</font> <b>abrotman:</b></font> Kobaz: where&apos;d you get the .18 kernel?<br/>
+<font size="2">(11:35:18 PM)</font><b> l1ght_ left the room.</b><br/>
+<font color="#A82F2F"><font size="2">(11:36:09 PM)</font> <b>Kobaz:</b></font> abrotman: kernel.org<br/>
+<font color="#A82F2F"><font size="2">(11:36:23 PM)</font> <b>Kobaz:</b></font> 3.18.5<br/>
+<font color="#A82F2F"><font size="2">(11:38:12 PM)</font> <b>abrotman:</b></font> Kobaz: try it with a Debian kernel, see if it also throws up<br/>
+<font color="#A82F2F"><font size="2">(11:39:40 PM)</font> <b>Kobaz:</b></font> the core dump is in the fglrx driver<br/>
+<font color="#A82F2F"><font size="2">(11:39:48 PM)</font> <b>Kobaz:</b></font> not sure how much kernel space it touches from inside x<br/>
+<font color="#A82F2F"><font size="2">(11:40:04 PM)</font> <b>Kobaz:</b></font> it&apos;s in the x driver, not the kernel module... the crash<br/>
+<font size="2">(11:42:02 PM)</font><b> mode (+l 1532) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:46:52 PM)</font> <b>abrotman:</b></font> Kobaz: I&apos;d try it .. yu&apos;d be surprised<br/>
+<font color="#A82F2F"><font size="2">(11:48:20 PM)</font> <b>r00tk1d:</b></font> cafuego: thanks for your help. PHP now compiles well with all modules<br/>
+<font size="2">(11:53:35 PM)</font><b> r00tk1d left the room (quit: Quit: Page closed).</b><br/>
+<font color="#A82F2F"><font size="2">(11:57:31 PM)</font> <b>KaaK:</b></font> is it possible to chroot without using sudo?<br/>
+<font color="#A82F2F"><font size="2">(11:58:20 PM)</font> <b>Kobaz:</b></font> KaaK: those two things are completely and entirely separate things<br/>
+<font color="#A82F2F"><font size="2">(12:00:02 AM)</font> <b>KaaK:</b></font> let me rephrase -- is it possible to chroot into a directory without using sudo? I get permission denied when attempting it without sudo<br/>
+<font color="#A82F2F"><font size="2">(12:00:20 AM)</font> <b>Kobaz:</b></font> chroot requires root permission<br/>
+<font color="#A82F2F"><font size="2">(12:00:30 AM)</font> <b>Kobaz:</b></font> it just so happens that you can accomplish that by using sudo<br/>
+<font color="#A82F2F"><font size="2">(12:00:35 AM)</font> <b>Kobaz:</b></font> you can also su<br/>
+<font color="#A82F2F"><font size="2">(12:00:43 AM)</font> <b>Kobaz:</b></font> or run a setuid program/script that will do your chroot<br/>
+<font color="#A82F2F"><font size="2">(12:06:06 AM)</font> <b>KaaK:</b></font> Kobaz, solved it. http://linux.die.net/man/1/fakechroot<br/>
+<font color="#A82F2F"><font size="2">(12:06:20 AM)</font> <b>kay______:</b></font> i&apos;m a bit confused about setting up wordpress on debian - does it require its own fqdn? I&apos;m using setup-mysql.gz in /usr/share/doc/wordpress/examples<br/>
+<font color="#A82F2F"><font size="2">(12:08:07 AM)</font> <b>Kobaz:</b></font> kay______: http://premium.wpmudev.org/blog/wordpress-security-vulnerabilities/<br/>
+<font color="#A82F2F"><font size="2">(12:08:47 AM)</font> <b>Kobaz:</b></font> the page does debunk many of the reports as miscategorized, but that particular piece of software has a really poor security history<br/>
+<font color="#A82F2F"><font size="2">(12:10:16 AM)</font> <b>kay______:</b></font> so you&apos;re suggesting to not use wordpress, then?<br/>
+<font color="#A82F2F"><font size="2">(12:10:20 AM)</font> <b>Kobaz:</b></font> aye<br/>
+<font color="#A82F2F"><font size="2">(12:10:36 AM)</font> <b>kay______:</b></font> any suggestions for alternatives?<br/>
+<font color="#A82F2F"><font size="2">(12:11:18 AM)</font> <b>Kobaz:</b></font> there&apos;s tons of them out there<br/>
+<font color="#A82F2F"><font size="2">(12:11:25 AM)</font> <b>Kobaz:</b></font> my dad uses this one: http://www.opensourcecms.com/scripts/details.php?scriptid=333<br/>
+<font color="#A82F2F"><font size="2">(12:12:17 AM)</font> <b>kay______:</b></font> hmm i want blog software not a CMS ... but I will do more research<br/>
+<font color="#A82F2F"><font size="2">(12:12:49 AM)</font> <b>kay______:</b></font> thanks for the tip, i guess<br/>
+<font color="#A82F2F"><font size="2">(12:14:54 AM)</font> <b>humbot:</b></font> kay______, i&apos;m using nikola, it&apos;s a static site generator, you give it rst and it makes a blog<br/>
+<font color="#A82F2F"><font size="2">(12:14:57 AM)</font> <b>teraflops:</b></font> kay______: hey use static web pages for a blog just pelican or something similar<br/>
+<font color="#A82F2F"><font size="2">(12:15:10 AM)</font> <b>Kobaz:</b></font> well, it&apos;s a good tip.  Wordpress is probably the most popular blog platform and everyone who wants to spread their viruses, goes to attack the most popular stuff<br/>
+<font color="#A82F2F"><font size="2">(12:15:37 AM)</font> <b>Kobaz:</b></font> i can&apos;t count how many times i had to clean out an infected wordpress site (i do web hosting for some people)<br/>
+<font color="#A82F2F"><font size="2">(12:15:42 AM)</font> <b>teraflops:</b></font> why the hell people need such a pile of crap as wordpress for a simple blog?<br/>
+<font color="#A82F2F"><font size="2">(12:16:52 AM)</font> <b>cafuego:</b></font> because it&apos;s easy to set up and use<br/>
+<font color="#A82F2F"><font size="2">(12:18:57 AM)</font> <b>abrotman:</b></font> why the hell people need a blog ...<br/>
+<font color="#A82F2F"><font size="2">(12:19:05 AM)</font> <b>paragon:</b></font> most likely is is people who don&apos;t know the difference that are using it.<br/>
+<font color="#A82F2F"><font size="2">(12:19:16 AM)</font> <b>teraflops:</b></font> cafuego: sounds legit but ...<br/>
+<font color="#A82F2F"><font size="2">(12:19:26 AM)</font> <b>teraflops:</b></font> abrotman: +1<br/>
+<font color="#A82F2F"><font size="2">(12:19:41 AM)</font> <b>cafuego:</b></font> why should people require technical knowledge to have a web presence? it&apos;s not as if it&apos;s 1995<br/>
+<font color="#A82F2F"><font size="2">(12:20:41 AM)</font> <b>teraflops:</b></font> cafuego: then people can use blogspot or whatever, isn&apos;t it?<br/>
+<font color="#A82F2F"><font size="2">(12:21:02 AM)</font> <b>teraflops:</b></font> cafuego: uhm i never used that things may be Im wrong<br/>
+<font color="#A82F2F"><font size="2">(12:21:30 AM)</font> <b>cafuego:</b></font> teraflops: yup, or wordpress.com, or drupal gardens, or watevs.<br/>
+<font size="2">(12:22:02 AM)</font><b> VLife247VL is now known as Devastator</b><br/>
+<font size="2">(12:22:02 AM)</font><b> mode (+l 1524) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:22:32 AM)</font> <b>abrotman:</b></font> cafuego: or use G+ or livejournal or<br/>
+<font color="#A82F2F"><font size="2">(12:23:19 AM)</font> <b>teraflops:</b></font> thats what I mean theres no need to deal with the setup it already done elsewere and it&apos;s for free<br/>
+<font color="#A82F2F"><font size="2">(12:23:29 AM)</font> <b>cafuego:</b></font> or host your own if you don&apos;t want your data to be subject to US legislation<br/>
+<font color="#A82F2F"><font size="2">(12:23:54 AM)</font> <b>cafuego:</b></font> teraflops: As a debian user, you should know there&apos;s free and &quot;free&quot; ;-)<br/>
+<font color="#A82F2F"><font size="2">(12:24:09 AM)</font> <b>abrotman:</b></font> what was that journal site that closed years ago?<br/>
+<font size="2">(12:24:09 AM)</font><b> Devastator is now known as Devastator_</b><br/>
+<font color="#A82F2F"><font size="2">(12:24:09 AM)</font> <b>teraflops:</b></font> and then if you deal with that youre supposed to have some knowledge ...<br/>
+<font color="#A82F2F"><font size="2">(12:24:38 AM)</font> <b>kay______:</b></font> then we&apos;re just back to what software to use<br/>
+<font color="#A82F2F"><font size="2">(12:25:09 AM)</font> <b>teraflops:</b></font> cafuego: i use debian since potato but sincerely I do not care about free ans in freedom etc etc, no offense mate<br/>
+<font color="#A82F2F"><font size="2">(12:25:15 AM)</font> <b>teraflops:</b></font> as*<br/>
+<font color="#A82F2F"><font size="2">(12:28:58 AM)</font> <b>cafuego:</b></font> teraflops: none taken, but there are people who do.. and they might not want a blog hosted in  aparticular jurisdiction.<br/>
+<font color="#062585"><font size="2">(12:29:17 AM)</font> <b>***abrotman</b></font> is offneded<br/>
+<font color="#A82F2F"><font size="2">(12:29:28 AM)</font> <b>teraflops:</b></font> abrotman: srry man<br/>
+<font color="#062585"><font size="2">(12:29:56 AM)</font> <b>***abrotman</b></font> reads the backscholl to see what to be offneded about<br/>
+<font color="#A82F2F"><font size="2">(12:32:10 AM)</font> <b>teraflops:</b></font> cafuego: well I know the laws of my country in my case Ill use blogspot.com.es<br/>
+<font color="#A82F2F"><font size="2">(12:32:46 AM)</font> <b>teraflops:</b></font> and yes there is no blogspot.com.tv ...<br/>
+<font color="#A82F2F"><font size="2">(12:33:33 AM)</font> <b>humbot:</b></font> #debian is such fun<br/>
+<font color="#A82F2F"><font size="2">(12:36:10 AM)</font> <b>teraflops:</b></font> cafuego: nah sorry im just lazy not my intention to create a dispute<br/>
+<font color="#A82F2F"><font size="2">(12:36:27 AM)</font> <b>cafuego:</b></font> teraflops: Sadly that&apos;s still owned by google and thus subject to say the partiot act<br/>
+<font color="#A82F2F"><font size="2">(12:39:22 AM)</font> <b>teraflops:</b></font> cafuego: uhm may be, I don&apos;t know if the servers that are located in europe are in the same situation or the local laws prevail<br/>
+<font color="#A82F2F"><font size="2">(12:40:44 AM)</font> <b>kellnola:</b></font> about to switch to weezy after several years of &quot;that other thing&quot;<br/>
+<font color="#A82F2F"><font size="2">(12:40:58 AM)</font> <b>kellnola:</b></font> can&apos;t wait to have a working OS again<br/>
+<font color="#A82F2F"><font size="2">(12:41:22 AM)</font> <b>OSVG:</b></font> What is &quot;that other thing&quot;?<br/>
+<font color="#A82F2F"><font size="2">(12:41:32 AM)</font> <b>teraflops:</b></font> ub*n*u<br/>
+<font color="#A82F2F"><font size="2">(12:43:09 AM)</font> <b>kellnola:</b></font> ub$n^* and m#n%<br/>
+<font color="#A82F2F"><font size="2">(12:43:12 AM)</font> <b>teraflops:</b></font> heh<br/>
+<font color="#A82F2F"><font size="2">(12:43:47 AM)</font> <b>kellnola:</b></font> ub*n*u is to the point where half the programs I use just segfault after a new install<br/>
+<font color="#A82F2F"><font size="2">(12:44:05 AM)</font> <b>Marezz:</b></font> Would it be possible to install latest KDE4 in debian stable without causing issues to the OS?<br/>
+<font color="#A82F2F"><font size="2">(12:44:59 AM)</font> <b>babilen:</b></font> Marezz: IIRC wheezy has KDE 4.8<br/>
+<font color="#A82F2F"><font size="2">(12:45:29 AM)</font> <b>babilen:</b></font> dpkg: tell Marezz -about install kde<br/>
+<font color="#A82F2F"><font size="2">(12:46:55 AM)</font> <b>babilen:</b></font> But given that 4.0 was released in 2008 I am a little surprised by your question. You really shouldn&apos;t find 3.* anywhere ..<br/>
+<font color="#A82F2F"><font size="2">(12:47:22 AM)</font> <b>babilen:</b></font> (kde5 otoh)<br/>
+<font color="#A82F2F"><font size="2">(12:48:42 AM)</font> <b>Marezz:</b></font> otoh?<br/>
+<font color="#A82F2F"><font size="2">(12:49:10 AM)</font> <b>OSVG:</b></font> on the other hand<br/>
+<font color="#A82F2F"><font size="2">(12:49:30 AM)</font> <b>kellnola:</b></font> the problem is, I hate all the new desktops, except Mate<br/>
+<font color="#A82F2F"><font size="2">(12:49:55 AM)</font> <b>babilen:</b></font> so, don&apos;t use them<br/>
+<font color="#A82F2F"><font size="2">(12:50:27 AM)</font> <b>kellnola:</b></font> yeah, but that leaves me with just a wm, which i can live with, but I&apos;d rather an actual desktop<br/>
+<font color="#A82F2F"><font size="2">(12:51:00 AM)</font> <b>babilen:</b></font> use whatever you like best, it really isn&apos;t up to us to tell you that<br/>
+<font color="#A82F2F"><font size="2">(12:51:04 AM)</font> <b>kellnola:</b></font> is it possible to &quot;get used to&quot; Gnome 3? :)<br/>
+<font color="#A82F2F"><font size="2">(12:51:10 AM)</font> <b>OSVG:</b></font> Yes.<br/>
+<font color="#A82F2F"><font size="2">(12:53:53 AM)</font> <b>Busserl:</b></font> kellnola: why are they bad<br/>
+<font color="#A82F2F"><font size="2">(12:55:06 AM)</font> <b>humbot:</b></font> gnome3 is fine and that&apos;s coming from an openbox user<br/>
+<font color="#A82F2F"><font size="2">(12:55:08 AM)</font> <b>Busserl:</b></font> oh well<br/>
+<font color="#A82F2F"><font size="2">(12:55:16 AM)</font> <b>babilen:</b></font> You might want to continue this discussion in #debian-offtopic<br/>
+<font color="#A82F2F"><font size="2">(12:55:24 AM)</font> <b>Busserl:</b></font> yes, sorry<br/>
+<font color="#A82F2F"><font size="2">(12:55:29 AM)</font> <b>kellnola:</b></font> mostly I just &quot;don&apos;t like them&quot; (I liked Gnome 2 the most, then lxde, wmaker) but they do all seem to have this attitude that they are for small screens, which I find silly<br/>
+<font color="#A82F2F"><font size="2">(12:55:39 AM)</font> <b>babilen:</b></font> Busserl: no problem<br/>
+<font size="2">(12:58:13 AM)</font><b> xeniter_ is now known as xeniter</b><br/>
+<font size="2">(01:02:03 AM)</font><b> mode (+l 1514) by debhelper</b><br/>
+<font size="2">(01:08:45 AM)</font><b> xeniter is now known as xeniter_</b><br/>
+<font size="2">(01:14:35 AM)</font><b> bazhang_ is now known as bazhang</b><br/>
+<font color="#A82F2F"><font size="2">(01:19:40 AM)</font> <b>xreal:</b></font> Doey anyone know, what my HDD usage on mdadm RAID-5 looks like this? 60% sda, 20% sdb, 20% sdc - for reading and writing!<br/>
+<font color="#A82F2F"><font size="2">(01:26:31 AM)</font> <b>axel_fly:</b></font> xreal: use zfs, its nice<br/>
+<font color="#A82F2F"><font size="2">(01:26:54 AM)</font> <b>axel_fly:</b></font> and now stable on linux<br/>
+<font size="2">(01:30:25 AM)</font><b> enterprisedc_ is now known as enterprisedc</b><br/>
+<font size="2">(01:31:28 AM)</font><b> corey84_ is now known as Corey84</b><br/>
+<font size="2">(01:32:02 AM)</font><b> mode (+l 1507) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(01:34:43 AM)</font> <b>iAdam1n:</b></font> Is there any way that I could create a user that could not be allowed to do rm at all? I basically want it for a website that if someone somehow got access, then they couldn&apos;t damage the system<br/>
+<font color="#A82F2F"><font size="2">(01:38:34 AM)</font> <b>SerajewelKS:</b></font> i have a rather weird issue with apache+mod_ssl.  when connecting to the host using a browser, everything works if i use the ip (v4 or v6) in the browser (https://literal-ip)<br/>
+<font color="#A82F2F"><font size="2">(01:38:42 AM)</font> <b>SerajewelKS:</b></font> when using the hostname, the connection times out<br/>
+<font color="#A82F2F"><font size="2">(01:38:55 AM)</font> <b>SerajewelKS:</b></font> the hostname does resolve to the IP, of course<br/>
+<font color="#A82F2F"><font size="2">(01:40:00 AM)</font> <b>SerajewelKS:</b></font> when looking at both scenarios with wireshark, i cannot identify any difference that would cause this<br/>
+<font color="#A82F2F"><font size="2">(01:40:27 AM)</font> <b>axel_fly:</b></font> iAdam1n: chroot/Jailkit<br/>
+<font color="#A82F2F"><font size="2">(01:40:32 AM)</font> <b>xreal:</b></font> axel_fly: yeh, I want to use this for my SSDs.<br/>
+<font color="#A82F2F"><font size="2">(01:40:44 AM)</font> <b>xreal:</b></font> axel_fly: I don&apos;t want an EFI and boot partition for ZFS :D<br/>
+<font color="#A82F2F"><font size="2">(01:40:44 AM)</font> <b>iAdam1n:</b></font> thanks<br/>
+<font size="2">(01:40:48 AM)</font><b> iAdam1n left the room (&quot;Textual IRC Client: www.textualapp.com&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(01:41:17 AM)</font> <b>axel_fly:</b></font> xreal: depending on what you want<br/>
+<font color="#A82F2F"><font size="2">(01:41:36 AM)</font> <b>xreal:</b></font> axel_fly: DB (on SSD) should be on ZFS.<br/>
+<font color="#A82F2F"><font size="2">(01:41:49 AM)</font> <b>xreal:</b></font> axel_fly: but I wonder, why the distribution is so crazy.<br/>
+<font color="#A82F2F"><font size="2">(01:42:00 AM)</font> <b>axel_fly:</b></font> i think ssd is fast enough...  for storage raid5 or 6 personally would use zfs<br/>
+<font color="#A82F2F"><font size="2">(01:43:12 AM)</font> <b>baum:</b></font> question: i&apos;m stuck at the following tutorial, according to my system the configuration of /etc/dovecot/dovecot.conf is invalid, any ideas why? https://www.linode.com/docs/email/postfix/email-with-postfix-dovecot-and-mysql-on-debian-6-squeeze/<br/>
+<font color="#A82F2F"><font size="2">(01:44:43 AM)</font> <b>xreal:</b></font> axel_fly: I want RAID-0 SSD :D<br/>
+<font color="#A82F2F"><font size="2">(01:46:04 AM)</font> <b>abrotman:</b></font> baum: that&apos;s for squeeze, I hope you&apos;re not running squeeze<br/>
+<font color="#A82F2F"><font size="2">(01:46:05 AM)</font> <b>baum:</b></font> the error is:<br/>
+<font color="#A82F2F"><font size="2">(01:46:06 AM)</font> <b>baum:</b></font> dovecotError: Namespace &apos;&apos;: Hierarchy separator must be only one character long<br/>
+<font color="#A82F2F"><font size="2">(01:46:32 AM)</font> <b>baum:</b></font> abrotman, i am running squeeze<br/>
+<font color="#A82F2F"><font size="2">(01:47:56 AM)</font> <b>baum:</b></font> abrotman, i was under the impression that it&apos;s still supported, what&apos;s the problem with running it?<br/>
+<font color="#A82F2F"><font size="2">(01:50:07 AM)</font> <b>linux-fox:</b></font> hi, guys, i have installed debian7.8 on my laptop, only cli, not gui,.   now i want to modify the console font, how can i do this?<br/>
+<font color="#A82F2F"><font size="2">(01:50:07 AM)</font> <b>gammaleak:</b></font> I&apos;m trying to do a backport of ocropus from sid. It barfs on one of the default configuration options. Is there any way to pass a custom configuration option to apt-get -b ??<br/>
+<font color="#A82F2F"><font size="2">(01:50:35 AM)</font> <b>axel_fly:</b></font> xreal: i told you that normally speed of ssd is enough... in my opinion<br/>
+<font color="#A82F2F"><font size="2">(01:51:18 AM)</font> <b>SerajewelKS:</b></font> linux-fox: dpkg-reconfigure console-setup<br/>
+<font color="#A82F2F"><font size="2">(01:51:20 AM)</font> <b>axel_fly:</b></font> linux-fox:  vga=HEXCODE<br/>
+<font color="#A82F2F"><font size="2">(01:51:24 AM)</font> <b>lambdahands:</b></font> Hey, all. Trying to apt-get install right now, and I saw the ftp mirrors are experiencing issues? http://mirror.debian.org/status.html - is there an alternative I can use to grab packages?<br/>
+<font color="#A82F2F"><font size="2">(01:51:27 AM)</font> <b>axel_fly:</b></font> in grub<br/>
+<font color="#A82F2F"><font size="2">(01:52:18 AM)</font> <b>axel_fly:</b></font> linux-fox: use sudo hwinfo --framebuffer to get the modes<br/>
+<font size="2">(01:52:26 AM)</font><b> Jua is now known as Guest84295</b><br/>
+<font color="#A82F2F"><font size="2">(01:52:31 AM)</font> <b>axel_fly:</b></font> for size<br/>
+<font color="#A82F2F"><font size="2">(01:54:02 AM)</font> <b>axel_fly:</b></font> for font set use https://bbs.archlinux.org/viewtopic.php?id=134370<br/>
+<font color="#A82F2F"><font size="2">(01:55:01 AM)</font> <b>iAdam1n:</b></font> By default, can a user with sudo access even do rm -rf /* or would it require sshing in as root?<br/>
+<font color="#A82F2F"><font size="2">(01:55:18 AM)</font> <b>linux-fox:</b></font> SerajewelKS, axel_fly , thank you<br/>
+<font color="#A82F2F"><font size="2">(01:55:52 AM)</font> <b>tlund:</b></font> iAdam1n: using an interactive shell via sudo or &quot;sshing in as root&quot; is the same thing.<br/>
+<font color="#A82F2F"><font size="2">(01:55:59 AM)</font> <b>axel_fly:</b></font> chroot without sudo and admin access<br/>
+<font color="#A82F2F"><font size="2">(01:56:07 AM)</font> <b>iAdam1n:</b></font> I thought so :(<br/>
+<font color="#A82F2F"><font size="2">(01:56:31 AM)</font> <b>axel_fly:</b></font> iAdam1n: you can define the bin content, e.g. mv or rm<br/>
+<font color="#A82F2F"><font size="2">(01:56:32 AM)</font> <b>iAdam1n:</b></font> Is there no way to completely prevent that command?<br/>
+<font color="#A82F2F"><font size="2">(01:56:44 AM)</font> <b>SerajewelKS:</b></font> uid 0 (root) can break out of a chroot<br/>
+<font color="#A82F2F"><font size="2">(01:56:45 AM)</font> <b>axel_fly:</b></font> jailkit/chroot<br/>
+<font color="#A82F2F"><font size="2">(01:57:01 AM)</font> <b>axel_fly:</b></font> add an user....<br/>
+<font color="#A82F2F"><font size="2">(01:57:21 AM)</font> <b>iAdam1n:</b></font> Ah ok thanks<br/>
+<font size="2">(01:57:23 AM)</font><b> iAdam1n left the room (&quot;Palaver http://palaverapp.com/&quot;).</b><br/>
+<font color="#A82F2F"><font size="2">(01:57:29 AM)</font> <b>SerajewelKS:</b></font> chroot is completely ineffective as a security measure unless you run the process without root<br/>
+<font color="#A82F2F"><font size="2">(01:57:36 AM)</font> <b>SerajewelKS:</b></font> and he&apos;s gone<br/>
+<font size="2">(02:12:03 AM)</font><b> mode (+l 1498) by debhelper</b><br/>
+<font size="2">(02:16:10 AM)</font><b> cafuego is now known as c|AFK|uego</b><br/>
+<font color="#A82F2F"><font size="2">(02:19:46 AM)</font> <b>marioxcc:</b></font> Hi. Why is it that I can&apos;t find the package “nvidia-va-driver” in packages.debian.org?<br/>
+<font size="2">(02:21:58 AM)</font><b> marioxcc left the room (quit: Client Quit).</b><br/>
+<font size="2">(02:22:02 AM)</font><b> mode (+l 1490) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(02:26:16 AM)</font> <b>zack__:</b></font> How can i download skype<br/>
+<font color="#A82F2F"><font size="2">(02:26:42 AM)</font> <b>abrotman:</b></font> zack__: wiki.debina.org/Skype<br/>
+<font color="#A82F2F"><font size="2">(02:26:47 AM)</font> <b>abrotman:</b></font> but spelled correctly<br/>
+<font color="#A82F2F"><font size="2">(02:27:09 AM)</font> <b>zack__:</b></font> I tried that already, Will it run i wine?<br/>
+<font color="#A82F2F"><font size="2">(02:28:06 AM)</font> <b>zack__:</b></font> Yes it will thx bye<br/>
+<font size="2">(02:28:10 AM)</font><b> zack__ left the room (quit: Quit: Leaving).</b><br/>
+<font size="2">(02:44:50 AM)</font><b> Devastator_ is now known as Devastator</b><br/>
+<font color="#A82F2F"><font size="2">(02:46:33 AM)</font> <b>kminooie:</b></font> hi everyone can anyone tell where I can find the original source.list file of squeeze and also wheezy without installing a new system?<br/>
+<font color="#A82F2F"><font size="2">(02:47:18 AM)</font> <b>abrotman:</b></font> dpkg: tell kminooie about squeeze sources.list<br/>
+<font color="#A82F2F"><font size="2">(02:47:31 AM)</font> <b>abrotman:</b></font> dpkg: tell kminooie about wheezy sources.list<br/>
+<font color="#A82F2F"><font size="2">(02:47:50 AM)</font> <b>kminooie:</b></font> thank you<br/>
+<font color="#A82F2F"><font size="2">(02:50:53 AM)</font> <b>kminooie:</b></font> this dpkg is a handy guy :) . is there a manual for using him any where?<br/>
+<font size="2">(02:51:14 AM)</font><b> c|AFK|uego is now known as cafuego</b><br/>
+<font color="#A82F2F"><font size="2">(02:56:31 AM)</font> <b>kminooie:</b></font> ;) never mind found it<br/>
+<font color="#A82F2F"><font size="2">(02:57:01 AM)</font> <b>peterrooney:</b></font> kminooie: best bet is /msg dpkg listkeys &lt;searchterm&gt;<br/>
+<font color="#A82F2F"><font size="2">(02:58:42 AM)</font> <b>kminooie:</b></font> thanks peterrooney found the wiki<br/>
+<font size="2">(02:59:39 AM)</font><b> kminooie left the room (quit: Quit: Leaving.).</b><br/>
+<font size="2">(03:08:27 AM)</font><b> siso_ is now known as siso</b><br/>
+<font size="2">(03:32:02 AM)</font><b> mode (+l 1484) by debhelper</b><br/>
+<font size="2">(03:35:08 AM)</font><b> sleepypc is now known as `hypermist`</b><br/>
+<font color="#A82F2F"><font size="2">(03:36:31 AM)</font> <b>babak:</b></font> Hi , I installed debian on VM I connect to it with ordinary user I xan change root password but can not su to it , authentication failure , please help<br/>
+<font color="#A82F2F"><font size="2">(03:36:48 AM)</font> <b>babak:</b></font> xan/can<br/>
+<font color="#A82F2F"><font size="2">(03:36:54 AM)</font> <b>abrotman:</b></font> babak: you&apos;re sure you typed it correctly?<br/>
+<font color="#A82F2F"><font size="2">(03:37:05 AM)</font> <b>abrotman:</b></font> babak: does sudo work?<br/>
+<font color="#A82F2F"><font size="2">(03:37:37 AM)</font> <b>babak:</b></font> yes because changed root/unix password many times<br/>
+<font color="#A82F2F"><font size="2">(03:37:55 AM)</font> <b>babak:</b></font> sudo do not work<br/>
+<font color="#A82F2F"><font size="2">(03:38:38 AM)</font> <b>The_Schmidt:</b></font> might need to boot into single user mode<br/>
+<font color="#A82F2F"><font size="2">(03:38:49 AM)</font> <b>abrotman:</b></font> dpkg: tell babak about irfrp<br/>
+<font color="#A82F2F"><font size="2">(03:38:57 AM)</font> <b>abrotman:</b></font> dpkg: tell babak about frp<br/>
+<font color="#A82F2F"><font size="2">(03:39:01 AM)</font> <b>abrotman:</b></font> jesus<br/>
+<font color="#A82F2F"><font size="2">(03:39:07 AM)</font> <b>abrotman:</b></font> dpkg: tell babak about ifrp<br/>
+<font color="#A82F2F"><font size="2">(03:39:09 AM)</font> <b>abrotman:</b></font> there we go<br/>
+<font size="2">(03:42:02 AM)</font><b> mode (+l 1491) by debhelper</b><br/>
+<font size="2">(03:43:33 AM)</font><b> Duststorm_ is now known as Duststorm</b><br/>
+<font color="#A82F2F"><font size="2">(03:54:43 AM)</font> <b>siwyborsuk:</b></font> hello my friends<br/>
+<font color="#A82F2F"><font size="2">(03:56:15 AM)</font> <b>siwyborsuk:</b></font> who really know how to config vsftpd with opensll?<br/>
+<font color="#A82F2F"><font size="2">(04:01:21 AM)</font> <b>tlund:</b></font> siwyborsuk: just ask your question in the channel and wait for an answer.<br/>
+<font color="#A82F2F"><font size="2">(04:04:40 AM)</font> <b>siwyborsuk:</b></font> Or when I have to config anather computer to work with SFTP server I need also install opensll on both? Or need I copy key file?<br/>
+<font color="#A82F2F"><font size="2">(04:08:14 AM)</font> <b>rebauld:</b></font> siwyborsuk: just on the server<br/>
+<font color="#A82F2F"><font size="2">(04:09:00 AM)</font> <b>rebauld:</b></font> your client will probably ask if you want to accept it or there might be an option to automatically accept it<br/>
+<font color="#A82F2F"><font size="2">(04:09:34 AM)</font> <b>siwyborsuk:</b></font> OK, I see<br/>
+<font color="#A82F2F"><font size="2">(04:10:09 AM)</font> <b>siwyborsuk:</b></font> THX my friends<br/>
+<font size="2">(04:12:03 AM)</font><b> mode (+l 1483) by debhelper</b><br/>
+<font size="2">(04:21:55 AM)</font><b> deego` is now known as deego</b><br/>
+<font color="#A82F2F"><font size="2">(04:27:35 AM)</font> <b>asdf1231asf2342k:</b></font> chroot jail ?<br/>
+<font size="2">(04:29:33 AM)</font><b> zmisc is now known as Guest69141</b><br/>
+<font size="2">(04:42:02 AM)</font><b> mode (+l 1473) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(04:42:31 AM)</font> <b>ImHereForTheLulz:</b></font> hello<br/>
+<font size="2">(04:42:31 AM)</font><b> cafuego is now known as c|AFK|uego</b><br/>
+<font color="#A82F2F"><font size="2">(04:42:45 AM)</font> <b>asdf1231asf2342k:</b></font> yo!<br/>
+<font size="2">(04:48:58 AM)</font><b> infinity0_ is now known as infinity0</b><br/>
+<font color="#A82F2F"><font size="2">(04:55:16 AM)</font> <b>ImHereForTheLulz:</b></font> I need some help with my Debian 7.8 Server - i want to limit the global bandwidth for my FTP server to a fixed amount, lets say 1000kbps. I tried to follow some guidelines, read multiple wikis about iptables and tc (traffic control). sometimes i made it work, most times i failed. i&apos;m pretty new to linux and I&apos;m having some trouble understanding all the functions behind those commands mentioned<br/>
+<font color="#A82F2F"><font size="2">(04:55:16 AM)</font> <b>ImHereForTheLulz:</b></font> in the guides/wikis - for now its not working properly how i want it. testing this in a virtual machine with a snapshot, so i can revert if i break something<br/>
+<font color="#A82F2F"><font size="2">(04:57:25 AM)</font> <b>ImHereForTheLulz:</b></font> i really tried to read myself into tc and iptables, but I&apos;m having a really hard time to understand everything properly<br/>
+<font color="#A82F2F"><font size="2">(04:57:46 AM)</font> <b>ImHereForTheLulz:</b></font> so this is why i hope somebody may help me here<br/>
+<font color="#A82F2F"><font size="2">(04:58:15 AM)</font> <b>asdf1231asf2342k:</b></font> you want to limit the amount of traffic per month to that amount?<br/>
+<font color="#A82F2F"><font size="2">(04:58:21 AM)</font> <b>ImHereForTheLulz:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(04:58:24 AM)</font> <b>ImHereForTheLulz:</b></font> 1000kbps<br/>
+<font color="#A82F2F"><font size="2">(04:58:28 AM)</font> <b>ImHereForTheLulz:</b></font> kilobytes per second<br/>
+<font color="#A82F2F"><font size="2">(04:58:54 AM)</font> <b>ImHereForTheLulz:</b></font> my uploadspeed has a max rate of 1280kbps<br/>
+<font color="#A82F2F"><font size="2">(04:58:55 AM)</font> <b>abrotman:</b></font> !wondershaper<br/>
+<font color="#A82F2F"><font size="2">(04:58:55 AM)</font> <b>dpkg:</b></font> The Wonder Shaper is a script using the traffic shaping features of the Linux kernel to fix some problems, e.g. ensuring downloads continue at full speed while uploads occur at their maximum rate, keeping good interactive response times while bulk transfers are busy.  Packaged for Debian, read /usr/share/doc/wondershaper/README.Debian after installation.  http://lartc.org/wondershaper/  See also &lt;lartc&gt;.<br/>
+<font color="#A82F2F"><font size="2">(04:58:56 AM)</font> <b>abrotman:</b></font> maybe ?<br/>
+<font color="#A82F2F"><font size="2">(04:59:22 AM)</font> <b>ImHereForTheLulz:</b></font> hm - i dont know<br/>
+<font color="#A82F2F"><font size="2">(04:59:26 AM)</font> <b>kellnola:</b></font> ImHereForTheLulz, the wonder shaper script does that very easily, no fuss<br/>
+<font color="#A82F2F"><font size="2">(04:59:39 AM)</font> <b>ImHereForTheLulz:</b></font> will try it<br/>
+<font color="#A82F2F"><font size="2">(04:59:57 AM)</font> <b>ImHereForTheLulz:</b></font> but if i read this description<br/>
+<font color="#A82F2F"><font size="2">(05:00:33 AM)</font> <b>kellnola:</b></font> there is a variable to set the max upstream bandwidth<br/>
+<font color="#A82F2F"><font size="2">(05:00:41 AM)</font> <b>ImHereForTheLulz:</b></font> nevermind - will try it - brainfart<br/>
+<font color="#A82F2F"><font size="2">(05:00:56 AM)</font> <b>ImHereForTheLulz:</b></font> for a specific port?<br/>
+<font color="#A82F2F"><font size="2">(05:01:04 AM)</font> <b>ImHereForTheLulz:</b></font> i only want to limit the ftp service<br/>
+<font color="#A82F2F"><font size="2">(05:02:04 AM)</font> <b>kellnola:</b></font> ImHereForTheLulz, may I ask why you want to limit the ftp service?<br/>
+<font color="#A82F2F"><font size="2">(05:02:55 AM)</font> <b>ImHereForTheLulz:</b></font> here, read the first post<br/>
+<font color="#A82F2F"><font size="2">(05:02:57 AM)</font> <b>ImHereForTheLulz:</b></font> thats me<br/>
+<font color="#A82F2F"><font size="2">(05:02:58 AM)</font> <b>ImHereForTheLulz:</b></font> http://forums.openmediavault.org/index.php/Thread/6943-Fixed-upload-rate-for-ALL-users-or-the-ProFTPd-service-itself/<br/>
+<font color="#A82F2F"><font size="2">(05:03:19 AM)</font> <b>ImHereForTheLulz:</b></font> i&apos;ve installed debian on the server today<br/>
+<font color="#A82F2F"><font size="2">(05:03:24 AM)</font> <b>ImHereForTheLulz:</b></font> and then openmediavault ontop<br/>
+<font color="#A82F2F"><font size="2">(05:03:43 AM)</font> <b>ImHereForTheLulz:</b></font> as someone mentioned i wont get any support when using openmediavault, as its only based on debian<br/>
+<font color="#A82F2F"><font size="2">(05:03:46 AM)</font> <b>kellnola:</b></font> ImHereForTheLulz, oh, well the wshaper is just what you want<br/>
+<font color="#A82F2F"><font size="2">(05:04:10 AM)</font> <b>kellnola:</b></font> just put ftp in the &quot;low priority&quot; list and that should be it<br/>
+<font color="#A82F2F"><font size="2">(05:05:12 AM)</font> <b>ImHereForTheLulz:</b></font> i will try that, but i dont think that will help :P<br/>
+<font color="#A82F2F"><font size="2">(05:05:57 AM)</font> <b>ImHereForTheLulz:</b></font> wondershaper [-hcs] [-a &lt;adapter&gt;] [-d &lt;rate&gt;] [-u &lt;rate&gt;]<br/>
+<font color="#A82F2F"><font size="2">(05:05:59 AM)</font> <b>ImHereForTheLulz:</b></font> well<br/>
+<font color="#A82F2F"><font size="2">(05:06:11 AM)</font> <b>ImHereForTheLulz:</b></font> its limiting the global bandwidth, isn&apos;t it?<br/>
+<font color="#A82F2F"><font size="2">(05:06:22 AM)</font> <b>ImHereForTheLulz:</b></font> i dont want that<br/>
+<font color="#A82F2F"><font size="2">(05:06:51 AM)</font> <b>ImHereForTheLulz:</b></font> as mentioned, only for port 21 and maybe for a few more, as i&apos;m planning to use encrypted ftp in the future<br/>
+<font color="#A82F2F"><font size="2">(05:07:09 AM)</font> <b>ImHereForTheLulz:</b></font> samba/cifs should still run with fullspeed if possible<br/>
+<font color="#A82F2F"><font size="2">(05:07:10 AM)</font> <b>ImHereForTheLulz:</b></font> in my lan<br/>
+<font color="#A82F2F"><font size="2">(05:19:55 AM)</font> <b>Landen:</b></font> Has anyone here recently built a workstation here? I&apos;m having trouble choosing a GPU with decent support in testing.<br/>
+<font color="#A82F2F"><font size="2">(05:20:27 AM)</font> <b>srg:</b></font> I installed jessie on a laptop a month ago<br/>
+<font color="#A82F2F"><font size="2">(05:20:49 AM)</font> <b>srg:</b></font> it has a Core i5 with Intel HD Graphics 3000<br/>
+<font color="#A82F2F"><font size="2">(05:20:55 AM)</font> <b>srg:</b></font> It works ok. It&apos;s not like I do gaming or anything.<br/>
+<font color="#A82F2F"><font size="2">(05:21:38 AM)</font> <b>Landen:</b></font> So I&apos;m basically just trying to put together a build for a testing install but it won&apos;t be used for any gaming<br/>
+<font size="2">(05:22:02 AM)</font><b> mode (+l 1467) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:22:29 AM)</font> <b>srg:</b></font> I got this laptop as a refurb off Groupon for like $200<br/>
+<font color="#062585"><font size="2">(05:22:37 AM)</font> <b>***srg</b></font> shrugs<br/>
+<font color="#A82F2F"><font size="2">(05:22:54 AM)</font> <b>srg:</b></font> My only hang up with it was the wifi card.<br/>
+<font size="2">(05:23:00 AM)</font><b> aarcane_ is now known as aarcane</b><br/>
+<font color="#A82F2F"><font size="2">(05:23:12 AM)</font> <b>srg:</b></font> That took about 10-15 extra minutes and then I got the correct drivers installed and it works fine<br/>
+<font color="#A82F2F"><font size="2">(05:34:50 AM)</font> <b>RayzrShrp:</b></font> anybody know how to disable syslog-ng and only use journalctl?<br/>
+<font color="#A82F2F"><font size="2">(05:37:40 AM)</font> <b>RayzrShrp:</b></font> jessie<br/>
+<font size="2">(05:42:02 AM)</font><b> mode (+l 1457) by debhelper</b><br/>
+<font size="2">(05:52:02 AM)</font><b> mode (+l 1468) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(05:56:29 AM)</font> <b>ImHereForTheLulz:</b></font> okay - wondershaper ist not working for me<br/>
+<font color="#A82F2F"><font size="2">(05:56:39 AM)</font> <b>ImHereForTheLulz:</b></font> as it only limits the whole bandwidth, which is not what i want<br/>
+<font color="#A82F2F"><font size="2">(05:56:55 AM)</font> <b>ImHereForTheLulz:</b></font> pyshaper also didn&apos;t work for me<br/>
+<font color="#A82F2F"><font size="2">(05:59:07 AM)</font> <b>Rusty1:</b></font> ImHereForTheLulz:  might ask on ##networking as well<br/>
+<font color="#A82F2F"><font size="2">(05:59:51 AM)</font> <b>ImHereForTheLulz:</b></font> good idea - thanks<br/>
+<font color="#A82F2F"><font size="2">(06:54:17 AM)</font> <b>fling:</b></font> E: Sub-process /usr/bin/dpkg returned an error code (1) -&gt; http://dpaste.com/3046BSY<br/>
+<font color="#A82F2F"><font size="2">(06:55:57 AM)</font> <b>mjt:</b></font> https://groups.google.com/forum/#!topic/beagleboard/LPjCn4LEY2I -- first hit on google for &quot;led_aging.sh&quot;<br/>
+<font color="#A82F2F"><font size="2">(06:57:32 AM)</font> <b>themill:</b></font> fling: (also, please don&apos;t cross-post...)<br/>
+<font color="#A82F2F"><font size="2">(06:57:39 AM)</font> <b>fling:</b></font> themill: sorry ;P<br/>
+<font color="#A82F2F"><font size="2">(06:58:17 AM)</font> <b>fling:</b></font> mjt: thanks.<br/>
+<font color="#A82F2F"><font size="2">(06:59:47 AM)</font> <b>mjt:</b></font> fwiw, that&apos;s not an &quot;official solution&quot;, I just pointed out a possible direction (to use google)<br/>
+<font color="#A82F2F"><font size="2">(07:00:21 AM)</font> <b>mjt:</b></font> I&apos;ve no idea what this led_aging.sh thing is, where it comes from and why it errors out<br/>
+<font color="#A82F2F"><font size="2">(07:01:04 AM)</font> <b>fling:</b></font> mjt: but you are right anyway.o<br/>
+<font size="2">(07:04:27 AM)</font><b> kjoking is now known as jfasko</b><br/>
+<font color="#A82F2F"><font size="2">(07:19:29 AM)</font> <b>Naphidia:</b></font> how do i bring up both wifi adaptors at boot, i have one connecting to another access point the other i want to be static<br/>
+<font color="#A82F2F"><font size="2">(07:19:39 AM)</font> <b>Naphidia:</b></font> the static ip isn&apos;t being assigned to wlan1<br/>
+<font color="#A82F2F"><font size="2">(07:19:51 AM)</font> <b>Naphidia:</b></font> auto wlan1<br/>
+<font color="#A82F2F"><font size="2">(07:19:51 AM)</font> <b>Naphidia:</b></font> allow-hotplug wlan1<br/>
+<font color="#A82F2F"><font size="2">(07:19:51 AM)</font> <b>Naphidia:</b></font> iface wlan1 inet static<br/>
+<font color="#A82F2F"><font size="2">(07:19:51 AM)</font> <b>Naphidia:</b></font>         address 192.168.42.1<br/>
+<font color="#A82F2F"><font size="2">(07:19:51 AM)</font> <b>Naphidia:</b></font>         netmask 255.255.255.0<br/>
+<font size="2">(07:19:52 AM)</font><b> Naphidia left the room (Kicked by debhelper (flood. Please use http://paste.debian.net instead.)).</b><br/>
+<font size="2">(07:19:58 AM)</font><b> Naphidia [<em>~sdsd@S01067cbfb1ee547d.ed.shawcable.net</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(07:20:06 AM)</font> <b>Naphidia:</b></font> any ideas?<br/>
+<font color="#A82F2F"><font size="2">(07:20:42 AM)</font> <b>rwp:</b></font> There are about three different ways (or more) of doing the wifi lan adapter stuff.<br/>
+<font color="#A82F2F"><font size="2">(07:21:01 AM)</font> <b>rwp:</b></font> If I said one way was the best there would be others suggesting something different.<br/>
+<font color="#A82F2F"><font size="2">(07:21:10 AM)</font> <b>Naphidia:</b></font> i dont care which isthe best<br/>
+<font color="#A82F2F"><font size="2">(07:21:17 AM)</font> <b>rwp:</b></font> Try the different ones I am going to suggest and then see which works best for you.<br/>
+<font color="#A82F2F"><font size="2">(07:21:21 AM)</font> <b>Naphidia:</b></font> k<br/>
+<font color="#A82F2F"><font size="2">(07:21:23 AM)</font> <b>rwp:</b></font> Are you using wpa_suplicant?<br/>
+<font color="#A82F2F"><font size="2">(07:21:26 AM)</font> <b>Naphidia:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(07:21:35 AM)</font> <b>Naphidia:</b></font> just basic<br/>
+<font color="#A82F2F"><font size="2">(07:21:41 AM)</font> <b>rwp:</b></font> I am looking up my notes on this...<br/>
+<font color="#A82F2F"><font size="2">(07:23:09 AM)</font> <b>Naphidia:</b></font> k<br/>
+<font color="#A82F2F"><font size="2">(07:23:09 AM)</font> <b>rwp:</b></font> Both of your wifi ports are clients? (Not using hostapd?)<br/>
+<font color="#A82F2F"><font size="2">(07:23:16 AM)</font> <b>Naphidia:</b></font> 1 is using hostapd<br/>
+<font color="#A82F2F"><font size="2">(07:23:25 AM)</font> <b>Naphidia:</b></font> the other is connecting to my wifi router<br/>
+<font size="2">(07:23:38 AM)</font><b> nyuszika7h_ is now known as nyuszika7h</b><br/>
+<font color="#A82F2F"><font size="2">(07:23:55 AM)</font> <b>Naphidia:</b></font> i didnt have enough long enough cable so wifi was the next best option<br/>
+<font color="#A82F2F"><font size="2">(07:24:00 AM)</font> <b>rwp:</b></font> Ah...  So you are setting up a DIY access point.  Excellent.<br/>
+<font color="#A82F2F"><font size="2">(07:24:07 AM)</font> <b>Naphidia:</b></font> yea<br/>
+<font color="#A82F2F"><font size="2">(07:24:34 AM)</font> <b>Naphidia:</b></font> its routing everything nicely across, just a pain to have to start services manually every boot<br/>
+<font color="#A82F2F"><font size="2">(07:24:38 AM)</font> <b>rwp:</b></font> Those work great. It has just been a while so I am reading my notes so I can give you the best answer I can.<br/>
+<font color="#A82F2F"><font size="2">(07:26:18 AM)</font> <b>rwp:</b></font> Most of my notes are on the setup of the hostapd side of things and I assume you have that part all done already.<br/>
+<font color="#A82F2F"><font size="2">(07:26:50 AM)</font> <b>Naphidia:</b></font> yup all that stuff is configured and working<br/>
+<font color="#A82F2F"><font size="2">(07:27:19 AM)</font> <b>rwp:</b></font> Your upstream wifi is WPA/WPA2?  Or unencrypted?  I am hoping you say WPA/WPA2.  Because that is what I always set up.<br/>
+<font color="#A82F2F"><font size="2">(07:27:50 AM)</font> <b>Naphidia:</b></font> yup<br/>
+<font color="#A82F2F"><font size="2">(07:27:51 AM)</font> <b>rwp:</b></font> I remember there is unencrypted, wireless-tools, wpa_supplicant ways of doing the connection.<br/>
+<font color="#A82F2F"><font size="2">(07:28:18 AM)</font> <b>rwp:</b></font> I remember that the wireless-tools method was generally easy and reliable for the client.<br/>
+<font color="#A82F2F"><font size="2">(07:28:57 AM)</font> <b>rwp:</b></font> Which means something like this config.  IIRC.<br/>
+<font color="#A82F2F"><font size="2">(07:29:02 AM)</font> <b>rwp:</b></font> allow-hotplug wlan0<br/>
+<font color="#A82F2F"><font size="2">(07:29:09 AM)</font> <b>rwp:</b></font> iface wlan0 inet dhcp<br/>
+<font color="#A82F2F"><font size="2">(07:29:16 AM)</font> <b>rwp:</b></font>     wpa-ssid &quot;The Identifier&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:29:23 AM)</font> <b>rwp:</b></font>     wpa-psk &quot;abc123&quot;<br/>
+<font color="#A82F2F"><font size="2">(07:29:37 AM)</font> <b>Naphidia:</b></font> hah i figured it out<br/>
+<font color="#A82F2F"><font size="2">(07:29:38 AM)</font> <b>Naphidia:</b></font> lol<br/>
+<font color="#A82F2F"><font size="2">(07:29:44 AM)</font> <b>rwp:</b></font> When done that way the ifupdown tools should be able to start things automatically.<br/>
+<font color="#A82F2F"><font size="2">(07:29:53 AM)</font> <b>rwp:</b></font> Good!  What did you end up with.<br/>
+<font color="#A82F2F"><font size="2">(07:30:14 AM)</font> <b>rwp:</b></font> In any case, doing it with the wpa-foo stuff in /etc/network/interfaces uses the wireless-tools way of startup.<br/>
+<font color="#A82F2F"><font size="2">(07:30:27 AM)</font> <b>rwp:</b></font> The other way is the &quot;wpa-roam /etc/wpa_supplicant/wpa-roam.conf&quot; way.<br/>
+<font color="#A82F2F"><font size="2">(07:30:38 AM)</font> <b>rwp:</b></font> That is much more flexible but I always found it much more confusing too.<br/>
+<font color="#A82F2F"><font size="2">(07:31:44 AM)</font> <b>rwp:</b></font> For the hostapd side of things I found that after starting hostapd I needed to restart the dhcp server.<br/>
+<font color="#A82F2F"><font size="2">(07:32:04 AM)</font> <b>Naphidia:</b></font> http://pastebin.com/AXg4Cc8R<br/>
+<font color="#A82F2F"><font size="2">(07:32:05 AM)</font> <b>rwp:</b></font> I like and use the isc-dhcp-server and it binds to networks after it starts.<br/>
+<font color="#A82F2F"><font size="2">(07:32:09 AM)</font> <b>Naphidia:</b></font> yeah i got everything else working<br/>
+<font color="#A82F2F"><font size="2">(07:32:21 AM)</font> <b>rwp:</b></font> That is it doesn&apos;t detect that a new network appeared. So needs to be restarted after the network is up.<br/>
+<font color="#A82F2F"><font size="2">(07:32:24 AM)</font> <b>Naphidia:</b></font> it was just that small anoance<br/>
+<font color="#A82F2F"><font size="2">(07:32:46 AM)</font> <b>Naphidia:</b></font> its working beautifuly now<br/>
+<font color="#A82F2F"><font size="2">(07:32:57 AM)</font> <b>Naphidia:</b></font> don&apos;t need a monitor for my pi now<br/>
+<font color="#A82F2F"><font size="2">(07:33:02 AM)</font> <b>rwp:</b></font> Looking at your paste.  Very good.<br/>
+<font color="#A82F2F"><font size="2">(07:33:39 AM)</font> <b>rwp:</b></font> I never needed an &quot;iface default inet dhcp&quot; line.<br/>
+<font color="#A82F2F"><font size="2">(07:34:46 AM)</font> <b>rwp:</b></font> Here is my hostapd section. http://pastebin.com/YxTUNqN6<br/>
+<font color="#A82F2F"><font size="2">(07:36:35 AM)</font> <b>rwp:</b></font> Contents of the wlan0.conf file. http://pastebin.com/K7Ah2Z41<br/>
+<font color="#A82F2F"><font size="2">(07:37:12 AM)</font> <b>rwp:</b></font> With that everything is completely automatic for hotplugging and restarting.<br/>
+<font color="#A82F2F"><font size="2">(07:38:43 AM)</font> <b>rwp:</b></font> I know you said you had it all working but I figure another example is always useful for comparison.<br/>
+<font color="#A82F2F"><font size="2">(07:40:09 AM)</font> <b>rwp:</b></font> BTW...  The Pi is great for this but it is going to be limited to 50Mbit/s across the usb networking.<br/>
+<font color="#A82F2F"><font size="2">(07:40:28 AM)</font> <b>rwp:</b></font> Meaning that the wifi performance limitation is the Pi itself. With two interfaces running it will drop to 25Mbit/s throughput.<br/>
+<font color="#A82F2F"><font size="2">(07:40:41 AM)</font> <b>rwp:</b></font> Which is okay. Not great. But quite acceptable for most things.<br/>
+<font color="#A82F2F"><font size="2">(07:40:49 AM)</font> <b>zoosemeus:</b></font> Do you mean the Pi 2?<br/>
+<font color="#A82F2F"><font size="2">(07:40:52 AM)</font> <b>Naphidia:</b></font> yup, don&apos;t need it for much<br/>
+<font color="#A82F2F"><font size="2">(07:41:07 AM)</font> <b>Naphidia:</b></font> im holding off on the Pi2 cause of the bug<br/>
+<font color="#A82F2F"><font size="2">(07:41:16 AM)</font> <b>zoosemeus:</b></font> lol camera flash kills it<br/>
+<font color="#A82F2F"><font size="2">(07:41:16 AM)</font> <b>rwp:</b></font> If the Pi 2 has the same usb chip for networking as the Pi 1 then yes. And I think it does.<br/>
+<font color="#A82F2F"><font size="2">(07:41:41 AM)</font> <b>rwp:</b></font> But I only have the original Pi (times four) so don&apos;t have a Pi 2 in my hand yet to test it.<br/>
+<font color="#A82F2F"><font size="2">(07:41:52 AM)</font> <b>Naphidia:</b></font> I have the B model<br/>
+<font color="#A82F2F"><font size="2">(07:42:01 AM)</font> <b>rwp:</b></font> The original Pi A &amp; B models put everything through the usb chip.<br/>
+<font color="#A82F2F"><font size="2">(07:42:03 AM)</font> <b>zoosemeus:</b></font> That&apos;s actually why I&apos;m here. Hopefully someone can help me out with my Pi<br/>
+<font color="#A82F2F"><font size="2">(07:42:23 AM)</font> <b>rwp:</b></font> Which generates a huge amount of interrupt traffic. And has limited bandwidth of 50Mbit/s max.<br/>
+<font color="#A82F2F"><font size="2">(07:42:41 AM)</font> <b>rwp:</b></font> Two data streams share that so split it to 25Mbit/s through in and out when used as a wifi router.<br/>
+<font color="#A82F2F"><font size="2">(07:43:08 AM)</font> <b>rwp:</b></font> I still use it for that purpose anyway. But just mentioning it as a limitation.<br/>
+<font color="#A82F2F"><font size="2">(07:43:22 AM)</font> <b>zoosemeus:</b></font> How is the Pi as a router?<br/>
+<font color="#A82F2F"><font size="2">(07:43:34 AM)</font> <b>rwp:</b></font> Which is why the BeagleBone Black and Banana Pi and Cubie boards tend t obe better because they don&apos;t have the cheap usb chip.<br/>
+<font color="#A82F2F"><font size="2">(07:44:28 AM)</font> <b>rwp:</b></font> If your expectations are for a fun DIY router for $35 that gives you a complete software operating system then it is great!<br/>
+<font color="#A82F2F"><font size="2">(07:44:43 AM)</font> <b>rwp:</b></font> At the limitation of the limited bandwidth capable through it.<br/>
+<font color="#A82F2F"><font size="2">(07:44:51 AM)</font> <b>zoosemeus:</b></font> I have the B+ and I&apos;m satisfied with it so far<br/>
+<font color="#A82F2F"><font size="2">(07:45:04 AM)</font> <b>zoosemeus:</b></font> could be more powerful but honestly for what it is, I&apos;m happy.<br/>
+<font color="#A82F2F"><font size="2">(07:45:19 AM)</font> <b>rwp:</b></font> I have something like six of the original A &amp; B Pis total. Four in active service here and there.<br/>
+<font color="#A82F2F"><font size="2">(07:45:46 AM)</font> <b>rwp:</b></font> One has been in continuous service 24x7 for more than a year solid now with zero problems.<br/>
+<font color="#A82F2F"><font size="2">(07:45:46 AM)</font> <b>zoosemeus:</b></font> Having a bit of trouble with it at the moment though. I&apos;m a total noob with the permissions structure in linux and I can&apos;t get owncloud to play nice with the Transmission daemon<br/>
+<font color="#A82F2F"><font size="2">(07:46:08 AM)</font> <b>rwp:</b></font> Two have been in use as wifi routers in a couple of interesting places.<br/>
+<font color="#A82F2F"><font size="2">(07:46:36 AM)</font> <b>rwp:</b></font> Sorry but I live under a rock and do not know anything about owncloud or Transmission daemon.<br/>
+<font color="#A82F2F"><font size="2">(07:47:06 AM)</font> <b>rwp:</b></font> How are those related to using a Pi as a router?<br/>
+<font color="#A82F2F"><font size="2">(07:47:38 AM)</font> <b>zoosemeus:</b></font> Owncloud is a file server and &quot;cloud&quot; storage, transmission is a torrent client. it&apos;s not related to using the Pi as a router but I thought I&apos;d bring it up since you sound like you know what you&apos;re doing<br/>
+<font color="#A82F2F"><font size="2">(07:48:09 AM)</font> <b>zoosemeus:</b></font> do you know how to create a group and give ownership of a directory to that group recursively?<br/>
+<font size="2">(07:48:52 AM)</font><b> Naphidia left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(07:48:54 AM)</font> <b>rwp:</b></font> I haven&apos;t any experience with owncloud. For bittorrent I use bttorrent command line program.<br/>
+<font color="#A82F2F"><font size="2">(07:49:12 AM)</font> <b>rwp:</b></font> Can help you with file permissions.  What do you want to do? chown -R foo:foo somepath?<br/>
+<font color="#A82F2F"><font size="2">(07:49:34 AM)</font> <b>rwp:</b></font> If you want to create a group use: # addgroup foogroup<br/>
+<font color="#A82F2F"><font size="2">(07:50:14 AM)</font> <b>rwp:</b></font> If you want to add yourself to that group that you just created (probably you do) then: addgroup youraccount groupname<br/>
+<font color="#A82F2F"><font size="2">(07:50:30 AM)</font> <b>zoosemeus:</b></font> basically, owncloud has a web interface but it refuses to run when it doesn&apos;t completely own the directory of the file server. Transmission can&apos;t write to the file server when owncloud owns it so I can&apos;t download torrents. It&apos;s probably something basic but I&apos;m over my head a bit<br/>
+<font color="#A82F2F"><font size="2">(07:51:03 AM)</font> <b>rwp:</b></font> If you are setting up UPG (User Private Groups) then you will want to also set the set-group-id bit.<br/>
+<font color="#A82F2F"><font size="2">(07:51:14 AM)</font> <b>rwp:</b></font> Ah... The web server runs as a non-priviledged user www-data.<br/>
+<font color="#A82F2F"><font size="2">(07:51:20 AM)</font> <b>zoosemeus:</b></font> exactly<br/>
+<font color="#A82F2F"><font size="2">(07:51:27 AM)</font> <b>rwp:</b></font> By design it doesn&apos;t have write permission to the file system.<br/>
+<font color="#A82F2F"><font size="2">(07:51:32 AM)</font> <b>rwp:</b></font> I am strongly in the camp that it shouldn&apos;t.<br/>
+<font color="#A82F2F"><font size="2">(07:51:35 AM)</font> <b>zoosemeus:</b></font> can I escalate www-data to have that permission?<br/>
+<font color="#A82F2F"><font size="2">(07:51:45 AM)</font> <b>rwp:</b></font> But Wordpress and other tools really want to be able to write to the file system.<br/>
+<font color="#A82F2F"><font size="2">(07:52:04 AM)</font> <b>rwp:</b></font> It is why it is always getting compromised in attacks. It is ripe for the picking.<br/>
+<font color="#A82F2F"><font size="2">(07:52:22 AM)</font> <b>zoosemeus:</b></font> aha, I see<br/>
+<font color="#A82F2F"><font size="2">(07:52:24 AM)</font> <b>rwp:</b></font> But if you really want to do that then you can chown the file permissions to allow the www-data user to write to the files.<br/>
+<font color="#A82F2F"><font size="2">(07:52:43 AM)</font> <b>rwp:</b></font> The group is also www-data. Often written as www-data:www-data to refer to user:group.<br/>
+<font color="#A82F2F"><font size="2">(07:52:59 AM)</font> <b>zoosemeus:</b></font> www-data has read/write permissions for the file server storage directories<br/>
+<font color="#A82F2F"><font size="2">(07:53:06 AM)</font> <b>rwp:</b></font> If you set the group to be www-data group and group writable then the web server can write it.<br/>
+<font color="#A82F2F"><font size="2">(07:54:37 AM)</font> <b>rwp:</b></font> zoosemeus, So do you have a question? Or is it working? Or?<br/>
+<font color="#A82F2F"><font size="2">(07:54:54 AM)</font> <b>zoosemeus:</b></font> Yeah, I do. Sorry, I don&apos;t know how to put it accurately<br/>
+<font color="#A82F2F"><font size="2">(07:55:06 AM)</font> <b>zoosemeus:</b></font> Basically, Owncloud already works great. that&apos;s fine<br/>
+<font color="#A82F2F"><font size="2">(07:55:40 AM)</font> <b>zoosemeus:</b></font> but Transmission can&apos;t write to the server storage directories because owncloud insists on www-data being the sole user to have that privilege<br/>
+<font color="#A82F2F"><font size="2">(07:56:07 AM)</font> <b>rwp:</b></font> What user account is running transmission?<br/>
+<font color="#A82F2F"><font size="2">(07:56:08 AM)</font> <b>zoosemeus:</b></font> so I&apos;m not sure how to set it up so that my transmission download directory is within the owncloud file server directory<br/>
+<font color="#A82F2F"><font size="2">(07:56:26 AM)</font> <b>zoosemeus:</b></font> debian-transmission is running transmission<br/>
+<font color="#A82F2F"><font size="2">(07:56:41 AM)</font> <b>rwp:</b></font> owncloud looks interesting. I need to queue it up to try it.<br/>
+<font color="#A82F2F"><font size="2">(07:57:16 AM)</font> <b>rwp:</b></font> I think you should add debian-transmission to the www-data group so that it has group write permission. I think.<br/>
+<font color="#A82F2F"><font size="2">(07:57:25 AM)</font> <b>rwp:</b></font> adduser debian-transmission www-data<br/>
+<font color="#A82F2F"><font size="2">(07:57:28 AM)</font> <b>zoosemeus:</b></font> how do I do that?<br/>
+<font color="#A82F2F"><font size="2">(07:57:55 AM)</font> <b>rwp:</b></font> Remember that after changing groups one must log out and then log back in again in order for groups to be assigned at login time.<br/>
+<font color="#A82F2F"><font size="2">(07:58:22 AM)</font> <b>rwp:</b></font> It is also useful to set the set-group-id bit on the directories. So that any new files will be created with that group.<br/>
+<font color="#A82F2F"><font size="2">(07:58:24 AM)</font> <b>zoosemeus:</b></font> thanks, I&apos;ve just done that and rebooted the pi. hopefully that does it<br/>
+<font color="#A82F2F"><font size="2">(07:58:38 AM)</font> <b>zoosemeus:</b></font> What&apos;s set-group-id?<br/>
+<font color="#A82F2F"><font size="2">(07:58:43 AM)</font> <b>rwp:</b></font> find ./path -type d -exec chmod g+ws {} +<br/>
+<font color="#A82F2F"><font size="2">(07:59:18 AM)</font> <b>rwp:</b></font> The directory permissions will look like drwxrwxr-x right? The group permissions are the middle rwx part.<br/>
+<font color="#A82F2F"><font size="2">(07:59:37 AM)</font> <b>rwp:</b></font> The set-gid bit is the middle &apos;x&apos;. drwxrwsr-x and it will be an &apos;s&apos; if set.<br/>
+<font color="#A82F2F"><font size="2">(07:59:49 AM)</font> <b>rwp:</b></font> Newly created files in that directory will be created with the group of the directory.<br/>
+<font color="#A82F2F"><font size="2">(07:59:58 AM)</font> <b>zoosemeus:</b></font> I want the group permissions for owncloud and transmission alike to be rwx<br/>
+<font color="#A82F2F"><font size="2">(08:00:04 AM)</font> <b>rwp:</b></font> It is what allows two users using UPG to share working in a directory.<br/>
+<font color="#A82F2F"><font size="2">(08:00:42 AM)</font> <b>rwp:</b></font> Actually I think you really want them to be rws emphasis on the &apos;s&apos; bit, so that they can share the same directory.<br/>
+<font color="#A82F2F"><font size="2">(08:00:42 AM)</font> <b>zoosemeus:</b></font> ah, that makes sense<br/>
+<font color="#A82F2F"><font size="2">(08:00:53 AM)</font> <b>zoosemeus:</b></font> yeah, rws makes sense<br/>
+<font color="#A82F2F"><font size="2">(08:00:58 AM)</font> <b>rwp:</b></font> If you google around for User Private Groups you should find some docs on it.<br/>
+<font color="#A82F2F"><font size="2">(08:01:21 AM)</font> <b>rwp:</b></font> Normally my user:group is rwp:rwp and yours would be zoosemeus:zoosemeus with each of us in our own private groups.<br/>
+<font color="#A82F2F"><font size="2">(08:01:26 AM)</font> <b>zoosemeus:</b></font> so chmod rws /server/dir/here/<br/>
+<font color="#A82F2F"><font size="2">(08:01:54 AM)</font> <b>rwp:</b></font> But if you and I were sharing a directory and working on it then we would create a shared group say &quot;photos&quot; or something.<br/>
+<font color="#A82F2F"><font size="2">(08:02:11 AM)</font> <b>rwp:</b></font> mkdir shareddir ; chgrp photos shareddir ; chmod g+ws shareddir<br/>
+<font color="#A82F2F"><font size="2">(08:02:42 AM)</font> <b>rwp:</b></font> That would set it up with drwxrwsr-x and any newly created files or directories in it would then be owned by whoever created the file but the group would then be photos.<br/>
+<font color="#A82F2F"><font size="2">(08:03:00 AM)</font> <b>rwp:</b></font> Any directories made in that dir would have those propagated.<br/>
+<font color="#A82F2F"><font size="2">(08:03:26 AM)</font> <b>zoosemeus:</b></font> the newly created files are owned by the individual user that created them. does that mean that other users can&apos;t edit them?<br/>
+<font color="#A82F2F"><font size="2">(08:03:33 AM)</font> <b>rwp:</b></font> Also important to complete the environment is to have umask set to 02 not 022. So that files and dirs remain group writable.  Because UPG counts on group permissions.<br/>
+<font color="#A82F2F"><font size="2">(08:03:50 AM)</font> <b>rwp:</b></font> Users are in groups. Group permission allows shared editing.<br/>
+<font color="#A82F2F"><font size="2">(08:04:00 AM)</font> <b>mactimes:</b></font> Would someone recommend a robust and natively supported, if any, live deduplication-enabled filesystem for stable?<br/>
+<font color="#A82F2F"><font size="2">(08:04:54 AM)</font> <b>zoosemeus:</b></font> @rwp : my head is spinning but I&apos;ll bone up on UPG and the like to try and sort this out. Thanks a bunch<br/>
+<font color="#A82F2F"><font size="2">(08:04:58 AM)</font> <b>rwp:</b></font> mactimes, I don&apos;t know of any to recommend. I am always hearing about zfs. But I don&apos;t know if it is in a recommendable state.<br/>
+<font color="#A82F2F"><font size="2">(08:05:24 AM)</font> <b>mactimes:</b></font> rwp Right.  Thank you for the reply.<br/>
+<font color="#A82F2F"><font size="2">(08:05:35 AM)</font> <b>rwp:</b></font> zoosemeus, It will give you some reading to do.<br/>
+<font color="#A82F2F"><font size="2">(08:06:52 AM)</font> <b>rwp:</b></font> zoosemeus, Re:&quot;chmod rws /server/dir/here&quot; not quite: chmod g+ws /server/dir/here<br/>
+<font color="#A82F2F"><font size="2">(08:07:21 AM)</font> <b>rwp:</b></font> chmod has the old octal forms. Used them for many years. I now prefer the symbolic forms because I find them unambiguously easier.<br/>
+<font color="#A82F2F"><font size="2">(08:07:30 AM)</font> <b>zoosemeus:</b></font> gotcha<br/>
+<font color="#A82F2F"><font size="2">(08:07:40 AM)</font> <b>rwp:</b></font> Start with either &apos;a&apos; for all or one &apos;u&apos;ser &apos;g&apos;roup &apos;o&apos;ther.<br/>
+<font color="#A82F2F"><font size="2">(08:07:47 AM)</font> <b>rwp:</b></font> + or - the mode you want to change.<br/>
+<font color="#A82F2F"><font size="2">(08:08:04 AM)</font> <b>rwp:</b></font> Then &apos;r&apos;ead &apos;w&apos;rite &apos;x&apos;ecute &apos;s&apos;et<br/>
+<font color="#A82F2F"><font size="2">(08:08:22 AM)</font> <b>rwp:</b></font> So group plus write and setgroupid is g+ws<br/>
+<font color="#A82F2F"><font size="2">(08:08:44 AM)</font> <b>rwp:</b></font> Also commonly a+r for all plus read.  other - write o-w<br/>
+<font color="#A82F2F"><font size="2">(08:08:49 AM)</font> <b>zoosemeus:</b></font> how do I define the group?<br/>
+<font color="#A82F2F"><font size="2">(08:08:51 AM)</font> <b>rwp:</b></font> Those should all make pretty good sense.<br/>
+<font color="#A82F2F"><font size="2">(08:09:07 AM)</font> <b>rwp:</b></font> But careful with &apos;x&apos; because only executables and directories should have the x bit.<br/>
+<font color="#A82F2F"><font size="2">(08:09:17 AM)</font> <b>rwp:</b></font> Use &apos;addgroup&apos; to create a new shared group.<br/>
+<font color="#A82F2F"><font size="2">(08:09:34 AM)</font> <b>rwp:</b></font> Can also use the --system option if you want to make it a low numbered group.<br/>
+<font color="#A82F2F"><font size="2">(08:09:44 AM)</font> <b>rwp:</b></font> Doesn&apos;t really matter too much.  Just a personal preference.<br/>
+<font color="#A82F2F"><font size="2">(08:10:11 AM)</font> <b>rwp:</b></font> Use &apos;adduser useraccount groupname&apos; to add a user account to a group.<br/>
+<font color="#A82F2F"><font size="2">(08:10:43 AM)</font> <b>zoosemeus:</b></font> I&apos;m looking at /etc/passwd and it doesn&apos;t seem to indicate that debian-transmission and www-data are in the same group<br/>
+<font size="2">(08:10:51 AM)</font><b> c|AFK|uego is now known as cafuego</b><br/>
+<font color="#A82F2F"><font size="2">(08:11:51 AM)</font> <b>rwp:</b></font> Right. That was why I suggested adding one to the other group.<br/>
+<font color="#A82F2F"><font size="2">(08:12:17 AM)</font> <b>rwp:</b></font> Just by &quot;feel&quot; I would add debian-transmission to the www-data group.<br/>
+<font color="#A82F2F"><font size="2">(08:12:18 AM)</font> <b>zoosemeus:</b></font> okay, I&apos;ll add debian-transmission to www-data then?<br/>
+<font color="#A82F2F"><font size="2">(08:12:26 AM)</font> <b>hejux:</b></font> ..<br/>
+<font color="#A82F2F"><font size="2">(08:12:35 AM)</font> <b>rwp:</b></font> What package is debian-transmission from?<br/>
+<font color="#A82F2F"><font size="2">(08:13:10 AM)</font> <b>zoosemeus:</b></font> transmission and transmission-daemon<br/>
+<font color="#A82F2F"><font size="2">(08:14:29 AM)</font> <b>zoosemeus:</b></font> OH SHIT SON. This is working!<br/>
+<font color="#A82F2F"><font size="2">(08:14:37 AM)</font> <b>zoosemeus:</b></font> Thank you!<br/>
+<font color="#A82F2F"><font size="2">(08:14:43 AM)</font> <b>rwp:</b></font> zoosemeus, I don&apos;t really know what is the best thing for you to do to combine those two into a good gestalt.<br/>
+<font color="#A82F2F"><font size="2">(08:14:52 AM)</font> <b>rwp:</b></font> Just making it up as I go along.<br/>
+<font color="#A82F2F"><font size="2">(08:14:59 AM)</font> <b>rwp:</b></font> Glad to hear it is working.  Yay!<br/>
+<font color="#A82F2F"><font size="2">(08:15:23 AM)</font> <b>zoosemeus:</b></font> I&apos;m not really sure what did it but it is operational now. I&apos;ve got some learning to do now haha.<br/>
+<font color="#A82F2F"><font size="2">(08:16:13 AM)</font> <b>rwp:</b></font> To recap: Each user runs in their own private user:group space. That keeps each user process from writing over other files.<br/>
+<font color="#A82F2F"><font size="2">(08:16:35 AM)</font> <b>rwp:</b></font> Which is one layer in what normally keeps the web server from writing outside of its box.<br/>
+<font color="#A82F2F"><font size="2">(08:17:04 AM)</font> <b>rwp:</b></font> It is only one of the layers of security protection. To crack through it there would also need to be an additional security vulnerabilty.<br/>
+<font color="#A82F2F"><font size="2">(08:17:13 AM)</font> <b>zoosemeus:</b></font> right, okay. that makes sense<br/>
+<font color="#A82F2F"><font size="2">(08:17:21 AM)</font> <b>zoosemeus:</b></font> I have to figure out what &quot;streams&quot; are now too<br/>
+<font color="#A82F2F"><font size="2">(08:17:31 AM)</font> <b>zoosemeus:</b></font> such a jump going form Win7 to debian<br/>
+<font color="#A82F2F"><font size="2">(08:17:49 AM)</font> <b>rwp:</b></font> You just softened that one layer for this one particular use case. Very targeted.<br/>
+<font color="#062585"><font size="2">(08:18:07 AM)</font> <b>***rwp</b></font> chuckles<br/>
+<font color="#A82F2F"><font size="2">(08:18:19 AM)</font> <b>rwp:</b></font> Streams could refer to many things. In what context?<br/>
+<font color="#A82F2F"><font size="2">(08:19:00 AM)</font> <b>rwp:</b></font> I was chuckling at the jump from Windows 7 to Debian comment.<br/>
+<font color="#A82F2F"><font size="2">(08:19:24 AM)</font> <b>zoosemeus:</b></font> the I/O for a particular process usually takes place in a stream from what I understand. That&apos;s why I can run multiple ssh connections at the same time and not have them interefere with each other<br/>
+<font color="#A82F2F"><font size="2">(08:19:49 AM)</font> <b>zoosemeus:</b></font> I think that&apos;s what it means anyway, I have no idea. is there a good linux for noobs tutorial series or something?<br/>
+<font color="#A82F2F"><font size="2">(08:19:56 AM)</font> <b>rwp:</b></font> I/O streams such as stdin, stdout, stderr. Gotcha.<br/>
+<font color="#A82F2F"><font size="2">(08:20:05 AM)</font> <b>zoosemeus:</b></font> yeah, those are the ones<br/>
+<font color="#A82F2F"><font size="2">(08:20:20 AM)</font> <b>rwp:</b></font> It isn&apos;t that there isn&apos;t any documentation. The problem is that Unix has been around for 40 years and there are decades of it.<br/>
+<font color="#A82F2F"><font size="2">(08:20:24 AM)</font> <b>rwp:</b></font> All in different vintages.<br/>
+<font color="#A82F2F"><font size="2">(08:21:07 AM)</font> <b>rwp:</b></font> Your topic crosses not just shell pipelines but when adding networked tools also adds IP addresses and ports into the discussion.<br/>
+<font color="#A82F2F"><font size="2">(08:21:32 AM)</font> <b>rwp:</b></font> Much better when done with a blackboard and drawing diagrams showing how things are plumbed together.<br/>
+<font color="#A82F2F"><font size="2">(08:22:09 AM)</font> <b>zoosemeus:</b></font> I get the gist of things and I sort of appreciate how it all comes together but the actual nitty gritty is a complete mystery to me.<br/>
+<font color="#A82F2F"><font size="2">(08:24:56 AM)</font> <b>rwp:</b></font> Don&apos;t get overwhelmed. Start small. Learn it one piece at a time. Focus on the fundamentals and build up a base from there.<br/>
+<font color="#A82F2F"><font size="2">(08:25:04 AM)</font> <b>rwp:</b></font> It will all come together with time and experience.<br/>
+<font color="#A82F2F"><font size="2">(08:25:53 AM)</font> <b>cafuego:</b></font> Speak for yourself, I was born with a complete knowledge of unix systems internals and administration skills.<br/>
+<font color="#062585"><font size="2">(08:26:23 AM)</font> <b>***rwp</b></font> laughs<br/>
+<font color="#A82F2F"><font size="2">(08:26:49 AM)</font> <b>cafuego:</b></font> oh and a neckbeard. Not claiming I was a *pretty* baby...<br/>
+<font color="#A82F2F"><font size="2">(08:27:38 AM)</font> <b>zoosemeus:</b></font> I started that journey about 8 years ago when I first installed Ubuntu on my beater laptop but I&apos;m slowly realizing that you can easily use the Ubuntu GUI without getting a proper understanding of the underlying infrastructure<br/>
+<font color="#A82F2F"><font size="2">(08:27:49 AM)</font> <b>zoosemeus:</b></font> lol baby with a neckbeard<br/>
+<font color="#A82F2F"><font size="2">(08:29:18 AM)</font> <b>rwp:</b></font> I started out around 1983 for a short time on a DEC microvax. But got involved in earnest around 1987 on an HP-UX s500.<br/>
+<font size="2">(08:32:02 AM)</font><b> mode (+l 1483) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(08:33:24 AM)</font> <b>zoosemeus:</b></font> well I was born in &apos;93 so you&apos;ve got quite the headstart haha<br/>
+<font color="#A82F2F"><font size="2">(08:33:46 AM)</font> <b>rwp:</b></font> Experience and treachery will always triumph over youth and enthusiasm.<br/>
+<font color="#A82F2F"><font size="2">(08:33:55 AM)</font> <b>rwp:</b></font> With emphasis on the treachery.<br/>
+<font color="#062585"><font size="2">(08:34:10 AM)</font> <b>***rwp</b></font> laughs bwahahaha<br/>
+<font color="#A82F2F"><font size="2">(08:40:24 AM)</font> <b>zoosemeus:</b></font> Alright well I&apos;ve got to get some rest but thank you so very much rwp<br/>
+<font color="#A82F2F"><font size="2">(08:40:58 AM)</font> <b>rwp:</b></font> zoosemeus, Good night! It is after midnight for me too. Good luck!<br/>
+<font size="2">(08:42:33 AM)</font><b> zoosemeus left the room (quit: Quit: http://www.kiwiirc.com/ - A hand crafted IRC client).</b><br/>
+<font color="#A82F2F"><font size="2">(08:51:35 AM)</font> <b>tonny:</b></font> hi, i have an error with sudo apt-get update command, says could not resolve .... http://paste.debian.net/145446<br/>
+<font color="#A82F2F"><font size="2">(08:52:21 AM)</font> <b>tonny:</b></font> may i know how to solve it please?<br/>
+<font color="#A82F2F"><font size="2">(09:03:23 AM)</font> <b>bnw:</b></font> tonny: I have encountered this before, kind of related to the repository not being the latest, maybe it&apos;s still syncing.<br/>
+<font color="#A82F2F"><font size="2">(09:04:20 AM)</font> <b>bnw:</b></font> You can wait a bit or try switching to another repo.<br/>
+<font size="2">(09:11:56 AM)</font><b> bnw left the room (quit: ).</b><br/>
+<font color="#A82F2F"><font size="2">(09:18:40 AM)</font> <b>tonny:</b></font> bnw, thanks for the reply<br/>
+<font size="2">(09:18:48 AM)</font><b> tonny left the room (quit: Quit: Leaving).</b><br/>
+<font color="#A82F2F"><font size="2">(09:31:13 AM)</font> <b>trysten:</b></font> does anyone know why iceweasel&apos;s pdf.js is not rendering text in my pdf?<br/>
+<font color="#A82F2F"><font size="2">(09:31:29 AM)</font> <b>themill:</b></font> any pdf or just one? pdf.js is pretty crap<br/>
+<font size="2">(09:32:03 AM)</font><b> mode (+l 1492) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:32:15 AM)</font> <b>trysten:</b></font> themill: just one of them. i didn&apos;t think to check, thank you<br/>
+<font color="#A82F2F"><font size="2">(09:32:38 AM)</font> <b>trysten:</b></font> themill: yeah, it&apos;s quite slow. i just want it to work for something so i don&apos;t have to leave iceweasel. thanks!<br/>
+<font color="#A82F2F"><font size="2">(09:33:17 AM)</font> <b>themill:</b></font> I sometimes get the feeling that I spend more time waiting for it to render a file to then hit the &quot;open in different viewer&quot; button than I save by using it in the first place<br/>
+<font color="#A82F2F"><font size="2">(09:34:34 AM)</font> <b>future28:</b></font> If I use networkmanager (gui), what happens if I add entries to /etc/network/interfaces?<br/>
+<font color="#A82F2F"><font size="2">(09:35:12 AM)</font> <b>themill:</b></font> n-m won&apos;t touch interfaces listed in /e/n/i (see /usr/share/doc/network-manager/README.Debian)<br/>
+<font size="2">(09:42:02 AM)</font><b> mode (+l 1498) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(09:42:23 AM)</font> <b>pfote:</b></font> in crontab, sunday is 0 right?<br/>
+<font color="#A82F2F"><font size="2">(09:57:05 AM)</font> <b>ChrisH:</b></font> pfote: man 5 crontab tells: day of week    0-7 (0 or 7 is Sun, or use names)<br/>
+<font color="#A82F2F"><font size="2">(09:57:30 AM)</font> <b>pfote:</b></font> yeah, already found it, but tnx :-)<br/>
+<font color="#A82F2F"><font size="2">(10:19:47 AM)</font> <b>eugenmayer:</b></font> i have build a package which uses debconf. when i upgrade this package, the configuration if always executed, even if the package is already configured. How do i get rid of this?<br/>
+<font size="2">(10:20:42 AM)</font><b> fraff_ is now known as fraff</b><br/>
+<font color="#A82F2F"><font size="2">(10:31:16 AM)</font> <b>Sander^work:</b></font> When I install a new package with apt-get.. will the timestamp of those packages be in the past (when they was packaged) or current time of installation?<br/>
+<font size="2">(10:32:02 AM)</font><b> mode (+l 1508) by debhelper</b><br/>
+<font size="2">(10:49:53 AM)</font><b> Devastator_ is now known as Devastator</b><br/>
+<font size="2">(10:52:02 AM)</font><b> mode (+l 1514) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(11:05:58 AM)</font> <b>Nyctophilia:</b></font> Hello - I&apos;m having a problem with my Debian 7.8 64bit headless server - whenever I try to reboot the server (sometimes it reboots without any problems) it gets stuck after loading up grub - blackscreen - no activity on the HDD LED. Shutdown and Wake on LAN works fine ever time, no problems here<br/>
+<font color="#A82F2F"><font size="2">(11:06:51 AM)</font> <b>Nyctophilia:</b></font> Hardware is: ASRock Q1900-ITX | 1x4GB Corsair Vengeance SODIMM DDR3 | 1xWD Red 3TB | 1xApacer 1,8&quot; SATA1 SSD 32GB as system drive | be quiet! Pure Power L8 350W<br/>
+<font color="#A82F2F"><font size="2">(11:07:11 AM)</font> <b>Nyctophilia:</b></font> newest UEFI and firmware installed<br/>
+<font color="#A82F2F"><font size="2">(11:07:46 AM)</font> <b>Nyctophilia:</b></font> its not the ssd, i&apos;ve swapped it  with a hdd for testing purposes and the same problem occured<br/>
+<font size="2">(11:12:02 AM)</font><b> mode (+l 1520) by debhelper</b><br/>
+<font size="2">(11:13:30 AM)</font><b> mbainrot is now known as zz_mbainrot</b><br/>
+<font size="2">(11:20:43 AM)</font><b> tcpman is now known as Guest25441</b><br/>
+<font color="#A82F2F"><font size="2">(11:34:12 AM)</font> <b>BobBall:</b></font> Howdy - is there a way to track progress of an automated install?  I&apos;ve got a CI environment which installs debian from scratch, so I&apos;ve got a preseed but sometimes it fails.  I want to be able to (for example) ssh into the host and tail a log file, or wget the progress-log from the host somehow... Possible?<br/>
+<font color="#A82F2F"><font size="2">(11:43:17 AM)</font> <b>ujjain:</b></font> Can somebody that regularly makes .deb files point me to a good howto? There seem so many ways to do it.<br/>
+<font color="#A82F2F"><font size="2">(11:49:12 AM)</font> <b>jelly:</b></font> dpkg, tell ujjain about nmg<br/>
+<font color="#A82F2F"><font size="2">(11:50:30 AM)</font> <b>jelly:</b></font> ujjain: you can ask the bot about other related factoids in private, like this: /msg dpkg best practices<br/>
+<font color="#A82F2F"><font size="2">(11:50:44 AM)</font> <b>ujjain:</b></font> thanks :) apprecaite it<br/>
+<font color="#A82F2F"><font size="2">(11:55:54 AM)</font> <b>ujjain:</b></font> it&apos;s a 86 page sheet showing mostly rebuilding source debian<br/>
+<font color="#A82F2F"><font size="2">(11:56:15 AM)</font> <b>ujjain:</b></font> packages, rather than maknig your own<br/>
+<font color="#A82F2F"><font size="2">(11:57:19 AM)</font> <b>ujjain:</b></font> I just want my own files in specific locations, i have a tarball.<br/>
+<font color="#A82F2F"><font size="2">(11:58:28 AM)</font> <b>mrMute:</b></font>  /msg dpkg best practices<br/>
+<font color="#A82F2F"><font size="2">(11:58:49 AM)</font> <b>mrMute:</b></font> typo<br/>
+<font color="#A82F2F"><font size="2">(11:59:38 AM)</font> <b>jelly:</b></font> that was an example.<br/>
+<font color="#A82F2F"><font size="2">(12:06:28 PM)</font> <b>ujjain:</b></font> ah ok, I guess I just need some more tmie reading, I get a little confused<br/>
+<font color="#A82F2F"><font size="2">(12:08:19 PM)</font> <b>Iridos:</b></font> happens often<br/>
+<font size="2">(12:12:02 PM)</font><b> mode (+l 1526) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(12:18:50 PM)</font> <b>Camusensei:</b></font> Hello. on wheezy, I installed java6 and java7 and I&apos;d like to know how to change this symlink: /usr/lib/jvm/default-java -&gt; java-1.6.0-openjdk-amd64  to /usr/lib/jvm/default-java -&gt; java-1.7.0-openjdk-amd64     . Is it possible with an update-alternative or update-java-alternative? I could find how :/<br/>
+<font color="#A82F2F"><font size="2">(12:20:09 PM)</font> <b>Camusensei:</b></font> I couldn&apos;t*<br/>
+<font size="2">(12:20:21 PM)</font><b> corepb__ is now known as corepb</b><br/>
+<font color="#A82F2F"><font size="2">(12:22:19 PM)</font> <b>petn-randall:</b></font> Camusensei: That symlink is shipped by defaults-jre-headless. You could always bend it to something else with dpkg-divert. But why do you need to change that?<br/>
+<font color="#A82F2F"><font size="2">(12:23:55 PM)</font> <b>jelly:</b></font> Camusensei: I&apos;m not sure you&apos;re supposed to change that, but you can change eg. /usr/bin/java, /usr/bin/javac etc.<br/>
+<font color="#A82F2F"><font size="2">(12:24:00 PM)</font> <b>Camusensei:</b></font> petn-randall: I&apos;ve got tomcat which uses this symlink as the executing java version... so my code doesn&apos;t work on tomcat...<br/>
+<font color="#A82F2F"><font size="2">(12:24:07 PM)</font> <b>jelly:</b></font> !update-java-alternatives<br/>
+<font color="#A82F2F"><font size="2">(12:24:07 PM)</font> <b>dpkg:</b></font> Rather than using update-alternatives (or galternatives) to set each individual alternative for java (and there are lots of them!), use update-java-alternatives.  To see a list of the valid java alternatives, use &quot;update-java-alternatives --list&quot;.  To select the amd64 openjdk-7 java runtime environment, &quot;update-java-alternatives --set java-1.7.0-openjdk-amd64&quot;.<br/>
+<font color="#A82F2F"><font size="2">(12:34:32 PM)</font> <b>Camusensei:</b></font> jelly, petn-randall: I removed default-jre-headless since I don&apos;t need it now that java7 is installed and tomcat uses the right java version now. Thank you.<br/>
+<font color="#A82F2F"><font size="2">(12:35:29 PM)</font> <b>jelly:</b></font> wonder how it found the wrong one in the first place<br/>
+<font color="#A82F2F"><font size="2">(12:37:51 PM)</font> <b>Camusensei:</b></font> tomcat found the wrong one because it looks for /usr/lib/jvm/default-java first before any other java directory (/etc/init.d/tomcat7 line 81)<br/>
+<font color="#A82F2F"><font size="2">(12:37:57 PM)</font> <b>Camusensei:</b></font> jelly: ^<br/>
+<font color="#A82F2F"><font size="2">(12:38:19 PM)</font> <b>aeg:</b></font> Hi, in Gnome &quot;file browser&quot;   where can i set the default view to list ?<br/>
+<font color="#A82F2F"><font size="2">(12:39:37 PM)</font> <b>aeg:</b></font> sorry, got it<br/>
+<font size="2">(12:42:02 PM)</font><b> mode (+l 1534) by debhelper</b><br/>
+<font size="2">(12:43:07 PM)</font><b> bazhang_ is now known as bazhang</b><br/>
+<font color="#A82F2F"><font size="2">(01:00:13 PM)</font> <b>abator:</b></font> i need a software to make iso files on debian<br/>
+<font color="#A82F2F"><font size="2">(01:00:25 PM)</font> <b>abator:</b></font> what isomaker is good with GUI?<br/>
+<font color="#A82F2F"><font size="2">(01:00:35 PM)</font> <b>abator:</b></font> iso maker***<br/>
+<font color="#A82F2F"><font size="2">(01:01:01 PM)</font> <b>colo-work:</b></font> k3b<br/>
+<font color="#A82F2F"><font size="2">(01:01:14 PM)</font> <b>abator:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(01:02:25 PM)</font> <b>DevAntoine:</b></font> hi<br/>
+<font color="#A82F2F"><font size="2">(01:02:55 PM)</font> <b>DevAntoine:</b></font> I&apos;m lost with self-signed certificate generation and dunno where to ask<br/>
+<font color="#A82F2F"><font size="2">(01:03:06 PM)</font> <b>abator:</b></font> mine is gnome, i am sorry i did not tell you that<br/>
+<font color="#A82F2F"><font size="2">(01:03:31 PM)</font> <b>abator:</b></font> colo-work: will that k3b work with gnome too?<br/>
+<font color="#A82F2F"><font size="2">(01:04:14 PM)</font> <b>humbot:</b></font> k3b will work<br/>
+<font color="#A82F2F"><font size="2">(01:04:22 PM)</font> <b>colo-work:</b></font> abator, yes. though you might want to try brasero first<br/>
+<font color="#A82F2F"><font size="2">(01:04:38 PM)</font> <b>humbot:</b></font> it might look a bit odd and drag in loads of extra librairies<br/>
+<font color="#A82F2F"><font size="2">(01:04:40 PM)</font> <b>colo-work:</b></font> it integrates better with a GTK desktop, though is the less featureful application overall<br/>
+<font color="#A82F2F"><font size="2">(01:06:05 PM)</font> <b>Twinkletoes:</b></font> I want to keep a very basic database of users, contact details and subscrption status, making it available online to selected users.  Is there anything that&apos;s lightweight which I could use?  I&apos;ve looked at vTiger but it&apos;s far far more than we&apos;ll ever need.<br/>
+<font color="#A82F2F"><font size="2">(01:06:50 PM)</font> <b>abator:</b></font> ty, i should check it anyway<br/>
+<font color="#A82F2F"><font size="2">(01:22:16 PM)</font> <b>memeka:</b></font> hi, i&apos;m getting errors with systemd booting ... anyone can help with that?<br/>
+<font color="#A82F2F"><font size="2">(01:22:48 PM)</font> <b>BrainWork:</b></font> hi, i have a strange problem with mysql. i can&apos;t find anything saying wtf is going off on google. i was running mysql-server-5.5, and after an apt-get upgrade on stable it jumped all the way to 5.7 in one go. its broken all my database tables and locked me out of root on it, and i cant figure out how to update it. whats with the huge version jump???<br/>
+<font color="#A82F2F"><font size="2">(01:23:11 PM)</font> <b>BrainWork:</b></font> its also now fetching it from mysql&apos;s servers rather than the apt repository, and their gpg keys are broken<br/>
+<font color="#A82F2F"><font size="2">(01:24:16 PM)</font> <b>memeka:</b></font> can anyone help me with this: http://pastebin.com/8nHfmCJ6 why is it not booting?<br/>
+<font color="#A82F2F"><font size="2">(01:30:16 PM)</font> <b>BrainWork:</b></font> im reinstalling a blank db instance. cant figure out why its gone from 5.5 to 5.7, not convenient. could have hosed a production server :/<br/>
+<font size="2">(01:32:03 PM)</font><b> mode (+l 1545) by debhelper</b><br/>
+<font color="#A82F2F"><font size="2">(01:32:52 PM)</font> <b>themill:</b></font> BrainWork: mysql 5.7 isn&apos;t anywhere in debian -- if you&apos;ve got 3rd party repos in there (which it sounds like you do) then there&apos;s the source of your problem<br/>
+<font color="#A82F2F"><font size="2">(01:34:54 PM)</font> <b>themill:</b></font> memeka: and what do the logs tell you? it looks like it&apos;s struggling to find a partition on the sd card<br/>
+<font color="#A82F2F"><font size="2">(01:36:34 PM)</font> <b>memeka:</b></font> themill: what log should I look at?<br/>
+<font color="#A82F2F"><font size="2">(01:36:54 PM)</font> <b>BrainWork:</b></font> themill: i didnt add the repos, they seem to come from the default apt sources<br/>
+<font color="#A82F2F"><font size="2">(01:37:29 PM)</font> <b>themill:</b></font> BrainWork: not a chance.<br/>
+<font color="#A82F2F"><font size="2">(01:37:36 PM)</font> <b>themill:</b></font> !show sources.list BrainWork<br/>
+<font color="#A82F2F"><font size="2">(01:37:36 PM)</font> <b>dpkg:</b></font> BrainWork: Please pastebin the contents of your /etc/apt/sources.list and /etc/apt/sources.list.d/*.list.  The easiest way to do this is to pastebin the output of: head -v -n -0 /etc/apt/sources.list{,.d/*}<br/>
+<font color="#A82F2F"><font size="2">(01:37:46 PM)</font> <b>themill:</b></font> memeka: exactly what it says at the end of your paste<br/>
+<font size="2">(01:56:48 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

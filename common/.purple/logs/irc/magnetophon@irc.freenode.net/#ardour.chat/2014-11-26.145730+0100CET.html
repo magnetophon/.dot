@@ -1,0 +1,66 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #ardour at Wed 26 Nov 2014 02:57:30 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #ardour at Wed 26 Nov 2014 02:57:30 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:57:31 PM)</font><b> The topic for #ardour is: ardour 3.5.403 is released | download: <a href="http://ardour.org/download">http://ardour.org/download</a> |  paste to <a href="http://pastebin.com/">http://pastebin.com/</a> | OS X users please /join #ardour-osx</b><br/>
+<font size="2">(02:57:31 PM)</font><b> Topic for #ardour set by las at 07:07:26 PM on 10/02/2014</b><br/>
+<font color="#A82F2F"><font size="2">(02:58:32 PM)</font> <b>Joeboy:</b></font> las: I copied and pasted it, and didn&apos;t unlink it, so presumably it&apos;s the same smf file<br/>
+<font color="#A82F2F"><font size="2">(02:58:32 PM)</font> <b>Joeboy:</b></font> (and therefore the same channel)<br/>
+<font color="#A82F2F"><font size="2">(02:59:03 PM)</font> <b>las:</b></font> Joeboy: this is guaranteed to create undefined behaviour in any MIDI engine<br/>
+<font color="#A82F2F"><font size="2">(02:59:28 PM)</font> <b>las:</b></font> Joeboy: you&apos;re sending multiple note-on&apos;s for the same note before a note-off<br/>
+<font color="#A82F2F"><font size="2">(02:59:47 PM)</font> <b>las:</b></font> Joeboy: this isn&apos;t supposed to be possible with MIDI - there are no physical controllers that will do this, for example<br/>
+<font color="#A82F2F"><font size="2">(03:00:03 PM)</font> <b>las:</b></font> Joeboy: Ardour has options on what to do if you create this situation by editing<br/>
+<font color="#A82F2F"><font size="2">(03:00:08 PM)</font> <b>Joeboy:</b></font> las: with the channel muted, I wouldn&apos;t expect to be sending anything. As a dumb user.<br/>
+<font color="#A82F2F"><font size="2">(03:00:15 PM)</font> <b>las:</b></font> Joeboy: but if you create via signal routing ... there&apos;s nothing we can do<br/>
+<font color="#A82F2F"><font size="2">(03:00:27 PM)</font> <b>las:</b></font> Joeboy: yes, i would also expect a muted track to send nothing<br/>
+<font color="#A82F2F"><font size="2">(03:01:57 PM)</font> <b>Joeboy:</b></font> las: I don&apos;t know if mute means &quot;mute the midi&quot; or &quot;mute the output&quot;, but it&apos;s a bit weird.<br/>
+<font size="2">(03:01:58 PM)</font><b> falktx left the room (quit: Remote host closed the connection).</b><br/>
+<font color="#A82F2F"><font size="2">(03:02:21 PM)</font> <b>Joeboy:</b></font> las: Now that I understand the problem I can easily work around it though.<br/>
+<font color="#A82F2F"><font size="2">(03:02:53 PM)</font> <b>las:</b></font> Joeboy: it means mute the output<br/>
+<font color="#A82F2F"><font size="2">(03:03:04 PM)</font> <b>las:</b></font> Joeboy: nothing should leave the track main output(s)<br/>
+<font size="2">(03:04:55 PM)</font><b> Lex_NewtoN [<em>~quassel@nat4.academ.org</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:04:56 PM)</font> <b>Joeboy:</b></font> las: I don&apos;t understand at what point the two tracks&apos; midi data gets mixed together<br/>
+<font color="#A82F2F"><font size="2">(03:05:35 PM)</font> <b>Joeboy:</b></font> las: Which presumably it does, for the &quot;two note ons before a note off&quot; explanation to make sense to me<br/>
+<font size="2">(03:06:09 PM)</font><b> oofus_lt left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(03:06:17 PM)</font> <b>Joeboy:</b></font> las: As a dumb user, I wouldn&apos;t expect the two tracks to have anything together until they are mixed into the master track<br/>
+<font size="2">(03:06:40 PM)</font><b> takuan [<em>~takuan@d51A5DE8F.access.telenet.be</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:06:43 PM)</font> <b>Joeboy:</b></font> s/together/to do with each other/<br/>
+<font size="2">(03:06:53 PM)</font><b> wargreen left the room (quit: Ping timeout: 265 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(03:07:04 PM)</font> <b>las:</b></font> Joeboy: you were sending the MIDI to pianoteq, i believe<br/>
+<font size="2">(03:07:30 PM)</font><b> oofus_lt [<em>~quassel@143.252.1.30</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:07:50 PM)</font> <b>Joeboy:</b></font> las: I was at one point, but I now think that&apos;s a red herring<br/>
+<font color="#A82F2F"><font size="2">(03:08:19 PM)</font> <b>Joeboy:</b></font> las: I&apos;ve closed Pianoteq, and I have the same problem with the LV2 instrument track<br/>
+<font size="2">(03:08:56 PM)</font><b> bazz left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font size="2">(03:08:58 PM)</font><b> smev9 [<em>~i@xdsl-92-252-40-137.dip.osnanet.de</em>] entered the room.</b><br/>
+<font size="2">(03:10:13 PM)</font><b> bazz [<em>~bazz@2604:9a00:2010:a00f:1::</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:10:54 PM)</font> <b>Joeboy:</b></font> 13:45 &lt; Joeboy&gt; Also contrary to what I said before, it&apos;s nothing to do with routing the midi to an external app. The same thing now happens with my lv2 track.<br/>
+<font color="#A82F2F"><font size="2">(03:12:11 PM)</font> <b>Joeboy:</b></font> The zoom level thing is just... too weird<br/>
+<font color="#A82F2F"><font size="2">(03:12:49 PM)</font> <b>Joeboy:</b></font> For my own purposes, now that I understand it I can easily live with it, but I think it is very weird.<br/>
+<font size="2">(03:15:04 PM)</font><b> bazz left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(03:15:13 PM)</font> <b>smev9:</b></font> when I export from musescore and hydrogen, they are out of sync. Are you having similar issues? I do not know if my search begins with ardour or hydrogen/musescore. But I have to start somewhere.<br/>
+<font size="2">(03:15:53 PM)</font><b> bazz [<em>~bazz@2604:9a00:2010:a00f:1::</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:16:31 PM)</font> <b>Joeboy:</b></font> smev9: Are you exporting files, or trying to sync the apps?<br/>
+<font size="2">(03:17:17 PM)</font><b> takuan left the room (quit: Ping timeout: 264 seconds).</b><br/>
+<font size="2">(03:18:02 PM)</font><b> memesys [<em>~KingNobod@unaffiliated/memesys</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:18:57 PM)</font> <b>smev9:</b></font> i am exporting the files<br/>
+<font size="2">(03:19:25 PM)</font><b> clark|w [<em>~clark_wil@173-25-255-175.client.mchsi.com</em>] entered the room.</b><br/>
+<font size="2">(03:19:34 PM)</font><b> wargreen [<em>~wargreen@ip-26.net-82-216-164.joinville2.rev.numericable.fr</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:19:47 PM)</font> <b>Joeboy:</b></font> smev9: And then importing them into ardour?<br/>
+<font color="#A82F2F"><font size="2">(03:20:02 PM)</font> <b>smev9:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(03:21:03 PM)</font> <b>Joeboy:</b></font> smev9: I would kind of expect them to be in sync if they&apos;re the same tempo etc, but tbh I don&apos;t really know.<br/>
+<font color="#A82F2F"><font size="2">(03:21:19 PM)</font> <b>Joeboy:</b></font> smev9: Do they drift if you line the tracks up in ardour?<br/>
+<font color="#A82F2F"><font size="2">(03:22:13 PM)</font> <b>smev9:</b></font> You mean if i they &quot;connect&quot; at their starting points?<br/>
+<font color="#A82F2F"><font size="2">(03:22:21 PM)</font> <b>Joeboy:</b></font> Yes<br/>
+<font size="2">(03:22:29 PM)</font><b> lemonade [<em>~lemonade@91.158.97.36</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(03:23:30 PM)</font> <b>smev9:</b></font> They do. I wanted to make sure, that they are really out of sync, not that i just &quot;missed the spot&quot;<br/>
+<font color="#A82F2F"><font size="2">(03:23:41 PM)</font> <b>Joeboy:</b></font> smev9: Probably the right thing would be to sync everything using jack, which should at least work for hydrogen but I don&apos;t know anything about musescore.<br/>
+<font color="#A82F2F"><font size="2">(03:24:22 PM)</font> <b>Joeboy:</b></font> smev9: eg. set ardour as jack master and hydrogen as slave (or the other way around)<br/>
+<font color="#A82F2F"><font size="2">(03:24:30 PM)</font> <b>smev9:</b></font> i am in contect with one dev of musescore. Seems the beta (2.0) supports that. I am compiling it right now <br/>
+<font color="#A82F2F"><font size="2">(03:24:34 PM)</font> <b>Joeboy:</b></font> smev9: or something like that<br/>
+<font color="#A82F2F"><font size="2">(03:26:29 PM)</font> <b>smev9:</b></font> Using those 3 together &quot;live&quot; would be awesome. But it weird that the problem is on rendered files. Maybe one of hydrogen and musescore messes their output. I just wanted to make sure if somebody made a similar expierience.<br/>
+<font size="2">(03:34:10 PM)</font><b> JL___ [<em>52e3be7c@gateway/web/freenode/ip.82.227.190.124</em>] entered the room.</b><br/>
+<font size="2">(03:47:38 PM)</font><b> bazz left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font size="2">(03:49:49 PM)</font><b> bazz [<em>~bazz@2604:9a00:2010:a00f:1::</em>] entered the room.</b><br/>
+<font size="2">(03:54:32 PM)</font><b> iorec_ left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font size="2">(03:55:03 PM)</font><b> iorec_ [<em>sid4569@gateway/web/irccloud.com/x-yhapgsqtddtfjsvk</em>] entered the room.</b><br/>
+<font size="2">(04:11:25 PM)</font><b> bazz left the room (quit: Ping timeout: 258 seconds).</b><br/>
+<font size="2">(04:14:13 PM)</font><b> bazz [<em>~bazz@2604:9a00:2010:a00f:1::</em>] entered the room.</b><br/>
+<font size="2">(04:32:59 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

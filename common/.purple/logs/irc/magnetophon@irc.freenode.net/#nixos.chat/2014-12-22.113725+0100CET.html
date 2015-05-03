@@ -1,0 +1,246 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Mon 22 Dec 2014 11:37:25 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Mon 22 Dec 2014 11:37:25 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(11:37:25 AM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(11:37:26 AM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#16569E"><font size="2">(11:39:51 AM)</font> <b>magnetophon:</b></font> aszlig: I compiled the realtime kernel you made for the rockfabrik. It runs unbelievably well: 64 sample buffer in jack, no xruns, on a netbook!!!   Thanks!<br/>
+<font color="#A82F2F"><font size="2">(11:53:59 AM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] mcmtroffaes opened pull request #5435: pavucontrol: use gnome icons (fixes issue #5330). (master...feature/pavucontrol-fix-icons) http://git.io/yz_zcw<br/>
+<font color="#A82F2F"><font size="2">(11:54:07 AM)</font> <b>iElectric:</b></font> shevy: ^^<br/>
+<font color="#A82F2F"><font size="2">(12:10:12 PM)</font> <b>solatis:</b></font> for some reason nixos keeps wanting to install cabal-install-1.18, while -1.20 is the latest version<br/>
+<font color="#A82F2F"><font size="2">(12:10:20 PM)</font> <b>solatis:</b></font> *nix<br/>
+<font color="#A82F2F"><font size="2">(12:10:26 PM)</font> <b>solatis:</b></font> how do i find out which package is to blame?<br/>
+<font color="#A82F2F"><font size="2">(12:10:40 PM)</font> <b>solatis:</b></font> (building it gives me an error of a missing network-uri package)<br/>
+<font color="#A82F2F"><font size="2">(12:11:35 PM)</font> <b>bennofs:</b></font> solatis: cabal-install 1.18 or Cabal (the library) 1.18?<br/>
+<font color="#A82F2F"><font size="2">(12:11:52 PM)</font> <b>bennofs:</b></font> solatis: also, are you on release or unstable channel?<br/>
+<font color="#A82F2F"><font size="2">(12:12:04 PM)</font> <b>solatis:</b></font> release 14.12<br/>
+<font color="#A82F2F"><font size="2">(12:12:15 PM)</font> <b>solatis:</b></font> these derivations will be built:<br/>
+<font color="#A82F2F"><font size="2">(12:12:17 PM)</font> <b>solatis:</b></font>   /nix/store/xv8pv32fizgj8i6w07k19f702jqgpzij-cabal-install-1.18.0.3.drv<br/>
+<font color="#A82F2F"><font size="2">(12:12:38 PM)</font> <b>solatis:</b></font> while:<br/>
+<font color="#A82F2F"><font size="2">(12:12:40 PM)</font> <b>solatis:</b></font> [lmergen@laptop:~/git/dissent]$ nix-env -q | grep cabal<br/>
+<font color="#A82F2F"><font size="2">(12:12:42 PM)</font> <b>solatis:</b></font> cabal-install-1.20.0.3<br/>
+<font color="#A82F2F"><font size="2">(12:13:06 PM)</font> <b>bennofs:</b></font> solatis: do you get that 1.18 version when doing nixos-rebuild?<br/>
+<font color="#A82F2F"><font size="2">(12:13:44 PM)</font> <b>solatis:</b></font> nix-env --upgrade (i want to upgrade my user packages)<br/>
+<font color="#A82F2F"><font size="2">(12:13:59 PM)</font> <b>solatis:</b></font> so some other package dpeends on 1.18<br/>
+<font color="#A82F2F"><font size="2">(12:14:05 PM)</font> <b>Lethalman:</b></font> solatis, nix-env -u --always<br/>
+<font color="#A82F2F"><font size="2">(12:15:02 PM)</font> <b>solatis:</b></font> wait, what?<br/>
+<font color="#A82F2F"><font size="2">(12:15:04 PM)</font> <b>solatis:</b></font> [lmergen@laptop:~/git/dissent]$ nix-env -u --always<br/>
+<font color="#A82F2F"><font size="2">(12:15:06 PM)</font> <b>solatis:</b></font> upgrading ‘cabal-install-1.20.0.3’ to ‘cabal-install-1.18.0.3’<br/>
+<font color="#A82F2F"><font size="2">(12:15:10 PM)</font> <b>solatis:</b></font> that does not seem like what i want?<br/>
+<font color="#A82F2F"><font size="2">(12:15:20 PM)</font> <b>bennofs:</b></font> :o<br/>
+<font color="#A82F2F"><font size="2">(12:15:44 PM)</font> <b>solatis:</b></font> http://pastie.org/9794014<br/>
+<font color="#A82F2F"><font size="2">(12:15:48 PM)</font> <b>solatis:</b></font> my full package list<br/>
+<font color="#A82F2F"><font size="2">(12:15:59 PM)</font> <b>Lethalman:</b></font> maybe it&apos;s been downgraded?<br/>
+<font color="#A82F2F"><font size="2">(12:16:01 PM)</font> <b>Lethalman:</b></font> boh<br/>
+<font color="#A82F2F"><font size="2">(12:18:19 PM)</font> <b>bennofs:</b></font> Do modules in nixos also have maintainers? I have what I think is a bugfix for the mpd module, but I&apos;d like to ask the maintainer if there&apos;s a reason for it being done as it was (using mpd&apos;s user config option instead of having systemd start the unit as the mpd user)<br/>
+<font color="#A82F2F"><font size="2">(12:18:50 PM)</font> <b>Lethalman:</b></font> bennofs, afaik nixos modules have no maintainers now<br/>
+<font color="#A82F2F"><font size="2">(12:19:00 PM)</font> <b>solatis:</b></font> nixos.pkgs.haskellPackages.cabalInstall                                        cabal-install-1.20.0.3<br/>
+<font color="#A82F2F"><font size="2">(12:19:06 PM)</font> <b>bennofs:</b></font> Lethalman: so should I just commit if it works for me?<br/>
+<font color="#A82F2F"><font size="2">(12:19:12 PM)</font> <b>solatis:</b></font> so cabalInstall == 1.20<br/>
+<font color="#A82F2F"><font size="2">(12:19:17 PM)</font> <b>solatis:</b></font> but yet my nix wants to downgrade to 1.18<br/>
+<font color="#A82F2F"><font size="2">(12:19:22 PM)</font> <b>Lethalman:</b></font> bennofs, git blame :)<br/>
+<font color="#A82F2F"><font size="2">(12:19:25 PM)</font> <b>Lethalman:</b></font> bennofs, PR and cc<br/>
+<font color="#A82F2F"><font size="2">(12:19:30 PM)</font> <b>bennofs:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(12:20:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] mcmtroffaes opened pull request #5436: easytag: Fix &quot;Using the &apos;memory&apos; GSettings backend&quot; (see issue  #4415). (master...feature/easytag-fix-gsettings) http://git.io/VKo9Xw<br/>
+<font color="#A82F2F"><font size="2">(12:20:52 PM)</font> <b>solatis:</b></font> is there something like nix blame? :p<br/>
+<font color="#A82F2F"><font size="2">(12:28:37 PM)</font> <b>bennofs:</b></font> Hmm, are there any users of system-wide mpd with alsa here also having the problem that mpd sometimes fails to open the sound card device?<br/>
+<font color="#A82F2F"><font size="2">(12:28:51 PM)</font> <b>ChongLi:</b></font> bennofs: yes<br/>
+<font color="#A82F2F"><font size="2">(12:29:17 PM)</font> <b>ChongLi:</b></font> bennofs: it&apos;s a really weird issue<br/>
+<font color="#A82F2F"><font size="2">(12:30:08 PM)</font> <b>ChongLi:</b></font> bennofs: http://sprunge.us/VJaR<br/>
+<font color="#A82F2F"><font size="2">(12:30:18 PM)</font> <b>ChongLi:</b></font> this is the hack I used locally to get it to work<br/>
+<font color="#A82F2F"><font size="2">(12:30:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bennofs created mpd-systemd-user-option (+1 new commit): http://git.io/OVYu7A<br/>
+<font color="#A82F2F"><font size="2">(12:30:25 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/mpd-systemd-user-option 914b76b Benno Fünfstück: services.mpd: use systemd&apos;s user option...<br/>
+<font color="#A82F2F"><font size="2">(12:30:31 PM)</font> <b>bennofs:</b></font> ChongLi: ok, I&apos;ve done almost the same<br/>
+<font color="#A82F2F"><font size="2">(12:30:37 PM)</font> <b>ChongLi:</b></font> haha<br/>
+<font color="#A82F2F"><font size="2">(12:30:40 PM)</font> <b>bennofs:</b></font> ChongLi: see the commit I just pushed. Can you test that it work?<br/>
+<font color="#A82F2F"><font size="2">(12:31:07 PM)</font> <b>bennofs:</b></font> Not sure what&apos;s wrong with mpd&apos;s user option<br/>
+<font color="#A82F2F"><font size="2">(12:31:40 PM)</font> <b>ChongLi:</b></font> bennofs: it&apos;s probably setting the euid and ruid AFTER trying to grab the sound device<br/>
+<font color="#A82F2F"><font size="2">(12:32:06 PM)</font> <b>solatis:</b></font> ok, this is weird<br/>
+<font color="#A82F2F"><font size="2">(12:32:08 PM)</font> <b>bennofs:</b></font> ChongLi: what&apos;s euid/ruid?<br/>
+<font color="#A82F2F"><font size="2">(12:32:17 PM)</font> <b>ChongLi:</b></font> effective uid and real uid<br/>
+<font color="#A82F2F"><font size="2">(12:32:31 PM)</font> <b>solatis:</b></font> i do nix-env -iA nixos.pkgs.haskellPackages.cabalInstall<br/>
+<font color="#A82F2F"><font size="2">(12:32:36 PM)</font> <b>solatis:</b></font> which installs 1.20<br/>
+<font color="#A82F2F"><font size="2">(12:32:47 PM)</font> <b>solatis:</b></font> after which i do nix-env -u<br/>
+<font color="#A82F2F"><font size="2">(12:32:54 PM)</font> <b>solatis:</b></font> which then immediately wants to downgrade to 1.18<br/>
+<font color="#A82F2F"><font size="2">(12:32:57 PM)</font> <b>solatis:</b></font> what&apos;s up with that?<br/>
+<font color="#A82F2F"><font size="2">(12:33:31 PM)</font> <b>bennofs:</b></font> ChongLi: but what could be wrong with that? before setting the uid, it was running as root, so it should have all permissions, no?<br/>
+<font color="#A82F2F"><font size="2">(12:33:52 PM)</font> <b>ChongLi:</b></font> bennofs: was it?<br/>
+<font color="#A82F2F"><font size="2">(12:34:06 PM)</font> <b>bennofs:</b></font> ChongLi: I think systemd services get started by root as default<br/>
+<font color="#A82F2F"><font size="2">(12:34:16 PM)</font> <b>ChongLi:</b></font> that seems like a risk<br/>
+<font color="#A82F2F"><font size="2">(12:34:37 PM)</font> <b>bennofs:</b></font> oh right, they&apos;re probably running as nobody<br/>
+<font color="#A82F2F"><font size="2">(12:34:42 PM)</font> <b>ChongLi:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(12:34:48 PM)</font> <b>aristid:</b></font> it&apos;s configurable which user they start as<br/>
+<font color="#A82F2F"><font size="2">(12:35:07 PM)</font> <b>bennofs:</b></font> aristid: and if you don&apos;t set that option, do you know what&apos;s the default?<br/>
+<font color="#A82F2F"><font size="2">(12:35:29 PM)</font> <b>aristid:</b></font> no:)<br/>
+<font color="#A82F2F"><font size="2">(12:35:33 PM)</font> <b>aristid:</b></font> you can figure out tho!<br/>
+<font color="#A82F2F"><font size="2">(12:35:34 PM)</font> <b>bennofs:</b></font> ChongLi: it&apos;s still weird that it worked sometimes for me :)<br/>
+<font color="#A82F2F"><font size="2">(12:35:46 PM)</font> <b>aristid:</b></font> nix-env -u is evil<br/>
+<font color="#A82F2F"><font size="2">(12:36:09 PM)</font> <b>ChongLi:</b></font> bennofs: it never worked for me<br/>
+<font color="#A82F2F"><font size="2">(12:38:22 PM)</font> <b>solatis:</b></font> aristid: it is?<br/>
+<font color="#A82F2F"><font size="2">(12:38:33 PM)</font> <b>aristid:</b></font> yea<br/>
+<font color="#A82F2F"><font size="2">(12:38:56 PM)</font> <b>solatis:</b></font> i&apos;m having issues with nix-env -iA cabalInstall installing 1.20, then nix-env -u immediately downgrading to 1.18<br/>
+<font color="#A82F2F"><font size="2">(12:38:57 PM)</font> <b>aristid:</b></font> it will downgrade packages for slightly unintuitive reasons, for example:)<br/>
+<font color="#A82F2F"><font size="2">(12:39:00 PM)</font> <b>solatis:</b></font> what&apos;s up with that?<br/>
+<font color="#A82F2F"><font size="2">(12:39:03 PM)</font> <b>solatis:</b></font> yeah<br/>
+<font color="#A82F2F"><font size="2">(12:39:05 PM)</font> <b>solatis:</b></font> but<br/>
+<font color="#A82F2F"><font size="2">(12:39:12 PM)</font> <b>solatis:</b></font> nix-env -i cabal-install *also* installs 1.18<br/>
+<font color="#A82F2F"><font size="2">(12:39:17 PM)</font> <b>aristid:</b></font> you don&apos;t need to use -u to upgrade<br/>
+<font color="#A82F2F"><font size="2">(12:39:19 PM)</font> <b>solatis:</b></font> what is that preference based on?<br/>
+<font color="#A82F2F"><font size="2">(12:39:28 PM)</font> <b>aristid:</b></font> lowPrio, i think<br/>
+<font color="#A82F2F"><font size="2">(12:40:01 PM)</font> <b>aristid:</b></font> it looks at the package name and takes the package with the highest prio first, then of those with the same prio with the highest version<br/>
+<font color="#A82F2F"><font size="2">(12:40:09 PM)</font> <b>bennofs:</b></font> aristid: how would I find out? http://www.freedesktop.org/software/systemd/man/systemd.exec.html doesn&apos;t explain it :/<br/>
+<font color="#A82F2F"><font size="2">(12:40:10 PM)</font> <b>aristid:</b></font> iirc<br/>
+<font color="#A82F2F"><font size="2">(12:40:16 PM)</font> <b>solatis:</b></font> https://github.com/NixOS/nixpkgs/blob/release-14.12/pkgs/tools/package-management/cabal-install/1.20.0.3.nix<br/>
+<font color="#A82F2F"><font size="2">(12:40:19 PM)</font> <b>aristid:</b></font> bennofs: source code:D<br/>
+<font color="#A82F2F"><font size="2">(12:40:24 PM)</font> <b>solatis:</b></font> where is the prio?<br/>
+<font size="2">(12:40:32 PM)</font><b> bennofs left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font color="#A82F2F"><font size="2">(12:40:35 PM)</font> <b>aristid:</b></font> solatis: all-packages.nix, maybe<br/>
+<font size="2">(12:41:08 PM)</font><b> bennofs [<em>~benno@ip92342b4f.dynamic.kabel-deutschland.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(12:41:23 PM)</font> <b>aristid:</b></font> or possibly it takes 1.18 because it&apos;s the only one in the right attrset<br/>
+<font color="#A82F2F"><font size="2">(12:41:28 PM)</font> <b>aristid:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(12:41:38 PM)</font> <b>solatis:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(12:41:38 PM)</font> <b>aristid:</b></font> yeah this logic is just too confusing to be non-evil<br/>
+<font color="#A82F2F"><font size="2">(12:41:42 PM)</font> <b>solatis:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(12:41:45 PM)</font> <b>aristid:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(12:41:47 PM)</font> <b>solatis:</b></font> let me rephrase the question<br/>
+<font color="#A82F2F"><font size="2">(12:41:51 PM)</font> <b>solatis:</b></font> how *should* i upgrade?<br/>
+<font color="#A82F2F"><font size="2">(12:41:56 PM)</font> <b>aristid:</b></font> just to nix-env -iA cabalInstall to upgrade<br/>
+<font color="#A82F2F"><font size="2">(12:42:14 PM)</font> <b>aristid:</b></font> if you want to update multiple things at once, you can make build environments<br/>
+<font color="#A82F2F"><font size="2">(12:42:20 PM)</font> <b>aristid:</b></font> which will then be upgraded atomically<br/>
+<font color="#A82F2F"><font size="2">(12:42:24 PM)</font> <b>solatis:</b></font> https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/all-packages.nix#L3034<br/>
+<font color="#A82F2F"><font size="2">(12:42:26 PM)</font> <b>solatis:</b></font> what&apos;s that?<br/>
+<font color="#A82F2F"><font size="2">(12:42:36 PM)</font> <b>solatis:</b></font> ah nvm<br/>
+<font color="#A82F2F"><font size="2">(12:42:39 PM)</font> <b>solatis:</b></font> ghc 7.6.3<br/>
+<font color="#A82F2F"><font size="2">(12:42:57 PM)</font> <b>solatis:</b></font> yeah right<br/>
+<font color="#A82F2F"><font size="2">(12:43:07 PM)</font> <b>solatis:</b></font> i already work with nix-shell most of the time<br/>
+<font color="#A82F2F"><font size="2">(12:43:18 PM)</font> <b>ChongLi:</b></font> bennofs: building from your commit now<br/>
+<font color="#A82F2F"><font size="2">(12:44:19 PM)</font> <b>ChongLi:</b></font> bennofs: works perfectly!<br/>
+<font color="#A82F2F"><font size="2">(12:44:51 PM)</font> <b>solatis:</b></font> ok so i should just work with build environments<br/>
+<font color="#A82F2F"><font size="2">(12:46:37 PM)</font> <b>solatis:</b></font> i have a feeling my cabal is completely fudged..<br/>
+<font color="#A82F2F"><font size="2">(12:46:53 PM)</font> <b>solatis:</b></font> &lt;command line&gt;: cannot satisfy -package-id hslogger-1.2.6-fbdd9771b66255355bbbc7b516058de3:<br/>
+<font color="#A82F2F"><font size="2">(12:46:55 PM)</font> <b>solatis:</b></font>     hslogger-1.2.6-fbdd9771b66255355bbbc7b516058de3 is unusable due to missing or recursive dependencies:<br/>
+<font color="#A82F2F"><font size="2">(12:46:57 PM)</font> <b>solatis:</b></font>       mtl-2.1.3.1-8bcc0591131896cfc8761a93703d4c61<br/>
+<font color="#A82F2F"><font size="2">(12:46:59 PM)</font> <b>solatis:</b></font> with a cabal-build<br/>
+<font color="#A82F2F"><font size="2">(12:48:32 PM)</font> <b>ChongLi:</b></font> solatis: is this within shell started by a myEnvFun?<br/>
+<font color="#A82F2F"><font size="2">(12:48:59 PM)</font> <b>solatis:</b></font> myHaskellPackages for example?<br/>
+<font color="#A82F2F"><font size="2">(12:49:16 PM)</font> <b>ChongLi:</b></font> https://nixos.org/wiki/Haskell<br/>
+<font color="#A82F2F"><font size="2">(12:49:22 PM)</font> <b>ChongLi:</b></font> search that page for myEnvFun<br/>
+<font color="#A82F2F"><font size="2">(12:49:34 PM)</font> <b>ChongLi:</b></font> https://nixos.org/wiki/Haskell#Local_use_via_myEnvFun<br/>
+<font color="#A82F2F"><font size="2">(12:50:10 PM)</font> <b>solatis:</b></font> http://pastie.org/9794051<br/>
+<font color="#A82F2F"><font size="2">(12:50:44 PM)</font> <b>solatis:</b></font> i use Fuuzetsu&apos;s layout<br/>
+<font color="#A82F2F"><font size="2">(12:51:54 PM)</font> <b>ChongLi:</b></font> hmm<br/>
+<font color="#A82F2F"><font size="2">(12:53:18 PM)</font> <b>aristid:</b></font> solatis: did you build some haskell packages locally and some on hydra?<br/>
+<font color="#A82F2F"><font size="2">(12:53:29 PM)</font> <b>aristid:</b></font> because i got similar error then sometimes<br/>
+<font color="#A82F2F"><font size="2">(12:53:41 PM)</font> <b>aristid:</b></font> or rather you didn&apos;t build them on hydra, just downloaded<br/>
+<font color="#A82F2F"><font size="2">(12:53:47 PM)</font> <b>solatis:</b></font> yeah i use nixos/nix primarily for haskell development<br/>
+<font color="#A82F2F"><font size="2">(12:53:50 PM)</font> <b>solatis:</b></font> yeah i understand<br/>
+<font color="#A82F2F"><font size="2">(12:53:54 PM)</font> <b>solatis:</b></font> some packages come from local<br/>
+<font color="#A82F2F"><font size="2">(12:54:04 PM)</font> <b>aristid:</b></font> if you have a local mtl<br/>
+<font color="#A82F2F"><font size="2">(12:54:06 PM)</font> <b>solatis:</b></font> some packages come from hydra<br/>
+<font color="#A82F2F"><font size="2">(12:54:07 PM)</font> <b>aristid:</b></font> then that can cause that<br/>
+<font color="#A82F2F"><font size="2">(12:54:09 PM)</font> <b>solatis:</b></font> i don&apos;t think so<br/>
+<font color="#A82F2F"><font size="2">(12:54:30 PM)</font> <b>aristid:</b></font> i hate this aspect of ghc but am too lazy to try and fix it:P<br/>
+<font color="#A82F2F"><font size="2">(12:55:21 PM)</font> <b>solatis:</b></font> bah, i completely switched over to nix to get rid of cabal hell... and guess where i am now<br/>
+<font color="#A82F2F"><font size="2">(12:55:24 PM)</font> <b>solatis:</b></font> nix/cabal hell!<br/>
+<font color="#A82F2F"><font size="2">(12:55:27 PM)</font> <b>bennofs:</b></font> solatis: a cabal configure could fix it<br/>
+<font color="#A82F2F"><font size="2">(12:55:28 PM)</font> <b>solatis:</b></font> (sorry :p)<br/>
+<font color="#A82F2F"><font size="2">(12:55:33 PM)</font> <b>solatis:</b></font> no it doesn&apos;t :)<br/>
+<font color="#A82F2F"><font size="2">(12:55:54 PM)</font> <b>solatis:</b></font> maybe it&apos;s because i&apos;m using profiling... let me see<br/>
+<font color="#A82F2F"><font size="2">(12:56:15 PM)</font> <b>bennofs:</b></font> It could also just be because you&apos;re using ghc-wrapper, which is fundamentally broken<br/>
+<font color="#A82F2F"><font size="2">(12:56:24 PM)</font> <b>solatis:</b></font> ah!<br/>
+<font color="#A82F2F"><font size="2">(12:56:30 PM)</font> <b>solatis:</b></font> i *am* using ghc-wrapper<br/>
+<font color="#A82F2F"><font size="2">(12:57:10 PM)</font> <b>solatis:</b></font> what do you recommend me to install instead?<br/>
+<font color="#A82F2F"><font size="2">(12:57:11 PM)</font> <b>bennofs:</b></font> Instead, you should use either ghcWithPackages or per-project environments (using nix-shell to get an environment where only the packages you need for this project are installed)<br/>
+<font color="#A82F2F"><font size="2">(12:57:44 PM)</font> <b>solatis:</b></font> ok<br/>
+<font color="#A82F2F"><font size="2">(12:57:52 PM)</font> <b>solatis:</b></font> it&apos;s dinner time here<br/>
+<font color="#A82F2F"><font size="2">(12:57:56 PM)</font> <b>solatis:</b></font> i&apos;m dropping this for the day<br/>
+<font color="#A82F2F"><font size="2">(12:58:04 PM)</font> <b>solatis:</b></font> tomorrow i think i have to look at all this again<br/>
+<font color="#A82F2F"><font size="2">(12:58:29 PM)</font> <b>solatis:</b></font> i think some upstream nix change broke my local .nix setup<br/>
+<font color="#A82F2F"><font size="2">(12:58:47 PM)</font> <b>solatis:</b></font> nix-build ./shell.nix *does* work, however<br/>
+<font color="#A82F2F"><font size="2">(12:59:06 PM)</font> <b>solatis:</b></font> nix-shell and then cabal build *doesnt* work<br/>
+<font color="#A82F2F"><font size="2">(12:59:30 PM)</font> <b>bennofs:</b></font> solatis: then you can just use nix-shell --pure ./shell.nix to get into a shell where you can use `eval &quot;$configurePhase` and `eval &quot;$buildPhase&quot;` to configure&amp; build your project<br/>
+<font color="#A82F2F"><font size="2">(12:59:32 PM)</font> <b>solatis:</b></font> now if only nix supported incremental building, i wouldn&apos;t need nix-shell :)<br/>
+<font color="#A82F2F"><font size="2">(12:59:52 PM)</font> <b>solatis:</b></font> and that&apos;s incremental?<br/>
+<font color="#A82F2F"><font size="2">(12:59:54 PM)</font> <b>bennofs:</b></font> solatis: yeah, I&apos;d also like a nix that supports incremental building<br/>
+<font color="#A82F2F"><font size="2">(01:00:19 PM)</font> <b>bennofs:</b></font> solatis: if you stay in the nix-shell, you can run `eval &quot;$buildPhase&quot;` multiple times and it will be incremental I think<br/>
+<font color="#A82F2F"><font size="2">(01:00:39 PM)</font> <b>solatis:</b></font> that&apos;s the best news i heard in a long time!!<br/>
+<font color="#A82F2F"><font size="2">(01:00:48 PM)</font> <b>solatis:</b></font> so no more manual invoking of cabal!<br/>
+<font color="#A82F2F"><font size="2">(01:01:21 PM)</font> <b>bennofs:</b></font> solatis: you might want to change `configureFlags` (or `extraConfigureFlags`, don&apos;t know which exactly) to disable split-objs, profiling, optimization etc to speed up your builds<br/>
+<font color="#A82F2F"><font size="2">(01:01:44 PM)</font> <b>solatis:</b></font> yeah i know<br/>
+<font color="#A82F2F"><font size="2">(01:01:55 PM)</font> <b>solatis:</b></font> that&apos;s besides the issue at the moment<br/>
+<font color="#A82F2F"><font size="2">(01:02:07 PM)</font> <b>solatis:</b></font> ok, you just made my day<br/>
+<font color="#A82F2F"><font size="2">(01:02:13 PM)</font> <b>solatis:</b></font> this absolutely works like a charm!<br/>
+<font color="#A82F2F"><font size="2">(01:02:28 PM)</font> <b>solatis:</b></font> and is what i have been looking for for a *long* time<br/>
+<font color="#A82F2F"><font size="2">(01:02:39 PM)</font> <b>solatis:</b></font> i just didn&apos;t know i was looking for this :)<br/>
+<font color="#A82F2F"><font size="2">(01:03:24 PM)</font> <b>bennofs:</b></font> The only reason I don&apos;t use this is that it doesn&apos;t work so well if yaou have a project depending on a library that you often change. If you change the library, you&apos;d need something like cabal sandboxes to get fast rebuilds<br/>
+<font color="#A82F2F"><font size="2">(01:04:25 PM)</font> <b>solatis:</b></font> i understand<br/>
+<font color="#A82F2F"><font size="2">(01:04:30 PM)</font> <b>solatis:</b></font> this works for now<br/>
+<font color="#A82F2F"><font size="2">(01:04:32 PM)</font> <b>solatis:</b></font> thanks a lot!<br/>
+<font size="2">(01:04:44 PM)</font><b> henrytill [<em>~henrytill@unaffiliated/henrytill</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(01:07:22 PM)</font> <b>bennofs:</b></font> aristid: root is the default (asking in #systemd is so much faster than trying to find the place in the source code :)<br/>
+<font size="2">(01:08:23 PM)</font><b> suvash is now known as suvash_away</b><br/>
+<font color="#A82F2F"><font size="2">(01:08:29 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] bennofs deleted mpd-systemd-user-option at 914b76b: http://git.io/uuc0Mg<br/>
+<font size="2">(01:09:59 PM)</font><b> solatis left the room (quit: Ping timeout: 272 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(01:10:06 PM)</font> <b>ChongLi:</b></font> bennofs: ?<br/>
+<font color="#A82F2F"><font size="2">(01:10:11 PM)</font> <b>ChongLi:</b></font> you deleted the PR?<br/>
+<font color="#A82F2F"><font size="2">(01:10:36 PM)</font> <b>bennofs:</b></font> ChongLi: I just pushed it to master, I think this change shouldn&apos;t break anything and at least it fixes something for you and me =)<br/>
+<font color="#A82F2F"><font size="2">(01:10:46 PM)</font> <b>ChongLi:</b></font> bennofs: ohhh<br/>
+<font color="#A82F2F"><font size="2">(01:11:02 PM)</font> <b>ChongLi:</b></font> hey, want to have a look at my PR?<br/>
+<font color="#A82F2F"><font size="2">(01:11:39 PM)</font> <b>ChongLi:</b></font> oh there&apos;s comments on it<br/>
+<font color="#A82F2F"><font size="2">(01:19:51 PM)</font> <b>bennofs:</b></font> Is it possible to use nixos-container without being root?<br/>
+<font size="2">(01:28:05 PM)</font><b> bennofs left the room (quit: Quit: WeeChat 1.0.1).</b><br/>
+<font color="#A82F2F"><font size="2">(01:51:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] lethalman pushed 2 new commits to master: http://git.io/ssIjGg<br/>
+<font color="#A82F2F"><font size="2">(01:51:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master d1a2586 Matthias C. M. Troffaes: pavucontrol: use gnome icons (fixes issue #5330).<br/>
+<font color="#A82F2F"><font size="2">(01:51:33 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 8b2f701 lethalman: Merge pull request #5435 from mcmtroffaes/feature/pavucontrol-fix-icons...<br/>
+<font color="#16569E"><font size="2">(01:56:09 PM)</font> <b>magnetophon:</b></font> To all &quot;pro audio&quot; nixers: I've updated the wiki with a custom kernel: https://nixos.org/wiki/Audio_HOWTO#System_optimizations_for_low_latency_audio_with_JACK<br/>
+<font color="#16569E"><font size="2">(01:57:11 PM)</font> <b>magnetophon:</b></font> Would it make sense to put this kernel in NixOS?<br/>
+<font color="#A82F2F"><font size="2">(01:57:29 PM)</font> <b>Lethalman:</b></font> nice<br/>
+<font color="#A82F2F"><font size="2">(01:57:38 PM)</font> <b>Lethalman:</b></font> debian has rt kernels<br/>
+<font color="#16569E"><font size="2">(01:57:40 PM)</font> <b>magnetophon:</b></font> It was made by aszlig<br/>
+<font color="#A82F2F"><font size="2">(01:57:40 PM)</font> <b>Lethalman:</b></font> so maybe<br/>
+<font color="#A82F2F"><font size="2">(01:57:58 PM)</font> <b>henrytill:</b></font> magnetophon: +1<br/>
+<font color="#16569E"><font size="2">(01:58:37 PM)</font> <b>magnetophon:</b></font> Lethalman: I don't think this is a full rt kernel, you need patches for that. That's my next step.<br/>
+<font color="#16569E"><font size="2">(02:00:55 PM)</font> <b>magnetophon:</b></font> Lethalman: I think this is called a preemt kernel.  It does work wonders on my little netbook though.<br/>
+<font color="#A82F2F"><font size="2">(02:02:59 PM)</font> <b>henrytill:</b></font> magnetophon: you might consider adding CONFIG_HZ_1000=y and CONFIG_HZ=1000<br/>
+<font size="2">(02:04:43 PM)</font><b> suvash_away is now known as suvash</b><br/>
+<font color="#16569E"><font size="2">(02:04:50 PM)</font> <b>magnetophon:</b></font> henrytill: right, thanks. Those ring a bell. I plan to scour the rt-kernel packages of other distro's for inspiration. This was just a quick copy-paste. <br/>
+<font color="#A82F2F"><font size="2">(02:05:09 PM)</font> <b>henrytill:</b></font> magnetophon: also http://wiki.linuxaudio.org/wiki/system_configuration<br/>
+<font color="#A82F2F"><font size="2">(02:06:43 PM)</font> <b>henrytill:</b></font> magnetophon: related, i&apos;ve taken some of your audio enhancements from the wiki and modularized them for my own personal use<br/>
+<font color="#16569E"><font size="2">(02:07:00 PM)</font> <b>magnetophon:</b></font> henrytill: ah, cool.<br/>
+<font color="#16569E"><font size="2">(02:07:19 PM)</font> <b>magnetophon:</b></font> henrytill: is your config online?<br/>
+<font color="#A82F2F"><font size="2">(02:07:19 PM)</font> <b>henrytill:</b></font> magnetophon: lemme paste it up for you<br/>
+<font color="#A82F2F"><font size="2">(02:08:41 PM)</font> <b>henrytill:</b></font> magnetophon: http://nixpaste.noip.me/Sb83YMCM<br/>
+<font color="#16569E"><font size="2">(02:09:18 PM)</font> <b>magnetophon:</b></font> henrytill:  &quot;cat /proc/config.gz | gunzip | grep 1000&quot; implies the default NixOS kernel has the 1000 Hz settings already<br/>
+<font color="#A82F2F"><font size="2">(02:09:19 PM)</font> <b>henrytill:</b></font> magnetophon: currently called sound.godMode :D<br/>
+<font color="#16569E"><font size="2">(02:09:27 PM)</font> <b>magnetophon:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(02:09:48 PM)</font> <b>henrytill:</b></font> magnetophon: look at that, yr right<br/>
+<font color="#A82F2F"><font size="2">(02:10:06 PM)</font> <b>henrytill:</b></font> magnetophon: i wonder if that&apos;s a new default upstream<br/>
+<font color="#16569E"><font size="2">(02:11:02 PM)</font> <b>magnetophon:</b></font> henrytill: Wanna colaborate on a NixOS &quot;pro audio&quot; version/distro?  I was  gonna call it MixOS   :D <br/>
+<font color="#A82F2F"><font size="2">(02:12:08 PM)</font> <b>henrytill:</b></font> magnetophon: :)<br/>
+<font color="#A82F2F"><font size="2">(02:13:02 PM)</font> <b>henrytill:</b></font> magnetophon: i was thinking that it would be good to offer this kind of thing as in a set of add-on modules<br/>
+<font color="#A82F2F"><font size="2">(02:13:19 PM)</font> <b>henrytill:</b></font> magnetophon: so, yeah, i&apos;d be happy to help<br/>
+<font color="#A82F2F"><font size="2">(02:13:34 PM)</font> <b>henrytill:</b></font> magnetophon: ... or NixMix<br/>
+<font color="#16569E"><font size="2">(02:15:54 PM)</font> <b>magnetophon:</b></font> henrytill: cool. modules sound good.  What do you propose as a starting point? I love the way aszlig has configured his NixOS (very modular, and with dotfiles included), though a lot of it is over my head:   https://github.com/rockfabrik/deployment and https://github.com/aszlig/vuizvui<br/>
+<font color="#A82F2F"><font size="2">(02:16:43 PM)</font> <b>henrytill:</b></font> magnetophon: yeah i&apos;ve checked out vuizvui...some good ideas in there<br/>
+<font color="#16569E"><font size="2">(02:17:15 PM)</font> <b>magnetophon:</b></font> henrytill: he also does some testing. I like that :) <br/>
+<font color="#16569E"><font size="2">(02:17:35 PM)</font> <b>magnetophon:</b></font> henrytill: is you full config online?<br/>
+<font color="#A82F2F"><font size="2">(02:17:37 PM)</font> <b>henrytill:</b></font> magnetophon: the custom modules are just a matter of using import/imports in your configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(02:18:09 PM)</font> <b>henrytill:</b></font> magnetophon: my config is not online atm<br/>
+<font color="#A82F2F"><font size="2">(02:24:50 PM)</font> <b>benley:</b></font> shit. Is there really no support for floating point numbers at all in Nix?<br/>
+<font color="#A82F2F"><font size="2">(02:25:18 PM)</font> <b>MichaelRaskin:</b></font> What do you want to do?<br/>
+<font color="#A82F2F"><font size="2">(02:25:58 PM)</font> <b>MichaelRaskin:</b></font> We are still in denial that Nix is slowly becoming an almost general-purpose programming language…<br/>
+<font color="#A82F2F"><font size="2">(02:26:32 PM)</font> <b>benley:</b></font> I&apos;m tinkering with using Nix as a DSL for generating cluster job descriptions, and one of the fields in there is &quot;number of cpus&quot;, as a float.<br/>
+<font color="#A82F2F"><font size="2">(02:26:49 PM)</font> <b>MichaelRaskin:</b></font> A non-integer number of CPUs?<br/>
+<font color="#A82F2F"><font size="2">(02:27:06 PM)</font> <b>MichaelRaskin:</b></font> A scheduling parameter?<br/>
+<font color="#A82F2F"><font size="2">(02:27:09 PM)</font> <b>benley:</b></font> yep - this is for Mesos, where it&apos;s perfectly normal to request 0.25 CPUs<br/>
+<font color="#A82F2F"><font size="2">(02:27:13 PM)</font> <b>benley:</b></font> stuff like that<br/>
+<font color="#A82F2F"><font size="2">(02:28:03 PM)</font> <b>MichaelRaskin:</b></font> I guess you can just pass it via strings?<br/>
+<font color="#A82F2F"><font size="2">(02:28:17 PM)</font> <b>benley:</b></font> yeah, I&apos;ll fake it that way for now.<br/>
+<font color="#A82F2F"><font size="2">(02:29:01 PM)</font> <b>benley:</b></font> I&apos;m doing fancy type checking in here, so that will be an exception<br/>
+<font color="#A82F2F"><font size="2">(02:29:21 PM)</font> <b>MichaelRaskin:</b></font> What a pity<br/>
+<font color="#A82F2F"><font size="2">(02:29:23 PM)</font> <b>benley:</b></font> oh, validating with a regex would totally work for that actually.<br/>
+<font color="#A82F2F"><font size="2">(02:29:31 PM)</font> <b>MichaelRaskin:</b></font> You can at least typecheck it in the build command<br/>
+<font color="#A82F2F"><font size="2">(02:29:54 PM)</font> <b>MichaelRaskin:</b></font> Yes, weak validation of the string is also easy<br/>
+<font color="#A82F2F"><font size="2">(02:31:02 PM)</font> <b>benley:</b></font> I could also store it as an integer (&quot;centiseconds per second&quot; or somesuch) and convert at build time<br/>
+<font color="#A82F2F"><font size="2">(02:32:04 PM)</font> <b>benley:</b></font> but first I have to sleep. Thanks for your help :)<br/>
+<font color="#A82F2F"><font size="2">(02:32:17 PM)</font> <b>MichaelRaskin:</b></font> Or just by placing a decimal dot by a string operation<br/>
+<font color="#A82F2F"><font size="2">(02:32:25 PM)</font> <b>MichaelRaskin:</b></font> Have a good rest<br/>
+<font size="2">(03:21:49 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

@@ -1,0 +1,38 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with ##zynaddsubfx at Sun 09 Mar 2014 08:29:29 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with ##zynaddsubfx at Sun 09 Mar 2014 08:29:29 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(08:29:29 PM)</font><b> The topic for ##zynaddsubfx is: ZynAddSubFX - open source musical synthesizer <a href="http://zynaddsubfx.sf.net/">http://zynaddsubfx.sf.net/</a></b><br/>
+<font size="2">(08:29:29 PM)</font><b> Topic for ##zynaddsubfx set by fundamental!~fundament@c-50-180-48-70.hsd1.ga.comcast.net at 04:02:12 PM on 02/05/2014</b><br/>
+<font color="#A82F2F"><font size="2">(08:30:04 PM)</font> <b>fundamental:</b></font> hm, I can&apos;t find a real name<br/>
+<font color="#A82F2F"><font size="2">(08:30:19 PM)</font> <b>fundamental:</b></font> either way the drums are used here: https://soundcloud.com/nosemaker/bossa-for-zyn-zynaddsubfx-1<br/>
+<font color="#A82F2F"><font size="2">(08:30:20 PM)</font> <b>fundamental:</b></font> some of the other samples are a bit weak, but the drums on their own came out quite nicely<br/>
+<font color="#A82F2F"><font size="2">(08:30:28 PM)</font> <b>FoldieRoll:</b></font> parameter exposure is very patchy on yoshi at the moment, but that&apos;s on my agenda. If you are going via OSC does that mean they have names rather than numbers? if so how do you access them via MIDI<br/>
+<font color="#A82F2F"><font size="2">(08:30:43 PM)</font> <b>fundamental:</b></font> everything is exposed over MIDI as well<br/>
+<font color="#A82F2F"><font size="2">(08:31:02 PM)</font> <b>fundamental:</b></font> not with the best interface which is why I&apos;m working to fix that up, but it is *all* exposed<br/>
+<font color="#A82F2F"><font size="2">(08:31:44 PM)</font> <b>fundamental:</b></font> the idea is everything has a unique identifying string defined in the osc sense &quot;/part1/kit0/adsynth/voice1/volume&quot; etc<br/>
+<font color="#A82F2F"><font size="2">(08:32:04 PM)</font> <b>fundamental:</b></font> those strings are defined to map to various ports (in a large hierarchy)<br/>
+<font color="#A82F2F"><font size="2">(08:32:16 PM)</font> <b>fundamental:</b></font> the ports have metadata and handlers which actually update everything<br/>
+<font color="#A82F2F"><font size="2">(08:32:26 PM)</font> <b>fundamental:</b></font> part of the metadata is min/max info and whatnot<br/>
+<font color="#A82F2F"><font size="2">(08:32:43 PM)</font> <b>fundamental:</b></font> so if something isn&apos;t a simple 0..127 parameter, everything maps well<br/>
+<font color="#A82F2F"><font size="2">(08:33:00 PM)</font> <b>FoldieRoll:</b></font> Yes, I can see the sense in that.<br/>
+<font color="#A82F2F"><font size="2">(08:33:15 PM)</font> <b>fundamental:</b></font> it is also completely exposed directly over OSC via liblo<br/>
+<font color="#A82F2F"><font size="2">(08:34:05 PM)</font> <b>fundamental:</b></font> while I haven&apos;t done it quite yet, it is a small hop to take the UI and put it out-of-process which could be a godsend for experimenting with the individual parts<br/>
+<font color="#A82F2F"><font size="2">(08:35:02 PM)</font> <b>fundamental:</b></font> so yeah, there&apos;s that and there&apos;s working undo that just needs some better UX<br/>
+<font color="#A82F2F"><font size="2">(08:35:10 PM)</font> <b>FoldieRoll:</b></font> do yuo mean UI parts or instrument parts?<br/>
+<font color="#A82F2F"><font size="2">(08:35:59 PM)</font> <b>fundamental:</b></font> in which portion of this?<br/>
+<font color="#A82F2F"><font size="2">(08:36:35 PM)</font> <b>FoldieRoll:</b></font> &quot;... which could be a godsend for experimenting with the individual parts&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:37:12 PM)</font> <b>fundamental:</b></font> any sort of UI work, which could in turn make it easier to manipulate parameters<br/>
+<font color="#A82F2F"><font size="2">(08:37:34 PM)</font> <b>FoldieRoll:</b></font> ah yes. I see<br/>
+<font color="#A82F2F"><font size="2">(08:37:42 PM)</font> <b>fundamental:</b></font> that UI was horribly coupled previously as you might be well aware of now<br/>
+<font color="#A82F2F"><font size="2">(08:38:28 PM)</font> <b>FoldieRoll:</b></font> Actually, I&apos;m beginning to see why so many people don&apos;t like fltk itself!<br/>
+<font color="#A82F2F"><font size="2">(08:38:48 PM)</font> <b>fundamental:</b></font> oh, I actually like fltk, but in general I hate UI programming<br/>
+<font color="#A82F2F"><font size="2">(08:38:58 PM)</font> <b>FoldieRoll:</b></font> heh :)<br/>
+<font color="#A82F2F"><font size="2">(08:39:16 PM)</font> <b>fundamental:</b></font> fluid though, that things a nightmarish waste of time<br/>
+<font color="#A82F2F"><font size="2">(08:39:42 PM)</font> <b>FoldieRoll:</b></font> Considering just how MANY controls and features there are, Paul did a pretty good job.<br/>
+<font color="#A82F2F"><font size="2">(08:40:30 PM)</font> <b>fundamental:</b></font> well, at the end of the day it looks and feels like someone packing to go on a journey and saying, &quot;I can fit this one more shirt in this small opening&quot;<br/>
+<font color="#A82F2F"><font size="2">(08:40:44 PM)</font> <b>fundamental:</b></font> it&apos;s not awful, but it does leave something to be desired<br/>
+<font color="#A82F2F"><font size="2">(08:41:18 PM)</font> <b>FoldieRoll:</b></font> don&apos;t forget desktop real-estate was a lot smaller when he started.<br/>
+<font color="#A82F2F"><font size="2">(08:41:51 PM)</font> <b>fundamental:</b></font> heh, you&apos;re talking to someone with a relatively small screen himself<br/>
+<font color="#A82F2F"><font size="2">(08:42:17 PM)</font> <b>FoldieRoll:</b></font> One thing I particulalry do like is the layered approach. If I see too many controlls all at once (like Phasex) I just can&apos;t work with them.<br/>
+<font color="#A82F2F"><font size="2">(08:44:46 PM)</font> <b>fundamental:</b></font> so, that&apos;s where the &apos;abs&apos; stuff is, currently exposing 6,347,092 possible parameters (when you consider all the indexed types)<br/>
+<font color="#A82F2F"><font size="2">(08:45:02 PM)</font> <b>FoldieRoll:</b></font> just a few then :)<br/>
+<font size="2">(09:05:03 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

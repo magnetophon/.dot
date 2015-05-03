@@ -1,0 +1,48 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #lad at Fri 30 Aug 2013 02:18:46 PM CEST on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #lad at Fri 30 Aug 2013 02:18:46 PM CEST on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:18:46 PM)</font><b> The topic for #lad is: Linux Audio Developers | Don&apos;t ask to ask, just ask | Lists: <a href="http://lists.linuxaudio.org">http://lists.linuxaudio.org</a> | Jack: <a href="http://jackaudio.org">http://jackaudio.org</a> | LV2: <a href="http://lv2plug.in">http://lv2plug.in</a></b><br/>
+<font size="2">(02:37:39 PM)</font><b> hybrid left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font size="2">(02:50:59 PM)</font><b> hybrid [<em>~R3n4t0@177.34.168.18</em>] entered the room.</b><br/>
+<font size="2">(03:10:06 PM)</font><b> prettyvanilla_ is now known as prettyvanilla</b><br/>
+<font size="2">(03:15:11 PM)</font><b> falktx_ [<em>~falktx@2.81.53.27</em>] entered the room.</b><br/>
+<font size="2">(03:15:22 PM)</font><b> falktx left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#16569E"><font size="2">(04:03:17 PM)</font> <b>magnetophon:</b></font> Hi, Is anyone using the jack aware cpu-scaling deamon called jackfreqd?<br/>
+<font color="#16569E"><font size="2">(04:04:30 PM)</font> <b>magnetophon:</b></font> rgareus: in all online sources i found you called this proof of concept software. Is it still? Would you recommend using it? <br/>
+<font color="#A82F2F"><font size="2">(04:06:29 PM)</font> <b>rgareus:</b></font> magnetophon: I use it on my laptop. works fine for me. las suggested to merge it into jack, but no-one has done that..<br/>
+<font color="#A82F2F"><font size="2">(04:07:21 PM)</font> <b>rgareus:</b></font> magnetophon: the problem is, that (at least at the time of writing) there is no common way to switch CPU-freq that works on every distribuion.<br/>
+<font color="#A82F2F"><font size="2">(04:09:53 PM)</font> <b>rgareus:</b></font> magnetophon: for that reason, jackfreqd runs as root and has some rather hack&apos;ed solution to detect the user(s) that are running jack, drops permissions, tries to connect to jack, query the DSP load...<br/>
+<font color="#A82F2F"><font size="2">(04:10:09 PM)</font> <b>rgareus:</b></font> magnetophon: oh and I think nando is still using it at CCRMA.<br/>
+<font color="#A82F2F"><font size="2">(04:10:50 PM)</font> <b>rgareus:</b></font> magnetophon: at LAC he told me he did some small patch but I forgot to follow up on it.<br/>
+<font color="#16569E"><font size="2">(04:13:16 PM)</font> <b>magnetophon:</b></font> rgareus: thanks! I'll try it out. And of course, also thanks for writing it in the first place!<br/>
+<font color="#A82F2F"><font size="2">(04:13:50 PM)</font> <b>rgareus:</b></font> magnetophon: opening a file-handle to /sys/.. and retaining it as root after dropping permissions to &lt;jack-user&gt; may or may not work depending on PAM.  besides having some other daemon around that wants to control CPU speed can also mess things up.  hence prove-of-concept.  Lots of details regarding setup and deployment are missing.<br/>
+<font color="#A82F2F"><font size="2">(04:14:15 PM)</font> <b>rgareus:</b></font> magnetophon: the code&apos;s all there the system-integration is missing<br/>
+<font color="#A82F2F"><font size="2">(04:14:49 PM)</font> <b>rgareus:</b></font> s/prove/proof/<br/>
+<font color="#16569E"><font size="2">(04:16:08 PM)</font> <b>magnetophon:</b></font> rgareus: I'm afraid I didn't totally follow that. I'm on debian as well, and I think that will make it easier. Or is that another issue you are referring to?<br/>
+<font color="#A82F2F"><font size="2">(04:16:57 PM)</font> <b>rgareus:</b></font> magnetophon: it may just work.<br/>
+<font color="#16569E"><font size="2">(04:17:05 PM)</font> <b>magnetophon:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(04:17:37 PM)</font> <b>rgareus:</b></font> magnetophon: the biggest problem I had to fight when wheezy came out was dbus.<br/>
+<font color="#A82F2F"><font size="2">(04:18:05 PM)</font> <b>rgareus:</b></font> magnetophon: (ie gnome power-manager trying to do smart things)<br/>
+<font color="#16569E"><font size="2">(04:18:43 PM)</font> <b>magnetophon:</b></font> rgareus: I'm not running gnome, though I do seem to have dbus installed. Not sure if I'm running it.<br/>
+<font color="#A82F2F"><font size="2">(04:18:45 PM)</font> <b>rgareus:</b></font> magnetophon: sadly jackfreqd was written before the was dbus on debian desktops It&apos;s the meachanism I&apos;d use now.<br/>
+<font color="#A82F2F"><font size="2">(04:19:23 PM)</font> <b>rgareus:</b></font> magnetophon: run as user and send a dbus command to switch freq to the system-bus. These days that&apos;s even fast enough.<br/>
+<font color="#A82F2F"><font size="2">(04:21:40 PM)</font> <b>rgareus:</b></font> magnetophon: you can probably re-implement jackfreqd as  shell script:    while true; do  jack_cpu_load | cut .. | grep ..  &amp;&amp; dbus-send || dbus-send ; done<br/>
+<font color="#A82F2F"><font size="2">(04:21:56 PM)</font> <b>rgareus:</b></font> magnetophon: or something along those lines<br/>
+<font color="#16569E"><font size="2">(04:22:38 PM)</font> <b>magnetophon:</b></font> rgareus: but I don't even know whether I'm running dbus...<br/>
+<font color="#16569E"><font size="2">(04:23:06 PM)</font> <b>magnetophon:</b></font> rgareus: I'm getting this: fatal: Not a valid object name upstream/0.1.3<br/>
+<font color="#A82F2F"><font size="2">(04:23:09 PM)</font> <b>rgareus:</b></font> magnetophon: ps ax | grep dbus<br/>
+<font color="#A82F2F"><font size="2">(04:24:12 PM)</font> <b>rgareus:</b></font> magnetophon: upstream/0.1.3 ? in jackfreqd?    it&apos;s upstream/v0.1.3<br/>
+<font color="#16569E"><font size="2">(04:24:33 PM)</font> <b>magnetophon:</b></font> rgareus: So which file do I edit?<br/>
+<font color="#A82F2F"><font size="2">(04:24:55 PM)</font> <b>rgareus:</b></font> magnetophon: ?<br/>
+<font color="#16569E"><font size="2">(04:25:06 PM)</font> <b>magnetophon:</b></font> rgareus: how do I fix this?<br/>
+<font color="#A82F2F"><font size="2">(04:25:30 PM)</font> <b>rgareus:</b></font> magnetophon: fix what?<br/>
+<font color="#16569E"><font size="2">(04:26:03 PM)</font> <b>magnetophon:</b></font> rgareus: Well, the fatal message<br/>
+<font color="#16569E"><font size="2">(04:26:48 PM)</font> <b>magnetophon:</b></font> rgareus: I did: &quot; git-buildpackage --git-upstream-branch=master --git-debian-branch=debian -rfakeroot&quot; and got &quot;fatal: Not a valid object name upstream/0.1.3&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:27:33 PM)</font> <b>rgareus:</b></font> magnetophon: aah   git-buildpackage...<br/>
+<font color="#A82F2F"><font size="2">(04:27:36 PM)</font> <b>rgareus:</b></font> magnetophon: I was just wondering..<br/>
+<font color="#A82F2F"><font size="2">(04:28:49 PM)</font> <b>rgareus:</b></font> magnetophon: the debian packaging in the debian branch of jackfreqd is way out of date.<br/>
+<font color="#16569E"><font size="2">(04:29:30 PM)</font> <b>magnetophon:</b></font> rgareus: so I should use the other install guide?<br/>
+<font color="#A82F2F"><font size="2">(04:30:14 PM)</font> <b>rgareus:</b></font> magnetophon: just &apos;make&apos;  :)<br/>
+<font color="#A82F2F"><font size="2">(04:30:46 PM)</font> <b>rgareus:</b></font> magnetophon: and you can  &apos;sudo make install&apos; or check the makefile what it would do   &apos;make -n install&apos;<br/>
+<font color="#16569E"><font size="2">(04:30:47 PM)</font> <b>magnetophon:</b></font> rgareus: cool, thanks<br/>
+<font color="#A82F2F"><font size="2">(04:31:29 PM)</font> <b>rgareus:</b></font> magnetophon: IIRC it copies the deaemon to /sbin/ and the start script o /etc/init.d/<br/>
+<font color="#16569E"><font size="2">(04:32:25 PM)</font> <b>magnetophon:</b></font> rgareus: I seem to remember I need to uninstall any other cpu-freq deamons?<br/>
+<font color="#A82F2F"><font size="2">(04:33:01 PM)</font> <b>rgareus:</b></font> magnetophon: I don&apos;t think there are any these days.<br/>

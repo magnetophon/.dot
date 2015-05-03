@@ -1,0 +1,110 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #dataflow at Thu 15 Jan 2015 02:04:27 AM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #dataflow at Thu 15 Jan 2015 02:04:27 AM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(02:04:27 AM)</font><b> The topic for #dataflow is: ∿∿ The PureData Chatline ♫ ENGLISH FRANÇAIS DEUTSCH ♫ The Diagram is the Program™ ∿∿ Readymade Solutions Require Readymade Problems ; For Everything Else There Is PureData.™ ♫ <a href="http://puredata.info/">http://puredata.info/</a> ∿∿ <a href="http://gridflow.ca/">http://gridflow.ca/</a> ♫ ♩♬♫♩♪♩ <a href="http://wiki.dataflow.ws/DataFlow">http://wiki.dataflow.ws/DataFlow</a> ∿∿</b><br/>
+<font size="2">(02:04:27 AM)</font><b> Topic for #dataflow set by matju at 07:06:16 AM on 11/07/2011</b><br/>
+<font size="2">(02:31:41 AM)</font><b> modula is now known as defaultxr</b><br/>
+<font size="2">(02:37:06 AM)</font><b> modula is now known as defaultxr</b><br/>
+<font size="2">(04:05:05 AM)</font><b> teefive is now known as wotwot</b><br/>
+<font size="2">(10:14:55 AM)</font><b> lorenzosu_ is now known as lorenzosu</b><br/>
+<font color="#A82F2F"><font size="2">(01:30:03 PM)</font> <b>AndreeeCZ:</b></font> hi!<br/>
+<font color="#A82F2F"><font size="2">(01:30:35 PM)</font> <b>AndreeeCZ:</b></font> i have a weird problem - i have a patch with lots of hbars but when i give them a value, save project<br/>
+<font color="#A82F2F"><font size="2">(01:30:47 PM)</font> <b>AndreeeCZ:</b></font> close project, load project and the hbars are all on 0 value<br/>
+<font color="#A82F2F"><font size="2">(01:31:09 PM)</font> <b>AndreeeCZ:</b></font> how can i make pd save and restore the values of the bars in a patch?<br/>
+<font color="#A82F2F"><font size="2">(01:31:14 PM)</font> <b>rdz:</b></font> AndreeeCZ, what is a hbar?<br/>
+<font color="#A82F2F"><font size="2">(01:31:27 PM)</font> <b>AndreeeCZ:</b></font> rdz, sorry, hslider :)<br/>
+<font color="#A82F2F"><font size="2">(01:32:14 PM)</font> <b>rdz:</b></font> AndreeeCZ, you want the hslider to save its position with the patch?<br/>
+<font color="#A82F2F"><font size="2">(01:32:19 PM)</font> <b>AndreeeCZ:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(01:32:21 PM)</font> <b>rdz:</b></font> the simplest is:<br/>
+<font color="#A82F2F"><font size="2">(01:32:36 PM)</font> <b>rdz:</b></font> [loadbang]- [12.34( - [hsl]<br/>
+<font color="#A82F2F"><font size="2">(01:32:40 PM)</font> <b>rdz:</b></font> or:<br/>
+<font color="#A82F2F"><font size="2">(01:32:44 PM)</font> <b>rdz:</b></font> [loadbang]- [set 12.34( - [hsl]<br/>
+<font color="#A82F2F"><font size="2">(01:32:52 PM)</font> <b>rdz:</b></font> the latter doesn&apos;t cause any output of the hsl<br/>
+<font color="#A82F2F"><font size="2">(01:33:12 PM)</font> <b>AndreeeCZ:</b></font> so i need to do that for every single slider?<br/>
+<font color="#A82F2F"><font size="2">(01:33:41 PM)</font> <b>rdz:</b></font> no<br/>
+<font color="#A82F2F"><font size="2">(01:33:58 PM)</font> <b>AndreeeCZ:</b></font> then i dont understand :)<br/>
+<font color="#A82F2F"><font size="2">(01:33:59 PM)</font> <b>rdz:</b></font> you could pack it into an GOP abstraction and give it an argument<br/>
+<font color="#A82F2F"><font size="2">(01:34:03 PM)</font> <b>rdz:</b></font> you do...<br/>
+<font color="#A82F2F"><font size="2">(01:34:13 PM)</font> <b>rdz:</b></font> but i propose you don&apos;t do it this way<br/>
+<font color="#A82F2F"><font size="2">(01:34:20 PM)</font> <b>rdz:</b></font> doing it for all sliders is a pain<br/>
+<font color="#A82F2F"><font size="2">(01:34:28 PM)</font> <b>rdz:</b></font> i&apos;d rather make anstraction like this<br/>
+<font color="#A82F2F"><font size="2">(01:34:31 PM)</font> <b>rdz:</b></font> [loadbang]<br/>
+<font color="#A82F2F"><font size="2">(01:34:32 PM)</font> <b>rdz:</b></font> |<br/>
+<font color="#A82F2F"><font size="2">(01:34:35 PM)</font> <b>rdz:</b></font> [$1]<br/>
+<font color="#A82F2F"><font size="2">(01:34:37 PM)</font> <b>rdz:</b></font> |<br/>
+<font color="#A82F2F"><font size="2">(01:34:40 PM)</font> <b>rdz:</b></font> [hsl]<br/>
+<font color="#A82F2F"><font size="2">(01:35:04 PM)</font> <b>rdz:</b></font> and name that abstraction pers_hsl.pd or something like that<br/>
+<font color="#A82F2F"><font size="2">(01:35:12 PM)</font> <b>rdz:</b></font> and then you create your sliders like this:<br/>
+<font color="#A82F2F"><font size="2">(01:35:18 PM)</font> <b>rdz:</b></font> [pers_hsl 12.34]<br/>
+<font color="#A82F2F"><font size="2">(01:35:31 PM)</font> <b>rdz:</b></font> you get the idea?<br/>
+<font color="#A82F2F"><font size="2">(01:35:36 PM)</font> <b>AndreeeCZ:</b></font> wat no :D<br/>
+<font color="#A82F2F"><font size="2">(01:35:43 PM)</font> <b>rdz:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(01:35:49 PM)</font> <b>AndreeeCZ:</b></font> i&apos;m not sure we understand one another<br/>
+<font color="#A82F2F"><font size="2">(01:36:11 PM)</font> <b>rdz:</b></font> you don&apos;t want to set all your sliders whenever you load your patch, right?<br/>
+<font color="#A82F2F"><font size="2">(01:36:14 PM)</font> <b>AndreeeCZ:</b></font> i just want to work on a patch, save it and continue tomorrow starting where i left of<br/>
+<font color="#A82F2F"><font size="2">(01:36:31 PM)</font> <b>rdz:</b></font> AndreeeCZ, the slider position is not part of the patch<br/>
+<font color="#A82F2F"><font size="2">(01:36:37 PM)</font> <b>AndreeeCZ:</b></font> aha, hmm<br/>
+<font color="#A82F2F"><font size="2">(01:36:55 PM)</font> <b>rdz:</b></font> if you want to make it part of the patch, then something like what i proposed needs to be employed<br/>
+<font color="#A82F2F"><font size="2">(01:37:21 PM)</font> <b>AndreeeCZ:</b></font> that seems like a bit of a .. um<br/>
+<font color="#A82F2F"><font size="2">(01:37:24 PM)</font> <b>rdz:</b></font> the current value of all number boxes, symbol boxes, sliders, radios etc. is not saved with the patch<br/>
+<font color="#A82F2F"><font size="2">(01:37:32 PM)</font> <b>AndreeeCZ:</b></font> yes i understand now<br/>
+<font color="#A82F2F"><font size="2">(01:38:16 PM)</font> <b>AndreeeCZ:</b></font> thats not very handy. is this feature planned for some time in the future?<br/>
+<font color="#A82F2F"><font size="2">(01:39:45 PM)</font> <b>rdz:</b></font> i don&apos;t think so<br/>
+<font color="#A82F2F"><font size="2">(01:40:01 PM)</font> <b>rdz:</b></font> i think this is by design<br/>
+<font color="#A82F2F"><font size="2">(01:40:11 PM)</font> <b>rdz:</b></font> but it never hurts to ask on the mailing llist for it<br/>
+<font color="#A82F2F"><font size="2">(01:40:42 PM)</font> <b>rdz:</b></font> AndreeeCZ, there are many ways to deal with it<br/>
+<font color="#A82F2F"><font size="2">(01:41:24 PM)</font> <b>AndreeeCZ:</b></font> rdz, how about this?<br/>
+<font color="#A82F2F"><font size="2">(01:41:25 PM)</font> <b>AndreeeCZ:</b></font> http://puredata.info/downloads/sssad<br/>
+<font color="#A82F2F"><font size="2">(01:41:41 PM)</font> <b>rdz:</b></font> that&apos;s actually a well-known preset saving solution<br/>
+<font color="#A82F2F"><font size="2">(01:41:56 PM)</font> <b>rdz:</b></font> check it out<br/>
+<font color="#A82F2F"><font size="2">(01:42:13 PM)</font> <b>AndreeeCZ:</b></font> i have pdextended, maybe its already included?<br/>
+<font color="#A82F2F"><font size="2">(01:43:02 PM)</font> <b>rdz:</b></font> it seems it isn&apos;t<br/>
+<font color="#A82F2F"><font size="2">(01:43:24 PM)</font> <b>rdz:</b></font> but from what i know, it consists only of abtractions... so you can simply download and install it<br/>
+<font color="#A82F2F"><font size="2">(01:43:52 PM)</font> <b>AndreeeCZ:</b></font> bah, im really having a hard time understanding why isnt this &apos;feature&apos; somehow included with pd vanilla<br/>
+<font color="#A82F2F"><font size="2">(01:44:18 PM)</font> <b>rdz:</b></font> AndreeeCZ, you&apos;re probably not alone<br/>
+<font color="#A82F2F"><font size="2">(01:44:23 PM)</font> <b>AndreeeCZ:</b></font> it&apos;s like saving a project in a DAW and then setting all the plugins again<br/>
+<font color="#A82F2F"><font size="2">(01:44:36 PM)</font> <b>rdz:</b></font> AndreeeCZ, if you really care, make some noise about it<br/>
+<font color="#A82F2F"><font size="2">(01:44:48 PM)</font> <b>AndreeeCZ:</b></font> allright im stopping the rant<br/>
+<font color="#A82F2F"><font size="2">(01:44:49 PM)</font> <b>rdz:</b></font> AndreeeCZ, i think pd-l2ork already has something built-in<br/>
+<font color="#A82F2F"><font size="2">(01:45:00 PM)</font> <b>rdz:</b></font> look for preset_hub or something like that<br/>
+<font color="#A82F2F"><font size="2">(01:45:22 PM)</font> <b>AndreeeCZ:</b></font> can pd-l2ork be installed alongside pdextended?<br/>
+<font color="#A82F2F"><font size="2">(01:45:33 PM)</font> <b>rdz:</b></font> AndreeeCZ, many wouldn&apos;t think that the comparison to a DAW is a valid one<br/>
+<font color="#A82F2F"><font size="2">(01:46:06 PM)</font> <b>rdz:</b></font> pd is not a DAW.. it&apos;s a programming environment and it provides all the tools to let you create the preset system of your taste<br/>
+<font color="#A82F2F"><font size="2">(01:46:36 PM)</font> <b>rdz:</b></font> AndreeeCZ, alongside: actually i don&apos;t know.. it was a problem some time ago, i don&apos;t know the current state<br/>
+<font color="#A82F2F"><font size="2">(01:46:40 PM)</font> <b>rdz:</b></font> AndreeeCZ, are you on linux?<br/>
+<font color="#A82F2F"><font size="2">(01:46:44 PM)</font> <b>AndreeeCZ:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(01:46:55 PM)</font> <b>AndreeeCZ:</b></font> im compiling it from AUR now<br/>
+<font color="#A82F2F"><font size="2">(01:47:07 PM)</font> <b>AndreeeCZ:</b></font> we&apos;ll see<br/>
+<font color="#A82F2F"><font size="2">(01:47:17 PM)</font> <b>rdz:</b></font> compiling what?<br/>
+<font color="#A82F2F"><font size="2">(01:47:26 PM)</font> <b>AndreeeCZ:</b></font> pd-l2ork<br/>
+<font color="#A82F2F"><font size="2">(01:47:52 PM)</font> <b>AndreeeCZ:</b></font> shouldn&apos;t i? it was one of your suggestions<br/>
+<font color="#A82F2F"><font size="2">(01:54:48 PM)</font> <b>AndreeeCZ:</b></font> rdz, now that i&apos;m reading about pd-l2ork it seems that it&apos;s a bit of an overkill solution for just wanting to save and restore everything<br/>
+<font color="#A82F2F"><font size="2">(01:58:02 PM)</font> <b>AndreeeCZ:</b></font> rdz, what do the numbers mean [pers_hsl 12.34] ?<br/>
+<font color="#A82F2F"><font size="2">(01:58:05 PM)</font> <b>AndreeeCZ:</b></font> 12.34<br/>
+<font color="#A82F2F"><font size="2">(02:07:44 PM)</font> <b>rdz:</b></font> it was just an example of setting the slider to 12.34 <br/>
+<font color="#A82F2F"><font size="2">(02:08:14 PM)</font> <b>rdz:</b></font> if you feel comfortable with pd-extended, you probably feel comfortable in pd-l2ork, too<br/>
+<font color="#A82F2F"><font size="2">(02:08:34 PM)</font> <b>rdz:</b></font> it&apos;s not 100% compatible thoug<br/>
+<font color="#A82F2F"><font size="2">(02:10:44 PM)</font> <b>ClaudiusMaximus:</b></font> rdz: having an abstraction argument to set the value doesn&apos;t help with saving the current state (but maybe iemguts has a way to change the parent patch abstraction instance with the current state?)<br/>
+<font color="#A82F2F"><font size="2">(02:12:57 PM)</font> <b>rdz:</b></font> ah  not the current<br/>
+<font color="#A82F2F"><font size="2">(02:13:01 PM)</font> <b>rdz:</b></font> but _a_ state<br/>
+<font color="#A82F2F"><font size="2">(02:13:10 PM)</font> <b>rdz:</b></font> i was more thinking of a desired init state<br/>
+<font color="#A82F2F"><font size="2">(02:13:46 PM)</font> <b>rdz:</b></font> one could use hacks like setting a message box whenever the slider is changed. and the message box is loadbang and sets the slider, when the patch is loaded<br/>
+<font color="#A82F2F"><font size="2">(02:14:10 PM)</font> <b>rdz:</b></font> this would save the current state of the patch, no matter what it was, when it was saved..<br/>
+<font color="#A82F2F"><font size="2">(02:14:31 PM)</font> <b>rdz:</b></font> but this couldn&apos;t be put inside an abstraction... you&apos;d have to copy a lot of subpatches around.<br/>
+<font size="2">(03:59:58 PM)</font><b> lorenzosu is now known as lorenzosu_</b><br/>
+<font color="#A82F2F"><font size="2">(05:51:34 PM)</font> <b>AndreeeCZ:</b></font> rdz, yes but so everytime i want to change that i need to change the numbers<br/>
+<font color="#A82F2F"><font size="2">(05:51:35 PM)</font> <b>AndreeeCZ:</b></font> ?<br/>
+<font color="#A82F2F"><font size="2">(06:59:29 PM)</font> <b>AndreeeCZ:</b></font> in the settings, the Delay param, what does it do?<br/>
+<font color="#A82F2F"><font size="2">(07:02:44 PM)</font> <b>AndreeeCZ:</b></font> aha, it delays :D<br/>
+<font size="2">(07:08:37 PM)</font><b> AndreeeCZ left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(08:38:16 PM)</font> <b>AndreeeCZ_:</b></font> hi again<br/>
+<font color="#A82F2F"><font size="2">(08:38:36 PM)</font> <b>AndreeeCZ_:</b></font> i think i need to filter noteon and noteoff messages from notein<br/>
+<font color="#A82F2F"><font size="2">(08:38:53 PM)</font> <b>AndreeeCZ_:</b></font> i need to disregard noteoffs, how can I achieve that?<br/>
+<font color="#A82F2F"><font size="2">(08:44:54 PM)</font> <b>ClaudiusMaximus:</b></font> noteoff has velocity 0<br/>
+<font color="#A82F2F"><font size="2">(08:46:17 PM)</font> <b>ClaudiusMaximus:</b></font> so reorder &quot;channel note velocity&quot; to &quot;velocity channel note&quot; with [$3 $1 $2(, then [route 0] (right hand outlet is without note-offs), then reorder back to &quot;channel note velocity&quot; with [$2 $3 $1(<br/>
+<font color="#A82F2F"><font size="2">(08:46:40 PM)</font> <b>ClaudiusMaximus:</b></font> and there&apos;s also [stripnote<br/>
+<font color="#A82F2F"><font size="2">(08:46:42 PM)</font> <b>ClaudiusMaximus:</b></font> ]<br/>
+<font color="#A82F2F"><font size="2">(08:46:58 PM)</font> <b>ClaudiusMaximus:</b></font> iirc, which probably does the same, maybe not including channel number<br/>
+<font color="#A82F2F"><font size="2">(08:48:03 PM)</font> <b>ClaudiusMaximus:</b></font> yeah stripnote only has two inlets<br/>
+<font color="#A82F2F"><font size="2">(09:08:24 PM)</font> <b>AndreeeCZ_:</b></font> ClaudiusMaximus, right, thank y ou<br/>
+<font size="2">(09:14:50 PM)</font><b> lorenzosu_ is now known as lorenzosu</b><br/>
+<font size="2">(12:01:29 AM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

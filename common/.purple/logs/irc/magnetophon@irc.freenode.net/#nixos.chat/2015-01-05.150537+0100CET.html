@@ -1,0 +1,226 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Mon 05 Jan 2015 03:05:37 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Mon 05 Jan 2015 03:05:37 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(03:05:37 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(03:05:38 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(03:05:43 PM)</font> <b>Baughn:</b></font> ..wait, the default firewall denies ICMP?<br/>
+<font color="#A82F2F"><font size="2">(03:05:49 PM)</font> <b>Baughn:</b></font> That&apos;s.. not good.<br/>
+<font color="#062585"><font size="2">(03:05:58 PM)</font> <b>***Baughn</b></font> wonders how to fix<br/>
+<font color="#16569E"><font size="2">(03:06:35 PM)</font> <b>magnetophon:</b></font> goibhniu: nope, default kernel also doesn't work.<br/>
+<font color="#A82F2F"><font size="2">(03:06:35 PM)</font> <b>Baughn:</b></font> Looks like my system was pretty badly broken, yeah. nixos-rebuild fixed it.<br/>
+<font color="#A82F2F"><font size="2">(03:09:33 PM)</font> <b>ikwildrpepper:</b></font> Baughn: networking.firewall.allowPing = true;<br/>
+<font color="#A82F2F"><font size="2">(03:09:44 PM)</font> <b>Baughn:</b></font> ikwildrpepper: ping is the least important of ICMP requests<br/>
+<font color="#A82F2F"><font size="2">(03:09:50 PM)</font> <b>Baughn:</b></font> Really, I want to allow them all<br/>
+<font color="#A82F2F"><font size="2">(03:10:19 PM)</font> <b>ikwildrpepper:</b></font> ah, then you can just add networking.firewall.extraCommands<br/>
+<font color="#A82F2F"><font size="2">(03:10:28 PM)</font> <b>ikwildrpepper:</b></font> 413       example = &quot;iptables -A INPUT -p icmp -j ACCEPT&quot;;<br/>
+<font color="#A82F2F"><font size="2">(03:10:38 PM)</font> <b>Baughn:</b></font> Where do I find these options?<br/>
+<font color="#A82F2F"><font size="2">(03:10:39 PM)</font> <b>pierron:</b></font> qknight: by the way, nice work with the template page :)<br/>
+<font color="#A82F2F"><font size="2">(03:10:51 PM)</font> <b>ikwildrpepper:</b></font> Baughn: man configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(03:11:28 PM)</font> <b>ikwildrpepper:</b></font> Baughn: or the nixos manual<br/>
+<font color="#A82F2F"><font size="2">(03:12:47 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nix] j-keck opened pull request #431: small documentation fixes (master...master) http://git.io/c8zVKQ<br/>
+<font color="#A82F2F"><font size="2">(03:13:50 PM)</font> <b>Baughn:</b></font> Ah, there we go. Thanks.<br/>
+<font color="#A82F2F"><font size="2">(03:14:19 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nix] rbvermaa closed pull request #431: small documentation fixes (master...master) http://git.io/c8zVKQ<br/>
+<font color="#062585"><font size="2">(03:16:29 PM)</font> <b>***Baughn</b></font> thinks the configuration file should be a real language. Of some kind.<br/>
+<font color="#A82F2F"><font size="2">(03:19:00 PM)</font> <b>shlevy:</b></font> Baughn: It is<br/>
+<font color="#A82F2F"><font size="2">(03:19:01 PM)</font> <b>shlevy:</b></font> Baughn: nix<br/>
+<font color="#A82F2F"><font size="2">(03:19:18 PM)</font> <b>Baughn:</b></font> Well, I really meant an existing, full-featured one..<br/>
+<font color="#16569E"><font size="2">(03:19:28 PM)</font> <b>magnetophon:</b></font> Baughn: you do know about guix, right?<br/>
+<font color="#A82F2F"><font size="2">(03:19:39 PM)</font> <b>shlevy:</b></font> How long does a language have to exist before it&apos;s &quot;existing&quot;?<br/>
+<font color="#A82F2F"><font size="2">(03:20:18 PM)</font> <b>shlevy:</b></font> And what do you mean by full-featured? nix is turing complete and pretty good at its job, what features do you want?<br/>
+<font color="#A82F2F"><font size="2">(03:20:28 PM)</font> <b>shlevy:</b></font> (turing complete modulo memory, of course ;) )<br/>
+<font color="#A82F2F"><font size="2">(03:20:51 PM)</font> <b>Baughn:</b></font> Type-classes, type expression, lazy evaluation, ...<br/>
+<font color="#A82F2F"><font size="2">(03:20:52 PM)</font> <b>ktosiek:</b></font> shlevy: well, is there a restriction on memory built into language?<br/>
+<font color="#A82F2F"><font size="2">(03:21:17 PM)</font> <b>shlevy:</b></font> ktosiek: Depends on what you mean by &quot;the language&quot; :P<br/>
+<font color="#A82F2F"><font size="2">(03:21:22 PM)</font> <b>ktosiek:</b></font> Baughn: Python doesn&apos;t have type-classes nor lazy evaluation :-P<br/>
+<font color="#A82F2F"><font size="2">(03:21:32 PM)</font> <b>shlevy:</b></font> Baughn: nix has lazy evaluation<br/>
+<font color="#A82F2F"><font size="2">(03:22:01 PM)</font> <b>ktosiek:</b></font> shlevy: syntax + semantics (not implementation) :-P<br/>
+<font color="#A82F2F"><font size="2">(03:22:07 PM)</font> <b>shlevy:</b></font> Baughn: What do you want to use type-classes and type expressions for?<br/>
+<font color="#A82F2F"><font size="2">(03:22:26 PM)</font> <b>shlevy:</b></font> ktosiek: Then it&apos;s turing complete, yay!<br/>
+<font color="#A82F2F"><font size="2">(03:22:28 PM)</font> <b>Baughn:</b></font> Don&apos;t know yet. In my experience, I&apos;ll find something. :)<br/>
+<font color="#A82F2F"><font size="2">(03:22:29 PM)</font> <b>Baughn:</b></font> We&apos;ll see.<br/>
+<font color="#062585"><font size="2">(03:22:37 PM)</font> <b>***Baughn</b></font> goes back to configuring this server.<br/>
+<font color="#062585"><font size="2">(03:24:18 PM)</font> <b>***ktosiek</b></font> wonders if the Real Language meme will ever die<br/>
+<font color="#A82F2F"><font size="2">(03:25:58 PM)</font> <b>shlevy:</b></font> nix is older than haskell2010! :D<br/>
+<font color="#A82F2F"><font size="2">(03:26:33 PM)</font> <b>ktosiek:</b></font> but is it older than Haskell proper?<br/>
+<font color="#A82F2F"><font size="2">(03:26:33 PM)</font> <b>ikwildrpepper:</b></font> shlevy: nix is legacy<br/>
+<font color="#A82F2F"><font size="2">(03:26:56 PM)</font> <b>ikwildrpepper:</b></font> can&apos;t believe people are still using nix, it&apos;s so old<br/>
+<font color="#A82F2F"><font size="2">(03:26:56 PM)</font> <b>ktosiek:</b></font> or at least haskell-with-IO-monad?<br/>
+<font color="#A82F2F"><font size="2">(03:27:19 PM)</font> <b>shlevy:</b></font> Younger than 98<br/>
+<font color="#A82F2F"><font size="2">(03:27:57 PM)</font> <b>shlevy:</b></font> Probably some precocious kid out there is using nix and is younger than it<br/>
+<font color="#A82F2F"><font size="2">(03:31:04 PM)</font> <b>ikwildrpepper:</b></font> shlevy: aren&apos;t you younger than nix? :-p<br/>
+<font color="#A82F2F"><font size="2">(03:31:28 PM)</font> <b>ikwildrpepper:</b></font> ok, /me goes into the shut-up-corner<br/>
+<font color="#A82F2F"><font size="2">(03:33:56 PM)</font> <b>goibhniu:</b></font> magnetophon: it&apos;s such a pain to debug hibernation :/ ... I know this has changed in the last 6 months though, so maybe there is a bug<br/>
+<font color="#A82F2F"><font size="2">(03:34:15 PM)</font> <b>goibhniu:</b></font> magnetophon: can you post your system config, just in case?<br/>
+<font color="#16569E"><font size="2">(03:34:26 PM)</font> <b>magnetophon:</b></font> goibhniu: sure, one sec<br/>
+<font color="#16569E"><font size="2">(03:36:47 PM)</font> <b>magnetophon:</b></font> goibhniu: https://github.com/magnetophon/nixosConfig/blob/master/configuration.nix<br/>
+<font color="#16569E"><font size="2">(03:37:27 PM)</font> <b>magnetophon:</b></font> goibhniu: and it is referencing https://github.com/musnix/musnix/blob/master/default.nix<br/>
+<font color="#16569E"><font size="2">(03:38:20 PM)</font> <b>magnetophon:</b></font> goibhniu: when you say &quot;so maybe there is a bug&quot;, do you mean you're not using hibernation yourself?<br/>
+<font color="#A82F2F"><font size="2">(03:39:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] peti pushed 1 new commit to master: http://git.io/3221oQ<br/>
+<font color="#A82F2F"><font size="2">(03:39:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master ea94a6d Peter Simons: nixos/modules/services/misc/nix-daemon.nix: document meaning of &apos;0&apos; for the buildCores attribute<br/>
+<font color="#A82F2F"><font size="2">(03:45:30 PM)</font> <b>goibhniu:</b></font> magnetophon: I only use hibernation occasionally, and I&apos;m not sure if I have used it since this change<br/>
+<font color="#16569E"><font size="2">(03:46:11 PM)</font> <b>magnetophon:</b></font> goibhniu: could you give it a wirl?<br/>
+<font color="#A82F2F"><font size="2">(03:48:11 PM)</font> <b>goibhniu:</b></font> magnetophon: I will try this evening (I don&apos;t have hibernation enabled on this machine at all)<br/>
+<font color="#A82F2F"><font size="2">(03:49:49 PM)</font> <b>goibhniu:</b></font> magnetophon: did you try to hibernate with `pm-hibernate`? ... I see you also have the hibernate scripts installed, which is something else IIUC<br/>
+<font color="#062585"><font size="2">(03:50:46 PM)</font> <b>***goibhniu</b></font> notices hardware.cpu.intel.updateMicrocode ... I wonder what that&apos;s all about<br/>
+<font color="#16569E"><font size="2">(03:51:32 PM)</font> <b>magnetophon:</b></font> goibhniu: no i did  systemctl hibernate<br/>
+<font color="#16569E"><font size="2">(03:52:06 PM)</font> <b>magnetophon:</b></font> goibhniu: updateMicrocode is something I nicked from aszlig<br/>
+<font color="#A82F2F"><font size="2">(03:52:08 PM)</font> <b>goibhniu:</b></font> ah ok, I guess that&apos;s the same<br/>
+<font color="#A82F2F"><font size="2">(03:54:13 PM)</font> <b>goibhniu:</b></font> magnetophon: well, I&apos;m out of ideas. I&apos;ll let you know if hibernation works on my machine at home later on.<br/>
+<font color="#16569E"><font size="2">(03:54:36 PM)</font> <b>magnetophon:</b></font> goibhniu: thanks a lot for looking at it!<br/>
+<font color="#A82F2F"><font size="2">(03:55:53 PM)</font> <b>goibhniu:</b></font> magnetophon: no problemo!<br/>
+<font color="#16569E"><font size="2">(03:55:58 PM)</font> <b>magnetophon:</b></font> goibhniu: command not found: pm-hibernate  ???<br/>
+<font color="#A82F2F"><font size="2">(03:56:06 PM)</font> <b>goibhniu:</b></font> magnetophon: BTW are you gonna be at FOSDEM?<br/>
+<font color="#16569E"><font size="2">(03:56:38 PM)</font> <b>magnetophon:</b></font> goibhniu: It's starting to look tempting...  :)<br/>
+<font size="2">(03:57:05 PM)</font><b> roconnor left the room (quit: Quit: Konversation terminated!).</b><br/>
+<font color="#A82F2F"><font size="2">(04:02:14 PM)</font> <b>goibhniu:</b></font> magnetophon: go on! :D<br/>
+<font color="#16569E"><font size="2">(04:02:42 PM)</font> <b>magnetophon:</b></font> goibhniu: so you'll be there?<br/>
+<font color="#A82F2F"><font size="2">(04:03:11 PM)</font> <b>goibhniu:</b></font> magnetophon: for sure! We&apos;re going to have a stand this year. FOSDEM is great!<br/>
+<font color="#16569E"><font size="2">(04:04:01 PM)</font> <b>magnetophon:</b></font> goibhniu: I just put it in my agenda :)<br/>
+<font color="#A82F2F"><font size="2">(04:04:59 PM)</font> <b>goibhniu:</b></font> nice!<br/>
+<font color="#16569E"><font size="2">(04:06:37 PM)</font> <b>magnetophon:</b></font> goibhniu: anything audio related there?<br/>
+<font color="#A82F2F"><font size="2">(04:07:02 PM)</font> <b>goibhniu:</b></font> magnetophon: would you be interested in hanging out at the stand too? ... I wonder if you might have some nice audio devices (blinking lights!) to attract people to the table ... or other ideas<br/>
+<font color="#A82F2F"><font size="2">(04:07:51 PM)</font> <b>goibhniu:</b></font> magnetophon: hmm ... I don&apos;t think there&apos;s much audio stuff TBH<br/>
+<font color="#16569E"><font size="2">(04:07:56 PM)</font> <b>magnetophon:</b></font> goibhniu: what would be my duties as an out-hanger?<br/>
+<font color="#16569E"><font size="2">(04:08:55 PM)</font> <b>magnetophon:</b></font> goibhniu: I have lot's of audio-devices, but I feel they'd be a bit out of place, as in: not related to nixos.<br/>
+<font color="#16569E"><font size="2">(04:09:15 PM)</font> <b>magnetophon:</b></font> goibhniu: I'm open to arguments though!<br/>
+<font color="#A82F2F"><font size="2">(04:10:25 PM)</font> <b>goibhniu:</b></font> magnetophon: We should have some flyers, hopefully we&apos;ll have a presentation on some screens and posters ... but the main thing is to answer any questions people may have, give hands-on-tours etc.<br/>
+<font color="#A82F2F"><font size="2">(04:11:53 PM)</font> <b>goibhniu:</b></font> magnetophon: yeah, it&apos;s tricky ... I was thinking it would be nice to show that NixOS isn&apos;t just for servers, or gentoo refugees etc. ... you can do a wide range of things with it<br/>
+<font color="#A82F2F"><font size="2">(04:11:53 PM)</font> <b>goibhniu:</b></font> so, some props on the stand might make that clear<br/>
+<font color="#16569E"><font size="2">(04:12:08 PM)</font> <b>magnetophon:</b></font> goibhniu: I thought it'd be something like that, and I think I'm a bit under qualified. I've only been using the system for 1.5 months now...<br/>
+<font color="#A82F2F"><font size="2">(04:12:09 PM)</font> <b>goibhniu:</b></font> hmm, I have a tiny midi keyboard and controller<br/>
+<font color="#16569E"><font size="2">(04:12:53 PM)</font> <b>magnetophon:</b></font> goibhniu: the above is RE answer questions and give a hands-on tour.<br/>
+<font color="#A82F2F"><font size="2">(04:12:58 PM)</font> <b>goibhniu:</b></font> magnetophon: well, there should be a few of us there at any time, so I wouldn&apos;t worry about that<br/>
+<font color="#A82F2F"><font size="2">(04:15:05 PM)</font> <b>goibhniu:</b></font> Ah ok ... I&apos;d say it will be a lot of fun anyway.<br/>
+<font color="#16569E"><font size="2">(04:15:26 PM)</font> <b>magnetophon:</b></font> goibhniu: I could bring (part of) my studio setup, though there are 3 problems: 1)It doesn't run nixos yet, 2)it's bulky and loud, 3) it's expensive.<br/>
+<font color="#A82F2F"><font size="2">(04:16:14 PM)</font> <b>goibhniu:</b></font> heh, that doesn&apos;t sound optimal :D<br/>
+<font color="#16569E"><font size="2">(04:16:46 PM)</font> <b>magnetophon:</b></font> goibhniu: :)<br/>
+<font color="#16569E"><font size="2">(04:17:47 PM)</font> <b>magnetophon:</b></font> goibhniu: Whe else will be manning the stand?<br/>
+<font color="#16569E"><font size="2">(04:17:54 PM)</font> <b>magnetophon:</b></font> s/Whe/Who<br/>
+<font color="#A82F2F"><font size="2">(04:18:26 PM)</font> <b>goibhniu:</b></font> We should collect a list alright<br/>
+<font color="#A82F2F"><font size="2">(04:22:08 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] jmwoehr opened pull request #5590: New Haskell package: classy-prelude-yesod (master...classy-prelude-yesod) http://git.io/LZE3kA<br/>
+<font color="#A82F2F"><font size="2">(04:22:08 PM)</font> <b>goibhniu:</b></font> magnetophon: iElectric, thatdocslady and wmertens for sure ... but there will be more<br/>
+<font color="#A82F2F"><font size="2">(04:22:47 PM)</font> <b>shlevy:</b></font> Yay now hydra is basically completely dedicated to http://hydra.nixos.org/jobset/nixpkgs/pr-5496 :D<br/>
+<font color="#A82F2F"><font size="2">(04:23:02 PM)</font> <b>kmicu:</b></font> goibhniu: Live stream please.<br/>
+<font color="#A82F2F"><font size="2">(04:23:06 PM)</font> <b>shlevy:</b></font> There is one build in the queue that isn&apos;t part of that jobset<br/>
+<font color="#A82F2F"><font size="2">(04:23:39 PM)</font> <b>goibhniu:</b></font> kmicu: can you not make it?<br/>
+<font color="#A82F2F"><font size="2">(04:24:10 PM)</font> <b>kmicu:</b></font> goibhniu: an event w/o live stream is not the event.<br/>
+<font color="#A82F2F"><font size="2">(04:25:00 PM)</font> <b>goibhniu:</b></font> kmicu: all the talks are streamed ... we&apos;re talking about a booth at the event<br/>
+<font color="#A82F2F"><font size="2">(04:25:27 PM)</font> <b>kmicu:</b></font> Yes. It should be live streamed too.<br/>
+<font color="#A82F2F"><font size="2">(04:26:20 PM)</font> <b>kmicu:</b></font> With some cheap laptop and google hangout or something :)<br/>
+<font color="#A82F2F"><font size="2">(04:26:22 PM)</font> <b>goibhniu:</b></font> kmicu: I&apos;m not sure that it encourages people to ask questions if they know they&apos;re being recorded<br/>
+<font color="#A82F2F"><font size="2">(04:27:15 PM)</font> <b>kmicu:</b></font> Fair point.<br/>
+<font color="#A82F2F"><font size="2">(04:27:47 PM)</font> <b>shlevy:</b></font> So don&apos;t tell them! :P<br/>
+<font color="#A82F2F"><font size="2">(04:30:58 PM)</font> <b>goibhniu:</b></font> heh ... but I&apos;m not sure it would be something anyone would watch either ... e.g. 100s of people (hopefully!) approaching the stand asking similar questions<br/>
+<font color="#A82F2F"><font size="2">(04:31:38 PM)</font> <b>iElectric:</b></font> we have to figure out how to get two machines with LCDs in brussel<br/>
+<font color="#A82F2F"><font size="2">(04:31:40 PM)</font> <b>iElectric:</b></font> :D<br/>
+<font color="#A82F2F"><font size="2">(04:32:03 PM)</font> <b>goibhniu:</b></font> ... and make a presentation!<br/>
+<font color="#A82F2F"><font size="2">(04:32:27 PM)</font> <b>goibhniu:</b></font> won&apos;t people have laptops though?<br/>
+<font color="#A82F2F"><font size="2">(04:32:53 PM)</font> <b>iElectric:</b></font> presentation is easy<br/>
+<font color="#A82F2F"><font size="2">(04:32:53 PM)</font> <b>goibhniu:</b></font> isn&apos;t pierron bringing the monitors?<br/>
+<font color="#A82F2F"><font size="2">(04:32:53 PM)</font> <b>iElectric:</b></font> is he?<br/>
+<font color="#A82F2F"><font size="2">(04:33:04 PM)</font> <b>goibhniu:</b></font> yeah, he wrote that in the wiki<br/>
+<font color="#A82F2F"><font size="2">(04:33:34 PM)</font> <b>goibhniu:</b></font> well, ... a &quot;nice&quot; presentation :D<br/>
+<font color="#A82F2F"><font size="2">(04:39:25 PM)</font> <b>qknight:</b></font> pierron: no push them, they are public domain as far as my work goes<br/>
+<font color="#A82F2F"><font size="2">(04:40:03 PM)</font> <b>qknight:</b></font> pierron: the template page is actually copied from archwiki, which is a excelent documentation. so credit goes to them ;-)<br/>
+<font color="#A82F2F"><font size="2">(04:52:01 PM)</font> <b>pierron:</b></font> goibhniu: I had some thought about the slide-show.<br/>
+<font color="#A82F2F"><font size="2">(04:52:27 PM)</font> <b>pierron:</b></font> goibhniu: but I have nothing concrete atm.<br/>
+<font color="#A82F2F"><font size="2">(04:53:07 PM)</font> <b>goibhniu:</b></font> ah cool, we can definitely leave that until the end anyway<br/>
+<font color="#A82F2F"><font size="2">(04:53:50 PM)</font> <b>pierron:</b></font> goibhniu: I was thinking that we could have twittable catch-phrases that we could put on one of the screen, and have some code example / graphics next to it.<br/>
+<font color="#A82F2F"><font size="2">(04:54:30 PM)</font> <b>goibhniu:</b></font> sounds interesting<br/>
+<font color="#A82F2F"><font size="2">(04:54:59 PM)</font> <b>pierron:</b></font> goibhniu: such as &quot;Change the source of a package and rebuild your system with the original recipe.&quot;<br/>
+<font color="#A82F2F"><font size="2">(04:55:27 PM)</font> <b>pmahoney:</b></font> hm, download-from-binary-cache.pl ignores NIX_CURL_FLAGS.  is this intentional?  unlike fetchurl, it uses libcurl rather than invoking the &apos;curl&apos; binary which may complicate things<br/>
+<font color="#A82F2F"><font size="2">(04:55:40 PM)</font> <b>pierron:</b></font> goibhniu: and show a 3 simple line of what ~/.nixpkgs/config.nix might be for doing so.<br/>
+<font color="#A82F2F"><font size="2">(04:56:04 PM)</font> <b>pierron:</b></font> goibhniu: and randomly rotating between them.<br/>
+<font color="#A82F2F"><font size="2">(04:57:55 PM)</font> <b>pierron:</b></font> iElectric: presentation, what are you thinking about?<br/>
+<font color="#A82F2F"><font size="2">(04:58:01 PM)</font> <b>pierron:</b></font> iElectric: live demo?<br/>
+<font color="#A82F2F"><font size="2">(04:58:22 PM)</font> <b>goibhniu:</b></font> pierron: nice, we can also build on it during the conference, as we learn more about the kinds of things people are most interested in<br/>
+<font color="#A82F2F"><font size="2">(04:58:59 PM)</font> <b>pierron:</b></font> goibhniu: or just look at the comments / blog post / …<br/>
+<font color="#A82F2F"><font size="2">(04:59:02 PM)</font> <b>goibhniu:</b></font> at the last conference I was at, I got loads of questions about docker and CoreOS ... it would be nice to have some answers for them<br/>
+<font color="#A82F2F"><font size="2">(04:59:15 PM)</font> <b>iElectric:</b></font> pierron: are you bringin VGAs?<br/>
+<font color="#A82F2F"><font size="2">(04:59:21 PM)</font> <b>iElectric:</b></font> no way to get two LCDs?<br/>
+<font color="#A82F2F"><font size="2">(05:00:00 PM)</font> <b>pierron:</b></font> iElectric: 2 VGA, LCD<br/>
+<font color="#A82F2F"><font size="2">(05:00:15 PM)</font> <b>pierron:</b></font> iElectric: one might be a TFT (if that&apos;s the right spelling)<br/>
+<font color="#A82F2F"><font size="2">(05:00:38 PM)</font> <b>pierron:</b></font> iElectric: they are kind of old :/<br/>
+<font color="#A82F2F"><font size="2">(05:01:38 PM)</font> <b>pierron:</b></font> iElectric: one is squarish, and the largest one is ~16:9<br/>
+<font color="#A82F2F"><font size="2">(05:01:40 PM)</font> <b>iElectric:</b></font> no worries<br/>
+<font color="#A82F2F"><font size="2">(05:02:43 PM)</font> <b>pierron:</b></font> I expect to be driving there, so I should be able to carry stuff around.<br/>
+<font color="#A82F2F"><font size="2">(05:02:53 PM)</font> <b>iElectric:</b></font> nice<br/>
+<font color="#A82F2F"><font size="2">(05:02:59 PM)</font> <b>iElectric:</b></font> so we need just two machines<br/>
+<font color="#A82F2F"><font size="2">(05:03:55 PM)</font> <b>iElectric:</b></font> one can be pretty much anything (for presentation), the other one would be nice to have some performance<br/>
+<font color="#A82F2F"><font size="2">(05:08:28 PM)</font> <b>MichaelRaskin:</b></font> Am I the only one running NixOS on a Gigabyte Brix?<br/>
+<font color="#A82F2F"><font size="2">(05:08:35 PM)</font> <b>MichaelRaskin:</b></font> (I am not coming to FOSDEM)<br/>
+<font color="#A82F2F"><font size="2">(05:09:57 PM)</font> <b>pierron:</b></font> MichaelRaskin: I recently installed it on OVH (Kimsufi), which is a cheap dedicated hosting.<br/>
+<font color="#A82F2F"><font size="2">(05:10:20 PM)</font> <b>MichaelRaskin:</b></font> pierron: well, I asked in context of a performant NixOS computer<br/>
+<font color="#A82F2F"><font size="2">(05:10:33 PM)</font> <b>MichaelRaskin:</b></font> Although there are some rough edges with WiFi chipset<br/>
+<font color="#A82F2F"><font size="2">(05:11:00 PM)</font> <b>thoughtpolice:</b></font> mmm, FOSDEM. maybe one day there will be enough Nixers in the US to have a meetup somewhere here :)<br/>
+<font color="#A82F2F"><font size="2">(05:11:07 PM)</font> <b>MichaelRaskin:</b></font> As mine has only to be wired to my notebook and build things (or compute things), I have Brix setup nicely<br/>
+<font color="#A82F2F"><font size="2">(05:11:40 PM)</font> <b>pierron:</b></font> thoughtpolice: &quot;in the US&quot; ?<br/>
+<font color="#A82F2F"><font size="2">(05:14:38 PM)</font> <b>thoughtpolice:</b></font> pierron: well, FOSDEM is a European conference, and furthermore I&apos;m under the impression the large majority Nix users and developers are European; there seem to be relatively few of us Americans by comparison, so much less opportunity to do things like conf meetups.<br/>
+<font color="#062585"><font size="2">(05:15:01 PM)</font> <b>***goibhniu</b></font> thought someone mentioned they were gonna have a stand at an american conference ... can&apos;t find the details now though :/<br/>
+<font color="#A82F2F"><font size="2">(05:16:12 PM)</font> <b>thoughtpolice:</b></font> I do believe I&apos;ll probably be running into johnw again at Compose Conf in NYC this year, so maybe we can make that count :P<br/>
+<font color="#A82F2F"><font size="2">(05:16:56 PM)</font> <b>thoughtpolice:</b></font> and perhaps copumpkin will join? :)<br/>
+<font size="2">(05:20:26 PM)</font><b> goibhniu1 [<em>~goibhniu@p5DCBF02A.dip0.t-ipconnect.de</em>] entered the room.</b><br/>
+<font color="#A82F2F"><font size="2">(05:20:41 PM)</font> <b>butyoudonot:</b></font> it&apos;s hard to understand how xmonad&apos;s supposed to be working only with setting services.xserver.windowManager.xmonad.enable to &apos;true&apos;<br/>
+<font color="#A82F2F"><font size="2">(05:20:56 PM)</font> <b>goibhniu1:</b></font> aha! it was goodwill who mentioned it ... at Scale (L.A.) in Feb<br/>
+<font color="#A82F2F"><font size="2">(05:21:04 PM)</font> <b>butyoudonot:</b></font> it looks like ghc is not installed with it because of &apos;xmonad: ghc: runProcess: runInteractiveProcess: exec: does not exist (No such file or directory)&apos;<br/>
+<font size="2">(05:23:37 PM)</font><b> goibhniu left the room (quit: Ping timeout: 245 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(05:23:54 PM)</font> <b>kmicu:</b></font> butyoudonot: you should state your nixpkgs version|channel, b/c there were  some changes related to that.<br/>
+<font color="#A82F2F"><font size="2">(05:24:52 PM)</font> <b>butyoudonot:</b></font> kmicu: nixos-version -&gt; 15.05pre54730.cbe467e (Caterpillar)<br/>
+<font color="#16569E"><font size="2">(05:26:17 PM)</font> <b>magnetophon:</b></font> iElectric: iiuc you still need a low-end box for fosdem, right?<br/>
+<font color="#A82F2F"><font size="2">(05:26:27 PM)</font> <b>iElectric:</b></font> yeah<br/>
+<font color="#16569E"><font size="2">(05:26:56 PM)</font> <b>magnetophon:</b></font> iElectric: I can bring one.<br/>
+<font color="#A82F2F"><font size="2">(05:27:05 PM)</font> <b>iElectric:</b></font> with VGA output?<br/>
+<font color="#16569E"><font size="2">(05:27:09 PM)</font> <b>magnetophon:</b></font> yup<br/>
+<font color="#A82F2F"><font size="2">(05:27:15 PM)</font> <b>iElectric:</b></font> all it has to do is full screen browser<br/>
+<font color="#A82F2F"><font size="2">(05:27:21 PM)</font> <b>iElectric:</b></font> k<br/>
+<font color="#A82F2F"><font size="2">(05:27:40 PM)</font> <b>pierron:</b></font> yes, the presentation should be an HTML one, this would simplify everything.<br/>
+<font color="#16569E"><font size="2">(05:27:54 PM)</font> <b>magnetophon:</b></font> iElectric: does it need to run nixos?<br/>
+<font color="#A82F2F"><font size="2">(05:27:55 PM)</font> <b>pierron:</b></font> and this would be scriptable.<br/>
+<font color="#A82F2F"><font size="2">(05:27:56 PM)</font> <b>butyoudonot:</b></font> also &apos;enableContribAndExtras = true&apos; doesn&apos;t bring contrib nor extras to the table<br/>
+<font color="#A82F2F"><font size="2">(05:28:20 PM)</font> <b>pierron:</b></font> magnetophon: for the slide-show computer, no it does not have to.<br/>
+<font color="#16569E"><font size="2">(05:28:44 PM)</font> <b>magnetophon:</b></font> pierron: cool, that saves some work.<br/>
+<font color="#A82F2F"><font size="2">(05:28:53 PM)</font> <b>kmicu:</b></font> butyoudonot: I don’t have time to check what is wrong, FWIW I can tell you that https://www.refheap.com/3e38aaa06e35c64bc79ef98ef works for sure.<br/>
+<font color="#A82F2F"><font size="2">(05:29:01 PM)</font> <b>iElectric:</b></font> magnetophon: do note that on the wiki page<br/>
+<font color="#A82F2F"><font size="2">(05:29:09 PM)</font> <b>pierron:</b></font> magnetophon: as long as it is capable of making a browser fullscreen without any chrome from anything else.<br/>
+<font color="#16569E"><font size="2">(05:29:23 PM)</font> <b>magnetophon:</b></font> pierron: np<br/>
+<font color="#A82F2F"><font size="2">(05:29:32 PM)</font> <b>MichaelRaskin:</b></font> \\\\\\\<br/>
+<font color="#A82F2F"><font size="2">(05:29:35 PM)</font> <b>MichaelRaskin:</b></font> Oops<br/>
+<font color="#16569E"><font size="2">(05:29:36 PM)</font> <b>magnetophon:</b></font> iElectric: where is the wiki?<br/>
+<font color="#A82F2F"><font size="2">(05:29:56 PM)</font> <b>kmicu:</b></font> butyoudonot: (probably some mis-configured XMonad module)<br/>
+<font color="#A82F2F"><font size="2">(05:30:18 PM)</font> <b>MichaelRaskin:</b></font> I guess quite a few people will have some recovery USB drive with NixOS, so running a browser on presentation computer shouldn&apos;t be a problem<br/>
+<font color="#A82F2F"><font size="2">(05:31:52 PM)</font> <b>iElectric:</b></font> magnetophon: https://nixos.org/wiki/FOSDEM_2015<br/>
+<font color="#16569E"><font size="2">(05:39:37 PM)</font> <b>magnetophon:</b></font> iElectric: ok, done.  I can also bring a cash register. It's a simple drawer with slots for notes and coins. It isn't loackable. Not sure if that is what you want.<br/>
+<font color="#A82F2F"><font size="2">(05:41:06 PM)</font> <b>iElectric:</b></font> should be fine<br/>
+<font color="#16569E"><font size="2">(05:42:49 PM)</font> <b>magnetophon:</b></font> ok, I'll bring it then.<br/>
+<font color="#16569E"><font size="2">(05:43:22 PM)</font> <b>magnetophon:</b></font> What is a cheap place to spend the night over there?<br/>
+<font color="#A82F2F"><font size="2">(05:48:45 PM)</font> <b>goibhniu1:</b></font> magnetophon: airbnb?<br/>
+<font size="2">(05:48:50 PM)</font><b> goibhniu1 is now known as goibhniu</b><br/>
+<font color="#A82F2F"><font size="2">(05:49:37 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] dmalikov opened pull request #5591: haskellPackages.xmonadScreenshot: add 0.1.0.0 (master...master) http://git.io/ZF1hIw<br/>
+<font color="#A82F2F"><font size="2">(05:54:18 PM)</font> <b>goibhniu:</b></font> magnetophon: BTW there&apos;s a nice party on the Friday too<br/>
+<font color="#16569E"><font size="2">(05:55:13 PM)</font> <b>magnetophon:</b></font> goibhniu: Where? Any more info?<br/>
+<font size="2">(05:58:03 PM)</font><b> Ankhers` is now known as Ankhers</b><br/>
+<font color="#A82F2F"><font size="2">(05:59:03 PM)</font> <b>goibhniu:</b></font> magnetophon: oh! I can find no mention of it on the site. AFAIK it&apos;s usually in the Delirium Café: https://archive.fosdem.org/2014/practical/beerevent/<br/>
+<font color="#16569E"><font size="2">(06:04:04 PM)</font> <b>magnetophon:</b></font> goibhniu: heh, funny page...<br/>
+<font color="#16569E"><font size="2">(06:19:18 PM)</font> <b>magnetophon:</b></font> goibhniu: when will you be manning the table? I'd enjoy volunteering if there's someone there that I can learn NixOS audio from... <br/>
+<font color="#A82F2F"><font size="2">(06:19:28 PM)</font> <b>pmahoney:</b></font> hm, so in download-from-binary-cache.pl, the download of nix-cache-info is done using a Perl inferface to libcurl, while the download of the actual nar files is done by invoking the &apos;curl&apos; binary.  (but both ignore NIX_CURL_FLAGS. i&apos;m exploring what it might take to support a secure binary cache via https client certs)<br/>
+<font color="#A82F2F"><font size="2">(06:21:50 PM)</font> <b>pmahoney:</b></font> is there any interest in secure channels and/or secure binary cache?  it&apos;d be nice if it could &quot;just work&quot; through NIX_CURL_FLAGS hackery<br/>
+<font color="#A82F2F"><font size="2">(06:22:16 PM)</font> <b>pmahoney:</b></font> or perhaps there are existing plans for securing channels?<br/>
+<font color="#A82F2F"><font size="2">(06:23:36 PM)</font> <b>goibhniu:</b></font> magnetophon: I&apos;m planning to be there most of the time, if it isn&apos;t busy we can do some audio hacking ... or we can arrange to do that when others are at the stand<br/>
+<font color="#16569E"><font size="2">(06:24:49 PM)</font> <b>magnetophon:</b></font> goibhniu: you mean you don't want to visit the actual conference? As i listen to talks/walk around?<br/>
+<font color="#16569E"><font size="2">(06:24:59 PM)</font> <b>magnetophon:</b></font> s/i/in<br/>
+<font color="#A82F2F"><font size="2">(06:26:56 PM)</font> <b>goibhniu:</b></font> magnetophon: it depends on how many people can cover the stand really ... I&apos;m happy to be at the stand the whole time, but hopefully I can catch some talks too<br/>
+<font color="#16569E"><font size="2">(06:30:00 PM)</font> <b>magnetophon:</b></font> goibhniu: OK. Wanna set a time for us to be there together? I Don't feel comfortable putting my name into an empty shedule, also since I don't think I can answer many questions on my own...<br/>
+<font color="#A82F2F"><font size="2">(06:32:08 PM)</font> <b>iElectric:</b></font> goibhniu: kind of the same for me<br/>
+<font size="2">(06:32:51 PM)</font><b> aszlig_ is now known as aszlig</b><br/>
+<font color="#A82F2F"><font size="2">(06:32:58 PM)</font> <b>goibhniu:</b></font> yeah, it&apos;s tricky .. I wonder if we should just put our names down for every slot and ask others to fill in whenever they can?<br/>
+<font color="#16569E"><font size="2">(06:33:30 PM)</font> <b>magnetophon:</b></font> iElectric: huh? You should be able to answer most questions, no?<br/>
+<font color="#A82F2F"><font size="2">(06:33:52 PM)</font> <b>goibhniu:</b></font> magnetophon: then you can put your name down for any time you like .. I&apos;ll do that<br/>
+<font color="#A82F2F"><font size="2">(06:34:11 PM)</font> <b>aszlig:</b></font> iElectric: same here<br/>
+<font color="#16569E"><font size="2">(06:34:19 PM)</font> <b>magnetophon:</b></font> iElectric: I must be misunderstanding you...<br/>
+<font color="#A82F2F"><font size="2">(06:35:13 PM)</font> <b>iElectric:</b></font> goibhniu: I&apos;ll check talks and put my name down where there is nothing interesting<br/>
+<font color="#A82F2F"><font size="2">(06:35:19 PM)</font> <b>iElectric:</b></font> I think last year I saw 3 or 4 talks :D<br/>
+<font color="#16569E"><font size="2">(06:35:24 PM)</font> <b>magnetophon:</b></font> OK, looks like it'll be a very educational event for me then :)<br/>
+<font color="#A82F2F"><font size="2">(06:35:29 PM)</font> <b>iElectric:</b></font> (including mine)<br/>
+<font color="#16569E"><font size="2">(06:36:58 PM)</font> <b>magnetophon:</b></font> I looked trough the list of talks, but there's nothing nix-related this year, is there?<br/>
+<font color="#A82F2F"><font size="2">(06:37:54 PM)</font> <b>aszlig:</b></font> magnetophon: we could still hijack other talks :-D<br/>
+<font color="#A82F2F"><font size="2">(06:37:54 PM)</font> <b>iElectric:</b></font> nope<br/>
+<font size="2">(06:57:24 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>

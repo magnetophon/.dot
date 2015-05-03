@@ -1,0 +1,72 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Conversation with #nixos at Thu 12 Mar 2015 10:29:23 PM CET on magnetophon@irc.freenode.net (irc)</title></head><body><h3>Conversation with #nixos at Thu 12 Mar 2015 10:29:23 PM CET on magnetophon@irc.freenode.net (irc)</h3>
+<font size="2">(10:29:23 PM)</font><b> The topic for #nixos is: <a href="http://nixos.org/">http://nixos.org/</a> || Latest NixOS: <a href="http://nixos.org/nixos/download.html">http://nixos.org/nixos/download.html</a> || Latest Nix: <a href="http://nixos.org/nix/download.html">http://nixos.org/nix/download.html</a> || Logs: <a href="http://nixos.org/irc/logs/">http://nixos.org/irc/logs/</a> || Swag: <a href="http://www.cafepress.co.uk/NixOS">http://www.cafepress.co.uk/NixOS</a></b><br/>
+<font size="2">(10:29:23 PM)</font><b> Topic for #nixos set by niksnut!~eelco@ec2-54-216-36-73.eu-west-1.compute.amazonaws.com at 12:56:59 PM on 04/11/2014</b><br/>
+<font color="#A82F2F"><font size="2">(10:44:38 PM)</font> <b>gridaphobe:</b></font> is there any way to get the broadcom-sta module on the livecd without a network connection?<br/>
+<font color="#A82F2F"><font size="2">(10:45:32 PM)</font> <b>gridaphobe:</b></font> i just tried to build a custom iso with it, but nix-build is refusing to respect my allowUnfree=true setting :/<br/>
+<font color="#A82F2F"><font size="2">(10:45:39 PM)</font> <b>vcunat:</b></font> custom livecd<br/>
+<font color="#A82F2F"><font size="2">(10:45:58 PM)</font> <b>vcunat:</b></font> oh, that&apos;s proably some typo<br/>
+<font color="#A82F2F"><font size="2">(10:46:11 PM)</font> <b>vcunat:</b></font> gridaphobe: how do you set the allowUnfree?<br/>
+<font color="#A82F2F"><font size="2">(10:49:00 PM)</font> <b>gridaphobe:</b></font> &quot;allowUnfree = true;&quot; in my ~/.nixpkgs/config.nix<br/>
+<font color="#A82F2F"><font size="2">(10:49:00 PM)</font> <b>gridaphobe:</b></font> nix-env respects it, but nix-build does note<br/>
+<font color="#A82F2F"><font size="2">(10:49:00 PM)</font> <b>gridaphobe:</b></font> not<br/>
+<font color="#A82F2F"><font size="2">(10:49:01 PM)</font> <b>vcunat:</b></font> nix-build should by itself, but I guess this is a nixos inside we&apos;re building<br/>
+<font color="#A82F2F"><font size="2">(10:49:01 PM)</font> <b>JagaJaga:</b></font> gridaphobe: how do you building iso?<br/>
+<font color="#A82F2F"><font size="2">(10:49:01 PM)</font> <b>vcunat:</b></font> you&apos;ll have to find the livecd config and add the flag in there<br/>
+<font color="#A82F2F"><font size="2">(10:49:01 PM)</font> <b>vcunat:</b></font> into its configuration.nix<br/>
+<font color="#A82F2F"><font size="2">(10:50:20 PM)</font> <b>gridaphobe:</b></font> JagaJaga: &quot;nix-build release.nix -A iso_minimal&quot; inside nixpkgs/nixos<br/>
+<font color="#A82F2F"><font size="2">(10:50:48 PM)</font> <b>gridaphobe:</b></font> i just edited the broadcom-sta expression to temporarily pretend it is bsd licensed :P<br/>
+<font color="#A82F2F"><font size="2">(10:51:03 PM)</font> <b>gridaphobe:</b></font> things are running now<br/>
+<font color="#A82F2F"><font size="2">(10:51:11 PM)</font> <b>vcunat:</b></font> deleting meta.license would also work<br/>
+<font color="#A82F2F"><font size="2">(10:51:16 PM)</font> <b>vcunat:</b></font> without really lying<br/>
+<font color="#A82F2F"><font size="2">(10:51:21 PM)</font> <b>vcunat:</b></font> :-)<br/>
+<font color="#A82F2F"><font size="2">(10:51:22 PM)</font> <b>gridaphobe:</b></font> ah ok<br/>
+<font color="#A82F2F"><font size="2">(10:51:28 PM)</font> <b>JagaJaga:</b></font> gridaphobe: as vcunat said, add it to configuration. To nixos/modules/installer/cd-dvd/installation-cd-minimal.nix<br/>
+<font color="#A82F2F"><font size="2">(10:51:57 PM)</font> <b>vcunat:</b></font> well, I guess the problem has been worked around, so there&apos;s little need<br/>
+<font color="#A82F2F"><font size="2">(10:52:07 PM)</font> <b>JagaJaga:</b></font> vcunat: cheat way &gt;_&gt;<br/>
+<font color="#A82F2F"><font size="2">(10:52:22 PM)</font> <b>vcunat:</b></font> :-)<br/>
+<font color="#A82F2F"><font size="2">(10:54:04 PM)</font> <b>gridaphobe:</b></font> ah interesting, it&apos;s nice to know the proper way to do it anyway<br/>
+<font size="2">(10:54:39 PM)</font><b> pmahoney left the room (quit: Ping timeout: 250 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(10:58:35 PM)</font> <b>wkennington:</b></font> how do i pass extra library paths to postFixup<br/>
+<font color="#A82F2F"><font size="2">(10:58:51 PM)</font> <b>wkennington:</b></font> for example, samba stores some of its libraries in ${pkgs.samba}/lib/samba<br/>
+<font color="#A82F2F"><font size="2">(10:58:59 PM)</font> <b>wkennington:</b></font> so some of the binaries break because their referrences aren&apos;t correct<br/>
+<font color="#A82F2F"><font size="2">(10:59:08 PM)</font> <b>wkennington:</b></font> vcunat: you might be able to answer this<br/>
+<font color="#A82F2F"><font size="2">(10:59:19 PM)</font> <b>vcunat:</b></font> wkennington: yes, I was just about to answer<br/>
+<font color="#A82F2F"><font size="2">(10:59:36 PM)</font> <b>wkennington:</b></font> :)<br/>
+<font color="#A82F2F"><font size="2">(10:59:40 PM)</font> <b>vcunat:</b></font> you just run patchelf again in postFixup<br/>
+<font color="#A82F2F"><font size="2">(10:59:45 PM)</font> <b>wkennington:</b></font> oh alright<br/>
+<font color="#A82F2F"><font size="2">(10:59:50 PM)</font> <b>wkennington:</b></font> it&apos;s safe to run over all the binaries?<br/>
+<font color="#A82F2F"><font size="2">(11:00:27 PM)</font> <b>vcunat:</b></font> adding some RPATH shouldn&apos;t break anything<br/>
+<font color="#A82F2F"><font size="2">(11:00:38 PM)</font> <b>vcunat:</b></font> example (from mesa):<br/>
+<font color="#A82F2F"><font size="2">(11:00:39 PM)</font> <b>vcunat:</b></font> patchelf --set-rpath &quot;$(patchelf --print-rpath $lib):$drivers/lib&quot; &quot;$lib&quot;<br/>
+<font color="#A82F2F"><font size="2">(11:00:57 PM)</font> <b>wkennington:</b></font> $lib is the binary?<br/>
+<font color="#A82F2F"><font size="2">(11:01:04 PM)</font> <b>vcunat:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(11:01:07 PM)</font> <b>vcunat:</b></font> an ELF<br/>
+<font color="#A82F2F"><font size="2">(11:01:14 PM)</font> <b>vcunat:</b></font> they&apos;re solibs in this case<br/>
+<font color="#A82F2F"><font size="2">(11:01:20 PM)</font> <b>vcunat:</b></font> but it&apos;s the same<br/>
+<font color="#A82F2F"><font size="2">(11:01:29 PM)</font> <b>wkennington:</b></font> oh okay<br/>
+<font color="#A82F2F"><font size="2">(11:01:32 PM)</font> <b>wkennington:</b></font> ill try this<br/>
+<font size="2">(11:01:50 PM)</font><b> JagaJaga left the room (quit: Ping timeout: 256 seconds).</b><br/>
+<font color="#A82F2F"><font size="2">(11:02:38 PM)</font> <b>wkennington:</b></font> nope that didn&apos;t seem to do the trick<br/>
+<font color="#A82F2F"><font size="2">(11:02:45 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 2 new commits to master: http://git.io/pDB9<br/>
+<font color="#A82F2F"><font size="2">(11:02:45 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 9567ba4 Domen Kožar: xfce: 4.10 -&gt; 4.12 (close #6610)<br/>
+<font color="#A82F2F"><font size="2">(11:02:45 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master 208d1f2 Vladimír Čunát: xfce: more update fallout...<br/>
+<font color="#A82F2F"><font size="2">(11:02:55 PM)</font> <b>wkennington:</b></font> oh nvm<br/>
+<font color="#A82F2F"><font size="2">(11:02:56 PM)</font> <b>wkennington:</b></font> im stupid<br/>
+<font color="#A82F2F"><font size="2">(11:03:00 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] iElectric closed pull request #6610: xfce: 4.10 -&gt; 4.12 (master...xfce-4.12) http://git.io/xnZN<br/>
+<font color="#A82F2F"><font size="2">(11:03:25 PM)</font> <b>wkennington:</b></font> $result is not a thing :p<br/>
+<font color="#A82F2F"><font size="2">(11:03:36 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat deleted xfce-4.12 at 3693927: http://git.io/pDRU<br/>
+<font color="#A82F2F"><font size="2">(11:07:46 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat pushed 1 new commit to master: http://git.io/pD0P<br/>
+<font color="#A82F2F"><font size="2">(11:07:46 PM)</font> <b>NixOS_GitHub:</b></font> (notice) nixpkgs/master decf15f Bob van der Linden: grub: make sure grub builds again (close #6774)<br/>
+<font color="#A82F2F"><font size="2">(11:08:01 PM)</font> <b>NixOS_GitHub:</b></font> (notice) [nixpkgs] vcunat closed pull request #6774: grub: make sure grub builds again (master...grub-fix) http://git.io/p1D5<br/>
+<font color="#A82F2F"><font size="2">(11:23:36 PM)</font> <b>gridaphobe:</b></font> vcunat: i&apos;m getting a Disk Full error when i try to build efi-image_eltorito. any ideas?<br/>
+<font color="#A82F2F"><font size="2">(11:24:08 PM)</font> <b>vcunat:</b></font> yes<br/>
+<font color="#A82F2F"><font size="2">(11:24:24 PM)</font> <b>vcunat:</b></font> let me find the reference<br/>
+<font color="#A82F2F"><font size="2">(11:24:29 PM)</font> <b>gridaphobe:</b></font> (i have plenty of hard disk space available :)<br/>
+<font color="#A82F2F"><font size="2">(11:24:39 PM)</font> <b>gridaphobe:</b></font> but i suspect it&apos;s talking about the disk image<br/>
+<font color="#A82F2F"><font size="2">(11:24:44 PM)</font> <b>vcunat:</b></font> yeah, it&apos;s a disk image<br/>
+<font color="#A82F2F"><font size="2">(11:27:33 PM)</font> <b>gridaphobe:</b></font> http://comments.gmane.org/gmane.linux.distributions.nixos.scm/12234<br/>
+<font color="#A82F2F"><font size="2">(11:27:42 PM)</font> <b>gridaphobe:</b></font> just needed to allocate more space<br/>
+<font color="#A82F2F"><font size="2">(11:28:11 PM)</font> <b>vcunat:</b></font> yes, there<br/>
+<font color="#A82F2F"><font size="2">(11:28:16 PM)</font> <b>vcunat:</b></font> I see 15MB ATM<br/>
+<font size="2">(11:47:34 PM)</font><b> The account has disconnected and you are no longer in this chat. You will automatically rejoin the chat when the account reconnects.</b><br/>
+</body></html>
