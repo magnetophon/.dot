@@ -8,12 +8,12 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +53 README.md
-badd +26 LookaheadLimiter.dsp
-badd +25 LookaheadLimiter.lib
+badd +94 README.md
+badd +53 LookaheadLimiter.dsp
+badd +80 LookaheadLimiter.lib
 argglobal
 silent! argdel *
-edit README.md
+edit LookaheadLimiter.lib
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -27,12 +27,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 53 - ((7 * winheight(0) + 20) / 41)
+let s:l = 80 - ((22 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-53
-normal! 036|
+80
+normal! 049|
 lcd ~/faust/LookaheadLimiter
 tabnext 1
 if exists('s:wipebuf')

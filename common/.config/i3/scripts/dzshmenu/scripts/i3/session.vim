@@ -8,12 +8,16 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +408 .dot/common/.config/i3/config
-badd +18 .dot/common/.config/i3status
+badd +71 .dot/common/.config/i3/config
 badd +39 .dot/common/.config/i3/scripts/bat_test.sh
+badd +31 .dot/common/.config/i3/scripts/i3-quickswitch.py
+badd +6 .dot/common/.config/i3status/config
+badd +12 .dot/common/.config/i3/scripts/actions.zsh
+badd +4 .dot/common/.config/i3/scripts/dzshmenu/launch_zsh
+badd +100 .dot/common/.config/i3/scripts/connman_dmenu
 argglobal
 silent! argdel *
-edit .dot/common/.config/i3/config
+edit .dot/common/.config/i3status/config
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -27,13 +31,13 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 407 - ((33 * winheight(0) + 20) / 41)
+let s:l = 14 - ((13 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-407
-normal! 056|
-lcd ~/.dot/common/.config/i3
+14
+normal! 012|
+lcd ~/.dot/common/.config/i3status
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

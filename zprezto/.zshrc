@@ -24,8 +24,8 @@ zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
-fpath=($HOME/.stowdotfiles/sourced/nix-zsh-completions $fpath)
-source $HOME/.stowdotfiles/sourced/nix-zsh-completions/nix.plugin.zsh
+fpath=($HOME/.dot/nix-zsh-completions/.nix-zsh-completions $fpath)
+autoload -U compinit && compinit
 
 
 ##################################################################

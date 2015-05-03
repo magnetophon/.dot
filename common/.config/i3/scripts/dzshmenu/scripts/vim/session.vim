@@ -8,10 +8,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +200 .dot/spf13-vim-3/.spf13-vim-3/.vim/vim_keys.txt
-badd +66 .vimrc.local
+badd +43 .dot/spf13-vim-3/.spf13-vim-3/.vim/vim_keys.txt
+badd +36 .vimrc.local
 badd +5 .vimrc.before.local
-badd +4 .vimrc.bundles.local
+badd +2 .vimrc.bundles.local
 argglobal
 silent! argdel *
 edit .vimrc.local
@@ -28,12 +28,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 65 - ((14 * winheight(0) + 18) / 37)
+let s:l = 33 - ((32 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-65
-normal! 021|
+33
+normal! 024|
 lcd ~/
 tabnext 1
 if exists('s:wipebuf')

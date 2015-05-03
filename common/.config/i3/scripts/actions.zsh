@@ -9,6 +9,6 @@ cd ~/.config/i3/scripts/actions/
 			shift 2
 			do+=$*
 		else
-			do=$(print -l $actions | dmenu -b -i  -nb \#3F3F3F -nf \#FAFAD2 -sb \#ffff00 -sf \#000000 -p Actions:)
+			do=$(print -l $actions | dmenu -i  -nb \#3F3F3F -nf \#FAFAD2 -sb \#ffff00 -sf \#000000 -p Actions:)
 		fi
 		eval $PWD/$do &!
