@@ -9,11 +9,11 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +94 README.md
-badd +53 LookaheadLimiter.dsp
-badd +80 LookaheadLimiter.lib
+badd +90 LookaheadLimiter.dsp
+badd +68 LookaheadLimiter.lib
 argglobal
 silent! argdel *
-edit LookaheadLimiter.lib
+edit LookaheadLimiter.dsp
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -27,12 +27,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 80 - ((22 * winheight(0) + 23) / 46)
+let s:l = 78 - ((25 * winheight(0) + 22) / 45)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-80
-normal! 049|
+78
+normal! 052|
 lcd ~/faust/LookaheadLimiter
 tabnext 1
 if exists('s:wipebuf')

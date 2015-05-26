@@ -1,0 +1,38 @@
+#!/usr/bin/env zsh
+# todo:
+# check each plugin in a .so
+# check hard rt
+#
+DATE=`date +%d-%m-%Y---%H-%M-%S`
+DIR=~/plugin-torture/$DATE
+
+mkdir -p $DIR &&
+
+#for plugins  (${(s.:.)LADSPA_PATH}/*;) {plugin-torture -d -a --ladspa --plugin $plugins} > $DIR/ladspa-normal.txt &&
+#for plugins  (${(s.:.)LADSPA_PATH}/*;) {plugin-torture --evil -d -a --ladspa --plugin $plugins} > $DIR/ladspa-evil.txt &&
+
+for plugins  (${(s.:.)LADSPA_PATH}/*;) {
+  plugin-torture --evil -d -a --ladspa --plugin $plugins | tee >(>> $DIR/ladspa-evil.txt) | grep 'WARNING'
+  if [ $? -eq 1 ]; then
+     ln -s $plugins ~/safeLadspa
+  fi
+}
+
+#for plugins  (${(s.:.)LV2_PATH}/*/manifest.ttl;) {
+  #plugin-torture -d -a --lv2 --plugin $plugins
+  #} > $DIR/lv2-normal.txt &&
+
+for plugins  (${(s.:.)LV2_PATH}/*;) {
+  if [ -f $plugins/manifest.ttl ]; then
+    plugin-torture --evil -d -a --lv2 --plugin $plugins/manifest.ttl | tee >(>> $DIR/lv2-evil.txt) | grep 'WARNING'
+    if [ $? -eq 1 ]; then
+       ln -s $plugins ~/safeLV2/
+    fi
+  fi
+  }
+
+#open
+urxvtc -e $EDITOR $DIR/* &
+
+#meld $DIR/ladspa-normal.txt $DIR/ladspa-evil.txt &
+#meld $DIR/lv2-normal.txt $DIR/lv2-evil.txt

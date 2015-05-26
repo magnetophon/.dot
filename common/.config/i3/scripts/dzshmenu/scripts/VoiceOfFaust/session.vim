@@ -3,7 +3,7 @@ if &cp | set nocp | endif
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/faust/VoiceOfFaust
+cd ~/.dot/common/.config/i3/scripts/dzshmenu/scripts
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -19,16 +19,16 @@ badd +16 todo.txt
 badd +23 lib/pitchtracker.lib
 badd +63 lib/KarplusStrongFX.lib
 badd +1 lib/FullGUI.lib
-badd +30 lib/PAFvocoder.lib
-badd +21 lib/CZringmod.lib
-badd +23 CZringmod.dsp
-badd +25 Karplus-StrongSingerMaxi.dsp
-badd +6 lib/common.lib
-badd +2 launchers/synthWrapper
+badd +1 lib/PAFvocoder.lib
+badd +1 lib/CZringmod.lib
+badd +1 CZringmod.dsp
+badd +1 Karplus-StrongSingerMaxi.dsp
+badd +1 lib/common.lib
+badd +1 launchers/synthWrapper
 badd +4 launchers/FMsinger_PT
 argglobal
 silent! argdel *
-edit lib/common.lib
+edit lib/KarplusStrongFX.lib
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -42,13 +42,13 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 6 - ((5 * winheight(0) + 20) / 41)
+let s:l = 1 - ((0 * winheight(0) + 19) / 38)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-6
-normal! 012|
-lcd ~/faust/VoiceOfFaust/lib
+1
+normal! 0
+lcd ~/.dot/common/.config/i3/scripts/dzshmenu/scripts
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
