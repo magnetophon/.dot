@@ -25,12 +25,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 70 - ((36 * winheight(0) + 20) / 41)
+let s:l = 129 - ((7 * winheight(0) + 19) / 38)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-70
-normal! 02|
+129
+normal! 080|
 lcd ~/
 tabnext 1
 if exists('s:wipebuf')
