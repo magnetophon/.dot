@@ -8,17 +8,17 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +14 nixosConfig/music.nix
-badd +8 nixosConfig/common.nix
+badd +94 nixosConfig/music.nix
+badd +155 nixosConfig/common.nix
 badd +6 nixosConfig/machines/borknix/default.nix
 badd +10 nixosConfig/machines/borknix/rt.nix
 badd +77 nixosConfig/hosts
-badd +57 nixosConfig/machines/borknix/machine.nix
+badd +20 nixosConfig/machines/borknix/machine.nix
 badd +6 source/musnix/default.nix
 badd +73 source/musnix/modules/base.nix
 argglobal
 silent! argdel *
-edit nixosConfig/machines/borknix/machine.nix
+edit nixosConfig/common.nix
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -32,13 +32,13 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 19 - ((18 * winheight(0) + 23) / 46)
+let s:l = 132 - ((5 * winheight(0) + 22) / 44)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-19
-normal! 034|
-lcd ~/nixosConfig/machines/borknix
+132
+normal! 05|
+lcd ~/nixosConfig
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
