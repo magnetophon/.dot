@@ -84,6 +84,23 @@ set relativenumber
       return pumvisible() ? neocomplete#close_popup() : "\<CR>"
     endfunction
 
+" Automatically jump to end of text you pasted:
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
+"Prevent replacing paste buffer on paste:
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+  let @" = s:restore_reg
+  return ''
+endfunction
+function! s:Repl()
+  let s:restore_reg = @"
+  return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
+
 "supercollider
 "so ~/.scvimrc
 "let g:sclangTerm = "urxvtc -e"
