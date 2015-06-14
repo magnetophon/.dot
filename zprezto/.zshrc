@@ -31,7 +31,7 @@ autoload -U compinit && compinit
 ##################################################################
 # fzf bindings
 ##################################################################
-# fe [FUZZY PATTERN] - Open the selected file with the default editor
+# fe [fuzzy pattern] - Open the selected file with the default editor
 # - Bypass fuzzy finder if there's only one match (--select-1)
 # - Exit if there's no match (--exit-0)
 fe() {
@@ -83,8 +83,8 @@ cdf() {
 fh() {
   print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }
-# fkill - kill process
-fkill() {
+# fk - kill process
+fk() {
   pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
 
   if [ "x$pid" != "x" ]
@@ -206,4 +206,3 @@ bindkey -v
 #PERL_LOCAL_LIB_ROOT="/home/bart/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
 #PERL_MB_OPT="--install_base \"/home/bart/perl5\""; export PERL_MB_OPT;
 #PERL_MM_OPT="INSTALL_BASE=/home/bart/perl5"; export PERL_MM_OPT;
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
