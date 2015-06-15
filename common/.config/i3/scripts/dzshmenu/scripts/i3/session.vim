@@ -8,7 +8,7 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +280 .dot/common/.config/i3/config
+badd +276 .dot/common/.config/i3/config
 badd +18 .dot/common/.config/i3status/config
 argglobal
 silent! argdel *
@@ -26,12 +26,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 280 - ((26 * winheight(0) + 23) / 47)
+let s:l = 276 - ((22 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-280
-normal! 05|
+276
+normal! 027|
 lcd ~/.dot/common/.config/i3
 tabnext 1
 if exists('s:wipebuf')
