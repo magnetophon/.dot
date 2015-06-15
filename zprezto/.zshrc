@@ -17,6 +17,7 @@ alias v='fasd -f -t -e vim -b viminfo'
 alias gs='git status'
 alias gst='git stash'
 alias ra=ranger
+#alias wn=lr $(which "$1")
 
 
 # speed up completion of paths
@@ -31,6 +32,7 @@ autoload -U compinit && compinit
 ##################################################################
 # fzf bindings
 ##################################################################
+
 # fe [fuzzy pattern] - Open the selected file with the default editor
 # - Bypass fuzzy finder if there's only one match (--select-1)
 # - Exit if there's no match (--exit-0)
