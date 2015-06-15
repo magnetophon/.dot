@@ -9,9 +9,9 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +193 .dot/spf13-vim-3/.spf13-vim-3/.vim/vim_keys.txt
-badd +47 .vimrc.local
-badd +5 .vimrc.before.local
-badd +2 .vimrc.bundles.local
+badd +48 .vimrc.local
+badd +2 .vimrc.before.local
+badd +16 .vimrc.bundles.local
 argglobal
 silent! argdel *
 edit .vimrc.local
@@ -28,7 +28,7 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 48 - ((29 * winheight(0) + 19) / 39)
+let s:l = 48 - ((35 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
