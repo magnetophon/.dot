@@ -31,7 +31,7 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 276
-normal! 027|
+normal! 0
 lcd ~/.dot/common/.config/i3
 tabnext 1
 if exists('s:wipebuf')

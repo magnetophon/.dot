@@ -8,12 +8,12 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +122 nixosConfig/music.nix
+badd +100 nixosConfig/music.nix
 badd +301 nixosConfig/common.nix
 badd +18 nixosConfig/machines/borknix/machine.nix
 argglobal
 silent! argdel *
-edit nixosConfig/music.nix
+edit nixosConfig/common.nix
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -27,11 +27,11 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 48 - ((21 * winheight(0) + 21) / 43)
+let s:l = 40 - ((32 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-48
+40
 normal! 05|
 lcd ~/nixosConfig
 tabnext 1

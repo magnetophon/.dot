@@ -9,15 +9,15 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +31 lib/general.lib
-badd +45 stringSinger.dsp
-badd +54 VocSynthFull.dsp
-badd +25 FOFvocoder.dsp
-badd +15 classicVocoder.dsp
-badd +25 PAFvocoder.dsp
-badd +45 lib/FOFvocoder.lib
-badd +16 todo.txt
-badd +23 lib/pitchtracker.lib
-badd +63 lib/KarplusStrongFX.lib
+badd +1 stringSinger.dsp
+badd +1 VocSynthFull.dsp
+badd +1 FOFvocoder.dsp
+badd +1 classicVocoder.dsp
+badd +1 PAFvocoder.dsp
+badd +1 lib/FOFvocoder.lib
+badd +1 todo.txt
+badd +1 lib/pitchtracker.lib
+badd +1 lib/KarplusStrongFX.lib
 badd +1 lib/FullGUI.lib
 badd +1 lib/PAFvocoder.lib
 badd +1 lib/CZringmod.lib
@@ -42,7 +42,7 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 19) / 38)
+let s:l = 1 - ((0 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
