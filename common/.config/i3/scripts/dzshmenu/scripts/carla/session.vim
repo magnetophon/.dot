@@ -9,12 +9,12 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +42 /tmp/carla.PKGBUILD
-badd +31 source/nixpkgs/pkgs/applications/audio/linuxsampler/default.nix
-badd +22 source/nixpkgs/pkgs/applications/audio/carla/default.nix
+badd +35 source/nixpkgs/pkgs/applications/audio/linuxsampler/default.nix
+badd +1 source/nixpkgs/pkgs/applications/audio/carla/default.nix
 badd +5 source/nixpkgs/pkgs/development/libraries/libgig/default.nix
 argglobal
 silent! argdel *
-edit source/nixpkgs/pkgs/applications/audio/linuxsampler/default.nix
+edit source/nixpkgs/pkgs/development/libraries/libgig/default.nix
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -28,13 +28,13 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 35 - ((27 * winheight(0) + 18) / 36)
+let s:l = 5 - ((4 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-35
-normal! 046|
-lcd ~/source/nixpkgs/pkgs/applications/audio/linuxsampler
+5
+normal! 0
+lcd ~/source/nixpkgs/pkgs/development/libraries/libgig
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

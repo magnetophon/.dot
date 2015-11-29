@@ -8,7 +8,7 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +31 lib/general.lib
+badd +1 lib/general.lib
 badd +1 stringSinger.dsp
 badd +1 VocSynthFull.dsp
 badd +1 FOFvocoder.dsp
@@ -25,10 +25,10 @@ badd +1 CZringmod.dsp
 badd +1 Karplus-StrongSingerMaxi.dsp
 badd +1 lib/common.lib
 badd +1 launchers/synthWrapper
-badd +4 launchers/FMsinger_PT
+badd +1 launchers/FMsinger_PT
 argglobal
 silent! argdel *
-edit lib/KarplusStrongFX.lib
+edit lib/FOFvocoder.lib
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1

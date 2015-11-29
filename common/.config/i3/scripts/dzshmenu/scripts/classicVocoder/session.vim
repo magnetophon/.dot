@@ -3,16 +3,20 @@ if &cp | set nocp | endif
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/
+cd ~/faust/VoiceOfFaust
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +276 .dot/common/.config/i3/config
-badd +18 .dot/common/.config/i3status/config
+badd +26 classicVocoder.dsp
+badd +62 lib/classicVocoder.lib
+badd +45 lib/FullGUI.lib
+badd +4 lib/constants.lib
+badd +157 lib/general.lib
+badd +195 lib/slaveOscilators.lib
 argglobal
 silent! argdel *
-edit .dot/common/.config/i3/config
+edit lib/general.lib
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -26,13 +30,13 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 68 - ((23 * winheight(0) + 23) / 47)
+let s:l = 157 - ((23 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-68
-normal! 06|
-lcd ~/.dot/common/.config/i3
+157
+normal! 0
+lcd ~/faust/VoiceOfFaust/lib
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
