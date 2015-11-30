@@ -1,4 +1,4 @@
-#
+﻿#
 # Executes commands at the start of an interactive session.
 #
 # Authors:
@@ -38,7 +38,7 @@ autoload -U compinit && compinit
 # - Exit if there's no match (--exit-0)
 fe() {
   local file
-  file=$(fzf --query="$1" --select-1 --exit-0)
+  file=$(fzf --reverse --query="$1" --select-1 --exit-0)
   [ -n "$file" ] && ${EDITOR:-vim} "$file"
 }
 
@@ -47,7 +47,7 @@ fe() {
 # - CTRL-E or Enter key to open with the $EDITOR
 fo() {
   local out file key
-  out=$(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)
+  out=$(fzf --reverse --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)
   key=$(head -1 <<< "$out")
   file=$(head -2 <<< "$out" | tail -1)
   if [ -n "$file" ]; then
@@ -59,35 +59,35 @@ fo() {
 fd() {
   local dir
   dir=$(find ${1:-.} -path '*/\.*' -prune \
--o -type d -print 2> /dev/null | fzf +m) &&
+-o -type d -print 2> /dev/null | fzf --reverse +m) &&
   cd "$dir"
 }
 
 # fda - including hidden directories
 fda() {
   local dir
-  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+  dir=$(find ${1:-.} -type d 2> /dev/null | fzf --reverse +m) && cd "$dir"
 }
 # cdf - cd into the directory of the selected file
 cdf() {
    local file
    local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+   file=$(fzf --reverse +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 #Searching file contents
 
 #grep --line-buffered --color=never -r "" * | fzf
 
 ## with ag - respects .agignore and .gitignore
-#ag --nobreak --nonumbers --noheading . | fzf
+#ag --nobreak --nonumbers --noheading . | fzf --reverse
 
 # fh - repeat history
 fh() {
-  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --reverse +s --tac | sed 's/ *[0-9]* *//')
 }
 # fk - kill process
 fk() {
-  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+  pid=$(ps -ef | sed 1d | fzf --reverse -m | awk '{print $2}')
 
   if [ "x$pid" != "x" ]
   then
@@ -100,7 +100,7 @@ fbr() {
   local branches branch
   branches=$(git branch --all | grep -v HEAD) &&
   branch=$(echo "$branches" |
-fzf -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+fzf --reverse -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
@@ -115,14 +115,14 @@ sed "s/.* //" | sed "s#remotes/[^/]*/##" |
 sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
   target=$(
 (echo "$tags"; echo "$branches") |
-fzf --no-hscroll  +m -d "\t" -n 2) || return
+fzf --reverse --no-hscroll  +m -d "\t" -n 2) || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
 # fcoc - checkout git commit
 fcoc() {
   local commits commit
   commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
-  commit=$(echo "$commits" | fzf --tac +s +m -e) &&
+  commit=$(echo "$commits" | fzf --reverse --tac +s +m -e) &&
   git checkout $(echo "$commit" | sed "s/ .*//")
 }
 
@@ -131,7 +131,7 @@ fshow() {
   local out sha q
   while out=$(
 git log --decorate=short --graph --oneline --color=never |
-fzf  --multi --no-sort --reverse --query="$q" --print-query); do
+fzf --reverse  --multi --no-sort --reverse --query="$q" --print-query); do
     q=$(head -1 <<< "$out")
     while read sha; do
       [ -n "$sha" ] && git show --color=never $sha | less -R
@@ -144,7 +144,7 @@ ftags() {
   [ -e tags ] &&
   line=$(
 awk 'BEGIN { FS="\t" } !/^!/ {print toupper($4)"\t"$1"\t"$2"\t"$3}' tags |
-cut -c1-80 | fzf --nth=1,2
+cut -c1-80 | fzf --reverse --nth=1,2
 ) && $EDITOR $(cut -f3 <<< "$line") -c "set nocst" \
                                       -c "silent tag $(cut -f2 <<< "$line")"
 }
@@ -154,13 +154,13 @@ cut -c1-80 | fzf --nth=1,2
   #files=$(grep '^>' ~/.viminfo | cut -c3- |
 #while read line; do
 #[ -f "${line/\~/$HOME}" ] && echo "$line"
-#done | fzf -d -m -q "$*" -1) && vim ${files//\~/$HOME}
+#done | fzf --reverse -d -m -q "$*" -1) && vim ${files//\~/$HOME}
 #}
 # jump to dirs
 #unalias j 2> /dev/null
 #j() {
   #if [[ -j "$*" ]]; then
-    #cd "$(_j -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
+    #cd "$(_j -l 2>&1 | fzf --reverse +s --tac | sed 's/^[0-9,.]* *//')"
   #else
     #_j "$@"
   #fi
@@ -169,7 +169,7 @@ cut -c1-80 | fzf --nth=1,2
 #unalias j
 #j() {
   #if [[ -j "$*" ]]; then
-    #cd "$(_j -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
+    #cd "$(_j -l 2>&1 | fzf --reverse +s --tac | sed 's/^[0-9,.]* *//')"
   #else
     #_last_j_args="$@"
     #_j "$@"
@@ -177,7 +177,7 @@ cut -c1-80 | fzf --nth=1,2
 #}
 
 #jj() {
-  #cd "$(_j -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q $_last_j_args)"
+  #cd "$(_j -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf --reverse -q $_last_j_args)"
 #}
 
 ##################################################################
