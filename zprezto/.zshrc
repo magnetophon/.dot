@@ -25,6 +25,9 @@ zstyle ':completion:*' accept-exact '*(N)'
 # speed up completion using the cache for packages and other stuff
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
+# man page completion
+zstyle ':completion:*:manuals' separate-sections true
+zstyle ':completion:*:manuals.*'  insert-sections true
 
 fpath=($HOME/.dot/nix-zsh-completions/.nix-zsh-completions $fpath)
 autoload -U compinit && compinit
