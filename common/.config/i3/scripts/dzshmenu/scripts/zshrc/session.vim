@@ -26,11 +26,11 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 20 - ((8 * winheight(0) + 23) / 47)
+let s:l = 180 - ((58 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-20
+180
 normal! 0
 lcd ~/
 tabnext 1
