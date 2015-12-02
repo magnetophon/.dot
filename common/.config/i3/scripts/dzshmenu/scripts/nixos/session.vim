@@ -207,6 +207,7 @@ set virtualedit=onemore
 set whichwrap=b,s,h,l,<,>,[,]
 set wildmenu
 set wildmode=list:longest,full
+set window=58
 set winwidth=1
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
@@ -219,8 +220,7 @@ set shortmess=aoO
 badd +99 nixosConfig/music.nix
 badd +189 nixosConfig/common.nix
 badd +35 nixosConfig/machines/borknix/machine.nix
-badd +71 nixosConfig/vim.nix
-badd +1 .dot/spf13-vim-3/.spf13-vim-3/.vim/vim_keys.txt
+badd +21 nixosConfig/vim.nix
 argglobal
 silent! argdel *
 edit nixosConfig/vim.nix
@@ -345,12 +345,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 71 - ((57 * winheight(0) + 30) / 61)
+let s:l = 21 - ((20 * winheight(0) + 30) / 60)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-71
-normal! 015|
+21
+normal! 010|
 lcd ~/nixosConfig
 tabnext 1
 if exists('s:wipebuf')
