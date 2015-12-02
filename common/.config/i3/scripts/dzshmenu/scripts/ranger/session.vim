@@ -8,11 +8,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +34 .dot/common/.config/i3/config
-badd +65 .dot/common/.config/i3status/config
+badd +179 .dot/common/.config/ranger/rc.conf
 argglobal
 silent! argdel *
-edit .dot/common/.config/i3/config
+edit .dot/common/.config/ranger/rc.conf
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -26,13 +25,13 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 69 - ((29 * winheight(0) + 31) / 62)
+let s:l = 424 - ((3 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-69
-normal! 022|
-lcd ~/.dot/common/.config/i3
+424
+normal! 0
+lcd ~/.dot/common/.config/ranger
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

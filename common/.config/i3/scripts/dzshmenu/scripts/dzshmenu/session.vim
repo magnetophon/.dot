@@ -8,15 +8,15 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +4 ~/.dot/common/.config/i3/scripts/dzshmenu/new_zsh
+badd +29 ~/.dot/common/.config/i3/scripts/dzshmenu/new_zsh
 badd +4 ~/.dot/common/.config/i3/scripts/dzshmenu/launch_zsh
-badd +5 ~/.dot/common/.config/i3/scripts/dzshmenu/edit_zsh
-badd +1 ~/.dot/common/.config/i3/scripts/dzshmenu/sessiontemplate
+badd +27 ~/.dot/common/.config/i3/scripts/dzshmenu/edit_zsh
+badd +16 ~/.dot/common/.config/i3/scripts/dzshmenu/sessiontemplate
 badd +9 ~/.dot/common/.config/i3/scripts/dzshmenu/status
 badd +9 ~/.dot/common/.config/i3/scripts/dzshmenu/i3-layout-save
 argglobal
 silent! argdel *
-edit ~/.dot/common/.config/i3/scripts/dzshmenu/edit_zsh
+edit ~/.dot/common/.config/i3/scripts/dzshmenu/i3-layout-save
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -30,12 +30,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 5 - ((3 * winheight(0) + 19) / 38)
+let s:l = 28 - ((27 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-5
-normal! 022|
+28
+normal! 019|
 lcd ~/.dot/common/.config/i3/scripts/dzshmenu
 tabnext 1
 if exists('s:wipebuf')
