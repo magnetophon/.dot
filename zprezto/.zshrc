@@ -1,4 +1,5 @@
-﻿#
+﻿
+#
 # Executes commands at the start of an interactive session.
 #
 # Authors:
@@ -12,22 +13,49 @@ fi
 
 # Customize to your needs...
 
+##################################################################
+# general functions
+##################################################################
+# a visual recursive list of all files and dirs
+function treedir()
+  {
+    find . | sed -e 's/[^\/]*\//|--/g' -e 's/-- |/    |/g' | $PAGER
+  }
+
+# recursive text search
+function f() {
+  find . | sed -e 's/[^\/]*\//|--/g' -e 's/-- |/  |/g' | $PAGER
+  }
+
+
+
+
+##################################################################
+# aliases
+##################################################################
 # not using fzf yet
 alias v='fasd -f -t -e vim -b viminfo'
 alias gs='git status'
 alias gst='git stash'
 alias ra=ranger
 #alias wn=lr $(which "$1")
+#Install a package I don’t have but tried to use
+alias ok='eval $($(fc -ln -1) 2>&1 | sed -n 2p)'
+#Find a file or directory in working dir matching a string.
+alias lsg='ls -laR| grep -ni'
 
-
+##################################################################
+# completions
+##################################################################
 # speed up completion of paths
 zstyle ':completion:*' accept-exact '*(N)'
 # speed up completion using the cache for packages and other stuff
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 # man page completion
-zstyle ':completion:*:manuals' separate-sections true
-zstyle ':completion:*:manuals.*'  insert-sections true
+#zstyle ':completion:*:manuals' separate-sections true
+#zstyle ':completion:*:manuals.*'  insert-sections true
+#zstyle ':completion:*:man.*' group-name manual
 
 fpath=($HOME/.dot/nix-zsh-completions/.nix-zsh-completions $fpath)
 autoload -U compinit && compinit
