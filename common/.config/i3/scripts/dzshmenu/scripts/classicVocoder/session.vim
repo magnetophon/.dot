@@ -2,11 +2,11 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <C-Space> 
-imap <Nul> <C-Space>
-inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
-inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
 inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
+inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
+inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
+imap <Nul> <C-Space>
+inoremap <C-Space> 
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', "insert")
 nnoremap  :nohlsearch:redraw:checktime 
 nnoremap <silent>  :CtrlP
@@ -70,8 +70,8 @@ nnoremap <silent> ,gc :Gcommit
 nnoremap <silent> ,gd :Gdiff
 nnoremap <silent> ,gs :Gstatus
 vnoremap . :normal .
-vnoremap 0 :call WrapRelativeMotion("0", 1)
 nnoremap 0 :call WrapRelativeMotion("0")
+vnoremap 0 :call WrapRelativeMotion("0", 1)
 onoremap 0 :call WrapRelativeMotion("0")
 vnoremap < <gv
 vnoremap > >gv
@@ -83,8 +83,8 @@ nnoremap <silent> N Nzz
 nnoremap Y y$
 noremap \aps : if filereadable('pkgs/top-level/all-packages.nix') | e pkgs/top-level/all-packages.nix | else | exec 'e '.expand("$NIXPKGS_ALL") | endif
 noremap \gf :call on_thing_handler#HandleOnThing()
-vnoremap ^ :call WrapRelativeMotion("^", 1)
 nnoremap ^ :call WrapRelativeMotion("^")
+vnoremap ^ :call WrapRelativeMotion("^", 1)
 onoremap ^ :call WrapRelativeMotion("^")
 vmap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
@@ -95,8 +95,9 @@ noremap k gk
 nnoremap <silent> n nzz
 nnoremap <silent> p p`]
 vnoremap <silent> y y`]
-nnoremap <F7> :w :!faust2firefox % 
+nnoremap <Home> :call WrapRelativeMotion("0")
 nnoremap <F5> :w :!faust2jack -osc % &&  ./%   
+nnoremap <F7> :w :!faust2firefox % 
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
 xnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment("x", "Uncomment")
@@ -126,7 +127,6 @@ nmap <silent> <Left> :bp
 vnoremap <Home> :call WrapRelativeMotion("0", 1)
 vnoremap <End> :call WrapRelativeMotion("$", 1)
 onoremap <End> v:call WrapRelativeMotion("$")
-nnoremap <Home> :call WrapRelativeMotion("0")
 onoremap <Home> :call WrapRelativeMotion("0")
 nnoremap <End> :call WrapRelativeMotion("$")
 inoremap <expr> 	 pumvisible() ? "\" : "\	"
@@ -188,15 +188,15 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +26 classicVocoder.dsp
+badd +57 classicVocoder.dsp
 badd +62 lib/classicVocoder.lib
-badd +45 lib/FullGUI.lib
+badd +18 lib/FullGUI.lib
 badd +4 lib/constants.lib
 badd +157 lib/general.lib
 badd +195 lib/slaveOscilators.lib
 argglobal
 silent! argdel *
-edit classicVocoder.dsp
+edit lib/slaveOscilators.lib
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -258,12 +258,12 @@ setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
 setlocal iminsert=0
 setlocal imsearch=0
-setlocal include=^\\s*#\\s*include
+setlocal include=
 setlocal includeexpr=
-setlocal indentexpr=GetMakeIndent()
-setlocal indentkeys=!^F,o,O,<:>,=else,=endif
+setlocal indentexpr=GetCobolIndent(v:lnum)
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,0<*>,0/,0$,0=01,=~division,=~section,0=~end,0=~then,0=~else,0=~when,*<Return>,.
 setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
+setlocal iskeyword=@,48-57,-
 setlocal keywordprg=
 setlocal nolinebreak
 setlocal nolisp
@@ -315,13 +315,13 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 26 - ((25 * winheight(0) + 27) / 54)
+let s:l = 195 - ((30 * winheight(0) + 30) / 61)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-26
+195
 normal! 0
-lcd ~/faust/VoiceOfFaust
+lcd ~/faust/VoiceOfFaust/lib
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

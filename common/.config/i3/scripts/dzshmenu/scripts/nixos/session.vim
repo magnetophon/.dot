@@ -2,11 +2,11 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
-inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
-inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
-imap <Nul> <C-Space>
 inoremap <C-Space> 
+imap <Nul> <C-Space>
+inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
+inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
+inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', "insert")
 nnoremap  :nohlsearch:redraw:checktime 
 nnoremap <silent>  :CtrlP
@@ -16,8 +16,14 @@ vnoremap $ :call WrapRelativeMotion("$", 1)
 onoremap $ v:call WrapRelativeMotion("$")
 nnoremap $ :call WrapRelativeMotion("$")
 nnoremap <silent> * *zz
-nnoremap <silent> ,tt :TagbarToggle
 nnoremap ,d :YcmShowDetailedDiagnostic
+nmap <silent> ,w,t <Plug>VimwikiTabMakeDiaryNote
+nmap <silent> ,w,w <Plug>VimwikiMakeDiaryNote
+nmap <silent> ,w,i <Plug>VimwikiDiaryGenerateLinks
+nmap <silent> ,wi <Plug>VimwikiDiaryIndex
+nmap <silent> ,ws <Plug>VimwikiUISelect
+nmap <silent> ,wt <Plug>VimwikiTabIndex
+nmap <silent> ,ww <Plug>VimwikiIndex
 nmap ,ca <Plug>NERDCommenterAltDelims
 xmap ,cu <Plug>NERDCommenterUncomment
 nmap ,cu <Plug>NERDCommenterUncomment
@@ -82,30 +88,6 @@ vnoremap L g_
 nnoremap L g_
 nnoremap <silent> N Nzz
 nnoremap Y y$
-nmap \cc <Plug>NERDCommenterComment
-xmap \cc <Plug>NERDCommenterComment
-nmap \c  <Plug>NERDCommenterToggle
-xmap \c  <Plug>NERDCommenterToggle
-nmap \cm <Plug>NERDCommenterMinimal
-xmap \cm <Plug>NERDCommenterMinimal
-nmap \cn <Plug>NERDCommenterNested
-xmap \cn <Plug>NERDCommenterNested
-nmap \c$ <Plug>NERDCommenterToEOL
-nmap \ci <Plug>NERDCommenterInvert
-xmap \ci <Plug>NERDCommenterInvert
-nmap \cs <Plug>NERDCommenterSexy
-xmap \cs <Plug>NERDCommenterSexy
-nmap \cy <Plug>NERDCommenterYank
-xmap \cy <Plug>NERDCommenterYank
-nmap \cA <Plug>NERDCommenterAppend
-nmap \cl <Plug>NERDCommenterAlignLeft
-xmap \cl <Plug>NERDCommenterAlignLeft
-nmap \cb <Plug>NERDCommenterAlignBoth
-xmap \cb <Plug>NERDCommenterAlignBoth
-nmap \cu <Plug>NERDCommenterUncomment
-xmap \cu <Plug>NERDCommenterUncomment
-nmap \ca <Plug>NERDCommenterAltDelims
-nnoremap \d :YcmShowDetailedDiagnostic
 noremap \aps : if filereadable('pkgs/top-level/all-packages.nix') | e pkgs/top-level/all-packages.nix | else | exec 'e '.expand("$NIXPKGS_ALL") | endif
 noremap \gf :call on_thing_handler#HandleOnThing()
 nnoremap ^ :call WrapRelativeMotion("^")
@@ -156,19 +138,19 @@ inoremap <expr> 	 pumvisible() ? "\" : "\	"
 cmap Tabe tabe
 let &cpo=s:cpo_save
 unlet s:cpo_save
+set autochdir
 set autoindent
 set backspace=indent,eol,start
 set backup
 set backupdir=~/.vim/backup//
-set clipboard=autoselect,exclude:cons\\|linux,unnamedplus
+set clipboard=unnamed,unnamedplus
 set completefunc=youcompleteme#Complete
-set completeopt=preview,menuone
+set completeopt=menuone
 set cpoptions=aAceFsB
 set directory=~/.vim/swap//
-set errorfile=/tmp/vJUGSCv/0
-set errorformat=%m\\\\\\,\\\ at\\\ `%f':%l:%c,%m\\\\\\,\\\ at\\\ `%f:%l:%c',%m\\\ at\\\ \\`%f:%l:%c':,%m\\\ at\\\ \\`%f'\\\\\\\\,\\\ line\\\ %l:,error:\\\ %m\\\\\\,\\\ in\\\ `%f',error:\\\ %m\\\ at\\\ \"%f\":%l:%c,error:\\\ %m\\\ at\\\ %f:%l:%c
 set expandtab
 set fileencodings=ucs-bom,utf-8,default,latin1
+set gdefault
 set helplang=en
 set hidden
 set history=1000
@@ -181,21 +163,17 @@ set mouse=a
 set pastetoggle=<F2>
 set ruler
 set rulerformat=%30(%=:b%n%y%m%r%w\ %l,%c%V\ %P%)
-set runtimepath=~/.vim,/nix/store/j77mng9la5ily24vxjrhlnbgwbs1craf-vimplugin-vim-airline-2015-07-08/share/vim-plugins/vim-airline,/nix/store/i8b7cjyrvqw4cmn2cnqr4riq26xvp0l2-vimplugin-Solarized-2011-05-09/share/vim-plugins/Solarized,/nix/store/v6cjb7b2qvb3gclil6zqqgmm12m08vy8-vimplugin-ctrlp-2013-07-29/share/vim-plugins/ctrlp,/nix/store/vvkm2g8x2kz297r9z0iwkcc42jv800ia-vimplugin-The_NERD_Commenter-2015-07-26/share/vim-plugins/The_NERD_Commenter,/nix/store/g01p5x18743gdzc06nmqp7p73jb0gwrh-vimplugin-The_NERD_tree-2015-07-13/share/vim-plugins/The_NERD_tree,/nix/store/vpfap80dp25wk7zsc356lz7ligxx0g7k-vimplugin-rainbow_parentheses-2013-03-04/share/vim-plugins/rainbow_parentheses,/nix/store/hyjv40vkmlzvgpqh98vz5iprbzm9p2wl-vimplugin-Tabular-2013-05-16/share/vim-plugins/Tabular,/nix/store/ppzqshiwgx43jqigymh4f48d177w3vlq-vimplugin-undotree-2015-03-01/share/vim-plugins/undotree,/nix/store/rnh9ksxb4bljjm3mmmjap48xp94kcpkr-vimplugin-tlib-2015-05-20/share/vim-plugins/tlib,/nix/store/5ki0105qr7zxc3wcja317gjnbaxl9yrv-vimplugin-vim-addon-completion-2015-02-10/share/vim-plugins/vim-addon-completion,/nix/store/yx13faxwhvcn8yviicjncp1m5dklra61-vimplugin-vim-addon-goto-thing-at-cursor-2012-01-11/share/vim-plugins/vim-addon-goto-thing-at-cursor,/nix/store/03ddwdhzk2w6r4yyrqhy39i3ggdllpn4-vimplugin-vim-addon-errorformats-2014-11-05/share/vim-plugins/vim-addon-errorformats,/nix/store/z3yfp2ciqk64p2ib41wqf95qm64155i4-vimplugin-vim-addon-mw-utils-2012-11-05/share/vim-plugins/vim-addon-mw-utils,/nix/store/ph25p01ni1cqr4s386x56zrmi2hlgxm8-vimplugin-vim-addon-actions-2014-09-22/share/vim-plugins/vim-addon-actions,/nix/store/wxnsl06s3s1dqqa9w34qrjraz9kc1c55-vimplugin-vim-addon-nix-2015-03-10/share/vim-plugins/vim-addon-nix,/nix/store/463x0pxzrkhpc8rj3dvvvlj8p3xa0hli-vimplugin-youcompleteme-2015-07-08/share/vim-plugins/youcompleteme,/nix/store/ccl88myhqb36vinn0iv3qlhbmr8av0ss-vim_configurable-7.4.826/share/vim/vimfiles,/nix/store/ccl88myhqb36vinn0iv3qlhbmr8av0ss-vim_configurable-7.4.826/share/vim/vim74,/nix/store/ccl88myhqb36vinn0iv3qlhbmr8av0ss-vim_configurable-7.4.826/share/vim/vimfiles/after,~/.vim/after,/nix/store/hyjv40vkmlzvgpqh98vz5iprbzm9p2wl-vimplugin-Tabular-2013-05-16/share/vim-plugins/Tabular/after,/nix/store/gwaamw8bb3narikkcblrwl1y8nfzjrjm-vimplugin-vim-addon-manager-2014-12-03/share/vim-plugins/vim-addon-manager
+set runtimepath=~/.vim,/nix/store/j77mng9la5ily24vxjrhlnbgwbs1craf-vimplugin-vim-airline-2015-07-08/share/vim-plugins/vim-airline,/nix/store/i8b7cjyrvqw4cmn2cnqr4riq26xvp0l2-vimplugin-Solarized-2011-05-09/share/vim-plugins/Solarized,/nix/store/v6cjb7b2qvb3gclil6zqqgmm12m08vy8-vimplugin-ctrlp-2013-07-29/share/vim-plugins/ctrlp,/nix/store/5nqjgircz8pwrs5xi8gmb23s5ila7bp8-vimplugin-fugitive-2015-07-20/share/vim-plugins/fugitive,/nix/store/vvkm2g8x2kz297r9z0iwkcc42jv800ia-vimplugin-The_NERD_Commenter-2015-07-26/share/vim-plugins/The_NERD_Commenter,/nix/store/g01p5x18743gdzc06nmqp7p73jb0gwrh-vimplugin-The_NERD_tree-2015-07-13/share/vim-plugins/The_NERD_tree,/nix/store/vpfap80dp25wk7zsc356lz7ligxx0g7k-vimplugin-rainbow_parentheses-2013-03-04/share/vim-plugins/rainbow_parentheses,/nix/store/hyjv40vkmlzvgpqh98vz5iprbzm9p2wl-vimplugin-Tabular-2013-05-16/share/vim-plugins/Tabular,/nix/store/ppzqshiwgx43jqigymh4f48d177w3vlq-vimplugin-undotree-2015-03-01/share/vim-plugins/undotree,/nix/store/rnh9ksxb4bljjm3mmmjap48xp94kcpkr-vimplugin-tlib-2015-05-20/share/vim-plugins/tlib,/nix/store/5ki0105qr7zxc3wcja317gjnbaxl9yrv-vimplugin-vim-addon-completion-2015-02-10/share/vim-plugins/vim-addon-completion,/nix/store/yx13faxwhvcn8yviicjncp1m5dklra61-vimplugin-vim-addon-goto-thing-at-cursor-2012-01-11/share/vim-plugins/vim-addon-goto-thing-at-cursor,/nix/store/03ddwdhzk2w6r4yyrqhy39i3ggdllpn4-vimplugin-vim-addon-errorformats-2014-11-05/share/vim-plugins/vim-addon-errorformats,/nix/store/z3yfp2ciqk64p2ib41wqf95qm64155i4-vimplugin-vim-addon-mw-utils-2012-11-05/share/vim-plugins/vim-addon-mw-utils,/nix/store/ph25p01ni1cqr4s386x56zrmi2hlgxm8-vimplugin-vim-addon-actions-2014-09-22/share/vim-plugins/vim-addon-actions,/nix/store/wxnsl06s3s1dqqa9w34qrjraz9kc1c55-vimplugin-vim-addon-nix-2015-03-10/share/vim-plugins/vim-addon-nix,/nix/store/w54vlsshsm044yda1gvps0baaphqka7a-vimplugin-VimOutliner-2015-01-09/share/vim-plugins/VimOutliner,/nix/store/hqi39w395xma755c83jwb5k4iq5nhpgv-vimplugin-vimwiki-2014-02-21/share/vim-plugins/vimwiki,/nix/store/463x0pxzrkhpc8rj3dvvvlj8p3xa0hli-vimplugin-youcompleteme-2015-07-08/share/vim-plugins/youcompleteme,/nix/store/ccl88myhqb36vinn0iv3qlhbmr8av0ss-vim_configurable-7.4.826/share/vim/vimfiles,/nix/store/ccl88myhqb36vinn0iv3qlhbmr8av0ss-vim_configurable-7.4.826/share/vim/vim74,/nix/store/ccl88myhqb36vinn0iv3qlhbmr8av0ss-vim_configurable-7.4.826/share/vim/vimfiles/after,~/.vim/after,/nix/store/hyjv40vkmlzvgpqh98vz5iprbzm9p2wl-vimplugin-Tabular-2013-05-16/share/vim-plugins/Tabular/after,/nix/store/gwaamw8bb3narikkcblrwl1y8nfzjrjm-vimplugin-vim-addon-manager-2014-12-03/share/vim-plugins/vim-addon-manager
 set scrolljump=5
 set scrolloff=3
 set shiftwidth=4
-set shortmess=aoOc
+set shortmess=filmnrxoOtTc
 set showcmd
 set showmatch
 set showtabline=2
 set smartcase
-set smartindent
-set smarttab
 set softtabstop=4
-set splitbelow
-set splitright
-set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %w%h%m%r%{fugitive#statusline()}\ [%{&ff}/%Y]\ [%{getcwd()}]%=%-14.(%l,%c%V%)\ %p%%
 set tabline=%!airline#extensions#tabline#get()
 set tabpagemax=15
 set tabstop=4
@@ -203,28 +181,28 @@ set undodir=~/.vim/undo//
 set undofile
 set updatetime=2000
 set viewoptions=folds,options,cursor,unix,slash
-set virtualedit=onemore
+set virtualedit=block,insert,onemore
 set whichwrap=b,s,h,l,<,>,[,]
 set wildmenu
 set wildmode=list:longest,full
-set window=58
-set winwidth=1
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/
+cd ~/nixosConfig
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +99 nixosConfig/music.nix
-badd +310 nixosConfig/common.nix
-badd +35 nixosConfig/machines/borknix/machine.nix
-badd +21 nixosConfig/vim.nix
+badd +389 ~/nixosConfig/vim.nix
+badd +310 ~/nixosConfig/common.nix
+badd +108 ~/nixosConfig/music.nix
+badd +27 ~/nixosConfig/machines/borknix/default.nix
 argglobal
 silent! argdel *
-edit nixosConfig/vim.nix
+edit ~/nixosConfig/vim.nix
 set splitbelow splitright
+set nosplitbelow
+set nosplitright
 wincmd t
 set winheight=1 winwidth=1
 argglobal
@@ -321,7 +299,7 @@ setlocal rightleftcmd=search
 setlocal noscrollbind
 setlocal shiftwidth=2
 setlocal noshortname
-setlocal smartindent
+setlocal nosmartindent
 setlocal softtabstop=4
 setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
@@ -340,24 +318,23 @@ setlocal textwidth=0
 setlocal thesaurus=
 setlocal undofile
 setlocal undolevels=-123456
-setlocal winfixheight
+setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 21 - ((20 * winheight(0) + 30) / 61)
+let s:l = 389 - ((34 * winheight(0) + 30) / 61)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-21
-normal! 0
-lcd ~/nixosConfig
+389
+normal! 011|
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif
 unlet! s:wipebuf
-set winheight=1 winwidth=1 shortmess=aoOc
+set winheight=1 winwidth=20 shortmess=filmnrxoOtTc
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if file_readable(s:sx)
   exe "source " . fnameescape(s:sx)
