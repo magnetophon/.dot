@@ -17,15 +17,16 @@ fi
 # general functions
 ##################################################################
 # a visual recursive list of all files and dirs
-function treedir()
-  {
-    find . | sed -e 's/[^\/]*\//|--/g' -e 's/-- |/    |/g' | $PAGER
-  }
+# WIP:
+#function treedir()
+  #{
+    #find . | sed -e 's/[^\/]*\//|--/g' -e 's/-- |/    |/g' | $PAGER
+  #}
 
-# recursive text search
-function f() {
-  find . | sed -e 's/[^\/]*\//|--/g' -e 's/-- |/  |/g' | $PAGER
-  }
+## recursive text search
+#function f() {
+  #find . | sed -e 's/[^\/]*\//|--/g' -e 's/-- |/  |/g' | $PAGER
+  #}
 
 
 
@@ -34,6 +35,8 @@ function f() {
 # aliases
 ##################################################################
 # not using fzf yet
+alias vi=$EDITOR
+alias vh='$EDITOR -M ~/.vim/vim_keys.txt'
 alias v='fasd -f -t -e vim -b viminfo'
 alias gs='git status'
 alias gst='git stash'
