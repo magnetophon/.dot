@@ -8,6 +8,7 @@ inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
 inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
 inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', "insert")
+noremap  :CtrlPBuffer
 nnoremap  :nohlsearch:redraw:checktime 
 nnoremap <silent>  :CtrlP
 noremap   :
@@ -65,6 +66,7 @@ nmap ,a= :Tabularize /^[^=]*\zs=
 vmap ,a& :Tabularize /&
 nmap ,a& :Tabularize /&
 nnoremap ,r :RainbowParenthesesToggle
+noremap ,e :NERDTreeToggle
 nnoremap <silent> ,gg :SignifyToggle
 nnoremap <silent> ,gi :Git add -p %
 nnoremap <silent> ,ge :Gedit
@@ -77,6 +79,8 @@ nnoremap <silent> ,gc :Gcommit
 nnoremap <silent> ,gd :Gdiff
 nnoremap <silent> ,gs :Gstatus
 vnoremap . :normal .
+vnoremap / /\v
+nnoremap / /\v
 nnoremap 0 :call WrapRelativeMotion("0")
 vnoremap 0 :call WrapRelativeMotion("0", 1)
 onoremap 0 :call WrapRelativeMotion("0")
@@ -102,6 +106,8 @@ noremap k gk
 nnoremap <silent> n nzz
 nnoremap <silent> p p`]
 vnoremap <silent> y y`]
+nnoremap zc zM
+nnoremap zo zR
 nnoremap <Home> :call WrapRelativeMotion("0")
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
@@ -185,6 +191,7 @@ set virtualedit=block,insert,onemore
 set whichwrap=b,s,h,l,<,>,[,]
 set wildmenu
 set wildmode=list:longest,full
+set window=56
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
@@ -193,10 +200,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +389 ~/nixosConfig/vim.nix
-badd +310 ~/nixosConfig/common.nix
+badd +285 ~/nixosConfig/vim.nix
 badd +108 ~/nixosConfig/music.nix
 badd +27 ~/nixosConfig/machines/borknix/default.nix
+badd +398 ~/nixosConfig/common.nix
 argglobal
 silent! argdel *
 edit ~/nixosConfig/vim.nix
@@ -213,7 +220,7 @@ setlocal keymap=
 setlocal noarabic
 setlocal autoindent
 setlocal backupcopy=
-setlocal balloonexpr=
+setlocal balloonexpr=netrw#BalloonHelp()
 setlocal nobinary
 setlocal nobreakindent
 setlocal breakindentopt=
@@ -259,7 +266,8 @@ setlocal foldmarker={{{,}}}
 setlocal foldmethod=manual
 setlocal foldminlines=1
 setlocal foldnestmax=20
-setlocal foldtext=foldtext()
+set foldtext=fugitive#foldtext()
+setlocal foldtext=fugitive#foldtext()
 setlocal formatexpr=
 setlocal formatoptions=tcq
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
@@ -289,7 +297,7 @@ setlocal numberwidth=4
 setlocal omnifunc=
 setlocal path=
 setlocal nopreserveindent
-setlocal nopreviewwindow
+setlocal previewwindow
 setlocal quoteescape=\\
 setlocal noreadonly
 set relativenumber
@@ -318,17 +326,18 @@ setlocal textwidth=0
 setlocal thesaurus=
 setlocal undofile
 setlocal undolevels=-123456
-setlocal nowinfixheight
+setlocal winfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 389 - ((34 * winheight(0) + 30) / 61)
+let s:l = 303 - ((26 * winheight(0) + 27) / 54)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-389
-normal! 011|
+303
+normal! 05|
+lcd ~/nixosConfig
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
