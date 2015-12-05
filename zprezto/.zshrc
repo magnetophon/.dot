@@ -38,6 +38,7 @@ fi
 alias vi=$EDITOR
 alias vh='$EDITOR -M ~/.vim/vim_keys.txt'
 alias v='fasd -f -t -e vim -b viminfo'
+alias j=fasd_cd
 alias gs='git status'
 alias gst='git stash'
 alias ra=ranger
