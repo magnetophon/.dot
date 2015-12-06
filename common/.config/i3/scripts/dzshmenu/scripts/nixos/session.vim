@@ -2,11 +2,11 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <C-Space> 
-imap <Nul> <C-Space>
-inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
-inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
 inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
+inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
+inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
+imap <Nul> <C-Space>
+inoremap <C-Space> 
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', "insert")
 noremap  :CtrlPBuffer
 nnoremap  :nohlsearch:redraw:checktime 
@@ -17,6 +17,7 @@ vnoremap $ :call WrapRelativeMotion("$", 1)
 onoremap $ v:call WrapRelativeMotion("$")
 nnoremap $ :call WrapRelativeMotion("$")
 nnoremap <silent> * *zz
+nnoremap ,gD :call MyCloseDiff()
 nnoremap ,d :YcmShowDetailedDiagnostic
 nmap <silent> ,w,t <Plug>VimwikiTabMakeDiaryNote
 nmap <silent> ,w,w <Plug>VimwikiMakeDiaryNote
@@ -76,8 +77,9 @@ nnoremap <silent> ,gp :Git push
 nnoremap <silent> ,gl :Glog
 nnoremap <silent> ,gb :Gblame
 nnoremap <silent> ,gc :Gcommit
-nnoremap <silent> ,gd :Gdiff
+nnoremap ,gd :if !&diff | Gdiff | else | call MyCloseDiff() | endif 
 nnoremap <silent> ,gs :Gstatus
+noremap ,wo 
 vnoremap . :normal .
 vnoremap / /\v
 nnoremap / /\v
@@ -153,7 +155,10 @@ set clipboard=unnamed,unnamedplus
 set completefunc=youcompleteme#Complete
 set completeopt=menuone
 set cpoptions=aAceFsB
+set diffopt=filler,context:1000000
 set directory=~/.vim/swap//
+set errorfile=/tmp/vFE7em7/0
+set errorformat=%m\\\\\\,\\\ at\\\ `%f':%l:%c,%m\\\\\\,\\\ at\\\ `%f:%l:%c',%m\\\ at\\\ \\`%f:%l:%c':,%m\\\ at\\\ \\`%f'\\\\\\\\,\\\ line\\\ %l:,error:\\\ %m\\\\\\,\\\ in\\\ `%f',error:\\\ %m\\\ at\\\ \"%f\":%l:%c,error:\\\ %m\\\ at\\\ %f:%l:%c
 set expandtab
 set fileencodings=ucs-bom,utf-8,default,latin1
 set gdefault
@@ -191,7 +196,6 @@ set virtualedit=block,insert,onemore
 set whichwrap=b,s,h,l,<,>,[,]
 set wildmenu
 set wildmode=list:longest,full
-set window=56
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
@@ -200,10 +204,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +285 ~/nixosConfig/vim.nix
-badd +108 ~/nixosConfig/music.nix
-badd +27 ~/nixosConfig/machines/borknix/default.nix
-badd +398 ~/nixosConfig/common.nix
+badd +127 ~/nixosConfig/vim.nix
+badd +1 ~/nixosConfig/music.nix
+badd +1 ~/nixosConfig/machines/borknix/default.nix
+badd +1 ~/nixosConfig/common.nix
 argglobal
 silent! argdel *
 edit ~/nixosConfig/vim.nix
@@ -243,7 +247,7 @@ setlocal conceallevel=2
 setlocal completefunc=youcompleteme#Complete
 setlocal nocopyindent
 setlocal cryptmethod=
-setlocal nocursorbind
+setlocal cursorbind
 setlocal nocursorcolumn
 set cursorline
 setlocal cursorline
@@ -258,7 +262,7 @@ setlocal filetype=nix
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
-setlocal foldenable
+setlocal nofoldenable
 setlocal foldexpr=0
 setlocal foldignore=#
 setlocal foldlevel=0
@@ -331,13 +335,14 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 303 - ((26 * winheight(0) + 27) / 54)
+1,461fold
+let s:l = 127 - ((21 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-303
-normal! 05|
-lcd ~/nixosConfig
+127
+normal! 06|
+lcd ~/nixosConfig/machines/borknix
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
