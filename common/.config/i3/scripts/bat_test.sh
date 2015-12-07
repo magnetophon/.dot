@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 SLEEP_TIME=5   # Default time between checks.
-SAFE_PERCENT=30  # Still safe at this level.
-DANGER_PERCENT=15  # Warn when battery at this level.
-CRITICAL_PERCENT=5  # Hibernate when battery at this level.
+SAFE_PERCENT=80  # Still safe at this level.
+DANGER_PERCENT=75  # Warn when battery at this level.
+CRITICAL_PERCENT=70  # Hibernate when battery at this level.
 
 NAGBAR_PID=0
 export DISPLAY=:0.0
@@ -36,10 +36,12 @@ function launchNagBar
                  SLEEP_TIME=5
              if [[ $rem_bat -le $DANGER_PERCENT ]]; then
                  SLEEP_TIME=2
+                 echo $rem_bat
                  launchNagBar
              fi
              if [[ $rem_bat -le $CRITICAL_PERCENT ]]; then
                  SLEEP_TIME=1
+                 echo $rem_bat
                  systemctl hibernate
              fi
              fi
