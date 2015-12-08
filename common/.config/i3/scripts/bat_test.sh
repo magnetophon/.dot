@@ -1,58 +1,50 @@
 #!/usr/bin/env bash
 
 SLEEP_TIME=5   # Default time between checks.
-SAFE_PERCENT=80  # Still safe at this level.
-DANGER_PERCENT=75  # Warn when battery at this level.
-CRITICAL_PERCENT=70  # Hibernate when battery at this level.
+SAFE_PERCENT=95  # Still safe at this level.
+DANGER_PERCENT=90  # Warn when battery at this level.
+CRITICAL_PERCENT=85  # Hibernate when battery at this level.
 
 NAGBAR_PID=0
 export DISPLAY=:0.0
 
 function launchNagBar
 {
-      i3-nagbar -m 'Battery low!' -b 'Hibernate!' 'systemctl hibernate' >/dev/null 2>&1 &
-          NAGBAR_PID=$!
-        }
+    i3-nagbar -m 'Battery low!' -b 'Hibernate!' 'systemctl hibernate' >/dev/null 2>&1 &
+    NAGBAR_PID=$!
+}
 
-        function killNagBar
-        {
-              if [[ $NAGBAR_PID -ne 0 ]]; then
-                  ps -p $NAGBAR_PID | grep "i3-nagbar"
-                      if [[ $? -eq 0 ]]; then
-                          kill $NAGBAR_PID
-                      fi
-                      NAGBAR_PID=0
-              fi
-        }
+function killNagBar
+{
+    if [[ $NAGBAR_PID -ne 0 ]]; then
+      ps -p $NAGBAR_PID | grep "i3-nagbar"
+          if [[ $? -eq 0 ]]; then
+              kill $NAGBAR_PID
+          fi
+          NAGBAR_PID=0
+    fi
+}
 
-        while [ true ]; do
-
-          killNagBar
-          if [[ -n $(acpi -b | grep -i discharging) ]]; then
-              rem_bat=$(acpi -b | grep -Eo "[0-9]+%" | grep -Eo "[0-9]+")
-             if [[ $rem_bat -gt $SAFE_PERCENT ]]; then
-                 SLEEP_TIME=10
-             else
-                 SLEEP_TIME=5
-             if [[ $rem_bat -le $DANGER_PERCENT ]]; then
-                 SLEEP_TIME=2
-                 echo $rem_bat
-                 launchNagBar
-             fi
-             if [[ $rem_bat -le $CRITICAL_PERCENT ]]; then
-                 SLEEP_TIME=1
-                 echo $rem_bat
-                 systemctl hibernate
-             fi
-             fi
-          else
+# main:
+while [ true ]; do
+    killNagBar
+    if [[ -n $(acpi -a | grep -i off-line) ]]; then
+        rem_bat=$(acpi -b | grep -Eo "[0-9]+%" | grep -Eo "[0-9]+")
+        if [[ $rem_bat -gt $SAFE_PERCENT ]]; then
             SLEEP_TIME=10
-          fi
-            sleep ${SLEEP_TIME}m
-            done
-          fi
+        else
+            SLEEP_TIME=5
+            if [[ $rem_bat -le $DANGER_PERCENT ]]; then
+                SLEEP_TIME=2
+                launchNagBar
+            fi
+            if [[ $rem_bat -le $CRITICAL_PERCENT ]]; then
+                SLEEP_TIME=1
+                systemctl hibernate
+            fi
         fi
-      fi
-      done
-   fi
-  fi
+    else
+        SLEEP_TIME=10
+    fi
+    sleep ${SLEEP_TIME}
+done
