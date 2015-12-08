@@ -2,144 +2,144 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
-inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
-inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
-imap <Nul> <C-Space>
-inoremap <C-Space> 
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', "insert")
+inoremap <C-Space> 
+imap <Nul> <C-Space>
+inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
+inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
+inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
 noremap  :CtrlPBuffer
 nnoremap  :nohlsearch:redraw:checktime 
 nnoremap <silent>  :CtrlP
 noremap   :
 nnoremap <silent> # #zz
-vnoremap $ :call WrapRelativeMotion("$", 1)
-onoremap $ v:call WrapRelativeMotion("$")
 nnoremap $ :call WrapRelativeMotion("$")
+onoremap $ v:call WrapRelativeMotion("$")
+vnoremap $ :call WrapRelativeMotion("$", 1)
 nnoremap <silent> * *zz
-nnoremap ,d :YcmShowDetailedDiagnostic
-nmap <silent> ,w,t <Plug>VimwikiTabMakeDiaryNote
-nmap <silent> ,w,w <Plug>VimwikiMakeDiaryNote
-nmap <silent> ,w,i <Plug>VimwikiDiaryGenerateLinks
-nmap <silent> ,wi <Plug>VimwikiDiaryIndex
-nmap <silent> ,ws <Plug>VimwikiUISelect
-nmap <silent> ,wt <Plug>VimwikiTabIndex
-nmap <silent> ,ww <Plug>VimwikiIndex
-nmap ,ca <Plug>NERDCommenterAltDelims
-xmap ,cu <Plug>NERDCommenterUncomment
-nmap ,cu <Plug>NERDCommenterUncomment
-xmap ,cb <Plug>NERDCommenterAlignBoth
-nmap ,cb <Plug>NERDCommenterAlignBoth
-xmap ,cl <Plug>NERDCommenterAlignLeft
-nmap ,cl <Plug>NERDCommenterAlignLeft
-nmap ,cA <Plug>NERDCommenterAppend
-xmap ,cy <Plug>NERDCommenterYank
-nmap ,cy <Plug>NERDCommenterYank
-xmap ,cs <Plug>NERDCommenterSexy
-nmap ,cs <Plug>NERDCommenterSexy
-xmap ,ci <Plug>NERDCommenterInvert
-nmap ,ci <Plug>NERDCommenterInvert
-nmap ,c$ <Plug>NERDCommenterToEOL
-xmap ,cn <Plug>NERDCommenterNested
-nmap ,cn <Plug>NERDCommenterNested
-xmap ,cm <Plug>NERDCommenterMinimal
-nmap ,cm <Plug>NERDCommenterMinimal
-xmap ,c  <Plug>NERDCommenterToggle
-nmap ,c  <Plug>NERDCommenterToggle
-xmap ,cc <Plug>NERDCommenterComment
-nmap ,cc <Plug>NERDCommenterComment
-nnoremap ,u :UndotreeToggle
-vmap ,a| :Tabularize /|
-nmap ,a| :Tabularize /|
-vmap ,a,, :Tabularize /,\zs
-nmap ,a,, :Tabularize /,\zs
-vmap ,a, :Tabularize /,
-nmap ,a, :Tabularize /,
-vmap ,a:: :Tabularize /:\zs
-nmap ,a:: :Tabularize /:\zs
-vmap ,a: :Tabularize /:
-nmap ,a: :Tabularize /:
-vmap ,a=> :Tabularize /=>
-nmap ,a=> :Tabularize /=>
-vmap ,a= :Tabularize /^[^=]*\zs=
-nmap ,a= :Tabularize /^[^=]*\zs=
-vmap ,a& :Tabularize /&
-nmap ,a& :Tabularize /&
-nnoremap ,r :RainbowParenthesesToggle
-noremap ,e :NERDTreeToggle
-nnoremap <silent> ,gg :SignifyToggle
-nnoremap <silent> ,gi :Git add -p %
-nnoremap <silent> ,ge :Gedit
-nnoremap <silent> ,gw :Gwrite
-nnoremap <silent> ,gr :Gread
-nnoremap <silent> ,gp :Git push
-nnoremap <silent> ,gl :Glog
-nnoremap <silent> ,gb :Gblame
-nnoremap <silent> ,gc :Gcommit
-nnoremap <silent> ,gd :Gdiff
 nnoremap <silent> ,gs :Gstatus
+nnoremap <silent> ,gd :Gdiff
+nnoremap <silent> ,gc :Gcommit
+nnoremap <silent> ,gb :Gblame
+nnoremap <silent> ,gl :Glog
+nnoremap <silent> ,gp :Git push
+nnoremap <silent> ,gr :Gread
+nnoremap <silent> ,gw :Gwrite
+nnoremap <silent> ,ge :Gedit
+nnoremap <silent> ,gi :Git add -p %
+nnoremap <silent> ,gg :SignifyToggle
+noremap ,e :NERDTreeToggle
+nnoremap ,r :RainbowParenthesesToggle
+nmap ,a& :Tabularize /&
+vmap ,a& :Tabularize /&
+nmap ,a= :Tabularize /^[^=]*\zs=
+vmap ,a= :Tabularize /^[^=]*\zs=
+nmap ,a=> :Tabularize /=>
+vmap ,a=> :Tabularize /=>
+nmap ,a: :Tabularize /:
+vmap ,a: :Tabularize /:
+nmap ,a:: :Tabularize /:\zs
+vmap ,a:: :Tabularize /:\zs
+nmap ,a, :Tabularize /,
+vmap ,a, :Tabularize /,
+nmap ,a,, :Tabularize /,\zs
+vmap ,a,, :Tabularize /,\zs
+nmap ,a| :Tabularize /|
+vmap ,a| :Tabularize /|
+nnoremap ,u :UndotreeToggle
+nmap ,cc <Plug>NERDCommenterComment
+xmap ,cc <Plug>NERDCommenterComment
+nmap ,c  <Plug>NERDCommenterToggle
+xmap ,c  <Plug>NERDCommenterToggle
+nmap ,cm <Plug>NERDCommenterMinimal
+xmap ,cm <Plug>NERDCommenterMinimal
+nmap ,cn <Plug>NERDCommenterNested
+xmap ,cn <Plug>NERDCommenterNested
+nmap ,c$ <Plug>NERDCommenterToEOL
+nmap ,ci <Plug>NERDCommenterInvert
+xmap ,ci <Plug>NERDCommenterInvert
+nmap ,cs <Plug>NERDCommenterSexy
+xmap ,cs <Plug>NERDCommenterSexy
+nmap ,cy <Plug>NERDCommenterYank
+xmap ,cy <Plug>NERDCommenterYank
+nmap ,cA <Plug>NERDCommenterAppend
+nmap ,cl <Plug>NERDCommenterAlignLeft
+xmap ,cl <Plug>NERDCommenterAlignLeft
+nmap ,cb <Plug>NERDCommenterAlignBoth
+xmap ,cb <Plug>NERDCommenterAlignBoth
+nmap ,cu <Plug>NERDCommenterUncomment
+xmap ,cu <Plug>NERDCommenterUncomment
+nmap ,ca <Plug>NERDCommenterAltDelims
+nmap <silent> ,ww <Plug>VimwikiIndex
+nmap <silent> ,wt <Plug>VimwikiTabIndex
+nmap <silent> ,ws <Plug>VimwikiUISelect
+nmap <silent> ,wi <Plug>VimwikiDiaryIndex
+nmap <silent> ,w,i <Plug>VimwikiDiaryGenerateLinks
+nmap <silent> ,w,w <Plug>VimwikiMakeDiaryNote
+nmap <silent> ,w,t <Plug>VimwikiTabMakeDiaryNote
+nnoremap ,d :YcmShowDetailedDiagnostic
 vnoremap . :normal .
-vnoremap / /\v
 nnoremap / /\v
-nnoremap 0 :call WrapRelativeMotion("0")
-vnoremap 0 :call WrapRelativeMotion("0", 1)
+vnoremap / /\v
 onoremap 0 :call WrapRelativeMotion("0")
+vnoremap 0 :call WrapRelativeMotion("0", 1)
+nnoremap 0 :call WrapRelativeMotion("0")
 vnoremap < <gv
 vnoremap > >gv
-vnoremap H ^
 nnoremap H ^
-vnoremap L g_
+vnoremap H ^
 nnoremap L g_
+vnoremap L g_
 nnoremap <silent> N Nzz
 nnoremap Y y$
-noremap \aps : if filereadable('pkgs/top-level/all-packages.nix') | e pkgs/top-level/all-packages.nix | else | exec 'e '.expand("$NIXPKGS_ALL") | endif
 noremap \gf :call on_thing_handler#HandleOnThing()
-nnoremap ^ :call WrapRelativeMotion("^")
-vnoremap ^ :call WrapRelativeMotion("^", 1)
+noremap \aps : if filereadable('pkgs/top-level/all-packages.nix') | e pkgs/top-level/all-packages.nix | else | exec 'e '.expand("$NIXPKGS_ALL") | endif
 onoremap ^ :call WrapRelativeMotion("^")
+vnoremap ^ :call WrapRelativeMotion("^", 1)
+nnoremap ^ :call WrapRelativeMotion("^")
+nnoremap <silent> g* g*zz
+nnoremap <silent> g# g#zz
 vmap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
-nnoremap <silent> g# g#zz
-nnoremap <silent> g* g*zz
 noremap j gj
 noremap k gk
 nnoremap <silent> n nzz
 nnoremap <silent> p p`]
 vnoremap <silent> y y`]
-nnoremap zc zM
 nnoremap zo zR
+nnoremap zc zM
+nnoremap <End> :call WrapRelativeMotion("$")
+onoremap <Home> :call WrapRelativeMotion("0")
+onoremap <End> v:call WrapRelativeMotion("$")
+vnoremap <End> :call WrapRelativeMotion("$", 1)
+vnoremap <Home> :call WrapRelativeMotion("0", 1)
+nmap <silent> <Left> :bp
+nmap <silent> <Right> :bn
+nnoremap <silent> <Plug>NERDCommenterComment :call NERDComment("n", "Comment")
+xnoremap <silent> <Plug>NERDCommenterComment :call NERDComment("x", "Comment")
+nnoremap <silent> <Plug>NERDCommenterToggle :call NERDComment("n", "Toggle")
+xnoremap <silent> <Plug>NERDCommenterToggle :call NERDComment("x", "Toggle")
+nnoremap <silent> <Plug>NERDCommenterMinimal :call NERDComment("n", "Minimal")
+xnoremap <silent> <Plug>NERDCommenterMinimal :call NERDComment("x", "Minimal")
+nnoremap <silent> <Plug>NERDCommenterNested :call NERDComment("n", "Nested")
+xnoremap <silent> <Plug>NERDCommenterNested :call NERDComment("x", "Nested")
+nnoremap <silent> <Plug>NERDCommenterToEOL :call NERDComment("n", "ToEOL")
+nnoremap <silent> <Plug>NERDCommenterInvert :call NERDComment("n", "Invert")
+xnoremap <silent> <Plug>NERDCommenterInvert :call NERDComment("x", "Invert")
+nnoremap <silent> <Plug>NERDCommenterSexy :call NERDComment("n", "Sexy")
+xnoremap <silent> <Plug>NERDCommenterSexy :call NERDComment("x", "Sexy")
+nnoremap <silent> <Plug>NERDCommenterYank :call NERDComment("n", "Yank")
+xnoremap <silent> <Plug>NERDCommenterYank :call NERDComment("x", "Yank")
+nnoremap <silent> <Plug>NERDCommenterAppend :call NERDComment("n", "Append")
+nnoremap <silent> <Plug>NERDCommenterAlignLeft :call NERDComment("n", "AlignLeft")
+xnoremap <silent> <Plug>NERDCommenterAlignLeft :call NERDComment("x", "AlignLeft")
+nnoremap <silent> <Plug>NERDCommenterAlignBoth :call NERDComment("n", "AlignBoth")
+xnoremap <silent> <Plug>NERDCommenterAlignBoth :call NERDComment("x", "AlignBoth")
+nnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment("n", "Uncomment")
+xnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment("x", "Uncomment")
 nnoremap <Home> :call WrapRelativeMotion("0")
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
-xnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment("x", "Uncomment")
-nnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment("n", "Uncomment")
-xnoremap <silent> <Plug>NERDCommenterAlignBoth :call NERDComment("x", "AlignBoth")
-nnoremap <silent> <Plug>NERDCommenterAlignBoth :call NERDComment("n", "AlignBoth")
-xnoremap <silent> <Plug>NERDCommenterAlignLeft :call NERDComment("x", "AlignLeft")
-nnoremap <silent> <Plug>NERDCommenterAlignLeft :call NERDComment("n", "AlignLeft")
-nnoremap <silent> <Plug>NERDCommenterAppend :call NERDComment("n", "Append")
-xnoremap <silent> <Plug>NERDCommenterYank :call NERDComment("x", "Yank")
-nnoremap <silent> <Plug>NERDCommenterYank :call NERDComment("n", "Yank")
-xnoremap <silent> <Plug>NERDCommenterSexy :call NERDComment("x", "Sexy")
-nnoremap <silent> <Plug>NERDCommenterSexy :call NERDComment("n", "Sexy")
-xnoremap <silent> <Plug>NERDCommenterInvert :call NERDComment("x", "Invert")
-nnoremap <silent> <Plug>NERDCommenterInvert :call NERDComment("n", "Invert")
-nnoremap <silent> <Plug>NERDCommenterToEOL :call NERDComment("n", "ToEOL")
-xnoremap <silent> <Plug>NERDCommenterNested :call NERDComment("x", "Nested")
-nnoremap <silent> <Plug>NERDCommenterNested :call NERDComment("n", "Nested")
-xnoremap <silent> <Plug>NERDCommenterMinimal :call NERDComment("x", "Minimal")
-nnoremap <silent> <Plug>NERDCommenterMinimal :call NERDComment("n", "Minimal")
-xnoremap <silent> <Plug>NERDCommenterToggle :call NERDComment("x", "Toggle")
-nnoremap <silent> <Plug>NERDCommenterToggle :call NERDComment("n", "Toggle")
-xnoremap <silent> <Plug>NERDCommenterComment :call NERDComment("x", "Comment")
-nnoremap <silent> <Plug>NERDCommenterComment :call NERDComment("n", "Comment")
-nmap <silent> <Right> :bn
-nmap <silent> <Left> :bp
-vnoremap <Home> :call WrapRelativeMotion("0", 1)
-vnoremap <End> :call WrapRelativeMotion("$", 1)
-onoremap <End> v:call WrapRelativeMotion("$")
-onoremap <Home> :call WrapRelativeMotion("0")
-nnoremap <End> :call WrapRelativeMotion("$")
 inoremap <expr> 	 pumvisible() ? "\" : "\	"
 cmap Tabe tabe
 let &cpo=s:cpo_save
@@ -182,7 +182,6 @@ set softtabstop=4
 set splitbelow
 set splitright
 set statusline=%<%f\ %w%h%m%r%{fugitive#statusline()}\ [%{&ff}/%Y]\ [%{getcwd()}]%=%-14.(%l,%c%V%)\ %p%%
-set tabline=%!airline#extensions#tabline#get()
 set tabpagemax=15
 set tabstop=4
 set undodir=~/.vim/undo//
@@ -326,12 +325,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 41 - ((28 * winheight(0) + 28) / 56)
+let s:l = 58 - ((57 * winheight(0) + 30) / 61)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-41
-normal! 015|
+58
+normal! 0
 lcd ~/.dot/common/.config/i3/scripts/dzshmenu/scripts/nixos
 tabnext 1
 if exists('s:wipebuf')

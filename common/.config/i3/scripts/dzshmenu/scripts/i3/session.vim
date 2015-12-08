@@ -78,6 +78,7 @@ nnoremap <silent> ,gb :Gblame
 nnoremap <silent> ,gc :Gcommit
 nnoremap <silent> ,gd :Gdiff
 nnoremap <silent> ,gs :Gstatus
+noremap ,wo 
 vnoremap . :normal .
 vnoremap / /\v
 nnoremap / /\v
@@ -153,6 +154,7 @@ set clipboard=unnamed,unnamedplus
 set completefunc=youcompleteme#Complete
 set completeopt=menuone
 set cpoptions=aAceFsB
+set diffopt=filler,context:1000000
 set directory=~/.vim/swap//
 set expandtab
 set fileencodings=ucs-bom,utf-8,default,latin1
@@ -202,11 +204,13 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +276 ~/.dot/common/.config/i3/config
-badd +65 ~/.dot/common/.config/i3status/config
+badd +446 ~/.dot/common/.config/i3/config
+badd +86 ~/.dot/common/.config/i3status/config
+badd +12 ~/.dot/common/.config/i3/scripts/bat_test.sh
+badd +1 ~/.dot/.git/COMMIT_EDITMSG
 argglobal
 silent! argdel *
-edit ~/.dot/common/.config/i3/config
+edit ~/.dot/.git/COMMIT_EDITMSG
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -219,7 +223,7 @@ setlocal balloonexpr=
 setlocal nobinary
 setlocal nobreakindent
 setlocal breakindentopt=
-setlocal bufhidden=
+setlocal bufhidden=wipe
 setlocal buflisted
 setlocal buftype=
 setlocal nocindent
@@ -228,8 +232,8 @@ setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 set colorcolumn=80
 setlocal colorcolumn=80
-setlocal comments=:#
-setlocal commentstring=#\ %s
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*%s*/
 setlocal complete=.,w,b,u,t,i
 set concealcursor=i
 setlocal concealcursor=i
@@ -248,8 +252,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'conf'
-setlocal filetype=conf
+if &filetype != 'gitcommit'
+setlocal filetype=gitcommit
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
@@ -264,18 +268,18 @@ setlocal foldnestmax=20
 set foldtext=fugitive#foldtext()
 setlocal foldtext=fugitive#foldtext()
 setlocal formatexpr=
-setlocal formatoptions=croql
+setlocal formatoptions=cqtl
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
 setlocal iminsert=0
 setlocal imsearch=0
 setlocal include=
-setlocal includeexpr=
+setlocal includeexpr=substitute(v:fname,'^[^/]\\+/','','')
 setlocal indentexpr=
 setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
+setlocal keywordprg=git\ --git-dir='/home/bart/.dot/.git'\ show
 setlocal nolinebreak
 setlocal nolisp
 setlocal lispwords=
@@ -283,16 +287,16 @@ set list
 setlocal list
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
-setlocal modeline
+setlocal nomodeline
 setlocal modifiable
 setlocal nrformats=octal,hex
 set number
 setlocal number
 setlocal numberwidth=4
 setlocal omnifunc=
-setlocal path=
+setlocal path=~/.dot/.git,~/.dot,~/.dot/.git,~/.dot,
 setlocal nopreserveindent
-setlocal previewwindow
+setlocal nopreviewwindow
 setlocal quoteescape=\\
 setlocal noreadonly
 set relativenumber
@@ -304,7 +308,7 @@ setlocal shiftwidth=4
 setlocal noshortname
 setlocal nosmartindent
 setlocal softtabstop=4
-setlocal nospell
+setlocal spell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
@@ -312,12 +316,12 @@ setlocal statusline=%!airline#statusline(1)
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
-if &syntax != 'conf'
-setlocal syntax=conf
+if &syntax != 'gitcommit'
+setlocal syntax=gitcommit
 endif
-setlocal tabstop=4
+setlocal tabstop=8
 setlocal tags=
-setlocal textwidth=0
+setlocal textwidth=72
 setlocal thesaurus=
 setlocal undofile
 setlocal undolevels=-123456
@@ -326,12 +330,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 204 - ((25 * winheight(0) + 25) / 50)
+let s:l = 1 - ((0 * winheight(0) + 30) / 61)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-204
-normal! 03|
+1
+normal! 044|
 lcd ~/.dot/.git
 tabnext 1
 if exists('s:wipebuf')

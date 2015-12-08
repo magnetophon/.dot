@@ -204,10 +204,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +127 ~/nixosConfig/vim.nix
-badd +1 ~/nixosConfig/music.nix
-badd +1 ~/nixosConfig/machines/borknix/default.nix
-badd +1 ~/nixosConfig/common.nix
+badd +248 ~/nixosConfig/vim.nix
+badd +133 ~/nixosConfig/music.nix
+badd +33 ~/nixosConfig/machines/borknix/default.nix
+badd +406 ~/nixosConfig/common.nix
 argglobal
 silent! argdel *
 edit ~/nixosConfig/vim.nix
@@ -336,12 +336,12 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 1,461fold
-let s:l = 127 - ((21 * winheight(0) + 26) / 52)
+let s:l = 59 - ((53 * winheight(0) + 30) / 61)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-127
-normal! 06|
+59
+normal! 02|
 lcd ~/nixosConfig/machines/borknix
 tabnext 1
 if exists('s:wipebuf')
