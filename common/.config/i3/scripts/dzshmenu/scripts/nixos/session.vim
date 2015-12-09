@@ -2,11 +2,11 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
-inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
-inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
-imap <Nul> <C-Space>
 inoremap <C-Space> 
+imap <Nul> <C-Space>
+inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
+inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
+inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', "insert")
 noremap  :CtrlPBuffer
 nnoremap  :nohlsearch:redraw:checktime 
@@ -17,8 +17,8 @@ vnoremap $ :call WrapRelativeMotion("$", 1)
 onoremap $ v:call WrapRelativeMotion("$")
 nnoremap $ :call WrapRelativeMotion("$")
 nnoremap <silent> * *zz
-nnoremap ,gD :call MyCloseDiff()
 nnoremap ,d :YcmShowDetailedDiagnostic
+nnoremap ,gD :call MyCloseDiff()
 nmap <silent> ,w,t <Plug>VimwikiTabMakeDiaryNote
 nmap <silent> ,w,w <Plug>VimwikiMakeDiaryNote
 nmap <silent> ,w,i <Plug>VimwikiDiaryGenerateLinks
@@ -336,12 +336,12 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 1,461fold
-let s:l = 59 - ((53 * winheight(0) + 30) / 61)
+let s:l = 242 - ((30 * winheight(0) + 30) / 61)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-59
-normal! 02|
+242
+normal! 039|
 lcd ~/nixosConfig/machines/borknix
 tabnext 1
 if exists('s:wipebuf')

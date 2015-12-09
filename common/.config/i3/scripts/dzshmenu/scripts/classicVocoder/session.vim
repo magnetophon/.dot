@@ -2,12 +2,13 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
-inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
-inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
-imap <Nul> <C-Space>
 inoremap <C-Space> 
+imap <Nul> <C-Space>
+inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
+inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
+inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', "insert")
+noremap  :CtrlPBuffer
 nnoremap  :nohlsearch:redraw:checktime 
 nnoremap <silent>  :CtrlP
 noremap   :
@@ -17,6 +18,13 @@ onoremap $ v:call WrapRelativeMotion("$")
 nnoremap $ :call WrapRelativeMotion("$")
 nnoremap <silent> * *zz
 nnoremap ,d :YcmShowDetailedDiagnostic
+nmap <silent> ,w,t <Plug>VimwikiTabMakeDiaryNote
+nmap <silent> ,w,w <Plug>VimwikiMakeDiaryNote
+nmap <silent> ,w,i <Plug>VimwikiDiaryGenerateLinks
+nmap <silent> ,wi <Plug>VimwikiDiaryIndex
+nmap <silent> ,ws <Plug>VimwikiUISelect
+nmap <silent> ,wt <Plug>VimwikiTabIndex
+nmap <silent> ,ww <Plug>VimwikiIndex
 nmap ,ca <Plug>NERDCommenterAltDelims
 xmap ,cu <Plug>NERDCommenterUncomment
 nmap ,cu <Plug>NERDCommenterUncomment
@@ -58,6 +66,7 @@ nmap ,a= :Tabularize /^[^=]*\zs=
 vmap ,a& :Tabularize /&
 nmap ,a& :Tabularize /&
 nnoremap ,r :RainbowParenthesesToggle
+noremap ,e :NERDTreeToggle
 nnoremap <silent> ,gg :SignifyToggle
 nnoremap <silent> ,gi :Git add -p %
 nnoremap <silent> ,ge :Gedit
@@ -69,7 +78,10 @@ nnoremap <silent> ,gb :Gblame
 nnoremap <silent> ,gc :Gcommit
 nnoremap <silent> ,gd :Gdiff
 nnoremap <silent> ,gs :Gstatus
+noremap ,wo 
 vnoremap . :normal .
+vnoremap / /\v
+nnoremap / /\v
 nnoremap 0 :call WrapRelativeMotion("0")
 vnoremap 0 :call WrapRelativeMotion("0", 1)
 onoremap 0 :call WrapRelativeMotion("0")
@@ -95,9 +107,11 @@ noremap k gk
 nnoremap <silent> n nzz
 nnoremap <silent> p p`]
 vnoremap <silent> y y`]
-nnoremap <Home> :call WrapRelativeMotion("0")
-nnoremap <F5> :w :!faust2jack -osc % &&  ./%   
+nnoremap zc zM
+nnoremap zo zR
 nnoremap <F7> :w :!faust2firefox % 
+nnoremap <F5> :w :!faust2jack -osc % &&  ./%   
+nnoremap <Home> :call WrapRelativeMotion("0")
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
 xnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment("x", "Uncomment")
@@ -133,6 +147,7 @@ inoremap <expr> 	 pumvisible() ? "\" : "\	"
 cmap Tabe tabe
 let &cpo=s:cpo_save
 unlet s:cpo_save
+set autochdir
 set autoindent
 set backspace=indent,eol,start
 set backup
@@ -141,9 +156,11 @@ set clipboard=unnamed,unnamedplus
 set completefunc=youcompleteme#Complete
 set completeopt=menuone
 set cpoptions=aAceFsB
+set diffopt=filler,context:1000000
 set directory=~/.vim/swap//
 set expandtab
 set fileencodings=ucs-bom,utf-8,default,latin1
+set gdefault
 set helplang=en
 set hidden
 set history=1000
@@ -180,23 +197,24 @@ set virtualedit=onemore
 set whichwrap=b,s,h,l,<,>,[,]
 set wildmenu
 set wildmode=list:longest,full
+set window=63
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/faust/VoiceOfFaust
+cd ~/faust/VoiceOfFaust/lib
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +57 classicVocoder.dsp
-badd +62 lib/classicVocoder.lib
-badd +18 lib/FullGUI.lib
-badd +4 lib/constants.lib
-badd +157 lib/general.lib
-badd +195 lib/slaveOscilators.lib
+badd +16 ~/faust/VoiceOfFaust/classicVocoder.dsp
+badd +62 ~/faust/VoiceOfFaust/lib/classicVocoder.lib
+badd +18 ~/faust/VoiceOfFaust/lib/FullGUI.lib
+badd +4 ~/faust/VoiceOfFaust/lib/constants.lib
+badd +157 ~/faust/VoiceOfFaust/lib/general.lib
+badd +106 ~/faust/VoiceOfFaust/lib/slaveOscilators.lib
 argglobal
 silent! argdel *
-edit lib/slaveOscilators.lib
+edit ~/faust/VoiceOfFaust/lib/classicVocoder.lib
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -315,12 +333,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 195 - ((30 * winheight(0) + 30) / 61)
+let s:l = 63 - ((24 * winheight(0) + 30) / 61)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-195
-normal! 0
+63
+normal! 0210|
 lcd ~/faust/VoiceOfFaust/lib
 tabnext 1
 if exists('s:wipebuf')
