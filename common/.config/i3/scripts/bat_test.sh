@@ -70,7 +70,10 @@ while [ true ]; do
             fi
             if [[ $rem_mins -le $CRITICAL_TIME ]]; then
                 SLEEP_TIME=1
-                lockandHibernate
+                # double check, to prevent too sudden shutdowns
+                if [[ $rem_bat -le $CRITICAL_PERCENT ]]; then
+                    lockandHibernate
+                fi
             fi
         fi
     else
