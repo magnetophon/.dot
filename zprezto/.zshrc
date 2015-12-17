@@ -41,6 +41,7 @@ alias v='fasd -f -t -e vim -b viminfo'
 alias j=fasd_cd
 alias gs='git status'
 alias gst='git stash'
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias ra=ranger
 #alias wn=lr $(which "$1")
 #Install a package I don’t have but tried to use
