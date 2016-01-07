@@ -26,13 +26,17 @@ values."
      auto-completion
      ;; better-defaults
      colors
+     erc
      emacs-lisp
+     eyebrowse
+     fasd
      git
+     github
      markdown
      nixos
      org
      ranger
-     erc
+     search-engine
      spell-checking
      syntax-checking
      version-control
@@ -110,7 +114,7 @@ values."
                                :size 8
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 2)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -244,6 +248,9 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (setq browse-url-browser-function 'browse-url-generic
+        engine/browser-function 'browse-url-generic
+        browse-url-generic-program "qutebrowser")
   (set-background-color "white")
   )
 
