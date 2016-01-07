@@ -25,7 +25,7 @@ values."
      ;; ----------------------------------------------------------------
      auto-completion
      ;; better-defaults
-     colors
+     ;; colors
      erc
      emacs-lisp
      eyebrowse
@@ -114,7 +114,8 @@ values."
                                :size 8
                                :weight normal
                                :width normal
-                               :powerline-scale 2)
+                               :powerline-scale 2
+                               )
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -140,7 +141,7 @@ values."
    ;; with `:' and Emacs commands are executed with `<leader> :'.
    dotspacemacs-command-key ":"
    ;; If non nil `Y' is remapped to `y$'. (default t)
-   dotspacemacs-remap-Y-to-y$ false
+   dotspacemacs-remap-Y-to-y$ nil
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
    ;; If non nil the default layout name is displayed in the mode-line.
@@ -210,7 +211,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers relative
+   dotspacemacs-line-numbers `relative
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -234,7 +235,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup trailing
+   dotspacemacs-whitespace-cleanup `trailing
    ))
 
 (defun dotspacemacs/user-init ()
@@ -248,10 +249,16 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+
   (setq browse-url-browser-function 'browse-url-generic
         engine/browser-function 'browse-url-generic
         browse-url-generic-program "qutebrowser")
+
+  (define-key evil-normal-state-map (kbd "<left>") 'spacemacs/previous-useful-buffer)
+  (define-key evil-normal-state-map (kbd "<right>") 'spacemacs/next-useful-buffer)
+
   (set-background-color "white")
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
