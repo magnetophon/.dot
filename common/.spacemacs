@@ -103,7 +103,9 @@ values."
    ;; Number of recent files to show in the startup buffer. Ignored if
    ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
    dotspacemacs-startup-recent-list-size 10
- ;; List of themes, the first of the list is loaded when spacemacs starts.
+   ;; Default major mode of the scratch buffer (default `text-mode')
+   dotspacemacs-scratch-mode 'text-mode
+   ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
@@ -164,7 +166,7 @@ values."
    ;; (default 'cache)
    dotspacemacs-auto-save-file-location 'cache
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
-   dotspacemacs-max-rollback-slots 5
+   dotspacemacs-max-rollback-slots 10
    ;; If non nil then `ido' replaces `helm' for some commands. For now only
    ;; `find-files' (SPC f f), `find-spacemacs-file' (SPC f e s), and
    ;; `find-contrib-file' (SPC f e c) are replaced. (default nil)
@@ -182,7 +184,7 @@ values."
    dotspacemacs-enable-paste-micro-state nil
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.1
+   dotspacemacs-which-key-delay 0.2
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
@@ -265,7 +267,11 @@ layers configuration. You are free to put any user code."
   (define-key evil-normal-state-map (kbd "<left>") 'spacemacs/previous-useful-buffer)
   (define-key evil-normal-state-map (kbd "<right>") 'spacemacs/next-useful-buffer)
 
-  (set-background-color "white")
+  (setq evil-move-cursor-back nil)
+  (setq evil-escape-unordered-key-sequence t)
+  (setq undo-tree-auto-save-history t)
+
+  (setq default-frame-alist '((background-color . "white")))
 
   )
 
