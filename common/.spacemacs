@@ -26,17 +26,25 @@ values."
      auto-completion
      ;; better-defaults
      ;; colors
+     dash
      erc
      emacs-lisp
+     evil-snipe
+     eww
+     extra-langs
      eyebrowse
      fasd
      git
      github
+     gnus
      markdown
+     mu4e
      nixos
      org
      ranger
+     shell
      search-engine
+     semantic
      spell-checking
      syntax-checking
      version-control
@@ -45,7 +53,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(tldr)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
