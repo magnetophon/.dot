@@ -32,7 +32,7 @@ values."
      ( evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t )
      eww
      extra-langs
-     eyebrowse
+     ;; eyebrowse
      fasd
      git
      github
