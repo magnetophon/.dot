@@ -29,7 +29,7 @@ values."
      dash
      erc
      emacs-lisp
-     evil-snipe
+     ( evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t )
      eww
      extra-langs
      eyebrowse
