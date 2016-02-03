@@ -23,7 +23,8 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     ( auto-completion :variables
+                       auto-completion-enable-help-tooltip t)
      ;; better-defaults
      ;; colors
      dash
@@ -262,6 +263,7 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (global-company-mode)
 
   (setq browse-url-browser-function 'browse-url-generic
         engine/browser-function 'browse-url-generic
