@@ -27,25 +27,28 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ( auto-completion :variables
-                       auto-completion-enable-help-tooltip t)
-     ;; better-defaults
+                       auto-completion-enable-help-tooltip t
+                       auto-completion-enable-sort-by-usage t
+                       auto-completion-enable-snippets-in-popup t)
+     better-defaults
      ;; colors
      dash
-     erc
+     ;; rcirc
      emacs-lisp
-     ( evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t )
-     eww
-     extra-langs
+     ( evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
+     ;; eww
+     ;; extra-langs
      ;; eyebrowse
-     fasd
+     faust
+     ;; fasd
      git
      github
-     gnus
+     ;; gnus
      markdown
-     mu4e
+     ;; mu4e
      nixos
      org
-     ranger
+     ;; ranger
      shell
      search-engine
      semantic
@@ -54,7 +57,7 @@ values."
      spell-checking
      syntax-checking
      version-control
-     vimscript
+     ;; vimscript
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
