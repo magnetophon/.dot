@@ -25,14 +25,15 @@ function killNagBar
 {
     NAGBAR_PID=$(pgrep i3-nagbar)
     if [[ $NAGBAR_PID -ne "" ]]; then
-      kill $NAGBAR_PID
-      NAGBAR_PID=
+        kill $NAGBAR_PID
+        NAGBAR_PID=
     fi
 }
 function lockandHibernate
 {
     sudo physlock -s -u $USER
-    systemctl hybrid-sleep
+    systemctl suspend
+    # systemctl hybrid-sleep
     #systemctl hibernate
 }
 
@@ -47,17 +48,17 @@ while [ true ]; do
         mins=$(date --date="$rem_time" +%M)
         rem_mins=$(((hrs*60)+mins))
         #if [[ $rem_bat -gt $SAFE_PERCENT ]]; then
-            #SLEEP_TIME=10
+        #SLEEP_TIME=10
         #else
-            #SLEEP_TIME=5
-            #if [[ $rem_bat -le $DANGER_PERCENT ]]; then
-                #SLEEP_TIME=2
-                #launchNagBar
-            #fi
-            #if [[ $rem_bat -le $CRITICAL_PERCENT ]]; then
-                #SLEEP_TIME=1
-                #lockandHibernate
-            #fi
+        #SLEEP_TIME=5
+        #if [[ $rem_bat -le $DANGER_PERCENT ]]; then
+        #SLEEP_TIME=2
+        #launchNagBar
+        #fi
+        #if [[ $rem_bat -le $CRITICAL_PERCENT ]]; then
+        #SLEEP_TIME=1
+        #lockandHibernate
+        #fi
         #fi
 
         if [[ $rem_mins -gt $SAFE_TIME ]]; then
