@@ -9,6 +9,9 @@ inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
 inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', "insert")
 noremap  :CtrlPBuffer
+nnoremap  h
+nnoremap <NL> j
+nnoremap  k
 nnoremap  :nohlsearch:redraw:checktime 
 nnoremap <silent>  :CtrlP
 noremap   :
@@ -82,8 +85,8 @@ noremap ,wo 
 vnoremap . :normal .
 vnoremap / /\v
 nnoremap / /\v
-vnoremap 0 :call WrapRelativeMotion("0", 1)
 nnoremap 0 :call WrapRelativeMotion("0")
+vnoremap 0 :call WrapRelativeMotion("0", 1)
 onoremap 0 :call WrapRelativeMotion("0")
 vnoremap < <gv
 vnoremap > >gv
@@ -95,8 +98,8 @@ nnoremap <silent> N Nzz
 nnoremap Y y$
 noremap \aps : if filereadable('pkgs/top-level/all-packages.nix') | e pkgs/top-level/all-packages.nix | else | exec 'e '.expand("$NIXPKGS_ALL") | endif
 noremap \gf :call on_thing_handler#HandleOnThing()
-vnoremap ^ :call WrapRelativeMotion("^", 1)
 nnoremap ^ :call WrapRelativeMotion("^")
+vnoremap ^ :call WrapRelativeMotion("^", 1)
 onoremap ^ :call WrapRelativeMotion("^")
 vmap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
@@ -109,6 +112,7 @@ nnoremap <silent> p p`]
 vnoremap <silent> y y`]
 nnoremap zc zM
 nnoremap zo zR
+nnoremap <Home> :call WrapRelativeMotion("0")
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
 xnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment("x", "Uncomment")
@@ -138,7 +142,6 @@ nmap <silent> <Left> :bp
 vnoremap <Home> :call WrapRelativeMotion("0", 1)
 vnoremap <End> :call WrapRelativeMotion("$", 1)
 onoremap <End> v:call WrapRelativeMotion("$")
-nnoremap <Home> :call WrapRelativeMotion("0")
 onoremap <Home> :call WrapRelativeMotion("0")
 nnoremap <End> :call WrapRelativeMotion("$")
 inoremap <expr> 	 pumvisible() ? "\" : "\	"
@@ -203,9 +206,11 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +72 ~/.dot/common/.mutt/muttrc
+badd +20 ~/.dot/common/.mutt/muttrc
 badd +1 ~/.dot/common/.mutt/mutt-kz.rc
-badd +20 ~/.dot/common/.mutt/mailcap
+badd +18 ~/.dot/common/.mutt/mailcap
+badd +26 ~/.offlineimaprc
+badd +92 ~/.notmuch-config
 argglobal
 silent! argdel *
 edit ~/.dot/common/.mutt/muttrc
@@ -328,12 +333,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 72 - ((57 * winheight(0) + 30) / 61)
+let s:l = 20 - ((19 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-72
-normal! 061|
+20
+normal! 010|
 lcd ~/.dot/common/.config/qutebrowser
 tabnext 1
 if exists('s:wipebuf')
