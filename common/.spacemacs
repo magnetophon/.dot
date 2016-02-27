@@ -288,6 +288,28 @@ layers configuration. You are free to put any user code."
 
   (setq default-frame-alist '((background-color . "white")))
 
+  (spacemacs|define-custom-layout "@Mail"
+    :binding "m"
+    :body
+    (mu4e)
+    )
+
+  (spacemacs|define-custom-layout "faustlib"
+    :binding "l"
+    :body
+    (find-file "/run/current-system/sw/lib/faust/*.lib" t)
+    )
+
+  ;; rcirc
+  ;; Change user info
+  (setq rcirc-default-nick "magnetophon")
+  (setq rcirc-default-user-name "magnetophon")
+  (setq rcirc-default-full-name "magnetophon")
+
+  ;; Join these channels at startup.
+  (setq rcirc-server-alist
+        '(("irc.freenode.net" :channels ("#lad" "#ardour" "#opensourcemusicians" "#musnix" "#nixos"))))
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
