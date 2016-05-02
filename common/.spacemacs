@@ -23,29 +23,44 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
-     ;; better-defaults
+     ( auto-completion :variables
+                       auto-completion-enable-help-tooltip t
+                       auto-completion-enable-sort-by-usage t
+                       auto-completion-enable-snippets-in-popup t)
+     better-defaults
      ;; colors
-     erc
+     dash
+     ;; rcirc
      emacs-lisp
-     eyebrowse
-     fasd
+     ( evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
+     ;; eww
+     ;; extra-langs
+     ;; eyebrowse
+     faust
+     ;; fasd
      git
      github
+     ;; gnus
      markdown
+     ;; mu4e
      nixos
      org
-     ranger
+     ;; ranger
+     shell
      search-engine
+     semantic
+     (spacemacs-layouts :variables layouts-enable-autosave t
+                        layouts-autosave-delay 300)
      spell-checking
      syntax-checking
      version-control
+     ;; vimscript
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(tldr)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -89,13 +104,15 @@ values."
    ;; If the value is nil then no banner is displayed. (default 'official)
    dotspacemacs-startup-banner nil
    ;; List of items to show in the startup buffer. If nil it is disabled.
-   ;; Possible values are: `recents' `bookmarks' `projects'.
-   ;; (default '(recents projects))
+   ;; Possible values are: `recents' `bookmarks' `projects' `agenda' `todos'.
+   ;; (default '(recents projects agendas todos))
    dotspacemacs-startup-lists '(recents projects)
    ;; Number of recent files to show in the startup buffer. Ignored if
    ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
    dotspacemacs-startup-recent-list-size 10
- ;; List of themes, the first of the list is loaded when spacemacs starts.
+   ;; Default major mode of the scratch buffer (default `text-mode')
+   dotspacemacs-scratch-mode 'text-mode
+   ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
@@ -139,24 +156,24 @@ values."
    ;; Emacs commands (M-x).
    ;; By default the command key is `:' so ex-commands are executed like in Vim
    ;; with `:' and Emacs commands are executed with `<leader> :'.
-   dotspacemacs-command-key ":"
+   dotspacemacs-command-key "SPC"
    ;; If non nil `Y' is remapped to `y$'. (default t)
-   dotspacemacs-remap-Y-to-y$ nil
+   dotspacemacs-remap-Y-to-y$ t
    ;; Name of the default layout (default "Default")
-   dotspacemacs-default-layout-name "Default"
+   dotspacemacs-default-layout-name "home"
    ;; If non nil the default layout name is displayed in the mode-line.
    ;; (default nil)
-   dotspacemacs-display-default-layout nil
+   dotspacemacs-display-default-layout t
    ;; If non nil then the last auto saved layouts are resume automatically upon
    ;; start. (default nil)
-   dotspacemacs-auto-resume-layouts nil
+   dotspacemacs-auto-resume-layouts t
    ;; Location where to auto-save files. Possible values are `original' to
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
    ;; (default 'cache)
    dotspacemacs-auto-save-file-location 'cache
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
-   dotspacemacs-max-rollback-slots 5
+   dotspacemacs-max-rollback-slots 10
    ;; If non nil then `ido' replaces `helm' for some commands. For now only
    ;; `find-files' (SPC f f), `find-spacemacs-file' (SPC f e s), and
    ;; `find-contrib-file' (SPC f e c) are replaced. (default nil)
@@ -174,7 +191,7 @@ values."
    dotspacemacs-enable-paste-micro-state nil
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.1
+   dotspacemacs-which-key-delay 0.2
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
@@ -240,15 +257,18 @@ values."
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
-It is called immediately after `dotspacemacs/init'.  You are free to put almost
-any user code here.  The exception is org related code, which should be placed
-in `dotspacemacs/user-config'."
+It is called immediately after `dotspacemacs/init', before layer configuration
+executes.
+ This function is mostly useful for variables that need to be set
+before packages are loaded. If you are unsure, you should try in setting them in
+`dotspacemacs/user-config' first."
   )
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (global-company-mode)
 
   (setq browse-url-browser-function 'browse-url-generic
         engine/browser-function 'browse-url-generic
@@ -257,7 +277,34 @@ layers configuration. You are free to put any user code."
   (define-key evil-normal-state-map (kbd "<left>") 'spacemacs/previous-useful-buffer)
   (define-key evil-normal-state-map (kbd "<right>") 'spacemacs/next-useful-buffer)
 
-  (set-background-color "white")
+  (setq evil-move-cursor-back nil)
+  (setq evil-escape-unordered-key-sequence t)
+  (setq undo-tree-auto-save-history t)
+
+  (setq default-frame-alist '((background-color . "white")))
+
+  (spacemacs|define-custom-layout "@Mail"
+    :binding "m"
+    :body
+    (mu4e)
+    )
+
+  (spacemacs|define-custom-layout "faustlib"
+    :binding "l"
+    :body
+    (find-file "/run/current-system/sw/lib/faust/*.lib" t)
+    ;; (find-file "~/.nix-profile/lib/faust/*.lib" t)
+    )
+
+  ;; rcirc
+  ;; Change user info
+  (setq rcirc-default-nick "magnetophon")
+  (setq rcirc-default-user-name "magnetophon")
+  (setq rcirc-default-full-name "magnetophon")
+
+  ;; Join these channels at startup.
+  (setq rcirc-server-alist
+        '(("irc.freenode.net" :channels ("#lad" "#ardour" "#opensourcemusicians" "#musnix" "#nixos"))))
 
   )
 
