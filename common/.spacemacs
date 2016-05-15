@@ -11,9 +11,6 @@ values."
    ;; `+distribution'. For now available distributions are `spacemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
-   ;; If non-nil layers with lazy install support are lazy installed.
-   ;; (default nil)
-   dotspacemacs-enable-lazy-installation nil
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
@@ -33,7 +30,7 @@ values."
      better-defaults
      ;; colors
      dash
-     ;; rcirc
+     rcirc
      emacs-lisp
      ( evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
      ;; eww
@@ -63,7 +60,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(tldr)
+   dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -229,8 +226,8 @@ values."
    ;; If non nil unicode symbols are displayed in the mode line. (default t)
    dotspacemacs-mode-line-unicode-symbols t
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
-   ;; scrolling overrides the default behavior of Emacs which recenters point
-   ;; when it reaches the top or bottom of the screen. (default t)
+   ;; scrolling overrides the default behavior of Emacs which recenters the
+   ;; point when it reaches the top or bottom of the screen. (default t)
    dotspacemacs-smooth-scrolling t
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
@@ -264,15 +261,20 @@ values."
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
-It is called immediately after `dotspacemacs/init'.  You are free to put almost
-any user code here.  The exception is org related code, which should be placed
-in `dotspacemacs/user-config'."
+It is called immediately after `dotspacemacs/init', before layer configuration
+executes.
+ This function is mostly useful for variables that need to be set
+before packages are loaded. If you are unsure, you should try in setting them in
+`dotspacemacs/user-config' first."
   )
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
-layers configuration. You are free to put any user code."
+layers configuration.
+This is the place where most of your configurations should be done. Unless it is
+explicitly specified that a variable should be set before a package is loaded,
+you should place your code here."
   (global-company-mode)
 
   (setq browse-url-browser-function 'browse-url-generic
@@ -297,7 +299,8 @@ layers configuration. You are free to put any user code."
   (spacemacs|define-custom-layout "faustlib"
     :binding "l"
     :body
-    (find-file "/run/current-system/sw/lib/faust/*.lib" t)
+    (find-file "~/.nix-profile/lib/faust/*.lib" t)
+    ;; (find-file "/run/current-system/sw/lib/faust/*.lib" t)
     )
 
   ;; rcirc
