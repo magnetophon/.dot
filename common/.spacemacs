@@ -18,6 +18,9 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     vimscript
+     yaml
+     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -31,6 +34,7 @@ values."
      ;; colors
      dash
      rcirc
+     rust
      emacs-lisp
      ( evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
      ;; eww
@@ -275,6 +279,7 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (setq-default rust-enable-racer t)
   (global-company-mode)
 
   (setq browse-url-browser-function 'browse-url-generic
