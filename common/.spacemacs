@@ -315,6 +315,8 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (persp-load-state-from-file "~/.dot/common/.spacemacs_dir/MyLayout")
+  (setq split-height-threshold `nil)
+  (setq split-width-threshold 0)
   (setq-default rust-enable-racer t)
   (global-company-mode)
 
