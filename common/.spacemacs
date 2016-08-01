@@ -324,8 +324,8 @@ you should place your code here."
         engine/browser-function 'browse-url-generic
         browse-url-generic-program "firefox")
 
-  (define-key evil-normal-state-map (kbd "<left>") 'spacemacs/previous-useful-buffer)
-  (define-key evil-normal-state-map (kbd "<right>") 'spacemacs/next-useful-buffer)
+  (define-key evil-normal-state-map (kbd "<left>") 'previous-buffer)
+  (define-key evil-normal-state-map (kbd "<right>") 'next-buffer)
 
   (setq evil-move-cursor-back nil)
   (setq evil-escape-unordered-key-sequence t)
