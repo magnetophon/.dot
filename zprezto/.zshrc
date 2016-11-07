@@ -220,24 +220,34 @@ cut -c1-80 | fzf --reverse --nth=1,2
 # change cursor color in vi-mode
 ##################################################################
 
-zle-keymap-select () {
-    if [ $TERM = "rxvt-unicode-256color" ]; then
-        if [ $KEYMAP = vicmd ]; then
-            echo -ne "\033]12;Red\007"
-        else
-            echo -ne "\033]12;Grey\007"
-        fi
-    fi
-}
-zle -N zle-keymap-select
-zle-line-init () {
-    zle -K viins
-    if [ $TERM = "rxvt-unicode-256color" ]; then
-        echo -ne "\033]12;Grey\007"
-    fi
-}
-zle -N zle-line-init
-bindkey -v
+# zle-keymap-select () {
+#     if [ $TERM = "rxvt-unicode-256color" ]; then
+#         if [ $KEYMAP = vicmd ]; then
+#             echo -ne "\033]12;Red\007"
+#         else
+#             echo -ne "\033]12;Grey\007"
+#         fi
+#     fi
+# }
+# zle -N zle-keymap-select
+# zle-line-init () {
+#     zle -K viins
+#     if [ $TERM = "rxvt-unicode-256color" ]; then
+#         echo -ne "\033]12;Grey\007"
+#     fi
+# }
+# zle -N zle-line-init
+
+# bindkey -v
+
+# autoload -Uz up-line-or-beginning-search
+# autoload -Uz down-line-or-beginning-search
+# zle -N up-line-or-beginning-search
+# zle -N down-line-or-beginning-search
+# bindkey '\eOA' up-line-or-beginning-search
+# bindkey '\e[A' up-line-or-beginning-search
+# bindkey '\eOB' down-line-or-beginning-search
+# bindkey '\e[B' down-line-or-beginning-search
 
 #PATH="/home/bart/perl5/bin${PATH+:}${PATH}"; export PATH;
 #PERL5LIB="/home/bart/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
