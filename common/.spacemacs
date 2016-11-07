@@ -56,6 +56,7 @@ values."
      ;; extra-langs
      ;; eyebrowse
      faust
+     python
      ;; fasd
      git
      github
@@ -80,6 +81,7 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '()
+   ;; dotspacemacs-additional-packages '((faust-mode :location (recipe :fetcher github :repo "magnetophon/emacs-faust-mode")))
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -223,7 +225,7 @@ values."
    dotspacemacs-enable-paste-transient-state t
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.2
+   dotspacemacs-which-key-delay 0.1
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
@@ -318,8 +320,12 @@ you should place your code here."
   ;; (persp-load-state-from-file "~/.emacs.d/.cache/layouts/mylayout")
   (setq split-height-threshold `nil)
   ;; (setq split-width-threshold `nil)
+
+  (global-set-key [f5] 'cider-eval-defun-at-point)
+  ;; (global-set-key [f5] (do 'normal-mode 'cider-eval-defun-at-point))
+
   (setq-default rust-enable-racer t)
-  (global-company-mode)
+  ;; (global-company-mode)
 
   (setq browse-url-browser-function 'browse-url-generic
         engine/browser-function 'browse-url-generic
