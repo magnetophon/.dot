@@ -339,14 +339,17 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   ;; (persp-load-state-from-file "~/.dot/common/.spacemacs_dir/MyLayout")
   ;; (persp-load-state-from-file "~/.emacs.d/.cache/layouts/mylayout")
+  ;; when you open a (single) file it uses another window (creating it if necessary):
+  ;; stopped working...
+  ;; (setq server-window 'pop-to-buffer)
+  ;; make sure we get vertical splits:
   (setq split-height-threshold `nil)
-  ;; (setq split-width-threshold `nil)
 
   (global-set-key [f5] 'cider-eval-defun-at-point)
   ;; (global-set-key [f5] (do 'normal-mode 'cider-eval-defun-at-point))
 
-  (setq-default rust-enable-racer t)
-  ;; (global-company-mode)
+  ;; (setq-default rust-enable-racer t)
+  (global-company-mode)
 
   (setq browse-url-browser-function 'browse-url-generic
         engine/browser-function 'browse-url-generic
