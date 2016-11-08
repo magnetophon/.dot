@@ -364,6 +364,8 @@ you should place your code here."
 
   (setq default-frame-alist '((background-color . "white")))
 
+  (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
+
   (spacemacs|define-custom-layout "@Mail"
     :binding "m"
     :body
