@@ -95,20 +95,20 @@ file=$1
 # This is more secure than creating a temporary file in an existing
 # directory.
 
-tmpdir=/tmp/$LOGNAME$$
-umask 077
-mkdir "$tmpdir" || exit 1
-tmpfile="$tmpdir/${file##*/}"
+# tmpdir=/tmp/$LOGNAME$$
+# umask 077
+# mkdir "$tmpdir" || exit 1
+# tmpfile="$tmpdir/${file##*/}"
 
 # Copy mutt's temporary file to our temporary directory so that we can
 # let mutt overwrite and delete it when we exit.
 
-cp "$file" "$tmpfile"
+# cp "$file" "$tmpfile"
 
 # Run the viewer in the background and delete the temporary files when done.
 
 (
-    "$viewer" $options "$tmpfile"
-    rm -f "$tmpfile"
-    rmdir "$tmpdir"
+    "$viewer" $options "$file"
+    # rm -f "$tmpfile"
+    # rmdir "$tmpdir"
 ) &
