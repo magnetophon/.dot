@@ -98,13 +98,14 @@ bindsym $win+BackSpace kill
 #bindsym $win+shift+p mode "remote dmenu" ; exec notify-send Remote dmenu
 
 # start dmenu (a program launcher)
-bindsym $win+p exec dmenu_run -i -nb \#3F3F3F -nf \#FAFAD2 -sb \#ffff00 -sf \#000000
-bindsym $win+shift+p exec ssh -Y 2.2.2.1 dmenu_run
+# bindsym $win+shift+p exec dmenu_run -i -nb \#3F3F3F -nf \#FAFAD2 -sb \#ffff00 -sf \#000000
+bindsym $win+space exec rofi -show combi
+# bindsym $win+shift+p exec ssh -Y 2.2.2.1 dmenu_run
 #bindsym $win+p exec zsh ~/.config/i3/scripts/dmenu_run.zsh
 
 # dmenu window chooser
-bindsym $win+w exec python ~/.config/i3/scripts/i3-quickswitch.py
-# todo? : replace with https://davedavenport.github.io/rofi/
+bindsym $win+w exec rofi -show window
+# bindsym $win+w exec python ~/.config/i3/scripts/i3-quickswitch.py
 
 # dmenu wifi manager
 bindsym $win+c exec connman_dmenu
@@ -145,7 +146,7 @@ bindsym $win+semicolon split h
 bindsym $win+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $win+f fullscreen
+bindsym F11 fullscreen
 
 # change container layout (stacked, tabbed, default)
 bindsym $win+s layout stacking
@@ -153,10 +154,10 @@ bindsym $win+t layout tabbed
 bindsym $win+d layout default
 
 # toggle tiling / floating
-bindsym $win+Shift+space floating toggle
+bindsym $win+Shift+f floating toggle
 
 # change focus between tiling / floating windows
-bindsym $win+space focus mode_toggle
+bindsym $win+f focus mode_toggle
 
 # focus the parent container (win+pageUp)
 bindsym $win+Prior focus parent
@@ -304,6 +305,9 @@ bindsym $win+Pause mode "$mode_system"
 
 bindsym Ctrl+$alt+l exec i3lock -d -c DCDAD5
 
+# bindsym Ctrl+$alt+h exec clipster -s
+bindsym Ctrl+$alt+h  exec clipster -o -n 200 -0 | rofi -i -dmenu -sep '\x00' -eh 2 | tr -d '\n' | clipster
+
 #audio volume and mute
 #does not apply on RME-9636
 #bindsym XF86AudioRaiseVolume exec amixer sset Master,0 2+
@@ -441,17 +445,18 @@ exec --no-startup-id setxkbmap -option terminate:ctrl_alt_bksp
 exec --no-startup-id nsmd --osc-port 17552
 
 # start clipboardmanager
-exec parcellite
+# exec parcellite
 # start the terminal deamon
 # done by systemd
 # exec urxvtd -q -o -f
 # check battery and hibernate if needed:
-exec --no-startup-id bash ~/.config/i3/scripts/bat_test.sh
+# exec --no-startup-id bash ~/.config/i3/scripts/bat_test.sh
 # workaround for broken pixels
 exec dzen2  -y 915 -h 115 -dock -bg grey
 
 #enable dunst for notify-send
 #exec dunst -nb '$urgentBG' -nf '$focusBG' -geometry 0x3-100+0
-exec dunst -nb '$urgentBG' -nf '$focusBG' -geometry 0x3-100+0 -fn '-*-terminus-*-*-*-*-32-*-*-*-*-*-*-*'
+# exec dunst -nb '$urgentBG' -nf '$focusBG' -geometry 0x3-100+0 -fn '-*-terminus-*-*-*-*-32-*-*-*-*-*-*-*'
 
-exec  feh --bg-scale ~/Desktop/vim-shortcuts.png
+# exec  feh --bg-scale ~/Desktop/vim-shortcuts.png
+exec clipster -d
