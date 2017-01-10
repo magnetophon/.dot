@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Route id="39560" name="Audio" default-type="audio" strict-io="0" active="yes" denormal-protection="no" meter-point="MeterInput" meter-type="MeterPeak" route-group="live" saved-meter-point="MeterInput" mode="Normal">
+  <PresentationInfo order="0" flags="AudioTrack,Selected,OrderSet" color="3519931903" name="livemix"/>
+  <Controllable name="solo" id="39767" flags="Toggle,RealTime" value="0.000000000000" self-solo="no" soloed-by-upstream="0" soloed-by-downstream="0"/>
+  <Controllable name="solo-iso" id="39768" flags="Toggle,RealTime" value="0.000000000000" solo-isolated="no"/>
+  <Controllable name="solo-safe" id="39769" flags="Toggle" value="0.000000000000" solo-safe="no"/>
+  <IO name="Audio" id="39561" direction="Input" default-type="audio" user-latency="0">
+    <Port type="audio" name="Audio/audio_in 1">
+      <Connection other="system:capture_1"/>
+    </Port>
+  </IO>
+  <IO name="Audio" id="39562" direction="Output" default-type="audio" user-latency="0">
+    <Port type="audio" name="Audio/audio_out 1">
+      <Connection other="Master/audio_in 1"/>
+    </Port>
+    <Port type="audio" name="Audio/audio_out 2">
+      <Connection other="Master/audio_in 2"/>
+    </Port>
+  </IO>
+  <MuteMaster mute-point="PreFader,PostFader,Listen,Main" muted="no"/>
+  <Controllable name="mute" id="39770" flags="Toggle,RealTime" value="0.000000000000"/>
+  <Controllable name="phase" id="39771" flags="Toggle" value="0.000000000000" phase-invert="0"/>
+  <Pannable>
+    <Controllable name="pan-azimuth" id="39762" flags="" value="0.500000000000"/>
+    <Controllable name="pan-width" id="39763" flags="" value="0.000000000000"/>
+    <Controllable name="pan-elevation" id="39764" flags="" value="0.000000000000"/>
+    <Controllable name="pan-frontback" id="39765" flags="" value="0.000000000000"/>
+    <Controllable name="pan-lfe" id="39766" flags="" value="0.000000000000"/>
+    <Automation/>
+  </Pannable>
+  <Processor id="39569" name="Amp" active="yes" user-latency="0" type="trim">
+    <Controllable name="trimcontrol" id="39570" flags="GainLike" value="1.000000000000"/>
+  </Processor>
+  <Processor id="39571" name="meter-Audio 1" active="yes" user-latency="0" type="meter"/>
+  <Processor id="39593" name="a-High/Low Pass Filter" active="no" user-latency="0" type="luaproc" unique-id="f264055749ffefb17f322baf791beb32f1aa10ac" count="1" custom="no">
+    <ConfiguredInput>
+      <Channels type="audio" count="1"/>
+    </ConfiguredInput>
+    <CustomSinks>
+      <Channels type="audio" count="1"/>
+    </CustomSinks>
+    <ConfiguredOutput>
+      <Channels type="audio" count="1"/>
+    </ConfiguredOutput>
+    <PresetOutput/>
+    <InputMap-0>
+      <Channelmap type="audio" from="0" to="0"/>
+    </InputMap-0>
+    <OutputMap-0>
+      <Channelmap type="audio" from="0" to="0"/>
+    </OutputMap-0>
+    <ThruMap/>
+    <luaproc last-preset-uri="" last-preset-label="" parameter-changed-since-last-preset="yes">
+      <script lua="Lua 5.3">YXJkb3VyIHsKCVsidHlwZSJdICAgID0gImRzcCIsCgluYW1lICAgICAgICA9ICJhLUhpZ2gvTG93IFBhc3MgRmlsdGVyIiwKCWNhdGVnb3J5ICAgID0gIkZpbHRlciIsCglsaWNlbnNlICAgICA9ICJHUEx2MiIsCglhdXRob3IgICAgICA9ICJBcmRvdXIgVGVhbSIsCglkZXNjcmlwdGlvbiA9IFtbSGlnaCBhbmQgTG93IFBhc3MgRmlsdGVyIHdpdGggZGUtemlwcGVkIGNvbnRyb2xzLCB3cml0dGVuIGluIEFyZG91ci1MdWFdXQp9CgpmdW5jdGlvbiBkc3BfaW9jb25maWcgKCkKCXJldHVybgoJewoJCS0tIGFsbG93IGFueSBudW1iZXIgb2YgSS9PIGFzIGxvbmcgYXMgcG9ydC1jb3VudCBtYXRjaGVzCgkJeyBhdWRpb19pbiA9IC0xLCBhdWRpb19vdXQgPSAtMX0sCgl9CmVuZAoKCmZ1bmN0aW9uIGRzcF9wYXJhbXMgKCkKCXJldHVybgoJewoJCXsgWyJ0eXBlIl0gPSAiaW5wdXQiLCBuYW1lID0gIkhpZ2ggUGFzcyBTdGVlcG5lc3MiLCBtaW4gPSAwLCBtYXggPSA0LCBkZWZhdWx0ID0gMSwgZW51bSA9IHRydWUsIHNjYWxlcG9pbnRzID0KCQkJewoJCQkJWyJPZmYiXSA9IDAsCgkJCQlbIjEyZEIvb2N0Il0gPSAxLAoJCQkJWyIyNGRCL29jdCJdID0gMiwKCQkJCVsiMzZkQi9vY3QiXSA9IDMsCgkJCQlbIjQ4ZEIvb2N0Il0gPSA0LAoJCQl9CgkJfSwKCQl7IFsidHlwZSJdID0gImlucHV0IiwgbmFtZSA9ICJIaWdoIFBhc3MgQ3V0IG9mZiBmcmVxdWVuY3kiLCBtaW4gPSAgIDUsIG1heCA9IDIwMDAwLCBkZWZhdWx0ID0gMTAwLCB1bml0PSJIeiIsIGxvZ2FyaXRobWljID0gdHJ1ZSB9LAoJCXsgWyJ0eXBlIl0gPSAiaW5wdXQiLCBuYW1lID0gIkhpZ2ggUGFzcyBSZXNvbmFuY2UiLCAgICAgICAgIG1pbiA9IDAuMSwgbWF4ID0gNiwgICAgIGRlZmF1bHQgPSAuNzA3LCBsb2dhcml0aG1pYyA9IHRydWUgfSwKCgkJeyBbInR5cGUiXSA9ICJpbnB1dCIsIG5hbWUgPSAiTG93IFBhc3MgU3RlZXBuZXNzIiwgbWluID0gMCwgbWF4ID0gNCwgZGVmYXVsdCA9IDEsIGVudW0gPSB0cnVlLCBzY2FsZXBvaW50cyA9CgkJCXsKCQkJCVsiT2ZmIl0gPSAwLAoJCQkJWyIxMmRCL29jdCJdID0gMSwKCQkJCVsiMjRkQi9vY3QiXSA9IDIsCgkJCQlbIjM2ZEIvb2N0Il0gPSAzLAoJCQkJWyI0OGRCL29jdCJdID0gNCwKCQkJfQoJCX0sCgkJeyBbInR5cGUiXSA9ICJpbnB1dCIsIG5hbWUgPSAiTG93IFBhc3MgQ3V0IG9mZiBmcmVxdWVuY3kiLCAgbWluID0gIDIwLCBtYXggPSAyMDAwMCwgZGVmYXVsdCA9IDE4MDAwLCB1bml0PSJIeiIsIGxvZ2FyaXRobWljID0gdHJ1ZSB9LAoJCXsgWyJ0eXBlIl0gPSAiaW5wdXQiLCBuYW1lID0gIkxvdyBQYXNzIFJlc29uYW5jZSIsICAgICAgICAgIG1pbiA9IDAuMSwgbWF4ID0gNiwgICAgIGRlZmF1bHQgPSAuNzA3LCBsb2dhcml0aG1pYyA9IHRydWUgfSwKCX0KZW5kCgotLSB0aGVzZSBnbG9iYWxzIGFyZSAqbm90KiBzaGFyZWQgYmV0d2VlbiBEU1AgYW5kIFVJCmxvY2FsIGhwID0ge30gIC0tIHRoZSBiaXF1YWQgaGlnaC1wYXNzIGZpbHRlciBpbnN0YW5jZXMgKERTUCkKbG9jYWwgbHAgPSB7fSAgLS0gdGhlIGJpcXVhZCBoaWdoLXBhc3MgZmlsdGVyIGluc3RhbmNlcyAoRFNQKQpsb2NhbCBmaWx0ID0gbmlsIC0tIHRoZSBiaXF1YWQgZmlsdGVyIGluc3RhbmNlIChHVUksIHJlc3BvbnNlKQpsb2NhbCBjdXIgPSB7MCwgMCwgMCwgMCwgMCwgMH0gLS0gY3VycmVudCBwYXJhbWV0ZXJzCmxvY2FsIGxwZiA9IDAuMDMgLS0gcGFyYW1ldGVyIGxvdy1wYXNzIGZpbHRlciB0aW1lLWNvbnN0YW50CmxvY2FsIGNobiA9IDAgLS0gY2hhbm5lbC9maWx0ZXIgY291bnQKbG9jYWwgbHBmX2NodW5rID0gMCAtLSBjaHVuayBzaXplIGZvciBhdWRpbyBwcm9jZXNzaW5nIHdoZW4gaW50ZXJwb2xhdGluZyBwYXJhbWV0ZXJzCmxvY2FsIG1heF9mcmVxID0gMjAwMDAKCmxvY2FsIG1lbSA9IG5pbCAtLSBtZW1vcnkgeC1mYWRlIGJ1ZmZlcgoKZnVuY3Rpb24gZHNwX2luaXQgKHJhdGUpCgktLSBhbGxvY2F0ZSBzb21lIG1peC1idWZmZXIKCW1lbSA9IEFSRE9VUi5EU1AuRHNwU2htICg4MTkyKQoKCS0tIG1heCBhbGxvd2VkIGN1dC1vZmYgZnJlcXVlbmN5CgltYXhfZnJlcSA9IC40OTkgKiByYXRlCgoJLS0gY3JlYXRlIGEgdGFibGUgb2Ygb2JqZWN0cyB0byBzaGFyZSB3aXRoIHRoZSBHVUkKCWxvY2FsIHRibCA9IHt9Cgl0YmxbJ3NhbXBsZXJhdGUnXSA9IHJhdGUKCXRibFsnbWF4X2ZyZXEnXSA9IG1heF9mcmVxCglzZWxmOnRhYmxlICgpOnNldCAodGJsKQoKCgktLSBQYXJhbWV0ZXIgc21vb3RoaW5nOiB3ZSB3YW50IHRvIGZpbHRlciBvdXQgcGFyYW1ldGVyIGNoYW5nZXMgdGhhdCBhcmUKCS0tIGZhc3RlciB0aGFuIDE1SHosIGFuZCBpbnRlcnBvbGF0ZSBiZXR3ZWVuIHBhcmFtZXRlciB2YWx1ZXMuCgktLSBGb3IgcGVyZm9ybWFuY2UgcmVhc29ucywgd2Ugd2FudCB0byBlbnN1cmUgdGhhdCB0d28gY29uc2VjdXRpdmUgdmFsdWVzCgktLSBvZiB0aGUgaW50ZXJwb2xhdGVkICJzdGVlcG5lc3MiIGFyZSBsZXNzIHRoYXQgMSBhcGFydC4gQnkgY2hvb3NpbmcgdGhlCgktLSBpbnRlcnBvbGF0aW9uIGNodW5rIHNpemUgdG8gYmUgNjQgaW4gbW9zdCBjYXNlcywgYnV0IDMyIGlmIHRoZSByYXRlIGlzCgktLSBzdHJpY3RseSBsZXNzIHRoYW4gMjJrSHogKHRoZXJlJ3Mgb25seSA4a0h6IGluIHN0YW5kYXJkIHJhdGVzKSwgd2UgY2FuCgktLSBlbnN1cmUgdGhhdCBzdGVlcG5lc3MgaW50ZXJwb2xhdGlvbiB3aWxsIG5ldmVyIGNoYW5nZSB0aGUgcGFyYW1ldGVyIGJ5CgktLSBtb3JlIHRoYW4gfjAuODYuCglscGZfY2h1bmsgPSA2NAoJaWYgcmF0ZSA8IDIyMDAwIHRoZW4gbHBmX2NodW5rID0gMzIgZW5kCgktLSBXZSBhcHBseSBhIGRpc2NyZXRlIHZlcnNpb24gb2YgdGhlIHN0YW5kYXJkIFJDIGxvdy1wYXNzLCB3aXRoIGEgY3V0b2ZmCgktLSBmcmVxdWVuY3kgb2YgMTVIei4gRm9yIG1vcmUgaW5mb3JtYXRpb24gYWJvdXQgdGhlIHVuZGVybHlpbmcgbWF0aCwgc2VlCgktLSBodHRwczovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9Mb3ctcGFzc19maWx0ZXIjRGlzY3JldGUtdGltZV9yZWFsaXphdGlvbgoJLS0gKGhlcmUgzpR0IGlzIGxwZl9jaHVuayAvIHJhdGUpCglsb2NhbCBSID0gMiAqIG1hdGgucGkgKiBscGZfY2h1bmsgKiAxNSAtLSBIegoJbHBmID0gUiAvIChSICsgcmF0ZSkKZW5kCgpmdW5jdGlvbiBkc3BfY29uZmlndXJlIChpbnMsIG91dHMpCglhc3NlcnQgKGluczpuX2F1ZGlvICgpID09IG91dHM6bl9hdWRpbyAoKSkKCWxvY2FsIHRibCA9IHNlbGY6dGFibGUgKCk6Z2V0ICgpIC0tIGdldCBzaGFyZWQgbWVtb3J5IHRhYmxlCgoJY2huID0gaW5zOm5fYXVkaW8gKCkKCWN1ciA9IHswLCAwLCAwLCAwLCAwLCAwfQoKCWhwID0ge30KCWxwID0ge30KCgljb2xsZWN0Z2FyYmFnZSAoKQoKCWZvciBjID0gMSwgY2huIGRvCgkJaHBbY10gPSB7fQoJCWxwW2NdID0ge30KCQktLSBpbml0aWFsaXplIGZpbHRlcnMKCQktLSBodHRwOi8vbWFudWFsLmFyZG91ci5vcmcvbHVhLXNjcmlwdGluZy9jbGFzc19yZWZlcmVuY2UvI0FSRE9VUjpEU1A6QmlxdWFkCgoJCS0tIEEgZGlmZmVyZW50IEJpcXVhZCBpcyBuZWVkZWQgZm9yIGVhY2ggcGFzcyBhbmQgY2hhbm5lbCBiZWNhdXNlIHRoZXkKCQktLSByZW1lbWJlciB0aGUgbGFzdCB0d28gc2FtcGxlcyBzZWVuIGR1cmluZyB0aGUgbGFzdCBjYWxsIG9mIEJpcXVhZDpydW4oKS4KCQktLSBGb3IgY29udGludWl0eSB0aGVzZSBoYXZlIHRvIGNvbWUgZnJvbSB0aGUgcHJldmlvdXMgYXVkaW8gY2h1bmsgb2YgdGhlCgkJLS0gc2FtZSBjaGFubmVsIGFuZCBwYXNzIGFuZCB3b3VsZCBiZSBjbG9iYmVyZWQgaWYgdGhlIHNhbWUgQmlxdWFkIHdhcwoJCS0tIGNhbGxlZCBzZXZlcmFsIHRpbWVzIGJ5IGN5Y2xlLgoJCWZvciBrID0gMSw0IGRvCgkJCWhwW2NdW2tdID0gQVJET1VSLkRTUC5CaXF1YWQgKHRibFsnc2FtcGxlcmF0ZSddKQoJCQlscFtjXVtrXSA9IEFSRE9VUi5EU1AuQmlxdWFkICh0YmxbJ3NhbXBsZXJhdGUnXSkKCQllbmQKCWVuZAplbmQKCmZ1bmN0aW9uIHNhbnRpemVfcGFyYW1zIChjdHJsKQoJLS0gZG9uJ3QgYWxsb3cgbWFudWFsIGNyb3NzLWZhZGVzLiBlbmZvcmNlIGVudW1zCgljdHJsWzFdID0gbWF0aC5mbG9vcihjdHJsWzFdICsgLjUpCgljdHJsWzRdID0gbWF0aC5mbG9vcihjdHJsWzRdICsgLjUpCgoJLS0gaGlnaCBwYXNzLCBjbGFtcCByYW5nZQoJY3RybFsyXSA9IG1hdGgubWluIChtYXhfZnJlcSwgbWF0aC5tYXggKDUsIGN0cmxbMl0pKQoJY3RybFszXSA9IG1hdGgubWluICg2LCBtYXRoLm1heCAoMC4xLCBjdHJsWzNdKSkKCgktLSBsb3cgcGFzcywgY2xhbXAgcmFuZ2UKCWN0cmxbNV0gPSBtYXRoLm1pbiAobWF4X2ZyZXEsIG1hdGgubWF4ICgyMCwgY3RybFs1XSkpCgljdHJsWzZdID0gbWF0aC5taW4gKDYsIG1hdGgubWF4ICgwLjEsIGN0cmxbNl0pKQoJcmV0dXJuIGN0cmwKZW5kCgotLSBoZWxwZXIgZnVuY3Rpb25zIGZvciBwYXJhbWV0ZXIgaW50ZXJwb2xhdGlvbgpmdW5jdGlvbiBwYXJhbV9jaGFuZ2VkIChjdHJsKQoJZm9yIHAgPSAxLDYgZG8KCQlpZiBjdHJsW3BdIH49IGN1cltwXSB0aGVuCgkJCXJldHVybiB0cnVlCgkJZW5kCgllbmQKCXJldHVybiBmYWxzZQplbmQKCmZ1bmN0aW9uIGxvd19wYXNzX2ZpbHRlcl9wYXJhbSAob2xkLCBuZXcsIGxpbWl0KQoJaWYgbWF0aC5hYnMgKG9sZCAtIG5ldykgPCBsaW1pdCAgdGhlbgoJCXJldHVybiBuZXcKCWVsc2UKCQlyZXR1cm4gb2xkICsgbHBmICogKG5ldyAtIG9sZCkKCWVuZAplbmQKCi0tIGFwcGx5IHBhcmFtZXRlcnMsIHJlLWNvbXB1dGUgZmlsdGVyIGNvZWZmaWNpZW50cyBpZiBuZWVkZWQKZnVuY3Rpb24gYXBwbHlfcGFyYW1zIChjdHJsKQoJaWYgbm90IHBhcmFtX2NoYW5nZWQgKGN0cmwpIHRoZW4KCQlyZXR1cm4KCWVuZAoKCS0tIGxvdy1wYXNzIGZpbHRlciBjdHJsIHBhcmFtZXRlciB2YWx1ZXMsIHNtb290aCB0cmFuc2l0aW9uCgljdXJbMV0gPSBsb3dfcGFzc19maWx0ZXJfcGFyYW0gKGN1clsxXSwgY3RybFsxXSwgMC4wNSkgLS0gSFAgb3JkZXIgeC1mYWRlCgljdXJbMl0gPSBsb3dfcGFzc19maWx0ZXJfcGFyYW0gKGN1clsyXSwgY3RybFsyXSwgMS4wKSAgLS0gSFAgZnJlcS9IegoJY3VyWzNdID0gbG93X3Bhc3NfZmlsdGVyX3BhcmFtIChjdXJbM10sIGN0cmxbM10sIDAuMDEpIC0tIEhQIHF1YWxpdHkKCWN1cls0XSA9IGxvd19wYXNzX2ZpbHRlcl9wYXJhbSAoY3VyWzRdLCBjdHJsWzRdLCAwLjA1KSAtLSBMUCBvcmRlciB4LWZhZGUKCWN1cls1XSA9IGxvd19wYXNzX2ZpbHRlcl9wYXJhbSAoY3VyWzVdLCBjdHJsWzVdLCAxLjApICAtLSBMUCBmcmVxL0h6CgljdXJbNl0gPSBsb3dfcGFzc19maWx0ZXJfcGFyYW0gKGN1cls2XSwgY3RybFs2XSwgMC4wMSkgLS0gTFAgcXVhbGl0eQoKCWZvciBjID0gMSwgY2huIGRvCgkJZm9yIGsgPSAxLDQgZG8KCQkJaHBbY11ba106Y29tcHV0ZSAoQVJET1VSLkRTUC5CaXF1YWRUeXBlLkhpZ2hQYXNzLCBjdXJbMl0sIGN1clszXSwgMCkKCQkJbHBbY11ba106Y29tcHV0ZSAoQVJET1VSLkRTUC5CaXF1YWRUeXBlLkxvd1Bhc3MsICBjdXJbNV0sIGN1cls2XSwgMCkKCQllbmQKCWVuZAplbmQKCgotLSB0aGUgYWN0dWFsIERTUCBjYWxsYmFjawpmdW5jdGlvbiBkc3BfcnVuIChpbnMsIG91dHMsIG5fc2FtcGxlcykKCWFzc2VydCAobl9zYW1wbGVzIDwgODE5MikKCWFzc2VydCAoI2lucyA9PSBjaG4pCglsb2NhbCBjdHJsID0gc2FudGl6ZV9wYXJhbXMgKEN0cmxQb3J0czphcnJheSAoKSkKCglsb2NhbCBjaGFuZ2VkID0gZmFsc2UKCWxvY2FsIHNpeiA9IG5fc2FtcGxlcwoJbG9jYWwgb2ZmID0gMAoKCS0tIGlmIGEgcGFyYW1ldGVyIHdhcyBjaGFuZ2VkLCBwcm9jZXNzIGF0IG1vc3QgbHBmX2NodW5rIHNhbXBsZXMKCS0tIGF0IGEgdGltZSBhbmQgaW50ZXJwb2xhdGUgcGFyYW1ldGVycyB1bnRpbCB0aGUgY3VycmVudCBzZXR0aW5ncwoJLS0gbWF0Y2ggdGhlIHRhcmdldCB2YWx1ZXMKCWlmIHBhcmFtX2NoYW5nZWQgKGN0cmwpIHRoZW4KCQljaGFuZ2VkID0gdHJ1ZQoJCXNpeiA9IGxwZl9jaHVuawoJZW5kCgoJd2hpbGUgbl9zYW1wbGVzID4gMCBkbwoJCWlmIGNoYW5nZWQgdGhlbiBhcHBseV9wYXJhbXMgKGN0cmwpIGVuZAoJCWlmIHNpeiA+IG5fc2FtcGxlcyB0aGVuIHNpeiA9IG5fc2FtcGxlcyBlbmQKCgkJbG9jYWwgaG8gPSBtYXRoLmZsb29yKGN1clsxXSkKCQlsb2NhbCBsbyA9IG1hdGguZmxvb3IoY3VyWzRdKQoKCQktLSBwcm9jZXNzIGFsbCBjaGFubmVscwoJCWZvciBjID0gMSwgI2lucyBkbwoKCQkJLS0gSGlnaCBQYXNzCgkJCWxvY2FsIHhmYWRlID0gY3VyWzFdIC0gaG8KCgkJCS0tIHByZXBhcmUgc2NyYXRjaCBtZW1vcnkKCQkJQVJET1VSLkRTUC5jb3B5X3ZlY3RvciAobWVtOnRvX2Zsb2F0IChvZmYpLCBpbnNbY106b2Zmc2V0IChvZmYpLCBzaXopCgoJCQktLSBydW4gYXQgbGVhc3QgfGhvfCBiaXF1YWRzLi4uCgkJCWZvciBrID0gMSxobyBkbwoJCQkJaHBbY11ba106cnVuIChtZW06dG9fZmxvYXQgKG9mZiksIHNpeikKCQkJZW5kCgkJCUFSRE9VUi5EU1AuY29weV92ZWN0b3IgKG91dHNbY106b2Zmc2V0IChvZmYpLCBtZW06dG9fZmxvYXQgKG9mZiksIHNpeikKCgkJCS0tIG1peCB0aGUgb3V0cHV0IG9mIHxob3wgYmlxdWFkcyAod2l0aCB3ZWlnaHQgfDEteGZhZGV8KQoJCQktLSB3aXRoIHRoZSBvdXRwdXQgb2YgfGhvKzF8IGJpcXVhZHMgKHdpdGggd2VpZ2h0IHx4ZmFkZXwpCgkJCWlmIHhmYWRlID4gMCB0aGVuCgkJCQlBUkRPVVIuRFNQLmFwcGx5X2dhaW5fdG9fYnVmZmVyIChvdXRzW2NdOm9mZnNldCAob2ZmKSwgc2l6LCAxIC0geGZhZGUpCgkJCQlocFtjXVtobysxXTpydW4gKG1lbTp0b19mbG9hdCAob2ZmKSwgc2l6KQoJCQkJQVJET1VSLkRTUC5taXhfYnVmZmVyc193aXRoX2dhaW4gKG91dHNbY106b2Zmc2V0IChvZmYpLCBtZW06dG9fZmxvYXQgKG9mZiksIHNpeiwgeGZhZGUpCgkJCQktLSBhbHNvIHJ1biB0aGUgbmV4dCBiaXF1YWQgYmVjYXVzZSBpdCBuZWVkcyB0byBoYXZlIHRoZSBjb3JyZWN0IHN0YXRlCgkJCQktLSBpbiBjYXNlIGl0IHN0YXJ0IGFmZmVjdGluZyB0aGUgbmV4dCBjaHVuY2sgb2Ygb3V0cHV0LiBIaWdoZXIgb3JkZXIKCQkJCS0tIG9uZXMgYXJlIGd1YXJhbnRlZWQgbm90IHRvIGJlIG5lZWRlZCBmb3IgdGhlIG5leHQgcnVuIGJlY2F1c2UgdGhlCgkJCQktLSBpbnRlcnBvbGF0ZWQgb3JkZXIgd29uJ3QgaW5jcmVhc2UgbW9yZSB0aGFuIDAuODYgaW4gb25lIHN0ZXAgdGhhbmtzCgkJCQktLSB0byB0aGUgY2hvaWNlIG9mIHRoZSB2YWx1ZSBvZiB8bHBmfC4KCQkJCWlmIGhvICsgMiA8PSA0IHRoZW4gaHBbY11baG8rMl06cnVuIChtZW06dG9fZmxvYXQgKG9mZiksIHNpeikgZW5kCgkJCWVsc2VpZiBobyArIDEgPD0gNCB0aGVuCgkJCQktLSBydW4gdGhlIG5leHQgYmlxdWFkIGluIGNhc2UgaXQgaXMgdXNlZCBuZXh0IGNodW5rCgkJCQlocFtjXVtobysxXTpydW4gKG1lbTp0b19mbG9hdCAob2ZmKSwgc2l6KQoJCQllbmQKCgkJCS0tIExvdyBQYXNzCgkJCXhmYWRlID0gY3VyWzRdIC0gbG8KCgkJCS0tIHByZXBhcmUgc2NyYXRjaCBtZW1vcnkgKGZyb20gaGlnaCBwYXNzIG91dHB1dCkKCQkJQVJET1VSLkRTUC5jb3B5X3ZlY3RvciAobWVtOnRvX2Zsb2F0IChvZmYpLCBvdXRzW2NdOm9mZnNldCAob2ZmKSwgc2l6KQoKCQkJLS0gcnVuIGF0IGxlYXN0IHxsb3wgYmlxdWFkcy4uLgoJCQlmb3IgayA9IDEsbG8gZG8KCQkJCWxwW2NdW2tdOnJ1biAobWVtOnRvX2Zsb2F0IChvZmYpLCBzaXopCgkJCWVuZAoJCQlBUkRPVVIuRFNQLmNvcHlfdmVjdG9yIChvdXRzW2NdOm9mZnNldCAob2ZmKSwgbWVtOnRvX2Zsb2F0IChvZmYpLCBzaXopCgoJCQktLSBtaXggdGhlIG91dHB1dCBvZiB8bG98IGJpcXVhZHMgKHdpdGggd2VpZ2h0IHwxLXhmYWRlfCkKCQkJLS0gd2l0aCB0aGUgb3V0cHV0IG9mIHxsbysxfCBiaXF1YWRzICh3aXRoIHdlaWdodCB8eGZhZGV8KQoJCQlpZiB4ZmFkZSA+IDAgdGhlbgoJCQkJQVJET1VSLkRTUC5hcHBseV9nYWluX3RvX2J1ZmZlciAob3V0c1tjXTpvZmZzZXQgKG9mZiksIHNpeiwgMSAtIHhmYWRlKQoJCQkJbHBbY11bbG8rMV06cnVuIChtZW06dG9fZmxvYXQgKG9mZiksIHNpeikKCQkJCUFSRE9VUi5EU1AubWl4X2J1ZmZlcnNfd2l0aF9nYWluIChvdXRzW2NdOm9mZnNldCAob2ZmKSwgbWVtOnRvX2Zsb2F0IChvZmYpLCBzaXosIHhmYWRlKQoJCQkJLS0gYWxzbyBydW4gdGhlIG5leHQgYmlxdWFkIGluIGNhc2UgaXQgc3RhcnQgYWZmZWN0aW5nIHRoZSBuZXh0CgkJCQktLSBjaHVuY2sgb2Ygb3V0cHV0LgoJCQkJaWYgbG8gKyAyIDw9IDQgdGhlbiBscFtjXVtsbysyXTpydW4gKG1lbTp0b19mbG9hdCAob2ZmKSwgc2l6KSBlbmQKCQkJZWxzZWlmIGxvICsgMSA8PSA0IHRoZW4KCQkJCS0tIHJ1biB0aGUgbmV4dCBiaXF1YWQgaW4gY2FzZSBpdCBpcyB1c2VkIG5leHQgY2h1bmsKCQkJCWxwW2NdW2xvKzFdOnJ1biAobWVtOnRvX2Zsb2F0IChvZmYpLCBzaXopCgkJCWVuZAoKCQllbmQKCgkJbl9zYW1wbGVzID0gbl9zYW1wbGVzIC0gc2l6CgkJb2ZmID0gb2ZmICsgc2l6CgllbmQKCglpZiBjaGFuZ2VkIHRoZW4KCQktLSBub3RpZnkgZGlzcGxheQoJCXNlbGY6cXVldWVfZHJhdyAoKQoJZW5kCmVuZAoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KLS0tIGlubGluZSBkaXNwbGF5CgpmdW5jdGlvbiByb3VuZCAobikKCXJldHVybiBtYXRoLmZsb29yIChuICsgLjUpCmVuZAoKZnVuY3Rpb24gZnJlcV9hdF94ICh4LCB3KQoJLS0gZnJlcXVlbmN5IGluIEh6IGF0IGdpdmVuIHgtYXhpcyBwaXhlbAoJcmV0dXJuIDIwICogMTAwMCBeICh4IC8gdykKZW5kCgpmdW5jdGlvbiB4X2F0X2ZyZXEgKGYsIHcpCgktLSB4LWF4aXMgcGl4ZWwgZm9yIGdpdmVuIGZyZXF1ZW5jeSwgcG93ZXItc2NhbGUKCXJldHVybiB3ICogbWF0aC5sb2cgKGYgLyAyMC4wKSAvIG1hdGgubG9nICgxMDAwLjApCmVuZAoKZnVuY3Rpb24gZGJfdG9feSAoZGIsIGgpCgktLSB5LWF4aXMgZ2FpbiBtYXBwaW5nCglpZiBkYiA8IC02MCB0aGVuIGRiID0gLTYwIGVuZAoJaWYgZGIgPiAgMTIgdGhlbiBkYiA9ICAxMiBlbmQKCXJldHVybiAtLjUgKyByb3VuZCAoMC4yICogaCkgLSBoICogZGIgLyA2MAplbmQKCmZ1bmN0aW9uIGdyaWRfZGIgKGN0eCwgdywgaCwgZGIpCgktLSBkcmF3IGhvcml6b250YWwgZ3JpZCBsaW5lCgktLSBub3RlIHRoYXQgYSBjYWlybyBwaXhlbCBhdCBZIHNwYW5zIFtZIC0gMC41IHRvIFkgKyAwLjVdCglsb2NhbCB5ID0gLS41ICsgcm91bmQgKGRiX3RvX3kgKGRiLCBoKSkKCWN0eDptb3ZlX3RvICgwLCB5KQoJY3R4OmxpbmVfdG8gKHcsIHkpCgljdHg6c3Ryb2tlICgpCmVuZAoKZnVuY3Rpb24gZ3JpZF9mcmVxIChjdHgsIHcsIGgsIGYpCgktLSBkcmF3IHZlcnRpY2FsIGdyaWQgbGluZQoJbG9jYWwgeCA9IC0uNSArIHJvdW5kICh4X2F0X2ZyZXEgKGYsIHcpKQoJY3R4Om1vdmVfdG8gKHgsIDApCgljdHg6bGluZV90byAoeCwgaCkKCWN0eDpzdHJva2UgKCkKZW5kCgpmdW5jdGlvbiByZXNwb25zZSAoaG8sIGxvLCBmKQoJLS0gY2FsY3VsYXRlIHRyYW5zZmVyIGZ1bmN0aW9uIHJlc3BvbnNlIGZvciBnaXZlbgoJLS0gaGkvcG8gcGFzcyBvcmRlciBhdCBnaXZlbiBmcmVxdWVuY3kgW0h6XQoJbG9jYWwgZGIgPSBobyAqIGZpbHRbJ2hwJ106ZEJfYXRfZnJlcSAoZikKCXJldHVybiBkYiArIGxvICogZmlsdFsnbHAnXTpkQl9hdF9mcmVxIChmKQplbmQKCmZ1bmN0aW9uIHJlbmRlcl9pbmxpbmUgKGN0eCwgdywgbWF4X2gpCglpZiBub3QgZmlsdCB0aGVuCgkJbG9jYWwgdGJsID0gc2VsZjp0YWJsZSAoKTpnZXQgKCkgLS0gZ2V0IHNoYXJlZCBtZW1vcnkgdGFibGUKCQktLSBpbnN0YW50aWF0ZSBmaWx0ZXIgKHRvIGNhbGN1bGF0ZSB0aGUgdHJhbnNmZXIgZnVuY3Rpb24ncyByZXNwb25zZSkKCQlmaWx0ID0ge30KCQlmaWx0WydocCddID0gQVJET1VSLkRTUC5CaXF1YWQgKHRibFsnc2FtcGxlcmF0ZSddKQoJCWZpbHRbJ2xwJ10gPSBBUkRPVVIuRFNQLkJpcXVhZCAodGJsWydzYW1wbGVyYXRlJ10pCgkJbWF4X2ZyZXEgICA9IHRibFsnbWF4X2ZyZXEnXQoJZW5kCgoJbG9jYWwgY3RybCA9IHNhbnRpemVfcGFyYW1zIChDdHJsUG9ydHM6YXJyYXkgKCkpCgktLSBzZXQgZmlsdGVyIGNvZWZmaWNpZW50cyBpZiB0aGV5IGhhdmUgY2hhbmdlZAoJaWYgcGFyYW1fY2hhbmdlZCAoY3RybCkgdGhlbgoJCWZvciBrID0gMSw2IGRvIGN1cltrXSA9IGN0cmxba10gZW5kCgkJZmlsdFsnaHAnXTpjb21wdXRlIChBUkRPVVIuRFNQLkJpcXVhZFR5cGUuSGlnaFBhc3MsIGN1clsyXSwgY3VyWzNdLCAwKQoJCWZpbHRbJ2xwJ106Y29tcHV0ZSAoQVJET1VSLkRTUC5CaXF1YWRUeXBlLkxvd1Bhc3MsICBjdXJbNV0sIGN1cls2XSwgMCkKCWVuZAoKCS0tIGNhbGMgaGVpZ2h0IG9mIGlubGluZSBkaXNwbGF5Cglsb2NhbCBoID0gMSB8IG1hdGguY2VpbCAodyAqIDkgLyAxNikgLS0gdXNlIDE2OjkgYXNwZWN0LCBvZGQgbnVtYmVyIG9mIHkgcGl4ZWxzCglpZiAoaCA+IG1heF9oKSB0aGVuIGggPSBtYXhfaCBlbmQgLS0gYnV0IGF0IG1vc3QgbWF4LWhlaWdodAoKCS0tIGN0eCBpcyBhIGh0dHA6Ly9jYWlyb2dyYXBoaWNzLm9yZy8gY29udGV4dAoJLS0gaHR0cDovL21hbnVhbC5hcmRvdXIub3JnL2x1YS1zY3JpcHRpbmcvY2xhc3NfcmVmZXJlbmNlLyNDYWlybzpDb250ZXh0CgoJLS0gY2xlYXIgYmFja2dyb3VuZAoJY3R4OnJlY3RhbmdsZSAoMCwgMCwgdywgaCkKCWN0eDpzZXRfc291cmNlX3JnYmEgKC4yLCAuMiwgLjIsIDEuMCkKCWN0eDpmaWxsICgpCgljdHg6cmVjdGFuZ2xlICgwLCAwLCB3LCBoKQoJY3R4OmNsaXAgKCkKCgktLSBzZXQgbGluZSB3aWR0aDogMXB4CgljdHg6c2V0X2xpbmVfd2lkdGggKDEuMCkKCgktLSBkcmF3IGdyaWQKCWxvY2FsIGRhc2gzID0gQy5Eb3VibGVWZWN0b3IgKCkKCWxvY2FsIGRhc2gyID0gQy5Eb3VibGVWZWN0b3IgKCkKCWRhc2gyOmFkZCAoezEsIDJ9KQoJZGFzaDM6YWRkICh7MSwgM30pCgljdHg6c2V0X2Rhc2ggKGRhc2gyLCAyKSAtLSBkb3R0ZWQgbGluZTogMSBwaXhlbCAyIHNwYWNlCgljdHg6c2V0X3NvdXJjZV9yZ2JhICguNSwgLjUsIC41LCAuOCkKCWdyaWRfZGIgKGN0eCwgdywgaCwgMCkKCWN0eDpzZXRfZGFzaCAoZGFzaDMsIDIpIC0tIGRhc2hlZCBsaW5lOiAxIHBpeGVsIDMgc3BhY2UKCWN0eDpzZXRfc291cmNlX3JnYmEgKC41LCAuNSwgLjUsIC41KQoJZ3JpZF9kYiAoY3R4LCB3LCBoLCAtMTIpCglncmlkX2RiIChjdHgsIHcsIGgsIC0yNCkKCWdyaWRfZGIgKGN0eCwgdywgaCwgLTM2KQoJZ3JpZF9mcmVxIChjdHgsIHcsIGgsIDEwMCkKCWdyaWRfZnJlcSAoY3R4LCB3LCBoLCAxMDAwKQoJZ3JpZF9mcmVxIChjdHgsIHcsIGgsIDEwMDAwKQoJY3R4OnVuc2V0X2Rhc2ggKCkKCgktLSBkcmF3IHRyYW5zZmVyIGZ1bmN0aW9uIGxpbmUKCWxvY2FsIGhvID0gbWF0aC5mbG9vcihjdXJbMV0pCglsb2NhbCBsbyA9IG1hdGguZmxvb3IoY3VyWzRdKQoKCWN0eDpzZXRfc291cmNlX3JnYmEgKC44LCAuOCwgLjgsIDEuMCkKCWN0eDptb3ZlX3RvICgtLjUsIGRiX3RvX3kgKHJlc3BvbnNlKGhvLCBsbywgZnJlcV9hdF94ICgwLCB3KSksIGgpKQoJZm9yIHggPSAxLHcgZG8KCQlsb2NhbCBkYiA9IHJlc3BvbnNlKGhvLCBsbywgZnJlcV9hdF94ICh4LCB3KSkKCQljdHg6bGluZV90byAoLS41ICsgeCwgZGJfdG9feSAoZGIsIGgpKQoJZW5kCgktLSBzdG9rZSBhIGxpbmUsIGtlZXAgdGhlIHBhdGgKCWN0eDpzdHJva2VfcHJlc2VydmUgKCkKCgktLSBmaWxsIGFyZWEgdG8gemVybyB1bmRlciB0aGUgY3VydmUKCWN0eDpsaW5lX3RvICh3LCAtLjUgKyByb3VuZCAoZGJfdG9feSAoMCwgaCkpKQoJY3R4OmxpbmVfdG8gKDAsIC0uNSArIHJvdW5kIChkYl90b195ICgwLCBoKSkpCgljdHg6Y2xvc2VfcGF0aCAoKQoJY3R4OnNldF9zb3VyY2VfcmdiYSAoLjUsIC41LCAuNSwgLjUpCgljdHg6ZmlsbCAoKQoKCXJldHVybiB7dywgaH0KZW5kCg==</script>
+      <Port id="0" value="+3.000000"/>
+      <Port id="1" value="+100.000000"/>
+      <Port id="2" value="+0.707000"/>
+      <Port id="3" value="+0.000000"/>
+      <Port id="4" value="+18000.000000"/>
+      <Port id="5" value="+0.707000"/>
+    </luaproc>
+    <Controllable name="High Pass Steepness" id="39587" flags="" value="3.000000000000" parameter="0"/>
+    <Controllable name="High Pass Cut off frequency" id="39588" flags="" value="100.000000000000" parameter="1"/>
+    <Controllable name="High Pass Resonance" id="39589" flags="" value="0.707000017166" parameter="2"/>
+    <Controllable name="Low Pass Steepness" id="39590" flags="" value="0.000000000000" parameter="3"/>
+    <Controllable name="Low Pass Cut off frequency" id="39591" flags="" value="18000.000000000000" parameter="4"/>
+    <Controllable name="Low Pass Resonance" id="39592" flags="" value="0.707000017166" parameter="5"/>
+  </Processor>
+  <Processor id="39669" name="a-EQ" active="yes" user-latency="0" type="lv2" unique-id="urn:ardour:a-eq" count="1" custom="no">
+    <ConfiguredInput>
+      <Channels type="audio" count="1"/>
+    </ConfiguredInput>
+    <CustomSinks>
+      <Channels type="audio" count="1"/>
+    </CustomSinks>
+    <ConfiguredOutput>
+      <Channels type="audio" count="1"/>
+    </ConfiguredOutput>
+    <PresetOutput/>
+    <InputMap-0>
+      <Channelmap type="audio" from="0" to="0"/>
+    </InputMap-0>
+    <OutputMap-0>
+      <Channelmap type="audio" from="0" to="0"/>
+    </OutputMap-0>
+    <ThruMap/>
+    <lv2 last-preset-uri="" last-preset-label="" parameter-changed-since-last-preset="yes" template-dir="/home/bart/.config/ardour5/route_templates/livemix">
+      <Port symbol="freql" value="+101.092728"/>
+      <Port symbol="gl" value="+0.000000"/>
+      <Port symbol="freq1" value="+300.000000"/>
+      <Port symbol="g1" value="+0.000000"/>
+      <Port symbol="bw1" value="+1.000000"/>
+      <Port symbol="freq2" value="+1000.000000"/>
+      <Port symbol="g2" value="+0.000000"/>
+      <Port symbol="bw2" value="+1.000000"/>
+      <Port symbol="freq3" value="+2500.000000"/>
+      <Port symbol="g3" value="+0.000000"/>
+      <Port symbol="bw3" value="+1.000000"/>
+      <Port symbol="freq4" value="+6000.000000"/>
+      <Port symbol="g4" value="+0.000000"/>
+      <Port symbol="bw4" value="+1.000000"/>
+      <Port symbol="freqh" value="+9000.000000"/>
+      <Port symbol="gh" value="+0.000000"/>
+      <Port symbol="master" value="+0.000000"/>
+      <Port symbol="filtogl" value="+1.000000"/>
+      <Port symbol="filtog1" value="+1.000000"/>
+      <Port symbol="filtog2" value="+1.000000"/>
+      <Port symbol="filtog3" value="+1.000000"/>
+      <Port symbol="filtog4" value="+1.000000"/>
+      <Port symbol="filtogh" value="+1.000000"/>
+      <Port symbol="enable" value="+1.000000"/>
+    </lv2>
+    <Controllable name="Frequency L" id="39645" flags="" value="101.092727661133" parameter="0" symbol="freql"/>
+    <Controllable name="Gain L" id="39646" flags="" value="0.000000000000" parameter="1" symbol="gl"/>
+    <Controllable name="Frequency 1" id="39647" flags="" value="300.000000000000" parameter="2" symbol="freq1"/>
+    <Controllable name="Gain 1" id="39648" flags="" value="0.000000000000" parameter="3" symbol="g1"/>
+    <Controllable name="Bandwidth 1" id="39649" flags="" value="1.000000000000" parameter="4" symbol="bw1"/>
+    <Controllable name="Frequency 2" id="39650" flags="" value="1000.000000000000" parameter="5" symbol="freq2"/>
+    <Controllable name="Gain 2" id="39651" flags="" value="0.000000000000" parameter="6" symbol="g2"/>
+    <Controllable name="Bandwidth 2" id="39652" flags="" value="1.000000000000" parameter="7" symbol="bw2"/>
+    <Controllable name="Frequency 3" id="39653" flags="" value="2500.000000000000" parameter="8" symbol="freq3"/>
+    <Controllable name="Gain 3" id="39654" flags="" value="0.000000000000" parameter="9" symbol="g3"/>
+    <Controllable name="Bandwidth 3" id="39655" flags="" value="1.000000000000" parameter="10" symbol="bw3"/>
+    <Controllable name="Frequency 4" id="39656" flags="" value="6000.000000000000" parameter="11" symbol="freq4"/>
+    <Controllable name="Gain 4" id="39657" flags="" value="0.000000000000" parameter="12" symbol="g4"/>
+    <Controllable name="Bandwidth 4" id="39658" flags="" value="1.000000000000" parameter="13" symbol="bw4"/>
+    <Controllable name="Frequency H" id="39659" flags="" value="9000.000000000000" parameter="14" symbol="freqh"/>
+    <Controllable name="Gain H" id="39660" flags="" value="0.000000000000" parameter="15" symbol="gh"/>
+    <Controllable name="Master Gain" id="39661" flags="" value="0.000000000000" parameter="16" symbol="master"/>
+    <Controllable name="Filter L" id="39662" flags="Toggle" value="1.000000000000" parameter="17" symbol="filtogl"/>
+    <Controllable name="Filter 1" id="39663" flags="Toggle" value="1.000000000000" parameter="18" symbol="filtog1"/>
+    <Controllable name="Filter 2" id="39664" flags="Toggle" value="1.000000000000" parameter="19" symbol="filtog2"/>
+    <Controllable name="Filter 3" id="39665" flags="Toggle" value="1.000000000000" parameter="20" symbol="filtog3"/>
+    <Controllable name="Filter 4" id="39666" flags="Toggle" value="1.000000000000" parameter="21" symbol="filtog4"/>
+    <Controllable name="Filter H" id="39667" flags="Toggle" value="1.000000000000" parameter="22" symbol="filtogh"/>
+    <Controllable name="Enable" id="39668" flags="Toggle" value="1.000000000000" parameter="23" symbol="enable"/>
+  </Processor>
+  <Processor id="39689" name="HeadPhone 1" active="yes" user-latency="0" own-input="yes" own-output="yes" type="intsend" role="Aux" bitslot="385" selfdestruct="no" target="4121">
+    <PannerShell bypassed="no" user-panner="" linked-to-route="no"/>
+    <Pannable>
+      <Controllable name="pan-azimuth" id="57063" flags="" value="0.500000000000"/>
+      <Controllable name="pan-width" id="57067" flags="" value="0.000000000000"/>
+      <Controllable name="pan-elevation" id="57065" flags="" value="0.000000000000"/>
+      <Controllable name="pan-frontback" id="57069" flags="" value="0.000000000000"/>
+      <Controllable name="pan-lfe" id="57071" flags="" value="0.000000000000"/>
+      <Automation/>
+    </Pannable>
+    <Processor id="39690" name="Amp" active="yes" user-latency="0" type="amp">
+      <Controllable name="gaincontrol" id="39691" flags="GainLike" value="0.000000000000"/>
+    </Processor>
+  </Processor>
+  <Processor id="39711" name="HeadPhone 2" active="yes" user-latency="0" own-input="yes" own-output="yes" type="intsend" role="Aux" bitslot="386" selfdestruct="no" target="4163">
+    <PannerShell bypassed="no" user-panner="" linked-to-route="no"/>
+    <Pannable>
+      <Controllable name="pan-azimuth" id="57082" flags="" value="0.500000000000"/>
+      <Controllable name="pan-width" id="57086" flags="" value="0.000000000000"/>
+      <Controllable name="pan-elevation" id="57084" flags="" value="0.000000000000"/>
+      <Controllable name="pan-frontback" id="57088" flags="" value="0.000000000000"/>
+      <Controllable name="pan-lfe" id="57090" flags="" value="0.000000000000"/>
+      <Automation/>
+    </Pannable>
+    <Processor id="39712" name="Amp" active="yes" user-latency="0" type="amp">
+      <Controllable name="gaincontrol" id="39713" flags="GainLike" value="0.000000000000"/>
+    </Processor>
+  </Processor>
+  <Processor id="39733" name="HeadPhone 3" active="yes" user-latency="0" own-input="yes" own-output="yes" type="intsend" role="Aux" bitslot="387" selfdestruct="no" target="4205">
+    <PannerShell bypassed="no" user-panner="" linked-to-route="no"/>
+    <Pannable>
+      <Controllable name="pan-azimuth" id="57101" flags="" value="0.500000000000"/>
+      <Controllable name="pan-width" id="57105" flags="" value="0.000000000000"/>
+      <Controllable name="pan-elevation" id="57103" flags="" value="0.000000000000"/>
+      <Controllable name="pan-frontback" id="57107" flags="" value="0.000000000000"/>
+      <Controllable name="pan-lfe" id="57109" flags="" value="0.000000000000"/>
+      <Automation/>
+    </Pannable>
+    <Processor id="39734" name="Amp" active="yes" user-latency="0" type="amp">
+      <Controllable name="gaincontrol" id="39735" flags="GainLike" value="0.000000000000"/>
+    </Processor>
+  </Processor>
+  <Processor id="39755" name="HeadPhone 4" active="yes" user-latency="0" own-input="yes" own-output="yes" type="intsend" role="Aux" bitslot="388" selfdestruct="no" target="4247">
+    <PannerShell bypassed="no" user-panner="" linked-to-route="no"/>
+    <Pannable>
+      <Controllable name="pan-azimuth" id="57120" flags="" value="0.500000000000"/>
+      <Controllable name="pan-width" id="57124" flags="" value="0.000000000000"/>
+      <Controllable name="pan-elevation" id="57122" flags="" value="0.000000000000"/>
+      <Controllable name="pan-frontback" id="57126" flags="" value="0.000000000000"/>
+      <Controllable name="pan-lfe" id="57128" flags="" value="0.000000000000"/>
+      <Automation/>
+    </Pannable>
+    <Processor id="39756" name="Amp" active="yes" user-latency="0" type="amp">
+      <Controllable name="gaincontrol" id="39757" flags="GainLike" value="0.000000000000"/>
+    </Processor>
+  </Processor>
+  <Processor id="39758" name="Amp" active="yes" user-latency="0" type="amp">
+    <Controllable name="gaincontrol" id="39759" flags="GainLike" value="1.000000000000"/>
+  </Processor>
+  <Processor id="65293" name="ambiance" active="yes" user-latency="0" own-input="yes" own-output="yes" type="intsend" role="Aux" bitslot="6" selfdestruct="no" target="56582">
+    <PannerShell bypassed="no" user-panner="" linked-to-route="yes">
+      <Panner uri="http://ardour.org/plugin/panner_1in2out" type="Mono to Stereo Panner"/>
+    </PannerShell>
+    <Pannable>
+      <Controllable name="pan-azimuth" id="39762" flags="" value="0.500000000000"/>
+      <Controllable name="pan-width" id="39763" flags="" value="0.000000000000"/>
+      <Controllable name="pan-elevation" id="39764" flags="" value="0.000000000000"/>
+      <Controllable name="pan-frontback" id="39765" flags="" value="0.000000000000"/>
+      <Controllable name="pan-lfe" id="39766" flags="" value="0.000000000000"/>
+      <Automation/>
+    </Pannable>
+    <Processor id="65308" name="Amp" active="yes" user-latency="0" type="amp">
+      <Controllable name="gaincontrol" id="65307" flags="GainLike" value="0.000000000000"/>
+    </Processor>
+  </Processor>
+  <Processor id="65207" name="room" active="yes" user-latency="0" own-input="yes" own-output="yes" type="intsend" role="Aux" bitslot="5" selfdestruct="no" target="56540">
+    <PannerShell bypassed="no" user-panner="" linked-to-route="yes">
+      <Panner uri="http://ardour.org/plugin/panner_1in2out" type="Mono to Stereo Panner"/>
+    </PannerShell>
+    <Pannable>
+      <Controllable name="pan-azimuth" id="39762" flags="" value="0.500000000000"/>
+      <Controllable name="pan-width" id="39763" flags="" value="0.000000000000"/>
+      <Controllable name="pan-elevation" id="39764" flags="" value="0.000000000000"/>
+      <Controllable name="pan-frontback" id="39765" flags="" value="0.000000000000"/>
+      <Controllable name="pan-lfe" id="39766" flags="" value="0.000000000000"/>
+      <Automation/>
+    </Pannable>
+    <Processor id="65222" name="Amp" active="yes" user-latency="0" type="amp">
+      <Controllable name="gaincontrol" id="65221" flags="GainLike" value="0.000000000000"/>
+    </Processor>
+  </Processor>
+  <Processor id="65315" name="reverb" active="yes" user-latency="0" own-input="yes" own-output="yes" type="intsend" role="Aux" bitslot="7" selfdestruct="no" target="56624">
+    <PannerShell bypassed="no" user-panner="" linked-to-route="yes">
+      <Panner uri="http://ardour.org/plugin/panner_1in2out" type="Mono to Stereo Panner"/>
+    </PannerShell>
+    <Pannable>
+      <Controllable name="pan-azimuth" id="39762" flags="" value="0.500000000000"/>
+      <Controllable name="pan-width" id="39763" flags="" value="0.000000000000"/>
+      <Controllable name="pan-elevation" id="39764" flags="" value="0.000000000000"/>
+      <Controllable name="pan-frontback" id="39765" flags="" value="0.000000000000"/>
+      <Controllable name="pan-lfe" id="39766" flags="" value="0.000000000000"/>
+      <Automation/>
+    </Pannable>
+    <Processor id="65330" name="Amp" active="yes" user-latency="0" type="amp">
+      <Controllable name="gaincontrol" id="65329" flags="GainLike" value="0.000000000000"/>
+    </Processor>
+  </Processor>
+  <Processor id="65337" name="delay" active="yes" user-latency="0" own-input="yes" own-output="yes" type="intsend" role="Aux" bitslot="8" selfdestruct="no" target="56666">
+    <PannerShell bypassed="no" user-panner="" linked-to-route="yes">
+      <Panner uri="http://ardour.org/plugin/panner_1in2out" type="Mono to Stereo Panner"/>
+    </PannerShell>
+    <Pannable>
+      <Controllable name="pan-azimuth" id="39762" flags="" value="0.500000000000"/>
+      <Controllable name="pan-width" id="39763" flags="" value="0.000000000000"/>
+      <Controllable name="pan-elevation" id="39764" flags="" value="0.000000000000"/>
+      <Controllable name="pan-frontback" id="39765" flags="" value="0.000000000000"/>
+      <Controllable name="pan-lfe" id="39766" flags="" value="0.000000000000"/>
+      <Automation/>
+    </Pannable>
+    <Processor id="65352" name="Amp" active="yes" user-latency="0" type="amp">
+      <Controllable name="gaincontrol" id="65351" flags="GainLike" value="0.000000000000"/>
+    </Processor>
+  </Processor>
+  <Processor id="39760" name="Audio" active="yes" user-latency="0" own-input="yes" own-output="no" output="Audio" type="main-outs" role="Main">
+    <PannerShell bypassed="no" user-panner="" linked-to-route="yes"/>
+    <Pannable>
+      <Controllable name="pan-azimuth" id="39762" flags="" value="0.500000000000"/>
+      <Controllable name="pan-width" id="39763" flags="" value="0.000000000000"/>
+      <Controllable name="pan-elevation" id="39764" flags="" value="0.000000000000"/>
+      <Controllable name="pan-frontback" id="39765" flags="" value="0.000000000000"/>
+      <Controllable name="pan-lfe" id="39766" flags="" value="0.000000000000"/>
+      <Automation/>
+    </Pannable>
+  </Processor>
+  <Slavable/>
+  <Controllable name="monitoring" id="39778" flags="RealTime" value="0.000000000000" monitoring=""/>
+  <Controllable name="recsafe" id="39779" flags="Toggle,RealTime" value="0.000000000000"/>
+  <Controllable name="recenable" id="39780" flags="Toggle,RealTime" value="0.000000000000"/>
+  <Diskstream flags="Recordable" playlist="Audio" name="Audio" id="39773" speed="1.000000" capture-alignment="Automatic" record-safe="no" channels="1"/>
+</Route>

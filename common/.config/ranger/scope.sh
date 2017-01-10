@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#! /usr/bin/env sh
 # ranger supports enhanced previews.  If the option "use_preview_script"
 # is set to True and this file exists, this script will be called and its
 # output is displayed in ranger.  ANSI color codes are supported.
@@ -67,6 +67,10 @@ case "$extension" in
         try lynx   -dump "$path" && { dump | trim | fmt -s -w $width; exit 4; }
         try elinks -dump "$path" && { dump | trim | fmt -s -w $width; exit 4; }
         ;; # fall back to highlight/cat if the text browsers fail
+    odt|odp)
+        odt2txt "$path" --width=$width; exit 0;
+        # try odt2txt "$path" - && \
+        #     { trim | fmt -s -w $width; exit 0; } || exit 1;;
 esac
 
 case "$mimetype" in
