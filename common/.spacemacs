@@ -80,7 +80,8 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   ;; nm is nevermore, a notmuch mail client
+   dotspacemacs-additional-packages '(nm)
    ;; dotspacemacs-additional-packages '((faust-mode :location (recipe :fetcher github :repo "magnetophon/emacs-faust-mode")))
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -342,6 +343,7 @@ you should place your code here."
   ;; when you open a (single) file it uses another window (creating it if necessary):
   ;; stopped working...
   ;; (setq server-window 'pop-to-buffer)
+  (setq vc-follow-symlinks t)
   ;; make sure we get vertical splits:
   (setq split-height-threshold `nil)
 
@@ -398,7 +400,9 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(magit-diff-section-arguments (quote ("--ignore-all-space" "--no-ext-diff"))))
+ '(evil-want-Y-yank-to-eol nil)
+ '(magit-diff-section-arguments (quote ("--ignore-all-space" "--no-ext-diff")))
+ '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

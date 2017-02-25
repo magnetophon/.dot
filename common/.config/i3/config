@@ -284,8 +284,8 @@ set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) re
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker,                       mode "default"
     bindsym e exec --no-startup-id i3-msg exit,                   mode "default"
-    bindsym s exec --no-startup-id $Locker & systemctl suspend,   mode "default"
-    bindsym h exec --no-startup-id $Locker & systemctl hibernate, mode "default"
+    bindsym s exec sudo systemctl suspend,                        mode "default"
+    bindsym h exec sudo systemctl hibernate,                      mode "default"
     bindsym r exec --no-startup-id systemctl reboot,              mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff -i,   mode "default"
 
@@ -306,7 +306,7 @@ bindsym $win+Pause mode "$mode_system"
 bindsym Ctrl+$alt+l exec i3lock -d -c DCDAD5
 
 # bindsym Ctrl+$alt+h exec clipster -s
-bindsym $win+p  exec clipster -o -n 200 -0 | rofi -i -dmenu -sep '\x00' -eh 2 | tr -d '\n' | clipster
+bindsym $win+p  exec clipster -o -n 200 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | tr -d '\n' | clipster
 
 #audio volume and mute
 #does not apply on RME-9636
