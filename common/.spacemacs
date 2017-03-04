@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     html
      vimscript ;; for pentadactylrc
      clojure ;; for overtone
      helm
@@ -59,7 +60,7 @@ values."
      ;; python
      ;; fasd
      git
-     github
+     ;; github
      ;; gnus
      markdown
      ;; mu4e
@@ -79,7 +80,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(notmuch)
    ;; dotspacemacs-additional-packages '((faust-mode :location (recipe :fetcher github :repo "magnetophon/emacs-faust-mode")))
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -364,15 +365,15 @@ you should place your code here."
   (setq evil-escape-unordered-key-sequence t)
   (setq undo-tree-auto-save-history t)
 
-  (setq default-frame-alist '((background-color . "white")))
+  ;; (setq default-frame-alist '((background-color . "white")))
 
-  (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
+  (add-to-list 'auto-mode-alist '("/mutt" . notmuch-message-mode))
 
-  (spacemacs|define-custom-layout "@Mail"
-    :binding "m"
-    :body
-    (mu4e)
-    )
+  ;; (spacemacs|define-custom-layout "@Mail"
+  ;;   :binding "m"
+  ;;   :body
+  ;;   (mu4e)
+  ;;   )
 
   (spacemacs|define-custom-layout "faustlib"
     :binding "l"
@@ -383,14 +384,13 @@ you should place your code here."
 
   ;; rcirc
   ;; Change user info
-  (setq rcirc-default-nick "magnetophon")
-  (setq rcirc-default-user-name "magnetophon")
-  (setq rcirc-default-full-name "magnetophon")
+  ;; (setq rcirc-default-nick "magnetophon")
+  ;; (setq rcirc-default-user-name "magnetophon")
+  ;; (setq rcirc-default-full-name "magnetophon")
 
   ;; Join these channels at startup.
-  (setq rcirc-server-alist
-        '(("irc.freenode.net" :channels ("#lad" "#ardour" "#opensourcemusicians" "#musnix" "#nixos"))))
-
+  ;; (setq rcirc-server-alist
+  ;;       '(("irc.freenode.net" :channels ("#lad" "#ardour" "#opensourcemusicians" "#musnix" "#nixos"))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -423,7 +423,7 @@ This function is called at the very end of Spacemacs initialization."
  '(magit-diff-section-arguments (quote ("--ignore-all-space" "--no-ext-diff")))
  '(package-selected-packages
    (quote
-    (nm zenburn-theme xterm-color ws-butler winum which-key volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package unfill toc-org stickyfunc-enhance srefactor spaceline solarized-theme smeargle shell-pop restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file notmuch nix-mode neotree mwim multi-term move-text monokai-theme mmm-mode markdown-toc magithub magit-gitflow magit-gh-pulls macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-purpose helm-projectile helm-nixos-options helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator faust-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diff-hl define-word dactyl-mode company-statistics company-quickhelp company-nixos-options column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+    (smartparens helm helm-core projectile magit web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data alert log4e gntp markdown-mode gh marshal logito pcache ht flyspell-correct flycheck pos-tip nixos-options company inflections edn multiple-cursors paredit peg cider queue clojure-mode yasnippet auto-complete nm zenburn-theme xterm-color ws-butler winum which-key volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package unfill toc-org stickyfunc-enhance srefactor spaceline solarized-theme smeargle shell-pop restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file notmuch nix-mode neotree mwim multi-term move-text monokai-theme mmm-mode markdown-toc magithub magit-gitflow magit-gh-pulls macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-purpose helm-projectile helm-nixos-options helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator faust-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diff-hl define-word dactyl-mode company-statistics company-quickhelp company-nixos-options column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
  '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
