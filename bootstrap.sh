@@ -19,6 +19,7 @@ else
   cd ~/.dot/
   echo "stow dotfiles"
   for item in common zprezto; do stow $item; done;
+  stow $HOST
   mkdir ~/.vim
   touch ~/.vimrc
 fi

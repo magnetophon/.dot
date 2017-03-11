@@ -1,0 +1,91 @@
+general {
+        colors = true
+        color_good = "#000000"
+        color_degraded = "#696969"
+        color_bad = "#FFFF00"
+        # color_separator = "#FFFF00"
+        interval = 1
+}
+
+order  += "disk /"
+order  += "disk /home"
+# order  += "disk /nix/store"
+#order += "disk /media/sda9"
+#order += "disk /media/sdb1"
+order  += "wireless wlp3s0"
+order  += "ethernet enp0s25"
+#order += "ethernet eth1"
+order  += "battery 0"
+order  += "cpu_usage"
+order  += "cpu_temperature 0"
+order  += "time"
+
+wireless wlp3s0 {
+        format_up = "%quality at %essid %ip"
+        format_down = " "
+}
+
+ethernet enp0s25 {
+        # if you use %speed, i3status requires root privileges
+		format_up = "%speed  %ip"
+		#format_up = "enp1s7: %ip"
+        format_down = " "
+}
+
+ethernet eth1 {
+        # if you use %speed, i3status requires root privileges
+        format_up = "eth1: %ip (%speed)"
+		#format_up = "eth1: %ip"
+        format_down = "eth1: down"
+}
+
+#battery 0 {
+#        format = "%status %percentage %remaining"
+#}
+
+battery 0 {
+        format = "%status %percentage %remaining"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        last_full_capacity = true
+        integer_battery_capacity = true
+        hide_seconds = true
+        threshold_type = time
+        low_threshold = 10
+}
+
+run_watch DHCP {
+        pidfile = "/var/run/dhclient*.pid"
+}
+
+
+time {
+        #format = "%a %d-%b-%Y %I:%M:%S %p"
+        format = "%a %d/%m/%y %H:%M"
+}
+
+cpu_usage {
+        format = "cpu: %usage"
+}
+
+cpu_temperature 0 {
+        format = "T: %degrees°C"
+        path = "/sys/devices/virtual/hwmon/hwmon1/temp1_input"
+        # path = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp2_input"
+}
+
+disk "/" {
+        format = "/: %avail"
+}
+
+disk "/media/sda9" {
+        format = "/media/sda9: %avail"
+}
+
+disk "/home" { format ="/home: %avail" }
+
+disk "/nix/store" { format ="/nix/store: %avail" }
+
+
+disk "/media/sdb1" {
+        format = "/media/sdb1: %avail"
+}
