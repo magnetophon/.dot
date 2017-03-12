@@ -1,0 +1,87 @@
+IMAPAccount magnetophon
+# Address to connect to
+Host 	sub5.mail.dreamhost.com
+# PipelineDepth 50
+# Host mail.magnetophon.nl
+User bart@magnetophon.nl
+Pass U#?nwYrt
+# To store the password in an encrypted file use PassCmd instead of Pass
+# PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.mailpass.gpg"
+#
+# Use SSL
+SSLType IMAPS
+# The following line should work. If get certificate errors, uncomment the two following lines and read the "Troubleshooting" section.
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
+# CertificateFile ~/.cert/imap.gmail.com.pem
+CertificateFile ~/.cert/sub5.mail.dreamhost.com/sub5.mail.dreamhost.com.pem
+#CertificateFile ~/.cert/Equifax_Secure_CA.pem
+
+IMAPStore magnetophon-remote
+Account magnetophon
+PathDelimiter &
+
+MaildirStore magnetophon-local
+# The trailing "/" is important
+Path ~/.mail/
+Inbox ~/.mail/INBOX
+
+
+Channel inbox
+Master :magnetophon-remote:INBOX
+Slave :magnetophon-local:INBOX
+
+Channel Drafts
+Master :magnetophon-remote:Drafts
+Slave :magnetophon-local:Drafts
+
+Channel Sent
+Master :magnetophon-remote:Sent
+Slave :magnetophon-local:Sent
+
+Channel Trash
+Master :magnetophon-remote:Trash
+Slave :magnetophon-local:Trash
+
+Channel lbbhuis
+Master :magnetophon-remote:INBOX.lbbhuis
+Slave :magnetophon-local:INBOX.lbbhuis
+
+Channel lbbfrietjes
+Master :magnetophon-remote:INBOX.lbbfrietjes
+Slave :magnetophon-local:INBOX.lbbfrietjes
+
+Channel NixOS
+Master :magnetophon-remote:INBOX.NixOS
+Slave :magnetophon-local:INBOX.NixOS
+
+Channel Ardour-list
+Master :magnetophon-remote:INBOX.Ardour-list
+Slave :magnetophon-local:INBOX.Ardour-list
+
+Channel LinuxAudio-list
+Master :magnetophon-remote:INBOX.LinuxAudio-list
+Slave :magnetophon-local:INBOX.LinuxAudio-list
+
+Channel old
+Master :magnetophon-remote:
+Slave :magnetophon-local:
+# Patterns *
+Patterns * !INBOX !Drafts !Sent !Trash !INBOX.lbbhuis !INBOX.lbbfrietjes !INBOX.NixOS !INBOX.Ardour-list !INBOX.LinuxAudio-list
+
+# Group the channels, so that all channels can be sync'd with `mbsync boxes`
+Group boxes
+Channel inbox
+Channel Drafts
+Channel Sent
+Channel Trash
+Channel lbbhuis
+Channel lbbfrietjes
+Channel NixOS
+Channel Ardour-list
+Channel LinuxAudio-list
+
+# # Automatically create missing mailboxes, both locally and on the server
+Create Slave
+Expunge None
+# Save the synchronization state files in the relevant directory
+SyncState *

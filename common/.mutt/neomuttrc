@@ -1,0 +1,193 @@
+set folder = "~/.mail"
+set spoolfile = "+INBOX"
+set record = "+Sent"
+set postponed = "+Drafts"
+set trash = "+Trash"         # Set trash folder (deleted mail goes here)
+
+set realname = 'Bart Brouns'
+set from = bart@magnetophon.nl
+set use_from = yes
+
+set smtp_url = "smtp://bart@magnetophon.nl@mail.magnetophon.nl:587/"
+set smtp_pass=
+
+# Store message headers locally to speed things up.
+# If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+
+
+# Basic Options --------------------------------------
+set wait_key = no        # shut up, mutt
+set mbox_type = Maildir  # mailbox type
+#set timeout = 3          # idle time before scanning
+#set mail_check = 0       # minimum time between scans
+#unset move               # gmail does that
+set delete               # don't ask, just do
+unset confirmappend      # don't ask, just do!
+set quit                 # don't ask, just do!!
+unset mark_old           # read/new is good enough for me
+#set beep_new             # bell on new mails
+set pipe_decode          # strip headers and eval mimes when piping
+set thorough_search      # strip headers and eval mimes before searching
+
+# set editor='vim + -c "set textwidth=72" -c "set wrap" -c "set spell spelllang=nl,en,de"'
+set editor='emacseditor -c'
+# set editor="emacsclient -a \"\" -t"
+# set editor='$EDITOR'
+set sort=reverse-date-received
+set sort=threads
+set sort_aux = reverse-last-date-received # like gmail
+set sort_browser = reverse-date
+set uncollapse_jump                        # don't collapse on an unread message
+unset collapse_unread
+folder-hook . "exec collapse-all" # collapse by default
+set sort_re                                # thread based on regex
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+set fast_reply=yes# Skip prompt for subject and recipients when replying
+set autoedit=yes  # Skip the initial send-menu
+set edit_headers=yes # Edit the header of your outgoing messages along with the body of your message.
+set include=yes
+set pager_index_lines = 10
+set certificate_file= ~/.mutt/certificates
+
+# Sidebar Patch --------------------------------------
+# set sidebar_delim   = '  │'
+set sidebar_visible = yes
+set sidebar_width   = 30
+color sidebar_new color221 color233
+
+# sidebar toggle
+macro index ,@) "<enter-command> set sidebar_visible=no; macro index ~ ,@( 'Toggle sidebar'<Enter>"
+macro index ,@( "<enter-command> set sidebar_visible=yes; macro index ~ ,@) 'Toggle sidebar'<Enter>"
+macro index ~ ,@( 'Toggle sidebar'      # toggle the sidebar
+
+# Status Bar -----------------------------------------
+set status_chars  = " *%A"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+
+
+# Header Options -------------------------------------
+ignore *                                # ignore all headers
+unignore from: to: cc: date: subject:   # show only these
+unhdr_order *                           # some distros order things by default
+hdr_order from: to: cc: date: subject:  # and in this order
+
+
+# Index Key Bindings ---------------------------------
+bind index gg       first-entry
+bind index G        last-entry
+
+bind index R        group-reply
+#bind index S        sync-mailbox
+bind index <space>  collapse-thread
+bind index N search-opposite
+
+
+# Ctrl-R to mark all as read
+macro index \Ca "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+macro index,pager \CR <read-thread><previous-entry><next-unread> "mark the current thread as read, then jump to the next unread message"
+
+# Sync email
+# macro index O "<shell-escape>offlineimap<enter>"           "run offlineimap to sync all mail"
+# macro index o "<shell-escape>offlineimap -qf INBOX<enter>" "run offlineimap to sync inbox"
+
+macro index O "<shell-escape>mbsync -a && notmuch new<enter>"    "run offlineimap to sync all mail"
+macro index o "<shell-escape>mbsync inbox && notmuch new<enter>" "run offlineimap to sync inbox"
+
+# Saner copy/move dialogs
+#macro index C "<copy-message>?" "copy a message to a mailbox"
+#macro index M "<save-message>?" "move a message to a mailbox"
+
+macro index a "<limit>all\n" "show all messages (undo limit)"
+
+# Index View Options ---------------------------------
+#set date_format = "!%a, %b %d, %Y at %I:%M:%S%p %Z"
+#set index_format="%Z %[%d %b %Y %H:%M] %-17.17F (%e/%E) %s"
+ set index_format="%Z %<[1y?%<[1w?%<[1d?%[ %H:%M]&%[%a %d]>&%[%d %b]>&%[%d/%m/%y]> %-17.17F (%e/%E) %s"
+# Sidebar Navigation ---------------------------------
+bind index,pager <down>   sidebar-next
+bind index,pager <up>     sidebar-prev
+bind index,pager <right>  sidebar-open
+
+bind index   '['      half-up
+bind pager   '['      half-up
+
+bind index   ']'      half-down
+bind pager   ']'      half-down
+
+# Pager View Options ---------------------------------
+set pager_index_lines = 10 # number of index lines to show
+set pager_context = 3      # number of context lines to show
+#set pager_stop             # don't go to next message automatically
+set menu_scroll            # scroll in menus
+set tilde                  # show tildes like in vim
+unset markers              # no ugly plus signs
+set smart_wrap             # dont wrap mid word
+
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+
+auto_view text/html        # autoview html
+set mailcap_path = ~/.mutt/mailcap
+# Prefer Plain text to html, html to word etc ...
+alternative_order text/plain text/html application/vnd.msword application/msword text/enriched
+# Pager Key Bindings ---------------------------------
+#bind pager k  previous-line
+#bind pager j  next-line
+bind pager gg top
+bind pager G  bottom
+
+bind pager R  group-reply
+
+bind pager N search-opposite
+
+# View attachments properly.
+bind attach <return> view-mailcap
+
+# flow text
+set text_flowed
+# address lookup
+set query_command= "khard mutt --search '%s'"
+bind editor <f5> complete-query
+bind editor ^T    complete
+
+# colors
+source ~/.mutt/mutt_colors
+
+
+# mailboxes
+set nm_default_uri="notmuch:///home/bart/.mail" # path to the maildir
+set nm_query_type="threads"
+set virtual_spoolfile=yes                          # enable virtual folders
+#set sendmail="/PATH/TO/bin/nm_sendmail"            # enables parsing of outgoing mail
+virtual-mailboxes \
+    "inbox" "notmuch://?query=folder:INBOX" \
+    "lbbhuis" "notmuch://?query=folder:INBOX.lbbhuis" \
+    "lbbfrietjes" "notmuch://?query=folder:INBOX.lbbfrietjes" \
+    "NixOS" "notmuch://?query=folder:INBOX.NixOS" \
+    "LinuxAudio-list" "notmuch://?query=folder:INBOX.LinuxAudio-list" \
+    "Ardour-list" "notmuch://?query=folder:INBOX.Ardour-list" \
+    "Drafts" "notmuch://?query=folder:Drafts" \
+    "Sent" "notmuch://?query=folder:Sent OR folder:Sent.Sent" \
+    "old-messages" "notmuch://?query=folder:old-messages" \
+    # "Trash" "notmuch://?query=folder:Trash" \
+    "Unread"    "notmuch://?query=tag:unread"\
+    # "AmazonNewsletter" "notmuch://?query=folder:AmazonNewsletter" \
+    # "serverBU" "notmuch://?query=folder:serverBU" \
+    # "RootsBase" "notmuch://?query=folder:RootsBase" \
+    # "PureData-list" "notmuch://?query=folder:PureData-list" \
+    # "Yoshimi-list" "notmuch://?query=folder:Yoshimi-list" \
+    "Studio" "notmuch://?query=folder:INBOX.Studio" \
+   "Starred"   "notmuch://?query=tag:*"\
+#    "Sent"      "notmuch://?query=tag:sent"        # sets up queries for virtual folders
+#    "Sent.Sent" "notmuch://?query=folder:Sent.Sent" \
+
+# notmuch bindings
+macro index S "<vfolder-from-query>"              # looks up a hand made query
+macro index A "<modify-labels>+archive -unread -inbox\\n"        # tag as Archived
+macro index I "<modify-labels>-inbox -unread\\n"                 # removed from inbox
+#macro index S "<modify-labels-then-hide>-inbox -unread +junk\\n" # tag as Junk mail
+#macro index + "<modify-labels>+*\\n<sync-mailbox>"               # tag as starred
+#macro index - "<modify-labels>-*\\n<sync-mailbox>"               # tag as unstarred
+
+# vim: ft=muttrc
