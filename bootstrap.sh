@@ -20,6 +20,7 @@ else
   echo "stow dotfiles"
   for item in common zprezto; do stow $item; done;
   stow $HOST
+  echo "make dummy vim dir and rc for nixos myvim"
   mkdir ~/.vim
   touch ~/.vimrc
 fi
