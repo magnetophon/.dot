@@ -88,6 +88,8 @@ bind index N search-opposite
 macro index \Ca "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 macro index,pager \CR <read-thread><previous-entry><next-unread> "mark the current thread as read, then jump to the next unread message"
 
+bind pager <down>   previous-line
+bind pager <up>     next-line
 # Sync email
 # macro index O "<shell-escape>offlineimap<enter>"           "run offlineimap to sync all mail"
 # macro index o "<shell-escape>offlineimap -qf INBOX<enter>" "run offlineimap to sync inbox"
@@ -106,9 +108,12 @@ macro index a "<limit>all\n" "show all messages (undo limit)"
 #set index_format="%Z %[%d %b %Y %H:%M] %-17.17F (%e/%E) %s"
  set index_format="%Z %<[1y?%<[1w?%<[1d?%[ %H:%M]&%[%a %d]>&%[%d %b]>&%[%d/%m/%y]> %-17.17F (%e/%E) %s"
 # Sidebar Navigation ---------------------------------
-bind index,pager <down>   sidebar-next
-bind index,pager <up>     sidebar-prev
-bind index,pager <right>  sidebar-open
+bind index \112  sidebar-next # shift J
+bind index \113  sidebar-prev # shift K
+bind index \114  sidebar-open # shift L
+# bind index,pager <down>   sidebar-next
+# bind index,pager <up>     sidebar-prev
+# bind index,pager <right>  sidebar-open
 
 bind index   '['      half-up
 bind pager   '['      half-up
