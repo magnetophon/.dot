@@ -80,7 +80,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(notmuch)
+   dotspacemacs-additional-packages '(notmuch magit-annex)
    ;; dotspacemacs-additional-packages '((faust-mode :location (recipe :fetcher github :repo "magnetophon/emacs-faust-mode")))
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
