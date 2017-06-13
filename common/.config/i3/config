@@ -263,12 +263,16 @@ bindsym $win+m mode "Monitor select: 1(one) l(eftt) r(ight) u(p) d(own) c(lone)"
 
 
 bindSym XF86ScreenSaver       exec --no-startup-id "$Locker"
-# bindSym XF86Battery           exec --no-startup-id ""
+# goes to sleep before trying to execute the command:
+# bindSym XF86Sleep    exec --no-startup-id "systemctl hibernate"
+bindSym XF86Battery           exec --no-startup-id "systemctl hibernate"
 # bindSym XF86WLAN              exec --no-startup-id "sh -c 'st  -g 70x30+200+300  -t Select_a_WLAN  -e nmtui connect'"
 # for_window [title="Select_a_WLAN"] floating enable ; border 1pixel
 # bindSym XF86WebCam              exec --no-startup-id ""
 # bindSym XF86Display              exec --no-startup-id ""
 bindSym XF86TouchpadToggle    exec --no-startup-id "~/.local/bin/touchpad_toggle.sh"
+
+
 
 # Volume
 bindSym XF86AudioRaiseVolume  exec --no-startup-id "amixer -q set Master 3dB+"
@@ -287,14 +291,14 @@ bindSym Shift+XF86AudioMute exec amixer set Capture 1+ toggle
 
 #set $Locker sudo vlock -asn && sleep 1
 #the above doesn't like suspend and such
-set $Locker sudo physlock -s
+set $Locker sudo physlock -ms
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker,                       mode "default"
     bindsym e exec --no-startup-id i3-msg exit,                   mode "default"
-    bindsym s exec sudo systemctl suspend,                        mode "default"
-    bindsym h exec sudo systemctl hibernate,                      mode "default"
+    bindsym s exec systemctl suspend,                        mode "default"
+    bindsym h exec systemctl hibernate,                      mode "default"
     bindsym r exec --no-startup-id systemctl reboot,              mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff -i,   mode "default"
 
