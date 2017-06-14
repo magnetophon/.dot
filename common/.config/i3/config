@@ -263,9 +263,9 @@ bindsym $win+m mode "Monitor select: 1(one) l(eftt) r(ight) u(p) d(own) c(lone)"
 
 
 bindSym XF86ScreenSaver       exec --no-startup-id "$Locker"
-# goes to sleep before trying to execute the command:
+# handled in logind
 # bindSym XF86Sleep    exec --no-startup-id "systemctl hibernate"
-bindSym XF86Battery           exec --no-startup-id "systemctl hibernate"
+# bindSym XF86Battery           exec --no-startup-id "systemctl hibernate"
 # bindSym XF86WLAN              exec --no-startup-id "sh -c 'st  -g 70x30+200+300  -t Select_a_WLAN  -e nmtui connect'"
 # for_window [title="Select_a_WLAN"] floating enable ; border 1pixel
 # bindSym XF86WebCam              exec --no-startup-id ""
@@ -316,7 +316,7 @@ bindsym $win+Pause mode "$mode_system"
 #	program keybindings
 ########################################################################
 
-bindsym Ctrl+$alt+l exec i3lock -d -c DCDAD5
+bindsym Ctrl+$alt+l --no-startup-id $Locker
 
 # bindsym Ctrl+$alt+h exec clipster -s
 bindsym $win+p  exec clipster -o -n 200 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | tr -d '\n' | clipster
