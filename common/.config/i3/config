@@ -262,7 +262,7 @@ bindsym $win+m mode "Monitor select: 1(one) l(eftt) r(ight) u(p) d(own) c(lone)"
 
 
 
-bindSym XF86ScreenSaver       exec --no-startup-id "$Locker"
+bindSym XF86ScreenSaver       exec --no-startup-id $Locker
 # handled in logind
 # bindSym XF86Sleep    exec --no-startup-id "systemctl hibernate"
 # bindSym XF86Battery           exec --no-startup-id "systemctl hibernate"
@@ -291,7 +291,7 @@ bindSym Shift+XF86AudioMute exec amixer set Capture 1+ toggle
 
 #set $Locker sudo vlock -asn && sleep 1
 #the above doesn't like suspend and such
-set $Locker sudo physlock -ms
+set $Locker "sudo physlock -ms"
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -316,7 +316,7 @@ bindsym $win+Pause mode "$mode_system"
 #	program keybindings
 ########################################################################
 
-bindsym Ctrl+$alt+l --no-startup-id $Locker
+bindsym Ctrl+$alt+l exec --no-startup-id $Locker
 
 # bindsym Ctrl+$alt+h exec clipster -s
 bindsym $win+p  exec clipster -o -n 200 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | tr -d '\n' | clipster
