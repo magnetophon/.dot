@@ -80,7 +80,7 @@ This function should only modify configuration layer settings."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(notmuch magit-annex)
+   dotspacemacs-additional-packages '(magit-annex notmuch)
    ;; dotspacemacs-additional-packages '((faust-mode :location (recipe :fetcher github :repo "magnetophon/emacs-faust-mode")))
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -350,6 +350,13 @@ It should only modify the values of Spacemacs settings."
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
    dotspacemacs-whitespace-cleanup `trailing
+   ;; Either nil or a number of seconds. If non-nil zone out after the specified
+   ;; number of seconds. (default nil)
+   dotspacemacs-zone-out-when-idle nil
+   ;; Run `spacemacs/prettify-org-buffer' when
+   ;; visiting README.org files of Spacemacs.
+   ;; (default nil)
+   dotspacemacs-pretty-docs nil
    ))
 
 (defun dotspacemacs/user-init ()
@@ -358,6 +365,8 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  (push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
+  (push '(notmuch . "melpa-stable") package-pinned-packages)
   )
 
 (defun dotspacemacs/user-config ()
@@ -388,7 +397,7 @@ you should place your code here."
 
   (define-key evil-normal-state-map (kbd "<left>") 'previous-buffer)
   (define-key evil-normal-state-map (kbd "<right>") 'next-buffer)
-
+  ;; I prefer to stay on the original character when leaving insert mode
   (setq evil-move-cursor-back nil)
   (setq evil-escape-unordered-key-sequence t)
   (setq undo-tree-auto-save-history t)
@@ -451,7 +460,7 @@ This function is called at the very end of Spacemacs initialization."
  '(magit-diff-section-arguments (quote ("--ignore-all-space" "--no-ext-diff")))
  '(package-selected-packages
    (quote
-    (org-brain evil-org browse-at-remote async popup sayid password-generator evil-lion editorconfig yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic symon string-inflection avy graphviz-dot-mode powerline org-plus-contrib magit-annex parent-mode window-purpose imenu-list request gitignore-mode fringe-helper git-gutter+ git-gutter flx magit-popup git-commit with-editor iedit anzu evil goto-chg undo-tree f diminish hydra s eval-sexp-fu highlight seq spinner pkg-info epl bind-map bind-key packed dash smartparens helm helm-core projectile magit web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data alert log4e gntp markdown-mode gh marshal logito pcache ht flyspell-correct flycheck pos-tip nixos-options company inflections edn multiple-cursors paredit peg cider queue clojure-mode yasnippet auto-complete nm zenburn-theme xterm-color ws-butler winum which-key volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package unfill toc-org stickyfunc-enhance srefactor spaceline solarized-theme smeargle shell-pop restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file notmuch nix-mode neotree mwim multi-term move-text monokai-theme mmm-mode markdown-toc magithub magit-gitflow magit-gh-pulls macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-purpose helm-projectile helm-nixos-options helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator faust-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diff-hl define-word dactyl-mode company-statistics company-quickhelp company-nixos-options column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+    (impatient-mode simple-httpd org-brain evil-org browse-at-remote async popup sayid password-generator evil-lion editorconfig yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic symon string-inflection avy graphviz-dot-mode powerline org-plus-contrib magit-annex parent-mode window-purpose imenu-list request gitignore-mode fringe-helper git-gutter+ git-gutter flx magit-popup git-commit with-editor iedit anzu evil goto-chg undo-tree f diminish hydra s eval-sexp-fu highlight seq spinner pkg-info epl bind-map bind-key packed dash smartparens helm helm-core projectile magit web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data alert log4e gntp markdown-mode gh marshal logito pcache ht flyspell-correct flycheck pos-tip nixos-options company inflections edn multiple-cursors paredit peg cider queue clojure-mode yasnippet auto-complete nm zenburn-theme xterm-color ws-butler winum which-key volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package unfill toc-org stickyfunc-enhance srefactor spaceline solarized-theme smeargle shell-pop restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file notmuch nix-mode neotree mwim multi-term move-text monokai-theme mmm-mode markdown-toc magithub magit-gitflow magit-gh-pulls macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-purpose helm-projectile helm-nixos-options helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator faust-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diff-hl define-word dactyl-mode company-statistics company-quickhelp company-nixos-options column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
  '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
