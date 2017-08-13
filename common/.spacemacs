@@ -37,7 +37,6 @@ This function should only modify configuration layer settings."
      clojure ;; for overtone
      helm
      ;; yaml
-     ;; html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -51,7 +50,6 @@ This function should only modify configuration layer settings."
      ;; colors
      ;; dash
      ;; rcirc
-     ;; rust
      emacs-lisp
      ( evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
      ;; eww
