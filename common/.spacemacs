@@ -30,50 +30,50 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     spell-checking
-     python
-     ;; graphviz
-     html
-     vimscript ;; for pentadactylrc
-     clojure ;; for overtone
-     helm
-     ;; yaml
+                       auto-completion-enable-help-tooltip t
+                       auto-completion-enable-snippets-in-popup t)
+                       auto-completion-enable-sort-by-usage t
+     ( auto-completion :variables
+     ( evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
+     ;;                    layouts-autosave-delay 300)
+     ;; (spacemacs-layouts :variables layouts-enable-autosave t
+     ;; ----------------------------------------------------------------
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
-     ( auto-completion :variables
-                       auto-completion-enable-help-tooltip t
-                       auto-completion-enable-sort-by-usage t
-                       auto-completion-enable-snippets-in-popup t)
-     better-defaults
      ;; colors
      ;; dash
-     ;; rcirc
-     emacs-lisp
-     ( evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
      ;; eww
      ;; extra-langs
      ;; eyebrowse
-     faust
      ;; fasd
-     git
      ;; github
      ;; gnus
-     markdown
+     ;; graphviz
      ;; mu4e
+     ;; ranger
+     ;; rcirc
+     ;; search-engine
+     ;; yaml
+     better-defaults
+     clojure ;; for overtone
+     emacs-lisp
+     faust
+     git
+     helm
+     html
+     markdown
      nixos
      org
-     ;; ranger
-     shell
-     ;; search-engine
+     python
      semantic
-     ;; (spacemacs-layouts :variables layouts-enable-autosave t
-     ;;                    layouts-autosave-delay 300)
+     shell
+     spell-checking
      spell-checking
      syntax-checking
      version-control
+     vimscript ;; for pentadactylrc
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
