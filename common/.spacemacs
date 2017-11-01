@@ -51,11 +51,11 @@ This function should only modify configuration layer settings."
      ;; github
      ;; gnus
      ;; graphviz
-     ;; mu4e
      ;; ranger
      ;; rcirc
      ;; search-engine
      ;; yaml
+     erc
      better-defaults
      clojure ;; for overtone
      emacs-lisp
@@ -65,6 +65,10 @@ This function should only modify configuration layer settings."
      html
      markdown
      nixos
+     ;; notmuch
+     ;; mu4e
+     (mu4e :variables
+             mu4e-installation-path "/home/bart/.nix-profile/share/emacs/site-lisp/mu4e")
      org
      python
      semantic
@@ -79,7 +83,8 @@ This function should only modify configuration layer settings."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(magit-annex notmuch)
+   ;; dotspacemacs-additional-packages '(magit-annex notmuch )
+   dotspacemacs-additional-packages '(magit-annex helm-mu )
    ;; dotspacemacs-additional-packages '((faust-mode :location (recipe :fetcher github :repo "magnetophon/emacs-faust-mode")))
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -110,6 +115,7 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-elpa-https t
    ;; Maximum allowed time in seconds to contact an ELPA repository.
+   ;; (default 5)
    dotspacemacs-elpa-timeout 5
    ;; If non-nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
@@ -118,7 +124,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-check-for-update nil
    ;; If non-nil, a form that evaluates to a package directory. For example, to
    ;; use different package directories for different Emacs versions, set this
-   ;; to `emacs-version'.
+   ;; to `emacs-version'. (default nil)
    dotspacemacs-elpa-subdirectory nil
    ;; One of `vim', `emacs' or `hybrid'.
    ;; `hybrid' is like `vim' except that `insert state' is replaced by the
@@ -144,7 +150,7 @@ It should only modify the values of Spacemacs settings."
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
                                 (projects . 7))
-   ;; True if the home buffer should respond to resize events.
+   ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
@@ -160,6 +166,7 @@ It should only modify the values of Spacemacs settings."
                          monokai
                          zenburn)
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
+   ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
@@ -339,6 +346,7 @@ It should only modify the values of Spacemacs settings."
    ;; %n - Narrow if appropriate
    ;; %z - mnemonics of buffer, terminal, and keyboard coding systems
    ;; %Z - like %z, but including the end-of-line format
+   ;; (default "%I@%S")
    dotspacemacs-frame-title-format "%I@%S"
    ;; Format specification for setting the icon title format
    ;; (default nil - same as frame-title-format)
@@ -392,7 +400,7 @@ you should place your code here."
 
   (setq browse-url-browser-function 'browse-url-generic
         engine/browser-function 'browse-url-generic
-        browse-url-generic-program "firefox")
+                                                    browse-url-generic-program "firefox")
 
   (define-key evil-normal-state-map (kbd "<left>") 'previous-buffer)
   (define-key evil-normal-state-map (kbd "<right>") 'next-buffer)
@@ -405,11 +413,52 @@ you should place your code here."
 
   (add-to-list 'auto-mode-alist '("/mutt" . notmuch-message-mode))
 
-  ;; (spacemacs|define-custom-layout "@Mail"
-  ;;   :binding "m"
-  ;;   :body
-  ;;   (mu4e)
-  ;;   )
+  (spacemacs|define-custom-layout "@Mail"
+    :binding "m"
+    :body
+    (mu4e)
+    )
+;;; Set up some common mu4e variables
+  (setq mu4e-maildir "~/.mail"
+        mu4e-trash-folder "/Trash"
+        mu4e-sent-folder "/Sent"
+        mu4e-refile-folder "/Archive"
+        mu4e-drafts-folder "/Drafts"
+        mu4e-attachment-dir  "~/Downloads"
+        mu4e-get-mail-command "mbsync -V -a"
+        mu4e-update-interval nil
+        mu4e-compose-signature-auto-include nil
+        mu4e-view-show-images t
+        mu4e-view-show-addresses t
+        mu4e-enable-mode-line t
+        mu4e-user-mail-address-list "bart@magnetophon.nl")
+
+  ;; (define-key mu4e-main-mode-map "s" 'helm-mu)
+  ;; (define-key mu4e-headers-mode-map "s" 'helm-mu)
+  ;; (define-key mu4e-view-mode-map "s" 'helm-mu)
+
+;;; Mail directory shortcuts
+  (setq mu4e-maildir-shortcuts
+        '(("/INBOX" . ?i)
+          ("/INBOX.*" . ?a)))
+
+;;; Bookmarks
+  (setq mu4e-bookmarks
+        `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+          ("date:today..now" "Today's messages" ?t)
+          ("date:7d..now" "Last 7 days" ?w)
+          ("mime:image/*" "Messages with images" ?p)
+          (,(mapconcat 'identity
+                       (mapcar
+                        (lambda (maildir)
+                          (concat "maildir:" (car maildir)))
+                        mu4e-maildir-shortcuts) " OR ")
+           "All inboxes" ?i)))
+
+
+  ;;rename files when moving
+  ;;NEEDED FOR MBSYNC
+  (setq mu4e-change-filenames-when-moving t)
 
   (spacemacs|define-custom-layout "faustlib"
     :binding "l"
@@ -463,11 +512,18 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
+ '(faustine-build-backend (quote faust2jack))
+ '(faustine-pop-output-buffer t)
  '(magit-diff-section-arguments (quote ("--ignore-all-space" "--no-ext-diff")))
+ '(mu4e-user-mail-address-list nil)
+ '(notmuch-address-save-filename "~/.mail/.notmuch/adresses")
  '(package-selected-packages
    (quote
-    (org-category-capture deft impatient-mode simple-httpd org-brain evil-org browse-at-remote async popup sayid password-generator evil-lion editorconfig yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic symon string-inflection avy graphviz-dot-mode powerline org-plus-contrib magit-annex parent-mode window-purpose imenu-list request gitignore-mode fringe-helper git-gutter+ git-gutter flx magit-popup git-commit with-editor iedit anzu evil goto-chg undo-tree f diminish hydra s eval-sexp-fu highlight seq spinner pkg-info epl bind-map bind-key packed dash smartparens helm helm-core projectile magit web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data alert log4e gntp markdown-mode gh marshal logito pcache ht flyspell-correct flycheck pos-tip nixos-options company inflections edn multiple-cursors paredit peg cider queue clojure-mode yasnippet auto-complete nm zenburn-theme xterm-color ws-butler winum which-key volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package unfill toc-org stickyfunc-enhance srefactor spaceline solarized-theme smeargle shell-pop restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file notmuch nix-mode neotree mwim multi-term move-text monokai-theme mmm-mode markdown-toc magithub magit-gitflow magit-gh-pulls macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-purpose helm-projectile helm-nixos-options helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator faust-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diff-hl define-word dactyl-mode company-statistics company-quickhelp company-nixos-options column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
- '(paradox-github-token t))
+    (helm-mu mu4e-maildirs-extension mu4e-alert mbsync helm-notmuch faustine dash-functional yasnippet-snippets org-category-capture deft impatient-mode simple-httpd org-brain evil-org browse-at-remote async popup sayid password-generator evil-lion editorconfig yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic symon string-inflection avy graphviz-dot-mode powerline org-plus-contrib magit-annex parent-mode window-purpose imenu-list request gitignore-mode fringe-helper git-gutter+ git-gutter flx magit-popup git-commit with-editor iedit anzu evil goto-chg undo-tree f diminish hydra s eval-sexp-fu highlight seq spinner pkg-info epl bind-map bind-key packed dash smartparens helm helm-core projectile magit web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data alert log4e gntp markdown-mode gh marshal logito pcache ht flyspell-correct flycheck pos-tip nixos-options company inflections edn multiple-cursors paredit peg cider queue clojure-mode yasnippet auto-complete nm zenburn-theme xterm-color ws-butler winum which-key volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package unfill toc-org stickyfunc-enhance srefactor spaceline solarized-theme smeargle shell-pop restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file notmuch nix-mode neotree mwim multi-term move-text monokai-theme mmm-mode markdown-toc magithub magit-gitflow magit-gh-pulls macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-purpose helm-projectile helm-nixos-options helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator faust-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diff-hl define-word dactyl-mode company-statistics company-quickhelp company-nixos-options column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+ '(paradox-github-token t)
+ '(send-mail-function (quote smtpmail-send-it))
+ '(smtpmail-smtp-server "sub5.mail.dreamhost.com")
+ '(smtpmail-smtp-service 25))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
