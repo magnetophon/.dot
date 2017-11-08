@@ -102,7 +102,13 @@ else
     nmap -builtin <Leader>g <S-C-e>
 end
 " open url in mpv
-map <Leader>m :silent execute "!mpv '" + buffer.URL + "'"<enter>
+map <Leader>m :silent execute "!mpv '" + buffer.URL + "' &"<enter>
+
+js <<EOF
+hints.addMode("m", "Open link using mpv", function (elem) {
+io.run('mpv', ['--profile=pseudo-gui', '--cache=no', '--fs', elem.href]);
+});
+EOF
 " }}}
 
  " bypass pentadactyl commands
