@@ -17,6 +17,10 @@ set editor='emacseditor +<line>:<column>'
 
 set go=CMns
 
+" don't show tabs
+set showtabline=never
+
+" open popups in a new tab
 set popups=tab
 
 " highlight all search matches, not just the first
@@ -52,6 +56,18 @@ nmap a a<Space>-tags<Space>
 " vimium like keymap
 nmap d <C-d>
 nmap u <C-u>
+
+"" swap full zoom and text zoom mapping
+nmap -builtin zi ZI
+nmap -builtin zm ZM
+nmap -builtin zo ZO
+nmap -builtin zr ZR
+nmap -builtin zz zZ
+nmap -builtin ZI zi
+nmap -builtin ZM zm
+nmap -builtin ZO zo
+nmap -builtin ZR zr
+nmap -builtin zZ zz
 
 "this is slow:
 nmap h :tabprevious<CR>
@@ -106,7 +122,7 @@ map <Leader>m :silent execute "!mpv '" + buffer.URL + "' &"<enter>
 
 js <<EOF
 hints.addMode("m", "Open link using mpv", function (elem) {
-io.run('mpv', ['--profile=pseudo-gui', '--cache=no', '--fs', elem.href]);
+io.run('mpv', [ elem.href]);
 });
 EOF
 " }}}
@@ -132,6 +148,16 @@ set! security.ssl.treat_unsafe_negotiation_as_broken=true
 " set! extensions.checkCompatibility.nightly=false
 set! noscript.keys.tempAllowPage="alt y"
 set! noscript.keys.revokeTemp="alt x"
+
+" from https://github.com/azuwis/.pentadactyl/blob/master/rc
+" use org-protocol to capture web content {{{2
+command! orgcap -js <<EOF
+org = 'org-protocol://capture://' + encodeURIComponent(buffer.URL.spec) + '/'
+      + encodeURIComponent(buffer.title) + '/'
+      + encodeURIComponent(content.getSelection().toString());
+io.run('emacsclient', [org]);
+EOF
+nmap -builtin -ex a orgcap
 
 silent bma -tags searchengine -title 'Internet Archive' https://archive.org/search.php?query=%s                                                                   -k a
 silent bma -tags searchengine -title 'Arch Aur' https://aur.archlinux.org/packages/?O=0&C=0&SeB=nd&K=%s&outdated=&SB=n&SO=a&PP=50&do_Search=Go                    -k aa
