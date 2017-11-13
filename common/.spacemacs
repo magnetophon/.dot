@@ -68,7 +68,7 @@ This function should only modify configuration layer settings."
      ;; notmuch
      ;; mu4e
      (mu4e :variables
-             mu4e-installation-path "/home/bart/.nix-profile/share/emacs/site-lisp/mu4e")
+           mu4e-installation-path "/run/current-system/sw/share/emacs/site-lisp/mu4e")
      org
      python
      semantic
@@ -84,7 +84,7 @@ This function should only modify configuration layer settings."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    ;; dotspacemacs-additional-packages '(magit-annex notmuch )
-   dotspacemacs-additional-packages '(magit-annex helm-mu )
+   dotspacemacs-additional-packages '(magit-annex helm-mu mbsync )
    ;; dotspacemacs-additional-packages '((faust-mode :location (recipe :fetcher github :repo "magnetophon/emacs-faust-mode")))
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -117,6 +117,9 @@ It should only modify the values of Spacemacs settings."
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; (default 5)
    dotspacemacs-elpa-timeout 5
+   ;; If non-nil then verify the signature for downloaded Spacelpa archives.
+   ;; (default nil)
+   dotspacemacs-verify-spacelpa-archives nil
    ;; If non-nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
@@ -124,8 +127,8 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-check-for-update nil
    ;; If non-nil, a form that evaluates to a package directory. For example, to
    ;; use different package directories for different Emacs versions, set this
-   ;; to `emacs-version'. (default nil)
-   dotspacemacs-elpa-subdirectory nil
+   ;; to `emacs-version'. (default 'emacs-version)
+   dotspacemacs-elpa-subdirectory 'emacs-version
    ;; One of `vim', `emacs' or `hybrid'.
    ;; `hybrid' is like `vim' except that `insert state' is replaced by the
    ;; `hybrid state' with `emacs' key bindings. The value can also be a list
@@ -174,9 +177,8 @@ It should only modify the values of Spacemacs settings."
                                :size 8
                                :weight normal
                                :width normal
-                               :powerline-scale 2
-                               )
-   ;; The leader key
+                               :powerline-scale 2)
+   ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands `M-x' (after pressing on the leader key).
    ;; (default "SPC")
@@ -215,9 +217,12 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil the default layout name is displayed in the mode-line.
    ;; (default nil)
    dotspacemacs-display-default-layout t
-   ;; If non-nil then the last auto saved layouts are resume automatically upon
+   ;; If non-nil then the last auto saved layouts are resumed automatically upon
    ;; start. (default nil)
    dotspacemacs-auto-resume-layouts nil
+   ;; If non-nil, auto-generate layout name when creating new layouts. Only has
+   ;; effect when using the "jump to layout by number" commands. (default nil)
+   dotspacemacs-auto-generate-layout-names nil
    ;; Size (in MB) above which spacemacs will prompt to open the large file
    ;; literally to avoid performance issues. Opening a file literally means that
    ;; no major mode or minor modes are active. (default is 1)
@@ -242,8 +247,9 @@ It should only modify the values of Spacemacs settings."
    ;; source settings. Else, disable fuzzy matching in all sources.
    ;; (default 'always)
    dotspacemacs-helm-use-fuzzy 'always
-   ;; If non-nil the paste micro-state is enabled. When enabled pressing `p'
-   ;; several times cycle between the kill ring content. (default nil)
+   ;; If non-nil, the paste transient-state is enabled. While enabled, pressing
+   ;; `p' several times cycles through the elements in the `kill-ring'.
+   ;; (default nil)
    dotspacemacs-enable-paste-transient-state t
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
@@ -372,8 +378,6 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  (push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
-  (push '(notmuch . "melpa-stable") package-pinned-packages)
   )
 
 (defun dotspacemacs/user-config ()
@@ -431,7 +435,14 @@ you should place your code here."
         mu4e-view-show-images t
         mu4e-view-show-addresses t
         mu4e-enable-mode-line t
-        mu4e-user-mail-address-list "bart@magnetophon.nl")
+        mu4e-user-mail-address-list  '("bart@magnetophon.nl")
+        user-mail-address "bart@magnetophon.nl"
+        user-full-name  "Bart Brouns"
+        message-send-mail-function   'smtpmail-send-it
+        ;; smtpmail-default-smtp-server "sub5.mail.dreamhost.com"
+        smtpmail-smtp-server         "sub5.mail.dreamhost.com"
+        ;; smtpmail-local-domain        "example.com"
+        )
 
   ;; (define-key mu4e-main-mode-map "s" 'helm-mu)
   ;; (define-key mu4e-headers-mode-map "s" 'helm-mu)
@@ -512,18 +523,12 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
- '(faustine-build-backend (quote faust2jack))
- '(faustine-pop-output-buffer t)
  '(magit-diff-section-arguments (quote ("--ignore-all-space" "--no-ext-diff")))
- '(mu4e-user-mail-address-list nil)
- '(notmuch-address-save-filename "~/.mail/.notmuch/adresses")
  '(package-selected-packages
    (quote
-    (helm-mu mu4e-maildirs-extension mu4e-alert mbsync helm-notmuch faustine dash-functional yasnippet-snippets org-category-capture deft impatient-mode simple-httpd org-brain evil-org browse-at-remote async popup sayid password-generator evil-lion editorconfig yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic symon string-inflection avy graphviz-dot-mode powerline org-plus-contrib magit-annex parent-mode window-purpose imenu-list request gitignore-mode fringe-helper git-gutter+ git-gutter flx magit-popup git-commit with-editor iedit anzu evil goto-chg undo-tree f diminish hydra s eval-sexp-fu highlight seq spinner pkg-info epl bind-map bind-key packed dash smartparens helm helm-core projectile magit web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data alert log4e gntp markdown-mode gh marshal logito pcache ht flyspell-correct flycheck pos-tip nixos-options company inflections edn multiple-cursors paredit peg cider queue clojure-mode yasnippet auto-complete nm zenburn-theme xterm-color ws-butler winum which-key volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package unfill toc-org stickyfunc-enhance srefactor spaceline solarized-theme smeargle shell-pop restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file notmuch nix-mode neotree mwim multi-term move-text monokai-theme mmm-mode markdown-toc magithub magit-gitflow magit-gh-pulls macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-purpose helm-projectile helm-nixos-options helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator faust-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diff-hl define-word dactyl-mode company-statistics company-quickhelp company-nixos-options column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+    (mbsync zenburn-theme yapfify xterm-color ws-butler winum which-key web-mode volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package unfill toc-org tagedit symon string-inflection stickyfunc-enhance srefactor spaceline solarized-theme smeargle slim-mode shell-pop scss-mode sayid sass-mode restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el password-generator paradox orgit org-projectile org-present org-pomodoro org-download org-bullets org-brain open-junk-file nix-mode neotree mwim multi-term mu4e-maildirs-extension mu4e-alert move-text monokai-theme mmm-mode markdown-toc magit-gitflow magit-annex macrostep lorem-ipsum live-py-mode linum-relative link-hint less-css-mode info+ indent-guide impatient-mode hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-nixos-options helm-mu helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator faustine fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-search-highlight-persist evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eshell-z eshell-prompt-extras esh-help erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks emmet-mode elisp-slime-nav editorconfig dumb-jump diff-hl define-word dactyl-mode cython-mode company-web company-statistics company-quickhelp company-nixos-options company-anaconda column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
  '(paradox-github-token t)
- '(send-mail-function (quote smtpmail-send-it))
- '(smtpmail-smtp-server "sub5.mail.dreamhost.com")
- '(smtpmail-smtp-service 25))
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
