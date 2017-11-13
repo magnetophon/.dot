@@ -392,6 +392,10 @@ you should place your code here."
   ;; when you open a (single) file it uses another window (creating it if necessary):
   ;; stopped working...
   ;; (setq server-window 'pop-to-buffer)
+
+  (setq undo-tree-history-directory-alist `(("." . ,(expand-file-name "~/.undo-tree/"))))
+
+  (setq evilnc-invert-comment-line-by-line t)
   (setq vc-follow-symlinks t)
   ;; make sure we get vertical splits:
   (setq split-height-threshold `nil)
