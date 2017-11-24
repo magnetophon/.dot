@@ -89,7 +89,7 @@ This function should only modify configuration layer settings."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(org-bullets)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and deletes any unused
@@ -393,6 +393,7 @@ you should place your code here."
   ;; stopped working...
   ;; (setq server-window 'pop-to-buffer)
 
+  ;; put undo-tree history in a central directory
   (setq undo-tree-history-directory-alist `(("." . ,(expand-file-name "~/.undo-tree/"))))
 
   (setq evilnc-invert-comment-line-by-line t)
