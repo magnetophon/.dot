@@ -4,8 +4,8 @@ DEV=/sys/class/backlight/intel_backlight/brightness
 MAX=`cat /sys/class/backlight/intel_backlight/max_brightness`
 ACT=`cat /sys/class/backlight/intel_backlight/actual_brightness`
 MIN=1
-STEPS=30
-STEP=$((MAX/STEPS))
+# STEPS=30
+# STEP=$((MAX/STEPS))
 # STEP=20
 
 if [ $1 == "+" ]; then
