@@ -66,7 +66,6 @@ This function should only modify configuration layer settings."
      markdown
      nixos
      ;; notmuch
-     ;; mu4e
      (mu4e :variables
            mu4e-installation-path "/run/current-system/sw/share/emacs/site-lisp/mu4e")
      org
@@ -420,7 +419,7 @@ you should place your code here."
 
   ;; (setq default-frame-alist '((background-color . "white")))
 
-  (add-to-list 'auto-mode-alist '("/mutt" . notmuch-message-mode))
+  ;; (add-to-list 'auto-mode-alist '("/mutt" . notmuch-message-mode))
 
   (spacemacs|define-custom-layout "@Mail"
     :binding "m"
