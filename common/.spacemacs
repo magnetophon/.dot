@@ -446,6 +446,9 @@ you should place your code here."
         ;; smtpmail-default-smtp-server "sub5.mail.dreamhost.com"
         smtpmail-smtp-server         "sub5.mail.dreamhost.com"
         ;; smtpmail-local-domain        "example.com"
+        mu4e-use-fancy-chars t
+        mu4e-headers-include-related t
+        message-kill-buffer-on-exit t
         )
 
   ;; (define-key mu4e-main-mode-map "s" 'helm-mu)
@@ -474,6 +477,7 @@ you should place your code here."
   ;;rename files when moving
   ;;NEEDED FOR MBSYNC
   (setq mu4e-change-filenames-when-moving t)
+  (with-eval-after-load 'mu4e (require 'mu4e-contrib nil t))
 
   (spacemacs|define-custom-layout "faustlib"
     :binding "l"
