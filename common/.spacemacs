@@ -50,7 +50,7 @@ This function should only modify configuration layer settings."
      ;; fasd
      ;; github
      ;; gnus
-     ;; graphviz
+     ;; graphviz ;; keeps re-installing...
      ;; ranger
      ;; rcirc
      ;; search-engine
@@ -72,7 +72,6 @@ This function should only modify configuration layer settings."
      python
      semantic
      shell
-     spell-checking
      spell-checking
      syntax-checking
      version-control
