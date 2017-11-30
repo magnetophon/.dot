@@ -55,7 +55,14 @@ This function should only modify configuration layer settings."
      ;; rcirc
      ;; search-engine
      ;; yaml
-     erc
+     (erc :variables
+          erc-server-list
+          '(("irc.freenode.net"
+             :port "6697"
+             :ssl t
+             :nick "magnetophon"
+             :password "nil")
+            ))
      better-defaults
      clojure ;; for overtone
      emacs-lisp
@@ -481,6 +488,31 @@ you should place your code here."
   ;;NEEDED FOR MBSYNC
   (setq mu4e-change-filenames-when-moving t)
   (with-eval-after-load 'mu4e (require 'mu4e-contrib nil t))
+
+
+
+  ;; Stop displaying channels in the mode line for no good reason.
+  (setq erc-track-exclude-types
+        '("JOIN" "KICK" "NICK" "PART" "QUIT" "MODE" "333" "353"))
+
+  (add-hook 'erc-mode-hook
+            #'(lambda ()
+                ;; (setup-irc-environment)
+                (set (make-local-variable 'scroll-conservatively) 100)))
+
+  (setq
+   erc-server-reconnect-timeout 30
+   erc-prompt-for-nickserv-password nil
+   erc-autojoin-channels-alist '((".*freenode.net" "#nixos" "#ardour" "#opensourcemusicians" "#musnix"))
+   erc-hide-list '("JOIN" "PART" "QUIT")
+  )
+  ;; autorejoin
+  (require 'erc-join)
+  (erc-autojoin-mode)
+
+  ;; (defun run-irc ()
+    ;; (interactive)
+    ;; (erc :server "irc.freenode.net" :nick "magnetophon" :password nil))
 
   (spacemacs|define-custom-layout "faustlib"
     :binding "l"
