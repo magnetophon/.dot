@@ -138,16 +138,34 @@ map -m n,v,i,c,t <C-v> <Pass>
 map -m n,v,i,c,t <C-x> <Pass>
 
 
-" Disable iframes
-set! browser.frames.enabled=false
-" Require websites preform safe ssl negotiation
-set! security.ssl.require_safe_negotiation=true
-set! security.ssl.treat_unsafe_negotiation_as_broken=true
 
 " Change some default about:configs
 " set! extensions.checkCompatibility.nightly=false
 set! noscript.keys.tempAllowPage="alt y"
 set! noscript.keys.revokeTemp="alt x"
+" do not want pocket
+set! browser.pocket.enabled=false
+" Disable iframes
+set! browser.frames.enabled=false
+" Require websites preform safe ssl negotiation
+set! security.ssl.require_safe_negotiation=true
+set! security.ssl.treat_unsafe_negotiation_as_broken=true
+" block domains and sites known to track; can also reduce load time of sites
+set! privacy.trackingprotection.enabled=true
+" don't download pages just because they are likely to be visited
+set! network.prefetch-next=false
+" fingerprint/uniqueness
+" https://superuser.com/questions/436598/how-to-hide-browser-plugin-details-in-firefox-for-more-privacy#436602
+" not flawless, but works with https://panopticlick.eff.org/
+set! plugins.enumerable_names=""
+" https://github.com/dillbyrne/random-agent-spoofer/releases
+" set! extensions.agentSpoof.enabled=true
+" set! extensions.agentSpoof.notify=false
+" set! extensions.agentSpoof.timeInterval=randomTime
+" set! extensions.agentSpoof.uaChosen=random_desktop
+
+
+
 
 " from https://github.com/azuwis/.pentadactyl/blob/master/rc
 " use org-protocol to capture web content {{{2
