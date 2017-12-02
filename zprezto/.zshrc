@@ -92,18 +92,18 @@ fo() {
   fi
 }
 
-# fd - cd to selected directory
-fd() {
+# fzd - cd to selected directory
+# fd is now a binary, replacing find
+fzd() {
   local dir
-  dir=$(find ${1:-.} -path '*/\.*' -prune \
--o -type d -print 2> /dev/null | fzf -e --reverse +m) &&
+  dir=$(fd -t d | fzf -e --reverse +m) &&
   cd "$dir"
 }
 
 # fda - including hidden directories
 fda() {
   local dir
-  dir=$(find ${1:-.} -type d 2> /dev/null | fzf -e --reverse +m) && cd "$dir"
+  dir=$(fd -t d -H | fzf -e --reverse +m) && cd "$dir"
 }
 # cdf - cd into the directory of the selected file
 cdf() {
