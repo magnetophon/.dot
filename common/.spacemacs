@@ -457,6 +457,7 @@ you should place your code here."
         mu4e-split-view 'vertical
         mu4e-headers-visible-columns 130
         mu4e-headers-skip-duplicates t
+        mu4e-headers-leave-behavior 'apply
         ;; mu4e-view-image-max-width 400
         message-kill-buffer-on-exit t
         )
