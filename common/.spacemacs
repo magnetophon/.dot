@@ -506,6 +506,7 @@ you should place your code here."
    erc-prompt-for-nickserv-password nil
    erc-autojoin-channels-alist '((".*freenode.net" "#nixos" "#ardour" "#opensourcemusicians" "#musnix"))
    erc-hide-list '("JOIN" "PART" "QUIT")
+   erc-log-channels-directory nil
   )
   ;; autorejoin
   (require 'erc-join)
