@@ -75,7 +75,7 @@ autoload -U compinit && compinit
 # - Exit if there's no match (--exit-0)
 fe() {
   local file
-  file=$(fzf -e --reverse --query="$1" --select-1 --exit-0)
+  file=$(fzf --query="$1")
   [ -n "$file" ] && ${EDITOR:-vim} "$file" &
 }
 
@@ -84,7 +84,7 @@ fe() {
 # - CTRL-E or Enter key to open with the $EDITOR
 # fo() {
   # local out file key
-  # out=$(fzf -e --reverse --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)
+  # out=$(fzf --query="$1" --expect=ctrl-o,ctrl-e)
   # key=$(head -1 <<< "$out")
   # file=$(head -2 <<< "$out" | tail -1)
   # if [ -n "$file" ]; then
@@ -97,7 +97,7 @@ fe() {
 # - Exit if there's no match (--exit-0)
 fo() {
     local file
-    file=$(fzf -e --reverse --query="$1" --select-1 --exit-0)
+    file=$(fzf --query="$1" )
     [ -n "$file" ] && xdg-open "$file" &
 }
 
@@ -105,35 +105,35 @@ fo() {
 # fd is now a binary, replacing find
 fzd() {
   local dir
-  dir=$(fd -t d | fzf -e --reverse +m) &&
+  dir=$(fd -t d | fzf  --no-multi) &&
   cd "$dir"
 }
 
 # fda - including hidden directories
 fda() {
   local dir
-  dir=$(fd -t d -H | fzf -e --reverse +m) && cd "$dir"
+  dir=$(fd -t d -H | fzf --no-multi) && cd "$dir"
 }
 # cdf - cd into the directory of the selected file
 cdf() {
    local file
    local dir
-   file=$(fzf -e --reverse +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+   file=$(fzf --no-multi --query="$1") && dir=$(dirname "$file") && cd "$dir"
 }
 #Searching file contents
 
 #grep --line-buffered --color=never -r "" * | fzf
 
 ## with ag - respects .agignore and .gitignore
-#ag --nobreak --nonumbers --noheading . | fzf -e --reverse
+#ag --nobreak --nonumbers --noheading . | fzf
 
 # fh - repeat history
 fh() {
-  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf -e --reverse +s --tac | sed 's/ *[0-9]* *//')
+    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --no-sort --tac | sed 's/ *[0-9]* *//')
 }
 # fk - kill process
 fk() {
-  pid=$(ps -ef | sed 1d | fzf -e --reverse -m | awk '{print $2}')
+  pid=$(ps -ef | sed 1d | fzf  --multi | awk '{print $2}')
 
   if [ "x$pid" != "x" ]
   then
@@ -146,7 +146,7 @@ fbr() {
   local branches branch
   branches=$(git branch --all | grep -v HEAD) &&
   branch=$(echo "$branches" |
-fzf -e --reverse -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+    fzf --delimiter=$(( 2 + $(wc -l <<< "$branches") )) --no-multi) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
@@ -161,14 +161,14 @@ sed "s/.* //" | sed "s#remotes/[^/]*/##" |
 sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
   target=$(
 (echo "$tags"; echo "$branches") |
-fzf -e --reverse --no-hscroll  +m -d "\t" -n 2) || return
+    fzf --no-hscroll --no-multi --delimiter="\t" -n 2) || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
 # fcoc - checkout git commit
 fcoc() {
   local commits commit
   commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
-  commit=$(echo "$commits" | fzf -e --reverse --tac +s +m -e) &&
+      commit=$(echo "$commits" | fzf --tac --no-sort --no-multi ) &&
   git checkout $(echo "$commit" | sed "s/ .*//")
 }
 
@@ -177,7 +177,7 @@ fshow() {
   local out sha q
   while out=$(
 git log --decorate=short --graph --oneline --color=never |
-fzf -e --reverse  --multi --no-sort --reverse --query="$q" --print-query); do
+fzf --no-sort --query="$q" --print-query); do
     q=$(head -1 <<< "$out")
     while read sha; do
       [ -n "$sha" ] && git show --color=never $sha | less -R
@@ -190,7 +190,7 @@ ftags() {
   [ -e tags ] &&
   line=$(
 awk 'BEGIN { FS="\t" } !/^!/ {print toupper($4)"\t"$1"\t"$2"\t"$3}' tags |
-cut -c1-80 | fzf -e --reverse --nth=1,2
+cut -c1-80 | fzf --nth=1,2
 ) && $EDITOR $(cut -f3 <<< "$line") -c "set nocst" \
                                       -c "silent tag $(cut -f2 <<< "$line")"
 }
@@ -200,13 +200,13 @@ cut -c1-80 | fzf -e --reverse --nth=1,2
   #files=$(grep '^>' ~/.viminfo | cut -c3- |
 #while read line; do
 #[ -f "${line/\~/$HOME}" ] && echo "$line"
-#done | fzf -e --reverse -d -m -q "$*" -1) && vim ${files//\~/$HOME}
+#done | fzf -d -m -q "$*" -1) && vim ${files//\~/$HOME}
 #}
 # jump to dirs
 #unalias j 2> /dev/null
 #j() {
   #if [[ -j "$*" ]]; then
-    #cd "$(_j -l 2>&1 | fzf -e --reverse +s --tac | sed 's/^[0-9,.]* *//')"
+    #cd "$(_j -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
   #else
     #_j "$@"
   #fi
@@ -215,7 +215,7 @@ cut -c1-80 | fzf -e --reverse --nth=1,2
 #unalias j
 #j() {
   #if [[ -j "$*" ]]; then
-    #cd "$(_j -l 2>&1 | fzf -e --reverse +s --tac | sed 's/^[0-9,.]* *//')"
+    #cd "$(_j -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
   #else
     #_last_j_args="$@"
     #_j "$@"
@@ -223,7 +223,7 @@ cut -c1-80 | fzf -e --reverse --nth=1,2
 #}
 
 #jj() {
-  #cd "$(_j -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -e --reverse -q $_last_j_args)"
+  #cd "$(_j -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q $_last_j_args)"
 #}
 
 ##################################################################
