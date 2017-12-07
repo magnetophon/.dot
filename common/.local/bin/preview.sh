@@ -1,0 +1,82 @@
+#!/bin/sh
+
+usage () {
+	cat <<EOF>&2
+Usage: ${0##*/} FILES
+
+Preview FILES:
+
+- If folder, list it.
+
+- For text files, media files and other files supported by ranger's "scope.sh",
+  use the script to preview the file.
+
+- For other files, display some file information.
+
+EOF
+}
+
+[ $# -lt 1 ] && usage && return 1
+[ "$1" = "-h" ] && usage && return
+[ "$1" = "--" ] && shift
+
+ls="ls -1 --color=always"
+if test -t 0; then
+	ls="$ls --indicator-style=classify"
+fi
+if [ "$(uname -o)" = "GNU/Linux" ]; then
+	ls="$ls  --group-directories-first"
+fi
+
+## scope.sh.
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
+scope="$XDG_CONFIG_HOME/ranger/scope.sh"
+if [ ! -x "$scope" ]; then
+	XDG_DATA_DIRS=${XDG_DATA_DIRS:-"/usr/local/share"}
+	scope="$XDG_DATA_DIRS/doc/ranger/config/scope.sh"
+	if [ ! -x "$scope" ]; then
+		scope="/usr/share/doc/ranger/config/scope.sh"
+	fi
+fi
+
+## Several files must share the screen space.
+lines=$(expr $(tput lines) / $#)
+[ $lines -lt 1 ] && lines=1
+
+_preview() {
+	## Folders.
+	[ -d "$1" ] && $ls "$1" && return
+
+	buf=$("$scope" "$1" $(tput cols) $lines ~/.cache/ranger False)
+	status=$?
+
+	case $status in
+	1)
+		break ;;
+	2)
+		## Text files
+		sed ${lines}q "$1"
+		return ;;
+	*)
+		echo "$buf" | sed ${lines}q
+		return ;;
+	esac
+
+	## All files.
+	path="$1"
+	[ ! -e "$path" ] && path=$(command -v "$1")
+	[ ! -e "$path" ] && return
+	$ls -l "$path"
+	file "$path" | cut -d':' -f2 | cut -b 2-
+	if command -v pacman >/dev/null 2>&1; then
+		pacman -Qo "$path" 2>/dev/null
+	fi
+}
+
+[ $# -eq 1 ] && _preview "$1" && exit
+
+for i; do
+	## GNU head uses this echo when outputting multiple files.
+	echo "==> $i <=="
+	_preview "$i"
+done
