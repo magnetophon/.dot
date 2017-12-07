@@ -129,11 +129,11 @@ cdf() {
 
 # fh - repeat history
 fh() {
-    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --no-sort --tac | sed 's/ *[0-9]* *//')
+    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --no-sort --tac --preview-window=right:hidden | sed 's/ *[0-9]* *//')
 }
 # fk - kill process
 fk() {
-  pid=$(ps -ef | sed 1d | fzf  --multi | awk '{print $2}')
+    pid=$(ps -ef | sed 1d | fzf  --preview-window=right:hidden | awk '{print $2}')
 
   if [ "x$pid" != "x" ]
   then
@@ -146,7 +146,7 @@ fbr() {
   local branches branch
   branches=$(git branch --all | grep -v HEAD) &&
   branch=$(echo "$branches" |
-    fzf --delimiter=$(( 2 + $(wc -l <<< "$branches") )) --no-multi) &&
+    fzf --delimiter=$(( 2 + $(wc -l <<< "$branches") )) --no-multi --preview-window=right:hidden ) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
@@ -161,14 +161,20 @@ sed "s/.* //" | sed "s#remotes/[^/]*/##" |
 sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
   target=$(
 (echo "$tags"; echo "$branches") |
-    fzf --no-hscroll --no-multi --delimiter="\t" -n 2) || return
+    fzf --no-hscroll --no-multi --delimiter="\t" -n 2 --preview-window=right:hidden  ) || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
 # fcoc - checkout git commit
+# fcoc() {
+    # local commits commit
+    # commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
+        # commit=$(echo "$commits" | fzf --tac --no-sort --no-multi --preview-window=right:hidden ) &&
+        # git checkout $(echo "$commit" | sed "s/ .*//")
+# }
+
 fcoc() {
-  local commits commit
-  commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
-      commit=$(echo "$commits" | fzf --tac --no-sort --no-multi ) &&
+  local commit
+    commit=$(git log --pretty=oneline --abbrev-commit --reverse | fzf --no-sort --no-multi --preview-window=right:hidden ) &&
   git checkout $(echo "$commit" | sed "s/ .*//")
 }
 
@@ -176,8 +182,8 @@ fcoc() {
 fshow() {
   local out sha q
   while out=$(
-git log --decorate=short --graph --oneline --color=never |
-fzf --no-sort --query="$q" --print-query); do
+    git log --pretty=oneline --abbrev-commit --reverse |
+    fzf --no-sort --query="$q" --print-query --preview-window=right:hidden ); do
     q=$(head -1 <<< "$out")
     while read sha; do
       [ -n "$sha" ] && git show --color=never $sha | less -R
@@ -190,7 +196,7 @@ ftags() {
   [ -e tags ] &&
   line=$(
 awk 'BEGIN { FS="\t" } !/^!/ {print toupper($4)"\t"$1"\t"$2"\t"$3}' tags |
-cut -c1-80 | fzf --nth=1,2
+    cut -c1-80 | fzf --nth=1,2 --preview-window=right:hidden
 ) && $EDITOR $(cut -f3 <<< "$line") -c "set nocst" \
                                       -c "silent tag $(cut -f2 <<< "$line")"
 }
