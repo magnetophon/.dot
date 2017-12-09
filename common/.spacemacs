@@ -48,7 +48,7 @@ This function should only modify configuration layer settings."
      ;; extra-langs
      ;; eyebrowse
      ;; fasd
-     ;; github
+     github
      ;; gnus
      ;; graphviz ;; keeps re-installing...
      ;; ranger
