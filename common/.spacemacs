@@ -504,7 +504,7 @@ you should place your code here."
   (setq
    erc-server-reconnect-timeout 30
    erc-prompt-for-nickserv-password nil
-   erc-autojoin-channels-alist '((".*freenode.net" "#nixos" "#ardour" "#opensourcemusicians" "#musnix"))
+   erc-autojoin-channels-alist '((".*freenode.net" "#nixos" "#ardour" "#opensourcemusicians" "#musnix" "#i3" "#ranger"))
    erc-hide-list '("JOIN" "PART" "QUIT")
    erc-log-channels-directory nil
   )
