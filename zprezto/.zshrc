@@ -69,6 +69,13 @@ fpath=($HOME/.dot/nix-zsh-completions/.nix-zsh-completions $fpath)
 autoload -U compinit && compinit
 
 ##################################################################
+# source fzf bindings and completions
+##################################################################
+
+source "`fzf-share`/completion.zsh"
+source "`fzf-share`/key-bindings.zsh"
+
+##################################################################
 # fzf bindings
 ##################################################################
 
