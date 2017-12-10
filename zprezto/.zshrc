@@ -49,6 +49,8 @@ alias ua=unarchive
 alias ok='eval $($(fc -ln -1) 2>&1 | sed -n 2p)'
 #Find a file or directory in working dir matching a string.
 alias lsg='ls -laR| grep -ni'
+# fzf alias
+alias fa='print -z $( alias | tr = "\t" | fzf | cut -f 1)'
 
 ##################################################################
 # completions
