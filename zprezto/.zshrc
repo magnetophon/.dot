@@ -138,9 +138,10 @@ cdf() {
 
 # fh - repeat history
 # see common.nix:
-# _FZF_ZSH_PREVIEW_STRING="--preview 'echo {} | sed '\''s/ *[0-9]* *//'\'' | highlight --syntax=zsh --out-format=ansi'";
+# _FZF_ZSH_PREVIEW_STRING="echo {} | sed 's/ *[0-9]* *//' | highlight --syntax=zsh --out-format=ansi";
+
 fh() {
-    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --no-sort --tac $_FZF_ZSH_PREVIEW_STRING | sed 's/ *[0-9]* *//')
+    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --no-sort --tac --preview $_FZF_ZSH_PREVIEW_STRING --preview-window down:10:wrap | sed 's/ *[0-9]* *//')
 }
 # fk - kill process
 fk() {
