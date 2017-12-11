@@ -40,7 +40,7 @@ alias v='fasd -f -t -e vim -b viminfo'
 alias j=fasd_cd
 alias gs='git status'
 alias gst='git stash'
-alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@"'
+alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
 alias gl="glNoGraph --graph"
 alias ra=ranger
 alias ua=unarchive
