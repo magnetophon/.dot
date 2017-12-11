@@ -41,7 +41,8 @@ alias v='fasd -f -t -e vim -b viminfo'
 alias j=fasd_cd
 alias gs='git status'
 alias gst='git stash'
-alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@"'
+alias gl="glNoGraph --graph"
 alias ra=ranger
 alias ua=unarchive
 # alias wn=lr $(which "$1")
@@ -137,8 +138,10 @@ cdf() {
 #ag --nobreak --nonumbers --noheading . | fzf
 
 # fh - repeat history
+# see common.nix:
+# _FZF_ZSH_PREVIEW_STRING="--preview 'echo {} | sed '\''s/ *[0-9]* *//'\'' | highlight --syntax=zsh --out-format=ansi'";
 fh() {
-    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --no-sort --tac --preview-window=right:hidden | sed 's/ *[0-9]* *//')
+    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --no-sort --tac $_FZF_ZSH_PREVIEW_STRING | sed 's/ *[0-9]* *//')
 }
 # fk - kill process
 fk() {
@@ -153,10 +156,14 @@ fk() {
 # fbr - checkout git branch (including remote branches)
 fbr() {
   local branches branch
-  branches=$(git branch --all | grep -v HEAD) &&
+  branches=$(
+    git branch --all | grep -v HEAD |
+        sed "s/.* //" | sed "s#remotes/[^/]*/##" |
+        sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
   branch=$(echo "$branches" |
-    fzf --delimiter=$(( 2 + $(wc -l <<< "$branches") )) --no-multi --preview-window=right:hidden ) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+    fzf --no-hscroll --no-multi --delimiter="\t" -n 2 \
+        --preview="git log -200 --pretty=format:%s $(echo {+2..} |  sed 's/$/../' )" ) || return
+  git checkout $(echo "$branch" | awk '{print $2}')
 }
 
 # fco - checkout git branch/tag
@@ -170,35 +177,33 @@ sed "s/.* //" | sed "s#remotes/[^/]*/##" |
 sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
   target=$(
 (echo "$tags"; echo "$branches") |
-    fzf --no-hscroll --no-multi --delimiter="\t" -n 2 --preview-window=right:hidden  ) || return
+    fzf --no-hscroll --no-multi --delimiter="\t" -n 2 \
+        --preview="git log -200 --pretty=format:%s $(echo {+2..} |  sed 's/$/../' )" ) || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
-# fcoc - checkout git commit
-# fcoc() {
-    # local commits commit
-    # commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
-        # commit=$(echo "$commits" | fzf --tac --no-sort --no-multi --preview-window=right:hidden ) &&
-        # git checkout $(echo "$commit" | sed "s/ .*//")
-# }
 
+local _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
+local _viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
+
+# fcoc - checkout git commit
 fcoc() {
   local commit
-    commit=$(git log --pretty=oneline --abbrev-commit --reverse | fzf --no-sort --no-multi --preview-window=right:hidden ) &&
+  commit=$( glNoGraph |
+    fzf --no-sort --reverse --tiebreak=index --no-multi \
+        --preview $_viewGitLogLine ) &&
   git checkout $(echo "$commit" | sed "s/ .*//")
 }
 
 # fshow - git commit browser
 fshow() {
-  local out sha q
-  while out=$(
-    git log --pretty=oneline --abbrev-commit --reverse |
-    fzf --no-sort --query="$q" --print-query --preview-window=right:hidden ); do
-    q=$(head -1 <<< "$out")
-    while read sha; do
-      [ -n "$sha" ] && git show --color=never $sha | less -R
-    done < <(sed '1d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
-  done
+    glNoGraph |
+        fzf --no-sort --reverse --tiebreak=index --no-multi \
+            --preview $_viewGitLogLine \
+                --header "enter to view, alt-y to copy hash" \
+                --bind "enter:execute:$_viewGitLogLine   | less -R" \
+                --bind "alt-y:execute:$_gitLogLineToHash | xclip"
 }
+
 # ftags - search ctags
 ftags() {
   local line
