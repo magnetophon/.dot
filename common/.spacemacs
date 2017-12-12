@@ -432,6 +432,8 @@ you should place your code here."
     :body
     (mu4e)
     )
+  (with-eval-after-load 'mu4e
+    ;; (setq special-display-regexps '("mu4e"))
 ;;; Set up some common mu4e variables
   (setq mu4e-maildir "~/.mail"
         mu4e-trash-folder "/Trash"
@@ -461,10 +463,9 @@ you should place your code here."
         ;; mu4e-view-image-max-width 400
         message-kill-buffer-on-exit t
         )
-
-  ;; (define-key mu4e-main-mode-map "s" 'helm-mu)
-  ;; (define-key mu4e-headers-mode-map "s" 'helm-mu)
-  ;; (define-key mu4e-view-mode-map "s" 'helm-mu)
+    (define-key mu4e-main-mode-map "s" 'helm-mu)
+    (define-key mu4e-headers-mode-map "s" 'helm-mu)
+    (define-key mu4e-view-mode-map "s" 'helm-mu)
 
 ;;; Mail directory shortcuts
   (setq mu4e-maildir-shortcuts
@@ -488,9 +489,19 @@ you should place your code here."
   ;;rename files when moving
   ;;NEEDED FOR MBSYNC
   (setq mu4e-change-filenames-when-moving t)
-  (with-eval-after-load 'mu4e (require 'mu4e-contrib nil t))
+    (require 'mu4e-contrib nil t)
+  )
 
+  (defun dear-leader/swap-keys (key1 key2)
+    "Swap two leader keys."
+    (let ((map1 (lookup-key spacemacs-default-map key1))
+          (map2 (lookup-key spacemacs-default-map key2)))
+      (spacemacs/set-leader-keys key1 map2 key2 map1)))
 
+  ;; Swap mail and music keys
+  (dear-leader/swap-keys "aM" "am")
+
+  (with-eval-after-load 'erc
 
   ;; Stop displaying channels in the mode line for no good reason.
   (setq erc-track-exclude-types
@@ -515,6 +526,7 @@ you should place your code here."
   ;; (defun run-irc ()
     ;; (interactive)
     ;; (erc :server "irc.freenode.net" :nick "magnetophon" :password nil))
+  )
 
   (spacemacs|define-custom-layout "faustlib"
     :binding "l"
