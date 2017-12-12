@@ -406,7 +406,7 @@ you should place your code here."
   ;; make sure we get vertical splits:
   (setq split-height-threshold `nil)
 
-  (global-set-key [f5] 'cider-eval-defun-at-point)
+  ;; (global-set-key [f5] 'cider-eval-defun-at-point)
   ;; (global-set-key [f5] (do 'normal-mode 'cider-eval-defun-at-point))
 
   ;; (setq-default rust-enable-racer t)
@@ -416,8 +416,8 @@ you should place your code here."
         engine/browser-function 'browse-url-generic
                                                     browse-url-generic-program "firefox")
 
-  (define-key evil-normal-state-map (kbd "<left>") 'previous-buffer)
-  (define-key evil-normal-state-map (kbd "<right>") 'next-buffer)
+  ;; (define-key evil-normal-state-map (kbd "<left>") 'previous-buffer)
+  ;; (define-key evil-normal-state-map (kbd "<right>") 'next-buffer)
   ;; I prefer to stay on the original character when leaving insert mode
   (setq evil-move-cursor-back nil)
   (setq evil-escape-unordered-key-sequence t)
