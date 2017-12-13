@@ -62,7 +62,7 @@ z { set_interpolation_quality(0); }
 <Home> { goto_file_byindex(0); }
 <End>  { goto_file_byindex(-1); }
 
-g { montage_mode_enter(); montage_mode_follow(asdfghjkl) }
+g { montage_mode_enter(); montage_mode_follow(asdfghjkl); montage_mode_return_proceed() }
 G { jump_dialog() }
 
 @MONTAGE {
@@ -70,6 +70,8 @@ G { jump_dialog() }
   j { montage_mode_shift_y(1) }
   k { montage_mode_shift_y(-1) }
   l { montage_mode_shift_x(1) }
+
+  g { montage_mode_follow(asdfghjkl); montage_mode_return_proceed() }
 
   <space>     { montage_mode_shift_y_pg(1) }
   <BackSpace> { montage_mode_shift_y_pg(-1) }
