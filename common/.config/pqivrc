@@ -1,0 +1,109 @@
+[options]
+fullscreen=1
+slideshow-interval=2
+end-of-files-action=wrap-no-reshuffle
+thumbnail-size=128x128
+thumbnail-preload=300
+thumbnail-persistence=yes
+scale-mode-screen-fraction=1
+hide-info-box=1
+sort=1
+browse=1
+
+[keybindings]
+H { goto_file_relative(-1); }
+L { goto_file_relative(1); }
+
+h { shift_x(50) }
+j { shift_y(-50) }
+k { shift_y(50) }
+l { shift_x(-50) }
+
+<Control>h { shift_x(10) }
+<Control>j { shift_y(-10) }
+<Control>k { shift_y(10) }
+<Control>l { shift_x(-10) }
+
+<Left>  { shift_x(50) }
+<Down>  { shift_y(-50) }
+<Up>    { shift_y(50) }
+<Right> { shift_x(-50) }
+
+<Control><Left>  { shift_x(10) }
+<Control><Down>  { shift_y(-10) }
+<Control><Up>    { shift_y(10) }
+<Control><Right> { shift_x(-10) }
+
+<KP_Left>  { shift_x(50) }
+<KP_Down>  { shift_y(-50) }
+<KP_Up>    { shift_y(50) }
+<KP_Right> { shift_x(-50) }
+
+<Control><KP_Left>  { shift_x(10) }
+<Control><KP_Down>  { shift_y(-10) }
+<Control><KP_Up>    { shift_y(10) }
+<Control><KP_Right> { shift_x(-10) }
+
+i { set_scale_level_relative(2) }
+o { set_scale_level_relative(0.5) }
+0 { toggle_scale_mode(5); set_shift_x(0); set_shift_y(0); }
+
+f { toggle_fullscreen() }
+b { toggle_info_box(); }
+
+t { send_keys(#1); }
+  <numbersign>1 { set_scale_level_absolute(1); bind_key(t { send_keys(#2\); }); }
+  <numbersign>2 { toggle_scale_mode(5);  bind_key(t { send_keys(#1\); }); }
+
+y { command(echo -n $1 | xclip) }
+
+z { set_interpolation_quality(0); }
+
+<Home> { goto_file_byindex(0); }
+<End>  { goto_file_byindex(-1); }
+
+g { montage_mode_enter(); montage_mode_follow(asdfghjkl) }
+G { jump_dialog() }
+
+@MONTAGE {
+  h { montage_mode_shift_x(-1) }
+  j { montage_mode_shift_y(1) }
+  k { montage_mode_shift_y(-1) }
+  l { montage_mode_shift_x(1) }
+
+  <space>     { montage_mode_shift_y_pg(1) }
+  <BackSpace> { montage_mode_shift_y_pg(-1) }
+
+}
+
+# changing thumbnail size
+@MONTAGE {
+	o { send_keys(:t64); }
+	i { send_keys(:t256); }
+	:t64 {
+		set_thumbnail_size(64, 64);
+		bind_key(@MONTAGE { o { send_keys(:t512\); }});
+		bind_key(@MONTAGE { i { send_keys(:t128\); }});
+	}
+	:t128 {
+		set_thumbnail_size(128, 128);
+		bind_key(@MONTAGE { o { send_keys(:t64\); }});
+		bind_key(@MONTAGE { i { send_keys(:t256\); }});
+	}
+	:t256 {
+		set_thumbnail_size(256, 256);
+		bind_key(@MONTAGE { o { send_keys(:t128\); }});
+		bind_key(@MONTAGE { i { send_keys(:t512\); }});
+	}
+	:t512 {
+		set_thumbnail_size(512, 512);
+		bind_key(@MONTAGE { o { send_keys(:t256\); }});
+		bind_key(@MONTAGE { i { send_keys(:t64\); }});
+	}
+}
+
+[actions]
+# keep user set zoom when switching images
+toggle_scale_mode(5)
+set_interpolation_quality(2)
+montage_mode_set_wrap_mode(2)
