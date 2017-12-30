@@ -10,15 +10,15 @@ MIN=1
 
 if [ $1 == "+" ]; then
     if [ $((ACT*2)) -le $MAX ]; then
-        echo $((ACT*2)) > $DEV
+        light -Sr $((ACT*2))
     else
-        echo $MAX > $DEV
+        light -Sr $MAX
     fi
 elif [ $1 == "-" ]; then
     if [ $((ACT/2)) -ge $MIN ]; then
-        echo $((ACT/2)) > $DEV
+        light -Sr $((ACT/2))
     else
-        echo $MIN > $DEV
+        light -Sr $MIN
     fi
 fi
 
