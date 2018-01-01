@@ -130,7 +130,15 @@ cdf() {
    local dir
    file=$(fzf --no-multi --query="$1") && dir=$(dirname "$file") && cd "$dir"
 }
+
 #Searching file contents
+fzg() {
+    local query="$1"
+    rg $query --files-with-matches |
+        fzf \
+            --preview-window=bottom --preview="rg $query --no-filename --color ansi --context 15 --glob {}" \
+            --header="rg query: $query"
+}
 
 #grep --line-buffered --color=never -r "" * | fzf
 
