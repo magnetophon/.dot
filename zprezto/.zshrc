@@ -50,8 +50,31 @@ alias ua=unarchive
 alias ok='eval $($(fc -ln -1) 2>&1 | sed -n 2p)'
 #Find a file or directory in working dir matching a string.
 alias lsg='ls -laR| grep -ni'
+
 # fzf alias
-alias fa='print -z $( alias | tr = "\t" | fzf | cut -f 1)'
+alias fa='print -z $( alias | tr = "\t" | fzf --preview-window=right:hidden | cut -f 1)'
+
+# pick a function or an alias
+ff() {
+    (print -l ${(ok)functions} | grep -v '^_' | sed 's/^/function: /' &&  alias | tr = "\t"| cut -f 1 | sed 's/^/alias: /' ) |
+        fzf --preview="
+                which $(echo {} | sed 's/function: //' | sed 's/alias: //')" \
+        --preview-window=bottom | sed 's/^function: //' | sed 's/^alias: //'
+}
+
+
+# get the link to a binary
+wh() {
+    ls -lR $(which $1)
+}
+
+# fuzzy get the link to a binary
+fw() {
+    whence -pm '*' | xargs ls -lR --color |
+        fzf --preview="echo {} | grep -o '[^ ]*$' | xargs ~/.local/bin/preview.sh" \
+            --preview-window=down:wrap |
+        grep -o '[^ ]*$'
+}
 
 ##################################################################
 # completions
