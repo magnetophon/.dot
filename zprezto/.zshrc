@@ -76,6 +76,8 @@ fw() {
         grep -o '[^ ]*$'
 }
 
+alias fzg="sk -i -c 'rg --color always --line-number '{}'' --preview '~/.local/bin/fzg_preview.sh {0}' --ansi --reverse --bind 'alt-z:toggle-preview,alt-a:toggle-all,ctrl-a:select-all' --multi --exact --no-height --color=light"
+
 ##################################################################
 # completions
 ##################################################################
@@ -155,13 +157,14 @@ cdf() {
 }
 
 #Searching file contents
-fzg() {
-    local query="$1"
-    rg $query --files-with-matches |
-        fzf \
-            --preview-window=bottom --preview="rg $query --no-filename --color ansi --context 15 --glob {}" \
-            --header="rg query: $query"
-}
+# fzg() {
+    # local query="$1"
+    # rg $query --files-with-matches |
+        # fzf \
+            # --preview-window=bottom --preview="rg $query --no-filename --color ansi --context 15 --glob {}" \
+            # --header="rg query: $query"
+# }
+
 
 #grep --line-buffered --color=never -r "" * | fzf
 
