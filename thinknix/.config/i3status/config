@@ -30,7 +30,7 @@ volume master {
 
 
 disk "/" {
-  format = "/: %avail"
+  format = " %avail"
   low_threshold = 15
   threshold_type = gbytes_avail
   separator = false
@@ -38,22 +38,22 @@ disk "/" {
 }
 
 disk "/home" {
-  format ="/home: %avail"
+  format =" %avail"
   low_threshold = 15
   threshold_type = gbytes_avail
   separator = false
   separator_block_width = 20
 }
 
-wireless wlan0 {
-  format_up = "%quality at %essid %ip"
+wireless _first_ {
+  format_up = " %quality at %essid %ip"
   format_down = " "
   separator = false
   separator_block_width = 20
 }
 
-ethernet eth0 {
-  format_up = "%speed  %ip"
+ethernet _first_ {
+  format_up = " %speed  %ip"
   format_down = ""
   separator = false
   separator_block_width = 20
@@ -61,24 +61,27 @@ ethernet eth0 {
 
 battery all {
   format = "%status %percentage %remaining"
-  # path = "/sys/class/power_supply/BAT%d/uevent"
   last_full_capacity = true
   integer_battery_capacity = true
   hide_seconds = true
   threshold_type = time
   low_threshold = 10
+  status_chr = ""
+  status_bat = ""
+  status_unk = ""
+  status_full = ""
   separator = false
   separator_block_width = 20
 }
 
 cpu_usage {
-  format = "cpu: %usage"
+  format = " %usage"
   separator = false
   separator_block_width = 20
 }
 
 cpu_temperature 0 {
-  format = "T: %degrees°C"
+  format = " %degrees°C"
   # run sensors, see high value
   max_threshold = 86
   separator = false
