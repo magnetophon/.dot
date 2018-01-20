@@ -98,8 +98,14 @@ autoload -U compinit && compinit
 # source fzf bindings and completions
 ##################################################################
 
-source "`fzf-share`/completion.zsh"
-source "`fzf-share`/key-bindings.zsh"
+if [ -n "${commands[fzf-share]}" ]; then
+    source "$(fzf-share)/key-bindings.zsh"
+fi
+
+# todo: get working:
+if [ -n "${commands[fzf-share]}" ]; then
+    source "$(fzf-share)/completion.zsh"
+fi
 
 ##################################################################
 # fzf bindings
