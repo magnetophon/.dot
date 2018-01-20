@@ -91,7 +91,6 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 #zstyle ':completion:*:manuals.*'  insert-sections true
 #zstyle ':completion:*:man.*' group-name manual
 
-fpath=($HOME/.dot/nix-zsh-completions/.nix-zsh-completions $fpath)
 autoload -U compinit && compinit
 
 ##################################################################
