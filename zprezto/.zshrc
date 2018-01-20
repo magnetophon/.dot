@@ -258,6 +258,16 @@ fm() {
         fzf --print0 --multi)"}"; do mpv $file; done
 }
 
+# flv2 - lv2 plugin finder and runner
+flv2() {
+    lv2ls |
+        fzf --no-sort --reverse --tiebreak=index --no-multi \
+            --preview "lv2info {}" \
+            --header "enter to run, alt-y to copy url" \
+            --bind "enter:execute:jalv.gtk {}" \
+            --bind 'alt-y:execute:echo {} | xclip' \
+}
+
 # v - open files in ~/.viminfo
 #v() {
   #local files
