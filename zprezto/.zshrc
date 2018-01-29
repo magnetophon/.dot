@@ -76,7 +76,7 @@ fw() {
         grep -o '[^ ]*$'
 }
 
-alias fzg="sk -i -c 'rg --smart-case --color always --line-number --hidden '{}'' --preview '~/.local/bin/fzg_preview.sh {0}' --ansi --reverse --bind 'alt-z:toggle-preview,alt-a:toggle-all,ctrl-a:select-all' --multi --exact --no-height --color=light"
+alias fzg="sk -i -c 'rg --smart-case --color always --line-number --hidden --follow '{}'' --preview '~/.local/bin/fzg_preview.sh {0}' --ansi --reverse --bind 'alt-z:toggle-preview,alt-a:toggle-all,ctrl-a:select-all' --multi --exact --no-height --color=light"
 
 ##################################################################
 # completions
@@ -259,7 +259,7 @@ awk 'BEGIN { FS="\t" } !/^!/ {print toupper($4)"\t"$1"\t"$2"\t"$3}' tags |
 # fm - fuzzy music player
 fm() {
     cd ~
-    for file in "${(0)"$(rg --smart-case --iglob '*.{mp3,wav,flac,ogg,,mpg,avi,mpeg,flv,mov,m2v,mp4,m4a,aif,aiff,wma,mkv}' --glob '!Impulses/' --glob '!ardour/*/interchange/' --files |
+    for file in "${(0)"$(rg --smart-case --follow --iglob '*.{mp3,wav,flac,ogg,,mpg,avi,mpeg,flv,mov,m2v,mp4,m4a,aif,aiff,wma,mkv}' --glob '!Impulses/' --glob '!ardour/*/interchange/' --files |
         fzf --print0 --multi)"}"; do mpv $file; done
 }
 
