@@ -44,7 +44,7 @@ alias gst='git stash'
 alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
 alias gl="glNoGraph --graph"
 alias ra=ranger
-alias ua=unarchive
+alias ua='dtrx --recursive --one=here --verbose'
 # alias wn=lr $(which "$1")
 #Install a package I don’t have but tried to use
 alias ok='eval $($(fc -ln -1) 2>&1 | sed -n 2p)'
