@@ -35,7 +35,7 @@ SAVEHIST=$HISTSIZE
 # aliases
 ##################################################################
 # not using fzf yet
-alias vi=$EDITOR
+alias vi='$EDITOR --no-wait --create-frame'
 alias vh='$EDITOR -M ~/.vim/vim_keys.txt'
 alias v='fasd -f -t -e vim -b viminfo'
 alias j=fasd_cd
