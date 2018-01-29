@@ -4,19 +4,20 @@
 # documentation.  Do NOT add them all here, or you may end up with defunct
 # commands when upgrading ranger.
 
-# You always need to import ranger.api.commands here to get the Command class:
-from ranger.api.commands import *
-
 # A simple command for demonstration purposes follows.
 # -----------------------------------------------------------------------------
+
+from __future__ import (absolute_import, division, print_function)
 
 # You can import any python module as needed.
 import os
 
+# You always need to import ranger.api.commands here to get the Command class:
+from ranger.api.commands import Command
+
+
 # Any class that is a subclass of "Command" will be integrated into ranger as a
 # command.  Try typing ":my_edit<ENTER>" in ranger!
-
-
 class my_edit(Command):
     # The so-called doc-string of the class will be visible in the built-in
     # help that is accessible by typing "?c" inside ranger.
@@ -72,7 +73,8 @@ class bulkrename(Command):
     This shell script is opened in an editor for you to review.
     After you close it, it will be executed.
     """
-    def execute(self):
+
+    def execute(self):  # pylint: disable=too-many-locals,too-many-statements
         import sys
         import tempfile
         from ranger.container.file import File
@@ -103,8 +105,8 @@ class bulkrename(Command):
         script_lines = []
         script_lines.append("# This file will be executed when you close the editor.\n")
         script_lines.append("# Please double-check everything, clear the file to abort.\n")
-        script_lines.extend("mv -vi -- %s %s\n" % (esc(old), esc(new)) \
-                for old, new in zip(filenames, new_filenames) if old != new)
+        script_lines.extend("mv -vi -- %s %s\n" % (esc(old), esc(new))
+                            for old, new in zip(filenames, new_filenames) if old != new)
         script_content = "".join(script_lines)
         if py3:
             cmdfile.write(script_content.encode("utf-8"))
