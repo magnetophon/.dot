@@ -98,7 +98,7 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(magit-annex helm-mu mbsync )
+   dotspacemacs-additional-packages '(magit-annex helm-mu mbsync org-autolist )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -134,9 +134,15 @@ It should only modify the values of Spacemacs settings."
    ;; (default 5)
    dotspacemacs-elpa-timeout 5
 
+   ;; Set `gc-cons-threshold' and `gc-cons-percentage' when startup finishes.
+   ;; This is an advanced option and should not be changed unless you suspect
+   ;; performance issues due to garbage collection operations.
+   ;; (default '(100000000 0.1))
+   dotspacemacs-gc-cons '(100000000 0.1)
+
    ;; If non-nil then Spacelpa repository is the primary source to install
-   ;; a locked version of packages. If nil then Spacemacs will install the lastest
-   ;; version of packages from MELPA. (default nil)
+   ;; a locked version of packages. If nil then Spacemacs will install the
+   ;; lastest version of packages from MELPA. (default nil)
    dotspacemacs-use-spacelpa nil
 
    ;; If non-nil then verify the signature for downloaded Spacelpa archives.
@@ -203,6 +209,16 @@ It should only modify the values of Spacemacs settings."
                          solarized-dark
                          monokai
                          zenburn)
+
+   ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
+   ;; `all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
+   ;; are spaceline themes. `vanilla' is default Emacs mode-line. `custom' is a
+   ;; user defined themes, refer to the DOCUMENTATION.org for more info on how
+   ;; to create your own spaceline theme. Value can be a symbol or list with\
+   ;; additional properties.
+   ;; (default '(spacemacs :separator wave :separator-scale 1.5))
+   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 2)
+
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
@@ -213,11 +229,6 @@ It should only modify the values of Spacemacs settings."
                                :size 8
                                :weight normal
                                :width normal)
-
-   dotspacemacs-mode-line-theme '(spacemacs
-                                  ;; :separator wave
-                                  :separator-scale 2
-                                  )
 
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
@@ -415,11 +426,6 @@ It should only modify the values of Spacemacs settings."
    ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
    ;; (default '("rg" "ag" "pt" "ack" "grep"))
    dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
-
-   ;; The default package repository used if no explicit repository has been
-   ;; specified with an installed package.
-   ;; Not used for now. (default nil)
-   dotspacemacs-default-package-repository nil
 
    ;; Format specification for setting the frame title.
    ;; %a - the `abbreviated-file-name', or `buffer-name'
@@ -638,7 +644,7 @@ before packages are loaded."
   ;; (setq org-agenda-files '(org-directory) )
   (setq org-agenda-files '("~//org/"))
   (setq org-default-notes-file (concat org-directory "/notes.org"))
-
+  (add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
