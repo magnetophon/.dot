@@ -65,7 +65,7 @@ ff() {
 
 # get the link to a binary
 wh() {
-    ls -lR $(which $1)
+    command ls -lR $(command which $1)
 }
 
 # fuzzy get the link to a binary
