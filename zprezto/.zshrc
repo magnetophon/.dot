@@ -263,6 +263,9 @@ fm() {
         fzf --print0 --multi)"}"; do mpv $file; done
 }
 
+# always run mpv in the background
+function mpv() { command mpv "$@" & disown; }
+
 # flv2 - lv2 plugin finder and runner
 flv2() {
     lv2ls |
