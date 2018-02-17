@@ -631,6 +631,48 @@ there are no attachments."
           (keyboard-quit))))
 
     (add-hook 'message-send-hook #'mbork/message-warn-if-no-attachments)
+
+    ;; function to return first name of email recipients
+    ;; used by yasnippet
+    ;; inspired by
+    ;;http://blog.binchen.org/posts/how-to-use-yasnippets-to-produce-email-templates-in-emacs.html
+    (defun bjm/mu4e-get-names-for-yasnippet ()
+      "Return comma separated string of names for an email"
+      (interactive)
+      (let ((email-name "") str email-string email-list email-name2 tmpname)
+        (save-excursion
+          (goto-char (point-min))
+          ;; first line in email could be some hidden line containing NO to field
+          (setq str (buffer-substring-no-properties (point-min) (point-max))))
+        ;; take name from TO field - match series of names
+        (when (string-match "^To: \"?\\(.+\\)" str)
+          (setq email-string (match-string 1 str)))
+        ;;split to list by comma
+        (setq email-list (split-string email-string " *, *"))
+        ;;loop over emails
+        (dolist (tmpstr email-list)
+          ;;get first word of email string
+          (setq tmpname (car (split-string tmpstr " ")))
+          ;;remove whitespace or ""
+          (setq tmpname (replace-regexp-in-string "[ \"]" "" tmpname))
+          ;;join to string
+          (setq email-name
+                (concat email-name ", " tmpname)))
+        ;;remove initial comma
+        (setq email-name (replace-regexp-in-string "^, " "" email-name))
+
+        ;;see if we want to use the name in the FROM field
+        ;;get name in FROM field if available, but only if there is only
+        ;;one name in TO field
+        (if (< (length email-list) 2)
+            (when (string-match "^\\([^ ,\n]+\\).+writes:$" str)
+              (progn (setq email-name2 (match-string 1 str))
+                     ;;prefer name in FROM field if TO field has "@"
+                     (when (string-match "@" email-name)
+                       (setq email-name email-name2))
+                     )))
+        (upcase-initials (downcase email-name))))
+
   )
 
   (defun dear-leader/swap-keys (key1 key2)
