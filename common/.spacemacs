@@ -520,6 +520,7 @@ before packages are loaded."
     :body
     (mu4e)
     )
+
   (with-eval-after-load 'mu4e
     ;; (setq special-display-regexps '("mu4e"))
 ;;; Set up some common mu4e variables
@@ -584,6 +585,11 @@ before packages are loaded."
   ;;NEEDED FOR MBSYNC
   (setq mu4e-change-filenames-when-moving t)
     (require 'mu4e-contrib nil t)
+
+    ;;store org-mode links to messages
+    (require 'org-mu4e)
+    ;;store link to message if in header view, not to header query
+    (setq org-mu4e-link-query-in-headers-mode nil)
   )
 
   (defun dear-leader/swap-keys (key1 key2)
