@@ -78,7 +78,8 @@ This function should only modify configuration layer settings."
      nixos
      ;; notmuch
      (mu4e :variables
-           mu4e-installation-path "/run/current-system/sw/share/emacs/site-lisp/mu4e"
+           ;; mu4e-installation-path "/run/current-system/sw/share/emacs/site-lisp/mu4e"
+           mu4e-installation-path "/home/bart/.nix-profile/share/emacs/site-lisp/mu4e"
            mu4e-use-maildirs-extension t
            mu4e-enable-async-operations t)
      org
