@@ -734,6 +734,8 @@ there are no attachments."
   (setq org-agenda-files '("~//org/"))
   (setq org-default-notes-file (concat org-directory "/notes.org"))
   (add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
+  (setq org-todo-keywords
+        '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
   (setq org-capture-templates
         '(("t" "todo" entry (file+headline "~/org/todo.org" "Tasks")
            "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
