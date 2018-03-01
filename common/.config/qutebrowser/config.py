@@ -739,7 +739,7 @@ c.downloads.remove_finished = -1
 # `{line0}`: Same as `{line}`, but starting from index 0. * `{column0}`:
 # Same as `{column}`, but starting from index 0.
 # Type: ShellCommand
-c.editor.command = [ "emacseditor" ,  "--create-frame", "--no-wait", "'{file}'" ]
+c.editor.command = [ "emacseditor" ,  "--create-frame", "{file}" ]
 
 # Encoding to use for the editor.
 # Type: Encoding
