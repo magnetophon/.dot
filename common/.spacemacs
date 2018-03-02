@@ -502,7 +502,7 @@ before packages are loaded."
 
   (setq browse-url-browser-function 'browse-url-generic
         engine/browser-function 'browse-url-generic
-                                                    browse-url-generic-program "firefox")
+        browse-url-generic-program "qutebrowser")
 
   ;; (define-key evil-normal-state-map (kbd "<left>") 'previous-buffer)
   ;; (define-key evil-normal-state-map (kbd "<right>") 'next-buffer)
