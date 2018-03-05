@@ -394,10 +394,10 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-line-numbers '(:relative nil
                                          :disabled-for-modes dired-mode
                                          doc-view-mode
-                                         markdown-mode
-                                         org-mode
+                                         ;; markdown-mode
+                                         ;; org-mode
                                          pdf-view-mode
-                                         text-mode
+                                         ;; text-mode
                                          :size-limit-kb 1000)
 
    ;; Code folding method. Possible values are `evil' and `origami'.
