@@ -1205,7 +1205,8 @@ c.tabs.padding = {'top': 0, 'bottom': 0, 'left': 5, 'right': 5}
 
 # Stay in insert/passthrough mode when switching tabs.
 # Type: Bool
-c.tabs.persist_mode_on_change = False
+# c.tabs.persist_mode_on_change = False
+c.tabs.mode_on_change = 'restore'
 
 # Shrink pinned tabs down to their contents.
 # Type: Bool
