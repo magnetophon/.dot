@@ -553,6 +553,16 @@ before packages are loaded."
         message-kill-buffer-on-exit t
         mu4e-enable-notifications t
         )
+    ;; I want my format=flowed thank you very much
+    ;; mu4e sets up visual-line-mode and also fill (M-q) to do the right thing
+    ;; each paragraph is a single long line; at sending, emacs will add the
+    ;; special line continuation characters.
+    (setq mu4e-compose-format-flowed t)
+
+    ;; every new email composition gets its own frame! (window)
+    (setq mu4e-compose-in-new-frame t)
+
+    (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
 
   (with-eval-after-load 'mu4e-alert
     ;; Enable Desktop notifications
