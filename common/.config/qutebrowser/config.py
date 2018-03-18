@@ -475,7 +475,8 @@ c.content.cache.size = None
 #   - no-3rdparty: Accept cookies from the same origin only.
 #   - no-unknown-3rdparty: Accept cookies from the same origin only, unless a cookie is already set for the domain.
 #   - never: Don't accept cookies at all.
-# c.content.cookies.accept = 'no-3rdparty'
+# not in webengine:
+# c.content.cookies.accept = 'never'
 
 # Store cookies. Note this option needs a restart with QtWebEngine on Qt
 # < 5.9.
@@ -532,6 +533,7 @@ c.content.headers.do_not_track = True
 #   - always: Always send the Referer.
 #   - never: Never send the Referer. This is not recommended, as some sites may break.
 #   - same-domain: Only send the Referer for the same domain. This will still protect your privacy, but shouldn't break any sites.
+# not in webengine:
 # c.content.headers.referer = 'same-domain'
 
 # User agent to send. Unset to send the default.
@@ -1112,7 +1114,7 @@ c.session.lazy_restore = False
 #   - tr-TR: Turkish (Turkey)
 #   - uk-UA: Ukrainian (Ukraine)
 #   - vi-VN: Vietnamese (Viet Nam)
-c.spellcheck.languages = []
+c.spellcheck.languages = [ "en-US", "nl-NL", "de-DE" ]
 
 # Hide the statusbar unless a message is shown.
 # Type: Bool
@@ -1219,7 +1221,7 @@ c.tabs.pinned.shrink = True
 #   - bottom
 #   - left
 #   - right
-c.tabs.position = 'bottom'
+c.tabs.position = 'left'
 
 # Which tab to select when the focused tab is removed.
 # Type: SelectOnRemove
@@ -1227,7 +1229,7 @@ c.tabs.position = 'bottom'
 #   - prev: Select the tab which came before the closed one (left in horizontal, above in vertical).
 #   - next: Select the tab which came after the closed one (right in horizontal, below in vertical).
 #   - last-used: Select the previously selected tab.
-c.tabs.select_on_remove = "next"
+c.tabs.select_on_remove = "last-used"
 
 # When to show the tab bar.
 # Type: String
@@ -1236,7 +1238,7 @@ c.tabs.select_on_remove = "next"
 #   - never: Always hide the tab bar.
 #   - multiple: Hide the tab bar if only one tab is open.
 #   - switching: Show the tab bar when switching tabs.
-c.tabs.show = 'switching'
+c.tabs.show = 'never'
 
 # Duration (in milliseconds) to show the tab bar before hiding it when
 # tabs.show is set to 'switching'.
@@ -1535,7 +1537,7 @@ config.bind('{{', 'navigate prev -t')
 config.bind('}}', 'navigate next -t')
 
 config.bind(',m', 'spawn mpv {url}')
-config.bind(';m', 'hint links spawn mpv {hint-url}')
+config.bind(';m', 'hint all spawn mpv {hint-url}')
 
 # Bindings for caret mode
 config.bind('$', 'move-to-end-of-line', mode='caret')
