@@ -1537,6 +1537,7 @@ config.bind('yd', 'yank domain')
 config.bind('yp', 'yank pretty-url')
 config.bind('yt', 'yank title')
 config.bind('yy', 'yank')
+config.bind('Y', 'yank selection -s')
 config.bind('{{', 'navigate prev -t')
 config.bind('}}', 'navigate next -t')
 
