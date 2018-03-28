@@ -30,6 +30,8 @@ fi
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 
+# make a dir and go to it
+mkcd() { mkdir -p "$1" && cd "$_"; }
 
 ##################################################################
 # aliases
