@@ -480,7 +480,6 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  ;; (persp-load-state-from-file "~/.dot/common/.spacemacs_dir/MyLayout")
   ;; (persp-load-state-from-file "~/.emacs.d/.cache/layouts/mylayout")
   ;; when you open a (single) file it uses another window (creating it if necessary):
   ;; stopped working...
@@ -600,6 +599,9 @@ before packages are loaded."
     (require 'org-mu4e)
     ;;store link to message if in header view, not to header query
     (setq org-mu4e-link-query-in-headers-mode nil)
+
+    ;;use org mode for eml files (useful for thunderbird plugin)
+    (add-to-list 'auto-mode-alist '("\\.eml\\'" . mu4e-compose-mode))
 
     (defun mbork/message-attachment-present-p ()
       "Return t if an attachment is found in the current message."
@@ -749,6 +751,8 @@ there are no attachments."
   (setq org-capture-templates
         '(("t" "todo" entry (file+headline "~/org/todo.org" "Tasks")
            "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
+
+  (persp-load-state-from-file "~/.dot/common/.spacemacs_dir/MyLayout")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
