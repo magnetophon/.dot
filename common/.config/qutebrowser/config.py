@@ -1159,7 +1159,7 @@ c.tabs.favicons.scale = 1.0
 
 # Show favicons in the tab bar.
 # Type: Bool
-c.tabs.favicons.show = True
+c.tabs.favicons.show = "always";
 
 # Padding (in pixels) for tab indicators.
 # Type: Padding
@@ -1355,7 +1355,7 @@ c.url.yank_ignored_parameters = ['ref', 'utm_source', 'utm_medium', 'utm_campaig
 
 # Hide the window decoration when using wayland.
 # Type: Bool
-c.window.hide_wayland_decoration = False
+c.window.hide_decoration = False
 
 # Format to use for the window title. The same placeholders like for
 # `tabs.title.format` are defined.
