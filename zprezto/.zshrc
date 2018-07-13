@@ -53,6 +53,9 @@ alias ok='eval $($(fc -ln -1) 2>&1 | sed -n 2p)'
 #Find a file or directory in working dir matching a string.
 alias lsg='ls -laR| grep -ni'
 
+# fuzzy run:
+alias fr='print -z $(print -l ${(ok)commands} | fzf --preview="MANWIDTH=150 man {}" --preview-window=right:75%)'
+
 # fzf alias
 alias fa='print -z $( alias | tr = "\t" | fzf --preview-window=right:hidden | cut -f 1)'
 
