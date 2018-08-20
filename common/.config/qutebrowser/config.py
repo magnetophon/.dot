@@ -1026,7 +1026,7 @@ c.qt.force_platform = None
 # Force software rendering for QtWebEngine. This is needed for
 # QtWebEngine to work with Nouveau drivers.
 # Type: Bool
-c.qt.force_software_rendering = False
+c.qt.force_software_rendering = 'none'
 
 # Turn on Qt HighDPI scaling. This is equivalent to setting
 # QT_AUTO_SCREEN_SCALE_FACTOR=1 in the environment. It's off by default
@@ -1295,7 +1295,7 @@ c.url.auto_search = 'naive'
 # Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 # for a blank page.
 # Type: FuzzyUrl
-c.url.default_page = 'https://start.duckduckgo.com/'
+c.url.default_page = 'about:blank'
 
 # URL segments where `:navigate increment/decrement` will search for a
 # number.
@@ -1541,8 +1541,8 @@ config.bind('Y', 'yank selection -s')
 config.bind('{{', 'navigate prev -t')
 config.bind('}}', 'navigate next -t')
 
-config.bind(',m', 'spawn mpv {url}')
-config.bind(';m', 'hint all spawn mpv {hint-url}')
+config.bind(',m', 'spawn /run/current-system/sw/bin/mpv {url}')
+config.bind(';m', 'hint all spawn /run/current-system/sw/bin/mpv {hint-url}')
 
 # Bindings for caret mode
 config.bind('$', 'move-to-end-of-line', mode='caret')
