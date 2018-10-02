@@ -1318,7 +1318,8 @@ c.url.incdec_segments = ['path', 'query']
 # Type: Dict
 c.url.searchengines = {
     # "DEFAULT" : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&num=30&q={}&tbs=li:1",
-    "DEFAULT" : "https://duckduckgo.com/{}",
+    # "DEFAULT" : "https://duckduckgo.com/{}",
+    'DEFAULT': 'https://searx.me/?q={}&categories=general&language=en-US',
     "a"       : "https://archive.org/search.php?query={}",
     "aa"      : "https://aur.archlinux.org/packages/?O=0&C=0&SeB=nd&K={}&outdated=&SB=n&SO=a&PP=50&do_Search=Go",
     "d"       : "https://packages.debian.org/search?suite=wheezy&section=all&arch=i386&searchon=all&keywords={}",
