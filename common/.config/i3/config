@@ -328,7 +328,11 @@ bindsym Ctrl+$alt+l exec --no-startup-id $Locker
 
 # bindsym Ctrl+$alt+h exec clipster -s
 # bindsym $win+p  exec clipster -o -n 0 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | tr -d '\n' | clipster
-bindsym $win+p  exec clipster -o -n 0 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | sed -ze 's/\n$//' | clipster
+
+# too slow:
+bindsym $win+Shift+p  exec clipster -o -n 0 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | sed -ze 's/\n$//' | clipster
+# alacritty grabs the input directly after launch
+bindsym $win+p  exec alacritty -t paste:: -e ~/.bin/clipster_fzf.sh
 
 #audio volume and mute
 #does not apply on RME-9636
