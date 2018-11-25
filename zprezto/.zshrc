@@ -80,7 +80,7 @@ fw() {
         grep -o '[^ ]*$'
 }
 
-alias fzg="sk -i -c 'rg --smart-case --color always --line-number --hidden --follow '{}'' --preview '~/.local/bin/fzg_preview.sh {0}' --ansi --reverse --bind 'alt-z:toggle-preview,alt-a:toggle-all,ctrl-a:select-all' --multi --exact --no-height --color=light"
+alias fzg="sk -i -c 'rg --smart-case --color always --line-number --hidden --follow '{}'' --preview '~/.local/bin/fzg_preview.sh {}' --ansi --reverse --bind 'alt-z:toggle-preview,alt-a:toggle-all,ctrl-a:select-all' --multi --exact --no-height --color=light"
 
 ##################################################################
 # completions
