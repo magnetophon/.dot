@@ -1542,8 +1542,15 @@ config.bind('Y', 'yank selection -s')
 config.bind('{{', 'navigate prev -t')
 config.bind('}}', 'navigate next -t')
 
-config.bind(',m', 'spawn /run/current-system/sw/bin/mpv {url}')
-config.bind(';m', 'hint all spawn /run/current-system/sw/bin/mpv {hint-url}')
+config.bind(',m', 'spawn --userscript view_in_mpv')
+# config.bind(';m', 'hint all spawn mpv {hint-url}')
+config.bind(';m', 'hint all spawn --userscript view_in_mpv {hint-url}')
+
+# bindings for youtube-dl
+config.bind(',D', 'spawn youtube-dl -o "~/Downloads/%(title)s.%(ext)s" --restrict-filenames {url}')
+config.bind(';D', 'hint all spawn youtube-dl -o "~/Downloads/%(title)s.%(ext)s" --restrict-filenames {hint-url}')
+config.bind('aD', 'hint --rapid all spawn youtube-dl -o "~/Downloads/%(title)s.%(ext)s" --restrict-filenames {hint-url}')
+
 
 # Bindings for caret mode
 config.bind('$', 'move-to-end-of-line', mode='caret')
