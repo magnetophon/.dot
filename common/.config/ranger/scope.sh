@@ -75,6 +75,11 @@ handle_extension() {
             odt2txt "${FILE_PATH}" && exit 5
             exit 1;;
 
+        nix)
+            # highlight can't handle nix, but bat is slow
+            bat --style=numbers --color=always --theme=GitHub --decorations=never --paging=never "${FILE_PATH}" && exit 5
+            exit 1;;
+
         # HTML
         htm|html|xhtml)
             # Preview as text conversion
@@ -143,6 +148,7 @@ handle_mime() {
             fi
             highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${highlight_format}" \
                 --style="${HIGHLIGHT_STYLE}" --force -- "${FILE_PATH}" && exit 5
+            # bat --style=numbers --color=always --theme=GitHub --decorations=always --paging=never "${FILE_PATH}" && exit 5
             # pygmentize -f "${pygmentize_format}" -O "style=${PYGMENTIZE_STYLE}" -- "${FILE_PATH}" && exit 5
             exit 2;;
 
