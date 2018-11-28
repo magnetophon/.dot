@@ -1316,34 +1316,41 @@ c.url.incdec_segments = ['path', 'query']
 # used by prepending the search engine name to the search term, e.g.
 # `:open google qutebrowser`.
 # Type: Dict
+
 c.url.searchengines = {
-    # "DEFAULT" : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&num=30&q={}&tbs=li:1",
-    # "DEFAULT" : "https://duckduckgo.com/{}",
-    'DEFAULT': 'https://searx.me/?q={}&categories=general&language=en-US',
-    "a"       : "https://archive.org/search.php?query={}",
-    "aa"      : "https://aur.archlinux.org/packages/?O=0&C=0&SeB=nd&K={}&outdated=&SB=n&SO=a&PP=50&do_Search=Go",
-    "d"       : "https://packages.debian.org/search?suite=wheezy&section=all&arch=i386&searchon=all&keywords={}",
-    "du"      : "https://duckduckgo.com/?q={}",
-    "g"       : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&num=30&q={}&tbs=li:1",
-    "gi"      : "https://github.com/search?utf8=%E2%9C%93&q={}&type=Code&ref=searchresults",
-    "gn"      : "https://github.com/search?q={}+language%3ANix&ref=searchresults&type=Code&utf8=%E2%9C%93",
-    # "gt"      : "https://translate.google.com/#auto|en|{}",
-    "gt"      : "https://translate.google.com/#auto/en/{}",
-    "hn"      : "https://hn.algolia.com/?query={}&sort=byPopularity&prefix&page=0&dateRange=all&type=story",
-    # "i"       : "https://encrypted.google.com/search?q={}&safe=off&pws=0&tbm=isch",
-    "i"       : "https://duckduckgo.com/{}?ia=images",
-    "l"       : "https://wiki.archlinux.org/index.php?search={}",
-    # "m"       : "https://maps.google.com/maps?q={}",
-    "m"       : "https://www.openstreetmap.org/search?query={}",
-    "n"       : "https://github.com/NixOS/nixpkgs/search?utf8=%E2%9C%93&q={}",
-    "o"       : "https://www.openstreetmap.org/search?query={}",
-    "su"      : "http://superuser.com/search?q={} SuperUser",
-    "sh"      : "http://symbolhound.com/?q={} SymbolHound",
-    # "v"       : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&tbm=vid&q={}",
-    "v"       : "https://duckduckgo.com/{}?iax=videos&ia=videos",
-    "w"       : "https://en.wikipedia.org/w/index.php?search={}",
-    "wa"      : "http://www.wolframalpha.com/input/?i={}",
-    "y"       : "http://mycroftproject.com/search-engines.html?name={}"
+    #"DEFAULT" : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&num=30&q={}&tbs=li:1",
+    #"DEFAULT" : "https://duckduckgo.com/{}",
+     "DEFAULT" : "https://searx.riseup.net/?q={}&categories=general&language=en-US",
+     "a"       : "https://archive.org/search.php?query={}",
+     "aa"      : "https://aur.archlinux.org/packages/?O=0&C=0&SeB=nd&K={}&outdated=&SB=n&SO=a&PP=50&do_Search=Go",
+     "d"       : "https://packages.debian.org/search?suite=wheezy&section=all&arch=i386&searchon=all&keywords={}",
+     "du"      : "https://duckduckgo.com/?q={}",
+     "g"       : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&num=30&q={}&tbs=li:1",
+     "gi"      : "https://github.com/search?utf8=%E2%9C%93&q={}&type=Code&ref=searchresults",
+     "gn"      : "https://github.com/search?q={}+language%3ANix&ref=searchresults&type=Code&utf8=%E2%9C%93",
+    #"gt"      : "https://translate.google.com/#auto|en|{}",
+     "gt"      : "https://translate.google.com/#auto/en/{}",
+     "hn"      : "https://hn.algolia.com/?query={}&sort=byPopularity&prefix&page=0&dateRange=all&type=story",
+     "ht"      : "https://hooktube.com/results?search_query={}",
+    #"i"       : "https://encrypted.google.com/search?q={}&safe=off&pws=0&tbm=isch",
+    #"i"       : "https://duckduckgo.com/{}?ia=images",
+     "i"       : "https://www.searx.me/?q={}&category_images=on",
+     "l"       : "https://wiki.archlinux.org/index.php?search={}",
+    #"m"       : "https://maps.google.com/maps?q={}",
+     "m"       : "https://www.openstreetmap.org/search?query={}",
+     "mu"      : "https://www.searx.me/?q={}&category_music=on",
+     "n"       : "https://github.com/NixOS/nixpkgs/search?utf8=%E2%9C%93&q={}",
+     "ne"      : "https://www.searx.me/?q={}&category_news=on",
+     "o"       : "https://www.openstreetmap.org/search?query={}",
+     "r"       : "https://reddit.com/search?q={}",
+     "so"      : "https://stackoverflow.com/search?q={}",
+     "su"      : "https://superuser.com/search?q={}",
+     "sh"      : "http://symbolhound.com/?q={}",
+    #"v"       : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&tbm=vid&q={}",
+     "v"       : "https://duckduckgo.com/{}?iax=videos&ia=videos",
+     "w"       : "https://www.wikipedia.org/search-redirect.php?family=wikipedia&language=en&search={}&language=en&go=Go",
+     "wa"      : "https://www.wolframalpha.com/input/?i={}",
+     "y"       : "https://mycroftproject.com/search-engines.html?name={}"
 }
 
 # Page(s) to open at the start.
@@ -1542,15 +1549,24 @@ config.bind('Y', 'yank selection -s')
 config.bind('{{', 'navigate prev -t')
 config.bind('}}', 'navigate next -t')
 
+# bindings for mpv
 config.bind(',m', 'spawn --userscript view_in_mpv')
 # config.bind(';m', 'hint all spawn mpv {hint-url}')
 config.bind(';m', 'hint all spawn --userscript view_in_mpv {hint-url}')
+config.bind('am', 'hint --rapid all spawn --userscript view_in_mpv {hint-url}')
 
 # bindings for youtube-dl
-config.bind(',D', 'spawn youtube-dl -o "~/Downloads/%(title)s.%(ext)s" --restrict-filenames {url}')
-config.bind(';D', 'hint all spawn youtube-dl -o "~/Downloads/%(title)s.%(ext)s" --restrict-filenames {hint-url}')
-config.bind('aD', 'hint --rapid all spawn youtube-dl -o "~/Downloads/%(title)s.%(ext)s" --restrict-filenames {hint-url}')
+config.bind(',D', 'spawn ts youtube-dl -o "~/Downloads/%(title)s.%(ext)s" --restrict-filenames {url}')
+config.bind(';D', 'hint all spawn ts youtube-dl -o "~/Downloads/%(title)s.%(ext)s" --restrict-filenames {hint-url}')
+config.bind('aD', 'hint --rapid all spawn ts youtube-dl -o "~/Downloads/%(title)s.%(ext)s" --restrict-filenames {hint-url}')
 
+# search bindings:
+config.bind('<Ctrl-s>', 'set-cmd-text /', mode='normal')
+config.bind('<Ctrl-r>', 'set-cmd-text ?', mode='normal')
+config.bind('<Ctrl-s>', 'search-next', mode='command')
+config.bind('<Ctrl-r>', 'search-prev', mode='command')
+
+config.bind(',r', 'spawn --userscript readability')
 
 # Bindings for caret mode
 config.bind('$', 'move-to-end-of-line', mode='caret')
