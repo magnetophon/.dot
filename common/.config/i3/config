@@ -70,7 +70,7 @@ new_window normal
 
 # some variables
 # todo: remove unused
-set $term termite
+set $TERMINAL termite
 set $editor $EDITOR
 set $browser qutebrowser
 set $mua termite -e mutt
@@ -111,6 +111,15 @@ bindsym $win+space exec --no-startup-id rofi -show drun
 # dmenu window chooser
 bindsym $win+w exec --no-startup-id rofi -show window
 # bindsym $win+w exec python ~/.config/i3/scripts/i3-quickswitch.py
+
+# Jump to urgent window
+# bindsym $win+o [urgent=latest] focus
+
+# focus a window
+bindsym $win+o exec wmfocus -c asdfghjkl
+
+# kill a window
+bindsym $win+q exec wmfocus -c asdfghjkl  -p | xargs xkill -id
 
 # dmenu wifi manager
 bindsym $win+c exec --no-startup-id networkmanager_dmenu
@@ -368,7 +377,7 @@ mode "dzshmenu mode: new edit i3-layout-save x(launch)" {
 }
 
 # start a terminal (start the deamon first see autostart)
-bindsym $win+Return exec $term
+bindsym $win+Return exec $TERMINAL
 
 #ranger
 bindsym $win+f exec $filem
