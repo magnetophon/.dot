@@ -476,7 +476,7 @@ c.content.cache.size = None
 #   - no-unknown-3rdparty: Accept cookies from the same origin only, unless a cookie is already set for the domain.
 #   - never: Don't accept cookies at all.
 # not in webengine:
-# c.content.cookies.accept = 'never'
+c.content.cookies.accept = 'no-3rdparty'
 
 # Store cookies. Note this option needs a restart with QtWebEngine on Qt
 # < 5.9.
@@ -1320,7 +1320,8 @@ c.url.incdec_segments = ['path', 'query']
 c.url.searchengines = {
     #"DEFAULT" : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&num=30&q={}&tbs=li:1",
     #"DEFAULT" : "https://duckduckgo.com/{}",
-     "DEFAULT" : "https://searx.riseup.net/?q={}&categories=general&language=en-US",
+     # "DEFAULT" : "https://searx.riseup.net/?q={}&categories=general&language=en-US",
+     "DEFAULT" : "https://searx.me/?q={}&categories=general&language=en-US",
      "a"       : "https://archive.org/search.php?query={}",
      "aa"      : "https://aur.archlinux.org/packages/?O=0&C=0&SeB=nd&K={}&outdated=&SB=n&SO=a&PP=50&do_Search=Go",
      "d"       : "https://packages.debian.org/search?suite=wheezy&section=all&arch=i386&searchon=all&keywords={}",
