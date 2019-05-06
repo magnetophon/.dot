@@ -20,6 +20,7 @@ c.auto_save.interval = 15000
 # Always restore open sites when qutebrowser is reopened.
 # Type: Bool
 c.auto_save.session = True
+c.session.lazy_restore = True
 
 # Backend to use to display websites. qutebrowser supports two different
 # web rendering engines / backends, QtWebKit and QtWebEngine. QtWebKit
@@ -446,6 +447,9 @@ c.completion.web_history.max_items = -1
 #   - never: Never show a confirmation.
 c.confirm_quit = ['downloads']
 
+# ** Media
+c.content.autoplay = False
+
 # Enable support for the HTML 5 web application cache feature. An
 # application cache acts like an HTTP cache in some sense. For documents
 # that use the application cache via JavaScript, the loader engine will
@@ -741,7 +745,7 @@ c.downloads.remove_finished = -1
 # `{line0}`: Same as `{line}`, but starting from index 0. * `{column0}`:
 # Same as `{column}`, but starting from index 0.
 # Type: ShellCommand
-c.editor.command = [ "emacseditor" ,  "--create-frame", "{file}" ]
+c.editor.command = [ "emacseditor" ,  "--create-frame", "+{line}:{column}", "{file}" ]
 
 # Encoding to use for the editor.
 # Type: Encoding
@@ -1406,7 +1410,8 @@ config.bind(';i', 'hint images')
 config.bind(';o', 'hint links fill :open {hint-url}')
 config.bind(';r', 'hint --rapid links tab-bg')
 config.bind('af', 'hint --rapid links tab-bg')
-config.bind('gi', 'hint inputs')
+config.bind('gi', 'hint inputs --first')
+# config.bind('gi', 'hint inputs')
 config.bind(';y', 'hint links yank')
 config.bind('<Alt-1>', 'tab-focus 1')
 config.bind('<Alt-2>', 'tab-focus 2')
@@ -1508,8 +1513,8 @@ config.bind('b', 'set-cmd-text -s :buffer')
 config.bind('gu', 'navigate up')
 # config.bind('h', 'scroll left')
 config.bind('i', 'enter-mode insert')
-config.bind('j', 'scroll down')
-config.bind('k', 'scroll up')
+config.bind('j', 'scroll-page 0 0.2')
+config.bind('k', 'scroll-page 0 -0.2')
 # config.bind('l', 'scroll right')
 config.bind('m', 'quickmark-save')
 config.bind('n', 'search-next')
@@ -1551,10 +1556,13 @@ config.bind('{{', 'navigate prev -t')
 config.bind('}}', 'navigate next -t')
 
 # bindings for mpv
+# nmap('ty', 'spawn --detach mpv "{url}"')
 config.bind(',m', 'spawn --userscript view_in_mpv')
-# config.bind(';m', 'hint all spawn mpv {hint-url}')
-config.bind(';m', 'hint all spawn --userscript view_in_mpv {hint-url}')
-config.bind('am', 'hint --rapid all spawn --userscript view_in_mpv {hint-url}')
+# config.bind(',m', 'spawn --detach mpv {url}')
+config.bind(';m', 'hint all spawn --detach mpv {hint-url}')
+# config.bind(';m', 'hint all spawn --userscript view_in_mpv {hint-url}')
+# config.bind('am', 'hint --rapid all spawn --userscript view_in_mpv {hint-url}')
+config.bind('am', 'hint --rapid all spawn --detach mpv {hint-url}')
 
 # bindings for youtube-dl
 config.bind(',D', 'spawn ts youtube-dl -o "~/Downloads/%(title)s.%(ext)s" --restrict-filenames {url}')
