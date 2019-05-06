@@ -11,8 +11,21 @@
 
 ;; make sure we get vertical splits:
 (setq split-height-threshold `nil)
+
+(add-to-list 'load-path  "/run/current-system/sw/share/emacs/site-lisp/mu4e")
+;; mu4e-installation-path "/home/bart/.nix-profile/share/emacs/site-lisp/mu4e"
+
+(setq ispell-aspell-data-dir "/run/current-system/sw/lib/aspell/" )
+(setq ispell-aspell-dict-dir ispell-aspell-data-dir)
+
+;; (add-to-list 'ispell-dictionary-alist
+;;              '("english-US" "[[:alpha:]]" "[^[:alpha:]]" "'" t ("-d" "en_US") nil utf-8))
+;; (ispell-change-dictionary "english-US")
+
+
 (with-eval-after-load 'mu4e
   ;; (setq special-display-regexps '("mu4e"))
+
 ;;; Set up some common mu4e variables
   (setq mu4e-maildir "~/.mail"
         mu4e-trash-folder "/Trash"
@@ -103,7 +116,7 @@
 
   ;;rename files when moving
   ;;NEEDED FOR MBSYNC
-  (setq mu4e-change-filenames-when-moving t)
+  ;; (setq mu4e-change-filenames-when-moving t)
   (require 'mu4e-contrib nil t)
 
   ;;store org-mode links to messages
