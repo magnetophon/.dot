@@ -3,6 +3,7 @@
 ;; Place your private configuration here
 
 (setq doom-font (font-spec :family "Dina" :size 8))
+(setq doom-big-font (font-spec :family "RobotoMono Nerd Font" :size 22 :weight 'regular))
 (setq doom-theme 'doom-solarized-light)
 (setq display-line-numbers-type 'relative)
 
