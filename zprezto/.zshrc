@@ -56,6 +56,10 @@ alias lsg='ls -laR| grep -ni'
 # fuzzy run:
 alias fr='print -z $(print -l ${(ok)commands} | fzf --preview="MANWIDTH=150 man {}" --preview-window=right:75%)'
 
+# fuzzy jump
+alias fj='cd $(fasd -l | fzf -e -i --tac --no-sort --preview "tree -L 4 -d -C --noreport -C {} | head -200"  )'
+# alias fj='cd $(fasd | fzf -e -i --tac --no-sort | awk '{print $2}')'
+
 # fzf alias
 alias fa='print -z $( alias | tr = "\t" | fzf --preview-window=right:hidden | cut -f 1)'
 
@@ -80,7 +84,8 @@ fw() {
         grep -o '[^ ]*$'
 }
 
-alias fzg="sk -i -c 'rg --smart-case --color always --line-number --hidden --follow '{}'' --preview '~/.local/bin/fzg_preview.sh {}' --ansi --reverse --bind 'alt-z:toggle-preview,alt-a:toggle-all,ctrl-a:select-all' --multi --exact --no-height --color=light"
+# fuzzy search content of a file
+alias fzg="sk -i -c 'rg --smart-case --color always --line-number --hidden --follow '{}'' --preview '~/.local/bin/fzg_preview.sh {}' --header 'enter to view, alt-z toggle preview, alt-a toggle all, ctrl-a select all'  --ansi --reverse --bind 'enter:execute:$EDITOR {}' --bind 'alt-z:toggle-preview,alt-a:toggle-all,ctrl-a:select-all' --multi --exact --no-height --color=light"
 
 ##################################################################
 # completions
@@ -356,3 +361,6 @@ alias bt='echo 0 | gdb -batch-silent -ex "run" -ex "set logging overwrite on" -e
 #PERL_MM_OPT="INSTALL_BASE=/home/bart/perl5"; export PERL_MM_OPT;
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#. '/home/bart/promptless.sh'
+
+source /home/bart/.config/broot/launcher/bash/br
