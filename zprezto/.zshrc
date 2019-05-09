@@ -62,6 +62,11 @@ alias fj='cd $(fasd -l | fzf -e -i --tac --no-sort --preview "tree -L 4 -d -C --
 
 # fzf alias
 alias fa='print -z $( alias | tr = "\t" | fzf --preview-window=right:hidden | cut -f 1)'
+ # fuzzy i3 binding reminder
+alias fb="grep '^bind' ~/.config/i3/config | cut -d ' ' -f 2- | sed 's/ /~~~~/' | column --table --separator ~~~~ | fzf --preview-window=hidden"
+
+# fuzzy unmount
+alias fu="mount | sed 's/ on / /' | sed 's/ type / /'  | column --table --table-columns SOURCE,TARGET,TYPE,OPTIONS -o'|' | fzf  --preview-window right:33%:wrap --preview 'tree -L 4 -d -C --noreport -C $(echo {} | cut -d"|" -f2)' | cut -d'|' -f2 | /run/current-system/sw/bin/xargs umount"
 
 # pick a function or an alias
 ff() {
