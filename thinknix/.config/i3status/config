@@ -1,40 +1,48 @@
 general {
   colors = true
-  color_good = "#000000"
-  color_degraded = "#696969"
-  color_bad = "#0000FF"
+  color_good = "#444444"
+  color_degraded = "#FFFF00"
+  color_bad = "#FF0000"
+  # color_good = "#696969"
+  # color_degraded = "#696969"
+  # color_bad = "#0000FF"
   # color_separator = "#FFFF00"
-  # separator = "x"
+   separator = ""
+ # separator = "x"
+  # separator_symbol = ":"
   interval = 1
 }
 
-order  += "volume master"
-order  += "disk /"
-order  += "disk /home"
 order  += "wireless _first_"
 order  += "ethernet _first_"
-order  += "battery all"
+order  += "disk /"
+order  += "disk /home"
 order  += "cpu_usage"
 order  += "cpu_temperature 0"
+order  += "battery all"
+order  += "volume master"
 order  += "time"
 
-volume master {
-  format = " %volume"
-  format_muted = " (%volume)"
-  device = "default"
-  mixer = "Master"
-  mixer_idx = 0
+wireless _first_ {
+  format_up = " %quality at %essid %ip"
+  format_down = ""
   separator = false
-  separator_block_width = 20
+  separator_block_width = 25
 }
 
+ethernet _first_ {
+  format_up = " %speed  %ip"
+  format_down = ""
+  separator = false
+  separator_block_width = 25
+}
 
 disk "/" {
   format = " %avail"
   low_threshold = 15
   threshold_type = gbytes_avail
   separator = false
-  separator_block_width = 20
+  separator_block_width = 25
 }
 
 disk "/home" {
@@ -42,21 +50,21 @@ disk "/home" {
   low_threshold = 15
   threshold_type = gbytes_avail
   separator = false
-  separator_block_width = 20
+  separator_block_width = 25
 }
 
-wireless _first_ {
-  format_up = " %quality at %essid %ip"
-  format_down = " "
+cpu_usage {
+  format = " %usage"
   separator = false
-  separator_block_width = 20
+  separator_block_width = 25
 }
 
-ethernet _first_ {
-  format_up = " %speed  %ip"
-  format_down = ""
+cpu_temperature 0 {
+  format = " %degrees°C"
+  # run sensors, see high value
+  max_threshold = 86
   separator = false
-  separator_block_width = 20
+  separator_block_width = 25
 }
 
 battery all {
@@ -71,24 +79,29 @@ battery all {
   status_unk = ""
   status_full = ""
   separator = false
-  separator_block_width = 20
+  separator_block_width = 25
 }
 
-cpu_usage {
-  format = " %usage"
-  separator = false
-  separator_block_width = 20
+volume master {
+  format = " %volume"
+  format_muted = " (%volume)"
+  device = "default"
+  mixer = "Master"
+  mixer_idx = 0
+  separator = true
+  separator_block_width = 100
 }
-
-cpu_temperature 0 {
-  format = " %degrees°C"
-  # run sensors, see high value
-  max_threshold = 86
-  separator = false
-  separator_block_width = 20
-}
-
 
 time {
   format = "%a %d/%m/%y %H:%M"
+}
+
+volume master {
+  format = " %volume"
+  format_muted = " (%volume)"
+  device = "default"
+  mixer = "Master"
+  mixer_idx = 0
+  separator = false
+  separator_block_width = 25
 }

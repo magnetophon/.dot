@@ -45,11 +45,20 @@ set $urgentBG     #FF0000
 
 
 # class         				border			  backgr.			  text
-client.focused          $focusTXT		  $focusBG		  $focusTXT
-client.focused_inactive	$focusTXT		  $semifocusBG	$focusTXT
-client.unfocused        $unfocusedTXT	$unfocusedBG  $unfocusedTXT
-client.urgent           $focusBG		  $urgentBG		  $focusBG
+# client.focused          $focusTXT		  $focusBG		  $focusTXT
+# client.focused_inactive	$focusTXT		  $semifocusBG	$focusTXT
+# client.unfocused        $unfocusedTXT	$unfocusedBG  $unfocusedTXT
+# client.urgent           $focusBG		  $urgentBG		  $focusBG
+#
+# class                 border  bground text    indicator child_border
+client.focused          #444444 #FFFF00 #444444 #FFFF00   #FFFF00
+client.focused_inactive #777777 #BEBEBE #777777 #BEBEBE   #BEBEBE
+client.unfocused        #BEBEBE #BEBEBE #777777 #777777   #777777
+client.urgent           #FF0000 #FF0000 #FFFFFF #FF0000   #FF0000
+client.placeholder      #FFFF00 #444444 #FFFF00 #FFFF00   #FFFF00
 
+client.background       #BEBEBE
+#
 # Set the background color.
 exec xsetroot -solid "$unfocusedBG"
 
@@ -59,7 +68,7 @@ exec xsetroot -solid "$unfocusedBG"
 # Use Mouse+$win to drag floating windows to their wanted position
 floating_modifier $win
 floating_minimum_size 75 x 50
-floating_maximum_size 1200 x 700
+floating_maximum_size 1600 x 900
 popup_during_fullscreen leave_fullscreen
 
 #default layout
@@ -389,16 +398,27 @@ bindsym $win+e exec $editor
 # finds out, if available)
 bar {
   # status_command ~/.config/i3/scripts/dzshmenu/status
-  # status_command i3status
-  status_command i3status-rs ~/.config/i3/status.toml
+  status_command i3status
+  # status_command i3status-rs ~/.config/i3/status.toml
   font pango:Terminus , FontAwesome 9
   colors {
-    background $unfocusedBG
-    statusline $unfocusedTXT
-    focused_workspace $focusTXT $focusBG
-    active_workspace $focusTXT $semifocusBG
-    inactive_workspace $unfocusedTXT $unfocusedBG
-    urgent_workspace $focusBG $urgentBG
+    # background $unfocusedBG
+    # statusline $unfocusedTXT
+    # focused_workspace $focusTXT $focusBG
+    # active_workspace $focusTXT $semifocusBG
+    # inactive_workspace $unfocusedTXT $unfocusedBG
+    # urgent_workspace $focusBG $urgentBG
+
+    background #BEBEBE
+    statusline #444444
+    separator  #444444
+
+                       #border #backgr #text
+    focused_workspace  #444444 #FFFF00 #444444
+    active_workspace   #444444 #BEBEBE #444444
+    inactive_workspace #D9D9D9 #D9D9D9 #444444
+    urgent_workspace   #FFFFFF #FF0000 #FFFFFF
+    binding_mode       #FFFFFF #FF0000 #FFFFFF
   }
 }
 ########################################################################
