@@ -33,7 +33,9 @@
         mu4e-refile-folder "/Archive"
         mu4e-drafts-folder "/Drafts"
         mu4e-attachment-dir  "~/Downloads"
-        mu4e-get-mail-command "mbsync -V -a"
+        +mu4e-backend nil
+        ;; mu4e-get-mail-command "mbsync -V -a"
+        mu4e-get-mail-command nil
         mu4e-update-interval nil
         mu4e-compose-signature-auto-include nil
         mu4e-view-show-images t
