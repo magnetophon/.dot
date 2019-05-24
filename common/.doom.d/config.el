@@ -2,14 +2,17 @@
 
 ;; Place your private configuration here
 
+;; (setq doom-font (font-spec :family "FuraMono Nerd Font" :size 12 :weight 'regular))
+;; (setq doom-font (font-spec :family "Hasklug Nerd Font" :size 12 :weight 'light))
 (setq doom-font (font-spec :family "Dina" :size 8))
-(setq doom-big-font (font-spec :family "RobotoMono Nerd Font" :size 22 :weight 'regular))
+(setq doom-big-font (font-spec :family "RobotoMono Nerd Font" :size 26 :weight 'regular))
 (setq doom-theme 'doom-solarized-light)
 (setq display-line-numbers-type 'relative)
 
 (setq which-key-idle-delay 0.1)
 
 ;; make sure we get vertical splits:
+(set-popup-rule! "*" :side 'right :size 0.5)
 (setq split-height-threshold `nil)
 
 (add-to-list 'load-path  "/run/current-system/sw/share/emacs/site-lisp/mu4e")
@@ -35,7 +38,7 @@
         mu4e-attachment-dir  "~/Downloads"
         +mu4e-backend nil
         ;; mu4e-get-mail-command "mbsync -V -a"
-        mu4e-get-mail-command nil
+        mu4e-get-mail-command "true"
         mu4e-update-interval nil
         mu4e-compose-signature-auto-include nil
         mu4e-view-show-images t
@@ -130,6 +133,12 @@
   (add-to-list 'auto-mode-alist '("\\.eml\\'" . mu4e-compose-mode))
 
   (setq org-M-RET-may-split-line nil)
+  ;; set in init.el because it gets reset otherwise
+  ;; (setq org-agenda-files (directory-files-recursively "~/org" "\.org$"))
+
+  (setq    org-todo-keywords
+   '((sequence "TODO(t)" "|" "DONE(d!)")
+     (sequence "NEXT(n)" "WAITING(w@)" "LATER(l)" "|" "CANCELLED(c@)")))
 
   (defun mbork/message-attachment-present-p ()
     "Return t if an attachment is found in the current message."
