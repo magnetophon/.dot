@@ -8,9 +8,6 @@
 ;; More information about these modules (and what flags they support) can be
 ;; found in modules/README.org.
 
-  ;; set in init.el because it gets reset otherwise
-(setq org-agenda-files (directory-files-recursively "~/org" "\.org$"))
-
 (doom! :input
        ;;chinese
        ;;japanese

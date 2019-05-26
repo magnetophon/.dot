@@ -9,3 +9,6 @@
 ;; mu4e
 (package! helm-mu)
 (package! mu4e-conversation)
+;;
+;; org-mode
+;; (package! org-bullets :disable t)

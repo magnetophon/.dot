@@ -31,6 +31,39 @@
 (setq evil-escape-unordered-key-sequence t)
 (setq undo-tree-auto-save-history t)
 
+(defhydra resize-window-hydra (:hint nil)
+  "
+         _k_
+      _h_     _l_
+         _j_
+"
+  ("h" evil-window-decrease-width)
+  ("j" evil-window-decrease-height)
+  ("k" evil-window-increase-height)
+  ("l" evil-window-increase-width))
+
+(map! :leader (:prefix ("w" . "window") "~" #'resize-window-hydra/body))
+
+  ;; ORG config
+(after! org
+  ;;use org mode for eml files (useful for thunderbird plugin)
+  (add-to-list 'auto-mode-alist '("\\.eml\\'" . mu4e-compose-mode))
+
+  (setq org-startup-folded nil ; do not start folded
+        org-log-done 'time ; record the time when an element was marked done/checked
+        org-fontify-done-headline nil ; do not change the font of DONE items
+        org-ellipsis " ↴ "
+        org-return-follows-link t  ; RET follows links
+        org-hide-emphasis-markers t ; do not show format markers
+        org-startup-with-inline-images t ; open buffers show inline images
+        org-agenda-files (directory-files-recursively "~/org" "\.org$")
+        org-todo-keywords
+            '((sequence "TODO(t)" "|" "DONE(d!)")
+            (sequence "NEXT(n)" "WAITING(w@)" "LATER(l)" "|" "CANCELLED(c@)"))
+        org-M-RET-may-split-line nil
+        ))
+
+
 (with-eval-after-load 'mu4e
   ;; (setq special-display-regexps '("mu4e"))
 
@@ -133,25 +166,13 @@
   (require 'org-mu4e)
   ;;store link to message if in header view, not to header query
   (setq org-mu4e-link-query-in-headers-mode nil)
-
-  ;;use org mode for eml files (useful for thunderbird plugin)
-  (add-to-list 'auto-mode-alist '("\\.eml\\'" . mu4e-compose-mode))
-
-  (setq org-M-RET-may-split-line nil)
-  ;; set in init.el because it gets reset otherwise
-  ;; (setq org-agenda-files (directory-files-recursively "~/org" "\.org$"))
-
-  (setq    org-todo-keywords
-   '((sequence "TODO(t)" "|" "DONE(d!)")
-     (sequence "NEXT(n)" "WAITING(w@)" "LATER(l)" "|" "CANCELLED(c@)")))
-
-  (defun mbork/message-attachment-present-p ()
-    "Return t if an attachment is found in the current message."
-    (save-excursion
-      (save-restriction
-        (widen)
-        (goto-char (point-min))
-        (when (search-forward "<#part" nil t) t))))
+(defun mbork/message-attachment-present-p ()
+  "Return t if an attachment is found in the current message."
+  (save-excursion
+    (save-restriction
+      (widen)
+      (goto-char (point-min))
+      (when (search-forward "<#part" nil t) t))))
 
   (defcustom mbork/message-attachment-intent-re
     (regexp-opt '("attach"
