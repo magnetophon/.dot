@@ -4,7 +4,8 @@
 
 ;; (setq doom-font (font-spec :family "FuraMono Nerd Font" :size 12 :weight 'regular))
 ;; (setq doom-font (font-spec :family "Hasklug Nerd Font" :size 12 :weight 'light))
-(setq doom-font (font-spec :family "Dina" :size 8))
+(setq doom-font (font-spec :family "Terminus" :size 8))
+;; (setq doom-font (font-spec :family "Dina" :size 8))
 (setq doom-big-font (font-spec :family "RobotoMono Nerd Font" :size 26 :weight 'regular))
 (setq doom-theme 'doom-solarized-light)
 (setq display-line-numbers-type 'relative)
@@ -25,6 +26,10 @@
 ;;              '("english-US" "[[:alpha:]]" "[^[:alpha:]]" "'" t ("-d" "en_US") nil utf-8))
 ;; (ispell-change-dictionary "english-US")
 
+;; I prefer to stay on the original character when leaving insert mode
+(setq evil-move-cursor-back nil)
+(setq evil-escape-unordered-key-sequence t)
+(setq undo-tree-auto-save-history t)
 
 (with-eval-after-load 'mu4e
   ;; (setq special-display-regexps '("mu4e"))

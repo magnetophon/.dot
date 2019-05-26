@@ -8,6 +8,7 @@
 ;; More information about these modules (and what flags they support) can be
 ;; found in modules/README.org.
 
+  ;; set in init.el because it gets reset otherwise
 (setq org-agenda-files (directory-files-recursively "~/org" "\.org$"))
 
 (doom! :input
@@ -15,13 +16,16 @@
        ;;japanese
 
        :completion
-       company           ; the ultimate code completion backend
-       ;;helm              ; the *other* search engine for love and life
+       (company           ; the ultimate code completion backend
+        +childframe       ; Enables displaying completion candidates in a child frame
+        +tng)             ; Enables completion using only ~TAB~
+       ;; (helm              ; the *other* search engine for love and life
+       ;;  +fuzzy)
        ;;ido               ; the other *other* search engine...
        ivy               ; a search engine for love and life
-
+        ;; +fuzzy)
        :ui
-       ;;deft              ; notational velocity for Emacs
+       ;; deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
@@ -60,7 +64,7 @@
        ;; +ranger         ; bringing the goodness of ranger to dired
        ;;+icons          ; colorful icons for dired-mode
         )
-       electric          ; smarter, keyword-based electric-indent
+       ;; electric          ; smarter, keyword-based electric-indent
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
@@ -73,7 +77,7 @@
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
-       editorconfig      ; let someone else argue about tabs vs spaces
+       ;; editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        eval              ; run code, run (also, repls)
        flycheck          ; tasing you for every semicolon you forget
@@ -109,6 +113,7 @@
        ;;elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
        ;;ess               ; emacs speaks statistics
+       faust             ; dsp done right
        ;;go                ; the hipster dialect
        ;;(haskell +intero) ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
