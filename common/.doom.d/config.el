@@ -222,5 +222,6 @@ there are no attachments."
 
 ;; stop asking “Keep current list of tags tables also”
 (setq tags-add-tables nil)
+(setq confirm-kill-emacs nil)
 
 ;;; config.el ends here
