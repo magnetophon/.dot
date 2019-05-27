@@ -60,9 +60,18 @@
         org-todo-keywords
             '((sequence "TODO(t)" "|" "DONE(d!)")
             (sequence "NEXT(n)" "WAITING(w@)" "LATER(l)" "|" "CANCELLED(c@)"))
+        org-enforce-todo-dependencies t
+        ;; prepend the filename for each org target
+        org-refile-use-outline-path 'full-file-path
+        ;; since we're using ivy just put all the files + headers in a list
+        org-outline-path-complete-in-steps nil
         org-M-RET-may-split-line nil
         ))
 
+;; The standard unicode characters are usually misaligned depending on the
+;; font. This bugs me. Markdown #-marks for headlines are more elegant.
+(after! org-bullets
+  (setq org-bullets-bullet-list '("*")))
 
 (with-eval-after-load 'mu4e
   ;; (setq special-display-regexps '("mu4e"))
@@ -207,4 +216,11 @@ there are no attachments."
 
   (add-hook 'message-send-hook #'mbork/message-warn-if-no-attachments)
 
-  )
+)
+;; end mu4e settings
+
+
+;; stop asking “Keep current list of tags tables also”
+(setq tags-add-tables nil)
+
+;;; config.el ends here
