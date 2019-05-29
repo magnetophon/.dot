@@ -13,8 +13,12 @@
 (setq which-key-idle-delay 0.1)
 
 ;; make sure we get vertical splits:
-(set-popup-rule! "*" :side 'right :size 0.5)
-(setq split-height-threshold `nil)
+(after! org
+    ;; (set-popup-rule! "^\\*Org Agenda" :side 'right :size 0.5)
+    (set-popup-rule! "\\*" :side 'right :size 0.5)
+    (setq split-height-threshold nil)
+    (setq split-width-threshold 160)
+)
 
 (add-to-list 'load-path  "/run/current-system/sw/share/emacs/site-lisp/mu4e")
 ;; mu4e-installation-path "/home/bart/.nix-profile/share/emacs/site-lisp/mu4e"
@@ -28,21 +32,31 @@
 
 ;; I prefer to stay on the original character when leaving insert mode
 (setq evil-move-cursor-back nil)
+
 (setq evil-escape-unordered-key-sequence t)
+(setq evil-want-fine-undo t)
 (setq undo-tree-auto-save-history t)
+
+
+
+
+(global-aggressive-indent-mode 1)
+(add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 
 (defhydra resize-window-hydra (:hint nil)
   "
          _k_
       _h_     _l_
          _j_
-"
+  "
   ("h" evil-window-decrease-width)
   ("j" evil-window-decrease-height)
   ("k" evil-window-increase-height)
   ("l" evil-window-increase-width))
 
 (map! :leader (:prefix ("w" . "window") "~" #'resize-window-hydra/body))
+
+(map! :leader (:prefix ("/" . "search") "r" #'counsel-recoll))
 
   ;; ORG config
 (after! org
@@ -58,15 +72,77 @@
         org-startup-with-inline-images t ; open buffers show inline images
         org-agenda-files (directory-files-recursively "~/org" "\.org$")
         org-todo-keywords
-            '((sequence "TODO(t)" "|" "DONE(d!)")
-            (sequence "NEXT(n)" "WAITING(w@)" "LATER(l)" "|" "CANCELLED(c@)"))
+        '((sequence "TODO(t)" "|" "DONE(d!)")
+          (sequence "NEXT(n)" "WAITING(w@)" "LATER(l)" "|" "CANCELLED(c@)"))
         org-enforce-todo-dependencies t
         ;; prepend the filename for each org target
         org-refile-use-outline-path 'full-file-path
         ;; since we're using ivy just put all the files + headers in a list
         org-outline-path-complete-in-steps nil
         org-M-RET-may-split-line nil
-        ))
+        )
+  (defun forward-and-preview ()
+    (interactive)
+    "Go to same level next heading and show preview in dedicated buffer"
+    (hide-subtree)
+    (org-speed-move-safe (quote outline-next-visible-heading))
+    (show-children)
+    (org-tree-to-indirect-buffer)
+    )
+  (defun back-and-preview ()
+    (interactive)
+    "Go to same level previous heading and show preview in dedicated buffer"
+    (hide-subtree)
+    (org-speed-move-safe (quote outline-previous-visible-heading))
+    (show-children)
+    (org-tree-to-indirect-buffer)
+    )
+  (defun up-back-and-preview ()
+    (interactive)
+    "Go to previous level heading and show preview in dedicated buffer"
+    (org-speed-move-safe (quote outline-up-heading))
+    (org-tree-to-indirect-buffer)
+    (hide-subtree)
+    )
+  (defun up-forward-and-preview ()
+    (interactive)
+    "Go to previous level next heading and show preview in dedicated buffer"
+    (org-speed-move-safe (quote outline-up-heading))
+    (hide-subtree)
+    (org-speed-move-safe (quote outline-next-visible-heading))
+    (org-tree-to-indirect-buffer)
+    )
+  (defun inside-and-preview ()
+    (interactive)
+    "Go to next level heading and show preview in dedicated buffer"
+    (org-speed-move-safe (quote outline-next-visible-heading))
+    (show-children)
+    (org-tree-to-indirect-buffer)
+    )
+  (defhydra org-nav-hydra (:hint nil)
+    "
+         _k_
+      _h_     _l_
+         _j_
+    "
+    ("h" up-back-and-preview)
+    ("j" forward-and-preview)
+    ("k" back-and-preview)
+    ("l" inside-and-preview)
+    ("J" up-forward-and-preview)
+    ("K" up-back-and-preview)
+    )
+  (defun org-nav ()
+    (interactive)
+    "Fold everything but the current heading and enter org-nav-hydra"
+    (org-overview)
+    (org-reveal)
+    (org-show-subtree)
+    (org-nav-hydra/body)
+    )
+  (map! :leader (:prefix ("m" . "localleader") "n" #'org-nav))
+
+  )
 
 ;; The standard unicode characters are usually misaligned depending on the
 ;; font. This bugs me. Markdown #-marks for headlines are more elegant.
@@ -127,21 +203,21 @@
   ;; REVIEW: https://github.com/djcb/mu/issues/1258
 
   ;; (when (require 'mu4e-conversation nil t)
-    ;; (setq mu4e-view-func 'mu4e-conversation)
-    ;; (setq mu4e-headers-show-threads nil
-    ;;       mu4e-headers-include-related nil)
-    ;; For testing purposes:
-    ;; (set-face-background mu4e-conversation-sender-1 "#335533")
-    ;; (set-face-background mu4e-conversation-sender-2 "#553333")
-    ;; (set-face-background mu4e-conversation-sender-3 "#333355")
-    ;; (set-face-background mu4e-conversation-sender-4 "#888855")
-    ;; (defun mu4e-conversation-toggle ()
-    ;;   "Toggle-replace `mu4e-view' with `mu4e-conversation' everywhere."
-    ;;   (interactive)
-    ;;   (if (eq mu4e-view-func 'mu4e-conversation)
-    ;;       (setq mu4e-view-func 'mu4e~headers-view-handler)
-    ;;     (setq mu4e-view-func 'mu4e-conversation)))
-    ;; )
+  ;; (setq mu4e-view-func 'mu4e-conversation)
+  ;; (setq mu4e-headers-show-threads nil
+  ;;       mu4e-headers-include-related nil)
+  ;; For testing purposes:
+  ;; (set-face-background mu4e-conversation-sender-1 "#335533")
+  ;; (set-face-background mu4e-conversation-sender-2 "#553333")
+  ;; (set-face-background mu4e-conversation-sender-3 "#333355")
+  ;; (set-face-background mu4e-conversation-sender-4 "#888855")
+  ;; (defun mu4e-conversation-toggle ()
+  ;;   "Toggle-replace `mu4e-view' with `mu4e-conversation' everywhere."
+  ;;   (interactive)
+  ;;   (if (eq mu4e-view-func 'mu4e-conversation)
+  ;;       (setq mu4e-view-func 'mu4e~headers-view-handler)
+  ;;     (setq mu4e-view-func 'mu4e-conversation)))
+  ;; )
 
   (define-key mu4e-main-mode-map "s" 'helm-mu)
   (define-key mu4e-headers-mode-map "s" 'helm-mu)
@@ -175,13 +251,13 @@
   (require 'org-mu4e)
   ;;store link to message if in header view, not to header query
   (setq org-mu4e-link-query-in-headers-mode nil)
-(defun mbork/message-attachment-present-p ()
-  "Return t if an attachment is found in the current message."
-  (save-excursion
-    (save-restriction
-      (widen)
-      (goto-char (point-min))
-      (when (search-forward "<#part" nil t) t))))
+  (defun mbork/message-attachment-present-p ()
+    "Return t if an attachment is found in the current message."
+    (save-excursion
+      (save-restriction
+        (widen)
+        (goto-char (point-min))
+        (when (search-forward "<#part" nil t) t))))
 
   (defcustom mbork/message-attachment-intent-re
     (regexp-opt '("attach"
@@ -216,8 +292,20 @@ there are no attachments."
 
   (add-hook 'message-send-hook #'mbork/message-warn-if-no-attachments)
 
-)
+  )
 ;; end mu4e settings
+
+(after! irc
+  (set-irc-server! "freenode"
+                   `(:use-tls t
+                     :nick "magnetophon"
+                     :user "magnetophon/freenode"
+                     :pass nil
+                     :port 6697
+                     ;; :host "magnetophon.nl"
+                     ;; :server-buffer-name "{network}:{host}:{port}"
+                     :server-buffer-name "{network}:{port}"
+                     :channels ("#ardour" "#nixos"))))
 
 
 ;; stop asking “Keep current list of tags tables also”

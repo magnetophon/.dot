@@ -12,3 +12,5 @@
 ;;
 ;; org-mode
 ;; (package! org-bullets :disable t)
+;; (package! org-recoll :recipe (:fetcher github :repo "alraban/org-recoll"))
+(package! aggressive-indent)
