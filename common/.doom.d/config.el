@@ -44,15 +44,13 @@
 (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 
 (defhydra resize-window-hydra (:hint nil)
-  "
-         _k_
-      _h_     _l_
-         _j_
-  "
-  ("h" evil-window-decrease-width)
-  ("j" evil-window-decrease-height)
-  ("k" evil-window-increase-height)
-  ("l" evil-window-increase-width))
+  "resize window"
+  ("h" evil-window-decrease-width 5 "decrease width")
+  ("j" evil-window-decrease-height 5 "decrease height")
+  ("k" evil-window-increase-height 5 "increase height")
+  ("l" evil-window-increase-width 5 "increase width")
+  ("q" nil "stop resizing")
+  )
 
 (map! :leader (:prefix ("w" . "window") "~" #'resize-window-hydra/body))
 
@@ -129,8 +127,9 @@
     ("j" forward-and-preview)
     ("k" back-and-preview)
     ("l" inside-and-preview)
-    ("J" up-forward-and-preview)
-    ("K" up-back-and-preview)
+    ("J" up-forward-and-preview "up forward")
+    ("K" up-back-and-preview "up backward")
+    ("q" winner-undo "quit" :exit t)
     )
   (defun org-nav ()
     (interactive)
@@ -138,6 +137,7 @@
     (org-overview)
     (org-reveal)
     (org-show-subtree)
+    (org-tree-to-indirect-buffer)
     (org-nav-hydra/body)
     )
   (map! :leader (:prefix ("m" . "localleader") "n" #'org-nav))
