@@ -1272,7 +1272,7 @@ c.tabs.title.alignment = 'left'
 # is enabled. * `{current_url}`: URL of the current web page. *
 # `{protocol}`: Protocol (http/https/...) of the current web page.
 # Type: FormatString
-c.tabs.title.format = '{index}: {title}'
+# c.tabs.title.format = '{index}: {title}'
 
 # Format to use for the tab title for pinned tabs. The same placeholders
 # like for `tabs.title.format` are defined.
@@ -1373,7 +1373,7 @@ c.window.hide_decoration = False
 # Format to use for the window title. The same placeholders like for
 # `tabs.title.format` are defined.
 # Type: FormatString
-c.window.title_format = "{private}{perc}{title}{title_sep}qutebrowser"
+# c.window.title_format = "{private}{perc}{title}{title_sep}qutebrowser"
 
 # Default zoom level.
 # Type: Perc
