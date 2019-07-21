@@ -17,6 +17,17 @@
         org-todo-keywords
         '((sequence "TODO(t)" "|" "DONE(d!)")
           (sequence "NEXT(n)" "WAITING(w@)" "LATER(l)" "|" "CANCELLED(c@)"))
+        ;; hl-todo-keyword-faces
+        ;; `(("TODO"     . ,(face-foreground 'warning))
+        ;;   ("NEXT"     . ,(face-foreground 'warning))
+        ;;   ("WAITING"  . ,(face-foreground 'warning))
+        ;;   ("LATER"    . ,(face-foreground 'warning))
+        ;;   ("CANCELED" . ,(face-foreground 'error))
+        ;;   ("DONE"     . ,(face-foreground 'success)))
+        ;; hl-todo--regexp
+        ;; "\\(\\<\\(TODO\ \\| NEXT \\|WAITING\\)\\(?:\\>\\|\\>\\?\\)\\)"
+        org-not-done-heading-regexp
+        "^\\(\\*+\\)\\(?: +\\(TODO\\|NEXT\\|WAITING\\|LATER\\)\\)\\(?: +\\(.*?\\)\\)?[ 	]*$"
         org-enforce-todo-dependencies t
         org-enforce-todo-checkbox-dependencies t
         ;; prepend the filename for each org target
@@ -42,19 +53,20 @@
     (show-children)
     (org-tree-to-indirect-buffer)
     )
-  (defun up-back-and-preview ()
+  (defun up-heading-and-preview ()
     (interactive)
     "Go to previous level heading and show preview in dedicated buffer"
     (org-speed-move-safe (quote outline-up-heading))
     (org-tree-to-indirect-buffer)
-    (hide-subtree)
+    ;; (hide-subtree)
     )
-  (defun up-forward-and-preview ()
+  (defun down-heading-and-preview ()
     (interactive)
-    "Go to previous level next heading and show preview in dedicated buffer"
+    "Go to next level heading and show preview in dedicated buffer"
     (org-speed-move-safe (quote outline-up-heading))
     (hide-subtree)
     (org-speed-move-safe (quote outline-next-visible-heading))
+    (show-children)
     (org-tree-to-indirect-buffer)
     )
   (defun inside-and-preview ()
@@ -70,12 +82,13 @@
       _h_     _l_
          _j_
     "
-    ("h" up-back-and-preview)
+    ("h" up-heading-and-preview)
     ("j" forward-and-preview)
     ("k" back-and-preview)
     ("l" inside-and-preview)
-    ("J" up-forward-and-preview "up forward")
-    ("K" up-back-and-preview "up backward")
+    ("J" down-heading-and-preview "down heading")
+    ("K" up-heading-and-preview "up heading")
+    ("t" org-todo "org-todo")
     ;; ("RET" (windmove-right) "enter preview window") ;; orig RET binding is still active
     ("q" winner-undo "quit" :exit t)
     )
@@ -91,7 +104,6 @@
   (map! :leader (:prefix ("m" . "localleader") "n" #'org-nav))
 
 
-
   (defun tree-forward-and-preview ()
     (interactive)
     "Go to same level next heading and show preview in dedicated buffer"
@@ -104,7 +116,7 @@
     (org-speed-move-safe (quote outline-previous-visible-heading))
     (org-tree-to-indirect-buffer)
     )
-  (defun tree-up-back-and-preview ()
+  (defun tree-up-heading-and-preview ()
     (interactive)
     "Go to previous level heading and show preview in dedicated buffer"
     (org-speed-move-safe (quote outline-up-heading))
@@ -119,25 +131,37 @@
     (org-speed-move-safe (quote outline-next-visible-heading))
     (org-tree-to-indirect-buffer)
     )
-  (defun inside-and-preview ()
+
+
+  (defun next-org-not-done-heading-and-preview ()
     (interactive)
-    "Go to next level heading and show preview in dedicated buffer"
-    (org-speed-move-safe (quote outline-next-visible-heading))
-    (show-children)
+    "Go to next not-done task and show preview in dedicated buffer"
+    (evil-end-of-line)
+    (re-search-forward  org-not-done-heading-regexp nil t)
+    (back-to-indentation)
     (org-tree-to-indirect-buffer)
     )
+  (defun previous-org-not-done-heading-and-preview ()
+    (interactive)
+    "Go to previous not-done task and show preview in dedicated buffer"
+    (re-search-backward org-not-done-heading-regexp nil t)
+    (back-to-indentation)
+    (org-tree-to-indirect-buffer)
+    )
+
   (defhydra org-todo-tree-hydra (:hint nil)
     "
          _k_
       _h_     _l_
          _j_
     "
-    ("h" up-back-and-preview)
-    ("j" tree-forward-and-preview)
-    ("k" tree-back-and-preview)
+    ("h" up-heading-and-preview)
+    ("j" next-org-not-done-heading-and-preview)
+    ("k" previous-org-not-done-heading-and-preview)
     ("l" inside-and-preview)
-    ("J" up-forward-and-preview "up forward")
-    ("K" up-back-and-preview "up backward")
+    ("J" down-heading-and-preview "down heading")
+    ("K" up-heading-and-preview "up heading")
+    ("t" org-todo "org-todo")
     ;; ("RET" (windmove-right) "enter preview window") ;; orig RET binding is still active
     ("q" winner-undo "quit" :exit t)
     )
@@ -149,6 +173,10 @@
     (org-todo-tree-hydra/body)
     )
   (map! :leader (:prefix ("m" . "localleader") "T" #'org-todo-tree-nav))
+
+  (map!
+   :m "]t" (lambda! (re-search-forward  org-not-done-heading-regexp nil t))
+   :m "[t" (lambda! (re-search-backward org-not-done-heading-regexp nil t)))
 
   ;; auto save all org files after doing a common action
   (advice-add 'org-agenda-quit      :before #'org-save-all-org-buffers)

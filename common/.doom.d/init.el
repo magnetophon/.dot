@@ -15,12 +15,13 @@
        :completion
        (company           ; the ultimate code completion backend
         +childframe       ; Enables displaying completion candidates in a child frame
-        +tng)             ; Enables completion using only ~TAB~
+        ;; +tng              ; Enables completion using only ~TAB~
+        )
        ;; (helm              ; the *other* search engine for love and life
        ;;  +fuzzy)
-       ;;ido               ; the other *other* search engine...
-       ivy               ; a search engine for love and life
-        ;; +fuzzy)
+       ;;ido              ; the other *other* search engine...
+       (ivy               ; a search engine for love and life
+        +prescient)       ; Simple but effective sorting and filtering for Emacs.
        :ui
        ;; deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
@@ -58,8 +59,8 @@
 
        :emacs
        (dired            ; making dired pretty [functional]
-       ;; +ranger         ; bringing the goodness of ranger to dired
-       ;;+icons          ; colorful icons for dired-mode
+        ;; +ranger         ; bringing the goodness of ranger to dired
+        ;;+icons          ; colorful icons for dired-mode
         )
        ;; electric          ; smarter, keyword-based electric-indent
        vc                ; version-control and Emacs, sitting in a tree
@@ -183,3 +184,15 @@
        ;; provides a Spacemacs-inspired keybinding scheme and a smartparens
        ;; config. Use it as a reference for your own modules.
        (default +bindings +smartparens))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(send-mail-function (quote mailclient-send-it)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
