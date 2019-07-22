@@ -25,7 +25,7 @@
         mu4e-user-mail-address-list  '("bart@magnetophon.nl")
         user-mail-address "bart@magnetophon.nl"
         user-full-name  "Bart Brouns"
-        message-send-mail-function   'smtpmail-send-it
+        ;; message-send-mail-function   'smtpmail-send-it
         ;; smtpmail-default-smtp-server "sub5.mail.dreamhost.com"
         smtpmail-smtp-server         "sub5.mail.dreamhost.com"
         ;; smtpmail-smtp-server         "smtp.dreamhost.com"
