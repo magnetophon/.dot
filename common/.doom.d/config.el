@@ -11,7 +11,7 @@
 (setq doom-font (font-spec :family "Terminus" :size 8))
 ;; (setq doom-font (font-spec :family "Dina" :size 8))
 (setq doom-big-font (font-spec :family "RobotoMono Nerd Font" :size 26 :weight 'regular))
-(setq doom-theme 'doom-solarized-light)
+(load-theme 'doom-solarized-light t)
 (setq display-line-numbers-type 'relative)
 
 ;; make sure we get vertical splits:

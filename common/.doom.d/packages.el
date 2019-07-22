@@ -16,4 +16,4 @@
 (package! aggressive-indent)
 
 ;; magit
-(package! org-todos :disable t)
+(package! magit-todos :disable t)
