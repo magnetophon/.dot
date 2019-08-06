@@ -30,6 +30,8 @@
         "^\\(\\*+\\)\\(?: +\\(TODO\\|NEXT\\|WAITING\\|LATER\\)\\)\\(?: +\\(.*?\\)\\)?[ 	]*$"
         org-enforce-todo-dependencies t
         org-enforce-todo-checkbox-dependencies t
+        org-hierarchical-todo-statistics nil
+        org-checkbox-hierarchical-statistics nil
         ;; prepend the filename for each org target
         org-refile-use-outline-path 'full-file-path
         ;; since we're using ivy just put all the files + headers in a list

@@ -30,6 +30,7 @@
         smtpmail-smtp-server         "sub5.mail.dreamhost.com"
         ;; smtpmail-smtp-server         "smtp.dreamhost.com"
         ;; smtpmail-local-domain        "example.com"
+        smtpmail-smtp-user         "bart@magnetophon.nl"
         mu4e-use-fancy-chars t
         mu4e-headers-include-related t
         mu4e-split-view 'vertical
