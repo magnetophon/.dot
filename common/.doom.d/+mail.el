@@ -51,6 +51,7 @@
   (setq mu4e-compose-in-new-frame t)
 
   (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
+  (remove-hook! mu4e-compose-mode #'org-mu4e-compose-org-mode)
 
   (with-eval-after-load 'mu4e-alert
     ;; Enable Desktop notifications
@@ -79,6 +80,11 @@
   (define-key mu4e-headers-mode-map "s" 'helm-mu)
   (define-key mu4e-view-mode-map "s" 'helm-mu)
 
+  (map!  (:when (featurep! :email mu4e)
+           (:map mu4e-compose-mode-map
+             :localleader
+             "o" #'org-mu4e-compose-org-mode)))
+
 ;;; Mail directory shortcuts
   (setq mu4e-maildir-shortcuts
         '(("/INBOX" . ?i)
@@ -86,7 +92,7 @@
 
 ;;; Bookmarks
   (setq mu4e-bookmarks
-        `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+        `(("flag:unread AND NOT flag:trashed AND NOT maildir:/Spam" "Unread messages" ?u  )
           ("date:today..now" "Today's messages" ?t)
           ("date:7d..now" "Last 7 days" ?w)
           ("mime:image/*" "Messages with images" ?p)
