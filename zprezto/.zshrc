@@ -369,3 +369,9 @@ alias bt='echo 0 | gdb -batch-silent -ex "run" -ex "set logging overwrite on" -e
 #. '/home/bart/promptless.sh'
 
 source /home/bart/.config/broot/launcher/bash/br
+
+# if [[ $DISPLAY ]]; then
+#   # If not running interactively, do not do anything
+#   [[ $- != *i* ]] && return
+#   [[ -z "$TMUX" ]] && exec tmux
+# fi

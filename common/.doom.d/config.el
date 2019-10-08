@@ -89,6 +89,17 @@ current window."
 
 (map! :leader (:prefix ("b" . "buffer") "TAB" #'spacemacs/alternate-buffer))
 
+                                        ; auto back-and-forth for workspaces
+(dotimes (i 9)
+  (advice-add (intern (format "+workspace/switch-to-%d" i))
+              :override
+              (lambda () (interactive)
+                (let* ((workspaces (+workspace-list-names))
+                       (current-workspace (+workspace-current-name))
+                       (target-workspace (nth i workspaces)))
+                  (if (equal current-workspace target-workspace)
+                      (+workspace/other)
+                    (+workspace/switch-to i))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       IRC
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
