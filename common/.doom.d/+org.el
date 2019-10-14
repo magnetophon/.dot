@@ -103,7 +103,8 @@
     (org-tree-to-indirect-buffer)
     (org-nav-hydra/body)
     )
-  (map! :leader (:prefix ("m" . "localleader") "n" #'org-nav))
+
+  (map! :localleader :map org-mode-map "n" #'org-nav)
 
 
   (defun tree-forward-and-preview ()
@@ -174,11 +175,12 @@
     (org-tree-to-indirect-buffer)
     (org-todo-tree-hydra/body)
     )
-  (map! :leader (:prefix ("m" . "localleader") "T" #'org-todo-tree-nav))
 
-  (map!
-   :m "]t" (lambda! (re-search-forward  org-not-done-heading-regexp nil t))
-   :m "[t" (lambda! (re-search-backward org-not-done-heading-regexp nil t)))
+  (map! :localleader :map org-mode-map "T" #'org-todo-tree-nav)
+
+  (map! :map org-mode-map
+        :m "]t" (lambda! (re-search-forward  org-not-done-heading-regexp nil t))
+        :m "[t" (lambda! (re-search-backward org-not-done-heading-regexp nil t)))
 
   ;; auto save all org files after doing a common action
   (advice-add 'org-agenda-quit      :before #'org-save-all-org-buffers)
