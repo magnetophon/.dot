@@ -23,7 +23,7 @@
        (ivy               ; a search engine for love and life
         +prescient)       ; Simple but effective sorting and filtering for Emacs.
        :ui
-       ;; deft              ; notational velocity for Emacs
+       deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        ;; doom-quit         ; DOOM quit-message prompts when you quit Emacs
@@ -170,7 +170,7 @@
        ;; toward a specific purpose. They may have additional dependencies and
        ;; should be loaded late.
        :app
-       ;;calendar
+       calendar
        irc              ; how neckbeards socialize
        ;;rss +org        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought

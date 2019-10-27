@@ -52,7 +52,7 @@
 ;; stop asking “Keep current list of tags tables also”
 (setq tags-add-tables nil)
 (setq confirm-kill-emacs nil)
-
+(setq +ivy-buffer-preview t) ;; to turn on auto-previewing in SPC bb and SPC bB
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       Bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -100,6 +100,7 @@ current window."
                   (if (equal current-workspace target-workspace)
                       (+workspace/other)
                     (+workspace/switch-to i))))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       IRC
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -117,10 +118,19 @@ current window."
                      :server-buffer-name "{network}:{port}"
                      :channels ("#ardour" "#nixos"))))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                       faust
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq faustine-build-backend `"time faust2jack -time" )
+;; (after! faustine
+;;   (set-company-backend! '(faust-mode faustine-mode) '(company-dabbrev-code +faust-company-backend company-yasnippet)))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       load
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (load! "+org")
 (load! "+mail")
 ;;; config.el ends here
