@@ -1713,7 +1713,7 @@ config.bind(']', 'navigate next')
 # config.bind('b', 'set-cmd-text -s :quickmark-load')
 # config.bind('cd', 'download-clear')
 config.bind('cm', 'clear-messages')
-config.bind('cc', 'download-clear ;; clear-messages')
+config.bind('cc', 'download-clear ;; clear-messages ;; search')  # search clears the search result higlights
 # config.bind('co', 'tab-only')
 config.bind('x', 'tab-close')
 # config.bind('f', 'hint')

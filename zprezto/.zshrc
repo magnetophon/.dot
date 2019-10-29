@@ -370,6 +370,8 @@ alias bt='echo 0 | gdb -batch-silent -ex "run" -ex "set logging overwrite on" -e
 
 source /home/bart/.config/broot/launcher/bash/br
 
+[ -n "$RANGER_LEVEL" ] && PS1="$PS1"'(in ranger) '
+
 # if [[ $DISPLAY ]]; then
 #   # If not running interactively, do not do anything
 #   [[ $- != *i* ]] && return
