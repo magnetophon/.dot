@@ -2,6 +2,10 @@
 
 
 ;; ORG config
+
+(after! evil-collection-outline
+  (setq evil-collection-outline-bind-tab-p nil))
+
 (after! org
   ;;use org mode for eml files (useful for thunderbird plugin)
   (add-to-list 'auto-mode-alist '("\\.eml\\'" . mu4e-compose-mode))

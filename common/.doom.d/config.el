@@ -11,7 +11,7 @@
 (setq doom-font (font-spec :family "Terminus" :size 8))
 ;; (setq doom-font (font-spec :family "Dina" :size 8))
 (setq doom-big-font (font-spec :family "RobotoMono Nerd Font" :size 26 :weight 'regular))
-(load-theme 'doom-solarized-light t)
+(setq doom-theme 'doom-solarized-light)
 (setq display-line-numbers-type 'relative)
 
 ;; make sure we get vertical splits:
@@ -40,7 +40,7 @@
 
 (setq evil-escape-unordered-key-sequence t)
 (setq evil-want-fine-undo t)
-(setq undo-tree-auto-save-history t)
+;; (setq undo-tree-auto-save-history t)
 
 (global-aggressive-indent-mode 1)
 (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
@@ -123,7 +123,7 @@ current window."
 ;;                       faust
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq faustine-build-backend `"time faust2jack -time" )
+(setq faustine-build-backend `"time faust2jack -time -t 0" )
 ;; (after! faustine
 ;;   (set-company-backend! '(faust-mode faustine-mode) '(company-dabbrev-code +faust-company-backend company-yasnippet)))
 
