@@ -53,6 +53,18 @@
 (setq tags-add-tables nil)
 (setq confirm-kill-emacs nil)
 (setq +ivy-buffer-preview t) ;; to turn on auto-previewing in SPC bb and SPC bB
+(after! counsel ;; always search hidden files
+  (setq counsel-rg-base-command "rg --with-filename --no-heading --line-number --color never --hidden %s"))
+;; Alternatively, you can include hidden files by:
+
+;; 1. Passing the prefix arg to +ivy/project-search (e.g. SPC u SPC s p)
+;; 2. Adding -u -- to the beginning of your search query
+;; 3. Adding ! to the ex command. e.g. :pg! SEARCH TERMS
+;; 4. Or by rebinding SPC s p so that the prefix arg is always passed to +ivy/project-search:
+;; (map! :leader "s p" (λ!! #'+ivy/project-search t))
+
+(setq evilnc-invert-comment-line-by-line t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       Bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
