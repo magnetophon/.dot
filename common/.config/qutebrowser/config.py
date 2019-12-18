@@ -1554,6 +1554,7 @@ c.url.searchengines = {
      "aa"      : "https://aur.archlinux.org/packages/?O=0&C=0&SeB=nd&K={}&outdated=&SB=n&SO=a&PP=50&do_Search=Go",
      "d"       : "https://packages.debian.org/search?suite=wheezy&section=all&arch=i386&searchon=all&keywords={}",
      "du"      : "https://duckduckgo.com/?q={}",
+     "e"       : "https://www.ebay.com/sch/{}",
      "g"       : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&num=30&q={}&tbs=li:1",
      "gi"      : "https://github.com/search?utf8=%E2%9C%93&q={}&type=Code&ref=searchresults",
      "gn"      : "https://github.com/search?q={}+language%3ANix&ref=searchresults&type=Code&utf8=%E2%9C%93",
@@ -1567,6 +1568,7 @@ c.url.searchengines = {
      "l"       : "https://wiki.archlinux.org/index.php?search={}",
     #"m"       : "https://maps.google.com/maps?q={}",
      "m"       : "https://www.openstreetmap.org/search?query={}",
+     "ma"      : "https://www.marktplaats.nl/q/{}/",
      "mu"      : "https://www.searx.me/?q={}&category_music=on",
      "n"       : "https://github.com/NixOS/nixpkgs/search?utf8=%E2%9C%93&q={}",
      "ne"      : "https://www.searx.me/?q={}&category_news=on",
@@ -1942,3 +1944,13 @@ config.bind('<Up>', 'command-history-prev', mode='command')
 # config.bind('Y', 'prompt-accept --save yes', mode='yesno')
 # config.bind('n', 'prompt-accept no', mode='yesno')
 # config.bind('y', 'prompt-accept yes', mode='yesno')
+
+
+# code select: https://github.com/LaurenceWarne/qute-code-hint
+c.hints.selectors["code"] = [
+    # Selects all code tags whose direct parent is not a pre tag
+    ":not(pre) > code",
+    "pre"
+]
+
+config.bind('yc' ,  'hint code userscript code_select.py')
