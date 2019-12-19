@@ -4,7 +4,7 @@ if [ -d ~/.dot/ ]; then
   echo "~/.dot/ directory already exists: do nothing"
 else
   cd ~/
-  git clone https://github.com/magnetophon/.dot.git
+  git clone git@github.com:magnetophon/.dot.git
   cd ~/.dot/
   echo "get submodules"
   git submodule update --init --recursive
