@@ -16,8 +16,9 @@ fi
 
 c=$(echo "$chosen" | sed "s/ .*//")
 echo "$c" | tr -d '\n' | xclip -selection clipboard
-notify-send "'$c' copied to clipboard." &
+xdotool type "$c"
+notify-send -t 1000 "'$c' typed and copied to clipboard." &
 
-s=$(echo "$chosen" | sed "s/.*; //" | awk '{print $1}')
-echo "$s" | tr -d '\n' | xclip
-notify-send "'$s' copied to primary." &
+# s=$(echo "$chosen" | sed "s/.*; //" | awk '{print $1}')
+# echo "$s" | tr -d '\n' | xclip
+# notify-send "'$s' copied to primary." &
