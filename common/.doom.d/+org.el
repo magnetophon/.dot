@@ -205,7 +205,10 @@
   (advice-add 'org-store-log-note   :after #'org-save-all-org-buffers)
 
   ;; also, let's turn on auto-fill-mode
-  (add-hook 'org-mode-hook 'auto-fill-mode)
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (visual-line-mode 1)
+              (turn-off-auto-fill)))
   )
 
 ;; The standard unicode characters are usually misaligned depending on the
