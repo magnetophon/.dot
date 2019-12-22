@@ -9,7 +9,7 @@ xclip -h >/dev/null || exit
 if [ -e ~/.config/fontawesome ]; then
     chosen=$(grep -v "#" -h ~/.config/emoji ~/.config/fontawesome | dmenu -l 20 -fn Monospace-18)
 else
-    chosen=$(grep -v "#" ~/.config/emoji | dmenu -l 20 -fn Monospace-18)
+    chosen=$(grep -v "#" ~/.config/emoji | rofi -dmenu)
 fi
 
 [ "$chosen" != "" ] || exit
@@ -17,7 +17,7 @@ fi
 c=$(echo "$chosen" | sed "s/ .*//")
 echo "$c" | tr -d '\n' | xclip -selection clipboard
 xdotool type "$c"
-notify-send -t 1000 "'$c' typed and copied to clipboard." &
+notify-send -t 3000 "'$c' typed and copied to clipboard." &
 
 # s=$(echo "$chosen" | sed "s/.*; //" | awk '{print $1}')
 # echo "$s" | tr -d '\n' | xclip

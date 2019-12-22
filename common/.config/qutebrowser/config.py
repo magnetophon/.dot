@@ -1577,6 +1577,7 @@ c.url.searchengines = {
      "so"      : "https://stackoverflow.com/search?q={}",
      "su"      : "https://superuser.com/search?q={}",
      "sh"      : "http://symbolhound.com/?q={}",
+     "td"      : "https://www.openthesaurus.de/synonyme/{}",
     #"v"       : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&tbm=vid&q={}",
      "v"       : "https://duckduckgo.com/{}?iax=videos&ia=videos",
      "w"       : "https://www.wikipedia.org/search-redirect.php?family=wikipedia&language=en&search={}&language=en&go=Go",

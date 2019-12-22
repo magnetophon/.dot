@@ -10,7 +10,10 @@
 
 (setq doom-font (font-spec :family "Terminus" :size 8))
 ;; (setq doom-font (font-spec :family "Dina" :size 8))
-(setq doom-big-font (font-spec :family "RobotoMono Nerd Font" :size 26 :weight 'regular))
+;; (setq doom-big-font (font-spec :family "Anonymous Pro" :size 11 ))
+;; (setq doom-big-font (font-spec :family "Terminus" :size 16))
+(setq doom-big-font (font-spec :family "Oxygen" :size 16))
+;; (setq doom-big-font (font-spec :family "RobotoMono Nerd Font" :size 26 :weight 'regular))
 (setq doom-theme 'doom-solarized-light)
 (setq display-line-numbers-type 'relative)
 
@@ -145,4 +148,24 @@ current window."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load! "+org")
 (load! "+mail")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                       mma
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; config.el ends here
+(load! "lisp/mma")
+
+(setq auto-mode-alist
+      (append '(("\\.mma$" . mma-mode))
+              auto-mode-alist))
+(setq mma-midi-player "/run/current-system/sw/bin/fluidsynth")
+(setq mma-midi-player-arg "--audio-driver=jack --midi-driver=jack --connect-jack-outputs --no-shell --no-midi-in --server /home/bart/Downloads/Compifont_NEW.sf2")
+
+(map! :localleader
+      :map mma-mode-map
+      "c" #'mma-compile
+      "p" #'mma-compile-and-play
+      "P" #'mma-play
+      "s" #'mma-stop
+      "t" #'mma-test
+      "a" #'mma-select-audio
+      "r" #'mma-create-regexp)
