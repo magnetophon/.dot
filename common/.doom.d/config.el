@@ -68,6 +68,10 @@
 
 (setq evilnc-invert-comment-line-by-line t)
 
+(setq which-key-allow-imprecise-window-fit 'nil)
+
+(setq ranger-override-dired 'ranger)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       Bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
