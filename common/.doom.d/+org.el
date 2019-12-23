@@ -41,6 +41,9 @@
         ;; since we're using ivy just put all the files + headers in a list
         org-outline-path-complete-in-steps nil
         org-M-RET-may-split-line nil
+        org-indirect-buffer-display 'other-window
+        deft-directory org-directory
+        deft-recursive t
         )
 
   (defun forward-and-preview ()
