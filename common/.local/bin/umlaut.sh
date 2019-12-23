@@ -6,11 +6,11 @@
 # Must have xclip installed to even show menu.
 xclip -h >/dev/null || exit
 
-if [ -e ~/.config/fontawesome ]; then
-    chosen=$(grep -v "#" -h ~/.config/emoji ~/.config/fontawesome | dmenu -l 20 -fn Monospace-18)
-else
-    chosen=$(grep -v "#" ~/.config/emoji | rofi -dmenu)
-fi
+# if [ -e ~/.config/fontawesome ]; then
+# chosen=$(grep -v "#" -h ~/.config/emoji ~/.config/fontawesome | dmenu -l 20 -fn Monospace-18)
+# else
+chosen=$(grep -v "#" ~/.config/emoji | rofi -dmenu -p "type and copy")
+# fi
 
 [ "$chosen" != "" ] || exit
 

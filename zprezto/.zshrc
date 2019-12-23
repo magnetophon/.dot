@@ -92,6 +92,8 @@ fw() {
 # fuzzy search content of a file
 alias fzg="sk -i -c 'rg --smart-case --color always --line-number --hidden --follow '{}'' --preview '~/.local/bin/fzg_preview.sh {}' --header 'enter to view, alt-z toggle preview, alt-a toggle all, ctrl-a select all'  --ansi --reverse --bind 'enter:execute:$EDITOR {}' --bind 'alt-z:toggle-preview,alt-a:toggle-all,ctrl-a:select-all' --multi --exact --no-height --color=light"
 
+alias iotop="sudo iotop"
+
 ##################################################################
 # completions
 ##################################################################
