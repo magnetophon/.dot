@@ -29,9 +29,14 @@
 ;;                       Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq which-key-idle-delay 0.1)
+(after! which-key
+  (setq
+   which-key-idle-delay 0.1
+   which-key-allow-imprecise-window-fit nil
+   ;; which-key-max-description-length nil))
 
-(setq ispell-aspell-data-dir "/run/current-system/sw/lib/aspell/" )
+
+  (setq ispell-aspell-data-dir "/run/current-system/sw/lib/aspell/" )
 (setq ispell-aspell-dict-dir ispell-aspell-data-dir)
 
 ;; (add-to-list 'ispell-dictionary-alist
@@ -67,8 +72,6 @@
 ;; (map! :leader "s p" (λ!! #'+ivy/project-search t))
 
 (setq evilnc-invert-comment-line-by-line t)
-
-(setq which-key-allow-imprecise-window-fit 'nil)
 
 (setq ranger-override-dired 'ranger)
 
