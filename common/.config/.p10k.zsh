@@ -36,10 +36,12 @@
 
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-      os_icon                 # os identifier
-      dir                     # current directory
-      vcs                     # git status
-      # prompt_char           # prompt symbol
+    # os_icon                 # os identifier
+    context                 # user@hostname
+    dir                     # current directory
+    vcs                     # git status
+    # prompt_char           # prompt symbol
+    vi_mode                 # vi mode (you don't need this if you've enabled prompt_char)
   )
 
   # The list of segments shown on the right. Fill it with less important segments.
@@ -50,33 +52,31 @@
       status                  # exit code of the last command
       command_execution_time  # duration of the last command
       background_jobs         # presence of background jobs
-      direnv                  # direnv status (https://direnv.net/)
-      virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
-      anaconda                # conda environment (https://conda.io/)
-      pyenv                   # python environment (https://github.com/pyenv/pyenv)
-      goenv                   # go environment (https://github.com/syndbg/goenv)
-      nodenv                  # node.js version from nodenv (https://github.com/nodenv/nodenv)
-      nvm                     # node.js version from nvm (https://github.com/nvm-sh/nvm)
-      nodeenv                 # node.js environment (https://github.com/ekalinin/nodeenv)
+      # direnv                  # direnv status (https://direnv.net/)
+      # virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
+      # anaconda                # conda environment (https://conda.io/)
+      # pyenv                   # python environment (https://github.com/pyenv/pyenv)
+      # goenv                   # go environment (https://github.com/syndbg/goenv)
+      # nodenv                  # node.js version from nodenv (https://github.com/nodenv/nodenv)
+      # nvm                     # node.js version from nvm (https://github.com/nvm-sh/nvm)
+      # nodeenv                 # node.js environment (https://github.com/ekalinin/nodeenv)
       # node_version          # node.js version
       # go_version            # go version (https://golang.org)
       # rust_version          # rustc version (https://www.rust-lang.org)
       # dotnet_version        # .NET version (https://dotnet.microsoft.com)
-      rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
-      rvm                     # ruby version from rvm (https://rvm.io)
-      fvm                     # flutter version management (https://github.com/leoafarias/fvm)
-      kubecontext             # current kubernetes context (https://kubernetes.io/)
-      terraform               # terraform workspace (https://www.terraform.io)
-      aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+      # rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
+      # rvm                     # ruby version from rvm (https://rvm.io)
+      # fvm                     # flutter version management (https://github.com/leoafarias/fvm)
+      # kubecontext             # current kubernetes context (https://kubernetes.io/)
+      # terraform               # terraform workspace (https://www.terraform.io)
+      # aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
       # aws_eb_env            # aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/)
       # azure                 # azure account name (https://docs.microsoft.com/en-us/cli/azure)
       # gcloud                # google cloud acccount and project (https://cloud.google.com/)
-      context                 # user@hostname
-      nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
+      # nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
       ranger                  # ranger shell (https://github.com/ranger/ranger)
       vim_shell               # vim shell indicator (:sh)
       # midnight_commander    # midnight commander shell (https://midnight-commander.org/)
-      vi_mode                 # vi mode (you don't need this if you've enabled prompt_char)
       # vpn_ip                # virtual private network indicator
       # ram                   # free RAM
       # load                  # CPU load
@@ -132,6 +132,7 @@
   # POWERLEVEL9K_MODE=compatible, or install the recommended Powerlevel10k font from
   # https://github.com/romkatv/powerlevel10k/#recommended-meslo-nerd-font-patched-for-powerlevel10k
   # and set POWERLEVEL9K_MODE=nerdfont-complete.
+  # typeset -g POWERLEVEL9K_MODE=awesome-fontconfig
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
 
   # When set to true, icons appear before content on both sides of the prompt. When set
@@ -167,13 +168,13 @@
   typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR=' '
   typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_BACKGROUND=
   if [[ $POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR != ' ' ]]; then
-    # The color of the filler. You'll probably want to match the color of POWERLEVEL9K_MULTILINE
-    # ornaments defined above.
-    typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND=242
-    # Start filler from the edge of the screen if there are no left segments on the first line.
-    typeset -g POWERLEVEL9K_EMPTY_LINE_LEFT_PROMPT_FIRST_SEGMENT_END_SYMBOL='%{%}'
-    # End filler on the edge of the screen if there are no right segments on the first line.
-    typeset -g POWERLEVEL9K_EMPTY_LINE_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='%{%}'
+  # The color of the filler. You'll probably want to match the color of POWERLEVEL9K_MULTILINE
+  # ornaments defined above.
+  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND=242
+  # Start filler from the edge of the screen if there are no left segments on the first line.
+  typeset -g POWERLEVEL9K_EMPTY_LINE_LEFT_PROMPT_FIRST_SEGMENT_END_SYMBOL='%{%}'
+  # End filler on the edge of the screen if there are no right segments on the first line.
+  typeset -g POWERLEVEL9K_EMPTY_LINE_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='%{%}'
   fi
 
   # Separator between same-color segments on the left.
