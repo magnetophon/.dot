@@ -33,7 +33,7 @@
   (setq
    which-key-idle-delay 0.1
    which-key-allow-imprecise-window-fit nil
-   ;; which-key-max-description-length nil))
+   which-key-max-description-length nil))
 
 
   (setq ispell-aspell-data-dir "/run/current-system/sw/lib/aspell/" )
