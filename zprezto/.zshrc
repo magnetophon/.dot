@@ -394,3 +394,6 @@ source /home/bart/.config/broot/launcher/bash/br
 
 
 [[ ! -f ~/.dot/zlong_alert.zsh/zlong_alert.zsh ]] || source ~/.dot/zlong_alert.zsh/zlong_alert.zsh
+zlong_use_notify_send=false
+zlong_duration=4
+zlong_ignore_cmds="vim nvim ssh"
