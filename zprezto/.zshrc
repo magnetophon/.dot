@@ -391,3 +391,6 @@ source /home/bart/.config/broot/launcher/bash/br
 [[ ! -f ~/.config/.p10k.zsh ]] || source ~/.config/.p10k.zsh
 # default location:
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+[[ ! -f ~/.dot/zlong_alert.zsh/zlong_alert.zsh ]] || source ~/.dot/zlong_alert.zsh/zlong_alert.zsh
