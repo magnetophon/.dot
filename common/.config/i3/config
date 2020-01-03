@@ -124,7 +124,7 @@ bindsym $win+w exec --no-startup-id rofi -show window
 # bindsym $win+w exec python ~/.config/i3/scripts/i3-quickswitch.py
 
 # Jump to urgent window
-# bindsym $win+o [urgent=latest] focus
+bindsym $win+shift+o [urgent=latest] focus
 
 # focus a window
 bindsym $win+o exec wmfocus -c asdfghjkl
@@ -206,6 +206,9 @@ bindsym $win+0 workspace 10
 # switch to next/prev workspace (alt-tab)
 bindsym $alt+Tab workspace next
 bindsym $alt+Shift+Tab workspace prev
+
+bindsym $win+XF86Back workspace prev
+bindsym $win+XF86Forward workspace next
 
 # change focus to another monitor
 bindsym $win+$alt+Left focus output left
@@ -354,7 +357,8 @@ bindsym Ctrl+$alt+l exec --no-startup-id $Locker
 # bindsym $win+p  exec clipster -o -n 0 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | tr -d '\n' | clipster
 
 # too slow:
-bindsym $win+Shift+p  exec clipster -o -n 0 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | sed -ze 's/\n$//' | clipster
+# bindsym $win+Shift+p  exec clipster -o -n 0 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | sed -ze 's/\n$//' | clipster
+bindsym $win+Shift+p  exec clipster -s -n 0
 # alacritty grabs the input directly after launch
 bindsym $win+p  exec alacritty -t paste:: -e ~/.local/bin/clipster_fzf.sh
 
