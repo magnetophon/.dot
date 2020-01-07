@@ -46,6 +46,7 @@ c.auto_save.session = True
 
 ## Background color of the completion widget category headers.
 ## Type: QssColor
+c.colors.completion.category.bg = '#444444'
 # c.colors.completion.category.bg = 'qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #888888, stop:1 #505050)'
 
 ## Bottom border color of the completion widget category headers.
@@ -58,7 +59,7 @@ c.colors.completion.category.border.top = 'white'
 
 ## Foreground color of completion widget category headers.
 ## Type: QtColor
-c.colors.completion.category.fg = 'black'
+c.colors.completion.category.fg = 'white'
 
 ## Background color of the completion widget for even rows.
 ## Type: QssColor
@@ -67,7 +68,7 @@ c.colors.completion.even.bg = 'white'
 ## Text color of the completion widget. May be a single color to use for
 ## all columns or a list of three colors, one for each column.
 ## Type: List of QtColor, or QtColor
-c.colors.completion.fg = ['#444444', 'black', '#444444']
+c.colors.completion.fg = ['#444444', '#444444', '#444444']
 
 ## Background color of the selected completion item.
 ## Type: QssColor
@@ -95,7 +96,7 @@ c.colors.completion.item.selected.fg = 'white'
 
 ## Background color of the completion widget for odd rows.
 ## Type: QssColor
-c.colors.completion.odd.bg = '#dddddd'
+c.colors.completion.odd.bg = '#eeeeee'
 
 ## Color of the scrollbar in the completion view.
 ## Type: QssColor
@@ -103,7 +104,7 @@ c.colors.completion.scrollbar.bg = '#eeeeee'
 
 ## Color of the scrollbar handle in the completion view.
 ## Type: QssColor
-c.colors.completion.scrollbar.fg = 'black'
+c.colors.completion.scrollbar.fg = '#444444'
 
 ## Background color for the download bar.
 ## Type: QssColor
