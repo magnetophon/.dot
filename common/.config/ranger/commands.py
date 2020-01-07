@@ -206,11 +206,21 @@ class fasd(Command):
     URL: https://github.com/clvv/fasd
     """
     def execute(self):
+        args = self.rest(1).split()
+        if args:
+            directories = self._get_directories(*args)
+            if directories:
+                self.fm.cd(directories[0])
+            else:
+                self.fm.notify("No results from fasd", bad=True)
+
+    def tab(self, tabnum: int):
+        start, current = self.start(1), self.rest(1)
+        for path in self._get_directories(*current.split()):
+            yield start + path
+
+    @staticmethod
+    def _get_directories(*args):
         import subprocess
-        arg = self.rest(1)
-        if arg:
-            directory = subprocess.check_output(["fasd", "-d"]+arg.split(), universal_newlines=True).strip()
-            self.fm.cd(directory)
-
-
-
+        output = subprocess.check_output(["fasd", "-dl", *args], universal_newlines=True)
+        return output.strip().split("\n")
