@@ -44,7 +44,8 @@ mkcd() { mkdir -p "$1" && cd "$_"; }
 # aliases
 ##################################################################
 # not using fzf yet
-alias vi='emacseditor --no-wait --create-frame'
+# alias vi='emacseditor --no-wait --create-frame'
+vi() {emacseditor --create-frame --quiet --no-wait "$@"}
 alias vh='vim -M ~/.vim/vim_keys.txt'
 alias v='fasd -f -t -e vim -b viminfo'
 alias j=fasd_cd
@@ -97,7 +98,40 @@ fw() {
 }
 
 # fuzzy search content of a file
-alias fzg="sk -i -c 'rg --smart-case --color always --line-number --hidden --follow '{}'' --preview '~/.local/bin/fzg_preview.sh {}' --header 'enter to view, alt-z toggle preview, alt-a toggle all, ctrl-a select all'  --ansi --reverse --bind 'enter:execute:$EDITOR {}' --bind 'alt-z:toggle-preview,alt-a:toggle-all,ctrl-a:select-all' --multi --exact --no-height --color=light"
+# alias  fzg="sk -i -c 'rg  --smart-case --no-messages --color always --line-number --hidden --follow '{}'' --preview '~/.local/bin/fzg_preview.sh {}' -d':' --header 'enter to view, alt-z toggle preview, alt-a toggle all, ctrl-a select all'  --ansi --reverse --bind 'enter:execute($EDITOR +{2} {1} &)' --bind 'alt-z:toggle-preview,alt-a:toggle-all,ctrl-a:select-all' --multi --exact --no-height --color=light"
+alias  fzg="sk -i -c 'rg  --smart-case --no-messages --color always --line-number --hidden --follow '{}'' --preview '~/.local/bin/fzg_preview.sh {}' -d':' --header 'enter to view, alt-z toggle preview, alt-a toggle all, ctrl-a select all'  --ansi --reverse --bind 'enter:execute($EDITOR +{2} {1} &)' --bind 'alt-z:toggle-preview,alt-a:toggle-all,ctrl-a:select-all' --multi --exact --no-height --color=light"
+alias fzga="sk -i -c 'rga --smart-case --no-messages --hidden --follow --files-with-matches '{}'' --preview 'rga --smart-case --hidden --follow --pretty --context 10 {cq} {}' --header 'enter to view, alt-z toggle preview, alt-a toggle all, ctrl-a select all'  --ansi --reverse --bind 'enter:execute(xdg-open {1} &)' --bind 'alt-z:toggle-preview,alt-a:toggle-all,ctrl-a:select-all' --multi --exact --no-height --color=light"
+
+
+
+#
+# RipGrep-All Integration
+# -----------------------
+# allows to search in PDFs, E-Books, Office documents, zip, tar.gz, etc.
+# find-in-file - usage: fif <searchTerm>
+if $( whence rga >/dev/null ); then
+  fif() {
+    if [ ! "$#" -gt 0 ]; then
+      echo "Need a string to search for!"
+      return 1
+    fi
+    rga --smart-case --files-with-matches --no-messages "$1" |
+      fzf --preview-window=right:60% \
+        --preview "rga --smart-case --pretty --context 10 "$1" {}"
+  }
+elif $( whence rg >/dev/null 2>&1 ); then
+  fif() {
+    if [ ! "$#" -gt 0 ]; then
+      echo "Need a string to search for!"
+      return 1
+    fi
+    rg --files-with-matches --no-messages "$1" |
+      fzf --preview-window=right:60% \
+        --preview "highlight -O ansi -l {} 2> /dev/null |
+                           rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' ||
+                           rg --ignore-case --pretty --context 10 '$1' {}"
+  }
+fi
 
 alias iotop="sudo iotop"
 
