@@ -13,7 +13,6 @@
   (setq org-startup-folded nil ; do not start folded
         org-log-done 'time ; record the time when an element was marked done/checked
         org-fontify-done-headline nil ; do not change the font of DONE items
-        org-ellipsis " ↴ "
         org-return-follows-link t  ; RET follows links
         org-hide-emphasis-markers t ; do not show format markers
         org-startup-with-inline-images t ; open buffers show inline images
@@ -44,7 +43,14 @@
         org-indirect-buffer-display 'other-window
         deft-directory org-directory
         deft-recursive t
+        org-sticky-header-full-path 'full
+        org-sticky-header-heading-star "████"
+        org-ellipsis " ▼ "
         )
+
+  (after! org-bullets
+    (setq org-bullets-bullet-list '("")))
+  (custom-set-faces '(org-ellipsis ((t (:foreground "dark gray" :underline nil)))))
 
   (defun forward-and-preview ()
     (interactive)
@@ -211,10 +217,6 @@
   (add-hook 'org-mode-hook
             (lambda ()
               (visual-line-mode 1)
-              (turn-off-auto-fill)))
+              (turn-off-auto-fill)
+              (org-sticky-header-mode)))
   )
-
-;; The standard unicode characters are usually misaligned depending on the
-;; font. This bugs me. Markdown #-marks for headlines are more elegant.
-(after! org-bullets
-  (setq org-bullets-bullet-list '("*")))

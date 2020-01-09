@@ -53,7 +53,9 @@
        (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        ;; fold              ; (nigh) universal code folding
-       ;;(format +onsave)  ; automated prettiness
+       (format            ; automated prettiness
+        )
+       ;; +onsave)          ; automated prettiness
        ;;lispy             ; vim for lisp, for people who dont like vim
        ;; multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
@@ -230,9 +232,3 @@
     (cons 340 "#D6D6D6")
     (cons 360 "#D6D6D6")))
  '(vc-annotate-very-old-color nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

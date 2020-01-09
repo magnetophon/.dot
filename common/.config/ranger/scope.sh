@@ -41,7 +41,8 @@ FILE_EXTENSION_LOWER="$(printf "%s" "${FILE_EXTENSION}" | tr '[:upper:]' '[:lowe
 ## Settings
 HIGHLIGHT_SIZE_MAX=262143  # 256KiB
 HIGHLIGHT_TABWIDTH=${HIGHLIGHT_TABWIDTH:-8}
-HIGHLIGHT_STYLE=${HIGHLIGHT_STYLE:-pablo}
+HIGHLIGHT_STYLE=${HIGHLIGHT_STYLE:-github}
+# HIGHLIGHT_STYLE=${HIGHLIGHT_STYLE:-solarized-light}
 HIGHLIGHT_OPTIONS="--replace-tabs=${HIGHLIGHT_TABWIDTH} --style=${HIGHLIGHT_STYLE} ${HIGHLIGHT_OPTIONS:-}"
 PYGMENTIZE_STYLE=${PYGMENTIZE_STYLE:-autumn}
 OPENSCAD_IMGSIZE=${RNGR_OPENSCAD_IMGSIZE:-1000,1000}
@@ -87,9 +88,12 @@ handle_extension() {
             pandoc -s -t markdown -- "${FILE_PATH}" && exit 5
             exit 1;;
 
+        ## nix files
         nix)
             # highlight can't handle nix, but bat is slow
-            bat --style=numbers --color=always --theme=GitHub --decorations=never --paging=never "${FILE_PATH}" && exit 1;;
+            COLORTERM=screen-256color
+            bat --style=numbers --color=always --theme=GitHub --decorations=never --paging=never "${FILE_PATH}" && exit 5
+            exit 1;;
 
         ## XLSX
         xlsx)
@@ -127,7 +131,7 @@ handle_image() {
     ## rendered from vector graphics. If the conversion program allows
     ## specifying only one dimension while keeping the aspect ratio, the width
     ## will be used.
-    local DEFAULT_SIZE="1920x1080"
+    local DEFAULT_SIZE="1600x900"
 
     local mimetype="${1}"
     case "${mimetype}" in
@@ -158,20 +162,21 @@ handle_image() {
             exit 7;;
 
         ## Video
-        # video/*)
-        #     # Thumbnail
-        #     ffmpegthumbnailer -i "${FILE_PATH}" -o "${IMAGE_CACHE_PATH}" -s 0 && exit 6
-        #     exit 1;;
+        video/*)
+            # Thumbnail
+            # ffmpegthumbnailer -i "${FILE_PATH}" -o "${IMAGE_CACHE_PATH}" -s 0 && exit 6
+            echo OK && exit 5
+            exit 1;;
 
         ## PDF
-        # application/pdf)
-        #     pdftoppm -f 1 -l 1 \
-        #              -scale-to-x "${DEFAULT_SIZE%x*}" \
-        #              -scale-to-y -1 \
-        #              -singlefile \
-        #              -jpeg -tiffcompression jpeg \
-        #              -- "${FILE_PATH}" "${IMAGE_CACHE_PATH%.*}" \
-        #         && exit 6 || exit 1;;
+        application/pdf)
+            pdftoppm -f 1 -l 1 \
+                     -scale-to-x "${DEFAULT_SIZE%x*}" \
+                     -scale-to-y -1 \
+                     -singlefile \
+                     -jpeg -tiffcompression jpeg \
+                     -- "${FILE_PATH}" "${IMAGE_CACHE_PATH%.*}" \
+                && exit 6 || exit 1;;
 
 
         ## ePub, MOBI, FB2 (using Calibre)
@@ -243,27 +248,27 @@ handle_image() {
         #     ;;
     esac
 
-    # openscad_image() {
-    #     TMPPNG="$(mktemp -t XXXXXX.png)"
-    #     openscad --colorscheme="${OPENSCAD_COLORSCHEME}" \
-    #         --imgsize="${OPENSCAD_IMGSIZE/x/,}" \
-    #         -o "${TMPPNG}" "${1}"
-    #     mv "${TMPPNG}" "${IMAGE_CACHE_PATH}"
-    # }
+    openscad_image() {
+        TMPPNG="$(mktemp -t XXXXXX.png)"
+        openscad --colorscheme="${OPENSCAD_COLORSCHEME}" \
+            --imgsize="${OPENSCAD_IMGSIZE/x/,}" \
+            -o "${TMPPNG}" "${1}"
+        mv "${TMPPNG}" "${IMAGE_CACHE_PATH}"
+    }
 
-    # case "${FILE_EXTENSION_LOWER}" in
-    #     ## 3D models
-    #     ## OpenSCAD only supports png image output, and ${IMAGE_CACHE_PATH}
-    #     ## is hardcoded as jpeg. So we make a tempfile.png and just
-    #     ## move/rename it to jpg. This works because image libraries are
-    #     ## smart enough to handle it.
-    #     csg|scad)
-    #         openscad_image "${FILE_PATH}" && exit 6
-    #         ;;
-    #     3mf|amf|dxf|off|stl)
-    #         openscad_image <(echo "import(\"${FILE_PATH}\");") && exit 6
-    #         ;;
-    # esac
+    case "${FILE_EXTENSION_LOWER}" in
+        ## 3D models
+        ## OpenSCAD only supports png image output, and ${IMAGE_CACHE_PATH}
+        ## is hardcoded as jpeg. So we make a tempfile.png and just
+        ## move/rename it to jpg. This works because image libraries are
+        ## smart enough to handle it.
+        csg|scad)
+            openscad_image "${FILE_PATH}" && exit 6
+            ;;
+        3mf|amf|dxf|off|stl)
+            openscad_image <(echo "import(\"${FILE_PATH}\");") && exit 6
+            ;;
+    esac
 }
 
 handle_mime() {

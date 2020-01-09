@@ -25,6 +25,9 @@
   (setq split-width-threshold 160)
   )
 
+(after! solaire-mode
+  (custom-set-faces! '(solaire-hl-line-face  :background "papaya whip")))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
