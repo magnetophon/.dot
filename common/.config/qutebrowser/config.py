@@ -46,20 +46,20 @@ c.auto_save.session = True
 
 ## Background color of the completion widget category headers.
 ## Type: QssColor
-c.colors.completion.category.bg = '#444444'
+c.colors.completion.category.bg = '#bebebe'
 # c.colors.completion.category.bg = 'qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #888888, stop:1 #505050)'
 
 ## Bottom border color of the completion widget category headers.
 ## Type: QssColor
-c.colors.completion.category.border.bottom = 'white'
+c.colors.completion.category.border.bottom = '#bebebe'
 
 ## Top border color of the completion widget category headers.
 ## Type: QssColor
-c.colors.completion.category.border.top = 'white'
+c.colors.completion.category.border.top = '#bebebe'
 
 ## Foreground color of completion widget category headers.
 ## Type: QtColor
-c.colors.completion.category.fg = 'white'
+c.colors.completion.category.fg = '#444444'
 
 ## Background color of the completion widget for even rows.
 ## Type: QssColor
@@ -903,6 +903,7 @@ c.editor.command = [ "emacseditor" ,  "--create-frame", "+{line}:{column}", "{fi
 ## Default monospace fonts. Whenever "monospace" is used in a font
 ## setting, it's replaced with the fonts listed here.
 ## Type: Font
+c.fonts.monospace = 'Terminus'
 # c.fonts.monospace = '"xos4 Terminus", Terminus, Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
 
 ## Font used for prompts.
@@ -1550,10 +1551,10 @@ c.url.searchengines = {
     #"DEFAULT" : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&num=30&q={}&tbs=li:1",
     #"DEFAULT" : "https://duckduckgo.com/{}",
      # "DEFAULT" : "https://searx.riseup.net/?q={}&categories=general&language=en-US",
-     "DEFAULT" : "https://searx.me/?q={}&categories=general&language=en-US",
+     "DEFAULT" : "https://searx.be/?q={}&categories=general&language=en-US",
      "a"       : "https://archive.org/search.php?query={}",
      "aa"      : "https://aur.archlinux.org/packages/?O=0&C=0&SeB=nd&K={}&outdated=&SB=n&SO=a&PP=50&do_Search=Go",
-     "d"       : "https://packages.debian.org/search?suite=wheezy&section=all&arch=i386&searchon=all&keywords={}",
+     "d"       : "https://packages.debian.org/search?suite=sid&section=all&searchon=all&keywords={}",
      "du"      : "https://duckduckgo.com/?q={}",
      "e"       : "https://www.ebay.com/sch/{}",
      "g"       : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&num=30&q={}&tbs=li:1",
@@ -1565,20 +1566,22 @@ c.url.searchengines = {
      "ht"      : "https://hooktube.com/results?search_query={}",
     #"i"       : "https://encrypted.google.com/search?q={}&safe=off&pws=0&tbm=isch",
     #"i"       : "https://duckduckgo.com/{}?ia=images",
-     "i"       : "https://www.searx.me/?q={}&category_images=on",
+     "i"       : "https://www.searx.be/?q={}&category_images=on",
      "l"       : "https://wiki.archlinux.org/index.php?search={}",
     #"m"       : "https://maps.google.com/maps?q={}",
      "m"       : "https://www.openstreetmap.org/search?query={}",
      "ma"      : "https://www.marktplaats.nl/q/{}/",
-     "mu"      : "https://www.searx.me/?q={}&category_music=on",
+     "mu"      : "https://www.searx.be/?q={}&category_music=on",
      "n"       : "https://github.com/NixOS/nixpkgs/search?utf8=%E2%9C%93&q={}",
-     "ne"      : "https://www.searx.me/?q={}&category_news=on",
+     "ne"      : "https://www.searx.be/?q={}&category_news=on",
      "o"       : "https://www.openstreetmap.org/search?query={}",
      "r"       : "https://reddit.com/search?q={}",
      "so"      : "https://stackoverflow.com/search?q={}",
      "su"      : "https://superuser.com/search?q={}",
      "sh"      : "http://symbolhound.com/?q={}",
      "td"      : "https://www.openthesaurus.de/synonyme/{}",
+     "te"      : "https://www.collinsdictionary.com/dictionary/english-thesaurus/{}",
+     "tn"      : "https://www.interglot.com/dictionary/nl/nl/search?q={}&m=",
     #"v"       : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&tbm=vid&q={}",
      "v"       : "https://duckduckgo.com/{}?iax=videos&ia=videos",
      "w"       : "https://www.wikipedia.org/search-redirect.php?family=wikipedia&language=en&search={}&language=en&go=Go",
@@ -1740,6 +1743,7 @@ config.bind('f', 'hint links tab-bg')
 # config.bind('gm', 'tab-move')
 # config.bind('go', 'set-cmd-text :open {url:pretty}')
 # config.bind('gr', 'tab-move +')
+config.bind('gs', "config-cycle statusbar.hide", mode="normal")
 # config.bind('gt', 'set-cmd-text -s :buffer')
 config.bind('b', 'set-cmd-text -s :buffer')
 # config.bind('gu', 'navigate up')

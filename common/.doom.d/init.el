@@ -1,12 +1,18 @@
 ;;; init.el -*- lexical-binding: t; -*-
 
-;; Copy this file to ~/.doom.d/init.el or ~/.config/doom/init.el ('doom install'
-;; will do this for you). The `doom!' block below controls what modules are
-;; enabled and in what order they will be loaded. Remember to run 'doom refresh'
-;; after modifying it.
+;; This file controls what Doom modules are enabled and what order they load in.
+;; Remember to run 'doom sync' after modifying it!
+
+;; NOTE Press 'SPC h d h' (or 'C-h d h' for non-vim users) to access Doom's
+;;      documentation. There you'll find information about all of Doom's modules
+;;      and what flags they support.
+
+;; NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
+;;      'C-c g k' for non-vim users) to view its documentation. This works on
+;;      flags as well (those symbols that start with a plus).
 ;;
-;; More information about these modules (and what flags they support) can be
-;; found in modules/README.org.
+;;      Alternatively, press 'gd' (or 'C-c g d') on a module to browse its
+;;      directory (for easy access to its source code).
 
 (doom! :input
        ;;chinese
@@ -47,7 +53,7 @@
        ;; vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
-       zen               ; distraction-free coding or writing
+       ;;zen               ; distraction-free coding or writing
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
@@ -62,6 +68,7 @@
        ;;parinfer          ; turn lisp into python, sort of
        ;; rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
+       ;;word-wrap         ; soft wrapping with language-aware indent
 
        :emacs
        (dired            ; making dired pretty [functional]
@@ -69,6 +76,7 @@
         +icons          ; colorful icons for dired-mode
         )
        ;; electric          ; smarter, keyword-based electric-indent
+       ibuffer           ; interactive buffer management
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
@@ -77,19 +85,23 @@
        term              ; terminals in Emacs
        ;;vterm             ; another terminals in Emacs
 
+       :checkers
+       syntax              ; tasing you for every semicolon you forget
+       spell             ; tasing you for misspelling mispelling
+       grammar           ; tasing grammar mistake every you make
+
        :tools
        ;;ansible
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
-       ;; editorconfig      ; let someone else argue about tabs vs spaces
+       ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
-       flycheck          ; tasing you for every semicolon you forget
-       flyspell          ; tasing you for misspelling mispelling
        ;;gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
-        +docsets)        ; ...or in Dash docsets locally
+        +docsets          ; ...or in Dash docsets locally
+        +dictionary)      ; for dictionary/thesaurus lookups on SPC s t & SPC s T, respectively
        ;;lsp
        ;;macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
@@ -113,12 +125,13 @@
        ;;crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
-       ;;erlang            ; an elegant language for a more civilized age
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
+       ;;erlang            ; an elegant language for a more civilized age
        ;;ess               ; emacs speaks statistics
-       faust             ; dsp done right
+       faust             ; dsp, but you get to keep your soul
+       ;;fsharp           ; ML stands for Microsoft's Language
        ;;go                ; the hipster dialect
        ;;(haskell +dante)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
@@ -143,7 +156,10 @@
         +capture         ; org-capture in and outside of Emacs
         ;; +export          ; Exporting org to whatever you want
         ;; +habit           ; Keep track of your habits
+        ;;+hugo            ; use Emacs for hugo blogging
+        ;;+jupyter        ; ipython/jupyter support for babel
         +pandoc          ; pandoc integration into org's exporter
+        ;;+pomodoro        ; be fruitful with the tomato technique
         +present         ; Emacs for presentations
         ;; +protocol       ; Support for org-protocol:// links
         )
@@ -184,7 +200,6 @@
        ;;(write            ; emacs for writers (fiction, notes, papers, etc.)
        ;; +wordnut         ; wordnet (wn) search
        ;; +langtool)       ; a proofreader (grammar/style check) for Emacs
-
        :config
        ;; For literate config users. This will tangle+compile a config.org
        ;; literate config in your `doom-private-dir' whenever it changes.
@@ -194,41 +209,3 @@
        ;; provides a Spacemacs-inspired keybinding scheme and a smartparens
        ;; config. Use it as a reference for your own modules.
        (default +bindings +smartparens))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#D8DEE9" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#556b72"])
- '(custom-safe-themes
-   (quote
-    ("728eda145ad16686d4bbb8e50d540563573592013b10c3e2defc493f390f7d83" "2d392972cbe692ee4ac61dc79907af65051450caf690a8c4d36eb40c1857ba7d" "bd6ced8badda12f95e16e641d76d861de096c691720ede6388a226914e97cf23" "c8f959fb1ea32ddfc0f50db85fea2e7d86b72bb4d106803018be1c3566fd6c72" "cdb3e7a8864cede434b168c9a060bf853eeb5b3f9f758310d2a2e23be41a24ae" "7d56fb712ad356e2dacb43af7ec255c761a590e1182fe0537e1ec824b7897357" default)))
- '(fci-rule-color "#D6D6D6")
- '(jdee-db-active-breakpoint-face-colors (cons "#FFFBF0" "#268bd2"))
- '(jdee-db-requested-breakpoint-face-colors (cons "#FFFBF0" "#859900"))
- '(jdee-db-spec-breakpoint-face-colors (cons "#FFFBF0" "#E1DBCD"))
- '(objed-cursor-color "#dc322f")
- '(send-mail-function (quote mailclient-send-it))
- '(vc-annotate-background "#FDF6E3")
- '(vc-annotate-color-map
-   (list
-    (cons 20 "#859900")
-    (cons 40 "#959300")
-    (cons 60 "#a58e00")
-    (cons 80 "#b58900")
-    (cons 100 "#bc7407")
-    (cons 120 "#c35f0e")
-    (cons 140 "#cb4b16")
-    (cons 160 "#cd4439")
-    (cons 180 "#d03d5d")
-    (cons 200 "#d33682")
-    (cons 220 "#d63466")
-    (cons 240 "#d9334a")
-    (cons 260 "#dc322f")
-    (cons 280 "#dd5c56")
-    (cons 300 "#de867e")
-    (cons 320 "#dfb0a5")
-    (cons 340 "#D6D6D6")
-    (cons 360 "#D6D6D6")))
- '(vc-annotate-very-old-color nil))

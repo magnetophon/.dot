@@ -11,15 +11,16 @@
   (add-to-list 'auto-mode-alist '("\\.eml\\'" . mu4e-compose-mode))
 
   (setq org-startup-folded nil ; do not start folded
-        org-log-done 'time ; record the time when an element was marked done/checked
+        org-log-done 'nil ;time is recorded in LOGBOOK
         org-fontify-done-headline nil ; do not change the font of DONE items
         org-return-follows-link t  ; RET follows links
         org-hide-emphasis-markers t ; do not show format markers
         org-startup-with-inline-images t ; open buffers show inline images
         org-agenda-files (directory-files-recursively "~/org" "\.org$")
+        ;; see https://orgmode.org/manual/Tracking-TODO-state-changes.html#Tracking-TODO-state-changes
         org-todo-keywords
-        '((sequence "TODO(t)" "|" "DONE(d!)")
-          (sequence "NEXT(n)" "WAITING(w@)" "LATER(l)" "|" "CANCELLED(c@)"))
+        '((sequence "TODO(t)" "|" "DONE(d!)" "PASSED-ON(p@)")
+          (sequence "NEXT(n)" "WAITING(w@/!)" "LATER(l)" "|" "CANCELLED(c@)"))
         ;; hl-todo-keyword-faces
         ;; `(("TODO"     . ,(face-foreground 'warning))
         ;;   ("NEXT"     . ,(face-foreground 'warning))
@@ -35,12 +36,14 @@
         org-enforce-todo-checkbox-dependencies t
         org-hierarchical-todo-statistics nil
         org-checkbox-hierarchical-statistics nil
+        org-log-into-drawer t
         ;; prepend the filename for each org target
         org-refile-use-outline-path 'full-file-path
         ;; since we're using ivy just put all the files + headers in a list
         org-outline-path-complete-in-steps nil
         org-M-RET-may-split-line nil
         org-indirect-buffer-display 'other-window
+        org-default-notes-file (concat org-directory "/inbox.org")
         deft-directory org-directory
         deft-recursive t
         org-sticky-header-full-path 'full

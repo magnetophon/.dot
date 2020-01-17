@@ -26,7 +26,7 @@
   )
 
 (after! solaire-mode
-  (custom-set-faces! '(solaire-hl-line-face  :background "papaya whip")))
+  (custom-set-faces! '(solaire-hl-line-face  :background "#f0e9d7")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       Settings
@@ -125,6 +125,16 @@ current window."
                   (if (equal current-workspace target-workspace)
                       (+workspace/other)
                     (+workspace/switch-to i))))))
+
+(defun doom/ediff-init-and-example ()
+  "ediff the current `init.el' with the example in doom-emacs-dir"
+  (interactive)
+  (ediff-files (concat doom-private-dir "init.el")
+               (concat doom-emacs-dir "init.example.el")))
+
+(define-key! help-map
+  "di"   #'doom/ediff-init-and-example
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       IRC

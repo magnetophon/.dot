@@ -49,12 +49,15 @@ vi() {emacseditor --create-frame --quiet --no-wait "$@"}
 alias vh='vim -M ~/.vim/vim_keys.txt'
 alias v='fasd -f -t -e vim -b viminfo'
 alias j=fasd_cd
+alias g='git --no-pager'
 alias gs='git status'
 alias gst='git stash'
 alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
 alias gl="glNoGraph --graph"
 alias ra=ranger
 alias ua='dtrx --recursive --one=here --verbose'
+alias  l='exa --long --grid --header --git --git-ignore --classify --extended --group-directories-first --group  --links --time-style=long-iso'
+alias la='exa --long --grid --header --git --git-ignore --classify --extended --group-directories-first --group  --links --time-style=long-iso --all'
 # alias wn=lr $(which "$1")
 #Install a package I don’t have but tried to use
 alias ok='eval $($(fc -ln -1) 2>&1 | sed -n 2p)'
@@ -181,21 +184,21 @@ fe() {
 # - CTRL-E or Enter key to open with the $EDITOR
 # fo() {
   # local out file key
-  # out=$(fzf --query="$1" --expect=ctrl-o,ctrl-e)
-  # key=$(head -1 <<< "$out")
-  # file=$(head -2 <<< "$out" | tail -1)
-  # if [ -n "$file" ]; then
-    # [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
-  # fi
+# out=$(fzf --query="$*" --expect=ctrl-o,ctrl-e)
+# key=$(head -1 <<< "$out")
+# file=$(head -2 <<< "$out" | tail -1)
+# if [ -n "$file" ]; then
+# [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
+# fi
 # }
 
 # fo [fuzzy pattern] - Open the selected file with xdg-open
 # - Bypass fuzzy finder if there's only one match (--select-1)
 # - Exit if there's no match (--exit-0)
 fo() {
-    local file
-    file=$(fzf --query="$1" )
-    [ -n "$file" ] && xdg-open "$file" &
+  local file
+  file=$(fzf --query="$*" )
+  [ -n "$file" ] && xdg-open "$file" &
 }
 
 # fzd - cd to selected directory
@@ -205,26 +208,31 @@ fzd() {
   dir=$(fd -t d | fzf  --no-multi) &&
   cd "$dir"
 }
+# fcd - fuzzy cd from anywhere via fd result
+fcd() {
+  local dir
+  dir="$(fd -t d "$1" | fzf --query="$*" --cycle --bind 'tab:down,btab:up' -1 -0 --no-sort)" && cd "${dir}" || return 1
+}
 
 # fda - including hidden directories
 fda() {
   local dir
-  dir=$(fd -t d -H | fzf --no-multi) && cd "$dir"
+  dir=$(fd -t d -H | fzf --query="$*" --no-multi) && cd "$dir"
 }
 # cdf - cd into the directory of the selected file
 cdf() {
-   local file
-   local dir
-   file=$(fzf --no-multi --query="$1") && dir=$(dirname "$file") && cd "$dir"
+  local file
+  local dir
+  file=$(fzf --no-multi --query="$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
 #Searching file contents
 # fzg() {
-    # local query="$1"
-    # rg $query --files-with-matches |
-        # fzf \
-            # --preview-window=bottom --preview="rg $query --no-filename --color ansi --context 15 --glob {}" \
-            # --header="rg query: $query"
+# local query="$1"
+# rg $query --files-with-matches |
+# fzf \
+  # --preview-window=bottom --preview="rg $query --no-filename --color ansi --context 15 --glob {}" \
+  # --header="rg query: $query"
 # }
 
 
@@ -238,15 +246,15 @@ cdf() {
 # _FZF_ZSH_PREVIEW_STRING="echo {} | sed 's/ *[0-9]* *//' | highlight --syntax=zsh --out-format=ansi";
 
 fh() {
-    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --no-sort --tac --preview $_FZF_ZSH_PREVIEW_STRING --preview-window down:10:wrap | sed 's/ *[0-9]* *//')
+  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --query="$*" --no-sort --tac --preview $_FZF_ZSH_PREVIEW_STRING --preview-window down:10:wrap | sed 's/ *[0-9]* *//')
 }
 # fk - kill process
 fk() {
-    pid=$(ps -ef | sed 1d | fzf  --preview-window=right:hidden | awk '{print $2}')
+  pid=$(ps -ef | sed 1d | fzf  --query="$*" --preview-window=right:hidden | awk '{print $2}')
 
   if [ "x$pid" != "x" ]
-  then
-    kill -${1:-9} $pid
+then
+  kill -${1:-9} $pid
   fi
 }
 
@@ -255,11 +263,11 @@ fbr() {
   local branches branch
   branches=$(
     git branch --all | grep -v HEAD |
-        sed "s/.* //" | sed "s#remotes/[^/]*/##" |
-        sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+      sed "s/.* //" | sed "s#remotes/[^/]*/##" |
+      sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
   branch=$(echo "$branches" |
-    fzf --no-hscroll --no-multi --delimiter="\t" -n 2 \
-        --preview="git log -200 --pretty=format:%s $(echo {+2..} |  sed 's/$/../' )" ) || return
+             fzf --no-hscroll --no-multi --delimiter="\t" -n 2 \
+               --preview="git log -200 --pretty=format:%s $(echo {+2..} |  sed 's/$/../' )" ) || return
   git checkout $(echo "$branch" | awk '{print $2}')
 }
 
@@ -267,14 +275,14 @@ fbr() {
 fco() {
   local tags branches target
   tags=$(
-git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+    git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
   branches=$(
-git branch --all | grep -v HEAD |
-sed "s/.* //" | sed "s#remotes/[^/]*/##" |
-sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+    git branch --all | grep -v HEAD |
+      sed "s/.* //" | sed "s#remotes/[^/]*/##" |
+      sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
   target=$(
-(echo "$tags"; echo "$branches") |
-    fzf --no-hscroll --no-multi --delimiter="\t" -n 2 \
+    (echo "$tags"; echo "$branches") |
+      fzf --no-hscroll --no-multi --delimiter="\t" -n 2 \
         --preview="git log -200 --pretty=format:%s $(echo {+2..} |  sed 's/$/../' )" ) || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
@@ -284,39 +292,39 @@ _viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always 
 
 # fcheckout - checkout git commit with previews
 fcoc() {
-    local commit
-    commit=$( glNoGraph |
-                  fzf --no-sort --reverse --tiebreak=index --no-multi \
-                      --ansi --preview="$_viewGitLogLine" ) &&
-        git checkout $(echo "$commit" | sed "s/ .*//")
+  local commit
+  commit=$( glNoGraph |
+              fzf --no-sort --reverse --tiebreak=index --no-multi \
+                --ansi --preview="$_viewGitLogLine" ) &&
+    git checkout $(echo "$commit" | sed "s/ .*//")
 }
 # fshow - git commit browser with previews
 fshow() {
-    glNoGraph |
-        fzf --no-sort --reverse --tiebreak=index --no-multi \
-            --ansi --preview="$_viewGitLogLine" \
-            --header "enter to view, alt-y to copy hash" \
-            --bind "enter:execute:$_viewGitLogLine   | less -R" \
-            --bind "alt-y:execute:$_gitLogLineToHash | xclip"
+  glNoGraph |
+    fzf --no-sort --reverse --tiebreak=index --no-multi \
+      --ansi --preview="$_viewGitLogLine" \
+      --header "enter to view, alt-y to copy hash" \
+      --bind "enter:execute:$_viewGitLogLine   | less -R" \
+      --bind "alt-y:execute:$_gitLogLineToHash | xclip"
 }
 
 # ftags - search ctags
 ftags() {
   local line
   [ -e tags ] &&
-  line=$(
-awk 'BEGIN { FS="\t" } !/^!/ {print toupper($4)"\t"$1"\t"$2"\t"$3}' tags |
-    cut -c1-80 | fzf --nth=1,2 --preview-window=right:hidden
-) && $EDITOR $(cut -f3 <<< "$line") -c "set nocst" \
-                                      -c "silent tag $(cut -f2 <<< "$line")"
+    line=$(
+      awk 'BEGIN { FS="\t" } !/^!/ {print toupper($4)"\t"$1"\t"$2"\t"$3}' tags |
+        cut -c1-80 | fzf --nth=1,2 --preview-window=right:hidden
+    ) && $EDITOR $(cut -f3 <<< "$line") -c "set nocst" \
+      -c "silent tag $(cut -f2 <<< "$line")"
 }
 
 
 # fm - fuzzy music player
 fm() {
-    cd ~
-    for file in "${(0)"$(rg --smart-case --follow --iglob '*.{mp3,wav,flac,ogg,,mpg,avi,mpeg,flv,mov,m2v,mp4,m4a,aif,aiff,wma,mkv}' --glob '!Impulses/' --glob '!ardour/*/interchange/' --files |
-        fzf --print0 --multi)"}"; do mpv $file; done
+  cd ~
+  for file in "${(0)"$(rg --smart-case --follow --iglob '*.{mp3,wav,flac,ogg,,mpg,avi,mpeg,flv,mov,m2v,mp4,m4a,aif,aiff,wma,mkv}' --glob '!Impulses/' --glob '!ardour/*/interchange/' --files |
+                         fzf --query="$*" --print0 --multi)"}"; do mpv $file; done
 }
 
 # always run mpv in the background
@@ -324,13 +332,13 @@ function mpv() { command mpv "$@" & disown; }
 
 # flv2 - lv2 plugin finder and runner
 flv2() {
-    lv2ls |
-        fzf --no-sort --reverse --tiebreak=index --no-multi \
-            --preview "lv2info {}" \
-            --header "enter to run, alt-y to copy url" \
-            --bind "enter:execute:jalv.gtk {}" \
-            --bind 'alt-y:execute:echo {} | xclip' \
-}
+  lv2ls |
+    fzf --query="$*" --no-sort --reverse --tiebreak=index --no-multi \
+      --preview "lv2info {}" \
+      --header "enter to run, alt-y to copy url" \
+      --bind "enter:execute:jalv.gtk {}" \
+      --bind 'alt-y:execute:echo {} | xclip' \
+      }
 
 # gdb backtrace to file:
 # bt $crashing_application
@@ -339,8 +347,8 @@ alias bt='echo 0 | gdb -batch-silent -ex "run" -ex "set logging overwrite on" -e
 
 # v - open files in ~/.viminfo
 #v() {
-  #local files
-  #files=$(grep '^>' ~/.viminfo | cut -c3- |
+#local files
+#files=$(grep '^>' ~/.viminfo | cut -c3- |
 #while read line; do
 #[ -f "${line/\~/$HOME}" ] && echo "$line"
 #done | fzf -d -m -q "$*" -1) && vim ${files//\~/$HOME}
@@ -348,25 +356,25 @@ alias bt='echo 0 | gdb -batch-silent -ex "run" -ex "set logging overwrite on" -e
 # jump to dirs
 #unalias j 2> /dev/null
 #j() {
-  #if [[ -j "$*" ]]; then
-    #cd "$(_j -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
-  #else
-    #_j "$@"
-  #fi
+#if [[ -j "$*" ]]; then
+#cd "$(_j -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
+#else
+#_j "$@"
+#fi
 #}
 #Here is another version that also supports relaunching j with the arguments for the previous command as the default input by using jj
 #unalias j
 #j() {
-  #if [[ -j "$*" ]]; then
-    #cd "$(_j -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
-  #else
-    #_last_j_args="$@"
-    #_j "$@"
-  #fi
+#if [[ -j "$*" ]]; then
+#cd "$(_j -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
+#else
+#_last_j_args="$@"
+#_j "$@"
+#fi
 #}
 
 #jj() {
-  #cd "$(_j -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q $_last_j_args)"
+#cd "$(_j -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q $_last_j_args)"
 #}
 
 ##################################################################
