@@ -87,8 +87,10 @@ set $browser qutebrowser
 set $mua alacritty -e mutt
 set $filem alacritty -t "ranger ~" -e ranger
 
-hide_edge_borders both
-default_border normal 1
+hide_edge_borders smart
+# we toggle with $win+Shift+t
+# default_border normal 1
+default_border pixel 1
 popup_during_fullscreen leave_fullscreen
 
 ########################################################################
@@ -129,10 +131,14 @@ bindsym $win+w exec --no-startup-id rofi -show window
 bindsym $win+shift+o [urgent=latest] focus
 
 # focus a window
+# from 1.1.3 on:
+# bindsym $win+o exec wmfocus -c asdfghjkl --offset 0,14
 bindsym $win+o exec wmfocus -c asdfghjkl
 
 # kill a window
-bindsym $win+q exec wmfocus -c asdfghjkl  -p | xargs xkill -id
+# from 1.1.3 on:
+# bindsym $win+q exec wmfocus -c asdfghjkl --offset 0,14 -p | xargs xkill -id
+bindsym $win+q exec wmfocus -c asdfghjkl -p | xargs xkill -id
 
 # dmenu wifi manager
 bindsym $win+c exec --no-startup-id networkmanager_dmenu
@@ -246,6 +252,7 @@ bindsym $win+Shift+R restart
 # exit i3 (logs you out of your X session)
 bindsym $win+Shift+E exit
 
+bindsym $win+Shift+t [class="^.*"] border toggle
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -495,9 +502,11 @@ assign [class="(?i)vlc"] → 10
 # enable floating mode for all ardour plugin windows
 for_window [window_role="plugin_ui"] floating enable
 
-# makes 'other' Ardour windows ok
-for_window [title="Ardour"] border 1pixel
-# makes 'other' Ardour windows ok but affects mixer
+# no title bar is now the default
+# for_window [title="Ardour"] border 1pixel
+# for_window [class="(?i)emacs"] border 1pixel
+# for_window [class="(?i)Alacritty"] border 1pixel
+# for_window [class="(?i)emacs"] fullscreen enable
 
 for_window [title="(?i)FLW-1 :"] floating enable
 
@@ -520,7 +529,6 @@ for_window [class="(?i)galculator"] floating enable
 
 for_window [class="mpv"] fullscreen enable
 # for_window [class="qutebrowser"] fullscreen enable
-for_window [class="emacs"] fullscreen enable
 
 
 ########################################################################

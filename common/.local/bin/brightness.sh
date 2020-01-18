@@ -10,13 +10,13 @@ MIN=1
 
 if [ $1 == "+" ]; then
     if [ $((ACT*2)) -le $MAX ]; then
-        light -Sr $((ACT*2))
+        light -Sr $(((ACT/2)*3))
     else
         light -Sr $MAX
     fi
 elif [ $1 == "-" ]; then
     if [ $((ACT/2)) -ge $MIN ]; then
-        light -Sr $((ACT/2))
+        light -Sr $((ACT-(ACT/3)))
     else
         light -Sr $MIN
     fi

@@ -44,6 +44,29 @@
         org-M-RET-may-split-line nil
         org-indirect-buffer-display 'other-window
         org-default-notes-file (concat org-directory "/inbox.org")
+        org-capture-templates
+        '(("t" "Todo" entry
+           (file+headline "~/org/inbox.org" "Todo")
+           "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %a %:from \n:END:\n%U\n")
+          ("w" "Web site" entry
+           (file+headline "~/org/inbox.org" "Web")
+           "* %c :website:\n%U %?%:initial")
+          ("j" "Journal" entry
+           (file+datetree "~/org/inbox.org")
+           "* %?\nEntered on %U\n  %i\n  %a"))
+
+        ;; '(
+        ;; ("P" "Research project" entry (file "~/org/inbox.org")
+        ;; "* TODO %^{Project title} :%^G:\n:PROPERTIES:\n:CREATED: %U\n:END:\n%^{Project description}\n** TODO Literature review\n** TODO %?\n** TODO Summary\n** TODO Reports\n** Ideas\n" :clock-in t :clock-resume t)
+        ;; ("e" "Email" entry (file "~/org/inbox.org")
+        ;; "* TODO %? email |- %:from: %:subject :EMAIL:\n:PROPERTIES:\n:CREATED: %U\n:EMAIL-SOURCE: %l\n:END:\n%U\n" :clock-in t :clock-resume t)
+        ;; ("b" "Link from browser" entry (file "~/org/inbox.org")
+        ;; "* TODO %? |- (%:description) :BOOKMARK:\n:PROPERTIES:\n:CREATED: %U\n:Source: %:link\n:END:\n%i\n" :clock-in t :clock-resume t)
+        ;; ("s" "Selection from browser" entry (file "~/org/inbox.org")
+        ;; "* TODO %? :BOOKMARK:\n%(replace-regexp-in-string \"\n.*\" \"\" \"%i\")\n:PROPERTIES:\n:CREATED: %U\n:Source: %:link\n:END:\n%i\n" :clock-in t :clock-resume t)
+        ;; ("h" "Habit" entry (file "~/org/inbox.org")
+        ;; "* NEXT %?\nSCHEDULED: <%<%Y-%m-%d %a .+1d>>\n:PROPERTIES:\n:CREATED: %U\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:LOGGING: DONE(!)\n:ARCHIVE: %%s_archive::* Habits\n:END:\n%U\n")
+        ;; )
         deft-directory org-directory
         deft-recursive t
         org-sticky-header-full-path 'full

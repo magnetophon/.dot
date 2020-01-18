@@ -151,6 +151,7 @@
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
         ;; +attach          ; custom attachment system
+        ;; +brain
         +dragndrop       ; file drag & drop support
         ;; +babel           ; running code in org
         +capture         ; org-capture in and outside of Emacs
