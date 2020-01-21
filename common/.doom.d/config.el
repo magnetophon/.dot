@@ -39,9 +39,10 @@
    which-key-max-description-length nil))
 
 
-  (setq ispell-aspell-data-dir "/run/current-system/sw/lib/aspell/" )
-(setq ispell-aspell-dict-dir ispell-aspell-data-dir)
-
+(setq
+ ispell-aspell-data-dir "/run/current-system/sw/lib/aspell/"
+ ispell-aspell-dict-dir ispell-aspell-data-dir
+ langtool-language-tool-jar "/run/current-system/sw/share/languagetool-commandline.jar")
 ;; (add-to-list 'ispell-dictionary-alist
 ;;              '("english-US" "[[:alpha:]]" "[^[:alpha:]]" "'" t ("-d" "en_US") nil utf-8))
 ;; (ispell-change-dictionary "english-US")
@@ -159,6 +160,7 @@ current window."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq faustine-build-backend `"time faust2jack -time -t 0" )
+(add-to-list 'auto-mode-alist '("\\.lib$" . faustine-mode))
 ;; (after! faustine
 ;;   (set-company-backend! '(faust-mode faustine-mode) '(company-dabbrev-code +faust-company-backend company-yasnippet)))
 
@@ -171,7 +173,6 @@ current window."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       mma
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; config.el ends here
 (load! "lisp/mma")
 
 (setq auto-mode-alist
@@ -189,3 +190,24 @@ current window."
       "t" #'mma-test
       "a" #'mma-select-audio
       "r" #'mma-create-regexp)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                       openscad
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(load! "lisp/scad-mode")
+
+(setq auto-mode-alist
+      (append '(("\\.scad$" . scad-mode))
+              auto-mode-alist))
+
+;; (map! :localleader
+;; :map scad-mode-map
+;; "c" #'mma-compile
+;; "p" #'mma-compile-and-play
+;; "P" #'mma-play
+;; "s" #'mma-stop
+;; "t" #'mma-test
+;; "a" #'mma-select-audio
+;; "r" #'mma-create-regexp)
+
+;;; config.el ends here

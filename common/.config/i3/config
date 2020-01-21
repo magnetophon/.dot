@@ -75,9 +75,6 @@ popup_during_fullscreen leave_fullscreen
 #default layout
 workspace_layout tabbed
 
-#which border style new windows will have
-new_window normal
-
 # some variables
 # todo: remove unused
 # set $TERMINAL termite
@@ -91,7 +88,7 @@ hide_edge_borders smart
 # we toggle with $win+Shift+t
 # default_border normal 1
 default_border pixel 1
-popup_during_fullscreen leave_fullscreen
+default_floating_border normal 1
 
 ########################################################################
 #	window operations
@@ -357,6 +354,11 @@ mode "$mode_system" {
 
 bindsym $win+Pause mode "$mode_system"
 
+# Toggle bar visibility
+bindsym $win+$alt+b bar mode toggle
+
+bindsym $win+$alt+l exec --no-startup-id layout_manager
+
 # todo: start and/or focus
 #bindsym d [class="$filem"] focus;
 
@@ -501,6 +503,14 @@ assign [class="(?i)vlc"] → 10
 
 # enable floating mode for all ardour plugin windows
 for_window [window_role="plugin_ui"] floating enable
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+for_window [title="Open With"] floating enable
 
 # no title bar is now the default
 # for_window [title="Ardour"] border 1pixel

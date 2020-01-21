@@ -38,7 +38,7 @@ HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 
 # make a dir and go to it
-mkcd() { mkdir -p "$1" && cd "$_"; }
+mkcd() { mkdir -p -- "$1" && cd -- "$_"; }
 
 ##################################################################
 # aliases
@@ -54,10 +54,15 @@ alias gs='git status'
 alias gst='git stash'
 alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
 alias gl="glNoGraph --graph"
-alias ra='echo "user r, dummy!"'
+alias ra='echo "user r, ya dummy!"'
 alias ua='dtrx --recursive --one=here --verbose'
 alias  l='exa --long --grid --header --git --git-ignore --classify --extended --group-directories-first --group  --links --time-style=long-iso'
 alias la='exa --long --grid --header --git --git-ignore --classify --extended --group-directories-first --group  --links --time-style=long-iso --all'
+alias ..='cd ..'
+alias ...='cd ...'
+alias ....='cd ....'
+alias .....='cd .....'
+alias ......='cd ......'
 # alias wn=lr $(which "$1")
 #Install a package I don’t have but tried to use
 alias ok='eval $($(fc -ln -1) 2>&1 | sed -n 2p)'
