@@ -12,6 +12,36 @@
 
 
 ########################################################################
+#	get window props like class and insctance
+########################################################################
+#
+# install:
+# xorg.xprop
+# run:
+# xprop
+#
+########################################################################
+#	get the name of a key or key-combo
+########################################################################
+#
+# install:
+# xorg.xev
+# run:
+# xev | sed -n 's/^.*state \([0-9].*\), keycode *\([0-9]\+\) *\(.*\), .*$/keycode \2 = \3, state = \1/p'
+#
+# if no key registered:
+# sudo evtest
+#
+#
+# if not found with keymap, use:
+# sudo acpi_listen
+# make sure to
+# systemctl start acpid.service
+# if needed
+#
+#if all else fails: turn off, disconnect AC and battery and wait a bit!
+
+########################################################################
 #	i3 settings
 ########################################################################
 
@@ -53,15 +83,16 @@ set $urgentBG     #FF0000
 #
 # class                 border  bground text    indicator child_border
 client.focused          #444444 #FFFF00 #444444 #FFFF00   #FFFF00
-client.focused_inactive #777777 #BEBEBE #777777 #BEBEBE   #BEBEBE
-client.unfocused        #777777 #BEBEBE #777777 #777777   #777777
+client.focused_inactive #777777 #BEBEBE #444444 #444444   #BEBEBE
+client.unfocused        #BEBEBE #DCDAD5 #777777 #777777   #777777
 client.urgent           #FF0000 #FF0000 #FFFFFF #FF0000   #FF0000
-client.placeholder      #FFFF00 #444444 #FFFF00 #FFFF00   #FFFF00
+client.placeholder      #FFFF00 #BEBEBE #FFFF00 #FFFF00   #FFFF00
 
-client.background       #BEBEBE
+client.background       #FF0000
 #
 # Set the background color.
-exec xsetroot -solid "$unfocusedBG"
+# nixos sets a backgroun img
+# exec xsetroot -solid "$unfocusedBG"
 
 # }}}
 
@@ -73,7 +104,9 @@ floating_maximum_size 1600 x 900
 popup_during_fullscreen leave_fullscreen
 
 #default layout
-workspace_layout tabbed
+# workspace_layout tabbed
+default_orientation auto
+workspace_layout default
 
 # some variables
 # todo: remove unused
@@ -84,10 +117,10 @@ set $browser qutebrowser
 set $mua alacritty -e mutt
 set $filem alacritty -t "ranger ~" -e ranger
 
-hide_edge_borders smart
 # we toggle with $win+Shift+t
 # default_border normal 1
-default_border pixel 1
+hide_edge_borders smart
+default_border pixel 2
 default_floating_border normal 1
 
 ########################################################################
@@ -181,12 +214,16 @@ bindsym $win+bar        split horizontal
 bindsym $win+minus      split vertical
 
 # enter fullscreen mode for the focused container
-bindsym F11 fullscreen
-
+bindsym $win+F11 fullscreen
+# fake-fulscreen everything
+bindsym F11 exec --no-startup-id "~/.local/bin/FakeFullscreen.sh"
 # change container layout (stacked, tabbed, toggle split)
-bindsym $win+s layout stacking
-bindsym $win+t layout tabbed
+bindsym $win+s layout toggle splitv stacking
+bindsym $win+t layout toggle tabbed splith
 bindsym $win+d layout toggle splith tabbed
+
+bindsym $win+g       exec --no-startup-id layout_manager ~/.layouts/layout-GRID.json
+bindsym $win+Shift+g exec --no-startup-id layout_manager ~/.layouts/layout-TAB.json
 
 # toggle tiling / floating
 bindsym $win+Shift+space floating toggle
@@ -247,9 +284,12 @@ bindsym $win+Shift+parenright move container to workspace 10
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $win+Shift+R restart
 # exit i3 (logs you out of your X session)
-bindsym $win+Shift+E exit
+# bindsym $win+Shift+E exit
+bindsym $win+Shift+e exec --no-startup-id `[ $(printf "NO\nYES" | dmenu \
+    -nb "#222222" -sb "#aa0088" -sf "#ffffff" -fn Monospace-11 \
+    -nf "#7777bb" -i -p "Exit i3 X session?") = "YES" ] && i3-msg exit`
 
-bindsym $win+Shift+t [class="^.*"] border toggle
+bindsym $win+Shift+t border toggle
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -437,8 +477,13 @@ bar {
   # transparancy needs compton
   # i3bar_command i3bar -t
   # status_command i3status-rs ~/.config/i3/status.toml
+  mode invisible
+  hidden_state hide
   # font pango: Terminus , FontAwesome 9
-  font pango: Terminus (TTF) 12px
+  font -*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*
+  # font pango: Terminus (TTF) 12px
+  # font pango: TerminessTTF Nerd Font 12px
+  # font pango: 3270Medium Nerd Font 12px
   colors {
     # background $unfocusedBG
     # statusline $unfocusedTXT
@@ -536,10 +581,14 @@ for_window [class="(?i)qjackctrl"] workspace 9 ; layout default
 
 for_window [instance="xcalc"] floating enable
 for_window [class="(?i)galculator"] floating enable
+for_window [class="(?i)vmpk"] floating enable
 
 for_window [class="mpv"] fullscreen enable
 # for_window [class="qutebrowser"] fullscreen enable
 
+########################################################################
+# temp stuff
+########################################################################
 
 ########################################################################
 # autostart

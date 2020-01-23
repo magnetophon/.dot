@@ -102,6 +102,7 @@ ranger_cd() {
   rm -f -- "$temp_file"
 }
 # nnn filemanager
+export NNN_PLUG='c:fzcd;f:fzopen;r:_ranger*;'
 n ()
 {
   # Block nesting of nnn in subshells

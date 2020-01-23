@@ -1574,6 +1574,7 @@ c.url.searchengines = {
      "mu"      : "https://www.searx.be/?q={}&category_music=on",
      "n"       : "https://github.com/NixOS/nixpkgs/search?utf8=%E2%9C%93&q={}",
      "ne"      : "https://www.searx.be/?q={}&category_news=on",
+     "np"      : "https://search.nix.gsc.io/?q={}",
      "o"       : "https://www.openstreetmap.org/search?query={}",
      "r"       : "https://reddit.com/search?q={}",
      "so"      : "https://stackoverflow.com/search?q={}",
