@@ -115,7 +115,7 @@ set $TERMINAL alacritty
 set $editor $EDITOR
 set $browser qutebrowser
 set $mua alacritty -e mutt
-set $filem alacritty -t "ranger ~" -e ranger
+set $filem alacritty -e ranger
 
 # we toggle with $win+Shift+t
 # default_border normal 1
@@ -416,6 +416,7 @@ bindsym Ctrl+$alt+l exec --no-startup-id $Locker
 bindsym $win+Shift+p  exec clipster -s -n 0
 # alacritty grabs the input directly after launch
 bindsym $win+p  exec alacritty -t paste:: -e ~/.local/bin/clipster_fzf.sh
+for_window [title=paste::] fullscreen enable
 
 bindsym $win+u exec ~/.local/bin/umlaut.sh
 
@@ -433,6 +434,7 @@ bindsym $win+b exec $browser;
 #bindsym $win+b exec $browser; for_window [class="$browser"] focus;
 
 bindsym $win+Shift+B  exec alacritty -t bindings:: -e ~/.local/bin/fzf_bindings.sh
+for_window [title=bindings::] fullscreen enable
 
 # cheat sheet for xkbVariant = "altgr-intl";
 bindsym $win+y  exec feh ~/.dot/common/.local/share/English_US_international_altgr_dead_keys.gif
@@ -481,6 +483,7 @@ bar {
   hidden_state hide
   # font pango: Terminus , FontAwesome 9
   font -*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*
+  # font Anonymous Pro 9
   # font pango: Terminus (TTF) 12px
   # font pango: TerminessTTF Nerd Font 12px
   # font pango: 3270Medium Nerd Font 12px
