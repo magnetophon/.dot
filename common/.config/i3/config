@@ -71,15 +71,15 @@ set $focusBG      #ffff00
 set $focusTXT     #000000
 set $semifocusBG	#FAFAD2
 set $unfocusedBG	#DCDAD5
-set $unfocusedTXT	#3F3F3F
+set $unfocusedTXT #3F3F3F
 set $urgentBG     #FF0000
 
 
-# class         				border			  backgr.			  text
-# client.focused          $focusTXT		  $focusBG		  $focusTXT
-# client.focused_inactive	$focusTXT		  $semifocusBG	$focusTXT
-# client.unfocused        $unfocusedTXT	$unfocusedBG  $unfocusedTXT
-# client.urgent           $focusBG		  $urgentBG		  $focusBG
+# class                     border        backgr        text
+# client.focused            $focusTXT     $focusBG      $focusTXT
+# client.focused_inactive   $focusTXT     $semifocusBG  $focusTXT
+# client.unfocused          $unfocusedTXT $unfocusedBG  $unfocusedTXT
+# client.urgent             $focusBG      $urgentBG     $focusBG
 #
 # class                 border  bground text    indicator child_border
 client.focused          #444444 #FFFF00 #444444 #FFFF00   #FFFF00
@@ -407,6 +407,11 @@ bindsym $win+$alt+l exec --no-startup-id layout_manager
 ########################################################################
 
 bindsym Ctrl+$alt+l exec --no-startup-id $Locker
+# Multi-screen screenshots with scrot
+bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens
+#
+# OSX-like area selection screenshots
+bindsym --release Shift+Print exec scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # Area selection
 
 # bindsym Ctrl+$alt+h exec clipster -s
 # bindsym $win+p  exec clipster -o -n 0 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | tr -d '\n' | clipster
@@ -479,12 +484,17 @@ bar {
   # transparancy needs compton
   # i3bar_command i3bar -t
   # status_command i3status-rs ~/.config/i3/status.toml
-  mode invisible
+  # mode invisible
+  mode hide
   hidden_state hide
   # font pango: Terminus , FontAwesome 9
-  font -*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*
-  # font Anonymous Pro 9
-  # font pango: Terminus (TTF) 12px
+  # font -*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*
+  # font pango: Anonymous Pro 9
+  # font pango: anything_at_all 9
+  # font anything_at_all
+  # font pango: Terminus (TTF) 8
+  # font pango:Terminus (TTF) 9
+  font pango: Anonymous Pro 9
   # font pango: TerminessTTF Nerd Font 12px
   # font pango: 3270Medium Nerd Font 12px
   colors {
