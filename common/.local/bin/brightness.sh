@@ -6,17 +6,20 @@ MIN=4
 
 if [ "$1" == "+" ]; then
     NEW=$(((ACT/2)*3))
-    if [ $NEW -ge "$MAX" ]; then
-        NEW=$MAX
-    fi
 elif [ "$1" == "-" ]; then
     NEW=$((ACT-(ACT/3)))
-    if [ $NEW -le $MIN ]; then
-        NEW=$MIN
-    fi
+fi
+
+if [ $NEW -ge "$MAX" ]; then
+    NEW=$MAX
+fi
+
+if [ $NEW -le $MIN ]; then
+    NEW=$MIN
 fi
 
 light -Sr $NEW
+
 # notify-send --expire-time 500 "brightness $NEW"
 
 exit 0
