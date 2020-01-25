@@ -28,7 +28,7 @@ alert = #FF0000
 [bar/bar1]
 enable-ipc = true
 width = 100%
-height = 16
+height = 18
 radius = 0.0
 bottom = true
 fixed-center = true
@@ -53,7 +53,7 @@ font-1 = terminus:pixelsize=12;1
 
 modules-left = i3
 ; modules-center = title
-modules-right = wlan eth root home memory cpu temperature battery xbacklight alsa date time
+modules-right = wlan eth root home cpu memory temperature battery alsa date time
 
 tray-position = right
 tray-padding = 2
@@ -238,10 +238,11 @@ label-volume-foreground = ${root.foreground}
 format-muted-prefix = " "
 format-muted-foreground = ${colors.foreground-alt}
 
-label-muted=mute
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
+label-muted=%percentage%%
+ramp-volume-0= 
+; ramp-volume-0 = 
+; ramp-volume-1 = 
+; ramp-volume-2 = 
 ramp-volume-foreground = ${colors.foreground-hl}
 
 [module/battery]
@@ -249,8 +250,12 @@ type = internal/battery
 full-at = 99
 battery = BAT0
 adapter = AC
+poll-interval = 3
+time-format = %H:%M
+
 format-discharging = <ramp-capacity> <label-discharging>
-format-charging = <label-charging>
+
+label-discharging = %percentage%% %time%
 ramp-capacity-0= 
 ramp-capacity-1= 
 ramp-capacity-2= 
@@ -261,9 +266,16 @@ ramp-capacity-6= 
 ramp-capacity-7= 
 ramp-capacity-8= 
 ramp-capacity-9= 
-label-charging = %percentage%%
 ramp-capacity-foreground = ${colors.foreground-hl}
 
+format-charging = <label-charging>
+label-charging = %percentage%% %time%
+format-charging-prefix = " "
+format-charging-prefix-foreground = ${colors.foreground-hl}
+
+format-full = <label-full>
+format-full-prefix = " "
+format-full-prefix-foreground = ${colors.foreground-hl}
 
 [module/temperature]
 type = internal/temperature
@@ -274,9 +286,6 @@ format = <ramp> <label>
 format-warn = <ramp> <label-warn>
 ; format-underline = #4bffdc
 ; format-warn-underline = ${self.format-underline}
-
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-hl}
 
 label = %temperature-c%
 label-warn = %temperature-c%
