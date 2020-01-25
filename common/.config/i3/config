@@ -104,9 +104,9 @@ floating_maximum_size 1600 x 900
 popup_during_fullscreen leave_fullscreen
 
 #default layout
-# workspace_layout tabbed
+workspace_layout tabbed
+# workspace_layout default
 default_orientation auto
-workspace_layout default
 
 # some variables
 # todo: remove unused
@@ -408,6 +408,7 @@ bindsym $win+$alt+l exec --no-startup-id layout_manager
 ########################################################################
 
 bindsym Ctrl+$alt+l exec --no-startup-id $Locker
+#
 # Multi-screen screenshots with scrot
 bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens
 #
@@ -476,6 +477,10 @@ bindsym $win+f exec $filem
 # $EDITOR
 bindsym $win+e exec $editor
 bindsym $win+equal exec ~/.emacs.d/bin/org-capture
+
+# todo: auto-hide polybar
+# xset -r <keycode> - it disables repeat for a single button.
+
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # # Start i3bar to display a workspace bar (plus the system information i3status
