@@ -217,6 +217,8 @@ bindsym $win+minus      split vertical
 bindsym $win+F11 fullscreen
 # fake-fulscreen everything
 bindsym F11 exec --no-startup-id "~/.local/bin/FakeFullscreen.sh"
+exec_always xset -r 95 # with this setup, it gets slow if you hold F11.  so turn of the key repeat!
+
 # change container layout (stacked, tabbed, toggle split)
 bindsym $win+s layout toggle splitv stacking
 bindsym $win+t layout toggle tabbed splith
@@ -359,6 +361,7 @@ bindSym XF86MonBrightnessUp      exec --no-startup-id "~/.local/bin/brightness.s
 bindSym XF86AudioRaiseVolume  exec --no-startup-id "amixer -q set Master 3dB+"
 bindSym XF86AudioLowerVolume  exec --no-startup-id "amixer -q set Master 3dB-"
 bindSym XF86AudioMute         exec --no-startup-id "amixer -q set Master toggle"
+exec_always xset -r 121 # turn of the key repeat for mute!
 # Pulse Audio controls
 # bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +3dB #increase sound volume
 # bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -3dB #decrease sound volume
@@ -410,10 +413,10 @@ bindsym $win+$alt+l exec --no-startup-id layout_manager
 bindsym Ctrl+$alt+l exec --no-startup-id $Locker
 #
 # Multi-screen screenshots with scrot
-bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens
+bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' && notify-send -t 1000 "Full screenshot saved in ~/Pictures/screenshots"
 #
 # OSX-like area selection screenshots
-bindsym --release Shift+Print exec scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # Area selection
+bindsym --release Shift+Print exec notify-send -t 1000 'screenshot' 'please select an area or window' &&  scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' && notify-send -t 1000 "screenshot saved in ~/Pictures/screenshots"
 
 # bindsym Ctrl+$alt+h exec clipster -s
 # bindsym $win+p  exec clipster -o -n 0 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | tr -d '\n' | clipster
