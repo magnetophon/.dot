@@ -101,7 +101,9 @@ label-unmounted-foreground = ${colors.foreground-alt}
 type = internal/i3
 format = <label-state> <label-mode>
 index-sort = true
-wrapping-scroll = ialse
+wrapping-scroll = true
+; Only show workspaces defined on the same output as the bar
+pin-workspaces = true
 label-mode-padding = 1
 label-mode-foreground = ${colors.foreground-hl}
 label-mode-background = ${colors.primary}
@@ -164,14 +166,15 @@ interval = 3
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-hl}
 format-underline = #f90000
-label = %percentage:2%%
+label = %percentage%%
+
 
 [module/memory]
 type = internal/memory
 interval = 3
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-hl}
-label = %mb_free%
+label = %gb_free%
 
 [module/wlan]
 type = internal/network
@@ -279,16 +282,17 @@ format-full-prefix-foreground = ${colors.foreground-hl}
 
 [module/temperature]
 type = internal/temperature
+interval = 3
 thermal-zone = 0
 warn-temperature = 60
 
 format = <ramp> <label>
-format-warn = <ramp> <label-warn>
+format-warn = <label-warn>
 ; format-underline = #4bffdc
 ; format-warn-underline = ${self.format-underline}
 
 label = %temperature-c%
-label-warn = %temperature-c%
+label-warn =  %temperature-c%
 label-warn-foreground = ${colors.alert}
 
 ramp-0 = 

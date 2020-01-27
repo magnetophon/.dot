@@ -37,6 +37,9 @@ fi
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 
+# alt + . inserts the last argument of the previous command:
+bindkey '\e.' insert-last-word
+
 # make a dir and go to it
 mkcd() { mkdir -p -- "$1" && cd -- "$_"; }
 
@@ -52,6 +55,7 @@ alias j=fasd_cd
 alias g='git --no-pager'
 alias gs='git status'
 alias gst='git stash'
+alias gco='git checkout'
 alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
 alias gl="glNoGraph --graph"
 alias ra='echo "user r, ya dummy!"'
