@@ -58,6 +58,7 @@ modules-right =  wlan eth spacer root home cpu memory temperature spacer battery
 
 tray-position = right
 tray-padding = 2
+; tray-detached = true
 ; Tray icon max size
 tray-maxsize = 16
 
@@ -69,7 +70,7 @@ cursor-scroll = ns-resize
 
 [module/spacer]
 type = custom/text
-content = "                    "
+content = "              "
 
 [module/title]
 type = internal/xwindow
@@ -87,20 +88,13 @@ format-mounted-prefix = " "
 format-mounted-prefix-foreground = ${colors.foreground-hl}
 label-mounted = %free%
 label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
+label-unmounted-foreground = ${colors.alert}
 
 [module/home]
-type = internal/fs
-interval = 20
+inherit = module/root
 
 mount-0 = /home
-
 format-mounted-prefix = " "
-format-mounted-prefix-foreground = ${colors.foreground-hl}
-format-mounted = <label-mounted>
-label-mounted = %free%
-label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
 
 [module/i3]
 type = internal/i3
@@ -171,7 +165,8 @@ interval = 3
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-hl}
 format-underline = #f90000
-label = %percentage:03:3%%
+label = %percentage:2:3%%
+label-alignment = left
 
 
 [module/memory]
