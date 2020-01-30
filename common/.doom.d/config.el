@@ -29,12 +29,6 @@
 (after! solaire-mode
   (custom-set-faces! '(solaire-hl-line-face  :background "#f0e9d7")))
 
-;; don't ask to quit in ediff
-(defun disable-y-or-n-p (orig-fun &rest args)
-  (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
-    (apply orig-fun args)))
-
-(advice-add 'ediff-quit :around #'disable-y-or-n-p)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -45,6 +39,13 @@
    which-key-allow-imprecise-window-fit nil
    which-key-max-description-length nil))
 
+;; don't ask to quit ediff
+;; TODO: only if no changes!
+;; (defun disable-y-or-n-p (orig-fun &rest args)
+;; (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
+;; (apply orig-fun args)))
+
+(advice-add 'ediff-quit :around #'disable-y-or-n-p)
 
 (setq
  ispell-aspell-data-dir "/run/current-system/sw/lib/aspell/"

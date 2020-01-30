@@ -784,7 +784,7 @@ c.content.ssl_strict = True
 
 ## List of user stylesheet filenames to use.
 ## Type: List of File, or File
-# c.content.user_stylesheets = ["~/.config/qutebrowser/invert.css"]
+c.content.user_stylesheets = ["~/.config/qutebrowser/invert.css"]
 
 ## Enable WebGL.
 ## Type: Bool
@@ -1551,7 +1551,7 @@ c.url.searchengines = {
     #"DEFAULT" : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&num=30&q={}&tbs=li:1",
     #"DEFAULT" : "https://duckduckgo.com/{}",
      # "DEFAULT" : "https://searx.riseup.net/?q={}&categories=general&language=en-US",
-     "DEFAULT" : "https://searx.be/?q={}&categories=general&language=en-US",
+     "DEFAULT" : "https://searx.info/?q={}&categories=general&language=en-US",
      "a"       : "https://archive.org/search.php?query={}",
      "aa"      : "https://aur.archlinux.org/packages/?O=0&C=0&SeB=nd&K={}&outdated=&SB=n&SO=a&PP=50&do_Search=Go",
      "d"       : "https://packages.debian.org/search?suite=sid&section=all&searchon=all&keywords={}",
@@ -1566,14 +1566,14 @@ c.url.searchengines = {
      "ht"      : "https://hooktube.com/results?search_query={}",
     #"i"       : "https://encrypted.google.com/search?q={}&safe=off&pws=0&tbm=isch",
     #"i"       : "https://duckduckgo.com/{}?ia=images",
-     "i"       : "https://www.searx.be/?q={}&category_images=on",
+     "i"       : "https://searx.info/?q={}&category_images=on",
      "l"       : "https://wiki.archlinux.org/index.php?search={}",
     #"m"       : "https://maps.google.com/maps?q={}",
      "m"       : "https://www.openstreetmap.org/search?query={}",
      "ma"      : "https://www.marktplaats.nl/q/{}/",
-     "mu"      : "https://www.searx.be/?q={}&category_music=on",
+     "mu"      : "https://searx.info/?q={}&category_music=on",
      "n"       : "https://github.com/NixOS/nixpkgs/search?utf8=%E2%9C%93&q={}",
-     "ne"      : "https://www.searx.be/?q={}&category_news=on",
+     "ne"      : "https://searx.info/?q={}&category_news=on",
      "np"      : "https://search.nix.gsc.io/?q={}",
      "o"       : "https://www.openstreetmap.org/search?query={}",
      "r"       : "https://reddit.com/search?q={}",
@@ -1606,7 +1606,7 @@ c.url.searchengines = {
 ## Format to use for the window title. The same placeholders like for
 ## `tabs.title.format` are defined.
 ## Type: FormatString
-# c.window.title_format = '{perc}{current_title}{title_sep}qutebrowser'
+c.window.title_format = '{perc}{current_title}{title_sep}qutebrowser{title_sep}{current_url}   {private}'
 
 ## Default zoom level.
 ## Type: Perc

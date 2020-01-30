@@ -43,6 +43,7 @@ bindkey '\e.' insert-last-word
 # make a dir and go to it
 mkcd() { mkdir -p -- "$1" && cd -- "$_"; }
 
+
 ##################################################################
 # aliases
 ##################################################################
@@ -63,10 +64,8 @@ alias ua='dtrx --recursive --one=here --verbose'
 alias  l='exa --long --grid --header --git --git-ignore --classify --extended --group-directories-first --group  --links --time-style=long-iso'
 alias la='exa --long --grid --header --git --git-ignore --classify --extended --group-directories-first --group  --links --time-style=long-iso --all'
 alias ..='cd ..'
-alias ...='cd ...'
-alias ....='cd ....'
-alias .....='cd .....'
-alias ......='cd ......'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 # alias wn=lr $(which "$1")
 #Install a package I don’t have but tried to use
 alias ok='eval $($(fc -ln -1) 2>&1 | sed -n 2p)'
