@@ -45,8 +45,6 @@
 ;; (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
 ;; (apply orig-fun args)))
 
-(advice-add 'ediff-quit :around #'disable-y-or-n-p)
-
 (setq
  ispell-aspell-data-dir "/run/current-system/sw/lib/aspell/"
  ispell-aspell-dict-dir ispell-aspell-data-dir

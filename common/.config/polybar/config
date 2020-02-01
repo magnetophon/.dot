@@ -28,6 +28,9 @@ foreground-hl = #222222
 primary = #FFFF00
 alert = #FF0000
 
+[vars]
+interval = 1
+
 [bar/bar1]
 enable-ipc = true
 width = 100%
@@ -57,7 +60,7 @@ font-1 = terminus:pixelsize=12;1
 modules-left = i3
 ; modules-center = title
 ; modules-center =
-modules-right = wlan eth spacer root home cpu memory temperature spacer battery alsa date time
+modules-right =  wlan eth spacer root home cpu memory temperature spacer battery alsa date time
 
 tray-position = right
 tray-padding = 2
@@ -172,7 +175,7 @@ ramp-foreground = ${colors.foreground-hl}
 
 [module/cpu]
 type = internal/cpu
-interval = 3
+interval = ${vars.interval}
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-hl}
 format-underline = #f90000
@@ -182,7 +185,7 @@ label-alignment = left
 
 [module/memory]
 type = internal/memory
-interval = 3
+interval = ${vars.interval}
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-hl}
 label = %gb_free%
@@ -190,10 +193,10 @@ label = %gb_free%
 [module/wlan]
 type = internal/network
 interface = wlp3s0
-interval = 3
+interval = ${vars.interval}
 
 format-connected = <ramp-signal> <label-connected> 
-label-connected = %signal%% %essid% %local_ip%
+label-connected = "%signal%% %essid% %local_ip%    %{F#222222}%{F-}%downspeed:7%   %{F#222222}%{F-}%upspeed:7%"
 
 format-packetloss = <animation-packetloss> <label-connected>
 
@@ -207,19 +210,15 @@ ramp-signal-foreground = ${colors.foreground-hl}
 [module/eth]
 type = internal/network
 interface = enp0s25
-interval = 3
+interval = ${vars.interval}
 
 format-connected-underline = #55aa55
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-hl}
-label-connected = %linkspeed% %local_ip%
+label-connected = "%linkspeed% %local_ip%   %{F#222222}%{F-}%downspeed:7%   %{F#222222}%{F-}%upspeed:7%"
+; label-connected = "%{F${colors.foreground-hl}} %{F-}%downspeed:min:max% %{F#6F7A81}  %{F-}%upspeed:min:max%"
 
 format-disconnected =
-
-[module/calendar-icon]
-type = custom/text
-content-foreground = ${colors.foreground-hl}
-content = 
 
 [module/date]
 type = internal/date
@@ -264,7 +263,7 @@ type = internal/battery
 full-at = 98
 battery = BAT0
 adapter = AC
-poll-interval = 3
+poll-interval = ${vars.interval}
 time-format = %H:%M
 
 format-discharging = <ramp-capacity><label-discharging>
@@ -294,7 +293,7 @@ label-full = "%percentage:3:3%%"
 
 [module/temperature]
 type = internal/temperature
-interval = 3
+interval = ${vars.interval}
 thermal-zone = 0
 warn-temperature = 60
 
