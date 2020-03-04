@@ -11,9 +11,10 @@
 (setq doom-font (font-spec :family "Terminus" :size 8))
 ;; (setq doom-font (font-spec :family "Dina" :size 8))
 ;; (setq doom-big-font (font-spec :family "Anonymous Pro" :size 11 ))
-;; (setq doom-big-font (font-spec :family "Terminus" :size 16))
-(setq doom-big-font (font-spec :family "Oxygen" :size 16))
-;; (setq doom-big-font (font-spec :family "RobotoMono Nerd Font" :size 26 :weight 'regular))
+(setq doom-big-font (font-spec :family "Terminus" :size 18))
+;; (setq doom-big-font (font-spec :family "Oxygen Mono" :size 16))
+;; (setq doom-big-font (font-spec :family "Source Code Pro" :size 16))
+;; (setq doom-big-font (font-spec :family "RobotoMono Nerd Font" :size 16 :weight 'regular))
 (setq doom-theme 'doom-solarized-light)
 (setq display-line-numbers-type 'relative)
 
@@ -85,6 +86,8 @@
 
 (setq ranger-override-dired 'ranger)
 
+;; Don’t compact font caches during GC.
+(setq inhibit-compacting-font-caches t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       Bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

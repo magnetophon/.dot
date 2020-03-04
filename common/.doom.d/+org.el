@@ -130,6 +130,11 @@
     ("J" down-heading-and-preview "down heading")
     ("K" up-heading-and-preview "up heading")
     ("t" org-todo "org-todo")
+    ("r" org-refile "org-refile")
+    ("x" org-cut-subtree "org-cut-subtree")
+    ("p" org-paste-subtree "org-paste-subtree")
+    ("T" org-toggle-heading "org-toggle-heading")
+
     ;; ("RET" (windmove-right) "enter preview window") ;; orig RET binding is still active
     ("q" winner-undo "quit" :exit t)
     )
@@ -204,6 +209,10 @@
     ("J" down-heading-and-preview "down heading")
     ("K" up-heading-and-preview "up heading")
     ("t" org-todo "org-todo")
+    ("r" org-refile "org-refile")
+    ("x" org-cut-subtree "org-cut-subtree")
+    ("p" org-paste-subtree "org-paste-subtree")
+    ("T" org-toggle-heading "org-toggle-heading")
     ;; ("RET" (windmove-right) "enter preview window") ;; orig RET binding is still active
     ("q" winner-undo "quit" :exit t)
     )

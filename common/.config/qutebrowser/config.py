@@ -784,7 +784,7 @@ c.content.ssl_strict = True
 
 ## List of user stylesheet filenames to use.
 ## Type: List of File, or File
-c.content.user_stylesheets = ["~/.config/qutebrowser/invert.css"]
+c.content.user_stylesheets = ["~/.config/qutebrowser/rotate.css"]
 
 ## Enable WebGL.
 ## Type: Bool
@@ -1834,8 +1834,12 @@ config.bind('<Ctrl-s>', 'search-next', mode='command')
 config.bind('<Ctrl-r>', 'search-prev', mode='command')
 
 config.bind(',r', 'spawn --userscript readability')
-config.bind(',i', 'config-cycle content.user_stylesheets ~/.config/qutebrowser/invert.css  ""')
+config.bind(',R', 'config-cycle content.user_stylesheets ~/.config/qutebrowser/invert.css  ""')
 config.bind(',n', 'config-cycle content.user_stylesheets ~/.config/qutebrowser/NightMode.css  ""')
+config.bind(',i', 'config-cycle content.user_stylesheets ~/.config/qutebrowser/rotate.css  ""')
+config.bind(',s', 'config-cycle content.user_stylesheets ~/.config/qutebrowser/solarized-light-all-sites_inverted_images.css  ""')
+config.bind(',S', 'config-cycle content.user_stylesheets ~/.config/qutebrowser/solarized-light-all-sites.css  ""')
+config.bind(',w', 'config-cycle content.user_stylesheets ~/.config/qutebrowser/white.css  ""')
 
 ## Bindings for caret mode
 # config.bind('$', 'move-to-end-of-line', mode='caret')
