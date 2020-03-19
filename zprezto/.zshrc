@@ -406,7 +406,7 @@ fzga() {
               fzf --query="$*" --no-sort --reverse --tiebreak=index --no-multi \
                 --preview "lv2info {}" \
                 --header "enter to run, alt-y to copy url" \
-                --bind "enter:execute:jalv.gtk {}" \
+                --bind "enter:execute:jalv.gtk3 {}" \
                 --bind 'alt-y:execute:echo {} | xclip' \
                 }
 

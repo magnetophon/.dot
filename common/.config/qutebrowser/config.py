@@ -903,7 +903,7 @@ c.editor.command = [ "emacseditor" ,  "--create-frame", "+{line}:{column}", "{fi
 ## Default monospace fonts. Whenever "monospace" is used in a font
 ## setting, it's replaced with the fonts listed here.
 ## Type: Font
-c.fonts.monospace = 'Terminus'
+c.fonts.default_family = ["Terminus"]
 # c.fonts.monospace = '"xos4 Terminus", Terminus, Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
 
 ## Font used for prompts.
@@ -1557,6 +1557,7 @@ c.url.searchengines = {
      "d"       : "https://packages.debian.org/search?suite=sid&section=all&searchon=all&keywords={}",
      "du"      : "https://duckduckgo.com/?q={}",
      "e"       : "https://www.ebay.com/sch/{}",
+     "es"      : "https://explainshell.com/explain?cmd={}",
      "g"       : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&num=30&q={}&tbs=li:1",
      "gi"      : "https://github.com/search?utf8=%E2%9C%93&q={}&type=Code&ref=searchresults",
      "gn"      : "https://github.com/search?q={}+language%3ANix&ref=searchresults&type=Code&utf8=%E2%9C%93",
@@ -1573,6 +1574,7 @@ c.url.searchengines = {
      "ma"      : "https://www.marktplaats.nl/q/{}/",
      "mu"      : "https://searx.info/?q={}&category_music=on",
      "n"       : "https://github.com/NixOS/nixpkgs/search?utf8=%E2%9C%93&q={}",
+    "npk"      : "https://github.com/NixOS/nixpkgs/search?q={}",
      "ne"      : "https://searx.info/?q={}&category_news=on",
      "np"      : "https://search.nix.gsc.io/?q={}",
      "o"       : "https://www.openstreetmap.org/search?query={}",
@@ -1592,7 +1594,7 @@ c.url.searchengines = {
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
-# c.url.start_pages = ['https://start.duckduckgo.com']
+c.url.start_pages = ['https://magnetophon.nl']
 
 ## URL parameters to strip with `:yank url`.
 ## Type: List of String

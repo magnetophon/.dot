@@ -2,7 +2,7 @@
 
 MAX=$(cat /sys/class/backlight/intel_backlight/max_brightness)
 ACT=$(cat /sys/class/backlight/intel_backlight/actual_brightness)
-MIN=4
+MIN=5
 
 if [ "$1" == "+" ]; then
     if [ $ACT -eq 0 ]; then
@@ -22,6 +22,7 @@ if [ "$1" == "+" ]; then
     NEW=$(((ACT/2)*3))
     if [ $NEW -ge "$MAX" ]; then
         NEW=$MAX
+        notify-send --expire-time 500 "brightness $NEW"
     fi
 elif [ "$1" == "-" ]; then
     NEW=$((ACT-(ACT/3)))
@@ -30,6 +31,7 @@ elif [ "$1" == "-" ]; then
             NEW=0
         else
             NEW=$MIN
+            notify-send --expire-time 500 "brightness $NEW"
         fi
     fi
 fi
