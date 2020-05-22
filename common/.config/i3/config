@@ -358,8 +358,10 @@ bindSym XF86MonBrightnessDown    exec --no-startup-id "~/.local/bin/brightness.s
 bindSym XF86MonBrightnessUp      exec --no-startup-id "~/.local/bin/brightness.sh +"
 
 # Volume
-bindSym XF86AudioRaiseVolume  exec --no-startup-id "amixer -q set Master 3dB+"
-bindSym XF86AudioLowerVolume  exec --no-startup-id "amixer -q set Master 3dB-"
+# bindSym XF86AudioRaiseVolume  exec --no-startup-id "amixer -q set Master 3dB+"
+# bindSym XF86AudioLowerVolume  exec --no-startup-id "amixer -q set Master 3dB-"
+bindSym XF86AudioRaiseVolume  exec --no-startup-id "amixer -c 0 -- sset Master playback 3dB+"
+bindSym XF86AudioLowerVolume  exec --no-startup-id "amixer -c 0 -- sset Master playback 3dB-"
 bindSym XF86AudioMute         exec --no-startup-id "amixer -q set Master toggle"
 exec_always xset -r 121 # turn of the key repeat for mute!
 # Pulse Audio controls
