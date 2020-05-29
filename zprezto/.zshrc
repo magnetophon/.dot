@@ -207,6 +207,8 @@ fzga() {
           fi
 
           alias iotop="sudo iotop"
+          # paste to the web:
+          alias tb="nc termbin.com 9999"
 
           ##################################################################
           # completions
@@ -406,7 +408,7 @@ fzga() {
               fzf --query="$*" --no-sort --reverse --tiebreak=index --no-multi \
                 --preview "lv2info {}" \
                 --header "enter to run, alt-y to copy url" \
-                --bind "enter:execute:jalv.gtk3 {}" \
+                --bind "enter:execute:jalv.gtk {}" \
                 --bind 'alt-y:execute:echo {} | xclip' \
                 }
 

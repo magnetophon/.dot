@@ -60,7 +60,7 @@ font-1 = terminus:pixelsize=12;1
 modules-left = i3
 ; modules-center = title
 ; modules-center =
-modules-right =  wlan eth spacer root home cpu memory temperature spacer battery alsa date time
+modules-right =  wlan eth tethering spacer root home cpu memory temperature spacer battery alsa date time
 
 tray-position = right
 tray-padding = 2
@@ -220,6 +220,20 @@ label-connected = "%linkspeed% %local_ip%   %{F#222222}%{F-}%downspeed:7%   %
 
 format-disconnected =
 
+[module/tethering]
+type = internal/network
+interface = enp0s26u1u1
+; interface = enp0s26u1u1Link
+interval = ${vars.interval}
+
+format-connected-underline = #55aa55
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground-hl}
+label-connected = "usb"
+; label-connected = "%linkspeed% %local_ip%   %{F#222222}%{F-}%downspeed:7%   %{F#222222}%{F-}%upspeed:7%"
+
+format-disconnected =
+
 [module/date]
 type = internal/date
 label =  %date%
@@ -242,6 +256,7 @@ format-prefix = " "
 format-prefix-foreground = ${colors.foreground-hl}
 
 [module/alsa]
+master-soundcard = hw:0
 type = internal/alsa
 
 format-volume = <ramp-volume><label-volume>
