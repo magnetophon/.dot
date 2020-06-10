@@ -1,3 +1,4 @@
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block, everything else may go below.
@@ -511,3 +512,7 @@ fzga() {
           zlong_use_notify_send=false
           zlong_duration=4
           zlong_ignore_cmds="vim nvim ssh"
+export PATH="/home/bart/source/git-fuzzy/bin:$PATH"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.config/.p10k.zsh
