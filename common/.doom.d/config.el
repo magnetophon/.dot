@@ -96,7 +96,7 @@
 ;; stop asking “Keep current list of tags tables also”
 (setq tags-add-tables nil)
 (setq confirm-kill-emacs nil)
-(setq +ivy-buffer-preview t) ;; to turn on auto-previewing in SPC bb and SPC bB
+(setq +ivy-buffer-preview 'everything) ;; to turn on auto-previewing in SPC bb and SPC bB
 (after! counsel ;; always search hidden files
   (setq counsel-rg-base-command "rg --with-filename --no-heading --line-number --color never --hidden %s"))
 ;; Alternatively, you can include hidden files by:
@@ -136,25 +136,26 @@
 (map! :leader (:prefix ("w" . "window") "~" #'resize-window-hydra/body))
 (map! :leader (:prefix ("/" . "search") "r" #'counsel-recoll))
 
-(defun spacemacs/alternate-buffer (&optional window)
-  "Switch back and forth between current and last buffer in the
-current window."
-  (interactive)
-  (let ((current-buffer (window-buffer window))
-        (buffer-predicate
-         (frame-parameter (window-frame window) 'buffer-predicate)))
-    ;; switch to first buffer previously shown in this window that matches
-    ;; frame-parameter `buffer-predicate'
-    (switch-to-buffer
-     (or (cl-find-if (lambda (buffer)
-                       (and (not (eq buffer current-buffer))
-                            (or (null buffer-predicate)
-                                (funcall buffer-predicate buffer))))
-                     (mapcar #'car (window-prev-buffers window)))
-         ;; `other-buffer' honors `buffer-predicate' so no need to filter
-         (other-buffer current-buffer t)))))
+;; doom has this under SPC `
+;; (defun spacemacs/alternate-buffer (&optional window)
+;;   "Switch back and forth between current and last buffer in the
+;; current window."
+;;   (interactive)
+;;   (let ((current-buffer (window-buffer window))
+;;         (buffer-predicate
+;;          (frame-parameter (window-frame window) 'buffer-predicate)))
+;;     ;; switch to first buffer previously shown in this window that matches
+;;     ;; frame-parameter `buffer-predicate'
+;;     (switch-to-buffer
+;;      (or (cl-find-if (lambda (buffer)
+;;                        (and (not (eq buffer current-buffer))
+;;                             (or (null buffer-predicate)
+;;                                 (funcall buffer-predicate buffer))))
+;;                      (mapcar #'car (window-prev-buffers window)))
+;;          ;; `other-buffer' honors `buffer-predicate' so no need to filter
+;;          (other-buffer current-buffer t)))))
 
-(map! :leader (:prefix ("b" . "buffer") "TAB" #'spacemacs/alternate-buffer))
+;; (map! :leader (:prefix ("b" . "buffer") "TAB" #'spacemacs/alternate-buffer))
 
                                         ; auto back-and-forth for workspaces
 (dotimes (i 9)

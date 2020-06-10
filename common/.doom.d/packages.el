@@ -17,12 +17,13 @@
 (package! org-sticky-header)
 (package! org-sidebar)
 ;; (package! org-bullets :disable t)
+(package! org-superstar :disable t)
 ;; (package! org-recoll :recipe (:fetcher github :repo "alraban/org-recoll"))
 
 ;; don't create ID's when doing org-capture
 (package! org-bookmark-heading :disable t)
 
-
+(package! org-roam :recipe (:host github :repo "jethrokuan/org-roam"))
 
 (package! aggressive-indent)
 
