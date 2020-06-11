@@ -107,6 +107,10 @@
     # wifi                  # wifi speed
     # example               # example user-defined segment (see prompt_example function below)
   )
+  # the character after prompt_char
+  # we set it empty so we can easly copy paste
+  # https://github.com/romkatv/powerlevel10k/issues/700#issuecomment-626131880
+  typeset -g POWERLEVEL9K_LEFT_SEGMENT_END_SEPARATOR=
 
   # Defines character set used by powerlevel10k. It's best to let `p10k configure` set it for you.
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
