@@ -429,7 +429,7 @@ c.completion.cmd_history_max_items = -1
 
 ## Height (in pixels or as percentage of the window) of the completion.
 ## Type: PercOrInt
-c.completion.height = '70%'
+c.completion.height = '100%'
 
 ## Minimum amount of characters needed to update completions.
 ## Type: Int
@@ -1575,6 +1575,7 @@ c.url.searchengines = {
      "mu"      : "https://searx.info/?q={}&category_music=on",
      "n"       : "https://github.com/NixOS/nixpkgs/search?utf8=%E2%9C%93&q={}",
      "npk"     : "https://github.com/NixOS/nixpkgs/search?q={}",
+     "npi"     : "https://github.com/NixOS/nixpkgs/issues?q=is%3Aissue+is%3Aopen+{}",
      "no"      : "https://nixos.org/nixos/options.html#{}",
      "npa"     : "https://nixos.org/nixos/packages.html?channel=nixpkgs-unstable&query={}",
      "ne"      : "https://searx.info/?q={}&category_news=on",

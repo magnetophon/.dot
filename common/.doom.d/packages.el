@@ -23,7 +23,7 @@
 ;; don't create ID's when doing org-capture
 (package! org-bookmark-heading :disable t)
 
-(package! org-roam :recipe (:host github :repo "jethrokuan/org-roam"))
+;; (package! org-roam :recipe (:host github :repo "jethrokuan/org-roam"))
 
 (package! aggressive-indent)
 

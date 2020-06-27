@@ -111,11 +111,11 @@ default_orientation auto
 # some variables
 # todo: remove unused
 # set $TERMINAL termite
-set $TERMINAL alacritty
+set $TERMINAL termite
 set $editor $EDITOR
 set $browser qutebrowser
-set $mua alacritty -e mutt
-set $filem alacritty -e ranger
+set $mua termite -e mutt
+set $filem termite -e ranger
 
 # we toggle with $win+Shift+t
 # default_border normal 1
@@ -322,15 +322,15 @@ mode "Monitor select: 1(one) l(eftt) r(ight) u(p) d(own) c(lone)" {
   bindsym 1 exec --no-startup-id xrandr --output $mon_ext --off ; mode "default"
 
   # left and right
-  bindsym l exec --no-startup-id xrandr --output $mon_lap --auto --output $mon_ext --auto --left-of $mon_lap ; mode "default"
+  bindsym l exec --no-startup-id xrandr --output $mon_lap --auto --output $mon_ext --auto --left-of $mon_lap ;  mode "default"
   bindsym r exec --no-startup-id xrandr --output $mon_lap --auto --output $mon_ext --auto --right-of $mon_lap ; mode "default"
 
   # up and down
-  bindsym u exec --no-startup-id xrandr --output $mon_lap --auto --output $mon_ext --auto --above $mon_lap ; mode "default"
-  bindsym d exec --no-startup-id xrandr --output $mon_lap --auto --output $mon_ext --auto --below $mon_lap ; mode "default"
+  bindsym u exec --no-startup-id xrandr --output $mon_lap --auto --output $mon_ext --auto --above $mon_lap ;    mode "default"
+  bindsym d exec --no-startup-id xrandr --output $mon_lap --auto --output $mon_ext --auto --below $mon_lap ;    mode "default"
 
   # clone
-  bindsym c exec --no-startup-id xrandr --output $mon_lap --auto --output $mon_ext --auto --same-as $mon_lap ; mode "default"
+  bindsym c exec --no-startup-id xrandr --output $mon_lap --auto --output $mon_ext --auto --same-as $mon_lap ;  mode "default"
 
   # back to normal: Enter or Escape
   bindsym Return mode "default"
@@ -384,14 +384,16 @@ bindSym Shift+XF86AudioMute exec amixer set Capture 1+ toggle
 # set $Locker "sudo physlock -ms"
 set $Locker "physlock -ds"
 
-set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown, (k) kill all running programs
 mode "$mode_system" {
-    bindsym l exec --no-startup-id $Locker,                       mode "default"
-    bindsym e exec --no-startup-id i3-msg exit,                   mode "default"
-    bindsym s exec systemctl suspend,                        mode "default"
-    bindsym h exec systemctl hibernate,                      mode "default"
-    bindsym r exec --no-startup-id systemctl reboot,              mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff -i,   mode "default"
+    bindsym l exec --no-startup-id $Locker,                                                   mode "default"
+    bindsym e exec --no-startup-id i3-msg '[class=".*"] kill' && i3-msg exit,                 mode "default"
+    bindsym s exec systemctl suspend,                                                         mode "default"
+    bindsym h exec systemctl hibernate,                                                       mode "default"
+    bindsym r exec --no-startup-id i3-msg '[class=".*"] kill' && systemctl reboot,            mode "default"
+    bindsym Shift+s exec --no-startup-id i3-msg '[class=".*"] kill' && systemctl poweroff -i, mode "default"
+    bindsym k  exec --no-startup-id  i3-msg '[class=".*"] kill',                              mode "default"
+
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -427,8 +429,8 @@ bindsym --release Shift+Print exec notify-send -t 1000 'screenshot' 'please sele
 # too slow:
 # bindsym $win+Shift+p  exec clipster -o -n 0 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | sed -ze 's/\n$//' | clipster
 bindsym $win+Shift+p  exec clipster -s -n 0
-# alacritty grabs the input directly after launch
-bindsym $win+p  exec alacritty -t paste:: -e ~/.local/bin/clipster_fzf.sh
+# alacritty and termite grab the input directly after launch
+bindsym $win+p  exec termite -t paste:: -e ~/.local/bin/clipster_fzf.sh
 # for_window [title=paste::] fullscreen enable
 
 bindsym $win+u exec ~/.local/bin/umlaut.sh
@@ -446,7 +448,7 @@ bindsym $win+Shift+u exec ~/.local/bin/dmenuumount
 bindsym $win+b exec $browser;
 #bindsym $win+b exec $browser; for_window [class="$browser"] focus;
 
-bindsym $win+Shift+B  exec alacritty -t bindings:: -e ~/.local/bin/fzf_bindings.sh
+bindsym $win+Shift+B  exec termite -t bindings:: -e ~/.local/bin/fzf_bindings.sh
 # for_window [title=bindings::] fullscreen enable
 
 # cheat sheet for xkbVariant = "altgr-intl";
@@ -465,10 +467,10 @@ bindsym $win+z exec --no-startup-id zsh ~/.config/i3/scripts/dzshmenu/launch_zsh
 
 bindsym $win+x mode "dzshmenu mode: new edit i3-layout-save x(launch)"
 mode "dzshmenu mode: new edit i3-layout-save x(launch)" {
-  bindsym n exec  --no-startup-id zsh ~/.config/i3/scripts/dzshmenu/new_zsh ; mode "default"
-  bindsym e exec  --no-startup-id zsh ~/.config/i3/scripts/dzshmenu/edit_zsh ; mode "default"
+  bindsym n exec  --no-startup-id zsh ~/.config/i3/scripts/dzshmenu/new_zsh ;        mode "default"
+  bindsym e exec  --no-startup-id zsh ~/.config/i3/scripts/dzshmenu/edit_zsh ;       mode "default"
   bindsym i exec  --no-startup-id zsh ~/.config/i3/scripts/dzshmenu/i3-layout-save ; mode "default"
-  bindsym x exec  --no-startup-id zsh ~/.config/i3/scripts/dzshmenu/launch_zsh ; mode "default"
+  bindsym x exec  --no-startup-id zsh ~/.config/i3/scripts/dzshmenu/launch_zsh ;     mode "default"
   # back to normal: Enter or Escape
   bindsym Return mode "default"
   bindsym Escape mode "default"

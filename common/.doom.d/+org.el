@@ -54,7 +54,7 @@
       (file+headline "~/org/inbox.org" "Web")
       "* %c :website:\n%U %?%:initial")
      ("j" "Journal" entry
-      (file+datetree "~/org/inbox.org")
+      (file+olp+datetree "~/org/inbox.org")
       "* %?\nEntered on %U\n  %i\n  %a"))
 
    ;; '(
@@ -229,8 +229,8 @@
   (map! :localleader :map org-mode-map "T" #'org-todo-tree-nav)
 
   (map! :map org-mode-map
-        :m "]t" (lambda! (re-search-forward  org-not-done-heading-regexp nil t))
-        :m "[t" (lambda! (re-search-backward org-not-done-heading-regexp nil t)))
+        :m "]t" (cmd! (re-search-forward  org-not-done-heading-regexp nil t) "next 'not done'")
+        :m "[t" (cmd! (re-search-backward org-not-done-heading-regexp nil t) "previous 'not done'"))
 
   ;; auto save all org files after doing a common action
   (advice-add 'org-agenda-quit      :before #'org-save-all-org-buffers)
