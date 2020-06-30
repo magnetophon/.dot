@@ -502,17 +502,35 @@ fzga() {
           #   [[ -z "$TMUX" ]] && exec tmux
           # fi
 
+####################################################################################################
+############################### make the prompt work in tty ########################################
+####################################################################################################
+autoload -Uz promptinit && promptinit
+
+# Load the prompt theme.
+zstyle -a ':prezto:module:prompt' theme 'prompt_argv'
+if [[ "$TERM" == (dumb|bsd*) ]] || (( $#prompt_argv < 1 )); then
+prompt 'off'
+else
+  prompt "$prompt_argv[@]"
+fi
+unset prompt_argv
           # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-          [[ ! -f ~/.config/.p10k.zsh ]] || source ~/.config/.p10k.zsh
+          # [[ ! -f ~/.config/.p10k.zsh ]] || source ~/.config/.p10k.zsh
           # default location:
           # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if zmodload zsh/terminfo && (( terminfo[colors] >= 256 )); then
+  [[ ! -f ~/.config/.p10k.zsh ]] || source ~/.config/.p10k.zsh
+else
+  [[ ! -f ~/.config/.p10k.portable.zsh ]] || source ~/.config/.p10k.portable.zsh
+fi
 
-
+################################ alert on long commands ############################################
           [[ ! -f ~/.dot/zlong_alert.zsh/zlong_alert.zsh ]] || source ~/.dot/zlong_alert.zsh/zlong_alert.zsh
           zlong_use_notify_send=false
           zlong_duration=4
           zlong_ignore_cmds="vim nvim ssh"
+
+################################### git fuzzy ######################################################
 export PATH="/home/bart/source/git-fuzzy/bin:$PATH"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.config/.p10k.zsh
