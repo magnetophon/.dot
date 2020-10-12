@@ -134,7 +134,7 @@
   )
 
 (map! :leader (:prefix ("w" . "window") "~" #'resize-window-hydra/body))
-(map! :leader (:prefix ("/" . "search") "r" #'counsel-recoll))
+;; (map! :leader (:prefix ("/" . "search") "r" #'counsel-recoll))
 
 ;; doom has this under SPC `
 ;; (defun spacemacs/alternate-buffer (&optional window)
@@ -158,7 +158,7 @@
 ;; (map! :leader (:prefix ("b" . "buffer") "TAB" #'spacemacs/alternate-buffer))
 
                                         ; auto back-and-forth for workspaces
-(dotimes (i 9)
+(dotimes (i 10)
   (advice-add (intern (format "+workspace/switch-to-%d" i))
               :override
               (lambda () (interactive)
@@ -202,7 +202,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq faustine-build-backend `"time faust2jack -time -t 0" )
-(add-to-list 'auto-mode-alist '("\\.lib$" . faustine-mode))
+(add-to-list 'auto-mode-alist '("\\.lib$" . faust-mode))
+(add-to-list 'auto-mode-alist '("\\.dsp$" . faust-mode))
 ;; (after! faustine
 ;;   (set-company-backend! '(faust-mode faustine-mode) '(company-dabbrev-code +faust-company-backend company-yasnippet)))
 

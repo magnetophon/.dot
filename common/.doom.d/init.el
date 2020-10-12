@@ -17,6 +17,7 @@
 (doom! :input
        ;;chinese
        ;;japanese
+       ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
        (company           ; the ultimate code completion backend
@@ -63,8 +64,8 @@
         )
        ;; +onsave)          ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
-       ;;lispy             ; vim for lisp, for people who dont like vim
-       ;; multiple-cursors  ; editing in many places at once
+       ;;lispy             ; vim for lisp, for people who don't like vim
+       ;;multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
        ;; rotate-text       ; cycle region at point between text candidates
@@ -77,8 +78,8 @@
         +icons          ; colorful icons for dired-mode
         )
        electric          ; smarter, keyword-based electric-indent
-       ibuffer           ; interactive buffer management
-       undo              ; undo-fu, lineaer.  for treen enable "+tree"
+       ibuffer         ; interactive buffer management
+       undo              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
@@ -105,7 +106,7 @@
         +docsets           ; ...or in Dash docsets locally
         +dictionary        ; for dictionary/thesaurus lookups on SPC s t & SPC s T, respectively
         +offline)
-       ;;lsp
+       lsp
        ;;macos             ; MacOS-specific commands
        magit               ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
@@ -117,6 +118,10 @@
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
+
+       ;; :os
+       ;; (:if IS-MAC macos)  ; improve compatibility with macOS
+       tty               ; improve the terminal Emacs experience
 
        :lang
        ;;agda              ; types of types of types of types...
@@ -141,7 +146,7 @@
        ;;(go +lsp)         ; the hipster dialect
        ;;(haskell +dante)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
-       ;;idris             ;
+       ;;idris             ; a language you can depend on
        ;;json              ; At least it ain't XML
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))

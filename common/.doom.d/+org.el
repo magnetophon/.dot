@@ -272,4 +272,11 @@
   ;; ("C-c n i" . org-roam-insert)
   ;; ("C-c n g" . org-roam-show-graph))
 
+  ;; less eye-candy, more speed:
+  (setq org-fontify-quote-and-verse-blocks nil
+        org-fontify-whole-heading-line nil
+        org-hide-leading-stars nil
+        org-startup-indented nil)
   )
+;; full pkg is disabled already
+;; (remove-hook 'org-mode-hook #'org-superstar-mode)
