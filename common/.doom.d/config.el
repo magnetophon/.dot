@@ -254,3 +254,33 @@
 ;; "r" #'mma-create-regexp)
 
 ;;; config.el ends here
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        ;                nixos                ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+( after! lsp
+  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                    :major-modes '(nix-mode)
+                    :server-id 'nix))
+
+  (use-package! nix-mode
+    :interpreter ("\\(?:cached-\\)?nix-shell" . +nix-shell-init-mode)
+    :mode "\\.nix\\'"
+    :init
+    (add-hook! 'nix-mode-local-vars-hook #'lsp!)
+    :config
+    (set-repl-handler! 'nix-mode #'+nix/open-repl)
+
+    (map! :localleader
+          :map nix-mode-map
+          "f" #'nix-update-fetch
+          "p" #'nix-format-buffer
+          "r" #'nix-repl-show
+          "s" #'nix-shell
+          "b" #'nix-build
+          "u" #'nix-unpack
+          "o" #'+nix/lookup-option)
+    ))
