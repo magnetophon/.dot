@@ -1,4 +1,6 @@
-#!/usr/bin/env python3
+#!/run/current-system/sw/bin/python
+
+# doesn't find pyperclip #!/usr/bin/env python3
 
 import os
 import html
