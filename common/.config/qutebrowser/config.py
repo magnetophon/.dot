@@ -785,6 +785,10 @@ c.content.ssl_strict = True
 ## List of user stylesheet filenames to use.
 ## Type: List of File, or File
 c.content.user_stylesheets = ["~/.config/qutebrowser/rotate.css"]
+#
+# Doesn't turn the whole page for many sites, cannot be toggled without a restart, see:
+# https://github.com/qutebrowser/qutebrowser/blob/master/doc/faq.asciidoc
+# config.set("colors.webpage.darkmode.enabled", True)
 
 ## Enable WebGL.
 ## Type: Bool
@@ -1551,6 +1555,8 @@ c.url.searchengines = {
     #"DEFAULT" : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&num=30&q={}&tbs=li:1",
     #"DEFAULT" : "https://duckduckgo.com/{}",
      # "DEFAULT" : "https://searx.riseup.net/?q={}&categories=general&language=en-US",
+     # https://www.runnaroo.com/
+     # https://millionshort.com/
      "DEFAULT" : "https://searx.info/?q={}&categories=general&language=en-US",
      "a"       : "https://archive.org/search.php?query={}",
      "aa"      : "https://aur.archlinux.org/packages/?O=0&C=0&SeB=nd&K={}&outdated=&SB=n&SO=a&PP=50&do_Search=Go",
@@ -1821,8 +1827,8 @@ config.bind('Y', 'yank selection -s')
 
 ## bindings for mpv
 ## nmap('ty', 'spawn --detach mpv "{url}"')
-config.bind(',m', 'spawn --userscript view_in_mpv')
-## config.bind(',m', 'spawn --detach mpv {url}')
+# config.bind(',m', 'spawn --userscript view_in_mpv')
+config.bind(',m', 'spawn --detach mpv {url}')
 config.bind(';m', 'hint all spawn --detach mpv {hint-url}')
 ## config.bind(';m', 'hint all spawn --userscript view_in_mpv {hint-url}')
 ## config.bind('am', 'hint --rapid all spawn --userscript view_in_mpv {hint-url}')
