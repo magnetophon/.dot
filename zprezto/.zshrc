@@ -534,3 +534,114 @@ fi
 ################################### git fuzzy ######################################################
 export PATH="/home/bart/source/git-fuzzy/bin:$PATH"
 
+################################## fzf-tab previews ###############################################
+# from: https://github.com/Aloxaf/fzf-tab/issues/79
+# https://gist.github.com/adelin-b/53fecd0f9010819bae2e69792da29704
+
+
+# auto completion {{
+
+# zinit light Aloxaf/fzf-tab
+
+FZF_TAB_COMMAND=(
+  fzf
+  --ansi   # Enable ANSI color support, necessary for showing groups
+  --expect='$continuous_trigger,$print_query' # For continuous completion
+  '--color=hl:$(( $#headers == 0 ? 108 : 255 ))'
+  --nth=2,3 --delimiter='\x00'  # Don't search prefix
+  --layout=reverse --height='${FZF_TMUX_HEIGHT:=75%}'
+  --tiebreak=begin
+  -m
+  --bind=tab:down,change:top,ctrl-space:toggle,shift-tab:up,ctrl-j:down,alt-j:jump-accept,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-p:toggle-preview --cycle
+  '--query=$query'   # $query will be expanded to query string at runtime.
+  '--header-lines=$#headers' # $#headers will be expanded to lines of headers at runtime
+  --print-query
+)
+
+
+zstyle ':fzf-tab:*' command $FZF_TAB_COMMAND
+
+# disable sort when completing any command
+zstyle ':completion:complete:*' sort false
+
+# use input as query string when completing zlua
+zstyle ':fzf-tab:complete:_zlua:*' query-string input
+
+# (experimental, may change in the future)
+local extract="
+# trim input(what you select)
+in=\${\${\"\$(<{f})\"%\$'\0'*}#*\$'\0'}
+# get ctxt for current completion(some thing before or after the current word)
+local -A ctxt=(\"\${(@ps:\2:)CTXT}\")
+"
+
+mansubs() {
+  man "$1" |col -bx|awk '/^[A-Z ]+$/ {print}'
+}
+
+manedit() {
+  man "$1" |col -bx|awk -v S="$2" '$0 ~ S {cap="true"; print} $0 !~ S && /^[A-Z ]+$/ {cap="false"} $0 !~ S && !/^[A-Z ]+$/ {if(cap == "true")print}'
+}
+
+fzf_tab_preview_debug='echo "${~ctxt[hpre]}$in"'
+fzf_tab_preview_commit='
+# Show commits and branch commits
+git show $( echo "${~ctxt[hpre]}$in" | cut -f 1 -d " " ) | diff-so-fancy --colors
+'
+
+fzf_tab_preview_options=''
+
+fzf_tab_preview_command='
+# Show information on command
+which ${~ctxt[hpre]}$in | grep -v "not found" 2> /dev/null;
+whatis ${~ctxt[hpre]}$in 2> /dev/null;
+
+# Show my own snippets related to the command
+grep -w "${~ctxt[hpre]}$in" ~/.config/clisnippets 2> /dev/null;
+
+# tldr show cheatsheet of command
+tldr ${~ctxt[hpre]}$in 2> /dev/null;
+
+# Search through man and give the description segment
+man "${~ctxt[hpre]}$in" 2> /dev/null |col -bx|awk -v S="$2" "DESCRIPTION ~ S {cap="true"; print} DESCRIPTION !~ S && /^[A-Z ]+$/ {cap="false"} DESCRIPTION !~ S && !/^[A-Z ]+$/ {if(cap == "true")print}" 2> /dev/null;
+'
+
+fzf_tab_preview_file='
+# Display images
+tiv -h ${FZF_PREVIEW_LINES} -w ${FZF_PREVIEW_COLUMNS} ${~ctxt[hpre]}$in  2> /dev/null;
+
+# Display directory
+# du -h ${~ctxt[hpre]}$in 2> /dev/null | tail -n1
+# lsd --tree --icon --depth 2  --color=always ${~ctxt[hpre]}$in 2> /dev/null
+exa --tree --level 1 --icons --color=always ${~ctxt[hpre]}$in 2> /dev/null;
+
+# Display file
+bat --theme="OneHalfDark" --style=numbers,changes --color always ${~ctxt[hpre]}$in 2> /dev/null | head -n50 | grep -v "bat warning"; 2> /dev/null;
+
+# Display exif data
+exiftool ${~ctxt[hpre]}$in  2> /dev/null;
+'
+
+fzf_tab_preview_yay_package='yay -Si "${~ctxt[hpre]}$in"'
+fzf_tab_preview_pacman_package='pacman -Si "${~ctxt[hpre]}$in"'
+
+fzf_tab_preview_docker_container_run='
+docker history $(echo "${~ctxt[hpre]}$in" | cut -f 1 -d " ")
+# docker stats ${~ctxt[hpre]}$in
+# docker logs ${~ctxt[hpre]}$in
+'
+fzf_tab_preview_systemctl_service='
+systemctl status ${~ctxt[hpre]}$in
+systemctl help ${~ctxt[hpre]}$in
+'
+
+# zstyle ':fzf-tab:*:' prefix '·'
+zstyle ':fzf-tab:complete:*' extra-opts --preview=$extract$fzf_tab_preview_file
+zstyle ':fzf-tab:complete:*:options' extra-opts '' # --preview=$extract$fzf_tab_preview_options
+zstyle ':fzf-tab:complete:-command-:*' extra-opts --preview=$extract$fzf_tab_preview_command
+zstyle ':fzf-tab:complete:systemctl-*:*' extra-opts --preview=$extract$fzf_tab_preview_systemctl_service
+zstyle ':fzf-tab:complete:git*:*' extra-opts --preview=$extract$fzf_tab_preview_commit$fzf_tab_preview_file
+zstyle ':fzf-tab:complete:docker-run:*' extra-opts --preview=$extract$fzf_tab_preview_docker_container_run$fzf_tab_preview_file
+zstyle ':fzf-tab:complete:yay:argument-rest' extra-opts --preview=$extract$fzf_tab_preview_yay_package
+zstyle ':fzf-tab:complete:pacman:argument-rest' extra-opts --preview=$extract$fzf_tab_preview_yay_package
+# }}
