@@ -12,12 +12,10 @@ polybar bar1 >>/tmp/polybar1.log 2>&1 &
 
 echo "Bars launched..."
 
-sleep 10
+# sleep 10
 
-MODE=$(i3-msg -t get_tree | jq -r '.. | .nodes? | .[]? | select(.window!=null and .focused==true).border')
-if [ "$MODE" != "normal" ]; then
-    polybar-msg cmd hide
-    echo "Bars hidden..."
-fi
-
-
+# MODE=$(i3-msg -t get_tree | jq -r '.. | .nodes? | .[]? | select(.window!=null and .focused==true).border')
+# if [ "$MODE" != "normal" ]; then
+# polybar-msg cmd hide
+# echo "Bars hidden..."
+# fi
