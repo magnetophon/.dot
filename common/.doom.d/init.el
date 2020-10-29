@@ -28,6 +28,7 @@
        ;;  +fuzzy)
        ;;ido              ; the other *other* search engine...
        (ivy               ; a search engine for love and life
+        +icons            ; ... icons are nice
         +prescient)       ; Simple but effective sorting and filtering for Emacs.
        :ui
        deft              ; notational velocity for Emacs
@@ -78,8 +79,8 @@
         +icons          ; colorful icons for dired-mode
         )
        electric          ; smarter, keyword-based electric-indent
-       ibuffer         ; interactive buffer management
-       undo              ; persistent, smarter undo for your inevitable mistakes
+       ibuffer           ; interactive buffer management
+       (undo+tree)       ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
@@ -108,7 +109,8 @@
         +offline)
        lsp
        ;;macos             ; MacOS-specific commands
-       magit               ; a git porcelain for Emacs
+       (magit              ; a git porcelain for Emacs
+        +forge)            ; interface with git forges
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        ;;pdf               ; pdf enhancements
@@ -175,6 +177,7 @@
         ;;+pomodoro        ; be fruitful with the tomato technique
         +present         ; Emacs for presentations
         ;; +protocol       ; Support for org-protocol:// links
+        +roam              ; wander around notes
         )
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
@@ -200,7 +203,7 @@
 
        :email
        ;;(mu4e +gmail)       ; WIP
-       mu4e       ; WIP
+       (mu4e +org)           ; WIP
        ;;notmuch             ; WIP
        ;;(wanderlust +gmail) ; WIP
 

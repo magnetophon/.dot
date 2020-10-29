@@ -40,18 +40,20 @@
         ;; mu4e-view-image-max-width 400
         message-kill-buffer-on-exit t
         mu4e-enable-notifications t
+        ;; I want my format=flowed thank you very much
+        ;; mu4e sets up visual-line-mode and also fill (M-q) to do the right thing
+        ;; each paragraph is a single long line; at sending, emacs will add the
+        ;; special line continuation characters.
+        mu4e-compose-format-flowed t
+
+        ;; every new email composition gets its own frame! (window)
+        mu4e-compose-in-new-frame t
         )
-  ;; I want my format=flowed thank you very much
-  ;; mu4e sets up visual-line-mode and also fill (M-q) to do the right thing
-  ;; each paragraph is a single long line; at sending, emacs will add the
-  ;; special line continuation characters.
-  (setq mu4e-compose-format-flowed t)
 
-  ;; every new email composition gets its own frame! (window)
-  (setq mu4e-compose-in-new-frame t)
-
-  (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
-  (remove-hook! mu4e-compose-mode #'org-mu4e-compose-org-mode)
+  ;; (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
+  ;; (remove-hook! mu4e-compose-mode #'org-mu4e-compose-org-mode)
+  ;; https://github.com/hlissner/doom-emacs/issues/4043#issuecomment-707983761
+  (remove-hook! 'mu4e-compose-pre-hook #'org-msg-mode)
 
   (with-eval-after-load 'mu4e-alert
     ;; Enable Desktop notifications
@@ -81,9 +83,9 @@
   (define-key mu4e-view-mode-map "s" 'helm-mu)
 
   (map!  (:when (featurep! :email mu4e)
-           (:map mu4e-compose-mode-map
-             :localleader
-             "o" #'org-mu4e-compose-org-mode)))
+          (:map mu4e-compose-mode-map
+           :localleader
+           "o" #'org-mu4e-compose-org-mode)))
 
 ;;; Mail directory shortcuts
   (setq mu4e-maildir-shortcuts

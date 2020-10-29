@@ -19,12 +19,12 @@
 (setq display-line-numbers-type 'relative)
 
 ;; make sure we get vertical splits:
-(after! org
-  ;; (set-popup-rule! "^\\*Org Agenda" :side 'right :size 0.5)
-  (set-popup-rule! "\\*" :side 'right :size 0.5)
-  (setq split-height-threshold nil)
-  (setq split-width-threshold 160)
-  )
+;; (after! org
+;; (set-popup-rule! "^\\*Org Agenda" :side 'right :size 0.5)
+(set-popup-rule! "\\*" :side 'right :size 0.5)
+(setq split-height-threshold nil)
+(setq split-width-threshold 160)
+;; )
 
 ;; clearer highlight for current line
 (after! solaire-mode
@@ -80,14 +80,19 @@
 (setq evil-move-cursor-back nil)
 
 (setq evil-escape-unordered-key-sequence t)
-(setq evil-want-fine-undo t)
+(setq auth-sources '("~/.authinfo.gpg"))
 ;; (setq undo-tree-auto-save-history t)
 
 (global-aggressive-indent-mode 1)
 (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 
 ;;no auto popups, use C-SPC
-(setq company-idle-delay nil)
+;; (setq company-idle-delay nil)
+(after! company
+  (setq company-idle-delay nil
+        company-minimum-prefix-length 2)
+  (setq company-show-numbers t)
+  (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
 
 ;; ivy config, default now
 ;; (after! ivy
@@ -179,6 +184,8 @@
   "di"   #'doom/ediff-init-and-example
   )
 
+;; map autocorrect to C-i in insert mode.
+(map! :i "C-i" #'flyspell-auto-correct-word)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       IRC
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
