@@ -115,7 +115,8 @@ set $TERMINAL termite
 set $editor $EDITOR
 set $browser qutebrowser
 set $mua termite -e mutt
-set $filem termite -e ranger
+# alacritty displays bigger icons than termite
+set $filem alacritty -e ranger
 
 # we toggle with $win+Shift+t
 # default_border normal 1
@@ -430,7 +431,7 @@ bindsym --release Shift+Print exec notify-send -t 1000 'screenshot' 'please sele
 # bindsym $win+Shift+p  exec clipster -o -n 0 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | sed -ze 's/\n$//' | clipster
 bindsym $win+Shift+p  exec clipster -s -n 0
 # alacritty and termite grab the input directly after launch
-bindsym $win+p  exec termite -t paste:: -e ~/.local/bin/clipster_fzf.sh
+bindsym $win+p  exec alacritty -t paste:: -e ~/.local/bin/clipster_fzf.sh
 # for_window [title=paste::] fullscreen enable
 
 bindsym $win+u exec ~/.local/bin/umlaut.sh
