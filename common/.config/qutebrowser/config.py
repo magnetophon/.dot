@@ -1584,7 +1584,7 @@ c.url.searchengines = {
      "n"       : "https://github.com/NixOS/nixpkgs/search?utf8=%E2%9C%93&q={}",
      "npk"     : "https://github.com/NixOS/nixpkgs/search?q={}",
      "npi"     : "https://github.com/NixOS/nixpkgs/issues?q=is%3Aissue+is%3Aopen+{}",
-     "no"      : "https://nixos.org/nixos/options.html#{}",
+     "no"      : "https://search.nixos.org/options?query={}&from=0&size=30&sort=relevance&channel=unstable",
      "npa"     : "https://nixos.org/nixos/packages.html?channel=nixpkgs-unstable&query={}",
      "ne"      : "https://searx.info/?q={}&category_news=on",
      "np"      : "https://search.nix.gsc.io/?q={}",
