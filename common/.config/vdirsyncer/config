@@ -1,31 +1,29 @@
+# An example configuration for vdirsyncer.
+#
+# Move it to ~/.vdirsyncer/config or ~/.config/vdirsyncer/config and edit it.
 # Run `vdirsyncer --help` for CLI usage.
 #
 # Optional parameters are commented out.
 # This file doesn't document all available parameters, see
-# http://vdirsyncer.readthedocs.org/ for the rest of them.
+# http://vdirsyncer.pimutils.org/ for the rest of them.
 
 [general]
 # A folder where vdirsyncer can store some metadata about each pair.
-status_path = ~/config/vdirsyncer/status/
+status_path = "~/.vdirsyncer/status/"
 
 # CARDDAV
-[pair magnetophon_contacts]
+[pair bart_contacts]
 # A `[pair <name>]` block defines two storages `a` and `b` that should be
 # synchronized. The definition of these storages follows in `[storage <name>]`
 # blocks. This is similar to accounts in OfflineIMAP.
-a = magnetophon_contacts_local
-b = magnetophon_contacts_remote
+a = "bart_contacts_local"
+b = "bart_contacts_remote"
 
-
-# Synchronize all collections available on "side B" (in this case the server).
+# Synchronize all collections that can be found.
 # You need to run `vdirsyncer discover` if new calendars/addressbooks are added
 # on the server.
 
-# Omitting this parameter implies that the given path and URL in the
-# corresponding `[storage <name>]` blocks are already directly pointing to a
-# collection each.
-
-collections = ["from b"]
+collections = ["from a", "from b"]
 
 # Synchronize the "display name" property into a local file (~/.contacts/displayname).
 metadata = ["displayname"]
@@ -36,42 +34,37 @@ metadata = ["displayname"]
 #   `"b wins"` - assume b's items to be more up-to-date
 #conflict_resolution = null
 
-[storage magnetophon_contacts_local]
+[storage bart_contacts_local]
 # A storage references actual data on a remote server or on the local disk.
 # Similar to repositories in OfflineIMAP.
-type = filesystem
-path = ~/.contacts/
-fileext = .vcf
+type = "filesystem"
+path = "~/.contacts/"
+fileext = ".vcf"
 
-[storage magnetophon_contacts_remote]
-type = carddav
-url = https://magnetophon.nl/baikal/card.php/addressbooks/magnetophon/default
-username =magnetophon
+[storage bart_contacts_remote]
+type = "carddav"
+url = "https://cal.magnetophon.nl/html/dav.php/addressbooks/magnetophon/"
+username = "magnetophon"
 # The password can also be fetched from the system password storage, netrc or a
-# custom command. See http://vdirsyncer.readthedocs.org/en/stable/keyring.html
-password.fetch = ["command", "keyring", "get", "vdirsyncer", "magnetophon"]
-
-verify = ~/magnetophon.pem
-auth = digest
+# custom command. See http://vdirsyncer.pimutils.org/en/stable/keyring.html
+password.fetch = ["command", "pass", "baikal"]
 
 # CALDAV
-[pair magnetophon_calendar]
-a = magnetophon_calendar_local
-b = magnetophon_calendar_remote
-collections = ["default", "private", "work"]
+[pair bart_calendar]
+a = "bart_calendar_local"
+b = "bart_calendar_remote"
+collections = ["from a", "from b"]
 
 # Calendars also have a color property
 metadata = ["displayname", "color"]
 
-[storage magnetophon_calendar_local]
-type = filesystem
-path = ~/.calendars/
-fileext = .ics
+[storage bart_calendar_local]
+type = "filesystem"
+path = "~/.calendars/"
+fileext = ".ics"
 
-[storage magnetophon_calendar_remote]
-type = caldav
-url = https://magnetophon.nl/baikal/cal.php/calendars/magnetophon/default
-username =magnetophon
-password.fetch = ["command", "keyring", "get", "vdirsyncer", "magnetophon"]
-verify = ~/magnetophon.pem
-auth = digest
+[storage bart_calendar_remote]
+type = "caldav"
+url = "https://cal.magnetophon.nl/html/dav.php/calendars/magnetophon/"
+username = "magnetophon"
+password.fetch = ["command", "pass", "baikal"]
