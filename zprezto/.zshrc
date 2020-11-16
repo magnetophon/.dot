@@ -88,6 +88,10 @@ alias fb="grep '^bind' ~/.config/i3/config | cut -d ' ' -f 2- | sed 's/ //' |
 # fuzzy unmount
 alias fu="mount | sed 's/ on / /' | sed 's/ type / /'  | column --table --table-columns SOURCE,TARGET,TYPE,OPTIONS -o'|' | fzf  --preview-window right:33%:wrap --preview 'tree -L 4 -d -C --noreport -C $(echo {} | cut -d"|" -f2)' | cut -d'|' -f2 | /run/current-system/sw/bin/xargs umount"
 
+alias h=hunter
+
+alias ip='ip --color=auto'
+
 #ranger filemanager
 r() {
   if $(test -z $RANGER_LEVEL); then
