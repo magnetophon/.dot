@@ -303,6 +303,11 @@ fzga() {
             file=$(fzf --no-multi --query="$1") && dir=$(dirname "$file") && cd "$dir"
           }
 
+          s() {
+            local file
+            file=$(fasd -lR | fzf --query="$*" )
+            [ -n "$file" ] && xdg-open "$file" &
+          }
           #Searching file contents
           # fzg() {
           # local query="$1"
@@ -327,7 +332,7 @@ fzga() {
           }
           # fk - kill process
           fk() {
-            pid=$(ps -ef | sed 1d | fzf  --query="$*" --preview-window=right:hidden | awk '{print $2}')
+            pid=$(ps -ef | sed 1d | fzf  --query="$*" --preview-window=right:hidden | awk '{print $1}')
 
             if [ "x$pid" != "x" ]
             then
