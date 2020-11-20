@@ -211,6 +211,20 @@ fzga() {
             }
           fi
 
+          rga-fzf() {
+	          RG_PREFIX="rga --files-with-matches"
+	          local file
+	          file="$(
+              FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
+                fzf --sort --preview="[[ ! -z {} ]] && rga --pretty --context 5 {q} {}" \
+                --phony -q "$1" \
+                --bind "change:reload:$RG_PREFIX {q}" \
+                --preview-window="70%:wrap"
+            )" &&
+	            echo "opening $file" &&
+	            xdg-open "$file"
+          }
+
           alias iotop="sudo iotop"
           # paste to the web:
           alias tb="nc termbin.com 9999"
@@ -397,8 +411,8 @@ fzga() {
               line=$(
                 awk 'BEGIN { FS="\t" } !/^!/ {print toupper($4)"\t"$1"\t"$2"\t"$3}' tags |
                   cut -c1-80 | fzf --nth=1,2 --preview-window=right:hidden
-              ) && $EDITOR $(cut -f3 <<< "$line") -c "set nocst" \
-                -c "silent tag $(cut -f2 <<< "$line")"
+                  ) && $EDITOR $(cut -f3 <<< "$line") -c "set nocst" \
+                    -c "silent tag $(cut -f2 <<< "$line")"
           }
 
 
