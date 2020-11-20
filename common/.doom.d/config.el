@@ -8,7 +8,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(setq doom-font (font-spec :family "Terminus" :size 8))
+(setq doom-font (font-spec :family "Terminus" :size 8 :weight 'bold))
 ;; (setq doom-font (font-spec :family "Dina" :size 8))
 ;; (setq doom-big-font (font-spec :family "Anonymous Pro" :size 11 ))
 (setq doom-big-font (font-spec :family "Terminus" :size 18))
