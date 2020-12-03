@@ -37,7 +37,7 @@ width = 100%
 height = 18
 radius = 0.0
 bottom = true
-fixed-center = true
+; fixed-center = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -58,9 +58,10 @@ font-0 = siji:size=10;1
 font-1 = terminus:pixelsize=12;1
 
 modules-left = i3
-; modules-center = title
-; modules-center =
-modules-right =  wlan eth tethering spacer root home cpu memory temperature spacer battery alsa date time
+; modules-left = i3 wlan eth tethering
+; modules-center = root home cpu memory temperature
+; modules-right =  battery pulseaudio date time
+modules-right =  wlan eth tethering spacer root home cpu memory temperature spacer battery pulseaudio date time
 
 tray-position = right
 tray-padding = 2
@@ -85,6 +86,8 @@ type = internal/xwindow
 
 label= %title%
 label-maxlen=90
+label-minlen=90
+label-alignment = center
 
 [module/root]
 type = internal/fs
@@ -254,6 +257,26 @@ time = %R
 interval = 60
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-hl}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_00_1b.0.analog-stereo
+click-right = pavucontrol
+use-ui-max = false
+
+format-volume = <ramp-volume><label-volume>
+label-volume = %percentage:3:3%%
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = ""
+format-muted-foreground = ${colors.foreground-alt}
+
+label-muted=%percentage:3:3%%
+ramp-volume-0= 
+; ramp-volume-0 = 
+; ramp-volume-1 = 
+; ramp-volume-2 = 
+ramp-volume-foreground = ${colors.foreground-hl}
 
 [module/alsa]
 master-soundcard = hw:0
