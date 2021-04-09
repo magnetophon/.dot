@@ -5,7 +5,7 @@
 
 ## This is here so configs done via the GUI are still loaded.
 ## Remove it to not load settings done via the GUI.
-# config.load_autoconfig()
+config.load_autoconfig(False)
 
 ## Aliases for commands. The keys of the given dictionary are the
 ## aliases, while the values are the commands they map to.
@@ -621,7 +621,7 @@ c.content.cookies.accept = 'no-3rdparty'
 ## The file `~/.config/qutebrowser/blocked-hosts` is always read if it
 ## exists.
 ## Type: List of Url
-c.content.host_blocking.lists = ['https://www.malwaredomainlist.com/hostslist/hosts.txt', 'http://someonewhocares.org/hosts/hosts', 'http://winhelp2002.mvps.org/hosts.zip', 'http://malwaredomains.lehigh.edu/files/justdomains.zip', 'https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&mimetype=plaintext']
+c.content.blocking.hosts.lists = ['https://www.malwaredomainlist.com/hostslist/hosts.txt', 'http://someonewhocares.org/hosts/hosts', 'http://winhelp2002.mvps.org/hosts.zip', 'http://malwaredomains.lehigh.edu/files/justdomains.zip', 'https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&mimetype=plaintext']
 
 ## A list of patterns that should always be loaded, despite being ad-
 ## blocked. Note this blacklists blocked hosts, not first-party URLs. As
@@ -632,6 +632,18 @@ c.content.host_blocking.lists = ['https://www.malwaredomainlist.com/hostslist/ho
 ## from hostblocking.
 ## Type: List of UrlPattern
 # c.content.host_blocking.blacklist = ['piwik.org']
+
+# c.content.blocking.method = "both";
+c.content.blocking.method = "adblock";
+
+c.content.blocking.adblock.lists = [
+    'https://easylist.to/easylist/easylist.txt',
+    'https://easylist.to/easylist/easyprivacy.txt',
+    'https://easylist.to/easylist/fanboy-annoyance.txt',
+    'https://kiboke-studio.hr/i-dont-care-about-cookies/abp',
+    'https://easylist-downloads.adblockplus.org/easylistdutch.txt'
+]
+
 
 ## Enable hyperlink auditing (`<a ping>`).
 ## Type: Bool
@@ -1759,8 +1771,8 @@ config.bind('f', 'hint links tab-bg')
 # config.bind('go', 'set-cmd-text :open {url:pretty}')
 # config.bind('gr', 'tab-move +')
 config.bind('gs', "config-cycle statusbar.hide", mode="normal")
-# config.bind('gt', 'set-cmd-text -s :buffer')
-config.bind('b', 'set-cmd-text -s :buffer')
+# config.bind('gt', 'set-cmd-text -s :tab-select')
+config.bind('b', 'set-cmd-text -s :tab-select')
 # config.bind('gu', 'navigate up')
 # config.bind('h', 'scroll left')
 # config.bind('i', 'enter-mode insert')
