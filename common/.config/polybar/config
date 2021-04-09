@@ -63,7 +63,8 @@ modules-left = i3
 ; modules-left = i3 wlan eth tethering
 ; modules-center = root home cpu memory temperature
 ; modules-right =  battery pulseaudio date time
-modules-right =  wlan eth tethering spacer root home cpu memory temperature spacer battery pulseaudio date time
+modules-right =  wlan eth tethering spacer root home cpu memory temperature temperature2 cpufreq spacer battery alsa date time
+; modules-right =  wlan eth tethering spacer root home cpu memory temperature spacer battery pulseaudio date time
 
 tray-position = right
 tray-padding = 2
@@ -197,7 +198,7 @@ label = %gb_free%
 
 [module/wlan]
 type = internal/network
-interface = wlp3s0
+interface = wlp0s20f3
 interval = ${vars.interval}
 
 format-connected = <ramp-signal> <label-connected> 
@@ -214,7 +215,7 @@ ramp-signal-foreground = ${colors.foreground-hl}
 
 [module/eth]
 type = internal/network
-interface = enp0s25
+interface = enp0s31f6
 interval = ${vars.interval}
 
 format-connected-underline = #55aa55
@@ -331,11 +332,24 @@ format-full-prefix = ""
 format-full-prefix-foreground = ${colors.foreground-hl}
 label-full = "%percentage:3:3%%"
 
+
 [module/temperature]
 type = internal/temperature
 interval = ${vars.interval}
-thermal-zone = 0
 warn-temperature = 60
+; Thermal zone to use
+; To list all the zone types, run
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+; thermal-zone = 4
+; thermal-zone = 2
+
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+hwmon-path = /sys/class/hwmon/hwmon4/temp1_input
 
 format = <ramp> <label>
 format-warn = <label-warn>
@@ -351,7 +365,75 @@ ramp-0 = 
 ; ramp-2 =
 ramp-foreground = ${colors.foreground-hl}
 
+[module/temperature2]
+type = internal/temperature
+interval = ${vars.interval}
+warn-temperature = 60
+; Thermal zone to use
+; To list all the zone types, run
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+thermal-zone = 4
+; thermal-zone = 2
 
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+; hwmon-path = /sys/class/hwmon/hwmon4/temp1_input
+
+format = <ramp> <label>
+format-warn = <label-warn>
+; format-underline = #4bffdc
+; format-warn-underline = ${self.format-underline}
+
+label = %temperature-c%
+label-warn =  %temperature-c%
+label-warn-foreground = ${colors.alert}
+
+ramp-0 = 
+; ramp-1 =  
+; ramp-2 =
+ramp-foreground = ${colors.foreground-hl}
+
+[module/temperature3]
+type = internal/temperature
+interval = ${vars.interval}
+warn-temperature = 60
+; Thermal zone to use
+; To list all the zone types, run
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+; thermal-zone = 4
+; thermal-zone = 2
+
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+hwmon-path = /sys/class/hwmon/hwmon4/temp5_input
+
+format = <ramp> <label>
+format-warn = <label-warn>
+; format-underline = #4bffdc
+; format-warn-underline = ${self.format-underline}
+
+label = %temperature-c%
+label-warn =  %temperature-c%
+label-warn-foreground = ${colors.alert}
+
+ramp-0 = 
+; ramp-1 =  
+; ramp-2 =
+ramp-foreground = ${colors.foreground-hl}
+
+[module/cpufreq]
+type = custom/script
+exec = cpupower frequency-info -fm | grep -oP '(?<=frequency: )([^ ]+ [^ ]+)'
+interval = 1
+label = %output:8:8%
 
 [settings]
 screenchange-reload = true
