@@ -381,7 +381,7 @@ bindSym XF86MonBrightnessUp      exec --no-startup-id "~/.local/bin/brightness.s
 bindSym XF86AudioRaiseVolume  exec --no-startup-id "amixer -c 0 -- sset Master playback 3dB+"
 bindSym XF86AudioLowerVolume  exec --no-startup-id "amixer -c 0 -- sset Master playback 3dB-"
 # bindSym XF86AudioMute         exec --no-startup-id "amixer -c 0 -- sset Master toggle"
-# bindSym XF86AudioMute         exec --no-startup-id "amixer -q set Master toggle"
+bindSym XF86AudioMute         exec --no-startup-id "amixer -q set Master toggle"
 exec_always xset -r 121 # turn of the key repeat for mute!
 # Pulse Audio controls
 # bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +3dB #increase sound volume
@@ -390,7 +390,7 @@ exec_always xset -r 121 # turn of the key repeat for mute!
 # Pulse Audio controls
 # bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 # bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # bindSym XF86AudioStart              exec --no-startup-id ""
 # bindSym XF86AudioStop              exec --no-startup-id ""
@@ -404,6 +404,7 @@ bindsym XF86AudioPrev exec playerctl previous
 bindSym Shift+XF86AudioRaiseVolume exec amixer set Capture 1%+
 bindSym Shift+XF86AudioLowerVolume exec amixer set Capture 1%-
 bindSym Shift+XF86AudioMute exec amixer set Capture 1+ toggle
+bindSym XF86AudioMicMute exec amixer set Capture 1+ toggle
 
 #set $Locker sudo vlock -asn && sleep 1
 #the above doesn't like suspend and such
@@ -427,6 +428,8 @@ mode "$mode_system" {
 }
 
 bindsym $win+Pause mode "$mode_system"
+# T14 doesn't have pause
+bindsym $win+Delete mode "$mode_system"
 
 # Toggle bar visibility
 # bindsym $win+$alt+b bar mode toggle
