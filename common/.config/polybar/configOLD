@@ -1,0 +1,366 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+; transparent
+background = 00BEBEBE
+; non transparent
+; background = BEBEBE
+background-alt = #DCDAD5
+foreground = #444444
+foreground-alt = #777777
+foreground-hl = #222222
+primary = #FFFF00
+alert = #FF0000
+
+[vars]
+interval = 1
+
+[bar/bar1]
+enable-ipc = true
+width = 100%
+height = 18
+radius = 0.0
+bottom = true
+; fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 0
+line-color = ${colors.background-alt}
+
+border-size = 0
+border-color = ${colors.foreground-alt}
+
+padding-left = 0
+padding-right = 1
+
+module-margin-left = 1
+module-margin-right = 2
+
+; font-0 = Siji:size=10;1
+; font-1 = Terminus:pixelsize=12;1
+font-0 = Siji:style=Regular:pixelsize=11;1
+font-1 = Terminus:style=Regular:size=14;0
+
+modules-left = i3
+; modules-left = i3 wlan eth tethering
+; modules-center = root home cpu memory temperature
+; modules-right =  battery pulseaudio date time
+modules-right =  wlan eth tethering spacer root home cpu memory temperature spacer battery alsa date time
+; modules-right =  wlan eth tethering spacer root home cpu memory temperature spacer battery pulseaudio date time
+
+tray-position = right
+tray-padding = 2
+; tray-detached = true
+; Tray icon max size
+tray-maxsize = 16
+
+; scroll-up = i3wm-wsnext
+; scroll-down = i3wm-wsprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/spacer]
+type = custom/text
+; content = "██████████████"
+; content-foreground = ${colors.background-alt}
+content = "                   "
+
+[module/title]
+type = internal/xwindow
+
+label= %title%
+label-maxlen=90
+label-minlen=90
+label-alignment = center
+
+[module/root]
+type = internal/fs
+interval = 20
+
+mount-0 = /
+
+; big folder
+; format-mounted-prefix = " "
+; PC:
+format-mounted-prefix = " "
+format-mounted-prefix-foreground = ${colors.foreground-hl}
+label-mounted = %free%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.alert}
+
+[module/home]
+inherit = module/root
+
+mount-0 = /home
+; big house
+; format-mounted-prefix = " "
+; small house
+format-mounted-prefix = " "
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = true
+; Only show workspaces defined on the same output as the bar
+pin-workspaces = true
+label-mode-padding = 1
+label-mode-foreground = ${colors.foreground-hl}
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-foreground = ${colors.foreground-hl}
+label-focused-background = ${colors.primary}
+; label-focused-foreground = ${colors.primary}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 1
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-background = ${colors.background-alt}
+label-unfocused-padding = 1
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-foreground = ${colors.foreground-hl}
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1
+
+; Separator in between workspaces
+; label-separator = |
+
+
+; [module/mpd]
+; type = internal/mpd
+; format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+; icon-prev = 
+; icon-stop = 
+; icon-play = 
+; icon-pause = 
+; icon-next = 
+
+; label-song-maxlen = 25
+; label-song-ellipsis = true
+
+[module/xbacklight]
+type = internal/xbacklight
+
+format = <ramp> <label>
+label = %percentage:3:3%%
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-hl}
+
+[module/cpu]
+type = internal/cpu
+interval = ${vars.interval}
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-hl}
+format-underline = #f90000
+label = %percentage:2:3%%
+label-alignment = left
+
+
+[module/memory]
+type = internal/memory
+interval = ${vars.interval}
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-hl}
+label = %gb_free%
+
+[module/wlan]
+type = internal/network
+interface = wlp0s20f3
+interval = ${vars.interval}
+
+format-connected = <ramp-signal> <label-connected> 
+label-connected = "%signal%% %essid% %local_ip%    %{F#222222}%{F-}%downspeed:7%   %{F#222222}%{F-}%upspeed:7%"
+
+format-packetloss = <animation-packetloss> <label-connected>
+
+format-disconnected =
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-foreground = ${colors.foreground-hl}
+
+[module/eth]
+type = internal/network
+interface = enp0s31f6
+interval = ${vars.interval}
+
+format-connected-underline = #55aa55
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground-hl}
+label-connected = "%linkspeed% %local_ip%   %{F#222222}%{F-}%downspeed:7%   %{F#222222}%{F-}%upspeed:7%"
+; label-connected = "%{F${colors.foreground-hl}} %{F-}%downspeed:min:max% %{F#6F7A81}  %{F-}%upspeed:min:max%"
+
+format-disconnected =
+
+[module/tethering]
+type = internal/network
+interface = enp0s26u1u1
+; interface = enp0s26u1u1Link
+interval = ${vars.interval}
+
+format-connected-underline = #55aa55
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground-hl}
+label-connected = "usb"
+; label-connected = "%linkspeed% %local_ip%   %{F#222222}%{F-}%downspeed:7%   %{F#222222}%{F-}%upspeed:7%"
+
+format-disconnected =
+
+[module/date]
+type = internal/date
+label =  %date%
+date = %a %F
+interval = 60
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-hl}
+
+[module/clock-icon]
+type = custom/text
+content-foreground = ${colors.foreground-hl}
+content = 
+
+[module/time]
+type = internal/date
+label = %time%
+time = %R
+interval = 60
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-hl}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_00_1b.0.analog-stereo
+click-right = pavucontrol
+use-ui-max = false
+
+format-volume = <ramp-volume><label-volume>
+label-volume = %percentage:3:3%%
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = ""
+format-muted-foreground = ${colors.foreground-alt}
+
+label-muted=%percentage:3:3%%
+ramp-volume-0= 
+; ramp-volume-0 = 
+; ramp-volume-1 = 
+; ramp-volume-2 = 
+ramp-volume-foreground = ${colors.foreground-hl}
+
+[module/alsa]
+master-soundcard = hw:0
+type = internal/alsa
+
+format-volume = <ramp-volume><label-volume>
+label-volume = %percentage:3:3%%
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = ""
+format-muted-foreground = ${colors.foreground-alt}
+
+label-muted=%percentage:3:3%%
+ramp-volume-0= 
+; ramp-volume-0 = 
+; ramp-volume-1 = 
+; ramp-volume-2 = 
+ramp-volume-foreground = ${colors.foreground-hl}
+
+[module/battery]
+type = internal/battery
+full-at = 98
+battery = BAT0
+adapter = AC
+poll-interval = ${vars.interval}
+time-format = %H:%M
+
+format-discharging = <ramp-capacity><label-discharging>
+
+label-discharging = %percentage:3:3%% %time:5:5%
+ramp-capacity-0= 
+ramp-capacity-1= 
+ramp-capacity-2= 
+ramp-capacity-3= 
+ramp-capacity-4= 
+ramp-capacity-5= 
+ramp-capacity-6= 
+ramp-capacity-7= 
+ramp-capacity-8= 
+ramp-capacity-9= 
+ramp-capacity-foreground = ${colors.foreground-hl}
+
+format-charging = <label-charging>
+label-charging = %percentage:3:3%% %time:5:5%
+format-charging-prefix = ""
+format-charging-prefix-foreground = ${colors.foreground-hl}
+
+format-full = <label-full>
+format-full-prefix = ""
+format-full-prefix-foreground = ${colors.foreground-hl}
+label-full = "%percentage:3:3%%"
+
+[module/temperature]
+type = internal/temperature
+interval = ${vars.interval}
+thermal-zone = 4
+warn-temperature = 60
+
+format = <ramp> <label>
+format-warn = <label-warn>
+; format-underline = #4bffdc
+; format-warn-underline = ${self.format-underline}
+
+label = %temperature-c%
+label-warn =  %temperature-c%
+label-warn-foreground = ${colors.alert}
+
+ramp-0 = 
+; ramp-1 =  
+; ramp-2 =
+ramp-foreground = ${colors.foreground-hl}
+
+
+
+[settings]
+screenchange-reload = true
+pseudo-transparency = true
+
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+; vim:ft=dosini
