@@ -515,7 +515,7 @@ fzga() {
           [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
           #. '/home/bart/promptless.sh'
 
-          source /home/bart/.config/broot/launcher/bash/br
+          # source /home/bart/.config/broot/launcher/bash/br
 
           [ -n "$RANGER_LEVEL" ] && PS1="$PS1"'(in ranger) '
 
