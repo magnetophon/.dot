@@ -63,7 +63,7 @@ modules-left = i3
 ; modules-left = i3 wlan eth tethering
 ; modules-center = root home cpu memory temperature
 ; modules-right =  battery pulseaudio date time
-modules-right =  wlan eth tethering spacer root home cpu memory temperature temperature2 cpufreq spacer battery alsa date time
+modules-right =  wlan eth tethering spacer root home cpu memory temperature cpufreq fanspeed spacer battery alsa date time
 ; modules-right =  wlan eth tethering spacer root home cpu memory temperature spacer battery pulseaudio date time
 
 tray-position = right
@@ -433,7 +433,17 @@ ramp-foreground = ${colors.foreground-hl}
 type = custom/script
 exec = cpupower frequency-info -fm | grep -oP '(?<=frequency: )([^ ]+ [^ ]+)'
 interval = 1
-label = %output:8:8%
+label-icon = 
+label = %{F#222222} %{F#444444}%output:8:8%
+; label =  %output:8:8%
+
+[module/fanspeed]
+type = custom/script
+exec = cat /proc/acpi/ibm/fan | grep speed: | awk '{print $2; exit}'
+interval = 1
+; label = %{F#222222} %output:4:4% RPM
+label = %{F#222222} %{F#444444}%output:4:4% RPM
+; label =    %output:4:4% RPM
 
 [settings]
 screenchange-reload = true
