@@ -89,5 +89,4 @@ compdef _directories md
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
-z4h source ~/.config/zsh4bart.zsh
-
+z4h source /home/bart/.config/zsh4bart.zsh

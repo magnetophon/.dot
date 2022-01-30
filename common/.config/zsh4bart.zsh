@@ -7,6 +7,12 @@
 ###############################################################################
 
 # Add zoxide to your shell
+
+# if [ "$USER" = "root" ]; then
+# export _ZO_DATA_DIR="/root/.local/share/zoxide"
+# echo root
+# fi
+export _ZO_DATA_DIR=${userdirs[$USERNAME]}/.local/share/zoxide
 eval "$(zoxide init zsh --cmd j)"
 
 # zoxide tab completion
@@ -60,7 +66,8 @@ alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bo
 alias gl="glNoGraph --graph"
 alias ra='echo "user r, ya dummy!"'
 alias youtube-dl='echo "\n\nuser yt-dlp, ya dummy!\n\n\n"'
-alias ua='dtrx --recursive --one=here --verbose'
+# alias ua='dtrx --recursive --one=here --verbose'
+alias ua='unar'
 alias  l='exa --long --grid --header --git --git-ignore --classify --extended --group-directories-first --group  --links --time-style=long-iso'
 alias la='exa --long --grid --header --git --git-ignore --classify --extended --group-directories-first --group  --links --time-style=long-iso --all'
 alias ..='cd ..'
@@ -344,7 +351,7 @@ fh() {
 }
 # fk - kill process
 fk() {
-    pid=$(ps -ef | sed 1d | fzf  --query="$*" --preview-window=right:hidden | awk '{print $1}')
+    pid=$(ps -ef | sed 1d | fzf  --query="$*" --preview-window=right:hidden | awk '{print $2}')
 
     if [ "x$pid" != "x" ]
     then

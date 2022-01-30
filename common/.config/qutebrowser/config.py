@@ -44,378 +44,6 @@ c.auto_save.session = True
 ## Type: Dict
 # c.bindings.key_mappings = {'<Ctrl-[>': '<Escape>', '<Ctrl-6>': '<Ctrl-^>', '<Ctrl-M>': '<Return>', '<Ctrl-J>': '<Return>', '<Shift-Return>': '<Return>', '<Enter>': '<Return>', '<Shift-Enter>': '<Return>', '<Ctrl-Enter>': '<Ctrl-Return>'}
 
-## Background color of the completion widget category headers.
-## Type: QssColor
-c.colors.completion.category.bg = '#bebebe'
-# c.colors.completion.category.bg = 'qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #888888, stop:1 #505050)'
-
-## Bottom border color of the completion widget category headers.
-## Type: QssColor
-c.colors.completion.category.border.bottom = '#bebebe'
-
-## Top border color of the completion widget category headers.
-## Type: QssColor
-c.colors.completion.category.border.top = '#bebebe'
-
-## Foreground color of completion widget category headers.
-## Type: QtColor
-c.colors.completion.category.fg = '#444444'
-
-## Background color of the completion widget for even rows.
-## Type: QssColor
-c.colors.completion.even.bg = 'white'
-
-## Text color of the completion widget. May be a single color to use for
-## all columns or a list of three colors, one for each column.
-## Type: List of QtColor, or QtColor
-c.colors.completion.fg = ['#444444', '#444444', '#444444']
-
-## Background color of the selected completion item.
-## Type: QssColor
-c.colors.completion.item.selected.bg = '#aaaaaa'
-
-## Bottom border color of the selected completion item.
-## Type: QssColor
-# c.colors.completion.item.selected.border.bottom = '#bbbb00'
-
-## Top border color of the selected completion item.
-## Type: QssColor
-# c.colors.completion.item.selected.border.top = '#bbbb00'
-
-## Foreground color of the selected completion item.
-## Type: QtColor
-c.colors.completion.item.selected.fg = 'white'
-
-## Foreground color of the matched text in the selected completion item.
-## Type: QtColor
-# c.colors.completion.item.selected.match.fg = '#ff4444'
-
-## Foreground color of the matched text in the completion.
-## Type: QtColor
-# c.colors.completion.match.fg = '#ff4444'
-
-## Background color of the completion widget for odd rows.
-## Type: QssColor
-c.colors.completion.odd.bg = '#eeeeee'
-
-## Color of the scrollbar in the completion view.
-## Type: QssColor
-c.colors.completion.scrollbar.bg = '#eeeeee'
-
-## Color of the scrollbar handle in the completion view.
-## Type: QssColor
-c.colors.completion.scrollbar.fg = '#444444'
-
-## Background color for the download bar.
-## Type: QssColor
-c.colors.downloads.bar.bg = 'white'
-
-## Background color for downloads with errors.
-## Type: QtColor
-c.colors.downloads.error.bg = 'orange'
-
-## Foreground color for downloads with errors.
-## Type: QtColor
-c.colors.downloads.error.fg = 'black'
-
-## Color gradient start for download backgrounds.
-## Type: QtColor
-# c.colors.downloads.start.bg = '#0000aa'
-
-## Color gradient start for download text.
-## Type: QtColor
-c.colors.downloads.start.fg = 'black'
-
-## Color gradient stop for download backgrounds.
-## Type: QtColor
-# c.colors.downloads.stop.bg = '#00aa00'
-
-## Color gradient end for download text.
-## Type: QtColor
-c.colors.downloads.stop.fg = 'black'
-
-## Color gradient interpolation system for download backgrounds.
-## Type: ColorSystem
-## Valid values:
-##   - rgb: Interpolate in the RGB color system.
-##   - hsv: Interpolate in the HSV color system.
-##   - hsl: Interpolate in the HSL color system.
-##   - none: Don't show a gradient.
-# c.colors.downloads.system.bg = 'rgb'
-
-## Color gradient interpolation system for download text.
-## Type: ColorSystem
-## Valid values:
-##   - rgb: Interpolate in the RGB color system.
-##   - hsv: Interpolate in the HSV color system.
-##   - hsl: Interpolate in the HSL color system.
-##   - none: Don't show a gradient.
-# c.colors.downloads.system.fg = 'rgb'
-
-## Background color for hints. Note that you can use a `rgba(...)` value
-## for transparency.
-## Type: QssColor
-# c.colors.hints.bg = 'qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 247, 133, 0.8), stop:1 rgba(255, 197, 66, 0.8))'
-
-## Font color for hints.
-## Type: QssColor
-# c.colors.hints.fg = 'black'
-
-## Font color for the matched part of hints.
-## Type: QtColor
-# c.colors.hints.match.fg = 'green'
-
-## Background color of the keyhint widget.
-## Type: QssColor
-# c.colors.keyhint.bg = 'rgba(0, 0, 0, 80%)'
-
-## Text color for the keyhint widget.
-## Type: QssColor
-# c.colors.keyhint.fg = '#FFFFFF'
-
-## Highlight color for keys to complete the current keychain.
-## Type: QssColor
-# c.colors.keyhint.suffix.fg = '#FFFF00'
-
-## Background color of an error message.
-## Type: QssColor
-c.colors.messages.error.bg = 'orange'
-
-## Border color of an error message.
-## Type: QssColor
-# c.colors.messages.error.border = '#bb0000'
-
-## Foreground color of an error message.
-## Type: QssColor
-c.colors.messages.error.fg = 'black'
-
-## Background color of an info message.
-## Type: QssColor
-c.colors.messages.info.bg = 'white'
-
-## Border color of an info message.
-## Type: QssColor
-c.colors.messages.info.border = '#eeeeee'
-
-## Foreground color of an info message.
-## Type: QssColor
-c.colors.messages.info.fg = 'black'
-
-## Background color of a warning message.
-## Type: QssColor
-# c.colors.messages.warning.bg = 'darkorange'
-
-## Border color of a warning message.
-## Type: QssColor
-# c.colors.messages.warning.border = '#d47300'
-
-## Foreground color of a warning message.
-## Type: QssColor
-c.colors.messages.warning.fg = 'black'
-
-## Background color for prompts.
-## Type: QssColor
-c.colors.prompts.bg = '#dddddd'
-
-## Border used around UI elements in prompts.
-## Type: String
-# c.colors.prompts.border = '1px solid gray'
-
-## Foreground color for prompts.
-## Type: QssColor
-c.colors.prompts.fg = 'black'
-
-## Background color for the selected item in filename prompts.
-## Type: QssColor
-# c.colors.prompts.selected.bg = 'grey'
-
-## Background color of the statusbar in caret mode.
-## Type: QssColor
-# c.colors.statusbar.caret.bg = 'purple'
-
-## Foreground color of the statusbar in caret mode.
-## Type: QssColor
-c.colors.statusbar.caret.fg = 'black'
-
-## Background color of the statusbar in caret mode with a selection.
-## Type: QssColor
-# c.colors.statusbar.caret.selection.bg = '#a12dff'
-
-## Foreground color of the statusbar in caret mode with a selection.
-## Type: QssColor
-c.colors.statusbar.caret.selection.fg = 'black'
-
-## Background color of the statusbar in command mode.
-## Type: QssColor
-c.colors.statusbar.command.bg = 'white'
-
-## Foreground color of the statusbar in command mode.
-## Type: QssColor
-c.colors.statusbar.command.fg = 'black'
-
-## Background color of the statusbar in private browsing + command mode.
-## Type: QssColor
-# c.colors.statusbar.command.private.bg = 'grey'
-
-## Foreground color of the statusbar in private browsing + command mode.
-## Type: QssColor
-c.colors.statusbar.command.private.fg = 'black'
-
-## Background color of the statusbar in insert mode.
-## Type: QssColor
-# c.colors.statusbar.insert.bg = 'darkgreen'
-
-## Foreground color of the statusbar in insert mode.
-## Type: QssColor
-c.colors.statusbar.insert.fg = 'black'
-
-## Background color of the statusbar.
-## Type: QssColor
-c.colors.statusbar.normal.bg = 'white'
-
-## Foreground color of the statusbar.
-## Type: QssColor
-c.colors.statusbar.normal.fg = 'black'
-
-## Background color of the statusbar in passthrough mode.
-## Type: QssColor
-# c.colors.statusbar.passthrough.bg = 'darkblue'
-
-## Foreground color of the statusbar in passthrough mode.
-## Type: QssColor
-c.colors.statusbar.passthrough.fg = 'black'
-
-## Background color of the statusbar in private browsing mode.
-## Type: QssColor
-# c.colors.statusbar.private.bg = '#666666'
-
-## Foreground color of the statusbar in private browsing mode.
-## Type: QssColor
-c.colors.statusbar.private.fg = 'black'
-
-## Background color of the progress bar.
-## Type: QssColor
-c.colors.statusbar.progress.bg = 'black'
-
-## Foreground color of the URL in the statusbar on error.
-## Type: QssColor
-# c.colors.statusbar.url.error.fg = 'orange'
-
-## Default foreground color of the URL in the statusbar.
-## Type: QssColor
-c.colors.statusbar.url.fg = 'black'
-
-## Foreground color of the URL in the statusbar for hovered links.
-## Type: QssColor
-# c.colors.statusbar.url.hover.fg = 'aqua'
-
-## Foreground color of the URL in the statusbar on successful load
-## (http).
-## Type: QssColor
-c.colors.statusbar.url.success.http.fg = 'black'
-
-## Foreground color of the URL in the statusbar on successful load
-## (https).
-## Type: QssColor
-# c.colors.statusbar.url.success.https.fg = 'lime'
-
-## Foreground color of the URL in the statusbar when there's a warning.
-## Type: QssColor
-# c.colors.statusbar.url.warn.fg = 'yellow'
-
-## Background color of the tab bar.
-## Type: QssColor
-# c.colors.tabs.bar.bg = '#555555'
-
-## Background color of unselected even tabs.
-## Type: QtColor
-c.colors.tabs.even.bg = 'lightgrey'
-
-## Foreground color of unselected even tabs.
-## Type: QtColor
-c.colors.tabs.even.fg = 'black'
-
-## Color for the tab indicator on errors.
-## Type: QtColor
-# c.colors.tabs.indicator.error = '#ff0000'
-
-## Color gradient start for the tab indicator.
-## Type: QtColor
-# c.colors.tabs.indicator.start = '#0000aa'
-
-## Color gradient end for the tab indicator.
-## Type: QtColor
-# c.colors.tabs.indicator.stop = '#00aa00'
-
-## Color gradient interpolation system for the tab indicator.
-## Type: ColorSystem
-## Valid values:
-##   - rgb: Interpolate in the RGB color system.
-##   - hsv: Interpolate in the HSV color system.
-##   - hsl: Interpolate in the HSL color system.
-##   - none: Don't show a gradient.
-# c.colors.tabs.indicator.system = 'rgb'
-
-## Background color of unselected odd tabs.
-## Type: QtColor
-# c.colors.tabs.odd.bg = 'grey'
-
-## Foreground color of unselected odd tabs.
-## Type: QtColor
-c.colors.tabs.odd.fg = 'black'
-
-## Background color of pinned unselected even tabs.
-## Type: QtColor
-# c.colors.tabs.pinned.even.bg = 'darkseagreen'
-
-## Foreground color of pinned unselected even tabs.
-## Type: QtColor
-c.colors.tabs.pinned.even.fg = 'black'
-
-## Background color of pinned unselected odd tabs.
-## Type: QtColor
-# c.colors.tabs.pinned.odd.bg = 'seagreen'
-
-## Foreground color of pinned unselected odd tabs.
-## Type: QtColor
-c.colors.tabs.pinned.odd.fg = 'black'
-
-## Background color of pinned selected even tabs.
-## Type: QtColor
-c.colors.tabs.pinned.selected.even.bg = 'white'
-
-## Foreground color of pinned selected even tabs.
-## Type: QtColor
-c.colors.tabs.pinned.selected.even.fg = 'black'
-
-## Background color of pinned selected odd tabs.
-## Type: QtColor
-c.colors.tabs.pinned.selected.odd.bg = 'white'
-
-## Foreground color of pinned selected odd tabs.
-## Type: QtColor
-c.colors.tabs.pinned.selected.odd.fg = 'black'
-
-## Background color of selected even tabs.
-## Type: QtColor
-c.colors.tabs.selected.even.bg = 'white'
-
-## Foreground color of selected even tabs.
-## Type: QtColor
-c.colors.tabs.selected.even.fg = 'black'
-
-## Background color of selected odd tabs.
-## Type: QtColor
-c.colors.tabs.selected.odd.bg = 'white'
-
-## Foreground color of selected odd tabs.
-## Type: QtColor
-c.colors.tabs.selected.odd.fg = 'black'
-
-## Background color for webpages if unset (or empty to use the theme's
-## color).
-## Type: QtColor
-c.colors.webpage.bg = 'white'
 
 ## Number of commands to save in the command history. 0: no history / -1:
 ## unlimited
@@ -792,7 +420,7 @@ c.content.blocking.adblock.lists = [
 ##   - true
 ##   - false
 ##   - ask
-c.content.ssl_strict = True
+c.content.tls.certificate_errors = 'ask-block-thirdparty'
 
 ## List of user stylesheet filenames to use.
 ## Type: List of File, or File
@@ -1569,14 +1197,14 @@ c.url.searchengines = {
      # "DEFAULT" : "https://searx.riseup.net/?q={}&categories=general&language=en-US",
      # https://www.runnaroo.com/
      # https://millionshort.com/
-     "DEFAULT" : "https://searx.info/?q={}&categories=general&language=en-US",
+     "DEFAULT" : "https://searx.be/?q={}&categories=general&language=en-US",
      "a"       : "https://archive.org/search.php?query={}",
      "aa"      : "https://aur.archlinux.org/packages/?O=0&C=0&SeB=nd&K={}&outdated=&SB=n&SO=a&PP=50&do_Search=Go",
      "d"       : "https://packages.debian.org/search?suite=sid&section=all&searchon=all&keywords={}",
      "du"      : "https://duckduckgo.com/?q={}",
      "e"       : "https://www.ebay.com/sch/{}",
      "es"      : "https://explainshell.com/explain?cmd={}",
-     "f"       : "https://searx.info/?q={}&category_files=on",
+     "f"       : "https://searx.bar/?q={}&category_files=on",
      "g"       : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&num=30&q={}&tbs=li:1",
      "gi"      : "https://github.com/search?utf8=%E2%9C%93&q={}&type=Code&ref=searchresults",
      "gn"      : "https://github.com/search?q={}+language%3ANix&ref=searchresults&type=Code&utf8=%E2%9C%93",
@@ -1586,19 +1214,19 @@ c.url.searchengines = {
      "ht"      : "https://hooktube.com/results?search_query={}",
     #"i"       : "https://encrypted.google.com/search?q={}&safe=off&pws=0&tbm=isch",
     #"i"       : "https://duckduckgo.com/{}?ia=images",
-     "i"       : "https://searx.info/?q={}&category_images=on",
-    "it"       : "https://searx.info/?q={}&category_it=on",
+     "i"       : "https://searx.bar/?q={}&category_images=on",
+    "it"       : "https://searx.bar/?q={}&category_it=on",
      "l"       : "https://wiki.archlinux.org/index.php?search={}",
     #"m"       : "https://maps.google.com/maps?q={}",
      "m"       : "https://www.openstreetmap.org/search?query={}",
      "ma"      : "https://www.marktplaats.nl/q/{}/",
-     "mu"      : "https://searx.info/?q={}&category_music=on",
+     "mu"      : "https://searx.bar/?q={}&category_music=on",
      "n"       : "https://github.com/NixOS/nixpkgs/search?utf8=%E2%9C%93&q={}",
      "npk"     : "https://github.com/NixOS/nixpkgs/search?q={}",
      "npi"     : "https://github.com/NixOS/nixpkgs/issues?q=is%3Aissue+is%3Aopen+{}",
      "no"      : "https://search.nixos.org/options?query={}&from=0&size=30&sort=relevance&channel=unstable",
      "npa"     : "https://nixos.org/nixos/packages.html?channel=nixpkgs-unstable&query={}",
-     "ne"      : "https://searx.info/?q={}&category_news=on",
+     "ne"      : "https://searx.bar/?q={}&category_news=on",
      "np"      : "https://search.nix.gsc.io/?q={}",
      "o"       : "https://www.openstreetmap.org/search?query={}",
      "r"       : "https://reddit.com/search?q={}",
