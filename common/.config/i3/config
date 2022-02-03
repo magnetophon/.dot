@@ -378,10 +378,10 @@ bindSym XF86MonBrightnessUp      exec --no-startup-id "~/.local/bin/brightness.s
 # Volume
 # bindSym XF86AudioRaiseVolume  exec --no-startup-id "amixer -q set Master 3dB+"
 # bindSym XF86AudioLowerVolume  exec --no-startup-id "amixer -q set Master 3dB-"
-bindSym XF86AudioRaiseVolume  exec --no-startup-id "amixer -c 0 -- sset Master playback 3dB+"
-bindSym XF86AudioLowerVolume  exec --no-startup-id "amixer -c 0 -- sset Master playback 3dB-"
+bindSym XF86AudioRaiseVolume  exec --no-startup-id "amixer -q -c 0 -- sset Master playback 3dB+"
+bindSym XF86AudioLowerVolume  exec --no-startup-id "amixer -q -c 0 -- sset Master playback 3dB-"
 # bindSym XF86AudioMute         exec --no-startup-id "amixer -c 0 -- sset Master toggle"
-bindSym XF86AudioMute         exec --no-startup-id "amixer -q set Master toggle"
+bindSym XF86AudioMute         exec --no-startup-id "amixer -q -c 0 set Master toggle"
 exec_always xset -r 121 # turn of the key repeat for mute!
 # Pulse Audio controls
 # bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +3dB #increase sound volume
@@ -401,10 +401,10 @@ bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 #Section to control the Capture (mic)
-bindSym Shift+XF86AudioRaiseVolume exec amixer set Capture 1%+
-bindSym Shift+XF86AudioLowerVolume exec amixer set Capture 1%-
-bindSym Shift+XF86AudioMute exec amixer set Capture 1+ toggle
-bindSym XF86AudioMicMute exec amixer set Capture 1+ toggle
+bindSym Shift+XF86AudioRaiseVolume exec amixer -q -c 0 set Capture 1%+
+bindSym Shift+XF86AudioLowerVolume exec amixer -q -c 0 set Capture 1%-
+bindSym Shift+XF86AudioMute exec amixer -q -c 0 set Capture 1+ toggle
+bindSym XF86AudioMicMute exec amixer -q -c 0 set Capture 1+ toggle
 
 #set $Locker sudo vlock -asn && sleep 1
 #the above doesn't like suspend and such
