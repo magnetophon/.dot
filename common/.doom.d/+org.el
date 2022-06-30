@@ -277,6 +277,29 @@
         org-fontify-whole-heading-line nil
         org-hide-leading-stars nil
         org-startup-indented nil)
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        ; thunderlink thunderbird integration ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ;; modify this for your system
+  (setq thunderbird-program "/run/current-system/sw/bin/thunderbird")
+
+  (defun my-open-message-id-in-thunderbird (message-id)
+    "open an email with a given message-ID in Thunderbird"
+    (interactive)
+    (start-process
+     (concat "thunderlink: " message-id)
+     nil
+     thunderbird-program
+     "-thunderlink"
+     (concat "thunderlink://messageid=" message-id)
+     )
+    )
+
+
+
+
   )
 ;; full pkg is disabled already
 ;; (remove-hook 'org-mode-hook #'org-superstar-mode)
