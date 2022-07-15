@@ -1206,6 +1206,7 @@ c.url.searchengines = {
      "es"      : "https://explainshell.com/explain?cmd={}",
      "f"       : "https://searx.bar/?q={}&category_files=on",
      "g"       : "https://encrypted.google.com/search?pws=0&suggon=0&safe=off&filter=0&num=30&q={}&tbs=li:1",
+     "ga"      : "https://grep.app/search?q={}",
      "gi"      : "https://github.com/search?utf8=%E2%9C%93&q={}&type=Code&ref=searchresults",
      "gn"      : "https://github.com/search?q={}+language%3ANix&ref=searchresults&type=Code&utf8=%E2%9C%93",
     #"gt"      : "https://translate.google.com/#auto|en|{}",
