@@ -53,7 +53,7 @@ z4h install ohmyzsh/ohmyzsh || return
 z4h init || return
 # bindkey -v
 # Extend PATH.
-path=(~/bin $path ~/.emacs.d/bin)
+path=(~/bin $path ~/.config/emacs/bin)
 
 # Export environment variables.
 export GPG_TTY=$TTY
