@@ -10,7 +10,7 @@
 ;; (package! undo-tree :disable t)
 
 ;; mu4e
-(package! helm-mu)
+;; (package! helm-mu)
 (package! mu4e-conversation)
 ;;
 ;; org-mode

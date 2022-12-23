@@ -6,6 +6,9 @@
 #                                 barts config                                #
 ###############################################################################
 
+
+
+
 # Add zoxide to your shell
 
 # if [ "$USER" = "root" ]; then
@@ -679,3 +682,6 @@ vi() {emacseditor --create-frame --quiet --no-wait "$@"}
 # quote pasted urls
 autoload -Uz bracketed-paste-url-magic
 zle -N bracketed-paste bracketed-paste-url-magic
+
+# add zaw: https://github.com/zsh-users/zaw
+# source /home/bart/source/zaw/zaw.zsh

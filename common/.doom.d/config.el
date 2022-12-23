@@ -56,9 +56,9 @@
 (eval-after-load 'tramp '(setenv "SHELL" "/run/current-system/sw/bin/zsh"))
 
 ;; Fix for #2386 until further investigation
-(when noninteractive
-  (after! undo-tree
-    (global-undo-tree-mode -1)))
+;;(when noninteractive
+  ;;(after! undo-tree
+    ;;(global-undo-tree-mode -1)))
 
 (after! which-key
   (setq
@@ -133,16 +133,16 @@
 ;;                       Bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defhydra resize-window-hydra (:hint nil)
-  "resize window"
-  ("h" evil-window-decrease-width 5 "decrease width")
-  ("j" evil-window-decrease-height 5 "decrease height")
-  ("k" evil-window-increase-height 5 "increase height")
-  ("l" evil-window-increase-width 5 "increase width")
-  ("q" nil "stop resizing")
-  )
+;; (defhydra resize-window-hydra (:hint nil)
+  ;; "resize window"
+  ;; ("h" evil-window-decrease-width 5 "decrease width")
+  ;; ("j" evil-window-decrease-height 5 "decrease height")
+  ;; ("k" evil-window-increase-height 5 "increase height")
+  ;; ("l" evil-window-increase-width 5 "increase width")
+  ;; ("q" nil "stop resizing")
+  ;; )
 
-(map! :leader (:prefix ("w" . "window") "~" #'resize-window-hydra/body))
+;; (map! :leader (:prefix ("w" . "window") "~" #'resize-window-hydra/body))
 ;; (map! :leader (:prefix ("/" . "search") "r" #'counsel-recoll))
 
 ;; doom has this under SPC `
@@ -182,7 +182,7 @@
   "ediff the current `init.el' with the example in doom-emacs-dir"
   (interactive)
   (ediff-files (concat doom-private-dir "init.el")
-               (concat doom-emacs-dir "init.example.el")))
+               (concat doom-emacs-dir "templates/init.example.el")))
 
 (define-key! help-map
   "di"   #'doom/ediff-init-and-example

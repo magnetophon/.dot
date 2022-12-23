@@ -78,9 +78,9 @@
   ;;     (setq mu4e-view-func 'mu4e-conversation)))
   ;; )
 
-  (define-key mu4e-main-mode-map "s" 'helm-mu)
-  (define-key mu4e-headers-mode-map "s" 'helm-mu)
-  (define-key mu4e-view-mode-map "s" 'helm-mu)
+  ;; (define-key mu4e-main-mode-map "s" 'helm-mu)
+  ;; (define-key mu4e-headers-mode-map "s" 'helm-mu)
+  ;; (define-key mu4e-view-mode-map "s" 'helm-mu)
 
   (map!  (:when (featurep! :email mu4e)
           (:map mu4e-compose-mode-map

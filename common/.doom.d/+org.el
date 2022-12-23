@@ -119,27 +119,27 @@
     (show-children)
     (org-tree-to-indirect-buffer)
     )
-  (defhydra org-nav-hydra (:hint nil)
-    "
-         _k_
-      _h_     _l_
-         _j_
-    "
-    ("h" up-heading-and-preview)
-    ("j" forward-and-preview)
-    ("k" back-and-preview)
-    ("l" inside-and-preview)
-    ("J" down-heading-and-preview "down heading")
-    ("K" up-heading-and-preview "up heading")
-    ("t" org-todo "org-todo")
-    ("r" org-refile "org-refile")
-    ("x" org-cut-subtree "org-cut-subtree")
-    ("p" org-paste-subtree "org-paste-subtree")
-    ("T" org-toggle-heading "org-toggle-heading")
+  ;; (defhydra org-nav-hydra (:hint nil)
+  ;; "
+  ;; _k_
+  ;; _h_     _l_
+  ;; _j_
+  ;; "
+  ;; ("h" up-heading-and-preview)
+  ;; ("j" forward-and-preview)
+  ;; ("k" back-and-preview)
+  ;; ("l" inside-and-preview)
+  ;; ("J" down-heading-and-preview "down heading")
+  ;; ("K" up-heading-and-preview "up heading")
+  ;; ("t" org-todo "org-todo")
+  ;; ("r" org-refile "org-refile")
+  ;; ("x" org-cut-subtree "org-cut-subtree")
+  ;; ("p" org-paste-subtree "org-paste-subtree")
+  ;; ("T" org-toggle-heading "org-toggle-heading")
 
-    ;; ("RET" (windmove-right) "enter preview window") ;; orig RET binding is still active
-    ("q" winner-undo "quit" :exit t)
-    )
+  ;; ("RET" (windmove-right) "enter preview window") ;; orig RET binding is still active
+  ;; ("q" winner-undo "quit" :exit t)
+  ;; )
   (defun org-nav ()
     (interactive)
     "Fold everything but the current heading and enter org-nav-hydra"
@@ -198,26 +198,26 @@
     (org-tree-to-indirect-buffer)
     )
 
-  (defhydra org-todo-tree-hydra (:hint nil)
-    "
-         _k_
-      _h_     _l_
-         _j_
-    "
-    ("h" up-heading-and-preview)
-    ("j" next-org-not-done-heading-and-preview)
-    ("k" previous-org-not-done-heading-and-preview)
-    ("l" inside-and-preview)
-    ("J" down-heading-and-preview "down heading")
-    ("K" up-heading-and-preview "up heading")
-    ("t" org-todo "org-todo")
-    ("r" org-refile "org-refile")
-    ("x" org-cut-subtree "org-cut-subtree")
-    ("p" org-paste-subtree "org-paste-subtree")
-    ("T" org-toggle-heading "org-toggle-heading")
-    ;; ("RET" (windmove-right) "enter preview window") ;; orig RET binding is still active
-    ("q" winner-undo "quit" :exit t)
-    )
+  ;; (defhydra org-todo-tree-hydra (:hint nil)
+  ;; "
+  ;; _k_
+  ;; _h_     _l_
+  ;; _j_
+  ;; "
+  ;; ("h" up-heading-and-preview)
+  ;; ("j" next-org-not-done-heading-and-preview)
+  ;; ("k" previous-org-not-done-heading-and-preview)
+  ;; ("l" inside-and-preview)
+  ;; ("J" down-heading-and-preview "down heading")
+  ;; ("K" up-heading-and-preview "up heading")
+  ;; ("t" org-todo "org-todo")
+  ;; ("r" org-refile "org-refile")
+  ;; ("x" org-cut-subtree "org-cut-subtree")
+  ;; ("p" org-paste-subtree "org-paste-subtree")
+  ;; ("T" org-toggle-heading "org-toggle-heading")
+  ;; ("RET" (windmove-right) "enter preview window") ;; orig RET binding is still active
+  ;; ("q" winner-undo "quit" :exit t)
+  ;; )
   (defun org-todo-tree-nav ()
     (interactive)
     "Fold everything but the current heading and enter org-nav-hydra"
