@@ -157,7 +157,9 @@ ff() {
 
 # NixOS: get the link to a binary
 wh() {
-    command ls -lR $(command which $1)
+    # command ls -lR $(command which $1)
+    command which $1
+    command readlink $(command which $1)
 }
 
 # fuzzy get the link to a binary
