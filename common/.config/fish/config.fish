@@ -12,6 +12,9 @@ zoxide init fish --cmd j | source
 set fzf_preview_dir_cmd ='eza --all --color=always'
 fzf_configure_bindings --history=\cr --directory=\cf --variables=\cv --git_log=\cl
 
+function fzg
+    sk -i -c 'rg  --glob "*$1*" --smart-case --no-messages --color always --line-number --hidden --follow '{}'' --preview '~/.local/bin/fzg_preview.sh {}' --header 'enter to view, alt-z toggle preview, alt-a toggle all, ctrl-a select all' --ansi --reverse --bind 'enter:execute($EDITOR +{2} {1} &)' --bind 'alt-z:toggle-preview,alt-a:toggle-all,ctrl-a:select-all' --multi --exact --no-height --color=light -d':'
+end
 
 alias la='eza --long --grid --header --git --git-ignore --classify --extended --group-directories-first --group  --links --time-style=long-iso --all'
 
