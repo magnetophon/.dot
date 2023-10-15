@@ -63,7 +63,8 @@ set $mon_ext VGA1
 # font -*-*-medium-*-*-*-14-*-*-*-*-*-*-*
 # font -*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font -misc-fixed-medium-r-normal--10-70-100-100-c-60-iso8859-1
+font -misc-fixed-medium-r-normal--14-70-100-100-c-60-iso8859-1
+# font -misc-fixed-medium-r-normal--10-70-100-100-c-60-iso8859-1
 # font pango: Terminus (TTF) 12px
 
 # Invertable colorscheme:
@@ -111,12 +112,12 @@ default_orientation auto
 # some variables
 # todo: remove unused
 # set $TERMINAL termite
-set $TERMINAL alacritty
+set $TERMINAL wezterm
 set $editor $EDITOR
 set $browser qutebrowser
-set $mua alacritty -e mutt
-# alacritty displays bigger icons than termite
-set $filem alacritty -e ranger
+set $mua wezterm -e mutt
+# wezterm displays bigger icons than termite
+set $filem wezterm -e yazi
 
 # we toggle with $win+Shift+t
 # default_border normal 1
@@ -461,8 +462,8 @@ bindsym --release Shift+Print exec notify-send -t 1000 'screenshot' 'please sele
 # too slow:
 # bindsym $win+Shift+p  exec clipster -o -n 0 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | sed -ze 's/\n$//' | clipster
 bindsym $win+Shift+p  exec clipster -s -n 0
-# alacritty and termite grab the input directly after launch
-bindsym $win+p  exec alacritty -t paste:: -e ~/.local/bin/clipster_fzf.sh
+# wezterm and termite grab the input directly after launch
+bindsym $win+p  exec wezterm -e ~/.local/bin/clipster_fzf.sh
 # for_window [title=paste::] fullscreen enable
 
 bindsym $win+u exec ~/.local/bin/umlaut.sh
@@ -480,7 +481,7 @@ bindsym $win+Shift+u exec ~/.local/bin/dmenuumount
 bindsym $win+b exec $browser;
 #bindsym $win+b exec $browser; for_window [class="$browser"] focus;
 
-bindsym $win+Shift+B  exec alacritty -t bindings:: -e ~/.local/bin/fzf_bindings.sh
+bindsym $win+Shift+B  exec wezterm -t bindings:: -e ~/.local/bin/fzf_bindings.sh
 # for_window [title=bindings::] fullscreen enable
 
 # cheat sheet for xkbVariant = "altgr-intl";
@@ -654,6 +655,8 @@ for_window [class="mpv"] fullscreen enable
 # temp stuff
 ########################################################################
 
+for_window [class="(?i)lamb"] floating enable
+assign [class="(?i)lamb"] → 7
 ########################################################################
 # autostart
 ########################################################################
