@@ -18,6 +18,12 @@ alias la='eza --long --grid --header --git --git-ignore --classify --extended --
 
 alias doom '/home/bart/.config/emacs/bin/doom'
 
+# NixOS: get the link to a binary
+function wh
+  command which $argv
+  command readlink $(command which $argv)
+end
+
 function flv2
     lv2ls | fzf --query="$argv" --no-sort --reverse --tiebreak=index --no-multi --preview "lv2info {}" --header "enter to run, alt-y to copy url" --bind "enter:execute:jalv.gtk {}" --bind 'alt-y:execute:echo {} | xclip'
 end
