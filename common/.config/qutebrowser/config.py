@@ -219,7 +219,7 @@ c.content.cookies.accept = 'no-3rdparty'
 ## qutebrowser asks websites to not track your identity. If set to null,
 ## the DNT header is not sent at all.
 ## Type: Bool
-# c.content.headers.do_not_track = True
+c.content.headers.do_not_track = True
 
 ## When to send the Referer header. The Referer header tells websites
 ## from which website you were coming from when visiting them. No restart
@@ -235,10 +235,6 @@ c.content.cookies.accept = 'no-3rdparty'
 ## read from JavaScript is always the global value.
 ## Type: String
 # c.content.headers.user_agent = 'Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
-
-## Enable host blocking.
-## Type: Bool
-# c.content.host_blocking.enabled = True
 
 ## List of URLs of lists which contain hosts to block.  The file can be
 ## in one of the following formats:  - An `/etc/hosts`-like file - One
@@ -269,7 +265,16 @@ c.content.blocking.adblock.lists = [
     'https://easylist.to/easylist/easyprivacy.txt',
     'https://easylist.to/easylist/fanboy-annoyance.txt',
     'https://kiboke-studio.hr/i-dont-care-about-cookies/abp',
-    'https://easylist-downloads.adblockplus.org/easylistdutch.txt'
+    'https://easylist-downloads.adblockplus.org/easylistdutch.txt',
+    'https://easylist.to/easylist/fanboy-social.txt',
+    'https://secure.fanboy.co.nz/fanboy-cookiemonster.txt',
+    'https://easylist-downloads.adblockplus.org/abp-filters-anti-cv.txt',
+    'https://github.com/uBlockOrigin/uAssets/raw/master/filters/annoyances.txt',
+    'https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters-2020.txt',
+    'https://github.com/uBlockOrigin/uAssets/raw/master/filters/unbreak.txt',
+    'https://github.com/uBlockOrigin/uAssets/raw/master/filters/resource-abuse.txt',
+    'https://github.com/uBlockOrigin/uAssets/raw/master/filters/privacy.txt',
+    'https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters.txt'
 ]
 
 
@@ -383,6 +388,8 @@ c.content.blocking.adblock.lists = [
 ## Enable plugins in Web pages.
 ## Type: Bool
 # c.content.plugins = False
+
+c.content.prefers_reduced_motion - True
 
 ## Draw the background color and images also when the page is printed.
 ## Type: Bool
@@ -800,8 +807,15 @@ c.messages.timeout = 5000
 ## https://peter.sh/experiments/chromium-command-line-switches/ for a
 ## list) will work.
 ## Type: List of String
-# c.qt.args = []
-
+c.qt.args += [
+    # "ignore-gpu-blacklist",
+    # "enable-accelerated-2d-canvas",
+    # "enable-gpu-memory-buffer-video-frames",
+    "enable-gpu-rasterization",
+    # "enable-native-gpu-memory-buffers",
+    # "enable-oop-rasterization",
+    # "enable-zero-copy",
+]
 ## Force a Qt platform to use. This sets the `QT_QPA_PLATFORM`
 ## environment variable and is useful to force using the XCB plugin when
 ## running QtWebEngine on Wayland.
@@ -1244,7 +1258,8 @@ c.url.searchengines = {
      "v"       : "https://duckduckgo.com/{}?iax=videos&ia=videos",
      "w"       : "https://www.wikipedia.org/search-redirect.php?family=wikipedia&language=en&search={}&language=en&go=Go",
      "wa"      : "https://www.wolframalpha.com/input/?i={}",
-     "y"       : "https://mycroftproject.com/search-engines.html?name={}"
+     "y"       : "https://mycroftproject.com/search-engines.html?name={}" ,
+     "yt"      : "https://www.youtube.com/results?search_query={}"
 }
 
 ## Page(s) to open at the start.
@@ -1267,7 +1282,7 @@ c.window.title_format = '{perc}{current_title}{title_sep}qutebrowser{title_sep}{
 
 ## Default zoom level.
 ## Type: Perc
-# c.zoom.default = '100%'
+c.zoom.default = '150%'
 
 ## Available zoom levels.
 ## Type: List of Perc
@@ -1286,8 +1301,8 @@ c.window.title_format = '{perc}{current_title}{title_sep}qutebrowser{title_sep}{
 config.bind('zi', 'zoom-in')
 config.bind('zo', 'zoom-out')
 # config.bind('.', 'repeat-command')
-# config.bind('/', 'set-cmd-text /')
-# config.bind(':', 'set-cmd-text :')
+# config.bind('/', 'cmd-set-text /')
+# config.bind(':', 'cmd-set-text :')
 # config.bind(';I', 'hint images tab')
 # config.bind(';O', 'hint links fill :open -t -r {hint-url}')
 # config.bind(';R', 'hint --rapid links window')
@@ -1346,9 +1361,9 @@ config.bind('u', 'scroll-page 0 -0.5')
 # config.bind('<back>', 'back')
 # config.bind('<forward>', 'forward')
 config.bind('zz', 'zoom')
-# config.bind('?', 'set-cmd-text ?')
+# config.bind('?', 'cmd-set-text ?')
 # config.bind('@', 'run-macro')
-# config.bind('B', 'set-cmd-text -s :quickmark-load -t')
+# config.bind('B', 'cmd-set-text -s :quickmark-load -t')
 # config.bind('D', 'tab-close -o')
 config.bind('F', 'hint all current')
 # config.bind('G', 'scroll-to-perc')
@@ -1360,7 +1375,7 @@ config.bind("<ctrl+shift+tab>", "tab-prev")
 # config.bind('L', 'forward')
 # config.bind('M', 'bookmark-add')
 # config.bind('N', 'search-prev')
-config.bind('t', 'set-cmd-text -s :open -t')
+config.bind('t', 'cmd-set-text -s :open -t')
 # config.bind('PP', 'open -t -- {primary}')
 # config.bind('Pp', 'open -t -- {clipboard}')
 # config.bind('R', 'reload -f')
@@ -1375,7 +1390,7 @@ config.bind('[', 'navigate prev')
 config.bind(']', 'navigate next')
 # config.bind('`', 'enter-mode set_mark')
 # config.bind('ad', 'download-cancel')
-# config.bind('b', 'set-cmd-text -s :quickmark-load')
+# config.bind('b', 'cmd-set-text -s :quickmark-load')
 # config.bind('cd', 'download-clear')
 config.bind('cm', 'clear-messages')
 config.bind('cc', 'download-clear ;; clear-messages ;; search')  # search clears the search result higlights
@@ -1385,25 +1400,25 @@ config.bind('x', 'tab-close')
 config.bind('f', 'hint links tab-bg')
 # config.bind('g$', 'tab-focus -1')
 # config.bind('g0', 'tab-focus 1')
-# config.bind('gB', 'set-cmd-text -s :bookmark-load -t')
+# config.bind('gB', 'cmd-set-text -s :bookmark-load -t')
 # config.bind('gC', 'tab-clone')
 # config.bind('gD', 'tab-give')
-# config.bind('gO', 'set-cmd-text :open -t -r {url:pretty}')
+# config.bind('gO', 'cmd-set-text :open -t -r {url:pretty}')
 # config.bind('gU', 'navigate up -t')
 # config.bind('g^', 'tab-focus 1')
 # config.bind('ga', 'open -t')
-# config.bind('gb', 'set-cmd-text -s :bookmark-load')
+# config.bind('gb', 'cmd-set-text -s :bookmark-load')
 # config.bind('gd', 'download')
 # config.bind('gf', 'view-source')
 # config.bind('gg', 'scroll-to-perc 0')
 # config.bind('gi', 'hint inputs --first')
 # config.bind('gl', 'tab-move -')
 # config.bind('gm', 'tab-move')
-# config.bind('go', 'set-cmd-text :open {url:pretty}')
+# config.bind('go', 'cmd-set-text :open {url:pretty}')
 # config.bind('gr', 'tab-move +')
 config.bind('gs', "config-cycle statusbar.hide", mode="normal")
-# config.bind('gt', 'set-cmd-text -s :tab-select')
-config.bind('b', 'set-cmd-text -s :tab-select')
+# config.bind('gt', 'cmd-set-text -s :tab-select')
+config.bind('b', 'cmd-set-text -s :tab-select')
 # config.bind('gu', 'navigate up')
 # config.bind('h', 'scroll left')
 # config.bind('i', 'enter-mode insert')
@@ -1412,15 +1427,15 @@ config.bind('k', 'scroll-page 0 -0.2')
 ## config.bind('l', 'scroll right')
 # config.bind('m', 'quickmark-save')
 # config.bind('n', 'search-next')
-# config.bind('o', 'set-cmd-text -s :open')
+# config.bind('o', 'cmd-set-text -s :open')
 # config.bind('pP', 'open -- {primary}')
 # config.bind('pp', 'open -- {clipboard}')
 # config.bind('q', 'record-macro')
 # config.bind('r', 'reload')
 # config.bind('sf', 'save')
-# config.bind('sk', 'set-cmd-text -s :bind')
-# config.bind('sl', 'set-cmd-text -s :set -t')
-# config.bind('ss', 'set-cmd-text -s :set')
+# config.bind('sk', 'cmd-set-text -s :bind')
+# config.bind('sl', 'cmd-set-text -s :set -t')
+# config.bind('ss', 'cmd-set-text -s :set')
 # config.bind('tIH', 'config-cycle -p -u *://*.{url:host}/* content.images ;; reload')
 # config.bind('tIh', 'config-cycle -p -u *://{url:host}/* content.images ;; reload')
 # config.bind('tIu', 'config-cycle -p -u {url} content.images ;; reload')
@@ -1443,18 +1458,18 @@ config.bind('k', 'scroll-page 0 -0.2')
 # config.bind('tsu', 'config-cycle -p -t -u {url} content.javascript.enabled ;; reload')
 config.bind('X', 'undo')
 # config.bind('v', 'enter-mode caret')
-# config.bind('wB', 'set-cmd-text -s :bookmark-load -w')
-# config.bind('wO', 'set-cmd-text :open -w {url:pretty}')
+# config.bind('wB', 'cmd-set-text -s :bookmark-load -w')
+# config.bind('wO', 'cmd-set-text :open -w {url:pretty}')
 # config.bind('wP', 'open -w -- {primary}')
-# config.bind('wb', 'set-cmd-text -s :quickmark-load -w')
+# config.bind('wb', 'cmd-set-text -s :quickmark-load -w')
 # config.bind('wf', 'hint all window')
 # config.bind('wh', 'back -w')
 # config.bind('wi', 'inspector')
 # config.bind('wl', 'forward -w')
-# config.bind('wo', 'set-cmd-text -s :open -w')
+# config.bind('wo', 'cmd-set-text -s :open -w')
 # config.bind('wp', 'open -w -- {clipboard}')
-# config.bind('xO', 'set-cmd-text :open -b -r {url:pretty}')
-# config.bind('xo', 'set-cmd-text -s :open -b')
+# config.bind('xO', 'cmd-set-text :open -b -r {url:pretty}')
+# config.bind('xo', 'cmd-set-text -s :open -b')
 # config.bind('yD', 'yank domain -s')
 # config.bind('yM', 'yank inline [{title}]({url}) -s')
 # config.bind('yP', 'yank pretty-url -s')
@@ -1485,8 +1500,8 @@ config.bind(';D', 'hint all spawn ts youtube-dl -o "~/Downloads/%(title)s.%(ext)
 config.bind('aD', 'hint --rapid all spawn ts youtube-dl -o "~/Downloads/%(title)s.%(ext)s" --restrict-filenames {hint-url}')
 
 ## search bindings:
-config.bind('<Ctrl-s>', 'set-cmd-text /', mode='normal')
-config.bind('<Ctrl-r>', 'set-cmd-text ?', mode='normal')
+config.bind('<Ctrl-s>', 'cmd-set-text /', mode='normal')
+config.bind('<Ctrl-r>', 'cmd-set-text ?', mode='normal')
 config.bind('<Ctrl-s>', 'search-next', mode='command')
 config.bind('<Ctrl-r>', 'search-prev', mode='command')
 
