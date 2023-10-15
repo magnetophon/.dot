@@ -9,15 +9,18 @@
 
 
 ;; (setq doom-font (font-spec :family "Terminus" :size 12 :weight 'bold))
-(setq doom-font (font-spec :family "Terminus" :size 12))
+(setq doom-font (font-spec :family "Terminus" :size 18))
+;; (setq doom-font (font-spec :family "Source Code Pro" :size 16))
 ;; (setq doom-font (font-spec :family "Terminus (TTF)" :size 12 ))
 ;; (setq doom-font (font-spec :family "Dina" :size 8))
 ;; (setq doom-big-font (font-spec :family "Anonymous Pro" :size 18 ))
-(setq doom-big-font (font-spec :family "Terminus (TTF)" :size 18))
+;; (setq doom-big-font (font-spec :family "Terminus" :size 24))
 ;; (setq doom-big-font (font-spec :family "Iosevka Term" :size 18))
-;; (setq doom-big-font (font-spec :family "IBM Plex Mono" :size 18 :weight 'Light))
-;; (setq doom-big-font (font-spec :family "Oxygen Mono" :size 18))
-;; (setq doom-big-font (font-spec :family "Source Code Pro" :size 16))
+;; (setq doom-font (font-spec :family "IBM Plex Mono" :size 17 :weight 'Light))
+(setq doom-big-font (font-spec :family "IBM Plex Mono" :size 24 :weight 'Light))
+;; (setq doom-font (font-spec :family "Oxygen Mono" :size 18))
+;; (setq doom-big-font (font-spec :family "Oxygen Mono" :size 24))
+;; (setq doom-big-font (font-spec :family "Source Code Pro" :size 24))
 ;; (setq doom-big-font (font-spec :family "RobotoMono Nerd Font" :size 16 :weight 'regular))
 (setq doom-theme 'doom-solarized-light)
 (setq display-line-numbers-type 'relative)
@@ -118,7 +121,7 @@
 
 (setq evilnc-invert-comment-line-by-line t)
 
-(setq ranger-override-dired 'ranger)
+;; (setq ranger-override-dired 'ranger)
 
 ;; Don’t compact font caches during GC.
 (setq inhibit-compacting-font-caches t)
@@ -295,3 +298,49 @@
           "u" #'nix-unpack
           "o" #'+nix/lookup-option)
     ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        ;               chatgtp               ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(evil-define-operator fp/evil:explain-code (beg end)
+  "Make chatgpt-shell explain-code function into an evil operator."
+  :move-point nil
+  (deactivate-mark)
+  (goto-char end)
+  (set-mark (point))
+  (goto-char beg)
+  (activate-mark)
+  (chatgpt-shell-explain-code))
+(use-package! chatgpt-shell
+  :init
+  (setq chatgpt-shell-openai-key (getenv "OPENAI_API_KEY"))
+  :config
+  (map! :nv "g!" #'fp/evil:explain-code
+        :leader
+        (:prefix ("!" . "AI")
+         :desc "ChatGPT minibuffer prompt" "g" #'chatgpt-shell-prompt
+         :desc "ChatGPT prompt" "G" #'chatgpt-shell))
+
+  (setq chatgpt-shell-openai-key
+        (lambda ()
+          ;; (auth-source-pass-get 'secret "openai-key") ; alternative using pass support in auth-sources
+          (nth 0 (process-lines "pass" "show" "openai")))))
+;; (use-package! dall-e-shell
+;; :init
+;; (setq dall-e-shell-openai-key (getenv "OPENAI_API_KEY")))
+;; (after! org
+;; (require 'ob-chatgpt-shell)
+;; (require 'ob-dall-e-shell))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        ;               rust               ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun toggle-cargo-check-on-save ()
+  "Toggle running `cargo check` on save."
+  (interactive)
+  (if (memq 'rustic-cargo-check after-save-hook)
+      (remove-hook 'after-save-hook 'rustic-cargo-check)
+    (add-hook 'after-save-hook 'rustic-cargo-check)))

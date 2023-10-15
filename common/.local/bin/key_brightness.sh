@@ -47,8 +47,8 @@ fi
 
 # turn of the power light when the kb brightness is below $POWER_OFF
 if [ $NEW -lt $POWER_OFF ]; then
-   # notify-send --expire-time 500 "power light OFF"
-   /run/current-system/sw/bin/ectool led power off
+    # notify-send --expire-time 500 "power light OFF"
+    /run/current-system/sw/bin/ectool led power off
 else
    # notify-send --expire-time 500 "power light ON"
    /run/current-system/sw/bin/ectool led power auto

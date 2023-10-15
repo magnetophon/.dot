@@ -2,7 +2,7 @@
 
 MAX=$(cat /sys/class/backlight/intel_backlight/max_brightness)
 ACT=$(cat /sys/class/backlight/intel_backlight/actual_brightness)
-MIN=18
+MIN=100
 
 if [ "$1" == "+" ]; then
     if [ $ACT -eq 0 ]; then
@@ -14,12 +14,11 @@ if [ "$1" == "+" ]; then
             usleep 10000
             # ACT=$(cat /sys/class/backlight/intel_backlight/actual_brightness)
         done
-        # light -Sr $MAX/3
-        # usleep 25000 # bright flash. without this it takes too long to get out of 0 brightness
         light -Sr $MIN
         exit 0
     fi
     NEW=$(((ACT/2)*3))
+    # NEW=$(ACT*1.5)
     if [ $NEW -ge "$MAX" ]; then
         NEW=$MAX
         notify-send --expire-time 500 "brightness $NEW"

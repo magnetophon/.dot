@@ -80,6 +80,7 @@
        :emacs
        (dired            ; making dired pretty [functional]
         +ranger         ; bringing the goodness of ranger to dired
+        +dirvish
         +icons          ; colorful icons for dired-mode
         )
        electric          ; smarter, keyword-based electric-indent
@@ -168,7 +169,7 @@
        ;;latex             ; writing papers in Emacs has never been so fun
        ;;lean              ; for folks with too much to prove
        ;;ledger            ; be audit you can be
-       ;;lua               ; one-based indices? one-based indices
+       lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        nix               ; I hereby declare "nix geht mehr!"
@@ -224,9 +225,11 @@
        ;; toward a specific purpose. They may have additional dependencies and
        ;; should be loaded late.
        :app
-       ;; calendar
-       irc              ; how neckbeards socialize
-       ;;rss +org        ; emacs as an RSS reader
+       ;;calendar
+       ;;emms
+       ;;everywhere        ; *leave* Emacs!? You must be joking
+       irc               ; how neckbeards socialize
+       ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
        ;;(write            ; emacs for writers (fiction, notes, papers, etc.)
        ;; +wordnut         ; wordnet (wn) search
