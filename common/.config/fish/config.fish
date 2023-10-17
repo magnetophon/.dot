@@ -6,6 +6,9 @@ set fish_cursor_insert line
 
 set fish_greeting
 
+# don't use ? as a wildcard, so youtube links can be pasted in
+set -U fish_features qmark-noglob
+
 # starship init fish | source
 zoxide init fish --cmd j | source
 
@@ -20,6 +23,9 @@ alias la='eza --long --grid --header --git --git-ignore --classify --extended --
 
 
 alias doom '/home/bart/.config/emacs/bin/doom'
+
+alias fh _fzf_search_history
+
 
 # NixOS: get the link to a binary
 function wh
@@ -44,7 +50,7 @@ alias no nixos-option
 
 function upn
     cd $NIXPKGS
-    if test -z (git status --porcelain)
+    if not string length -q --  (git status --porcelain)
         echo "checking out commit " (nixos-version --hash) " under branch name " (nixos-version | cut -d" " -f1)
         git fetch upstream && git checkout (nixos-version --hash) -b (nixos-version | cut -d" " -f1)
     else
