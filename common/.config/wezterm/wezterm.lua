@@ -32,5 +32,12 @@ config.scrollback_lines = 10000
 config.keys = {
   { key = 'Space', mods = 'CTRL', action = wezterm.action.ActivateCopyMode, },
 }
+
+config.visual_bell = {
+  fade_out_duration_ms = 200,
+}
+
+config.audible_bell = "Disabled"
+
 -- and finally, return the configuration to wezterm
 return config
