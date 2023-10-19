@@ -25,6 +25,7 @@ alias la='eza --long --grid --header --git --git-ignore --classify --extended --
 alias doom '/home/bart/.config/emacs/bin/doom'
 
 alias fh _fzf_search_history
+alias fj __zoxide_zi
 
 
 # NixOS: get the link to a binary
@@ -176,7 +177,14 @@ end
 
 
 
-
+function ya
+    set tmp (mktemp -t "yazi-cwd.XXXXX")
+    yazi --cwd-file="$tmp"
+    if set cwd (cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+        cd -- "$cwd"
+    end
+    rm -f -- "$tmp"
+end
 
 
 end
