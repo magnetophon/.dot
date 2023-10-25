@@ -19,7 +19,7 @@ config.color_scheme = 'Solarized (light) (terminal.sexy)'
 config.font =
   wezterm.font("Terminus", {weight="Regular", stretch="Normal", style="Normal"})
 
-config.font_size = 16.0
+config.font_size = 14.0
 
 config.window_close_confirmation = "NeverPrompt"
 
@@ -39,5 +39,11 @@ config.visual_bell = {
 
 config.audible_bell = "Disabled"
 
+config.window_padding = {
+  left = 0,
+  right = 0,
+  top = 0,
+  bottom = 0,
+}
 -- and finally, return the configuration to wezterm
 return config
