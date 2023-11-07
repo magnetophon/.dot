@@ -13,8 +13,8 @@ end
 -- This is where you actually apply your config choices
 
 -- For example, changing the color scheme:
--- config.color_scheme = 'Solarized Light (Gogh)'
-config.color_scheme = 'Solarized (light) (terminal.sexy)'
+config.color_scheme = 'Solarized Light (Gogh)'
+-- config.color_scheme = 'Solarized (light) (terminal.sexy)'
 
 config.font =
   wezterm.font("Terminus", {weight="Regular", stretch="Normal", style="Normal"})
