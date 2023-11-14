@@ -1,0 +1,100 @@
+icons_format = "{icon}"
+
+[theme]
+# theme = "solarized-light"
+theme = "native"
+[theme.overrides]
+# idle_bg = "#bebebe"
+idle_fg = "#444444"
+separator_bg = "#bebebe"
+separator_fg = "#444444"
+separator = "    "
+
+[icons]
+icons = "awesome4"
+
+[[block]]
+block = "net"
+# format = " $icon {$signal_strength $ssid |Wired connection} $ip.str(w:15) $speed_down $speed_up.eng(w:6)"
+format = " $icon {$signal_strength $ssid |Wired connection} $ip.str(w:15)   $speed_down.eng(w:4)   $speed_up.eng(w:4)"
+
+[[block]]
+block = "disk_space"
+# icon = "󰈐"
+path = "/"
+info_type = "available"
+alert_unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+format = " $icon $available.eng(w:2) "
+
+[[block]]
+block = "memory"
+format = " $icon $mem_avail.eng(w:2) "
+format_alt = " $icon_swap $swap_used_percents.eng(w:2) "
+
+[[block]]
+block = "cpu"
+interval = 1
+# format = " $icon $frequency{ $boost|} "
+# format = " $icon $frequency.eng(min_w:6)"
+format = "  $utilization.eng(w:3)   $icon  $frequency.eng(w:3)"
+# format_alt = " $icon $barchart $utilization "
+
+[[block]]
+block = "temperature"
+format = " $icon $max max "
+format_alt = " $icon $min min, $max max, $average avg "
+interval = 1
+good = 40
+idle = 60
+info = 80
+warning = 90
+# chip = "*-isa-*"
+
+[[block]]
+block = "custom"
+command = ''' sudo /root/.local/bin/get_fan_rpm.sh '''
+# icon = '󰈐'
+# format = " $icon $text.str(w:4) RPM "
+format = " 󰈐 $text.str(w:4) RPM "
+interval = 1
+
+[[block]]
+block = "rofication"
+interval = 1
+socket_path = "/run/user/1001/nofi/socket"
+[[block.click]]
+button = "left"
+cmd = '''dbus-send --print-reply \
+                --dest=org.freedesktop.Notifications \
+                /org/freedesktop/Notifications/ctl \
+                org.freedesktop.Notifications.History
+method return time=1699955837.502850 sender=:1.168 -> destination=:1.245 serial=40 reply_serial=2
+   string "history signal sent"'''
+
+
+[[block]]
+block = "battery"
+format = " $icon $percentage {$time |} {$power |} "
+driver = "upower"
+full_threshold = 80
+
+[[block]]
+block = "sound"
+max_vol = 100
+headphones_indicator = true
+[[block.click]]
+button = "left"
+cmd = "wezterm -e alsamixer -c 0"
+
+[[block]]
+block = "time"
+format = " ^icon_calendar $timestamp.datetime(f:'%a %F') "
+interval = 60
+
+[[block]]
+block = "time"
+format = " ^icon_time $timestamp.datetime(f:'%R') "
+interval = 1
