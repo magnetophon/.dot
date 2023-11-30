@@ -17,9 +17,12 @@ config.color_scheme = 'Solarized Light (Gogh)'
 -- config.color_scheme = 'Solarized (light) (terminal.sexy)'
 
 config.font =
-  wezterm.font("Terminus", {weight="Regular", stretch="Normal", style="Normal"})
+  wezterm.font("Terminus (TTF)")
 
-config.font_size = 14.0
+config.font_size = 15.0
+
+
+-- config.default_prog = { 'fish' }
 
 config.window_close_confirmation = "NeverPrompt"
 
@@ -45,5 +48,6 @@ config.window_padding = {
   top = 0,
   bottom = 0,
 }
+
 -- and finally, return the configuration to wezterm
 return config
