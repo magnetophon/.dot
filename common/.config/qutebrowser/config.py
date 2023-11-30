@@ -274,7 +274,8 @@ c.content.blocking.adblock.lists = [
     'https://github.com/uBlockOrigin/uAssets/raw/master/filters/unbreak.txt',
     'https://github.com/uBlockOrigin/uAssets/raw/master/filters/resource-abuse.txt',
     'https://github.com/uBlockOrigin/uAssets/raw/master/filters/privacy.txt',
-    'https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters.txt'
+    'https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters.txt',
+    'https://raw.githubusercontent.com/Spam404/lists/master/adblock-list.txt'
 ]
 
 
@@ -533,7 +534,7 @@ c.fonts.downloads = '13pt Terminus'
 
 ## Font used for the hints.
 ## Type: Font
-c.fonts.hints = 'bold 13pt Terminus'
+c.fonts.hints = 'bold 12pt Terminus'
 
 ## Font used in the keyhint widget.
 ## Type: Font
