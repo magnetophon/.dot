@@ -27,7 +27,7 @@ alias doom '/home/bart/.config/emacs/bin/doom'
 alias fh _fzf_search_history
 alias fj __zoxide_zi
 
-alias frga rga-fzf
+# alias frga rga-fzf
 
 function rga-fzf
     set RG_PREFIX 'rga --files-with-matches'
@@ -207,4 +207,25 @@ function ya
 end
 
 
+end
+
+
+function frg --description "rg tui built with fzf and bat"
+    rg --ignore-case --color=always --line-number --no-heading "$argv" |
+        fzf --ansi \
+            --color 'hl:-1:underline,hl+:-1:underline:reverse' \
+            --delimiter ':' \
+            --preview "bat --color=always {1} --theme='Solarized (light)' --highlight-line {2}" \
+            --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+            --bind "enter:become($EDITOR +{2} {1})"
+end
+
+function frga --description "rga tui built with fzf and bat"
+    rga --ignore-case --color=always --line-number --no-heading "$argv" |
+        fzf --ansi \
+            --color 'hl:-1:underline,hl+:-1:underline:reverse' \
+            --delimiter ':' \
+            --preview "bat --color=always {1} --theme='Solarized (light)' --highlight-line {2}" \
+            --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+            --bind "enter:become($EDITOR +{2} {1})"
 end
