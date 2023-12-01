@@ -18,15 +18,16 @@ config.color_scheme = 'Solarized Light (Gogh)'
 
 config.font =
   wezterm.font("Terminus (TTF)")
+-- wezterm.font_with_fallback({"Terminus (TTF)", "IBM Plex Mono"})
 
-config.font_size = 15.0
-
+config.font_size = 13.5
+-- config.font_size = 15.0
+-- config.font_size = 16.2
 
 -- config.default_prog = { 'fish' }
+-- config.line_height = 0.92
 
 config.window_close_confirmation = "NeverPrompt"
-
--- config.enable_kitty_graphics=false
 
 config.hide_tab_bar_if_only_one_tab = true
 
@@ -34,6 +35,17 @@ config.scrollback_lines = 10000
 
 config.keys = {
   { key = 'Space', mods = 'CTRL', action = wezterm.action.ActivateCopyMode, },
+  { key="e",          mods="CTRL|ALT",      action=wezterm.action{QuickSelectArgs={
+                                                                    patterns={
+                                                                      "http?://\\S+",
+                                                                      "https?://\\S+"
+                                                                    },
+                                                                    action = wezterm.action_callback(function(window, pane)
+                                                                        local url = window:get_selection_text_for_pane(pane)
+                                                                        wezterm.open_with(url)
+                                                                    end)
+                                                                 } }
+  },
 }
 
 config.visual_bell = {

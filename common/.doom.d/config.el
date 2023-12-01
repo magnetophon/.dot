@@ -8,20 +8,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;; (setq doom-font (font-spec :family "Terminus" :size 12 :weight 'bold))
-(setq doom-font (font-spec :family "Terminus (TTF)" :size 18))
-;; (setq doom-font (font-spec :family "Source Code Pro" :size 16))
-;; (setq doom-font (font-spec :family "Terminus (TTF)" :size 12 ))
-;; (setq doom-font (font-spec :family "Dina" :size 8))
-;; (setq doom-big-font (font-spec :family "Anonymous Pro" :size 18 ))
-(setq doom-big-font (font-spec :family "Terminus (TTF)" :size 28))
-;; (setq doom-big-font (font-spec :family "Iosevka Term" :size 18))
-;; (setq doom-font (font-spec :family "IBM Plex Mono" :size 17 :weight 'Light))
+;; (setq doom-font (font-spec :family "Terminus (TTF)" :size 18))
+(setq doom-font (font-spec :family "Terminus (TTF)" :size 20))
+;; (setq doom-font (font-spec :family "IBM Plex Mono" :size 20))
+(setq doom-big-font (font-spec :family "Terminus (TTF)" :size 24))
 ;; (setq doom-big-font (font-spec :family "IBM Plex Mono" :size 24 :weight 'Light))
-;; (setq doom-font (font-spec :family "Oxygen Mono" :size 18))
-;; (setq doom-big-font (font-spec :family "Oxygen Mono" :size 24))
-;; (setq doom-big-font (font-spec :family "Source Code Pro" :size 24))
-;; (setq doom-big-font (font-spec :family "RobotoMono Nerd Font" :size 16 :weight 'regular))
 (setq doom-theme 'doom-solarized-light)
 (setq display-line-numbers-type 'relative)
 
