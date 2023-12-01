@@ -79,7 +79,7 @@
 
        :emacs
        (dired            ; making dired pretty [functional]
-        +ranger         ; bringing the goodness of ranger to dired
+        ;; +ranger         ; bringing the goodness of ranger to dired
         +dirvish
         +icons          ; colorful icons for dired-mode
         )
