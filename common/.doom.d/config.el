@@ -51,8 +51,10 @@
 
 ;; Fix for #2386 until further investigation
 ;;(when noninteractive
-  ;;(after! undo-tree
-    ;;(global-undo-tree-mode -1)))
+;;(after! undo-tree
+;;(global-undo-tree-mode -1)))
+
+
 
 (after! which-key
   (setq
@@ -336,3 +338,13 @@
       (remove-hook 'after-save-hook 'rustic-cargo-check)
     (add-hook 'after-save-hook 'rustic-cargo-check)))
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;     fish               ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq shell-file-name (executable-find "bash"))
+
+(setq-default vterm-shell (executable-find "fish"))
+(setq-default explicit-shell-file-name (executable-find "fish"))

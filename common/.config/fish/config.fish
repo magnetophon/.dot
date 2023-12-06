@@ -6,6 +6,8 @@ set fish_cursor_insert line
 
 set fish_greeting
 
+set -U tide_context_color_root red
+
 # don't use ? as a wildcard, so youtube links can be pasted in
 set -U fish_features qmark-noglob
 
