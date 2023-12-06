@@ -27,6 +27,10 @@ config.font_size = 13.5
 -- config.default_prog = { 'fish' }
 -- config.line_height = 0.92
 
+config.animation_fps = 2
+config.cursor_blink_rate = 0
+config.front_end = "WebGpu"
+
 config.window_close_confirmation = "NeverPrompt"
 
 config.hide_tab_bar_if_only_one_tab = true
