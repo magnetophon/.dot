@@ -24,7 +24,8 @@ end
 alias la='eza --long --grid --header --git --git-ignore --classify --extended --group-directories-first --group  --links --time-style=long-iso --all'
 
 
-alias doom '/home/bart/.config/emacs/bin/doom'
+alias doom '~/.config/emacs/bin/doom'
+alias vi 'emacseditor --create-frame --quiet --no-wait $argv'
 
 alias fh _fzf_search_history
 alias fj __zoxide_zi
@@ -96,7 +97,7 @@ function nga
     end
 end
 function ngd
-      if string match -qr '^-?[0-9]+(\.?[0-9]*)?$' --  "$argv[1]"
+    if string match -qr '^-?[0-9]+(\.?[0-9]*)?$' --  "$argv[1]"
         if confirm "Delete all generations and vacuum the systemd journal except for the last $argv[1] days?"
             nix-collect-garbage --delete-older-than $argv[1]d && journalctl --vacuum-time=$argv[1]d
         else
@@ -105,7 +106,7 @@ function ngd
     else
         echo \n"You need to give the number of days you want to keep!"
     end
-  end
+end
 
 function lg
     echo "System generations"\n
@@ -209,7 +210,6 @@ function ya
 end
 
 
-end
 
 
 function frg --description "rg tui built with fzf and bat"
@@ -230,4 +230,9 @@ function frga --description "rga tui built with fzf and bat"
             --preview "bat --color=always {1} --theme='Solarized (light)' --highlight-line {2}" \
             --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
             --bind "enter:become($EDITOR +{2} {1})"
+end
+
+
+
+# Commands to run in interactive sessions end here
 end
