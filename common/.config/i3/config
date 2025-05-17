@@ -112,12 +112,13 @@ default_orientation auto
 # some variables
 # todo: remove unused
 # set $TERMINAL termite
-set $TERMINAL wezterm
+# set $TERMINAL wezterm
+set $TERMINAL alacritty
 set $editor $EDITOR
 set $browser qutebrowser
-set $mua wezterm -e mutt
-# wezterm displays bigger icons than termite
-set $filem wezterm -e yazi
+set $mua $TERMINAL -e mutt
+# $TERMINAL displays bigger icons than termite
+set $filem alacritty -e yazi
 
 # we toggle with $win+Shift+t
 # default_border normal 1
@@ -463,7 +464,7 @@ bindsym --release Shift+Print exec notify-send -t 1000 'screenshot' 'please sele
 # bindsym $win+Shift+p  exec clipster -o -n 0 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | sed -ze 's/\n$//' | clipster
 bindsym $win+Shift+p  exec clipster -s -n 0
 # wezterm and termite grab the input directly after launch
-bindsym $win+p  exec wezterm -e ~/.local/bin/clipster_fzf.sh
+bindsym $win+p  exec $TERMINAL -e ~/.local/bin/clipster_fzf.sh
 # for_window [title=paste::] fullscreen enable
 
 bindsym $win+u exec ~/.local/bin/umlaut.sh
@@ -481,7 +482,7 @@ bindsym $win+Shift+u exec ~/.local/bin/dmenuumount
 bindsym $win+b exec $browser;
 #bindsym $win+b exec $browser; for_window [class="$browser"] focus;
 
-bindsym $win+Shift+B  exec wezterm -e ~/.local/bin/fzf_bindings.sh
+bindsym $win+Shift+B  exec $TERMINAL -e ~/.local/bin/fzf_bindings.sh
 # for_window [title=bindings::] fullscreen enable
 
 # cheat sheet for xkbVariant = "altgr-intl";
