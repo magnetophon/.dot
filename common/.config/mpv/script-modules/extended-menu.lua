@@ -7,6 +7,7 @@ local em = {
 
   -- customisable values ------------------------------------------------------
 
+  loop_when_navigating = false,          -- Loop when navigating through list
   lines_to_show = 17,                    -- NOT including search line
   pause_on_open = true,
   resume_on_exit = "only-if-was-paused", -- another possible value is true
@@ -14,6 +15,8 @@ local em = {
   -- styles (earlyer it was a table, but required many more steps to pass def-s
   --            here from .conf file)
   font_size = 21,
+  --font size scales by window
+  scale_by_window = false,
   -- cursor 'width', useful to change if you have hidpi monitor
   cursor_x_border = 0.3,
   line_bottom_margin = 1, -- basically space between lines
@@ -67,6 +70,8 @@ local em = {
 }
 
 -- PRIVATE METHODS ------------------------------------------------------------
+
+local ime_active = mp.get_property_native("input-ime")
 
 -- declare constructor function
 function em:new(o)
@@ -133,6 +138,7 @@ function em:set_from_to(reset_flag)
       self.list.show_from_to = { i - half_list + 1, i - half_list + to_show }
     end
   else
+    table.unpack = table.unpack or unpack -- 5.1 compatibility
     local first, last = table.unpack(self.list.show_from_to)
 
     -- handle cursor moving towards start / end bondary
@@ -153,10 +159,18 @@ end
 
 function em:change_selected_index(num)
   self.list.pointer_i = self.list.pointer_i + num
-  if self.list.pointer_i < 1 then
-    self.list.pointer_i = #self:current()
-  elseif self.list.pointer_i > #self:current() then
-    self.list.pointer_i = 1
+  if self.loop_when_navigating then
+    if self.list.pointer_i < 1 then
+      self.list.pointer_i = #self:current()
+    elseif self.list.pointer_i > #self:current() then
+      self.list.pointer_i = 1
+    end
+  else
+    if self.list.pointer_i < 1 then
+      self.list.pointer_i = 1
+    elseif self.list.pointer_i > #self:current() then
+      self.list.pointer_i = #self:current()
+    end
   end
   self:set_from_to()
   self:update()
@@ -173,7 +187,10 @@ function em:update(err_code)
   end
 
   local line_height = self.font_size + self.line_bottom_margin
-  local ww, wh = mp.get_osd_size() -- window width & height
+  local _, h, aspect = mp.get_osd_size()
+  local wh = self.scale_by_window and 720 or h
+  local ww = wh * aspect
+
   -- '+ 1' below is a search string
   local menu_y_pos =
       wh - (line_height * (self.lines_to_show + 1) + self.menu_y_padding * 2)
@@ -486,6 +503,9 @@ end
 function em:set_active(active)
   if active == self.is_active then return end
   if active then
+    if ime_active == false then
+      mp.set_property_bool("input-ime", true)
+    end
     self.is_active = true
     self.insert_mode = false
     mp.enable_messages('terminal-default')
@@ -501,6 +521,9 @@ function em:set_active(active)
     self:update()
   else
     -- no need to call 'update' in this block cuz 'clear' method is calling it
+    if ime_active == false then
+      mp.set_property_bool("input-ime", false)
+    end
     self.is_active = false
     self:undefine_key_bindings()
 
@@ -653,12 +676,20 @@ end
 
 -- Go to the first command in the command history (PgUp)
 function em:handle_pgup()
-  self:go_history(1)
+  -- Determine the number of items to move up (half a page)
+  local half_page = math.ceil(self.lines_to_show / 2)
+
+  -- Move the history position up by half a page
+  self:change_selected_index(-half_page)
 end
 
 -- Stop browsing history and start editing a blank line (PgDown)
 function em:handle_pgdown()
-  self:go_history(#self.history + 1)
+  -- Determine the number of items to move down (half a page)
+  local half_page = math.ceil(self.lines_to_show / 2)
+
+  -- Move the history position down by half a page
+  self:change_selected_index(half_page)
 end
 
 -- Move to the start of the current word, or if already at the start, the start
@@ -837,8 +868,10 @@ function em:get_bindings()
     { 'home',        function() self:go_home() end },
     { 'ctrl+e',      function() self:go_end() end },
     { 'end',         function() self:go_end() end },
-    { 'pgup',        function() self:handle_pgup() end },
+    { 'ctrl+shift+f',function() self:handle_pgdown() end },
+    { 'ctrl+shift+b',function() self:handle_pgup() end },
     { 'pgdwn',       function() self:handle_pgdown() end },
+    { 'pgup',        function() self:handle_pgup() end },
     { 'ctrl+c',      function() self:clear() end },
     { 'ctrl+d',      function() self:handle_del() end },
     { 'ctrl+u',      function() self:del_to_start() end },
