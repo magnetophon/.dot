@@ -12,7 +12,6 @@ set -U tide_context_color_root red
 set -U fish_features qmark-noglob
 
 # starship init fish | source
-zoxide init fish --cmd j | source
 
 set fzf_preview_dir_cmd ='eza --all --color=always'
 fzf_configure_bindings --history=\cr --directory=\cf --variables=\cv --git_log=\cl
@@ -28,7 +27,12 @@ alias doom '~/.config/emacs/bin/doom'
 alias vi 'emacseditor --create-frame --quiet --no-wait $argv'
 
 alias fh _fzf_search_history
+
+
+zoxide init fish --cmd z | source
+alias j __zoxide_z
 alias fj __zoxide_zi
+alias fz __zoxide_zi
 
 # alias frga rga-fzf
 
