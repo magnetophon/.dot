@@ -63,9 +63,10 @@ set $mon_ext VGA1
 # font -*-*-medium-*-*-*-14-*-*-*-*-*-*-*
 # font -*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font -misc-fixed-medium-r-normal--14-70-100-100-c-60-iso8859-1
+# font -misc-fixed-medium-r-normal--14-70-100-100-c-60-iso8859-1
 # font -misc-fixed-medium-r-normal--10-70-100-100-c-60-iso8859-1
-# font pango: Terminus (TTF) 12px
+font pango: Terminus (TTF) 14px
+# font pango: Terminus (TTF) 10px
 
 # Invertable colorscheme:
 set $focusBG      #ffff00
@@ -179,6 +180,7 @@ bindsym $win+c exec --no-startup-id networkmanager_dmenu
 
 #invert the screen
 bindsym $win+i exec --no-startup-id  xrandr-invert-colors
+# bindsym $win+i exec --no-startup-id  wl-gammactl -c -1.000 -b 2.000 -g 1.000
 bindsym $win+Shift+I exec --no-startup-id  ~/.local/bin/invert.sh
 bindsym $win+Shift+C exec --no-startup-id  ~/.local/bin/picom_toggle.sh
 
@@ -273,21 +275,22 @@ bindsym $win+$alt+Down focus output down
 bindsym $win+Tab workspace back_and_forth
 
 # move focused container to workspace
-bindsym $win+Shift+exclam move container to workspace 1
-bindsym $win+Shift+at move container to workspace 2
-bindsym $win+Shift+numbersign move container to workspace 3
-bindsym $win+Shift+dollar move container to workspace 4
-bindsym $win+Shift+percent move container to workspace 5
-bindsym $win+Shift+asciicircum move container to workspace 6
-bindsym $win+Shift+ampersand move container to workspace 7
-bindsym $win+Shift+asterisk move container to workspace 8
-bindsym $win+Shift+parenleft move container to workspace 9
-bindsym $win+Shift+parenright move container to workspace 10
+bindsym $win+Shift+1 move container to workspace 1
+bindsym $win+Shift+2 move container to workspace 2
+bindsym $win+Shift+3 move container to workspace 3
+bindsym $win+Shift+4 move container to workspace 4
+bindsym $win+Shift+5 move container to workspace 5
+bindsym $win+Shift+6 move container to workspace 6
+bindsym $win+Shift+7 move container to workspace 7
+bindsym $win+Shift+8 move container to workspace 8
+bindsym $win+Shift+9 move container to workspace 9
+bindsym $win+Shift+0 move container to workspace 10
 
 # reload the configuration file
 # bindsym $win+Shift+C reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $win+Shift+R restart
+# bindsym $win+Shift+R restart
+bindsym $win+Shift+r reload
 # exit i3 (logs you out of your X session)
 # bindsym $win+Shift+E exit
 bindsym $win+Shift+e exec --no-startup-id `[ $(printf "NO\nYES" | dmenu \
@@ -437,8 +440,8 @@ bindsym $win+Pause mode "$mode_system"
 bindsym $win+Delete mode "$mode_system"
 
 # Toggle bar visibility
-# bindsym $win+$alt+b bar mode toggle
-bindsym $win+$alt+b exec --no-startup-id polybar-msg cmd toggle
+bindsym $win+$alt+b bar mode toggle
+# bindsym $win+$alt+b exec --no-startup-id polybar-msg cmd toggle
 
 bindsym $win+$alt+l exec --no-startup-id layout_manager
 
@@ -462,9 +465,10 @@ bindsym --release Shift+Print exec notify-send -t 1000 'screenshot' 'please sele
 
 # too slow:
 # bindsym $win+Shift+p  exec clipster -o -n 0 -0 | rofi -i -dmenu -sep '\x00' -eh 2 -p paste: | sed -ze 's/\n$//' | clipster
-bindsym $win+Shift+p  exec clipster -s -n 0
+# bindsym $win+Shift+p  exec clipster -s -n 0
 # wezterm and termite grab the input directly after launch
-bindsym $win+p  exec $TERMINAL -e ~/.local/bin/clipster_fzf.sh
+# bindsym $win+p  exec $TERMINAL -e ~/.local/bin/clipster_fzf.sh
+bindsym $win+p  exec $TERMINAL -e ringboard-tui
 # for_window [title=paste::] fullscreen enable
 
 bindsym $win+u exec ~/.local/bin/umlaut.sh
@@ -529,14 +533,14 @@ exec --no-startup-id xrandr-invert-colors
 
 bar {
     # font pango:DejaVu Sans Mono, FontAwesome 12
-    font pango: Terminus (TTF) 16px
+    font pango: Terminus (TTF) 14px
     position bottom
     # transparancy needs compton
     # i3bar_command i3bar --transparency
-    i3bar_command i3bar
+    # i3bar_command i3bar
     status_command i3status-rs ~/.config/i3status-rust/config.toml
     # status_command i3status-rs ~/.config/i3/status.toml
-    padding 0
+    # padding 0
     colors {
     # background $unfocusedBG
     # statusline $unfocusedTXT
@@ -729,4 +733,18 @@ assign [class="(?i)lamb"] → 7
 # exec clipster -d
 
 exec_always xset -r 135 # turn of the key repeat for menu!
+
+# for ringboard: https://github.com/SUPERCILEX/clipboard-history
+
+# exec_always /home/bart/.cargo/bin/ringboard-server
+# exec_always sleep 2 && /home/bart/.cargo/bin/ringboard-x11
+exec_always ringboard-server
+exec_always sleep 2 && ringboard-x11
 exec_always alacritty --daemon
+
+
+# start notification deamon
+# exec_always nofi
+
+bindsym $win+grave exec dbus-send --print-reply \
+        --dest=org.freedesktop.Notifications /org/freedesktop/Notifications/ctl org.freedesktop.Notifications.History
