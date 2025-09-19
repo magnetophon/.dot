@@ -22,12 +22,10 @@ end
 
 alias la='eza --long --grid --header --git --git-ignore --classify --extended --group-directories-first --group  --links --time-style=long-iso --all'
 
-
 alias doom '~/.config/emacs/bin/doom'
 alias vi 'emacseditor --create-frame --quiet --no-wait $argv'
 
 alias fh _fzf_search_history
-
 
 zoxide init fish --cmd z | source
 alias j __zoxide_z
@@ -50,19 +48,17 @@ function rga-fzf
             --phony -q "$argv[-1]" \
             --bind "change:reload:$RG_PREFIX {q}" \
             --preview-window='50%:wrap'
-    ) && \
-    echo "opening $file" && \
-    open "$file"
+    ) && echo "opening $file" && open "$file"
 end
 
 # NixOS: get the link to a binary
 function wh
-  command which $argv
-  command readlink $(command which $argv)
+    command which $argv
+    command readlink $(command which $argv)
 end
 
 function flv2
-    lv2ls | fzf --query="$argv" --no-sort --reverse --tiebreak=index --no-multi --preview "lv2info {}" --header "enter to run, alt-y to copy url" --bind "enter:execute:jalv.gtk {}" --bind 'alt-y:execute:echo {} | xclip'
+    lv2ls | fzf --query="$argv" --no-sort --reverse --tiebreak=index --no-multi --preview "lv2info {}" --header "enter to run, alt-y to copy url" --bind "enter:execute:jalv.gtk3 {}" --bind 'alt-y:execute:echo {} | xclip'
 end
 
 function pr
@@ -71,14 +67,14 @@ function pr
 end
 
 function up
-    unbuffer nixos-rebuild test --upgrade  &| nom
+    unbuffer nixos-rebuild test --upgrade &| nom
 end
 
 alias no nixos-option
 
 function upn
     cd $NIXPKGS
-    if not string length -q --  (git status --porcelain)
+    if not string length -q -- (git status --porcelain)
         echo "checking out commit " (nixos-version --hash) " under branch name " (nixos-version | cut -d" " -f1)
         git fetch upstream && git checkout (nixos-version --hash) -b (nixos-version | cut -d" " -f1)
     else
@@ -101,7 +97,7 @@ function nga
     end
 end
 function ngd
-    if string match -qr '^-?[0-9]+(\.?[0-9]*)?$' --  "$argv[1]"
+    if string match -qr '^-?[0-9]+(\.?[0-9]*)?$' -- "$argv[1]"
         if confirm "Delete all generations and vacuum the systemd journal except for the last $argv[1] days?"
             nix-collect-garbage --delete-older-than $argv[1]d && journalctl --vacuum-time=$argv[1]d
         else
@@ -132,7 +128,7 @@ end
 function dgs
     if test -n "$argv"
         for i in $argv
-            if not string match -qr '^-?[0-9]+(\.?[0-9]*)?$' --  "$i"
+            if not string match -qr '^-?[0-9]+(\.?[0-9]*)?$' -- "$i"
                 echo \n"You need to tell me which generations to delete!"
                 kill -INT $fish_pid.
             end
@@ -148,7 +144,7 @@ end
 function dgr
     if test -n "$argv"
         for i in $argv
-            if not string match -qr '^-?[0-9]+(\.?[0-9]*)?$' --  "$i"
+            if not string match -qr '^-?[0-9]+(\.?[0-9]*)?$' -- "$i"
                 echo \n"You need to tell me which generations to delete!"
                 kill -INT $fish_pid.
             end
@@ -160,11 +156,6 @@ function dgr
         echo \n"You need to tell me which generations to delete!"
     end
 end
-
-
-
-
-
 
 function confirm --description 'Ask the user for confirmation' --argument prompt
     if test -z "$prompt"
@@ -183,9 +174,6 @@ function confirm --description 'Ask the user for confirmation' --argument prompt
     end
 end
 
-
-
-
 # Read a single char from /dev/tty, prompting with "$*"
 # Note: pressing enter will return a null string. Perhaps a version terminated with X and then remove it in caller?
 # See https://unix.stackexchange.com/a/367880/143394 for dealing with multi-byte, etc.
@@ -201,20 +189,14 @@ function get_keypress
     echo $REPLY
 end
 
-
-
-
 function yy
-	set tmp (mktemp -t "yazi-cwd.XXXXXX")
-	yazi $argv --cwd-file="$tmp"
-	if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-		cd -- "$cwd"
-	end
-	rm -f -- "$tmp"
+    set tmp (mktemp -t "yazi-cwd.XXXXXX")
+    yazi $argv --cwd-file="$tmp"
+    if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+        cd -- "$cwd"
+    end
+    rm -f -- "$tmp"
 end
-
-
-
 
 function frg --description "rg tui built with fzf and bat"
     rg --ignore-case --color=always --line-number --no-heading "$argv" |
@@ -235,8 +217,6 @@ function frga --description "rga tui built with fzf and bat"
             --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
             --bind "enter:become($EDITOR +{2} {1})"
 end
-
-
 
 # Commands to run in interactive sessions end here
 end
