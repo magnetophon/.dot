@@ -2,7 +2,6 @@
 
 ;; Place your private configuration here
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       Visual
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -297,29 +296,29 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(evil-define-operator fp/evil:explain-code (beg end)
-  "Make chatgpt-shell explain-code function into an evil operator."
-  :move-point nil
-  (deactivate-mark)
-  (goto-char end)
-  (set-mark (point))
-  (goto-char beg)
-  (activate-mark)
-  (chatgpt-shell-explain-code))
-(use-package! chatgpt-shell
-  :init
-  (setq chatgpt-shell-openai-key (getenv "OPENAI_API_KEY"))
-  :config
-  (map! :nv "g!" #'fp/evil:explain-code
-        :leader
-        (:prefix ("!" . "AI")
-         :desc "ChatGPT minibuffer prompt" "g" #'chatgpt-shell-prompt
-         :desc "ChatGPT prompt" "G" #'chatgpt-shell))
-
-  (setq chatgpt-shell-openai-key
-        (lambda ()
+;; (evil-define-operator fp/evil:explain-code (beg end)
+  ;; "Make chatgpt-shell explain-code function into an evil operator."
+  ;; :move-point nil
+  ;; (deactivate-mark)
+  ;; (goto-char end)
+  ;; (set-mark (point))
+  ;; (goto-char beg)
+  ;; (activate-mark)
+  ;; (chatgpt-shell-explain-code))
+;; (use-package! chatgpt-shell
+  ;; :init
+  ;; (setq chatgpt-shell-openai-key (getenv "OPENAI_API_KEY"))
+  ;; :config
+  ;; (map! :nv "g!" #'fp/evil:explain-code
+        ;; :leader
+        ;; (:prefix ("!" . "AI")
+         ;; :desc "ChatGPT minibuffer prompt" "g" #'chatgpt-shell-prompt
+         ;; :desc "ChatGPT prompt" "G" #'chatgpt-shell))
+;; 
+  ;; (setq chatgpt-shell-openai-key
+        ;; (lambda ()
           ;; (auth-source-pass-get 'secret "openai-key") ; alternative using pass support in auth-sources
-          (nth 0 (process-lines "pass" "show" "openai")))))
+          ;; (nth 0 (process-lines "pass" "show" "openai")))))
 ;; (use-package! dall-e-shell
 ;; :init
 ;; (setq dall-e-shell-openai-key (getenv "OPENAI_API_KEY")))
@@ -344,7 +343,12 @@
 ;;     fish               ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; use bash, cause fish can cause problems 
+;; (setq shell-file-name (executable-find "bash")) ;
 (setq shell-file-name (executable-find "bash"))
+;; (setq shell-file-name "/bin/sh") ;
 
-(setq-default vterm-shell (executable-find "fish"))
-(setq-default explicit-shell-file-name (executable-find "fish"))
+;; (setq-default vterm-shell (executable-find "fish"))
+;; (setq-default explicit-shell-file-name (executable-find "fish"))
+(setq-default vterm-shell "/run/current-system/sw/bin/fish")
+(setq-default explicit-shell-file-name "/run/current-system/sw/bin/fish")

@@ -127,7 +127,7 @@
        ;;taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
-       tree-sitter       ; syntax and parsing, sitting in a tree...
+       ;; tree-sitter       ; syntax and parsing, sitting in a tree...
        ;;upload            ; map local to remote projects via ssh/ftp
 
        ;; :os
@@ -189,7 +189,7 @@
         ;;+pomodoro        ; be fruitful with the tomato technique
         +present         ; Emacs for presentations
         ;; +protocol       ; Support for org-protocol:// links
-        +roam2              ; wander around notes
+        ;; +roam2              ; wander around notes
         )
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
@@ -202,8 +202,8 @@
        ;;rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       (rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
-       ;; rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;; (rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;(scheme +guile)   ; a fully conniving family of lisps
        sh                ; she sells {ba,z,fi}sh shells on the C xor
