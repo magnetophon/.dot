@@ -218,5 +218,20 @@ function frga --description "rga tui built with fzf and bat"
             --bind "enter:become($EDITOR +{2} {1})"
 end
 
+
+# Auto-start tmux on SSH
+if status is-interactive
+    and test -n "$SSH_CONNECTION"
+    and not set -q TMUX
+    
+    # Try to attach to existing session, or create new one
+    if tmux has-session 2>/dev/null
+        exec tmux attach-session
+    else
+        # exec tmux new-session
+        exec tmux new-session \; run-shell "sleep 0.5 && /home/bart/.config/tmux/plugins/tmux-resurrect/scripts/restore.sh"
+    end
+end
+
 # Commands to run in interactive sessions end here
 end
