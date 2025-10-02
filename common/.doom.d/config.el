@@ -222,23 +222,23 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       mma
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(load! "lisp/mma")
+;; (load! "lisp/mma")
 
-(setq auto-mode-alist
-      (append '(("\\.mma$" . mma-mode))
-              auto-mode-alist))
-(setq mma-midi-player "/run/current-system/sw/bin/fluidsynth")
-(setq mma-midi-player-arg "--audio-driver=jack --midi-driver=jack --connect-jack-outputs --no-shell --no-midi-in --server /home/bart/Downloads/Compifont_NEW.sf2")
+;; (setq auto-mode-alist
+;; (append '(("\\.mma$" . mma-mode))
+;; auto-mode-alist))
+;; (setq mma-midi-player "/run/current-system/sw/bin/fluidsynth")
+;; (setq mma-midi-player-arg "--audio-driver=jack --midi-driver=jack --connect-jack-outputs --no-shell --no-midi-in --server /home/bart/Downloads/Compifont_NEW.sf2")
 
-(map! :localleader
-      :map mma-mode-map
-      "c" #'mma-compile
-      "p" #'mma-compile-and-play
-      "P" #'mma-play
-      "s" #'mma-stop
-      "t" #'mma-test
-      "a" #'mma-select-audio
-      "r" #'mma-create-regexp)
+;; (map! :localleader
+;; :map mma-mode-map
+;; "c" #'mma-compile
+;; "p" #'mma-compile-and-play
+;; "P" #'mma-play
+;; "s" #'mma-stop
+;; "t" #'mma-test
+;; "a" #'mma-select-audio
+;; "r" #'mma-create-regexp)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       openscad
