@@ -19,22 +19,24 @@ function notify-send() {
 
 
 if [ ! -f "$FILE" ]; then
-  echo 0 > $FILE
+    echo 0 > $FILE
 fi
 
 FAN_MAX=$(cat $FILE)
 
 if [ "$FAN_MAX" = 0 ]; then
-  ectool fanduty 100 >/dev/null
-  export FAN_MAX=1
-  echo 1 > $FILE
-   notify-send --expire-time 500 "MAX FAN SPEED!"
-  # echo ON
+    systemctl stop fw-fanctrl.service
+    ectool fanduty 100 >/dev/null
+    export FAN_MAX=1
+    echo 1 > $FILE
+    notify-send --expire-time 500 "MAX FAN SPEED!"
+    # echo ON
 else
-  ectool autofanctrl >/dev/null
-  echo 0 > $FILE
-   notify-send --expire-time 500 "fan normal"
-  # echo OFF
+    systemctl start fw-fanctrl.service
+    # ectool autofanctrl >/dev/null
+    echo 0 > $FILE
+    notify-send --expire-time 500 "fan normal"
+    # echo OFF
 fi
 
 exit 0
