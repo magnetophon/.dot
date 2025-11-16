@@ -213,7 +213,19 @@
 (add-to-list 'auto-mode-alist '("\\.dsp$" . faust-mode))
 ;; (after! faustine
 ;;   (set-company-backend! '(faust-mode faustine-mode) '(company-dabbrev-code +faust-company-backend company-yasnippet)))
+(use-package! lsp-mode
+  :config
+  ;; Register the language ID for faust-mode
+  (add-to-list 'lsp-language-id-configuration '(faust-mode . "faust"))
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection "faustlsp")
+    :activation-fn (lsp-activate-on "faust")
+    :server-id 'faustlsp)))
 
+(use-package! faust-mode
+  :mode "\\.dsp\\'"
+  :hook (faust-mode . lsp-deferred))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       load
