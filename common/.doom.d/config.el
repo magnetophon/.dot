@@ -7,11 +7,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;; (setq doom-font (font-spec :family "Terminus (TTF)" :size 18))
-(setq doom-font (font-spec :family "Terminus (TTF)" :size 20))
-;; (setq doom-font (font-spec :family "IBM Plex Mono" :size 20))
-(setq doom-big-font (font-spec :family "Terminus (TTF)" :size 24))
-;; (setq doom-big-font (font-spec :family "IBM Plex Mono" :size 24 :weight 'Light))
+
+(setq doom-font (font-spec :family "Terminus" :size 18)
+      doom-variable-pitch-font (font-spec :family "IBM Plex Sans" :size 18)
+      ;; doom-symbol-font (font-spec :family "JuliaMono")
+      doom-big-font (font-spec :family "IBM Plex Mono" :size 30 :weight 'light))
+
 (setq doom-theme 'doom-solarized-light)
 (setq display-line-numbers-type 'relative)
 
