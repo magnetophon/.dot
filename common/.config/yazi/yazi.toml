@@ -26,6 +26,11 @@ prepend_preloaders = [
     { mime = "application/ms-*", run = "office" },
     { mime = "application/msword", run = "office" },
     { name = "*.docx", run = "office" },
+    # Replace magick, image, video with mediainfo
+    { mime = "{audio,video,image}/*", run = "mediainfo" },
+    { mime = "application/subrip", run = "mediainfo" },
+    # Adobe Illustrator, Adobe Photoshop is image/adobe.photoshop, already handled above
+    { mime = "application/postscript", run = "mediainfo" },
 ]
 
 prepend_previewers = [
@@ -35,6 +40,11 @@ prepend_previewers = [
     { mime = "application/ms-*", run = "office" },
     { mime = "application/msword", run = "office" },
     { name = "*.docx", run = "office" },
+    # Replace magick, image, video with mediainfo
+    { mime = "{audio,video,image}/*", run = "mediainfo"},
+    { mime = "application/subrip", run = "mediainfo" },
+    # Adobe Illustrator, Adobe Photoshop is image/adobe.photoshop, already handled above
+    { mime = "application/postscript", run = "mediainfo" },
 ]
   append_previewers = [
     { name = "*", run = "file-extra-metadata" },
@@ -45,3 +55,11 @@ prepend_previewers = [
     { name = "*", run = "file-extra-metadata" },
   ]
 
+# For a large file like Adobe Illustrator, Adobe Photoshop, etc
+# you may need to increase the memory limit if no image is rendered.
+# https://yazi-rs.github.io/docs/configuration/yazi#tasks
+[tasks]
+  image_alloc      = 1073741824        # = 1024*1024*1024 = 1024MB
+
+[shell]
+program = "fish"
