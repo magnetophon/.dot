@@ -96,6 +96,7 @@ function nga
         echo "OK, we'll keep it all"
     end
 end
+
 function ngd
     if string match -qr '^-?[0-9]+(\.?[0-9]*)?$' -- "$argv[1]"
         if confirm "Delete all generations and vacuum the systemd journal except for the last $argv[1] days?"
@@ -189,13 +190,13 @@ function get_keypress
     echo $REPLY
 end
 
-function yy
-    set tmp (mktemp -t "yazi-cwd.XXXXXX")
-    yazi $argv --cwd-file="$tmp"
-    if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-        cd -- "$cwd"
-    end
-    rm -f -- "$tmp"
+function y
+	set tmp (mktemp -t "yazi-cwd.XXXXXX")
+	yazi $argv --cwd-file="$tmp"
+	if read -z cwd < "$tmp"; and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+		builtin cd -- "$cwd"
+	end
+	rm -f -- "$tmp"
 end
 
 function frg --description "rg tui built with fzf and bat"
@@ -231,6 +232,11 @@ if status is-interactive
         # exec tmux new-session
         exec tmux new-session \; run-shell "sleep 0.5 && /home/bart/.config/tmux/plugins/tmux-resurrect/scripts/restore.sh"
     end
+end
+
+# This command compares your current tmux keybindings against a clean default tmux instance to show you what custom bindings you have.
+function tmux-custom-keys
+    comm -23 (tmux list-keys | sort | psub) (tmux -L test -f /dev/null list-keys | sort | psub)
 end
 
 # Commands to run in interactive sessions end here
