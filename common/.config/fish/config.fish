@@ -70,7 +70,7 @@ function up
     unbuffer nixos-rebuild test --upgrade &| nom
 end
 
-alias no nixos-option
+abbr --add no 'nixos-option -F ~/nixosConfig/#nixframe'
 
 function upn
     cd $NIXPKGS
