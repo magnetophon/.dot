@@ -7,9 +7,6 @@ STEPS=(0 1 4 8 20 50 100)
 
 echo "ACT=$ACT"
 
-# make the power led white
-echo "0 0 0 0 100 0" > /sys/class/leds/chromeos:multicolor:power/multi_intensity
-
 # find nearest step index
 IDX=0
 for i in "${!STEPS[@]}"; do
@@ -48,6 +45,8 @@ if [ $NEW -lt $POWER_OFF ]; then
     # echo "power LED off (NEW=$NEW < POWER_OFF=$POWER_OFF)"
     brightnessctl -d "$POWER_DEV" -q s 0
 else
+    # make the power led white
+    echo "0 0 0 0 100 0" > /sys/class/leds/chromeos:multicolor:power/multi_intensity
     # echo "power LED on"
     brightnessctl -d "$POWER_DEV" -q s 100
 fi
