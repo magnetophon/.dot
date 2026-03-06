@@ -1,43 +1,37 @@
 #!/usr/bin/env bash
+DEV="intel_backlight"
+ACT=$(brightnessctl -d "$DEV" g)
+STEPS=(0 100 1000 2000 4000 6000 12000 24000 48000 96000)
 
-MAX=$(cat /sys/class/backlight/intel_backlight/max_brightness)
-ACT=$(cat /sys/class/backlight/intel_backlight/actual_brightness)
-MIN=100
+# find nearest step index
+IDX=0
+for i in "${!STEPS[@]}"; do
+    if [ "${STEPS[$i]}" -le "$ACT" ]; then
+        IDX=$i
+    fi
+done
 
 if [ "$1" == "+" ]; then
-    if [ $ACT -eq 0 ]; then
-        FADE=$((MAX/13))
-        while [ $FADE -gt $MIN ]
-        do
-            FADE=$((22*FADE/23))
-            light -Sr $FADE # bright flash. without this it takes too long to get out of 0 brightness
-            usleep 10000
-            # ACT=$(cat /sys/class/backlight/intel_backlight/actual_brightness)
-        done
-        light -Sr $MIN
-        exit 0
-    fi
-    NEW=$(((ACT/2)*3))
-    # NEW=$(ACT*1.5)
-    if [ $NEW -ge "$MAX" ]; then
-        NEW=$MAX
-        notify-send --expire-time 500 "brightness $NEW"
+    if [ $((IDX + 1)) -lt ${#STEPS[@]} ]; then
+        NEW=${STEPS[$((IDX + 1))]}
+    else
+        NEW=${STEPS[$IDX]}
+        notify-send --expire-time 500 "brightness MAX"
     fi
 elif [ "$1" == "-" ]; then
-    NEW=$((ACT-(ACT/3)))
-    if [ $NEW -le $MIN ] && [ $NEW -ne 0 ]; then
-        if [ $NEW -eq $((MIN-(MIN/3))) ]; then
-            NEW=0
-        else
-            NEW=$MIN
+    if [ $IDX -gt 0 ]; then
+        NEW=${STEPS[$((IDX - 1))]}
+        if [ $((IDX - 1)) -eq 1 ]; then
             notify-send --expire-time 2000 "brightness $NEW"
         fi
+    else
+        NEW=0
+        # notify-send --expire-time 500 "brightness OFF"
     fi
+else
+    exit 1
 fi
 
-
-light -Sr $NEW
-
 # notify-send --expire-time 500 "brightness $NEW"
-
+brightnessctl -d "$DEV" -q s "$NEW"
 exit 0
