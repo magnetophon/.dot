@@ -36,5 +36,6 @@
 ;; (package! yasnippet-snippets)
 ;; (package! closql :pin "0a7226331ff1f96142199915c0ac7940bac4afdd")
 ;; Misc
-(package! chatgpt-shell
-  :recipe (:host github :repo "xenodium/chatgpt-shell"))
+;; (package! chatgpt-shell
+;; :recipe (:host github :repo "xenodium/chatgpt-shell"))
+;; (package! faust-mode)
