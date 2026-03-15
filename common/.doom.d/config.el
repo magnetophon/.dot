@@ -213,6 +213,14 @@
 (add-to-list 'auto-mode-alist '("\\.dsp$" . faust-mode))
 ;; (after! faustine
 ;;   (set-company-backend! '(faust-mode faustine-mode) '(company-dabbrev-code +faust-company-backend company-yasnippet)))
+
+(after! apheleia
+  (push '(faustfmt . ("faustfmt")) apheleia-formatters)
+  (setf (alist-get 'faust-mode apheleia-mode-alist) '(faustfmt)))
+(add-hook! aggressive-indent-mode
+  (when (derived-mode-p 'faust-mode)
+    (remove-hook 'before-save-hook 'aggressive-indent--process-changed-list-and-indent t)))
+
 (use-package! lsp-mode
   :config
   ;; Register the language ID for faust-mode
