@@ -86,11 +86,11 @@
 (global-aggressive-indent-mode 1)
 (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 
-;;no auto popups, use C-SPC
-;; (setq company-idle-delay nil)
 (after! company
-  (setq company-idle-delay nil
-        company-minimum-prefix-length 2)
+  (setq
+   ;;no auto popups, use C-SPC
+   ;; company-idle-delay nil
+   company-minimum-prefix-length 2)
   (setq company-show-numbers t)
   (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
 
@@ -230,6 +230,11 @@
     :new-connection (lsp-stdio-connection "faustlsp")
     :activation-fn (lsp-activate-on "faust")
     :server-id 'faustlsp)))
+;; the lsp complete popup disappears real quick without this:
+(defadvice! +no-company-box-in-faust-a (fn &rest args)
+  :around #'company-box-mode
+  (unless (derived-mode-p 'faust-mode)
+    (apply fn args)))
 
 (use-package! faust-mode
   :mode "\\.dsp\\'"
