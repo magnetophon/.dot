@@ -130,13 +130,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (defhydra resize-window-hydra (:hint nil)
-  ;; "resize window"
-  ;; ("h" evil-window-decrease-width 5 "decrease width")
-  ;; ("j" evil-window-decrease-height 5 "decrease height")
-  ;; ("k" evil-window-increase-height 5 "increase height")
-  ;; ("l" evil-window-increase-width 5 "increase width")
-  ;; ("q" nil "stop resizing")
-  ;; )
+;; "resize window"
+;; ("h" evil-window-decrease-width 5 "decrease width")
+;; ("j" evil-window-decrease-height 5 "decrease height")
+;; ("k" evil-window-increase-height 5 "increase height")
+;; ("l" evil-window-increase-width 5 "increase width")
+;; ("q" nil "stop resizing")
+;; )
 
 ;; (map! :leader (:prefix ("w" . "window") "~" #'resize-window-hydra/body))
 ;; (map! :leader (:prefix ("/" . "search") "r" #'counsel-recoll))
@@ -192,16 +192,16 @@
 
 (after! irc
   (set-irc-server! "freenode"
-                   `(
-                     ;; :use-tls t
-                     :nick "magnetophon"
-                     ;; :user "magnetophon/freenode"
-                     :pass nil
-                     :port 6666
-                     ;; :host "magnetophon.nl"
-                     ;; :server-buffer-name "{network}:{host}:{port}"
-                     :server-buffer-name "{network}:{port}"
-                     :channels ("#ardour" "#nixos"))))
+    `(
+      ;; :use-tls t
+      :nick "magnetophon"
+      ;; :user "magnetophon/freenode"
+      :pass nil
+      :port 6666
+      ;; :host "magnetophon.nl"
+      ;; :server-buffer-name "{network}:{host}:{port}"
+      :server-buffer-name "{network}:{port}"
+      :channels ("#ardour" "#nixos"))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -235,6 +235,11 @@
   :around #'company-box-mode
   (unless (derived-mode-p 'faust-mode)
     (apply fn args)))
+;; (add-hook! faust-mode
+;; (setq-local company-active-map
+;; (let ((map (copy-keymap company-active-map)))
+;; (define-key map [remap company-show-doc-buffer] #'company-show-doc-buffer)
+;; map)))
 
 (use-package! faust-mode
   :mode "\\.dsp\\'"
@@ -323,28 +328,28 @@
 
 
 ;; (evil-define-operator fp/evil:explain-code (beg end)
-  ;; "Make chatgpt-shell explain-code function into an evil operator."
-  ;; :move-point nil
-  ;; (deactivate-mark)
-  ;; (goto-char end)
-  ;; (set-mark (point))
-  ;; (goto-char beg)
-  ;; (activate-mark)
-  ;; (chatgpt-shell-explain-code))
+;; "Make chatgpt-shell explain-code function into an evil operator."
+;; :move-point nil
+;; (deactivate-mark)
+;; (goto-char end)
+;; (set-mark (point))
+;; (goto-char beg)
+;; (activate-mark)
+;; (chatgpt-shell-explain-code))
 ;; (use-package! chatgpt-shell
-  ;; :init
-  ;; (setq chatgpt-shell-openai-key (getenv "OPENAI_API_KEY"))
-  ;; :config
-  ;; (map! :nv "g!" #'fp/evil:explain-code
-        ;; :leader
-        ;; (:prefix ("!" . "AI")
-         ;; :desc "ChatGPT minibuffer prompt" "g" #'chatgpt-shell-prompt
-         ;; :desc "ChatGPT prompt" "G" #'chatgpt-shell))
+;; :init
+;; (setq chatgpt-shell-openai-key (getenv "OPENAI_API_KEY"))
+;; :config
+;; (map! :nv "g!" #'fp/evil:explain-code
+;; :leader
+;; (:prefix ("!" . "AI")
+;; :desc "ChatGPT minibuffer prompt" "g" #'chatgpt-shell-prompt
+;; :desc "ChatGPT prompt" "G" #'chatgpt-shell))
 ;; 
-  ;; (setq chatgpt-shell-openai-key
-        ;; (lambda ()
-          ;; (auth-source-pass-get 'secret "openai-key") ; alternative using pass support in auth-sources
-          ;; (nth 0 (process-lines "pass" "show" "openai")))))
+;; (setq chatgpt-shell-openai-key
+;; (lambda ()
+;; (auth-source-pass-get 'secret "openai-key") ; alternative using pass support in auth-sources
+;; (nth 0 (process-lines "pass" "show" "openai")))))
 ;; (use-package! dall-e-shell
 ;; :init
 ;; (setq dall-e-shell-openai-key (getenv "OPENAI_API_KEY")))
