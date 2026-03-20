@@ -11,6 +11,7 @@ max_width       = 1300
 max_height      = 1500
 wrap = "yes"
 image_delay = 0
+cache_dir = "~/.cache/yazi"
 
 [opener]
 edit = [
@@ -21,6 +22,8 @@ edit = [
 [plugin]
 
 prepend_preloaders = [
+    # invert preview when screen is inverted
+    { mime = "{video,image}/*", run = "negate"},
     # Office Documents
     { mime = "application/openxmlformats-officedocument.*", run = "office" },
     { mime = "application/oasis.opendocument.*", run = "office" },
@@ -35,6 +38,8 @@ prepend_preloaders = [
 ]
 
 prepend_previewers = [
+    # invert preview when screen is inverted
+    { mime = "{video,image}/*", run = "negate"},
     # Office Documents
     { mime = "application/openxmlformats-officedocument.*", run = "office" },
     { mime = "application/oasis.opendocument.*", run = "office" },
