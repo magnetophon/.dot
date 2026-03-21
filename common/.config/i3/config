@@ -386,12 +386,14 @@ bindSym Shift+XF86MonBrightnessUp      exec --no-startup-id "~/.local/bin/key_br
 # bindSym Shift+XF86MonBrightnessUp      exec --no-startup-id "sudo /root/.local/bin/key_brightness.sh +"
 
 # Volume
-# bindSym XF86AudioRaiseVolume  exec --no-startup-id "amixer -q set Master 3dB+"
-# bindSym XF86AudioLowerVolume  exec --no-startup-id "amixer -q set Master 3dB-"
-bindSym XF86AudioRaiseVolume  exec --no-startup-id "amixer -q -c 0 -- sset Master playback 3dB+"
-bindSym XF86AudioLowerVolume  exec --no-startup-id "amixer -q -c 0 -- sset Master playback 3dB-"
-# bindSym XF86AudioMute         exec --no-startup-id "amixer -c 0 -- sset Master toggle"
-bindSym XF86AudioMute         exec --no-startup-id "amixer -q -c 0 set Master toggle"
+# bindSym XF86AudioRaiseVolume  exec --no-startup-id "amixer -q -c 0 -- sset Master playback 3dB+"
+# bindSym XF86AudioLowerVolume  exec --no-startup-id "amixer -q -c 0 -- sset Master playback 3dB-"
+# bindSym XF86AudioMute         exec --no-startup-id "amixer -q -c 0 set Master toggle"
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id "~/.local/bin/volume.sh up"
+bindsym XF86AudioLowerVolume exec --no-startup-id "~/.local/bin/volume.sh down"
+bindsym XF86AudioMute        exec --no-startup-id "~/.local/bin/volume.sh mute"
+
 bindSym XF86AudioMedia         exec --no-startup-id "sudo /root/.local/bin/toggle_fan_max.sh"
 exec_always xset -r 121 # turn of the key repeat for mute!
 # Pulse Audio controls
