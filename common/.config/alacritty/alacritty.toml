@@ -56,7 +56,12 @@ mods = "Control"
 
 [terminal]
 
-# [terminal.shell]
-# program = "/run/current-system/sw/bin/fish"
 [scrolling]
 history = 100000
+
+[[hints.enabled]]
+regex = "got:\\s+sha256-[A-Za-z0-9+/]+=*"
+command = { program = "sh", args = ["-c", "echo -n \"$0\" | sed 's/.*got:\\s*//' | xclip -selection clipboard"] }
+binding = { key = "H", mods = "Control|Shift" }
+post_processing = false
+hyperlinks = false
