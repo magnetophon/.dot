@@ -58,9 +58,9 @@ function wh
 end
     complete -c wh -w which
 
-function flv2
-    lv2ls | fzf --query="$argv" --no-sort --reverse --tiebreak=index --no-multi --preview "lv2info {}" --header "enter to run, alt-y to copy url" --bind "enter:execute:jalv.gtk3 {}" --bind 'alt-y:execute:echo {} | xclip'
-end
+    function flv2
+        lv2ls | fzf --query="$argv" --reverse --tiebreak=index --no-multi --preview "lv2info {}" --header "enter to run, alt-y to copy url" --bind "enter:execute:jalv.gtk3 {}" --bind 'alt-y:execute:echo {} | xclip'
+    end
 
 function pr
     cd $NIXPKGS
