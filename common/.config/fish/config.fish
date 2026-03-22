@@ -56,6 +56,7 @@ function wh
     command which $argv
     command readlink $(command which $argv)
 end
+    complete -c wh -w which
 
 function flv2
     lv2ls | fzf --query="$argv" --no-sort --reverse --tiebreak=index --no-multi --preview "lv2info {}" --header "enter to run, alt-y to copy url" --bind "enter:execute:jalv.gtk3 {}" --bind 'alt-y:execute:echo {} | xclip'
@@ -162,6 +163,7 @@ function confirm --description 'Ask the user for confirmation' --argument prompt
     if test -z "$prompt"
         set prompt "Continue?"
     end
+    complete -c wh -w which
 
     while true
         read -p 'set_color green; echo -n "$prompt [y/N]: "; set_color normal' -l confirm
