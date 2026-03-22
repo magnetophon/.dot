@@ -432,7 +432,10 @@ c.content.tls.certificate_errors = 'ask-block-thirdparty'
 
 ## List of user stylesheet filenames to use.
 ## Type: List of File, or File
-c.content.user_stylesheets = ["~/.config/qutebrowser/rotate.css"]
+# c.content.user_stylesheets = ["~/.config/qutebrowser/rotate.css"]
+import os
+if os.path.exists("/tmp/yazi-screen-inverted"):
+    c.content.user_stylesheets = ["~/.config/qutebrowser/rotate.css"]
 #
 # Doesn't turn the whole page for many sites, cannot be toggled without a restart, see:
 # https://github.com/qutebrowser/qutebrowser/blob/master/doc/faq.asciidoc
