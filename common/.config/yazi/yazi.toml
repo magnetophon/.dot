@@ -1,6 +1,7 @@
 # A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
-"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+#:schema https://yazi-rs.github.io/schemas/yazi.json
 
 [mgr]
 ratio          = [ 1, 2, 3 ]
@@ -22,40 +23,43 @@ edit = [
 [plugin]
 
 prepend_preloaders = [
-    # use mediainfo for audio files; mime breaks with some m4a files
-    { url = "*.{m4a,mp3,flac,ogg,opus,wav,wma,aac,aif,aiff,ape,wv,alac,mid,midi}", run = "mediainfo" },
-    # invert preview when screen is inverted
-    { mime = "{video,image}/*", run = "negate"},
-    # Office Documents
-    { mime = "application/openxmlformats-officedocument.*", run = "office" },
-    { mime = "application/oasis.opendocument.*", run = "office" },
-    { mime = "application/ms-*", run = "office" },
-    { mime = "application/msword", run = "office" },
-    { url  = "*.docx", run = "office" },
-    # Replace magick, image, video with mediainfo
-    { mime = "{audio,video,image}/*", run = "mediainfo" },
-    { mime = "application/subrip", run = "mediainfo" },
-    # Adobe Illustrator, Adobe Photoshop is image/adobe.photoshop, already handled above
-    { mime = "application/postscript", run = "mediainfo" },
+  # use mediainfo for audio files; mime breaks with some m4a files
+  { url = "*.{m4a,mp3,flac,ogg,opus,wav,wma,aac,aif,aiff,ape,wv,alac,mid,midi}", run = "mediainfo" },
+
+  # invert preview when screen is inverted
+  { mime = "{video,image}/*", run = "negate" },
+
+  # Office documents (consolidated, with required vnd. prefix)
+  { mime = "application/vnd.{openxmlformats-officedocument.*,oasis.opendocument.*,ms-*}", run = "office" },
+  { mime = "application/msword", run = "office" },
+  { url  = "*.docx", run = "office" },
+
+  # Replace magick, image, video defaults with mediainfo
+  { mime = "{audio,video,image}/*", run = "mediainfo" },
+
+  # Subtitles (.srt) and PostScript / Adobe Illustrator (.ps, .ai → application/postscript)
+  { mime = "application/{subrip,postscript}", run = "mediainfo" },
 ]
 
 prepend_previewers = [
-    # use mediainfo for audio files; mime breaks with some m4a files
-    { url = "*.{m4a,mp3,flac,ogg,opus,wav,wma,aac,aif,aiff,ape,wv,alac,mid,midi}", run = "mediainfo" },
-    # invert preview when screen is inverted
-    { mime = "{video,image}/*", run = "negate"},
-    # Office Documents
-    { mime = "application/openxmlformats-officedocument.*", run = "office" },
-    { mime = "application/oasis.opendocument.*", run = "office" },
-    { mime = "application/ms-*", run = "office" },
-    { mime = "application/msword", run = "office" },
-    { url  = "*.docx", run = "office" },
-    # Replace magick, image, video with mediainfo
-    { mime = "{audio,video,image}/*", run = "mediainfo"},
-    { mime = "application/subrip", run = "mediainfo" },
-    # Adobe Illustrator, Adobe Photoshop is image/adobe.photoshop, already handled above
-    { mime = "application/postscript", run = "mediainfo" },
+  # use mediainfo for audio files; mime breaks with some m4a files
+  { url = "*.{m4a,mp3,flac,ogg,opus,wav,wma,aac,aif,aiff,ape,wv,alac,mid,midi}", run = "mediainfo" },
+
+  # invert preview when screen is inverted
+  { mime = "{video,image}/*", run = "negate" },
+
+  # Office documents (consolidated, with required vnd. prefix)
+  { mime = "application/vnd.{openxmlformats-officedocument.*,oasis.opendocument.*,ms-*}", run = "office" },
+  { mime = "application/msword", run = "office" },
+  { url  = "*.docx", run = "office" },
+
+  # Replace magick, image, video defaults with mediainfo
+  { mime = "{audio,video,image}/*", run = "mediainfo" },
+
+  # Subtitles (.srt) and PostScript / Adobe Illustrator (.ps, .ai → application/postscript)
+  { mime = "application/{subrip,postscript}", run = "mediainfo" },
 ]
+
 append_previewers = [
     { url  = "*", run = "file-extra-metadata" },
   ]
