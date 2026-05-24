@@ -257,8 +257,8 @@ c.content.blocking.hosts.lists = ['https://www.malwaredomainlist.com/hostslist/h
 ## Type: List of UrlPattern
 # c.content.host_blocking.blacklist = ['piwik.org']
 
-# c.content.blocking.method = "both";
-c.content.blocking.method = "adblock";
+c.content.blocking.method = "both";
+# c.content.blocking.method = "adblock";
 
 c.content.blocking.adblock.lists = [
     'https://easylist.to/easylist/easylist.txt',
@@ -275,7 +275,10 @@ c.content.blocking.adblock.lists = [
     'https://github.com/uBlockOrigin/uAssets/raw/master/filters/resource-abuse.txt',
     'https://github.com/uBlockOrigin/uAssets/raw/master/filters/privacy.txt',
     'https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters.txt',
-    'https://raw.githubusercontent.com/Spam404/lists/master/adblock-list.txt'
+    'https://raw.githubusercontent.com/Spam404/lists/master/adblock-list.txt',
+    'https://raw.githubusercontent.com/bogachenko/fuckfuckadblock/master/fuckfuckadblock.txt',
+    'https://v.firebog.net/hosts/Admiral.txt',
+    'https://raw.github.com/reek/anti-adblock-killer/master/anti-adblock-killer-filters.txt'
 ]
 
 
