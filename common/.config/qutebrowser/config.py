@@ -393,7 +393,7 @@ c.content.blocking.adblock.lists = [
 ## Type: Bool
 # c.content.plugins = False
 
-c.content.prefers_reduced_motion - True
+c.content.prefers_reduced_motion = True
 
 ## Draw the background color and images also when the page is printed.
 ## Type: Bool
