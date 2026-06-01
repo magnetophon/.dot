@@ -239,5 +239,7 @@ if status is-interactive
         comm -23 (tmux list-keys | sort | psub) (tmux -L test -f /dev/null list-keys | sort | psub)
     end
 
+    abbr -a cc 'claude-sandbox (pwd)'
+
     # Commands to run in interactive sessions end here
 end
