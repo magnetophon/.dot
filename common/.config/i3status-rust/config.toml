@@ -62,6 +62,17 @@ format = " 󰈐 $text.str(w:4) RPM "
 interval = 1
 
 # [[block]]
+# block = "custom"
+# command = "cat /var/lib/powermode/mode"
+# interval = 5
+
+[[block]]
+block = "custom"
+shell = "/bin/sh"
+interval = 2
+command = '''case "$(cat /var/lib/powermode/mode 2>/dev/null)" in quiet) printf '\357\206\206' ;; balanced) printf '\357\211\216' ;; performance) printf '\357\204\265' ;; *) printf '\357\201\231' ;; esac'''
+
+# [[block]]
 # block = "rofication"
 # interval = 1
 # socket_path = "/run/user/1001/nofi/socket"
